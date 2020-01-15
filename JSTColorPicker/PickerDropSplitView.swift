@@ -10,7 +10,7 @@ import Cocoa
 
 @objc protocol DropViewDelegate {
     var acceptedFileExtensions: [String] { get }
-    func dropView(_: PickerDropSplitView, didDropFileWith fileURL: NSURL)
+    func dropView(_: PickerDropSplitView?, didDropFileWith fileURL: NSURL)
 }
 
 class PickerDropSplitView: NSSplitView {

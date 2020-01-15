@@ -280,7 +280,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="PickerWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -291,18 +291,30 @@
                                 <toolbarItem implicitItemIdentifier="A1ABBB20-6B28-49EF-B02B-95BB47BAFA4D" label="Open" paletteLabel="Open" tag="-1" image="JSTOpen" id="ms5-un-oyM">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="loadImageActionWithSender:" target="B8D-0N-5wS" id="57u-Fg-VEI"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" label="Cursor" paletteLabel="Cursor" tag="-1" image="JSTCursor" id="P19-sN-vdr">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="useCursorActionWithSender:" target="B8D-0N-5wS" id="714-7G-K0a"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" label="Magnify" paletteLabel="Magnify" tag="-1" image="JSTMagnify" id="TA2-eZ-zBd">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="useMagnifyToolActionWithSender:" target="B8D-0N-5wS" id="G6h-fP-LTv"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" label="Minify" paletteLabel="Minify" tag="-1" image="JSTMinify" id="Ajm-ph-nQm">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="useMinifyToolActionWithSender:" target="B8D-0N-5wS" id="ChH-ud-jql"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
@@ -413,7 +425,7 @@
                         <subviews>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
                                 <rect key="frame" x="-4" y="750" width="228" height="52"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="label" size="13"/>
                                 <tabViewItems>
                                     <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
                                         <view key="view" id="BKi-23-lh3">
@@ -441,7 +453,7 @@
                             </tabView>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
                                 <rect key="frame" x="-4" y="682" width="228" height="74"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="label" size="13"/>
                                 <tabViewItems>
                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                         <view key="view" id="caH-5H-HL3">

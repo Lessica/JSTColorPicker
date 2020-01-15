@@ -39,7 +39,7 @@ extension PickerSplitController: DropViewDelegate {
         }
     }
     
-    func dropView(_: PickerDropSplitView, didDropFileWith fileURL: NSURL) {
+    func dropView(_: PickerDropSplitView?, didDropFileWith fileURL: NSURL) {
         debugPrint(fileURL)
         do {
             let image = try PickerImage.init(contentsOf: fileURL as URL)
@@ -70,5 +70,54 @@ extension PickerSplitController: SceneTracking {
             sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point))
         }
     }
+}
+
+extension NSOpenPanel {
+    
+    var selectUrl: URL? {
+        title = "Select Screenshot"
+        allowsMultipleSelection = false
+        canChooseDirectories = false
+        canChooseFiles = true
+        canCreateDirectories = false
+        allowedFileTypes = ["png"]
+        return runModal() == .OK ? urls.first : nil
+    }
+    
+    var selectUrls: [URL]? {
+        title = "Select Screenshots"
+        allowsMultipleSelection = true
+        canChooseDirectories = false
+        canChooseFiles = true
+        canCreateDirectories = false
+        allowedFileTypes = ["png"]
+        return runModal() == .OK ? urls : nil
+    }
+    
+}
+
+extension PickerSplitController {
+    
+    func loadImageAction(sender: NSToolbarItem) {
+        if let url = NSOpenPanel().selectUrl {
+            debugPrint("selected: ", url.path)
+            dropView(nil, didDropFileWith: url as NSURL)
+        } else {
+            debugPrint("selection was canceled")
+        }
+    }
+    
+    func useCursorAction(sender: NSToolbarItem) {
+        
+    }
+    
+    func useMagnifyToolAction(sender: NSToolbarItem) {
+        
+    }
+    
+    func useMinifyToolAction(sender: NSToolbarItem) {
+        
+    }
+    
 }
 

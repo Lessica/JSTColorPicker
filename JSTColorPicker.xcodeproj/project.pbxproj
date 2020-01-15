@@ -21,6 +21,7 @@
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
+		D6CDC00D23CF3473004AA431 /* PickerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* PickerWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
+		D6CDC00C23CF3473004AA431 /* PickerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				D649231623CC64490067C04A /* Scene */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
+				D6CDC00C23CF3473004AA431 /* PickerWindowController.swift */,
 				D658AF9F23CB180C0098C567 /* PickerSplitController.swift */,
 				D649230B23CC56E20067C04A /* PickerDropSplitView.swift */,
 				D635BEAC23CD8CE500FD62B8 /* PickerImage.swift */,
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6CDC00D23CF3473004AA431 /* PickerWindowController.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D658AFA023CB180C0098C567 /* PickerSplitController.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
