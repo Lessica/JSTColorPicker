@@ -7,20 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
+		D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D635BEAD23CD8CE500FD62B8 /* PickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAC23CD8CE500FD62B8 /* PickerImage.swift */; };
+		D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */; };
+		D649230C23CC56E20067C04A /* PickerDropSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230B23CC56E20067C04A /* PickerDropSplitView.swift */; };
+		D649230E23CC62D70067C04A /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230D23CC62D70067C04A /* SceneController.swift */; };
+		D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649231823CC647D0067C04A /* SceneScrollView.swift */; };
 		D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9D23CB180C0098C567 /* AppDelegate.swift */; };
-		D658AFA023CB180C0098C567 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* ViewController.swift */; };
+		D658AFA023CB180C0098C567 /* PickerSplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* PickerSplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
+		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
+		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageView.swift; sourceTree = "<group>"; };
+		D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelColor.m; sourceTree = "<group>"; };
+		D635BE9C23CD861100FD62B8 /* JST_BOOL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_BOOL.h; sourceTree = "<group>"; };
+		D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelImage.h; sourceTree = "<group>"; };
+		D635BE9E23CD861100FD62B8 /* JST_COLOR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_COLOR.h; sourceTree = "<group>"; };
+		D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelImage.m; sourceTree = "<group>"; };
+		D635BEA023CD861100FD62B8 /* JSTPixelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelColor.h; sourceTree = "<group>"; };
+		D635BEA123CD861100FD62B8 /* JST_POS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_POS.h; sourceTree = "<group>"; };
+		D635BEA223CD861100FD62B8 /* JST_IMAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_IMAGE.h; sourceTree = "<group>"; };
+		D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPicker-Bridging-Header.h"; sourceTree = "<group>"; };
+		D635BEAC23CD8CE500FD62B8 /* PickerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerImage.swift; sourceTree = "<group>"; };
+		D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneClipView.swift; sourceTree = "<group>"; };
+		D649230B23CC56E20067C04A /* PickerDropSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDropSplitView.swift; sourceTree = "<group>"; };
+		D649230D23CC62D70067C04A /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
+		D649231823CC647D0067C04A /* SceneScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollView.swift; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D658AF9F23CB180C0098C567 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D658AF9F23CB180C0098C567 /* PickerSplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSplitController.swift; sourceTree = "<group>"; };
 		D658AFA123CB180D0098C567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D658AFA423CB180D0098C567 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D658AFA623CB180D0098C567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
+		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
+		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +61,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D635BE9A23CD861100FD62B8 /* Pixel */ = {
+			isa = PBXGroup;
+			children = (
+				D635BE9C23CD861100FD62B8 /* JST_BOOL.h */,
+				D635BEA123CD861100FD62B8 /* JST_POS.h */,
+				D635BE9E23CD861100FD62B8 /* JST_COLOR.h */,
+				D635BEA223CD861100FD62B8 /* JST_IMAGE.h */,
+				D635BEA023CD861100FD62B8 /* JSTPixelColor.h */,
+				D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */,
+				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
+				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
+			);
+			path = Pixel;
+			sourceTree = "<group>";
+		};
+		D649231623CC64490067C04A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				D649230D23CC62D70067C04A /* SceneController.swift */,
+				D649231823CC647D0067C04A /* SceneScrollView.swift */,
+				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
+				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
+				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
 		D658AF9123CB180C0098C567 = {
 			isa = PBXGroup;
 			children = (
@@ -53,14 +107,28 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
+				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
+				D635BE9A23CD861100FD62B8 /* Pixel */,
+				D649231623CC64490067C04A /* Scene */,
+				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
-				D658AF9F23CB180C0098C567 /* ViewController.swift */,
+				D658AF9F23CB180C0098C567 /* PickerSplitController.swift */,
+				D649230B23CC56E20067C04A /* PickerDropSplitView.swift */,
+				D635BEAC23CD8CE500FD62B8 /* PickerImage.swift */,
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 			);
 			path = JSTColorPicker;
+			sourceTree = "<group>";
+		};
+		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
+			);
+			path = Sidebar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +201,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D658AFA023CB180C0098C567 /* ViewController.swift in Sources */,
+				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
+				D658AFA023CB180C0098C567 /* PickerSplitController.swift in Sources */,
+				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
+				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
+				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
+				D635BEAD23CD8CE500FD62B8 /* PickerImage.swift in Sources */,
+				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
+				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
+				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
+				D649230C23CC56E20067C04A /* PickerDropSplitView.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +359,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -301,6 +380,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
