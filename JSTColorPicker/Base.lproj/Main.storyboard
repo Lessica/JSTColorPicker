@@ -353,7 +353,7 @@
                         <splitViewItem id="x7A-wG-K0o"/>
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="hnY-Vb-whF"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="paneSplitter" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
