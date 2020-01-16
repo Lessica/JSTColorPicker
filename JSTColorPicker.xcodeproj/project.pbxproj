@@ -19,6 +19,8 @@
 		D658AFA023CB180C0098C567 /* SplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* SplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
+		D66460E923D0333A0032727A /* TrackingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460E823D0333A0032727A /* TrackingTool.swift */; };
+		D66460EB23D056440032727A /* SceneTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460EA23D056440032727A /* SceneTracking.swift */; };
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
@@ -49,6 +51,8 @@
 		D658AFA423CB180D0098C567 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D658AFA623CB180D0098C567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
+		D66460E823D0333A0032727A /* TrackingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTool.swift; sourceTree = "<group>"; };
+		D66460EA23D056440032727A /* SceneTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTracking.swift; sourceTree = "<group>"; };
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				D66460E823D0333A0032727A /* TrackingTool.swift */,
+				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D649230D23CC62D70067C04A /* SceneController.swift */,
 				D649231823CC647D0067C04A /* SceneScrollView.swift */,
 				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
@@ -223,6 +229,7 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
@@ -232,6 +239,7 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
+				D66460E923D0333A0032727A /* TrackingTool.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

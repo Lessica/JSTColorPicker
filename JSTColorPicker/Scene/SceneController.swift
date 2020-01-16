@@ -44,34 +44,69 @@ extension CGRect {
         let y = rtarget.midY - h / 2
         return CGRect(x: x, y: y, width: w, height: h)
     }
-}
+    
+}  // for future use
 
 class SceneController: NSViewController {
+    
+    fileprivate static let minimumZoomingFactor: CGFloat = 0.25
+    fileprivate static let maximumZoomingFactor: CGFloat = 128.0
+    fileprivate static let zoomingFactors: [CGFloat] = [
+        0.250, 0.333, 0.500, 0.667, 1.000,
+        2.000, 3.000, 4.000, 5.000, 6.000,
+        7.000, 8.000, 12.00, 16.00, 32.00,
+        64.00, 128.0
+    ]
     
     var trackingDelegate: SceneTracking?
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     
+    fileprivate var wrapper: SceneImageWrapper? {
+        get {
+            if let wrapper = sceneView.documentView as? SceneImageWrapper {
+                return wrapper
+            }
+            return nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
+            self.flagsChanged(with: event)
+            return event
+        }
         
         sceneView.backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
         sceneView.contentInsets = NSEdgeInsetsZero
         sceneView.hasVerticalRuler = true
         sceneView.hasHorizontalRuler = true
         sceneView.rulersVisible = true
+        sceneView.verticalScrollElasticity = .none
+        sceneView.horizontalScrollElasticity = .none
         sceneView.verticalRulerView?.measurementUnits = .points
         sceneView.horizontalRulerView?.measurementUnits = .points
-        sceneClipView.contentInsets = NSEdgeInsetsMake(100, 100, 100, 100)
+        // `sceneView.documentCursor` is not what we need
+        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         
         resetController()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
     }
     
     func resetController() {
-        sceneView.magnification = 0.25
+        sceneView.minMagnification = SceneController.minimumZoomingFactor
+        sceneView.maxMagnification = SceneController.maximumZoomingFactor
+        sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = false
         sceneView.documentView = SceneImageWrapper()
+        
+        sceneMagnificationChangedProgrammatically(toMagnification: sceneView.magnification)
+        useSelectedTrackingTool()
     }
     
     func renderImage(_ image: PixelImage) {
@@ -94,17 +129,181 @@ class SceneController: NSViewController {
         
         let wrapper = SceneImageWrapper(frame: initialRect)
         wrapper.trackingDelegate = self
+        wrapper.trackingToolDelegate = self
         wrapper.addSubview(imageView)
         
-        sceneView.magnification = 0.25
+        sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
         sceneView.documentView = wrapper
+        
+        sceneMagnificationChangedProgrammatically(toMagnification: sceneView.magnification)
+        useSelectedTrackingTool()
+    }
+    
+    fileprivate var trackingTool: TrackingTool {
+        get {
+            guard let tool = wrapper?.trackingTool else { return .arrow }
+            return tool
+        }
+        set {
+            wrapper?.trackingTool = newValue
+        }
+    }
+    
+    fileprivate var selectedTrackingTool: TrackingTool {
+        get {
+            guard let tool = view.window?.toolbar?.selectedItemIdentifier?.rawValue else { return .arrow }
+            return TrackingTool(rawValue: tool) ?? .arrow
+        }
+    }
+    
+    fileprivate var nextMagnificationFactor: CGFloat? {
+        get {
+            return SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification })
+        }
+    }
+    
+    fileprivate var prevMagnificationFactor: CGFloat? {
+        get {
+            return SceneController.zoomingFactors.reversed().first(where: { $0 < sceneView.magnification })
+        }
+    }
+    
+    fileprivate var canMagnify: Bool {
+        get {
+            if !sceneView.allowsMagnification {
+                return false
+            }
+            if sceneView.magnification >= SceneController.maximumZoomingFactor {
+                return false
+            }
+            return true
+        }
+    }
+    
+    fileprivate var canMinify: Bool {
+        get {
+            if !sceneView.allowsMagnification {
+                return false
+            }
+            if sceneView.magnification <= SceneController.minimumZoomingFactor {
+                return false
+            }
+            return true
+        }
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+//        guard let documentView = sceneView.documentView else { return }
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        guard let documentView = sceneView.documentView else { return }
+        let loc = documentView.convert(event.locationInWindow, from: nil)
+        if !NSPointInRect(loc, documentView.bounds) { return }
+        if trackingTool == .cursor {
+            
+        }
+        else if trackingTool == .magnify {
+            if !canMagnify {
+                return
+            }
+            if let next = nextMagnificationFactor {
+                sceneView.animator().setMagnification(next, centeredAt: loc)
+                sceneMagnificationChangedProgrammatically(toMagnification: next)
+            }
+        }
+        else if trackingTool == .minify {
+            if !canMinify {
+                return
+            }
+            if let prev = prevMagnificationFactor {
+                sceneView.animator().setMagnification(prev, centeredAt: loc)
+                sceneMagnificationChangedProgrammatically(toMagnification: prev)
+            }
+        }
+    }
+    
+    fileprivate func useOptionModifiedTrackingTool() {
+        if trackingTool == .magnify {
+            trackingTool = .minify
+        }
+        else if trackingTool == .minify {
+            trackingTool = .magnify
+        }
+    }
+    
+    fileprivate func useCommandModifiedTrackingTool() {
+        if trackingTool == .magnify || trackingTool == .minify {
+            trackingTool = .cursor
+        }
+    }
+    
+    fileprivate func useSelectedTrackingTool() {
+        trackingTool = selectedTrackingTool
+    }
+    
+    override func flagsChanged(with event: NSEvent) {
+        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
+        case [.option]:
+            useOptionModifiedTrackingTool()
+        case [.command]:
+            useCommandModifiedTrackingTool()
+        default:
+            useSelectedTrackingTool()
+        }
     }
     
 }
 
 extension SceneController: SceneTracking {
-    func mousePositionChanged(_ wrapper: SceneImageWrapper, toPoint point: CGPoint) {
-        trackingDelegate?.mousePositionChanged(wrapper, toPoint: point)
+    
+    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
+        let relPoint = sceneView.convert(point, from: wrapper)
+        if !NSPointInRect(relPoint, sceneView.bounds) {
+            return false
+        }
+        return trackingDelegate?.mousePositionChanged(sender, toPoint: point) ?? false
     }
+    
+    @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
+        if let scrollView = notification.object as? NSScrollView {
+            trackingDelegate?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
+        }
+    }
+    
+    fileprivate func sceneMagnificationChangedProgrammatically(toMagnification magnification: CGFloat) {
+        trackingDelegate?.sceneMagnificationChanged(self, toMagnification: magnification)
+    }
+    
+}
+
+extension SceneController: ToolbarResponder {
+    
+    func useCursorAction(sender: NSToolbarItem) {
+        trackingTool = .cursor
+    }
+    
+    func useMagnifyToolAction(sender: NSToolbarItem) {
+        trackingTool = .magnify
+    }
+    
+    func useMinifyToolAction(sender: NSToolbarItem) {
+        trackingTool = .minify
+    }
+    
+}
+
+extension SceneController: TrackingToolDelegate {
+    
+    func trackingToolEnabled(_ sender: Any, tool: TrackingTool) -> Bool {
+        if tool == .magnify {
+            return canMagnify
+        }
+        else if tool == .minify {
+            return canMinify
+        }
+        return true
+    }
+    
 }

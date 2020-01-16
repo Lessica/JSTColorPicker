@@ -36,16 +36,16 @@ class SidebarController: NSViewController {
     @IBOutlet weak var inspectorColorFlag: NSImageView!
     @IBOutlet weak var inspectorPositionLabel: NSTextField!
     
-    lazy var byteFormatter: ByteCountFormatter = {
+    static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
     }()
-    lazy var exifDateFormatter: DateFormatter = {
+    static var exifDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
     }()
-    lazy var defaultDateFormatter: DateFormatter = {
+    static var defaultDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
@@ -59,22 +59,22 @@ class SidebarController: NSViewController {
     }
     
     func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
-        let itemProps = try FileManager.default.attributesOfItem(atPath: itemURL.path)
-        debugPrint(itemProps)
+//        let itemProps = try FileManager.default.attributesOfItem(atPath: itemURL.path)
+//        debugPrint(itemProps)
         guard let fileProps = CGImageSourceCopyProperties(source, nil) as? [AnyHashable: Any] else {
             return
         }
-        debugPrint(fileProps)
+//        debugPrint(fileProps)
         guard let props = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             return
         }
-        debugPrint(props)
+//        debugPrint(props)
         let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
         var createdAt: String?
-        if let date = exifDateFormatter.date(from: createdAtStr) {
-            createdAt = defaultDateFormatter.string(from: date)
+        if let date = SidebarController.exifDateFormatter.date(from: createdAtStr) {
+            createdAt = SidebarController.defaultDateFormatter.string(from: date)
         }
-        let fileSize = byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
+        let fileSize = SidebarController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
         imageLabel.stringValue = """
@@ -89,7 +89,7 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
     }
     
     func updateInspector(point: CGPoint, color: JSTPixelColor) {
-        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
+//        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
         inspectorColorLabel.stringValue = """
 R:\(String(color.red).leftPadding(toLength: 5, withPad: " ")) = \(String(format: "0x%02X", color.red))
 G:\(String(color.green).leftPadding(toLength: 5, withPad: " ")) = \(String(format: "0x%02X", color.green))

@@ -8,22 +8,34 @@
 
 import Cocoa
 
-protocol SceneTracking {
-    func mousePositionChanged(_ wrapper: SceneImageWrapper, toPoint point: CGPoint)
-}
-
 class SceneImageWrapper: NSView {
     
     var trackingDelegate: SceneTracking?
+    var trackingToolDelegate: TrackingToolDelegate?
+    var trackingTool: TrackingTool {
+        didSet {
+            if mouseInside() {
+                updateCursorDisplay()
+            }
+        }
+    }
+    
+    fileprivate var allowsMagnify: Bool
+    fileprivate var allowsMinify: Bool
+    
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate var prevX: Int
     fileprivate var prevY: Int
     
     override init(frame frameRect: NSRect) {
+        
+        allowsMagnify = true
+        allowsMinify = true
+        trackingTool = .cursor
         prevX = NSNotFound
         prevY = NSNotFound
+        
         super.init(frame: frameRect)
-        createTrackingArea()
     }
     
     required init?(coder: NSCoder) {
@@ -41,42 +53,74 @@ class SceneImageWrapper: NSView {
     }  // disable user interactions
     
     fileprivate func createTrackingArea() {
-        let trackingArea = NSTrackingArea.init(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea.init(rect: visibleRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
     }
     
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        if let trackingArea = trackingArea {
+            removeTrackingArea(trackingArea)
+        }
+        createTrackingArea()
+    }
+    
     override func mouseEntered(with event: NSEvent) {
-        debugPrint("mouseEntered")
-        mouseEvent(with: event)
+        mouseTrackingToolEvent(with: event)
+        if mouseTrackingEvent(with: event) {
+            
+        }
     }
     
     override func mouseMoved(with event: NSEvent) {
-        mouseEvent(with: event)
+        mouseTrackingToolEvent(with: event)
+        if mouseTrackingEvent(with: event) {
+            
+        }
     }
     
     override func mouseExited(with event: NSEvent) {
-        debugPrint("mouseExited")
-        mouseEvent(with: event)
+        NSCursor.arrow.set()
+        if mouseTrackingEvent(with: event) {
+            
+        }
     }
     
-    fileprivate func mouseEvent(with event: NSEvent) {
+    fileprivate func mouseTrackingEvent(with event: NSEvent) -> Bool {
         let loc = self.convert(event.locationInWindow, from: nil)
         let curX = Int(loc.x)
         let curY = Int(loc.y)
         if (curX != prevX || curY != prevY) && curX >= 0 && curY >= 0 {
             prevX = curX
             prevY = curY
-            trackingDelegate?.mousePositionChanged(self, toPoint: CGPoint(x: curX, y: curY))
+            return trackingDelegate?.mousePositionChanged(self, toPoint: CGPoint(x: curX, y: curY)) ?? false
+        }
+        return false
+    }
+    
+    fileprivate func mouseTrackingToolEvent(with event: NSEvent) {
+        updateCursorDisplay()
+    }
+    
+    fileprivate func updateCursorDisplay() {
+        if let delegate = trackingToolDelegate {
+            if delegate.trackingToolEnabled(self, tool: trackingTool) {
+                trackingTool.cursor.set()
+            } else {
+                trackingTool.disabledCursor.set()
+            }
         }
     }
     
-    override func mouseDown(with event: NSEvent) {
-        
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        
+    fileprivate func mouseInside() -> Bool {
+        if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
+            let loc = convert(locationInWindow, from: nil)
+            if NSPointInRect(loc, visibleRect) {
+                return true
+            }
+        }
+        return false
     }
     
 }

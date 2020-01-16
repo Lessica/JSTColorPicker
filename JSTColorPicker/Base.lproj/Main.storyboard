@@ -282,35 +282,35 @@
             <objects>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="MainWindow" id="B8D-0N-5wS" customClass="WindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
+                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="A1ABBB20-6B28-49EF-B02B-95BB47BAFA4D" label="Open" paletteLabel="Open" tag="-1" image="JSTOpen" id="ms5-un-oyM">
+                                <toolbarItem implicitItemIdentifier="A1ABBB20-6B28-49EF-B02B-95BB47BAFA4D" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" tag="-1" image="JSTOpen" id="ms5-un-oyM">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="loadImageActionWithSender:" target="B8D-0N-5wS" id="57u-Fg-VEI"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" label="Cursor" paletteLabel="Cursor" tag="-1" image="JSTCursor" id="P19-sN-vdr">
+                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="CursorItem" label="Cursor" paletteLabel="Cursor" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="useCursorActionWithSender:" target="B8D-0N-5wS" id="714-7G-K0a"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" label="Magnify" paletteLabel="Magnify" tag="-1" image="JSTMagnify" id="TA2-eZ-zBd">
+                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="useMagnifyToolActionWithSender:" target="B8D-0N-5wS" id="G6h-fP-LTv"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" label="Minify" paletteLabel="Minify" tag="-1" image="JSTMinify" id="Ajm-ph-nQm">
+                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
@@ -335,6 +335,10 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="cursorItem" destination="P19-sN-vdr" id="2Ww-Mb-seU"/>
+                        <outlet property="magnifyItem" destination="TA2-eZ-zBd" id="SWC-jg-Nj0"/>
+                        <outlet property="minifyItem" destination="Ajm-ph-nQm" id="fNb-4M-Jt7"/>
+                        <outlet property="openItem" destination="ms5-un-oyM" id="a8N-Ph-Pi4"/>
                         <segue destination="6eT-at-2NW" kind="relationship" relationship="window.shadowedContentViewController" id="jok-74-4jv"/>
                     </connections>
                 </windowController>
@@ -375,7 +379,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1060" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="100" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="128" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1060" height="816"/>
                                 <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="eZm-mt-gzw" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1060" height="816"/>
@@ -425,7 +429,7 @@
                         <subviews>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
                                 <rect key="frame" x="-4" y="750" width="228" height="52"/>
-                                <font key="font" metaFont="label" size="13"/>
+                                <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
                                         <view key="view" id="BKi-23-lh3">
@@ -453,7 +457,7 @@
                             </tabView>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
                                 <rect key="frame" x="-4" y="682" width="228" height="74"/>
-                                <font key="font" metaFont="label" size="13"/>
+                                <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                         <view key="view" id="caH-5H-HL3">

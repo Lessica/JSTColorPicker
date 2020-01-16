@@ -354,7 +354,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
             NSBitmapImageRep *newRep = [[[NSBitmapImageRep alloc] initWithCGImage:cgimg] autorelease];
             [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
             CFRelease(cgimg);
-            imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+            imgData = [[newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] retain];
         }
         NSImage *img = [[[NSImage alloc] initWithData:imgData] autorelease];
         [imgData release];

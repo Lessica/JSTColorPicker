@@ -18,6 +18,11 @@ protocol TabDelegate: class {
 
 class WindowController: NSWindowController {
     
+    @IBOutlet weak var openItem: NSToolbarItem!
+    @IBOutlet weak var cursorItem: NSToolbarItem!
+    @IBOutlet weak var magnifyItem: NSToolbarItem!
+    @IBOutlet weak var minifyItem: NSToolbarItem!
+    
     static func create() -> WindowController {
         let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
         return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
@@ -26,7 +31,8 @@ class WindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
-        self.window!.title = "Window #\(windowCount)"
+        self.window?.title = "Untitled #\(windowCount)"
+        self.window?.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
     }
     
     weak var tabDelegate: TabDelegate?

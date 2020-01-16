@@ -16,6 +16,7 @@ enum PixelImageError: Error {
 
 class PixelImage: NSObject {
     
+    var imageURL: URL
     var imageRep: CGImage
     var imageSourceRep: CGImageSource
     var pixelImageRep: JSTPixelImage
@@ -31,6 +32,7 @@ class PixelImage: NSObject {
             throw PixelImageError.loadImageFailed
         }
         
+        self.imageURL = url
         self.imageRep = cgimg
         self.imageSourceRep = cgimgSource
         self.pixelImageRep = JSTPixelImage(cgImage: cgimg)

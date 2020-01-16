@@ -8,6 +8,19 @@
 
 import Cocoa
 
+protocol ToolbarResponder {
+    func loadImageAction(sender: NSToolbarItem)
+    func useCursorAction(sender: NSToolbarItem)
+    func useMagnifyToolAction(sender: NSToolbarItem)
+    func useMinifyToolAction(sender: NSToolbarItem)
+}
+
+extension ToolbarResponder {
+    func loadImageAction(sender: NSToolbarItem) {
+        // default implementation to make it optional
+    }
+}
+
 class SplitController: NSSplitViewController {
 
     override func viewDidLoad() {
@@ -22,19 +35,49 @@ class SplitController: NSSplitViewController {
         }
     }
 
-    var image: PixelImage?
+    fileprivate var image: PixelImage?
     
 }
 
 extension SplitController: DropViewDelegate {
     
+    fileprivate var sceneController: SceneController? {
+        get {
+            if let sceneController = children.first as? SceneController {
+                return sceneController
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var sidebarController: SidebarController? {
+        get {
+            if let sidebarController = children.last as? SidebarController {
+                return sidebarController
+            }
+            return nil
+        }
+    }
+    
     var acceptedFileExtensions: [String] {
         return ["png"]
     }
     
+    fileprivate var windowTitle: String {
+        get {
+            if let title = view.window?.title {
+                return title
+            }
+            return ""
+        }
+        set {
+            view.window?.title = newValue
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        if let sceneController = children.first as? SceneController {
+        if let sceneController = sceneController {
             sceneController.trackingDelegate = self
         }
     }
@@ -43,18 +86,15 @@ extension SplitController: DropViewDelegate {
         debugPrint(fileURL)
         do {
             let image = try PixelImage.init(contentsOf: fileURL as URL)
-            if let title = fileURL.lastPathComponent {
-                view.window?.title = title
-            }
-            if let sceneController = children.first as? SceneController {
+            self.image = image
+            if let sceneController = sceneController {
                 sceneController.resetController()
                 sceneController.renderImage(image)
             }
-            if let sidebarController = children.last as? SidebarController {
+            if let sidebarController = sidebarController {
                 sidebarController.resetController()
                 try sidebarController.renderImageSource(image.imageSourceRep, itemURL: fileURL as URL)
             }
-            self.image = image
         } catch let error {
             let alert = NSAlert(error: error)
             alert.runModal()
@@ -64,14 +104,23 @@ extension SplitController: DropViewDelegate {
 }
 
 extension SplitController: SceneTracking {
-    func mousePositionChanged(_ wrapper: SceneImageWrapper, toPoint point: CGPoint) {
+    
+    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
         guard let image = image else {
-            return
+            return false
         }
-        if let sidebarController = children.last as? SidebarController {
+        if let sidebarController = sidebarController {
             sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point))
         }
+        return true
     }
+    
+    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
+        if let title = image?.imageURL.lastPathComponent {
+            windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        }
+    }
+    
 }
 
 extension NSOpenPanel {
@@ -98,7 +147,7 @@ extension NSOpenPanel {
     
 }
 
-extension SplitController {
+extension SplitController: ToolbarResponder {
     
     func loadImageAction(sender: NSToolbarItem) {
         if let url = NSOpenPanel().selectUrl {
@@ -110,15 +159,15 @@ extension SplitController {
     }
     
     func useCursorAction(sender: NSToolbarItem) {
-        
+        sceneController?.useCursorAction(sender: sender)
     }
     
     func useMagnifyToolAction(sender: NSToolbarItem) {
-        
+        sceneController?.useMagnifyToolAction(sender: sender)
     }
     
     func useMinifyToolAction(sender: NSToolbarItem) {
-        
+        sceneController?.useMinifyToolAction(sender: sender)
     }
     
 }
