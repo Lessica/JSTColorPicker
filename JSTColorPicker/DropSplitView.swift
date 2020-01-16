@@ -1,5 +1,5 @@
 //
-//  PickerDropSplitView.swift
+//  DropSplitView.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/13/20.
@@ -10,10 +10,10 @@ import Cocoa
 
 @objc protocol DropViewDelegate {
     var acceptedFileExtensions: [String] { get }
-    func dropView(_: PickerDropSplitView?, didDropFileWith fileURL: NSURL)
+    func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL)
 }
 
-class PickerDropSplitView: NSSplitView {
+class DropSplitView: NSSplitView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

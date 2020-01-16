@@ -58,19 +58,23 @@ class SceneController: NSViewController {
         
         sceneView.backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
         sceneView.contentInsets = NSEdgeInsetsZero
-        sceneView.magnification = 0.25
-        sceneView.allowsMagnification = false
         sceneView.hasVerticalRuler = true
         sceneView.hasHorizontalRuler = true
         sceneView.rulersVisible = true
         sceneView.verticalRulerView?.measurementUnits = .points
         sceneView.horizontalRulerView?.measurementUnits = .points
-        sceneView.documentView = SceneImageWrapper()
-        
         sceneClipView.contentInsets = NSEdgeInsetsMake(100, 100, 100, 100)
+        
+        resetController()
     }
     
-    func renderImage(_ image: PickerImage) {
+    func resetController() {
+        sceneView.magnification = 0.25
+        sceneView.allowsMagnification = false
+        sceneView.documentView = SceneImageWrapper()
+    }
+    
+    func renderImage(_ image: PixelImage) {
         let imageView = SceneImageView()
         imageView.editable = false
         imageView.autoresizes = false

@@ -55,7 +55,7 @@ class SidebarController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
-        imageLabel.stringValue = "Open or drop an image here."
+        resetController()
     }
     
     func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
@@ -99,6 +99,20 @@ B:\(String(color.blue).leftPadding(toLength: 5, withPad: " ")) = \(String(format
         inspectorPositionLabel.stringValue = """
 X:\(String(Int(point.x)).leftPadding(toLength: 5, withPad: " "))
 Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
+"""
+    }
+    
+    func resetController() {
+        imageLabel.stringValue = "Open or drop an image here."
+        inspectorColorFlag.image = NSImage()
+        inspectorColorLabel.stringValue = """
+R:
+G:
+B:
+"""
+        inspectorPositionLabel.stringValue = """
+X:
+Y:
 """
     }
     

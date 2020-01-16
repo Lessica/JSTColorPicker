@@ -1,5 +1,5 @@
 //
-//  PickerSplitViewController.swift
+//  SplitViewController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/12/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PickerSplitController: NSSplitViewController {
+class SplitController: NSSplitViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +22,11 @@ class PickerSplitController: NSSplitViewController {
         }
     }
 
-    var image: PickerImage?
+    var image: PixelImage?
     
 }
 
-extension PickerSplitController: DropViewDelegate {
+extension SplitController: DropViewDelegate {
     
     var acceptedFileExtensions: [String] {
         return ["png"]
@@ -39,17 +39,19 @@ extension PickerSplitController: DropViewDelegate {
         }
     }
     
-    func dropView(_: PickerDropSplitView?, didDropFileWith fileURL: NSURL) {
+    func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
         debugPrint(fileURL)
         do {
-            let image = try PickerImage.init(contentsOf: fileURL as URL)
+            let image = try PixelImage.init(contentsOf: fileURL as URL)
             if let title = fileURL.lastPathComponent {
                 view.window?.title = title
             }
             if let sceneController = children.first as? SceneController {
+                sceneController.resetController()
                 sceneController.renderImage(image)
             }
             if let sidebarController = children.last as? SidebarController {
+                sidebarController.resetController()
                 try sidebarController.renderImageSource(image.imageSourceRep, itemURL: fileURL as URL)
             }
             self.image = image
@@ -61,7 +63,7 @@ extension PickerSplitController: DropViewDelegate {
     
 }
 
-extension PickerSplitController: SceneTracking {
+extension SplitController: SceneTracking {
     func mousePositionChanged(_ wrapper: SceneImageWrapper, toPoint point: CGPoint) {
         guard let image = image else {
             return
@@ -96,7 +98,7 @@ extension NSOpenPanel {
     
 }
 
-extension PickerSplitController {
+extension SplitController {
     
     func loadImageAction(sender: NSToolbarItem) {
         if let url = NSOpenPanel().selectUrl {

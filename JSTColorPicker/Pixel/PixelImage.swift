@@ -1,5 +1,5 @@
 //
-//  PickerImage.swift
+//  PixelImage.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/14/20.
@@ -8,13 +8,13 @@
 
 import Cocoa
 
-enum PickerImageError: Error {
+enum PixelImageError: Error {
     case readFailed
     case loadSourceFailed
     case loadImageFailed
 }
 
-class PickerImage: NSObject {
+class PixelImage: NSObject {
     
     var imageRep: CGImage
     var imageSourceRep: CGImageSource
@@ -22,13 +22,13 @@ class PickerImage: NSObject {
     
     init(contentsOf url: URL) throws {
         guard let dataProvider = CGDataProvider(filename: url.path) else {
-            throw PickerImageError.readFailed
+            throw PixelImageError.readFailed
         }
         guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, nil) else {
-            throw PickerImageError.loadSourceFailed
+            throw PixelImageError.loadSourceFailed
         }
         guard let cgimg = CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
-            throw PickerImageError.loadImageFailed
+            throw PixelImageError.loadImageFailed
         }
         
         self.imageRep = cgimg
