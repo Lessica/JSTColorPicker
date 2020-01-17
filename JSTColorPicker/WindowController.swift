@@ -11,42 +11,46 @@ import Cocoa
 fileprivate var windowCount = 0
 
 protocol TabDelegate: class {
-    func createTab(newWindowController: WindowController,
-                   inWindow window: NSWindow,
-                   ordered orderingMode: NSWindow.OrderingMode)
+    func createEmptyTab(newWindowController: WindowController,
+                        inWindow window: NSWindow,
+                        ordered orderingMode: NSWindow.OrderingMode)
 }
 
 class WindowController: NSWindowController {
     
-    @IBOutlet weak var openItem: NSToolbarItem!
+    static func newEmptyWindow() -> WindowController {
+        let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
+        return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
+    }
+    
     @IBOutlet weak var cursorItem: NSToolbarItem!
     @IBOutlet weak var magnifyItem: NSToolbarItem!
     @IBOutlet weak var minifyItem: NSToolbarItem!
     
-    static func create() -> WindowController {
-        let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
-        return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
+    weak var tabDelegate: TabDelegate?
+    
+    func openDocumentIfNeeded() {
+        viewController?.openDocumentIfNeeded()
+    }
+    
+    override func newWindowForTab(_ sender: Any?) {
+        guard let window = self.window else { preconditionFailure("Expected window to be loaded") }
+        guard let tabDelegate = self.tabDelegate else { return }
+        tabDelegate.createEmptyTab(newWindowController: WindowController.newEmptyWindow(),
+                                   inWindow: window,
+                                   ordered: .above)
+        inspectWindowHierarchy()
     }
     
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
-        self.window?.title = "Untitled #\(windowCount)"
-        self.window?.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        window?.title = "Untitled #\(windowCount)"
+        window?.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        viewController?.windowController = self
     }
     
-    weak var tabDelegate: TabDelegate?
-    
-    override func newWindowForTab(_ sender: Any?) {
-        guard let window = self.window else { preconditionFailure("Expected window to be loaded") }
-        guard let tabDelegate = self.tabDelegate else { return }
-        tabDelegate.createTab(newWindowController: WindowController.create(),
-                              inWindow: window,
-                              ordered: .above)
-        inspectWindowHierarchy()
-    }
-    
-    func inspectWindowHierarchy() {
+    fileprivate func inspectWindowHierarchy() {
         let rootWindow = self.window!
         print("Root window", rootWindow, rootWindow.title, "has tabs:")
         rootWindow.tabbedWindows?.forEach { window in
@@ -54,20 +58,22 @@ class WindowController: NSWindowController {
         }
     }
     
-    var viewController: SplitController? {
+    fileprivate var viewController: SplitController? {
         get {
             return self.window!.contentViewController as? SplitController
         }
     }
     
+    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
+        if let title = window?.title {
+            return title
+        }
+        return displayName
+    }
+    
 }
 
-extension WindowController {
-    
-    @IBAction func loadImageAction(sender: NSToolbarItem) {
-        guard let viewController = viewController else { return }
-        viewController.loadImageAction(sender: sender)
-    }
+extension WindowController: ToolbarResponder {
     
     @IBAction func useCursorAction(sender: NSToolbarItem) {
         guard let viewController = viewController else { return }

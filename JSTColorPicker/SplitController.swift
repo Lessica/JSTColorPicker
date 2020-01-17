@@ -9,33 +9,52 @@
 import Cocoa
 
 protocol ToolbarResponder {
-    func loadImageAction(sender: NSToolbarItem)
     func useCursorAction(sender: NSToolbarItem)
     func useMagnifyToolAction(sender: NSToolbarItem)
     func useMinifyToolAction(sender: NSToolbarItem)
 }
 
-extension ToolbarResponder {
-    func loadImageAction(sender: NSToolbarItem) {
-        // default implementation to make it optional
-    }
-}
-
 class SplitController: NSSplitViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
+    
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
         }
     }
-
+    
+    weak var windowController: WindowController?
     fileprivate var image: PixelImage?
+    
+    func openDocumentIfNeeded() {
+        if image == nil {
+            if let fileURL = windowController?.document?.fileURL as? URL {
+                openItem(url: fileURL)
+            }
+        }
+    }
+    
+    func openItem(url: URL) {
+        debugPrint(url)
+        do {
+            let image = try PixelImage.init(contentsOf: url)
+            self.image = image
+            if let sceneController = sceneController {
+                sceneController.resetController()
+                sceneController.renderImage(image)
+            }
+            if let sidebarController = sidebarController {
+                sidebarController.resetController()
+                try sidebarController.renderImageSource(image.imageSourceRep, itemURL: url)
+            }
+        } catch let error {
+            let alert = NSAlert(error: error)
+            alert.runModal()
+        }
+    }
     
 }
 
@@ -83,22 +102,7 @@ extension SplitController: DropViewDelegate {
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
-        debugPrint(fileURL)
-        do {
-            let image = try PixelImage.init(contentsOf: fileURL as URL)
-            self.image = image
-            if let sceneController = sceneController {
-                sceneController.resetController()
-                sceneController.renderImage(image)
-            }
-            if let sidebarController = sidebarController {
-                sidebarController.resetController()
-                try sidebarController.renderImageSource(image.imageSourceRep, itemURL: fileURL as URL)
-            }
-        } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
-        }
+        openItem(url: fileURL as URL)
     }
     
 }
@@ -123,40 +127,7 @@ extension SplitController: SceneTracking {
     
 }
 
-extension NSOpenPanel {
-    
-    var selectUrl: URL? {
-        title = "Select Screenshot"
-        allowsMultipleSelection = false
-        canChooseDirectories = false
-        canChooseFiles = true
-        canCreateDirectories = false
-        allowedFileTypes = ["png"]
-        return runModal() == .OK ? urls.first : nil
-    }
-    
-    var selectUrls: [URL]? {
-        title = "Select Screenshots"
-        allowsMultipleSelection = true
-        canChooseDirectories = false
-        canChooseFiles = true
-        canCreateDirectories = false
-        allowedFileTypes = ["png"]
-        return runModal() == .OK ? urls : nil
-    }
-    
-}
-
 extension SplitController: ToolbarResponder {
-    
-    func loadImageAction(sender: NSToolbarItem) {
-        if let url = NSOpenPanel().selectUrl {
-            debugPrint("selected: ", url.path)
-            dropView(nil, didDropFileWith: url as NSURL)
-        } else {
-            debugPrint("selection was canceled")
-        }
-    }
     
     func useCursorAction(sender: NSToolbarItem) {
         sceneController?.useCursorAction(sender: sender)
