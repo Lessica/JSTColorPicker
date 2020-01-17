@@ -75,7 +75,8 @@ class SceneController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [unowned self] (event) -> NSEvent? in
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
             self.flagsChanged(with: event)
             return event
         }

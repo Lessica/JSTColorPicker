@@ -19,6 +19,7 @@ extension NSDraggingInfo {
 }
 
 @objc protocol DropViewDelegate: class {
+    var allowsDrop: Bool { get }
     var acceptedFileExtensions: [String] { get }
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL)
 }
@@ -51,6 +52,9 @@ class DropSplitView: NSSplitView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        if !(dropDelegate?.allowsDrop ?? false) {
+            return []
+        }
         if checkExtension(drag: sender) {
             fileTypeIsAllowed = true
             return .copy

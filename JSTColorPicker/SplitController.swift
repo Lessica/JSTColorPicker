@@ -92,12 +92,24 @@ extension SplitController: DropViewDelegate {
         }
     }
     
+    internal var allowsDrop: Bool {
+        // FIXME: set this to `true` once next one fixed
+        return false
+    }
+    
     internal var acceptedFileExtensions: [String] {
         return ["png"]
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
-        // not implemented
+        // FIXME: document should be opened in current window
+        let documentController = NSDocumentController.shared
+        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { (document, documentWasAlreadyOpen, error) in
+            if let error = error {
+                let alert = NSAlert(error: error)
+                alert.runModal()
+            }
+        }
     }
     
 }

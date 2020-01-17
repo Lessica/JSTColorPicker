@@ -8,7 +8,6 @@
 
 import Cocoa
 
-@objc(Screenshot)
 class Screenshot: NSDocument {
     
     var image: PixelImage?
