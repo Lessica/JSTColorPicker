@@ -12,6 +12,9 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var tabService: TabService?
+    lazy var deviceService: JSTDeviceService = {
+        return JSTDeviceService()
+    }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
