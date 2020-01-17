@@ -53,12 +53,7 @@ class Screenshot: NSDocument {
             let currentWindow = tabService.mainWindow,
             let currentWindowController = currentWindow.windowController as? WindowController
         {
-            if currentWindow.windowController?.document == nil {
-                // load in current tab
-                addWindowController(currentWindowController)
-                currentWindowController.loadDocument()
-            }
-            else {
+            if let document = currentWindowController.document as? Screenshot, let _ = document.fileURL {
                 // load in new tab
                 let newWindowController = WindowController.newEmptyWindow()
                 addWindowController(newWindowController)
@@ -67,6 +62,11 @@ class Screenshot: NSDocument {
                     currentWindow.addTabbedWindow(newWindow, ordered: .above)
                     newWindow.makeKeyAndOrderFront(self)
                 }
+            }
+            else {
+                // load in current tab
+                addWindowController(currentWindowController)
+                currentWindowController.loadDocument()
             }
         }
         else {

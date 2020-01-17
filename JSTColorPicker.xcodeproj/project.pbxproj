@@ -93,6 +93,13 @@
 			path = Pixel;
 			sourceTree = "<group>";
 		};
+		D647B06323D173A700D76CB5 /* Pin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pin;
+			sourceTree = "<group>";
+		};
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +139,7 @@
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D649231623CC64490067C04A /* Scene */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
+				D647B06323D173A700D76CB5 /* Pin */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
