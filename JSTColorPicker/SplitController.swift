@@ -104,6 +104,7 @@ extension SplitController: DropViewDelegate {
         NotificationCenter.default.post(name: .respondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
         documentController.openDocument(withContentsOf: fileURL as URL, display: true) { (document, documentWasAlreadyOpen, error) in
+            NotificationCenter.default.post(name: .respondingWindowChanged, object: nil)
             if let error = error {
                 let alert = NSAlert(error: error)
                 alert.runModal()

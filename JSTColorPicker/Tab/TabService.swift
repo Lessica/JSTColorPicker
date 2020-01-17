@@ -14,6 +14,9 @@ class TabService: TabDelegate {
     /// Falls back the first element if no window is main. Note that this would
     /// likely be an internal inconsistency we gracefully handle here.
     var firstRespondingWindow: NSWindow? {
+        
+        // FIXME: this is a workaround for drag'n'drop feature that
+        //        new document could be opened in the window where user drops ther image in
         if let respondingWindow = respondingWindow {
             self.respondingWindow = nil
             return respondingWindow
@@ -33,7 +36,10 @@ class TabService: TabDelegate {
     init(initialWindowController: WindowController) {
         precondition(addManagedWindow(windowController: initialWindowController) != nil)
         NotificationCenter.default.addObserver(forName: .respondingWindowChanged, object: nil, queue: nil) { [unowned self] notification in
-            guard let window = notification.object as? NSWindow else { return }
+            guard let window = notification.object as? NSWindow else {
+                self.respondingWindow = nil
+                return
+            }
             self.respondingWindow = window
         }
     }
