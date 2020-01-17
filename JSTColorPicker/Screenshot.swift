@@ -50,7 +50,7 @@ class Screenshot: NSDocument {
     override func makeWindowControllers() {
         if
             let tabService = tabService,
-            let currentWindow = tabService.mainWindow,
+            let currentWindow = tabService.firstRespondingWindow,
             let currentWindowController = currentWindow.windowController as? WindowController
         {
             if let document = currentWindowController.document as? Screenshot, let _ = document.fileURL {

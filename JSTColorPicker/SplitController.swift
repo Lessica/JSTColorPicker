@@ -93,8 +93,7 @@ extension SplitController: DropViewDelegate {
     }
     
     internal var allowsDrop: Bool {
-        // FIXME: set this to `true` once next one fixed
-        return false
+        return true
     }
     
     internal var acceptedFileExtensions: [String] {
@@ -102,7 +101,7 @@ extension SplitController: DropViewDelegate {
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
-        // FIXME: document should be opened in current window
+        NotificationCenter.default.post(name: .respondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
         documentController.openDocument(withContentsOf: fileURL as URL, display: true) { (document, documentWasAlreadyOpen, error) in
             if let error = error {

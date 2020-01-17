@@ -1,14 +1,24 @@
 //  Copyright © 2019 Christian Tietze. All rights reserved. Distributed under the MIT License.
 import Cocoa
 
+extension NSNotification.Name {
+    static let respondingWindowChanged = Notification.Name("RespondingWindowChanged")
+}
+
 class TabService: TabDelegate {
     
     fileprivate(set) var managedWindows: [ManagedWindow] = []
+    fileprivate weak var respondingWindow: NSWindow?
     
     /// Returns the main window of the managed window stack.
     /// Falls back the first element if no window is main. Note that this would
     /// likely be an internal inconsistency we gracefully handle here.
-    var mainWindow: NSWindow? {
+    var firstRespondingWindow: NSWindow? {
+        if let respondingWindow = respondingWindow {
+            self.respondingWindow = nil
+            return respondingWindow
+        }
+        
         let mainManagedWindow = managedWindows
             .first { $0.window.isMainWindow }
         
@@ -22,6 +32,10 @@ class TabService: TabDelegate {
     
     init(initialWindowController: WindowController) {
         precondition(addManagedWindow(windowController: initialWindowController) != nil)
+        NotificationCenter.default.addObserver(forName: .respondingWindowChanged, object: nil, queue: nil) { [unowned self] notification in
+            guard let window = notification.object as? NSWindow else { return }
+            self.respondingWindow = window
+        }
     }
     
     func addManagedWindow(windowController: WindowController) -> ManagedWindow? {
