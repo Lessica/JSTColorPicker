@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol TrackingToolDelegate {
+protocol TrackingToolDelegate: class {
     func trackingToolEnabled(_ sender: Any, tool: TrackingTool) -> Bool
 }
 

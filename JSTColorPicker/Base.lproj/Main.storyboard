@@ -60,6 +60,11 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
+                                        <menuItem title="New" keyEquivalent="n" id="dNj-Nf-Agp">
+                                            <connections>
+                                                <action selector="newDocument:" target="Ady-hI-5gd" id="Ajc-mD-vnj"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
@@ -92,6 +97,11 @@
                                         <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="kt2-f5-ySm">
+                                            <connections>
+                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="P3Z-6I-nHl"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -278,6 +288,13 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
+                                    <size key="minSize" width="128" height="128"/>
+                                    <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="CursorItem" label="Cursor" paletteLabel="Cursor" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
@@ -304,6 +321,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="w6N-7T-9Nd"/>
                                 <toolbarItem reference="P19-sN-vdr"/>
                                 <toolbarItem reference="TA2-eZ-zBd"/>
                                 <toolbarItem reference="Ajm-ph-nQm"/>
@@ -510,5 +528,6 @@
         <image name="JSTCursor" width="128" height="128"/>
         <image name="JSTMagnify" width="128" height="128"/>
         <image name="JSTMinify" width="128" height="128"/>
+        <image name="JSTOpen" width="128" height="128"/>
     </resources>
 </document>

@@ -36,16 +36,16 @@ class SidebarController: NSViewController {
     @IBOutlet weak var inspectorColorFlag: NSImageView!
     @IBOutlet weak var inspectorPositionLabel: NSTextField!
     
-    static var byteFormatter: ByteCountFormatter = {
+    fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
     }()
-    static var exifDateFormatter: DateFormatter = {
+    fileprivate static var exifDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
     }()
-    static var defaultDateFormatter: DateFormatter = {
+    fileprivate static var defaultDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
@@ -53,22 +53,16 @@ class SidebarController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        
         resetController()
     }
     
     func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
-//        let itemProps = try FileManager.default.attributesOfItem(atPath: itemURL.path)
-//        debugPrint(itemProps)
         guard let fileProps = CGImageSourceCopyProperties(source, nil) as? [AnyHashable: Any] else {
             return
         }
-//        debugPrint(fileProps)
         guard let props = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             return
         }
-//        debugPrint(props)
         let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
         var createdAt: String?
         if let date = SidebarController.exifDateFormatter.date(from: createdAtStr) {
@@ -114,6 +108,10 @@ B:
 X:
 Y:
 """
+    }
+    
+    deinit {
+        debugPrint("- [SidebarController deinit]")
     }
     
 }

@@ -13,6 +13,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var tabService: TabService?
     
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        // First instance becomes the shared document controller
+        _ = ScreenshotController()
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
@@ -26,7 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        _ = reinitializeTabService()
+        let windowController = reinitializeTabService()
+        windowController.showWindow(self)
         return true
     }
     
@@ -36,7 +42,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func reinitializeTabService() -> WindowController {
         let windowController = WindowController.newEmptyWindow()
-        windowController.showWindow(self)
         tabService = TabService(initialWindowController: windowController)
         return windowController
     }

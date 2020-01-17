@@ -8,16 +8,18 @@
 
 import Cocoa
 
-protocol ToolbarResponder {
-    func useCursorAction(sender: NSToolbarItem)
-    func useMagnifyToolAction(sender: NSToolbarItem)
-    func useMinifyToolAction(sender: NSToolbarItem)
-}
-
 class SplitController: NSSplitViewController {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if let sceneController = sceneController {
+            sceneController.trackingDelegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadDocument()
     }
     
     override var representedObject: Any? {
@@ -27,21 +29,17 @@ class SplitController: NSSplitViewController {
     }
     
     weak var windowController: WindowController?
-    fileprivate var image: PixelImage?
-    
-    func openDocumentIfNeeded() {
-        if image == nil {
-            if let fileURL = windowController?.document?.fileURL as? URL {
-                openItem(url: fileURL)
-            }
+    fileprivate var document: Screenshot? {
+        get {
+            return windowController?.document as? Screenshot
         }
     }
+    fileprivate var documentObservation: NSKeyValueObservation?
     
-    func openItem(url: URL) {
-        debugPrint(url)
+    func loadDocument() {
+        guard let image = document?.image else { return }
+        guard let url = document?.fileURL else { return }
         do {
-            let image = try PixelImage.init(contentsOf: url)
-            self.image = image
             if let sceneController = sceneController {
                 sceneController.resetController()
                 sceneController.renderImage(image)
@@ -54,6 +52,10 @@ class SplitController: NSSplitViewController {
             let alert = NSAlert(error: error)
             alert.runModal()
         }
+    }
+    
+    deinit {
+        debugPrint("- [SplitController deinit]")
     }
     
 }
@@ -78,10 +80,6 @@ extension SplitController: DropViewDelegate {
         }
     }
     
-    var acceptedFileExtensions: [String] {
-        return ["png"]
-    }
-    
     fileprivate var windowTitle: String {
         get {
             if let title = view.window?.title {
@@ -94,15 +92,12 @@ extension SplitController: DropViewDelegate {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if let sceneController = sceneController {
-            sceneController.trackingDelegate = self
-        }
+    internal var acceptedFileExtensions: [String] {
+        return ["png"]
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
-        openItem(url: fileURL as URL)
+        // not implemented
     }
     
 }
@@ -110,7 +105,7 @@ extension SplitController: DropViewDelegate {
 extension SplitController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        guard let image = image else {
+        guard let image = document?.image else {
             return false
         }
         if let sidebarController = sidebarController {
@@ -120,7 +115,7 @@ extension SplitController: SceneTracking {
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        if let title = image?.imageURL.lastPathComponent {
+        if let title = document?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
     }

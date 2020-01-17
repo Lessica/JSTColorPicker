@@ -8,7 +8,17 @@
 
 import Cocoa
 
-@objc protocol DropViewDelegate {
+extension NSDraggingInfo {
+
+    var draggedFileURL: NSURL? {
+        let filenames = draggingPasteboard.propertyList(forType: .init(rawValue: "NSFilenamesPboardType")) as? [String]
+        let path = filenames?.first
+        return path.map(NSURL.init)
+    }
+    
+}
+
+@objc protocol DropViewDelegate: class {
     var acceptedFileExtensions: [String] { get }
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL)
 }
@@ -24,7 +34,7 @@ class DropSplitView: NSSplitView {
     private var acceptedFileExtensions: [String] {
         return dropDelegate?.acceptedFileExtensions ?? []
     }
-    @IBOutlet var dropDelegate : DropViewDelegate?
+    @IBOutlet weak var dropDelegate : DropViewDelegate?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -67,12 +77,4 @@ class DropSplitView: NSSplitView {
         return true
     }
     
-}
-
-extension NSDraggingInfo {
-    var draggedFileURL: NSURL? {
-        let filenames = draggingPasteboard.propertyList(forType: .init(rawValue: "NSFilenamesPboardType")) as? [String]
-        let path = filenames?.first
-        return path.map(NSURL.init)
-    }
 }

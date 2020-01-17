@@ -10,8 +10,8 @@ import Cocoa
 
 class SceneImageWrapper: NSView {
     
-    var trackingDelegate: SceneTracking?
-    var trackingToolDelegate: TrackingToolDelegate?
+    weak var trackingDelegate: SceneTracking?
+    weak var trackingToolDelegate: TrackingToolDelegate?
     var trackingTool: TrackingTool {
         didSet {
             if mouseInside() {

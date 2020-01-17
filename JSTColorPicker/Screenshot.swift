@@ -8,7 +8,10 @@
 
 import Cocoa
 
+@objc(Screenshot)
 class Screenshot: NSDocument {
+    
+    var image: PixelImage?
     
     fileprivate var appDelegate: AppDelegate? {
         get {
@@ -29,39 +32,50 @@ class Screenshot: NSDocument {
     }
     
     override func read(from url: URL, ofType typeName: String) throws {
-        
+        let image = try PixelImage.init(contentsOf: url)
+        self.image = image
+    }
+    
+    override var isInViewingMode: Bool {
+        return true
+    }
+    
+    override var isDocumentEdited: Bool {
+        return false
     }
     
     override class var autosavesInPlace: Bool {
-        return true 
+        return false
     }
     
     override func makeWindowControllers() {
         if
             let tabService = tabService,
             let currentWindow = tabService.mainWindow,
-            let windowController = currentWindow.windowController as? WindowController
+            let currentWindowController = currentWindow.windowController as? WindowController
         {
             if currentWindow.windowController?.document == nil {
                 // load in current tab
-                addWindowController(windowController)
-                windowController.openDocumentIfNeeded()
+                addWindowController(currentWindowController)
+                currentWindowController.loadDocument()
             }
             else {
                 // load in new tab
-                let windowController = WindowController.newEmptyWindow()
-                tabService.createEmptyTab(newWindowController: windowController,
-                                          inWindow: currentWindow,
-                                          ordered: .above)
-                addWindowController(windowController)
-                windowController.openDocumentIfNeeded()
+                let newWindowController = WindowController.newEmptyWindow()
+                addWindowController(newWindowController)
+                newWindowController.loadDocument()
+                if let newWindow = tabService.addManagedWindow(windowController: newWindowController)?.window {
+                    currentWindow.addTabbedWindow(newWindow, ordered: .above)
+                    newWindow.makeKeyAndOrderFront(self)
+                }
             }
         }
         else {
             // initial window
             if let windowController = appDelegate?.reinitializeTabService() {
                 addWindowController(windowController)
-                windowController.openDocumentIfNeeded()
+                windowController.loadDocument()
+                windowController.showWindow(self)
             }
         }
     }

@@ -8,12 +8,7 @@
 
 import Cocoa
 
-protocol SceneTracking {
+protocol SceneTracking: class {
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat)
-}
-
-extension SceneTracking {
-    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool { return false }
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) { }
 }

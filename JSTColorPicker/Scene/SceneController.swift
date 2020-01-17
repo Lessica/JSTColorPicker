@@ -58,7 +58,7 @@ class SceneController: NSViewController {
         64.00, 128.0
     ]
     
-    var trackingDelegate: SceneTracking?
+    weak var trackingDelegate: SceneTracking?
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     
@@ -75,8 +75,7 @@ class SceneController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
-            guard let self = self else { return event }
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [unowned self] (event) -> NSEvent? in
             self.flagsChanged(with: event)
             return event
         }
@@ -194,7 +193,7 @@ class SceneController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
-//        guard let documentView = sceneView.documentView else { return }
+        
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -224,6 +223,17 @@ class SceneController: NSViewController {
         }
     }
     
+    override func flagsChanged(with event: NSEvent) {
+        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
+        case [.option]:
+            useOptionModifiedTrackingTool()
+        case [.command]:
+            useCommandModifiedTrackingTool()
+        default:
+            useSelectedTrackingTool()
+        }
+    }
+    
     fileprivate func useOptionModifiedTrackingTool() {
         if trackingTool == .magnify {
             trackingTool = .minify
@@ -243,15 +253,8 @@ class SceneController: NSViewController {
         trackingTool = selectedTrackingTool
     }
     
-    override func flagsChanged(with event: NSEvent) {
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
-        case [.option]:
-            useOptionModifiedTrackingTool()
-        case [.command]:
-            useCommandModifiedTrackingTool()
-        default:
-            useSelectedTrackingTool()
-        }
+    deinit {
+        debugPrint("- [SceneController deinit]")
     }
     
 }
@@ -264,6 +267,10 @@ extension SceneController: SceneTracking {
             return false
         }
         return trackingDelegate?.mousePositionChanged(sender, toPoint: point) ?? false
+    }
+    
+    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
+        // not implemented
     }
     
     @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
