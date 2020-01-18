@@ -228,6 +228,27 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Devices" id="9vP-dU-wGE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Devices" id="1Il-r8-iYp">
+                                    <items>
+                                        <menuItem title="Connect via USB" id="Gxd-vS-gSq">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Connect via USB" id="5FZ-FF-ebV"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
+                                        <menuItem title="Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="screenshotItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="HbL-q9-Rcq"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -271,7 +292,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
+                    <connections>
+                        <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
             </objects>
             <point key="canvasLocation" x="-194" y="-123"/>

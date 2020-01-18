@@ -35,10 +35,6 @@ class Screenshot: NSDocument {
         self.image = image
     }
     
-    override var isInViewingMode: Bool {
-        return true
-    }
-    
     override var isDocumentEdited: Bool {
         return false
     }

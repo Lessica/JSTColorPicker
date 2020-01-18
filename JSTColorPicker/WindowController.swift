@@ -26,6 +26,17 @@ class WindowController: NSWindowController {
             return self.window!.contentViewController as? SplitController
         }
     }
+    fileprivate var currentAlertSheet: NSAlert?
+    func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
+        guard let window = window else { return }
+        if let currentAlertSheet = currentAlertSheet {
+            currentAlertSheet.window.orderOut(self)
+            window.endSheet(currentAlertSheet.window)
+        }
+        currentAlertSheet = nil
+        sheet?.beginSheetModal(for: window, completionHandler: completionHandler)
+        currentAlertSheet = sheet
+    }
     
     override func windowDidLoad() {
         super.windowDidLoad()

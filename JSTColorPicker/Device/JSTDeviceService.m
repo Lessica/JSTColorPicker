@@ -7,6 +7,8 @@
 //
 
 #import "JSTDeviceService.h"
+#import "JSTDevice.h"
+#import <libimobiledevice/lockdown.h>
 
 static void handle_idevice_event(const idevice_event_t *event, void *user_data) {
     JSTDeviceService *service = (__bridge JSTDeviceService *)(user_data);
@@ -28,6 +30,21 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
     idevice_event_unsubscribe();
 }
 
-
+- (NSArray <JSTDevice *> *)devices {
+    char **cUDIDs;
+    int cUDIDCount = 0;
+    idevice_error_t error = idevice_get_device_list(&cUDIDs, &cUDIDCount);
+    if (error != IDEVICE_E_SUCCESS) {
+        return nil;
+    }
+    NSMutableArray <JSTDevice *> *newDevices = [NSMutableArray array];
+    for (NSInteger i = 0; i < cUDIDCount; i++) {
+        NSString *udid = [NSString stringWithUTF8String:cUDIDs[i]];
+        JSTDevice *device = [[JSTDevice alloc] initWithUDID:udid];
+        [newDevices addObject:device];
+    }
+    idevice_device_list_free(cUDIDs);
+    return [newDevices copy];
+}
 
 @end

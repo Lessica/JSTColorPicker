@@ -18,6 +18,7 @@
 		D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06C23D1A2B000D76CB5 /* libcrypto.a */; };
 		D647B06F23D1A2B000D76CB5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06D23D1A2B000D76CB5 /* libssl.a */; };
 		D647B10623D1A52000D76CB5 /* JSTDeviceService.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTDeviceService.m */; };
+		D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* JSTDevice.m */; };
 		D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230B23CC56E20067C04A /* DropSplitView.swift */; };
 		D649230E23CC62D70067C04A /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230D23CC62D70067C04A /* SceneController.swift */; };
 		D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649231823CC647D0067C04A /* SceneScrollView.swift */; };
@@ -201,6 +202,8 @@
 		D647B10323D1A2C300D76CB5 /* asn1err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1err.h; sourceTree = "<group>"; };
 		D647B10423D1A52000D76CB5 /* JSTDeviceService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTDeviceService.h; sourceTree = "<group>"; };
 		D647B10523D1A52000D76CB5 /* JSTDeviceService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTDeviceService.m; sourceTree = "<group>"; };
+		D647B10723D1FDB000D76CB5 /* JSTDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTDevice.h; sourceTree = "<group>"; };
+		D647B10823D1FDB000D76CB5 /* JSTDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTDevice.m; sourceTree = "<group>"; };
 		D649230B23CC56E20067C04A /* DropSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropSplitView.swift; sourceTree = "<group>"; };
 		D649230D23CC62D70067C04A /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		D649231823CC647D0067C04A /* SceneScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollView.swift; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 		D647B06323D173A700D76CB5 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				D647B10723D1FDB000D76CB5 /* JSTDevice.h */,
+				D647B10823D1FDB000D76CB5 /* JSTDevice.m */,
 				D647B10423D1A52000D76CB5 /* JSTDeviceService.h */,
 				D647B10523D1A52000D76CB5 /* JSTDeviceService.m */,
 			);
@@ -613,6 +618,7 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
+				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
 				D66460E923D0333A0032727A /* TrackingTool.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 			);
@@ -754,7 +760,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"/**";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
 				INFOPLIST_FILE = JSTColorPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -767,6 +773,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -780,7 +787,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"/**";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
 				INFOPLIST_FILE = JSTColorPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -793,6 +800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
