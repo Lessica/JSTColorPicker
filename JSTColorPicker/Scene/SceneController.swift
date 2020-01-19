@@ -288,15 +288,15 @@ extension SceneController: SceneTracking {
 
 extension SceneController: ToolbarResponder {
     
-    func useCursorAction(sender: NSToolbarItem) {
+    func useCursorAction(_ sender: Any?) {
         trackingTool = .cursor
     }
     
-    func useMagnifyToolAction(sender: NSToolbarItem) {
+    func useMagnifyToolAction(_ sender: Any?) {
         trackingTool = .magnify
     }
     
-    func useMinifyToolAction(sender: NSToolbarItem) {
+    func useMinifyToolAction(_ sender: Any?) {
         trackingTool = .minify
     }
     

@@ -31,7 +31,7 @@ enum TrackingTool: String {
         return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 8, y: 8))
     }()
     
-    var cursor: NSCursor {
+    var currentCursor: NSCursor {
         get {
             if self == .cursor {
                 return NSCursor.crosshair

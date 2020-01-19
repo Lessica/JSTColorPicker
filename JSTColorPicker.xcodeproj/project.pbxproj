@@ -28,6 +28,8 @@
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D66460E923D0333A0032727A /* TrackingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460E823D0333A0032727A /* TrackingTool.swift */; };
 		D66460EB23D056440032727A /* SceneTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460EA23D056440032727A /* SceneTracking.swift */; };
+		D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841423D3E3FD00BC5E34 /* libz.tbd */; };
+		D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841623D3E42400BC5E34 /* libpng16.a */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
 		D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
@@ -216,6 +218,11 @@
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D66460E823D0333A0032727A /* TrackingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTool.swift; sourceTree = "<group>"; };
 		D66460EA23D056440032727A /* SceneTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTracking.swift; sourceTree = "<group>"; };
+		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D684841623D3E42400BC5E34 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng16.a; sourceTree = "<group>"; };
+		D684841823D3E4CB00BC5E34 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
+		D684841923D3E4CB00BC5E34 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
+		D684841A23D3E4CB00BC5E34 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
 		D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarResponder.swift; sourceTree = "<group>"; };
@@ -231,11 +238,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */,
 				D647B06F23D1A2B000D76CB5 /* libssl.a in Frameworks */,
 				D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */,
 				D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */,
 				D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */,
 				D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */,
+				D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +281,7 @@
 		D647B06423D198CB00D76CB5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				D684841623D3E42400BC5E34 /* libpng16.a */,
 				D647B06C23D1A2B000D76CB5 /* libcrypto.a */,
 				D647B06D23D1A2B000D76CB5 /* libssl.a */,
 				D647B06623D1A12300D76CB5 /* libimobiledevice.a */,
@@ -284,6 +294,9 @@
 		D647B07023D1A2C300D76CB5 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D684841A23D3E4CB00BC5E34 /* png.h */,
+				D684841823D3E4CB00BC5E34 /* pngconf.h */,
+				D684841923D3E4CB00BC5E34 /* pnglibconf.h */,
 				D647B07123D1A2C300D76CB5 /* plist */,
 				D647B08023D1A2C300D76CB5 /* libimobiledevice */,
 				D647B09923D1A2C300D76CB5 /* usbmuxd.h */,
@@ -476,6 +489,7 @@
 			children = (
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
 				D658AF9B23CB180C0098C567 /* Products */,
+				D684841323D3E3FD00BC5E34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -509,6 +523,14 @@
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 			);
 			path = JSTColorPicker;
+			sourceTree = "<group>";
+		};
+		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D684841423D3E3FD00BC5E34 /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
@@ -770,6 +792,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -797,6 +820,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";

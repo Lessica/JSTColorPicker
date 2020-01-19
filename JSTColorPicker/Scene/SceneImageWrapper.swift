@@ -106,7 +106,7 @@ class SceneImageWrapper: NSView {
     fileprivate func updateCursorDisplay() {
         if let delegate = trackingToolDelegate {
             if delegate.trackingToolEnabled(self, tool: trackingTool) {
-                trackingTool.cursor.set()
+                trackingTool.currentCursor.set()
             } else {
                 trackingTool.disabledCursor.set()
             }

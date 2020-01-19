@@ -18,9 +18,15 @@ class WindowController: NSWindowController {
     }
     
     weak var tabDelegate: TabDelegate?
+    @IBOutlet weak var openItem: NSToolbarItem!
+    @IBOutlet weak var screenshotItem: NSToolbarItem!
     @IBOutlet weak var cursorItem: NSToolbarItem!
     @IBOutlet weak var magnifyItem: NSToolbarItem!
     @IBOutlet weak var minifyItem: NSToolbarItem!
+    @IBOutlet weak var touchBarCursorItem: NSButton!
+    @IBOutlet weak var touchBarMagnifyItem: NSButton!
+    @IBOutlet weak var touchBarMinifyItem: NSButton!
+    
     fileprivate var viewController: SplitController? {
         get {
             return self.window!.contentViewController as? SplitController
@@ -44,6 +50,7 @@ class WindowController: NSWindowController {
         viewController?.windowController = self
         window?.title = "Untitled #\(windowCount)"
         window?.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        touchBarUpdateButtonState()
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -80,21 +87,75 @@ class WindowController: NSWindowController {
     
 }
 
+extension WindowController {
+    
+    fileprivate func touchBarUpdateButtonState() {
+        guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
+        if identifier == TrackingTool.cursor.rawValue {
+            touchBarCursorItem.state = .on
+            touchBarMagnifyItem.state = .off
+            touchBarMinifyItem.state = .off
+        }
+        else if identifier == TrackingTool.magnify.rawValue {
+            touchBarCursorItem.state = .off
+            touchBarMagnifyItem.state = .on
+            touchBarMinifyItem.state = .off
+        }
+        else if identifier == TrackingTool.minify.rawValue {
+            touchBarCursorItem.state = .off
+            touchBarMagnifyItem.state = .off
+            touchBarMinifyItem.state = .on
+        }
+    }
+    
+    @IBAction func touchBarOpenAction(_ sender: NSButton) {
+        NSDocumentController.shared.openDocument(sender)
+    }
+    
+    @IBAction func touchBarScreenshotAction(_ sender: NSButton) {
+        screenshotAction(sender)
+    }
+    
+    @IBAction func touchBarUseCursorAction(_ sender: NSButton) {
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.cursor.rawValue)
+        useCursorAction(sender)
+    }
+    
+    @IBAction func touchBarUseMagnifyAction(_ sender: NSButton) {
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.magnify.rawValue)
+        useMagnifyToolAction(sender)
+    }
+    
+    @IBAction func touchBarUseMinifyAction(_ sender: NSButton) {
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.minify.rawValue)
+        useMinifyToolAction(sender)
+    }
+    
+}
+
 extension WindowController: ToolbarResponder {
     
-    @IBAction func useCursorAction(sender: NSToolbarItem) {
-        guard let viewController = viewController else { return }
-        viewController.useCursorAction(sender: sender)
+    @IBAction func screenshotAction(_ sender: Any?) {
+        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
+        delegate.screenshotItemTapped(sender)
     }
     
-    @IBAction func useMagnifyToolAction(sender: NSToolbarItem) {
+    @IBAction func useCursorAction(_ sender: Any?) {
         guard let viewController = viewController else { return }
-        viewController.useMagnifyToolAction(sender: sender)
+        viewController.useCursorAction(sender)
+        touchBarUpdateButtonState()
     }
     
-    @IBAction func useMinifyToolAction(sender: NSToolbarItem) {
+    @IBAction func useMagnifyToolAction(_ sender: Any?) {
         guard let viewController = viewController else { return }
-        viewController.useMinifyToolAction(sender: sender)
+        viewController.useMagnifyToolAction(sender)
+        touchBarUpdateButtonState()
+    }
+    
+    @IBAction func useMinifyToolAction(_ sender: Any?) {
+        guard let viewController = viewController else { return }
+        viewController.useMinifyToolAction(sender)
+        touchBarUpdateButtonState()
     }
     
 }

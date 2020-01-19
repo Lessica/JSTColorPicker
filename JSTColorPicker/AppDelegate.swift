@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return imageType
     }
     
-    @IBAction func screenshotItemTapped(_ sender: NSMenuItem) {
+    @IBAction func screenshotItemTapped(_ sender: Any?) {
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
         guard let picturesDirectory = FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first else { return }
         if let selectedDeviceUDID = selectedDeviceUDID {

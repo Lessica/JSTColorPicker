@@ -136,16 +136,16 @@ extension SplitController: SceneTracking {
 
 extension SplitController: ToolbarResponder {
     
-    func useCursorAction(sender: NSToolbarItem) {
-        sceneController?.useCursorAction(sender: sender)
+    func useCursorAction(_ sender: Any?) {
+        sceneController?.useCursorAction(sender)
     }
     
-    func useMagnifyToolAction(sender: NSToolbarItem) {
-        sceneController?.useMagnifyToolAction(sender: sender)
+    func useMagnifyToolAction(_ sender: Any?) {
+        sceneController?.useMagnifyToolAction(sender)
     }
     
-    func useMinifyToolAction(sender: NSToolbarItem) {
-        sceneController?.useMinifyToolAction(sender: sender)
+    func useMinifyToolAction(_ sender: Any?) {
+        sceneController?.useMinifyToolAction(sender)
     }
     
 }

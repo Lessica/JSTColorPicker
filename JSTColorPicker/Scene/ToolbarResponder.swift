@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol ToolbarResponder {
-    func useCursorAction(sender: NSToolbarItem)
-    func useMagnifyToolAction(sender: NSToolbarItem)
-    func useMinifyToolAction(sender: NSToolbarItem)
+    func useCursorAction(_ sender: Any?)
+    func useMagnifyToolAction(_ sender: Any?)
+    func useMinifyToolAction(_ sender: Any?)
 }

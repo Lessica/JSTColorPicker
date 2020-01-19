@@ -85,9 +85,10 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
     func updateInspector(point: CGPoint, color: JSTPixelColor) {
 //        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
         inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " ")) = \(String(format: "0x%02X", color.red))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " ")) = \(String(format: "0x%02X", color.green))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " ")) = \(String(format: "0x%02X", color.blue))
+R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
+G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.green))
+B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
 """
         inspectorColorFlag.image = NSImage.init(color: color.getNSColor(), size: inspectorColorFlag.bounds.size)
         inspectorPositionLabel.stringValue = """
@@ -103,6 +104,7 @@ Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
 R:
 G:
 B:
+A:
 """
         inspectorPositionLabel.stringValue = """
 X:
