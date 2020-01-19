@@ -569,24 +569,24 @@
                                 </tabViewItems>
                             </tabView>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
-                                <rect key="frame" x="-4" y="682" width="228" height="74"/>
+                                <rect key="frame" x="-4" y="671" width="228" height="85"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                         <view key="view" id="caH-5H-HL3">
-                                            <rect key="frame" x="10" y="7" width="208" height="54"/>
+                                            <rect key="frame" x="10" y="7" width="208" height="65"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV">
-                                                    <rect key="frame" x="8" y="31" width="16" height="16"/>
+                                                    <rect key="frame" x="5" y="28" width="32" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="8hU-ce-bat"/>
-                                                        <constraint firstAttribute="height" constant="16" id="OJ4-s6-5ah"/>
+                                                        <constraint firstAttribute="width" constant="26" id="8hU-ce-bat"/>
+                                                        <constraint firstAttribute="height" constant="26" id="OJ4-s6-5ah"/>
                                                     </constraints>
-                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Rlh-FA-OcK"/>
+                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
                                                 </imageView>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
-                                                    <rect key="frame" x="34" y="8" width="168" height="15"/>
+                                                    <rect key="frame" x="48" y="8" width="154" height="15"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" id="9ct-MU-Igk">
                                                         <font key="font" size="13" name="Menlo-Regular"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -594,7 +594,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
-                                                    <rect key="frame" x="34" y="31" width="168" height="15"/>
+                                                    <rect key="frame" x="48" y="31" width="154" height="26"/>
                                                     <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" id="YU4-9v-wOp">
                                                         <font key="font" size="13" name="Menlo-Regular"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -610,7 +610,8 @@
                                                 <constraint firstItem="djd-CE-KfV" firstAttribute="centerY" secondItem="3dj-M4-SbZ" secondAttribute="centerY" id="MRP-SL-JBO"/>
                                                 <constraint firstItem="djd-CE-KfV" firstAttribute="leading" secondItem="caH-5H-HL3" secondAttribute="leading" constant="8" id="S3v-b0-INM"/>
                                                 <constraint firstItem="dqs-yK-Ge8" firstAttribute="top" secondItem="3dj-M4-SbZ" secondAttribute="bottom" constant="8" id="StK-3r-Sz4"/>
-                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="leading" secondItem="caH-5H-HL3" secondAttribute="leading" constant="36" id="mVa-VA-uWa"/>
+                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="leading" secondItem="djd-CE-KfV" secondAttribute="trailing" constant="16" id="Wh5-tz-qg2"/>
+                                                <constraint firstItem="djd-CE-KfV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="caH-5H-HL3" secondAttribute="top" constant="8" id="cYp-me-OMh"/>
                                                 <constraint firstItem="dqs-yK-Ge8" firstAttribute="trailing" secondItem="3dj-M4-SbZ" secondAttribute="trailing" id="yuV-ju-sZw"/>
                                             </constraints>
                                         </view>
