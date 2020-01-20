@@ -123,6 +123,7 @@ extension SplitController: SceneTracking {
         if let sidebarController = sidebarController {
             sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point))
         }
+        _ = windowController?.mousePositionChanged(sender, toPoint: point)
         return true
     }
     
@@ -130,6 +131,7 @@ extension SplitController: SceneTracking {
         if let title = document?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
+        windowController?.sceneMagnificationChanged(sender, toMagnification: magnification)
     }
     
 }
@@ -146,6 +148,10 @@ extension SplitController: ToolbarResponder {
     
     func useMinifyToolAction(_ sender: Any?) {
         sceneController?.useMinifyToolAction(sender)
+    }
+    
+    func fitWindowAction(_ sender: Any?) {
+        sceneController?.fitWindowAction(sender)
     }
     
 }

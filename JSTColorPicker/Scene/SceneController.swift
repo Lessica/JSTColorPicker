@@ -45,7 +45,7 @@ extension CGRect {
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
-}  // for future use
+}
 
 class SceneController: NSViewController {
     
@@ -95,6 +95,7 @@ class SceneController: NSViewController {
         
         resetController()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(didFinishRestoringWindowsNotification(_:)), name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
     }
     
@@ -274,16 +275,32 @@ extension SceneController: SceneTracking {
         // not implemented
     }
     
+    @objc func didFinishRestoringWindowsNotification(_ notification: NSNotification) {
+        sceneMagnificationChangedProgrammatically()
+    }
+    
     @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
         if let scrollView = notification.object as? NSScrollView {
-            trackingDelegate?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
+            if scrollView == sceneView {
+                trackingDelegate?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
+            }
         }
+    }
+    
+    fileprivate func sceneMagnificationChangedProgrammatically() {
+        trackingDelegate?.sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
     }
     
     fileprivate func sceneMagnificationChangedProgrammatically(toMagnification magnification: CGFloat) {
         trackingDelegate?.sceneMagnificationChanged(self, toMagnification: magnification)
     }
     
+}
+
+extension NSRect {
+    func inset(by insets: NSEdgeInsets) -> NSRect {
+        return NSRect(x: origin.x + insets.left, y: origin.y + insets.bottom, width: size.width - insets.left - insets.right, height: size.height - insets.top - insets.bottom)
+    }
 }
 
 extension SceneController: ToolbarResponder {
@@ -298,6 +315,15 @@ extension SceneController: ToolbarResponder {
     
     func useMinifyToolAction(_ sender: Any?) {
         trackingTool = .minify
+    }
+    
+    func fitWindowAction(_ sender: Any?) {
+        guard let bounds = wrapper?.bounds else { return }
+        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+            self.sceneView.animator().magnify(toFit: bounds)
+        }) {
+            self.sceneMagnificationChangedProgrammatically()
+        }
     }
     
 }

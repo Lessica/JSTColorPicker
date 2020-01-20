@@ -228,6 +228,13 @@
                                                 <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Rni-dG-O6T"/>
+                                        <menuItem title="Toggle Color Grid" keyEquivalent="g" id="f1Y-VB-nPG">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="colorGridSwitchItemTapped:" target="Voe-Tx-rLC" id="IrU-H6-5y4"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -298,6 +305,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
                         <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
+                        <outlet property="showColorGridItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -316,18 +324,18 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="C4F22FF4-63B1-4DB4-9841-9C3542476003" label="Screenshot" paletteLabel="Screenshot" tag="-1" image="JSTCamera" id="BOP-NL-21X">
+                                    <size key="minSize" width="128" height="128"/>
+                                    <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="52DF9AEB-5292-4083-90F6-21052AD57011" label="Screenshot" paletteLabel="Screenshot" tag="-1" image="JSTCamera" id="BOP-NL-21X">
-                                    <size key="minSize" width="128" height="128"/>
-                                    <size key="maxSize" width="128" height="128"/>
-                                    <connections>
-                                        <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="CursorItem" label="Cursor" paletteLabel="Cursor" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
@@ -351,17 +359,26 @@
                                         <action selector="useMinifyToolAction:" target="B8D-0N-5wS" id="7fQ-HC-hzs"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" tag="-1" image="JSTBrowser" id="b9N-8Y-kQX">
+                                    <size key="minSize" width="128" height="128"/>
+                                    <size key="maxSize" width="128" height="128"/>
+                                    <connections>
+                                        <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="w6N-7T-9Nd"/>
-                                <toolbarItem reference="BOP-NL-21X"/>
                                 <toolbarItem reference="P19-sN-vdr"/>
                                 <toolbarItem reference="TA2-eZ-zBd"/>
                                 <toolbarItem reference="Ajm-ph-nQm"/>
+                                <toolbarItem reference="b9N-8Y-kQX"/>
+                                <toolbarItem reference="gLa-Lt-r0j"/>
                                 <toolbarItem reference="yYx-1s-yPE"/>
+                                <toolbarItem reference="BOP-NL-21X"/>
                                 <toolbarItem reference="GLl-T1-jgb"/>
                             </defaultToolbarItems>
                         </toolbar>
@@ -381,20 +398,6 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="touchBarOpenAction:" target="B8D-0N-5wS" id="I1s-hM-trN"/>
-                                        </connections>
-                                    </button>
-                                </viewController>
-                            </touchBarItem>
-                            <touchBarItem id="PQH-8F-ERn">
-                                <viewController key="viewController" id="WCX-ou-J2B">
-                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" usesAppearanceFont="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="touchBarScreenshotAction:" target="B8D-0N-5wS" id="Ha2-uH-dnX"/>
                                         </connections>
                                     </button>
                                 </viewController>
@@ -441,15 +444,46 @@
                                     </button>
                                 </viewController>
                             </touchBarItem>
+                            <touchBarItem id="BMr-Wz-ccK">
+                                <viewController key="viewController" id="Mc2-mr-Ig0">
+                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h0z-Q6-15T">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTBrowser" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8ke-2G-roY">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="touchBarFitWindowAction:" target="B8D-0N-5wS" id="Xd3-bH-aCw"/>
+                                        </connections>
+                                    </button>
+                                </viewController>
+                            </touchBarItem>
+                            <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Vva-yk-jRZ"/>
+                            <touchBarItem id="PQH-8F-ERn">
+                                <viewController key="viewController" id="WCX-ou-J2B">
+                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="touchBarScreenshotAction:" target="B8D-0N-5wS" id="Ha2-uH-dnX"/>
+                                        </connections>
+                                    </button>
+                                </viewController>
+                            </touchBarItem>
                         </touchBarItems>
                     </touchBar>
                     <connections>
                         <outlet property="cursorItem" destination="P19-sN-vdr" id="2Ww-Mb-seU"/>
+                        <outlet property="fitWindowItem" destination="b9N-8Y-kQX" id="RXS-k1-QtN"/>
                         <outlet property="magnifyItem" destination="TA2-eZ-zBd" id="SWC-jg-Nj0"/>
                         <outlet property="minifyItem" destination="Ajm-ph-nQm" id="fNb-4M-Jt7"/>
                         <outlet property="openItem" destination="w6N-7T-9Nd" id="9xU-WJ-5mc"/>
                         <outlet property="screenshotItem" destination="BOP-NL-21X" id="4Bp-BR-3CI"/>
                         <outlet property="touchBarCursorItem" destination="WTx-u1-RDc" id="bbT-tE-bJg"/>
+                        <outlet property="touchBarFitWindowItem" destination="h0z-Q6-15T" id="Nfb-YN-b2K"/>
                         <outlet property="touchBarMagnifyItem" destination="G35-Xy-sHl" id="YGx-Od-teI"/>
                         <outlet property="touchBarMinifyItem" destination="QEY-yj-sSg" id="eRs-GC-LgO"/>
                         <segue destination="6eT-at-2NW" kind="relationship" relationship="window.shadowedContentViewController" id="jok-74-4jv"/>
@@ -641,6 +675,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="JSTBrowser" width="128" height="128"/>
         <image name="JSTCamera" width="128" height="128"/>
         <image name="JSTCursor" width="128" height="128"/>
         <image name="JSTMagnify" width="128" height="128"/>

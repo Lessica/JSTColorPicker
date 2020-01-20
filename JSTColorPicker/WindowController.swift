@@ -23,9 +23,11 @@ class WindowController: NSWindowController {
     @IBOutlet weak var cursorItem: NSToolbarItem!
     @IBOutlet weak var magnifyItem: NSToolbarItem!
     @IBOutlet weak var minifyItem: NSToolbarItem!
+    @IBOutlet weak var fitWindowItem: NSToolbarItem!
     @IBOutlet weak var touchBarCursorItem: NSButton!
     @IBOutlet weak var touchBarMagnifyItem: NSButton!
     @IBOutlet weak var touchBarMinifyItem: NSButton!
+    @IBOutlet weak var touchBarFitWindowItem: NSButton!
     
     fileprivate var viewController: SplitController? {
         get {
@@ -60,6 +62,10 @@ class WindowController: NSWindowController {
         window.addTabbedWindow(newWindow, ordered: .above)
         newWindow.makeKeyAndOrderFront(self)
         inspectWindowHierarchy()
+    }
+    
+    override func synchronizeWindowTitleWithDocumentName() {
+        // do nothing
     }
     
     override func windowTitle(forDocumentDisplayName displayName: String) -> String {
@@ -116,6 +122,10 @@ extension WindowController {
         screenshotAction(sender)
     }
     
+    @IBAction func touchBarFitWindowAction(_ sender: NSButton) {
+        fitWindowAction(sender)
+    }
+    
     @IBAction func touchBarUseCursorAction(_ sender: NSButton) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.cursor.rawValue)
         useCursorAction(sender)
@@ -140,6 +150,11 @@ extension WindowController: ToolbarResponder {
         delegate.screenshotItemTapped(sender)
     }
     
+    @IBAction func fitWindowAction(_ sender: Any?) {
+        guard let viewController = viewController else { return }
+        viewController.fitWindowAction(sender)
+    }
+    
     @IBAction func useCursorAction(_ sender: Any?) {
         guard let viewController = viewController else { return }
         viewController.useCursorAction(sender)
@@ -156,6 +171,33 @@ extension WindowController: ToolbarResponder {
         guard let viewController = viewController else { return }
         viewController.useMinifyToolAction(sender)
         touchBarUpdateButtonState()
+    }
+    
+}
+
+extension WindowController: NSWindowDelegate {
+    
+    var grid: ColorGridWindowController? {
+        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
+        let grid = delegate.colorGridController
+        return grid
+    }
+    
+    func windowDidBecomeMain(_ notification: Notification) {
+        grid?.activeWindowController = self
+    }
+    
+}
+
+extension WindowController: SceneTracking {
+    
+    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
+        _ = grid?.mousePositionChanged(sender, toPoint: point)
+        return true
+    }
+    
+    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
+        grid?.sceneMagnificationChanged(sender, toMagnification: magnification)
     }
     
 }

@@ -15,6 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var deviceService: JSTDeviceService = {
         return JSTDeviceService()
     }()
+    lazy var colorGridController: ColorGridWindowController = {
+        let controller = ColorGridWindowController.newGrid()
+        controller.window?.level = .floating
+        return controller
+    }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -126,6 +131,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.addButton(withTitle: "OK")
             alert.alertStyle = .warning
             windowController.showSheet(alert, completionHandler: nil)
+        }
+    }
+    
+    @IBOutlet weak var showColorGridItem: NSMenuItem!
+    var isColorGridVisible: Bool {
+        guard let visible = colorGridController.window?.isVisible else { return false }
+        return visible
+    }
+    @IBAction func colorGridSwitchItemTapped(_ sender: Any?) {
+        if isColorGridVisible {
+            colorGridController.close()
+        } else {
+            colorGridController.showWindow(sender)
         }
     }
     

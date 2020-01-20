@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DyE-GW-XMO">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="kD2-oh-2II">
+            <objects>
+                <windowController id="DyE-GW-XMO" customClass="ColorGridWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="ColorGridWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="54" y="1373" width="264" height="264"/>
+                        <rect key="screenRect" x="-240" y="1050" width="1920" height="1080"/>
+                        <connections>
+                            <outlet property="delegate" destination="DyE-GW-XMO" id="TdF-oS-7Zp"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="T3l-h4-g0T" kind="relationship" relationship="window.shadowedContentViewController" id="MlW-ug-bfD"/>
+                    </connections>
+                </windowController>
+                <customObject id="eNW-pU-2N5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-50" y="153"/>
+        </scene>
+        <!--Color Grid View Controller-->
+        <scene sceneID="bHd-Ju-c6b">
+            <objects>
+                <viewController id="T3l-h4-g0T" customClass="ColorGridViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="c0A-8J-sOI">
+                        <rect key="frame" x="0.0" y="0.0" width="264" height="264"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="COK-AL-NFS" customClass="ColorGridView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="264" height="264"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="COK-AL-NFS" firstAttribute="leading" secondItem="c0A-8J-sOI" secondAttribute="leading" id="DFx-0N-fgl"/>
+                            <constraint firstItem="COK-AL-NFS" firstAttribute="top" secondItem="c0A-8J-sOI" secondAttribute="top" id="DdX-Em-sVd"/>
+                            <constraint firstAttribute="bottom" secondItem="COK-AL-NFS" secondAttribute="bottom" id="DlS-EF-JTu"/>
+                            <constraint firstAttribute="trailing" secondItem="COK-AL-NFS" secondAttribute="trailing" id="K5D-t0-bBO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gridView" destination="COK-AL-NFS" id="okg-3i-zeK"/>
+                    </connections>
+                </viewController>
+                <customObject id="RFr-CM-FfM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="376" y="153"/>
+        </scene>
+    </scenes>
+</document>
