@@ -150,9 +150,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 extension AppDelegate: NSMenuDelegate {
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         updateSelectedDeviceItem()
     }
+    
 }
 
 extension AppDelegate: JSTDeviceDelegate {

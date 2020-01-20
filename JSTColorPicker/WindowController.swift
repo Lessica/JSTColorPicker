@@ -35,6 +35,7 @@ class WindowController: NSWindowController {
         }
     }
     fileprivate var currentAlertSheet: NSAlert?
+    
     func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
         if let currentAlertSheet = currentAlertSheet {
@@ -177,14 +178,14 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    var grid: ColorGridWindowController? {
+    var gridWindowController: ColorGridWindowController? {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
         let grid = delegate.colorGridController
         return grid
     }
     
     func windowDidBecomeMain(_ notification: Notification) {
-        grid?.activeWindowController = self
+        gridWindowController?.activeWindowController = self
     }
     
 }
@@ -192,12 +193,22 @@ extension WindowController: NSWindowDelegate {
 extension WindowController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        _ = grid?.mousePositionChanged(sender, toPoint: point)
+        _ = gridWindowController?.mousePositionChanged(sender, toPoint: point)
         return true
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        grid?.sceneMagnificationChanged(sender, toMagnification: magnification)
+        gridWindowController?.sceneMagnificationChanged(sender, toMagnification: magnification)
+    }
+    
+}
+
+extension WindowController: ColorGridDataSource {
+    
+    var screenshot: Screenshot? {
+        get {
+            return document as? Screenshot
+        }
     }
     
 }

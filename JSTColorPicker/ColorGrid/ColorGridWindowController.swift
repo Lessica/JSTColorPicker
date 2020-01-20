@@ -15,16 +15,17 @@ class ColorGridWindowController: NSWindowController {
         return windowStoryboard.instantiateInitialController() as! ColorGridWindowController
     }
     
-    var gridView: ColorGridView? {
-        guard let viewController = window?.contentViewController as? ColorGridViewController else { return nil }
-        return viewController.gridView
-    }
     var activeWindowController: WindowController? {
         didSet {
+            guard let windowController = activeWindowController else { return }
             guard let gridView = gridView else { return }
-            guard let screenshot = activeWindowController?.document as? Screenshot else { return }
-            gridView.image = screenshot.image
+            gridView.dataSource = windowController
         }
+    }
+    
+    fileprivate var gridView: ColorGridView? {
+        guard let viewController = window?.contentViewController as? ColorGridViewController else { return nil }
+        return viewController.gridView
     }
     
     override func windowDidLoad() {

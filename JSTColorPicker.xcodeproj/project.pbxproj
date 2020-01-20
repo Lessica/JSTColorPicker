@@ -522,7 +522,7 @@
 				D649231623CC64490067C04A /* Scene */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D647B06323D173A700D76CB5 /* Device */,
-				D684842023D40C9300BC5E34 /* Tools */,
+				D684842023D40C9300BC5E34 /* ColorGrid */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
@@ -544,7 +544,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D684842023D40C9300BC5E34 /* Tools */ = {
+		D684842023D40C9300BC5E34 /* ColorGrid */ = {
 			isa = PBXGroup;
 			children = (
 				D684842123D4105100BC5E34 /* ColorGrid.storyboard */,
@@ -553,7 +553,7 @@
 				D60C88CE23D5D4B100DE5DF6 /* ColorGridViewController.swift */,
 				D60C88D023D5D4BD00DE5DF6 /* ColorGridView.swift */,
 			);
-			path = Tools;
+			path = ColorGrid;
 			sourceTree = "<group>";
 		};
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {

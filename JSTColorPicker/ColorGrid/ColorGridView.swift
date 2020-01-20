@@ -8,16 +8,13 @@
 
 import Cocoa
 
+protocol ColorGridDataSource: class {
+    var screenshot: Screenshot? { get }
+}
+
 class ColorGridView: NSView {
     
-    var image: PixelImage? {
-        didSet {
-            if let size = image?.pixelImageRep.size() {
-                imageSize = size
-            }
-        }
-    }
-    var imageSize: CGSize = CGSize.zero
+    var dataSource: ColorGridDataSource?
     var centerPoint: CGPoint = CGPoint.zero {
         didSet {
             setNeedsDisplay(bounds)
@@ -39,6 +36,9 @@ class ColorGridView: NSView {
         view.layer?.backgroundColor = .white
         return view
     }()
+    fileprivate var pixelImage: JSTPixelImage? {
+        return dataSource?.screenshot?.image?.pixelImageRep
+    }
     
     fileprivate func shimAnimation(_ opaque: Bool) {
         if !animating { return }
@@ -62,6 +62,7 @@ class ColorGridView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
+        guard let pixelImage = pixelImage else { return }
         if let ctx = NSGraphicsContext.current?.cgContext {
             ctx.setLineCap(.square)
             ctx.setLineWidth(1)
@@ -71,7 +72,7 @@ class ColorGridView: NSView {
             
             let p = centerPoint
             let s = pixelSize
-            let m = imageSize
+            let m = pixelImage.size()
             
             for i in 0..<Int(hNum * 2) {
                 for j in 0..<Int(vNum * 2) {
@@ -80,11 +81,8 @@ class ColorGridView: NSView {
                         ctx.setFillColor(.clear)
                         ctx.setStrokeColor(.clear)
                     } else {
-                        if let c = image?.pixelImageRep.getJSTColor(of: t) {
-                            ctx.setFillColor(c.getNSColor().cgColor)
-                        } else {
-                            ctx.setFillColor(.clear)
-                        }
+                        let c = pixelImage.getJSTColor(of: t)
+                        ctx.setFillColor(c.getNSColor().cgColor)
                         if t.equalTo(p) {
                             ctx.setStrokeColor(.black)
                         } else {
