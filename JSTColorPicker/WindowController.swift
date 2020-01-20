@@ -152,6 +152,7 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction func fitWindowAction(_ sender: Any?) {
+        guard (document?.fileURL) != nil else { return }
         guard let viewController = viewController else { return }
         viewController.fitWindowAction(sender)
     }
