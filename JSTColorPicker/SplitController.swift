@@ -104,14 +104,19 @@ extension SplitController: DropViewDelegate {
 extension SplitController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        guard let image = document?.image else {
-            return false
-        }
+        guard let image = document?.image else { return false }
         if let sidebarController = sidebarController {
-            sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point))
+            sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: false)
         }
         _ = windowController?.mousePositionChanged(sender, toPoint: point)
         return true
+    }
+    
+    func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
+         guard let image = document?.image else { return }
+         if let sidebarController = sidebarController {
+             sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: true)
+         }
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {

@@ -391,7 +391,8 @@
                             <touchBarItem id="eXV-YH-bGl">
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpen" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -405,7 +406,8 @@
                             <touchBarItem id="csa-Xt-hcu">
                                 <viewController key="viewController" id="z9P-r9-NVC">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WTx-u1-RDc">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCursor" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="StC-ea-1lV">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -419,7 +421,8 @@
                             <touchBarItem id="IA9-Nb-JM3">
                                 <viewController key="viewController" id="fpR-Xw-Qky">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G35-Xy-sHl">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTMagnify" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bit-GH-kue">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -433,7 +436,8 @@
                             <touchBarItem id="ryR-hl-IxL">
                                 <viewController key="viewController" id="wcY-za-qDx">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QEY-yj-sSg">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTMinify" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9TK-jm-hEt">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -447,7 +451,8 @@
                             <touchBarItem id="BMr-Wz-ccK">
                                 <viewController key="viewController" id="Mc2-mr-Ig0">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h0z-Q6-15T">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTBrowser" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8ke-2G-roY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -462,7 +467,8 @@
                             <touchBarItem id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -611,13 +617,16 @@
                                             <rect key="frame" x="10" y="7" width="208" height="65"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV">
+                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="28" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="26" id="8hU-ce-bat"/>
                                                         <constraint firstAttribute="height" constant="26" id="OJ4-s6-5ah"/>
                                                     </constraints>
                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
+                                                    <connections>
+                                                        <action selector="colorIndicatorTapped:" target="Z2W-Gy-vmx" id="Fyh-ud-EQa"/>
+                                                    </connections>
                                                 </imageView>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
                                                     <rect key="frame" x="48" y="8" width="154" height="15"/>
@@ -664,7 +673,7 @@
                     </view>
                     <connections>
                         <outlet property="imageLabel" destination="IRz-cZ-umT" id="bjt-LX-qoj"/>
-                        <outlet property="inspectorColorFlag" destination="djd-CE-KfV" id="Mh9-g2-IcU"/>
+                        <outlet property="inspectorColorFlag" destination="djd-CE-KfV" id="Lyv-lM-xCa"/>
                         <outlet property="inspectorColorLabel" destination="3dj-M4-SbZ" id="5ao-VE-JHU"/>
                         <outlet property="inspectorPositionLabel" destination="dqs-yK-Ge8" id="feO-Io-3HE"/>
                     </connections>

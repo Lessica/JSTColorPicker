@@ -31,9 +31,10 @@ extension NSImage {
 
 class SidebarController: NSViewController {
 
+    let colorPanel = NSColorPanel.shared
     @IBOutlet weak var imageLabel: NSTextField!
     @IBOutlet weak var inspectorColorLabel: NSTextField!
-    @IBOutlet weak var inspectorColorFlag: NSImageView!
+    @IBOutlet weak var inspectorColorFlag: ColorIndicator!
     @IBOutlet weak var inspectorPositionLabel: NSTextField!
     
     fileprivate static var byteFormatter: ByteCountFormatter = {
@@ -82,7 +83,7 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
     }
     
-    func updateInspector(point: CGPoint, color: JSTPixelColor) {
+    func updateInspector(point: CGPoint, color: JSTPixelColor, submit: Bool) {
 //        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
         inspectorColorLabel.stringValue = """
 R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
@@ -90,11 +91,16 @@ G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(forma
 B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
 A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
 """
-        inspectorColorFlag.image = NSImage.init(color: color.getNSColor(), size: inspectorColorFlag.bounds.size)
+        let nsColor = color.getNSColor()
+        inspectorColorFlag.color = nsColor
+        inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
         inspectorPositionLabel.stringValue = """
 X:\(String(Int(point.x)).leftPadding(toLength: 5, withPad: " "))
 Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
 """
+        if submit {
+            colorPanel.color = nsColor
+        }
     }
     
     func resetController() {
@@ -114,6 +120,13 @@ Y:
     
     deinit {
         debugPrint("- [SidebarController deinit]")
+    }
+    
+    @IBAction func colorIndicatorTapped(_ sender: Any) {
+        colorPanel.mode = .RGB
+        colorPanel.showsAlpha = true
+        colorPanel.color = inspectorColorFlag.color
+        colorPanel.orderFront(sender)
     }
     
 }

@@ -106,7 +106,7 @@ class SceneController: NSViewController {
         sceneView.allowsMagnification = false
         sceneView.documentView = SceneImageWrapper()
         
-        sceneMagnificationChangedProgrammatically(toMagnification: sceneView.magnification)
+        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
         useSelectedTrackingTool()
     }
     
@@ -137,7 +137,7 @@ class SceneController: NSViewController {
         sceneView.allowsMagnification = true
         sceneView.documentView = wrapper
         
-        sceneMagnificationChangedProgrammatically(toMagnification: sceneView.magnification)
+        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
         useSelectedTrackingTool()
     }
     
@@ -203,7 +203,7 @@ class SceneController: NSViewController {
         let loc = documentView.convert(event.locationInWindow, from: nil)
         if !NSPointInRect(loc, documentView.bounds) { return }
         if trackingTool == .cursor {
-            
+            mouseClicked(self, atPoint: loc)
         }
         else if trackingTool == .magnify {
             if !canMagnify {
@@ -211,7 +211,7 @@ class SceneController: NSViewController {
             }
             if let next = nextMagnificationFactor {
                 sceneView.animator().setMagnification(next, centeredAt: loc)
-                sceneMagnificationChangedProgrammatically(toMagnification: next)
+                sceneMagnificationChanged(self, toMagnification: next)
             }
         }
         else if trackingTool == .minify {
@@ -220,7 +220,7 @@ class SceneController: NSViewController {
             }
             if let prev = prevMagnificationFactor {
                 sceneView.animator().setMagnification(prev, centeredAt: loc)
-                sceneMagnificationChangedProgrammatically(toMagnification: prev)
+                sceneMagnificationChanged(self, toMagnification: prev)
             }
         }
     }
@@ -272,8 +272,12 @@ extension SceneController: SceneTracking {
         return trackingDelegate?.mousePositionChanged(sender, toPoint: point) ?? false
     }
     
+    func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
+        trackingDelegate?.mouseClicked(sender, atPoint: point)
+    }
+    
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        // not implemented
+        trackingDelegate?.sceneMagnificationChanged(sender, toMagnification: magnification)
     }
     
     @objc func didFinishRestoringWindowsNotification(_ notification: NSNotification) {
@@ -290,10 +294,6 @@ extension SceneController: SceneTracking {
     
     fileprivate func sceneMagnificationChangedProgrammatically() {
         trackingDelegate?.sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
-    }
-    
-    fileprivate func sceneMagnificationChangedProgrammatically(toMagnification magnification: CGFloat) {
-        trackingDelegate?.sceneMagnificationChanged(self, toMagnification: magnification)
     }
     
 }

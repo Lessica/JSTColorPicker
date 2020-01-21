@@ -40,6 +40,7 @@
 		D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
+		D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
 		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
@@ -238,6 +239,7 @@
 		D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarResponder.swift; sourceTree = "<group>"; };
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
+		D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorIndicator.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
+				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
+				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* ColorGridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,

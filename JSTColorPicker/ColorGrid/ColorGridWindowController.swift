@@ -53,10 +53,6 @@ extension ColorGridWindowController: SceneTracking {
         return shouldTrack
     }
     
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        // not implemented
-    }
-    
 }
 
 extension ColorGridWindowController: NSWindowDelegate {
