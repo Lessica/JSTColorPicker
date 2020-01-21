@@ -11,6 +11,6 @@ import Foundation
 class Content {
     
     static let maximumPixelCount = 99
-    var pixelColorCollection: [PixelColor] = []
+    var pixelColorCollection: [PixelColor] = []  // ordered by id asc
     
 }

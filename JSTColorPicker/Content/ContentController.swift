@@ -9,11 +9,13 @@
 import Cocoa
 
 enum ContentColumnIdentifier: String {
+    case id = "col-id"
     case color = "col-color"
     case coordinate = "col-coordinate"
 }
 
 enum ContentCellIdentifier: String {
+    case id = "cell-id"
     case color = "cell-color"
     case coordinate = "cell-coordinate"
 }
@@ -35,6 +37,12 @@ enum ContentError: LocalizedError {
 class ContentController: NSViewController {
     
     let content = Content()
+    fileprivate var nextID: Int {
+        if let maxID = content.pixelColorCollection.last?.id {
+            return maxID + 1
+        }
+        return 1
+    }
     @IBOutlet weak var tableView: NSTableView!
 
     override func viewDidLoad() {
@@ -62,7 +70,7 @@ extension ContentController: NSUserInterfaceValidations {
         if content.pixelColorCollection.first(where: { $0.coordinate.x == coordinate.x && $0.coordinate.y == coordinate.y }) != nil {
             throw ContentError.exists
         }
-        let pixel = PixelColor(coordinate: coordinate, color: color)
+        let pixel = PixelColor(id: nextID, coordinate: coordinate, color: color)
         content.pixelColorCollection.append(pixel)
         tableView.reloadData()
         return pixel
@@ -103,7 +111,10 @@ extension ContentController: NSTableViewDataSource {
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
             let col = tableColumn.identifier.rawValue
             let pixel = content.pixelColorCollection[row]
-            if col == ContentColumnIdentifier.color.rawValue {
+            if col == ContentColumnIdentifier.id.rawValue {
+                cell.textField?.stringValue = String(pixel.id)
+            }
+            else if col == ContentColumnIdentifier.color.rawValue {
                 cell.imageView?.image = NSImage(color: pixel.pixelColorRep.toNSColor(), size: NSSize(width: 12, height: 12))
                 cell.textField?.stringValue = pixel.pixelColorRep.cssString
             }

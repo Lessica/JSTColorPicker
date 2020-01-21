@@ -19,10 +19,12 @@ struct PixelCoordinate {
 
 class PixelColor {
     
+    var id: Int
     var coordinate: PixelCoordinate
     var pixelColorRep: JSTPixelColor
     
-    init(coordinate: PixelCoordinate, color: JSTPixelColor) {
+    init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
+        self.id = id
         self.coordinate = coordinate
         self.pixelColorRep = color
     }
