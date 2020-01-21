@@ -13,7 +13,7 @@
                     <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="ColorGridWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="54" y="1373" width="264" height="264"/>
+                        <rect key="contentRect" x="54" y="1373" width="294" height="294"/>
                         <rect key="screenRect" x="-240" y="1050" width="1920" height="1080"/>
                         <connections>
                             <outlet property="delegate" destination="DyE-GW-XMO" id="TdF-oS-7Zp"/>
@@ -32,11 +32,11 @@
             <objects>
                 <viewController id="T3l-h4-g0T" customClass="ColorGridViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="c0A-8J-sOI">
-                        <rect key="frame" x="0.0" y="0.0" width="264" height="264"/>
+                        <rect key="frame" x="0.0" y="0.0" width="294" height="294"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="COK-AL-NFS" customClass="ColorGridView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="264" height="264"/>
+                                <rect key="frame" x="0.0" y="0.0" width="294" height="294"/>
                             </customView>
                         </subviews>
                         <constraints>
@@ -52,7 +52,7 @@
                 </viewController>
                 <customObject id="RFr-CM-FfM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="376" y="153"/>
+            <point key="canvasLocation" x="377" y="153"/>
         </scene>
     </scenes>
 </document>

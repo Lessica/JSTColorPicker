@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         deviceService.delegate = self
+        resetDevicesMenu()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -164,16 +165,20 @@ extension AppDelegate: JSTDeviceDelegate {
         if items.count > 0 {
             devicesMenu.items = items
         } else {
-            let emptyItem = NSMenuItem(title: "No device found.", action: nil, keyEquivalent: "")
-            devicesMenu.items = [
-                emptyItem
-            ]
+            resetDevicesMenu()
         }
         updateSelectedDeviceItem()
     }
     
     @objc func deviceItemTapped(_ sender: NSMenuItem) {
         selectDeviceItem(sender)
+    }
+    
+    fileprivate func resetDevicesMenu() {
+        let emptyItem = NSMenuItem(title: "No device found.", action: nil, keyEquivalent: "")
+        devicesMenu.items = [
+            emptyItem
+        ]
     }
     
     fileprivate func updateSelectedDeviceItem() {

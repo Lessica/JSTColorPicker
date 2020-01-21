@@ -18,11 +18,22 @@ class ColorIndicator: NSImageView {
         // Drawing code here.
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let area = NSTrackingArea.init(rect: bounds, options: [.activeInKeyWindow, .cursorUpdate], owner: self, userInfo: nil)
+        addTrackingArea(area)
+    }
+    
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
         if let action = action {
             NSApp.sendAction(action, to: self.target, from: self)
         }
+    }
+    
+    override func cursorUpdate(with event: NSEvent) {
+        super.cursorUpdate(with: event)
+        NSCursor.pointingHand.set()
     }
     
 }

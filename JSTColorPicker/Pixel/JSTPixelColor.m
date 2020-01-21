@@ -24,7 +24,7 @@
     return [[[JSTPixelColor alloc] initWithJSTColor:jstcolor] autorelease];
 }
 
-- (uint32_t)getColorAlpha
+- (uint32_t)intValueWithAlpha
 {
     JST_COLOR color;
     color.red = _red;
@@ -34,11 +34,11 @@
     return color.the_color;
 }
 
-- (uint32_t)color {
-    return [self getColorAlpha];
+- (uint32_t)underlyingColor {
+    return [self intValueWithAlpha];
 }
 
-- (uint32_t)getColor
+- (uint32_t)intValue
 {
     JST_COLOR color;
     color.red = _red;
@@ -48,7 +48,7 @@
     return color.the_color;
 }
 
-- (NSString *)getColorHexAlpha
+- (NSString *)hexStringWithAlpha
 {
     JST_COLOR color;
     color.red = _red;
@@ -58,7 +58,7 @@
     return [NSString stringWithFormat:@"0x%08x", color.the_color];
 }
 
-- (NSString *)getColorHex
+- (NSString *)hexString
 {
     JST_COLOR color;
     color.red = _red;
@@ -66,6 +66,16 @@
     color.blue = _blue;
     color.alpha = 0;
     return [NSString stringWithFormat:@"0x%06x", color.the_color];
+}
+
+- (NSString *)cssString
+{
+    JST_COLOR color;
+    color.red = _red;
+    color.green = _green;
+    color.blue = _blue;
+    color.alpha = 0;
+    return [NSString stringWithFormat:@"#%06X", color.the_color];
 }
 
 - (JSTPixelColor *)init
@@ -133,7 +143,7 @@
     _alpha = alpha;
 }
 
-- (void)setColor:(uint32_t)color
+- (void)setUnderlyingColor:(uint32_t)color
 {
     JST_COLOR c;
     c.the_color = color;
@@ -191,7 +201,7 @@
 {
     return [[[JSTPixelColor alloc] initWithUIColor:uicolor] autorelease];
 }
-- (UIColor *)getUIColor
+- (UIColor *)toUIColor
 {
     return [UIColor colorWithRed:((CGFloat)_red)/255.0f green:((CGFloat)_green)/255.0f blue:((CGFloat)_blue)/255.0f alpha:((CGFloat)_alpha)/255.0f];
 }
@@ -236,7 +246,7 @@
 {
     return [[[JSTPixelColor alloc] initWithNSColor:nscolor] autorelease];
 }
-- (NSColor *)getNSColor
+- (NSColor *)toNSColor
 {
     return [NSColor colorWithRed:((CGFloat)_red)/255.0f green:((CGFloat)_green)/255.0f blue:((CGFloat)_blue)/255.0f alpha:((CGFloat)_alpha)/255.0f];
 }

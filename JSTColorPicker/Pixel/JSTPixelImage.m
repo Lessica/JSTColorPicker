@@ -421,7 +421,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 - (NSString *)getColorHexOfPoint:(CGPoint)point {
     JST_COLOR color_of_point;
     get_color_in_pixels_image_safe(_pixel_image, (int) point.x, (int) point.y, &color_of_point);
-    return [[JSTPixelColor colorWithRed:color_of_point.red green:color_of_point.green blue:color_of_point.blue alpha:color_of_point.alpha] getColorHex];
+    return [[JSTPixelColor colorWithRed:color_of_point.red green:color_of_point.green blue:color_of_point.blue alpha:color_of_point.alpha] hexString];
 }
 
 - (void)setJSTColor:(JSTPixelColor *)color ofPoint:(CGPoint)point {

@@ -8,10 +8,21 @@
 
 import Cocoa
 
-enum PixelImageError: Error {
+enum PixelImageError: LocalizedError {
     case readFailed
     case loadSourceFailed
     case loadImageFailed
+    
+    var failureReason: String? {
+        switch self {
+        case .readFailed:
+            return "File read failed."
+        case .loadSourceFailed:
+            return "Load image source failed."
+        case .loadImageFailed:
+            return "Load image data failed."
+        }
+    }
 }
 
 class PixelImage {

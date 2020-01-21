@@ -62,20 +62,24 @@ class SplitController: NSSplitViewController {
 
 extension SplitController: DropViewDelegate {
     
+    fileprivate var contentController: ContentController! {
+        return children[0] as? ContentController
+    }
+    
     fileprivate var sceneController: SceneController! {
-        return children.first as? SceneController
+        return children[1] as? SceneController
     }
     
     fileprivate var sidebarController: SidebarController! {
-        return children.last as? SidebarController
+        return children[2] as? SidebarController
     }
     
     fileprivate var windowTitle: String {
         get {
-            return view.window!.title
+            return view.window?.title ?? ""
         }
         set {
-            view.window!.title = newValue
+            view.window?.title = newValue
         }
     }
     
@@ -105,18 +109,22 @@ extension SplitController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
         guard let image = document?.image else { return false }
-        if let sidebarController = sidebarController {
-            sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: false)
-        }
+        sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: false)
         _ = windowController?.mousePositionChanged(sender, toPoint: point)
         return true
     }
     
     func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
-         guard let image = document?.image else { return }
-         if let sidebarController = sidebarController {
-             sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: true)
-         }
+        guard let image = document?.image else { return }
+        let color = image.pixelImageRep.getJSTColor(of: point)
+        sidebarController.updateInspector(point: point, color: color, submit: true)
+        do {
+            _ = try contentController.submitContent(point: point, color: color)
+        } catch let error {
+            let alert = NSAlert(error: error)
+            alert.runModal()
+        }
+        // TODO: implement Content protocol
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {

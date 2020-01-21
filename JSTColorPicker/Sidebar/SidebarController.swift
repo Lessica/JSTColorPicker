@@ -90,8 +90,9 @@ R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format:
 G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.green))
 B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
 A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
+CSS: \(String(format: "#%06X", color.intValue))
 """
-        let nsColor = color.getNSColor()
+        let nsColor = color.toNSColor()
         inspectorColorFlag.color = nsColor
         inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
         inspectorPositionLabel.stringValue = """
@@ -111,6 +112,7 @@ R:
 G:
 B:
 A:
+CSS:
 """
         inspectorPositionLabel.stringValue = """
 X:

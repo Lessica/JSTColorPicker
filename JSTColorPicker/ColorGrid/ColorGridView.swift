@@ -27,7 +27,7 @@ class ColorGridView: NSView {
             }
         }
     }
-    fileprivate var pixelSize = CGSize(width: 24.0, height: 24.0)
+    fileprivate var pixelSize = CGSize(width: 14.0, height: 14.0)
     fileprivate var hPixelNum: Int = 0
     fileprivate var vPixelNum: Int = 0
     fileprivate lazy var centerMaskView: NSView = {
@@ -82,7 +82,7 @@ class ColorGridView: NSView {
                         ctx.setStrokeColor(.clear)
                     } else {
                         let c = pixelImage.getJSTColor(of: t)
-                        ctx.setFillColor(c.getNSColor().cgColor)
+                        ctx.setFillColor(c.toNSColor().cgColor)
                         if t.equalTo(p) {
                             ctx.setStrokeColor(.black)
                         } else {

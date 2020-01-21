@@ -31,6 +31,10 @@
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D66460E923D0333A0032727A /* TrackingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460E823D0333A0032727A /* TrackingTool.swift */; };
 		D66460EB23D056440032727A /* SceneTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460EA23D056440032727A /* SceneTracking.swift */; };
+		D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9023D6DB3400DA1750 /* ContentController.swift */; };
+		D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9223D6EC4F00DA1750 /* Content.swift */; };
+		D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
+		D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9823D7348500DA1750 /* ContentTableView.swift */; };
 		D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841423D3E3FD00BC5E34 /* libz.tbd */; };
 		D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841623D3E42400BC5E34 /* libpng16.a */; };
 		D684842223D4105100BC5E34 /* ColorGrid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* ColorGrid.storyboard */; };
@@ -227,6 +231,10 @@
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D66460E823D0333A0032727A /* TrackingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTool.swift; sourceTree = "<group>"; };
 		D66460EA23D056440032727A /* SceneTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTracking.swift; sourceTree = "<group>"; };
+		D682FC9023D6DB3400DA1750 /* ContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentController.swift; sourceTree = "<group>"; };
+		D682FC9223D6EC4F00DA1750 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		D682FC9623D6ED2C00DA1750 /* PixelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelColor.swift; sourceTree = "<group>"; };
+		D682FC9823D7348500DA1750 /* ContentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableView.swift; sourceTree = "<group>"; };
 		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D684841623D3E42400BC5E34 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng16.a; sourceTree = "<group>"; };
 		D684841823D3E4CB00BC5E34 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
@@ -275,6 +283,7 @@
 				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
 				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
+				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
 			);
 			path = Pixel;
 			sourceTree = "<group>";
@@ -522,6 +531,7 @@
 				D6F4A38623CF645800BE3DCF /* Tab */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D649231623CC64490067C04A /* Scene */,
+				D682FC8F23D6DB1800DA1750 /* Content */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D647B06323D173A700D76CB5 /* Device */,
 				D684842023D40C9300BC5E34 /* ColorGrid */,
@@ -536,6 +546,16 @@
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 			);
 			path = JSTColorPicker;
+			sourceTree = "<group>";
+		};
+		D682FC8F23D6DB1800DA1750 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				D682FC9223D6EC4F00DA1750 /* Content.swift */,
+				D682FC9023D6DB3400DA1750 /* ContentController.swift */,
+				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
@@ -661,15 +681,19 @@
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
 				D647B10623D1A52000D76CB5 /* JSTDeviceService.m in Sources */,
+				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* ColorGridViewController.swift in Sources */,
+				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
+				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* ColorGridWindow.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
+				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
