@@ -226,6 +226,7 @@ class SceneController: NSViewController {
     }
     
     override func flagsChanged(with event: NSEvent) {
+        guard let window = view.window, window.isKeyWindow else { return }
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:
             useOptionModifiedTrackingTool()

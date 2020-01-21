@@ -29,10 +29,8 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarMinifyItem: NSButton!
     @IBOutlet weak var touchBarFitWindowItem: NSButton!
     
-    fileprivate var viewController: SplitController? {
-        get {
-            return self.window!.contentViewController as? SplitController
-        }
+    fileprivate var viewController: SplitController! {
+        return self.window!.contentViewController as? SplitController
     }
     fileprivate var currentAlertSheet: NSAlert?
     
@@ -50,14 +48,21 @@ class WindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
-        viewController?.windowController = self
-        window?.title = "Untitled #\(windowCount)"
-        window?.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        viewController.windowController = self
+        window!.title = "Untitled #\(windowCount)"
+        window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
         touchBarUpdateButtonState()
+        
+        openItem.toolTip = "Open Screenshot"
+        cursorItem.toolTip = "Cursor"
+        magnifyItem.toolTip = "Magnifying Glass"
+        minifyItem.toolTip = "Minifying Glass"
+        fitWindowItem.toolTip = "Fit Window"
+        screenshotItem.toolTip = "Snapshot"
     }
     
     override func newWindowForTab(_ sender: Any?) {
-        guard let window = self.window else { preconditionFailure("Expected window to be loaded") }
+        guard let window = window else { preconditionFailure("window not loaded") }
         guard let tabDelegate = self.tabDelegate else { return }
         guard let newWindow = tabDelegate.addManagedWindow(windowController: WindowController.newEmptyWindow())?.window else { preconditionFailure() }
         window.addTabbedWindow(newWindow, ordered: .above)
@@ -69,15 +74,8 @@ class WindowController: NSWindowController {
         // do nothing
     }
     
-    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
-        if let title = window?.title {
-            return title
-        }
-        return displayName
-    }
-    
     fileprivate func inspectWindowHierarchy() {
-        let rootWindow = self.window!
+        let rootWindow = window!
         print("Root window", rootWindow, rootWindow.title, "has tabs:")
         rootWindow.tabbedWindows?.forEach { window in
             print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
@@ -85,7 +83,7 @@ class WindowController: NSWindowController {
     }
     
     func loadDocument() {
-        viewController?.loadDocument()
+        viewController.loadDocument()
     }
     
     deinit {
@@ -153,24 +151,20 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func fitWindowAction(_ sender: Any?) {
         guard (document?.fileURL) != nil else { return }
-        guard let viewController = viewController else { return }
         viewController.fitWindowAction(sender)
     }
     
     @IBAction func useCursorAction(_ sender: Any?) {
-        guard let viewController = viewController else { return }
         viewController.useCursorAction(sender)
         touchBarUpdateButtonState()
     }
     
     @IBAction func useMagnifyToolAction(_ sender: Any?) {
-        guard let viewController = viewController else { return }
         viewController.useMagnifyToolAction(sender)
         touchBarUpdateButtonState()
     }
     
     @IBAction func useMinifyToolAction(_ sender: Any?) {
-        guard let viewController = viewController else { return }
         viewController.useMinifyToolAction(sender)
         touchBarUpdateButtonState()
     }

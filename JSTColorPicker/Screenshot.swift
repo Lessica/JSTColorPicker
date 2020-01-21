@@ -12,21 +12,16 @@ class Screenshot: NSDocument {
     
     var image: PixelImage?
     
-    fileprivate var appDelegate: AppDelegate? {
-        get {
-            if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
-                return appDelegate
-            }
-            return nil
-        }
+    fileprivate var appDelegate: AppDelegate! {
+        return NSApplication.shared.delegate as? AppDelegate
     }
     
     fileprivate var tabService: TabService? {
         get {
-            return appDelegate?.tabService
+            return appDelegate.tabService
         }
         set {
-            appDelegate?.tabService = newValue
+            appDelegate.tabService = newValue
         }
     }
     
@@ -67,11 +62,10 @@ class Screenshot: NSDocument {
         }
         else {
             // initial window
-            if let windowController = appDelegate?.reinitializeTabService() {
-                addWindowController(windowController)
-                windowController.loadDocument()
-                windowController.showWindow(self)
-            }
+            let windowController = appDelegate.reinitializeTabService()
+            addWindowController(windowController)
+            windowController.loadDocument()
+            windowController.showWindow(self)
         }
     }
     

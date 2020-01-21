@@ -12,14 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var tabService: TabService?
-    lazy var deviceService: JSTDeviceService = {
-        return JSTDeviceService()
-    }()
-    lazy var colorGridController: ColorGridWindowController = {
-        let controller = ColorGridWindowController.newGrid()
-        controller.window?.level = .floating
-        return controller
-    }()
+    let deviceService = JSTDeviceService()
+    let colorGridController = ColorGridWindowController.newGrid()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application

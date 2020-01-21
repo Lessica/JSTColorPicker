@@ -62,33 +62,20 @@ class SplitController: NSSplitViewController {
 
 extension SplitController: DropViewDelegate {
     
-    fileprivate var sceneController: SceneController? {
-        get {
-            if let sceneController = children.first as? SceneController {
-                return sceneController
-            }
-            return nil
-        }
+    fileprivate var sceneController: SceneController! {
+        return children.first as? SceneController
     }
     
-    fileprivate var sidebarController: SidebarController? {
-        get {
-            if let sidebarController = children.last as? SidebarController {
-                return sidebarController
-            }
-            return nil
-        }
+    fileprivate var sidebarController: SidebarController! {
+        return children.last as? SidebarController
     }
     
     fileprivate var windowTitle: String {
         get {
-            if let title = view.window?.title {
-                return title
-            }
-            return ""
+            return view.window!.title
         }
         set {
-            view.window?.title = newValue
+            view.window!.title = newValue
         }
     }
     
@@ -139,19 +126,19 @@ extension SplitController: SceneTracking {
 extension SplitController: ToolbarResponder {
     
     func useCursorAction(_ sender: Any?) {
-        sceneController?.useCursorAction(sender)
+        sceneController.useCursorAction(sender)
     }
     
     func useMagnifyToolAction(_ sender: Any?) {
-        sceneController?.useMagnifyToolAction(sender)
+        sceneController.useMagnifyToolAction(sender)
     }
     
     func useMinifyToolAction(_ sender: Any?) {
-        sceneController?.useMinifyToolAction(sender)
+        sceneController.useMinifyToolAction(sender)
     }
     
     func fitWindowAction(_ sender: Any?) {
-        sceneController?.fitWindowAction(sender)
+        sceneController.fitWindowAction(sender)
     }
     
 }

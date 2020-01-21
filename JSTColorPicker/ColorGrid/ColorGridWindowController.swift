@@ -12,7 +12,9 @@ class ColorGridWindowController: NSWindowController {
 
     static func newGrid() -> ColorGridWindowController {
         let windowStoryboard = NSStoryboard(name: "ColorGrid", bundle: nil)
-        return windowStoryboard.instantiateInitialController() as! ColorGridWindowController
+        let gridWindowController = windowStoryboard.instantiateInitialController() as! ColorGridWindowController
+        gridWindowController.window?.level = .floating
+        return gridWindowController
     }
     
     var activeWindowController: WindowController? {
@@ -30,7 +32,8 @@ class ColorGridWindowController: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+        window?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        window?.standardWindowButton(.zoomButton)?.isHidden = true
     }
     
     override func showWindow(_ sender: Any?) {
