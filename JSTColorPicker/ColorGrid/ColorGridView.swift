@@ -8,13 +8,9 @@
 
 import Cocoa
 
-protocol ColorGridDataSource: class {
-    var screenshot: Screenshot? { get }
-}
-
 class ColorGridView: NSView {
     
-    var dataSource: ColorGridDataSource?
+    weak var dataSource: ScreenshotLoader?
     var centerPoint: CGPoint = CGPoint.zero {
         didSet {
             setNeedsDisplay(bounds)

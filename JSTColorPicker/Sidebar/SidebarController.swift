@@ -31,6 +31,7 @@ extension NSImage {
 
 class SidebarController: NSViewController {
 
+    internal weak var screenshot: Screenshot?
     let colorPanel = NSColorPanel.shared
     @IBOutlet weak var imageLabel: NSTextField!
     @IBOutlet weak var inspectorColorLabel: NSTextField!
@@ -57,7 +58,67 @@ class SidebarController: NSViewController {
         resetController()
     }
     
-    func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
+    func updateInspector(point: CGPoint, color: JSTPixelColor, submit: Bool) {
+//        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
+        inspectorColorLabel.stringValue = """
+R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
+G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.green))
+B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
+CSS: \(String(format: "#%06X", color.intValue))
+"""
+        let nsColor = color.toNSColor()
+        inspectorColorFlag.color = nsColor
+        inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+        inspectorPositionLabel.stringValue = """
+X:\(String(Int(point.x)).leftPadding(toLength: 5, withPad: " "))
+Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
+"""
+        if submit {
+            colorPanel.color = nsColor
+        }
+    }
+    
+    deinit {
+        debugPrint("- [SidebarController deinit]")
+    }
+    
+    @IBAction func colorIndicatorTapped(_ sender: Any) {
+        colorPanel.mode = .RGB
+        colorPanel.showsAlpha = true
+        colorPanel.color = inspectorColorFlag.color
+        colorPanel.orderFront(sender)
+    }
+    
+}
+
+extension SidebarController: ScreenshotLoader {
+    
+    func resetController() {
+    imageLabel.stringValue = "Open or drop an image here."
+    inspectorColorFlag.image = NSImage()
+    inspectorColorLabel.stringValue = """
+R:
+G:
+B:
+A:
+CSS:
+"""
+    inspectorPositionLabel.stringValue = """
+X:
+Y:
+"""
+    }
+    
+    func load(screenshot: Screenshot) throws {
+        guard let source = screenshot.image?.imageSourceRep, let url = screenshot.fileURL else {
+            throw ScreenshotError.invalidImageSource
+        }
+        self.screenshot = screenshot
+        renderImageSource(source, itemURL: url)
+    }
+    
+    fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) {
         guard let fileProps = CGImageSourceCopyProperties(source, nil) as? [AnyHashable: Any] else {
             return
         }
@@ -81,54 +142,6 @@ Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
 Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
-    }
-    
-    func updateInspector(point: CGPoint, color: JSTPixelColor, submit: Bool) {
-//        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
-        inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.green))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
-CSS: \(String(format: "#%06X", color.intValue))
-"""
-        let nsColor = color.toNSColor()
-        inspectorColorFlag.color = nsColor
-        inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
-        inspectorPositionLabel.stringValue = """
-X:\(String(Int(point.x)).leftPadding(toLength: 5, withPad: " "))
-Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
-"""
-        if submit {
-            colorPanel.color = nsColor
-        }
-    }
-    
-    func resetController() {
-        imageLabel.stringValue = "Open or drop an image here."
-        inspectorColorFlag.image = NSImage()
-        inspectorColorLabel.stringValue = """
-R:
-G:
-B:
-A:
-CSS:
-"""
-        inspectorPositionLabel.stringValue = """
-X:
-Y:
-"""
-    }
-    
-    deinit {
-        debugPrint("- [SidebarController deinit]")
-    }
-    
-    @IBAction func colorIndicatorTapped(_ sender: Any) {
-        colorPanel.mode = .RGB
-        colorPanel.showsAlpha = true
-        colorPanel.color = inspectorColorFlag.color
-        colorPanel.orderFront(sender)
     }
     
 }

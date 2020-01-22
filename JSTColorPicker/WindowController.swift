@@ -48,7 +48,7 @@ class WindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
-        viewController.windowController = self
+        viewController.trackingObject = self
         window!.title = "Untitled #\(windowCount)"
         window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
         touchBarUpdateButtonState()
@@ -80,10 +80,6 @@ class WindowController: NSWindowController {
         rootWindow.tabbedWindows?.forEach { window in
             print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
         }
-    }
-    
-    func loadDocument() {
-        viewController.loadDocument()
     }
     
     deinit {
@@ -173,7 +169,7 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    var gridWindowController: ColorGridWindowController? {
+    fileprivate var gridWindowController: ColorGridWindowController? {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
         let grid = delegate.colorGridController
         return grid
@@ -181,6 +177,22 @@ extension WindowController: NSWindowDelegate {
     
     func windowDidBecomeMain(_ notification: Notification) {
         gridWindowController?.activeWindowController = self
+    }
+    
+}
+
+extension WindowController: ScreenshotLoader {
+    
+    internal var screenshot: Screenshot? {
+        return document as? Screenshot
+    }
+    
+    func resetController() {
+        
+    }
+    
+    func load(screenshot: Screenshot) throws {
+        try viewController.load(screenshot: screenshot)
     }
     
 }
@@ -194,16 +206,6 @@ extension WindowController: SceneTracking {
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
         gridWindowController?.sceneMagnificationChanged(sender, toMagnification: magnification)
-    }
-    
-}
-
-extension WindowController: ColorGridDataSource {
-    
-    var screenshot: Screenshot? {
-        get {
-            return document as? Screenshot
-        }
     }
     
 }

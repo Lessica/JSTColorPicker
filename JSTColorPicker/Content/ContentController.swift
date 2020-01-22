@@ -23,6 +23,7 @@ enum ContentCellIdentifier: String {
 enum ContentError: LocalizedError {
     case exists
     case reachLimit
+    case noDocument
     
     var failureReason: String? {
         switch self {
@@ -30,19 +31,24 @@ enum ContentError: LocalizedError {
             return "This coordinate already exists."
         case .reachLimit:
             return "Maximum pixel count reached."
+        case .noDocument:
+            return "No document loaded."
         }
     }
 }
 
 class ContentController: NSViewController {
     
-    let content = Content()
+    internal weak var screenshot: Screenshot?
     fileprivate var nextID: Int {
-        if let maxID = content.pixelColorCollection.last?.id {
-            return maxID + 1
+        if let content = screenshot?.content {
+            if let maxID = content.pixelColorCollection.last?.id {
+                return maxID + 1
+            }
         }
         return 1
     }
+    
     @IBOutlet weak var tableView: NSTableView!
 
     override func viewDidLoad() {
@@ -55,14 +61,17 @@ class ContentController: NSViewController {
 extension Array {
     mutating func remove(at set:IndexSet) {
         var arr = Swift.Array(self.enumerated())
-        arr.removeAll{ set.contains($0.offset) }
-        self = arr.map{ $0.element }
+        arr.removeAll { set.contains($0.offset) }
+        self = arr.map { $0.element }
     }
 }
 
 extension ContentController: NSUserInterfaceValidations {
     
     func submitContent(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
+        guard let content = screenshot?.content else {
+            throw ContentError.noDocument
+        }
         if content.pixelColorCollection.count >= Content.maximumPixelCount {
             throw ContentError.reachLimit
         }
@@ -85,6 +94,7 @@ extension ContentController: NSUserInterfaceValidations {
     }
     
     @IBAction func delete(_ sender: Any) {
+        guard let content = screenshot?.content else { return }
         let idxs = tableView.selectedRowIndexes
         content.pixelColorCollection.remove(at: idxs)
         tableView.removeRows(at: idxs, withAnimation: .effectFade)
@@ -99,6 +109,7 @@ extension ContentController: NSTableViewDelegate {
 extension ContentController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
+        guard let content = screenshot?.content else { return 0 }
         return content.pixelColorCollection.count
     }
     
@@ -107,6 +118,7 @@ extension ContentController: NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let content = screenshot?.content else { return nil }
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
             let col = tableColumn.identifier.rawValue
@@ -124,6 +136,23 @@ extension ContentController: NSTableViewDataSource {
             return cell
         }
         return nil
+    }
+    
+}
+
+extension ContentController: ScreenshotLoader {
+    
+    func resetController() {
+        self.screenshot = nil
+        tableView.reloadData()
+    }
+    
+    func load(screenshot: Screenshot) throws {
+        guard let _ = screenshot.content else {
+            throw ScreenshotError.invalidContent
+        }
+        self.screenshot = screenshot
+        tableView.reloadData()
     }
     
 }

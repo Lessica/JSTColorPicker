@@ -8,9 +8,33 @@
 
 import Cocoa
 
+enum ScreenshotError: LocalizedError {
+    case invalidImage
+    case invalidImageSource
+    case invalidContent
+    
+    var failureReason: String? {
+        switch self {
+        case .invalidImage:
+            return "Invalid image."
+        case .invalidImageSource:
+            return "Invalid image source."
+        case .invalidContent:
+            return "Invalid content."
+        }
+    }
+}
+
+protocol ScreenshotLoader: class {
+    var screenshot: Screenshot? { get }
+    func resetController()
+    func load(screenshot: Screenshot) throws
+}
+
 class Screenshot: NSDocument {
     
     var image: PixelImage?
+    var content: Content?
     
     fileprivate var appDelegate: AppDelegate! {
         return NSApplication.shared.delegate as? AppDelegate
@@ -28,10 +52,20 @@ class Screenshot: NSDocument {
     override func read(from url: URL, ofType typeName: String) throws {
         let image = try PixelImage.init(contentsOf: url)
         self.image = image
+        self.content = Content()
     }
     
     override var isDocumentEdited: Bool {
         return false
+    }
+    
+    override var hasUndoManager: Bool {
+        get {
+            return true
+        }
+        set {
+            super.hasUndoManager = newValue
+        }
     }
     
     override class var autosavesInPlace: Bool {
@@ -48,7 +82,11 @@ class Screenshot: NSDocument {
                 // load in new tab
                 let newWindowController = WindowController.newEmptyWindow()
                 addWindowController(newWindowController)
-                newWindowController.loadDocument()
+                do {
+                    try newWindowController.load(screenshot: self)
+                } catch let error {
+                    debugPrint(error)
+                }
                 if let newWindow = tabService.addManagedWindow(windowController: newWindowController)?.window {
                     currentWindow.addTabbedWindow(newWindow, ordered: .above)
                     newWindow.makeKeyAndOrderFront(self)
@@ -57,14 +95,22 @@ class Screenshot: NSDocument {
             else {
                 // load in current tab
                 addWindowController(currentWindowController)
-                currentWindowController.loadDocument()
+                do {
+                    try currentWindowController.load(screenshot: self)
+                } catch let error {
+                    debugPrint(error)
+                }
             }
         }
         else {
             // initial window
             let windowController = appDelegate.reinitializeTabService()
             addWindowController(windowController)
-            windowController.loadDocument()
+            do {
+                try windowController.load(screenshot: self)
+            } catch let error {
+                debugPrint(error)
+            }
             windowController.showWindow(self)
         }
     }

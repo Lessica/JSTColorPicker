@@ -58,7 +58,8 @@ class SceneController: NSViewController {
         64.00, 128.0
     ]
     
-    weak var trackingDelegate: SceneTracking?
+    internal weak var screenshot: Screenshot?
+    weak var trackingObject: SceneTracking?
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     
@@ -99,18 +100,7 @@ class SceneController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
     }
     
-    func resetController() {
-        sceneView.minMagnification = SceneController.minimumZoomingFactor
-        sceneView.maxMagnification = SceneController.maximumZoomingFactor
-        sceneView.magnification = SceneController.minimumZoomingFactor
-        sceneView.allowsMagnification = false
-        sceneView.documentView = SceneImageWrapper()
-        
-        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
-        useSelectedTrackingTool()
-    }
-    
-    func renderImage(_ image: PixelImage) {
+    fileprivate func renderImage(_ image: PixelImage) {
         let imageView = SceneImageView()
         imageView.editable = false
         imageView.autoresizes = false
@@ -262,6 +252,29 @@ class SceneController: NSViewController {
     
 }
 
+extension SceneController: ScreenshotLoader {
+    
+    func resetController() {
+        sceneView.minMagnification = SceneController.minimumZoomingFactor
+        sceneView.maxMagnification = SceneController.maximumZoomingFactor
+        sceneView.magnification = SceneController.minimumZoomingFactor
+        sceneView.allowsMagnification = false
+        sceneView.documentView = SceneImageWrapper()
+        
+        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
+        useSelectedTrackingTool()
+    }
+    
+    func load(screenshot: Screenshot) throws {
+        self.screenshot = screenshot
+        guard let image = screenshot.image else {
+            throw ScreenshotError.invalidImage
+        }
+        renderImage(image)
+    }
+    
+}
+
 extension SceneController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
@@ -269,15 +282,15 @@ extension SceneController: SceneTracking {
         if !NSPointInRect(relPoint, sceneView.bounds) {
             return false
         }
-        return trackingDelegate?.mousePositionChanged(sender, toPoint: point) ?? false
+        return trackingObject?.mousePositionChanged(sender, toPoint: point) ?? false
     }
     
     func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
-        trackingDelegate?.mouseClicked(sender, atPoint: point)
+        trackingObject?.mouseClicked(sender, atPoint: point)
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        trackingDelegate?.sceneMagnificationChanged(sender, toMagnification: magnification)
+        trackingObject?.sceneMagnificationChanged(sender, toMagnification: magnification)
     }
     
     @objc func didFinishRestoringWindowsNotification(_ notification: NSNotification) {
@@ -287,13 +300,13 @@ extension SceneController: SceneTracking {
     @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
         if let scrollView = notification.object as? NSScrollView {
             if scrollView == sceneView {
-                trackingDelegate?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
+                trackingObject?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
             }
         }
     }
     
     fileprivate func sceneMagnificationChangedProgrammatically() {
-        trackingDelegate?.sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
+        trackingObject?.sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
     }
     
 }

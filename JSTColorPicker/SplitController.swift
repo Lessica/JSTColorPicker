@@ -13,13 +13,13 @@ class SplitController: NSSplitViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         if let sceneController = sceneController {
-            sceneController.trackingDelegate = self
+            sceneController.trackingObject = self
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDocument()
+        resetController()
     }
     
     override var representedObject: Any? {
@@ -28,31 +28,8 @@ class SplitController: NSSplitViewController {
         }
     }
     
-    weak var windowController: WindowController?
-    fileprivate var document: Screenshot? {
-        get {
-            return windowController?.document as? Screenshot
-        }
-    }
-    fileprivate var documentObservation: NSKeyValueObservation?
-    
-    func loadDocument() {
-        guard let image = document?.image else { return }
-        guard let url = document?.fileURL else { return }
-        do {
-            if let sceneController = sceneController {
-                sceneController.resetController()
-                sceneController.renderImage(image)
-            }
-            if let sidebarController = sidebarController {
-                sidebarController.resetController()
-                try sidebarController.renderImageSource(image.imageSourceRep, itemURL: url)
-            }
-        } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
-        }
-    }
+    weak var trackingObject: SceneTracking?
+    internal weak var screenshot: Screenshot?
     
     deinit {
         debugPrint("- [SplitController deinit]")
@@ -108,14 +85,14 @@ extension SplitController: DropViewDelegate {
 extension SplitController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        guard let image = document?.image else { return false }
+        guard let image = screenshot?.image else { return false }
         sidebarController.updateInspector(point: point, color: image.pixelImageRep.getJSTColor(of: point), submit: false)
-        _ = windowController?.mousePositionChanged(sender, toPoint: point)
+        _ = trackingObject?.mousePositionChanged(sender, toPoint: point)
         return true
     }
     
     func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
-        guard let image = document?.image else { return }
+        guard let image = screenshot?.image else { return }
         let color = image.pixelImageRep.getJSTColor(of: point)
         sidebarController.updateInspector(point: point, color: color, submit: true)
         do {
@@ -128,10 +105,10 @@ extension SplitController: SceneTracking {
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        if let title = document?.image?.imageURL.lastPathComponent {
+        if let title = screenshot?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
-        windowController?.sceneMagnificationChanged(sender, toMagnification: magnification)
+        _ = trackingObject?.sceneMagnificationChanged(sender, toMagnification: magnification)
     }
     
 }
@@ -152,6 +129,29 @@ extension SplitController: ToolbarResponder {
     
     func fitWindowAction(_ sender: Any?) {
         sceneController.fitWindowAction(sender)
+    }
+    
+}
+
+extension SplitController: ScreenshotLoader {
+    
+    func resetController() {
+        contentController.resetController()
+        sceneController.resetController()
+        sidebarController.resetController()
+    }
+    
+    func load(screenshot: Screenshot) throws {
+        resetController()
+        self.screenshot = screenshot
+        do {
+            try contentController.load(screenshot: screenshot)
+            try sceneController.load(screenshot: screenshot)
+            try sidebarController.load(screenshot: screenshot)
+        } catch let error {
+            let alert = NSAlert(error: error)
+            alert.runModal()
+        }
     }
     
 }
