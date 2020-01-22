@@ -37,8 +37,14 @@ enum ContentError: LocalizedError {
     }
 }
 
+protocol ContentActionDelegate: class {
+    func contentActionSelected(_ item: PixelColor, by controller: ContentController)
+    func contentActionConfirmed(_ item: PixelColor, by controller: ContentController)
+}
+
 class ContentController: NSViewController {
     
+    weak var actionDelegate: ContentActionDelegate?
     internal weak var screenshot: Screenshot?
     fileprivate var content: Content? {
         return screenshot?.content
@@ -57,6 +63,22 @@ class ContentController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+    }
+    
+    @IBAction func tableViewAction(_ sender: ContentTableView) {
+        guard let delegate = actionDelegate else { return }
+        guard let collection = content?.pixelColorCollection else { return }
+        let row = sender.selectedRow
+        guard row >= 0 && row < collection.count else { return }
+        delegate.contentActionSelected(collection[row], by: self)
+    }
+    
+    @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
+        guard let delegate = actionDelegate else { return }
+        guard let collection = content?.pixelColorCollection else { return }
+        let row = sender.selectedRow
+        guard row >= 0 && row < collection.count else { return }
+        delegate.contentActionConfirmed(collection[row], by: self)
     }
     
 }
@@ -105,11 +127,7 @@ extension ContentController: NSUserInterfaceValidations {
     
 }
 
-extension ContentController: NSTableViewDelegate {
-    
-}
-
-extension ContentController: NSTableViewDataSource {
+extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let content = content else { return 0 }

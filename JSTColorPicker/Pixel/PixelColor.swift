@@ -15,10 +15,12 @@ struct PixelCoordinate {
         x = Int(point.x)
         y = Int(point.y)
     }
+    func toCGPoint() -> CGPoint {
+        return CGPoint(x: CGFloat(x), y: CGFloat(y))
+    }
 }
 
 class PixelColor {
-    
     var id: Int
     var coordinate: PixelCoordinate
     var pixelColorRep: JSTPixelColor
@@ -28,5 +30,4 @@ class PixelColor {
         self.coordinate = coordinate
         self.pixelColorRep = color
     }
-    
 }

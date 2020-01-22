@@ -12,9 +12,8 @@ class SplitController: NSSplitViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if let sceneController = sceneController {
-            sceneController.trackingObject = self
-        }
+        contentController.actionDelegate = self
+        sceneController.trackingObject = self
     }
     
     override func viewDidLoad() {
@@ -152,6 +151,20 @@ extension SplitController: ScreenshotLoader {
             let alert = NSAlert(error: error)
             alert.runModal()
         }
+    }
+    
+}
+
+extension SplitController: ContentActionDelegate {
+    
+    func contentActionSelected(_ item: PixelColor, by controller: ContentController) {
+        let point = item.coordinate.toCGPoint()
+        _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
+        sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+    }
+    
+    func contentActionConfirmed(_ item: PixelColor, by controller: ContentController) {
+        
     }
     
 }

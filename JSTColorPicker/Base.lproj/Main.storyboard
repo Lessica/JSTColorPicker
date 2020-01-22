@@ -443,6 +443,8 @@ CA
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <action selector="tableViewAction:" target="jWv-ak-Q1b" id="1Rc-0l-8oW"/>
+                                                <action trigger="doubleAction" selector="tableViewDoubleAction:" target="jWv-ak-Q1b" id="zE4-Yx-Bqk"/>
                                                 <outlet property="dataSource" destination="jWv-ak-Q1b" id="Vq1-jk-L6i"/>
                                                 <outlet property="delegate" destination="jWv-ak-Q1b" id="XOm-3J-HVi"/>
                                             </connections>
