@@ -35,6 +35,8 @@ class ColorGridView: NSView {
     fileprivate var pixelImage: JSTPixelImage? {
         return dataSource?.screenshot?.image?.pixelImageRep
     }
+    fileprivate static let gridLineColor = NSColor.textBackgroundColor
+    fileprivate static let gridCenterLineColor = NSColor.textColor
     
     fileprivate func shimAnimation(_ opaque: Bool) {
         if !animating { return }
@@ -65,29 +67,31 @@ class ColorGridView: NSView {
             
             let hNum = CGFloat(hPixelNum) / 2.0
             let vNum = CGFloat(vPixelNum) / 2.0
-            
-            let p = centerPoint
-            let s = pixelSize
-            let m = pixelImage.size()
+            var centralPoints: [(CGPoint, CGRect)] = []
+            let imageSize = pixelImage.size()
             
             for i in 0..<Int(hNum * 2) {
                 for j in 0..<Int(vNum * 2) {
-                    let t = CGPoint(x: Int(p.x) - Int(hNum) + i, y: Int(p.y) + Int(vNum) - j)
-                    if t.x < 0 || t.y < 0 || t.x > m.width || t.y > m.height {
-                        ctx.setFillColor(.clear)
-                        ctx.setStrokeColor(.clear)
-                    } else {
-                        let c = pixelImage.getJSTColor(of: t)
-                        ctx.setFillColor(c.toNSColor().cgColor)
-                        if t.equalTo(p) {
-                            ctx.setStrokeColor(.black)
+                    let point = CGPoint(x: Int(centerPoint.x) - Int(hNum) + i, y: Int(centerPoint.y) + Int(vNum) - j)
+                    if point.x > 0 && point.y > 0 && point.x < imageSize.width && point.y < imageSize.height {
+                        let rect = CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)
+                        if !centerPoint.equalTo(point) {
+                            ctx.setFillColor(pixelImage.getJSTColor(of: point).toNSColor().cgColor)
+                            ctx.setStrokeColor(ColorGridView.gridLineColor.cgColor)
+                            ctx.addRect(rect)
+                            ctx.drawPath(using: .fillStroke)
                         } else {
-                            ctx.setStrokeColor(.white)
+                            centralPoints.append((point, rect))
                         }
                     }
-                    ctx.addRect(CGRect(x: CGFloat(i) * s.width, y: CGFloat(j) * s.height, width: s.width, height: s.height))
-                    ctx.drawPath(using: .fillStroke)
                 }
+            }
+            
+            for (point, rect) in centralPoints {
+                ctx.setFillColor(pixelImage.getJSTColor(of: point).toNSColor().cgColor)
+                ctx.setStrokeColor(ColorGridView.gridCenterLineColor.cgColor)
+                ctx.addRect(rect)
+                ctx.drawPath(using: .fillStroke)
             }
         }
         

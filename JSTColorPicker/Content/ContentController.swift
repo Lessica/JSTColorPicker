@@ -40,8 +40,11 @@ enum ContentError: LocalizedError {
 class ContentController: NSViewController {
     
     internal weak var screenshot: Screenshot?
+    fileprivate var content: Content? {
+        return screenshot?.content
+    }
     fileprivate var nextID: Int {
-        if let content = screenshot?.content {
+        if let content = content {
             if let maxID = content.pixelColorCollection.last?.id {
                 return maxID + 1
             }
@@ -69,7 +72,7 @@ extension Array {
 extension ContentController: NSUserInterfaceValidations {
     
     func submitContent(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
-        guard let content = screenshot?.content else {
+        guard let content = content else {
             throw ContentError.noDocument
         }
         if content.pixelColorCollection.count >= Content.maximumPixelCount {
@@ -94,7 +97,7 @@ extension ContentController: NSUserInterfaceValidations {
     }
     
     @IBAction func delete(_ sender: Any) {
-        guard let content = screenshot?.content else { return }
+        guard let content = content else { return }
         let idxs = tableView.selectedRowIndexes
         content.pixelColorCollection.remove(at: idxs)
         tableView.removeRows(at: idxs, withAnimation: .effectFade)
@@ -109,7 +112,7 @@ extension ContentController: NSTableViewDelegate {
 extension ContentController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        guard let content = screenshot?.content else { return 0 }
+        guard let content = content else { return 0 }
         return content.pixelColorCollection.count
     }
     
@@ -118,7 +121,7 @@ extension ContentController: NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let content = screenshot?.content else { return nil }
+        guard let content = content else { return nil }
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
             let col = tableColumn.identifier.rawValue
