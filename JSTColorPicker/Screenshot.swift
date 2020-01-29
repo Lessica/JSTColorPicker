@@ -28,7 +28,7 @@ enum ScreenshotError: LocalizedError {
 protocol ScreenshotLoader: class {
     var screenshot: Screenshot? { get }
     func resetController()
-    func load(screenshot: Screenshot) throws
+    func load(_ screenshot: Screenshot) throws
 }
 
 class Screenshot: NSDocument {
@@ -83,7 +83,7 @@ class Screenshot: NSDocument {
                 let newWindowController = WindowController.newEmptyWindow()
                 addWindowController(newWindowController)
                 do {
-                    try newWindowController.load(screenshot: self)
+                    try newWindowController.load(self)
                 } catch let error {
                     debugPrint(error)
                 }
@@ -96,7 +96,7 @@ class Screenshot: NSDocument {
                 // load in current tab
                 addWindowController(currentWindowController)
                 do {
-                    try currentWindowController.load(screenshot: self)
+                    try currentWindowController.load(self)
                 } catch let error {
                     debugPrint(error)
                 }
@@ -107,7 +107,7 @@ class Screenshot: NSDocument {
             let windowController = appDelegate.reinitializeTabService()
             addWindowController(windowController)
             do {
-                try windowController.load(screenshot: self)
+                try windowController.load(self)
             } catch let error {
                 debugPrint(error)
             }

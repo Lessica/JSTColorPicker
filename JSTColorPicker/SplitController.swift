@@ -140,13 +140,13 @@ extension SplitController: ScreenshotLoader {
         sidebarController.resetController()
     }
     
-    func load(screenshot: Screenshot) throws {
+    func load(_ screenshot: Screenshot) throws {
         resetController()
         self.screenshot = screenshot
         do {
-            try contentController.load(screenshot: screenshot)
-            try sceneController.load(screenshot: screenshot)
-            try sidebarController.load(screenshot: screenshot)
+            try contentController.load(screenshot)
+            try sceneController.load(screenshot)
+            try sidebarController.load(screenshot)
         } catch let error {
             let alert = NSAlert(error: error)
             alert.runModal()
@@ -157,14 +157,26 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentActionDelegate {
     
+    func contentActionAdded(_ item: PixelColor, by controller: ContentController) {
+        sceneController.addAnnotator(for: item)
+    }
+    
     func contentActionSelected(_ item: PixelColor, by controller: ContentController) {
         let point = item.coordinate.toCGPoint()
         _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
+        sceneController.highlightAnnotator(for: item, scrollTo: false)
         sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
     }
     
     func contentActionConfirmed(_ item: PixelColor, by controller: ContentController) {
-        
+        let point = item.coordinate.toCGPoint()
+        _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
+        sceneController.highlightAnnotator(for: item, scrollTo: true)  // scroll
+        sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+    }
+    
+    func contentActionDeleted(_ item: PixelColor, by controller: ContentController) {
+        sceneController.removeAnnotator(for: item)
     }
     
 }

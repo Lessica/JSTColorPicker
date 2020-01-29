@@ -62,6 +62,9 @@ class SceneController: NSViewController {
     weak var trackingObject: SceneTracking?
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
+    @IBOutlet weak var sceneMaskView: SceneScrollMaskView!
+    
+    internal var annotators: [SceneAnnotator] = []
     
     fileprivate var wrapper: SceneImageWrapper? {
         get {
@@ -98,6 +101,8 @@ class SceneController: NSViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(didFinishRestoringWindowsNotification(_:)), name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
+        sceneClipView.postsBoundsChangedNotifications = true
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
@@ -265,12 +270,16 @@ extension SceneController: ScreenshotLoader {
         useSelectedTrackingTool()
     }
     
-    func load(screenshot: Screenshot) throws {
+    func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
         guard let image = screenshot.image else {
             throw ScreenshotError.invalidImage
         }
         renderImage(image)
+        guard let content = screenshot.content else {
+            throw ScreenshotError.invalidContent
+        }
+        try loadAnnotators(from: content)
     }
     
 }
@@ -352,6 +361,36 @@ extension SceneController: TrackingToolDelegate {
             return canMinify
         }
         return true
+    }
+    
+}
+
+extension SceneController: SceneAnnotatorManager {
+    
+    @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
+        
+    }
+    
+    func loadAnnotators(from content: Content) throws {
+        
+    }
+    
+    func addAnnotator(for item: PixelColor) {
+        if !annotators.contains(where: { $0.pixelColor == item }) {
+            let annotator = SceneAnnotator(pixelColor: item)
+            // setup annotator view
+            annotators.append(annotator)
+            debugPrint("add annotator \(item)")
+        }
+    }
+    
+    func removeAnnotator(for item: PixelColor) {
+        annotators.removeAll(where: { $0.pixelColor == item })
+        debugPrint("remove annotator \(item)")
+    }
+    
+    func highlightAnnotator(for item: PixelColor, scrollTo: Bool) {
+        debugPrint("highlight annotator \(item), scroll = \(scrollTo)")
     }
     
 }

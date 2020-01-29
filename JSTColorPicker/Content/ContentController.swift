@@ -38,8 +38,10 @@ enum ContentError: LocalizedError {
 }
 
 protocol ContentActionDelegate: class {
+    func contentActionAdded(_ item: PixelColor, by controller: ContentController)
     func contentActionSelected(_ item: PixelColor, by controller: ContentController)
     func contentActionConfirmed(_ item: PixelColor, by controller: ContentController)
+    func contentActionDeleted(_ item: PixelColor, by controller: ContentController)
 }
 
 class ContentController: NSViewController {
@@ -84,7 +86,7 @@ class ContentController: NSViewController {
 }
 
 extension Array {
-    mutating func remove(at set:IndexSet) {
+    mutating func remove(at set: IndexSet) {
         var arr = Swift.Array(self.enumerated())
         arr.removeAll { set.contains($0.offset) }
         self = arr.map { $0.element }
@@ -105,6 +107,7 @@ extension ContentController: NSUserInterfaceValidations {
             throw ContentError.exists
         }
         let pixel = PixelColor(id: nextID, coordinate: coordinate, color: color)
+        actionDelegate?.contentActionAdded(pixel, by: self)
         content.pixelColorCollection.append(pixel)
         tableView.reloadData()
         return pixel
@@ -120,9 +123,17 @@ extension ContentController: NSUserInterfaceValidations {
     
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
-        let idxs = tableView.selectedRowIndexes
-        content.pixelColorCollection.remove(at: idxs)
-        tableView.removeRows(at: idxs, withAnimation: .effectFade)
+        let selectedIdxs = tableView.selectedRowIndexes
+        var collection = content.pixelColorCollection
+        var toRemove: [PixelColor] = []
+        for selectedIdx in selectedIdxs {
+            toRemove.append(collection[selectedIdx])
+        }
+        collection.remove(at: selectedIdxs)
+        for idxToRemove in toRemove {
+            actionDelegate?.contentActionDeleted(idxToRemove, by: self)
+        }
+        tableView.removeRows(at: selectedIdxs, withAnimation: .effectFade)
     }
     
 }
@@ -168,7 +179,7 @@ extension ContentController: ScreenshotLoader {
         tableView.reloadData()
     }
     
-    func load(screenshot: Screenshot) throws {
+    func load(_ screenshot: Screenshot) throws {
         guard let _ = screenshot.content else {
             throw ScreenshotError.invalidContent
         }

@@ -280,6 +280,10 @@
 }
 #endif
 
+- (NSString *)description {
+    return self.cssString;
+}
+
 - (void)dealloc {
 //#ifdef DEBUG
 //    NSLog(@"- [JSTPixelColor dealloc]");

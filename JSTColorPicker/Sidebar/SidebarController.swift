@@ -110,7 +110,7 @@ Y:
 """
     }
     
-    func load(screenshot: Screenshot) throws {
+    func load(_ screenshot: Screenshot) throws {
         guard let source = screenshot.image?.imageSourceRep, let url = screenshot.fileURL else {
             throw ScreenshotError.invalidImageSource
         }

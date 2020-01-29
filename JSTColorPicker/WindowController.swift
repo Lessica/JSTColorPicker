@@ -191,8 +191,8 @@ extension WindowController: ScreenshotLoader {
         
     }
     
-    func load(screenshot: Screenshot) throws {
-        try viewController.load(screenshot: screenshot)
+    func load(_ screenshot: Screenshot) throws {
+        try viewController.load(screenshot)
     }
     
 }

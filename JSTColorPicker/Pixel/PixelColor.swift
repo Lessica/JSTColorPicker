@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PixelCoordinate {
+struct PixelCoordinate: CustomStringConvertible, Equatable {
     var x: Int
     var y: Int
     init(_ point: CGPoint) {
@@ -17,6 +17,12 @@ struct PixelCoordinate {
     }
     func toCGPoint() -> CGPoint {
         return CGPoint(x: CGFloat(x), y: CGFloat(y))
+    }
+    var description: String {
+        return "(\(x), \(y))"
+    }
+    static func == (lhs: PixelCoordinate, rhs: PixelCoordinate) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
     }
 }
 
@@ -29,5 +35,17 @@ class PixelColor {
         self.id = id
         self.coordinate = coordinate
         self.pixelColorRep = color
+    }
+}
+
+extension PixelColor: Equatable {
+    static func == (lhs: PixelColor, rhs: PixelColor) -> Bool {
+        return lhs.coordinate == rhs.coordinate
+    }
+}
+
+extension PixelColor: CustomStringConvertible {
+    var description: String {
+        return "(\(id): \(coordinate), \(pixelColorRep))"
     }
 }
