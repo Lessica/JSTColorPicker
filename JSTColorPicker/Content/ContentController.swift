@@ -60,17 +60,22 @@ class ContentController: NSViewController {
         return 1
     }
     
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var tableView: ContentTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        tableView.tableViewResponder = self
     }
+    
+}
+
+extension ContentController: ContentTableViewResponder {
     
     @IBAction func tableViewAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.pixelColorCollection else { return }
-        let row = sender.selectedRow
+        let row = tableView.selectedRow
         guard row >= 0 && row < collection.count else { return }
         delegate.contentActionSelected(collection[row], by: self)
     }
@@ -78,7 +83,7 @@ class ContentController: NSViewController {
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.pixelColorCollection else { return }
-        let row = sender.selectedRow
+        let row = tableView.selectedRow
         guard row >= 0 && row < collection.count else { return }
         delegate.contentActionConfirmed(collection[row], by: self)
     }
@@ -124,12 +129,11 @@ extension ContentController: NSUserInterfaceValidations {
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
         let selectedIdxs = tableView.selectedRowIndexes
-        var collection = content.pixelColorCollection
         var toRemove: [PixelColor] = []
         for selectedIdx in selectedIdxs {
-            toRemove.append(collection[selectedIdx])
+            toRemove.append(content.pixelColorCollection[selectedIdx])
         }
-        collection.remove(at: selectedIdxs)
+        content.pixelColorCollection.remove(at: selectedIdxs)
         for idxToRemove in toRemove {
             actionDelegate?.contentActionDeleted(idxToRemove, by: self)
         }
@@ -139,6 +143,10 @@ extension ContentController: NSUserInterfaceValidations {
 }
 
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
+    
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return true
+    }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let content = content else { return 0 }

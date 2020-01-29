@@ -81,7 +81,7 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            self.flagsChanged(with: event)
+            self.windowFlagsChanged(with: event)
             return event
         }
         
@@ -220,7 +220,7 @@ class SceneController: NSViewController {
         }
     }
     
-    override func flagsChanged(with event: NSEvent) {
+    fileprivate func windowFlagsChanged(with event: NSEvent) {
         guard let window = view.window, window.isKeyWindow else { return }
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:

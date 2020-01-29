@@ -8,12 +8,30 @@
 
 import Cocoa
 
+protocol ContentTableViewResponder: class {
+    func tableViewAction(_ sender: ContentTableView)
+    func tableViewDoubleAction(_ sender: ContentTableView)
+}
+
 class ContentTableView: NSTableView {
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
+    
+    weak var tableViewResponder: ContentTableViewResponder?
+    
+    override func keyDown(with event: NSEvent) {
+        guard let specialKey = event.specialKey else {
+            super.keyDown(with: event)
+            return
+        }
+        if specialKey == .carriageReturn || specialKey == .enter {
+            tableViewResponder?.tableViewDoubleAction(self)
+            return
+        }
+        else if specialKey == .upArrow || specialKey == .downArrow {
+            super.keyDown(with: event)
+            tableViewResponder?.tableViewAction(self)
+            return
+        }
+        super.keyDown(with: event)
     }
     
 }
