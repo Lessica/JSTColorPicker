@@ -368,7 +368,17 @@ extension SceneController: TrackingToolDelegate {
 extension SceneController: SceneAnnotatorManager {
     
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
-        
+        updateAnnotatorBounds()
+    }
+    
+    fileprivate func updateAnnotatorBounds() {
+        for annotator in annotators {
+            let item = annotator.pixelColor
+            let pointInImage = CGPoint(x: CGFloat(item.coordinate.x) + 0.5, y: CGFloat(item.coordinate.y) + 0.5)
+            let pointInMask = sceneView.convert(pointInImage, from: wrapper)
+            let maskRect = CGRect(x: pointInMask.x - 5.0, y: pointInMask.y - 5.0, width: 10.0, height: 10.0)
+            annotator.view.frame = maskRect
+        }
     }
     
     func loadAnnotators(from content: Content) throws {
@@ -378,9 +388,10 @@ extension SceneController: SceneAnnotatorManager {
     func addAnnotator(for item: PixelColor) {
         if !annotators.contains(where: { $0.pixelColor == item }) {
             let annotator = SceneAnnotator(pixelColor: item)
-            // setup annotator view
             annotators.append(annotator)
+            sceneView.addSubview(annotator.view)
             debugPrint("add annotator \(item)")
+            updateAnnotatorBounds()
         }
     }
     
