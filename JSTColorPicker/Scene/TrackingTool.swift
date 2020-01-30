@@ -18,6 +18,7 @@ enum TrackingTool: String {
     case cursor = "CursorItem"
     case magnify = "MagnifyItem"
     case minify = "MinifyItem"
+    case move = "MoveItem"
     
     static var magnifyCursor: NSCursor = {
         return NSCursor.init(image: NSImage(named: "JSTMagnifyMIN")!, hotSpot: NSPoint(x: 8, y: 8))
@@ -39,6 +40,23 @@ enum TrackingTool: String {
                 return TrackingTool.magnifyCursor
             } else if self == .minify {
                 return TrackingTool.minifyCursor
+            } else if self == .move {
+                return NSCursor.openHand
+            }
+            return NSCursor.current
+        }
+    }
+    
+    var highlightCursor: NSCursor {
+        get {
+            if self == .cursor {
+                return NSCursor.crosshair
+            } else if self == .magnify {
+                return TrackingTool.magnifyCursor
+            } else if self == .minify {
+                return TrackingTool.minifyCursor
+            } else if self == .move {
+                return NSCursor.closedHand
             }
             return NSCursor.current
         }
@@ -47,11 +65,13 @@ enum TrackingTool: String {
     var disabledCursor: NSCursor {
         get {
             if self == .cursor {
-                return NSCursor.crosshair
+                return NSCursor.operationNotAllowed
             } else if self == .magnify {
                 return TrackingTool.noZoomingCursor
             } else if self == .minify {
                 return TrackingTool.noZoomingCursor
+            } else if self == .move {
+                return NSCursor.operationNotAllowed
             }
             return NSCursor.current
         }

@@ -11,4 +11,9 @@ import Quartz
 
 class SceneImageView: IKImageView {
     /// Use `IKImageView` to enable hardware acceleration
+    
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        return nil
+    }  // disable user interactions
+    
 }

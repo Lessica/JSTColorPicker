@@ -23,11 +23,13 @@ class WindowController: NSWindowController {
     @IBOutlet weak var cursorItem: NSToolbarItem!
     @IBOutlet weak var magnifyItem: NSToolbarItem!
     @IBOutlet weak var minifyItem: NSToolbarItem!
+    @IBOutlet weak var moveItem: NSToolbarItem!
     @IBOutlet weak var fitWindowItem: NSToolbarItem!
     @IBOutlet weak var touchBarCursorItem: NSButton!
     @IBOutlet weak var touchBarMagnifyItem: NSButton!
     @IBOutlet weak var touchBarMinifyItem: NSButton!
     @IBOutlet weak var touchBarFitWindowItem: NSButton!
+    @IBOutlet weak var touchBarMoveItem: NSButton!
     
     fileprivate var viewController: SplitController! {
         return self.window!.contentViewController as? SplitController
@@ -52,13 +54,6 @@ class WindowController: NSWindowController {
         window!.title = "Untitled #\(windowCount)"
         window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
         touchBarUpdateButtonState()
-        
-        openItem.toolTip = "Open Screenshot"
-        cursorItem.toolTip = "Cursor"
-        magnifyItem.toolTip = "Magnifying Glass"
-        minifyItem.toolTip = "Minifying Glass"
-        fitWindowItem.toolTip = "Fit Window"
-        screenshotItem.toolTip = "Snapshot"
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -96,16 +91,25 @@ extension WindowController {
             touchBarCursorItem.state = .on
             touchBarMagnifyItem.state = .off
             touchBarMinifyItem.state = .off
+            touchBarMoveItem.state = .off
         }
         else if identifier == TrackingTool.magnify.rawValue {
             touchBarCursorItem.state = .off
             touchBarMagnifyItem.state = .on
             touchBarMinifyItem.state = .off
+            touchBarMoveItem.state = .off
         }
         else if identifier == TrackingTool.minify.rawValue {
             touchBarCursorItem.state = .off
             touchBarMagnifyItem.state = .off
             touchBarMinifyItem.state = .on
+            touchBarMoveItem.state = .off
+        }
+        else if identifier == TrackingTool.move.rawValue {
+            touchBarCursorItem.state = .off
+            touchBarMagnifyItem.state = .off
+            touchBarMinifyItem.state = .off
+            touchBarMoveItem.state = .on
         }
     }
     
@@ -136,6 +140,11 @@ extension WindowController {
         useMinifyToolAction(sender)
     }
     
+    @IBAction func touchBarUseMoveAction(_ sender: NSButton) {
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.move.rawValue)
+        useMoveToolAction(sender)
+    }
+    
 }
 
 extension WindowController: ToolbarResponder {
@@ -162,6 +171,11 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func useMinifyToolAction(_ sender: Any?) {
         viewController.useMinifyToolAction(sender)
+        touchBarUpdateButtonState()
+    }
+    
+    @IBAction func useMoveToolAction(_ sender: Any?) {
+        viewController.useMoveToolAction(sender)
         touchBarUpdateButtonState()
     }
     

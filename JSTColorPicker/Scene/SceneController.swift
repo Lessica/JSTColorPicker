@@ -190,7 +190,7 @@ class SceneController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
-        
+        // not implemented
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -217,6 +217,9 @@ class SceneController: NSViewController {
                 sceneView.animator().setMagnification(prev, centeredAt: loc)
                 sceneMagnificationChanged(self, toMagnification: prev)
             }
+        }
+        else if trackingTool == .move {
+            
         }
     }
     
@@ -340,6 +343,10 @@ extension SceneController: ToolbarResponder {
         trackingTool = .minify
     }
     
+    func useMoveToolAction(_ sender: Any?) {
+        trackingTool = .move
+    }
+    
     func fitWindowAction(_ sender: Any?) {
         guard let bounds = wrapper?.bounds else { return }
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
@@ -376,7 +383,7 @@ extension SceneController: SceneAnnotatorManager {
             let item = annotator.pixelColor
             let pointInImage = CGPoint(x: CGFloat(item.coordinate.x) + 0.5, y: CGFloat(item.coordinate.y) + 0.5)
             let pointInMask = sceneView.convert(pointInImage, from: wrapper)
-            let maskRect = CGRect(x: pointInMask.x - 16.0, y: pointInMask.y - 16.0, width: 32.0, height: 32.0)
+            let maskRect = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
             annotator.view.frame = maskRect
         }
     }

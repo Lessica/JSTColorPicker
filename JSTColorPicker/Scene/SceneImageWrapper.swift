@@ -48,10 +48,6 @@ class SceneImageWrapper: NSView {
         }
     }
     
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        return nil
-    }  // disable user interactions
-    
     fileprivate func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(rect: visibleRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
@@ -67,14 +63,14 @@ class SceneImageWrapper: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        mouseTrackingToolEvent(with: event)
+        updateCursorDisplay()
         if mouseTrackingEvent(with: event) {
             
         }
     }
     
     override func mouseMoved(with event: NSEvent) {
-        mouseTrackingToolEvent(with: event)
+        updateCursorDisplay()
         if mouseTrackingEvent(with: event) {
             
         }
@@ -97,10 +93,6 @@ class SceneImageWrapper: NSView {
             return trackingDelegate?.mousePositionChanged(self, toPoint: CGPoint(x: curX, y: curY)) ?? false
         }
         return false
-    }
-    
-    fileprivate func mouseTrackingToolEvent(with event: NSEvent) {
-        updateCursorDisplay()
     }
     
     fileprivate func updateCursorDisplay() {

@@ -32,11 +32,11 @@ class SceneAnnotator {
     var isHighlighted: Bool {
         didSet {
             if isHighlighted {
-                backgroundCell.stringValue = "🌕"
-                labelCell.textColor = .black
-            } else {
-                backgroundCell.stringValue = "🌑"
+                backgroundCell.stringValue = "🔴"
                 labelCell.textColor = .white
+            } else {
+                backgroundCell.stringValue = "⚪️"
+                labelCell.textColor = .black
             }
         }
     }

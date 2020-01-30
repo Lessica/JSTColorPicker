@@ -126,6 +126,10 @@ extension SplitController: ToolbarResponder {
         sceneController.useMinifyToolAction(sender)
     }
     
+    func useMoveToolAction(_ sender: Any?) {
+        sceneController.useMoveToolAction(sender)
+    }
+    
     func fitWindowAction(_ sender: Any?) {
         sceneController.fitWindowAction(sender)
     }
