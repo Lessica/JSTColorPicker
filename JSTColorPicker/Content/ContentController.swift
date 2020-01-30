@@ -39,9 +39,9 @@ enum ContentError: LocalizedError {
 
 protocol ContentActionDelegate: class {
     func contentActionAdded(_ item: PixelColor, by controller: ContentController)
-    func contentActionSelected(_ item: PixelColor, by controller: ContentController)
-    func contentActionConfirmed(_ item: PixelColor, by controller: ContentController)
-    func contentActionDeleted(_ item: PixelColor, by controller: ContentController)
+    func contentActionSelected(_ items: [PixelColor], by controller: ContentController)
+    func contentActionConfirmed(_ items: [PixelColor], by controller: ContentController)
+    func contentActionDeleted(_ items: [PixelColor], by controller: ContentController)
 }
 
 class ContentController: NSViewController {
@@ -73,19 +73,20 @@ class ContentController: NSViewController {
 extension ContentController: ContentTableViewResponder {
     
     @IBAction func tableViewAction(_ sender: ContentTableView) {
-        guard let delegate = actionDelegate else { return }
-        guard let collection = content?.pixelColorCollection else { return }
-        let row = tableView.selectedRow
-        guard row >= 0 && row < collection.count else { return }
-        delegate.contentActionSelected(collection[row], by: self)
+        // replaced by -tableViewSelectionDidChange(_:)
     }
     
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.pixelColorCollection else { return }
-        let row = tableView.selectedRow
-        guard row >= 0 && row < collection.count else { return }
-        delegate.contentActionConfirmed(collection[row], by: self)
+        let rows = tableView.selectedRowIndexes
+        var selectedItems: [PixelColor] = []
+        rows.forEach { (row) in
+            if row >= 0 && row < collection.count {
+                selectedItems.append(collection[row])
+            }
+        }
+        delegate.contentActionConfirmed(selectedItems, by: self)
     }
     
 }
@@ -128,24 +129,31 @@ extension ContentController: NSUserInterfaceValidations {
     
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
-        let selectedIdxs = tableView.selectedRowIndexes
-        var toRemove: [PixelColor] = []
-        for selectedIdx in selectedIdxs {
-            toRemove.append(content.pixelColorCollection[selectedIdx])
+        let rows = tableView.selectedRowIndexes
+        var selectedItems: [PixelColor] = []
+        for row in rows {
+            selectedItems.append(content.pixelColorCollection[row])
         }
-        content.pixelColorCollection.remove(at: selectedIdxs)
-        for idxToRemove in toRemove {
-            actionDelegate?.contentActionDeleted(idxToRemove, by: self)
-        }
-        tableView.removeRows(at: selectedIdxs, withAnimation: .effectFade)
+        content.pixelColorCollection.remove(at: rows)
+        actionDelegate?.contentActionDeleted(selectedItems, by: self)
+        tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     
 }
 
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-        return true
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        guard let delegate = actionDelegate else { return }
+        guard let collection = content?.pixelColorCollection else { return }
+        let rows = tableView.selectedRowIndexes
+        var selectedItems: [PixelColor] = []
+        rows.forEach { (row) in
+            if row >= 0 && row < collection.count {
+                selectedItems.append(collection[row])
+            }
+        }
+        delegate.contentActionSelected(selectedItems, by: self)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

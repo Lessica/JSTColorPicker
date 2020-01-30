@@ -26,11 +26,6 @@ class ContentTableView: NSTableView {
             tableViewResponder?.tableViewDoubleAction(self)
             return
         }
-        else if specialKey == .upArrow || specialKey == .downArrow {
-            super.keyDown(with: event)
-            tableViewResponder?.tableViewAction(self)
-            return
-        }
         super.keyDown(with: event)
     }
     

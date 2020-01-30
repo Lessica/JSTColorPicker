@@ -161,22 +161,26 @@ extension SplitController: ContentActionDelegate {
         sceneController.addAnnotator(for: item)
     }
     
-    func contentActionSelected(_ item: PixelColor, by controller: ContentController) {
-        let point = item.coordinate.toCGPoint()
-        _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
-        sceneController.highlightAnnotator(for: item, scrollTo: false)
-        sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+    func contentActionSelected(_ items: [PixelColor], by controller: ContentController) {
+        if let item = items.first {
+            let point = item.coordinate.toCGPoint()
+            _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
+            sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+        }
+        sceneController.highlightAnnotators(for: items, scrollTo: false)
     }
     
-    func contentActionConfirmed(_ item: PixelColor, by controller: ContentController) {
-        let point = item.coordinate.toCGPoint()
-        _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
-        sceneController.highlightAnnotator(for: item, scrollTo: true)  // scroll
-        sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+    func contentActionConfirmed(_ items: [PixelColor], by controller: ContentController) {
+        if let item = items.first {
+            let point = item.coordinate.toCGPoint()
+            _ = trackingObject?.mousePositionChanged(controller, toPoint: point)
+            sidebarController.updateInspector(point: point, color: item.pixelColorRep, submit: true)
+        }
+        sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
     }
     
-    func contentActionDeleted(_ item: PixelColor, by controller: ContentController) {
-        sceneController.removeAnnotator(for: item)
+    func contentActionDeleted(_ items: [PixelColor], by controller: ContentController) {
+        sceneController.removeAnnotators(for: items)
     }
     
 }

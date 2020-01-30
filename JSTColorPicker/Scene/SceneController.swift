@@ -376,7 +376,7 @@ extension SceneController: SceneAnnotatorManager {
             let item = annotator.pixelColor
             let pointInImage = CGPoint(x: CGFloat(item.coordinate.x) + 0.5, y: CGFloat(item.coordinate.y) + 0.5)
             let pointInMask = sceneView.convert(pointInImage, from: wrapper)
-            let maskRect = CGRect(x: pointInMask.x - 5.0, y: pointInMask.y - 5.0, width: 10.0, height: 10.0)
+            let maskRect = CGRect(x: pointInMask.x - 16.0, y: pointInMask.y - 16.0, width: 32.0, height: 32.0)
             annotator.view.frame = maskRect
         }
     }
@@ -388,20 +388,43 @@ extension SceneController: SceneAnnotatorManager {
     func addAnnotator(for item: PixelColor) {
         if !annotators.contains(where: { $0.pixelColor == item }) {
             let annotator = SceneAnnotator(pixelColor: item)
+            annotator.label = "\(item.id)"
             annotators.append(annotator)
-            sceneView.addSubview(annotator.view)
+            sceneMaskView.addSubview(annotator.view)
             debugPrint("add annotator \(item)")
             updateAnnotatorBounds()
+            highlightAnnotators(for: [item], scrollTo: false)
         }
     }
     
-    func removeAnnotator(for item: PixelColor) {
-        annotators.removeAll(where: { $0.pixelColor == item })
-        debugPrint("remove annotator \(item)")
+    func removeAnnotators(for items: [PixelColor]) {
+        annotators.filter({ items.contains($0.pixelColor) }).forEach { (annotator) in
+            annotator.view.removeFromSuperview()
+        }
+        annotators.removeAll(where: { items.contains($0.pixelColor) })
+        debugPrint("remove annotator \(items)")
     }
     
-    func highlightAnnotator(for item: PixelColor, scrollTo: Bool) {
-        debugPrint("highlight annotator \(item), scroll = \(scrollTo)")
+    func highlightAnnotators(for items: [PixelColor], scrollTo: Bool) {
+        annotators.forEach { (annotator) in
+            if items.contains(annotator.pixelColor) {
+                annotator.view.removeFromSuperview()
+                annotator.isHighlighted = true
+                sceneMaskView.addSubview(annotator.view)
+            } else if annotator.isHighlighted {
+                annotator.isHighlighted = false
+            }
+        }
+        if scrollTo {
+            if let coord = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate.toCGPoint() {
+                var point = sceneView.convert(coord, from: wrapper)
+                point.x -= sceneView.bounds.width / 2.0
+                point.y -= sceneView.bounds.height / 2.0
+                let clipMidPoint = sceneClipView.convert(point, from: sceneView)
+                sceneClipView.animator().setBoundsOrigin(clipMidPoint)
+            }
+        }
+        debugPrint("highlight annotator \(items), scroll = \(scrollTo)")
     }
     
 }

@@ -14,4 +14,8 @@ class SceneScrollMaskView: NSView {
         return nil
     }
     
+    override var isFlipped: Bool {
+        return true
+    }
+    
 }

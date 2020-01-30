@@ -12,7 +12,7 @@ protocol SceneAnnotatorManager: class {
     var annotators: [SceneAnnotator] { get }
     func loadAnnotators(from content: Content) throws
     func addAnnotator(for item: PixelColor)
-    func removeAnnotator(for item: PixelColor)
-    func highlightAnnotator(for item: PixelColor, scrollTo: Bool)
+    func removeAnnotators(for items: [PixelColor])
+    func highlightAnnotators(for items: [PixelColor], scrollTo: Bool)
 }
 
