@@ -12,26 +12,22 @@ class SceneScrollView: NSScrollView {
     
     weak var trackingDelegate: SceneTracking?
     weak var trackingToolDelegate: TrackingToolDelegate?
-    fileprivate var trackingArea: NSTrackingArea?
     var trackingTool: TrackingTool {
         didSet {
             updateCursorDisplay()
         }
     }
+    var isBeingManipulated: Bool
+    
+    fileprivate var trackingArea: NSTrackingArea?
     fileprivate var wrapper: SceneImageWrapper {
         return documentView as! SceneImageWrapper
     }
-    
-    fileprivate var allowsMagnify: Bool
-    fileprivate var allowsMinify: Bool
-    fileprivate var isBeingManipulated: Bool
     
     fileprivate var prevX: Int
     fileprivate var prevY: Int
     
     required init?(coder: NSCoder) {
-        allowsMagnify = true
-        allowsMinify = true
         isBeingManipulated = false
         trackingTool = .cursor
         prevX = NSNotFound

@@ -14,4 +14,5 @@ protocol ToolbarResponder {
     func useMinifyToolAction(_ sender: Any?)
     func useMoveToolAction(_ sender: Any?)
     func fitWindowAction(_ sender: Any?)
+    func fillWindowAction(_ sender: Any?)
 }

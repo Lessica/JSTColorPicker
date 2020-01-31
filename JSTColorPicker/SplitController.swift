@@ -134,6 +134,10 @@ extension SplitController: ToolbarResponder {
         sceneController.fitWindowAction(sender)
     }
     
+    func fillWindowAction(_ sender: Any?) {
+        sceneController.fillWindowAction(sender)
+    }
+    
 }
 
 extension SplitController: ScreenshotLoader {

@@ -58,17 +58,16 @@ class SceneController: NSViewController {
         64.00, 128.0
     ]
     
-    internal weak var screenshot: Screenshot?
     weak var trackingObject: SceneTracking?
+    internal weak var screenshot: Screenshot?
+    internal var annotators: [SceneAnnotator] = []
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     @IBOutlet weak var sceneMaskView: SceneScrollMaskView!
-    
-    internal var annotators: [SceneAnnotator] = []
-    
     fileprivate var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
     }
+    fileprivate var windowActiveNotificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,15 +88,18 @@ class SceneController: NSViewController {
         sceneView.horizontalScrollElasticity = .allowed
         sceneView.verticalRulerView?.measurementUnits = .points
         sceneView.horizontalRulerView?.measurementUnits = .points
-        // `sceneView.documentCursor` is not what we need
+        // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
-        
         resetController()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didFinishRestoringWindowsNotification(_:)), name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
+        
+        windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
+            _ = self.useSelectedTrackingTool()
+        }
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
@@ -127,7 +129,7 @@ class SceneController: NSViewController {
         sceneView.documentView = wrapper
         
         sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
-        useSelectedTrackingTool()
+        _ = useSelectedTrackingTool()
     }
     
     fileprivate var trackingTool: TrackingTool {
@@ -219,31 +221,39 @@ class SceneController: NSViewController {
         guard let window = view.window, window.isKeyWindow else { return }
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:
-            useOptionModifiedTrackingTool()
+            _ = useOptionModifiedTrackingTool()
         case [.command]:
-            useCommandModifiedTrackingTool()
+            _ = useCommandModifiedTrackingTool()
         default:
-            useSelectedTrackingTool()
+            _ = useSelectedTrackingTool()
         }
     }
     
-    fileprivate func useOptionModifiedTrackingTool() {
+    fileprivate func useOptionModifiedTrackingTool() -> Bool {
+        if sceneView.isBeingManipulated { return false }
         if trackingTool == .magnify {
             trackingTool = .minify
+            return true
         }
         else if trackingTool == .minify {
             trackingTool = .magnify
+            return true
         }
+        return false
     }
     
-    fileprivate func useCommandModifiedTrackingTool() {
-        if trackingTool == .magnify || trackingTool == .minify {
+    fileprivate func useCommandModifiedTrackingTool() -> Bool {
+        if sceneView.isBeingManipulated { return false }
+        if trackingTool == .magnify || trackingTool == .minify || trackingTool == .move {
             trackingTool = .cursor
+            return true
         }
+        return false
     }
     
-    fileprivate func useSelectedTrackingTool() {
+    fileprivate func useSelectedTrackingTool() -> Bool {
         trackingTool = selectedTrackingTool
+        return true
     }
     
     deinit {
@@ -262,7 +272,7 @@ extension SceneController: ScreenshotLoader {
         sceneView.documentView = SceneImageWrapper()
         
         sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
-        useSelectedTrackingTool()
+        _ = useSelectedTrackingTool()
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -340,8 +350,18 @@ extension SceneController: ToolbarResponder {
     }
     
     func fitWindowAction(_ sender: Any?) {
+        let fitBounds = wrapper.bounds
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: wrapper.bounds)
+            self.sceneView.animator().magnify(toFit: fitBounds)
+        }) {
+            self.sceneMagnificationChangedProgrammatically()
+        }
+    }
+    
+    func fillWindowAction(_ sender: Any?) {
+        let fillBounds = sceneView.bounds.aspectFit(in: wrapper.bounds)
+        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+            self.sceneView.animator().magnify(toFit: fillBounds)
         }) {
             self.sceneMagnificationChangedProgrammatically()
         }

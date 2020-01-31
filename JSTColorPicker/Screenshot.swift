@@ -53,10 +53,17 @@ class Screenshot: NSDocument {
         let image = try PixelImage.init(contentsOf: url)
         self.image = image
         self.content = Content()
+        // TODO: read external fields from png
+    }
+    
+    override func data(ofType typeName: String) throws -> Data {
+        return Data()
+        // TODO: write external fields from png
     }
     
     override var isDocumentEdited: Bool {
         return false
+        // TODO: document edit status
     }
     
     override var hasUndoManager: Bool {
@@ -66,10 +73,12 @@ class Screenshot: NSDocument {
         set {
             super.hasUndoManager = newValue
         }
+        // TODO: undo & redo
     }
     
     override class var autosavesInPlace: Bool {
         return false
+        // TODO: document auto saves
     }
     
     override func makeWindowControllers() {
