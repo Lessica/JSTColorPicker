@@ -16,4 +16,8 @@ class SceneImageView: IKImageView {
         return nil
     }  // disable user interactions
     
+    override func cursorUpdate(with event: NSEvent) {
+        // do not perform default behavior
+    }
+    
 }

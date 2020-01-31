@@ -40,6 +40,7 @@
 		D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841623D3E42400BC5E34 /* libpng16.a */; };
 		D684842223D4105100BC5E34 /* ColorGrid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* ColorGrid.storyboard */; };
 		D684842423D4106900BC5E34 /* ColorGridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* ColorGridWindowController.swift */; };
+		D6A3EA4123E40A6F008F53DC /* SceneAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* SceneAnnotatorView.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
 		D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
@@ -246,6 +247,7 @@
 		D684841A23D3E4CB00BC5E34 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		D684842123D4105100BC5E34 /* ColorGrid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorGrid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* ColorGridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridWindowController.swift; sourceTree = "<group>"; };
+		D6A3EA4023E40A6F008F53DC /* SceneAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneAnnotatorView.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
 		D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarResponder.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
 				D6E2455E23E186260012BE5F /* SceneAnnotator.swift */,
 				D6E2455C23E153340012BE5F /* SceneAnnotatorManager.swift */,
+				D6A3EA4023E40A6F008F53DC /* SceneAnnotatorView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -685,6 +688,7 @@
 				D684842423D4106900BC5E34 /* ColorGridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
+				D6A3EA4123E40A6F008F53DC /* SceneAnnotatorView.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,

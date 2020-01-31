@@ -45,12 +45,12 @@ class SceneAnnotator {
             labelCell.stringValue = label
         }
     }
-    var view: NSView
+    var view: SceneAnnotatorView
     fileprivate var backgroundCell: VerticallyCenteredTextFieldCell
     fileprivate var labelCell: VerticallyCenteredTextFieldCell
     
     init(pixelColor: PixelColor) {
-        let view = NSView()
+        let view = SceneAnnotatorView()
         
         let backgroundCell = VerticallyCenteredTextFieldCell()
         backgroundCell.isEditable = false

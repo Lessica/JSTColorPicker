@@ -66,13 +66,8 @@ class SceneController: NSViewController {
     
     internal var annotators: [SceneAnnotator] = []
     
-    fileprivate var wrapper: SceneImageWrapper? {
-        get {
-            if let wrapper = sceneView.documentView as? SceneImageWrapper {
-                return wrapper
-            }
-            return nil
-        }
+    fileprivate var wrapper: SceneImageWrapper {
+        return sceneView.documentView as! SceneImageWrapper
     }
     
     override func viewDidLoad() {
@@ -90,8 +85,8 @@ class SceneController: NSViewController {
         sceneView.hasVerticalRuler = true
         sceneView.hasHorizontalRuler = true
         sceneView.rulersVisible = true
-        sceneView.verticalScrollElasticity = .none
-        sceneView.horizontalScrollElasticity = .none
+        sceneView.verticalScrollElasticity = .allowed
+        sceneView.horizontalScrollElasticity = .allowed
         sceneView.verticalRulerView?.measurementUnits = .points
         sceneView.horizontalRulerView?.measurementUnits = .points
         // `sceneView.documentCursor` is not what we need
@@ -123,13 +118,12 @@ class SceneController: NSViewController {
         imageView.frame = initialRect
         imageView.zoomImageToFit(imageView)
         
-        let wrapper = SceneImageWrapper(frame: initialRect)
-        wrapper.trackingDelegate = self
-        wrapper.trackingToolDelegate = self
-        wrapper.addSubview(imageView)
-        
+        sceneView.trackingDelegate = self
+        sceneView.trackingToolDelegate = self
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
+        let wrapper = SceneImageWrapper(frame: initialRect)
+        wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
         
         sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
@@ -138,11 +132,10 @@ class SceneController: NSViewController {
     
     fileprivate var trackingTool: TrackingTool {
         get {
-            guard let tool = wrapper?.trackingTool else { return .arrow }
-            return tool
+            return sceneView.trackingTool
         }
         set {
-            wrapper?.trackingTool = newValue
+            sceneView.trackingTool = newValue
         }
     }
     
@@ -190,10 +183,12 @@ class SceneController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
         // not implemented
     }
     
     override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
         guard let documentView = sceneView.documentView else { return }
         let loc = documentView.convert(event.locationInWindow, from: nil)
         if !NSPointInRect(loc, documentView.bounds) { return }
@@ -217,9 +212,6 @@ class SceneController: NSViewController {
                 sceneView.animator().setMagnification(prev, centeredAt: loc)
                 sceneMagnificationChanged(self, toMagnification: prev)
             }
-        }
-        else if trackingTool == .move {
-            
         }
     }
     
@@ -348,9 +340,8 @@ extension SceneController: ToolbarResponder {
     }
     
     func fitWindowAction(_ sender: Any?) {
-        guard let bounds = wrapper?.bounds else { return }
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: bounds)
+            self.sceneView.animator().magnify(toFit: wrapper.bounds)
         }) {
             self.sceneMagnificationChangedProgrammatically()
         }
@@ -422,13 +413,15 @@ extension SceneController: SceneAnnotatorManager {
                 annotator.isHighlighted = false
             }
         }
-        if scrollTo {
+        if scrollTo {  // scroll without changing magnification
             if let coord = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate.toCGPoint() {
-                var point = sceneView.convert(coord, from: wrapper)
-                point.x -= sceneView.bounds.width / 2.0
-                point.y -= sceneView.bounds.height / 2.0
-                let clipMidPoint = sceneClipView.convert(point, from: sceneView)
-                sceneClipView.animator().setBoundsOrigin(clipMidPoint)
+                if !wrapper.visibleRect.contains(coord) {  // scroll if not visible
+                    var point = sceneView.convert(coord, from: wrapper)
+                    point.x -= sceneView.bounds.width / 2.0
+                    point.y -= sceneView.bounds.height / 2.0
+                    let clipMidPoint = sceneClipView.convert(point, from: sceneView)
+                    sceneClipView.animator().setBoundsOrigin(clipMidPoint)
+                }
             }
         }
         debugPrint("highlight annotator \(items), scroll = \(scrollTo)")
