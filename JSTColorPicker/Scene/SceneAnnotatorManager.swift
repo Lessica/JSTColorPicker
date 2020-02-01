@@ -11,7 +11,7 @@ import Foundation
 protocol SceneAnnotatorManager: class {
     var annotators: [SceneAnnotator] { get }
     func loadAnnotators(from content: Content) throws
-    func addAnnotator(for item: PixelColor)
+    func addAnnotators(for items: [PixelColor])
     func removeAnnotators(for items: [PixelColor])
     func highlightAnnotators(for items: [PixelColor], scrollTo: Bool)
 }

@@ -4,6 +4,21 @@
 
 @implementation JSTPixelColor
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    uint8_t red   = (uint8_t)[coder decodeIntForKey:@"red"];
+    uint8_t green = (uint8_t)[coder decodeIntForKey:@"green"];
+    uint8_t blue  = (uint8_t)[coder decodeIntForKey:@"blue"];
+    uint8_t alpha = (uint8_t)[coder decodeIntForKey:@"alpha"];
+    return [self initWithRed:red green:green blue:blue alpha:alpha];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInt:(int)self.red   forKey:@"red"];
+    [coder encodeInt:(int)self.green forKey:@"green"];
+    [coder encodeInt:(int)self.blue  forKey:@"blue"];
+    [coder encodeInt:(int)self.alpha forKey:@"alpha"];
+}
+
 + (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
 {
     return [[[JSTPixelColor alloc] initWithRed:red green:green blue:blue alpha:alpha] autorelease];

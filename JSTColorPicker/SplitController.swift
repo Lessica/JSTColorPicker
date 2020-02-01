@@ -165,8 +165,8 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentActionDelegate {
     
-    func contentActionAdded(_ item: PixelColor, by controller: ContentController) {
-        sceneController.addAnnotator(for: item)
+    func contentActionAdded(_ items: [PixelColor], by controller: ContentController) {
+        sceneController.addAnnotators(for: items)
     }
     
     func contentActionSelected(_ items: [PixelColor], by controller: ContentController) {

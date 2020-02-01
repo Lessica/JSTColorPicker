@@ -403,16 +403,18 @@ extension SceneController: SceneAnnotatorManager {
         
     }
     
-    func addAnnotator(for item: PixelColor) {
-        if !annotators.contains(where: { $0.pixelColor == item }) {
-            let annotator = SceneAnnotator(pixelColor: item)
-            annotator.label = "\(item.id)"
-            annotators.append(annotator)
-            sceneMaskView.addSubview(annotator.view)
-            debugPrint("add annotator \(item)")
-            updateAnnotatorBounds()
-            highlightAnnotators(for: [item], scrollTo: false)
+    func addAnnotators(for items: [PixelColor]) {
+        items.forEach { (item) in
+            if !annotators.contains(where: { $0.pixelColor == item }) {
+                let annotator = SceneAnnotator(pixelColor: item)
+                annotator.label = "\(item.id)"
+                annotators.append(annotator)
+                sceneMaskView.addSubview(annotator.view)
+            }
         }
+        debugPrint("add annotators \(items)")
+        updateAnnotatorBounds()
+        highlightAnnotators(for: items, scrollTo: false)
     }
     
     func removeAnnotators(for items: [PixelColor]) {
@@ -420,7 +422,7 @@ extension SceneController: SceneAnnotatorManager {
             annotator.view.removeFromSuperview()
         }
         annotators.removeAll(where: { items.contains($0.pixelColor) })
-        debugPrint("remove annotator \(items)")
+        debugPrint("remove annotators \(items)")
     }
     
     func highlightAnnotators(for items: [PixelColor], scrollTo: Bool) {
@@ -444,7 +446,7 @@ extension SceneController: SceneAnnotatorManager {
                 }
             }
         }
-        debugPrint("highlight annotator \(items), scroll = \(scrollTo)")
+        debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
     }
     
 }

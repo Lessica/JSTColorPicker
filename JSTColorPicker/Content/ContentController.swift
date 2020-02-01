@@ -38,7 +38,7 @@ enum ContentError: LocalizedError {
 }
 
 protocol ContentActionDelegate: class {
-    func contentActionAdded(_ item: PixelColor, by controller: ContentController)
+    func contentActionAdded(_ items: [PixelColor], by controller: ContentController)
     func contentActionSelected(_ items: [PixelColor], by controller: ContentController)
     func contentActionConfirmed(_ items: [PixelColor], by controller: ContentController)
     func contentActionDeleted(_ items: [PixelColor], by controller: ContentController)
@@ -68,6 +68,22 @@ class ContentController: NSViewController {
         tableView.tableViewResponder = self
     }
     
+    deinit {
+        debugPrint("- [ContentController deinit]")
+    }
+    
+}
+
+extension Array {
+    mutating func remove(at set: IndexSet) {
+        var arr = Swift.Array(self.enumerated())
+        arr.removeAll { set.contains($0.offset) }
+        self = arr.map { $0.element }
+    }
+}
+
+extension ContentController {
+    
 }
 
 extension ContentController: ContentTableViewResponder {
@@ -91,15 +107,15 @@ extension ContentController: ContentTableViewResponder {
     
 }
 
-extension Array {
-    mutating func remove(at set: IndexSet) {
-        var arr = Swift.Array(self.enumerated())
-        arr.removeAll { set.contains($0.offset) }
-        self = arr.map { $0.element }
-    }
-}
-
 extension ContentController: NSUserInterfaceValidations {
+    
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(delete(_:)) {
+            let idxs = tableView.selectedRowIndexes
+            return idxs.count > 0
+        }
+        return false
+    }
     
     func submitContent(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
         guard let content = content else {
@@ -113,18 +129,10 @@ extension ContentController: NSUserInterfaceValidations {
             throw ContentError.exists
         }
         let pixel = PixelColor(id: nextID, coordinate: coordinate, color: color)
-        actionDelegate?.contentActionAdded(pixel, by: self)
+        actionDelegate?.contentActionAdded([pixel], by: self)
         content.pixelColorCollection.append(pixel)
         tableView.reloadData()
         return pixel
-    }
-    
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(delete(_:)) {
-            let idxs = tableView.selectedRowIndexes
-            return idxs.count > 0
-        }
-        return false
     }
     
     @IBAction func delete(_ sender: Any) {

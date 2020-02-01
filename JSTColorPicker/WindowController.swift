@@ -236,6 +236,10 @@ extension WindowController: NSWindowDelegate {
         gridWindowController?.activeWindowController = self
     }
     
+    func windowWillReturnUndoManager(_ window: NSWindow) -> UndoManager? {
+        return screenshot?.undoManager
+    }
+    
 }
 
 extension WindowController: ScreenshotLoader {

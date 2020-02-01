@@ -66,16 +66,6 @@ class Screenshot: NSDocument {
         // TODO: document edit status
     }
     
-    override var hasUndoManager: Bool {
-        get {
-            return true
-        }
-        set {
-            super.hasUndoManager = newValue
-        }
-        // TODO: undo & redo
-    }
-    
     override class var autosavesInPlace: Bool {
         return false
         // TODO: document auto saves
