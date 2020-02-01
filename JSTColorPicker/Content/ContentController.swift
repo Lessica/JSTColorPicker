@@ -159,6 +159,9 @@ extension ContentController: NSUserInterfaceValidations {
             let idxs = tableView.selectedRowIndexes
             return idxs.count > 0
         }
+        else if item.action == #selector(copy(_:)) {
+            return true
+        }
         return false
     }
     
@@ -189,6 +192,26 @@ extension ContentController: NSUserInterfaceValidations {
         }
         deleteContentItems(selectedItems)
         tableView.removeRows(at: rows, withAnimation: .effectFade)
+    }
+    
+    @IBAction func copy(_ sender: Any) {
+        guard let content = content else { return }
+        let collection = content.items
+        let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        var selectedItems: [PixelColor] = []
+        for row in rows {
+            selectedItems.append(collection[row])
+        }
+        
+        // TODO: export using template
+        var outputString = ""
+        outputString += "{\n"
+        selectedItems.forEach({ outputString += "  { \($0.coordinate.x), \($0.coordinate.y), \($0.pixelColorRep.hexString) },  -- \($0.id)\n" })
+        outputString += "}"
+        
+        let pasteboard = NSPasteboard.general
+        pasteboard.declareTypes([.string], owner: nil)
+        pasteboard.setString(outputString, forType: .string)
     }
     
 }

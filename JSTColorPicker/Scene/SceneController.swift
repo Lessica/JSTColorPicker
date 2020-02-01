@@ -72,6 +72,7 @@ class SceneController: NSViewController {
         7.000, 8.000, 12.00, 16.00, 32.00,
         64.00, 128.0
     ]
+    fileprivate static let minimumRecognizablePixelWidth: CGFloat = 10.0
     
     weak var trackingObject: SceneTracking?
     internal weak var screenshot: Screenshot?
@@ -246,7 +247,7 @@ class SceneController: NSViewController {
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !NSPointInRect(loc, wrapper.bounds) { return }
+        if !wrapper.visibleRect.contains(loc) { return }
         if trackingTool == .cursor {
             _ = cursorApply(at: loc)
         }
@@ -300,10 +301,6 @@ class SceneController: NSViewController {
     
     fileprivate func moveMouse(by direction: NSEvent.SpecialKey, from location: CGPoint) -> Bool {
         
-        guard let window = wrapper.window else { return false }
-        guard let mainScreen = window.screen else { return false }
-        guard let displayID = mainScreen.displayID else { return false }
-        
         var simulatedSize = CGSize.zero
         switch direction {
         case NSEvent.SpecialKey.upArrow:
@@ -316,12 +313,19 @@ class SceneController: NSViewController {
             simulatedSize.width  += 1.0
         default: break
         }
+        let convertedSize = wrapper.convert(simulatedSize, to: nil)
+        guard abs(convertedSize.width + convertedSize.height) > SceneController.minimumRecognizablePixelWidth else { return false }
         
         var simulatedPoint = location.toPixelCenterCGPoint()
         simulatedPoint.x += simulatedSize.width
         simulatedPoint.y += simulatedSize.height
         
+        // TODO: make target point visible
         guard wrapper.visibleRect.contains(simulatedPoint) else { return false }
+        
+        guard let window = wrapper.window else { return false }
+        guard let mainScreen = window.screen else { return false }
+        guard let displayID = mainScreen.displayID else { return false }
         
         let convertedWindowPoint = wrapper.convert(simulatedPoint, to: nil)
         let convertedScreenPoint = window.convertPoint(toScreen: convertedWindowPoint)
@@ -341,7 +345,7 @@ class SceneController: NSViewController {
      
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !NSPointInRect(loc, wrapper.bounds) { return false }
+        if !wrapper.visibleRect.contains(loc) { return false }
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
@@ -349,6 +353,10 @@ class SceneController: NSViewController {
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
                     return cursorApply(at: loc)
+                }
+                else if specialKey == .delete {
+                    // TODO: find annotator (by actual view size) and delete it
+                    return true
                 }
             }
             else if let characters = event.characters {
@@ -400,7 +408,7 @@ extension SceneController: SceneTracking {
     
     func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
         let relPoint = sceneView.convert(point, from: wrapper)
-        if !NSPointInRect(relPoint, sceneView.bounds) {
+        if !sceneView.bounds.contains(relPoint) {
             return false
         }
         return trackingObject?.mousePositionChanged(sender, toPoint: point) ?? false
