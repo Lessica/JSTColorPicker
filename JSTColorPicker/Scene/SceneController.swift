@@ -47,6 +47,12 @@ extension CGRect {
     
 }
 
+extension NSScreen {
+    var displayID: CGDirectDisplayID? {
+        return deviceDescription[NSDeviceDescriptionKey.init(rawValue: "NSScreenNumber")] as? CGDirectDisplayID
+    }
+}
+
 class SceneController: NSViewController {
     
     fileprivate static let minimumZoomingFactor: CGFloat = 0.25
@@ -75,7 +81,17 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            self.windowFlagsChanged(with: event)
+            if self.windowFlagsChanged(with: event) {
+                return nil
+            }
+            return event
+        }
+        
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
+            if self.windowKeyDown(with: event) {
+                return nil
+            }
             return event
         }
         
@@ -189,36 +205,47 @@ class SceneController: NSViewController {
         // not implemented
     }
     
-    override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-        guard let documentView = sceneView.documentView else { return }
-        let loc = documentView.convert(event.locationInWindow, from: nil)
-        if !NSPointInRect(loc, documentView.bounds) { return }
-        if trackingTool == .cursor {
-            mouseClicked(self, atPoint: loc)
+    fileprivate func cursorApply(at location: CGPoint) {
+        mouseClicked(self, atPoint: location)
+    }
+    
+    fileprivate func magnifyToolApply(at location: CGPoint) {
+        if !canMagnify {
+            return
         }
-        else if trackingTool == .magnify {
-            if !canMagnify {
-                return
-            }
-            if let next = nextMagnificationFactor {
-                sceneView.animator().setMagnification(next, centeredAt: loc)
-                sceneMagnificationChanged(self, toMagnification: next)
-            }
-        }
-        else if trackingTool == .minify {
-            if !canMinify {
-                return
-            }
-            if let prev = prevMagnificationFactor {
-                sceneView.animator().setMagnification(prev, centeredAt: loc)
-                sceneMagnificationChanged(self, toMagnification: prev)
-            }
+        if let next = nextMagnificationFactor {
+            sceneView.animator().setMagnification(next, centeredAt: location)
+            sceneMagnificationChanged(self, toMagnification: next)
         }
     }
     
-    fileprivate func windowFlagsChanged(with event: NSEvent) {
-        guard let window = view.window, window.isKeyWindow else { return }
+    fileprivate func minifyToolApply(at location: CGPoint) {
+        if !canMinify {
+            return
+        }
+        if let prev = prevMagnificationFactor {
+            sceneView.animator().setMagnification(prev, centeredAt: location)
+            sceneMagnificationChanged(self, toMagnification: prev)
+        }
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        if !NSPointInRect(loc, wrapper.bounds) { return }
+        if trackingTool == .cursor {
+            cursorApply(at: loc)
+        }
+        else if trackingTool == .magnify {
+            magnifyToolApply(at: loc)
+        }
+        else if trackingTool == .minify {
+            minifyToolApply(at: loc)
+        }
+    }
+    
+    fileprivate func windowFlagsChanged(with event: NSEvent) -> Bool {
+        guard let window = view.window, window.isKeyWindow else { return false }
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:
             _ = useOptionModifiedTrackingTool()
@@ -227,6 +254,7 @@ class SceneController: NSViewController {
         default:
             _ = useSelectedTrackingTool()
         }
+        return false
     }
     
     fileprivate func useOptionModifiedTrackingTool() -> Bool {
@@ -254,6 +282,39 @@ class SceneController: NSViewController {
     fileprivate func useSelectedTrackingTool() -> Bool {
         trackingTool = selectedTrackingTool
         return true
+    }
+    
+    fileprivate func moveMouse(by direction: NSEvent.SpecialKey, from location: CGPoint) {
+        // TODO: not implemented, move cursor by point
+        debugPrint("not implemented, move cursor by point")
+    }
+    
+    fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
+        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        if !NSPointInRect(loc, wrapper.bounds) { return false }
+        if event.modifierFlags.contains(.command) {
+            if let specialKey = event.specialKey {
+                if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
+                    moveMouse(by: specialKey, from: loc)
+                    return true
+                }
+                else if specialKey == .enter || specialKey == .carriageReturn {
+                    cursorApply(at: loc)
+                    return true
+                }
+            }
+            else if let characters = event.characters {
+                if characters.contains("-") {
+                    minifyToolApply(at: loc)
+                    return true
+                }
+                else if characters.contains("=") {
+                    magnifyToolApply(at: loc)
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     deinit {
