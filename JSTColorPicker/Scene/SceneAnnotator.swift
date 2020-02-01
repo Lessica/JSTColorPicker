@@ -96,6 +96,9 @@ class SceneAnnotator {
         
         view.alphaValue = 0.85
         
+        backgroundCell.stringValue = "⚪️"
+        labelCell.textColor = .black
+        
         // setup view
         self.pixelColor = pixelColor
         self.isHighlighted = false

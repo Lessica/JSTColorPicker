@@ -400,7 +400,7 @@ extension SceneController: SceneAnnotatorManager {
     }
     
     func loadAnnotators(from content: Content) throws {
-        
+        addAnnotators(for: content.items)
     }
     
     func addAnnotators(for items: [PixelColor]) {
@@ -414,7 +414,6 @@ extension SceneController: SceneAnnotatorManager {
         }
         debugPrint("add annotators \(items)")
         updateAnnotatorBounds()
-        highlightAnnotators(for: items, scrollTo: false)
     }
     
     func removeAnnotators(for items: [PixelColor]) {

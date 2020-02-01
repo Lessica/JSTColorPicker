@@ -16,16 +16,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let colorGridController = ColorGridWindowController.newGrid()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
         deviceService.delegate = self
         resetDevicesMenu()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
+        // TODO: maybe it is better to stay in dock?
         return true
     }
     
@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        // FIXME: color grid window is not considered
         return true
     }
     
@@ -79,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let selectedDeviceUDID = selectedDeviceUDID {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
-                loadingAlert.messageText = "Waiting for device"
+                loadingAlert.messageText = "Waiting for device"  // TODO: to be localized
                 loadingAlert.informativeText = "Downloading screenshot from device..."
                 loadingAlert.addButton(withTitle: "Cancel")
                 loadingAlert.alertStyle = .informational
@@ -90,10 +91,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         let alert = NSAlert(error: error)
                         windowController.showSheet(alert, completionHandler: nil)
                     } else if let data = data {
-                        var picturesURL = picturesDirectory
-                        picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
-                        picturesURL.appendPathExtension(AppDelegate.fileExtensionForScreenshotType(type))
                         do {
+                            var picturesURL = picturesDirectory.appendingPathComponent("JSTColorPicker")
+                            var isDirectory: ObjCBool = false
+                            if !FileManager.default.fileExists(atPath: picturesURL.path, isDirectory: &isDirectory) {
+                                try FileManager.default.createDirectory(at: picturesURL, withIntermediateDirectories: true, attributes: nil)
+                            }
+                            picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
+                            picturesURL.appendPathExtension(AppDelegate.fileExtensionForScreenshotType(type))
                             try data.write(to: picturesURL)
                             NSDocumentController.shared.openDocument(withContentsOf: picturesURL, display: true) { (document, documentWasAlreadyOpen, error) in
                                 if let error = error {
@@ -140,6 +145,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             colorGridController.showWindow(sender)
         }
+    }
+    
+    @IBAction func preferencesItemTapped(_ sender: Any?) {
+        let alert = NSAlert()
+        alert.messageText = "Not Implemented"
+        alert.informativeText = "Preferences panel is not designed yet."
+        alert.addButton(withTitle: "OK")
+        alert.alertStyle = .informational
+        alert.runModal()
     }
     
 }

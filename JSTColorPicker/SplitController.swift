@@ -168,6 +168,7 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionAdded(_ items: [PixelColor], by controller: ContentController) {
         sceneController.addAnnotators(for: items)
+        sceneController.highlightAnnotators(for: items, scrollTo: false)
     }
     
     func contentActionSelected(_ items: [PixelColor], by controller: ContentController) {

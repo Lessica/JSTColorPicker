@@ -8,11 +8,12 @@
 
 import Foundation
 
-class Content {
+class Content: NSObject {
     static let maximumCount = 99
     var items: [PixelColor] = []  // ordered by id asc
     
-    init() {
+    override init() {
+        super.init()
         // default empty init
     }
     required init?(coder: NSCoder) {

@@ -36,7 +36,7 @@ extension PixelCoordinate: Equatable {
     }
 }
 
-class PixelColor {
+class PixelColor: NSObject {
     var id: Int
     var coordinate: PixelCoordinate
     var pixelColorRep: JSTPixelColor
@@ -70,7 +70,7 @@ extension PixelColor: NSCoding {
     }
 }
 
-extension PixelColor: Equatable {
+extension PixelColor /*: Equatable*/ {
     static func == (lhs: PixelColor, rhs: PixelColor) -> Bool {
         return lhs.coordinate == rhs.coordinate
     }
@@ -82,8 +82,8 @@ extension PixelColor: Comparable {
     }
 }
 
-extension PixelColor: CustomStringConvertible {
-    var description: String {
+extension PixelColor /*: CustomStringConvertible*/ {
+    override var description: String {
         return "(\(id): \(coordinate), \(pixelColorRep))"
     }
 }

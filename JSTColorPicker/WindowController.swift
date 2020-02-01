@@ -71,8 +71,11 @@ class WindowController: NSWindowController {
         inspectWindowHierarchy()
     }
     
-    override func synchronizeWindowTitleWithDocumentName() {
-        // do nothing
+    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
+        if let title = window?.title {
+            return title
+        }
+        return displayName
     }
     
     override func keyDown(with event: NSEvent) {
