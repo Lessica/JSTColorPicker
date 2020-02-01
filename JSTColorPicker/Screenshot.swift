@@ -61,11 +61,6 @@ class Screenshot: NSDocument {
         // TODO: write external fields from png
     }
     
-    override var isDocumentEdited: Bool {
-        return false
-        // TODO: document edit status
-    }
-    
     override class var autosavesInPlace: Bool {
         return false
         // TODO: document auto saves

@@ -95,12 +95,11 @@ extension SplitController: SceneTracking {
         let color = image.pixelImageRep.getJSTColor(of: point)
         sidebarController.updateInspector(point: point, color: color, submit: true)
         do {
-            _ = try contentController.submitContent(point: point, color: color)
+            _ = try contentController.submitItem(point: point, color: color)
         } catch let error {
             let alert = NSAlert(error: error)
             alert.runModal()
         }
-        // TODO: implement Content protocol
     }
     
     func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
@@ -156,8 +155,10 @@ extension SplitController: ScreenshotLoader {
             try sceneController.load(screenshot)
             try sidebarController.load(screenshot)
         } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
+            if let _ = screenshot.fileURL {
+                let alert = NSAlert(error: error)
+                alert.runModal()
+            }
         }
     }
     

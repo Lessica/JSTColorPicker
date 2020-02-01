@@ -55,6 +55,10 @@ class PixelColor {
         self.coordinate = PixelCoordinate(x: coordX, y: coordY)
         self.pixelColorRep = pixelColorRep
     }
+    
+    deinit {
+        debugPrint("- [PixelColor deinit]")
+    }
 }
 
 extension PixelColor: NSCoding {
@@ -69,6 +73,12 @@ extension PixelColor: NSCoding {
 extension PixelColor: Equatable {
     static func == (lhs: PixelColor, rhs: PixelColor) -> Bool {
         return lhs.coordinate == rhs.coordinate
+    }
+}
+
+extension PixelColor: Comparable {
+    static func < (lhs: PixelColor, rhs: PixelColor) -> Bool {
+        return lhs.id < rhs.id
     }
 }
 

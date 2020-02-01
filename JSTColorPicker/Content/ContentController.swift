@@ -53,19 +53,28 @@ class ContentController: NSViewController {
     }
     fileprivate var nextID: Int {
         if let content = content {
-            if let maxID = content.pixelColorCollection.last?.id {
+            if let maxID = content.items.last?.id {
                 return maxID + 1
             }
         }
         return 1
     }
+    fileprivate var undoToken: NotificationToken?
+    fileprivate var redoToken: NotificationToken?
     
     @IBOutlet weak var tableView: ContentTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
         tableView.tableViewResponder = self
+        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
+            self.tableView.reloadData()
+        }
+        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
+            self.tableView.reloadData()
+        }
     }
     
     deinit {
@@ -75,6 +84,21 @@ class ContentController: NSViewController {
 }
 
 extension Array {
+    func insertionIndexOf(_ elem: Element, isOrderedBefore: (Element, Element) -> Bool) -> Int {
+        var lo = 0
+        var hi = self.count - 1
+        while lo <= hi {
+            let mid = (lo + hi) / 2
+            if isOrderedBefore(self[mid], elem) {
+                lo = mid + 1
+            } else if isOrderedBefore(elem, self[mid]) {
+                hi = mid - 1
+            } else {
+                return mid // found at position mid
+            }
+        }
+        return lo // not found, would be inserted at position lo
+    }
     mutating func remove(at set: IndexSet) {
         var arr = Swift.Array(self.enumerated())
         arr.removeAll { set.contains($0.offset) }
@@ -83,6 +107,27 @@ extension Array {
 }
 
 extension ContentController {
+    
+    fileprivate func addContentItems(_ items: [PixelColor]) {
+        guard let content = content else { return }
+        undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
+            targetSelf.deleteContentItems(items)  // memory captured and managed by UndoManager
+        })
+        actionDelegate?.contentActionAdded(items, by: self)
+        items.forEach { (item) in
+            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0 < $1 })
+            content.items.insert(item, at: idx)
+        }
+    }
+    
+    fileprivate func deleteContentItems(_ items: [PixelColor]) {
+        guard let content = content else { return }
+        undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
+            targetSelf.addContentItems(items)  // memory captured and managed by UndoManager
+        })
+        actionDelegate?.contentActionDeleted(items, by: self)
+        content.items.removeAll(where: { items.contains($0) })
+    }
     
 }
 
@@ -94,7 +139,7 @@ extension ContentController: ContentTableViewResponder {
     
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
-        guard let collection = content?.pixelColorCollection else { return }
+        guard let collection = content?.items else { return }
         let rows = tableView.selectedRowIndexes
         var selectedItems: [PixelColor] = []
         rows.forEach { (row) in
@@ -117,33 +162,32 @@ extension ContentController: NSUserInterfaceValidations {
         return false
     }
     
-    func submitContent(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
+    func submitItem(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
         guard let content = content else {
             throw ContentError.noDocument
         }
-        if content.pixelColorCollection.count >= Content.maximumPixelCount {
+        if content.items.count >= Content.maximumCount {
             throw ContentError.reachLimit
         }
         let coordinate = PixelCoordinate(point)
-        if content.pixelColorCollection.first(where: { $0.coordinate.x == coordinate.x && $0.coordinate.y == coordinate.y }) != nil {
+        if content.items.first(where: { $0.coordinate.x == coordinate.x && $0.coordinate.y == coordinate.y }) != nil {
             throw ContentError.exists
         }
-        let pixel = PixelColor(id: nextID, coordinate: coordinate, color: color)
-        actionDelegate?.contentActionAdded([pixel], by: self)
-        content.pixelColorCollection.append(pixel)
+        let item = PixelColor(id: nextID, coordinate: coordinate, color: color)
+        addContentItems([item])
         tableView.reloadData()
-        return pixel
+        return item
     }
     
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
-        let rows = tableView.selectedRowIndexes
+        let collection = content.items
+        let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
         var selectedItems: [PixelColor] = []
         for row in rows {
-            selectedItems.append(content.pixelColorCollection[row])
+            selectedItems.append(collection[row])
         }
-        content.pixelColorCollection.remove(at: rows)
-        actionDelegate?.contentActionDeleted(selectedItems, by: self)
+        deleteContentItems(selectedItems)
         tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     
@@ -153,7 +197,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let delegate = actionDelegate else { return }
-        guard let collection = content?.pixelColorCollection else { return }
+        guard let collection = content?.items else { return }
         let rows = tableView.selectedRowIndexes
         var selectedItems: [PixelColor] = []
         rows.forEach { (row) in
@@ -166,7 +210,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let content = content else { return 0 }
-        return content.pixelColorCollection.count
+        return content.items.count
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -178,7 +222,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
             let col = tableColumn.identifier.rawValue
-            let pixel = content.pixelColorCollection[row]
+            let pixel = content.items[row]
             if col == ContentColumnIdentifier.id.rawValue {
                 cell.textField?.stringValue = String(pixel.id)
             }
