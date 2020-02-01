@@ -9,6 +9,14 @@
 import Cocoa
 import Quartz
 
+extension CGPoint {
+    
+    func toPixelCenterCGPoint() -> CGPoint {
+        return CGPoint(x: floor(x) + 0.5, y: floor(y) + 0.5)
+    }
+    
+}
+
 extension CGRect {
 
     func scaleToAspectFit(in rtarget: CGRect) -> CGFloat {
@@ -49,6 +57,7 @@ extension CGRect {
 
 extension NSScreen {
     var displayID: CGDirectDisplayID? {
+        // this method is mentioned by: https://developer.apple.com/documentation/appkit/nsscreen/1388360-devicedescription
         return deviceDescription[NSDeviceDescriptionKey.init(rawValue: "NSScreenNumber")] as? CGDirectDisplayID
     }
 }
@@ -205,28 +214,33 @@ class SceneController: NSViewController {
         // not implemented
     }
     
-    fileprivate func cursorApply(at location: CGPoint) {
+    fileprivate func cursorApply(at location: CGPoint) -> Bool {
         mouseClicked(self, atPoint: location)
+        return true
     }
     
-    fileprivate func magnifyToolApply(at location: CGPoint) {
+    fileprivate func magnifyToolApply(at location: CGPoint) -> Bool {
         if !canMagnify {
-            return
+            return false
         }
         if let next = nextMagnificationFactor {
             sceneView.animator().setMagnification(next, centeredAt: location)
             sceneMagnificationChanged(self, toMagnification: next)
+            return true
         }
+        return false
     }
     
-    fileprivate func minifyToolApply(at location: CGPoint) {
+    fileprivate func minifyToolApply(at location: CGPoint) -> Bool {
         if !canMinify {
-            return
+            return false
         }
         if let prev = prevMagnificationFactor {
             sceneView.animator().setMagnification(prev, centeredAt: location)
             sceneMagnificationChanged(self, toMagnification: prev)
+            return true
         }
+        return false
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -234,13 +248,13 @@ class SceneController: NSViewController {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         if !NSPointInRect(loc, wrapper.bounds) { return }
         if trackingTool == .cursor {
-            cursorApply(at: loc)
+            _ = cursorApply(at: loc)
         }
         else if trackingTool == .magnify {
-            magnifyToolApply(at: loc)
+            _ = magnifyToolApply(at: loc)
         }
         else if trackingTool == .minify {
-            minifyToolApply(at: loc)
+            _ = minifyToolApply(at: loc)
         }
     }
     
@@ -284,33 +298,65 @@ class SceneController: NSViewController {
         return true
     }
     
-    fileprivate func moveMouse(by direction: NSEvent.SpecialKey, from location: CGPoint) {
-        // TODO: not implemented, move cursor by point
-        debugPrint("not implemented, move cursor by point")
+    fileprivate func moveMouse(by direction: NSEvent.SpecialKey, from location: CGPoint) -> Bool {
+        
+        guard let window = wrapper.window else { return false }
+        guard let mainScreen = window.screen else { return false }
+        guard let displayID = mainScreen.displayID else { return false }
+        
+        var simulatedSize = CGSize.zero
+        switch direction {
+        case NSEvent.SpecialKey.upArrow:
+            simulatedSize.height -= 1.0
+        case NSEvent.SpecialKey.downArrow:
+            simulatedSize.height += 1.0
+        case NSEvent.SpecialKey.leftArrow:
+            simulatedSize.width  -= 1.0
+        case NSEvent.SpecialKey.rightArrow:
+            simulatedSize.width  += 1.0
+        default: break
+        }
+        
+        var simulatedPoint = location.toPixelCenterCGPoint()
+        simulatedPoint.x += simulatedSize.width
+        simulatedPoint.y += simulatedSize.height
+        
+        guard wrapper.visibleRect.contains(simulatedPoint) else { return false }
+        
+        let convertedWindowPoint = wrapper.convert(simulatedPoint, to: nil)
+        let convertedScreenPoint = window.convertPoint(toScreen: convertedWindowPoint)
+        let screenFrame = mainScreen.frame
+        let currentMouseLocationInDisplay = CGPoint(x: convertedScreenPoint.x - screenFrame.origin.x, y: screenFrame.size.height - (convertedScreenPoint.y - screenFrame.origin.y))
+        
+        CGDisplayHideCursor(kCGNullDirectDisplay)
+        CGAssociateMouseAndMouseCursorPosition(0)
+        CGDisplayMoveCursorToPoint(displayID, currentMouseLocationInDisplay)
+        /* perform your application’s main loop */
+        CGAssociateMouseAndMouseCursorPosition(1)
+        CGDisplayShowCursor(kCGNullDirectDisplay)
+        
+        return true
+        
     }
-    
+     
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         if !NSPointInRect(loc, wrapper.bounds) { return false }
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    moveMouse(by: specialKey, from: loc)
-                    return true
+                    return moveMouse(by: specialKey, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
-                    cursorApply(at: loc)
-                    return true
+                    return cursorApply(at: loc)
                 }
             }
             else if let characters = event.characters {
                 if characters.contains("-") {
-                    minifyToolApply(at: loc)
-                    return true
+                    return minifyToolApply(at: loc)
                 }
                 else if characters.contains("=") {
-                    magnifyToolApply(at: loc)
-                    return true
+                    return magnifyToolApply(at: loc)
                 }
             }
         }
