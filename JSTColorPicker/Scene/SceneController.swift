@@ -118,11 +118,8 @@ class SceneController: NSViewController {
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         resetController()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didFinishRestoringWindowsNotification(_:)), name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneMagnificationChangedNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
-        
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
             _ = self.useSelectedTrackingTool()
         }
@@ -154,7 +151,6 @@ class SceneController: NSViewController {
         wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
         
-        sceneMagnificationChanged(self, to: sceneView.magnification)
         _ = useSelectedTrackingTool()
     }
     
@@ -215,12 +211,19 @@ class SceneController: NSViewController {
         // not implemented
     }
     
+    override func mouseDragged(with event: NSEvent) {
+        super.mouseDragged(with: event)
+        // not implemented
+    }
+    
     fileprivate func cursorApply(at location: CGPoint) -> Bool {
+        if !wrapper.visibleRect.contains(location) { return false }
         mouseClicked(self, at: PixelCoordinate(location))
         return true
     }
     
     fileprivate func rightCursorApply(at location: CGPoint) -> Bool {
+        if !wrapper.visibleRect.contains(location) { return false }
         let locationInMask = sceneMaskView.convert(location, from: wrapper)
         
         var annotatorView: SceneAnnotatorView?
@@ -250,7 +253,6 @@ class SceneController: NSViewController {
         }
         if let next = nextMagnificationFactor {
             sceneView.animator().setMagnification(next, centeredAt: location)
-            sceneMagnificationChanged(self, to: next)
             return true
         }
         return false
@@ -262,33 +264,36 @@ class SceneController: NSViewController {
         }
         if let prev = prevMagnificationFactor {
             sceneView.animator().setMagnification(prev, centeredAt: location)
-            sceneMagnificationChanged(self, to: prev)
             return true
         }
         return false
     }
     
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
+        var handled = false
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !wrapper.visibleRect.contains(loc) { return }
         if trackingTool == .cursor {
-            _ = cursorApply(at: loc)
+            handled = cursorApply(at: loc)
         }
         else if trackingTool == .magnify {
-            _ = magnifyToolApply(at: loc)
+            handled = magnifyToolApply(at: loc)
         }
         else if trackingTool == .minify {
-            _ = minifyToolApply(at: loc)
+            handled = minifyToolApply(at: loc)
+        }
+        if !handled {
+            super.mouseUp(with: event)
         }
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        super.rightMouseUp(with: event)
+        var handled = false
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !wrapper.visibleRect.contains(loc) { return }
         if trackingTool == .cursor {
-            _ = rightCursorApply(at: loc)
+            handled = rightCursorApply(at: loc)
+        }
+        if !handled {
+            super.rightMouseUp(with: event)
         }
     }
     
@@ -296,13 +301,12 @@ class SceneController: NSViewController {
         guard let window = view.window, window.isKeyWindow else { return false }
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:
-            _ = useOptionModifiedTrackingTool()
+            return useOptionModifiedTrackingTool()
         case [.command]:
-            _ = useCommandModifiedTrackingTool()
+            return useCommandModifiedTrackingTool()
         default:
-            _ = useSelectedTrackingTool()
+            return useSelectedTrackingTool()
         }
-        return false
     }
     
     fileprivate func useOptionModifiedTrackingTool() -> Bool {
@@ -333,6 +337,8 @@ class SceneController: NSViewController {
     }
     
     fileprivate func shortcutMoveMouse(by direction: NSEvent.SpecialKey, from pixelLocation: CGPoint) -> Bool {
+        if !wrapper.visibleRect.contains(pixelLocation) { return false }
+        
         var simulatedSize = CGSize.zero
         switch direction {
         case NSEvent.SpecialKey.upArrow:
@@ -376,7 +382,6 @@ class SceneController: NSViewController {
      
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !wrapper.visibleRect.contains(loc) { return false }
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
@@ -416,7 +421,6 @@ extension SceneController: ScreenshotLoader {
         sceneView.allowsMagnification = false
         sceneView.documentView = SceneImageWrapper()
         
-        sceneMagnificationChanged(self, to: sceneView.magnification)
         _ = useSelectedTrackingTool()
     }
     
@@ -452,22 +456,6 @@ extension SceneController: SceneTracking {
         trackingObject?.sceneMagnificationChanged(sender, to: magnification)
     }
     
-    @objc func didFinishRestoringWindowsNotification(_ notification: NSNotification) {
-        sceneMagnificationChangedProgrammatically()
-    }
-    
-    @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
-        if let scrollView = notification.object as? NSScrollView {
-            if scrollView == sceneView {
-                trackingObject?.sceneMagnificationChanged(self, to: scrollView.magnification)
-            }
-        }
-    }
-    
-    fileprivate func sceneMagnificationChangedProgrammatically() {
-        trackingObject?.sceneMagnificationChanged(self, to: sceneView.magnification)
-    }
-    
 }
 
 extension NSRect {
@@ -499,7 +487,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: fitBounds)
         }) {
-            self.sceneMagnificationChangedProgrammatically()
+            // not implemented
         }
     }
     
@@ -508,7 +496,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: fillBounds)
         }) {
-            self.sceneMagnificationChangedProgrammatically()
+            // not implemented
         }
     }
     
@@ -532,6 +520,7 @@ extension SceneController: SceneAnnotatorManager {
     
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
         updateAnnotatorBounds()
+        sceneMagnificationChanged(self, to: sceneView.magnification)
     }
     
     fileprivate func updateAnnotatorBounds() {

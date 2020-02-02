@@ -12,26 +12,19 @@ class SceneScrollView: NSScrollView {
     
     weak var trackingDelegate: SceneTracking?
     weak var trackingToolDelegate: TrackingToolDelegate?
-    var trackingTool: TrackingTool {
+    var trackingTool: TrackingTool = .cursor {
         didSet {
             updateCursorDisplay()
         }
     }
-    var isBeingManipulated: Bool
+    var isBeingManipulated: Bool = false
     
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate var wrapper: SceneImageWrapper {
         return documentView as! SceneImageWrapper
     }
     
-    fileprivate var previousCoordinate: PixelCoordinate
-    
-    required init?(coder: NSCoder) {
-        isBeingManipulated = false
-        trackingTool = .cursor
-        previousCoordinate = PixelCoordinate(x: NSNotFound, y: NSNotFound)
-        super.init(coder: coder)
-    }
+    fileprivate var previousCoordinate = PixelCoordinate.invalid
     
     fileprivate func mouseTrackingEvent(with event: NSEvent) {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
@@ -125,6 +118,9 @@ class SceneScrollView: NSScrollView {
             let origin = contentView.bounds.origin
             let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
             contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
+        }
+        else if trackingTool == .magnify || trackingTool == .minify {
+            // not implemented
         }
         updateCursorDisplay()
     }

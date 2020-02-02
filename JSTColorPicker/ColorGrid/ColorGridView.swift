@@ -11,7 +11,7 @@ import Cocoa
 class ColorGridView: NSView {
     
     weak var dataSource: ScreenshotLoader?
-    var centerCoordinate: PixelCoordinate = PixelCoordinate() {
+    var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
             setNeedsDisplay(bounds)
         }

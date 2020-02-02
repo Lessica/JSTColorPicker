@@ -9,6 +9,12 @@
 import Foundation
 
 struct PixelCoordinate {
+    public static var zero: PixelCoordinate {
+        return PixelCoordinate()
+    }
+    public static var invalid: PixelCoordinate {
+        return PixelCoordinate(x: NSNotFound, y: NSNotFound)
+    }
     var x: Int = 0
     var y: Int = 0
     init() {}
