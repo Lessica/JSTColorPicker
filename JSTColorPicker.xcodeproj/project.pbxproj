@@ -37,7 +37,6 @@
 		D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
 		D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9823D7348500DA1750 /* ContentTableView.swift */; };
 		D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841423D3E3FD00BC5E34 /* libz.tbd */; };
-		D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841623D3E42400BC5E34 /* libpng16.a */; };
 		D684842223D4105100BC5E34 /* ColorGrid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* ColorGrid.storyboard */; };
 		D684842423D4106900BC5E34 /* ColorGridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* ColorGridWindowController.swift */; };
 		D6A3EA4123E40A6F008F53DC /* SceneAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* SceneAnnotatorView.swift */; };
@@ -241,10 +240,6 @@
 		D682FC9623D6ED2C00DA1750 /* PixelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelColor.swift; sourceTree = "<group>"; };
 		D682FC9823D7348500DA1750 /* ContentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableView.swift; sourceTree = "<group>"; };
 		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		D684841623D3E42400BC5E34 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng16.a; sourceTree = "<group>"; };
-		D684841823D3E4CB00BC5E34 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
-		D684841923D3E4CB00BC5E34 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
-		D684841A23D3E4CB00BC5E34 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		D684842123D4105100BC5E34 /* ColorGrid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorGrid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* ColorGridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridWindowController.swift; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* SceneAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneAnnotatorView.swift; sourceTree = "<group>"; };
@@ -272,7 +267,6 @@
 				D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */,
 				D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */,
 				D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */,
-				D684841723D3E42400BC5E34 /* libpng16.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +304,6 @@
 		D647B06423D198CB00D76CB5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				D684841623D3E42400BC5E34 /* libpng16.a */,
 				D647B06C23D1A2B000D76CB5 /* libcrypto.a */,
 				D647B06D23D1A2B000D76CB5 /* libssl.a */,
 				D647B06623D1A12300D76CB5 /* libimobiledevice.a */,
@@ -323,9 +316,6 @@
 		D647B07023D1A2C300D76CB5 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				D684841A23D3E4CB00BC5E34 /* png.h */,
-				D684841823D3E4CB00BC5E34 /* pngconf.h */,
-				D684841923D3E4CB00BC5E34 /* pnglibconf.h */,
 				D647B07123D1A2C300D76CB5 /* plist */,
 				D647B08023D1A2C300D76CB5 /* libimobiledevice */,
 				D647B09923D1A2C300D76CB5 /* usbmuxd.h */,
@@ -865,7 +855,7 @@
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -894,7 +884,7 @@
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
