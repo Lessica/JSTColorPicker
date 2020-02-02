@@ -79,7 +79,7 @@ class SceneController: NSViewController {
     internal var annotators: [SceneAnnotator] = []
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
-    @IBOutlet weak var sceneMaskView: SceneScrollMaskView!
+    @IBOutlet weak var sceneOverlayView: SceneScrollOverlayView!
     fileprivate var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
     }
@@ -225,10 +225,10 @@ class SceneController: NSViewController {
     
     fileprivate func rightCursorApply(at location: CGPoint) -> Bool {
         if !wrapper.visibleRect.contains(location) { return false }
-        let locationInMask = sceneMaskView.convert(location, from: wrapper)
+        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
         var annotatorView: SceneAnnotatorView?
-        for view in sceneMaskView.subviews.reversed() {
+        for view in sceneOverlayView.subviews.reversed() {
             if let view = view as? SceneAnnotatorView {
                 if view.frame.contains(locationInMask) {
                     annotatorView = view
@@ -556,7 +556,7 @@ extension SceneController: SceneAnnotatorManager {
                 let annotator = SceneAnnotator(pixelColor: item)
                 annotator.label = "\(item.id)"
                 annotators.append(annotator)
-                sceneMaskView.addSubview(annotator.view)
+                sceneOverlayView.addSubview(annotator.view)
             }
         }
         debugPrint("add annotators \(items)")
@@ -576,7 +576,7 @@ extension SceneController: SceneAnnotatorManager {
             if items.contains(annotator.pixelColor) {
                 annotator.view.removeFromSuperview()
                 annotator.isHighlighted = true
-                sceneMaskView.addSubview(annotator.view)
+                sceneOverlayView.addSubview(annotator.view)
             } else if annotator.isHighlighted {
                 annotator.isHighlighted = false
             }

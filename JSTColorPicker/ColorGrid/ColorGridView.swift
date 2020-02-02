@@ -26,7 +26,7 @@ class ColorGridView: NSView {
     fileprivate var pixelSize = CGSize(width: 14.0, height: 14.0)
     fileprivate var hPixelNum: Int = 0
     fileprivate var vPixelNum: Int = 0
-    fileprivate lazy var centerMaskView: NSView = {
+    fileprivate lazy var centerOverlay: NSView = {
         let view = NSView()
         view.wantsLayer = true
         view.layer?.backgroundColor = .white
@@ -43,7 +43,7 @@ class ColorGridView: NSView {
         NSAnimationContext.runAnimationGroup({ [weak self] (context) in
             guard let self = self else { return }
             context.duration = 0.6
-            self.centerMaskView.animator().alphaValue = opaque ? 1.0 : 0.0
+            self.centerOverlay.animator().alphaValue = opaque ? 1.0 : 0.0
         }) {
             self.shimAnimation(!opaque)
         }
@@ -53,8 +53,8 @@ class ColorGridView: NSView {
         super.awakeFromNib()
         hPixelNum = Int(bounds.width / pixelSize.width)
         vPixelNum = Int(bounds.height / pixelSize.height)
-        centerMaskView.frame = CGRect(x: CGFloat(hPixelNum / 2 * Int(pixelSize.width)), y: CGFloat(vPixelNum / 2 * Int(pixelSize.height)), width: pixelSize.width, height: pixelSize.height)
-        addSubview(centerMaskView)
+        centerOverlay.frame = CGRect(x: CGFloat(hPixelNum / 2 * Int(pixelSize.width)), y: CGFloat(vPixelNum / 2 * Int(pixelSize.height)), width: pixelSize.width, height: pixelSize.height)
+        addSubview(centerOverlay)
     }
     
     override func draw(_ dirtyRect: NSRect) {

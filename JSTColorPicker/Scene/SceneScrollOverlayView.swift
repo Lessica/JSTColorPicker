@@ -1,5 +1,5 @@
 //
-//  SceneScrollMaskView.swift
+//  SceneScrollOverlayView.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/29/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneScrollMaskView: NSView {
+class SceneScrollOverlayView: NSView {
     
     override var isFlipped: Bool {
         return true
