@@ -58,7 +58,7 @@ class SidebarController: NSViewController {
         resetController()
     }
     
-    func updateInspector(point: CGPoint, color: JSTPixelColor, submit: Bool) {
+    func updateInspector(coordinate: PixelCoordinate, color: JSTPixelColor, submit: Bool) {
 //        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
         inspectorColorLabel.stringValue = """
 R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
@@ -71,8 +71,8 @@ CSS: \(String(format: "#%06X", color.intValue))
         inspectorColorFlag.color = nsColor
         inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
         inspectorPositionLabel.stringValue = """
-X:\(String(Int(point.x)).leftPadding(toLength: 5, withPad: " "))
-Y:\(String(Int(point.y)).leftPadding(toLength: 5, withPad: " "))
+X:\(String(coordinate.x).leftPadding(toLength: 5, withPad: " "))
+Y:\(String(coordinate.y).leftPadding(toLength: 5, withPad: " "))
 """
         if submit {
             colorPanel.color = nsColor

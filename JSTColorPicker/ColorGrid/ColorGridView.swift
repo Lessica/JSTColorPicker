@@ -11,7 +11,7 @@ import Cocoa
 class ColorGridView: NSView {
     
     weak var dataSource: ScreenshotLoader?
-    var centerPoint: CGPoint = CGPoint.zero {
+    var centerCoordinate: PixelCoordinate = PixelCoordinate() {
         didSet {
             setNeedsDisplay(bounds)
         }
@@ -67,28 +67,28 @@ class ColorGridView: NSView {
             
             let hNum = CGFloat(hPixelNum) / 2.0
             let vNum = CGFloat(vPixelNum) / 2.0
-            var centralPoints: [(CGPoint, CGRect)] = []
+            var centralPoints: [(PixelCoordinate, CGRect)] = []
             let imageSize = pixelImage.size()
             
             for i in 0..<Int(hNum * 2) {
                 for j in 0..<Int(vNum * 2) {
-                    let point = CGPoint(x: Int(centerPoint.x) - Int(hNum) + i, y: Int(centerPoint.y) + Int(vNum) - j)
-                    if point.x > 0 && point.y > 0 && point.x < imageSize.width && point.y < imageSize.height {
+                    let coord = PixelCoordinate(x: centerCoordinate.x - Int(hNum) + i, y: centerCoordinate.y + Int(vNum) - j)
+                    if coord.x > 0 && coord.y > 0 && coord.x < Int(floor(imageSize.width)) && coord.y < Int(floor(imageSize.height)) {
                         let rect = CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)
-                        if !centerPoint.equalTo(point) {
-                            ctx.setFillColor(pixelImage.getJSTColor(of: point).toNSColor().cgColor)
+                        if centerCoordinate != coord {
+                            ctx.setFillColor(pixelImage.getJSTColor(of: coord.toCGPoint()).toNSColor().cgColor)
                             ctx.setStrokeColor(ColorGridView.gridLineColor.cgColor)
                             ctx.addRect(rect)
                             ctx.drawPath(using: .fillStroke)
                         } else {
-                            centralPoints.append((point, rect))
+                            centralPoints.append((coord, rect))
                         }
                     }
                 }
             }
             
-            for (point, rect) in centralPoints {
-                ctx.setFillColor(pixelImage.getJSTColor(of: point).toNSColor().cgColor)
+            for (coord, rect) in centralPoints {
+                ctx.setFillColor(pixelImage.getJSTColor(of: coord.toCGPoint()).toNSColor().cgColor)
                 ctx.setStrokeColor(ColorGridView.gridCenterLineColor.cgColor)
                 ctx.addRect(rect)
                 ctx.drawPath(using: .fillStroke)

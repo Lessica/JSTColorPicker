@@ -9,12 +9,15 @@
 import Cocoa
 
 protocol SceneTracking: class {
-    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool
-    func mouseClicked(_ sender: Any, atPoint point: CGPoint)
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat)
+    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate)
+    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
+    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
+    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
 }
 
 extension SceneTracking {
-    func mouseClicked(_ sender: Any, atPoint point: CGPoint) { }
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) { }
+    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) { }
+    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
 }

@@ -45,12 +45,11 @@ class ColorGridWindowController: NSWindowController {
 
 extension ColorGridWindowController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        guard let shouldTrack = window?.isVisible else { return false }
+    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+        guard let shouldTrack = window?.isVisible else { return }
         if shouldTrack {
-            gridView?.centerPoint = point
+            gridView?.centerCoordinate = coordinate
         }
-        return shouldTrack
     }
     
 }

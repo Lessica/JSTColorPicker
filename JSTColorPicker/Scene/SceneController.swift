@@ -154,7 +154,7 @@ class SceneController: NSViewController {
         wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
         
-        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
+        sceneMagnificationChanged(self, to: sceneView.magnification)
         _ = useSelectedTrackingTool()
     }
     
@@ -216,7 +216,31 @@ class SceneController: NSViewController {
     }
     
     fileprivate func cursorApply(at location: CGPoint) -> Bool {
-        mouseClicked(self, atPoint: location)
+        mouseClicked(self, at: PixelCoordinate(location))
+        return true
+    }
+    
+    fileprivate func rightCursorApply(at location: CGPoint) -> Bool {
+        let locationInMask = sceneMaskView.convert(location, from: wrapper)
+        
+        var annotatorView: SceneAnnotatorView?
+        for view in sceneMaskView.subviews.reversed() {
+            if let view = view as? SceneAnnotatorView {
+                if view.frame.contains(locationInMask) {
+                    annotatorView = view
+                    break
+                }
+            }
+        }
+        
+        if let annotatorView = annotatorView {
+            if let annotator = annotators.first(where: { $0.view === annotatorView }) {
+                rightMouseClicked(self, at: annotator.pixelColor.coordinate)
+                return true
+            }
+        }
+        
+        rightMouseClicked(self, at: PixelCoordinate(location))
         return true
     }
     
@@ -226,7 +250,7 @@ class SceneController: NSViewController {
         }
         if let next = nextMagnificationFactor {
             sceneView.animator().setMagnification(next, centeredAt: location)
-            sceneMagnificationChanged(self, toMagnification: next)
+            sceneMagnificationChanged(self, to: next)
             return true
         }
         return false
@@ -238,7 +262,7 @@ class SceneController: NSViewController {
         }
         if let prev = prevMagnificationFactor {
             sceneView.animator().setMagnification(prev, centeredAt: location)
-            sceneMagnificationChanged(self, toMagnification: prev)
+            sceneMagnificationChanged(self, to: prev)
             return true
         }
         return false
@@ -256,6 +280,15 @@ class SceneController: NSViewController {
         }
         else if trackingTool == .minify {
             _ = minifyToolApply(at: loc)
+        }
+    }
+    
+    override func rightMouseUp(with event: NSEvent) {
+        super.rightMouseUp(with: event)
+        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        if !wrapper.visibleRect.contains(loc) { return }
+        if trackingTool == .cursor {
+            _ = rightCursorApply(at: loc)
         }
     }
     
@@ -299,8 +332,7 @@ class SceneController: NSViewController {
         return true
     }
     
-    fileprivate func moveMouse(by direction: NSEvent.SpecialKey, from location: CGPoint) -> Bool {
-        
+    fileprivate func shortcutMoveMouse(by direction: NSEvent.SpecialKey, from pixelLocation: CGPoint) -> Bool {
         var simulatedSize = CGSize.zero
         switch direction {
         case NSEvent.SpecialKey.upArrow:
@@ -316,7 +348,7 @@ class SceneController: NSViewController {
         let convertedSize = wrapper.convert(simulatedSize, to: nil)
         guard abs(convertedSize.width + convertedSize.height) > SceneController.minimumRecognizablePixelWidth else { return false }
         
-        var simulatedPoint = location.toPixelCenterCGPoint()
+        var simulatedPoint = pixelLocation.toPixelCenterCGPoint()
         simulatedPoint.x += simulatedSize.width
         simulatedPoint.y += simulatedSize.height
         
@@ -340,7 +372,6 @@ class SceneController: NSViewController {
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
         return true
-        
     }
      
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
@@ -349,14 +380,13 @@ class SceneController: NSViewController {
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    return moveMouse(by: specialKey, from: loc)
+                    return shortcutMoveMouse(by: specialKey, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
                     return cursorApply(at: loc)
                 }
                 else if specialKey == .delete {
-                    // TODO: find annotator (by actual view size) and delete it
-                    return true
+                    return rightCursorApply(at: loc)
                 }
             }
             else if let characters = event.characters {
@@ -386,7 +416,7 @@ extension SceneController: ScreenshotLoader {
         sceneView.allowsMagnification = false
         sceneView.documentView = SceneImageWrapper()
         
-        sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
+        sceneMagnificationChanged(self, to: sceneView.magnification)
         _ = useSelectedTrackingTool()
     }
     
@@ -406,20 +436,20 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        let relPoint = sceneView.convert(point, from: wrapper)
-        if !sceneView.bounds.contains(relPoint) {
-            return false
-        }
-        return trackingObject?.mousePositionChanged(sender, toPoint: point) ?? false
+    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+        trackingObject?.mousePositionChanged(sender, to: coordinate)
     }
     
-    func mouseClicked(_ sender: Any, atPoint point: CGPoint) {
-        trackingObject?.mouseClicked(sender, atPoint: point)
+    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+        trackingObject?.mouseClicked(sender, at: coordinate)
     }
     
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        trackingObject?.sceneMagnificationChanged(sender, toMagnification: magnification)
+    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+        trackingObject?.rightMouseClicked(sender, at: coordinate)
+    }
+    
+    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
+        trackingObject?.sceneMagnificationChanged(sender, to: magnification)
     }
     
     @objc func didFinishRestoringWindowsNotification(_ notification: NSNotification) {
@@ -429,13 +459,13 @@ extension SceneController: SceneTracking {
     @objc func sceneMagnificationChangedNotification(_ notification: NSNotification) {
         if let scrollView = notification.object as? NSScrollView {
             if scrollView == sceneView {
-                trackingObject?.sceneMagnificationChanged(self, toMagnification: scrollView.magnification)
+                trackingObject?.sceneMagnificationChanged(self, to: scrollView.magnification)
             }
         }
     }
     
     fileprivate func sceneMagnificationChangedProgrammatically() {
-        trackingObject?.sceneMagnificationChanged(self, toMagnification: sceneView.magnification)
+        trackingObject?.sceneMagnificationChanged(self, to: sceneView.magnification)
     }
     
 }
@@ -507,7 +537,7 @@ extension SceneController: SceneAnnotatorManager {
     fileprivate func updateAnnotatorBounds() {
         for annotator in annotators {
             let item = annotator.pixelColor
-            let pointInImage = CGPoint(x: CGFloat(item.coordinate.x) + 0.5, y: CGFloat(item.coordinate.y) + 0.5)
+            let pointInImage = item.coordinate.toCGPoint().toPixelCenterCGPoint()
             let pointInMask = sceneView.convert(pointInImage, from: wrapper)
             let maskRect = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
             annotator.view.frame = maskRect

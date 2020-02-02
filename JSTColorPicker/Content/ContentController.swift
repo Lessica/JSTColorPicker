@@ -22,6 +22,7 @@ enum ContentCellIdentifier: String {
 
 enum ContentError: LocalizedError {
     case exists
+    case doesNotExist
     case reachLimit
     case noDocument
     
@@ -29,6 +30,8 @@ enum ContentError: LocalizedError {
         switch self {
         case .exists:
             return "This coordinate already exists."
+        case .doesNotExist:
+            return "This coordinate does not exist."
         case .reachLimit:
             return "Maximum pixel count reached."
         case .noDocument:
@@ -155,31 +158,42 @@ extension ContentController: ContentTableViewResponder {
 extension ContentController: NSUserInterfaceValidations {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(delete(_:)) {
+        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:))  {
             let idxs = tableView.selectedRowIndexes
             return idxs.count > 0
-        }
-        else if item.action == #selector(copy(_:)) {
-            return true
         }
         return false
     }
     
-    func submitItem(point: CGPoint, color: JSTPixelColor) throws -> PixelColor {
+    func submitItem(at coordinate: PixelCoordinate, color: JSTPixelColor) throws -> PixelColor {
         guard let content = content else {
             throw ContentError.noDocument
         }
         if content.items.count >= Content.maximumCount {
             throw ContentError.reachLimit
         }
-        let coordinate = PixelCoordinate(point)
-        if content.items.first(where: { $0.coordinate.x == coordinate.x && $0.coordinate.y == coordinate.y }) != nil {
+        if content.items.first(where: { $0.coordinate == coordinate }) != nil {
             throw ContentError.exists
         }
         let item = PixelColor(id: nextID, coordinate: coordinate, color: color)
         addContentItems([item])
         tableView.reloadData()
         return item
+    }
+    
+    func deleteItem(at coordinate: PixelCoordinate) throws -> PixelColor {
+        guard let content = content else {
+            throw ContentError.noDocument
+        }
+        let itemIndex = content.items.firstIndex(where: { $0.coordinate == coordinate })
+        if let itemIndex = itemIndex {
+            let item = content.items[itemIndex]
+            deleteContentItems([item])
+            tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+            return item
+        } else {
+            throw ContentError.doesNotExist
+        }
     }
     
     @IBAction func delete(_ sender: Any) {

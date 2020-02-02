@@ -24,28 +24,23 @@ class SceneScrollView: NSScrollView {
         return documentView as! SceneImageWrapper
     }
     
-    fileprivate var prevX: Int
-    fileprivate var prevY: Int
+    fileprivate var previousCoordinate: PixelCoordinate
     
     required init?(coder: NSCoder) {
         isBeingManipulated = false
         trackingTool = .cursor
-        prevX = NSNotFound
-        prevY = NSNotFound
-        
+        previousCoordinate = PixelCoordinate(x: NSNotFound, y: NSNotFound)
         super.init(coder: coder)
     }
     
-    fileprivate func mouseTrackingEvent(with event: NSEvent) -> Bool {
+    fileprivate func mouseTrackingEvent(with event: NSEvent) {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        let curX = Int(loc.x)
-        let curY = Int(loc.y)
-        if (curX != prevX || curY != prevY) && curX >= 0 && curY >= 0 {
-            prevX = curX
-            prevY = curY
-            return trackingDelegate?.mousePositionChanged(self, toPoint: CGPoint(x: curX, y: curY)) ?? false
+        guard wrapper.bounds.contains(loc) else { return }
+        let currentCoordinate = PixelCoordinate(loc)
+        if currentCoordinate != previousCoordinate {
+            previousCoordinate = currentCoordinate
+            trackingDelegate?.mousePositionChanged(self, to: currentCoordinate)
         }
-        return false
     }
     
     fileprivate func updateCursorDisplay() {
@@ -69,7 +64,7 @@ class SceneScrollView: NSScrollView {
     fileprivate func mouseInside() -> Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
-            if NSPointInRect(loc, visibleRect) {
+            if visibleRect.contains(loc) {
                 return true
             }
         }
@@ -96,19 +91,19 @@ class SceneScrollView: NSScrollView {
     
     override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
-        _ = mouseTrackingEvent(with: event)
+        mouseTrackingEvent(with: event)
         updateCursorDisplay()
     }
     
     override func mouseMoved(with event: NSEvent) {
         super.mouseMoved(with: event)
-        _ = mouseTrackingEvent(with: event)
+        mouseTrackingEvent(with: event)
         updateCursorDisplay()
     }
     
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
-        _ = mouseTrackingEvent(with: event)
+        mouseTrackingEvent(with: event)
         resetCursorDisplay()
     }
     

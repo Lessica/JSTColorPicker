@@ -9,15 +9,16 @@
 import Foundation
 
 struct PixelCoordinate {
-    var x: Int
-    var y: Int
+    var x: Int = 0
+    var y: Int = 0
+    init() {}
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
     }
     init(_ point: CGPoint) {
-        x = Int(point.x)
-        y = Int(point.y)
+        x = Int(floor(point.x))
+        y = Int(floor(point.y))
     }
     func toCGPoint() -> CGPoint {
         return CGPoint(x: CGFloat(x), y: CGFloat(y))

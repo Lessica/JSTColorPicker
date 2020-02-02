@@ -263,13 +263,8 @@ extension WindowController: ScreenshotLoader {
 
 extension WindowController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, toPoint point: CGPoint) -> Bool {
-        _ = gridWindowController?.mousePositionChanged(sender, toPoint: point)
-        return true
-    }
-    
-    func sceneMagnificationChanged(_ sender: Any, toMagnification magnification: CGFloat) {
-        gridWindowController?.sceneMagnificationChanged(sender, toMagnification: magnification)
+    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+        gridWindowController?.mousePositionChanged(sender, to: coordinate)
     }
     
 }
