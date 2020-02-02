@@ -114,13 +114,16 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
-        if trackingTool == .move {
+        if trackingTool == .cursor {
+            // TODO: crop from image
+        }
+        else if trackingTool == .move {
             let origin = contentView.bounds.origin
             let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
             contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
         }
-        else if trackingTool == .magnify || trackingTool == .minify {
-            // not implemented
+        else if trackingTool == .magnify {
+            // TODO: magnify specified area to fill
         }
         updateCursorDisplay()
     }

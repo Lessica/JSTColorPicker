@@ -110,8 +110,9 @@ class SceneController: NSViewController {
         sceneView.hasVerticalRuler = true
         sceneView.hasHorizontalRuler = true
         sceneView.rulersVisible = true
-        sceneView.verticalScrollElasticity = .allowed
-        sceneView.horizontalScrollElasticity = .allowed
+        sceneView.verticalScrollElasticity = .automatic
+        sceneView.horizontalScrollElasticity = .automatic
+        sceneView.usesPredominantAxisScrolling = false  // TODO: set this in menu
         sceneView.verticalRulerView?.measurementUnits = .points
         sceneView.horizontalRulerView?.measurementUnits = .points
         // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
@@ -252,7 +253,11 @@ class SceneController: NSViewController {
             return false
         }
         if let next = nextMagnificationFactor {
-            sceneView.animator().setMagnification(next, centeredAt: location)
+            NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneView.animator().setMagnification(next, centeredAt: location)
+            }) {
+                self.sceneMagnificationChanged()
+            }
             return true
         }
         return false
@@ -263,7 +268,11 @@ class SceneController: NSViewController {
             return false
         }
         if let prev = prevMagnificationFactor {
-            sceneView.animator().setMagnification(prev, centeredAt: location)
+            NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneView.animator().setMagnification(prev, centeredAt: location)
+            }) {
+                self.sceneMagnificationChanged()
+            }
             return true
         }
         return false
@@ -456,6 +465,10 @@ extension SceneController: SceneTracking {
         trackingObject?.sceneMagnificationChanged(sender, to: magnification)
     }
     
+    fileprivate func sceneMagnificationChanged() {
+        sceneMagnificationChanged(self, to: sceneView.magnification)
+    }
+    
 }
 
 extension NSRect {
@@ -487,7 +500,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: fitBounds)
         }) {
-            // not implemented
+            self.sceneMagnificationChanged()
         }
     }
     
@@ -496,7 +509,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: fillBounds)
         }) {
-            // not implemented
+            self.sceneMagnificationChanged()
         }
     }
     
@@ -520,7 +533,7 @@ extension SceneController: SceneAnnotatorManager {
     
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
         updateAnnotatorBounds()
-        sceneMagnificationChanged(self, to: sceneView.magnification)
+        sceneMagnificationChanged()
     }
     
     fileprivate func updateAnnotatorBounds() {

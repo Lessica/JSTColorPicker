@@ -148,6 +148,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func preferencesItemTapped(_ sender: Any?) {
+        // TODO: preferences panel
         let alert = NSAlert()
         alert.messageText = "Not Implemented"
         alert.informativeText = "Preferences panel is not designed yet."
