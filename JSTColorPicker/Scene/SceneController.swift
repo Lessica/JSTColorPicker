@@ -76,7 +76,7 @@ class SceneController: NSViewController {
     
     weak var trackingObject: SceneTracking?
     internal weak var screenshot: Screenshot?
-    internal var annotators: [SceneAnnotator] = []
+    internal var annotators: [ColorAnnotator] = []
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     @IBOutlet weak var sceneOverlayView: SceneScrollOverlayView!
@@ -227,9 +227,9 @@ class SceneController: NSViewController {
         if !wrapper.visibleRect.contains(location) { return false }
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
-        var annotatorView: SceneAnnotatorView?
+        var annotatorView: ColorAnnotatorView?
         for view in sceneOverlayView.subviews.reversed() {
-            if let view = view as? SceneAnnotatorView {
+            if let view = view as? ColorAnnotatorView {
                 if view.frame.contains(locationInMask) {
                     annotatorView = view
                     break
@@ -529,7 +529,7 @@ extension SceneController: TrackingToolDelegate {
     
 }
 
-extension SceneController: SceneAnnotatorManager {
+extension SceneController: AnnotatorManager {
     
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
         updateAnnotatorBounds()
@@ -550,10 +550,10 @@ extension SceneController: SceneAnnotatorManager {
         addAnnotators(for: content.items)
     }
     
-    func addAnnotators(for items: [PixelColor]) {
-        items.forEach { (item) in
+    func addAnnotators(for items: [ContentItem]) {
+        items.compactMap({ $0 as? PixelColor }).forEach { (item) in
             if !annotators.contains(where: { $0.pixelColor == item }) {
-                let annotator = SceneAnnotator(pixelColor: item)
+                let annotator = ColorAnnotator(pixelColor: item)
                 annotator.label = "\(item.id)"
                 annotators.append(annotator)
                 sceneOverlayView.addSubview(annotator.view)
@@ -563,7 +563,7 @@ extension SceneController: SceneAnnotatorManager {
         updateAnnotatorBounds()
     }
     
-    func removeAnnotators(for items: [PixelColor]) {
+    func removeAnnotators(for items: [ContentItem]) {
         annotators.filter({ items.contains($0.pixelColor) }).forEach { (annotator) in
             annotator.view.removeFromSuperview()
         }
@@ -571,7 +571,7 @@ extension SceneController: SceneAnnotatorManager {
         debugPrint("remove annotators \(items)")
     }
     
-    func highlightAnnotators(for items: [PixelColor], scrollTo: Bool) {
+    func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators.forEach { (annotator) in
             if items.contains(annotator.pixelColor) {
                 annotator.view.removeFromSuperview()

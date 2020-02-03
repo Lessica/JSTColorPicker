@@ -1,5 +1,5 @@
 //
-//  SceneAnnotatorView.swift
+//  ColorAnnotatorView.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/31/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-class SceneAnnotatorView: NSView {
+class ColorAnnotatorView: NSView {
     
 }

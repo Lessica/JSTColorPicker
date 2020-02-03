@@ -8,16 +8,14 @@
 
 import Cocoa
 
-enum ContentColumnIdentifier: String {
-    case id = "col-id"
-    case color = "col-color"
-    case coordinate = "col-coordinate"
+extension NSUserInterfaceItemIdentifier {
+    static let columnID = NSUserInterfaceItemIdentifier("col-id")
+    static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 
-enum ContentCellIdentifier: String {
-    case id = "cell-id"
-    case color = "cell-color"
-    case coordinate = "cell-coordinate"
+extension NSUserInterfaceItemIdentifier {
+    static let cellID = NSUserInterfaceItemIdentifier("cell-id")
+    static let cellDescription = NSUserInterfaceItemIdentifier("cell-desc")
 }
 
 enum ContentError: LocalizedError {
@@ -29,11 +27,11 @@ enum ContentError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .exists:
-            return "This coordinate already exists."
+            return "This item already exists."
         case .doesNotExist:
-            return "This coordinate does not exist."
+            return "This item does not exist."
         case .reachLimit:
-            return "Maximum pixel count reached."
+            return "Maximum item count reached."
         case .noDocument:
             return "No document loaded."
         }
@@ -41,10 +39,10 @@ enum ContentError: LocalizedError {
 }
 
 protocol ContentActionDelegate: class {
-    func contentActionAdded(_ items: [PixelColor], by controller: ContentController)
-    func contentActionSelected(_ items: [PixelColor], by controller: ContentController)
-    func contentActionConfirmed(_ items: [PixelColor], by controller: ContentController)
-    func contentActionDeleted(_ items: [PixelColor], by controller: ContentController)
+    func contentActionAdded(_ items: [ContentItem], by controller: ContentController)
+    func contentActionSelected(_ items: [ContentItem], by controller: ContentController)
+    func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController)
+    func contentActionDeleted(_ items: [ContentItem], by controller: ContentController)
 }
 
 class ContentController: NSViewController {
@@ -111,7 +109,7 @@ extension Array {
 
 extension ContentController {
     
-    fileprivate func addContentItems(_ items: [PixelColor]) {
+    fileprivate func addContentItems(_ items: [ContentItem]) {
         guard let content = content else { return }
         undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
             targetSelf.deleteContentItems(items)  // memory captured and managed by UndoManager
@@ -123,7 +121,7 @@ extension ContentController {
         }
     }
     
-    fileprivate func deleteContentItems(_ items: [PixelColor]) {
+    fileprivate func deleteContentItems(_ items: [ContentItem]) {
         guard let content = content else { return }
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.addContentItems(items)  // memory captured and managed by UndoManager
@@ -144,7 +142,7 @@ extension ContentController: ContentTableViewResponder {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
         let rows = tableView.selectedRowIndexes
-        var selectedItems: [PixelColor] = []
+        var selectedItems: [ContentItem] = []
         rows.forEach { (row) in
             if row >= 0 && row < collection.count {
                 selectedItems.append(collection[row])
@@ -165,6 +163,7 @@ extension ContentController: NSUserInterfaceValidations {
         return false
     }
     
+    // TODO: submit `PixelArea` item
     func submitItem(at coordinate: PixelCoordinate, color: JSTPixelColor) throws -> PixelColor {
         guard let content = content else {
             throw ContentError.noDocument
@@ -172,7 +171,7 @@ extension ContentController: NSUserInterfaceValidations {
         if content.items.count >= Content.maximumCount {
             throw ContentError.reachLimit
         }
-        if content.items.first(where: { $0.coordinate == coordinate }) != nil {
+        if content.colors.first(where: { $0.coordinate == coordinate }) != nil {
             throw ContentError.exists
         }
         let item = PixelColor(id: nextID, coordinate: coordinate, color: color)
@@ -181,26 +180,28 @@ extension ContentController: NSUserInterfaceValidations {
         return item
     }
     
+    // TODO: delete `PixelArea` item
     func deleteItem(at coordinate: PixelCoordinate) throws -> PixelColor {
         guard let content = content else {
             throw ContentError.noDocument
         }
-        let itemIndex = content.items.firstIndex(where: { $0.coordinate == coordinate })
-        if let itemIndex = itemIndex {
-            let item = content.items[itemIndex]
+        
+        if let item = content.colors.first(where: { $0.coordinate == coordinate }) {
             deleteContentItems([item])
-            tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+            if let itemIndex = content.items.firstIndex(of: item) {
+                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+            }
             return item
-        } else {
-            throw ContentError.doesNotExist
         }
+        
+        throw ContentError.doesNotExist
     }
     
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
         let collection = content.items
         let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
-        var selectedItems: [PixelColor] = []
+        var selectedItems: [ContentItem] = []
         for row in rows {
             selectedItems.append(collection[row])
         }
@@ -212,7 +213,7 @@ extension ContentController: NSUserInterfaceValidations {
         guard let content = content else { return }
         let collection = content.items
         let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
-        var selectedItems: [PixelColor] = []
+        var selectedItems: [ContentItem] = []
         for row in rows {
             selectedItems.append(collection[row])
         }
@@ -220,7 +221,15 @@ extension ContentController: NSUserInterfaceValidations {
         // TODO: export using template
         var outputString = ""
         outputString += "{\n"
-        selectedItems.forEach({ outputString += "  { \($0.coordinate.x), \($0.coordinate.y), \($0.pixelColorRep.hexString) },  -- \($0.id)\n" })
+        selectedItems.forEach { (item) in
+            if let item = item as? PixelColor {
+                outputString += "  { \(item.coordinate.x), \(item.coordinate.y), \(item.pixelColorRep.hexString) },  -- \(item.id)\n"
+            }
+            else if let item = item as? PixelArea {
+                // TODO: copy export from `PixelArea`
+                outputString += "  -- \(item.id) (not implemented)\n"
+            }
+        }
         outputString += "}"
         
         let pasteboard = NSPasteboard.general
@@ -236,7 +245,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
         let rows = tableView.selectedRowIndexes
-        var selectedItems: [PixelColor] = []
+        var selectedItems: [ContentItem] = []
         rows.forEach { (row) in
             if row >= 0 && row < collection.count {
                 selectedItems.append(collection[row])
@@ -258,17 +267,20 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         guard let content = content else { return nil }
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
-            let col = tableColumn.identifier.rawValue
-            let pixel = content.items[row]
-            if col == ContentColumnIdentifier.id.rawValue {
-                cell.textField?.stringValue = String(pixel.id)
+            let col = tableColumn.identifier
+            let item = content.items[row]
+            if col == .columnID {
+                cell.textField?.stringValue = String(item.id)
             }
-            else if col == ContentColumnIdentifier.color.rawValue {
-                cell.imageView?.image = NSImage(color: pixel.pixelColorRep.toNSColor(), size: NSSize(width: 12, height: 12))
-                cell.textField?.stringValue = pixel.pixelColorRep.cssString
-            }
-            else if col == ContentColumnIdentifier.coordinate.rawValue {
-                cell.textField?.stringValue = "(\(pixel.coordinate.x),\(pixel.coordinate.y))"
+            else if col == .columnDescription {
+                if let item = item as? PixelColor {
+                    cell.imageView?.image = NSImage(color: item.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
+                }
+                else if let _ = item as? PixelArea {
+                    // TODO: icon of `PixelArea`
+                    cell.imageView?.image = NSImage()
+                }
+                cell.textField?.stringValue = item.description
             }
             return cell
         }

@@ -174,28 +174,28 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentActionDelegate {
     
-    func contentActionAdded(_ items: [PixelColor], by controller: ContentController) {
+    func contentActionAdded(_ items: [ContentItem], by controller: ContentController) {
         sceneController.addAnnotators(for: items)
         sceneController.highlightAnnotators(for: items, scrollTo: false)
     }
     
-    func contentActionSelected(_ items: [PixelColor], by controller: ContentController) {
-        if let item = items.first {
+    func contentActionSelected(_ items: [ContentItem], by controller: ContentController) {
+        if let item = items.first as? PixelColor {
             trackingObject?.mousePositionChanged(controller, to: item.coordinate)
             sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
         }
         sceneController.highlightAnnotators(for: items, scrollTo: false)
     }
     
-    func contentActionConfirmed(_ items: [PixelColor], by controller: ContentController) {
-        if let item = items.first {
+    func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController) {
+        if let item = items.first as? PixelColor {
             trackingObject?.mousePositionChanged(controller, to: item.coordinate)
             sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
         }
         sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
     }
     
-    func contentActionDeleted(_ items: [PixelColor], by controller: ContentController) {
+    func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
         sceneController.removeAnnotators(for: items)
     }
     

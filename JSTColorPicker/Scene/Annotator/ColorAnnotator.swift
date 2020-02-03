@@ -1,5 +1,5 @@
 //
-//  SceneAnnotator.swift
+//  ColorAnnotator.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/29/20.
@@ -26,7 +26,7 @@ class VerticallyCenteredTextFieldCell : NSTextFieldCell {
     
 }
 
-class SceneAnnotator {
+class ColorAnnotator {
     
     var pixelColor: PixelColor
     var isHighlighted: Bool {
@@ -45,12 +45,12 @@ class SceneAnnotator {
             labelCell.stringValue = label
         }
     }
-    var view: SceneAnnotatorView
+    var view: ColorAnnotatorView
     fileprivate var backgroundCell: VerticallyCenteredTextFieldCell
     fileprivate var labelCell: VerticallyCenteredTextFieldCell
     
     init(pixelColor: PixelColor) {
-        let view = SceneAnnotatorView()
+        let view = ColorAnnotatorView()
         
         let backgroundCell = VerticallyCenteredTextFieldCell()
         backgroundCell.isEditable = false

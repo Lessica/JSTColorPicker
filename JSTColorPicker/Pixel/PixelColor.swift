@@ -8,69 +8,32 @@
 
 import Foundation
 
-struct PixelCoordinate {
-    public static var zero: PixelCoordinate {
-        return PixelCoordinate()
-    }
-    public static var invalid: PixelCoordinate {
-        return PixelCoordinate(x: NSNotFound, y: NSNotFound)
-    }
-    var x: Int = 0
-    var y: Int = 0
-    init() {}
-    init(x: Int, y: Int) {
-        self.x = x
-        self.y = y
-    }
-    init(_ point: CGPoint) {
-        x = Int(floor(point.x))
-        y = Int(floor(point.y))
-    }
-    func toCGPoint() -> CGPoint {
-        return CGPoint(x: CGFloat(x), y: CGFloat(y))
-    }
-}
-
-extension PixelCoordinate: CustomStringConvertible {
-    var description: String {
-        return "(\(x), \(y))"
-    }
-}
-
-extension PixelCoordinate: Equatable {
-    static func == (lhs: PixelCoordinate, rhs: PixelCoordinate) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y
-    }
-}
-
-class PixelColor: NSObject {
-    var id: Int
+class PixelColor: ContentItem {
+    
     var coordinate: PixelCoordinate
     var pixelColorRep: JSTPixelColor
     
     init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
-        self.id = id
         self.coordinate = coordinate
         self.pixelColorRep = color
+        super.init(id: id)
     }
     
     required init?(coder: NSCoder) {
         guard let pixelColorRep = coder.decodeObject(forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
-        self.id = coder.decodeInteger(forKey: "id")
         let coordX = coder.decodeInteger(forKey: "coordinate.x")
         let coordY = coder.decodeInteger(forKey: "coordinate.y")
         self.coordinate = PixelCoordinate(x: coordX, y: coordY)
         self.pixelColorRep = pixelColorRep
+        super.init(coder: coder)
     }
     
     deinit {
         debugPrint("- [PixelColor deinit]")
     }
-}
-
-extension PixelColor: NSCoding {
-    func encode(with coder: NSCoder) {
-        coder.encode(id, forKey: "id")
+    
+    override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
         coder.encode(coordinate.x, forKey: "coordinate.x")
         coder.encode(coordinate.y, forKey: "coordinate.y")
         coder.encode(pixelColorRep, forKey: "pixelColorRep")
@@ -83,14 +46,8 @@ extension PixelColor /*: Equatable*/ {
     }
 }
 
-extension PixelColor: Comparable {
-    static func < (lhs: PixelColor, rhs: PixelColor) -> Bool {
-        return lhs.id < rhs.id
-    }
-}
-
 extension PixelColor /*: CustomStringConvertible*/ {
     override var description: String {
-        return "(\(id): \(coordinate), \(pixelColorRep))"
+        return "\(coordinate): \(pixelColorRep)"
     }
 }
