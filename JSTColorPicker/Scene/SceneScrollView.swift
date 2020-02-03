@@ -24,14 +24,14 @@ class SceneScrollView: NSScrollView {
         return documentView as! SceneImageWrapper
     }
     
-    fileprivate var previousCoordinate = PixelCoordinate.invalid
+    fileprivate var previousTrackingCoordinate = PixelCoordinate.invalid
     
     fileprivate func mouseTrackingEvent(with event: NSEvent) {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         guard wrapper.bounds.contains(loc) else { return }
         let currentCoordinate = PixelCoordinate(loc)
-        if currentCoordinate != previousCoordinate {
-            previousCoordinate = currentCoordinate
+        if currentCoordinate != previousTrackingCoordinate {
+            previousTrackingCoordinate = currentCoordinate
             trackingDelegate?.mousePositionChanged(self, to: currentCoordinate)
         }
     }
@@ -100,8 +100,15 @@ class SceneScrollView: NSScrollView {
         resetCursorDisplay()
     }
     
+//    fileprivate var previousDraggingCoordinate = PixelCoordinate.invalid
+    fileprivate var beginDraggingCoordinate = PixelCoordinate.invalid
+    
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
+        
+        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        beginDraggingCoordinate = PixelCoordinate(loc)
+        
         isBeingManipulated = true
         updateCursorDisplay()
     }

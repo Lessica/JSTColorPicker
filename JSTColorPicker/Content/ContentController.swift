@@ -186,12 +186,19 @@ extension ContentController: NSUserInterfaceValidations {
             throw ContentError.noDocument
         }
         
-        if let item = content.colors.first(where: { $0.coordinate == coordinate }) {
-            deleteContentItems([item])
-            if let itemIndex = content.items.firstIndex(of: item) {
-                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+        if let itemIndex = (content.items.firstIndex(where: { (item) -> Bool in
+            if let item = item as? PixelColor {
+                if item.coordinate == coordinate {
+                    return true
+                }
             }
-            return item
+            return false
+        })) {
+            if let item = content.items[itemIndex] as? PixelColor {
+                deleteContentItems([item])
+                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+                return item
+            }
         }
         
         throw ContentError.doesNotExist
