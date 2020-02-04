@@ -196,6 +196,9 @@ extension SplitController: ContentActionDelegate {
     }
     
     func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
+        if let item = items.first as? PixelColor {
+            trackingObject?.mousePositionChanged(controller, to: item.coordinate)
+        }
         sceneController.removeAnnotators(for: items)
     }
     
