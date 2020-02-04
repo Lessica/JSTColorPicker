@@ -15,15 +15,15 @@ struct PixelSize {
     public static var invalid: PixelSize {
         return PixelSize(width: NSNotFound, height: NSNotFound)
     }
-    var width: Int = 0
+    var width:  Int = 0
     var height: Int = 0
     init() {}
     init(width: Int, height: Int) {
-        self.width = width
+        self.width  = width
         self.height = height
     }
     init(_ size: CGSize) {
-        width = Int(floor(size.width))
+        width  = Int(floor(size.width))
         height = Int(floor(size.height))
     }
     func toCGSize() -> CGSize {

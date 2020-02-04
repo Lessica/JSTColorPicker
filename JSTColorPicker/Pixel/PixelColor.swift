@@ -14,7 +14,7 @@ class PixelColor: ContentItem {
     var pixelColorRep: JSTPixelColor
     
     init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
-        self.coordinate = coordinate
+        self.coordinate    = coordinate
         self.pixelColorRep = color
         super.init(id: id)
     }
@@ -23,7 +23,7 @@ class PixelColor: ContentItem {
         guard let pixelColorRep = coder.decodeObject(forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
         let coordX = coder.decodeInteger(forKey: "coordinate.x")
         let coordY = coder.decodeInteger(forKey: "coordinate.y")
-        self.coordinate = PixelCoordinate(x: coordX, y: coordY)
+        self.coordinate    = PixelCoordinate(x: coordX, y: coordY)
         self.pixelColorRep = pixelColorRep
         super.init(coder: coder)
     }

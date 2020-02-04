@@ -43,10 +43,10 @@ class PixelImage {
             throw PixelImageError.loadImageFailed
         }
         
-        self.imageURL = url
-        self.imageRep = cgimg
+        self.imageURL       = url
+        self.imageRep       = cgimg
         self.imageSourceRep = cgimgSource
-        self.pixelImageRep = JSTPixelImage(cgImage: cgimg)
+        self.pixelImageRep  = JSTPixelImage(cgImage: cgimg)
     }
     
     deinit {

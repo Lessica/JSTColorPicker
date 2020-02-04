@@ -393,6 +393,7 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
+        mousePositionChanged(self, to: PixelCoordinate(simulatedPoint))
         return true
     }
      

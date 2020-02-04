@@ -194,6 +194,7 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
+        mouseTrackingEvent(with: event)
         
         isBeingManipulated = true
         isBeingDragged = false
@@ -206,6 +207,7 @@ class SceneScrollView: NSScrollView {
     
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
+        mouseTrackingEvent(with: event)
         
         if isBeingManipulated {
             isBeingManipulated = false
@@ -219,6 +221,7 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
+        mouseTrackingEvent(with: event)
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(beginDraggingLocation) > SceneScrollView.minimumDraggingDistance {

@@ -20,9 +20,9 @@ class PixelArea: ContentItem {
     required init?(coder: NSCoder) {
         let coordX = coder.decodeInteger(forKey: "rect.origin.x")
         let coordY = coder.decodeInteger(forKey: "rect.origin.y")
-        let sizeW = coder.decodeInteger(forKey: "rect.size.width")
-        let sizeH = coder.decodeInteger(forKey: "rect.size.height")
-        self.rect = PixelRect(x: coordX, y: coordY, width: sizeW, height: sizeH)
+        let sizeW  = coder.decodeInteger(forKey: "rect.size.width")
+        let sizeH  = coder.decodeInteger(forKey: "rect.size.height")
+        self.rect  = PixelRect(x: coordX, y: coordY, width: sizeW, height: sizeH)
         super.init(coder: coder)
     }
     
