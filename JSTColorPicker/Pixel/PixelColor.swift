@@ -48,6 +48,6 @@ extension PixelColor /*: Equatable*/ {
 
 extension PixelColor /*: CustomStringConvertible*/ {
     override var description: String {
-        return "\(coordinate): \(pixelColorRep)"
+        return "\(pixelColorRep) \(coordinate)"
     }
 }

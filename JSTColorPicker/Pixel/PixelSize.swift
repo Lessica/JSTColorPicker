@@ -24,7 +24,7 @@ struct PixelSize {
     }
     init(_ size: CGSize) {
         width = Int(floor(size.width))
-        width = Int(floor(size.height))
+        height = Int(floor(size.height))
     }
     func toCGSize() -> CGSize {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
@@ -40,5 +40,11 @@ extension PixelSize: CustomStringConvertible {
 extension PixelSize: Equatable {
     static func == (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width == rhs.width && lhs.height == rhs.height
+    }
+}
+
+extension PixelSize: Comparable {
+    static func < (lhs: PixelSize, rhs: PixelSize) -> Bool {
+        return lhs.width * lhs.height < rhs.width * rhs.height
     }
 }

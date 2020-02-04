@@ -228,7 +228,7 @@ class SceneController: NSViewController {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
         var annotatorView: ColorAnnotatorView?
-        for view in sceneOverlayView.subviews.reversed() {
+        for view in sceneOverlayView.subviews.reversed() {  // from top to bottom
             if let view = view as? ColorAnnotatorView {
                 if view.frame.contains(locationInMask) {
                     annotatorView = view
@@ -263,6 +263,11 @@ class SceneController: NSViewController {
         return false
     }
     
+    fileprivate func magnifyToolDraggedApply(in rect: CGRect) -> Bool {
+        sceneMagnify(toFit: rect)
+        return true
+    }
+    
     fileprivate func minifyToolApply(at location: CGPoint) -> Bool {
         if !canMinify {
             return false
@@ -280,15 +285,17 @@ class SceneController: NSViewController {
     
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if trackingTool == .cursor {
-            handled = cursorApply(at: loc)
-        }
-        else if trackingTool == .magnify {
-            handled = magnifyToolApply(at: loc)
-        }
-        else if trackingTool == .minify {
-            handled = minifyToolApply(at: loc)
+        if !sceneView.isBeingDragged {
+            let loc = wrapper.convert(event.locationInWindow, from: nil)
+            if trackingTool == .cursor {
+                handled = cursorApply(at: loc)
+            }
+            else if trackingTool == .magnify {
+                handled = magnifyToolApply(at: loc)
+            }
+            else if trackingTool == .minify {
+                handled = minifyToolApply(at: loc)
+            }
         }
         if !handled {
             super.mouseUp(with: event)
@@ -453,6 +460,13 @@ extension SceneController: SceneTracking {
         trackingObject?.mousePositionChanged(sender, to: coordinate)
     }
     
+    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect) {
+        if trackingTool == .magnify {
+            _ = magnifyToolDraggedApply(in: rect.toCGRect())
+        }
+        trackingObject?.mouseDraggingAreaChanged(sender, to: rect)
+    }
+    
     func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         trackingObject?.mouseClicked(sender, at: coordinate)
     }
@@ -496,18 +510,16 @@ extension SceneController: ToolbarResponder {
     }
     
     func fitWindowAction(_ sender: Any?) {
-        let fitBounds = wrapper.bounds
-        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: fitBounds)
-        }) {
-            self.sceneMagnificationChanged()
-        }
+        sceneMagnify(toFit: wrapper.bounds)
     }
     
     func fillWindowAction(_ sender: Any?) {
-        let fillBounds = sceneView.bounds.aspectFit(in: wrapper.bounds)
+        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
+    }
+    
+    fileprivate func sceneMagnify(toFit rect: CGRect) {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: fillBounds)
+            self.sceneView.animator().magnify(toFit: rect)
         }) {
             self.sceneMagnificationChanged()
         }

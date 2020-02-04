@@ -10,6 +10,7 @@ import Cocoa
 
 protocol SceneTracking: class {
     func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate)
+    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect)
     func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
     func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
     func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
@@ -17,6 +18,7 @@ protocol SceneTracking: class {
 
 extension SceneTracking {
     func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) { }
+    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect) { }
     func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
     func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
     func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
