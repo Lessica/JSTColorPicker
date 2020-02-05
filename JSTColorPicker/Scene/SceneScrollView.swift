@@ -77,20 +77,25 @@ class SceneScrollView: NSScrollView {
     
     fileprivate var previousTrackingCoordinate = PixelCoordinate.invalid
     
-    fileprivate func mouseTrackingEvent(with event: NSEvent) {
+    fileprivate func trackCursorPositionChanged(with event: NSEvent) {
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         guard wrapper.bounds.contains(loc) else { return }
         let currentCoordinate = PixelCoordinate(loc)
         if currentCoordinate != previousTrackingCoordinate {
             previousTrackingCoordinate = currentCoordinate
-            trackingDelegate?.mousePositionChanged(self, to: currentCoordinate)
+            trackingDelegate?.trackCursorPositionChanged(self, to: currentCoordinate)
         }
     }
     
-    fileprivate func mouseManipulatingEvent(with event: NSEvent) {
+    fileprivate func trackMouseDragged(with event: NSEvent) {
         let draggingArea = PixelRect(convert(draggingLayer.frame, to: wrapper))
         if draggingArea.size > PixelSize(width: 1, height: 1) {
-            trackingDelegate?.mouseDraggingAreaChanged(self, to: draggingArea)
+            if trackingTool == .cursor {
+                trackingDelegate?.trackCursorDragged(self, to: draggingArea)
+            }
+            else if trackingTool == .magnify {
+                trackingDelegate?.trackMagnifyToolDragged(self, to: draggingArea)
+            }
         }
     }
     
@@ -142,19 +147,19 @@ class SceneScrollView: NSScrollView {
     
     override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         updateCursorAppearance()
     }
     
     override func mouseMoved(with event: NSEvent) {
         super.mouseMoved(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         updateCursorAppearance()
     }
     
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         resetCursorDisplay()
     }
     
@@ -171,12 +176,15 @@ class SceneScrollView: NSScrollView {
     var isBeingDragged = false
     
     fileprivate func updateDraggingLayerAppearance() {
+        if !mouseInside() { return }
         if isBeingManipulated {
-            CATransaction.withDisabledActions {
-                draggingLayer.frame = CGRect.zero
+            if trackingTool == .cursor || trackingTool == .magnify {
+                CATransaction.withDisabledActions {
+                    draggingLayer.frame = CGRect.zero
+                }
+                draggingLayer.bringToFront()
+                draggingLayer.isHidden = false
             }
-            draggingLayer.bringToFront()
-            draggingLayer.isHidden = false
         } else {
             draggingLayer.isHidden = true
             draggingLayer.sendToBack()
@@ -194,49 +202,45 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         
         isBeingManipulated = true
         isBeingDragged = false
-        
         beginDraggingLocation = convert(event.locationInWindow, from: nil)
         
-        updateCursorAppearance()
         updateDraggingLayerAppearance()
+        updateCursorAppearance()
     }
     
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         
         if isBeingManipulated {
             isBeingManipulated = false
             isBeingDragged = false
-            mouseManipulatingEvent(with: event)
+            trackMouseDragged(with: event)
         }
         
-        updateCursorAppearance()
         updateDraggingLayerAppearance()
+        updateCursorAppearance()
     }
     
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
-        mouseTrackingEvent(with: event)
+        trackCursorPositionChanged(with: event)
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(beginDraggingLocation) > SceneScrollView.minimumDraggingDistance {
             isBeingDragged = true
         }
         
-        if trackingTool == .cursor {
-            // TODO: crop from image
-        }
-        else if trackingTool == .move {
+        if trackingTool == .move {
             let origin = contentView.bounds.origin
             let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
             contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
         }
-        else if trackingTool == .magnify {
+        else if trackingTool == .cursor || trackingTool == .magnify {
             updateDraggingLayerBounds(at: convert(event.locationInWindow, from: nil))
         }
         

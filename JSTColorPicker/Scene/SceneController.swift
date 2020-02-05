@@ -217,13 +217,13 @@ class SceneController: NSViewController {
         // not implemented
     }
     
-    fileprivate func cursorApply(at location: CGPoint) -> Bool {
+    fileprivate func cursorClicked(at location: CGPoint) -> Bool {
         if !wrapper.visibleRect.contains(location) { return false }
-        mouseClicked(self, at: PixelCoordinate(location))
+        trackCursorClicked(self, at: PixelCoordinate(location))
         return true
     }
     
-    fileprivate func rightCursorApply(at location: CGPoint) -> Bool {
+    fileprivate func rightCursorClicked(at location: CGPoint) -> Bool {
         if !wrapper.visibleRect.contains(location) { return false }
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
@@ -239,16 +239,16 @@ class SceneController: NSViewController {
         
         if let annotatorView = annotatorView {
             if let annotator = annotators.first(where: { $0.view === annotatorView }) {
-                rightMouseClicked(self, at: annotator.pixelColor.coordinate)
+                trackRightCursorClicked(self, at: annotator.pixelColor.coordinate)
                 return true
             }
         }
         
-        rightMouseClicked(self, at: PixelCoordinate(location))
+        trackRightCursorClicked(self, at: PixelCoordinate(location))
         return true
     }
     
-    fileprivate func magnifyToolApply(at location: CGPoint) -> Bool {
+    fileprivate func magnifyToolClicked(at location: CGPoint) -> Bool {
         if !canMagnify {
             return false
         }
@@ -263,12 +263,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func magnifyToolDraggedApply(in rect: CGRect) -> Bool {
-        sceneMagnify(toFit: rect)
-        return true
-    }
-    
-    fileprivate func minifyToolApply(at location: CGPoint) -> Bool {
+    fileprivate func minifyToolClicked(at location: CGPoint) -> Bool {
         if !canMinify {
             return false
         }
@@ -288,13 +283,13 @@ class SceneController: NSViewController {
         if !sceneView.isBeingDragged {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if trackingTool == .cursor {
-                handled = cursorApply(at: loc)
+                handled = cursorClicked(at: loc)
             }
             else if trackingTool == .magnify {
-                handled = magnifyToolApply(at: loc)
+                handled = magnifyToolClicked(at: loc)
             }
             else if trackingTool == .minify {
-                handled = minifyToolApply(at: loc)
+                handled = minifyToolClicked(at: loc)
             }
         }
         if !handled {
@@ -306,7 +301,7 @@ class SceneController: NSViewController {
         var handled = false
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         if trackingTool == .cursor {
-            handled = rightCursorApply(at: loc)
+            handled = rightCursorClicked(at: loc)
         }
         if !handled {
             super.rightMouseUp(with: event)
@@ -352,7 +347,7 @@ class SceneController: NSViewController {
         return true
     }
     
-    fileprivate func shortcutMoveMouse(by direction: NSEvent.SpecialKey, from pixelLocation: CGPoint) -> Bool {
+    fileprivate func shortcutMoveCursor(by direction: NSEvent.SpecialKey, from pixelLocation: CGPoint) -> Bool {
         if !wrapper.visibleRect.contains(pixelLocation) { return false }
         
         var simulatedSize = CGSize.zero
@@ -393,7 +388,7 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        mousePositionChanged(self, to: PixelCoordinate(simulatedPoint))
+        trackCursorPositionChanged(self, to: PixelCoordinate(simulatedPoint))
         return true
     }
      
@@ -402,21 +397,21 @@ class SceneController: NSViewController {
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    return shortcutMoveMouse(by: specialKey, from: loc)
+                    return shortcutMoveCursor(by: specialKey, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
-                    return cursorApply(at: loc)
+                    return cursorClicked(at: loc)
                 }
                 else if specialKey == .delete {
-                    return rightCursorApply(at: loc)
+                    return rightCursorClicked(at: loc)
                 }
             }
             else if let characters = event.characters {
                 if characters.contains("-") {
-                    return minifyToolApply(at: loc)
+                    return minifyToolClicked(at: loc)
                 }
                 else if characters.contains("=") {
-                    return magnifyToolApply(at: loc)
+                    return magnifyToolClicked(at: loc)
                 }
             }
         }
@@ -457,31 +452,34 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
-        trackingObject?.mousePositionChanged(sender, to: coordinate)
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+        trackingObject?.trackCursorPositionChanged(sender, to: coordinate)
     }
     
-    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect) {
-        if trackingTool == .magnify {
-            _ = magnifyToolDraggedApply(in: rect.toCGRect())
-        }
-        trackingObject?.mouseDraggingAreaChanged(sender, to: rect)
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
+        trackingObject?.trackCursorDragged(sender, to: rect)
     }
     
-    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        trackingObject?.mouseClicked(sender, at: coordinate)
+    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+        trackingObject?.trackCursorClicked(sender, at: coordinate)
     }
     
-    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        trackingObject?.rightMouseClicked(sender, at: coordinate)
+    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+        trackingObject?.trackRightCursorClicked(sender, at: coordinate)
     }
     
-    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
-        trackingObject?.sceneMagnificationChanged(sender, to: magnification)
+    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) {
+        sceneMagnify(toFit: rect.toCGRect())
+        trackingObject?.trackMagnifyToolDragged(sender, to: rect)
+    }
+    
+    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
+        trackingObject?.trackSceneMagnificationChanged(sender, to: magnification)
     }
     
     fileprivate func sceneMagnificationChanged() {
-        sceneMagnificationChanged(self, to: sceneView.magnification)
+        let magnification = max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
+        trackSceneMagnificationChanged(self, to: magnification)
     }
     
 }

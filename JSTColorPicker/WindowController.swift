@@ -263,8 +263,8 @@ extension WindowController: ScreenshotLoader {
 
 extension WindowController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
-        gridWindowController?.mousePositionChanged(sender, to: coordinate)
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+        gridWindowController?.trackCursorPositionChanged(sender, to: coordinate)
     }
     
 }

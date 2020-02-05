@@ -45,7 +45,7 @@ class ColorGridWindowController: NSWindowController {
 
 extension ColorGridWindowController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
         guard let shouldTrack = window?.isVisible else { return }
         if shouldTrack {
             gridView?.centerCoordinate = coordinate

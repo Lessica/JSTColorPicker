@@ -83,13 +83,13 @@ extension SplitController: DropViewDelegate {
 
 extension SplitController: SceneTracking {
     
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         sidebarController.updateInspector(coordinate: coordinate, color: image.pixelImageRep.getJSTColor(of: coordinate.toCGPoint()), submit: false)
-        trackingObject?.mousePositionChanged(sender, to: coordinate)
+        trackingObject?.trackCursorPositionChanged(sender, to: coordinate)
     }
     
-    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         let color = image.pixelImageRep.getJSTColor(of: coordinate.toCGPoint())
         sidebarController.updateInspector(coordinate: coordinate, color: color, submit: true)
@@ -101,7 +101,7 @@ extension SplitController: SceneTracking {
         }
     }
     
-    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         do {
             _ = try contentController.deleteItem(at: coordinate)
         } catch let error {
@@ -110,11 +110,11 @@ extension SplitController: SceneTracking {
         }
     }
     
-    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
+    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
         if let title = screenshot?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
-        trackingObject?.sceneMagnificationChanged(sender, to: magnification)
+        trackingObject?.trackSceneMagnificationChanged(sender, to: magnification)
     }
     
 }
@@ -180,26 +180,26 @@ extension SplitController: ContentActionDelegate {
     }
     
     func contentActionSelected(_ items: [ContentItem], by controller: ContentController) {
+        sceneController.highlightAnnotators(for: items, scrollTo: false)
         if let item = items.first as? PixelColor {
-            trackingObject?.mousePositionChanged(controller, to: item.coordinate)
+            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
             sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
         }
-        sceneController.highlightAnnotators(for: items, scrollTo: false)
     }
     
     func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController) {
+        sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
         if let item = items.first as? PixelColor {
-            trackingObject?.mousePositionChanged(controller, to: item.coordinate)
+            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
             sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
         }
-        sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
     }
     
     func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
-        if let item = items.first as? PixelColor {
-            trackingObject?.mousePositionChanged(controller, to: item.coordinate)
-        }
         sceneController.removeAnnotators(for: items)
+        if let item = items.first as? PixelColor {
+            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
+        }
     }
     
 }

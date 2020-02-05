@@ -9,17 +9,19 @@
 import Cocoa
 
 protocol SceneTracking: class {
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate)
-    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect)
-    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
-    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate)
-    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate)
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect)
+    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
+    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
+    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect)
+    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
 }
 
 extension SceneTracking {
-    func mousePositionChanged(_ sender: Any, to coordinate: PixelCoordinate) { }
-    func mouseDraggingAreaChanged(_ sender: Any, to rect: PixelRect) { }
-    func mouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
-    func rightMouseClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
-    func sceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
+    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) { }
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
+    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) { }
+    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
 }
