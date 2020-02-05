@@ -49,6 +49,18 @@ class PixelImage {
         self.pixelImageRep  = JSTPixelImage(cgImage: cgimg)
     }
     
+    var size: PixelSize {
+        return PixelSize(pixelImageRep.size())
+    }
+    
+    func color(at coordinate: PixelCoordinate) -> PixelColor {
+        return PixelColor(id: 0, coordinate: coordinate, color: pixelImageRep.getJSTColor(of: coordinate.toCGPoint()))
+    }
+    
+    func area(at rect: PixelRect) -> PixelArea {
+        return PixelArea(id: 0, rect: rect)
+    }
+    
     deinit {
         debugPrint("- [PixelImage deinit]")
     }

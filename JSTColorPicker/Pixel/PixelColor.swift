@@ -32,6 +32,46 @@ class PixelColor: ContentItem {
         debugPrint("- [PixelColor deinit]")
     }
     
+    var intValue: UInt32 {
+        return pixelColorRep.intValue
+    }
+    
+    var intValueWithAlpha: UInt32 {
+        return pixelColorRep.intValueWithAlpha
+    }
+    
+    var red: UInt8 {
+        return pixelColorRep.red
+    }
+    
+    var green: UInt8 {
+        return pixelColorRep.green
+    }
+    
+    var blue: UInt8 {
+        return pixelColorRep.blue
+    }
+    
+    var alpha: UInt8 {
+        return pixelColorRep.alpha
+    }
+    
+    var hexString: String {
+        return pixelColorRep.hexString
+    }
+    
+    var hexStringWithAlpha: String {
+        return pixelColorRep.hexStringWithAlpha
+    }
+    
+    var cssString: String {
+        return pixelColorRep.cssString
+    }
+    
+    func toNSColor() -> NSColor {
+        return pixelColorRep.toNSColor()
+    }
+    
     override func encode(with coder: NSCoder) {
         super.encode(with: coder)
         coder.encode(coordinate.x, forKey: "coordinate.x")

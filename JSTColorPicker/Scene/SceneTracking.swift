@@ -9,19 +9,19 @@
 import Cocoa
 
 protocol SceneTracking: class {
-    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate)
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect)
+    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate)
+    func trackAreaChanged(_ sender: Any, to rect: PixelRect)
     func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
     func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect)
     func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect)
     func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
 }
 
 extension SceneTracking {
-    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) { }
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
     func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
     func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
     func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) { }
     func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
 }

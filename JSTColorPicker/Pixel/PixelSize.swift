@@ -33,7 +33,7 @@ struct PixelSize {
 
 extension PixelSize: CustomStringConvertible {
     var description: String {
-        return "(\(width),\(height))"
+        return "{w:\(width),h:\(height)}"
     }
 }
 

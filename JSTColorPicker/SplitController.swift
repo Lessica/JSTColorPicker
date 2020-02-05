@@ -83,18 +83,24 @@ extension SplitController: DropViewDelegate {
 
 extension SplitController: SceneTracking {
     
-    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
+    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
-        sidebarController.updateInspector(coordinate: coordinate, color: image.pixelImageRep.getJSTColor(of: coordinate.toCGPoint()), submit: false)
-        trackingObject?.trackCursorPositionChanged(sender, to: coordinate)
+        sidebarController.updateInspector(for: image.color(at: coordinate), submit: false)
+        trackingObject?.trackColorChanged(sender, at: coordinate)
+    }
+    
+    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
+        guard let image = screenshot?.image else { return }
+        sidebarController.updateInspector(for: image.area(at: rect), submit: false)
+        trackingObject?.trackAreaChanged(sender, to: rect)
     }
     
     func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
-        let color = image.pixelImageRep.getJSTColor(of: coordinate.toCGPoint())
-        sidebarController.updateInspector(coordinate: coordinate, color: color, submit: true)
+        let color = image.color(at: coordinate)
+        sidebarController.updateInspector(for: color, submit: true)
         do {
-            _ = try contentController.submitItem(at: coordinate, color: color)
+            _ = try contentController.submitItem(color)
         } catch let error {
             let alert = NSAlert(error: error)
             alert.runModal()
@@ -174,6 +180,15 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentActionDelegate {
     
+    fileprivate func contentItemChanged(_ item: ContentItem, by controller: ContentController) {
+        if let item = item as? PixelColor {
+            trackingObject?.trackColorChanged(controller, at: item.coordinate)
+        }
+        else if let item = item as? PixelArea {
+            trackingObject?.trackAreaChanged(controller, to: item.rect)
+        }
+    }
+    
     func contentActionAdded(_ items: [ContentItem], by controller: ContentController) {
         sceneController.addAnnotators(for: items)
         sceneController.highlightAnnotators(for: items, scrollTo: false)
@@ -181,24 +196,24 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionSelected(_ items: [ContentItem], by controller: ContentController) {
         sceneController.highlightAnnotators(for: items, scrollTo: false)
-        if let item = items.first as? PixelColor {
-            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
-            sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
+        if let item = items.first {
+            contentItemChanged(item, by: controller)
+            sidebarController.updateInspector(for: item, submit: true)
         }
     }
     
     func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController) {
         sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
-        if let item = items.first as? PixelColor {
-            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
-            sidebarController.updateInspector(coordinate: item.coordinate, color: item.pixelColorRep, submit: true)
+        if let item = items.first {
+            contentItemChanged(item, by: controller)
+            sidebarController.updateInspector(for: item, submit: true)
         }
     }
     
     func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
         sceneController.removeAnnotators(for: items)
-        if let item = items.first as? PixelColor {
-            trackingObject?.trackCursorPositionChanged(controller, to: item.coordinate)
+        if let item = items.first {
+            contentItemChanged(item, by: controller)
         }
     }
     

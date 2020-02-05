@@ -36,7 +36,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var imageLabel: NSTextField!
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag: ColorIndicator!
-    @IBOutlet weak var inspectorPositionLabel: NSTextField!
+    @IBOutlet weak var inspectorAreaLabel: NSTextField!
     
     fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
@@ -58,24 +58,24 @@ class SidebarController: NSViewController {
         resetController()
     }
     
-    func updateInspector(coordinate: PixelCoordinate, color: JSTPixelColor, submit: Bool) {
-//        debugPrint("(\(point.x), \(point.y), \(color.getHex()))")
-        inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.red))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.green))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  =\(String(format: "0x%02X", color.blue))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% =\(String(format: "0x%02X", color.alpha))
-CSS: \(String(format: "#%06X", color.intValue))
+    func updateInspector(for item: ContentItem, submit: Bool) {
+        if let color = item as? PixelColor {
+            inspectorColorLabel.stringValue = """
+R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.red))
+G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.green))
+B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.blue))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% \(String(format: "0x%02X", color.alpha))
+\(color)
 """
-        let nsColor = color.toNSColor()
-        inspectorColorFlag.color = nsColor
-        inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
-        inspectorPositionLabel.stringValue = """
-X:\(String(coordinate.x).leftPadding(toLength: 5, withPad: " "))
-Y:\(String(coordinate.y).leftPadding(toLength: 5, withPad: " "))
-"""
-        if submit {
-            colorPanel.color = nsColor
+            let nsColor = color.toNSColor()
+            inspectorColorFlag.color = nsColor
+            inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+            if submit {
+                colorPanel.color = nsColor
+            }
+        }
+        else if let area = item as? PixelArea {
+            inspectorAreaLabel.stringValue = "\(area)"
         }
     }
     
@@ -102,12 +102,9 @@ R:
 G:
 B:
 A:
-CSS:
+#
 """
-    inspectorPositionLabel.stringValue = """
-X:
-Y:
-"""
+    inspectorAreaLabel.stringValue = ""
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -115,10 +112,10 @@ Y:
             throw ScreenshotError.invalidImageSource
         }
         self.screenshot = screenshot
-        renderImageSource(source, itemURL: url)
+        try renderImageSource(source, itemURL: url)
     }
     
-    fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) {
+    fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
         guard let fileProps = CGImageSourceCopyProperties(source, nil) as? [AnyHashable: Any] else {
             return
         }
@@ -126,9 +123,16 @@ Y:
             return
         }
         let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
-        var createdAt: String?
+        var createdAt: Date?
         if let date = SidebarController.exifDateFormatter.date(from: createdAtStr) {
-            createdAt = SidebarController.defaultDateFormatter.string(from: date)
+            createdAt = date
+        } else {
+            let attrs = try FileManager.default.attributesOfItem(atPath: itemURL.path)
+            createdAt = attrs[.creationDate] as? Date
+        }
+        var createdAtDesc: String?
+        if let createdAt = createdAt {
+            createdAtDesc = SidebarController.defaultDateFormatter.string(from: createdAt)
         }
         let fileSize = SidebarController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
@@ -136,7 +140,7 @@ Y:
         imageLabel.stringValue = """
 \(itemURL.lastPathComponent) (\(fileSize))
 
-Created: \(createdAt ?? "Unknown")
+Created: \(createdAtDesc ?? "Unknown")
 Dimensions: \(pixelXDimension)×\(pixelYDimension)
 Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")

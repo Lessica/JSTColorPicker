@@ -388,7 +388,7 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        trackCursorPositionChanged(self, to: PixelCoordinate(simulatedPoint))
+        trackColorChanged(self, at: PixelCoordinate(simulatedPoint))
         return true
     }
      
@@ -452,8 +452,12 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
-    func trackCursorPositionChanged(_ sender: Any, to coordinate: PixelCoordinate) {
-        trackingObject?.trackCursorPositionChanged(sender, to: coordinate)
+    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
+        trackingObject?.trackColorChanged(sender, at: coordinate)
+    }
+    
+    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
+        trackingObject?.trackAreaChanged(sender, to: rect)
     }
     
     func trackCursorDragged(_ sender: Any, to rect: PixelRect) {

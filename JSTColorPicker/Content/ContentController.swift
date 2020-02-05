@@ -163,20 +163,25 @@ extension ContentController: NSUserInterfaceValidations {
         return false
     }
     
-    // TODO: submit `PixelArea` item
-    func submitItem(at coordinate: PixelCoordinate, color: JSTPixelColor) throws -> PixelColor {
+    func submitItem(_ item: ContentItem) throws -> ContentItem {
         guard let content = content else {
             throw ContentError.noDocument
         }
         if content.items.count >= Content.maximumCount {
             throw ContentError.reachLimit
         }
-        if content.colors.first(where: { $0.coordinate == coordinate }) != nil {
-            throw ContentError.exists
+        if let item = item as? PixelColor {
+            if content.colors.first(where: { $0 == item }) != nil {
+                throw ContentError.exists
+            }
+            item.id = nextID
+            addContentItems([item])
+            tableView.reloadData()
+            return item
         }
-        let item = PixelColor(id: nextID, coordinate: coordinate, color: color)
-        addContentItems([item])
-        tableView.reloadData()
+        else if let _ = item as? PixelArea {
+            // TODO: submit `PixelArea` item
+        }
         return item
     }
     

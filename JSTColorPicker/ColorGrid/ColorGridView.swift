@@ -39,7 +39,10 @@ class ColorGridView: NSView {
     weak var dataSource: ScreenshotLoader?
     var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
-            setNeedsDisplay(bounds)
+            guard let shouldTrack = window?.isVisible else { return }
+            if shouldTrack {
+                setNeedsDisplay(bounds)
+            }
         }
     }
     var animating: Bool = false {
@@ -58,8 +61,8 @@ class ColorGridView: NSView {
         view.layer?.backgroundColor = .white
         return view
     }()
-    fileprivate var pixelImage: JSTPixelImage? {
-        return dataSource?.screenshot?.image?.pixelImageRep
+    fileprivate var pixelImage: PixelImage? {
+        return dataSource?.screenshot?.image
     }
     
     fileprivate func shimAnimation(_ opaque: Bool) {
@@ -108,7 +111,7 @@ class ColorGridView: NSView {
         
         let hNum = CGFloat(hPixelNum) / 2.0
         let vNum = CGFloat(vPixelNum) / 2.0
-        let imageSize = pixelImage.size()
+        let imageSize = pixelImage.size
         
         var deferredPoints: [(PixelCoordinate, CGRect, GridState)] = []
         var centerPoints: [(PixelCoordinate, CGRect, GridState)] = []
@@ -116,7 +119,7 @@ class ColorGridView: NSView {
         for i in 0..<Int(hNum * 2) {
             for j in 0..<Int(vNum * 2) {
                 let coord = PixelCoordinate(x: centerCoordinate.x - Int(hNum) + i, y: centerCoordinate.y + Int(vNum) - j)
-                if coord.x > 0 && coord.y > 0 && coord.x < Int(floor(imageSize.width)) && coord.y < Int(floor(imageSize.height)) {
+                if coord.x > 0 && coord.y > 0 && coord.x < imageSize.width && coord.y < imageSize.height {
                     let rect = CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)
                     let state = gridState(at: coord)
                     if centerCoordinate == coord {
@@ -126,7 +129,7 @@ class ColorGridView: NSView {
                             deferredPoints.append((coord, rect, state))
                         } else {
                             ctx.beginPath()
-                            ctx.setFillColor(pixelImage.getJSTColor(of: coord.toCGPoint()).toNSColor().cgColor)
+                            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
                             ctx.setStrokeColor(state.color.cgColor)
                             ctx.addRect(rect)
                             ctx.drawPath(using: .fillStroke)
@@ -138,7 +141,7 @@ class ColorGridView: NSView {
         
         for (coord, rect, state) in deferredPoints {
             ctx.beginPath()
-            ctx.setFillColor(pixelImage.getJSTColor(of: coord.toCGPoint()).toNSColor().cgColor)
+            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
             ctx.setStrokeColor(state.color.cgColor)
             ctx.setLineWidth(1.0)
             ctx.addRect(rect)
@@ -162,7 +165,7 @@ class ColorGridView: NSView {
         
         for (coord, rect, _) in centerPoints {
             ctx.beginPath()
-            ctx.setFillColor(pixelImage.getJSTColor(of: coord.toCGPoint()).toNSColor().cgColor)
+            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
             ctx.setStrokeColor(GridState.gridCenterLineColor.cgColor)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
