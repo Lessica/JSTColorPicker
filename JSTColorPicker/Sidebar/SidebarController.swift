@@ -61,21 +61,27 @@ class SidebarController: NSViewController {
     func updateInspector(for item: ContentItem, submit: Bool) {
         if let color = item as? PixelColor {
             inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.red))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.green))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))  \(String(format: "0x%02X", color.blue))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))% \(String(format: "0x%02X", color.alpha))
-\(color)
+R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
+G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
+B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
 """
             let nsColor = color.toNSColor()
             inspectorColorFlag.color = nsColor
             inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+            inspectorAreaLabel.stringValue = """
+CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
+\(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
+"""
             if submit {
                 colorPanel.color = nsColor
             }
         }
         else if let area = item as? PixelArea {
-            inspectorAreaLabel.stringValue = "\(area)"
+            inspectorAreaLabel.stringValue = """
+W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
+H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
+"""
         }
     }
     
@@ -102,9 +108,11 @@ R:
 G:
 B:
 A:
-#
 """
-    inspectorAreaLabel.stringValue = ""
+    inspectorAreaLabel.stringValue = """
+CSS:
+@
+"""
     }
     
     func load(_ screenshot: Screenshot) throws {
