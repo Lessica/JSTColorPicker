@@ -771,27 +771,27 @@ CA
             <objects>
                 <viewController id="Z2W-Gy-vmx" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="XXq-bJ-xbS">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="800"/>
                                 <subviews>
                                     <customView misplaced="YES" id="VAj-Tz-9Wg">
-                                        <rect key="frame" x="0.0" y="0.0" width="220" height="134"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
-                                                <rect key="frame" x="-4" y="-4" width="228" height="50"/>
+                                                <rect key="frame" x="-4" y="-4" width="248" height="50"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
                                                         <view key="view" id="BKi-23-lh3">
-                                                            <rect key="frame" x="10" y="7" width="208" height="30"/>
+                                                            <rect key="frame" x="10" y="7" width="228" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
-                                                                    <rect key="frame" x="6" y="8" width="196" height="14"/>
+                                                                    <rect key="frame" x="6" y="8" width="216" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." id="X8A-3k-h2W">
                                                                         <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -818,16 +818,16 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView misplaced="YES" id="OBa-Ic-u2F">
-                                        <rect key="frame" x="0.0" y="143" width="220" height="146"/>
+                                        <rect key="frame" x="0.0" y="127" width="240" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
-                                                <rect key="frame" x="-4" y="-4" width="228" height="77"/>
+                                                <rect key="frame" x="-4" y="-4" width="248" height="77"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                                         <view key="view" id="caH-5H-HL3">
-                                                            <rect key="frame" x="10" y="7" width="208" height="57"/>
+                                                            <rect key="frame" x="10" y="7" width="228" height="57"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
@@ -842,7 +842,7 @@ CA
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
-                                                                    <rect key="frame" x="42" y="8" width="160" height="13"/>
+                                                                    <rect key="frame" x="42" y="8" width="180" height="13"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="9ct-MU-Igk">
                                                                         <font key="font" metaFont="fixedUser" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -850,7 +850,7 @@ CA
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
-                                                                    <rect key="frame" x="42" y="29" width="160" height="20"/>
+                                                                    <rect key="frame" x="42" y="29" width="180" height="20"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="YU4-9v-wOp">
                                                                         <font key="font" metaFont="fixedUser" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -882,15 +882,62 @@ CA
                                             <constraint firstItem="6sq-Gc-igI" firstAttribute="leading" secondItem="OBa-Ic-u2F" secondAttribute="leading" id="ybp-Rj-K5w"/>
                                         </constraints>
                                     </customView>
-                                    <customView fixedFrame="YES" id="HdP-zT-hUX">
-                                        <rect key="frame" x="0.0" y="298" width="220" height="502"/>
+                                    <customView misplaced="YES" id="HdP-zT-hUX">
+                                        <rect key="frame" x="0.0" y="265" width="240" height="441"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <tabView drawsBackground="NO" controlSize="mini" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="bVO-f8-Cxo">
+                                                <rect key="frame" x="-3" y="-4" width="246" height="246"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="240" id="DGq-1n-FRl"/>
+                                                </constraints>
+                                                <font key="font" metaFont="system"/>
+                                                <tabViewItems>
+                                                    <tabViewItem label="Preview" identifier="" id="hdA-fo-TDq">
+                                                        <view key="view" id="GL5-dc-Tfh">
+                                                            <rect key="frame" x="10" y="7" width="226" height="226"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hjE-mX-KFT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
+                                                                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="kAA-z2-wjO"/>
+                                                                </imageView>
+                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="6ix-tE-zJZ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
+                                                                </customView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="hjE-mX-KFT" firstAttribute="top" secondItem="GL5-dc-Tfh" secondAttribute="top" id="CLn-Hq-Z2f"/>
+                                                                <constraint firstItem="6ix-tE-zJZ" firstAttribute="top" secondItem="hjE-mX-KFT" secondAttribute="top" id="MeL-kC-76T"/>
+                                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="hjE-mX-KFT" secondAttribute="trailing" id="NLB-AH-U5D"/>
+                                                                <constraint firstAttribute="bottom" secondItem="hjE-mX-KFT" secondAttribute="bottom" id="Oco-1C-rP0"/>
+                                                                <constraint firstItem="6ix-tE-zJZ" firstAttribute="trailing" secondItem="hjE-mX-KFT" secondAttribute="trailing" id="Qfx-qT-UM8"/>
+                                                                <constraint firstItem="hjE-mX-KFT" firstAttribute="leading" secondItem="GL5-dc-Tfh" secondAttribute="leading" id="pYC-n5-7dp"/>
+                                                                <constraint firstItem="6ix-tE-zJZ" firstAttribute="leading" secondItem="hjE-mX-KFT" secondAttribute="leading" id="rJn-F8-llW"/>
+                                                                <constraint firstItem="6ix-tE-zJZ" firstAttribute="bottom" secondItem="hjE-mX-KFT" secondAttribute="bottom" id="xyi-hD-1ND"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </tabViewItem>
+                                                </tabViewItems>
+                                            </tabView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="bVO-f8-Cxo" secondAttribute="trailing" id="JnY-g5-aUz"/>
+                                            <constraint firstItem="bVO-f8-Cxo" firstAttribute="top" secondItem="HdP-zT-hUX" secondAttribute="top" id="X9s-5N-GlU"/>
+                                            <constraint firstItem="bVO-f8-Cxo" firstAttribute="leading" secondItem="HdP-zT-hUX" secondAttribute="leading" id="oRX-Qw-a4R"/>
+                                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="bVO-f8-Cxo" secondAttribute="bottom" id="por-mc-olM"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView fixedFrame="YES" id="VHW-Hv-tlU">
+                                        <rect key="frame" x="0.0" y="715" width="240" height="85"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>
-                                    <real value="250"/>
-                                    <real value="250"/>
-                                    <real value="250"/>
+                                    <real value="254"/>
+                                    <real value="253"/>
+                                    <real value="252"/>
+                                    <real value="251"/>
                                 </holdingPriorities>
                             </splitView>
                         </subviews>
@@ -906,6 +953,8 @@ CA
                         <outlet property="inspectorAreaLabel" destination="dqs-yK-Ge8" id="feO-Io-3HE"/>
                         <outlet property="inspectorColorFlag" destination="djd-CE-KfV" id="Lyv-lM-xCa"/>
                         <outlet property="inspectorColorLabel" destination="3dj-M4-SbZ" id="5ao-VE-JHU"/>
+                        <outlet property="previewImageView" destination="hjE-mX-KFT" id="sQi-a4-dpp"/>
+                        <outlet property="previewOverlayView" destination="6ix-tE-zJZ" id="NOP-LM-YTs"/>
                     </connections>
                 </viewController>
                 <customObject id="xBN-5i-sBA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

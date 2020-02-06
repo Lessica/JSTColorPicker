@@ -30,13 +30,16 @@ extension NSImage {
 }
 
 class SidebarController: NSViewController {
-
+    
     internal weak var screenshot: Screenshot?
     let colorPanel = NSColorPanel.shared
     @IBOutlet weak var imageLabel: NSTextField!
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag: ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel: NSTextField!
+    
+    @IBOutlet weak var previewImageView: NSImageView!
+    @IBOutlet weak var previewOverlayView: NSView!
     
     fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
@@ -61,27 +64,27 @@ class SidebarController: NSViewController {
     func updateInspector(for item: ContentItem, submit: Bool) {
         if let color = item as? PixelColor {
             inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
-"""
+            R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
+            G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
+            B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
+            A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
+            """
             let nsColor = color.toNSColor()
             inspectorColorFlag.color = nsColor
             inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
             inspectorAreaLabel.stringValue = """
-CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
-\(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
-"""
+            CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
+            \(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
+            """
             if submit {
                 colorPanel.color = nsColor
             }
         }
         else if let area = item as? PixelArea {
             inspectorAreaLabel.stringValue = """
-W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
-H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
-"""
+            W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
+            H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
+            """
         }
     }
     
@@ -101,26 +104,33 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
 extension SidebarController: ScreenshotLoader {
     
     func resetController() {
-    imageLabel.stringValue = "Open or drop an image here."
-    inspectorColorFlag.image = NSImage()
-    inspectorColorLabel.stringValue = """
-R:
-G:
-B:
-A:
-"""
-    inspectorAreaLabel.stringValue = """
-CSS:
-@
-"""
+        imageLabel.stringValue = "Open or drop an image here."
+        inspectorColorFlag.image = NSImage()
+        inspectorColorLabel.stringValue = """
+        R:
+        G:
+        B:
+        A:
+        """
+        inspectorAreaLabel.stringValue = """
+        CSS:
+        @
+        """
     }
     
     func load(_ screenshot: Screenshot) throws {
+        guard let image = screenshot.image else {
+            throw ScreenshotError.invalidImage
+        }
         guard let source = screenshot.image?.imageSourceRep, let url = screenshot.fileURL else {
             throw ScreenshotError.invalidImageSource
         }
         self.screenshot = screenshot
         try renderImageSource(source, itemURL: url)
+        
+        let previewRect = CGRect(origin: .zero, size: image.size.toCGSize()).aspectFit(in: previewImageView.bounds)
+        let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
+        previewImageView.image = previewImage
     }
     
     fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
@@ -146,14 +156,14 @@ CSS:
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
         imageLabel.stringValue = """
-\(itemURL.lastPathComponent) (\(fileSize))
-
-Created: \(createdAtDesc ?? "Unknown")
-Dimensions: \(pixelXDimension)×\(pixelYDimension)
-Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
-Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
-Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
-"""
+        \(itemURL.lastPathComponent) (\(fileSize))
+        
+        Created: \(createdAtDesc ?? "Unknown")
+        Dimensions: \(pixelXDimension)×\(pixelYDimension)
+        Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
+        Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
+        Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
+        """
     }
     
 }

@@ -36,7 +36,8 @@ class PixelImage {
         guard let dataProvider = CGDataProvider(filename: url.path) else {
             throw PixelImageError.readFailed
         }
-        guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, nil) else {
+        let imageSourceOptions = [kCGImageSourceShouldCache: true] as CFDictionary
+        guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, imageSourceOptions) else {
             throw PixelImageError.loadSourceFailed
         }
         guard let cgimg = CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
@@ -59,6 +60,23 @@ class PixelImage {
     
     func area(at rect: PixelRect) -> PixelArea {
         return PixelArea(id: 0, rect: rect)
+    }
+    
+    func toNSImage() -> NSImage {
+        return pixelImageRep.getNSImage()
+    }
+    
+    func downsample(to pointSize: CGSize, scale: CGFloat) -> NSImage {
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        let downsampleOptions =  [
+            // kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+            ] as CFDictionary
+        let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSourceRep, 0, downsampleOptions)!
+        return NSImage(cgImage: downsampledImage, size: pointSize)
     }
     
     deinit {
