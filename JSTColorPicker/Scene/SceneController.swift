@@ -256,7 +256,7 @@ class SceneController: NSViewController {
             NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                 self.sceneView.animator().setMagnification(next, centeredAt: location)
             }) {
-                self.sceneMagnificationChanged()
+                self.sceneBoundsChanged()
             }
             return true
         }
@@ -271,7 +271,7 @@ class SceneController: NSViewController {
             NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                 self.sceneView.animator().setMagnification(prev, centeredAt: location)
             }) {
-                self.sceneMagnificationChanged()
+                self.sceneBoundsChanged()
             }
             return true
         }
@@ -498,13 +498,14 @@ extension SceneController: SceneTracking {
         trackingObject?.trackMagnifyToolDragged(sender, to: rect)
     }
     
-    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
-        trackingObject?.trackSceneMagnificationChanged(sender, to: magnification)
+    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
+        trackingObject?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
-    fileprivate func sceneMagnificationChanged() {
+    fileprivate func sceneBoundsChanged() {
+        let sceneBounds = sceneClipView.bounds.intersection(wrapper.bounds)
         let magnification = max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
-        trackSceneMagnificationChanged(self, to: magnification)
+        trackSceneBoundsChanged(self, to: sceneBounds, of: magnification)
     }
     
 }
@@ -545,7 +546,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: rect)
         }) {
-            self.sceneMagnificationChanged()
+            self.sceneBoundsChanged()
         }
     }
     
@@ -569,7 +570,7 @@ extension SceneController: AnnotatorManager {
     
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
         updateAnnotatorBounds()
-        sceneMagnificationChanged()
+        sceneBoundsChanged()
     }
     
     fileprivate func updateAnnotatorBounds() {

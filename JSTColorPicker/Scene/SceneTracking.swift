@@ -15,7 +15,7 @@ protocol SceneTracking: class {
     func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
     func trackCursorDragged(_ sender: Any, to rect: PixelRect)
     func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect)
-    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat)
+    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat)
 }
 
 extension SceneTracking {
@@ -23,5 +23,5 @@ extension SceneTracking {
     func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
     func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
     func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) { }
-    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) { }
+    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) { }
 }

@@ -898,11 +898,11 @@ CA
                                                             <rect key="frame" x="10" y="7" width="226" height="226"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hjE-mX-KFT">
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hjE-mX-KFT" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
-                                                                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="kAA-z2-wjO"/>
+                                                                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" id="kAA-z2-wjO"/>
                                                                 </imageView>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="6ix-tE-zJZ">
+                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="6ix-tE-zJZ" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
                                                                 </customView>
                                                             </subviews>

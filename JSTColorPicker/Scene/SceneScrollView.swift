@@ -183,7 +183,7 @@ class SceneScrollView: NSScrollView {
         let layer = SceneDraggingOverlay()
         layer.backgroundColor = NSColor(white: 1.0, alpha: 0.2).cgColor
         layer.borderColor = .white
-        layer.borderWidth = 0.667
+        layer.borderWidth = 0.75
         layer.isHidden = true
         return layer
     }()

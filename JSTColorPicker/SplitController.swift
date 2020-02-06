@@ -34,6 +34,10 @@ class SplitController: NSSplitViewController {
         debugPrint("- [SplitController deinit]")
     }
     
+    override func splitViewDidResizeSubviews(_ notification: Notification) {
+        sidebarController.ensureOverlayBounds()
+    }
+    
 }
 
 extension SplitController: DropViewDelegate {
@@ -85,20 +89,20 @@ extension SplitController: SceneTracking {
     
     func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
-        sidebarController.updateInspector(for: image.color(at: coordinate), submit: false)
+        sidebarController.updateItemInspector(for: image.color(at: coordinate), submit: false)
         trackingObject?.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
-        sidebarController.updateInspector(for: image.area(at: rect), submit: false)
+        sidebarController.updateItemInspector(for: image.area(at: rect), submit: false)
         trackingObject?.trackAreaChanged(sender, to: rect)
     }
     
     func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         let color = image.color(at: coordinate)
-        sidebarController.updateInspector(for: color, submit: true)
+        sidebarController.updateItemInspector(for: color, submit: true)
         do {
             _ = try contentController.submitItem(color)
         } catch let error {
@@ -116,11 +120,12 @@ extension SplitController: SceneTracking {
         }
     }
     
-    func trackSceneMagnificationChanged(_ sender: Any, to magnification: CGFloat) {
+    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
         if let title = screenshot?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
-        trackingObject?.trackSceneMagnificationChanged(sender, to: magnification)
+        sidebarController.updatePreview(to: rect)
+        trackingObject?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
 }
@@ -198,7 +203,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.highlightAnnotators(for: items, scrollTo: false)
         if let item = items.first {
             contentItemChanged(item, by: controller)
-            sidebarController.updateInspector(for: item, submit: true)
+            sidebarController.updateItemInspector(for: item, submit: true)
         }
     }
     
@@ -206,7 +211,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
         if let item = items.first {
             contentItemChanged(item, by: controller)
-            sidebarController.updateInspector(for: item, submit: true)
+            sidebarController.updateItemInspector(for: item, submit: true)
         }
     }
     

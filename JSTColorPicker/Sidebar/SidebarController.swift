@@ -32,15 +32,16 @@ extension NSImage {
 class SidebarController: NSViewController {
     
     internal weak var screenshot: Screenshot?
-    let colorPanel = NSColorPanel.shared
+    
     @IBOutlet weak var imageLabel: NSTextField!
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag: ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel: NSTextField!
     
-    @IBOutlet weak var previewImageView: NSImageView!
-    @IBOutlet weak var previewOverlayView: NSView!
+    @IBOutlet weak var previewImageView: PreviewImageView!
+    @IBOutlet weak var previewOverlayView: PreviewOverlayView!
     
+    fileprivate let colorPanel = NSColorPanel.shared
     fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
@@ -61,31 +62,47 @@ class SidebarController: NSViewController {
         resetController()
     }
     
-    func updateInspector(for item: ContentItem, submit: Bool) {
+    func updateItemInspector(for item: ContentItem, submit: Bool) {
         if let color = item as? PixelColor {
             inspectorColorLabel.stringValue = """
-            R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
-            G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
-            B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
-            A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
-            """
+R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
+G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
+B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
+"""
             let nsColor = color.toNSColor()
             inspectorColorFlag.color = nsColor
             inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
             inspectorAreaLabel.stringValue = """
-            CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
-            \(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
-            """
+CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
+\(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
+"""
             if submit {
                 colorPanel.color = nsColor
             }
         }
         else if let area = item as? PixelArea {
             inspectorAreaLabel.stringValue = """
-            W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
-            H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
-            """
+W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
+H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
+"""
         }
+    }
+    
+    fileprivate var lastPreviewRect: CGRect = CGRect.zero
+    
+    func updatePreview(to rect: CGRect) {
+        guard let imageSize = screenshot?.image?.size else { return }
+        lastPreviewRect = rect
+        
+        let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+        let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+        let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+        previewOverlayView.highlightArea = highlightRect
+    }
+    
+    func ensureOverlayBounds() {
+        updatePreview(to: lastPreviewRect)
     }
     
     deinit {
@@ -107,15 +124,15 @@ extension SidebarController: ScreenshotLoader {
         imageLabel.stringValue = "Open or drop an image here."
         inspectorColorFlag.image = NSImage()
         inspectorColorLabel.stringValue = """
-        R:
-        G:
-        B:
-        A:
-        """
+R:
+G:
+B:
+A:
+"""
         inspectorAreaLabel.stringValue = """
-        CSS:
-        @
-        """
+CSS:
+@
+"""
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -131,6 +148,7 @@ extension SidebarController: ScreenshotLoader {
         let previewRect = CGRect(origin: .zero, size: image.size.toCGSize()).aspectFit(in: previewImageView.bounds)
         let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
         previewImageView.image = previewImage
+        previewOverlayView.highlightArea = previewRect
     }
     
     fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
@@ -156,14 +174,14 @@ extension SidebarController: ScreenshotLoader {
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
         imageLabel.stringValue = """
-        \(itemURL.lastPathComponent) (\(fileSize))
-        
-        Created: \(createdAtDesc ?? "Unknown")
-        Dimensions: \(pixelXDimension)×\(pixelYDimension)
-        Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
-        Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
-        Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
-        """
+\(itemURL.lastPathComponent) (\(fileSize))
+
+Created: \(createdAtDesc ?? "Unknown")
+Dimensions: \(pixelXDimension)×\(pixelYDimension)
+Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
+Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
+Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
+"""
     }
     
 }
