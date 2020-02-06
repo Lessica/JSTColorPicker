@@ -691,7 +691,7 @@ CA
                         <splitViewItem id="sgr-JM-2S3"/>
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="PDk-zF-z1V"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                    <splitView key="splitView" autosaveName="DropSplitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1500" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -774,95 +774,131 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
-                                <rect key="frame" x="-4" y="752" width="228" height="50"/>
-                                <font key="font" metaFont="system"/>
-                                <tabViewItems>
-                                    <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
-                                        <view key="view" id="BKi-23-lh3">
-                                            <rect key="frame" x="10" y="7" width="208" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
-                                                    <rect key="frame" x="6" y="8" width="196" height="14"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." id="X8A-3k-h2W">
-                                                        <font key="font" metaFont="message" size="11"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="top" secondItem="BKi-23-lh3" secondAttribute="top" constant="8" id="LeZ-uS-LeA"/>
-                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="centerX" secondItem="BKi-23-lh3" secondAttribute="centerX" id="OhN-45-0U8"/>
-                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="leading" secondItem="BKi-23-lh3" secondAttribute="leading" constant="8" id="vEb-Ck-xuU"/>
-                                                <constraint firstAttribute="bottom" secondItem="IRz-cZ-umT" secondAttribute="bottom" constant="8" id="wXC-xq-WHd"/>
-                                            </constraints>
-                                        </view>
-                                    </tabViewItem>
-                                </tabViewItems>
-                            </tabView>
-                            <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
-                                <rect key="frame" x="-4" y="681" width="228" height="77"/>
-                                <font key="font" metaFont="system"/>
-                                <tabViewItems>
-                                    <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
-                                        <view key="view" id="caH-5H-HL3">
-                                            <rect key="frame" x="10" y="7" width="208" height="57"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="26" width="26" height="26"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="8hU-ce-bat"/>
-                                                        <constraint firstAttribute="height" constant="20" id="OJ4-s6-5ah"/>
-                                                    </constraints>
-                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
-                                                    <connections>
-                                                        <action selector="colorIndicatorTapped:" target="Z2W-Gy-vmx" id="Fyh-ud-EQa"/>
-                                                    </connections>
-                                                </imageView>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
-                                                    <rect key="frame" x="42" y="8" width="160" height="13"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="9ct-MU-Igk">
-                                                        <font key="font" metaFont="fixedUser" size="11"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
-                                                    <rect key="frame" x="42" y="29" width="160" height="20"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="YU4-9v-wOp">
-                                                        <font key="font" metaFont="fixedUser" size="11"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="dqs-yK-Ge8" secondAttribute="bottom" constant="8" id="4Rd-HM-akv"/>
-                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="leading" secondItem="3dj-M4-SbZ" secondAttribute="leading" id="CGo-vj-fVh"/>
-                                                <constraint firstAttribute="trailing" secondItem="3dj-M4-SbZ" secondAttribute="trailing" constant="8" id="CTJ-EI-6rJ"/>
-                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="top" secondItem="caH-5H-HL3" secondAttribute="top" constant="8" id="GA0-qO-6oo"/>
-                                                <constraint firstItem="djd-CE-KfV" firstAttribute="centerY" secondItem="3dj-M4-SbZ" secondAttribute="centerY" id="MRP-SL-JBO"/>
-                                                <constraint firstItem="djd-CE-KfV" firstAttribute="leading" secondItem="caH-5H-HL3" secondAttribute="leading" constant="8" id="S3v-b0-INM"/>
-                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="top" secondItem="3dj-M4-SbZ" secondAttribute="bottom" constant="8" id="StK-3r-Sz4"/>
-                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="leading" secondItem="djd-CE-KfV" secondAttribute="trailing" constant="16" id="Wh5-tz-qg2"/>
-                                                <constraint firstItem="djd-CE-KfV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="caH-5H-HL3" secondAttribute="top" constant="8" id="cYp-me-OMh"/>
-                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="trailing" secondItem="3dj-M4-SbZ" secondAttribute="trailing" id="yuV-ju-sZw"/>
-                                            </constraints>
-                                        </view>
-                                    </tabViewItem>
-                                </tabViewItems>
-                            </tabView>
+                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
+                                <subviews>
+                                    <customView misplaced="YES" id="VAj-Tz-9Wg">
+                                        <rect key="frame" x="0.0" y="0.0" width="220" height="134"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
+                                                <rect key="frame" x="-4" y="-4" width="228" height="50"/>
+                                                <font key="font" metaFont="system"/>
+                                                <tabViewItems>
+                                                    <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
+                                                        <view key="view" id="BKi-23-lh3">
+                                                            <rect key="frame" x="10" y="7" width="208" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
+                                                                    <rect key="frame" x="6" y="8" width="196" height="14"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." id="X8A-3k-h2W">
+                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="top" secondItem="BKi-23-lh3" secondAttribute="top" constant="8" id="LeZ-uS-LeA"/>
+                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="centerX" secondItem="BKi-23-lh3" secondAttribute="centerX" id="OhN-45-0U8"/>
+                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="leading" secondItem="BKi-23-lh3" secondAttribute="leading" constant="8" id="vEb-Ck-xuU"/>
+                                                                <constraint firstAttribute="bottom" secondItem="IRz-cZ-umT" secondAttribute="bottom" constant="8" id="wXC-xq-WHd"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </tabViewItem>
+                                                </tabViewItems>
+                                            </tabView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Gfv-9i-i9I" firstAttribute="leading" secondItem="VAj-Tz-9Wg" secondAttribute="leading" id="3ba-Fk-6Vd"/>
+                                            <constraint firstAttribute="trailing" secondItem="Gfv-9i-i9I" secondAttribute="trailing" id="UVD-IO-YqI"/>
+                                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Gfv-9i-i9I" secondAttribute="bottom" id="nqj-Yc-QuS"/>
+                                            <constraint firstItem="Gfv-9i-i9I" firstAttribute="top" secondItem="VAj-Tz-9Wg" secondAttribute="top" id="pKR-df-9y6"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView misplaced="YES" id="OBa-Ic-u2F">
+                                        <rect key="frame" x="0.0" y="143" width="220" height="146"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
+                                                <rect key="frame" x="-4" y="-4" width="228" height="77"/>
+                                                <font key="font" metaFont="system"/>
+                                                <tabViewItems>
+                                                    <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
+                                                        <view key="view" id="caH-5H-HL3">
+                                                            <rect key="frame" x="10" y="7" width="208" height="57"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                    <rect key="frame" x="5" y="26" width="26" height="26"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="20" id="8hU-ce-bat"/>
+                                                                        <constraint firstAttribute="height" constant="20" id="OJ4-s6-5ah"/>
+                                                                    </constraints>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
+                                                                    <connections>
+                                                                        <action selector="colorIndicatorTapped:" target="Z2W-Gy-vmx" id="Fyh-ud-EQa"/>
+                                                                    </connections>
+                                                                </imageView>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
+                                                                    <rect key="frame" x="42" y="8" width="160" height="13"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="9ct-MU-Igk">
+                                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
+                                                                    <rect key="frame" x="42" y="29" width="160" height="20"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="YU4-9v-wOp">
+                                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="dqs-yK-Ge8" secondAttribute="bottom" constant="8" id="4Rd-HM-akv"/>
+                                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="leading" secondItem="3dj-M4-SbZ" secondAttribute="leading" id="CGo-vj-fVh"/>
+                                                                <constraint firstAttribute="trailing" secondItem="3dj-M4-SbZ" secondAttribute="trailing" constant="8" id="CTJ-EI-6rJ"/>
+                                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="top" secondItem="caH-5H-HL3" secondAttribute="top" constant="8" id="GA0-qO-6oo"/>
+                                                                <constraint firstItem="djd-CE-KfV" firstAttribute="centerY" secondItem="3dj-M4-SbZ" secondAttribute="centerY" id="MRP-SL-JBO"/>
+                                                                <constraint firstItem="djd-CE-KfV" firstAttribute="leading" secondItem="caH-5H-HL3" secondAttribute="leading" constant="8" id="S3v-b0-INM"/>
+                                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="top" secondItem="3dj-M4-SbZ" secondAttribute="bottom" constant="8" id="StK-3r-Sz4"/>
+                                                                <constraint firstItem="3dj-M4-SbZ" firstAttribute="leading" secondItem="djd-CE-KfV" secondAttribute="trailing" constant="16" id="Wh5-tz-qg2"/>
+                                                                <constraint firstItem="djd-CE-KfV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="caH-5H-HL3" secondAttribute="top" constant="8" id="cYp-me-OMh"/>
+                                                                <constraint firstItem="dqs-yK-Ge8" firstAttribute="trailing" secondItem="3dj-M4-SbZ" secondAttribute="trailing" id="yuV-ju-sZw"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </tabViewItem>
+                                                </tabViewItems>
+                                            </tabView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="6sq-Gc-igI" firstAttribute="top" secondItem="OBa-Ic-u2F" secondAttribute="top" id="B0h-9d-5cR"/>
+                                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="6sq-Gc-igI" secondAttribute="bottom" id="EL2-jP-rJa"/>
+                                            <constraint firstAttribute="trailing" secondItem="6sq-Gc-igI" secondAttribute="trailing" id="v5E-DY-djE"/>
+                                            <constraint firstItem="6sq-Gc-igI" firstAttribute="leading" secondItem="OBa-Ic-u2F" secondAttribute="leading" id="ybp-Rj-K5w"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView fixedFrame="YES" id="HdP-zT-hUX">
+                                        <rect key="frame" x="0.0" y="298" width="220" height="502"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </customView>
+                                </subviews>
+                                <holdingPriorities>
+                                    <real value="250"/>
+                                    <real value="250"/>
+                                    <real value="250"/>
+                                </holdingPriorities>
+                            </splitView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="6sq-Gc-igI" secondAttribute="trailing" id="90m-xh-gyj"/>
-                            <constraint firstItem="Gfv-9i-i9I" firstAttribute="leading" secondItem="XXq-bJ-xbS" secondAttribute="leading" id="Omc-j6-8ZA"/>
-                            <constraint firstItem="6sq-Gc-igI" firstAttribute="leading" secondItem="XXq-bJ-xbS" secondAttribute="leading" id="a5C-Kq-1Yu"/>
-                            <constraint firstItem="Gfv-9i-i9I" firstAttribute="top" secondItem="XXq-bJ-xbS" secondAttribute="top" id="fGw-vi-nlE"/>
-                            <constraint firstItem="6sq-Gc-igI" firstAttribute="top" secondItem="Gfv-9i-i9I" secondAttribute="bottom" id="nV1-Gp-UNI"/>
-                            <constraint firstAttribute="trailing" secondItem="Gfv-9i-i9I" secondAttribute="trailing" id="yBk-Jv-sfg"/>
+                            <constraint firstItem="ngz-zP-wIW" firstAttribute="leading" secondItem="XXq-bJ-xbS" secondAttribute="leading" id="H16-vZ-9XT"/>
+                            <constraint firstAttribute="trailing" secondItem="ngz-zP-wIW" secondAttribute="trailing" id="Hdd-Lc-sxA"/>
+                            <constraint firstItem="ngz-zP-wIW" firstAttribute="top" secondItem="XXq-bJ-xbS" secondAttribute="top" id="KYW-cA-9ht"/>
+                            <constraint firstAttribute="bottom" secondItem="ngz-zP-wIW" secondAttribute="bottom" id="nsL-Bk-gg0"/>
                         </constraints>
                     </view>
                     <connections>

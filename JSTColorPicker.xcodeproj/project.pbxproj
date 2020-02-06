@@ -22,6 +22,7 @@
 		D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49E23E807600039F4F6 /* ContentItem.swift */; };
 		D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A023E8080E0039F4F6 /* PixelArea.swift */; };
 		D645E4A423E95F620039F4F6 /* SceneDraggingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A323E95F620039F4F6 /* SceneDraggingOverlay.swift */; };
+		D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */; };
 		D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
 		D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06623D1A12300D76CB5 /* libimobiledevice.a */; };
 		D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
@@ -82,6 +83,7 @@
 		D645E49E23E807600039F4F6 /* ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
 		D645E4A023E8080E0039F4F6 /* PixelArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArea.swift; sourceTree = "<group>"; };
 		D645E4A323E95F620039F4F6 /* SceneDraggingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDraggingOverlay.swift; sourceTree = "<group>"; };
+		D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitView.swift; sourceTree = "<group>"; };
 		D647B06523D1A12300D76CB5 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
 		D647B06623D1A12300D76CB5 /* libimobiledevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimobiledevice.a; sourceTree = "<group>"; };
 		D647B06723D1A12300D76CB5 /* libusbmuxd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libusbmuxd.a; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
+				D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */,
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
 				D645E4A523EBFA4E0039F4F6 /* Preview */,
 			);
@@ -714,6 +717,7 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorView.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
+				D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
