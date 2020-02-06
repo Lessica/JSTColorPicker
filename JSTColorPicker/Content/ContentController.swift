@@ -177,6 +177,12 @@ extension ContentController: NSUserInterfaceValidations {
             item.id = nextID
             addContentItems([item])
             tableView.reloadData()
+            
+            let numberOfRows = tableView.numberOfRows
+            if numberOfRows > 0 {
+                tableView.scrollRowToVisible(numberOfRows - 1)
+            }
+            
             return item
         }
         else if let _ = item as? PixelArea {

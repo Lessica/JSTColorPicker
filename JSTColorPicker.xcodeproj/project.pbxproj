@@ -316,6 +316,13 @@
 			path = Annotator;
 			sourceTree = "<group>";
 		};
+		D645E4A523EBFA4E0039F4F6 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
 		D647B06323D173A700D76CB5 /* Device */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +618,7 @@
 			children = (
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
+				D645E4A523EBFA4E0039F4F6 /* Preview */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
