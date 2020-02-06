@@ -29,7 +29,7 @@ class PixelColor: ContentItem {
     }
     
     deinit {
-        debugPrint("- [PixelColor deinit]")
+        // debugPrint("- [PixelColor deinit]")
     }
     
     var intValue: UInt32 {

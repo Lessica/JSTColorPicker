@@ -8,6 +8,13 @@
 
 import Cocoa
 
-class ColorGridWindow: NSWindow {
+class ColorGridWindow: NSPanel {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        isFloatingPanel = true
+        hidesOnDeactivate = true
+        becomesKeyOnlyIfNeeded = true
+    }
     
 }

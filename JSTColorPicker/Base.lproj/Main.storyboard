@@ -342,7 +342,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -375,7 +375,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="360" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -719,13 +719,13 @@ CA
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="128" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1060" height="816"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1060" height="800"/>
                                 <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="eZm-mt-gzw" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="1060" height="816"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1060" height="800"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view focusRingType="none" id="jIU-6y-5yU">
-                                            <rect key="frame" x="0.0" y="0.0" width="1045" height="801"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1045" height="785"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                     </subviews>
@@ -733,20 +733,20 @@ CA
                                 </clipView>
                                 <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="zBJ-s8-IdX">
-                                    <rect key="frame" x="0.0" y="800" width="1060" height="16"/>
+                                    <rect key="frame" x="0.0" y="784" width="1060" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jr8-Nh-6oH">
-                                    <rect key="frame" x="1044" y="0.0" width="16" height="816"/>
+                                    <rect key="frame" x="1044" y="0.0" width="16" height="800"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="TD1-6e-m1I" customClass="SceneScrollOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1060" height="816"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1060" height="800"/>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="v89-K9-OHt" firstAttribute="top" secondItem="Ui0-q0-Y5e" secondAttribute="top" constant="-16" id="2a0-pK-HcY"/>
+                            <constraint firstItem="v89-K9-OHt" firstAttribute="top" secondItem="Ui0-q0-Y5e" secondAttribute="top" id="2a0-pK-HcY"/>
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="trailing" secondItem="v89-K9-OHt" secondAttribute="trailing" id="Awu-ss-gKV"/>
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="top" secondItem="v89-K9-OHt" secondAttribute="top" id="DXA-me-Uzc"/>
                             <constraint firstItem="v89-K9-OHt" firstAttribute="leading" secondItem="Ui0-q0-Y5e" secondAttribute="leading" id="HtC-vc-LTM"/>
@@ -786,7 +786,7 @@ CA
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                     <rect key="frame" x="6" y="8" width="196" height="14"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." id="X8A-3k-h2W">
-                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -803,19 +803,19 @@ CA
                                 </tabViewItems>
                             </tabView>
                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
-                                <rect key="frame" x="-4" y="675" width="228" height="83"/>
+                                <rect key="frame" x="-4" y="681" width="228" height="77"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                         <view key="view" id="caH-5H-HL3">
-                                            <rect key="frame" x="10" y="7" width="208" height="63"/>
+                                            <rect key="frame" x="10" y="7" width="208" height="57"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="26" width="32" height="32"/>
+                                                    <rect key="frame" x="5" y="26" width="26" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="26" id="8hU-ce-bat"/>
-                                                        <constraint firstAttribute="height" constant="26" id="OJ4-s6-5ah"/>
+                                                        <constraint firstAttribute="width" constant="20" id="8hU-ce-bat"/>
+                                                        <constraint firstAttribute="height" constant="20" id="OJ4-s6-5ah"/>
                                                     </constraints>
                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
                                                     <connections>
@@ -823,7 +823,7 @@ CA
                                                     </connections>
                                                 </imageView>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
-                                                    <rect key="frame" x="48" y="8" width="154" height="13"/>
+                                                    <rect key="frame" x="42" y="8" width="160" height="13"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="9ct-MU-Igk">
                                                         <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -831,7 +831,7 @@ CA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
-                                                    <rect key="frame" x="48" y="29" width="154" height="26"/>
+                                                    <rect key="frame" x="42" y="29" width="160" height="20"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" id="YU4-9v-wOp">
                                                         <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

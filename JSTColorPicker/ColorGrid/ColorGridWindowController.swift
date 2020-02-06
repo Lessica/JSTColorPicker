@@ -13,7 +13,6 @@ class ColorGridWindowController: NSWindowController {
     static func newGrid() -> ColorGridWindowController {
         let windowStoryboard = NSStoryboard(name: "ColorGrid", bundle: nil)
         let gridWindowController = windowStoryboard.instantiateInitialController() as! ColorGridWindowController
-        gridWindowController.window?.level = .floating
         return gridWindowController
     }
     

@@ -347,48 +347,69 @@ class SceneController: NSViewController {
         return true
     }
     
-    fileprivate func shortcutMoveCursor(by direction: NSEvent.SpecialKey, from pixelLocation: CGPoint) -> Bool {
+    fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
         if !wrapper.visibleRect.contains(pixelLocation) { return false }
         
-        var simulatedSize = CGSize.zero
+        var wrapperDelta = CGSize.zero
         switch direction {
         case NSEvent.SpecialKey.upArrow:
-            simulatedSize.height -= 1.0
+            wrapperDelta.height -= pixelDistance
         case NSEvent.SpecialKey.downArrow:
-            simulatedSize.height += 1.0
+            wrapperDelta.height += pixelDistance
         case NSEvent.SpecialKey.leftArrow:
-            simulatedSize.width  -= 1.0
+            wrapperDelta.width  -= pixelDistance
         case NSEvent.SpecialKey.rightArrow:
-            simulatedSize.width  += 1.0
+            wrapperDelta.width  += pixelDistance
         default: break
         }
-        let convertedSize = wrapper.convert(simulatedSize, to: nil)
-        guard abs(convertedSize.width + convertedSize.height) > SceneController.minimumRecognizablePixelWidth else { return false }
         
-        var simulatedPoint = pixelLocation.toPixelCenterCGPoint()
-        simulatedPoint.x += simulatedSize.width
-        simulatedPoint.y += simulatedSize.height
+        let windowDelta = wrapper.convert(wrapperDelta, to: nil)  // to window coordinate
+        guard abs(windowDelta.width + windowDelta.height) > SceneController.minimumRecognizablePixelWidth else { return false }
         
-        // TODO: make target point visible
-        guard wrapper.visibleRect.contains(simulatedPoint) else { return false }
+        var targetWrapperPoint = pixelLocation.toPixelCenterCGPoint()
+        targetWrapperPoint.x += wrapperDelta.width
+        targetWrapperPoint.y += wrapperDelta.height
+        
+        guard wrapper.bounds.contains(targetWrapperPoint) else {
+            return false
+        }
+        
+        guard wrapper.visibleRect.contains(targetWrapperPoint) else {
+            let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
+            
+            var clipOrigin = sceneClipView.bounds.origin
+            if wrapperDelta.width > 0 {
+                clipOrigin.x += clipDelta.width
+            } else {
+                clipOrigin.x -= clipDelta.width
+            }
+            if wrapperDelta.height > 0 {
+                clipOrigin.y += clipDelta.height
+            } else {
+                clipOrigin.y -= clipDelta.height
+            }
+            
+            sceneClipView.animator().setBoundsOrigin(clipOrigin)
+            return true
+        }
         
         guard let window = wrapper.window else { return false }
         guard let mainScreen = window.screen else { return false }
         guard let displayID = mainScreen.displayID else { return false }
         
-        let convertedWindowPoint = wrapper.convert(simulatedPoint, to: nil)
-        let convertedScreenPoint = window.convertPoint(toScreen: convertedWindowPoint)
+        let windowPoint = wrapper.convert(targetWrapperPoint, to: nil)
+        let screenPoint = window.convertPoint(toScreen: windowPoint)
         let screenFrame = mainScreen.frame
-        let currentMouseLocationInDisplay = CGPoint(x: convertedScreenPoint.x - screenFrame.origin.x, y: screenFrame.size.height - (convertedScreenPoint.y - screenFrame.origin.y))
+        let targetDisplayMousePosition = CGPoint(x: screenPoint.x - screenFrame.origin.x, y: screenFrame.size.height - (screenPoint.y - screenFrame.origin.y))
         
         CGDisplayHideCursor(kCGNullDirectDisplay)
         CGAssociateMouseAndMouseCursorPosition(0)
-        CGDisplayMoveCursorToPoint(displayID, currentMouseLocationInDisplay)
+        CGDisplayMoveCursorToPoint(displayID, targetDisplayMousePosition)
         /* perform your application’s main loop */
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        trackColorChanged(self, at: PixelCoordinate(simulatedPoint))
+        trackColorChanged(self, at: PixelCoordinate(targetWrapperPoint))
         return true
     }
      
@@ -397,7 +418,7 @@ class SceneController: NSViewController {
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    return shortcutMoveCursor(by: specialKey, from: loc)
+                    return shortcutMoveCursorOrScene(by: specialKey, for: 1.0, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
                     return cursorClicked(at: loc)

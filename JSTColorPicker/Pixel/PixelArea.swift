@@ -27,7 +27,7 @@ class PixelArea: ContentItem {
     }
     
     deinit {
-        debugPrint("- [PixelArea deinit]")
+        // debugPrint("- [PixelArea deinit]")
     }
     
     override func encode(with coder: NSCoder) {
