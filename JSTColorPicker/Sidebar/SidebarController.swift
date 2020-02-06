@@ -101,8 +101,12 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
         previewOverlayView.highlightArea = highlightRect
     }
     
-    func ensureOverlayBounds() {
-        updatePreview(to: lastPreviewRect)
+    func ensureOverlayBounds(to rect: CGRect?) {
+        if let rect = rect {
+            updatePreview(to: rect)
+        } else {
+            updatePreview(to: lastPreviewRect)
+        }
     }
     
     deinit {

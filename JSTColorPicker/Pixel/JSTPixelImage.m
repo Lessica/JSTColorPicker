@@ -334,7 +334,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 #else
 + (JSTPixelImage *)imageWithNSImage:(NSImage *)nsimage {
-    return [[[JSTPixelImage alloc] initWithNSImage:nsimage] autorelease];
+    return [[JSTPixelImage alloc] initWithNSImage:nsimage];
 }
 - (JSTPixelImage *)initWithNSImage:(NSImage *)nsimage {
     self = [super init];
@@ -350,18 +350,15 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
     if (pixels_data) {
         NSData *imgData = nil;
-        @autoreleasepool {
-            NSBitmapImageRep *newRep = [[[NSBitmapImageRep alloc] initWithCGImage:cgimg] autorelease];
-            [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-            CFRelease(cgimg);
-            imgData = [[newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] retain];
-        }
-        NSImage *img = [[[NSImage alloc] initWithData:imgData] autorelease];
-        [imgData release];
+        NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
+        [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
+        CFRelease(cgimg);
+        imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+        NSImage *img = [[NSImage alloc] initWithData:imgData];
         free(pixels_data);
         return img;
     } else {
-        NSImage *img0 = [[[NSImage alloc] initWithCGImage:cgimg size:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))] autorelease];
+        NSImage *img0 = [[NSImage alloc] initWithCGImage:cgimg size:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
         CFRelease(cgimg);
         return img0;
     }
@@ -387,7 +384,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
         rectImg = [[JSTPixelImage alloc] init];
         rectImg->_pixel_image = create_pixels_image_with_pixels_image_rect(_pixel_image, 0, x1, y1, x2, y2);
     }
-    return [rectImg autorelease];
+    return rectImg;
 }
 
 - (CGSize)size {
@@ -446,7 +443,6 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 #ifdef DEBUG
     NSLog(@"- [JSTPixelImage dealloc]");
 #endif
-    [super dealloc];
 }
 
 @end

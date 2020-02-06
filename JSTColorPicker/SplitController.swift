@@ -35,7 +35,7 @@ class SplitController: NSSplitViewController {
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
-        sidebarController.ensureOverlayBounds()
+        sidebarController.ensureOverlayBounds(to: sceneController.sceneVisibleBounds)
     }
     
 }

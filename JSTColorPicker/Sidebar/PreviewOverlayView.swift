@@ -27,20 +27,18 @@ class PreviewOverlayView: NSView {
 
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
+        // fill background
+        ctx.setFillColor(PreviewOverlayView.overlayColor)
+        ctx.addRect(highlightArea)
+        ctx.addRect(bounds)
+        ctx.fillPath(using: .evenOdd)
+        
         // stroke border
-        ctx.beginPath()
         ctx.setLineCap(.square)
         ctx.setLineWidth(0.75)
         ctx.setStrokeColor(.black)
         ctx.addRect(highlightArea)
         ctx.drawPath(using: .stroke)
-        
-        // fill background
-        ctx.beginPath()
-        ctx.setFillColor(PreviewOverlayView.overlayColor)
-        ctx.addRect(highlightArea)
-        ctx.addRect(bounds)
-        ctx.fillPath(using: .evenOdd)
     }
     
 }

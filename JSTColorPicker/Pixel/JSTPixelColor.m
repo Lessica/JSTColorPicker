@@ -21,22 +21,22 @@
 
 + (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
 {
-    return [[[JSTPixelColor alloc] initWithRed:red green:green blue:blue alpha:alpha] autorelease];
+    return [[JSTPixelColor alloc] initWithRed:red green:green blue:blue alpha:alpha];
 }
 
 + (JSTPixelColor *)colorWithColor:(uint32_t)color
 {
-    return [[[JSTPixelColor alloc] initWithColor:color] autorelease];
+    return [[JSTPixelColor alloc] initWithColor:color];
 }
 
 + (JSTPixelColor *)colorWithColorHex:(NSString *)hex
 {
-    return [[[JSTPixelColor alloc] initWithColorHex:hex] autorelease];
+    return [[JSTPixelColor alloc] initWithColorHex:hex];
 }
 
 + (JSTPixelColor *)colorWithJSTColor:(JSTPixelColor *)jstcolor
 {
-    return [[[JSTPixelColor alloc] initWithJSTColor:jstcolor] autorelease];
+    return [[JSTPixelColor alloc] initWithJSTColor:jstcolor];
 }
 
 - (uint32_t)intValueWithAlpha
@@ -259,7 +259,7 @@
 }
 + (JSTPixelColor *)colorWithNSColor:(NSColor *)nscolor
 {
-    return [[[JSTPixelColor alloc] initWithNSColor:nscolor] autorelease];
+    return [[JSTPixelColor alloc] initWithNSColor:nscolor];
 }
 - (NSColor *)toNSColor
 {
@@ -297,13 +297,6 @@
 
 - (NSString *)description {
     return self.cssString;
-}
-
-- (void)dealloc {
-//#ifdef DEBUG
-//    NSLog(@"- [JSTPixelColor dealloc]");
-//#endif
-    [super dealloc];
 }
 
 @end

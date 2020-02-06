@@ -64,6 +64,14 @@ extension NSScreen {
 
 class SceneController: NSViewController {
     
+    var sceneVisibleBounds: CGRect {
+        return sceneClipView.bounds.intersection(wrapper.bounds)
+    }
+    
+    var sceneMagnification: CGFloat {
+        return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
+    }
+    
     fileprivate static let minimumZoomingFactor: CGFloat = 0.25
     fileprivate static let maximumZoomingFactor: CGFloat = 128.0
     fileprivate static let zoomingFactors: [CGFloat] = [
@@ -238,8 +246,8 @@ class SceneController: NSViewController {
         }
         
         if let annotatorView = annotatorView {
-            if let annotator = annotators.first(where: { $0.view === annotatorView }) {
-                trackRightCursorClicked(self, at: annotator.pixelColor.coordinate)
+            if let coordinate = annotators.first(where: { $0.view === annotatorView })?.pixelColor?.coordinate {
+                trackRightCursorClicked(self, at: coordinate)
                 return true
             }
         }
@@ -309,7 +317,7 @@ class SceneController: NSViewController {
     }
     
     fileprivate func windowFlagsChanged(with event: NSEvent) -> Bool {
-        guard let window = view.window, window.isKeyWindow else { return false }
+        guard let window = view.window, window.isKeyWindow else { return false }  // important
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.option]:
             return useOptionModifiedTrackingTool()
@@ -414,6 +422,7 @@ class SceneController: NSViewController {
     }
      
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
+        guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         if event.modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
@@ -503,9 +512,7 @@ extension SceneController: SceneTracking {
     }
     
     fileprivate func sceneBoundsChanged() {
-        let sceneBounds = sceneClipView.bounds.intersection(wrapper.bounds)
-        let magnification = max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
-        trackSceneBoundsChanged(self, to: sceneBounds, of: magnification)
+        trackSceneBoundsChanged(self, to: sceneVisibleBounds, of: sceneMagnification)
     }
     
 }
@@ -575,11 +582,12 @@ extension SceneController: AnnotatorManager {
     
     fileprivate func updateAnnotatorBounds() {
         for annotator in annotators {
-            let item = annotator.pixelColor
-            let pointInImage = item.coordinate.toCGPoint().toPixelCenterCGPoint()
-            let pointInMask = sceneView.convert(pointInImage, from: wrapper)
-            let maskRect = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
-            annotator.view.frame = maskRect
+            if let coordinate = annotator.pixelColor?.coordinate {
+                let pointInImage = coordinate.toCGPoint().toPixelCenterCGPoint()
+                let pointInMask = sceneView.convert(pointInImage, from: wrapper)
+                let maskRect = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
+                annotator.view.frame = maskRect
+            }
         }
     }
     
@@ -588,10 +596,11 @@ extension SceneController: AnnotatorManager {
     }
     
     func addAnnotators(for items: [ContentItem]) {
-        items.compactMap({ $0 as? PixelColor }).forEach { (item) in
-            if !annotators.contains(where: { $0.pixelColor == item }) {
-                let annotator = ColorAnnotator(pixelColor: item)
-                annotator.label = "\(item.id)"
+        let colors = items.compactMap({ $0 as? PixelColor })
+        for color in colors {
+            if !annotators.contains(where: { $0.pixelColor == color }) {
+                let annotator = ColorAnnotator(pixelColor: color)
+                annotator.label = "\(color.id)"
                 annotators.append(annotator)
                 sceneOverlayView.addSubview(annotator.view)
             }
@@ -601,27 +610,38 @@ extension SceneController: AnnotatorManager {
     }
     
     func removeAnnotators(for items: [ContentItem]) {
-        annotators.filter({ items.contains($0.pixelColor) }).forEach { (annotator) in
+        annotators.filter { (annotator) -> Bool in
+            guard let pixelColor = annotator.pixelColor else { return false }
+            return items.contains(pixelColor)
+        }.forEach { (annotator) in
             annotator.view.removeFromSuperview()
         }
-        annotators.removeAll(where: { items.contains($0.pixelColor) })
+        annotators.removeAll { (annotator) -> Bool in
+            guard let pixelColor = annotator.pixelColor else { return false }
+            return items.contains(pixelColor)
+        }
         debugPrint("remove annotators \(items)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators.forEach { (annotator) in
-            if items.contains(annotator.pixelColor) {
-                annotator.view.removeFromSuperview()
-                annotator.isHighlighted = true
-                sceneOverlayView.addSubview(annotator.view)
-            } else if annotator.isHighlighted {
-                annotator.isHighlighted = false
+            if let pixelColor = annotator.pixelColor {
+                if items.contains(pixelColor) {
+                    annotator.view.removeFromSuperview()
+                    annotator.isHighlighted = true
+                    sceneOverlayView.addSubview(annotator.view)
+                } else if annotator.isHighlighted {
+                    annotator.isHighlighted = false
+                }
             }
         }
         if scrollTo {  // scroll without changing magnification
-            if let coord = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate.toCGPoint() {
-                if !wrapper.visibleRect.contains(coord) {  // scroll if not visible
-                    var point = sceneView.convert(coord, from: wrapper)
+            if let coordinate = (annotators.first { (annotator) -> Bool in
+                guard let pixelColor = annotator.pixelColor else { return false }
+                return items.contains(pixelColor)
+            })?.pixelColor?.coordinate.toCGPoint() {
+                if !wrapper.visibleRect.contains(coordinate) {  // scroll if not visible
+                    var point = sceneView.convert(coordinate, from: wrapper)
                     point.x -= sceneView.bounds.width / 2.0
                     point.y -= sceneView.bounds.height / 2.0
                     let clipMidPoint = sceneClipView.convert(point, from: sceneView)
