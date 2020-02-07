@@ -149,9 +149,11 @@ CSS:
         self.screenshot = screenshot
         try renderImageSource(source, itemURL: url)
         
-        let previewRect = CGRect(origin: .zero, size: image.size.toCGSize()).aspectFit(in: previewImageView.bounds)
+        let previewSize = image.size.toCGSize()
+        let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
         let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
         previewImageView.image = previewImage
+        previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
     }
     

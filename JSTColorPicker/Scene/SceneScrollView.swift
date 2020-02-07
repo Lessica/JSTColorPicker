@@ -129,10 +129,6 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate func resetCursorDisplay() {
-        NSCursor.arrow.set()
-    }
-    
     fileprivate func mouseInside() -> Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
@@ -144,7 +140,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func createTrackingArea() {
-        let trackingArea = NSTrackingArea.init(rect: visibleRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow, .inVisibleRect], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
     }
@@ -176,7 +172,7 @@ class SceneScrollView: NSScrollView {
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
         trackAreaChanged(with: event)
-        resetCursorDisplay()
+        NSCursor.arrow.set()
     }
     
     fileprivate lazy var draggingLayer: CALayer = {
