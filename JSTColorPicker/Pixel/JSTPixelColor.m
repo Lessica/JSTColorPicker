@@ -19,6 +19,10 @@
     [coder encodeInt:(int)self.alpha forKey:@"alpha"];
 }
 
+- (instancetype)copyWithZone:(NSZone *)zone {
+    return [[JSTPixelColor alloc] initWithJSTColor:self];
+}
+
 + (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
 {
     return [[JSTPixelColor alloc] initWithRed:red green:green blue:blue alpha:alpha];

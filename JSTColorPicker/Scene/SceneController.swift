@@ -246,7 +246,7 @@ class SceneController: NSViewController {
         }
         
         if let annotatorView = annotatorView {
-            if let coordinate = annotators.first(where: { $0.view === annotatorView })?.pixelColor?.coordinate {
+            if let coordinate = annotators.first(where: { $0.view === annotatorView })?.pixelColor.coordinate {
                 trackRightCursorClicked(self, at: coordinate)
                 return true
             }
@@ -581,14 +581,10 @@ extension SceneController: AnnotatorManager {
     }
     
     fileprivate func updateAnnotatorBounds() {
-        for annotator in annotators {
-            if let coordinate = annotator.pixelColor?.coordinate {
-                let pointInImage = coordinate.toCGPoint().toPixelCenterCGPoint()
-                let pointInMask = sceneView.convert(pointInImage, from: wrapper)
-                let maskRect = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
-                annotator.view.frame = maskRect
-            }
-        }
+        annotators.forEach({
+            let pointInMask = sceneView.convert($0.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
+            $0.view.frame = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
+        })
     }
     
     func loadAnnotators(from content: Content) throws {
@@ -596,56 +592,43 @@ extension SceneController: AnnotatorManager {
     }
     
     func addAnnotators(for items: [ContentItem]) {
-        let colors = items.compactMap({ $0 as? PixelColor })
-        for color in colors {
-            if !annotators.contains(where: { $0.pixelColor == color }) {
-                let annotator = ColorAnnotator(pixelColor: color)
-                annotator.label = "\(color.id)"
-                annotators.append(annotator)
-                sceneOverlayView.addSubview(annotator.view)
-            }
+        items.compactMap({ $0 as? PixelColor }).forEach { (color) in
+            guard !annotators.contains(where: { $0.pixelColor == color }) else { return }
+            addAnnotator(for: color)
         }
         debugPrint("add annotators \(items)")
-        updateAnnotatorBounds()
+    }
+    
+    func addAnnotator(for color: PixelColor) {
+        let annotator = ColorAnnotator(pixelColor: color.copy() as! PixelColor)
+        annotator.label = "\(color.id)"
+        let pointInMask = sceneView.convert(color.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
+        annotator.view.frame = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
+        annotators.append(annotator)
+        sceneOverlayView.addSubview(annotator.view)
     }
     
     func removeAnnotators(for items: [ContentItem]) {
-        annotators.filter { (annotator) -> Bool in
-            guard let pixelColor = annotator.pixelColor else { return false }
-            return items.contains(pixelColor)
-        }.forEach { (annotator) in
-            annotator.view.removeFromSuperview()
-        }
-        annotators.removeAll { (annotator) -> Bool in
-            guard let pixelColor = annotator.pixelColor else { return false }
-            return items.contains(pixelColor)
-        }
+        annotators.filter({ items.contains($0.pixelColor) }).forEach({ $0.view.removeFromSuperview() })
+        annotators.removeAll(where: { items.contains($0.pixelColor) })
         debugPrint("remove annotators \(items)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
-        annotators.forEach { (annotator) in
-            if let pixelColor = annotator.pixelColor {
-                if items.contains(pixelColor) {
-                    annotator.view.removeFromSuperview()
-                    annotator.isHighlighted = true
-                    sceneOverlayView.addSubview(annotator.view)
-                } else if annotator.isHighlighted {
-                    annotator.isHighlighted = false
-                }
-            }
-        }
+        annotators.filter({ $0.isHighlighted }).forEach({ $0.isHighlighted = false })
+        annotators.filter({ items.contains($0.pixelColor) }).forEach({
+            $0.view.removeFromSuperview()
+            $0.isHighlighted = true
+            sceneOverlayView.addSubview($0.view)
+        })
         if scrollTo {  // scroll without changing magnification
-            if let coordinate = (annotators.first { (annotator) -> Bool in
-                guard let pixelColor = annotator.pixelColor else { return false }
-                return items.contains(pixelColor)
-            })?.pixelColor?.coordinate.toCGPoint() {
-                if !wrapper.visibleRect.contains(coordinate) {  // scroll if not visible
-                    var point = sceneView.convert(coordinate, from: wrapper)
+            if let annotatorCenterPoint = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint() {
+                if !wrapper.visibleRect.contains(annotatorCenterPoint) {  // scroll if not visible
+                    var point = sceneView.convert(annotatorCenterPoint, from: wrapper)
                     point.x -= sceneView.bounds.width / 2.0
                     point.y -= sceneView.bounds.height / 2.0
-                    let clipMidPoint = sceneClipView.convert(point, from: sceneView)
-                    sceneClipView.animator().setBoundsOrigin(clipMidPoint)
+                    let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
+                    sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
                 }
             }
         }

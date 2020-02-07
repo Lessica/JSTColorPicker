@@ -350,10 +350,12 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
     if (pixels_data) {
         NSData *imgData = nil;
-        NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
-        [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-        CFRelease(cgimg);
-        imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+        @autoreleasepool {
+            NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
+            [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
+            CFRelease(cgimg);
+            imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+        }
         NSImage *img = [[NSImage alloc] initWithData:imgData];
         free(pixels_data);
         return img;

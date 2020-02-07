@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JSTPixelColor : NSObject <NSCoding> {
+@interface JSTPixelColor : NSObject <NSCoding, NSCopying> {
     uint8_t _red;
     uint8_t _green;
     uint8_t _blue;

@@ -55,11 +55,11 @@ class PixelImage {
     }
     
     func color(at coordinate: PixelCoordinate) -> PixelColor {
-        return PixelColor(id: 0, coordinate: coordinate, color: pixelImageRep.getJSTColor(of: coordinate.toCGPoint()))
+        return PixelColor(coordinate: coordinate, color: pixelImageRep.getJSTColor(of: coordinate.toCGPoint()))
     }
     
     func area(at rect: PixelRect) -> PixelArea {
-        return PixelArea(id: 0, rect: rect)
+        return PixelArea(rect: rect)
     }
     
     func toNSImage() -> NSImage {

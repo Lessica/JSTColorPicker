@@ -28,7 +28,7 @@ class VerticallyCenteredTextFieldCell : NSTextFieldCell {
 
 class ColorAnnotator {
     
-    weak var pixelColor: PixelColor?
+    var pixelColor: PixelColor
     var isHighlighted: Bool {
         didSet {
             if isHighlighted {

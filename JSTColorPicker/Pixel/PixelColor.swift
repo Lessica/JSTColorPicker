@@ -19,6 +19,12 @@ class PixelColor: ContentItem {
         super.init(id: id)
     }
     
+    init(coordinate: PixelCoordinate, color: JSTPixelColor) {
+        self.coordinate    = coordinate
+        self.pixelColorRep = color
+        super.init(id: 0)
+    }
+    
     required init?(coder: NSCoder) {
         guard let pixelColorRep = coder.decodeObject(forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
         let coordX = coder.decodeInteger(forKey: "coordinate.x")
@@ -72,11 +78,20 @@ class PixelColor: ContentItem {
         return pixelColorRep.toNSColor()
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? PixelColor else { return false }
+        return self == object
+    }
+    
     override func encode(with coder: NSCoder) {
         super.encode(with: coder)
         coder.encode(coordinate.x, forKey: "coordinate.x")
         coder.encode(coordinate.y, forKey: "coordinate.y")
         coder.encode(pixelColorRep, forKey: "pixelColorRep")
+    }
+    
+    override func copy(with zone: NSZone? = nil) -> Any {
+        return PixelColor(id: id, coordinate: coordinate, color: pixelColorRep.copy() as! JSTPixelColor)
     }
 }
 
