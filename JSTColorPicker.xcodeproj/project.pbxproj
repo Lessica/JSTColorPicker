@@ -25,6 +25,7 @@
 		D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */; };
 		D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */; };
 		D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */; };
+		D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */; };
 		D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
 		D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06623D1A12300D76CB5 /* libimobiledevice.a */; };
 		D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
@@ -88,6 +89,7 @@
 		D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitView.swift; sourceTree = "<group>"; };
 		D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
 		D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewOverlayView.swift; sourceTree = "<group>"; };
+		D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewResponder.swift; sourceTree = "<group>"; };
 		D647B06523D1A12300D76CB5 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
 		D647B06623D1A12300D76CB5 /* libimobiledevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimobiledevice.a; sourceTree = "<group>"; };
 		D647B06723D1A12300D76CB5 /* libusbmuxd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libusbmuxd.a; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			children = (
 				D645E4A223E812020039F4F6 /* Annotator */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
+				D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */,
 				D66460E823D0333A0032727A /* TrackingTool.swift */,
 				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D649230D23CC62D70067C04A /* SceneController.swift */,
@@ -743,6 +746,7 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
+				D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,

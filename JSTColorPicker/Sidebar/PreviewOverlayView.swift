@@ -10,10 +10,20 @@ import Cocoa
 
 class PreviewOverlayView: NSView {
     
+    weak var overlayDelegate: PreviewResponder?
+    
     var imageSize: CGSize = CGSize.zero {
         didSet {
             setNeedsDisplay(bounds)
         }
+    }
+    
+    var imageArea: CGRect {
+        return CGRect(origin: .zero, size: imageSize).aspectFit(in: bounds).intersection(visibleRect)
+    }
+    
+    var imageScale: CGFloat {
+        return CGRect(origin: .zero, size: imageSize).scaleToAspectFit(in: bounds)
     }
     
     var highlightArea: CGRect = CGRect.zero {
@@ -31,8 +41,7 @@ class PreviewOverlayView: NSView {
     fileprivate var trackingArea: NSTrackingArea?
     
     fileprivate func createTrackingArea() {
-        let trackingRect = CGRect(origin: .zero, size: imageSize).aspectFit(in: bounds).intersection(visibleRect)
-        let trackingArea = NSTrackingArea.init(rect: trackingRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea.init(rect: imageArea, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
     }
@@ -96,6 +105,16 @@ class PreviewOverlayView: NSView {
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
         NSCursor.arrow.set()
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        
+        let loc = convert(event.locationInWindow, from: nil)
+        guard imageArea.contains(loc) else { return }
+        
+        let relLoc = CGPoint(x: (loc.x - imageArea.minX) / imageScale, y: (loc.y - imageArea.minY) / imageScale)
+        overlayDelegate?.previewAction(self, centeredAt: PixelCoordinate(relLoc))
     }
     
 }

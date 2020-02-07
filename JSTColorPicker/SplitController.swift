@@ -14,6 +14,7 @@ class SplitController: NSSplitViewController {
         super.awakeFromNib()
         contentController.actionDelegate = self
         sceneController.trackingObject = self
+        sidebarController.previewOverlayDelegate = self
     }
     
     override func viewDidLoad() {
@@ -222,5 +223,11 @@ extension SplitController: ContentActionDelegate {
         }
     }
     
+}
+
+extension SplitController: PreviewResponder {
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        sceneController.previewAction(sender, centeredAt: coordinate)
+    }
 }
 

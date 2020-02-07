@@ -8,35 +8,14 @@
 
 import Cocoa
 
-extension CALayer {
+extension NSView {
     
     func bringToFront() {
-        guard let sLayer = superlayer else {
+        guard let sView = superview else {
             return
         }
-        removeFromSuperlayer()
-        sLayer.insertSublayer(self, at: UInt32(sLayer.sublayers?.count ?? 0))
-    }
-    
-    func sendToBack() {
-        guard let sLayer = superlayer else {
-            return
-        }
-        removeFromSuperlayer()
-        sLayer.insertSublayer(self, at: 0)
-    }
-    
-}
-
-extension CATransaction {
-    
-    class func withDisabledActions<T>(_ body: () throws -> T) rethrows -> T {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        defer {
-            CATransaction.commit()
-        }
-        return try body()
+        removeFromSuperview()
+        sView.addSubview(self)
     }
     
 }
@@ -57,8 +36,7 @@ class SceneScrollView: NSScrollView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        wantsLayer = true
-        layer?.addSublayer(draggingLayer)
+        addSubview(draggingOverlay)
     }
     
     weak var trackingDelegate: SceneTracking?
@@ -95,7 +73,7 @@ class SceneScrollView: NSScrollView {
             }
         }
         if isBeingDragged && shouldPerformDragAreaEvents {
-            let rect = convert(draggingLayer.frame, to: wrapper).intersection(wrapper.bounds)
+            let rect = convert(draggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
             if !rect.isNull {
                 let draggingArea = PixelRect(rect)
                 trackingDelegate?.trackAreaChanged(self, to: draggingArea)
@@ -104,7 +82,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func trackMouseDragged(with event: NSEvent) {
-        let draggingArea = PixelRect(convert(draggingLayer.frame, to: wrapper))
+        let draggingArea = PixelRect(convert(draggingOverlay.frame, to: wrapper))
         if draggingArea.size > PixelSize(width: 1, height: 1) {
             if trackingTool == .cursor {
                 trackingDelegate?.trackCursorDragged(self, to: draggingArea)
@@ -175,13 +153,11 @@ class SceneScrollView: NSScrollView {
         NSCursor.arrow.set()
     }
     
-    fileprivate lazy var draggingLayer: CALayer = {
-        let layer = SceneDraggingOverlay()
-        layer.backgroundColor = NSColor(white: 1.0, alpha: 0.2).cgColor
-        layer.borderColor = .white
-        layer.borderWidth = 0.75
-        layer.isHidden = true
-        return layer
+    fileprivate lazy var draggingOverlay: SceneDraggingOverlay = {
+        let view = SceneDraggingOverlay()
+        view.wantsLayer = false
+        view.isHidden = true
+        return view
     }()
     
     fileprivate var beginDraggingLocation = CGPoint.zero
@@ -190,15 +166,12 @@ class SceneScrollView: NSScrollView {
     fileprivate func updateDraggingLayerAppearance() {
         if isBeingManipulated {
             if shouldPerformDragAreaEvents {
-                CATransaction.withDisabledActions {
-                    draggingLayer.frame = CGRect.zero
-                }
-                draggingLayer.bringToFront()
-                draggingLayer.isHidden = false
+                draggingOverlay.frame = CGRect.zero
+                draggingOverlay.bringToFront()
+                draggingOverlay.isHidden = false
             }
         } else {
-            draggingLayer.isHidden = true
-            draggingLayer.sendToBack()
+            draggingOverlay.isHidden = true
         }
     }
     
@@ -206,9 +179,7 @@ class SceneScrollView: NSScrollView {
         let origin = CGPoint(x: min(beginDraggingLocation.x, endDraggingLocation.x), y: min(beginDraggingLocation.y, endDraggingLocation.y))
         let size = CGSize(width: abs(endDraggingLocation.x - beginDraggingLocation.x), height: abs(endDraggingLocation.y - beginDraggingLocation.y))
         let rect = CGRect(origin: origin, size: size).intersection(bounds)
-        CATransaction.withDisabledActions {
-            draggingLayer.frame = rect
-        }
+        draggingOverlay.frame = rect
     }
     
     override func mouseDown(with event: NSEvent) {

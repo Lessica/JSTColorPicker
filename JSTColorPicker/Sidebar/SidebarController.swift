@@ -40,6 +40,7 @@ class SidebarController: NSViewController {
     
     @IBOutlet weak var previewImageView: PreviewImageView!
     @IBOutlet weak var previewOverlayView: PreviewOverlayView!
+    weak var previewOverlayDelegate: PreviewResponder?
     
     fileprivate let colorPanel = NSColorPanel.shared
     fileprivate static var byteFormatter: ByteCountFormatter = {
@@ -56,6 +57,11 @@ class SidebarController: NSViewController {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        previewOverlayView.overlayDelegate = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,4 +196,10 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
     }
     
+}
+
+extension SidebarController: PreviewResponder {
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        previewOverlayDelegate?.previewAction(sender, centeredAt: coordinate)
+    }
 }

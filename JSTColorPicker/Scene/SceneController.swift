@@ -617,22 +617,28 @@ extension SceneController: AnnotatorManager {
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators.filter({ $0.isHighlighted }).forEach({ $0.isHighlighted = false })
         annotators.filter({ items.contains($0.pixelColor) }).forEach({
-            $0.view.removeFromSuperview()
             $0.isHighlighted = true
-            sceneOverlayView.addSubview($0.view)
+            $0.view.bringToFront()
         })
         if scrollTo {  // scroll without changing magnification
-            if let annotatorCenterPoint = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint() {
-                if !wrapper.visibleRect.contains(annotatorCenterPoint) {  // scroll if not visible
-                    var point = sceneView.convert(annotatorCenterPoint, from: wrapper)
-                    point.x -= sceneView.bounds.width / 2.0
-                    point.y -= sceneView.bounds.height / 2.0
-                    let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
-                    sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
-                }
+            if let coordinate = annotators.first(where: { items.contains($0.pixelColor) })?.pixelColor.coordinate {
+                previewAction(self, centeredAt: coordinate)
             }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
     }
     
+}
+
+extension SceneController: PreviewResponder {
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
+        if !wrapper.visibleRect.contains(centerPoint) {
+            var point = sceneView.convert(centerPoint, from: wrapper)
+            point.x -= sceneView.bounds.width / 2.0
+            point.y -= sceneView.bounds.height / 2.0
+            let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
+            sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
+        }
+    }
 }
