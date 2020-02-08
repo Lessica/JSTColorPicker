@@ -12,9 +12,6 @@ struct PixelSize {
     public static var zero: PixelSize {
         return PixelSize()
     }
-    public static var invalid: PixelSize {
-        return PixelSize(width: NSNotFound, height: NSNotFound)
-    }
     var width:  Int = 0
     var height: Int = 0
     init() {}

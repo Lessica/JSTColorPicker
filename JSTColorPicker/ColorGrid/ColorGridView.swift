@@ -20,6 +20,34 @@ enum GridState {
     static let gridAreaOccupiedLineColor = NSColor.blue
     static let gridBothOccupiedLineColor = NSColor.red
     
+    func lines(for rect: CGRect) -> [[CGPoint]] {
+        switch self {
+        case .colorOccupied:
+            return [
+                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
+                [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
+                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ]
+            ]
+        case .areaOccupied:
+            return [
+                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
+                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
+            ]
+        case .bothOccupied:
+            return [
+                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
+                [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
+                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
+                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
+            ]
+        default:
+            return []
+        }
+    }
+    
     var color: NSColor {
         switch self {
         case .colorOccupied:
@@ -39,10 +67,13 @@ class ColorGridView: NSView {
     weak var dataSource: ScreenshotLoader?
     var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
-            guard let shouldTrack = window?.isVisible else { return }
-            if shouldTrack {
-                setNeedsDisplay(bounds)
-            }
+            updateDisplayIfNeeded()
+        }
+    }
+    func updateDisplayIfNeeded() {
+        guard let shouldTrack = window?.isVisible else { return }
+        if shouldTrack {
+            setNeedsDisplay(bounds)
         }
     }
     var animating: Bool = false {
@@ -71,7 +102,8 @@ class ColorGridView: NSView {
             guard let self = self else { return }
             context.duration = 0.6
             self.centerOverlay.animator().alphaValue = opaque ? 1.0 : 0.0
-        }) {
+        }) { [weak self] in
+            guard let self = self else { return }
             self.shimAnimation(!opaque)
         }
     }
@@ -125,14 +157,14 @@ class ColorGridView: NSView {
                     if centerCoordinate == coord {
                         centerPoints.append((coord, rect, state))
                     } else {
-                        if state != .none {
-                            deferredPoints.append((coord, rect, state))
-                        } else {
-                            ctx.beginPath()
+                        if state == .none {
                             ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
                             ctx.setStrokeColor(state.color.cgColor)
                             ctx.addRect(rect)
                             ctx.drawPath(using: .fillStroke)
+                        }
+                        else {
+                            deferredPoints.append((coord, rect, state))
                         }
                     }
                 }
@@ -140,21 +172,15 @@ class ColorGridView: NSView {
         }
         
         for (coord, rect, state) in deferredPoints {
-            ctx.beginPath()
             ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
             ctx.setStrokeColor(state.color.cgColor)
             ctx.setLineWidth(1.0)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
             
-            let linePositions = [
-                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
-                [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
-                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ]
-            ]
+            let linePositions = state.lines(for: rect)
             for linePosition in linePositions {
                 if let beginPoint = linePosition.first, let endPoint = linePosition.last {
-                    ctx.beginPath()
                     ctx.setStrokeColor(state.color.cgColor)
                     ctx.move(to: beginPoint)
                     ctx.addLine(to: endPoint)
@@ -164,7 +190,6 @@ class ColorGridView: NSView {
         }
         
         for (coord, rect, _) in centerPoints {
-            ctx.beginPath()
             ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
             ctx.setStrokeColor(GridState.gridCenterLineColor.cgColor)
             ctx.addRect(rect)

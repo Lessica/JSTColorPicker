@@ -40,6 +40,8 @@ class SidebarController: NSViewController {
     
     @IBOutlet weak var previewImageView: PreviewImageView!
     @IBOutlet weak var previewOverlayView: PreviewOverlayView!
+    @IBOutlet weak var previewSlider: PreviewSlider!
+    @IBOutlet weak var previewSliderLabel: NSTextField!
     weak var previewOverlayDelegate: PreviewResponder?
     
     fileprivate let colorPanel = NSColorPanel.shared
@@ -95,24 +97,20 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
         }
     }
     
-    fileprivate var lastPreviewRect: CGRect = CGRect.zero
-    
-    func updatePreview(to rect: CGRect) {
+    func updatePreview(to rect: CGRect, magnification: CGFloat) {
         guard let imageSize = screenshot?.image?.size else { return }
-        lastPreviewRect = rect
         
         let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
         let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
         let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
         previewOverlayView.highlightArea = highlightRect
+        previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        previewSlider.doubleValue = Double(log2(magnification))
     }
     
-    func ensureOverlayBounds(to rect: CGRect?) {
-        if let rect = rect {
-            updatePreview(to: rect)
-        } else {
-            updatePreview(to: lastPreviewRect)
-        }
+    func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
+        guard let rect = rect, let magnification = magnification else { return }
+        updatePreview(to: rect, magnification: magnification)
     }
     
     deinit {
@@ -124,6 +122,11 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
         colorPanel.showsAlpha = true
         colorPanel.color = inspectorColorFlag.color
         colorPanel.orderFront(sender)
+    }
+    
+    @IBAction func previewSliderChanged(_ sender: NSSlider) {
+        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)))
+        previewSliderLabel.isHidden = NSEvent.pressedMouseButtons & 1 != 1
     }
     
 }
@@ -199,7 +202,13 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 }
 
 extension SidebarController: PreviewResponder {
+    
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         previewOverlayDelegate?.previewAction(sender, centeredAt: coordinate)
     }
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
+        previewOverlayDelegate?.previewAction(sender, toMagnification: magnification)
+    }
+    
 }

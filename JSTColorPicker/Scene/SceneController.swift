@@ -72,8 +72,8 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
-    fileprivate static let minimumZoomingFactor: CGFloat = 0.25
-    fileprivate static let maximumZoomingFactor: CGFloat = 128.0
+    fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
+    fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 7)  // 128x
     fileprivate static let zoomingFactors: [CGFloat] = [
         0.250, 0.333, 0.500, 0.667, 1.000,
         2.000, 3.000, 4.000, 5.000, 6.000,
@@ -269,7 +269,7 @@ class SceneController: NSViewController {
         if let next = nextMagnificationFactor {
             NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                 self.sceneView.animator().setMagnification(next, centeredAt: location)
-            }) {
+            }) { [unowned self] in
                 self.sceneBoundsChanged()
             }
             return true
@@ -284,7 +284,7 @@ class SceneController: NSViewController {
         if let prev = prevMagnificationFactor {
             NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                 self.sceneView.animator().setMagnification(prev, centeredAt: location)
-            }) {
+            }) { [unowned self] in
                 self.sceneBoundsChanged()
             }
             return true
@@ -430,7 +430,7 @@ class SceneController: NSViewController {
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if event.modifierFlags.contains(.command) {
+        if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
                     return shortcutMoveCursorOrScene(by: specialKey, for: 1.0, from: loc)
@@ -558,7 +558,7 @@ extension SceneController: ToolbarResponder {
     fileprivate func sceneMagnify(toFit rect: CGRect) {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: rect)
-        }) {
+        }) { [unowned self] in
             self.sceneBoundsChanged()
         }
     }
@@ -645,8 +645,8 @@ extension SceneController: AnnotatorManager {
             if let color = item as? PixelColor {
                 previewAction(self, centeredAt: color.coordinate)
             }
-            else if let _ = item as? PixelArea {
-                // not implemented
+            else if let area = item as? PixelArea {
+                previewAction(self, centeredAt: area.rect.origin)
             }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
@@ -655,6 +655,12 @@ extension SceneController: AnnotatorManager {
 }
 
 extension SceneController: PreviewResponder {
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
+        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
+        self.sceneView.magnification = magnification
+    }
+    
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
         if !wrapper.visibleRect.contains(centerPoint) {
@@ -665,4 +671,5 @@ extension SceneController: PreviewResponder {
             sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
         }
     }
+    
 }

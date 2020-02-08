@@ -49,7 +49,7 @@ extension ColorGridWindowController: SceneTracking {
     }
     
     func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
-        // not implemented
+        // gridView?.updateDisplayIfNeeded()
     }
     
 }

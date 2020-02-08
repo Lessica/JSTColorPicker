@@ -29,6 +29,8 @@
 		D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */; };
 		D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */; };
 		D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B423EE74330039F4F6 /* Annotator.swift */; };
+		D645E4B723EED3130039F4F6 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B623EED3130039F4F6 /* PreviewSlider.swift */; };
+		D645E4B923EED4310039F4F6 /* PreviewSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B823EED4310039F4F6 /* PreviewSliderCell.swift */; };
 		D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
 		D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06623D1A12300D76CB5 /* libimobiledevice.a */; };
 		D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
@@ -96,6 +98,8 @@
 		D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotatorView.swift; sourceTree = "<group>"; };
 		D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotator.swift; sourceTree = "<group>"; };
 		D645E4B423EE74330039F4F6 /* Annotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotator.swift; sourceTree = "<group>"; };
+		D645E4B623EED3130039F4F6 /* PreviewSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSlider.swift; sourceTree = "<group>"; };
+		D645E4B823EED4310039F4F6 /* PreviewSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSliderCell.swift; sourceTree = "<group>"; };
 		D647B06523D1A12300D76CB5 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
 		D647B06623D1A12300D76CB5 /* libimobiledevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimobiledevice.a; sourceTree = "<group>"; };
 		D647B06723D1A12300D76CB5 /* libusbmuxd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libusbmuxd.a; sourceTree = "<group>"; };
@@ -574,11 +578,11 @@
 				D647B06423D198CB00D76CB5 /* lib */,
 				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
+				D647B06323D173A700D76CB5 /* Device */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D649231623CC64490067C04A /* Scene */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
-				D647B06323D173A700D76CB5 /* Device */,
 				D684842023D40C9300BC5E34 /* ColorGrid */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
@@ -632,6 +636,8 @@
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
+				D645E4B623EED3130039F4F6 /* PreviewSlider.swift */,
+				D645E4B823EED4310039F4F6 /* PreviewSliderCell.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
+				D645E4B923EED4310039F4F6 /* PreviewSliderCell.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
@@ -757,6 +764,7 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
+				D645E4B723EED3130039F4F6 /* PreviewSlider.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */,

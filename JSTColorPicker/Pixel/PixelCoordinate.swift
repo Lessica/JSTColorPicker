@@ -12,8 +12,8 @@ struct PixelCoordinate {
     public static var zero: PixelCoordinate {
         return PixelCoordinate()
     }
-    public static var invalid: PixelCoordinate {
-        return PixelCoordinate(x: NSNotFound, y: NSNotFound)
+    public static var null: PixelCoordinate {
+        return PixelCoordinate(x: Int.max, y: Int.max)
     }
     var x: Int = 0
     var y: Int = 0

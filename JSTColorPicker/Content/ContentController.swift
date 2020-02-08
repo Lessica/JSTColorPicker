@@ -170,42 +170,36 @@ extension ContentController: NSUserInterfaceValidations {
         if content.items.count >= Content.maximumCount {
             throw ContentError.reachLimit
         }
-        if let item = item as? PixelColor {
-            if content.colors.first(where: { $0 == item }) != nil {
-                throw ContentError.exists
-            }
-            item.id = nextID
-            addContentItems([item])
-            tableView.reloadData()
-            
-            let numberOfRows = tableView.numberOfRows
-            if numberOfRows > 0 {
-                tableView.scrollRowToVisible(numberOfRows - 1)
-            }
-            
-            return item
+        if content.items.first(where: { $0 == item }) != nil {
+            throw ContentError.exists
         }
-        else if let _ = item as? PixelArea {
-            // TODO: submit `PixelArea` item
+        
+        item.id = nextID
+        addContentItems([item])
+        tableView.reloadData()
+        
+        let numberOfRows = tableView.numberOfRows
+        if numberOfRows > 0 {
+            tableView.scrollRowToVisible(numberOfRows - 1)
         }
+        
         return item
     }
     
-    // TODO: delete `PixelArea` item
-    func deleteItem(at coordinate: PixelCoordinate) throws -> PixelColor {
+    func deleteItem(at coordinate: PixelCoordinate) throws -> ContentItem {
         guard let content = content else {
             throw ContentError.noDocument
         }
         
-        if let itemIndex = (content.items.firstIndex(where: { (item) -> Bool in
-            if let item = item as? PixelColor {
-                if item.coordinate == coordinate {
-                    return true
-                }
-            }
-            return false
-        })) {
-            if let item = content.items[itemIndex] as? PixelColor {
+        var item: ContentItem?
+        if let color = content.colors.first(where: { $0.coordinate == coordinate }) {
+            item = color
+        }
+        else if let area = content.areas.first(where: { $0.rect.contains(coordinate) }) {
+            item = area
+        }
+        if let item = item {
+            if let itemIndex = content.items.firstIndex(of: item) {
                 deleteContentItems([item])
                 tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
                 return item
@@ -295,8 +289,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     cell.imageView?.image = NSImage(color: item.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
                 }
                 else if let _ = item as? PixelArea {
-                    // TODO: icon of `PixelArea`
-                    cell.imageView?.image = NSImage()
+                    cell.imageView?.image = NSImage(named: "JSTCropSmall")
                 }
                 cell.textField?.stringValue = item.description
             }

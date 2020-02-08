@@ -12,8 +12,11 @@ struct PixelRect {
     public static var zero: PixelRect {
         return PixelRect()
     }
-    public static var invalid: PixelRect {
-        return PixelRect(x: NSNotFound, y: NSNotFound, width: NSNotFound, height: NSNotFound)
+    public static var null: PixelRect {
+        return PixelRect(x: Int.max, y: Int.max, width: 0, height: 0)
+    }
+    public var isNull: Bool {
+        return self == PixelRect.null
     }
     var origin: PixelCoordinate = PixelCoordinate()
     var size: PixelSize         = PixelSize()
@@ -47,7 +50,7 @@ struct PixelRect {
 
 extension PixelRect: CustomStringConvertible {
     var description: String {
-        return "(\(origin),\(size))"
+        return "(\(origin.x),\(origin.y),\(size.width),\(size.height))"
     }
 }
 

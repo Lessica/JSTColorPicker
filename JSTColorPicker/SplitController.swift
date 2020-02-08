@@ -36,7 +36,7 @@ class SplitController: NSSplitViewController {
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
-        sidebarController.ensureOverlayBounds(to: sceneController.sceneVisibleBounds)
+        sidebarController.ensureOverlayBounds(to: sceneController.sceneVisibleBounds, magnification: sceneController.sceneMagnification)
     }
     
 }
@@ -112,6 +112,17 @@ extension SplitController: SceneTracking {
         }
     }
     
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
+        guard let image = screenshot?.image else { return }
+        let area = image.area(at: rect)
+        do {
+            _ = try contentController.submitItem(area)
+        } catch let error {
+            let alert = NSAlert(error: error)
+            alert.runModal()
+        }
+    }
+    
     func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
         do {
             _ = try contentController.deleteItem(at: coordinate)
@@ -125,7 +136,7 @@ extension SplitController: SceneTracking {
         if let title = screenshot?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
-        sidebarController.updatePreview(to: rect)
+        sidebarController.updatePreview(to: rect, magnification: magnification)
         trackingObject?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
@@ -218,16 +229,19 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
         sceneController.removeAnnotators(for: items)
-        if let item = items.first {
-            contentItemChanged(item, by: controller)
-        }
     }
     
 }
 
 extension SplitController: PreviewResponder {
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
+        sceneController.previewAction(sender, toMagnification: magnification)
+    }
+    
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         sceneController.previewAction(sender, centeredAt: coordinate)
     }
+    
 }
 
