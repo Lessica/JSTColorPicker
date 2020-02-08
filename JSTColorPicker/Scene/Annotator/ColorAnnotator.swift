@@ -26,10 +26,15 @@ class VerticallyCenteredTextFieldCell : NSTextFieldCell {
     
 }
 
-class ColorAnnotator {
+class ColorAnnotator: Annotator {
     
-    var pixelColor: PixelColor
-    var isHighlighted: Bool {
+    var pixelColor: PixelColor {
+        return pixelItem as! PixelColor
+    }
+    var pixelView: ColorAnnotatorView {
+        return view as! ColorAnnotatorView
+    }
+    override var isHighlighted: Bool {
         didSet {
             if isHighlighted {
                 backgroundCell.stringValue = "🔴"
@@ -40,16 +45,15 @@ class ColorAnnotator {
             }
         }
     }
-    var label: String {
+    override var label: String {
         didSet {
             labelCell.stringValue = label
         }
     }
-    var view: ColorAnnotatorView
     fileprivate var backgroundCell: VerticallyCenteredTextFieldCell
     fileprivate var labelCell: VerticallyCenteredTextFieldCell
     
-    init(pixelColor: PixelColor) {
+    init(pixelItem: PixelColor) {
         let view = ColorAnnotatorView()
         
         let backgroundCell = VerticallyCenteredTextFieldCell()
@@ -100,10 +104,7 @@ class ColorAnnotator {
         labelCell.textColor = .black
         
         // setup view
-        self.pixelColor = pixelColor
-        self.isHighlighted = false
-        self.label = "0"
-        self.view = view
+        super.init(pixelItem: pixelItem, view: view)
     }
     
 }

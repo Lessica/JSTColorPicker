@@ -178,7 +178,7 @@ class SceneScrollView: NSScrollView {
     fileprivate func updateDraggingLayerBounds(at endDraggingLocation: CGPoint) {
         let origin = CGPoint(x: min(beginDraggingLocation.x, endDraggingLocation.x), y: min(beginDraggingLocation.y, endDraggingLocation.y))
         let size = CGSize(width: abs(endDraggingLocation.x - beginDraggingLocation.x), height: abs(endDraggingLocation.y - beginDraggingLocation.y))
-        let rect = CGRect(origin: origin, size: size).intersection(bounds)
+        let rect = CGRect(origin: origin, size: size).insetBy(dx: -1.0, dy: -1.0).intersection(bounds)
         draggingOverlay.frame = rect
     }
     

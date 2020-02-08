@@ -9,7 +9,7 @@
 import Foundation
 
 protocol AnnotatorManager: class {
-    var annotators: [ColorAnnotator] { get }
+    var annotators: [Annotator] { get }
     func loadAnnotators(from content: Content) throws
     func addAnnotators(for items: [ContentItem])
     func removeAnnotators(for items: [ContentItem])

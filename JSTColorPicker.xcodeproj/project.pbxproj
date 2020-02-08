@@ -26,6 +26,9 @@
 		D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */; };
 		D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */; };
 		D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */; };
+		D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */; };
+		D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */; };
+		D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B423EE74330039F4F6 /* Annotator.swift */; };
 		D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
 		D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06623D1A12300D76CB5 /* libimobiledevice.a */; };
 		D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
@@ -90,6 +93,9 @@
 		D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
 		D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewOverlayView.swift; sourceTree = "<group>"; };
 		D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewResponder.swift; sourceTree = "<group>"; };
+		D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotatorView.swift; sourceTree = "<group>"; };
+		D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotator.swift; sourceTree = "<group>"; };
+		D645E4B423EE74330039F4F6 /* Annotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotator.swift; sourceTree = "<group>"; };
 		D647B06523D1A12300D76CB5 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
 		D647B06623D1A12300D76CB5 /* libimobiledevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimobiledevice.a; sourceTree = "<group>"; };
 		D647B06723D1A12300D76CB5 /* libusbmuxd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libusbmuxd.a; sourceTree = "<group>"; };
@@ -320,6 +326,9 @@
 				D6E2455C23E153340012BE5F /* AnnotatorManager.swift */,
 				D6E2455E23E186260012BE5F /* ColorAnnotator.swift */,
 				D6A3EA4023E40A6F008F53DC /* ColorAnnotatorView.swift */,
+				D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */,
+				D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */,
+				D645E4B423EE74330039F4F6 /* Annotator.swift */,
 			);
 			path = Annotator;
 			sourceTree = "<group>";
@@ -730,6 +739,7 @@
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */,
+				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* ColorGridViewController.swift in Sources */,
@@ -739,6 +749,7 @@
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* SceneDraggingOverlay.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* ColorGridWindow.swift in Sources */,
+				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
@@ -748,6 +759,7 @@
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
+				D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
