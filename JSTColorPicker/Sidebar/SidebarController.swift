@@ -98,12 +98,13 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
     }
     
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard let imageSize = screenshot?.image?.size else { return }
+        if let imageSize = screenshot?.image?.size {
+            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+            previewOverlayView.highlightArea = highlightRect
+        }
         
-        let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
-        let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
-        let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
-        previewOverlayView.highlightArea = highlightRect
         previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         previewSlider.doubleValue = Double(log2(magnification))
     }
@@ -146,6 +147,7 @@ A:
 CSS:
 @
 """
+        previewSlider.isEnabled = false
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -164,6 +166,7 @@ CSS:
         previewImageView.image = previewImage
         previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
+        previewSlider.isEnabled = true
     }
     
     fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
