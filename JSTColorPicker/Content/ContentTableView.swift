@@ -22,7 +22,7 @@ class ContentTableView: NSTableView {
             super.keyDown(with: event)
             return
         }
-        if event.modifierFlags.isEmpty && (specialKey == .carriageReturn || specialKey == .enter) {
+        if event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty && (specialKey == .carriageReturn || specialKey == .enter) {
             tableViewResponder?.tableViewDoubleAction(self)
             return
         }

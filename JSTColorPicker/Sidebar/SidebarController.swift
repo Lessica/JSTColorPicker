@@ -62,6 +62,9 @@ class SidebarController: NSViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        colorPanel.mode = .RGB
+        colorPanel.showsAlpha = true
+        // colorPanel.styleMask
         previewOverlayView.overlayDelegate = self
     }
     
@@ -119,8 +122,6 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
     }
     
     @IBAction func colorIndicatorTapped(_ sender: Any) {
-        colorPanel.mode = .RGB
-        colorPanel.showsAlpha = true
         colorPanel.color = inspectorColorFlag.color
         colorPanel.orderFront(sender)
     }

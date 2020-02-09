@@ -324,7 +324,7 @@ class SceneController: NSViewController {
     
     fileprivate func windowFlagsChanged(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
+        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
         case [.option]:
             return useOptionModifiedTrackingTool()
         case [.command]:
@@ -430,10 +430,21 @@ class SceneController: NSViewController {
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
+        
+        let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        if flags.contains(.command) {
+            
+            var distance: CGFloat = 1.0
+            if flags.contains(.control) {
+                distance = 100.0
+            }
+            else if flags.contains(.shift) {
+                distance = 10.0
+            }
+            
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    return shortcutMoveCursorOrScene(by: specialKey, for: 1.0, from: loc)
+                    return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
                     return cursorClicked(at: loc)
@@ -450,7 +461,9 @@ class SceneController: NSViewController {
                     return magnifyToolClicked(at: loc)
                 }
             }
+            
         }
+        
         return false
     }
     

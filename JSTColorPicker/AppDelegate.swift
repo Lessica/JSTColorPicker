@@ -157,6 +157,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.runModal()
     }
     
+    @IBOutlet weak var showColorPanelItem: NSMenuItem!
+    
+    @IBAction func colorPanelSwitchItemTapped(_ sender: Any) {
+        if !NSColorPanel.shared.isVisible {
+            NSColorPanel.shared.orderFront(sender)
+        } else {
+            NSColorPanel.shared.close()
+        }
+    }
+    
 }
 
 extension AppDelegate: NSMenuDelegate {

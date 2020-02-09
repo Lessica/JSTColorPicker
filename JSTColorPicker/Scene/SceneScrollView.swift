@@ -77,7 +77,7 @@ class SceneScrollView: NSScrollView {
     
     fileprivate func shouldPerformAreaDragging(for event: NSEvent) -> Bool {
         if trackingTool == .cursor || trackingTool == .magnify {
-            return event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .shift
+            return event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
         }
         return false
     }

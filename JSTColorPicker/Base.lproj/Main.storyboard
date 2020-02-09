@@ -242,6 +242,12 @@ CA
                                                 <action selector="colorGridSwitchItemTapped:" target="Voe-Tx-rLC" id="IrU-H6-5y4"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Toggle Color Panel" keyEquivalent="c" id="8Lc-x4-Wqe">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="colorPanelSwitchItemTapped:" target="Voe-Tx-rLC" id="VZD-Kz-jQH"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -313,6 +319,7 @@ CA
                     <connections>
                         <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
                         <outlet property="showColorGridItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
+                        <outlet property="showColorPanelItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -342,7 +349,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -375,7 +382,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="160" minWidth="160" maxWidth="360" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -464,42 +471,42 @@ CA
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open Screenshot" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
+                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="CursorItem" label="Cursor" paletteLabel="Cursor" toolTip="Cursor" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
+                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="CursorItem" label="Cursor" paletteLabel="Cursor" toolTip="Cursor (⌃F2)" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="useCursorAction:" target="B8D-0N-5wS" id="7ha-99-Kkd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
+                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (⌃F3)" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="useMagnifyToolAction:" target="B8D-0N-5wS" id="Z1J-WD-S6d"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
+                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (⌃F4)" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="useMinifyToolAction:" target="B8D-0N-5wS" id="7fQ-HC-hzs"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
+                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (⌃F6)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
                                         <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" label="Fill Window" paletteLabel="Fill Window" toolTip="Fit Window" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
+                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" label="Fill Window" paletteLabel="Fill Window" toolTip="Fit Window (⌃F7)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
@@ -508,7 +515,7 @@ CA
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot" tag="-1" image="JSTCamera" id="BOP-NL-21X">
+                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌥⌘S)" tag="-1" image="JSTCamera" id="BOP-NL-21X">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
@@ -516,7 +523,7 @@ CA
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
-                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move" tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
+                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (⌃F5)" tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
                                     <size key="minSize" width="128" height="128"/>
                                     <size key="maxSize" width="128" height="128"/>
                                     <connections>
@@ -801,7 +808,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="212" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -839,12 +846,12 @@ CA
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="5" y="26" width="26" height="26"/>
+                                                                    <rect key="frame" x="8" y="29" width="20" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="20" id="8hU-ce-bat"/>
                                                                         <constraint firstAttribute="height" constant="20" id="OJ4-s6-5ah"/>
                                                                     </constraints>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="Rlh-FA-OcK"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Rlh-FA-OcK"/>
                                                                     <connections>
                                                                         <action selector="colorIndicatorTapped:" target="Z2W-Gy-vmx" id="Fyh-ud-EQa"/>
                                                                     </connections>
