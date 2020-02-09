@@ -72,6 +72,7 @@ To be continued...
 
 ### Move
 - **Drag**: A simple drag-to-move operation for common mouse device.
+- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 - **Move with two fingers**: Standard drag operation for Magic Mouse / Trackpad.
 - **Pinch with two fingers**: Zoom in or out.
 - `⌘` + `↑ ↓ ← →`: Move cursor by 1 pixel.
