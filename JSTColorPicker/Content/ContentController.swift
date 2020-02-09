@@ -10,11 +10,13 @@ import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
     static let columnID = NSUserInterfaceItemIdentifier("col-id")
+    static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 
 extension NSUserInterfaceItemIdentifier {
     static let cellID = NSUserInterfaceItemIdentifier("cell-id")
+    static let cellSimilarity = NSUserInterfaceItemIdentifier("cell-similarity")
     static let cellDescription = NSUserInterfaceItemIdentifier("cell-desc")
 }
 
@@ -76,6 +78,17 @@ class ContentController: NSViewController {
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
         }
+    }
+    
+    @IBAction func similarityFieldChanged(_ sender: NSTextField) {
+        guard let content = content else { return }
+        let row = tableView.row(for: sender)
+        guard row >= 0 && row < content.items.count else { return }
+        let value = sender.doubleValue
+        if value >= 1 && value <= 100 {
+            content.items[row].similarity = min(max(sender.doubleValue / 100.0, 0.01), 1.0)
+        }
+        sender.stringValue = String(format: "%.2f", content.items[row].similarity * 100.0)
     }
     
     deinit {
@@ -283,6 +296,9 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             let item = content.items[row]
             if col == .columnID {
                 cell.textField?.stringValue = String(item.id)
+            }
+            else if col == .columnSimilarity {
+                cell.textField?.stringValue = String(format: "%.2f", item.similarity * 100.0)
             }
             else if col == .columnDescription {
                 if let item = item as? PixelColor {
