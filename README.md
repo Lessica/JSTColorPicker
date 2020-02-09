@@ -55,14 +55,13 @@ To be continued...
 ## Usage
 
 ### Magic Cursor
-- **Click**: Add current *coordinate & color* to content list.
-- `⇧` & **Drag**: Add dragged *area* to content list.
-- `⌘↵`: Same as **Click**.
+- **Click** or `⌘↵`: Add current *coordinate & color* to content list.
+- `⇧` and **Drag**: Add dragged *area* to content list.
 - `⌘⌫`: Delete *coordinate & color* at current position or *area* contains current position.
 
 ### Magnifying Glass
 - **Click**: Magnify to next level from current position.
-- `⇧` & **Drag**: Magnify to fill window with dragged area.
+- `⇧` and **Drag**: Magnify to fill window with dragged area.
 - **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
