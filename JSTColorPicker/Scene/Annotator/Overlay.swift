@@ -1,26 +1,43 @@
 //
-//  SceneDraggingOverlay.swift
+//  OverlayView.swift
 //  JSTColorPicker
 //
-//  Created by Darwin on 2/4/20.
+//  Created by Darwin on 2/10/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
 import Foundation
 
-class SceneDraggingOverlay: NSView {
+class Overlay: NSView {
+    
+    static let borderWidth: CGFloat = 1.0
+    
+    var isBordered: Bool {
+        return false
+    }
+    
+    var outerInsets: NSEdgeInsets {
+        return NSEdgeInsets(top: -Overlay.borderWidth, left: -Overlay.borderWidth, bottom: -Overlay.borderWidth, right: -Overlay.borderWidth)
+    }
+    
+    var innerInsets: NSEdgeInsets {
+        return NSEdgeInsets(top: Overlay.borderWidth, left: Overlay.borderWidth, bottom: Overlay.borderWidth, right: Overlay.borderWidth)
+    }
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
+        guard isBordered else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
         // black-white painted dashed lines
         
-        let drawBounds = bounds.insetBy(dx: 1.0, dy: 1.0)
+        let drawBounds = bounds.inset(by: innerInsets)
         guard !drawBounds.isNull else { return }
         
-        ctx.setLineWidth(1.0)
+        ctx.saveGState()
+        
+        ctx.setLineWidth(Overlay.borderWidth)
         ctx.setStrokeColor(.black)
         ctx.stroke(drawBounds)
         
@@ -42,6 +59,8 @@ class SceneDraggingOverlay: NSView {
         ctx.move(to: CGPoint(x: drawBounds.minX, y: drawBounds.maxY))
         ctx.addLine(to: CGPoint(x: drawBounds.minX, y: drawBounds.minY))
         ctx.strokePath()
+        
+        ctx.restoreGState()
     }
     
 }

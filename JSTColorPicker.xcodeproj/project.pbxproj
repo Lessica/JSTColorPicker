@@ -21,12 +21,12 @@
 		D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49C23E805EA0039F4F6 /* PixelRect.swift */; };
 		D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49E23E807600039F4F6 /* ContentItem.swift */; };
 		D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A023E8080E0039F4F6 /* PixelArea.swift */; };
-		D645E4A423E95F620039F4F6 /* SceneDraggingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A323E95F620039F4F6 /* SceneDraggingOverlay.swift */; };
+		D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A323E95F620039F4F6 /* DraggingOverlay.swift */; };
 		D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */; };
 		D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */; };
 		D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */; };
 		D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */; };
-		D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */; };
+		D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B023EE72A30039F4F6 /* AreaAnnotatorOverlay.swift */; };
 		D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */; };
 		D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B423EE74330039F4F6 /* Annotator.swift */; };
 		D645E4B723EED3130039F4F6 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B623EED3130039F4F6 /* PreviewSlider.swift */; };
@@ -47,6 +47,9 @@
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D66460E923D0333A0032727A /* TrackingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460E823D0333A0032727A /* TrackingTool.swift */; };
 		D66460EB23D056440032727A /* SceneTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460EA23D056440032727A /* SceneTracking.swift */; };
+		D67C51C623F1361800829B51 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
+		D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */; };
+		D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C923F137B900829B51 /* EditableOverlay.swift */; };
 		D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9023D6DB3400DA1750 /* ContentController.swift */; };
 		D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9223D6EC4F00DA1750 /* Content.swift */; };
 		D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
@@ -54,7 +57,7 @@
 		D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841423D3E3FD00BC5E34 /* libz.tbd */; };
 		D684842223D4105100BC5E34 /* ColorGrid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* ColorGrid.storyboard */; };
 		D684842423D4106900BC5E34 /* ColorGridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* ColorGridWindowController.swift */; };
-		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorView.swift */; };
+		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
 		D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
@@ -90,12 +93,12 @@
 		D645E49C23E805EA0039F4F6 /* PixelRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelRect.swift; sourceTree = "<group>"; };
 		D645E49E23E807600039F4F6 /* ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
 		D645E4A023E8080E0039F4F6 /* PixelArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArea.swift; sourceTree = "<group>"; };
-		D645E4A323E95F620039F4F6 /* SceneDraggingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDraggingOverlay.swift; sourceTree = "<group>"; };
+		D645E4A323E95F620039F4F6 /* DraggingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingOverlay.swift; sourceTree = "<group>"; };
 		D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitView.swift; sourceTree = "<group>"; };
 		D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
 		D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewOverlayView.swift; sourceTree = "<group>"; };
 		D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewResponder.swift; sourceTree = "<group>"; };
-		D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotatorView.swift; sourceTree = "<group>"; };
+		D645E4B023EE72A30039F4F6 /* AreaAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotator.swift; sourceTree = "<group>"; };
 		D645E4B423EE74330039F4F6 /* Annotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotator.swift; sourceTree = "<group>"; };
 		D645E4B623EED3130039F4F6 /* PreviewSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSlider.swift; sourceTree = "<group>"; };
@@ -265,6 +268,9 @@
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D66460E823D0333A0032727A /* TrackingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTool.swift; sourceTree = "<group>"; };
 		D66460EA23D056440032727A /* SceneTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTracking.swift; sourceTree = "<group>"; };
+		D67C51C523F1361800829B51 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorOverlay.swift; sourceTree = "<group>"; };
+		D67C51C923F137B900829B51 /* EditableOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableOverlay.swift; sourceTree = "<group>"; };
 		D682FC9023D6DB3400DA1750 /* ContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentController.swift; sourceTree = "<group>"; };
 		D682FC9223D6EC4F00DA1750 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		D682FC9623D6ED2C00DA1750 /* PixelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelColor.swift; sourceTree = "<group>"; };
@@ -272,7 +278,7 @@
 		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D684842123D4105100BC5E34 /* ColorGrid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorGrid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* ColorGridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridWindowController.swift; sourceTree = "<group>"; };
-		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorView.swift; sourceTree = "<group>"; };
+		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
 		D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarResponder.swift; sourceTree = "<group>"; };
@@ -329,10 +335,14 @@
 			children = (
 				D6E2455C23E153340012BE5F /* AnnotatorManager.swift */,
 				D6E2455E23E186260012BE5F /* ColorAnnotator.swift */,
-				D6A3EA4023E40A6F008F53DC /* ColorAnnotatorView.swift */,
 				D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */,
-				D645E4B023EE72A30039F4F6 /* AreaAnnotatorView.swift */,
 				D645E4B423EE74330039F4F6 /* Annotator.swift */,
+				D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */,
+				D645E4B023EE72A30039F4F6 /* AreaAnnotatorOverlay.swift */,
+				D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */,
+				D67C51C923F137B900829B51 /* EditableOverlay.swift */,
+				D645E4A323E95F620039F4F6 /* DraggingOverlay.swift */,
+				D67C51C523F1361800829B51 /* Overlay.swift */,
 			);
 			path = Annotator;
 			sourceTree = "<group>";
@@ -549,7 +559,6 @@
 				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
 				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
 				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
-				D645E4A323E95F620039F4F6 /* SceneDraggingOverlay.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -727,11 +736,12 @@
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
 				D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */,
 				D6E2455D23E153340012BE5F /* AnnotatorManager.swift in Sources */,
+				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D684842423D4106900BC5E34 /* ColorGridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
-				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorView.swift in Sources */,
+				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
 				D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
@@ -747,6 +757,8 @@
 				D645E4B923EED4310039F4F6 /* PreviewSliderCell.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
+				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
+				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* ColorGridViewController.swift in Sources */,
@@ -754,7 +766,7 @@
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
-				D645E4A423E95F620039F4F6 /* SceneDraggingOverlay.swift in Sources */,
+				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* ColorGridWindow.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
@@ -767,7 +779,7 @@
 				D645E4B723EED3130039F4F6 /* PreviewSlider.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
-				D645E4B123EE72A30039F4F6 /* AreaAnnotatorView.swift in Sources */,
+				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
@@ -910,7 +922,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
@@ -940,7 +952,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";

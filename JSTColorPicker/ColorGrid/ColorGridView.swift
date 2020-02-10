@@ -138,6 +138,7 @@ class ColorGridView: NSView {
         guard let pixelImage = pixelImage else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
+        ctx.saveGState()
         ctx.setLineCap(.square)
         ctx.setLineWidth(1.0)
         
@@ -195,6 +196,9 @@ class ColorGridView: NSView {
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
         }
+        
+        ctx.restoreGState()
+        
     }
     
 }

@@ -11,12 +11,6 @@ import Cocoa
 class ColorIndicator: NSImageView {
     
     var color: NSColor = .clear
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

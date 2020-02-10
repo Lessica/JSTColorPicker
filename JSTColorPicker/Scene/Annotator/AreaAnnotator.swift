@@ -13,12 +13,32 @@ class AreaAnnotator: Annotator {
     var pixelArea: PixelArea {
         return pixelItem as! PixelArea
     }
-    var pixelView: AreaAnnotatorView {
-        return view as! AreaAnnotatorView
+    var pixelView: AreaAnnotatorOverlay {
+        return view as! AreaAnnotatorOverlay
+    }
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                pixelView.backgroundCell.stringValue = "🔵"
+                pixelView.labelCell.textColor = .white
+            } else {
+                pixelView.backgroundCell.stringValue = "⚪️"
+                pixelView.labelCell.textColor = .black
+            }
+        }
+    }
+    override var label: String {
+        didSet {
+            pixelView.labelCell.stringValue = label
+        }
     }
     
     init(pixelItem: PixelArea) {
-        super.init(pixelItem: pixelItem, view: AreaAnnotatorView())
+        let view = AreaAnnotatorOverlay()
+        view.backgroundCell.stringValue = "⚪️"
+        view.labelCell.stringValue = String(pixelItem.id)
+        view.labelCell.textColor = .black
+        super.init(pixelItem: pixelItem, view: view)
     }
     
 }

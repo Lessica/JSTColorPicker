@@ -1,5 +1,5 @@
 //
-//  AreaAnnotatorView.swift
+//  AreaAnnotatorOverlay.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 2/8/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-class AreaAnnotatorView: NSView {
+class AreaAnnotatorOverlay: AnnotatorOverlay {
     
 }

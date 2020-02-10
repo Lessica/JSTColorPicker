@@ -39,6 +39,12 @@ class SplitController: NSSplitViewController {
         sidebarController.ensureOverlayBounds(to: sceneController.sceneVisibleBounds, magnification: sceneController.sceneMagnification)
     }
     
+    override func willPresentError(_ error: Error) -> Error {
+        let error = super.willPresentError(error)
+        debugPrint(error.localizedDescription)
+        return error
+    }
+    
 }
 
 extension SplitController: DropViewDelegate {
@@ -75,11 +81,10 @@ extension SplitController: DropViewDelegate {
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
         NotificationCenter.default.post(name: .respondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
-        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { (document, documentWasAlreadyOpen, error) in
+        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { [unowned self] (document, documentWasAlreadyOpen, error) in
             NotificationCenter.default.post(name: .respondingWindowChanged, object: nil)
             if let error = error {
-                let alert = NSAlert(error: error)
-                alert.runModal()
+                self.presentError(error)
             }
         }
     }
@@ -107,8 +112,7 @@ extension SplitController: SceneTracking {
         do {
             _ = try contentController.submitItem(color)
         } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
+            presentError(error)
         }
     }
     
@@ -118,8 +122,7 @@ extension SplitController: SceneTracking {
         do {
             _ = try contentController.submitItem(area)
         } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
+            presentError(error)
         }
     }
     
@@ -127,8 +130,7 @@ extension SplitController: SceneTracking {
         do {
             _ = try contentController.deleteItem(at: coordinate)
         } catch let error {
-            let alert = NSAlert(error: error)
-            alert.runModal()
+            presentError(error)
         }
     }
     
@@ -187,8 +189,7 @@ extension SplitController: ScreenshotLoader {
             try sidebarController.load(screenshot)
         } catch let error {
             if let _ = screenshot.fileURL {
-                let alert = NSAlert(error: error)
-                alert.runModal()
+                presentError(error)
             }
         }
     }

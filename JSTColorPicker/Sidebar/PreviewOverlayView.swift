@@ -63,6 +63,8 @@ class PreviewOverlayView: NSView {
 
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
+        ctx.saveGState()
+        
         // fill background
         ctx.setFillColor(PreviewOverlayView.overlayColor)
         ctx.addRect(highlightArea)
@@ -75,6 +77,8 @@ class PreviewOverlayView: NSView {
         ctx.setStrokeColor(.black)
         ctx.addRect(highlightArea)
         ctx.drawPath(using: .stroke)
+        
+        ctx.restoreGState()
     }
     
     fileprivate func mouseInside() -> Bool {

@@ -11,11 +11,11 @@ import Foundation
 class Annotator {
     
     var pixelItem: ContentItem
-    var view: NSView
+    var view: AnnotatorOverlay
     var isHighlighted: Bool = false
     var label: String = "0"
     
-    init(pixelItem: ContentItem, view: NSView) {
+    init(pixelItem: ContentItem, view: AnnotatorOverlay) {
         self.pixelItem = pixelItem
         self.view = view
     }

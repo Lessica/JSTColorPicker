@@ -53,6 +53,10 @@ extension CGRect {
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
+    var center: CGPoint {
+        return CGPoint(x: midX, y: midY)
+    }
+    
 }
 
 extension NSScreen {
@@ -241,9 +245,9 @@ class SceneController: NSViewController {
         if !wrapper.visibleRect.contains(location) { return false }
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
-        var annotatorView: ColorAnnotatorView?
+        var annotatorView: ColorAnnotatorOverlay?
         for view in sceneOverlayView.subviews.reversed() {  // from top to bottom
-            if let view = view as? ColorAnnotatorView {
+            if let view = view as? ColorAnnotatorOverlay {
                 if view.frame.contains(locationInMask) {
                     annotatorView = view
                     break
@@ -599,15 +603,28 @@ extension SceneController: AnnotatorManager {
         sceneBoundsChanged()
     }
     
+    fileprivate func updateFrame(of annotator: Annotator) {
+        if let annotator = annotator as? ColorAnnotator {
+            annotator.view.isSmallArea = true
+            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
+            annotator.view.frame = CGRect(origin: pointInMask, size: annotator.view.defaultSize).offsetBy(dx: annotator.view.defaultOffset.x, dy: annotator.view.defaultOffset.y)
+        }
+        else if let annotator = annotator as? AreaAnnotator {
+            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper)
+            // if smaller than default size
+            if rectInMask.width < annotator.view.defaultSize.width || rectInMask.height < annotator.view.defaultSize.height {
+                annotator.view.isSmallArea = true
+                annotator.view.frame = CGRect(origin: rectInMask.center, size: annotator.view.defaultSize).offsetBy(dx: annotator.view.defaultOffset.x, dy: annotator.view.defaultOffset.y)
+            } else {
+                annotator.view.isSmallArea = false
+                annotator.view.frame = rectInMask.inset(by: annotator.view.outerInsets)
+            }
+        }
+    }
+    
     fileprivate func updateAnnotatorBounds() {
         annotators.forEach { (annotator) in
-            if let colorAnnotator = annotator as? ColorAnnotator {
-                let pointInMask = sceneView.convert(colorAnnotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
-                colorAnnotator.pixelView.frame = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
-            }
-            else if let _ = annotator as? AreaAnnotator {
-                // not implemented
-            }
+            updateFrame(of: annotator)
         }
     }
     
@@ -630,15 +647,16 @@ extension SceneController: AnnotatorManager {
     
     func addAnnotator(for color: PixelColor) {
         let annotator = ColorAnnotator(pixelItem: color.copy() as! PixelColor)
-        annotator.label = "\(color.id)"
-        let pointInMask = sceneView.convert(color.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
-        annotator.pixelView.frame = CGRect(x: pointInMask.x - 15.5, y: pointInMask.y - 16.5, width: 32.0, height: 32.0)
+        updateFrame(of: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
     }
     
     func addAnnotator(for area: PixelArea) {
-        // not implemented
+        let annotator = AreaAnnotator(pixelItem: area.copy() as! PixelArea)
+        updateFrame(of: annotator)
+        annotators.append(annotator)
+        sceneOverlayView.addSubview(annotator.pixelView)
     }
     
     func removeAnnotators(for items: [ContentItem]) {
