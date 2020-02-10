@@ -205,10 +205,10 @@ extension ContentController: NSUserInterfaceValidations {
         }
         
         var item: ContentItem?
-        if let color = content.colors.first(where: { $0.coordinate == coordinate }) {
+        if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
             item = color
         }
-        else if let area = content.areas.first(where: { $0.rect.contains(coordinate) }) {
+        else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
             item = area
         }
         if let item = item {
