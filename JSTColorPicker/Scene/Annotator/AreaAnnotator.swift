@@ -21,9 +21,11 @@ class AreaAnnotator: Annotator {
             if isHighlighted {
                 pixelView.backgroundCell.stringValue = "🔵"
                 pixelView.labelCell.textColor = .white
+                pixelView.isAnimating = true
             } else {
                 pixelView.backgroundCell.stringValue = "⚪️"
                 pixelView.labelCell.textColor = .black
+                pixelView.isAnimating = false
             }
         }
     }
