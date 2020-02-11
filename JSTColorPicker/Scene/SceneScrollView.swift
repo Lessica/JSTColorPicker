@@ -49,6 +49,14 @@ class SceneScrollView: NSScrollView {
             updateCursorAppearance()
         }
     }
+    var visibleRectExcludingRulers: CGRect {
+        let rect = visibleRect
+        guard let thicknessV = verticalRulerView?.ruleThickness else { return rect }
+        guard let thicknessH = horizontalRulerView?.ruleThickness else { return rect }
+        guard let reversedThicknessV = verticalRulerView?.reservedThicknessForMarkers else { return rect }
+        guard let reversedThicknessH = horizontalRulerView?.reservedThicknessForMarkers else { return rect }
+        return CGRect(x: rect.origin.x + (thicknessH + reversedThicknessH), y: rect.origin.y + (thicknessV + reversedThicknessV), width: rect.width - (thicknessH + reversedThicknessH), height: rect.height - (thicknessV + reversedThicknessV))
+    }
     
     fileprivate lazy var draggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
@@ -59,6 +67,31 @@ class SceneScrollView: NSScrollView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        SceneScrollView.rulerViewClass = RulerView.self
+        backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
+        contentInsets = NSEdgeInsetsZero
+        hasVerticalRuler = true
+        hasHorizontalRuler = true
+        rulersVisible = true
+        verticalScrollElasticity = .automatic
+        horizontalScrollElasticity = .automatic
+        usesPredominantAxisScrolling = false
+        
+        if let rulerView = verticalRulerView {
+            rulerView.measurementUnits = .points
+            rulerView.ruleThickness = 17.0
+            rulerView.reservedThicknessForMarkers = 16.0
+            rulerView.reservedThicknessForAccessoryView = 0.0
+        }
+        
+        if let rulerView = horizontalRulerView {
+            rulerView.measurementUnits = .points
+            rulerView.ruleThickness = 17.0
+            rulerView.reservedThicknessForMarkers = 16.0
+            rulerView.reservedThicknessForAccessoryView = 0.0
+        }
+        
         addSubview(draggingOverlay)
     }
     
@@ -117,7 +150,7 @@ class SceneScrollView: NSScrollView {
     fileprivate func mouseInside() -> Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
-            if visibleRect.contains(loc) {
+            if visibleRectExcludingRulers.contains(loc) {
                 return true
             }
         }
@@ -125,7 +158,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func createTrackingArea() {
-        let trackingArea = NSTrackingArea.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow, .inVisibleRect], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea.init(rect: visibleRectExcludingRulers, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
     }
@@ -191,6 +224,12 @@ class SceneScrollView: NSScrollView {
         let size = CGSize(width: abs(endDraggingLocation.x - beginDraggingLocation.x), height: abs(endDraggingLocation.y - beginDraggingLocation.y))
         let rect = CGRect(origin: origin, size: size).inset(by: draggingOverlay.outerInsets).intersection(bounds)
         draggingOverlay.frame = rect
+    }
+    
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        let location = convert(point, from: superview)
+        guard visibleRectExcludingRulers.contains(location) else { return nil }
+        return super.hitTest(point)
     }
     
     override func mouseDown(with event: NSEvent) {

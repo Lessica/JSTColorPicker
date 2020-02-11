@@ -98,14 +98,27 @@ class SceneController: NSViewController {
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     @IBOutlet weak var sceneOverlayView: SceneScrollOverlayView!
+    fileprivate var horizontalRulerView: RulerView {
+        return sceneView.horizontalRulerView as! RulerView
+    }
+    fileprivate var verticalRulerView: RulerView {
+        return sceneView.verticalRulerView as! RulerView
+    }
     fileprivate var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
+    }
+    fileprivate var wrapperVisibleRectExcludingRulers: CGRect {
+        let rect = sceneView.convert(wrapper.visibleRect, from: wrapper)
+        let thicknessV = verticalRulerView.ruleThickness
+        let thicknessH = horizontalRulerView.ruleThickness
+        let reversedThicknessV = verticalRulerView.reservedThicknessForMarkers
+        let reversedThicknessH = horizontalRulerView.reservedThicknessForMarkers
+        return sceneView.convert(CGRect(x: rect.origin.x + (thicknessH + reversedThicknessH), y: rect.origin.y + (thicknessV + reversedThicknessV), width: rect.width - (thicknessH + reversedThicknessH), height: rect.height - (thicknessV + reversedThicknessV)), to: wrapper)
     }
     fileprivate var windowActiveNotificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
@@ -123,16 +136,6 @@ class SceneController: NSViewController {
             return event
         }
         
-        sceneView.backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
-        sceneView.contentInsets = NSEdgeInsetsZero
-        sceneView.hasVerticalRuler = true
-        sceneView.hasHorizontalRuler = true
-        sceneView.rulersVisible = true
-        sceneView.verticalScrollElasticity = .automatic
-        sceneView.horizontalScrollElasticity = .automatic
-        sceneView.usesPredominantAxisScrolling = false  // TODO: set this in menu
-        sceneView.verticalRulerView?.measurementUnits = .points
-        sceneView.horizontalRulerView?.measurementUnits = .points
         // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         resetController()
@@ -162,14 +165,17 @@ class SceneController: NSViewController {
         imageView.frame = initialRect
         imageView.zoomImageToFit(imageView)
         
-        SceneScrollView.rulerViewClass = SceneRulerView.self
         sceneView.trackingDelegate = self
         sceneView.trackingToolDelegate = self
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
+        
         let wrapper = SceneImageWrapper(frame: initialRect)
+        wrapper.rulerViewClient = self
         wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
+        sceneView.verticalRulerView?.clientView = wrapper
+        sceneView.horizontalRulerView?.clientView = wrapper
         
         _ = useSelectedTrackingTool()
     }
@@ -226,24 +232,14 @@ class SceneController: NSViewController {
         }
     }
     
-    override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-        // not implemented
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        super.mouseDragged(with: event)
-        // not implemented
-    }
-    
     fileprivate func cursorClicked(at location: CGPoint) -> Bool {
-        if !wrapper.visibleRect.contains(location) { return false }
+        if !wrapperVisibleRectExcludingRulers.contains(location) { return false }
         trackCursorClicked(self, at: PixelCoordinate(location))
         return true
     }
     
     fileprivate func rightCursorClicked(at location: CGPoint) -> Bool {
-        if !wrapper.visibleRect.contains(location) { return false }
+        if !wrapperVisibleRectExcludingRulers.contains(location) { return false }
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
         var annotatorView: ColorAnnotatorOverlay?
@@ -272,7 +268,7 @@ class SceneController: NSViewController {
             return false
         }
         if let next = nextMagnificationFactor {
-            if wrapper.visibleRect.contains(location) {
+            if wrapperVisibleRectExcludingRulers.contains(location) {
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(next, centeredAt: location)
                 }) { [unowned self] in
@@ -295,7 +291,7 @@ class SceneController: NSViewController {
             return false
         }
         if let prev = prevMagnificationFactor {
-            if wrapper.visibleRect.contains(location) {
+            if wrapperVisibleRectExcludingRulers.contains(location) {
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(prev, centeredAt: location)
                 }) { [unowned self] in
@@ -383,7 +379,7 @@ class SceneController: NSViewController {
     }
     
     fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
-        if !wrapper.visibleRect.contains(pixelLocation) { return false }
+        if !wrapperVisibleRectExcludingRulers.contains(pixelLocation) { return false }
         
         var wrapperDelta = CGSize.zero
         switch direction {
@@ -409,7 +405,7 @@ class SceneController: NSViewController {
             return false
         }
         
-        guard wrapper.visibleRect.contains(targetWrapperPoint) else {
+        guard wrapperVisibleRectExcludingRulers.contains(targetWrapperPoint) else {
             let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
             
             var clipOrigin = sceneClipView.bounds.origin
@@ -501,7 +497,13 @@ extension SceneController: ScreenshotLoader {
         sceneView.maxMagnification = SceneController.maximumZoomingFactor
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = false
-        sceneView.documentView = SceneImageWrapper()
+        sceneView.usesPredominantAxisScrolling = false
+        
+        let wrapper = SceneImageWrapper()
+        wrapper.rulerViewClient = self
+        sceneView.documentView = wrapper
+        sceneView.verticalRulerView?.clientView = wrapper
+        sceneView.horizontalRulerView?.clientView = wrapper
         
         _ = useSelectedTrackingTool()
     }
@@ -645,6 +647,73 @@ extension SceneController: AnnotatorManager {
         }
     }
     
+    fileprivate func addRulerMarkers(for annotator: Annotator) {
+        
+        if let annotator = annotator as? ColorAnnotator {
+            let coordinate = annotator.pixelColor.coordinate
+            
+            let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            markerCoordinateH.type = .horizontal
+            markerCoordinateH.coordinate = coordinate
+            markerCoordinateH.annotator = annotator
+            annotator.rulerMarkers.append(markerCoordinateH)
+            
+            let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            markerCoordinateV.type = .vertical
+            markerCoordinateV.coordinate = coordinate
+            markerCoordinateV.annotator = annotator
+            annotator.rulerMarkers.append(markerCoordinateV)
+        }
+        else if let annotator = annotator as? AreaAnnotator {
+            let rect = annotator.pixelArea.rect
+            let origin = rect.origin
+            let opposite = PixelCoordinate(x: origin.x + rect.width, y: origin.y + rect.height)
+            
+            let markerOriginH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(origin.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            markerOriginH.type = .horizontal
+            markerOriginH.coordinate = origin
+            markerOriginH.annotator = annotator
+            annotator.rulerMarkers.append(markerOriginH)
+            
+            let markerOriginV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(origin.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            markerOriginV.type = .vertical
+            markerOriginV.coordinate = origin
+            markerOriginV.annotator = annotator
+            annotator.rulerMarkers.append(markerOriginV)
+            
+            let markerOppositeH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(opposite.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            markerOppositeH.type = .horizontal
+            markerOppositeH.coordinate = opposite
+            markerOppositeH.annotator = annotator
+            annotator.rulerMarkers.append(markerOppositeH)
+            
+            let markerOppositeV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(opposite.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            markerOppositeV.type = .vertical
+            markerOppositeV.coordinate = opposite
+            markerOppositeV.annotator = annotator
+            annotator.rulerMarkers.append(markerOppositeV)
+        }
+        
+    }
+    
+    fileprivate func loadRulerMarkers(for annotator: Annotator) {
+        annotator.rulerMarkers
+            .filter({ rulerView($0.ruler as? RulerView, shouldAdd: $0) })
+            .forEach({
+                $0.ruler?.addMarker($0)
+                rulerView($0.ruler as? RulerView, didAdd: $0)
+            })
+    }
+    
+    fileprivate func unloadRulerMarkers(for annotator: Annotator) {
+        annotator.rulerMarkers
+            .filter({ rulerView($0.ruler as? RulerView, shouldRemove: $0) })
+            .forEach({
+                $0.ruler?.removeMarker($0)
+                rulerView($0.ruler as? RulerView, didRemove: $0)
+            })
+    }
+    
     func loadAnnotators(from content: Content) throws {
         addAnnotators(for: content.items)
     }
@@ -664,47 +733,47 @@ extension SceneController: AnnotatorManager {
     
     func addAnnotator(for color: PixelColor) {
         let annotator = ColorAnnotator(pixelItem: color.copy() as! PixelColor)
-        updateFrame(of: annotator)
+        addRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
+        updateFrame(of: annotator)
     }
     
     func addAnnotator(for area: PixelArea) {
         let annotator = AreaAnnotator(pixelItem: area.copy() as! PixelArea)
-        updateFrame(of: annotator)
+        addRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
+        updateFrame(of: annotator)
     }
     
     func removeAnnotators(for items: [ContentItem]) {
+        annotators.forEach({ unloadRulerMarkers(for: $0) })
         annotators.filter({ items.contains($0.pixelItem) }).forEach({ $0.view.removeFromSuperview() })
         annotators.removeAll(where: { items.contains($0.pixelItem) })
         debugPrint("remove annotators \(items)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
-        annotators.filter({ $0.isHighlighted }).forEach({ $0.isHighlighted = false })
+        annotators.filter({ $0.isHighlighted }).forEach({
+            $0.isHighlighted = false
+            unloadRulerMarkers(for: $0)
+        })
         annotators.filter({ items.contains($0.pixelItem) }).forEach({
             $0.isHighlighted = true
+            loadRulerMarkers(for: $0)
             $0.view.bringToFront()
         })
         if scrollTo {  // scroll without changing magnification
             let item = annotators.first(where: { items.contains($0.pixelItem) })?.pixelItem
             if let color = item as? PixelColor {
                 previewAction(self, centeredAt: color.coordinate)
-                addRulerMarker(at: color.coordinate)
             }
             else if let area = item as? PixelArea {
                 previewAction(self, centeredAt: area.rect.origin)
             }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
-    }
-    
-    fileprivate func addRulerMarker(at coordinate: PixelCoordinate) {
-        guard let rulerView = sceneView.horizontalRulerView else { return }
-        let marker = SceneRulerMarker(rulerView: rulerView, markerLocation: CGFloat(coordinate.x), image: NSImage(color: .red, size: CGSize(width: 5.0, height: 5.0)), imageOrigin: .zero)
-        sceneView.horizontalRulerView?.addMarker(marker)
     }
     
 }
@@ -718,13 +787,43 @@ extension SceneController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !wrapper.visibleRect.contains(centerPoint) {
+        if !wrapperVisibleRectExcludingRulers.contains(centerPoint) {
             var point = sceneView.convert(centerPoint, from: wrapper)
             point.x -= sceneView.bounds.width / 2.0
             point.y -= sceneView.bounds.height / 2.0
             let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
             sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
         }
+    }
+    
+}
+
+extension SceneController: RulerViewClient {
+    
+    // TODO: not implemented
+    
+    func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) {
+        
+    }
+    
+    func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
+        
+    }
+    
+    func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
+        
+    }
+    
+    func rulerView(_ ruler: RulerView?, shouldAdd marker: RulerMarker) -> Bool {
+        return true
+    }
+    
+    func rulerView(_ ruler: RulerView?, shouldMove marker: RulerMarker) -> Bool {
+        return false
+    }
+    
+    func rulerView(_ ruler: RulerView?, shouldRemove marker: RulerMarker) -> Bool {
+        return true
     }
     
 }

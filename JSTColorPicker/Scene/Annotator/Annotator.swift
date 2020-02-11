@@ -12,6 +12,7 @@ class Annotator {
     
     var pixelItem: ContentItem
     var view: AnnotatorOverlay
+    var rulerMarkers: [RulerMarker] = []
     var isHighlighted: Bool = false
     var label: String = "0"
     
@@ -20,4 +21,10 @@ class Annotator {
         self.view = view
     }
     
+}
+
+extension Annotator: CustomStringConvertible {
+    var description: String {
+        return "[Annotator \(pixelItem), isHighlighted = \(isHighlighted)]"
+    }
 }
