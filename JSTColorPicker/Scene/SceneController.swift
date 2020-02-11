@@ -271,10 +271,18 @@ class SceneController: NSViewController {
             return false
         }
         if let next = nextMagnificationFactor {
-            NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-                self.sceneView.animator().setMagnification(next, centeredAt: location)
-            }) { [unowned self] in
-                self.sceneBoundsChanged()
+            if wrapper.visibleRect.contains(location) {
+                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                    self.sceneView.animator().setMagnification(next, centeredAt: location)
+                }) { [unowned self] in
+                    self.sceneBoundsChanged()
+                }
+            } else {
+                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                    self.sceneView.animator().magnification = next
+                }) { [unowned self] in
+                    self.sceneBoundsChanged()
+                }
             }
             return true
         }
@@ -286,10 +294,18 @@ class SceneController: NSViewController {
             return false
         }
         if let prev = prevMagnificationFactor {
-            NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-                self.sceneView.animator().setMagnification(prev, centeredAt: location)
-            }) { [unowned self] in
-                self.sceneBoundsChanged()
+            if wrapper.visibleRect.contains(location) {
+                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                    self.sceneView.animator().setMagnification(prev, centeredAt: location)
+                }) { [unowned self] in
+                    self.sceneBoundsChanged()
+                }
+            } else {
+                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                    self.sceneView.animator().magnification = prev
+                }) { [unowned self] in
+                    self.sceneBoundsChanged()
+                }
             }
             return true
         }

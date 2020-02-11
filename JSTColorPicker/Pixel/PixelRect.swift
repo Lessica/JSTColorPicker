@@ -50,7 +50,7 @@ struct PixelRect {
 
 extension PixelRect: CustomStringConvertible {
     var description: String {
-        return "(\(origin.x),\(origin.y),\(size.width),\(size.height))"
+        return "(\(origin.x),\(origin.y),w\(size.width),h\(size.height))"
     }
 }
 

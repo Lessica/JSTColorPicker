@@ -57,9 +57,7 @@ class WindowController: NSWindowController {
         super.windowDidLoad()
         windowCount += 1
         viewController.trackingObject = self
-        window!.title = "Untitled #\(windowCount)"
-        window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
-        touchBarUpdateButtonState()
+        resetController()
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -254,7 +252,9 @@ extension WindowController: ScreenshotLoader {
     }
     
     func resetController() {
-        
+        window!.title = "Untitled #\(windowCount)"
+        window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        touchBarUpdateButtonState()
     }
     
     func load(_ screenshot: Screenshot) throws {
