@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D60A691023F2C89200ED9748 /* SceneRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* SceneRulerView.swift */; };
+		D60A691223F2CDBA00ED9748 /* SceneRulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* SceneRulerMarker.swift */; };
 		D60C88CD23D5B23700DE5DF6 /* ColorGridWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CC23D5B23700DE5DF6 /* ColorGridWindow.swift */; };
 		D60C88CF23D5D4B100DE5DF6 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CE23D5D4B100DE5DF6 /* ColorGridViewController.swift */; };
 		D60C88D123D5D4BD00DE5DF6 /* ColorGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88D023D5D4BD00DE5DF6 /* ColorGridView.swift */; };
@@ -72,6 +74,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D60A690F23F2C89200ED9748 /* SceneRulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRulerView.swift; sourceTree = "<group>"; };
+		D60A691123F2CDBA00ED9748 /* SceneRulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRulerMarker.swift; sourceTree = "<group>"; };
 		D60C88CC23D5B23700DE5DF6 /* ColorGridWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridWindow.swift; sourceTree = "<group>"; };
 		D60C88CE23D5D4B100DE5DF6 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* ColorGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridView.swift; sourceTree = "<group>"; };
@@ -559,6 +563,8 @@
 				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
 				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
 				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
+				D60A690F23F2C89200ED9748 /* SceneRulerView.swift */,
+				D60A691123F2CDBA00ED9748 /* SceneRulerMarker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D645E4B923EED4310039F4F6 /* PreviewSliderCell.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */,
+				D60A691023F2C89200ED9748 /* SceneRulerView.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
@@ -782,6 +789,7 @@
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
+				D60A691223F2CDBA00ED9748 /* SceneRulerMarker.swift in Sources */,
 				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
 				D66460E923D0333A0032727A /* TrackingTool.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,

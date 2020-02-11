@@ -162,6 +162,7 @@ class SceneController: NSViewController {
         imageView.frame = initialRect
         imageView.zoomImageToFit(imageView)
         
+        SceneScrollView.rulerViewClass = SceneRulerView.self
         sceneView.trackingDelegate = self
         sceneView.trackingToolDelegate = self
         sceneView.magnification = SceneController.minimumZoomingFactor
@@ -691,12 +692,19 @@ extension SceneController: AnnotatorManager {
             let item = annotators.first(where: { items.contains($0.pixelItem) })?.pixelItem
             if let color = item as? PixelColor {
                 previewAction(self, centeredAt: color.coordinate)
+                addRulerMarker(at: color.coordinate)
             }
             else if let area = item as? PixelArea {
                 previewAction(self, centeredAt: area.rect.origin)
             }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
+    }
+    
+    fileprivate func addRulerMarker(at coordinate: PixelCoordinate) {
+        guard let rulerView = sceneView.horizontalRulerView else { return }
+        let marker = SceneRulerMarker(rulerView: rulerView, markerLocation: CGFloat(coordinate.x), image: NSImage(color: .red, size: CGSize(width: 5.0, height: 5.0)), imageOrigin: .zero)
+        sceneView.horizontalRulerView?.addMarker(marker)
     }
     
 }
