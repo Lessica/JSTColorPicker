@@ -552,6 +552,7 @@
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				D6A2759323F3CA3E001D60BC /* Ruler */,
 				D645E4A223E812020039F4F6 /* Annotator */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 				D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */,
@@ -563,8 +564,6 @@
 				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
 				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
 				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
-				D60A690F23F2C89200ED9748 /* RulerView.swift */,
-				D60A691123F2CDBA00ED9748 /* RulerMarker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -641,6 +640,15 @@
 				D60C88D023D5D4BD00DE5DF6 /* ColorGridView.swift */,
 			);
 			path = ColorGrid;
+			sourceTree = "<group>";
+		};
+		D6A2759323F3CA3E001D60BC /* Ruler */ = {
+			isa = PBXGroup;
+			children = (
+				D60A690F23F2C89200ED9748 /* RulerView.swift */,
+				D60A691123F2CDBA00ED9748 /* RulerMarker.swift */,
+			);
+			path = Ruler;
 			sourceTree = "<group>";
 		};
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
