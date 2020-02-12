@@ -8,11 +8,12 @@
 
 import Cocoa
 
-enum GridState {
+enum GridState: CaseIterable {
     case none
     case colorOccupied
     case areaOccupied
     case bothOccupied
+    case center
     
     static let gridLineColor = NSColor.textBackgroundColor
     static let gridCenterLineColor = NSColor.textColor
@@ -56,6 +57,8 @@ enum GridState {
             return GridState.gridAreaOccupiedLineColor
         case .bothOccupied:
             return GridState.gridBothOccupiedLineColor
+        case .center:
+            return GridState.gridCenterLineColor
         default:
             return GridState.gridLineColor
         }
@@ -120,7 +123,10 @@ class ColorGridView: NSView {
         guard let content = dataSource?.screenshot?.content else { return .none }
         let isOccupiedByColor = (content.colors.first(where: { $0.coordinate == coordinate }) != nil)
         let isOccupiedByArea  = (content.areas.first(where: { $0.rect.contains(coordinate) }) != nil)
-        if isOccupiedByColor && isOccupiedByArea {
+        if centerCoordinate == coordinate {
+            return .center
+        }
+        else if isOccupiedByColor && isOccupiedByArea {
             return .bothOccupied
         }
         else if isOccupiedByColor {
@@ -138,51 +144,29 @@ class ColorGridView: NSView {
         guard let pixelImage = pixelImage else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        ctx.saveGState()
-        ctx.setLineCap(.square)
-        ctx.setLineWidth(1.0)
+        var points: [GridState: [(state: GridState, coordinate: PixelCoordinate, rect: CGRect)]] = [:]
+        GridState.allCases.forEach({ points[$0] = [] })
         
         let hNum = CGFloat(hPixelNum) / 2.0
         let vNum = CGFloat(vPixelNum) / 2.0
         let imageSize = pixelImage.size
-        
-        var deferredPoints: [(PixelCoordinate, CGRect, GridState)] = []
-        var centerPoints: [(PixelCoordinate, CGRect, GridState)] = []
-        
         for i in 0..<Int(hNum * 2) {
             for j in 0..<Int(vNum * 2) {
                 let coord = PixelCoordinate(x: centerCoordinate.x - Int(hNum) + i, y: centerCoordinate.y + Int(vNum) - j)
                 if coord.x > 0 && coord.y > 0 && coord.x < imageSize.width && coord.y < imageSize.height {
-                    let rect = CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)
                     let state = gridState(at: coord)
-                    if centerCoordinate == coord {
-                        centerPoints.append((coord, rect, state))
-                    } else {
-                        if state == .none {
-                            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
-                            ctx.setStrokeColor(state.color.cgColor)
-                            ctx.addRect(rect)
-                            ctx.drawPath(using: .fillStroke)
-                        }
-                        else {
-                            deferredPoints.append((coord, rect, state))
-                        }
-                    }
+                    points[state]?.append((state, coord, CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)))
                 }
             }
         }
         
-        for (coord, rect, state) in deferredPoints {
-            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
+        let drawClosure = { (state: GridState, coord: PixelCoordinate, rect: CGRect) -> Void in
             ctx.setStrokeColor(state.color.cgColor)
-            ctx.setLineWidth(1.0)
+            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
-            
-            let linePositions = state.lines(for: rect)
-            for linePosition in linePositions {
+            for linePosition in state.lines(for: rect) {
                 if let beginPoint = linePosition.first, let endPoint = linePosition.last {
-                    ctx.setStrokeColor(state.color.cgColor)
                     ctx.move(to: beginPoint)
                     ctx.addLine(to: endPoint)
                     ctx.drawPath(using: .stroke)
@@ -190,13 +174,10 @@ class ColorGridView: NSView {
             }
         }
         
-        for (coord, rect, _) in centerPoints {
-            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
-            ctx.setStrokeColor(GridState.gridCenterLineColor.cgColor)
-            ctx.addRect(rect)
-            ctx.drawPath(using: .fillStroke)
-        }
-        
+        ctx.saveGState()
+        ctx.setLineCap(.square)
+        ctx.setLineWidth(1.0)
+        GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
         ctx.restoreGState()
         
     }
