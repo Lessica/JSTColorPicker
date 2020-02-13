@@ -28,6 +28,14 @@ extension CGPoint {
         return sqrt(deltaX * deltaX + deltaY * deltaY)
     }
     
+    public static var null: CGPoint {
+        return CGPoint(x: CGFloat.infinity, y: CGFloat.infinity)
+    }
+    
+    public var isNull: Bool {
+        return self.x == CGFloat.infinity || self.y == CGFloat.infinity
+    }
+    
 }
 
 class SceneScrollView: NSScrollView {
@@ -36,7 +44,7 @@ class SceneScrollView: NSScrollView {
     
     var isBeingManipulated: Bool = false
     var isBeingDragged = false
-    fileprivate var beginDraggingLocation = CGPoint.zero
+    fileprivate var beginDraggingLocation = CGPoint.null
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate var previousTrackingCoordinate = PixelCoordinate.null
     fileprivate var wrapper: SceneImageWrapper {
@@ -228,14 +236,15 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
+        
         let currentLocation = convert(event.locationInWindow, from: nil)
-        guard visibleRectExcludingRulers.contains(currentLocation) else { return }
-        
-        isBeingManipulated = true
-        isBeingDragged = false
-        beginDraggingLocation = currentLocation
-        
-        trackAreaChanged(with: event)
+        if visibleRectExcludingRulers.contains(currentLocation) {
+            isBeingManipulated = true
+            isBeingDragged = false
+            beginDraggingLocation = currentLocation
+            
+            trackAreaChanged(with: event)
+        }
         
         updateDraggingLayerAppearance(for: event)
         updateCursorAppearance()
@@ -243,17 +252,19 @@ class SceneScrollView: NSScrollView {
     
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        guard visibleRectExcludingRulers.contains(currentLocation) else { return }
         
-        if isBeingManipulated {
-            isBeingManipulated = false
-            isBeingDragged = false
-            
-            trackAreaChanged(with: event)
-            trackMouseDragged(with: event)
-        } else {
-            trackAreaChanged(with: event)
+        let currentLocation = convert(event.locationInWindow, from: nil)
+        if visibleRectExcludingRulers.contains(currentLocation) {
+            if isBeingManipulated {
+                isBeingManipulated = false
+                isBeingDragged = false
+                beginDraggingLocation = .null
+                
+                trackAreaChanged(with: event)
+                trackMouseDragged(with: event)
+            } else {
+                trackAreaChanged(with: event)
+            }
         }
         
         updateDraggingLayerAppearance(for: event)
@@ -263,6 +274,7 @@ class SceneScrollView: NSScrollView {
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
         guard isBeingManipulated else { return }
+        guard !beginDraggingLocation.isNull else { return }
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(beginDraggingLocation) > SceneScrollView.minimumDraggingDistance {
