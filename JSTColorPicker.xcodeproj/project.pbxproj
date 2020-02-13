@@ -49,6 +49,7 @@
 		D658AFA523CB180D0098C567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D66460E923D0333A0032727A /* TrackingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460E823D0333A0032727A /* TrackingTool.swift */; };
 		D66460EB23D056440032727A /* SceneTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66460EA23D056440032727A /* SceneTracking.swift */; };
+		D66CABE923F583E000BFB4CB /* ContentResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66CABE823F583E000BFB4CB /* ContentResponder.swift */; };
 		D67C51C623F1361800829B51 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
 		D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */; };
 		D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C923F137B900829B51 /* EditableOverlay.swift */; };
@@ -272,6 +273,7 @@
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D66460E823D0333A0032727A /* TrackingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTool.swift; sourceTree = "<group>"; };
 		D66460EA23D056440032727A /* SceneTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTracking.swift; sourceTree = "<group>"; };
+		D66CABE823F583E000BFB4CB /* ContentResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentResponder.swift; sourceTree = "<group>"; };
 		D67C51C523F1361800829B51 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D67C51C923F137B900829B51 /* EditableOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableOverlay.swift; sourceTree = "<group>"; };
@@ -555,7 +557,6 @@
 				D6A2759323F3CA3E001D60BC /* Ruler */,
 				D645E4A223E812020039F4F6 /* Annotator */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
-				D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */,
 				D66460E823D0333A0032727A /* TrackingTool.swift */,
 				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D649230D23CC62D70067C04A /* SceneController.swift */,
@@ -615,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
+				D66CABE823F583E000BFB4CB /* ContentResponder.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
 				D682FC9023D6DB3400DA1750 /* ContentController.swift */,
 				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
@@ -657,6 +659,7 @@
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
 				D645E4A823EC064A0039F4F6 /* SidebarSplitView.swift */,
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
+				D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */,
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
 				D645E4B623EED3130039F4F6 /* PreviewSlider.swift */,
@@ -760,6 +763,7 @@
 				D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
+				D66CABE923F583E000BFB4CB /* ContentResponder.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* ColorGridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,

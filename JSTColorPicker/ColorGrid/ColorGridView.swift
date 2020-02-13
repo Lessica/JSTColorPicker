@@ -161,8 +161,9 @@ class ColorGridView: NSView {
         }
         
         let drawClosure = { (state: GridState, coord: PixelCoordinate, rect: CGRect) -> Void in
+            let color: CGColor = pixelImage.color(at: coord)?.toNSColor().cgColor ?? .clear
             ctx.setStrokeColor(state.color.cgColor)
-            ctx.setFillColor(pixelImage.color(at: coord).toNSColor().cgColor)
+            ctx.setFillColor(color)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
             for linePosition in state.lines(for: rect) {

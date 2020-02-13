@@ -48,10 +48,6 @@ extension ColorGridWindowController: SceneTracking {
         gridView?.centerCoordinate = coordinate
     }
     
-    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
-        // gridView?.updateDisplayIfNeeded()
-    }
-    
 }
 
 extension ColorGridWindowController: NSWindowDelegate {

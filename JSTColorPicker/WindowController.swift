@@ -269,8 +269,4 @@ extension WindowController: SceneTracking {
         gridWindowController?.trackColorChanged(sender, at: coordinate)
     }
     
-    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
-        gridWindowController?.trackAreaChanged(sender, to: rect)
-    }
-    
 }

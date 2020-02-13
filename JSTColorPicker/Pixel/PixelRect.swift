@@ -41,7 +41,13 @@ struct PixelRect {
         return CGRect(origin: origin.toCGPoint(), size: size.toCGSize())
     }
     func contains(_ coordinate: PixelCoordinate) -> Bool {
-        if coordinate.x >= origin.x && coordinate.y >= origin.y && coordinate.x < origin.x + size.width && coordinate.y < origin.y + size.height {
+        if coordinate.x >= x && coordinate.y >= y && coordinate.x < x + width && coordinate.y < y + height {
+            return true
+        }
+        return false
+    }
+    func contains(_ rect: PixelRect) -> Bool {
+        if x <= rect.x && y <= rect.y && x + width >= rect.x + rect.width && y + height >= rect.y + rect.height {
             return true
         }
         return false

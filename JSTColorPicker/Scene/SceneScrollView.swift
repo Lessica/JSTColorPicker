@@ -226,12 +226,6 @@ class SceneScrollView: NSScrollView {
         draggingOverlay.frame = rect
     }
     
-//    override func hitTest(_ point: NSPoint) -> NSView? {
-//        let location = convert(point, from: superview)
-//        guard visibleRectExcludingRulers.contains(location) else { return nil }
-//        return super.hitTest(point)
-//    }
-    
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
         let currentLocation = convert(event.locationInWindow, from: nil)
@@ -268,9 +262,9 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        guard visibleRectExcludingRulers.contains(currentLocation) else { return }
+        guard isBeingManipulated else { return }
         
+        let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(beginDraggingLocation) > SceneScrollView.minimumDraggingDistance {
             isBeingDragged = true
         }

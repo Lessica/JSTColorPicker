@@ -13,7 +13,8 @@ class SplitController: NSSplitViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         contentController.actionDelegate = self
-        sceneController.trackingObject = self
+        sceneController.trackingDelegate = self
+        sceneController.contentResponder = self
         sidebarController.previewOverlayDelegate = self
     }
     
@@ -95,43 +96,15 @@ extension SplitController: SceneTracking {
     
     func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
-        sidebarController.updateItemInspector(for: image.color(at: coordinate), submit: false)
+        guard let color = image.color(at: coordinate) else { return }
+        sidebarController.updateItemInspector(for: color, submit: false)
         trackingObject?.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
-        sidebarController.updateItemInspector(for: image.area(at: rect), submit: false)
-        trackingObject?.trackAreaChanged(sender, to: rect)
-    }
-    
-    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        guard let image = screenshot?.image else { return }
-        let color = image.color(at: coordinate)
-        sidebarController.updateItemInspector(for: color, submit: true)
-        do {
-            _ = try contentController.submitItem(color)
-        } catch let error {
-            presentError(error)
-        }
-    }
-    
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
-        guard let image = screenshot?.image else { return }
-        let area = image.area(at: rect)
-        do {
-            _ = try contentController.submitItem(area)
-        } catch let error {
-            presentError(error)
-        }
-    }
-    
-    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        do {
-            _ = try contentController.deleteItem(at: coordinate)
-        } catch let error {
-            presentError(error)
-        }
+        guard let area = image.area(at: rect) else { return }
+        sidebarController.updateItemInspector(for: area, submit: false)
     }
     
     func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
@@ -139,7 +112,6 @@ extension SplitController: SceneTracking {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
         sidebarController.updatePreview(to: rect, magnification: magnification)
-        trackingObject?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
 }
@@ -192,6 +164,44 @@ extension SplitController: ScreenshotLoader {
                 presentError(error)
             }
         }
+    }
+    
+}
+
+extension SplitController: ContentResponder {
+    
+    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        do {
+            if let color = try contentController.addContentItem(of: coordinate) as? PixelColor {
+                sidebarController.updateItemInspector(for: color, submit: true)
+                return color
+            }
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
+    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
+        do {
+            if let area = try contentController.addContentItem(of: rect) as? PixelArea {
+                return area
+            }
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
+    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        do {
+            if let item = try contentController.deleteContentItem(of: coordinate) {
+                return item
+            }
+        } catch let error {
+            presentError(error)
+        }
+        return nil
     }
     
 }

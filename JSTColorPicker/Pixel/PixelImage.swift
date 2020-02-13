@@ -54,11 +54,17 @@ class PixelImage {
         return PixelSize(pixelImageRep.size())
     }
     
-    func color(at coordinate: PixelCoordinate) -> PixelColor {
+    var bounds: PixelRect {
+        return PixelRect(origin: .zero, size: size)
+    }
+    
+    func color(at coordinate: PixelCoordinate) -> PixelColor? {
+        guard bounds.contains(coordinate) else { return nil }
         return PixelColor(coordinate: coordinate, color: pixelImageRep.getJSTColor(of: coordinate.toCGPoint()))
     }
     
-    func area(at rect: PixelRect) -> PixelArea {
+    func area(at rect: PixelRect) -> PixelArea? {
+        guard bounds.contains(rect) else { return nil }
         return PixelArea(rect: rect)
     }
     

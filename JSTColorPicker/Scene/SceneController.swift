@@ -76,6 +76,17 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
+    weak var trackingDelegate: SceneTracking?
+    weak var contentResponder: ContentResponder?
+    internal weak var screenshot: Screenshot?
+    internal var annotators: [Annotator] = []
+    fileprivate var colorAnnotators: [ColorAnnotator] {
+        return annotators.compactMap({ $0 as? ColorAnnotator })
+    }
+    fileprivate var areaAnnotators: [AreaAnnotator] {
+        return annotators.compactMap({ $0 as? AreaAnnotator })
+    }
+    
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 7)  // 128x
     fileprivate static let zoomingFactors: [CGFloat] = [
@@ -86,15 +97,6 @@ class SceneController: NSViewController {
     ]
     fileprivate static let minimumRecognizablePixelWidth: CGFloat = 10.0
     
-    weak var trackingObject: SceneTracking?
-    internal weak var screenshot: Screenshot?
-    internal var annotators: [Annotator] = []
-    fileprivate var colorAnnotators: [ColorAnnotator] {
-        return annotators.compactMap({ $0 as? ColorAnnotator })
-    }
-    fileprivate var areaAnnotators: [AreaAnnotator] {
-        return annotators.compactMap({ $0 as? AreaAnnotator })
-    }
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     @IBOutlet weak var sceneOverlayView: SceneScrollOverlayView!
@@ -106,6 +108,9 @@ class SceneController: NSViewController {
     }
     fileprivate var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
+    }
+    fileprivate var wrapperVisibleRect: CGRect {
+        return wrapper.visibleRect
     }
     fileprivate var wrapperVisibleRectExcludingRulers: CGRect {
         let rect = sceneView.convert(wrapper.visibleRect, from: wrapper)
@@ -233,13 +238,11 @@ class SceneController: NSViewController {
     }
     
     fileprivate func cursorClicked(at location: CGPoint) -> Bool {
-        if !wrapperVisibleRectExcludingRulers.contains(location) { return false }
-        trackCursorClicked(self, at: PixelCoordinate(location))
+        _ = try? addContentItem(of: PixelCoordinate(location))
         return true
     }
     
     fileprivate func rightCursorClicked(at location: CGPoint) -> Bool {
-        if !wrapperVisibleRectExcludingRulers.contains(location) { return false }
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
         var annotatorView: ColorAnnotatorOverlay?
@@ -254,12 +257,12 @@ class SceneController: NSViewController {
         
         if let annotatorView = annotatorView {
             if let coordinate = colorAnnotators.first(where: { $0.pixelView === annotatorView })?.pixelColor.coordinate {
-                trackRightCursorClicked(self, at: coordinate)
+                _ = try? deleteContentItem(of: coordinate)
                 return true
             }
         }
         
-        trackRightCursorClicked(self, at: PixelCoordinate(location))
+        _ = try? deleteContentItem(of: PixelCoordinate(location))
         return true
     }
     
@@ -313,6 +316,7 @@ class SceneController: NSViewController {
         var handled = false
         if !sceneView.isBeingDragged {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
+            if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
             if trackingTool == .cursor {
                 handled = cursorClicked(at: loc)
             }
@@ -330,9 +334,12 @@ class SceneController: NSViewController {
     
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
-        let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if trackingTool == .cursor {
-            handled = rightCursorClicked(at: loc)
+        if !sceneView.isBeingDragged {
+            let loc = wrapper.convert(event.locationInWindow, from: nil)
+            if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
+            if trackingTool == .cursor {
+                handled = rightCursorClicked(at: loc)
+            }
         }
         if !handled {
             super.rightMouseUp(with: event)
@@ -379,7 +386,8 @@ class SceneController: NSViewController {
     }
     
     fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
-        if !wrapperVisibleRectExcludingRulers.contains(pixelLocation) { return false }
+        let visibleRect = wrapperVisibleRectExcludingRulers
+        if !visibleRect.contains(pixelLocation) { return false }
         
         var wrapperDelta = CGSize.zero
         switch direction {
@@ -405,7 +413,7 @@ class SceneController: NSViewController {
             return false
         }
         
-        guard wrapperVisibleRectExcludingRulers.contains(targetWrapperPoint) else {
+        guard visibleRect.contains(targetWrapperPoint) else {
             let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
             
             var clipOrigin = sceneClipView.bounds.origin
@@ -524,33 +532,24 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
+    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
+        trackingDelegate?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
+    }
+    
     func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
-        trackingObject?.trackColorChanged(sender, at: coordinate)
+        trackingDelegate?.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
-        trackingObject?.trackAreaChanged(sender, to: rect)
-    }
-    
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
-        trackingObject?.trackCursorDragged(sender, to: rect)
-    }
-    
-    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        trackingObject?.trackCursorClicked(sender, at: coordinate)
-    }
-    
-    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) {
-        trackingObject?.trackRightCursorClicked(sender, at: coordinate)
+        trackingDelegate?.trackAreaChanged(sender, to: rect)
     }
     
     func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) {
         sceneMagnify(toFit: rect.toCGRect())
-        trackingObject?.trackMagnifyToolDragged(sender, to: rect)
     }
     
-    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
-        trackingObject?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
+        _ = try? addContentItem(of: rect)
     }
     
     fileprivate func sceneBoundsChanged() {
@@ -787,13 +786,29 @@ extension SceneController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !wrapperVisibleRectExcludingRulers.contains(centerPoint) {
+        if !wrapper.visibleRect.contains(centerPoint) {
             var point = sceneView.convert(centerPoint, from: wrapper)
             point.x -= sceneView.bounds.width / 2.0
             point.y -= sceneView.bounds.height / 2.0
             let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
             sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
         }
+    }
+    
+}
+
+extension SceneController: ContentResponder {
+    
+    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        return try contentResponder?.addContentItem(of: coordinate)
+    }
+    
+    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
+        return try contentResponder?.addContentItem(of: rect)
+    }
+    
+    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        return try contentResponder?.deleteContentItem(of: coordinate)
     }
     
 }

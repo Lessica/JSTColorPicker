@@ -122,10 +122,10 @@ extension Array {
 
 extension ContentController {
     
-    fileprivate func addContentItems(_ items: [ContentItem]) {
+    fileprivate func internalAddContentItems(_ items: [ContentItem]) {
         guard let content = content else { return }
         undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
-            targetSelf.deleteContentItems(items)  // memory captured and managed by UndoManager
+            targetSelf.internalDeleteContentItems(items)  // memory captured and managed by UndoManager
         })
         actionDelegate?.contentActionAdded(items, by: self)
         items.forEach { (item) in
@@ -134,13 +134,83 @@ extension ContentController {
         }
     }
     
-    fileprivate func deleteContentItems(_ items: [ContentItem]) {
+    fileprivate func internalDeleteContentItems(_ items: [ContentItem]) {
         guard let content = content else { return }
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-            targetSelf.addContentItems(items)  // memory captured and managed by UndoManager
+            targetSelf.internalAddContentItems(items)  // memory captured and managed by UndoManager
         })
         actionDelegate?.contentActionDeleted(items, by: self)
         content.items.removeAll(where: { items.contains($0) })
+    }
+    
+}
+
+extension ContentController: ContentResponder {
+    
+    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        guard let image = screenshot?.image else {
+            throw ContentError.noDocument
+        }
+        if let color = image.color(at: coordinate) {
+            return try addContentItem(color)
+        }
+        return nil
+    }
+    
+    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
+        guard let image = screenshot?.image else {
+            throw ContentError.noDocument
+        }
+        if let area = image.area(at: rect) {
+            return try addContentItem(area)
+        }
+        return nil
+    }
+    
+    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+        guard let content = content else {
+            throw ContentError.noDocument
+        }
+        if content.items.count >= Content.maximumCount {
+            throw ContentError.reachLimit
+        }
+        if content.items.first(where: { $0 == item }) != nil {
+            throw ContentError.exists
+        }
+        
+        item.id = nextID
+        internalAddContentItems([item])
+        tableView.reloadData()
+        
+        let numberOfRows = tableView.numberOfRows
+        if numberOfRows > 0 {
+            tableView.scrollRowToVisible(numberOfRows - 1)
+        }
+        
+        return item
+    }
+    
+    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        guard let content = content else {
+            throw ContentError.noDocument
+        }
+        
+        var item: ContentItem?
+        if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
+            item = color
+        }
+        else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
+            item = area
+        }
+        if let item = item {
+            if let itemIndex = content.items.firstIndex(of: item) {
+                internalDeleteContentItems([item])
+                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+                return item
+            }
+        }
+        
+        throw ContentError.doesNotExist
     }
     
 }
@@ -176,52 +246,6 @@ extension ContentController: NSUserInterfaceValidations {
         return false
     }
     
-    func submitItem(_ item: ContentItem) throws -> ContentItem {
-        guard let content = content else {
-            throw ContentError.noDocument
-        }
-        if content.items.count >= Content.maximumCount {
-            throw ContentError.reachLimit
-        }
-        if content.items.first(where: { $0 == item }) != nil {
-            throw ContentError.exists
-        }
-        
-        item.id = nextID
-        addContentItems([item])
-        tableView.reloadData()
-        
-        let numberOfRows = tableView.numberOfRows
-        if numberOfRows > 0 {
-            tableView.scrollRowToVisible(numberOfRows - 1)
-        }
-        
-        return item
-    }
-    
-    func deleteItem(at coordinate: PixelCoordinate) throws -> ContentItem {
-        guard let content = content else {
-            throw ContentError.noDocument
-        }
-        
-        var item: ContentItem?
-        if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
-            item = color
-        }
-        else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
-            item = area
-        }
-        if let item = item {
-            if let itemIndex = content.items.firstIndex(of: item) {
-                deleteContentItems([item])
-                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
-                return item
-            }
-        }
-        
-        throw ContentError.doesNotExist
-    }
-    
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
         let collection = content.items
@@ -230,7 +254,7 @@ extension ContentController: NSUserInterfaceValidations {
         for row in rows {
             selectedItems.append(collection[row])
         }
-        deleteContentItems(selectedItems)
+        internalDeleteContentItems(selectedItems)
         tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     

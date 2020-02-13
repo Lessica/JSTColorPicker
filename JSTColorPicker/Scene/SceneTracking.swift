@@ -9,19 +9,17 @@
 import Cocoa
 
 protocol SceneTracking: class {
-    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate)
-    func trackAreaChanged(_ sender: Any, to rect: PixelRect)
-    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
-    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate)
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect)
-    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect)
     func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat)
+    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate)
+    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect)
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect)
+    func trackAreaChanged(_ sender: Any, to rect: PixelRect)
 }
 
 extension SceneTracking {
-    func trackCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
-    func trackRightCursorClicked(_ sender: Any, at coordinate: PixelCoordinate) { }
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
-    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) { }
     func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) { }
+    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) { }
+    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) { }
+    func trackCursorDragged(_ sender: Any, to rect: PixelRect) { }
+    func trackAreaChanged(_ sender: Any, to rect: PixelRect) { }
 }
