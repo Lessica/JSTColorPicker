@@ -314,7 +314,7 @@ class SceneController: NSViewController {
     
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        if !sceneView.isBeingDragged {
+        if sceneView.isBeingManipulated && !sceneView.isBeingDragged {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
             if trackingTool == .cursor {
@@ -334,12 +334,10 @@ class SceneController: NSViewController {
     
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
-        if !sceneView.isBeingDragged {
-            let loc = wrapper.convert(event.locationInWindow, from: nil)
-            if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
-            if trackingTool == .cursor {
-                handled = rightCursorClicked(at: loc)
-            }
+        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
+        if trackingTool == .cursor {
+            handled = rightCursorClicked(at: loc)
         }
         if !handled {
             super.rightMouseUp(with: event)

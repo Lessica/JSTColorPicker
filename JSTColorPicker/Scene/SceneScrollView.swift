@@ -256,16 +256,16 @@ class SceneScrollView: NSScrollView {
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
             if isBeingManipulated {
-                isBeingManipulated = false
-                isBeingDragged = false
-                beginDraggingLocation = .null
-                
                 trackAreaChanged(with: event)
                 trackMouseDragged(with: event)
             } else {
                 trackAreaChanged(with: event)
             }
         }
+        
+        isBeingManipulated = false
+        isBeingDragged = false
+        beginDraggingLocation = .null
         
         updateDraggingLayerAppearance(for: event)
         updateCursorAppearance()
