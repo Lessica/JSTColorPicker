@@ -12,4 +12,6 @@ protocol ContentResponder: class {
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem?
     func addContentItem(of rect: PixelRect) throws -> ContentItem?
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem?
+    func addContentItem(_ item: ContentItem) throws -> ContentItem?
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem?
 }

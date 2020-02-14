@@ -23,6 +23,7 @@ extension NSUserInterfaceItemIdentifier {
 enum ContentError: LocalizedError {
     case exists
     case doesNotExist
+    case outOfRange
     case reachLimit
     case noDocument
     
@@ -32,6 +33,8 @@ enum ContentError: LocalizedError {
             return "This item already exists."
         case .doesNotExist:
             return "This item does not exist."
+        case .outOfRange:
+            return "Out of range."
         case .reachLimit:
             return "Maximum item count reached."
         case .noDocument:
@@ -148,35 +151,21 @@ extension ContentController {
 extension ContentController: ContentResponder {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let image = screenshot?.image else {
-            throw ContentError.noDocument
-        }
-        if let color = image.color(at: coordinate) {
-            return try addContentItem(color)
-        }
-        return nil
+        guard let image = screenshot?.image else { throw ContentError.noDocument }
+        guard let color = image.color(at: coordinate) else { throw ContentError.outOfRange }
+        return try addContentItem(color)
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = screenshot?.image else {
-            throw ContentError.noDocument
-        }
-        if let area = image.area(at: rect) {
-            return try addContentItem(area)
-        }
-        return nil
+        guard let image = screenshot?.image else { throw ContentError.noDocument }
+        guard let area = image.area(at: rect) else { throw ContentError.outOfRange }
+        return try addContentItem(area)
     }
     
     func addContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else {
-            throw ContentError.noDocument
-        }
-        if content.items.count >= Content.maximumCount {
-            throw ContentError.reachLimit
-        }
-        if content.items.first(where: { $0 == item }) != nil {
-            throw ContentError.exists
-        }
+        guard let content = content else { throw ContentError.noDocument }
+        if content.items.count >= Content.maximumCount { throw ContentError.reachLimit }
+        if content.items.first(where: { $0 == item }) != nil { throw ContentError.exists }
         
         item.id = nextID
         internalAddContentItems([item])
@@ -191,26 +180,24 @@ extension ContentController: ContentResponder {
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let content = content else {
-            throw ContentError.noDocument
-        }
-        
-        var item: ContentItem?
+        guard let content = content else { throw ContentError.noDocument }
+        var optItem: ContentItem?
         if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
-            item = color
+            optItem = color
         }
         else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
-            item = area
+            optItem = area
         }
-        if let item = item {
-            if let itemIndex = content.items.firstIndex(of: item) {
-                internalDeleteContentItems([item])
-                tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
-                return item
-            }
-        }
-        
-        throw ContentError.doesNotExist
+        guard let item = optItem else { throw ContentError.doesNotExist }
+        return try deleteContentItem(item)
+    }
+    
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        guard let content = content else { throw ContentError.noDocument }
+        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.doesNotExist }
+        internalDeleteContentItems([item])
+        tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+        return item
     }
     
 }

@@ -245,21 +245,17 @@ class SceneController: NSViewController {
     fileprivate func rightCursorClicked(at location: CGPoint) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         
-        var annotatorView: ColorAnnotatorOverlay?
-        for view in sceneOverlayView.subviews.reversed() {  // from top to bottom
-            if let view = view as? ColorAnnotatorOverlay {
-                if view.frame.contains(locationInMask) {
-                    annotatorView = view
-                    break
-                }
-            }
+        var annotatorView: AnnotatorOverlay?
+        if !(annotatorView != nil) {
+            annotatorView = sceneOverlayView.subviews.compactMap({ $0 as? ColorAnnotatorOverlay }).reversed().first(where: { $0.frame.contains(locationInMask) })
+        }
+        if !(annotatorView != nil) {
+            annotatorView = sceneOverlayView.subviews.compactMap({ $0 as? AreaAnnotatorOverlay }).reversed().first(where: { $0.frame.contains(locationInMask) })
         }
         
         if let annotatorView = annotatorView {
-            if let coordinate = colorAnnotators.first(where: { $0.pixelView === annotatorView })?.pixelColor.coordinate {
-                _ = try? deleteContentItem(of: coordinate)
-                return true
-            }
+            annotators.filter({ $0.view === annotatorView }).forEach({ _ = try? deleteContentItem($0.pixelItem) })
+            return true
         }
         
         _ = try? deleteContentItem(of: PixelCoordinate(location))
@@ -796,6 +792,14 @@ extension SceneController: PreviewResponder {
 }
 
 extension SceneController: ContentResponder {
+    
+    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try contentResponder?.addContentItem(item)
+    }
+    
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try contentResponder?.deleteContentItem(item)
+    }
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         return try contentResponder?.addContentItem(of: coordinate)

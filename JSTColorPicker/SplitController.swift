@@ -170,6 +170,24 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentResponder {
     
+    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+        do {
+            return try contentController.addContentItem(item)
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        do {
+            return try contentController.deleteContentItem(item)
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             if let color = try contentController.addContentItem(of: coordinate) as? PixelColor {
@@ -184,9 +202,7 @@ extension SplitController: ContentResponder {
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
         do {
-            if let area = try contentController.addContentItem(of: rect) as? PixelArea {
-                return area
-            }
+            return try contentController.addContentItem(of: rect)
         } catch let error {
             presentError(error)
         }
@@ -195,9 +211,7 @@ extension SplitController: ContentResponder {
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
-            if let item = try contentController.deleteContentItem(of: coordinate) {
-                return item
-            }
+            return try contentController.deleteContentItem(of: coordinate)
         } catch let error {
             presentError(error)
         }
