@@ -82,3 +82,11 @@ To be continued...
 ### Fit Window / Fill Window
 There's no need to explain.
 
+### Item Selection
+- Select item(s) from left content list.
+- `0123456789`: Enter item `ID` to select existing item.
+
+### Item Modification
+1. Select an item.
+2. Modify item *coordinate* or *area* by moving ruler markers.
+

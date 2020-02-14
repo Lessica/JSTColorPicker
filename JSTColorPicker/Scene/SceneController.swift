@@ -901,6 +901,4 @@ extension SceneController: RulerViewClient {
         
     }
     
-    
-    
 }
