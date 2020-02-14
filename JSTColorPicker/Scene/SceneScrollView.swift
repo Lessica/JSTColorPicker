@@ -38,6 +38,14 @@ extension CGPoint {
     
 }
 
+extension CGRect {
+    
+    init(point1: CGPoint, point2: CGPoint) {
+        self.init(origin: CGPoint(x: min(point1.x, point2.x), y: min(point1.y, point2.y)), size: CGSize(width: abs(point2.x - point1.x), height: abs(point2.y - point1.y)))
+    }
+    
+}
+
 class SceneScrollView: NSScrollView {
     
     static let minimumDraggingDistance: CGFloat = 3.0
@@ -228,9 +236,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func updateDraggingLayerBounds(at endDraggingLocation: CGPoint) {
-        let origin = CGPoint(x: min(beginDraggingLocation.x, endDraggingLocation.x), y: min(beginDraggingLocation.y, endDraggingLocation.y))
-        let size = CGSize(width: abs(endDraggingLocation.x - beginDraggingLocation.x), height: abs(endDraggingLocation.y - beginDraggingLocation.y))
-        let rect = CGRect(origin: origin, size: size).inset(by: draggingOverlay.outerInsets).intersection(bounds)
+        let rect = CGRect(point1: beginDraggingLocation, point2: endDraggingLocation).inset(by: draggingOverlay.outerInsets).intersection(bounds)
         draggingOverlay.frame = rect
     }
     

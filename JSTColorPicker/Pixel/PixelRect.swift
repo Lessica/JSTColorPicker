@@ -24,6 +24,7 @@ struct PixelRect {
     var y: Int      { return origin.y    }
     var width: Int  { return size.width  }
     var height: Int { return size.height }
+    var opposite: PixelCoordinate { return PixelCoordinate(x: x + width, y: y + height) }
     init() {}
     init(x: Int, y: Int, width: Int, height: Int) {
         self.origin = PixelCoordinate(x: x, y: y)
@@ -36,6 +37,12 @@ struct PixelRect {
     init(_ rect: CGRect) {
         origin = PixelCoordinate(rect.origin)
         size   = PixelSize(rect.size)
+    }
+    init(point1: CGPoint, point2: CGPoint) {
+        self.init(origin: PixelCoordinate(x: Int(floor(min(point1.x, point2.x))), y: Int(floor(min(point1.y, point2.y)))), size: PixelSize(width: Int(floor(abs(point2.x - point1.x))), height: Int(floor(abs(point2.y - point1.y)))))
+    }
+    init(coordinate1: PixelCoordinate, coordinate2: PixelCoordinate) {
+        self.init(origin: PixelCoordinate(x: min(coordinate1.x, coordinate2.x), y: min(coordinate1.y, coordinate2.y)), size: PixelSize(width: abs(coordinate2.x - coordinate1.x), height: abs(coordinate2.y - coordinate1.y)))
     }
     func toCGRect() -> CGRect {
         return CGRect(origin: origin.toCGPoint(), size: size.toCGSize())

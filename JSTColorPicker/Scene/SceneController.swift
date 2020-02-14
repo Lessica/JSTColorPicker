@@ -640,19 +640,20 @@ extension SceneController: AnnotatorManager {
         }
     }
     
-    fileprivate func addRulerMarkers(for annotator: Annotator) {
-        
+    fileprivate func loadRulerMarkers(for annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
             let coordinate = annotator.pixelColor.coordinate
             
             let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
             markerCoordinateH.type = .horizontal
+            markerCoordinateH.position = .origin
             markerCoordinateH.coordinate = coordinate
             markerCoordinateH.annotator = annotator
             annotator.rulerMarkers.append(markerCoordinateH)
             
             let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
             markerCoordinateV.type = .vertical
+            markerCoordinateV.position = .origin
             markerCoordinateV.coordinate = coordinate
             markerCoordinateV.annotator = annotator
             annotator.rulerMarkers.append(markerCoordinateV)
@@ -660,36 +661,49 @@ extension SceneController: AnnotatorManager {
         else if let annotator = annotator as? AreaAnnotator {
             let rect = annotator.pixelArea.rect
             let origin = rect.origin
-            let opposite = PixelCoordinate(x: origin.x + rect.width, y: origin.y + rect.height)
+            let opposite = rect.opposite
             
             let markerOriginH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(origin.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
             markerOriginH.type = .horizontal
+            markerOriginH.position = .origin
             markerOriginH.coordinate = origin
             markerOriginH.annotator = annotator
             annotator.rulerMarkers.append(markerOriginH)
             
             let markerOriginV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(origin.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
             markerOriginV.type = .vertical
+            markerOriginV.position = .origin
             markerOriginV.coordinate = origin
             markerOriginV.annotator = annotator
             annotator.rulerMarkers.append(markerOriginV)
             
             let markerOppositeH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(opposite.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
             markerOppositeH.type = .horizontal
+            markerOppositeH.position = .opposite
             markerOppositeH.coordinate = opposite
             markerOppositeH.annotator = annotator
             annotator.rulerMarkers.append(markerOppositeH)
             
             let markerOppositeV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(opposite.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
             markerOppositeV.type = .vertical
+            markerOppositeV.position = .opposite
             markerOppositeV.coordinate = opposite
             markerOppositeV.annotator = annotator
             annotator.rulerMarkers.append(markerOppositeV)
         }
-        
     }
     
-    fileprivate func loadRulerMarkers(for annotator: Annotator) {
+    fileprivate func unloadRulerMarkers(for annotator: Annotator) {
+        annotator.rulerMarkers.forEach({ $0.ruler?.removeMarker($0) })
+        annotator.rulerMarkers.removeAll()
+    }
+    
+    fileprivate func reloadRulerMarkers(for annotator: Annotator) {
+        unloadRulerMarkers(for: annotator)
+        loadRulerMarkers(for: annotator)
+    }
+    
+    fileprivate func showRulerMarkers(for annotator: Annotator) {
         annotator.rulerMarkers
             .filter({ rulerView($0.ruler as? RulerView, shouldAdd: $0) })
             .forEach({
@@ -698,7 +712,7 @@ extension SceneController: AnnotatorManager {
             })
     }
     
-    fileprivate func unloadRulerMarkers(for annotator: Annotator) {
+    fileprivate func hideRulerMarkers(for annotator: Annotator) {
         annotator.rulerMarkers
             .filter({ rulerView($0.ruler as? RulerView, shouldRemove: $0) })
             .forEach({
@@ -726,7 +740,7 @@ extension SceneController: AnnotatorManager {
     
     func addAnnotator(for color: PixelColor) {
         let annotator = ColorAnnotator(pixelItem: color.copy() as! PixelColor)
-        addRulerMarkers(for: annotator)
+        loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
         updateFrame(of: annotator)
@@ -734,14 +748,19 @@ extension SceneController: AnnotatorManager {
     
     func addAnnotator(for area: PixelArea) {
         let annotator = AreaAnnotator(pixelItem: area.copy() as! PixelArea)
-        addRulerMarkers(for: annotator)
+        loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
         updateFrame(of: annotator)
     }
     
+    func updateAnnotator(for items: [ContentItem]) {
+        
+        debugPrint("update annotators \(items)")
+    }
+    
     func removeAnnotators(for items: [ContentItem]) {
-        annotators.forEach({ unloadRulerMarkers(for: $0) })
+        annotators.forEach({ hideRulerMarkers(for: $0) })
         annotators.filter({ items.contains($0.pixelItem) }).forEach({ $0.view.removeFromSuperview() })
         annotators.removeAll(where: { items.contains($0.pixelItem) })
         debugPrint("remove annotators \(items)")
@@ -750,11 +769,11 @@ extension SceneController: AnnotatorManager {
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators.filter({ $0.isHighlighted }).forEach({
             $0.isHighlighted = false
-            unloadRulerMarkers(for: $0)
+            hideRulerMarkers(for: $0)
         })
         annotators.filter({ items.contains($0.pixelItem) }).forEach({
             $0.isHighlighted = true
-            loadRulerMarkers(for: $0)
+            showRulerMarkers(for: $0)
             $0.view.bringToFront()
         })
         if scrollTo {  // scroll without changing magnification
@@ -793,14 +812,6 @@ extension SceneController: PreviewResponder {
 
 extension SceneController: ContentResponder {
     
-    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder?.addContentItem(item)
-    }
-    
-    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder?.deleteContentItem(item)
-    }
-    
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         return try contentResponder?.addContentItem(of: coordinate)
     }
@@ -809,22 +820,47 @@ extension SceneController: ContentResponder {
         return try contentResponder?.addContentItem(of: rect)
     }
     
+    func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
+        return try contentResponder?.updateContentItem(item, to: coordinate)
+    }
+    
+    func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
+        return try contentResponder?.updateContentItem(item, to: rect)
+    }
+    
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         return try contentResponder?.deleteContentItem(of: coordinate)
+    }
+    
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try contentResponder?.deleteContentItem(item)
     }
     
 }
 
 extension SceneController: RulerViewClient {
     
-    // TODO: not implemented
-    
     func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) {
         
     }
     
     func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
-        
+        let item = marker.annotator?.pixelItem.copy()
+        if let item = item as? PixelColor {
+            _ = try? updateContentItem(item, to: marker.coordinate)
+        }
+        else if let item = item as? PixelArea {
+            var rect: PixelRect?
+            if marker.position == .origin {
+                rect = PixelRect(coordinate1: marker.coordinate, coordinate2: item.rect.opposite)
+            }
+            else if marker.position == .opposite {
+                rect = PixelRect(coordinate1: item.rect.origin, coordinate2: marker.coordinate)
+            }
+            if let rect = rect {
+                _ = try? updateContentItem(item, to: rect)
+            }
+        }
     }
     
     func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
@@ -836,7 +872,7 @@ extension SceneController: RulerViewClient {
     }
     
     func rulerView(_ ruler: RulerView?, shouldMove marker: RulerMarker) -> Bool {
-        return false
+        return true
     }
     
     func rulerView(_ ruler: RulerView?, shouldRemove marker: RulerMarker) -> Bool {

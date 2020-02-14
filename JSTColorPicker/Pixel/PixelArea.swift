@@ -10,7 +10,7 @@ import Foundation
 
 class PixelArea: ContentItem {
     
-    var rect: PixelRect
+    public fileprivate(set) var rect: PixelRect
     
     init(id: Int, rect: PixelRect) {
         self.rect = rect

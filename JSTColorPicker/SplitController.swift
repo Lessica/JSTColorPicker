@@ -170,30 +170,9 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentResponder {
     
-    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
-        do {
-            return try contentController.addContentItem(item)
-        } catch let error {
-            presentError(error)
-        }
-        return nil
-    }
-    
-    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        do {
-            return try contentController.deleteContentItem(item)
-        } catch let error {
-            presentError(error)
-        }
-        return nil
-    }
-    
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
-            if let color = try contentController.addContentItem(of: coordinate) as? PixelColor {
-                sidebarController.updateItemInspector(for: color, submit: true)
-                return color
-            }
+            return try contentController.addContentItem(of: coordinate)
         } catch let error {
             presentError(error)
         }
@@ -209,9 +188,36 @@ extension SplitController: ContentResponder {
         return nil
     }
     
+    func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
+        do {
+            return try contentController.updateContentItem(item, to: rect)
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
+    func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
+        do {
+            return try contentController.updateContentItem(item, to: coordinate)
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(of: coordinate)
+        } catch let error {
+            presentError(error)
+        }
+        return nil
+    }
+    
+    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        do {
+            return try contentController.deleteContentItem(item)
         } catch let error {
             presentError(error)
         }
@@ -222,37 +228,49 @@ extension SplitController: ContentResponder {
 
 extension SplitController: ContentActionDelegate {
     
-    fileprivate func contentItemChanged(_ item: ContentItem, by controller: ContentController) {
+    fileprivate func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
-            trackingObject?.trackColorChanged(controller, at: item.coordinate)
+            trackingObject?.trackColorChanged(self, at: item.coordinate)
         }
         else if let item = item as? PixelArea {
-            trackingObject?.trackAreaChanged(controller, to: item.rect)
+            trackingObject?.trackAreaChanged(self, to: item.rect)
         }
     }
     
-    func contentActionAdded(_ items: [ContentItem], by controller: ContentController) {
+    func contentActionAdded(_ items: [ContentItem]) {
         sceneController.addAnnotators(for: items)
         sceneController.highlightAnnotators(for: items, scrollTo: false)
+        if let item = items.first {
+            contentItemChanged(item)
+            sidebarController.updateItemInspector(for: item, submit: true)
+        }
     }
     
-    func contentActionSelected(_ items: [ContentItem], by controller: ContentController) {
+    func contentActionUpdated(_ items: [ContentItem]) {
+        sceneController.updateAnnotator(for: items)
+        if let item = items.first {
+            contentItemChanged(item)
+            sidebarController.updateItemInspector(for: item, submit: true)
+        }
+    }
+    
+    func contentActionSelected(_ items: [ContentItem]) {
         sceneController.highlightAnnotators(for: items, scrollTo: false)
         if let item = items.first {
-            contentItemChanged(item, by: controller)
+            contentItemChanged(item)
             sidebarController.updateItemInspector(for: item, submit: true)
         }
     }
     
-    func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController) {
+    func contentActionConfirmed(_ items: [ContentItem]) {
         sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
         if let item = items.first {
-            contentItemChanged(item, by: controller)
+            contentItemChanged(item)
             sidebarController.updateItemInspector(for: item, submit: true)
         }
     }
     
-    func contentActionDeleted(_ items: [ContentItem], by controller: ContentController) {
+    func contentActionDeleted(_ items: [ContentItem]) {
         sceneController.removeAnnotators(for: items)
     }
     

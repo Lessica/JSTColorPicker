@@ -44,10 +44,11 @@ enum ContentError: LocalizedError {
 }
 
 protocol ContentActionDelegate: class {
-    func contentActionAdded(_ items: [ContentItem], by controller: ContentController)
-    func contentActionSelected(_ items: [ContentItem], by controller: ContentController)
-    func contentActionConfirmed(_ items: [ContentItem], by controller: ContentController)
-    func contentActionDeleted(_ items: [ContentItem], by controller: ContentController)
+    func contentActionAdded(_ items: [ContentItem])
+    func contentActionSelected(_ items: [ContentItem])
+    func contentActionConfirmed(_ items: [ContentItem])
+    func contentActionUpdated(_ items: [ContentItem])
+    func contentActionDeleted(_ items: [ContentItem])
 }
 
 class ContentController: NSViewController {
@@ -130,7 +131,7 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
             targetSelf.internalDeleteContentItems(items)  // memory captured and managed by UndoManager
         })
-        actionDelegate?.contentActionAdded(items, by: self)
+        actionDelegate?.contentActionAdded(items)
         items.forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0 < $1 })
             content.items.insert(item, at: idx)
@@ -142,8 +143,23 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.internalAddContentItems(items)  // memory captured and managed by UndoManager
         })
-        actionDelegate?.contentActionDeleted(items, by: self)
+        actionDelegate?.contentActionDeleted(items)
         content.items.removeAll(where: { items.contains($0) })
+    }
+    
+    fileprivate func internalUpdateContentItems(_ items: [ContentItem]) {
+        guard let content = content else { return }
+        let itemIDs = items.compactMap({ $0.id })
+        let itemToRemove = content.items.filter({ itemIDs.contains($0.id) })
+        undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
+            targetSelf.internalUpdateContentItems(itemToRemove)  // memory captured and managed by UndoManager
+        })
+        actionDelegate?.contentActionUpdated(items)
+        content.items.removeAll(where: { itemIDs.contains($0.id) })
+        items.forEach { (item) in
+            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0 < $1 })
+            content.items.insert(item, at: idx)
+        }
     }
     
 }
@@ -162,10 +178,10 @@ extension ContentController: ContentResponder {
         return try addContentItem(area)
     }
     
-    func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+    private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocument }
-        if content.items.count >= Content.maximumCount { throw ContentError.reachLimit }
-        if content.items.first(where: { $0 == item }) != nil { throw ContentError.exists }
+        guard content.items.count < Content.maximumCount else { throw ContentError.reachLimit }
+        guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.exists }
         
         item.id = nextID
         internalAddContentItems([item])
@@ -200,6 +216,32 @@ extension ContentController: ContentResponder {
         return item
     }
     
+    func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
+        guard let content = content else { throw ContentError.noDocument }
+        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.doesNotExist }
+        guard let image = screenshot?.image else { throw ContentError.noDocument }
+        guard let color = image.color(at: coordinate) else { throw ContentError.outOfRange }
+        
+        color.id = item.id
+        return try updateContentItem(color)
+    }
+    
+    func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
+        guard let content = content else { throw ContentError.noDocument }
+        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.doesNotExist }
+        guard let image = screenshot?.image else { throw ContentError.noDocument }
+        guard let area = image.area(at: rect) else { throw ContentError.outOfRange }
+        
+        area.id = item.id
+        return try updateContentItem(area)
+    }
+    
+    private func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
+        internalUpdateContentItems([item])
+        tableView.reloadData()
+        return item
+    }
+    
 }
 
 extension ContentController: ContentTableViewResponder {
@@ -218,7 +260,7 @@ extension ContentController: ContentTableViewResponder {
                 selectedItems.append(collection[row])
             }
         }
-        delegate.contentActionConfirmed(selectedItems, by: self)
+        delegate.contentActionConfirmed(selectedItems)
     }
     
 }
@@ -287,7 +329,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                 selectedItems.append(collection[row])
             }
         }
-        delegate.contentActionSelected(selectedItems, by: self)
+        delegate.contentActionSelected(selectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

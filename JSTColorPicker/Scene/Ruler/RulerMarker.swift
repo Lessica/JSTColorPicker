@@ -13,6 +13,11 @@ enum RulerMarkerType {
     case vertical
 }
 
+enum RulerMarkerPosition {
+    case origin
+    case opposite
+}
+
 class RulerMarker: NSRulerMarker {
     
     static let markerSize       = CGSize(width: 10.0, height: 10.0)
@@ -50,6 +55,7 @@ class RulerMarker: NSRulerMarker {
     }()
     
     var type: RulerMarkerType = .horizontal
+    var position: RulerMarkerPosition = .origin
     var coordinate: PixelCoordinate = .null
     weak var annotator: Annotator?
     

@@ -10,8 +10,8 @@ import Foundation
 
 class PixelColor: ContentItem {
     
-    var coordinate: PixelCoordinate
-    var pixelColorRep: JSTPixelColor
+    public fileprivate(set) var coordinate: PixelCoordinate
+    public fileprivate(set) var pixelColorRep: JSTPixelColor
     
     init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
         self.coordinate    = coordinate

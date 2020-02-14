@@ -50,7 +50,14 @@ class SceneImageWrapper: NSView {
     }
     
     override func rulerView(_ ruler: NSRulerView, didMove marker: NSRulerMarker) {
-        rulerViewClient?.rulerView(ruler as? RulerView, didMove: marker as! RulerMarker)
+        guard let marker = marker as? RulerMarker else { return }
+        if marker.type == .horizontal {
+            marker.coordinate.x = Int(marker.markerLocation)
+        }
+        else if marker.type == .vertical {
+            marker.coordinate.y = Int(marker.markerLocation)
+        }
+        rulerViewClient?.rulerView(ruler as? RulerView, didMove: marker)
     }
     
     override func rulerView(_ ruler: NSRulerView, didRemove marker: NSRulerMarker) {
