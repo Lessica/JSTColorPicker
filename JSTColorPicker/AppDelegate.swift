@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var tabService: TabService?
     let deviceService = JSTDeviceService()
-    let colorGridController = ColorGridWindowController.newGrid()
+    let gridController = GridWindowController.newGrid()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         deviceService.delegate = self
@@ -134,16 +134,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @IBOutlet weak var showColorGridItem: NSMenuItem!
-    var isColorGridVisible: Bool {
-        guard let visible = colorGridController.window?.isVisible else { return false }
+    @IBOutlet weak var showGridItem: NSMenuItem!
+    var isGridVisible: Bool {
+        guard let visible = gridController.window?.isVisible else { return false }
         return visible
     }
-    @IBAction func colorGridSwitchItemTapped(_ sender: Any?) {
-        if isColorGridVisible {
-            colorGridController.close()
+    @IBAction func gridSwitchItemTapped(_ sender: Any?) {
+        if isGridVisible {
+            gridController.close()
         } else {
-            colorGridController.showWindow(sender)
+            gridController.showWindow(sender)
         }
     }
     

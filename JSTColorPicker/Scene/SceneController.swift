@@ -1,5 +1,5 @@
 //
-//  PickerSceneViewController.swift
+//  SceneController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/13/20.

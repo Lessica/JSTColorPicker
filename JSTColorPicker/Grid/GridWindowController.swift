@@ -1,5 +1,5 @@
 //
-//  ColorGridWindowController.swift
+//  GridWindowController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/19/20.
@@ -8,11 +8,11 @@
 
 import Cocoa
 
-class ColorGridWindowController: NSWindowController {
+class GridWindowController: NSWindowController {
 
-    static func newGrid() -> ColorGridWindowController {
-        let windowStoryboard = NSStoryboard(name: "ColorGrid", bundle: nil)
-        let gridWindowController = windowStoryboard.instantiateInitialController() as! ColorGridWindowController
+    static func newGrid() -> GridWindowController {
+        let windowStoryboard = NSStoryboard(name: "Grid", bundle: nil)
+        let gridWindowController = windowStoryboard.instantiateInitialController() as! GridWindowController
         return gridWindowController
     }
     
@@ -24,8 +24,8 @@ class ColorGridWindowController: NSWindowController {
         }
     }
     
-    fileprivate var gridView: ColorGridView? {
-        guard let viewController = window?.contentViewController as? ColorGridViewController else { return nil }
+    fileprivate var gridView: GridView? {
+        guard let viewController = window?.contentViewController as? GridViewController else { return nil }
         return viewController.gridView
     }
     
@@ -42,7 +42,7 @@ class ColorGridWindowController: NSWindowController {
 
 }
 
-extension ColorGridWindowController: SceneTracking {
+extension GridWindowController: SceneTracking {
     
     func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
         gridView?.centerCoordinate = coordinate
@@ -50,7 +50,7 @@ extension ColorGridWindowController: SceneTracking {
     
 }
 
-extension ColorGridWindowController: NSWindowDelegate {
+extension GridWindowController: NSWindowDelegate {
     
     func windowWillClose(_ notification: Notification) {
         gridView?.animating = false

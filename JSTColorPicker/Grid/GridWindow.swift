@@ -1,5 +1,5 @@
 //
-//  ColorGridWindow.swift
+//  GridWindow.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/20/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ColorGridWindow: NSPanel {
+class GridWindow: NSPanel {
     
     override func awakeFromNib() {
         super.awakeFromNib()

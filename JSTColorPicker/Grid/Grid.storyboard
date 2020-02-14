@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DyE-GW-XMO">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,8 +8,8 @@
         <!--Window Controller-->
         <scene sceneID="kD2-oh-2II">
             <objects>
-                <windowController id="DyE-GW-XMO" customClass="ColorGridWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="ColorGridWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                <windowController id="DyE-GW-XMO" customClass="GridWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="GridWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="54" y="1373" width="294" height="294"/>
@@ -27,15 +26,15 @@
             </objects>
             <point key="canvasLocation" x="-50" y="153"/>
         </scene>
-        <!--Color Grid View Controller-->
+        <!--Grid View Controller-->
         <scene sceneID="bHd-Ju-c6b">
             <objects>
-                <viewController id="T3l-h4-g0T" customClass="ColorGridViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="T3l-h4-g0T" customClass="GridViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="c0A-8J-sOI">
                         <rect key="frame" x="0.0" y="0.0" width="294" height="294"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="COK-AL-NFS" customClass="ColorGridView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="COK-AL-NFS" customClass="GridView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="294" height="294"/>
                             </customView>
                         </subviews>

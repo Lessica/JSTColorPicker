@@ -229,9 +229,9 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    fileprivate var gridWindowController: ColorGridWindowController? {
+    fileprivate var gridWindowController: GridWindowController? {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
-        let grid = delegate.colorGridController
+        let grid = delegate.gridController
         return grid
     }
     

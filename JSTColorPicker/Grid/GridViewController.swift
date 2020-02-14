@@ -1,5 +1,5 @@
 //
-//  ColorGridViewController.swift
+//  GridViewController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/20/20.
@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class ColorGridViewController: NSViewController {
+class GridViewController: NSViewController {
     
-    @IBOutlet weak var gridView: ColorGridView!
+    @IBOutlet weak var gridView: GridView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

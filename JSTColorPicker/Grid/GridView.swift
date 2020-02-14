@@ -1,5 +1,5 @@
 //
-//  ColorGridView.swift
+//  GridView.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/20/20.
@@ -65,7 +65,7 @@ enum GridState: CaseIterable {
     }
 }
 
-class ColorGridView: NSView {
+class GridView: NSView {
     
     weak var dataSource: ScreenshotLoader?
     var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
