@@ -21,23 +21,26 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 enum ContentError: LocalizedError {
-    case exists
-    case doesNotExist
-    case outOfRange
-    case reachLimit
-    case noDocument
+    case itemExists
+    case itemDoesNotExist
+    case itemOutOfRange
+    case itemReachLimit
+    case itemConflict
+    case noDocumentLoaded
     
     var failureReason: String? {
         switch self {
-        case .exists:
+        case .itemExists:
             return "This item already exists."
-        case .doesNotExist:
+        case .itemDoesNotExist:
             return "This item does not exist."
-        case .outOfRange:
-            return "Out of range."
-        case .reachLimit:
+        case .itemOutOfRange:
+            return "The requested item is out of the document range."
+        case .itemReachLimit:
             return "Maximum item count reached."
-        case .noDocument:
+        case .itemConflict:
+            return "The requested item conflicts with another item in the document."
+        case .noDocumentLoaded:
             return "No document loaded."
         }
     }
@@ -167,21 +170,21 @@ extension ContentController {
 extension ContentController: ContentResponder {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw ContentError.noDocument }
-        guard let color = image.color(at: coordinate) else { throw ContentError.outOfRange }
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange }
         return try addContentItem(color)
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw ContentError.noDocument }
-        guard let area = image.area(at: rect) else { throw ContentError.outOfRange }
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange }
         return try addContentItem(area)
     }
     
     private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocument }
-        guard content.items.count < Content.maximumCount else { throw ContentError.reachLimit }
-        guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.exists }
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard content.items.count < Content.maximumCount else { throw ContentError.itemReachLimit }
+        guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.itemExists }
         
         item.id = nextID
         internalAddContentItems([item])
@@ -196,7 +199,7 @@ extension ContentController: ContentResponder {
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocument }
+        guard let content = content else { throw ContentError.noDocumentLoaded }
         var optItem: ContentItem?
         if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
             optItem = color
@@ -204,33 +207,35 @@ extension ContentController: ContentResponder {
         else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
             optItem = area
         }
-        guard let item = optItem else { throw ContentError.doesNotExist }
+        guard let item = optItem else { throw ContentError.itemDoesNotExist }
         return try deleteContentItem(item)
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocument }
-        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.doesNotExist }
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist }
         internalDeleteContentItems([item])
         tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
         return item
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocument }
-        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.doesNotExist }
-        guard let image = screenshot?.image else { throw ContentError.noDocument }
-        guard let color = image.color(at: coordinate) else { throw ContentError.outOfRange }
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist }
+        guard content.colors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict }
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange }
         
         color.id = item.id
         return try updateContentItem(color)
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocument }
-        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.doesNotExist }
-        guard let image = screenshot?.image else { throw ContentError.noDocument }
-        guard let area = image.area(at: rect) else { throw ContentError.outOfRange }
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist }
+        guard content.areas.first(where: { $0.rect == rect }) == nil else { throw ContentError.itemConflict }
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange }
         
         area.id = item.id
         return try updateContentItem(area)

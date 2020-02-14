@@ -704,21 +704,11 @@ extension SceneController: AnnotatorManager {
     }
     
     fileprivate func showRulerMarkers(for annotator: Annotator) {
-        annotator.rulerMarkers
-            .filter({ rulerView($0.ruler as? RulerView, shouldAdd: $0) })
-            .forEach({
-                $0.ruler?.addMarker($0)
-                rulerView($0.ruler as? RulerView, didAdd: $0)
-            })
+        annotator.rulerMarkers.forEach({ $0.ruler?.addMarker($0) })
     }
     
     fileprivate func hideRulerMarkers(for annotator: Annotator) {
-        annotator.rulerMarkers
-            .filter({ rulerView($0.ruler as? RulerView, shouldRemove: $0) })
-            .forEach({
-                $0.ruler?.removeMarker($0)
-                rulerView($0.ruler as? RulerView, didRemove: $0)
-            })
+        annotator.rulerMarkers.forEach({ $0.ruler?.removeMarker($0) })
     }
     
     func loadAnnotators(from content: Content) throws {
@@ -755,13 +745,17 @@ extension SceneController: AnnotatorManager {
     }
     
     func updateAnnotator(for items: [ContentItem]) {
-        
-        debugPrint("update annotators \(items)")
+        let itemIDs = items.compactMap({ $0.id })
+        let itemsToRemove = annotators.compactMap({ $0.pixelItem }).filter({ itemIDs.contains($0.id) })
+        removeAnnotators(for: itemsToRemove)
+        addAnnotators(for: items)
+        highlightAnnotators(for: items, scrollTo: false)
     }
     
     func removeAnnotators(for items: [ContentItem]) {
-        annotators.forEach({ hideRulerMarkers(for: $0) })
-        annotators.filter({ items.contains($0.pixelItem) }).forEach({ $0.view.removeFromSuperview() })
+        let annotatorsToRemove = annotators.filter({ items.contains($0.pixelItem) })
+        annotatorsToRemove.forEach({ hideRulerMarkers(for: $0) })
+        annotatorsToRemove.forEach({ $0.view.removeFromSuperview() })
         annotators.removeAll(where: { items.contains($0.pixelItem) })
         debugPrint("remove annotators \(items)")
     }
@@ -840,35 +834,8 @@ extension SceneController: ContentResponder {
 
 extension SceneController: RulerViewClient {
     
-    func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) {
-        
-    }
-    
-    func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
-        let item = marker.annotator?.pixelItem.copy()
-        if let item = item as? PixelColor {
-            _ = try? updateContentItem(item, to: marker.coordinate)
-        }
-        else if let item = item as? PixelArea {
-            var rect: PixelRect?
-            if marker.position == .origin {
-                rect = PixelRect(coordinate1: marker.coordinate, coordinate2: item.rect.opposite)
-            }
-            else if marker.position == .opposite {
-                rect = PixelRect(coordinate1: item.rect.origin, coordinate2: marker.coordinate)
-            }
-            if let rect = rect {
-                _ = try? updateContentItem(item, to: rect)
-            }
-        }
-    }
-    
-    func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
-        
-    }
-    
     func rulerView(_ ruler: RulerView?, shouldAdd marker: RulerMarker) -> Bool {
-        return true
+        return false
     }
     
     func rulerView(_ ruler: RulerView?, shouldMove marker: RulerMarker) -> Bool {
@@ -876,7 +843,64 @@ extension SceneController: RulerViewClient {
     }
     
     func rulerView(_ ruler: RulerView?, shouldRemove marker: RulerMarker) -> Bool {
-        return true
+        return false
     }
+    
+    func rulerView(_ ruler: RulerView?, willMove marker: RulerMarker, toLocation location: Int) -> Int {
+        return location
+    }
+    
+    func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) {
+        
+    }
+    
+    func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
+        
+        var coordinate = marker.coordinate
+        if marker.type == .horizontal {
+            coordinate.x = Int(round(marker.markerLocation))
+        }
+        else if marker.type == .vertical {
+            coordinate.y = Int(round(marker.markerLocation))
+        }
+        
+        guard coordinate != marker.coordinate else { return }
+        let item = marker.annotator?.pixelItem.copy()
+        if let item = item as? PixelColor {
+            if let _ = try? updateContentItem(item, to: coordinate) {
+                // do nothing
+                return
+            }
+        }
+        else if let item = item as? PixelArea {
+            var rect: PixelRect?
+            if marker.position == .origin {
+                rect = PixelRect(coordinate1: coordinate, coordinate2: item.rect.opposite)
+            }
+            else if marker.position == .opposite {
+                rect = PixelRect(coordinate1: item.rect.origin, coordinate2: coordinate)
+            }
+            if let rect = rect {
+                if let _ = try? updateContentItem(item, to: rect) {
+                    // do nothing
+                    return
+                }
+            }
+        }
+        
+        if marker.type == .horizontal {
+            marker.markerLocation = CGFloat(marker.coordinate.x)
+        }
+        else if marker.type == .vertical {
+            marker.markerLocation = CGFloat(marker.coordinate.y)
+        }
+        
+    }
+    
+    func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
+        
+    }
+    
+    
     
 }

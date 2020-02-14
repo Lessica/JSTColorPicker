@@ -15,6 +15,7 @@ protocol RulerViewClient: class {
     func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker)
     func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker)
     func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker)
+    func rulerView(_ ruler: RulerView?, willMove marker: RulerMarker, toLocation location: Int) -> Int
 }
 
 class SceneImageWrapper: NSView {
@@ -45,19 +46,16 @@ class SceneImageWrapper: NSView {
         return rulerViewClient?.rulerView(ruler as? RulerView, shouldRemove: marker as! RulerMarker) ?? false
     }
     
+    override func rulerView(_ ruler: NSRulerView, willMove marker: NSRulerMarker, toLocation location: CGFloat) -> CGFloat {
+        return CGFloat(rulerViewClient?.rulerView(ruler as? RulerView, willMove: marker as! RulerMarker, toLocation: Int(round(location))) ?? Int(round(location)))
+    }
+    
     override func rulerView(_ ruler: NSRulerView, didAdd marker: NSRulerMarker) {
         rulerViewClient?.rulerView(ruler as? RulerView, didAdd: marker as! RulerMarker)
     }
     
     override func rulerView(_ ruler: NSRulerView, didMove marker: NSRulerMarker) {
-        guard let marker = marker as? RulerMarker else { return }
-        if marker.type == .horizontal {
-            marker.coordinate.x = Int(marker.markerLocation)
-        }
-        else if marker.type == .vertical {
-            marker.coordinate.y = Int(marker.markerLocation)
-        }
-        rulerViewClient?.rulerView(ruler as? RulerView, didMove: marker)
+        rulerViewClient?.rulerView(ruler as? RulerView, didMove: marker as! RulerMarker)
     }
     
     override func rulerView(_ ruler: NSRulerView, didRemove marker: NSRulerMarker) {
