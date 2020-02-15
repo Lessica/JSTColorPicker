@@ -13,6 +13,7 @@
 		D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */; };
 		D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88D023D5D4BD00DE5DF6 /* GridView.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneScrollOverlayView.swift */; };
+		D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631E2C623F7B38B00652B17 /* Defaults.swift */; };
 		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
 		D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
 		D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; };
@@ -81,6 +82,7 @@
 		D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneScrollOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollOverlayView.swift; sourceTree = "<group>"; };
+		D631E2C623F7B38B00652B17 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageView.swift; sourceTree = "<group>"; };
 		D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelColor.m; sourceTree = "<group>"; };
 		D635BE9C23CD861100FD62B8 /* JST_BOOL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_BOOL.h; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
+				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
@@ -797,6 +800,7 @@
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4B723EED3130039F4F6 /* PreviewSlider.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* PreviewResponder.swift in Sources */,
+				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,

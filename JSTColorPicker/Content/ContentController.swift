@@ -78,6 +78,8 @@ class ContentController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
+        initializeController()
+        
         tableView.tableViewResponder = self
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
@@ -376,7 +378,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
 
 extension ContentController: ScreenshotLoader {
     
-    func resetController() {
+    func initializeController() {
         self.screenshot = nil
         tableView.reloadData()
     }

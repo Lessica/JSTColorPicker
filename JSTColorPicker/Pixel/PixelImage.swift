@@ -69,7 +69,7 @@ class PixelImage {
     }
     
     func toNSImage() -> NSImage {
-        return pixelImageRep.getNSImage()
+        return pixelImageRep.toNSImage()
     }
     
     func downsample(to pointSize: CGSize, scale: CGFloat) -> NSImage {

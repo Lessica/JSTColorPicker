@@ -10,13 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum : NSUInteger {
-    JSTScreenshotTypeUnknown,
-    JSTScreenshotTypePNG,
-    JSTScreenshotTypeTIFF,
-} JSTScreenshotType;
-
-typedef void (^JSTScreenshotHandler)(JSTScreenshotType imageType, NSData * _Nullable imageData, NSError * _Nullable error);
+typedef void (^JSTScreenshotHandler)(NSData * _Nullable imageData, NSError * _Nullable error);
 static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
 
 @interface JSTDevice : NSObject

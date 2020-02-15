@@ -70,7 +70,7 @@ class SidebarController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetController()
+        initializeController()
     }
     
     func updateItemInspector(for item: ContentItem, submit: Bool) {
@@ -135,7 +135,7 @@ H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
 
 extension SidebarController: ScreenshotLoader {
     
-    func resetController() {
+    func initializeController() {
         imageLabel.stringValue = "Open or drop an image here."
         inspectorColorFlag.image = NSImage()
         inspectorColorLabel.stringValue = """
@@ -197,7 +197,6 @@ CSS:
 
 Created: \(createdAtDesc ?? "Unknown")
 Dimensions: \(pixelXDimension)×\(pixelYDimension)
-Orientation: \(props[kCGImagePropertyOrientation] ?? "Unknown")
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
 Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """

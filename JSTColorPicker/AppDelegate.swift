@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         deviceService.delegate = self
-        resetDevicesMenu()
+        didReceiveiDeviceEvent(deviceService)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -54,25 +54,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var devicesMenu: NSMenu!
     fileprivate let deviceIdentifierPrefix = "device-"
-    fileprivate var selectedDeviceUDID: String?
+    fileprivate var selectedDeviceUDID: String? = UserDefaults.standard.string(forKey: Defaults.lastSelectedDeviceUDID.rawValue)
     fileprivate static var screenshotDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         return formatter
     }()
-    fileprivate static func fileExtensionForScreenshotType(_ type: JSTScreenshotType) -> String {
-        var imageType: String!
-        if type == JSTScreenshotTypePNG {
-            imageType = "png"
-        }
-        else if type == JSTScreenshotTypeTIFF {
-            imageType = "tiff"
-        }
-        else {
-            imageType = "dat"
-        }
-        return imageType
-    }
     
     @IBAction func screenshotItemTapped(_ sender: Any?) {
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
@@ -81,39 +68,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
                 loadingAlert.messageText = "Waiting for device"  // TODO: to be localized
-                loadingAlert.informativeText = "Downloading screenshot from device..."
+                loadingAlert.informativeText = "Downloading screenshot from device \"\(device.name)\"..."
                 loadingAlert.addButton(withTitle: "Cancel")
                 loadingAlert.alertStyle = .informational
                 loadingAlert.buttons.first?.isHidden = true
                 windowController.showSheet(loadingAlert, completionHandler: nil)
-                device.screenshot { (type, data, error) in
-                    if let error = error {
-                        let alert = NSAlert(error: error)
-                        windowController.showSheet(alert, completionHandler: nil)
-                    } else if let data = data {
-                        do {
-                            var picturesURL = picturesDirectory.appendingPathComponent("JSTColorPicker")
-                            var isDirectory: ObjCBool = false
-                            if !FileManager.default.fileExists(atPath: picturesURL.path, isDirectory: &isDirectory) {
-                                try FileManager.default.createDirectory(at: picturesURL, withIntermediateDirectories: true, attributes: nil)
-                            }
-                            picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
-                            picturesURL.appendPathExtension(AppDelegate.fileExtensionForScreenshotType(type))
-                            try data.write(to: picturesURL)
-                            NSDocumentController.shared.openDocument(withContentsOf: picturesURL, display: true) { (document, documentWasAlreadyOpen, error) in
-                                if let error = error {
+                DispatchQueue.global(qos: .default).async {
+                    device.screenshot { (data, error) in
+                        DispatchQueue.main.async {
+                            if let error = error {
+                                let alert = NSAlert(error: error)
+                                windowController.showSheet(alert, completionHandler: nil)
+                            } else if let data = data {
+                                do {
+                                    var picturesURL = picturesDirectory.appendingPathComponent("JSTColorPicker")
+                                    var isDirectory: ObjCBool = false
+                                    if !FileManager.default.fileExists(atPath: picturesURL.path, isDirectory: &isDirectory) {
+                                        try FileManager.default.createDirectory(at: picturesURL, withIntermediateDirectories: true, attributes: nil)
+                                    }
+                                    picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
+                                    picturesURL.appendPathExtension("png")
+                                    try data.write(to: picturesURL)
+                                    NSDocumentController.shared.openDocument(withContentsOf: picturesURL, display: true) { (document, documentWasAlreadyOpen, error) in
+                                        if let error = error {
+                                            let alert = NSAlert(error: error)
+                                            windowController.showSheet(alert, completionHandler: nil)
+                                        } else {
+                                            windowController.showSheet(nil, completionHandler: nil)
+                                        }
+                                    }
+                                } catch let error {
                                     let alert = NSAlert(error: error)
                                     windowController.showSheet(alert, completionHandler: nil)
-                                } else {
-                                    windowController.showSheet(nil, completionHandler: nil)
                                 }
+                            } else {
+                                windowController.showSheet(nil, completionHandler: nil)
                             }
-                        } catch let error {
-                            let alert = NSAlert(error: error)
-                            windowController.showSheet(alert, completionHandler: nil)
                         }
-                    } else {
-                        windowController.showSheet(nil, completionHandler: nil)
                     }
                 }
             } else {
@@ -179,7 +170,7 @@ extension AppDelegate: NSMenuDelegate {
 
 extension AppDelegate: JSTDeviceDelegate {
     
-    func deviceService(_ service: JSTDeviceService, handleiDeviceEvent event: UnsafePointer<idevice_event_t>) {
+    func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
         debugPrint(service.devices)
         var items: [NSMenuItem] = []
         for device in service.devices {
@@ -201,6 +192,8 @@ extension AppDelegate: JSTDeviceDelegate {
     
     fileprivate func resetDevicesMenu() {
         let emptyItem = NSMenuItem(title: "No device found.", action: nil, keyEquivalent: "")
+        emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+        emptyItem.state = .off
         devicesMenu.items = [
             emptyItem
         ]
@@ -229,12 +222,12 @@ extension AppDelegate: JSTDeviceDelegate {
     }
     
     fileprivate func selectDeviceItem(_ sender: NSMenuItem) {
-        guard let identifier = sender.identifier?.rawValue else {
-            return
-        }
+        guard let identifier = sender.identifier?.rawValue else { return }
+        guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
         let beginIdx = identifier.index(identifier.startIndex, offsetBy: deviceIdentifierPrefix.lengthOfBytes(using: .utf8))
-        let udid = identifier[beginIdx...]
-        selectedDeviceUDID = String(udid)
+        let udid = String(identifier[beginIdx...])
+        UserDefaults.standard.set(udid, forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+        selectedDeviceUDID = udid
     }
     
 }

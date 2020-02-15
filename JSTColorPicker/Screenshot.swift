@@ -42,7 +42,7 @@ enum ScreenshotError: LocalizedError {
 
 protocol ScreenshotLoader: class {
     var screenshot: Screenshot? { get }
-    func resetController()
+    func initializeController()
     func load(_ screenshot: Screenshot) throws
 }
 

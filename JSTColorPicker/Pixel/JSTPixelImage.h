@@ -16,22 +16,25 @@ typedef struct JST_IMAGE JST_IMAGE;
 @property uint8_t orientation;
 
 - (JSTPixelImage *)initWithCGImage:(CGImageRef)cgimage;
+
 #if !TARGET_OS_OSX
 - (JSTPixelImage *)initWithUIImage:(UIImage *)uiimage;
 + (JSTPixelImage *)imageWithUIImage:(UIImage *)uiimage;
-- (UIImage *)getUIImage;
+- (UIImage *)toUIImage;
 #else
 - (JSTPixelImage *)initWithNSImage:(NSImage *)nsimage;
 + (JSTPixelImage *)imageWithNSImage:(NSImage *)nsimage;
-- (NSImage *)getNSImage;
+- (NSImage *)toNSImage;
 #endif
 
 - (CGSize)size;
+
 - (JSTPixelImage *)crop:(CGRect)rect;
 - (JSTPixelColor *)getJSTColorOfPoint:(CGPoint)point;
-- (uint32_t)getColorOfPoint:(CGPoint)point;
-- (NSString *)getColorHexOfPoint:(CGPoint)point;
 - (void)setJSTColor:(JSTPixelColor *)color ofPoint:(CGPoint)point;
+
+- (NSData *)pngRepresentation;
+- (NSData *)tiffRepresentation;
 
 @end
 

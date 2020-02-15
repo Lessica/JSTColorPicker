@@ -312,7 +312,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     }
     return self;
 }
-- (UIImage *)getUIImage {
+- (UIImage *)toUIImage {
     JST_COLOR *pixels_data = NULL;
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
     if (pixels_data) {
@@ -345,7 +345,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     }
     return self;
 }
-- (NSImage *)getNSImage {
+- (NSImage *)toNSImage {
     JST_COLOR *pixels_data = NULL;
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
     if (pixels_data) {
@@ -366,6 +366,28 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     }
 }
 #endif
+
+- (NSData *)pngRepresentation {
+    JST_COLOR *pixels_data = NULL;
+    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
+    NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
+    [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
+    CFRelease(cgimg);
+    NSData *imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+    if (pixels_data) free(pixels_data);
+    return imgData;
+}
+
+- (NSData *)tiffRepresentation {
+    JST_COLOR *pixels_data = NULL;
+    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
+    NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
+    [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
+    CFRelease(cgimg);
+    NSData *imgData = [newRep representationUsingType:NSBitmapImageFileTypeTIFF properties:@{}];
+    if (pixels_data) free(pixels_data);
+    return imgData;
+}
 
 - (JSTPixelImage *)init {
     self = [super init];

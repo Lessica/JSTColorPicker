@@ -20,7 +20,7 @@ class SplitController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetController()
+        initializeController()
     }
     
     override var representedObject: Any? {
@@ -146,14 +146,14 @@ extension SplitController: ToolbarResponder {
 
 extension SplitController: ScreenshotLoader {
     
-    func resetController() {
-        contentController.resetController()
-        sceneController.resetController()
-        sidebarController.resetController()
+    func initializeController() {
+        contentController.initializeController()
+        sceneController.initializeController()
+        sidebarController.initializeController()
     }
     
     func load(_ screenshot: Screenshot) throws {
-        resetController()
+        initializeController()
         self.screenshot = screenshot
         do {
             try contentController.load(screenshot)

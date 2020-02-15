@@ -12,7 +12,7 @@
 
 static void handle_idevice_event(const idevice_event_t *event, void *user_data) {
     JSTDeviceService *service = (__bridge JSTDeviceService *)(user_data);
-    [service.delegate deviceService:service handleiDeviceEvent:event];
+    [service.delegate didReceiveiDeviceEvent:service];
 }
 
 @implementation JSTDeviceService

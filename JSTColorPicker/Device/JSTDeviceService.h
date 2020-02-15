@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class JSTDeviceService, JSTDevice;
 
 @protocol JSTDeviceDelegate <NSObject>
-- (void)deviceService:(JSTDeviceService *)service handleiDeviceEvent:(const idevice_event_t *)event;
+- (void)didReceiveiDeviceEvent:(JSTDeviceService *)service;
 @end
 
 @interface JSTDeviceService : NSObject

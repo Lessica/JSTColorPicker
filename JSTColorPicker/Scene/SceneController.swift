@@ -109,16 +109,11 @@ class SceneController: NSViewController {
     fileprivate var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
     }
-    fileprivate var wrapperVisibleRect: CGRect {
-        return wrapper.visibleRect
+    fileprivate func isInsceneLocation(_ point: CGPoint) -> Bool {
+        return sceneView.visibleRectExcludingRulers.contains(point)
     }
-    fileprivate var wrapperVisibleRectExcludingRulers: CGRect {
-        let rect = sceneView.convert(wrapper.visibleRect, from: wrapper)
-        let thicknessV = verticalRulerView.ruleThickness
-        let thicknessH = horizontalRulerView.ruleThickness
-        let reversedThicknessV = verticalRulerView.reservedThicknessForMarkers
-        let reversedThicknessH = horizontalRulerView.reservedThicknessForMarkers
-        return sceneView.convert(CGRect(x: rect.origin.x + (thicknessH + reversedThicknessH), y: rect.origin.y + (thicknessV + reversedThicknessV), width: rect.width - (thicknessH + reversedThicknessH), height: rect.height - (thicknessV + reversedThicknessV)), to: wrapper)
+    fileprivate func isInscenePixelLocation(_ point: CGPoint) -> Bool {
+        return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && wrapper.visibleRect.contains(point)
     }
     fileprivate var windowActiveNotificationToken: NotificationToken?
     
@@ -143,7 +138,7 @@ class SceneController: NSViewController {
         
         // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
-        resetController()
+        initializeController()
         
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
@@ -267,7 +262,7 @@ class SceneController: NSViewController {
             return false
         }
         if let next = nextMagnificationFactor {
-            if wrapperVisibleRectExcludingRulers.contains(location) {
+            if isInscenePixelLocation(location) {
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(next, centeredAt: location)
                 }) { [unowned self] in
@@ -290,7 +285,7 @@ class SceneController: NSViewController {
             return false
         }
         if let prev = prevMagnificationFactor {
-            if wrapperVisibleRectExcludingRulers.contains(location) {
+            if isInscenePixelLocation(location) {
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(prev, centeredAt: location)
                 }) { [unowned self] in
@@ -312,15 +307,16 @@ class SceneController: NSViewController {
         var handled = false
         if sceneView.isBeingManipulated && !sceneView.isBeingDragged {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
-            if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
-            if trackingTool == .cursor {
-                handled = cursorClicked(at: loc)
-            }
-            else if trackingTool == .magnify {
-                handled = magnifyToolClicked(at: loc)
-            }
-            else if trackingTool == .minify {
-                handled = minifyToolClicked(at: loc)
+            if isInscenePixelLocation(loc) {
+                if trackingTool == .cursor {
+                    handled = cursorClicked(at: loc)
+                }
+                else if trackingTool == .magnify {
+                    handled = magnifyToolClicked(at: loc)
+                }
+                else if trackingTool == .minify {
+                    handled = minifyToolClicked(at: loc)
+                }
             }
         }
         if !handled {
@@ -331,9 +327,10 @@ class SceneController: NSViewController {
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
         let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if !wrapperVisibleRectExcludingRulers.contains(loc) { return }
-        if trackingTool == .cursor {
-            handled = rightCursorClicked(at: loc)
+        if isInscenePixelLocation(loc) {
+            if trackingTool == .cursor {
+                handled = rightCursorClicked(at: loc)
+            }
         }
         if !handled {
             super.rightMouseUp(with: event)
@@ -380,8 +377,7 @@ class SceneController: NSViewController {
     }
     
     fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
-        let visibleRect = wrapperVisibleRectExcludingRulers
-        if !visibleRect.contains(pixelLocation) { return false }
+        guard isInscenePixelLocation(pixelLocation) else { return false }
         
         var wrapperDelta = CGSize.zero
         switch direction {
@@ -407,7 +403,7 @@ class SceneController: NSViewController {
             return false
         }
         
-        guard visibleRect.contains(targetWrapperPoint) else {
+        guard isInscenePixelLocation(targetWrapperPoint) else {
             let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
             
             var clipOrigin = sceneClipView.bounds.origin
@@ -494,7 +490,7 @@ class SceneController: NSViewController {
 
 extension SceneController: ScreenshotLoader {
     
-    func resetController() {
+    func initializeController() {
         sceneView.minMagnification = SceneController.minimumZoomingFactor
         sceneView.maxMagnification = SceneController.maximumZoomingFactor
         sceneView.magnification = SceneController.minimumZoomingFactor
@@ -793,7 +789,7 @@ extension SceneController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !wrapper.visibleRect.contains(centerPoint) {
+        if !isInscenePixelLocation(centerPoint) {
             var point = sceneView.convert(centerPoint, from: wrapper)
             point.x -= sceneView.bounds.width / 2.0
             point.y -= sceneView.bounds.height / 2.0
