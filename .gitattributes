@@ -4,3 +4,4 @@ JSTColorPicker/lib/libimobiledevice.a filter=lfs diff=lfs merge=lfs -text
 JSTColorPicker/lib/libplist.a filter=lfs diff=lfs merge=lfs -text
 JSTColorPicker/lib/libssl.a filter=lfs diff=lfs merge=lfs -text
 JSTColorPicker/lib/libpng16.a filter=lfs diff=lfs merge=lfs -text
+JSTColorPicker/lib/liblua.a filter=lfs diff=lfs merge=lfs -text

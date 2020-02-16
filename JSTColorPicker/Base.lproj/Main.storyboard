@@ -341,7 +341,7 @@ CA
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ContentControllerTableView" rowHeight="20" headerView="wpj-SD-TcN" viewBased="YES" id="tGt-bn-9va" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="283" height="775"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="775"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -381,7 +381,7 @@ CA
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="col-similarity" width="64" minWidth="64" maxWidth="128" id="3hu-9P-0DZ">
+                                                <tableColumn identifier="col-similarity" width="54" minWidth="54" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
                                                         <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -395,11 +395,11 @@ CA
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="NfY-qR-bGh">
-                                                            <rect key="frame" x="34" y="1" width="64" height="17"/>
+                                                            <rect key="frame" x="34" y="1" width="54" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0VW-gY-h2U">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" id="64b-KK-izO">
                                                                         <font key="font" metaFont="system"/>
@@ -431,7 +431,7 @@ CA
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="8S5-5d-r0E">
-                                                            <rect key="frame" x="101" y="1" width="180" height="17"/>
+                                                            <rect key="frame" x="91" y="1" width="180" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xS9-QY-Bu4">
@@ -467,7 +467,7 @@ CA
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="WA3-A5-wAv">
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="WA3-A5-wAv">
                                     <rect key="frame" x="0.0" y="784" width="280" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -476,7 +476,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="wpj-SD-TcN">
-                                    <rect key="frame" x="0.0" y="0.0" width="283" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
@@ -874,22 +874,22 @@ CA
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
-                                                <rect key="frame" x="-4" y="-4" width="360" height="73"/>
+                                                <rect key="frame" x="-4" y="-4" width="360" height="81"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Indicator" identifier="" id="4MT-u6-eot">
                                                         <view key="view" id="caH-5H-HL3">
-                                                            <rect key="frame" x="10" y="7" width="340" height="53"/>
+                                                            <rect key="frame" x="10" y="7" width="340" height="61"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="7ey-tR-RIg">
-                                                                    <rect key="frame" x="148" y="0.0" width="44" height="53"/>
+                                                                    <rect key="frame" x="144" y="0.0" width="52" height="61"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                            <rect key="frame" x="8" y="29" width="16" height="16"/>
+                                                                            <rect key="frame" x="8" y="29" width="24" height="24"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="16" id="8hU-ce-bat"/>
-                                                                                <constraint firstAttribute="height" constant="16" id="OJ4-s6-5ah"/>
+                                                                                <constraint firstAttribute="width" constant="24" id="8hU-ce-bat"/>
+                                                                                <constraint firstAttribute="height" constant="24" id="OJ4-s6-5ah"/>
                                                                             </constraints>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Rlh-FA-OcK"/>
                                                                             <connections>
@@ -897,7 +897,7 @@ CA
                                                                             </connections>
                                                                         </imageView>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-yK-Ge8">
-                                                                            <rect key="frame" x="32" y="8" width="4" height="13"/>
+                                                                            <rect key="frame" x="40" y="8" width="4" height="13"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" drawsBackground="YES" id="9ct-MU-Igk">
                                                                                 <font key="font" metaFont="fixedUser" size="11"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -905,7 +905,7 @@ CA
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dj-M4-SbZ">
-                                                                            <rect key="frame" x="32" y="29" width="4" height="16"/>
+                                                                            <rect key="frame" x="40" y="29" width="4" height="24"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="left" drawsBackground="YES" id="YU4-9v-wOp">
                                                                                 <font key="font" metaFont="fixedUser" size="11"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1045,7 +1045,7 @@ CA
                 </viewController>
                 <customObject id="xBN-5i-sBA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1942" y="127"/>
+            <point key="canvasLocation" x="2072" y="127"/>
         </scene>
     </scenes>
     <resources>

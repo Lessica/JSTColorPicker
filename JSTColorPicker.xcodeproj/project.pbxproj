@@ -13,6 +13,7 @@
 		D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */; };
 		D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88D023D5D4BD00DE5DF6 /* GridView.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneScrollOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneScrollOverlayView.swift */; };
+		D628345E23F8DBD70016573B /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D628345D23F8DBD70016573B /* liblua.a */; };
 		D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631E2C623F7B38B00652B17 /* Defaults.swift */; };
 		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
 		D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
@@ -82,6 +83,32 @@
 		D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneScrollOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollOverlayView.swift; sourceTree = "<group>"; };
+		D628345D23F8DBD70016573B /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<group>"; };
+		D628346023F8DC280016573B /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
+		D628346123F8DC280016573B /* lcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lcode.h; sourceTree = "<group>"; };
+		D628346223F8DC280016573B /* lopcodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lopcodes.h; sourceTree = "<group>"; };
+		D628346323F8DC280016573B /* lparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lparser.h; sourceTree = "<group>"; };
+		D628346423F8DC290016573B /* lstring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lstring.h; sourceTree = "<group>"; };
+		D628346523F8DC290016573B /* ltable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ltable.h; sourceTree = "<group>"; };
+		D628346623F8DC290016573B /* lgc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lgc.h; sourceTree = "<group>"; };
+		D628346723F8DC290016573B /* lobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lobject.h; sourceTree = "<group>"; };
+		D628346823F8DC290016573B /* lstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lstate.h; sourceTree = "<group>"; };
+		D628346923F8DC290016573B /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
+		D628346A23F8DC290016573B /* lzio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lzio.h; sourceTree = "<group>"; };
+		D628346B23F8DC290016573B /* llex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llex.h; sourceTree = "<group>"; };
+		D628346C23F8DC290016573B /* lmem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lmem.h; sourceTree = "<group>"; };
+		D628346D23F8DC290016573B /* llimits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llimits.h; sourceTree = "<group>"; };
+		D628346E23F8DC290016573B /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
+		D628346F23F8DC290016573B /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
+		D628347023F8DC290016573B /* lundump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lundump.h; sourceTree = "<group>"; };
+		D628347123F8DC290016573B /* lprefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lprefix.h; sourceTree = "<group>"; };
+		D628347223F8DC290016573B /* lvm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lvm.h; sourceTree = "<group>"; };
+		D628347323F8DC290016573B /* ldebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ldebug.h; sourceTree = "<group>"; };
+		D628347423F8DC290016573B /* lfunc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lfunc.h; sourceTree = "<group>"; };
+		D628347523F8DC2A0016573B /* lapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
+		D628347623F8DC2A0016573B /* lctype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lctype.h; sourceTree = "<group>"; };
+		D628347723F8DC2A0016573B /* ltm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ltm.h; sourceTree = "<group>"; };
+		D628347823F8DC2A0016573B /* ldo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ldo.h; sourceTree = "<group>"; };
 		D631E2C623F7B38B00652B17 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageView.swift; sourceTree = "<group>"; };
 		D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelColor.m; sourceTree = "<group>"; };
@@ -308,6 +335,7 @@
 				D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */,
 				D647B06F23D1A2B000D76CB5 /* libssl.a in Frameworks */,
 				D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */,
+				D628345E23F8DBD70016573B /* liblua.a in Frameworks */,
 				D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */,
 				D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */,
 				D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */,
@@ -317,6 +345,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D631E2C823F7FAC300652B17 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
 		D635BE9A23CD861100FD62B8 /* Pixel */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +404,7 @@
 		D647B06423D198CB00D76CB5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				D628345D23F8DBD70016573B /* liblua.a */,
 				D647B06C23D1A2B000D76CB5 /* libcrypto.a */,
 				D647B06D23D1A2B000D76CB5 /* libssl.a */,
 				D647B06623D1A12300D76CB5 /* libimobiledevice.a */,
@@ -381,6 +417,31 @@
 		D647B07023D1A2C300D76CB5 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D628347523F8DC2A0016573B /* lapi.h */,
+				D628346023F8DC280016573B /* lauxlib.h */,
+				D628346123F8DC280016573B /* lcode.h */,
+				D628347623F8DC2A0016573B /* lctype.h */,
+				D628347323F8DC290016573B /* ldebug.h */,
+				D628347823F8DC2A0016573B /* ldo.h */,
+				D628347423F8DC290016573B /* lfunc.h */,
+				D628346623F8DC290016573B /* lgc.h */,
+				D628346B23F8DC290016573B /* llex.h */,
+				D628346D23F8DC290016573B /* llimits.h */,
+				D628346C23F8DC290016573B /* lmem.h */,
+				D628346723F8DC290016573B /* lobject.h */,
+				D628346223F8DC280016573B /* lopcodes.h */,
+				D628346323F8DC280016573B /* lparser.h */,
+				D628347123F8DC290016573B /* lprefix.h */,
+				D628346823F8DC290016573B /* lstate.h */,
+				D628346423F8DC290016573B /* lstring.h */,
+				D628346523F8DC290016573B /* ltable.h */,
+				D628347723F8DC2A0016573B /* ltm.h */,
+				D628346923F8DC290016573B /* lua.h */,
+				D628346F23F8DC290016573B /* luaconf.h */,
+				D628346E23F8DC290016573B /* lualib.h */,
+				D628347023F8DC290016573B /* lundump.h */,
+				D628347223F8DC290016573B /* lvm.h */,
+				D628346A23F8DC290016573B /* lzio.h */,
 				D647B07123D1A2C300D76CB5 /* plist */,
 				D647B08023D1A2C300D76CB5 /* libimobiledevice */,
 				D647B09923D1A2C300D76CB5 /* usbmuxd.h */,
@@ -601,6 +662,7 @@
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D684842023D40C9300BC5E34 /* Grid */,
+				D631E2C823F7FAC300652B17 /* Export */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
