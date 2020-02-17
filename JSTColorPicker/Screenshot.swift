@@ -50,6 +50,9 @@ class Screenshot: NSDocument {
     
     var image: PixelImage?
     var content: Content?
+    lazy var export: ExportManager = {
+        return ExportManager(screenshot: self)
+    }()
     
     fileprivate var appDelegate: AppDelegate! {
         return NSApplication.shared.delegate as? AppDelegate

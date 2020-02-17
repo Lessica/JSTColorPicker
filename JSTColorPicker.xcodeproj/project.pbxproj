@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -151,6 +151,7 @@
 		D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455E23E186260012BE5F /* ColorAnnotator.swift */; };
 		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
+		D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6652823FAB9A600037D02 /* ExportManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,6 +489,7 @@
 		D6E2455E23E186260012BE5F /* ColorAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotator.swift; sourceTree = "<group>"; };
 		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
+		D6F6652823FAB9A600037D02 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -531,7 +533,6 @@
 				5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */,
 				A5F9A691000B575F7C7BAD87 /* Pods-JSTColorPicker.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -643,6 +644,7 @@
 		D631E2C823F7FAC300652B17 /* Export */ = {
 			isa = PBXGroup;
 			children = (
+				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -1326,6 +1328,7 @@
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
+				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,

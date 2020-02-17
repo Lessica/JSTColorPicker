@@ -133,7 +133,6 @@
     if (memcmp(cIMGData, "\x89PNG", MIN(4, cIMGSize)) == 0) { isPNGData = YES; }
     else if (memcmp(cIMGData, "MM\x00*", MIN(4, cIMGSize)) == 0) {}
     else {}
-    
     if (!isPNGData) {
         free(cIMGData);
         sbservices_client_free(sbs);
@@ -161,8 +160,8 @@
         [pixelImage setOrientation:3];
     }
     completion([pixelImage pngRepresentation], nil);
-    CFRelease(image);
-    CFRelease(dataProvider);
+    CGImageRelease(image);
+    CGDataProviderRelease(dataProvider);
     CFRelease(data);
     
     sbservices_client_free(sbs);

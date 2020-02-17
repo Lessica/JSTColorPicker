@@ -302,24 +302,11 @@ extension ContentController: NSUserInterfaceValidations {
         for row in rows {
             selectedItems.append(collection[row])
         }
-        
-        // TODO: export using template
-        var outputString = ""
-        outputString += "{\n"
-        selectedItems.forEach { (item) in
-            if let item = item as? PixelColor {
-                outputString += "  { \(item.coordinate.x), \(item.coordinate.y), \(item.pixelColorRep.hexString) },  -- \(item.id)\n"
-            }
-            else if let item = item as? PixelArea {
-                // TODO: copy export from `PixelArea`
-                outputString += "  -- \(item.id) (not implemented)\n"
-            }
+        if (selectedItems.count == 1) {
+            screenshot?.export.copyContentItem(selectedItems.first!)
+        } else {
+            screenshot?.export.copyContentItems(selectedItems)
         }
-        outputString += "}"
-        
-        let pasteboard = NSPasteboard.general
-        pasteboard.declareTypes([.string], owner: nil)
-        pasteboard.setString(outputString, forType: .string)
     }
     
 }

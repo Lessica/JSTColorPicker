@@ -160,7 +160,7 @@ class SceneController: NSViewController {
         let imageProps = CGImageSourceCopyPropertiesAtIndex(image.imageSourceRep, 0, nil)
         imageView.setImage(image.imageRep, imageProperties: imageProps as? [AnyHashable : Any])
         
-        let imageSize = image.pixelImageRep.size()
+        let imageSize = image.size
         let initialRect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)  // .aspectFit(in: sceneView.bounds)
         imageView.frame = initialRect
         imageView.zoomImageToFit(imageView)

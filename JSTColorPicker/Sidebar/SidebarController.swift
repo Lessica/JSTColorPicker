@@ -9,12 +9,15 @@
 import Cocoa
 
 extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
+    func leftPadding(to length: Int, with character: Character) -> String {
+        if length <= self.count {
+            return String(self)
+        }
         let newLength = self.count
-        if newLength < toLength {
-            return String(repeatElement(character, count: toLength - newLength)) + self
+        if newLength < length {
+            return String(repeatElement(character, count: length - newLength)) + self
         } else {
-            let idx = self.index(self.startIndex, offsetBy: newLength - toLength)
+            let idx = self.index(self.startIndex, offsetBy: newLength - length)
             return String(self[..<idx])
         }
     }
@@ -76,17 +79,17 @@ class SidebarController: NSViewController {
     func updateItemInspector(for item: ContentItem, submit: Bool) {
         if let color = item as? PixelColor {
             inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.red).leftPadding(toLength: 7, withPad: " "))
-G:\(String(color.green).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.green).leftPadding(toLength: 7, withPad: " "))
-B:\(String(color.blue).leftPadding(toLength: 5, withPad: " "))\(String(format: "0x%02X", color.blue).leftPadding(toLength: 7, withPad: " "))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(toLength: 5, withPad: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(toLength: 6, withPad: " "))
+R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 7, with: " "))
+G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 7, with: " "))
+B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 7, with: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 6, with: " "))
 """
             let nsColor = color.toNSColor()
             inspectorColorFlag.color = nsColor
             inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
             inspectorAreaLabel.stringValue = """
-CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
-\(color.coordinate.description.leftPadding(toLength: 14, withPad: " "))
+CSS:\(color.cssString.leftPadding(to: 10, with: " "))
+\(color.coordinate.description.leftPadding(to: 14, with: " "))
 """
             if submit {
                 colorPanel.color = nsColor
@@ -94,8 +97,8 @@ CSS:\(color.cssString.leftPadding(toLength: 10, withPad: " "))
         }
         else if let area = item as? PixelArea {
             inspectorAreaLabel.stringValue = """
-W:\(String(area.rect.width).leftPadding(toLength: 12, withPad: " "))
-H:\(String(area.rect.height).leftPadding(toLength: 12, withPad: " "))
+W:\(String(area.rect.width).leftPadding(to: 12, with: " "))
+H:\(String(area.rect.height).leftPadding(to: 12, with: " "))
 """
         }
     }
