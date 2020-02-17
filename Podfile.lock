@@ -1,0 +1,21 @@
+PODS:
+  - MASPreferences (1.3)
+
+DEPENDENCIES:
+  - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
+
+EXTERNAL SOURCES:
+  MASPreferences:
+    :git: "git@github.com:Lessica/MASPreferences.git"
+
+CHECKOUT OPTIONS:
+  MASPreferences:
+    :commit: 45e5ff67d19babc53414970b0a5db9586a494a96
+    :git: "git@github.com:Lessica/MASPreferences.git"
+
+SPEC CHECKSUMS:
+  MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
+
+PODFILE CHECKSUM: ca40b171330d8fcd65e9282ca406b3aea57abc19
+
+COCOAPODS: 1.8.4
