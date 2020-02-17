@@ -255,9 +255,9 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Devices" id="1Il-r8-iYp">
                                     <items>
-                                        <menuItem title="Connect via USB" id="Gxd-vS-gSq">
+                                        <menuItem title="Devices" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Connect via USB" id="5FZ-FF-ebV"/>
+                                            <menu key="submenu" title="Devices" id="5FZ-FF-ebV"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
                                         <menuItem title="Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
@@ -350,7 +350,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -383,7 +383,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="54" minWidth="54" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -419,7 +419,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -845,7 +845,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="324" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>

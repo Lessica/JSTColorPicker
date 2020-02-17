@@ -171,18 +171,22 @@ extension AppDelegate: NSMenuDelegate {
 extension AppDelegate: JSTDeviceDelegate {
     
     func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
-        debugPrint(service.devices)
+        let devices = service.devices.sorted(by: { $1.name.compare($0.name) == .orderedAscending })
+        debugPrint(devices)
+        
         var items: [NSMenuItem] = []
-        for device in service.devices {
+        for device in devices {
             let item = NSMenuItem(title: device.menuTitle, action: #selector(deviceItemTapped(_:)), keyEquivalent: "")
             item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(deviceIdentifierPrefix)\(device.udid)")
             items.append(item)
         }
+        
         if items.count > 0 {
             devicesMenu.items = items
         } else {
             resetDevicesMenu()
         }
+        
         updateSelectedDeviceItem()
     }
     

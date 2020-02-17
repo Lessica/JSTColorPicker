@@ -32,7 +32,7 @@
 
 - (instancetype)initWithUDID:(NSString *)udid {
     NSString *name = @"Unknown";
-    if (idevice_new(&cDevice, udid.UTF8String) != IDEVICE_E_SUCCESS) {
+    if (idevice_new_with_options(&cDevice, udid.UTF8String, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
         return nil;
     }
     lockdownd_client_t cClient;
@@ -58,7 +58,9 @@
 }
 
 - (void)dealloc {
-    idevice_free(cDevice);
+    if (cDevice) {
+        idevice_free(cDevice);
+    }
 #ifdef DEBUG
     NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif
