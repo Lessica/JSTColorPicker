@@ -441,6 +441,13 @@ class SceneController: NSViewController {
         trackColorChanged(self, at: PixelCoordinate(targetWrapperPoint))
         return true
     }
+    
+    fileprivate func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
+        guard let screenshot = screenshot else { return false }
+        guard isInscenePixelLocation(pixelLocation) else { return false }
+        screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
+        return true
+    }
      
     fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
@@ -474,6 +481,9 @@ class SceneController: NSViewController {
                 }
                 else if characters.contains("=") {
                     return magnifyToolClicked(at: loc)
+                }
+                else if characters.contains("`") {
+                    return shortcutCopyPixelColor(at: loc)
                 }
             }
             

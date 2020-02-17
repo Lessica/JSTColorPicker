@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+    
     func split(by length: Int) -> [String] {
         var startIndex = self.startIndex
         var results = [Substring]()
@@ -21,6 +22,7 @@ extension String {
 
         return results.map { String($0) }
     }
+    
 }
 
 class ExportManager {
@@ -35,6 +37,18 @@ class ExportManager {
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(string, forType: .string)
+    }
+    
+    func copyPixelColor(at coordinate: PixelCoordinate) {
+        if let color = screenshot?.image?.color(at: coordinate) {
+            copyContentItem(color)
+        }
+    }
+    
+    func copyPixelArea(at rect: PixelRect) {
+        if let area = screenshot?.image?.area(at: rect) {
+            copyContentItem(area)
+        }
     }
     
     func copyContentItem(_ item: ContentItem) {
