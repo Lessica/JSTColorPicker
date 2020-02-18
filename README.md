@@ -90,3 +90,6 @@ There's no need to explain.
 1. Select an item.
 2. Modify item *coordinate* or *area* by moving ruler markers.
 
+### Others
+- `⌘\``: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
+

@@ -37,9 +37,14 @@ class SidebarController: NSViewController {
     internal weak var screenshot: Screenshot?
     
     @IBOutlet weak var imageLabel: NSTextField!
+    
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag: ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel: NSTextField!
+    
+    @IBOutlet weak var inspectorColorLabel2: NSTextField!
+    @IBOutlet weak var inspectorColorFlag2: ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabel2: NSTextField!
     
     @IBOutlet weak var previewImageView: PreviewImageView!
     @IBOutlet weak var previewOverlayView: PreviewOverlayView!
@@ -78,28 +83,52 @@ class SidebarController: NSViewController {
     
     func updateItemInspector(for item: ContentItem, submit: Bool) {
         if let color = item as? PixelColor {
-            inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 7, with: " "))
-G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 7, with: " "))
-B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 7, with: " "))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 6, with: " "))
+            
+            if !submit {
+                inspectorColorLabel.stringValue = """
+R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
+G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
+B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
 """
-            let nsColor = color.toNSColor()
-            inspectorColorFlag.color = nsColor
-            inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
-            inspectorAreaLabel.stringValue = """
-CSS:\(color.cssString.leftPadding(to: 10, with: " "))
-\(color.coordinate.description.leftPadding(to: 14, with: " "))
+                let nsColor = color.toNSColor()
+                inspectorColorFlag.color = nsColor
+                inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+                inspectorAreaLabel.stringValue = """
+CSS:\(color.cssString.leftPadding(to: 9, with: " "))
+\(color.coordinate.description.leftPadding(to: 13, with: " "))
 """
-            if submit {
+            }
+            else {
+                inspectorColorLabel2.stringValue = """
+R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
+G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
+B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
+"""
+                let nsColor = color.toNSColor()
+                inspectorColorFlag2.color = nsColor
+                inspectorColorFlag2.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+                inspectorAreaLabel2.stringValue = """
+CSS:\(color.cssString.leftPadding(to: 9, with: " "))
+\(color.coordinate.description.leftPadding(to: 13, with: " "))
+"""
                 colorPanel.color = nsColor
             }
         }
         else if let area = item as? PixelArea {
-            inspectorAreaLabel.stringValue = """
-W:\(String(area.rect.width).leftPadding(to: 12, with: " "))
-H:\(String(area.rect.height).leftPadding(to: 12, with: " "))
+            if !submit {
+                inspectorAreaLabel.stringValue = """
+W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
+H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 """
+            }
+            else {
+                inspectorAreaLabel2.stringValue = """
+W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
+H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
+"""
+            }
         }
     }
     
@@ -124,8 +153,8 @@ H:\(String(area.rect.height).leftPadding(to: 12, with: " "))
         debugPrint("- [SidebarController deinit]")
     }
     
-    @IBAction func colorIndicatorTapped(_ sender: Any) {
-        colorPanel.color = inspectorColorFlag.color
+    @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
+        colorPanel.color = sender.color
         colorPanel.orderFront(sender)
     }
     
@@ -140,16 +169,27 @@ extension SidebarController: ScreenshotLoader {
     
     func initializeController() {
         imageLabel.stringValue = "Open or drop an image here."
-        inspectorColorFlag.image = NSImage()
+        inspectorColorFlag.image = NSImage(color: .clear, size: inspectorColorFlag.bounds.size)
         inspectorColorLabel.stringValue = """
-R:
-G:
-B:
-A:
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
 """
         inspectorAreaLabel.stringValue = """
-CSS:
-@
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+        inspectorColorFlag2.image = NSImage(color: .clear, size: inspectorColorFlag2.bounds.size)
+        inspectorColorLabel2.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel2.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
 """
         previewSlider.isEnabled = false
     }
