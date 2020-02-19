@@ -483,6 +483,12 @@ CA
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="2D6-Tx-hIC">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                 <subviews>
+                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="FHe-Zc-isZ">
+                                        <rect key="frame" x="0.0" y="27" width="280" height="5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="wau-pd-5TX"/>
+                                        </constraints>
+                                    </box>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r32-UK-sx0">
                                         <rect key="frame" x="8" y="6" width="18" height="18"/>
                                         <constraints>
@@ -496,17 +502,23 @@ CA
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="242" height="14"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add coordinate..." usesSingleLineMode="YES" id="TIn-N1-SEI">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
                                             <font key="font" metaFont="label" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <action selector="addCoordinateFieldChanged:" target="jWv-ak-Q1b" id="ffe-yV-f0V"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="r32-UK-sx0" firstAttribute="leading" secondItem="2D6-Tx-hIC" secondAttribute="leading" constant="8" id="Bq7-lT-4nO"/>
                                     <constraint firstItem="Ums-UE-Kue" firstAttribute="leading" secondItem="r32-UK-sx0" secondAttribute="trailing" constant="8" id="NCE-Sl-IZC"/>
+                                    <constraint firstItem="FHe-Zc-isZ" firstAttribute="top" secondItem="2D6-Tx-hIC" secondAttribute="top" id="QSy-h9-vVz"/>
                                     <constraint firstAttribute="height" constant="30" id="bfC-9a-LkV"/>
+                                    <constraint firstAttribute="trailing" secondItem="FHe-Zc-isZ" secondAttribute="trailing" id="bpN-Kv-BMy"/>
+                                    <constraint firstItem="FHe-Zc-isZ" firstAttribute="leading" secondItem="2D6-Tx-hIC" secondAttribute="leading" id="cbA-aN-A6C"/>
                                     <constraint firstItem="r32-UK-sx0" firstAttribute="centerY" secondItem="2D6-Tx-hIC" secondAttribute="centerY" id="iKv-ON-3ic"/>
                                     <constraint firstItem="Ums-UE-Kue" firstAttribute="centerY" secondItem="2D6-Tx-hIC" secondAttribute="centerY" id="yhR-3E-8cL"/>
                                     <constraint firstAttribute="trailing" secondItem="Ums-UE-Kue" secondAttribute="trailing" constant="8" id="yoN-B4-H6S"/>
@@ -524,6 +536,7 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addCoordinateField" destination="Ums-UE-Kue" id="Efp-Yn-znl"/>
                         <outlet property="tableView" destination="tGt-bn-9va" id="gte-85-omt"/>
                     </connections>
                 </viewController>

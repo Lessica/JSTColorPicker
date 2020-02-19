@@ -143,7 +143,7 @@ class SceneController: NSViewController {
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
-            _ = self.useSelectedTrackingTool()
+            self.useSelectedTrackingTool()
         }
     }
     
@@ -177,7 +177,7 @@ class SceneController: NSViewController {
         sceneView.verticalRulerView?.clientView = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
         
-        _ = useSelectedTrackingTool()
+        useSelectedTrackingTool()
     }
     
     fileprivate var trackingTool: TrackingTool {
@@ -349,6 +349,7 @@ class SceneController: NSViewController {
         }
     }
     
+    @discardableResult
     fileprivate func useOptionModifiedTrackingTool() -> Bool {
         if sceneView.isBeingManipulated { return false }
         if trackingTool == .magnify {
@@ -362,6 +363,7 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     fileprivate func useCommandModifiedTrackingTool() -> Bool {
         if sceneView.isBeingManipulated { return false }
         if trackingTool == .magnify || trackingTool == .minify || trackingTool == .move {
@@ -371,11 +373,13 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     fileprivate func useSelectedTrackingTool() -> Bool {
         trackingTool = selectedTrackingTool
         return true
     }
     
+    @discardableResult
     fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
         guard isInscenePixelLocation(pixelLocation) else { return false }
         
@@ -442,6 +446,7 @@ class SceneController: NSViewController {
         return true
     }
     
+    @discardableResult
     fileprivate func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
         guard let screenshot = screenshot else { return false }
         guard isInscenePixelLocation(pixelLocation) else { return false }
@@ -513,7 +518,7 @@ extension SceneController: ScreenshotLoader {
         sceneView.verticalRulerView?.clientView = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
         
-        _ = useSelectedTrackingTool()
+        useSelectedTrackingTool()
     }
     
     func load(_ screenshot: Screenshot) throws {

@@ -20,4 +20,8 @@ class SceneImageView: IKImageView {
         // do not perform default behavior
     }
     
+    override var acceptsFirstResponder: Bool {
+        return false
+    }
+    
 }

@@ -54,6 +54,14 @@ protocol ContentActionDelegate: class {
     func contentActionDeleted(_ items: [ContentItem])
 }
 
+extension NSViewController {
+    @discardableResult
+    func makeFirstResponder(_ responder: NSResponder) -> Bool {
+        guard let window = view.window else { return false }
+        return window.makeFirstResponder(responder)
+    }
+}
+
 class ContentController: NSViewController {
     
     weak var actionDelegate: ContentActionDelegate?
@@ -73,6 +81,7 @@ class ContentController: NSViewController {
     fileprivate var redoToken: NotificationToken?
     
     @IBOutlet weak var tableView: ContentTableView!
+    @IBOutlet weak var addCoordinateField: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +107,77 @@ class ContentController: NSViewController {
             content.items[row].similarity = min(max(sender.doubleValue / 100.0, 0.01), 1.0)
         }
         sender.stringValue = String(format: "%.2f", content.items[row].similarity * 100.0)
+    }
+    
+    @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
+        guard let image = screenshot?.image else { return }
+        
+        let size = image.size
+        let scanner = Scanner(string: sender.stringValue)
+        scanner.charactersToBeSkipped = CharacterSet.alphanumerics.inverted
+        
+        var x = Int.max
+        var y = Int.max
+        var x2 = Int.max
+        var y2 = Int.max
+        
+        scanner.scanInt(&x)
+        scanner.scanInt(&y)
+        scanner.scanInt(&x2)
+        scanner.scanInt(&y2)
+        
+        guard x >= 0 && y >= 0 && x < size.width && y < size.height else { return }
+        if x2 >= 0 && y2 >= 0 && x2 < size.width && y2 < size.height {
+            let rect = PixelRect(coordinate1: PixelCoordinate(x: x, y: y), coordinate2: PixelCoordinate(x: x2, y: y2))
+            
+            do {
+                if let item = try addContentItem(of: rect) {
+                    if let _ = try selectContentItem(item) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+            }
+            catch ContentError.itemExists {
+                do {
+                    if let _ = try selectContentItem(of: rect) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+                catch let error {
+                    presentError(error)
+                }
+            }
+            catch let error {
+                presentError(error)
+            }
+        } else {
+            let coordinate = PixelCoordinate(x: x, y: y)
+            
+            do {
+                if let item = try addContentItem(of: coordinate) {
+                    if let _ = try selectContentItem(item) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+            }
+            catch ContentError.itemExists {
+                do {
+                    if let _ = try selectContentItem(of: coordinate) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+                catch let error {
+                    presentError(error)
+                }
+            }
+            catch let error {
+                presentError(error)
+            }
+        }
     }
     
     deinit {
@@ -197,6 +277,25 @@ extension ContentController: ContentResponder {
             tableView.scrollRowToVisible(numberOfRows - 1)
         }
         
+        return item
+    }
+    
+    func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange }
+        return try selectContentItem(color)
+    }
+    
+    func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
+        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange }
+        return try selectContentItem(area)
+    }
+    
+    func selectContentItem(_ item: ContentItem) throws -> ContentItem? {
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist }
+        tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: false)
         return item
     }
     
