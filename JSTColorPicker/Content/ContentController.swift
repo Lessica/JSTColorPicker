@@ -81,6 +81,7 @@ class ContentController: NSViewController {
     fileprivate var redoToken: NotificationToken?
     
     @IBOutlet weak var tableView: ContentTableView!
+    @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField: NSTextField!
 
     override func viewDidLoad() {
@@ -178,6 +179,10 @@ class ContentController: NSViewController {
                 presentError(error)
             }
         }
+    }
+    
+    @IBAction func addCoordinateAction(_ sender: NSButton) {
+        addCoordinateFieldChanged(addCoordinateField)
     }
     
     deinit {

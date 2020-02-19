@@ -350,7 +350,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -383,7 +383,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="58" minWidth="58" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -419,7 +419,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -489,7 +489,7 @@ CA
                                             <constraint firstAttribute="height" constant="1" id="wau-pd-5TX"/>
                                         </constraints>
                                     </box>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r32-UK-sx0">
+                                    <button toolTip="Add/Locate Item (↵)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r32-UK-sx0">
                                         <rect key="frame" x="8" y="6" width="18" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="18" id="PS2-Ea-cSM"/>
@@ -499,11 +499,14 @@ CA
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="addCoordinateAction:" target="jWv-ak-Q1b" id="Py9-3v-aOn"/>
+                                        </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="242" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="label" size="11"/>
+                                            <font key="font" metaFont="controlContent" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -536,6 +539,7 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addCoordinateButton" destination="r32-UK-sx0" id="7rH-g9-cid"/>
                         <outlet property="addCoordinateField" destination="Ums-UE-Kue" id="Efp-Yn-znl"/>
                         <outlet property="tableView" destination="tGt-bn-9va" id="gte-85-omt"/>
                     </connections>
@@ -893,7 +897,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="228" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -940,7 +944,7 @@ CA
                                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="7ey-tR-RIg">
                                                                                     <rect key="frame" x="40" y="0.0" width="40" height="51"/>
                                                                                     <subviews>
-                                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                                        <imageView toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="djd-CE-KfV" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                             <rect key="frame" x="4" y="27" width="16" height="16"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="16" id="8hU-ce-bat"/>
@@ -995,7 +999,7 @@ CA
                                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="8oy-6g-Xgf">
                                                                                     <rect key="frame" x="38" y="0.0" width="40" height="51"/>
                                                                                     <subviews>
-                                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7PR-rN-AE5" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                                        <imageView toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7PR-rN-AE5" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                             <rect key="frame" x="4" y="27" width="16" height="16"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="16" id="RTH-f9-wyg"/>
@@ -1102,7 +1106,7 @@ CA
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LE0-eB-1FR" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LE0-eB-1FR" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
                                                                     <rect key="frame" x="-2" y="-2" width="246" height="19"/>
                                                                     <sliderCell key="cell" continuous="YES" enabled="NO" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="7" tickMarkPosition="below" sliderType="linear" id="7To-Iy-80M" customClass="PreviewSliderCell" customModule="JSTColorPicker" customModuleProvider="target"/>
                                                                     <connections>
