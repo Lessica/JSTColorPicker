@@ -1,6 +1,16 @@
 # JSTColorPicker
 
-To be continued...
+There are (so many) macOS color pickers for designers. But none of them pick color together with the location from PNG screenshots.
+
+## Features
+- Pick colors & areas from PNG screenshots
+- Read/Write annotator data from/into EXIF dictionary of PNG files
+- Take screenshots directly from iOS devices (depends `libimobiledevice`)
+
+## TODOs
+- Copy/Export annotator data using custom templates
+- Drag to move/resize annotators
+- Take screenshots from Android devices
 
 ## Menu Key Equivalents
 
