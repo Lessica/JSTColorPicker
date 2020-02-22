@@ -10,5 +10,5 @@ import Foundation
 
 protocol PreviewResponder: class {
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate)
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat)
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool)
 }

@@ -278,8 +278,8 @@ extension SplitController: ContentActionDelegate {
 
 extension SplitController: PreviewResponder {
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
-        sceneController.previewAction(sender, toMagnification: magnification)
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+        sceneController.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
     }
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {

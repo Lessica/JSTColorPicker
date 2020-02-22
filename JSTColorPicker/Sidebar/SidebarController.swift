@@ -159,8 +159,9 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     @IBAction func previewSliderChanged(_ sender: NSSlider) {
-        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)))
-        previewSliderLabel.isHidden = NSEvent.pressedMouseButtons & 1 != 1
+        let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
+        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
+        previewSliderLabel.isHidden = !isPressed
     }
     
 }
@@ -253,8 +254,8 @@ extension SidebarController: PreviewResponder {
         previewOverlayDelegate?.previewAction(sender, centeredAt: coordinate)
     }
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
-        previewOverlayDelegate?.previewAction(sender, toMagnification: magnification)
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+        previewOverlayDelegate?.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
     }
     
 }

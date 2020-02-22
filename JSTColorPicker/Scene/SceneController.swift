@@ -142,6 +142,8 @@ class SceneController: NSViewController {
         
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnifyNotification(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnifyNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
             self.useSelectedTrackingTool()
         }
@@ -263,15 +265,19 @@ class SceneController: NSViewController {
         }
         if let next = nextMagnificationFactor {
             if isInscenePixelLocation(location) {
+                self.hideSceneOverlay()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(next, centeredAt: location)
                 }) { [unowned self] in
+                    self.showSceneOverlay()
                     self.sceneBoundsChanged()
                 }
             } else {
+                self.hideSceneOverlay()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().magnification = next
                 }) { [unowned self] in
+                    self.showSceneOverlay()
                     self.sceneBoundsChanged()
                 }
             }
@@ -286,15 +292,19 @@ class SceneController: NSViewController {
         }
         if let prev = prevMagnificationFactor {
             if isInscenePixelLocation(location) {
+                self.hideSceneOverlay()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(prev, centeredAt: location)
                 }) { [unowned self] in
+                    self.showSceneOverlay()
                     self.sceneBoundsChanged()
                 }
             } else {
+                self.hideSceneOverlay()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().magnification = prev
                 }) { [unowned self] in
+                    self.showSceneOverlay()
                     self.sceneBoundsChanged()
                 }
             }
@@ -621,9 +631,28 @@ extension SceneController: TrackingToolDelegate {
 
 extension SceneController: AnnotatorManager {
     
+    @objc fileprivate func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
+        hideSceneOverlay()
+    }
+    
+    @objc fileprivate func sceneDidEndLiveMagnifyNotification(_ notification: NSNotification) {
+        showSceneOverlay()
+    }
+    
     @objc fileprivate func sceneDidScrollNotification(_ notification: NSNotification) {
-        updateAnnotatorBounds()
+        if !sceneOverlayView.isHidden {
+            updateAnnotatorBounds()
+        }
         sceneBoundsChanged()
+    }
+    
+    fileprivate func hideSceneOverlay() {
+        sceneOverlayView.isHidden = true
+    }
+    
+    fileprivate func showSceneOverlay() {
+        sceneOverlayView.isHidden = false
+        updateAnnotatorBounds()
     }
     
     fileprivate func updateFrame(of annotator: Annotator) {
@@ -797,9 +826,10 @@ extension SceneController: AnnotatorManager {
 
 extension SceneController: PreviewResponder {
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat) {
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
-        self.sceneView.magnification = magnification
+        // sceneOverlayView.isHidden = isChanging
+        sceneView.magnification = magnification
     }
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
