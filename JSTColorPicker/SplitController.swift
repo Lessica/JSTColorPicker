@@ -147,13 +147,10 @@ extension SplitController: ToolbarResponder {
 extension SplitController: ScreenshotLoader {
     
     func initializeController() {
-        contentController.initializeController()
-        sceneController.initializeController()
-        sidebarController.initializeController()
+        
     }
     
     func load(_ screenshot: Screenshot) throws {
-        initializeController()
         self.screenshot = screenshot
         do {
             try contentController.load(screenshot)

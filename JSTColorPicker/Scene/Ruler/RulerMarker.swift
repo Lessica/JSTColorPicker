@@ -27,31 +27,29 @@ class RulerMarker: NSRulerMarker {
     
     static var horizontalImage: NSImage = {
         let size = RulerMarker.markerSize
-        let image = NSImage(size: size)
-        image.lockFocus()
-        let path = NSBezierPath()
-        path.move(to: NSPoint(x: size.width / 2.0, y: 0.0))
-        path.line(to: NSPoint(x: size.width, y: size.height))
-        path.line(to: NSPoint(x: 0.0, y: size.height))
-        path.close()
-        NSColor.labelColor.set()
-        path.fill()
-        image.unlockFocus()
-        return image
+        return NSImage(size: size, flipped: false) { (rect) -> Bool in
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: rect.width / 2.0, y: 0.0))
+            path.line(to: NSPoint(x: rect.width, y: rect.height))
+            path.line(to: NSPoint(x: 0.0, y: rect.height))
+            path.close()
+            NSColor.labelColor.set()
+            path.fill()
+            return true
+        }
     }()
     static var verticalImage: NSImage = {
         let size = RulerMarker.markerSize
-        let image = NSImage(size: size)
-        image.lockFocus()
-        let path = NSBezierPath()
-        path.move(to: NSPoint(x: size.width, y: size.height / 2.0))
-        path.line(to: NSPoint(x: 0.0, y: size.height))
-        path.line(to: NSPoint(x: 0.0, y: 0.0))
-        path.close()
-        NSColor.labelColor.set()
-        path.fill()
-        image.unlockFocus()
-        return image
+        return NSImage(size: size, flipped: false) { (rect) -> Bool in
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: rect.width, y: rect.height / 2.0))
+            path.line(to: NSPoint(x: 0.0, y: rect.height))
+            path.line(to: NSPoint(x: 0.0, y: 0.0))
+            path.close()
+            NSColor.labelColor.set()
+            path.fill()
+            return true
+        }
     }()
     
     var type: RulerMarkerType = .horizontal

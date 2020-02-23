@@ -65,13 +65,14 @@ class SceneScrollView: NSScrollView {
             updateCursorAppearance()
         }
     }
+    
+    fileprivate static let rulerThickness: CGFloat = 16.0
+    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
+    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
+    static let alternativeBoundsOrigin = CGPoint(x: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView, y: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView)
     var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
-        guard let thicknessV = verticalRulerView?.ruleThickness else { return rect }
-        guard let thicknessH = horizontalRulerView?.ruleThickness else { return rect }
-        guard let reversedThicknessV = verticalRulerView?.reservedThicknessForMarkers else { return rect }
-        guard let reversedThicknessH = horizontalRulerView?.reservedThicknessForMarkers else { return rect }
-        return CGRect(x: rect.origin.x + (thicknessH + reversedThicknessH), y: rect.origin.y + (thicknessV + reversedThicknessV), width: rect.width - (thicknessH + reversedThicknessH), height: rect.height - (thicknessV + reversedThicknessV))
+        return CGRect(x: rect.minX + SceneScrollView.alternativeBoundsOrigin.x, y: rect.minY + SceneScrollView.alternativeBoundsOrigin.y, width: rect.width - SceneScrollView.alternativeBoundsOrigin.x, height: rect.height - SceneScrollView.alternativeBoundsOrigin.y)
     }
     
     fileprivate lazy var draggingOverlay: DraggingOverlay = {
@@ -96,16 +97,16 @@ class SceneScrollView: NSScrollView {
         
         if let rulerView = verticalRulerView {
             rulerView.measurementUnits = .points
-            rulerView.ruleThickness = 17.0
-            rulerView.reservedThicknessForMarkers = 16.0
-            rulerView.reservedThicknessForAccessoryView = 0.0
+            rulerView.ruleThickness = SceneScrollView.rulerThickness
+            rulerView.reservedThicknessForMarkers = SceneScrollView.reservedThicknessForMarkers
+            rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
         
         if let rulerView = horizontalRulerView {
             rulerView.measurementUnits = .points
-            rulerView.ruleThickness = 17.0
-            rulerView.reservedThicknessForMarkers = 16.0
-            rulerView.reservedThicknessForAccessoryView = 0.0
+            rulerView.ruleThickness = SceneScrollView.rulerThickness
+            rulerView.reservedThicknessForMarkers = SceneScrollView.reservedThicknessForMarkers
+            rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
         
         addSubview(draggingOverlay)

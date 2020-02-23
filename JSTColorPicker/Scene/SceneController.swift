@@ -15,6 +15,26 @@ extension CGPoint {
         return CGPoint(x: floor(x) + 0.5, y: floor(y) + 0.5)
     }
     
+    func offsetBy(_ point: CGPoint) -> CGPoint {
+        return CGPoint(x: x + point.x, y: y + point.y)
+    }
+    
+    static prefix func -(_ point: CGPoint) -> CGPoint {
+        return CGPoint(x: -point.x, y: -point.y)
+    }
+    
+}
+
+extension CGSize: Comparable {
+    
+    public static func < (lhs: CGSize, rhs: CGSize) -> Bool {
+        return lhs.width * lhs.height < rhs.width * rhs.height
+    }
+    
+    static prefix func -(_ size: CGSize) -> CGSize {
+        return CGSize(width: -size.width, height: -size.height)
+    }
+    
 }
 
 extension CGRect {
@@ -55,6 +75,10 @@ extension CGRect {
     
     var center: CGPoint {
         return CGPoint(x: midX, y: midY)
+    }
+    
+    func offsetBy(_ point: CGPoint) -> CGRect {
+        return CGRect(origin: origin.offsetBy(point), size: size)
     }
     
 }
@@ -100,6 +124,9 @@ class SceneController: NSViewController {
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
     @IBOutlet weak var sceneOverlayView: SceneScrollOverlayView!
+    @IBOutlet weak var sceneOverlayTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sceneOverlayLeadingConstraint: NSLayoutConstraint!
+    
     fileprivate var horizontalRulerView: RulerView {
         return sceneView.horizontalRulerView as! RulerView
     }
@@ -113,12 +140,13 @@ class SceneController: NSViewController {
         return sceneView.visibleRectExcludingRulers.contains(point)
     }
     fileprivate func isInscenePixelLocation(_ point: CGPoint) -> Bool {
-        return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && wrapper.visibleRect.contains(point)
+        return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && sceneView.documentVisibleRect.contains(point)
     }
     fileprivate var windowActiveNotificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeController()
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
@@ -135,10 +163,6 @@ class SceneController: NSViewController {
             }
             return event
         }
-        
-        // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
-        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
-        initializeController()
         
         sceneClipView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidScrollNotification(_:)), name: NSView.boundsDidChangeNotification, object: sceneClipView)
@@ -528,6 +552,11 @@ extension SceneController: ScreenshotLoader {
         sceneView.verticalRulerView?.clientView = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
         
+        // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
+        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
+        
+        sceneOverlayTopConstraint.constant = SceneScrollView.alternativeBoundsOrigin.y
+        sceneOverlayLeadingConstraint.constant = SceneScrollView.alternativeBoundsOrigin.x
         useSelectedTrackingTool()
     }
     
@@ -658,15 +687,15 @@ extension SceneController: AnnotatorManager {
     fileprivate func updateFrame(of annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
             annotator.view.isSmallArea = true
-            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
-            annotator.view.frame = CGRect(origin: pointInMask, size: annotator.view.defaultSize).offsetBy(dx: annotator.view.defaultOffset.x, dy: annotator.view.defaultOffset.y)
+            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-SceneScrollView.alternativeBoundsOrigin)
+            annotator.view.frame = CGRect(origin: pointInMask, size: annotator.view.defaultSize).offsetBy(annotator.view.defaultOffset)
         }
         else if let annotator = annotator as? AreaAnnotator {
-            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper)
+            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-SceneScrollView.alternativeBoundsOrigin)
             // if smaller than default size
-            if rectInMask.width < annotator.view.defaultSize.width || rectInMask.height < annotator.view.defaultSize.height {
+            if rectInMask.size < annotator.view.defaultSize {
                 annotator.view.isSmallArea = true
-                annotator.view.frame = CGRect(origin: rectInMask.center, size: annotator.view.defaultSize).offsetBy(dx: annotator.view.defaultOffset.x, dy: annotator.view.defaultOffset.y)
+                annotator.view.frame = CGRect(origin: rectInMask.center, size: annotator.view.defaultSize).offsetBy(annotator.view.defaultOffset)
             } else {
                 annotator.view.isSmallArea = false
                 annotator.view.frame = rectInMask.inset(by: annotator.view.outerInsets)

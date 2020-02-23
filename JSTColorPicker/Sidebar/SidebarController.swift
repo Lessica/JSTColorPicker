@@ -25,10 +25,11 @@ extension String {
 
 extension NSImage {
     convenience init(color: NSColor, size: NSSize) {
-        self.init(size: size)
-        lockFocus()
-        color.drawSwatch(in: NSRect(origin: .zero, size: size))
-        unlockFocus()
+        self.init(size: size, flipped: false) { (rect) -> Bool in
+            color.drawSwatch(in: NSRect(origin: .zero, size: rect.size))
+            return true
+        }
+        cacheMode = .never
     }
 }
 
@@ -70,6 +71,7 @@ class SidebarController: NSViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        previewSliderLabel.textColor = .white
         colorPanel.mode = .RGB
         colorPanel.showsAlpha = true
         // colorPanel.styleMask
