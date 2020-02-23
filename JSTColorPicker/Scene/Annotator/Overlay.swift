@@ -53,8 +53,6 @@ class Overlay: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        
         guard isBordered else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         

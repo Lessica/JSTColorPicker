@@ -280,7 +280,7 @@ extension ContentController: ContentResponder {
             tableView.scrollRowToVisible(numberOfRows - 1)
         }
         
-        return item
+        return try selectContentItem(item)
     }
     
     func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {

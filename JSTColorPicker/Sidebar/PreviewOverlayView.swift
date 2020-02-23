@@ -59,8 +59,6 @@ class PreviewOverlayView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
         ctx.saveGState()
