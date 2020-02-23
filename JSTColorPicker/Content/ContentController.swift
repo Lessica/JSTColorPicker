@@ -471,6 +471,8 @@ extension ContentController: ScreenshotLoader {
     
     func initializeController() {
         self.screenshot = nil
+        addCoordinateButton.isEnabled = false
+        addCoordinateField.isEnabled = false
         tableView.reloadData()
     }
     
@@ -479,6 +481,8 @@ extension ContentController: ScreenshotLoader {
             throw ScreenshotError.invalidContent
         }
         self.screenshot = screenshot
+        addCoordinateButton.isEnabled = true
+        addCoordinateField.isEnabled = true
         tableView.reloadData()
     }
     

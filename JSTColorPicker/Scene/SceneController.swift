@@ -828,7 +828,13 @@ extension SceneController: PreviewResponder {
     
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
-        // sceneOverlayView.isHidden = isChanging
+        if sceneOverlayView.isHidden != isChanging {
+            if isChanging {
+                hideSceneOverlay()
+            } else {
+                showSceneOverlay()
+            }
+        }
         sceneView.magnification = magnification
     }
     
