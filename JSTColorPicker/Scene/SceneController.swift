@@ -198,8 +198,6 @@ class SceneController: NSViewController {
         
         let wrapper = SceneImageWrapper(frame: initialRect)
         wrapper.rulerViewClient = self
-        let grid = SceneImageGrid(frame: initialRect)
-        wrapper.addSubview(grid)
         wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
         sceneView.verticalRulerView?.clientView = wrapper
