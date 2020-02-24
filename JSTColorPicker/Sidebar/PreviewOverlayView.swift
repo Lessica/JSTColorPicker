@@ -95,23 +95,18 @@ class PreviewOverlayView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        super.mouseEntered(with: event)
         updateCursorAppearance()
     }
     
     override func mouseMoved(with event: NSEvent) {
-        super.mouseMoved(with: event)
         updateCursorAppearance()
     }
     
     override func mouseExited(with event: NSEvent) {
-        super.mouseExited(with: event)
         NSCursor.arrow.set()
     }
     
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-        
         let loc = convert(event.locationInWindow, from: nil)
         guard imageArea.contains(loc) else { return }
         

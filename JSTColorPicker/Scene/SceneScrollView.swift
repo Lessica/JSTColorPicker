@@ -193,19 +193,16 @@ class SceneScrollView: NSScrollView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        super.mouseEntered(with: event)
         trackAreaChanged(with: event)
         updateCursorAppearance()
     }
     
     override func mouseMoved(with event: NSEvent) {
-        super.mouseMoved(with: event)
         trackAreaChanged(with: event)
         updateCursorAppearance()
     }
     
     override func mouseExited(with event: NSEvent) {
-        super.mouseExited(with: event)
         trackAreaChanged(with: event)
         NSCursor.arrow.set()
     }
@@ -279,7 +276,6 @@ class SceneScrollView: NSScrollView {
     }
     
     override func mouseDragged(with event: NSEvent) {
-        super.mouseDragged(with: event)
         guard isBeingManipulated else { return }
         guard !beginDraggingLocation.isNull else { return }
         

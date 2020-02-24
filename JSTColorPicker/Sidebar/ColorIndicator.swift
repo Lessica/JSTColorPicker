@@ -19,14 +19,12 @@ class ColorIndicator: NSImageView {
     }
     
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
         if let action = action {
             NSApp.sendAction(action, to: self.target, from: self)
         }
     }
     
     override func cursorUpdate(with event: NSEvent) {
-        super.cursorUpdate(with: event)
         NSCursor.pointingHand.set()
     }
     
