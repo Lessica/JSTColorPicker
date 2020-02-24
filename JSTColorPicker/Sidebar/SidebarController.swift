@@ -53,6 +53,9 @@ class SidebarController: NSViewController {
     @IBOutlet weak var previewSliderLabel: NSTextField!
     weak var previewOverlayDelegate: PreviewResponder?
     
+    @IBOutlet weak var exportButton: NSButton!
+    @IBOutlet weak var optionButton: NSButton!
+    
     fileprivate let colorPanel = NSColorPanel.shared
     fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
@@ -164,6 +167,14 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
         previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
         previewSliderLabel.isHidden = !isPressed
+    }
+    
+    @IBAction func exportButtonTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func optionButtonTapped(_ sender: Any) {
+        
     }
     
 }

@@ -350,7 +350,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -383,7 +383,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="58" minWidth="58" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -419,7 +419,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -506,9 +506,12 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="242" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
                                         </textFieldCell>
                                         <connections>
                                             <action selector="addCoordinateFieldChanged:" target="jWv-ak-Q1b" id="ffe-yV-f0V"/>
@@ -881,10 +884,10 @@ CA
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="800"/>
+                                <rect key="frame" x="0.0" y="42" width="256" height="758"/>
                                 <subviews>
-                                    <customView misplaced="YES" id="VAj-Tz-9Wg">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="118"/>
+                                    <customView id="VAj-Tz-9Wg">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
@@ -899,7 +902,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="228" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -923,8 +926,8 @@ CA
                                             <constraint firstItem="Gfv-9i-i9I" firstAttribute="top" secondItem="VAj-Tz-9Wg" secondAttribute="top" id="pKR-df-9y6"/>
                                         </constraints>
                                     </customView>
-                                    <customView misplaced="YES" id="OBa-Ic-u2F">
-                                        <rect key="frame" x="0.0" y="127" width="256" height="134"/>
+                                    <customView id="OBa-Ic-u2F">
+                                        <rect key="frame" x="0.0" y="53" width="256" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
@@ -1075,7 +1078,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView id="HdP-zT-hUX">
-                                        <rect key="frame" x="0.0" y="270" width="256" height="260"/>
+                                        <rect key="frame" x="0.0" y="127" width="256" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" controlSize="mini" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="bVO-f8-Cxo">
@@ -1144,7 +1147,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView fixedFrame="YES" id="VHW-Hv-tlU">
-                                        <rect key="frame" x="0.0" y="539" width="256" height="261"/>
+                                        <rect key="frame" x="0.0" y="396" width="256" height="362"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
@@ -1155,15 +1158,67 @@ CA
                                     <real value="251"/>
                                 </holdingPriorities>
                             </splitView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJt-oH-ODD">
+                                <rect key="frame" x="0.0" y="0.0" width="256" height="42"/>
+                                <subviews>
+                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kNr-aZ-8VU">
+                                        <rect key="frame" x="0.0" y="39" width="256" height="5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="2Vu-Ae-POM"/>
+                                        </constraints>
+                                    </box>
+                                    <button toolTip="Copy Selected (⌘C)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gdd-Og-hUZ">
+                                        <rect key="frame" x="12" y="4" width="188" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="DIC-xF-g3j"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="push" title="Copy Selected..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu" size="11"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="exportButtonTapped:" target="Z2W-Gy-vmx" id="6Mn-vu-EO4"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pqW-4d-vSK">
+                                        <rect key="frame" x="192" y="4" width="52" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="yRo-bv-eSU"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="optionButtonTapped:" target="Z2W-Gy-vmx" id="h4y-Ov-BRT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Gdd-Og-hUZ" firstAttribute="centerY" secondItem="zJt-oH-ODD" secondAttribute="centerY" id="1cI-xJ-SHq"/>
+                                    <constraint firstItem="pqW-4d-vSK" firstAttribute="centerY" secondItem="zJt-oH-ODD" secondAttribute="centerY" id="2vF-sJ-qdT"/>
+                                    <constraint firstAttribute="trailing" secondItem="kNr-aZ-8VU" secondAttribute="trailing" id="8bs-FP-gY2"/>
+                                    <constraint firstItem="Gdd-Og-hUZ" firstAttribute="centerX" secondItem="zJt-oH-ODD" secondAttribute="centerX" constant="-22" id="D9z-Be-pCs"/>
+                                    <constraint firstItem="pqW-4d-vSK" firstAttribute="leading" secondItem="Gdd-Og-hUZ" secondAttribute="trailing" constant="4" id="hNV-Z4-m5j"/>
+                                    <constraint firstItem="pqW-4d-vSK" firstAttribute="height" secondItem="Gdd-Og-hUZ" secondAttribute="height" id="hik-B8-Amp"/>
+                                    <constraint firstItem="kNr-aZ-8VU" firstAttribute="top" secondItem="zJt-oH-ODD" secondAttribute="top" id="oTp-b6-E1H"/>
+                                    <constraint firstItem="kNr-aZ-8VU" firstAttribute="leading" secondItem="zJt-oH-ODD" secondAttribute="leading" id="uLg-I2-c4V"/>
+                                    <constraint firstAttribute="height" constant="42" id="wSo-I4-VM0"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="zJt-oH-ODD" secondAttribute="bottom" id="BOG-WE-auV"/>
                             <constraint firstItem="ngz-zP-wIW" firstAttribute="leading" secondItem="XXq-bJ-xbS" secondAttribute="leading" id="H16-vZ-9XT"/>
                             <constraint firstAttribute="trailing" secondItem="ngz-zP-wIW" secondAttribute="trailing" id="Hdd-Lc-sxA"/>
                             <constraint firstItem="ngz-zP-wIW" firstAttribute="top" secondItem="XXq-bJ-xbS" secondAttribute="top" id="KYW-cA-9ht"/>
-                            <constraint firstAttribute="bottom" secondItem="ngz-zP-wIW" secondAttribute="bottom" id="nsL-Bk-gg0"/>
+                            <constraint firstAttribute="trailing" secondItem="zJt-oH-ODD" secondAttribute="trailing" id="eoz-cs-Ss5"/>
+                            <constraint firstAttribute="bottom" secondItem="ngz-zP-wIW" secondAttribute="bottom" constant="42" id="nsL-Bk-gg0"/>
+                            <constraint firstItem="zJt-oH-ODD" firstAttribute="leading" secondItem="XXq-bJ-xbS" secondAttribute="leading" id="zSh-5r-0U1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="exportButton" destination="Gdd-Og-hUZ" id="plh-lg-ol9"/>
                         <outlet property="imageLabel" destination="IRz-cZ-umT" id="bjt-LX-qoj"/>
                         <outlet property="inspectorAreaLabel" destination="dqs-yK-Ge8" id="feO-Io-3HE"/>
                         <outlet property="inspectorAreaLabel2" destination="hpv-rQ-7mB" id="DyD-HF-opz"/>
@@ -1171,6 +1226,7 @@ CA
                         <outlet property="inspectorColorFlag2" destination="7PR-rN-AE5" id="SsA-St-oD8"/>
                         <outlet property="inspectorColorLabel" destination="3dj-M4-SbZ" id="5ao-VE-JHU"/>
                         <outlet property="inspectorColorLabel2" destination="huo-Ij-tNn" id="Fkm-ID-GVq"/>
+                        <outlet property="optionButton" destination="pqW-4d-vSK" id="NIG-D9-4Es"/>
                         <outlet property="previewImageView" destination="hjE-mX-KFT" id="sQi-a4-dpp"/>
                         <outlet property="previewOverlayView" destination="6ix-tE-zJZ" id="NOP-LM-YTs"/>
                         <outlet property="previewSlider" destination="LE0-eB-1FR" id="wfn-PP-f0H"/>
@@ -1193,5 +1249,6 @@ CA
         <image name="JSTScaleToFit" width="128" height="128"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSListViewTemplate" width="14" height="10"/>
     </resources>
 </document>

@@ -11,15 +11,14 @@ import Foundation
 class RulerView: NSRulerView {
     
     // TODO: override hitTest:
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        return nil
-    }
     
     override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
         // TODO: not implemented
     }
     
     override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
         // TODO: not implemented
     }
     
@@ -28,6 +27,7 @@ class RulerView: NSRulerView {
     }
     
     override func mouseDragged(with event: NSEvent) {
+        super.mouseDragged(with: event)
         // TODO: not implemented
     }
     
