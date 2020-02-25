@@ -67,7 +67,7 @@ return {
     uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  -- unique, required
     name = "Example",  -- required
     version = "0.1",  -- required
-    platformVersion = "1.6",
+    platformVersion = "1.7",
     author = "Lessica",
     description = "This is an example of JSTColorPicker export script.",
     extension = "lua",
