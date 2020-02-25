@@ -100,6 +100,9 @@ There's no need to explain.
 1. Select an item.
 2. Modify item *coordinate* or *area* by moving ruler markers.
 
+### Item Export
+- `⌘E`: Export all items using selected template.
+
 ### Others
 - <code>⌘`</code>: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
 
