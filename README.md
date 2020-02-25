@@ -6,9 +6,9 @@ There are (so many) macOS color pickers for designers. But none of them pick col
 - Pick colors & areas from PNG screenshots
 - Read/Write annotator data from/into EXIF dictionary of PNG files
 - Take screenshots directly from iOS devices (depends `libimobiledevice`)
+- Copy/Export annotator data using custom templates
 
 ## TODOs
-- Copy/Export annotator data using custom templates
 - Drag to move/resize annotators
 - Take screenshots from Android devices
 

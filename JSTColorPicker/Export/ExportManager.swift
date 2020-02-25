@@ -6,6 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
+import OSLog
 import Foundation
 
 extension String {
@@ -21,6 +22,23 @@ extension String {
         }
 
         return results.map { String($0) }
+    }
+    
+}
+
+extension Array {
+    
+    func filterDuplicates(includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element] {
+        var results = [Element]()
+        forEach { (element) in
+            let existingElements = results.filter {
+                return includeElement(element, $0)
+            }
+            if existingElements.count == 0 {
+                results.append(element)
+            }
+        }
+        return results
     }
     
 }
@@ -41,12 +59,16 @@ enum ExportError: LocalizedError {
 
 class ExportManager {
     
-    static var templateRoot: URL {
+    static var templateRootURL: URL {
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("templates")
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         return url
+    }
+    
+    static var exampleTemplateURL: URL? {
+        return Bundle.main.url(forResource: "example", withExtension: "lua")
     }
     
     var templates: [Template] = []
@@ -61,26 +83,48 @@ class ExportManager {
             UserDefaults.standard.set(newValue?.uuidString, forKey: Defaults.lastSelectedTemplateUUID.rawValue)
         }
     }
+    
     weak var screenshot: Screenshot?
     
     required init(screenshot: Screenshot) {
-        if let contents = try? FileManager.default.contentsOfDirectory(at: ExportManager.templateRoot, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
-            let templates = contents.filter({ $0.pathExtension == "lua" }).compactMap({ try? Template(from: $0) }).sorted(by: { $0.name.compare($1.name) == .orderedAscending })
-            self.templates.append(contentsOf: templates)
-        }
         self.screenshot = screenshot
-        
-        if !(selectedTemplateUUID != nil) {
-            if let uuid = self.templates.first?.uuid {
-                selectedTemplateUUID = uuid
-            }
-        }
+        try? reloadTemplates()
     }
     
     fileprivate func exportToPasteboardAsString(_ string: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(string, forType: .string)
+    }
+    
+    func reloadTemplates() throws {
+        var errors: [(URL, TemplateError)] = []
+        let contents = try FileManager.default.contentsOfDirectory(at: ExportManager.templateRootURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants])
+        
+        // purpose: filter the greatest version of each template
+        let templates = Dictionary(grouping: contents
+            .filter({ $0.pathExtension == "lua" })
+            .compactMap({ (url) -> Template? in
+                do {
+                    return try Template(from: url)
+                } catch let error as TemplateError {
+                    errors.append((url, error))
+                }
+                catch {}
+                return nil
+            })
+            .sorted(by: { $0.version.isVersion(greaterThan: $1.version) }), by: { $0.uuid })
+            .compactMap({ $0.1.first })
+        
+        // templates.forEach({ dump($0) })
+        self.templates.append(contentsOf: templates)
+        errors.forEach({ os_log("Cannot load template: %@, failure reason: %@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
+        
+        if !(selectedTemplate != nil) {
+            if let uuid = self.templates.first?.uuid {
+                selectedTemplateUUID = uuid
+            }
+        }
     }
     
     func copyPixelColor(at coordinate: PixelCoordinate) throws {
@@ -102,7 +146,14 @@ class ExportManager {
     func copyContentItems(_ items: [ContentItem]) throws {
         guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
         guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
-        exportToPasteboardAsString(try selectedTemplate.generate(image, for: items))
+        do {
+            exportToPasteboardAsString(try selectedTemplate.generate(image, for: items))
+        } catch let error as TemplateError {
+            os_log("Cannot generate template: %@, failure reason: %@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            throw error
+        } catch let error {
+            throw error
+        }
     }
     
     func exportAllItems(to url: URL) throws {
@@ -113,14 +164,21 @@ class ExportManager {
             throw ExportError.noDocumentLoaded
         }
         guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
-        if let data = (try selectedTemplate.generate(image, for: items)).data(using: .utf8) {
-            try data.write(to: url)
+        do {
+            if let data = (try selectedTemplate.generate(image, for: items)).data(using: .utf8) {
+                try data.write(to: url)
+            }
+        } catch let error as TemplateError {
+            os_log("Cannot generate template: %@, failure reason: %@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            throw error
+        } catch let error {
+            throw error
         }
     }
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {
         guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
-        guard let exampleTemplateURL = Bundle.main.url(forResource: "example", withExtension: "lua") else { throw ExportError.noTemplateSelected }
+        guard let exampleTemplateURL = ExportManager.exampleTemplateURL else { throw ExportError.noTemplateSelected }
         let exampleTemplate = try Template(from: exampleTemplateURL)
         let generatedString = try exampleTemplate.generate(image, for: items)
         exportToPasteboardAsString(generatedString)
