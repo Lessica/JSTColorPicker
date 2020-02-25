@@ -97,6 +97,12 @@ class ContentController: NSViewController {
         }
     }
     
+    override func willPresentError(_ error: Error) -> Error {
+        let error = super.willPresentError(error)
+        debugPrint(error.localizedDescription)
+        return error
+    }
+    
     @IBAction func similarityFieldChanged(_ sender: NSTextField) {
         guard let content = content else { return }
         let row = tableView.row(for: sender)
@@ -362,7 +368,10 @@ extension ContentController: ContentTableViewResponder {
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
-        let rows = tableView.selectedRowIndexes
+        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
+            rows = IndexSet(integer: tableView.clickedRow)
+        }
         var selectedItems: [ContentItem] = []
         rows.forEach { (row) in
             if row >= 0 && row < collection.count {
@@ -377,17 +386,25 @@ extension ContentController: ContentTableViewResponder {
 extension ContentController: NSUserInterfaceValidations {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:))  {
+        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:)) || item.action == #selector(doDoubleClick(_:))  {
+            let idx = tableView.clickedRow
             let idxs = tableView.selectedRowIndexes
-            return idxs.count > 0
+            return idx >= 0 || idxs.count > 0
         }
         return false
+    }
+    
+    @IBAction func doDoubleClick(_ sender: Any) {
+        tableViewDoubleAction(tableView)
     }
     
     @IBAction func delete(_ sender: Any) {
         guard let content = content else { return }
         let collection = content.items
-        let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
+            rows = IndexSet(integer: tableView.clickedRow)
+        }
         var selectedItems: [ContentItem] = []
         for row in rows {
             selectedItems.append(collection[row])
@@ -399,15 +416,23 @@ extension ContentController: NSUserInterfaceValidations {
     @IBAction func copy(_ sender: Any) {
         guard let content = content else { return }
         let collection = content.items
-        let rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
+        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
+            rows = IndexSet(integer: tableView.clickedRow)
+        }
         var selectedItems: [ContentItem] = []
         for row in rows {
             selectedItems.append(collection[row])
         }
-        if (selectedItems.count == 1) {
-            screenshot?.export.copyContentItem(selectedItems.first!)
-        } else {
-            screenshot?.export.copyContentItems(selectedItems)
+        do {
+            if (selectedItems.count == 1) {
+                try screenshot?.export.copyContentItem(selectedItems.first!)
+            } else {
+                try screenshot?.export.copyContentItems(selectedItems)
+            }
+        }
+        catch let error {
+            presentError(error)
         }
     }
     

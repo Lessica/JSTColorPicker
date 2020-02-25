@@ -462,6 +462,7 @@ CA
                                                 <action trigger="doubleAction" selector="tableViewDoubleAction:" target="jWv-ak-Q1b" id="zE4-Yx-Bqk"/>
                                                 <outlet property="dataSource" destination="jWv-ak-Q1b" id="Vq1-jk-L6i"/>
                                                 <outlet property="delegate" destination="jWv-ak-Q1b" id="XOm-3J-HVi"/>
+                                                <outlet property="menu" destination="em0-cZ-Yb4" id="7Zh-Wv-NGZ"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -548,6 +549,33 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="3aj-p6-68g" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="em0-cZ-Yb4">
+                    <items>
+                        <menuItem title="Locate" id="Hat-pH-Npm">
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="doDoubleClick:" target="3aj-p6-68g" id="lXM-Zl-sVu"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Copy" keyEquivalent="c" id="Pbb-dn-eVi">
+                            <connections>
+                                <action selector="copy:" target="3aj-p6-68g" id="GbN-Mk-lvL"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Delete" id="4lo-8e-kgl">
+                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="delete:" target="3aj-p6-68g" id="w8M-Xb-cT0"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="660" y="127"/>
         </scene>
@@ -1172,25 +1200,28 @@ CA
                                         <constraints>
                                             <constraint firstAttribute="width" constant="176" id="DIC-xF-g3j"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="push" title="Copy Selected..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
+                                        <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu" size="11"/>
+                                            <string key="keyEquivalent">e</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="exportButtonTapped:" target="Z2W-Gy-vmx" id="6Mn-vu-EO4"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pqW-4d-vSK">
+                                    <button toolTip="Templates..." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pqW-4d-vSK">
                                         <rect key="frame" x="192" y="4" width="52" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="yRo-bv-eSU"/>
                                         </constraints>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="optionButtonTapped:" target="Z2W-Gy-vmx" id="h4y-Ov-BRT"/>
+                                            <outlet property="menu" destination="rtn-Zg-Uqc" id="NjK-nP-a0D"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1227,6 +1258,7 @@ CA
                         <outlet property="inspectorColorLabel" destination="3dj-M4-SbZ" id="5ao-VE-JHU"/>
                         <outlet property="inspectorColorLabel2" destination="huo-Ij-tNn" id="Fkm-ID-GVq"/>
                         <outlet property="optionButton" destination="pqW-4d-vSK" id="NIG-D9-4Es"/>
+                        <outlet property="optionMenu" destination="rtn-Zg-Uqc" id="kbz-Fl-DFV"/>
                         <outlet property="previewImageView" destination="hjE-mX-KFT" id="sQi-a4-dpp"/>
                         <outlet property="previewOverlayView" destination="6ix-tE-zJZ" id="NOP-LM-YTs"/>
                         <outlet property="previewSlider" destination="LE0-eB-1FR" id="wfn-PP-f0H"/>
@@ -1234,6 +1266,17 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="xBN-5i-sBA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu autoenablesItems="NO" id="rtn-Zg-Uqc">
+                    <items>
+                        <menuItem isSeparatorItem="YES" id="aNW-xi-RSB"/>
+                        <menuItem title="Templates in Finder..." id="4WQ-hK-LNU">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="showInFinderMenuTapped:" target="Z2W-Gy-vmx" id="rrj-Y8-4iC"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="2072" y="127"/>
         </scene>

@@ -57,6 +57,34 @@ extension Double: Value {
     
 }
 
+extension CGFloat: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushnumber(vm.vm, Double(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Double.arg(vm, value: value)
+    }
+    
+}
+
+extension Float: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushnumber(vm.vm, Double(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Double.arg(vm, value: value)
+    }
+    
+}
+
 extension Int64: Value {
     
     public func push(_ vm: VirtualMachine) {
@@ -75,7 +103,91 @@ extension Int64: Value {
     
 }
 
+extension Int32: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
 extension Int: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
+extension Int16: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
+extension Int8: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
+extension UInt32: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
+extension UInt16: Value {
+    
+    public func push(_ vm: VirtualMachine) {
+        lua_pushinteger(vm.vm, Int64(self))
+    }
+    
+    public func kind() -> Kind { return .number }
+    
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        return Int64.arg(vm, value: value)
+    }
+    
+}
+
+extension UInt8: Value {
     
     public func push(_ vm: VirtualMachine) {
         lua_pushinteger(vm.vm, Int64(self))

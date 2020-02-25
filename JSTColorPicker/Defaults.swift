@@ -9,5 +9,6 @@
 import Foundation
 
 enum Defaults: String {
-    case lastSelectedDeviceUDID = "LastSelectedDeviceUDID"
+    case lastSelectedDeviceUDID
+    case lastSelectedTemplateUUID
 }

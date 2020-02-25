@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LuaSwift
 
 class PixelArea: ContentItem {
     
@@ -22,6 +23,10 @@ class PixelArea: ContentItem {
         super.init(id: 0)
     }
     
+    enum CodingKeys: String, CodingKey {
+        case rect
+    }
+    
     required init?(coder: NSCoder) {
         let coordX = coder.decodeInteger(forKey: "rect.origin.x")
         let coordY = coder.decodeInteger(forKey: "rect.origin.y")
@@ -31,6 +36,12 @@ class PixelArea: ContentItem {
         super.init(coder: coder)
     }
     
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        rect = try container.decode(PixelRect.self, forKey: .rect)
+        try super.init(from: decoder)
+    }
+    
     deinit {
         // debugPrint("- [PixelArea deinit]")
     }
@@ -38,6 +49,12 @@ class PixelArea: ContentItem {
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? PixelArea else { return false }
         return self == object
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(rect, forKey: .rect)
     }
     
     override func encode(with coder: NSCoder) {
@@ -51,6 +68,33 @@ class PixelArea: ContentItem {
     override func copy(with zone: NSZone? = nil) -> Any {
         return PixelArea(id: id, rect: rect)
     }
+    
+    override func push(_ vm: VirtualMachine) {
+        let t = vm.createTable()
+        t["id"] = id
+        t["similarity"] = similarity
+        t["x"] = rect.x
+        t["y"] = rect.y
+        t["w"] = rect.width
+        t["h"] = rect.height
+        t.push(vm)
+    }
+    
+    override func kind() -> Kind { return .table }
+    
+    fileprivate static let typeName: String = "pixel area (table with keys [id,similarity,x,y,w,h])"
+    override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        if value.kind() != .table { return typeName }
+        if let result = Table.arg(vm, value: value) { return result }
+        let t = value as! Table
+        if !(t["id"] is Number) || !(t["similarity"] is Number) || !(t["x"] is Number) ||
+            !(t["y"] is Number) || !(t["w"] is Number) || !(t["h"] is Number)
+        {
+            return typeName
+        }
+        return nil
+    }
+    
 }
 
 extension PixelArea /*: Equatable*/ {

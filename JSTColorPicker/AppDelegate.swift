@@ -54,7 +54,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var devicesMenu: NSMenu!
     fileprivate let deviceIdentifierPrefix = "device-"
-    fileprivate var selectedDeviceUDID: String? = UserDefaults.standard.string(forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+    fileprivate var selectedDeviceUDID: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+        }
+    }
     fileprivate static var screenshotDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
@@ -171,7 +178,7 @@ extension AppDelegate: NSMenuDelegate {
 extension AppDelegate: JSTDeviceDelegate {
     
     func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
-        let devices = service.devices.sorted(by: { $1.name.compare($0.name) == .orderedAscending })
+        let devices = service.devices.sorted(by: { $0.name.compare($1.name) == .orderedAscending })
         debugPrint(devices)
         
         var items: [NSMenuItem] = []
@@ -230,7 +237,6 @@ extension AppDelegate: JSTDeviceDelegate {
         guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
         let beginIdx = identifier.index(identifier.startIndex, offsetBy: deviceIdentifierPrefix.lengthOfBytes(using: .utf8))
         let udid = String(identifier[beginIdx...])
-        UserDefaults.standard.set(udid, forKey: Defaults.lastSelectedDeviceUDID.rawValue)
         selectedDeviceUDID = udid
     }
     

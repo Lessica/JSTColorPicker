@@ -23,6 +23,40 @@ extension String {
     }
 }
 
+extension String {
+    
+    // Modified from the DragonCherry extension - https://github.com/DragonCherry/VersionCompare
+    private func compare(toVersion targetVersion: String) -> ComparisonResult {
+        let versionDelimiter = "."
+        var result: ComparisonResult = .orderedSame
+        var versionComponents = components(separatedBy: versionDelimiter)
+        var targetComponents = targetVersion.components(separatedBy: versionDelimiter)
+        
+        while versionComponents.count < targetComponents.count {
+            versionComponents.append("0")
+        }
+        while targetComponents.count < versionComponents.count {
+            targetComponents.append("0")
+        }
+        
+        for (version, target) in zip(versionComponents, targetComponents) {
+            result = version.compare(target, options: .numeric)
+            if result != .orderedSame {
+                break
+            }
+        }
+        
+        return result
+    }
+    
+    func isVersion(equalTo targetVersion: String) -> Bool { return compare(toVersion: targetVersion) == .orderedSame }
+    func isVersion(greaterThan targetVersion: String) -> Bool { return compare(toVersion: targetVersion) == .orderedDescending }
+    func isVersion(greaterThanOrEqualTo targetVersion: String) -> Bool { return compare(toVersion: targetVersion) != .orderedAscending }
+    func isVersion(lessThan targetVersion: String) -> Bool { return compare(toVersion: targetVersion) == .orderedAscending }
+    func isVersion(lessThanOrEqualTo targetVersion: String) -> Bool { return compare(toVersion: targetVersion) != .orderedDescending }
+    
+}
+
 extension NSImage {
     convenience init(color: NSColor, size: NSSize) {
         self.init(size: size, flipped: false) { (rect) -> Bool in
@@ -158,6 +192,12 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         debugPrint("- [SidebarController deinit]")
     }
     
+    override func willPresentError(_ error: Error) -> Error {
+        let error = super.willPresentError(error)
+        debugPrint(error.localizedDescription)
+        return error
+    }
+    
     @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
         colorPanel.color = sender.color
         colorPanel.orderFront(sender)
@@ -169,12 +209,76 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         previewSliderLabel.isHidden = !isPressed
     }
     
-    @IBAction func exportButtonTapped(_ sender: Any) {
-        
+    @IBOutlet var optionMenu: NSMenu!
+    fileprivate var reservedOptionMenuItems: [NSMenuItem] = []
+    fileprivate let templateIdentifierPrefix = "template-"
+    
+    @IBAction func exportButtonTapped(_ sender: NSButton) {
+        do {
+            guard let template = screenshot?.export.selectedTemplate else { throw ExportError.noTemplateSelected }
+            let panel = NSSavePanel()
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: view.window!) { (resp) in
+                if resp == .OK {
+                    if let url = panel.url {
+                        self.exportAllItems(to: url)
+                    }
+                }
+            }
+        }
+        catch let error {
+            presentError(error)
+        }
     }
     
-    @IBAction func optionButtonTapped(_ sender: Any) {
-        
+    fileprivate func exportAllItems(to url: URL) {
+        do {
+            try screenshot?.export.exportAllItems(to: url)
+        }
+        catch let error {
+            presentError(error)
+        }
+    }
+    
+    @IBAction func optionButtonTapped(_ sender: NSButton) {
+        guard let exportManager = screenshot?.export else { return }
+        let items = exportManager.templates.compactMap({ (template) -> NSMenuItem in
+            let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: "")
+            item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(templateIdentifierPrefix)\(template.uuid.uuidString)")
+            let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
+            item.isEnabled = enabled
+            item.state = template.uuid.uuidString == exportManager.selectedTemplate?.uuid.uuidString ? .on : .off
+            if enabled {
+                item.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.description ?? "")
+"""
+            }
+            else {
+                item.toolTip = TemplateError.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+            }
+            return item
+        })
+        optionMenu.items = items + reservedOptionMenuItems
+        optionMenu.popUp(positioning: nil, at: NSEvent.mouseLocation, in: nil)
+    }
+    
+    @IBAction func showInFinderMenuTapped(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(ExportManager.templateRoot)
+    }
+    
+    @objc func templateItemTapped(_ sender: NSMenuItem) {
+        selectTemplateItem(sender)
+    }
+    
+    fileprivate func selectTemplateItem(_ sender: NSMenuItem) {
+        guard let identifier = sender.identifier?.rawValue else { return }
+        guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
+        let beginIdx = identifier.index(identifier.startIndex, offsetBy: templateIdentifierPrefix.lengthOfBytes(using: .utf8))
+        let udidString = String(identifier[beginIdx...])
+        screenshot?.export.selectedTemplateUUID = UUID(uuidString: udidString)
     }
     
 }
@@ -206,6 +310,8 @@ CSS:\("-".leftPadding(to: 9, with: " "))
 \("-".leftPadding(to: 13, with: " "))
 """
         previewSlider.isEnabled = false
+        reservedOptionMenuItems.removeAll()
+        reservedOptionMenuItems.append(contentsOf: optionMenu.items)
     }
     
     func load(_ screenshot: Screenshot) throws {

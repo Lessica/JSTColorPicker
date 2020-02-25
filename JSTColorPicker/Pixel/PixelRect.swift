@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import LuaSwift
 
-struct PixelRect {
+struct PixelRect: Codable {
     public static var zero: PixelRect {
         return PixelRect()
     }
@@ -71,4 +72,28 @@ extension PixelRect: Equatable {
     static func == (lhs: PixelRect, rhs: PixelRect) -> Bool {
         return lhs.origin == rhs.origin && lhs.size == rhs.size
     }
+}
+
+extension PixelRect: LuaSwift.Value {
+    
+    func push(_ vm: VirtualMachine) {
+        let t = vm.createTable()
+        t["x"] = x
+        t["y"] = y
+        t["w"] = width
+        t["h"] = height
+        t.push(vm)
+    }
+    
+    func kind() -> Kind { return .table }
+    
+    fileprivate static let typeName: String = "pixel rect (table with keys [x,y,w,h])"
+    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        if value.kind() != .table { return typeName }
+        if let result = Table.arg(vm, value: value) { return result }
+        let t = value as! Table
+        if !(t["x"] is Number) || !(t["y"] is Number) || !(t["w"] is Number) || !(t["h"] is Number) { return typeName }
+        return nil
+    }
+    
 }

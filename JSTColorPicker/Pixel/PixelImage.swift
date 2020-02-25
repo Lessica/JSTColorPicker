@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import LuaSwift
 
 enum PixelImageError: LocalizedError {
     case readFailed
@@ -68,8 +69,22 @@ class PixelImage {
         return PixelArea(rect: rect)
     }
     
+    func pngRepresentation() -> Data {
+        return pixelImageRep.pngRepresentation()
+    }
+    
+    func pngRepresentation(of area: PixelArea) -> Data? {
+        guard bounds.contains(area.rect) else { return nil }
+        return pixelImageRep.crop(area.rect.toCGRect()).pngRepresentation()
+    }
+    
     func toNSImage() -> NSImage {
         return pixelImageRep.toNSImage()
+    }
+    
+    func toNSImage(of area: PixelArea) -> NSImage? {
+        guard bounds.contains(area.rect) else { return nil }
+        return pixelImageRep.crop(area.rect.toCGRect()).toNSImage()
     }
     
     func downsample(to pointSize: CGSize, scale: CGFloat) -> NSImage {
@@ -87,6 +102,46 @@ class PixelImage {
     
     deinit {
         debugPrint("- [PixelImage deinit]")
+    }
+    
+}
+
+extension PixelImage: LuaSwift.Value {
+    
+    func push(_ vm: VirtualMachine) {
+        let t = vm.createTable()
+        t["w"] = size.width
+        t["h"] = size.height
+        t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
+            let (x, y) = (args.integer, args.integer)
+            if let color = self.color(at: PixelCoordinate(x: Int(x), y: Int(y)))?.intValueWithAlpha {
+                return .value(color)
+            }
+            else {
+                return .error(ContentError.itemOutOfRange.failureReason!)
+            }
+        })
+        t["get_image"] = vm.createFunction([ Int64.arg, Int64.arg, Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
+            let (x, y, w, h) = (args.integer, args.integer, args.integer, args.integer)
+            if let data = self.pngRepresentation(of: PixelArea(rect: PixelRect(x: Int(x), y: Int(y), width: Int(w), height: Int(h)))) {
+                return .value(data)
+            }
+            else {
+                return .error(ContentError.itemOutOfRange.failureReason!)
+            }
+        })
+        t.push(vm)
+    }
+    
+    func kind() -> Kind { return .table }
+    
+    fileprivate static let typeName: String = "pixel image (table with keys [w,h,get_color,get_image])"
+    class func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        if value.kind() != .table { return typeName }
+        if let result = Table.arg(vm, value: value) { return result }
+        let t = value as! Table
+        if !(t["w"] is Number) || !(t["h"] is Number) || !(t["get_color"] is Function) || !(t["get_image"] is Function) { return typeName }
+        return nil
     }
     
 }

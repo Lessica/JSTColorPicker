@@ -484,7 +484,7 @@ class SceneController: NSViewController {
     fileprivate func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
         guard let screenshot = screenshot else { return false }
         guard isInscenePixelLocation(pixelLocation) else { return false }
-        screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
+        try? screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
         return true
     }
      

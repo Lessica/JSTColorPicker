@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import LuaSwift
 
-struct PixelSize {
+struct PixelSize: Codable {
     public static var zero: PixelSize {
         return PixelSize()
     }
@@ -44,4 +45,26 @@ extension PixelSize: Comparable {
     static func < (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width * lhs.height < rhs.width * rhs.height
     }
+}
+
+extension PixelSize: LuaSwift.Value {
+    
+    func push(_ vm: VirtualMachine) {
+        let t = vm.createTable()
+        t["w"] = width
+        t["h"] = height
+        t.push(vm)
+    }
+    
+    func kind() -> Kind { return .table }
+    
+    fileprivate static let typeName: String = "pixel size (table with keys [w,h])"
+    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+        if value.kind() != .table { return typeName }
+        if let result = Table.arg(vm, value: value) { return result }
+        let t = value as! Table
+        if !(t["w"] is Number) || !(t["h"] is Number) { return typeName }
+        return nil
+    }
+    
 }
