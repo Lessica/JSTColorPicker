@@ -117,6 +117,7 @@ class ExportManager {
             .compactMap({ $0.1.first })
         
         // templates.forEach({ dump($0) })
+        self.templates.removeAll()
         self.templates.append(contentsOf: templates)
         errors.forEach({ os_log("Cannot load template: %@, failure reason: %@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
         

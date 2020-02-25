@@ -233,12 +233,21 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         optionMenu.popUp(positioning: nil, at: NSEvent.mouseLocation, in: nil)
     }
     
+    @IBAction func reloadAllTemplatesMenuTapped(_ sender: NSMenuItem) {
+        do {
+            try screenshot?.export.reloadTemplates()
+        }
+        catch let error {
+            presentError(error)
+        }
+    }
+    
     @IBAction func showTemplatesMenuTapped(_ sender: NSMenuItem) {
         copyExampleTemplatesIfNeeded()
         NSWorkspace.shared.open(ExportManager.templateRootURL)
     }
     
-    @IBAction func showLogsMenuTapped(_ sender: Any) {
+    @IBAction func showLogsMenuTapped(_ sender: NSMenuItem) {
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Applications/Utilities/Console.app", isDirectory: true))
     }
     
