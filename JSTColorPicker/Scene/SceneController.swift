@@ -112,12 +112,12 @@ class SceneController: NSViewController {
     }
     
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
-    fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 7)  // 128x
+    fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
     fileprivate static let zoomingFactors: [CGFloat] = [
         0.250, 0.333, 0.500, 0.667, 1.000,
         2.000, 3.000, 4.000, 5.000, 6.000,
         7.000, 8.000, 12.00, 16.00, 32.00,
-        64.00, 128.0
+        64.00, 128.0, 256.0
     ]
     fileprivate static let minimumRecognizablePixelWidth: CGFloat = 10.0
     

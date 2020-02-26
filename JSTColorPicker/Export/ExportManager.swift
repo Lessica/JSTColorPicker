@@ -77,10 +77,10 @@ class ExportManager {
     }
     var selectedTemplateUUID: UUID? {
         get {
-            return UUID(uuidString: UserDefaults.standard.string(forKey: Defaults.lastSelectedTemplateUUID.rawValue) ?? "")
+            return UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "")
         }
         set {
-            UserDefaults.standard.set(newValue?.uuidString, forKey: Defaults.lastSelectedTemplateUUID.rawValue)
+            UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString
         }
     }
     

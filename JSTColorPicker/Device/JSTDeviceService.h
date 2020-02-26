@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSTDeviceService : NSObject
 
 @property (nonatomic, weak) id <JSTDeviceDelegate> delegate;
-@property (nonatomic, strong) NSArray <JSTDevice *> *devices;
+- (NSArray <JSTDevice *> *)devicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
 
 @end
 

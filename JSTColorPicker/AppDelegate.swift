@@ -16,8 +16,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let gridController = GridWindowController.newGrid()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        UserDefaults.standard.register(defaults: [
+            .enableNetworkDiscovery: true,
+            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker")
+        ])
+        
         deviceService.delegate = self
-        didReceiveiDeviceEvent(deviceService)
+        reloadiDevices()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -25,7 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        // TODO: maybe it is better to stay in dock?
         return true
     }
     
@@ -36,7 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        // FIXME: color grid window is not considered
         return true
     }
     
@@ -52,14 +55,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBOutlet weak var enableNetworkDiscoveryMenuItem: NSMenuItem!
     @IBOutlet weak var devicesMenu: NSMenu!
+    
     fileprivate let deviceIdentifierPrefix = "device-"
     fileprivate var selectedDeviceUDID: String? {
         get {
-            return UserDefaults.standard.string(forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+            return UserDefaults.standard[.lastSelectedDeviceUDID]
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Defaults.lastSelectedDeviceUDID.rawValue)
+            UserDefaults.standard[.lastSelectedDeviceUDID] = newValue
         }
     }
     fileprivate static var screenshotDateFormatter: DateFormatter = {
@@ -68,9 +73,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return formatter
     }()
     
+    @IBAction func enableNetworkDiscoveryItemTapped(_ sender: NSMenuItem) {
+        sender.state = sender.state == .on ? .off : .on
+        UserDefaults.standard[.enableNetworkDiscovery] = sender.state == .on
+        reloadiDevices()
+    }
+    
     @IBAction func screenshotItemTapped(_ sender: Any?) {
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
-        guard let picturesDirectory = FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first else { return }
+        guard let picturesDirectory: URL = UserDefaults.standard[.screenshotSavingPath] else { return }
         if let selectedDeviceUDID = selectedDeviceUDID {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
@@ -88,11 +99,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 windowController.showSheet(alert, completionHandler: nil)
                             } else if let data = data {
                                 do {
-                                    var picturesURL = picturesDirectory.appendingPathComponent("JSTColorPicker")
                                     var isDirectory: ObjCBool = false
-                                    if !FileManager.default.fileExists(atPath: picturesURL.path, isDirectory: &isDirectory) {
-                                        try FileManager.default.createDirectory(at: picturesURL, withIntermediateDirectories: true, attributes: nil)
+                                    if !FileManager.default.fileExists(atPath: picturesDirectory.path, isDirectory: &isDirectory) {
+                                        try FileManager.default.createDirectory(at: picturesDirectory, withIntermediateDirectories: true, attributes: nil)
                                     }
+                                    var picturesURL = picturesDirectory
                                     picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
                                     picturesURL.appendPathExtension("png")
                                     try data.write(to: picturesURL)
@@ -170,15 +181,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        updateSelectedDeviceItem()
+        updateMenuItems()
     }
     
 }
 
 extension AppDelegate: JSTDeviceDelegate {
     
+    func reloadiDevices() {
+        didReceiveiDeviceEvent(deviceService)
+    }
+    
     func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
-        let devices = service.devices.sorted(by: { $0.name.compare($1.name) == .orderedAscending })
+        let devices = service.devices(includingNetworkDevices: UserDefaults.standard[.enableNetworkDiscovery])
+            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
         debugPrint(devices)
         
         var items: [NSMenuItem] = []
@@ -194,7 +210,7 @@ extension AppDelegate: JSTDeviceDelegate {
             resetDevicesMenu()
         }
         
-        updateSelectedDeviceItem()
+        updateMenuItems()
     }
     
     @objc func deviceItemTapped(_ sender: NSMenuItem) {
@@ -210,20 +226,21 @@ extension AppDelegate: JSTDeviceDelegate {
         ]
     }
     
-    fileprivate func updateSelectedDeviceItem() {
-        var exists = false
+    fileprivate func updateMenuItems() {
+        enableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
+        var selectedDeviceExists = false
         let selectedDeviceIdentifier = "\(deviceIdentifierPrefix)\(selectedDeviceUDID ?? "")"
         for item in devicesMenu.items {
             if let identifier = item.identifier?.rawValue {
                 if identifier == selectedDeviceIdentifier {
                     item.state = .on
-                    exists = true
+                    selectedDeviceExists = true
                 } else {
                     item.state = .off
                 }
             }
         }
-        if !exists {
+        if !selectedDeviceExists {
             if let firstItem = devicesMenu.items.first {
                 selectDeviceItem(firstItem)
             } else {

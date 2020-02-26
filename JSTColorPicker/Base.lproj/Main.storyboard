@@ -255,12 +255,18 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Devices" id="1Il-r8-iYp">
                                     <items>
-                                        <menuItem title="Active Devices" id="Gxd-vS-gSq">
+                                        <menuItem title="Select Device" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Active Devices" id="5FZ-FF-ebV"/>
+                                            <menu key="submenu" title="Select Device" id="5FZ-FF-ebV"/>
+                                        </menuItem>
+                                        <menuItem title="Enable Network Discovery" state="on" id="wfH-DD-URU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="enableNetworkDiscoveryItemTapped:" target="Voe-Tx-rLC" id="Izc-7c-mq8"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
-                                        <menuItem title="Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
+                                        <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="screenshotItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
@@ -318,6 +324,7 @@ CA
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
                         <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
+                        <outlet property="enableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
                         <outlet property="showColorPanelItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
                         <outlet property="showGridItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                     </connections>
@@ -350,7 +357,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -383,7 +390,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="58" minWidth="58" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -419,7 +426,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -507,7 +514,7 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="242" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="controlContent" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -853,7 +860,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="128" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                                 <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="eZm-mt-gzw" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
@@ -930,7 +937,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="228" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -1140,8 +1147,8 @@ CA
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LE0-eB-1FR" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="-2" y="-2" width="246" height="19"/>
-                                                                    <sliderCell key="cell" continuous="YES" enabled="NO" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="7" tickMarkPosition="below" sliderType="linear" id="7To-Iy-80M" customClass="PreviewSliderCell" customModule="JSTColorPicker" customModuleProvider="target"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="242" height="15"/>
+                                                                    <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="7To-Iy-80M" customClass="PreviewSliderCell" customModule="JSTColorPicker" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="previewSliderChanged:" target="Z2W-Gy-vmx" id="y7p-MH-uX4"/>
                                                                     </connections>
@@ -1180,10 +1187,10 @@ CA
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>
-                                    <real value="254"/>
-                                    <real value="253"/>
-                                    <real value="252"/>
-                                    <real value="251"/>
+                                    <real value="265"/>
+                                    <real value="260"/>
+                                    <real value="255"/>
+                                    <real value="250"/>
                                 </holdingPriorities>
                             </splitView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJt-oH-ODD">
