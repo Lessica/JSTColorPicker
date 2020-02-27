@@ -8,6 +8,14 @@
 
 import Foundation
 
+extension NSView {
+    
+    func setNeedsDisplay() {
+        setNeedsDisplay(bounds)
+    }
+    
+}
+
 class Overlay: NSView {
     
     static let borderWidth: CGFloat = 1.0
@@ -37,7 +45,7 @@ class Overlay: NSView {
     
     @objc internal func animateLineDash(_ timer: Timer?) {
         lineDashCount += 1
-        setNeedsDisplay(bounds)
+        setNeedsDisplay()
     }
     
     var isBordered: Bool {
@@ -50,6 +58,17 @@ class Overlay: NSView {
     
     var innerInsets: NSEdgeInsets {
         return NSEdgeInsets(top: Overlay.borderWidth, left: Overlay.borderWidth, bottom: Overlay.borderWidth, right: Overlay.borderWidth)
+    }
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        
+        wantsLayer = true
+        canDrawSubviewsIntoLayer = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func draw(_ dirtyRect: NSRect) {

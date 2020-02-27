@@ -15,6 +15,7 @@ enum GridState: CaseIterable {
     case bothOccupied
     case center
     
+    static let gridLineWidth: CGFloat = 1.0
     static let gridLineColor = NSColor.textBackgroundColor
     static let gridCenterLineColor = NSColor.textColor
     static let gridColorOccupiedLineColor = NSColor.red
@@ -76,7 +77,7 @@ class GridView: NSView {
     func updateDisplayIfNeeded() {
         guard let shouldTrack = window?.isVisible else { return }
         if shouldTrack {
-            setNeedsDisplay(bounds)
+            setNeedsDisplay()
         }
     }
     var animating: Bool = false {
@@ -86,7 +87,7 @@ class GridView: NSView {
             }
         }
     }
-    fileprivate var pixelSize = CGSize(width: 14.0, height: 14.0)
+    fileprivate var pixelSize = CGSize(width: 20.0, height: 20.0)
     fileprivate var hPixelNum: Int = 0
     fileprivate var vPixelNum: Int = 0
     fileprivate lazy var centerOverlay: NSView = {
@@ -168,16 +169,15 @@ class GridView: NSView {
                 if let beginPoint = linePosition.first, let endPoint = linePosition.last {
                     ctx.move(to: beginPoint)
                     ctx.addLine(to: endPoint)
-                    ctx.drawPath(using: .stroke)
                 }
             }
+            ctx.strokePath()
         }
         
-        ctx.saveGState()
-        ctx.setLineCap(.square)
-        ctx.setLineWidth(1.0)
+        // ctx.saveGState()
+        ctx.setLineWidth(GridState.gridLineWidth)
         GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
-        ctx.restoreGState()
+        // ctx.restoreGState()
         
     }
     

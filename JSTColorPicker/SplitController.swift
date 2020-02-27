@@ -37,7 +37,7 @@ class SplitController: NSSplitViewController {
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
-        sidebarController.ensureOverlayBounds(to: sceneController.sceneVisibleBounds, magnification: sceneController.sceneMagnification)
+        sidebarController.ensureOverlayBounds(to: sceneController.wrapperVisibleBounds, magnification: sceneController.wrapperMagnification)
     }
     
     override func willPresentError(_ error: Error) -> Error {

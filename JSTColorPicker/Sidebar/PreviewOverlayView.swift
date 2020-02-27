@@ -14,7 +14,7 @@ class PreviewOverlayView: NSView {
     
     var imageSize: CGSize = CGSize.zero {
         didSet {
-            setNeedsDisplay(bounds)
+            setNeedsDisplay()
         }
     }
     
@@ -28,7 +28,7 @@ class PreviewOverlayView: NSView {
     
     var highlightArea: CGRect = CGRect.zero {
         didSet {
-            setNeedsDisplay(bounds)
+            setNeedsDisplay()
         }
     }
     
@@ -37,8 +37,13 @@ class PreviewOverlayView: NSView {
     }
     
     static let overlayColor: CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
-    
+    fileprivate static let overlayBorderWidth: CGFloat = 0.75
     fileprivate var trackingArea: NSTrackingArea?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        wantsLayer = true
+    }
     
     fileprivate func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(rect: imageArea, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
@@ -61,7 +66,7 @@ class PreviewOverlayView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        ctx.saveGState()
+        // ctx.saveGState()
         
         // fill background
         ctx.setFillColor(PreviewOverlayView.overlayColor)
@@ -70,13 +75,12 @@ class PreviewOverlayView: NSView {
         ctx.fillPath(using: .evenOdd)
         
         // stroke border
-        ctx.setLineCap(.square)
-        ctx.setLineWidth(0.75)
+        ctx.setLineWidth(PreviewOverlayView.overlayBorderWidth)
         ctx.setStrokeColor(.black)
         ctx.addRect(highlightArea)
         ctx.drawPath(using: .stroke)
         
-        ctx.restoreGState()
+        // ctx.restoreGState()
     }
     
     fileprivate func mouseInside() -> Bool {

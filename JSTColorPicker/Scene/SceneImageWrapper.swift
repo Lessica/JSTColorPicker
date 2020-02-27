@@ -34,6 +34,10 @@ class SceneImageWrapper: NSView {
         // do not perform default behavior
     }
     
+    override var isOpaque: Bool {
+        return true
+    }
+    
     override func rulerView(_ ruler: NSRulerView, shouldAdd marker: NSRulerMarker) -> Bool {
         return rulerViewClient?.rulerView(ruler as? RulerView, shouldAdd: marker as! RulerMarker) ?? false
     }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ColorIndicator: NSImageView {
+class ColorIndicator: NSControl {
     
     var color: NSColor = .clear
     
@@ -26,6 +26,22 @@ class ColorIndicator: NSImageView {
     
     override func cursorUpdate(with event: NSEvent) {
         NSCursor.pointingHand.set()
+    }
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        wantsLayer = true
+        layer?.isOpaque = true
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        wantsLayer = true
+        layer?.isOpaque = true
+    }
+    
+    func setImage(_ image: NSImage) {
+        layer?.contents = image
     }
     
 }

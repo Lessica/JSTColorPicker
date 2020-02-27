@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let selectedDeviceUDID = selectedDeviceUDID {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
-                loadingAlert.messageText = "Waiting for device"  // TODO: to be localized
+                loadingAlert.messageText = "Waiting for device"
                 loadingAlert.informativeText = "Downloading screenshot from device \"\(device.name)\"..."
                 loadingAlert.addButton(withTitle: "Cancel")
                 loadingAlert.alertStyle = .informational
@@ -157,7 +157,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func preferencesItemTapped(_ sender: Any?) {
-        // TODO: preferences panel
+        // TODO: Preferences Panel
         let alert = NSAlert()
         alert.messageText = "Not Implemented"
         alert.informativeText = "Preferences panel is not designed yet."

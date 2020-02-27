@@ -98,7 +98,7 @@ A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " ")
 """
                 let nsColor = color.toNSColor()
                 inspectorColorFlag.color = nsColor
-                inspectorColorFlag.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+                inspectorColorFlag.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
                 inspectorAreaLabel.stringValue = """
 CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 \(color.coordinate.description.leftPadding(to: 13, with: " "))
@@ -113,7 +113,7 @@ A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " ")
 """
                 let nsColor = color.toNSColor()
                 inspectorColorFlag2.color = nsColor
-                inspectorColorFlag2.image = NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size)
+                inspectorColorFlag2.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
                 inspectorAreaLabel2.stringValue = """
 CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 \(color.coordinate.description.leftPadding(to: 13, with: " "))
@@ -138,6 +138,8 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
+        guard !rect.isNull else { return }
+        
         if let imageSize = screenshot?.image?.size {
             let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
             let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
@@ -281,7 +283,7 @@ extension SidebarController: ScreenshotLoader {
     
     func initializeController() {
         imageLabel.stringValue = "Open or drop an image here."
-        inspectorColorFlag.image = NSImage(color: .clear, size: inspectorColorFlag.bounds.size)
+        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
         inspectorColorLabel.stringValue = """
 R:\("-".leftPadding(to: 11, with: " "))
 G:\("-".leftPadding(to: 11, with: " "))
@@ -292,7 +294,7 @@ A:\("-".leftPadding(to: 11, with: " "))
 CSS:\("-".leftPadding(to: 9, with: " "))
 \("-".leftPadding(to: 13, with: " "))
 """
-        inspectorColorFlag2.image = NSImage(color: .clear, size: inspectorColorFlag2.bounds.size)
+        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
         inspectorColorLabel2.stringValue = """
 R:\("-".leftPadding(to: 11, with: " "))
 G:\("-".leftPadding(to: 11, with: " "))
@@ -324,7 +326,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
         let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
-        previewImageView.image = previewImage
+        previewImageView.setImage(previewImage)
         previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
         

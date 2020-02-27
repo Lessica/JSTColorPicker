@@ -16,6 +16,9 @@ struct PixelCoordinate: Codable {
     public static var null: PixelCoordinate {
         return PixelCoordinate(x: Int.max, y: Int.max)
     }
+    public var isNull: Bool {
+        return self == PixelCoordinate.null
+    }
     var x: Int = 0
     var y: Int = 0
     init() {}

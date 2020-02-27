@@ -8,18 +8,6 @@
 
 import Cocoa
 
-extension NSView {
-    
-    func bringToFront() {
-        guard let sView = superview else {
-            return
-        }
-        removeFromSuperview()
-        sView.addSubview(self)
-    }
-    
-}
-
 extension CGPoint {
     
     func distanceTo(_ point: CGPoint) -> CGFloat {
@@ -42,6 +30,46 @@ extension CGRect {
     
     init(point1: CGPoint, point2: CGPoint) {
         self.init(origin: CGPoint(x: min(point1.x, point2.x), y: min(point1.y, point2.y)), size: CGSize(width: abs(point2.x - point1.x), height: abs(point2.y - point1.y)))
+    }
+    
+}
+
+extension NSView {
+    
+    func bringToFront() {
+        guard let sView = superview else {
+            return
+        }
+        removeFromSuperview()
+        sView.addSubview(self)
+    }
+    
+}
+
+extension NSScrollView {
+    
+    func convertFromDocumentView(_ rect: CGRect) -> CGRect {
+        return convert(rect, from: documentView)
+    }
+    
+    func convertFromDocumentView(_ size: CGSize) -> CGSize {
+        return convert(size, from: documentView)
+    }
+    
+    func convertFromDocumentView(_ point: CGPoint) -> CGPoint {
+        return convert(point, from: documentView)
+    }
+    
+    func convertToDocumentView(_ rect: CGRect) -> CGRect {
+        return convert(rect, to: documentView)
+    }
+    
+    func convertToDocumentView(_ size: CGSize) -> CGSize {
+        return convert(size, to: documentView)
+    }
+    
+    func convertToDocumentView(_ point: CGPoint) -> CGPoint {
+        return convert(point, to: documentView)
     }
     
 }
@@ -77,7 +105,7 @@ class SceneScrollView: NSScrollView {
     
     fileprivate lazy var draggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
-        view.wantsLayer = false
+        view.wantsLayer = true
         view.isHidden = true
         return view
     }()
@@ -295,6 +323,11 @@ class SceneScrollView: NSScrollView {
         
         trackAreaChanged(with: event)
         updateCursorAppearance()
+    }
+    
+    override func reflectScrolledClipView(_ cView: NSClipView) {
+        super.reflectScrolledClipView(cView)
+        trackingDelegate?.trackSceneBoundsChanged(self, to: cView.bounds.intersection(wrapper.bounds), of: max(min(magnification, maxMagnification), minMagnification))
     }
     
 }

@@ -96,7 +96,6 @@ class AnnotatorOverlay: EditableOverlay {
             NSLayoutConstraint(item: labelView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: labelView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
         ])
-        alphaValue = 0.85
         
         backgroundCell.stringValue = ""
         

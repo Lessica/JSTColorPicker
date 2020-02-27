@@ -8,6 +8,24 @@
 
 import Cocoa
 
-class PreviewImageView: NSImageView {
+class PreviewImageView: NSView {
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        wantsLayer = true
+        layer?.isOpaque = true
+        layer?.contentsGravity = .resizeAspect
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        wantsLayer = true
+        layer?.isOpaque = true
+        layer?.contentsGravity = .resizeAspect
+    }
+    
+    func setImage(_ image: NSImage) {
+        layer?.contents = image
+    }
     
 }
