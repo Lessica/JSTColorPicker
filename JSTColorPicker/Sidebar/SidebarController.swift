@@ -380,3 +380,11 @@ extension SidebarController: PreviewResponder {
     }
     
 }
+
+extension SidebarController: NSMenuDelegate {
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+    }
+    
+}

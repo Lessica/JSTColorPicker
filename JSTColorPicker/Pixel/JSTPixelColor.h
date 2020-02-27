@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, readonly) NSString *hexString;
 @property (copy, readonly) NSString *hexStringWithAlpha;
 @property (copy, readonly) NSString *cssString;
+@property (copy, readonly) NSString *cssRGBAString;
 
 + (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha;
 + (JSTPixelColor *)colorWithColor:(uint32_t)color;

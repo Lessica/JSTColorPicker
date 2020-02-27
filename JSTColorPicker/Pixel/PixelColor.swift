@@ -92,6 +92,10 @@ class PixelColor: ContentItem {
         return pixelColorRep.cssString
     }
     
+    var cssRGBAString: String {
+        return pixelColorRep.cssRGBAString
+    }
+    
     func toNSColor() -> NSColor {
         return pixelColorRep.toNSColor()
     }

@@ -70,12 +70,16 @@ class ContentController: NSViewController {
         return screenshot?.content
     }
     fileprivate var nextID: Int {
-        if let content = content {
-            if let maxID = content.items.last?.id {
-                return maxID + 1
-            }
+        if let maxID = content?.items.last?.id {
+            return maxID + 1
         }
         return 1
+    }
+    fileprivate var nextSimilarity: Double {
+        if let lastSimilarity = content?.items.last?.similarity {
+            return lastSimilarity
+        }
+        return 1.0
     }
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
@@ -106,12 +110,15 @@ class ContentController: NSViewController {
     @IBAction func similarityFieldChanged(_ sender: NSTextField) {
         guard let content = content else { return }
         let row = tableView.row(for: sender)
-        guard row >= 0 && row < content.items.count else { return }
+        assert(row >= 0 && row < content.items.count)
         let value = sender.doubleValue
         if value >= 1 && value <= 100 {
-            content.items[row].similarity = min(max(sender.doubleValue / 100.0, 0.01), 1.0)
+            let item = content.items[row].copy() as! ContentItem
+            item.similarity = min(max(sender.doubleValue / 100.0, 0.01), 1.0)
+            internalUpdateContentItems([item])
         }
-        sender.stringValue = String(format: "%.2f", content.items[row].similarity * 100.0)
+        let similarity = String(Int(content.items[row].similarity * 100.0))
+        sender.stringValue = similarity
     }
     
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
@@ -196,6 +203,7 @@ class ContentController: NSViewController {
 }
 
 extension Array {
+    
     func insertionIndexOf(_ elem: Element, isOrderedBefore: (Element, Element) -> Bool) -> Int {
         var lo = 0
         var hi = self.count - 1
@@ -211,11 +219,13 @@ extension Array {
         }
         return lo // not found, would be inserted at position lo
     }
+    
     mutating func remove(at set: IndexSet) {
         var arr = Swift.Array(self.enumerated())
         arr.removeAll { set.contains($0.offset) }
         self = arr.map { $0.element }
     }
+    
 }
 
 extension ContentController {
@@ -278,6 +288,7 @@ extension ContentController: ContentResponder {
         guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.itemExists }
         
         item.id = nextID
+        item.similarity = nextSimilarity
         internalAddContentItems([item])
         tableView.reloadData()
         
@@ -368,68 +379,116 @@ extension ContentController: ContentTableViewResponder {
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
-        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
-        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
-            rows = IndexSet(integer: tableView.clickedRow)
-        }
-        var selectedItems: [ContentItem] = []
-        rows.forEach { (row) in
-            if row >= 0 && row < collection.count {
-                selectedItems.append(collection[row])
-            }
-        }
+        let selectedItems = (tableView.clickedRow >= 0 ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+            .map({ collection[$0] })
         delegate.contentActionConfirmed(selectedItems)
     }
     
 }
 
-extension ContentController: NSUserInterfaceValidations {
+extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:)) || item.action == #selector(doDoubleClick(_:))  {
-            let idx = tableView.clickedRow
-            let idxs = tableView.selectedRowIndexes
-            return idx >= 0 || idxs.count > 0
+        guard let content = content else { return false }
+        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:)) || item.action == #selector(exportAs(_:)) {
+            return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+        }
+        else if item.action == #selector(locate(_:)) {
+            guard tableView.clickedRow >= 0 else { return false }
+            if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
+            return true
+        }
+        else if item.action == #selector(saveAs(_:)) {
+            guard tableView.clickedRow >= 0 else { return false }
+            if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
+            if let _ = content.items[tableView.clickedRow] as? PixelArea { return true }
         }
         return false
     }
     
-    @IBAction func doDoubleClick(_ sender: Any) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+    }
+    
+    @IBAction func locate(_ sender: Any) {
         tableViewDoubleAction(tableView)
     }
     
     @IBAction func delete(_ sender: Any) {
-        guard let content = content else { return }
-        let collection = content.items
-        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
-        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
-            rows = IndexSet(integer: tableView.clickedRow)
-        }
-        var selectedItems: [ContentItem] = []
-        for row in rows {
-            selectedItems.append(collection[row])
-        }
-        internalDeleteContentItems(selectedItems)
+        guard let collection = content?.items else { return }
+        let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+        internalDeleteContentItems(rows.map({ collection[$0] }))
         tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     
     @IBAction func copy(_ sender: Any) {
-        guard let content = content else { return }
-        let collection = content.items
-        var rows = IndexSet(tableView.selectedRowIndexes.filter({ $0 < collection.count }))
-        if tableView.clickedRow >= 0 && !rows.contains(tableView.clickedRow) {
-            rows = IndexSet(integer: tableView.clickedRow)
-        }
-        var selectedItems: [ContentItem] = []
-        for row in rows {
-            selectedItems.append(collection[row])
-        }
+        guard let collection = content?.items else { return }
+        let selectedItems = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+            .map({ collection[$0] })
         do {
             if (selectedItems.count == 1) {
                 try screenshot?.export.copyContentItem(selectedItems.first!)
             } else {
                 try screenshot?.export.copyContentItems(selectedItems)
             }
+        }
+        catch let error {
+            presentError(error)
+        }
+    }
+    
+    @IBAction func saveAs(_ sender: Any) {
+        guard tableView.clickedRow >= 0 else { return }
+        guard let area = content?.items[tableView.clickedRow] as? PixelArea else { return }
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = ["png"]
+        panel.beginSheetModal(for: view.window!) { (resp) in
+            if resp == .OK {
+                if let url = panel.url {
+                    self.saveCroppedImage(of: area, to: url)
+                }
+            }
+        }
+    }
+    
+    fileprivate func saveCroppedImage(of area: PixelArea, to url: URL) {
+        guard let data = screenshot?.image?.pngRepresentation(of: area) else { return }
+        do {
+            try data.write(to: url)
+        }
+        catch let error {
+            presentError(error)
+        }
+    }
+    
+    @IBAction func exportAs(_ sender: Any) {
+        guard let collection = content?.items else { return }
+        let selectedItems = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+            .map({ collection[$0] })
+        do {
+            guard let template = screenshot?.export.selectedTemplate else { throw ExportError.noTemplateSelected }
+            let panel = NSSavePanel()
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: view.window!) { (resp) in
+                if resp == .OK {
+                    if let url = panel.url {
+                        self.exportItems(selectedItems, to: url)
+                    }
+                }
+            }
+        }
+        catch let error {
+            presentError(error)
+        }
+    }
+    
+    fileprivate func exportItems(_ items: [ContentItem], to url: URL) {
+        do {
+            try screenshot?.export.exportItems(items, to: url)
         }
         catch let error {
             presentError(error)
@@ -443,19 +502,14 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
-        let rows = tableView.selectedRowIndexes
-        var selectedItems: [ContentItem] = []
-        rows.forEach { (row) in
-            if row >= 0 && row < collection.count {
-                selectedItems.append(collection[row])
-            }
-        }
+        let selectedItems = tableView.selectedRowIndexes
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+            .map({ collection[$0] })
         delegate.contentActionSelected(selectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        guard let content = content else { return 0 }
-        return content.items.count
+        return content?.items.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -472,14 +526,29 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                 cell.textField?.stringValue = String(item.id)
             }
             else if col == .columnSimilarity {
-                cell.textField?.stringValue = String(format: "%.2f", item.similarity * 100.0)
+                let similarity = String(Int(item.similarity * 100.0))
+                cell.textField?.toolTip = """
+                Similarity: \(similarity)%
+                Click here to edit.
+                """
+                cell.textField?.stringValue = similarity
             }
             else if col == .columnDescription {
-                if let item = item as? PixelColor {
-                    cell.imageView?.image = NSImage(color: item.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
+                if let color = item as? PixelColor {
+                    cell.imageView?.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
+                    cell.textField?.toolTip = """
+                    Location: \(color.coordinate)
+                    CSS: \(color.cssString)
+                    RGBA: \(color.cssRGBAString)
+                    """
                 }
-                else if let _ = item as? PixelArea {
+                else if let area = item as? PixelArea {
                     cell.imageView?.image = NSImage(named: "JSTCropSmall")
+                    cell.textField?.toolTip = """
+                    Origin: \(area.rect.origin)
+                    Opposite: \(area.rect.opposite)
+                    Size: \(area.rect.size)
+                    """
                 }
                 cell.textField?.stringValue = item.description
             }

@@ -945,6 +945,7 @@
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				D631E2C823F7FAC300652B17 /* Export */,
+				D699E0C124078D7B0011A4CB /* Preferences */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
@@ -990,6 +991,13 @@
 				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
 			);
 			path = Grid;
+			sourceTree = "<group>";
+		};
+		D699E0C124078D7B0011A4CB /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		D6A2759323F3CA3E001D60BC /* Ruler */ = {

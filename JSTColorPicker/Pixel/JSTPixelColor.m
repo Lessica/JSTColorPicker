@@ -97,6 +97,11 @@
     return [NSString stringWithFormat:@"#%06X", color.the_color];
 }
 
+- (NSString *)cssRGBAString
+{
+    return [NSString stringWithFormat:@"rgba(%d,%d,%d,%.2f)", self.red, self.green, self.blue, (float)self.alpha / 0xff];
+}
+
 - (JSTPixelColor *)init
 {
     if (self = [super init]) {
