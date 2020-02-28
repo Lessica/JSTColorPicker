@@ -185,18 +185,21 @@ class SceneController: NSViewController {
             self.useSelectedTrackingTool()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences), name: .preferencesChanged, object: nil)
-        loadPreferences()
+        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        loadPreferences(nil)
     }
     
-    @objc fileprivate func loadPreferences() {
-        drawGridsInScene = UserDefaults.standard[.drawGridsInScene]
+    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+        let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
-        if drawGridsInScene {
-            sceneBoundsChanged()
-        } else {
-            sceneGridView.setNeedsDisplay()
+        if self.drawGridsInScene != drawGridsInScene {
+            self.drawGridsInScene = drawGridsInScene
+            if drawGridsInScene {
+                sceneBoundsChanged()
+            } else {
+                sceneGridView.setNeedsDisplay()
+            }
         }
     }
     

@@ -144,6 +144,11 @@
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
 		D699E0C62408E5100011A4CB /* General.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0C52408E5100011A4CB /* General.xib */; };
 		D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
+		D699E0CA240908E70011A4CB /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0C9240908E70011A4CB /* Folder.xib */; };
+		D699E0CC240908F90011A4CB /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0CB240908F90011A4CB /* FolderController.swift */; };
+		D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D699E0CD24090AEC0011A4CB /* Automator.framework */; };
+		D699E0D02409224A0011A4CB /* Advanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0CF2409224A0011A4CB /* Advanced.xib */; };
+		D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0D12409224E0011A4CB /* AdvancedController.swift */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
@@ -487,6 +492,11 @@
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
 		D699E0C52408E5100011A4CB /* General.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = General.xib; sourceTree = "<group>"; };
 		D699E0C72408E6E80011A4CB /* GeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralController.swift; sourceTree = "<group>"; };
+		D699E0C9240908E70011A4CB /* Folder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Folder.xib; sourceTree = "<group>"; };
+		D699E0CB240908F90011A4CB /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
+		D699E0CD24090AEC0011A4CB /* Automator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Automator.framework; path = System/Library/Frameworks/Automator.framework; sourceTree = SDKROOT; };
+		D699E0CF2409224A0011A4CB /* Advanced.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Advanced.xib; sourceTree = "<group>"; };
+		D699E0D12409224E0011A4CB /* AdvancedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedController.swift; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
@@ -529,6 +539,7 @@
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */,
 				D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */,
+				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				C622C991FE4842F291BD18EA /* Pods_JSTColorPicker.framework in Frameworks */,
 			);
@@ -982,6 +993,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D699E0CD24090AEC0011A4CB /* Automator.framework */,
 				D684841423D3E3FD00BC5E34 /* libz.tbd */,
 				3E90D7D4570439B10C4CC0AA /* Pods_JSTColorPicker.framework */,
 			);
@@ -1005,6 +1017,10 @@
 			children = (
 				D699E0C52408E5100011A4CB /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
+				D699E0C9240908E70011A4CB /* Folder.xib */,
+				D699E0CB240908F90011A4CB /* FolderController.swift */,
+				D699E0CF2409224A0011A4CB /* Advanced.xib */,
+				D699E0D12409224E0011A4CB /* AdvancedController.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1210,7 +1226,9 @@
 			files = (
 				D699E0C62408E5100011A4CB /* General.xib in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
+				D699E0D02409224A0011A4CB /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
+				D699E0CA240908E70011A4CB /* Folder.xib in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
 			);
@@ -1370,6 +1388,7 @@
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
+				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
@@ -1381,6 +1400,7 @@
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
+				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,
 				D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */,
 				D647B10923D1FDB000D76CB5 /* JSTDevice.m in Sources */,
 				D66460E923D0333A0032727A /* TrackingTool.swift in Sources */,

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.automator.AutomatorPalette" version="15702"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FolderController" customModule="JSTColorPicker" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="b7J-AX-KTK"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jq8-kC-NZv">
+                    <rect key="frame" x="20" y="20" width="440" height="21"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9W-Gw-Gvo">
+                            <rect key="frame" x="83" y="0.0" width="274" height="21"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mv4-Ph-x0p">
+                                    <rect key="frame" x="-2" y="3" width="142" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="right" title="Screenshots saved at: " usesSingleLineMode="YES" id="YaA-b5-bfQ">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <amPathPopUpButton verticalHuggingPriority="750" imageHugsTitle="YES" canChooseDirectories="YES" canChooseExistingPaths="YES" displayPanelAsSheet="YES" showStandardPaths="YES" placeholder="No Selection" translatesAutoresizingMaskIntoConstraints="NO" id="xm4-2Y-TaL">
+                                    <rect key="frame" x="144" y="-3" width="133" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="Koq-V0-0AS"/>
+                                    </constraints>
+                                    <amVariablePopUpButtonCell key="cell" type="push" title="Desktop" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1001" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="3nj-ja-4ek">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <menu key="menu" title="OtherViews" id="eGM-Kd-UMD"/>
+                                    </amVariablePopUpButtonCell>
+                                    <connections>
+                                        <binding destination="q1G-oB-mqO" name="path" keyPath="values.defaults.screenshotSavingPath" id="Qjz-Do-75i"/>
+                                    </connections>
+                                </amPathPopUpButton>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="xm4-2Y-TaL" secondAttribute="bottom" id="inc-B2-G2o"/>
+                                <constraint firstItem="xm4-2Y-TaL" firstAttribute="top" secondItem="I9W-Gw-Gvo" secondAttribute="top" id="it7-7w-xIa"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="440" id="3NU-u6-Vdg"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Jq8-kC-NZv" secondAttribute="trailing" constant="20" symbolic="YES" id="AbJ-yV-zvI"/>
+                <constraint firstItem="Jq8-kC-NZv" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="gUd-F9-S3j"/>
+                <constraint firstAttribute="bottom" secondItem="Jq8-kC-NZv" secondAttribute="bottom" constant="20" symbolic="YES" id="kqg-hd-Abv"/>
+                <constraint firstItem="Jq8-kC-NZv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="x2i-KU-fZD"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="q1G-oB-mqO"/>
+    </objects>
+</document>

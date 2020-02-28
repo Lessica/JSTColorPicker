@@ -1,5 +1,5 @@
 //
-//  GeneralController.swift
+//  AdvancedController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 2/28/20.
@@ -9,19 +9,23 @@
 import Cocoa
 import MASPreferences
 
-class GeneralController: NSViewController {
+class AdvancedController: NSViewController {
     
     init() {
-        super.init(nibName: "General", bundle: nil)
+        super.init(nibName: "Advanced", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func resetAllAction(_ sender: NSButton) {
+        NSUserDefaultsController.shared.revertToInitialValues(sender)
+    }
+    
 }
 
-extension GeneralController: MASPreferencesViewController {
+extension AdvancedController: MASPreferencesViewController {
     
     var hasResizableWidth: Bool {
         return false
@@ -32,15 +36,15 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "GeneralPreferences"
+        return "AdvancedPreferences"
     }
     
     var toolbarItemLabel: String? {
-        return "General"
+        return "Advanced"
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(named: NSImage.preferencesGeneralName)
+        return NSImage(named: NSImage.advancedName)
     }
     
 }

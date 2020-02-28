@@ -1,5 +1,5 @@
 //
-//  GeneralController.swift
+//  FolderController.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 2/28/20.
@@ -9,10 +9,10 @@
 import Cocoa
 import MASPreferences
 
-class GeneralController: NSViewController {
+class FolderController: NSViewController {
     
     init() {
-        super.init(nibName: "General", bundle: nil)
+        super.init(nibName: "Folder", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -21,7 +21,7 @@ class GeneralController: NSViewController {
     
 }
 
-extension GeneralController: MASPreferencesViewController {
+extension FolderController: MASPreferencesViewController {
     
     var hasResizableWidth: Bool {
         return false
@@ -32,15 +32,15 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "GeneralPreferences"
+        return "FolderPreferences"
     }
     
     var toolbarItemLabel: String? {
-        return "General"
+        return "Folder"
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(named: NSImage.preferencesGeneralName)
+        return NSImage(named: NSImage.folderName)
     }
     
 }

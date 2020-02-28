@@ -9,18 +9,14 @@
 import Foundation
 
 public extension UserDefaults.Key {
-    static let lastSelectedDeviceUDID: UserDefaults.Key   = "defaults.lastSelectedDeviceUDID"
-    static let lastSelectedTemplateUUID: UserDefaults.Key = "defaults.lastSelectedTemplateUUID"
-    static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"
-    static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"
-    static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"
-    static let hideGridsWhenResize: UserDefaults.Key      = "defaults.hideGridsWhenResize"
-    static let hideAnnotatorsWhenResize: UserDefaults.Key = "defaults.hideAnnotatorsWhenResize"
-    static let screenshotSavingPath: UserDefaults.Key     = "defaults.screenshotSavingPath"
-}
-
-extension Notification.Name {
-    static let preferencesChanged = Notification.Name("PreferencesChanged")
+    static let lastSelectedDeviceUDID: UserDefaults.Key   = "defaults.lastSelectedDeviceUDID"  // String
+    static let lastSelectedTemplateUUID: UserDefaults.Key = "defaults.lastSelectedTemplateUUID"  // String
+    static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"  // Bool
+    static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"  // Bool
+    static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"  // Bool
+    static let hideGridsWhenResize: UserDefaults.Key      = "defaults.hideGridsWhenResize"  // Bool
+    static let hideAnnotatorsWhenResize: UserDefaults.Key = "defaults.hideAnnotatorsWhenResize"  // Bool
+    static let screenshotSavingPath: UserDefaults.Key     = "defaults.screenshotSavingPath"  // String
 }
 
 #if os(iOS)
@@ -51,8 +47,9 @@ public extension UserDefaults {
                 return (key.rawValue, value)
             }
         }).compactMapValues({ $0 })
-
+        
         register(defaults: mapped)
+        NSUserDefaultsController.shared.initialValues = mapped
     }
 
 }

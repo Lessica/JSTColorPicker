@@ -8,10 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralController" customModule="JSTColorPicker" customModuleProvider="target">
             <connections>
-                <outlet property="drawAnnotatorsInGridViewButton" destination="W5O-rk-9pT" id="gHT-1S-E7m"/>
-                <outlet property="drawGridsInSceneButton" destination="6U2-WS-Ug8" id="qjp-yW-xry"/>
-                <outlet property="hideAnnotatorsWhenResizeButton" destination="18n-MI-BA4" id="1ju-sL-ri3"/>
-                <outlet property="hideGridsWhenResizeButton" destination="PrW-3M-Nou" id="eUU-f7-0hK"/>
                 <outlet property="view" destination="c22-O7-iKe" id="aUG-w2-0He"/>
             </connections>
         </customObject>
@@ -31,7 +27,11 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="drawGridsInSceneButtonAction:" target="-2" id="PoZ-mb-4Wz"/>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawGridsInScene" id="qzi-y7-dIk">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
@@ -41,7 +41,11 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="drawAnnotatorsInGridViewAction:" target="-2" id="SMt-Xo-hEM"/>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawAnnotatorsInGridView" id="YOn-1b-ZkV">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PrW-3M-Nou">
@@ -51,7 +55,11 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="hideGridsWhenResizeAction:" target="-2" id="t8f-Ja-jUC"/>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.hideGridsWhenResize" id="FJn-In-lm7">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="18n-MI-BA4">
@@ -61,10 +69,17 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="hideAnnotatorsWhenResizeAction:" target="-2" id="SY3-EO-kBZ"/>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.hideAnnotatorsWhenResize" id="Atg-9L-gnM">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="260" id="LCa-cw-Pww"/>
+                    </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -87,5 +102,6 @@
             </constraints>
             <point key="canvasLocation" x="139" y="154"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="c61-nB-UBl"/>
     </objects>
 </document>

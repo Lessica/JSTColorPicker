@@ -17,18 +17,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let gridController = GridWindowController.newGrid()
     lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
-        return MASPreferencesWindowController(viewControllers: [generalController], title: "Preferences")
+        let folderController = FolderController()
+        let advancedController = AdvancedController()
+        return MASPreferencesWindowController(viewControllers: [generalController, folderController, advancedController], title: "Preferences")
     }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        UserDefaults.standard.register(defaults: [
+        let initialValues: [UserDefaults.Key: Any?] = [
             .drawGridsInScene: true,
             .drawAnnotatorsInGridView: false,
             .hideGridsWhenResize: false,
             .hideAnnotatorsWhenResize: true,
             .enableNetworkDiscovery: true,
-            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker")
-        ])
+            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path
+        ]
+        UserDefaults.standard.register(defaults: initialValues)
         
         deviceService.delegate = self
         reloadiDevices()
@@ -90,7 +93,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func screenshotItemTapped(_ sender: Any?) {
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
-        guard let picturesDirectory: URL = UserDefaults.standard[.screenshotSavingPath] else { return }
+        guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
+        let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: picturesDirectoryPath).standardizingPath)
         if let selectedDeviceUDID = selectedDeviceUDID {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
@@ -109,10 +113,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             } else if let data = data {
                                 do {
                                     var isDirectory: ObjCBool = false
-                                    if !FileManager.default.fileExists(atPath: picturesDirectory.path, isDirectory: &isDirectory) {
-                                        try FileManager.default.createDirectory(at: picturesDirectory, withIntermediateDirectories: true, attributes: nil)
+                                    if !FileManager.default.fileExists(atPath: picturesDirectoryURL.path, isDirectory: &isDirectory) {
+                                        try FileManager.default.createDirectory(at: picturesDirectoryURL, withIntermediateDirectories: true, attributes: nil)
                                     }
-                                    var picturesURL = picturesDirectory
+                                    var picturesURL = picturesDirectoryURL
                                     picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
                                     picturesURL.appendPathExtension("png")
                                     try data.write(to: picturesURL)
