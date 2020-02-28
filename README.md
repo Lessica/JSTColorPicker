@@ -1,6 +1,9 @@
 # JSTColorPicker
 
-There are (so many) macOS color pickers for designers. But none of them pick color together with the location from PNG screenshots.
+There are (so many) macOS color pickers for designers. But a few of them picks color together with the location from PNG screenshots (i.e. image annotation).
+
+## Screenshots
+![v1.7-2](https://raw.githubusercontent.com/Lessica/JSTColorPicker/master/screenshots/v1.7-2.png?raw=true)
 
 ## Features
 - Pick colors & areas from PNG screenshots
