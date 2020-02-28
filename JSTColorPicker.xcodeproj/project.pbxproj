@@ -536,11 +536,11 @@
 				D647B06F23D1A2B000D76CB5 /* libssl.a in Frameworks */,
 				D647B06A23D1A12300D76CB5 /* libusbmuxd.a in Frameworks */,
 				D647B06823D1A12300D76CB5 /* libplist.a in Frameworks */,
-				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				D647B06E23D1A2B000D76CB5 /* libcrypto.a in Frameworks */,
 				D647B06923D1A12300D76CB5 /* libimobiledevice.a in Frameworks */,
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
+				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				C622C991FE4842F291BD18EA /* Pods_JSTColorPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1680,7 +1680,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
@@ -1711,7 +1711,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
