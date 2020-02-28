@@ -44,7 +44,7 @@ class GridWindowController: NSWindowController {
 
 extension GridWindowController: SceneTracking {
     
-    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         gridView?.centerCoordinate = coordinate
     }
     

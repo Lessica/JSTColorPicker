@@ -114,6 +114,16 @@ class SceneController: NSViewController {
     fileprivate var areaAnnotators: [AreaAnnotator] {
         return annotators.compactMap({ $0 as? AreaAnnotator })
     }
+    fileprivate var drawGridsInScene: Bool {
+        get {
+            return sceneGridView.drawGridsInScene
+        }
+        set {
+            sceneGridView.drawGridsInScene = newValue
+        }
+    }
+    fileprivate var hideGridsWhenResize: Bool = false
+    fileprivate var hideAnnotatorsWhenResize: Bool = true
     
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -173,6 +183,20 @@ class SceneController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnifyNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
             self.useSelectedTrackingTool()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences), name: .preferencesChanged, object: nil)
+        loadPreferences()
+    }
+    
+    @objc fileprivate func loadPreferences() {
+        drawGridsInScene = UserDefaults.standard[.drawGridsInScene]
+        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
+        hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        if drawGridsInScene {
+            sceneBoundsChanged()
+        } else {
+            sceneGridView.setNeedsDisplay()
         }
     }
     
@@ -282,19 +306,19 @@ class SceneController: NSViewController {
         }
         if let next = nextMagnificationFactor {
             if isInscenePixelLocation(location) {
-                self.hideSceneGridAndOverlay()
+                self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(next, centeredAt: location)
                 }) { [unowned self] in
-                    self.showSceneGridAndOverlay()
+                    self.showSceneOverlays()
                     self.sceneBoundsChanged()
                 }
             } else {
-                self.hideSceneGridAndOverlay()
+                self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().magnification = next
                 }) { [unowned self] in
-                    self.showSceneGridAndOverlay()
+                    self.showSceneOverlays()
                     self.sceneBoundsChanged()
                 }
             }
@@ -309,19 +333,19 @@ class SceneController: NSViewController {
         }
         if let prev = prevMagnificationFactor {
             if isInscenePixelLocation(location) {
-                self.hideSceneGridAndOverlay()
+                self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().setMagnification(prev, centeredAt: location)
                 }) { [unowned self] in
-                    self.showSceneGridAndOverlay()
+                    self.showSceneOverlays()
                     self.sceneBoundsChanged()
                 }
             } else {
-                self.hideSceneGridAndOverlay()
+                self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
                     self.sceneView.animator().magnification = prev
                 }) { [unowned self] in
-                    self.showSceneGridAndOverlay()
+                    self.showSceneOverlays()
                     self.sceneBoundsChanged()
                 }
             }
@@ -469,7 +493,7 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        trackColorChanged(self, at: PixelCoordinate(targetWrapperPoint))
+        trackColorChanged(sceneView, at: PixelCoordinate(targetWrapperPoint))
         return true
     }
     
@@ -569,7 +593,7 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
-    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
+    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if !sceneOverlayView.isHidden {
             updateAnnotatorBounds()
         }
@@ -577,24 +601,24 @@ extension SceneController: SceneTracking {
         trackingDelegate?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
-    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         trackingDelegate?.trackColorChanged(sender, at: coordinate)
     }
     
-    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
+    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
         trackingDelegate?.trackAreaChanged(sender, to: rect)
     }
     
-    func trackMagnifyToolDragged(_ sender: Any, to rect: PixelRect) {
+    func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
         sceneMagnify(toFit: rect.toCGRect())
     }
     
-    func trackCursorDragged(_ sender: Any, to rect: PixelRect) {
+    func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
         _ = try? addContentItem(of: rect)
     }
     
     fileprivate func sceneBoundsChanged() {
-        trackSceneBoundsChanged(self, to: wrapperVisibleBounds, of: wrapperMagnification)
+        trackSceneBoundsChanged(sceneView, to: wrapperVisibleBounds, of: wrapperMagnification)
     }
     
 }
@@ -658,19 +682,23 @@ extension SceneController: TrackingToolDelegate {
 extension SceneController: AnnotatorManager {
     
     @objc fileprivate func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
-        hideSceneGridAndOverlay()
+        hideSceneOverlays()
     }
     
     @objc fileprivate func sceneDidEndLiveMagnifyNotification(_ notification: NSNotification) {
-        showSceneGridAndOverlay()
+        showSceneOverlays()
     }
     
-    fileprivate func hideSceneGridAndOverlay() {
-        sceneGridView.isHidden = true
-        sceneOverlayView.isHidden = true
+    fileprivate func hideSceneOverlays() {
+        if hideGridsWhenResize {
+            sceneGridView.isHidden = true
+        }
+        if hideAnnotatorsWhenResize {
+            sceneOverlayView.isHidden = true
+        }
     }
     
-    fileprivate func showSceneGridAndOverlay() {
+    fileprivate func showSceneOverlays() {
         sceneGridView.isHidden = false
         sceneOverlayView.isHidden = false
         updateAnnotatorBounds()
@@ -851,9 +879,9 @@ extension SceneController: PreviewResponder {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
         if sceneOverlayView.isHidden != isChanging {
             if isChanging {
-                hideSceneGridAndOverlay()
+                hideSceneOverlays()
             } else {
-                showSceneGridAndOverlay()
+                showSceneOverlays()
             }
         }
         sceneView.magnification = magnification

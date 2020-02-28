@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import MASPreferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -14,9 +15,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var tabService: TabService?
     let deviceService = JSTDeviceService()
     let gridController = GridWindowController.newGrid()
+    lazy var preferencesController: NSWindowController = {
+        let generalController = GeneralController()
+        return MASPreferencesWindowController(viewControllers: [generalController], title: "Preferences")
+    }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.register(defaults: [
+            .drawGridsInScene: true,
+            .drawAnnotatorsInGridView: false,
+            .hideGridsWhenResize: false,
+            .hideAnnotatorsWhenResize: true,
             .enableNetworkDiscovery: true,
             .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker")
         ])
@@ -157,13 +166,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func preferencesItemTapped(_ sender: Any?) {
-        // TODO: Preferences Panel
-        let alert = NSAlert()
-        alert.messageText = "Not Implemented"
-        alert.informativeText = "Preferences panel is not designed yet."
-        alert.addButton(withTitle: "OK")
-        alert.alertStyle = .informational
-        alert.runModal()
+        preferencesController.showWindow(sender)
     }
     
     @IBOutlet weak var showColorPanelItem: NSMenuItem!

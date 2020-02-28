@@ -1,7 +1,7 @@
 //  Copyright © 2019 Christian Tietze. All rights reserved. Distributed under the MIT License.
 import Cocoa
 
-extension NSNotification.Name {
+extension Notification.Name {
     static let respondingWindowChanged = Notification.Name("RespondingWindowChanged")
 }
 

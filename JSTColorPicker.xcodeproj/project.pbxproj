@@ -142,6 +142,8 @@
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
+		D699E0C62408E5100011A4CB /* General.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0C52408E5100011A4CB /* General.xib */; };
+		D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
@@ -483,6 +485,8 @@
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
+		D699E0C52408E5100011A4CB /* General.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = General.xib; sourceTree = "<group>"; };
+		D699E0C72408E6E80011A4CB /* GeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralController.swift; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
@@ -948,6 +952,7 @@
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				D631E2C823F7FAC300652B17 /* Export */,
+				D699E0C42408E4960011A4CB /* Preferences */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
@@ -993,6 +998,15 @@
 				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
 			);
 			path = Grid;
+			sourceTree = "<group>";
+		};
+		D699E0C42408E4960011A4CB /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				D699E0C52408E5100011A4CB /* General.xib */,
+				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		D6A2759323F3CA3E001D60BC /* Ruler */ = {
@@ -1194,6 +1208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D699E0C62408E5100011A4CB /* General.xib in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
@@ -1342,6 +1357,7 @@
 				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D69374132403A92E007AF7AF /* Template.swift in Sources */,
+				D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */,
 				D635BEA423CD861100FD62B8 /* JSTPixelImage.m in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,

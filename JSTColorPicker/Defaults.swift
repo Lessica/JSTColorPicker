@@ -12,7 +12,15 @@ public extension UserDefaults.Key {
     static let lastSelectedDeviceUDID: UserDefaults.Key   = "defaults.lastSelectedDeviceUDID"
     static let lastSelectedTemplateUUID: UserDefaults.Key = "defaults.lastSelectedTemplateUUID"
     static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"
+    static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"
+    static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"
+    static let hideGridsWhenResize: UserDefaults.Key      = "defaults.hideGridsWhenResize"
+    static let hideAnnotatorsWhenResize: UserDefaults.Key = "defaults.hideAnnotatorsWhenResize"
     static let screenshotSavingPath: UserDefaults.Key     = "defaults.screenshotSavingPath"
+}
+
+extension Notification.Name {
+    static let preferencesChanged = Notification.Name("PreferencesChanged")
 }
 
 #if os(iOS)

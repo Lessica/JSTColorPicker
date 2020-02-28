@@ -84,12 +84,12 @@
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SBSERVICES_SERVICE_NAME, &sbsService)) || !(sbsService && sbsService->port > 0)) {
         lockdownd_client_free(lckd);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to mount the Developer Disk Image on your device if you want to use the \"%@\" service.", @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SCREENSHOTR_SERVICE_NAME, &shotrService)) || !(shotrService && shotrService->port > 0)) {
         lockdownd_client_free(lckd);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to mount the Developer Disk Image on your device if you want to use the \"%@\" service.", @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
     lockdownd_client_free(lckd);

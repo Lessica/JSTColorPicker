@@ -94,20 +94,20 @@ extension SplitController: DropViewDelegate {
 
 extension SplitController: SceneTracking {
     
-    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
         sidebarController.updateItemInspector(for: color, submit: false)
         trackingObject?.trackColorChanged(sender, at: coordinate)
     }
     
-    func trackAreaChanged(_ sender: Any, to rect: PixelRect) {
+    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
         sidebarController.updateItemInspector(for: area, submit: false)
     }
     
-    func trackSceneBoundsChanged(_ sender: Any, to rect: CGRect, of magnification: CGFloat) {
+    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if let title = screenshot?.image?.imageURL.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
@@ -227,10 +227,10 @@ extension SplitController: ContentActionDelegate {
     
     fileprivate func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
-            trackingObject?.trackColorChanged(self, at: item.coordinate)
+            trackingObject?.trackColorChanged(nil, at: item.coordinate)
         }
         else if let item = item as? PixelArea {
-            trackingObject?.trackAreaChanged(self, to: item.rect)
+            trackingObject?.trackAreaChanged(nil, to: item.rect)
         }
     }
     

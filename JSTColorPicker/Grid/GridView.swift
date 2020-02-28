@@ -15,9 +15,9 @@ enum GridState: CaseIterable {
     case bothOccupied
     case center
     
-    static let gridLineWidth: CGFloat = 1.0
-    static let gridLineColor = NSColor.textBackgroundColor
-    static let gridCenterLineColor = NSColor.textColor
+    static let gridLineWidth: CGFloat = 0.75
+    static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
+    static let gridCenterLineColor = NSColor(white: 0.0, alpha: 0.3)
     static let gridColorOccupiedLineColor = NSColor.red
     static let gridAreaOccupiedLineColor = NSColor.blue
     static let gridBothOccupiedLineColor = NSColor.red
@@ -69,6 +69,7 @@ enum GridState: CaseIterable {
 class GridView: NSView {
     
     weak var dataSource: ScreenshotLoader?
+    var shouldDrawAnnotators: Bool = false
     var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
             updateDisplayIfNeeded()
@@ -127,14 +128,16 @@ class GridView: NSView {
         if centerCoordinate == coordinate {
             return .center
         }
-        else if isOccupiedByColor && isOccupiedByArea {
-            return .bothOccupied
-        }
-        else if isOccupiedByColor {
-            return .colorOccupied
-        }
-        else if isOccupiedByArea {
-            return .areaOccupied
+        else if shouldDrawAnnotators {
+            if isOccupiedByColor && isOccupiedByArea {
+                return .bothOccupied
+            }
+            else if isOccupiedByColor {
+                return .colorOccupied
+            }
+            else if isOccupiedByArea {
+                return .areaOccupied
+            }
         }
         return .none
     }

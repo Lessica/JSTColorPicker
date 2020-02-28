@@ -265,7 +265,7 @@ extension WindowController: ScreenshotLoader {
 
 extension WindowController: SceneTracking {
     
-    func trackColorChanged(_ sender: Any, at coordinate: PixelCoordinate) {
+    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         gridWindowController?.trackColorChanged(sender, at: coordinate)
     }
     
