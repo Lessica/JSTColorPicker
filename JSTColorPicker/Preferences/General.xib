@@ -14,12 +14,26 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="142"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTH-VJ-3p5">
-                    <rect key="frame" x="20" y="20" width="260" height="80"/>
+                    <rect key="frame" x="20" y="20" width="260" height="102"/>
                     <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5pD-NR-JY3">
+                            <rect key="frame" x="-2" y="86" width="141" height="18"/>
+                            <buttonCell key="cell" type="check" title="Enable Force Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="pGG-Tu-mxf">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.enableForceTouch" id="xa0-lj-iOW">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6U2-WS-Ug8">
                             <rect key="frame" x="-2" y="64" width="145" height="18"/>
                             <buttonCell key="cell" type="check" title="Draw Grids in Scene" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UPj-0j-JbO">
@@ -36,7 +50,7 @@
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
                             <rect key="frame" x="-2" y="42" width="203" height="18"/>
-                            <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1xD-ZG-hUt">
+                            <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1xD-ZG-hUt">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -50,7 +64,7 @@
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PrW-3M-Nou">
                             <rect key="frame" x="-2" y="20" width="168" height="18"/>
-                            <buttonCell key="cell" type="check" title="Hide Grids When Resize" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kpn-WU-eHb">
+                            <buttonCell key="cell" type="check" title="Hide Grids When Resize" bezelStyle="regularSquare" imagePosition="left" inset="2" id="kpn-WU-eHb">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -85,8 +99,10 @@
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>

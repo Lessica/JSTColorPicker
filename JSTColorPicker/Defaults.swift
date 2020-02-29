@@ -12,6 +12,7 @@ public extension UserDefaults.Key {
     static let lastSelectedDeviceUDID: UserDefaults.Key   = "defaults.lastSelectedDeviceUDID"  // String
     static let lastSelectedTemplateUUID: UserDefaults.Key = "defaults.lastSelectedTemplateUUID"  // String
     static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"  // Bool
+    static let enableForceTouch: UserDefaults.Key         = "defaults.enableForceTouch"  // Bool
     static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"  // Bool
     static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"  // Bool
     static let hideGridsWhenResize: UserDefaults.Key      = "defaults.hideGridsWhenResize"  // Bool

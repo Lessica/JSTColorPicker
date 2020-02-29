@@ -124,6 +124,14 @@ class SceneController: NSViewController {
     }
     fileprivate var hideGridsWhenResize: Bool = false
     fileprivate var hideAnnotatorsWhenResize: Bool = true
+    fileprivate var enableForceTouch: Bool {
+        get {
+            return sceneView.enableForceTouch
+        }
+        set {
+            sceneView.enableForceTouch = newValue
+        }
+    }
     
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -190,6 +198,7 @@ class SceneController: NSViewController {
     }
     
     @objc fileprivate func loadPreferences(_ notification: Notification?) {
+        enableForceTouch = UserDefaults.standard[.enableForceTouch]
         let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
@@ -357,19 +366,30 @@ class SceneController: NSViewController {
         return false
     }
     
+    fileprivate func requiredStageFor(_ tool: TrackingTool) -> Int {
+        switch tool {
+        case .cursor:
+            return enableForceTouch ? 2 : 0
+        default:
+            return 0
+        }
+    }
+    
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        if sceneView.isBeingManipulated && !sceneView.isBeingDragged {
+        if sceneView.state.type == .generic {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if isInscenePixelLocation(loc) {
-                if trackingTool == .cursor {
-                    handled = cursorClicked(at: loc)
-                }
-                else if trackingTool == .magnify {
-                    handled = magnifyToolClicked(at: loc)
-                }
-                else if trackingTool == .minify {
-                    handled = minifyToolClicked(at: loc)
+                if sceneView.state.stage >= requiredStageFor(trackingTool) {
+                    if trackingTool == .cursor {
+                        handled = cursorClicked(at: loc)
+                    }
+                    else if trackingTool == .magnify {
+                        handled = magnifyToolClicked(at: loc)
+                    }
+                    else if trackingTool == .minify {
+                        handled = minifyToolClicked(at: loc)
+                    }
                 }
             }
         }
@@ -405,7 +425,7 @@ class SceneController: NSViewController {
     
     @discardableResult
     fileprivate func useOptionModifiedTrackingTool() -> Bool {
-        if sceneView.isBeingManipulated { return false }
+        if sceneView.state.isManipulating { return false }
         if trackingTool == .magnify {
             trackingTool = .minify
             return true
@@ -419,7 +439,7 @@ class SceneController: NSViewController {
     
     @discardableResult
     fileprivate func useCommandModifiedTrackingTool() -> Bool {
-        if sceneView.isBeingManipulated { return false }
+        if sceneView.state.isManipulating { return false }
         if trackingTool == .magnify || trackingTool == .minify || trackingTool == .move {
             trackingTool = .cursor
             return true

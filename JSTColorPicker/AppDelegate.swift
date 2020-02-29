@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let initialValues: [UserDefaults.Key: Any?] = [
+            .enableForceTouch: false,
             .drawGridsInScene: true,
             .drawAnnotatorsInGridView: false,
             .hideGridsWhenResize: false,

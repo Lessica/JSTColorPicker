@@ -65,6 +65,8 @@ class Overlay: NSView {
         
         wantsLayer = true
         canDrawSubviewsIntoLayer = true
+//        layer?.shouldRasterize = true
+//        layer?.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
     }
     
     required init?(coder: NSCoder) {

@@ -74,34 +74,109 @@ extension NSScrollView {
     
 }
 
+enum SceneManipulatingType {
+    case none
+    case generic
+    case basicDragging
+    case areaDragging
+    
+    public static func type(for tool: TrackingTool) -> SceneManipulatingType {
+        switch tool {
+        case .cursor, .magnify:
+            return .areaDragging
+        case .move:
+            return .basicDragging
+        default:
+            return .none
+        }
+    }
+    public var isManipulating: Bool {
+        return self != .none
+    }
+    public var isDragging: Bool {
+        if self == .basicDragging || self == .areaDragging {
+            return true
+        }
+        return false
+    }
+}
+
+struct SceneManipulatingState {
+    public var type: SceneManipulatingType = .none
+    private var internalStage: Int = 0
+    private var internalBeginLocation: CGPoint = .null
+    
+    public var stage: Int {
+        get {
+            return type != .none ? internalStage : 0
+        }
+        set {
+            internalStage = newValue
+        }
+    }
+    public var beginLocation: CGPoint {
+        get {
+            return type != .none ? internalBeginLocation : .null
+        }
+        set {
+            internalBeginLocation = newValue
+        }
+    }
+    public var isManipulating: Bool {
+        return type.isManipulating
+    }
+    public var isDragging: Bool {
+        return type.isDragging
+    }
+}
+
 class SceneScrollView: NSScrollView {
     
-    static let minimumDraggingDistance: CGFloat = 3.0
+    public var state = SceneManipulatingState()
+    public var enableForceTouch: Bool = false
+    fileprivate var minimumDraggingDistance: CGFloat {
+        return enableForceTouch ? 6.0 : 3.0
+    }
+    fileprivate func requiredEventStageFor(_ tool: TrackingTool) -> Int {
+        switch tool {
+        case .cursor, .magnify:
+            return enableForceTouch ? 2 : 0
+        default:
+            return 0
+        }
+    }
     
-    var isBeingManipulated: Bool = false
-    var isBeingDragged = false
-    fileprivate var beginDraggingLocation = CGPoint.null
-    fileprivate var trackingArea: NSTrackingArea?
-    fileprivate var previousTrackingCoordinate = PixelCoordinate.null
     fileprivate var wrapper: SceneImageWrapper {
         return documentView as! SceneImageWrapper
     }
-    weak var trackingDelegate: SceneTracking?
-    weak var trackingToolDelegate: TrackingToolDelegate?
-    var trackingTool: TrackingTool = .cursor {
+    fileprivate var trackingArea: NSTrackingArea?
+    fileprivate var trackingCoordinate = PixelCoordinate.null
+    public weak var trackingDelegate: SceneTracking?
+    public weak var trackingToolDelegate: TrackingToolDelegate?
+    public var trackingTool: TrackingTool = .cursor {
         didSet {
             updateCursorAppearance()
         }
     }
     
-    fileprivate static let rulerThickness: CGFloat = 16.0
-    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
-    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
-    static let alternativeBoundsOrigin = CGPoint(x: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView, y: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView)
-    var visibleRectExcludingRulers: CGRect {
+    public var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
         return CGRect(x: rect.minX + SceneScrollView.alternativeBoundsOrigin.x, y: rect.minY + SceneScrollView.alternativeBoundsOrigin.y, width: rect.width - SceneScrollView.alternativeBoundsOrigin.x, height: rect.height - SceneScrollView.alternativeBoundsOrigin.y)
     }
+    fileprivate var isMouseInside: Bool {
+        if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
+            let loc = convert(locationInWindow, from: nil)
+            if visibleRectExcludingRulers.contains(loc) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    public static let alternativeBoundsOrigin = CGPoint(x: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView, y: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView)
+    fileprivate static let rulerThickness: CGFloat = 16.0
+    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
+    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
     
     fileprivate lazy var draggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
@@ -109,6 +184,11 @@ class SceneScrollView: NSScrollView {
         view.isHidden = true
         return view
     }()
+    fileprivate var overlayPixelRect: PixelRect {
+        let rect = convert(draggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
+        guard !rect.isNull else { return PixelRect.null }
+        return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -140,66 +220,46 @@ class SceneScrollView: NSScrollView {
         addSubview(draggingOverlay)
     }
     
-    fileprivate func overlayPixelRect() -> PixelRect {
-        let rect = convert(draggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
-        guard !rect.isNull else { return PixelRect.null }
-        return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
-    }
-    
-    fileprivate func shouldPerformMoveDragging(for event: NSEvent) -> Bool {
-        if trackingTool == .move {
-            return true
+    fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
+        let shiftPressed = event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
+        if enableForceTouch {
+            return shiftPressed || state.stage >= requiredEventStageFor(trackingTool)
+        } else {
+            return shiftPressed
         }
-        return false
     }
     
-    fileprivate func shouldPerformAreaDragging(for event: NSEvent) -> Bool {
-        if trackingTool == .cursor || trackingTool == .magnify {
-            return event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
-        }
-        return false
-    }
-    
-    fileprivate func trackAreaChanged(with event: NSEvent) {
-        if !(isBeingDragged && shouldPerformMoveDragging(for: event)) {
+    fileprivate func trackMovingOrDragging(with event: NSEvent) {
+        if state.type != .basicDragging {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if wrapper.bounds.contains(loc) {
                 let currentCoordinate = PixelCoordinate(loc)
-                if currentCoordinate != previousTrackingCoordinate {
-                    previousTrackingCoordinate = currentCoordinate
+                if currentCoordinate != trackingCoordinate {
+                    trackingCoordinate = currentCoordinate
                     trackingDelegate?.trackColorChanged(self, at: currentCoordinate)
                 }
             }
         }
-        if isBeingDragged && shouldPerformAreaDragging(for: event) {
-            let draggingArea = overlayPixelRect()
+        if state.type == .areaDragging {
+            let draggingArea = overlayPixelRect
             if !draggingArea.isNull {
                 trackingDelegate?.trackAreaChanged(self, to: draggingArea)
             }
         }
     }
     
-    fileprivate func trackMouseDragged(with event: NSEvent) {
-        guard shouldPerformAreaDragging(for: event) else { return }
-        let draggingArea = overlayPixelRect()
-        if draggingArea.size > PixelSize(width: 1, height: 1) {
-            if trackingTool == .cursor {
-                trackingDelegate?.trackCursorDragged(self, to: draggingArea)
-            }
-            else if trackingTool == .magnify {
-                trackingDelegate?.trackMagnifyToolDragged(self, to: draggingArea)
-            }
-        }
-    }
-    
-    fileprivate func mouseInside() -> Bool {
-        if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
-            let loc = convert(locationInWindow, from: nil)
-            if visibleRectExcludingRulers.contains(loc) {
-                return true
+    fileprivate func trackDidEndDragging(with event: NSEvent) {
+        if state.type == .areaDragging {
+            let draggingArea = overlayPixelRect
+            if draggingArea.size > PixelSize(width: 1, height: 1) {
+                if trackingTool == .cursor {
+                    trackingDelegate?.trackCursorDragged(self, to: draggingArea)
+                }
+                else if trackingTool == .magnify {
+                    trackingDelegate?.trackMagnifyToolDragged(self, to: draggingArea)
+                }
             }
         }
-        return false
     }
     
     fileprivate func createTrackingArea() {
@@ -221,25 +281,32 @@ class SceneScrollView: NSScrollView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        trackAreaChanged(with: event)
+        trackMovingOrDragging(with: event)
         updateCursorAppearance()
     }
     
     override func mouseMoved(with event: NSEvent) {
-        trackAreaChanged(with: event)
+        trackMovingOrDragging(with: event)
         updateCursorAppearance()
     }
     
     override func mouseExited(with event: NSEvent) {
-        trackAreaChanged(with: event)
+        trackMovingOrDragging(with: event)
         NSCursor.arrow.set()
+    }
+    
+    override func pressureChange(with event: NSEvent) {
+        if enableForceTouch && event.stage > state.stage {
+            state.stage = event.stage
+        }
+        super.pressureChange(with: event)
     }
     
     fileprivate func updateCursorAppearance() {
         guard let delegate = trackingToolDelegate else { return }
-        if !mouseInside() { return }
+        if !isMouseInside { return }
         if delegate.trackingToolEnabled(self, tool: trackingTool) {
-            if !isBeingManipulated {
+            if !state.isManipulating {
                 trackingTool.currentCursor.set()
             } else {
                 trackingTool.highlightCursor.set()
@@ -250,20 +317,15 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func updateDraggingLayerAppearance(for event: NSEvent) {
-        if isBeingManipulated {
-            if shouldPerformAreaDragging(for: event) {
-                draggingOverlay.frame = CGRect.zero
+        if state.type == .areaDragging {
+            if draggingOverlay.isHidden {
                 draggingOverlay.bringToFront()
                 draggingOverlay.isHidden = false
             }
         } else {
             draggingOverlay.isHidden = true
+            draggingOverlay.frame = CGRect.zero
         }
-    }
-    
-    fileprivate func updateDraggingLayerBounds(at endDraggingLocation: CGPoint) {
-        let rect = CGRect(point1: beginDraggingLocation, point2: endDraggingLocation).inset(by: draggingOverlay.outerInsets).intersection(bounds)
-        draggingOverlay.frame = rect
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -271,11 +333,10 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            isBeingManipulated = true
-            isBeingDragged = false
-            beginDraggingLocation = currentLocation
-            
-            trackAreaChanged(with: event)
+            state.type = .generic
+            state.stage = 0
+            state.beginLocation = currentLocation
+            trackMovingOrDragging(with: event)
         }
         
         updateDraggingLayerAppearance(for: event)
@@ -287,41 +348,55 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            if isBeingManipulated {
-                trackAreaChanged(with: event)
-                trackMouseDragged(with: event)
-            } else {
-                trackAreaChanged(with: event)
+            trackMovingOrDragging(with: event)
+            if state.isDragging {
+                trackDidEndDragging(with: event)
             }
         }
         
-        isBeingManipulated = false
-        isBeingDragged = false
-        beginDraggingLocation = .null
+        state.type = .none
+        state.stage = 0
+        state.beginLocation = .null
         
         updateDraggingLayerAppearance(for: event)
         updateCursorAppearance()
     }
     
     override func mouseDragged(with event: NSEvent) {
-        guard isBeingManipulated else { return }
-        guard !beginDraggingLocation.isNull else { return }
+        super.mouseDragged(with: event)
         
+        guard !state.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
-        if currentLocation.distanceTo(beginDraggingLocation) > SceneScrollView.minimumDraggingDistance {
-            isBeingDragged = true
+        if currentLocation.distanceTo(state.beginLocation) >= minimumDraggingDistance {
+            let type = SceneManipulatingType.type(for: trackingTool)
+            if state.type != type {
+                if type == .areaDragging {
+                    if shouldBeginAreaDragging(for: event) {
+                        state.type = .areaDragging
+                    } else {
+                        state.type = .none
+                    }
+                }
+                else {
+                    state.type = type
+                }
+            }
         }
         
-        if shouldPerformMoveDragging(for: event) {
-            let origin = contentView.bounds.origin
-            let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
-            contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
-        }
-        else if shouldPerformAreaDragging(for: event) {
-            updateDraggingLayerBounds(at: convert(event.locationInWindow, from: nil))
+        if state.isDragging {
+            if state.type == .basicDragging {
+                let origin = contentView.bounds.origin
+                let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
+                contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
+            }
+            else if state.type == .areaDragging {
+                let rect = CGRect(point1: state.beginLocation, point2: convert(event.locationInWindow, from: nil)).inset(by: draggingOverlay.outerInsets).intersection(bounds)
+                draggingOverlay.frame = rect
+            }
+            trackMovingOrDragging(with: event)
         }
         
-        trackAreaChanged(with: event)
+        updateDraggingLayerAppearance(for: event)
         updateCursorAppearance()
     }
     
