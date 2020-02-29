@@ -2,8 +2,10 @@
 
 There are (so many) macOS color pickers for designers. But a few of them picks color together with the location from PNG screenshots (i.e. image annotation).
 
+
 ## Screenshots
 ![v1.7-2](https://raw.githubusercontent.com/Lessica/JSTColorPicker/master/screenshots/v1.7-2.png?raw=true)
+
 
 ## Features
 - Pick colors & areas from PNG screenshots
@@ -11,59 +13,11 @@ There are (so many) macOS color pickers for designers. But a few of them picks c
 - Take screenshots directly from iOS devices (depends `libimobiledevice`)
 - Copy/Export annotator data using custom templates
 
+
 ## TODOs
 - Drag to move/resize annotators
 - Take screenshots from Android devices
 
-## Menu Key Equivalents
-
-### JSTColorPicker
-- `⌘,` Preferences
-- `⌘H` Hide JSTColorPicker
-- `⌥⌘H` Hide Others
-- `⌘Q` Quit
-
-### File
-- `⌘N` New
-- `⌘O` Open...
-- `⌘W` Close
-- `⌘S` Save...
-- `⇧⌘S` Save As...
-
-### Edit
-- `⌘Z` Undo
-- `⇧⌘Z` Redo
-- `⌫` Delete
-- `⌘A` Select All
-
-### View
-- `⇧⌘\` Show All Tabs
-- `⌥⌘T` Show/Hide Toolbar
-- `⌃⌘S` Show/Hide Sidebar
-- `⌃⌘F` Enter/Exit Full Screen
-- `⌃⌘G` **Toggle Color Grid**
-- `⌃⌘C` **Toggle Color Panel**
-
-### Devices
-- `⌥⌘S` **Screenshot**
-
-### Window
-- `⌘M` Minimize
-- `⌃⇧⇥` Show Previous Tab
-- `⌃⇥` Show Next Tab
-
-### Help
-- `⌘?` JSTColorPicker Help
-
-## Toolbar Key Equivalents
-
-- `⌃F1` Open...
-- `⌃F2` Cursor
-- `⌃F3` Magnifying Glass
-- `⌃F4` Minifying Glass
-- `⌃F5` Move
-- `⌃F6` Fit Window
-- `⌃F7` Fill Window
 
 ## Usage
 
@@ -108,4 +62,105 @@ There's no need to explain.
 
 ### Others
 - <code>⌘`</code>: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
+
+
+## Menu Key Equivalents
+
+### JSTColorPicker
+- `⌘,` Preferences
+- `⌘H` Hide JSTColorPicker
+- `⌥⌘H` Hide Others
+- `⌘Q` Quit
+
+### File
+- `⌘N` New
+- `⌘O` Open...
+- `⌘W` Close
+- `⌘S` Save...
+- `⇧⌘S` Save As...
+
+### Edit
+- `⌘Z` Undo
+- `⇧⌘Z` Redo
+- `⌫` Delete
+- `⌘A` Select All
+
+### View
+- `⇧⌘\` Show All Tabs
+- `⌥⌘T` Show/Hide Toolbar
+- `⌃⌘S` Show/Hide Sidebar
+- `⌃⌘F` Enter/Exit Full Screen
+- `⌃⌘G` **Toggle Color Grid**
+- `⌃⌘C` **Toggle Color Panel**
+
+### Devices
+- `⌥⌘S` **Screenshot**
+
+### Window
+- `⌘M` Minimize
+- `⌃⇧⇥` Show Previous Tab
+- `⌃⇥` Show Next Tab
+
+### Help
+- `⌘?` JSTColorPicker Help
+
+
+## Toolbar Key Equivalents
+
+- `⌃F1` Open...
+- `⌃F2` Cursor
+- `⌃F3` Magnifying Glass
+- `⌃F4` Minifying Glass
+- `⌃F5` Move
+- `⌃F6` Fit Window
+- `⌃F7` Fill Window
+
+
+## Customizable Templates
+
+*Template* is a *Lua* script which simply returns a table:
+```lua
+return {
+    uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  --required, a unique UUID4 identifier
+    name = "Example",  -- required, name only for display
+    version = "0.1",  -- required, same template with earlier version will not be displayed
+    platformVersion = "1.6",  -- minimum required software version
+    author = "Lessica",
+    description = "This is an example of JSTColorPicker export script.",
+    extension = "lua",  -- file extension used for exporting
+    generator = generator,  -- required
+}
+```
+
+`generator` is a lua function which will be executed when you copy or export item(s):
+```lua
+local generator = function (image, ...)
+    --
+    local args = {...}
+    --
+end
+```
+
+`image` is a lua table which represents the opened image document in current window:
+  - `image.w`: image width in pixels
+  - `image.h`: image height in pixels
+  - `image.get_color(x, y)`: returns **argb** integer value of color
+  - `image.get_image(x, y, w, h)`: returns cropped image's PNG data representation
+
+`args` is a lua sequence of *colors* and *areas*:
+* *color* item:
+  - `color.id`
+  - `color.similarity`
+  - `color.x`
+  - `color.y`
+  - `color.color`: **argb** integer value of color
+* *area* item:
+  - `area.id`
+  - `area.similarity`
+  - `area.x`
+  - `area.y`
+  - `area.w`: area width in pixels
+  - `area.h`: area height in pixels
+
+Test the existence of `item.w` to check if the item is a *color* or an *area*.
 
