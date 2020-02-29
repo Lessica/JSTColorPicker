@@ -48,15 +48,13 @@ There are (so many) macOS color pickers for designers. But a few of them picks c
 ### Fit Window / Fill Window
 There's no need to explain.
 
-### Item Selection
+### Item Actions
 - Select item(s) from left content list.
-- `0123456789`: Enter item `ID` to select existing item.
+- Right click to show menu for selected item(s).
+- `0123456789`: Enter item `ID` to select existing item quickly.
+- Modify item *coordinate* or *area* by moving its ruler markers.
 
-### Item Modification
-1. Select an item.
-2. Modify item *coordinate* or *area* by moving ruler markers.
-
-### Item Export
+### Export
 - `⌘E`: Export all items using selected template.
 
 ### Others
