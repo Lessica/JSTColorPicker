@@ -1,7 +1,29 @@
 local generator = function (image, ...)
-    --
+    --[[
+        `image` is a lua table which represents the opened image document in current window:
+            `image.w`: image width in pixels
+            `image.h`: image height in pixels
+            `image.get_color(x, y)`: returns **argb** integer value of color
+            `image.get_image(x, y, w, h)`: returns png data representation
+    ]]
     local args = {...}
-    --
+    --[[
+        `args` is a lua sequence of *colors* and *areas*:
+        *color* item:
+            `color.id`
+            `color.similarity`
+            `color.x`
+            `color.y`
+            `color.color`: **argb** integer value of color
+        *area* item:
+            `area.id`
+            `area.similarity`
+            `area.x`
+            `area.y`
+            `area.w`: area width in pixels
+            `area.h`: area height in pixels
+        Test the existence of `item.w` to check if the item is a *color* or an *area*.
+    ]]
     local function dump(o)
         if type(o) == 'table' then
             local s = '{ '
@@ -14,12 +36,6 @@ local generator = function (image, ...)
             return tostring(o)
         end
     end
-    --   
-    -- print(dump(image))
-    -- print(dump(args))
-    --
-    -- image.get_color(x, y)
-    -- image.get_image(x, y, w, h)
     --
     local function chunk(text, size)
         local s = {}
@@ -64,12 +80,12 @@ local generator = function (image, ...)
 end
 
 return {
-    uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  -- unique, required
-    name = "Example",  -- required
-    version = "0.1",  -- required
-    platformVersion = "1.7",
+    uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  --required, a unique UUID4 identifier
+    name = "Example",  -- required, name only for display
+    version = "0.1",  -- required, same template with earlier version will not be displayed
+    platformVersion = "1.6",  -- minimum required software version
     author = "Lessica",
     description = "This is an example of JSTColorPicker export script.",
-    extension = "lua",
+    extension = "lua",  -- file extension used for exporting
     generator = generator,  -- required
 }
