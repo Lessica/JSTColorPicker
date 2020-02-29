@@ -68,13 +68,13 @@ There are (so many) macOS color pickers for designers. But a few of them picks c
 ## Usage
 
 ### Magic Cursor
-- **Click** or `⌘↵`: Add current *coordinate & color* to content list.
-- `⇧` and **Drag**: Add dragged *area* to content list.
+- `⌘↵` / **Click** (or **Deep Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
+- `⇧` + **Drag** (or **Deep Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
 - `⌘⌫`: Delete *coordinate & color* at current position or *area* contains current position.
 
 ### Magnifying Glass
 - **Click**: Magnify to next level from current position.
-- `⇧` and **Drag**: Magnify to fill window with dragged area.
+- `⇧` + **Drag** (or **Deep Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
 - **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
