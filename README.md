@@ -1,5 +1,4 @@
 # JSTColorPicker
-
 There are (so many) macOS color pickers for designers. But a few of them picks color together with the location from PNG screenshots (i.e. image annotation).
 
 
@@ -106,7 +105,6 @@ There's no need to explain.
 
 
 ## Toolbar Key Equivalents
-
 - `⌃F1` Open...
 - `⌃F2` Cursor
 - `⌃F3` Magnifying Glass
@@ -117,6 +115,12 @@ There's no need to explain.
 
 
 ## Customizable Templates
+
+JSTColorPicker uses [Lua 5.3.4](https://www.lua.org/) as its template engine.
+
+Click the *export option* button at the bottom right of window, you will see available templates in `templates` folder. Click `Show Templates...` will show that folder in Finder. The name of template file should end up with path extension `.lua`. Selected template will be applied to all copy/export actions if possible.
+
+### Write Templates
 
 *Template* is a *Lua* script which simply returns a table:
 ```lua
@@ -163,4 +167,10 @@ end
   - `area.h`: area height in pixels
 
 Test the existence of `item.w` to check if the item is a *color* or an *area*.
+
+### Debug Templates
+
+To view template logs, you have to build and install JSTColorPicker from source code, then click `Show Logs...` from the *export option* menu, search for process `JSTColorPicker` in the `Console.app`.
+
+Click `Reload All Templates` will reply all changes you made to the `templates` folder immediately.
 
