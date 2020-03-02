@@ -32,6 +32,7 @@
 
 - (instancetype)initWithUDID:(NSString *)udid {
     NSString *name = @"Unknown";
+    cDevice = NULL;
     if (idevice_new_with_options(&cDevice, udid.UTF8String, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
         return nil;
     }
