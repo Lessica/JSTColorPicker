@@ -1,0 +1,21 @@
+
+/* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
+"1xD-ZG-hUt.title" = "Draw Annotators in Color Grid";
+
+/* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */
+"QKj-aX-mro.title" = "Draw Background in Color Grid";
+
+/* Class = "NSButtonCell"; title = "Draw Grids in Scene"; ObjectID = "UPj-0j-JbO"; */
+"UPj-0j-JbO.title" = "Draw Grids in Scene";
+
+/* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
+"UrU-KM-bp8.title" = "Hide Annotators When Resize";
+
+/* Class = "NSButtonCell"; title = "Draw Scene Background"; ObjectID = "j40-58-CMN"; */
+"j40-58-CMN.title" = "Draw Scene Background";
+
+/* Class = "NSButtonCell"; title = "Hide Grids When Resize"; ObjectID = "kpn-WU-eHb"; */
+"kpn-WU-eHb.title" = "Hide Grids When Resize";
+
+/* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
+"pGG-Tu-mxf.title" = "Enable Force Touch";

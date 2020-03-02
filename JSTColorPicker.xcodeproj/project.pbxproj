@@ -122,6 +122,10 @@
 		D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230B23CC56E20067C04A /* DropSplitView.swift */; };
 		D649230E23CC62D70067C04A /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230D23CC62D70067C04A /* SceneController.swift */; };
 		D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649231823CC647D0067C04A /* SceneScrollView.swift */; };
+		D64AF09B240D05BB003A5B17 /* General.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF09D240D05BB003A5B17 /* General.xib */; };
+		D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A0240D05E0003A5B17 /* Folder.xib */; };
+		D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A3240D05E5003A5B17 /* Advanced.xib */; };
+		D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0AC240D069A003A5B17 /* Localizable.strings */; };
 		D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9D23CB180C0098C567 /* AppDelegate.swift */; };
 		D658AFA023CB180C0098C567 /* SplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* SplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
@@ -142,12 +146,9 @@
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
-		D699E0C62408E5100011A4CB /* General.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0C52408E5100011A4CB /* General.xib */; };
 		D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
-		D699E0CA240908E70011A4CB /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0C9240908E70011A4CB /* Folder.xib */; };
 		D699E0CC240908F90011A4CB /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0CB240908F90011A4CB /* FolderController.swift */; };
 		D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D699E0CD24090AEC0011A4CB /* Automator.framework */; };
-		D699E0D02409224A0011A4CB /* Advanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = D699E0CF2409224A0011A4CB /* Advanced.xib */; };
 		D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0D12409224E0011A4CB /* AdvancedController.swift */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
@@ -467,6 +468,15 @@
 		D649230B23CC56E20067C04A /* DropSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropSplitView.swift; sourceTree = "<group>"; };
 		D649230D23CC62D70067C04A /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		D649231823CC647D0067C04A /* SceneScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollView.swift; sourceTree = "<group>"; };
+		D64AF09C240D05BB003A5B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/General.xib; sourceTree = "<group>"; };
+		D64AF09F240D05E0003A5B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Folder.xib; sourceTree = "<group>"; };
+		D64AF0A2240D05E5003A5B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Advanced.xib; sourceTree = "<group>"; };
+		D64AF0A4240D05F9003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/General.strings"; sourceTree = "<group>"; };
+		D64AF0A5240D05F9003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Folder.strings"; sourceTree = "<group>"; };
+		D64AF0A6240D05F9003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Advanced.strings"; sourceTree = "<group>"; };
+		D64AF0A7240D05F9003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		D64AF0AB240D069A003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D64AF0AD240D069D003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
@@ -490,12 +500,9 @@
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
-		D699E0C52408E5100011A4CB /* General.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = General.xib; sourceTree = "<group>"; };
 		D699E0C72408E6E80011A4CB /* GeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralController.swift; sourceTree = "<group>"; };
-		D699E0C9240908E70011A4CB /* Folder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Folder.xib; sourceTree = "<group>"; };
 		D699E0CB240908F90011A4CB /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
 		D699E0CD24090AEC0011A4CB /* Automator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Automator.framework; path = System/Library/Frameworks/Automator.framework; sourceTree = SDKROOT; };
-		D699E0CF2409224A0011A4CB /* Advanced.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Advanced.xib; sourceTree = "<group>"; };
 		D699E0D12409224E0011A4CB /* AdvancedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedController.swift; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
@@ -952,6 +959,7 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
+				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D647B06423D198CB00D76CB5 /* lib */,
 				D647B07023D1A2C300D76CB5 /* include */,
 				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
@@ -1015,11 +1023,11 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				D699E0C52408E5100011A4CB /* General.xib */,
+				D64AF09D240D05BB003A5B17 /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
-				D699E0C9240908E70011A4CB /* Folder.xib */,
+				D64AF0A0240D05E0003A5B17 /* Folder.xib */,
 				D699E0CB240908F90011A4CB /* FolderController.swift */,
-				D699E0CF2409224A0011A4CB /* Advanced.xib */,
+				D64AF0A3240D05E5003A5B17 /* Advanced.xib */,
 				D699E0D12409224E0011A4CB /* AdvancedController.swift */,
 			);
 			path = Preferences;
@@ -1192,6 +1200,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = D658AF9123CB180C0098C567;
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
@@ -1224,11 +1233,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D699E0C62408E5100011A4CB /* General.xib in Resources */,
+				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
-				D699E0D02409224A0011A4CB /* Advanced.xib in Resources */,
+				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
-				D699E0CA240908E70011A4CB /* Folder.xib in Resources */,
+				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
+				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
 			);
@@ -1424,10 +1434,47 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D64AF09D240D05BB003A5B17 /* General.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D64AF09C240D05BB003A5B17 /* Base */,
+				D64AF0A4240D05F9003A5B17 /* zh-Hans */,
+			);
+			name = General.xib;
+			sourceTree = "<group>";
+		};
+		D64AF0A0240D05E0003A5B17 /* Folder.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D64AF09F240D05E0003A5B17 /* Base */,
+				D64AF0A5240D05F9003A5B17 /* zh-Hans */,
+			);
+			name = Folder.xib;
+			sourceTree = "<group>";
+		};
+		D64AF0A3240D05E5003A5B17 /* Advanced.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D64AF0A2240D05E5003A5B17 /* Base */,
+				D64AF0A6240D05F9003A5B17 /* zh-Hans */,
+			);
+			name = Advanced.xib;
+			sourceTree = "<group>";
+		};
+		D64AF0AC240D069A003A5B17 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D64AF0AB240D069A003A5B17 /* en */,
+				D64AF0AD240D069D003A5B17 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		D658AFA323CB180D0098C567 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D658AFA423CB180D0098C567 /* Base */,
+				D64AF0A7240D05F9003A5B17 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1562,6 +1609,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1622,6 +1670,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

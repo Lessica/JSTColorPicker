@@ -36,7 +36,7 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var toolbarItemLabel: String? {
-        return "General"
+        return NSLocalizedString("General", comment: "toolbarItemLabel")
     }
     
     var toolbarItemImage: NSImage? {

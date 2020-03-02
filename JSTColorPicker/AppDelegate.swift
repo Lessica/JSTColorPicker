@@ -101,9 +101,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let selectedDeviceUDID = selectedDeviceUDID {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
-                loadingAlert.messageText = "Waiting for device"
-                loadingAlert.informativeText = "Downloading screenshot from device \"\(device.name)\"..."
-                loadingAlert.addButton(withTitle: "Cancel")
+                loadingAlert.messageText = NSLocalizedString("Waiting for device", comment: "screenshotItemTapped(_:)")
+                loadingAlert.informativeText = NSLocalizedString("Downloading screenshot from device \"\(device.name)\"...", comment: "screenshotItemTapped(_:)")
+                loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
                 loadingAlert.alertStyle = .informational
                 loadingAlert.buttons.first?.isHidden = true
                 windowController.showSheet(loadingAlert, completionHandler: nil)
@@ -143,17 +143,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             } else {
                 let alert = NSAlert()
-                alert.messageText = "Unable to connect"
-                alert.informativeText = "Try again later."
-                alert.addButton(withTitle: "OK")
+                alert.messageText = NSLocalizedString("Unable to connect", comment: "screenshotItemTapped(_:)")
+                alert.informativeText = NSLocalizedString("Try again later.", comment: "screenshotItemTapped(_:)")
+                alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
                 alert.alertStyle = .warning
                 windowController.showSheet(alert, completionHandler: nil)
             }
         } else {
             let alert = NSAlert()
-            alert.messageText = "No device available"
-            alert.informativeText = "Connect to your iOS device via USB or network."
-            alert.addButton(withTitle: "OK")
+            alert.messageText = NSLocalizedString("No device available", comment: "screenshotItemTapped(_:)")
+            alert.informativeText = NSLocalizedString("Connect to your iOS device via USB or network.", comment: "screenshotItemTapped(_:)")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
             alert.alertStyle = .warning
             windowController.showSheet(alert, completionHandler: nil)
         }
@@ -228,7 +228,7 @@ extension AppDelegate: JSTDeviceDelegate {
     }
     
     fileprivate func resetDevicesMenu() {
-        let emptyItem = NSMenuItem(title: "No device found.", action: nil, keyEquivalent: "")
+        let emptyItem = NSMenuItem(title: NSLocalizedString("No device found.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
         emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
         emptyItem.state = .off
         devicesMenu.items = [

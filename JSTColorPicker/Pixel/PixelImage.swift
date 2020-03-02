@@ -17,11 +17,11 @@ enum PixelImageError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .readFailed:
-            return "File read failed."
+            return NSLocalizedString("File read failed.", comment: "PixelImageError")
         case .loadSourceFailed:
-            return "Load image source failed."
+            return NSLocalizedString("Load image source failed.", comment: "PixelImageError")
         case .loadImageFailed:
-            return "Load image data failed."
+            return NSLocalizedString("Load image data failed.", comment: "PixelImageError")
         }
     }
 }

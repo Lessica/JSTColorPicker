@@ -50,9 +50,9 @@ enum ExportError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .noDocumentLoaded:
-            return "No document loaded."
+            return NSLocalizedString("No document loaded.", comment: "ExportError")
         case .noTemplateSelected:
-            return "No template selected."
+            return NSLocalizedString("No template selected.", comment: "ExportError")
         }
     }
 }

@@ -55,19 +55,19 @@ enum TemplateError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .unknown:
-            return "Internal error."
+            return NSLocalizedString("Internal error.", comment: "TemplateError")
         case let .unsatisfiedPlatformVersion(version):
-            return "This template requires JSTColorPicker (\(version)) or later."
+            return NSLocalizedString("This template requires JSTColorPicker (\(version)) or later.", comment: "TemplateError")
         case let .luaError(reason):
             return "\(reason)"
         case .missingRootEntry:
-            return "Missing root entry: template must return a table."
+            return NSLocalizedString("Missing root entry: template must return a table.", comment: "TemplateError")
         case let .missingRequiredField(field):
-            return "Missing required field: \(field)."
+            return NSLocalizedString("Missing required field: \(field).", comment: "TemplateError")
         case .missingReturnedString:
-            return "Missing returned string."
+            return NSLocalizedString("Missing returned string.", comment: "TemplateError")
         case let .invalidField(field):
-            return "Invalid field: \(field)."
+            return NSLocalizedString("Invalid field: \(field).", comment: "TemplateError")
         }
     }
 }

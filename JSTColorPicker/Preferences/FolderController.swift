@@ -36,7 +36,7 @@ extension FolderController: MASPreferencesViewController {
     }
     
     var toolbarItemLabel: String? {
-        return "Folder"
+        return NSLocalizedString("Folder", comment: "toolbarItemLabel")
     }
     
     var toolbarItemImage: NSImage? {

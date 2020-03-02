@@ -31,17 +31,17 @@ enum ContentError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .itemExists:
-            return "This item already exists."
+            return NSLocalizedString("This item already exists.", comment: "ContentError")
         case .itemDoesNotExist:
-            return "This item does not exist."
+            return NSLocalizedString("This item does not exist.", comment: "ContentError")
         case .itemOutOfRange:
-            return "The requested item is out of the document range."
+            return NSLocalizedString("The requested item is out of the document range.", comment: "ContentError")
         case .itemReachLimit:
-            return "Maximum item count reached."
+            return NSLocalizedString("Maximum item count reached.", comment: "ContentError")
         case .itemConflict:
-            return "The requested item conflicts with another item in the document."
+            return NSLocalizedString("The requested item conflicts with another item in the document.", comment: "ContentError")
         case .noDocumentLoaded:
-            return "No document loaded."
+            return NSLocalizedString("No document loaded.", comment: "ContentError")
         }
     }
 }

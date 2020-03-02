@@ -21,21 +21,21 @@ enum ScreenshotError: LocalizedError {
     var failureReason: String? {
         switch self {
         case .invalidImage:
-            return "Invalid image."
+            return NSLocalizedString("Invalid image.", comment: "ScreenshotError")
         case .invalidImageSource:
-            return "Invalid image source."
+            return NSLocalizedString("Invalid image source.", comment: "ScreenshotError")
         case .invalidContent:
-            return "Invalid content."
+            return NSLocalizedString("Invalid content.", comment: "ScreenshotError")
         case .invalidImageType:
-            return "Invalid image type."
+            return NSLocalizedString("Invalid image type.", comment: "ScreenshotError")
         case .invalidImageProperties:
-            return "Invalid image properties."
+            return NSLocalizedString("Invalid image properties.", comment: "ScreenshotError")
         case .cannotSerializeContent:
-            return "Cannot serialize content."
+            return NSLocalizedString("Cannot serialize content.", comment: "ScreenshotError")
         case .cannotDeserializeContent:
-            return "Cannot deserialize content."
+            return NSLocalizedString("Cannot deserialize content.", comment: "ScreenshotError")
         case .notImplemented:
-            return "This feature is not implemented."
+            return NSLocalizedString("This feature is not implemented.", comment: "ScreenshotError")
         }
     }
 }

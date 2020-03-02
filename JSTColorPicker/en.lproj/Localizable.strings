@@ -1,0 +1,139 @@
+
+/* toolbarItemLabel */
+"Advanced" = "";
+
+/* screenshotItemTapped(_:) */
+"Cancel" = "";
+
+/* ScreenshotError */
+"Cannot deserialize content." = "";
+
+/* ScreenshotError */
+"Cannot serialize content." = "";
+
+/* screenshotItemTapped(_:) */
+"Connect to your iOS device via USB or network." = "";
+
+/* kJSTScreenshotError */
+"Could not connect to \"%@\"." = "";
+
+/* kJSTScreenshotError */
+"Could not connect to lockdownd." = "";
+
+/* kJSTScreenshotError */
+"Could not create image from screenshot." = "";
+
+/* kJSTScreenshotError */
+"Could not get interface orientation." = "";
+
+/* kJSTScreenshotError */
+"Could not get PNG/TIFF representation of screenshot." = "";
+
+/* kJSTScreenshotError */
+"Could not get screenshot." = "";
+
+/* kJSTScreenshotError */
+"Could not read TIFF representation of screenshot from temporary storage." = "";
+
+/* kJSTScreenshotError */
+"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "";
+
+/* kJSTScreenshotError */
+"Could not write TIFF representation of screenshot to temporary storage." = "";
+
+/* screenshotItemTapped(_:) */
+"Downloading screenshot from device \"\(device.name)\"..." = "";
+
+/* PixelImageError */
+"File read failed." = "";
+
+/* toolbarItemLabel */
+"Folder" = "";
+
+/* toolbarItemLabel */
+"General" = "";
+
+/* TemplateError */
+"Internal error." = "";
+
+/* ScreenshotError */
+"Invalid content." = "";
+
+/* TemplateError */
+"Invalid field: \(field)." = "";
+
+/* ScreenshotError */
+"Invalid image properties." = "";
+
+/* ScreenshotError */
+"Invalid image source." = "";
+
+/* ScreenshotError */
+"Invalid image type." = "";
+
+/* ScreenshotError */
+"Invalid image." = "";
+
+/* PixelImageError */
+"Load image data failed." = "";
+
+/* PixelImageError */
+"Load image source failed." = "";
+
+/* ContentError */
+"Maximum item count reached." = "";
+
+/* TemplateError */
+"Missing required field: \(field)." = "";
+
+/* TemplateError */
+"Missing returned string." = "";
+
+/* TemplateError */
+"Missing root entry: template must return a table." = "";
+
+/* screenshotItemTapped(_:) */
+"No device available" = "";
+
+/* resetDevicesMenu */
+"No device found." = "";
+
+/* ContentError
+   ExportError */
+"No document loaded." = "";
+
+/* ExportError */
+"No template selected." = "";
+
+/* screenshotItemTapped(_:) */
+"OK" = "";
+
+/* ContentError */
+"The requested item conflicts with another item in the document." = "";
+
+/* ContentError */
+"The requested item is out of the document range." = "";
+
+/* ScreenshotError */
+"This feature is not implemented." = "";
+
+/* ContentError */
+"This item already exists." = "";
+
+/* ContentError */
+"This item does not exist." = "";
+
+/* TemplateError */
+"This template requires JSTColorPicker (\(version)) or later." = "";
+
+/* screenshotItemTapped(_:) */
+"Try again later." = "";
+
+/* screenshotItemTapped(_:) */
+"Unable to connect" = "";
+
+/* initializeController */
+"Untitled #\(windowCount)" = "";
+
+/* screenshotItemTapped(_:) */
+"Waiting for device" = "";

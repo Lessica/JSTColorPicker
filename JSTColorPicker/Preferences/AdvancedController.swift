@@ -40,7 +40,7 @@ extension AdvancedController: MASPreferencesViewController {
     }
     
     var toolbarItemLabel: String? {
-        return "Advanced"
+        return NSLocalizedString("Advanced", comment: "toolbarItemLabel")
     }
     
     var toolbarItemImage: NSImage? {

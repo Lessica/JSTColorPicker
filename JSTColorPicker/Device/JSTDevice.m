@@ -79,17 +79,17 @@
     screenshotr_error_t scret = SCREENSHOTR_E_UNKNOWN_ERROR;
     
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_client_new_with_handshake(device, &lckd, NULL))) {
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: @"Could not connect to lockdownd." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not connect to lockdownd.", @"kJSTScreenshotError") }]);
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SBSERVICES_SERVICE_NAME, &sbsService)) || !(sbsService && sbsService->port > 0)) {
         lockdownd_client_free(lckd);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SCREENSHOTR_SERVICE_NAME, &shotrService)) || !(shotrService && shotrService->port > 0)) {
         lockdownd_client_free(lckd);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
     lockdownd_client_free(lckd);
@@ -97,14 +97,14 @@
     if (SBSERVICES_E_SUCCESS != (sbret = sbservices_client_new(device, sbsService, &sbs))) {
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not connect to \"%@\".", @SBSERVICES_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME] }]);
         return;
     }
     if (SCREENSHOTR_E_SUCCESS != (scret = screenshotr_client_new(device, shotrService, &shotr))) {
         sbservices_client_free(sbs);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not connect to \"%@\".", @SCREENSHOTR_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
     
@@ -114,7 +114,7 @@
         screenshotr_client_free(shotr);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: @"Could not get interface orientation." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get interface orientation.", @"kJSTScreenshotError") }]);
         return;
     }
     
@@ -125,7 +125,7 @@
         screenshotr_client_free(shotr);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not get screenshot." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     
@@ -139,7 +139,7 @@
         screenshotr_client_free(shotr);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not get PNG/TIFF representation of screenshot." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get PNG/TIFF representation of screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     
@@ -155,7 +155,7 @@
             screenshotr_client_free(shotr);
             lockdownd_service_descriptor_free(sbsService);
             lockdownd_service_descriptor_free(shotrService);
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not write TIFF representation of screenshot to temporary storage." }]);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not write TIFF representation of screenshot to temporary storage.", @"kJSTScreenshotError") }]);
             return;
         }
         
@@ -171,7 +171,7 @@
             screenshotr_client_free(shotr);
             lockdownd_service_descriptor_free(sbsService);
             lockdownd_service_descriptor_free(shotrService);
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not read TIFF representation of screenshot from temporary storage." }]);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not read TIFF representation of screenshot from temporary storage.", @"kJSTScreenshotError") }]);
             return;
         }
         
@@ -191,7 +191,7 @@
         screenshotr_client_free(shotr);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not create image from screenshot." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not create image from screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     
