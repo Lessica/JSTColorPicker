@@ -194,8 +194,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.paletteLabel" = "Fill Window";
 
-/* Class = "NSToolbarItem"; toolTip = "Fit Window (⌃F7)"; ObjectID = "lQd-Bs-mbf"; */
-"lQd-Bs-mbf.toolTip" = "Fit Window (⌃F7)";
+/* Class = "NSToolbarItem"; toolTip = "Fill Window (⌃F7)"; ObjectID = "lQd-Bs-mbf"; */
+"lQd-Bs-mbf.toolTip" = "Fill Window (⌃F7)";
 
 /* Class = "NSToolbarItem"; label = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.label" = "Move";

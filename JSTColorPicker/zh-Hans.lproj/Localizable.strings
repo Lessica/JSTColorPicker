@@ -108,6 +108,9 @@
 /* screenshotItemTapped(_:) */
 "OK" = "好";
 
+/* PreferencesController */
+"Preferences" = "偏好设置";
+
 /* ContentError */
 "The requested item conflicts with another item in the document." = "请求的项目与文档中的另一个项目冲突.";
 
@@ -137,6 +140,3 @@
 
 /* screenshotItemTapped(_:) */
 "Waiting for device" = "正在等待设备";
-
-/* PreferencesController */
-"Preferences" = "偏好设置";

@@ -108,6 +108,9 @@
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
 
+/* PreferencesController */
+"Preferences" = "Preferences";
+
 /* ContentError */
 "The requested item conflicts with another item in the document." = "The requested item conflicts with another item in the document.";
 
@@ -137,6 +140,3 @@
 
 /* screenshotItemTapped(_:) */
 "Waiting for device" = "Waiting for device";
-
-/* PreferencesController */
-"Preferences" = "Preferences";
