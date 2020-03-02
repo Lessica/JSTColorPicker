@@ -115,6 +115,9 @@ class GridView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        wantsLayer = true
+        layer?.isOpaque = true
+        
         hPixelNum = Int(bounds.width / pixelSize.width)
         vPixelNum = Int(bounds.height / pixelSize.height)
         centerOverlay.frame = CGRect(x: CGFloat(hPixelNum / 2 * Int(pixelSize.width)), y: CGFloat(vPixelNum / 2 * Int(pixelSize.height)), width: pixelSize.width, height: pixelSize.height)

@@ -130,22 +130,71 @@
     }
     
     BOOL isPNGData = NO;
+    BOOL isTIFFData = NO;
     if (memcmp(cIMGData, "\x89PNG", MIN(4, cIMGSize)) == 0) { isPNGData = YES; }
-    else if (memcmp(cIMGData, "MM\x00*", MIN(4, cIMGSize)) == 0) {}
-    else {}
-    if (!isPNGData) {
+    else if (memcmp(cIMGData, "MM\x00*", MIN(4, cIMGSize)) == 0) { isTIFFData = YES; }
+    else {
         free(cIMGData);
         sbservices_client_free(sbs);
         screenshotr_client_free(shotr);
         lockdownd_service_descriptor_free(sbsService);
         lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not get PNG representation of screenshot." }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not get PNG/TIFF representation of screenshot." }]);
         return;
     }
     
-    CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)cIMGData, cIMGSize, kCFAllocatorDefault);
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
-    CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, false, kCGRenderingIntentDefault);
+    CGImageRef image = nil;
+    if (isTIFFData) {
+        NSURL *temporaryDirectoryURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+        NSURL *temporaryFileURL = [temporaryDirectoryURL URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"tiff"]];
+        NSData *temporaryData = [NSData dataWithBytesNoCopy:cIMGData length:cIMGSize];
+        
+        BOOL temporaryWrite = [temporaryData writeToURL:temporaryFileURL atomically:YES];
+        if (!temporaryWrite) {
+            sbservices_client_free(sbs);
+            screenshotr_client_free(shotr);
+            lockdownd_service_descriptor_free(sbsService);
+            lockdownd_service_descriptor_free(shotrService);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not write TIFF representation of screenshot to temporary storage." }]);
+            return;
+        }
+        
+        CFURLRef imageURLRef = (__bridge CFURLRef)temporaryFileURL;
+        NSDictionary *sourceOptions = @{
+            (id)kCGImageSourceShouldCache: (id)kCFBooleanFalse,
+            (id)kCGImageSourceTypeIdentifierHint: (id)kUTTypeTIFF
+        };
+        CFDictionaryRef sourceOptionsRef = (__bridge CFDictionaryRef)sourceOptions;
+        CGImageSourceRef imageSource = CGImageSourceCreateWithURL(imageURLRef, sourceOptionsRef);
+        if (!imageSource) {
+            sbservices_client_free(sbs);
+            screenshotr_client_free(shotr);
+            lockdownd_service_descriptor_free(sbsService);
+            lockdownd_service_descriptor_free(shotrService);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not read TIFF representation of screenshot from temporary storage." }]);
+            return;
+        }
+        
+        image = CGImageSourceCreateImageAtIndex(imageSource, 0, sourceOptionsRef);
+        CFRelease(imageSource);
+    }
+    else {
+        CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)cIMGData, cIMGSize, kCFAllocatorDefault);
+        CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
+        image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, false, kCGRenderingIntentDefault);
+        CGDataProviderRelease(dataProvider);
+        CFRelease(data);
+    }
+    
+    if (!image) {
+        sbservices_client_free(sbs);
+        screenshotr_client_free(shotr);
+        lockdownd_service_descriptor_free(sbsService);
+        lockdownd_service_descriptor_free(shotrService);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: @"Could not create image from screenshot." }]);
+        return;
+    }
+    
     JSTPixelImage *pixelImage = [[JSTPixelImage alloc] initWithCGImage:image];
     if (orientation == SBSERVICES_INTERFACE_ORIENTATION_PORTRAIT) {
         [pixelImage setOrientation:0];
@@ -160,9 +209,7 @@
         [pixelImage setOrientation:3];
     }
     completion([pixelImage pngRepresentation], nil);
-    CGImageRelease(image);
-    CGDataProviderRelease(dataProvider);
-    CFRelease(data);
+    if (image) { CGImageRelease(image); }
     
     sbservices_client_free(sbs);
     screenshotr_client_free(shotr);

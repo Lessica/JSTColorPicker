@@ -132,6 +132,14 @@ class SceneController: NSViewController {
             sceneView.enableForceTouch = newValue
         }
     }
+    fileprivate var drawSceneBackground: Bool {
+        get {
+            return sceneView.drawSceneBackground
+        }
+        set {
+            sceneView.drawSceneBackground = newValue
+        }
+    }
     
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -199,6 +207,10 @@ class SceneController: NSViewController {
     
     @objc fileprivate func loadPreferences(_ notification: Notification?) {
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
+        let drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground]
+        if self.drawSceneBackground != drawSceneBackground {
+            self.drawSceneBackground = drawSceneBackground
+        }
         let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]

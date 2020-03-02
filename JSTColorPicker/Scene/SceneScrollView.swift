@@ -134,6 +134,11 @@ class SceneScrollView: NSScrollView {
     
     public var state = SceneManipulatingState()
     public var enableForceTouch: Bool = false
+    public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
+        didSet {
+            reloadSceneBackground()
+        }
+    }
     fileprivate var minimumDraggingDistance: CGFloat {
         return enableForceTouch ? 6.0 : 3.0
     }
@@ -194,7 +199,6 @@ class SceneScrollView: NSScrollView {
         super.awakeFromNib()
         
         SceneScrollView.rulerViewClass = RulerView.self
-        backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
         contentInsets = NSEdgeInsetsZero
         hasVerticalRuler = true
         hasHorizontalRuler = true
@@ -217,7 +221,17 @@ class SceneScrollView: NSScrollView {
             rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
         
+        reloadSceneBackground()
         addSubview(draggingOverlay)
+    }
+    
+    fileprivate func reloadSceneBackground() {
+        if drawSceneBackground {
+            backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
+        }
+        else {
+            backgroundColor = NSColor.controlBackgroundColor
+        }
     }
     
     fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
