@@ -1,139 +1,142 @@
 
 /* toolbarItemLabel */
-"Advanced" = "";
+"Advanced" = "进阶";
 
 /* screenshotItemTapped(_:) */
-"Cancel" = "";
+"Cancel" = "取消";
 
 /* ScreenshotError */
-"Cannot deserialize content." = "";
+"Cannot deserialize content." = "无法反序列化内容.";
 
 /* ScreenshotError */
-"Cannot serialize content." = "";
+"Cannot serialize content." = "无法序列化内容.";
 
 /* screenshotItemTapped(_:) */
-"Connect to your iOS device via USB or network." = "";
+"Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备.";
 
 /* kJSTScreenshotError */
-"Could not connect to \"%@\"." = "";
+"Could not connect to \"%@\"." = "无法连接到 \"%@\".";
 
 /* kJSTScreenshotError */
-"Could not connect to lockdownd." = "";
+"Could not connect to lockdownd." = "无法连接到 lockdownd.";
 
 /* kJSTScreenshotError */
-"Could not create image from screenshot." = "";
+"Could not create image from screenshot." = "无法从屏幕截图创建图像.";
 
 /* kJSTScreenshotError */
-"Could not get interface orientation." = "";
+"Could not get interface orientation." = "无法获取界面方向.";
 
 /* kJSTScreenshotError */
-"Could not get PNG/TIFF representation of screenshot." = "";
+"Could not get PNG/TIFF representation of screenshot." = "无法获取屏幕截图的 PNG/TIFF 数据表示形式.";
 
 /* kJSTScreenshotError */
-"Could not get screenshot." = "";
+"Could not get screenshot." = "无法获取屏幕截图.";
 
 /* kJSTScreenshotError */
-"Could not read TIFF representation of screenshot from temporary storage." = "";
+"Could not read TIFF representation of screenshot from temporary storage." = "无法从临时存储读取屏幕截图的 TIFF 数据表示形式.";
 
 /* kJSTScreenshotError */
-"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "";
+"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "无法启动 \"%@\" 服务. 请记住, 如果要使用 \"%@\" 服务, 必须安装 Xcode 或手动在设备上挂载开发人员磁盘映像.";
 
 /* kJSTScreenshotError */
-"Could not write TIFF representation of screenshot to temporary storage." = "";
+"Could not write TIFF representation of screenshot to temporary storage." = "无法将屏幕截图的 TIFF 数据表示形式写入临时存储.";
 
 /* screenshotItemTapped(_:) */
-"Downloading screenshot from device \"\(device.name)\"..." = "";
+"Downloading screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
 
 /* PixelImageError */
-"File read failed." = "";
+"File read failed." = "文件读取失败.";
 
 /* toolbarItemLabel */
-"Folder" = "";
+"Folder" = "目录";
 
 /* toolbarItemLabel */
-"General" = "";
+"General" = "通用";
 
 /* TemplateError */
-"Internal error." = "";
+"Internal error." = "内部错误.";
 
 /* ScreenshotError */
-"Invalid content." = "";
+"Invalid content." = "内容无效.";
 
 /* TemplateError */
-"Invalid field: \(field)." = "";
+"Invalid field: %@." = "无效的字段: %@.";
 
 /* ScreenshotError */
-"Invalid image properties." = "";
+"Invalid image properties." = "无效的图像属性.";
 
 /* ScreenshotError */
-"Invalid image source." = "";
+"Invalid image source." = "图像源无效.";
 
 /* ScreenshotError */
-"Invalid image type." = "";
+"Invalid image type." = "图像类型无效.";
 
 /* ScreenshotError */
-"Invalid image." = "";
+"Invalid image." = "图像无效.";
 
 /* PixelImageError */
-"Load image data failed." = "";
+"Load image data failed." = "加载图像数据失败.";
 
 /* PixelImageError */
-"Load image source failed." = "";
+"Load image source failed." = "加载映像源失败.";
 
 /* ContentError */
-"Maximum item count reached." = "";
+"Maximum item count reached." = "已达到最大项目数量.";
 
 /* TemplateError */
-"Missing required field: \(field)." = "";
+"Missing required field: %@." = "缺少必填字段: %@.";
 
 /* TemplateError */
-"Missing returned string." = "";
+"Missing returned string." = "缺少返回的字符串.";
 
 /* TemplateError */
-"Missing root entry: template must return a table." = "";
+"Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
 
 /* screenshotItemTapped(_:) */
-"No device available" = "";
+"No device available" = "没有可用的设备";
 
 /* resetDevicesMenu */
-"No device found." = "";
+"No device found." = "未找到设备.";
 
 /* ContentError
    ExportError */
-"No document loaded." = "";
+"No document loaded." = "未加载任何文档.";
 
 /* ExportError */
-"No template selected." = "";
+"No template selected." = "未选择模板.";
 
 /* screenshotItemTapped(_:) */
-"OK" = "";
+"OK" = "好";
 
 /* ContentError */
-"The requested item conflicts with another item in the document." = "";
+"The requested item conflicts with another item in the document." = "请求的项目与文档中的另一个项目冲突.";
 
 /* ContentError */
-"The requested item is out of the document range." = "";
+"The requested item is out of the document range." = "请求的项目已超出文档范围.";
 
 /* ScreenshotError */
-"This feature is not implemented." = "";
+"This feature is not implemented." = "此功能未实现.";
 
 /* ContentError */
-"This item already exists." = "";
+"This item already exists." = "此项目已存在.";
 
 /* ContentError */
-"This item does not exist." = "";
+"This item does not exist." = "此项目不存在.";
 
 /* TemplateError */
-"This template requires JSTColorPicker (\(version)) or later." = "";
+"This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本.";
 
 /* screenshotItemTapped(_:) */
-"Try again later." = "";
+"Try again later." = "请稍后重试.";
 
 /* screenshotItemTapped(_:) */
-"Unable to connect" = "";
+"Unable to connect" = "无法连接";
 
 /* initializeController */
-"Untitled #\(windowCount)" = "";
+"Untitled #%d" = "无标题 #%d";
 
 /* screenshotItemTapped(_:) */
-"Waiting for device" = "";
+"Waiting for device" = "正在等待设备";
+
+/* PreferencesController */
+"Preferences" = "偏好设置";

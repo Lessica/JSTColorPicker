@@ -143,6 +143,7 @@
 		D684841523D3E40B00BC5E34 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D684841423D3E3FD00BC5E34 /* libz.tbd */; };
 		D684842223D4105100BC5E34 /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* Grid.storyboard */; };
 		D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* GridWindowController.swift */; };
+		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
@@ -477,6 +478,10 @@
 		D64AF0A7240D05F9003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		D64AF0AB240D069A003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D64AF0AD240D069D003A5B17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D64AF0B0240D0B4E003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/General.strings; sourceTree = "<group>"; };
+		D64AF0B2240D0B57003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Folder.strings; sourceTree = "<group>"; };
+		D64AF0B4240D0B5B003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Advanced.strings; sourceTree = "<group>"; };
+		D64AF0B6240D0B62003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
@@ -497,6 +502,7 @@
 		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D684842123D4105100BC5E34 /* Grid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Grid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* GridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindowController.swift; sourceTree = "<group>"; };
+		D690493D240D1A3200E05F37 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
@@ -1023,6 +1029,7 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				D64AF09D240D05BB003A5B17 /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
 				D64AF0A0240D05E0003A5B17 /* Folder.xib */,
@@ -1364,6 +1371,7 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
+				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
 				D645E4A923EC064A0039F4F6 /* SidebarSplitView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
@@ -1439,6 +1447,7 @@
 			children = (
 				D64AF09C240D05BB003A5B17 /* Base */,
 				D64AF0A4240D05F9003A5B17 /* zh-Hans */,
+				D64AF0B0240D0B4E003A5B17 /* en */,
 			);
 			name = General.xib;
 			sourceTree = "<group>";
@@ -1448,6 +1457,7 @@
 			children = (
 				D64AF09F240D05E0003A5B17 /* Base */,
 				D64AF0A5240D05F9003A5B17 /* zh-Hans */,
+				D64AF0B2240D0B57003A5B17 /* en */,
 			);
 			name = Folder.xib;
 			sourceTree = "<group>";
@@ -1457,6 +1467,7 @@
 			children = (
 				D64AF0A2240D05E5003A5B17 /* Base */,
 				D64AF0A6240D05F9003A5B17 /* zh-Hans */,
+				D64AF0B4240D0B5B003A5B17 /* en */,
 			);
 			name = Advanced.xib;
 			sourceTree = "<group>";
@@ -1475,6 +1486,7 @@
 			children = (
 				D658AFA423CB180D0098C567 /* Base */,
 				D64AF0A7240D05F9003A5B17 /* zh-Hans */,
+				D64AF0B6240D0B62003A5B17 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

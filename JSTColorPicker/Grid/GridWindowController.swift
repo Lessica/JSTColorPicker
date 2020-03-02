@@ -32,7 +32,9 @@ class GridWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         window?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        window?.standardWindowButton(.miniaturizeButton)?.isEnabled = false
         window?.standardWindowButton(.zoomButton)?.isHidden = true
+        window?.standardWindowButton(.zoomButton)?.isEnabled = false
     }
     
     override func showWindow(_ sender: Any?) {

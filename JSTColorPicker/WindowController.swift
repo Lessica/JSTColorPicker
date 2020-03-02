@@ -252,7 +252,7 @@ extension WindowController: ScreenshotLoader {
     }
     
     func initializeController() {
-        window!.title = NSLocalizedString("Untitled #\(windowCount)", comment: "initializeController")
+        window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
         touchBarUpdateButtonState()
     }

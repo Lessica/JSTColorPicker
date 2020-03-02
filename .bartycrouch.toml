@@ -2,38 +2,33 @@
 tasks = ["interfaces", "code", "transform", "normalize"]
 
 [update.interfaces]
-path = "."
+path = "JSTColorPicker"
 defaultToBase = false
 ignoreEmptyStrings = false
 unstripped = false
 
 [update.code]
-codePath = "."
+codePath = "JSTColorPicker"
 localizablePath = "."
 defaultToKeys = false
-additive = true
+additive = false
 unstripped = false
 
 [update.transform]
-codePath = "."
-localizablePath = "."
+codePath = "JSTColorPicker"
+localizablePath = "JSTColorPicker"
 transformer = "foundation"
-supportedLanguageEnumPath = "."
+supportedLanguageEnumPath = "JSTColorPicker"
 typeName = "BartyCrouch"
 translateMethodName = "translate"
 
 [update.normalize]
-path = "."
+path = "JSTColorPicker"
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
 
-[update.translate]
-path = "."
-secret = "ced56881b6a045d6b6df979112aa3d23"
-sourceLocale = "en"
-
 [lint]
-path = "."
+path = "JSTColorPicker"
 duplicateKeys = true
 emptyValues = true

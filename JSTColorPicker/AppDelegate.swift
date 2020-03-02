@@ -19,7 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let generalController = GeneralController()
         let folderController = FolderController()
         let advancedController = AdvancedController()
-        return MASPreferencesWindowController(viewControllers: [generalController, folderController, advancedController], title: "Preferences")
+        let controller = PreferencesController(viewControllers: [generalController, folderController, advancedController], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
+        return controller
     }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -102,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let device = JSTDevice(udid: selectedDeviceUDID) {
                 let loadingAlert = NSAlert()
                 loadingAlert.messageText = NSLocalizedString("Waiting for device", comment: "screenshotItemTapped(_:)")
-                loadingAlert.informativeText = NSLocalizedString("Downloading screenshot from device \"\(device.name)\"...", comment: "screenshotItemTapped(_:)")
+                loadingAlert.informativeText = String(format: NSLocalizedString("Downloading screenshot from device \"%@\"...", comment: "screenshotItemTapped(_:)"), device.name)
                 loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
                 loadingAlert.alertStyle = .informational
                 loadingAlert.buttons.first?.isHidden = true

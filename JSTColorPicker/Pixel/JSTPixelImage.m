@@ -214,10 +214,10 @@ static inline void get_color_in_pixels_image_notran(JST_IMAGE *pixels_image, int
     color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
 }
 
-static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, JST_COLOR **ppixels_data) /* 这个函数产生的返回值需要释放，第二个参数如果有产出，也需要释放 */
+static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, JST_COLOR **ppixels_data) /* 这个函数产生的返回值需要释放, 第二个参数如果有产出, 也需要释放 */
 {
     int W, H;
-    *ppixels_data = NULL; /* 先把需要产出的这里置空，函数完毕之后需要通过这里判断是否需要释放 */
+    *ppixels_data = NULL; /* 先把需要产出的这里置空, 函数完毕之后需要通过这里判断是否需要释放 */
     JST_COLOR *pixels_buffer = pixels_image->pixels;
     switch (pixels_image->orientation) {
         case 1:
@@ -231,7 +231,7 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
             break;
     }
     if (0 != pixels_image->orientation) {
-        pixels_buffer = (JST_COLOR *) malloc((size_t) (W * H * 4)); /* 通过第二个参数 ppixels_data 延迟释放，一定要记住 */
+        pixels_buffer = (JST_COLOR *) malloc((size_t) (W * H * 4)); /* 通过第二个参数 ppixels_data 延迟释放, 一定要记住 */
         *ppixels_data = pixels_buffer;
         uint64_t big_count_offset = 0;
         JST_COLOR color_of_point;
