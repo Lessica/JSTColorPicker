@@ -114,6 +114,14 @@ class SceneController: NSViewController {
     fileprivate var areaAnnotators: [AreaAnnotator] {
         return annotators.compactMap({ $0 as? AreaAnnotator })
     }
+    fileprivate var enableForceTouch: Bool {
+        get {
+            return sceneView.enableForceTouch
+        }
+        set {
+            sceneView.enableForceTouch = newValue
+        }
+    }
     fileprivate var drawGridsInScene: Bool {
         get {
             return sceneGridView.drawGridsInScene
@@ -122,14 +130,12 @@ class SceneController: NSViewController {
             sceneGridView.drawGridsInScene = newValue
         }
     }
-    fileprivate var hideGridsWhenResize: Bool = false
-    fileprivate var hideAnnotatorsWhenResize: Bool = true
-    fileprivate var enableForceTouch: Bool {
+    fileprivate var drawRulersInScene: Bool {
         get {
-            return sceneView.enableForceTouch
+            return sceneView.drawRulersInScene
         }
         set {
-            sceneView.enableForceTouch = newValue
+            sceneView.drawRulersInScene = newValue
         }
     }
     fileprivate var drawSceneBackground: Bool {
@@ -140,6 +146,8 @@ class SceneController: NSViewController {
             sceneView.drawSceneBackground = newValue
         }
     }
+    fileprivate var hideGridsWhenResize: Bool = false
+    fileprivate var hideAnnotatorsWhenResize: Bool = true
     
     fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -221,6 +229,11 @@ class SceneController: NSViewController {
             } else {
                 sceneGridView.setNeedsDisplay()
             }
+        }
+        let drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene]
+        if self.drawRulersInScene != drawRulersInScene {
+            self.drawRulersInScene = drawRulersInScene
+            reloadSceneRulerConstraints()
         }
     }
     
@@ -606,10 +619,15 @@ extension SceneController: ScreenshotLoader {
         
         // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
+        reloadSceneRulerConstraints()
         
-        sceneGridTopConstraint.constant = SceneScrollView.alternativeBoundsOrigin.y
-        sceneGridLeadingConstraint.constant = SceneScrollView.alternativeBoundsOrigin.x
         useSelectedTrackingTool()
+    }
+    
+    fileprivate func reloadSceneRulerConstraints() {
+        sceneGridTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
+        sceneGridLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
+        updateAnnotatorBounds()
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -742,11 +760,11 @@ extension SceneController: AnnotatorManager {
     fileprivate func updateFrame(of annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
             annotator.view.isSmallArea = true
-            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-SceneScrollView.alternativeBoundsOrigin)
+            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
             annotator.view.frame = CGRect(origin: pointInMask, size: annotator.view.defaultSize).offsetBy(annotator.view.defaultOffset)
         }
         else if let annotator = annotator as? AreaAnnotator {
-            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-SceneScrollView.alternativeBoundsOrigin)
+            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
             // if smaller than default size
             if rectInMask.size < annotator.view.defaultSize {
                 annotator.view.isSmallArea = true

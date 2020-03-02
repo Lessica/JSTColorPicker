@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .enableForceTouch: false,
             .drawSceneBackground: true,
             .drawGridsInScene: true,
+            .drawRulersInScene: true,
             .drawBackgroundInGridView: true,
             .drawAnnotatorsInGridView: false,
             .hideGridsWhenResize: false,

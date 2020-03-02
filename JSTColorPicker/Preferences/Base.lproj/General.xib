@@ -14,14 +14,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="186"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="208"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTH-VJ-3p5">
-                    <rect key="frame" x="20" y="20" width="260" height="146"/>
+                    <rect key="frame" x="20" y="20" width="260" height="168"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5pD-NR-JY3">
-                            <rect key="frame" x="-2" y="130" width="141" height="18"/>
+                            <rect key="frame" x="-2" y="152" width="141" height="18"/>
                             <buttonCell key="cell" type="check" title="Enable Force Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="pGG-Tu-mxf">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -35,7 +35,7 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hZf-dB-444">
-                            <rect key="frame" x="-2" y="108" width="171" height="18"/>
+                            <rect key="frame" x="-2" y="130" width="171" height="18"/>
                             <buttonCell key="cell" type="check" title="Draw Scene Background" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="j40-58-CMN">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -49,13 +49,27 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6U2-WS-Ug8">
-                            <rect key="frame" x="-2" y="86" width="145" height="18"/>
+                            <rect key="frame" x="-2" y="108" width="145" height="18"/>
                             <buttonCell key="cell" type="check" title="Draw Grids in Scene" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UPj-0j-JbO">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
                                 <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawGridsInScene" id="qzi-y7-dIk">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BPh-cF-26c">
+                            <rect key="frame" x="-2" y="86" width="151" height="18"/>
+                            <buttonCell key="cell" type="check" title="Draw Rulers in Scene" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uai-sp-jsU">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawRulersInScene" id="Erb-HY-kIN">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                     </dictionary>
@@ -130,8 +144,10 @@
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>

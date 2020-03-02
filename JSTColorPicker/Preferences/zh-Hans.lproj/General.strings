@@ -19,3 +19,6 @@
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "缩放时隐藏标注";
+
+/* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
+"uai-sp-jsU.title" = "在场景中绘制标尺";

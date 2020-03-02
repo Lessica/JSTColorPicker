@@ -14,6 +14,7 @@ public extension UserDefaults.Key {
     static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"    // Bool
     static let enableForceTouch: UserDefaults.Key         = "defaults.enableForceTouch"          // Bool
     static let drawSceneBackground: UserDefaults.Key      = "defaults.drawSceneBackground"       // Bool
+    static let drawRulersInScene: UserDefaults.Key        = "defaults.drawRulersInScene"          // Bool
     static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"          // Bool
     static let drawBackgroundInGridView: UserDefaults.Key = "defaults.drawBackgroundInGridView"  // Bool
     static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"  // Bool

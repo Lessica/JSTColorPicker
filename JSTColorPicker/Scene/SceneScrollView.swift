@@ -139,6 +139,11 @@ class SceneScrollView: NSScrollView {
             reloadSceneBackground()
         }
     }
+    public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
+        didSet {
+            reloadSceneRulers()
+        }
+    }
     fileprivate var minimumDraggingDistance: CGFloat {
         return enableForceTouch ? 6.0 : 3.0
     }
@@ -166,7 +171,7 @@ class SceneScrollView: NSScrollView {
     
     public var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
-        return CGRect(x: rect.minX + SceneScrollView.alternativeBoundsOrigin.x, y: rect.minY + SceneScrollView.alternativeBoundsOrigin.y, width: rect.width - SceneScrollView.alternativeBoundsOrigin.x, height: rect.height - SceneScrollView.alternativeBoundsOrigin.y)
+        return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
     }
     fileprivate var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
@@ -178,7 +183,12 @@ class SceneScrollView: NSScrollView {
         return false
     }
     
-    public static let alternativeBoundsOrigin = CGPoint(x: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView, y: rulerThickness + reservedThicknessForMarkers + reservedThicknessForAccessoryView)
+    public var alternativeBoundsOrigin: CGPoint {
+        if drawRulersInScene {
+            return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
+        }
+        return CGPoint.zero
+    }
     fileprivate static let rulerThickness: CGFloat = 16.0
     fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
     fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
@@ -200,29 +210,37 @@ class SceneScrollView: NSScrollView {
         
         SceneScrollView.rulerViewClass = RulerView.self
         contentInsets = NSEdgeInsetsZero
-        hasVerticalRuler = true
-        hasHorizontalRuler = true
-        rulersVisible = true
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
         usesPredominantAxisScrolling = false
         
+        hasVerticalRuler = true
+        hasHorizontalRuler = true
         if let rulerView = verticalRulerView {
             rulerView.measurementUnits = .points
             rulerView.ruleThickness = SceneScrollView.rulerThickness
             rulerView.reservedThicknessForMarkers = SceneScrollView.reservedThicknessForMarkers
             rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
-        
         if let rulerView = horizontalRulerView {
             rulerView.measurementUnits = .points
             rulerView.ruleThickness = SceneScrollView.rulerThickness
             rulerView.reservedThicknessForMarkers = SceneScrollView.reservedThicknessForMarkers
             rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
+        reloadSceneRulers()
         
         reloadSceneBackground()
         addSubview(draggingOverlay)
+    }
+    
+    fileprivate func reloadSceneRulers() {
+        if drawRulersInScene {
+            rulersVisible = true
+        }
+        else {
+            rulersVisible = false
+        }
     }
     
     fileprivate func reloadSceneBackground() {
