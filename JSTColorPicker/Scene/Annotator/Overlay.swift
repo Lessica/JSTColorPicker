@@ -24,7 +24,7 @@ class Overlay: NSView {
     var lineDashBeginPhase: CGFloat {
         return CGFloat(lineDashCount % 9)
     }
-    var lineDashLengths: [CGFloat] = [5.0, 4.0]
+    var lineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
     fileprivate var lineDashTimer: Timer?
     
     var isAnimating: Bool = false {
@@ -76,7 +76,7 @@ class Overlay: NSView {
         guard isBordered else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        // black-white painted dashed lines
+        // black-white painted dashed lines, draw only inside dirtyRect to improve performance
         
         let drawBounds = bounds.inset(by: innerInsets)
         guard !drawBounds.isNull else { return }
@@ -147,24 +147,24 @@ class Overlay: NSView {
             yLower = max(dirtyRect.minY, point1.y)
             let beginY = point2.y - beginPhase
             let deltaY = beginY - (yUpper + (floor((beginY - yUpper) / (mixedLength)) * mixedLength))
-            var y: CGFloat
+            var drawY: CGFloat
             if deltaY < drawLength {
                 let remainLength = drawLength - deltaY
-                y = yUpper
-                ctx.move(to: CGPoint(x: point2.x, y: y))
-                y -= min(remainLength, y - yLower)
-                ctx.addLine(to: CGPoint(x: point2.x, y: y))
-                y -= spaceLength
+                drawY = yUpper
+                ctx.move(to: CGPoint(x: point2.x, y: drawY))
+                drawY -= min(remainLength, drawY - yLower)
+                ctx.addLine(to: CGPoint(x: point2.x, y: drawY))
+                drawY -= spaceLength
             }
             else {
                 let remainLength = mixedLength - deltaY
-                y = yUpper - remainLength
+                drawY = yUpper - remainLength
             }
-            while y > yLower {
-                ctx.move(to: CGPoint(x: point2.x, y: y))
-                y -= min(drawLength, y - yLower)
-                ctx.addLine(to: CGPoint(x: point2.x, y: y))
-                y -= spaceLength
+            while drawY > yLower {
+                ctx.move(to: CGPoint(x: point2.x, y: drawY))
+                drawY -= min(drawLength, drawY - yLower)
+                ctx.addLine(to: CGPoint(x: point2.x, y: drawY))
+                drawY -= spaceLength
             }
         }
         if point3.y > dirtyRect.minY && point3.y < dirtyRect.maxY {
@@ -197,24 +197,24 @@ class Overlay: NSView {
             yLower = max(dirtyRect.minY, point0.y)
             let beginY = point3.y - beginPhase
             let deltaY = beginY - (yUpper + (floor((beginY - yUpper) / (mixedLength)) * mixedLength))
-            var y: CGFloat
+            var drawY: CGFloat
             if deltaY < drawLength {
                 let remainLength = drawLength - deltaY
-                y = yUpper
-                ctx.move(to: CGPoint(x: point3.x, y: y))
-                y -= min(remainLength, y - yLower)
-                ctx.addLine(to: CGPoint(x: point3.x, y: y))
-                y -= spaceLength
+                drawY = yUpper
+                ctx.move(to: CGPoint(x: point3.x, y: drawY))
+                drawY -= min(remainLength, drawY - yLower)
+                ctx.addLine(to: CGPoint(x: point3.x, y: drawY))
+                drawY -= spaceLength
             }
             else {
                 let remainLength = mixedLength - deltaY
-                y = yUpper - remainLength
+                drawY = yUpper - remainLength
             }
-            while y > yLower {
-                ctx.move(to: CGPoint(x: point3.x, y: y))
-                y -= min(drawLength, y - yLower)
-                ctx.addLine(to: CGPoint(x: point3.x, y: y))
-                y -= spaceLength
+            while drawY > yLower {
+                ctx.move(to: CGPoint(x: point3.x, y: drawY))
+                drawY -= min(drawLength, drawY - yLower)
+                ctx.addLine(to: CGPoint(x: point3.x, y: drawY))
+                drawY -= spaceLength
             }
         }
         
