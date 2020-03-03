@@ -15,7 +15,7 @@ enum GridState: CaseIterable {
     case bothOccupied
     case center
     
-    static let gridLineWidth: CGFloat = 0.75
+    static let gridLineWidth: CGFloat = 1.0
     static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
     static let gridCenterLineColor = NSColor(white: 0.0, alpha: 0.3)
     static let gridColorOccupiedLineColor = NSColor.red
@@ -181,6 +181,7 @@ class GridView: NSView {
         }
         
         // ctx.saveGState()
+        ctx.setShouldAntialias(false)
         ctx.setLineWidth(GridState.gridLineWidth)
         GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
         // ctx.restoreGState()

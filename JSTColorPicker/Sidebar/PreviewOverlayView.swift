@@ -36,8 +36,9 @@ class PreviewOverlayView: NSView {
         return true
     }
     
-    static let overlayColor: CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
-    fileprivate static let overlayBorderWidth: CGFloat = 0.75
+    fileprivate static let overlayColor: CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
+    fileprivate static let overlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
+    fileprivate static let overlayBorderWidth: CGFloat = 1.0
     fileprivate var trackingArea: NSTrackingArea?
     
     override func awakeFromNib() {
@@ -76,9 +77,9 @@ class PreviewOverlayView: NSView {
         
         // stroke border
         ctx.setLineWidth(PreviewOverlayView.overlayBorderWidth)
-        ctx.setStrokeColor(.black)
+        ctx.setStrokeColor(PreviewOverlayView.overlayBorderColor)
         ctx.addRect(highlightArea)
-        ctx.drawPath(using: .stroke)
+        ctx.strokePath()
         
         // ctx.restoreGState()
     }

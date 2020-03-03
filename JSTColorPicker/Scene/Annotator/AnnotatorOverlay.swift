@@ -52,8 +52,7 @@ class AnnotatorOverlay: EditableOverlay {
         return !isSmallArea
     }
     
-    init() {
-        
+    override init(frame frameRect: NSRect) {
         backgroundCell = VerticallyCenteredTextFieldCell()
         backgroundCell.isEditable = false
         backgroundCell.isSelectable = false
@@ -104,7 +103,6 @@ class AnnotatorOverlay: EditableOverlay {
         
         backgroundView.isHidden = true
         labelView.isHidden = true
-        
     }
     
     required init?(coder: NSCoder) {

@@ -8,10 +8,20 @@
 
 import Foundation
 
+extension CGRect {
+    
+    init(at center: CGPoint, radius: CGFloat) {
+        self.init(x: center.x - radius, y: center.y - radius, width: radius * 2.0, height: radius * 2.0)
+    }
+    
+}
+
 class EditableOverlay: Overlay {
     
-    static let circleRadius: CGFloat = 3.67
-    static let circleBorderWidth: CGFloat = 1.0
+    fileprivate static let circleRadius: CGFloat = 3.67
+    fileprivate static let circleBorderWidth: CGFloat = 1.0
+    fileprivate static let circleFillColor = NSColor.gray.cgColor
+    fileprivate static let circleStrokeColor = CGColor.white
     static let outerInsets = NSEdgeInsets(top: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, left: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, bottom: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, right: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth)
     static let innerInsets = NSEdgeInsets(top: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, left: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, bottom: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, right: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth)
     
@@ -41,42 +51,32 @@ class EditableOverlay: Overlay {
         ctx.saveGState()
         
         ctx.setLineWidth(EditableOverlay.circleBorderWidth)
-        ctx.setFillColor(NSColor.gray.cgColor)
-        ctx.setStrokeColor(.white)
+        ctx.setFillColor(EditableOverlay.circleFillColor)
+        ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
         
-        let points = [
-            CGPoint(x: drawBounds.minX, y: drawBounds.minY),
-            CGPoint(x: drawBounds.maxX, y: drawBounds.minY),
-            CGPoint(x: drawBounds.maxX, y: drawBounds.maxY),
-            CGPoint(x: drawBounds.minX, y: drawBounds.maxY),
+        var rects = [
+            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
+            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
+            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
+            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
         ]
-        for point in points {
-            ctx.addArc(center: point, radius: EditableOverlay.circleRadius, startAngle: 0.0, endAngle: .pi * 2.0, clockwise: true)
-            ctx.drawPath(using: .fillStroke)
-        }
         
         if drawBounds.width > 16.0 {
-            let points = [
-                CGPoint(x: drawBounds.midX, y: drawBounds.minY),
-                CGPoint(x: drawBounds.midX, y: drawBounds.maxY)
-            ]
-            for point in points {
-                ctx.addArc(center: point, radius: EditableOverlay.circleRadius, startAngle: 0.0, endAngle: .pi * 2.0, clockwise: true)
-                ctx.drawPath(using: .fillStroke)
-            }
+            rects.append(contentsOf: [
+                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
+                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
+            ])
         }
         
         if drawBounds.height > 16.0 {
-            let points = [
-                CGPoint(x: drawBounds.minX, y: drawBounds.midY),
-                CGPoint(x: drawBounds.maxX, y: drawBounds.midY)
-            ]
-            for point in points {
-                ctx.addArc(center: point, radius: EditableOverlay.circleRadius, startAngle: 0.0, endAngle: .pi * 2.0, clockwise: true)
-                ctx.drawPath(using: .fillStroke)
-            }
+            rects.append(contentsOf: [
+                CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
+                CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
+            ])
         }
         
+        rects.filter({ needsToDraw($0) }).forEach({ ctx.addEllipse(in: $0) })
+        ctx.drawPath(using: .fillStroke)
         ctx.restoreGState()
         
     }

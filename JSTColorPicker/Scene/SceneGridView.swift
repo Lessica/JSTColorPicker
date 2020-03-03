@@ -31,7 +31,7 @@ class SceneGridView: NSView {
     var drawGridsInScene: Bool = false
     fileprivate var shouldDrawGridsInScene: Bool = false
     fileprivate static let minimumMagnificationForGridRendering: CGFloat = 32.0
-    fileprivate static let gridLineWidth: CGFloat = 0.75
+    fileprivate static let gridLineWidth: CGFloat = 1.0
     fileprivate static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
     fileprivate var gridWrappedPixelRect: PixelRect = .null
     fileprivate var gridRenderingArea: CGRect = .null
