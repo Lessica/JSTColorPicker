@@ -11,6 +11,9 @@
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
 
+/* Delete Confirm */
+"Confirm" = "Confirm";
+
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "Connect to your iOS device via USB or network.";
 
@@ -40,6 +43,15 @@
 
 /* kJSTScreenshotError */
 "Could not write TIFF representation of screenshot to temporary storage." = "Could not write TIFF representation of screenshot to temporary storage.";
+
+/* Delete Confirm */
+"Delete Confirm" = "Delete Confirm";
+
+/* Delete Confirm */
+"Do you want to remove selected %d items?" = "Do you want to remove selected %d items?";
+
+/* Delete Confirm */
+"Do you want to remove selected item %@?" = "Do you want to remove selected item %@?";
 
 /* screenshotItemTapped(_:) */
 "Downloading screenshot from device \"%@\"..." = "Downloading screenshot from device \"%@\"...";

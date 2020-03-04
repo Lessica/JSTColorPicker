@@ -76,19 +76,24 @@ extension NSScrollView {
 
 enum SceneManipulatingType {
     case none
-    case generic
+    case forbidden
+    case leftGeneric
+    case rightGeneric
     case basicDragging
     case areaDragging
     
-    public static func type(for tool: TrackingTool) -> SceneManipulatingType {
+    public static func leftDraggingType(for tool: TrackingTool) -> SceneManipulatingType {
         switch tool {
         case .cursor, .magnify:
             return .areaDragging
         case .move:
             return .basicDragging
         default:
-            return .none
+            return .forbidden
         }
+    }
+    public static func rightDraggingType(for tool: TrackingTool) -> SceneManipulatingType {
+        return .forbidden
     }
     public var isManipulating: Bool {
         return self != .none
@@ -150,7 +155,7 @@ class SceneScrollView: NSScrollView {
     fileprivate func requiredEventStageFor(_ tool: TrackingTool) -> Int {
         switch tool {
         case .cursor, .magnify:
-            return enableForceTouch ? 2 : 0
+            return enableForceTouch ? 1 : 0
         default:
             return 0
         }
@@ -212,7 +217,7 @@ class SceneScrollView: NSScrollView {
         contentInsets = NSEdgeInsetsZero
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
-        usesPredominantAxisScrolling = false
+        usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
         
         hasVerticalRuler = true
         hasHorizontalRuler = true
@@ -328,7 +333,7 @@ class SceneScrollView: NSScrollView {
     }
     
     override func pressureChange(with event: NSEvent) {
-        if enableForceTouch && event.stage > state.stage {
+        if event.stage > state.stage {
             state.stage = event.stage
         }
         super.pressureChange(with: event)
@@ -338,10 +343,16 @@ class SceneScrollView: NSScrollView {
         guard let delegate = trackingToolDelegate else { return }
         if !isMouseInside { return }
         if delegate.trackingToolEnabled(self, tool: trackingTool) {
-            if !state.isManipulating {
+            if state.isManipulating {
+                if state.type != .forbidden {
+                    trackingTool.highlightCursor.set()
+                }
+                else {
+                    trackingTool.disabledCursor.set()
+                }
+            }
+            else {
                 trackingTool.currentCursor.set()
-            } else {
-                trackingTool.highlightCursor.set()
             }
         } else {
             trackingTool.disabledCursor.set()
@@ -354,7 +365,8 @@ class SceneScrollView: NSScrollView {
                 draggingOverlay.bringToFront()
                 draggingOverlay.isHidden = false
             }
-        } else {
+        }
+        else if !draggingOverlay.isHidden {
             draggingOverlay.isHidden = true
             draggingOverlay.frame = CGRect.zero
         }
@@ -365,7 +377,22 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            state.type = .generic
+            state.type = .leftGeneric
+            state.stage = 0
+            state.beginLocation = currentLocation
+            trackMovingOrDragging(with: event)
+        }
+        
+        updateDraggingLayerAppearance(for: event)
+        updateCursorAppearance()
+    }
+    
+    override func rightMouseDown(with event: NSEvent) {
+        super.rightMouseDown(with: event)
+        
+        let currentLocation = convert(event.locationInWindow, from: nil)
+        if visibleRectExcludingRulers.contains(currentLocation) {
+            state.type = .rightGeneric
             state.stage = 0
             state.beginLocation = currentLocation
             trackMovingOrDragging(with: event)
@@ -394,13 +421,32 @@ class SceneScrollView: NSScrollView {
         updateCursorAppearance()
     }
     
+    override func rightMouseUp(with event: NSEvent) {
+        super.rightMouseUp(with: event)
+        
+        let currentLocation = convert(event.locationInWindow, from: nil)
+        if visibleRectExcludingRulers.contains(currentLocation) {
+            trackMovingOrDragging(with: event)
+            if state.isDragging {
+                trackDidEndDragging(with: event)
+            }
+        }
+        
+        state.type = .none
+        state.stage = 0
+        state.beginLocation = .null
+        
+        updateDraggingLayerAppearance(for: event)
+        updateCursorAppearance()
+    }
+    
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
         
         guard !state.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(state.beginLocation) >= minimumDraggingDistance {
-            let type = SceneManipulatingType.type(for: trackingTool)
+            let type = SceneManipulatingType.leftDraggingType(for: trackingTool)
             if state.type != type {
                 if type == .areaDragging {
                     if shouldBeginAreaDragging(for: event) {
@@ -425,8 +471,25 @@ class SceneScrollView: NSScrollView {
                 let rect = CGRect(point1: state.beginLocation, point2: convert(event.locationInWindow, from: nil)).inset(by: draggingOverlay.outerInsets).intersection(bounds)
                 draggingOverlay.frame = rect
             }
-            trackMovingOrDragging(with: event)
         }
+        trackMovingOrDragging(with: event)
+        
+        updateDraggingLayerAppearance(for: event)
+        updateCursorAppearance()
+    }
+    
+    override func rightMouseDragged(with event: NSEvent) {
+        super.rightMouseDragged(with: event)
+        
+        guard !state.beginLocation.isNull else { return }
+        let currentLocation = convert(event.locationInWindow, from: nil)
+        if currentLocation.distanceTo(state.beginLocation) >= minimumDraggingDistance {
+            let type = SceneManipulatingType.rightDraggingType(for: trackingTool)
+            if state.type != type {
+                state.type = type
+            }
+        }
+        trackMovingOrDragging(with: event)
         
         updateDraggingLayerAppearance(for: event)
         updateCursorAppearance()

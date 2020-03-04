@@ -146,6 +146,14 @@ class SceneController: NSViewController {
             sceneView.drawSceneBackground = newValue
         }
     }
+    fileprivate var usesPredominantAxisScrolling: Bool {
+        get {
+            return sceneView.usesPredominantAxisScrolling
+        }
+        set {
+            sceneView.usesPredominantAxisScrolling = newValue
+        }
+    }
     fileprivate var hideGridsWhenResize: Bool = false
     fileprivate var hideAnnotatorsWhenResize: Bool = true
     
@@ -235,6 +243,7 @@ class SceneController: NSViewController {
             self.drawRulersInScene = drawRulersInScene
             reloadSceneRulerConstraints()
         }
+        usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
@@ -391,21 +400,32 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func requiredStageFor(_ tool: TrackingTool) -> Int {
-        switch tool {
-        case .cursor:
-            return enableForceTouch ? 2 : 0
-        default:
-            return 0
+    fileprivate func requiredStageFor(_ tool: TrackingTool, type: SceneManipulatingType) -> Int {
+        if type == .leftGeneric {
+            switch tool {
+            case .cursor:
+                return enableForceTouch ? 1 : 0
+            default:
+                return 0
+            }
         }
+        else if type == .rightGeneric {
+            switch tool {
+            case .cursor:
+                return enableForceTouch ? 1 : 0
+            default:
+                return 0
+            }
+        }
+        return 0
     }
     
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        if sceneView.state.type == .generic {
+        if sceneView.state.type == .leftGeneric {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if isInscenePixelLocation(loc) {
-                if sceneView.state.stage >= requiredStageFor(trackingTool) {
+                if sceneView.state.stage >= requiredStageFor(trackingTool, type: sceneView.state.type) {
                     if trackingTool == .cursor {
                         handled = cursorClicked(at: loc)
                     }
@@ -425,10 +445,14 @@ class SceneController: NSViewController {
     
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
-        let loc = wrapper.convert(event.locationInWindow, from: nil)
-        if isInscenePixelLocation(loc) {
-            if trackingTool == .cursor {
-                handled = rightCursorClicked(at: loc)
+        if sceneView.state.type == .rightGeneric {
+            let loc = wrapper.convert(event.locationInWindow, from: nil)
+            if isInscenePixelLocation(loc) {
+                if sceneView.state.stage >= requiredStageFor(trackingTool, type: sceneView.state.type) {
+                    if trackingTool == .cursor {
+                        handled = rightCursorClicked(at: loc)
+                    }
+                }
             }
         }
         if !handled {
@@ -609,7 +633,6 @@ extension SceneController: ScreenshotLoader {
         sceneView.maxMagnification = SceneController.maximumZoomingFactor
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = false
-        sceneView.usesPredominantAxisScrolling = false
         
         let wrapper = SceneImageWrapper()
         wrapper.rulerViewClient = self

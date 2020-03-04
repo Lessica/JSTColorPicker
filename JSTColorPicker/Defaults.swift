@@ -9,18 +9,20 @@
 import Foundation
 
 public extension UserDefaults.Key {
-    static let lastSelectedDeviceUDID: UserDefaults.Key   = "defaults.lastSelectedDeviceUDID"    // String
-    static let lastSelectedTemplateUUID: UserDefaults.Key = "defaults.lastSelectedTemplateUUID"  // String
-    static let enableNetworkDiscovery: UserDefaults.Key   = "defaults.enableNetworkDiscovery"    // Bool
-    static let enableForceTouch: UserDefaults.Key         = "defaults.enableForceTouch"          // Bool
-    static let drawSceneBackground: UserDefaults.Key      = "defaults.drawSceneBackground"       // Bool
-    static let drawRulersInScene: UserDefaults.Key        = "defaults.drawRulersInScene"          // Bool
-    static let drawGridsInScene: UserDefaults.Key         = "defaults.drawGridsInScene"          // Bool
-    static let drawBackgroundInGridView: UserDefaults.Key = "defaults.drawBackgroundInGridView"  // Bool
-    static let drawAnnotatorsInGridView: UserDefaults.Key = "defaults.drawAnnotatorsInGridView"  // Bool
-    static let hideGridsWhenResize: UserDefaults.Key      = "defaults.hideGridsWhenResize"       // Bool
-    static let hideAnnotatorsWhenResize: UserDefaults.Key = "defaults.hideAnnotatorsWhenResize"  // Bool
-    static let screenshotSavingPath: UserDefaults.Key     = "defaults.screenshotSavingPath"      // String
+    static let lastSelectedDeviceUDID: UserDefaults.Key       = "defaults.lastSelectedDeviceUDID"        // String
+    static let lastSelectedTemplateUUID: UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"      // String
+    static let enableNetworkDiscovery: UserDefaults.Key       = "defaults.enableNetworkDiscovery"        // Bool
+    static let enableForceTouch: UserDefaults.Key             = "defaults.enableForceTouch"              // Bool
+    static let drawSceneBackground: UserDefaults.Key          = "defaults.drawSceneBackground"           // Bool
+    static let drawRulersInScene: UserDefaults.Key            = "defaults.drawRulersInScene"             // Bool
+    static let drawGridsInScene: UserDefaults.Key             = "defaults.drawGridsInScene"              // Bool
+    static let drawBackgroundInGridView: UserDefaults.Key     = "defaults.drawBackgroundInGridView"      // Bool
+    static let drawAnnotatorsInGridView: UserDefaults.Key     = "defaults.drawAnnotatorsInGridView"      // Bool
+    static let hideGridsWhenResize: UserDefaults.Key          = "defaults.hideGridsWhenResize"           // Bool
+    static let hideAnnotatorsWhenResize: UserDefaults.Key     = "defaults.hideAnnotatorsWhenResize"      // Bool
+    static let usesPredominantAxisScrolling: UserDefaults.Key = "defaults.usesPredominantAxisScrolling"  // Bool
+    static let confirmBeforeDelete: UserDefaults.Key          = "defaults.confirmBeforeDelete"           // Bool
+    static let screenshotSavingPath: UserDefaults.Key         = "defaults.screenshotSavingPath"          // String
 }
 
 #if os(iOS)

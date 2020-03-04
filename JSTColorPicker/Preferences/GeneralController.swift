@@ -11,12 +11,24 @@ import MASPreferences
 
 class GeneralController: NSViewController {
     
+    @IBOutlet weak var tabView: NSTabView!
+    
     init() {
         super.init(nibName: "General", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        tabView.selectFirstTabViewItem(nil)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        tabView.selectFirstTabViewItem(nil)
     }
     
 }

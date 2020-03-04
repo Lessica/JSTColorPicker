@@ -2,6 +2,18 @@
 /* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
 "1xD-ZG-hUt.title" = "Draw Annotators in Color Grid";
 
+/* Class = "NSButtonCell"; title = "Confirm Before Delete"; ObjectID = "1Y6-DK-gNW"; */
+"1Y6-DK-gNW.title" = "Confirm Before Delete";
+
+/* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
+"AZY-Lx-ojw.label" = "Annotation";
+
+/* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
+"cBd-ZX-L0H.title" = "Uses Predominant Axis Scrolling";
+
+/* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "DBw-sv-D6x"; */
+"DBw-sv-D6x.label" = "Scene";
+
 /* Class = "NSButtonCell"; title = "Draw Scene Background"; ObjectID = "j40-58-CMN"; */
 "j40-58-CMN.title" = "Draw Scene Background";
 
@@ -14,11 +26,14 @@
 /* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */
 "QKj-aX-mro.title" = "Draw Background in Color Grid";
 
+/* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
+"Qrb-RZ-ezf.label" = "Color Grid";
+
+/* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
+"uai-sp-jsU.title" = "Draw Rulers in Scene";
+
 /* Class = "NSButtonCell"; title = "Draw Grids in Scene"; ObjectID = "UPj-0j-JbO"; */
 "UPj-0j-JbO.title" = "Draw Grids in Scene";
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "Hide Annotators When Resize";
-
-/* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
-"uai-sp-jsU.title" = "Draw Rulers in Scene";

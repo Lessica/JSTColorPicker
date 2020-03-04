@@ -335,6 +335,7 @@ extension ContentController: ContentResponder {
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist }
+        guard deleteConfirmForItems([item]) else { return nil }
         internalDeleteContentItems([item])
         tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
         return item
@@ -411,6 +412,22 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         
     }
     
+    fileprivate func deleteConfirmForItems(_ itemsToRemove: [ContentItem]) -> Bool {
+        guard UserDefaults.standard[.confirmBeforeDelete] else { return true }
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Delete Confirm", comment: "Delete Confirm")
+        if itemsToRemove.count > 1 {
+            alert.informativeText = String(format: NSLocalizedString("Do you want to remove selected %d items?", comment: "Delete Confirm"), itemsToRemove.count)
+        }
+        else {
+            alert.informativeText = String(format: NSLocalizedString("Do you want to remove selected item %@?", comment: "Delete Confirm"), itemsToRemove.first?.description ?? "(null)")
+        }
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "Delete Confirm"))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Delete Confirm"))
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+    
     @IBAction func locate(_ sender: Any) {
         tableViewDoubleAction(tableView)
     }
@@ -419,7 +436,9 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         guard let collection = content?.items else { return }
         let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
             .filteredIndexSet(includeInteger: { $0 < collection.count })
-        internalDeleteContentItems(rows.map({ collection[$0] }))
+        let itemsToRemove = rows.map({ collection[$0] })
+        guard deleteConfirmForItems(itemsToRemove) else { return }
+        internalDeleteContentItems(itemsToRemove)
         tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     

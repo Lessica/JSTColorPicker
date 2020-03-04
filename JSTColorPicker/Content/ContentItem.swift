@@ -63,4 +63,9 @@ class ContentItem: NSObject, NSCoding, Comparable, NSCopying, Codable, LuaSwift.
         if !(t["id"] is Number) || !(t["similarity"] is Number) { return typeName }
         return nil
     }
+    
+    override var description: String {
+        return "(ID: \(id))"
+    }
+    
 }

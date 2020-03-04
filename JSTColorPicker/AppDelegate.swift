@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let initialValues: [UserDefaults.Key: Any?] = [
-            .enableForceTouch: false,
+            .enableForceTouch: true,
             .drawSceneBackground: true,
             .drawGridsInScene: true,
             .drawRulersInScene: true,
@@ -33,6 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .drawAnnotatorsInGridView: false,
             .hideGridsWhenResize: false,
             .hideAnnotatorsWhenResize: true,
+            .usesPredominantAxisScrolling: true,
+            .confirmBeforeDelete: true,
             .enableNetworkDiscovery: true,
             .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path
         ]
