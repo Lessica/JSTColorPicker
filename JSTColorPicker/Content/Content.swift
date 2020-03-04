@@ -9,7 +9,6 @@
 import Foundation
 
 class Content: NSObject {
-    static let maximumCount = 99
     var items: [ContentItem] = []  // ordered by id asc
     var colors: [PixelColor] {
         return items.compactMap({ $0 as? PixelColor })

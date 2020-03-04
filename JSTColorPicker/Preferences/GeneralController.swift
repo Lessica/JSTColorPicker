@@ -12,6 +12,8 @@ import MASPreferences
 class GeneralController: NSViewController {
     
     @IBOutlet weak var tabView: NSTabView!
+    @objc dynamic var maximumCount: Int = 9999
+    @objc dynamic var minimumCount: Int = 1
     
     init() {
         super.init(nibName: "General", bundle: nil)

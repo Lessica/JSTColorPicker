@@ -37,3 +37,9 @@
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "缩放时隐藏标注";
+
+/* Class = "NSTextFieldCell"; title = "99"; ObjectID = "2cV-9r-guE"; */
+"2cV-9r-guE.title" = "99";
+
+/* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
+"YHt-z7-662.title" = "最大数量";

@@ -22,6 +22,8 @@ public extension UserDefaults.Key {
     static let hideAnnotatorsWhenResize: UserDefaults.Key     = "defaults.hideAnnotatorsWhenResize"      // Bool
     static let usesPredominantAxisScrolling: UserDefaults.Key = "defaults.usesPredominantAxisScrolling"  // Bool
     static let confirmBeforeDelete: UserDefaults.Key          = "defaults.confirmBeforeDelete"           // Bool
+    static let maximumItemCountEnabled: UserDefaults.Key      = "defaults.maximumItemCountEnabled"       // Bool
+    static let maximumItemCount: UserDefaults.Key             = "defaults.maximumItemCount"              // Int
     static let screenshotSavingPath: UserDefaults.Key         = "defaults.screenshotSavingPath"          // String
 }
 

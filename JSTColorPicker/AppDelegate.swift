@@ -35,6 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .hideAnnotatorsWhenResize: true,
             .usesPredominantAxisScrolling: true,
             .confirmBeforeDelete: true,
+            .maximumItemCountEnabled: true,
+            .maximumItemCount: 99,
             .enableNetworkDiscovery: true,
             .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path
         ]

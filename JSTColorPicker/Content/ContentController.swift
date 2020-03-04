@@ -284,7 +284,11 @@ extension ContentController: ContentResponder {
     
     private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocumentLoaded }
-        guard content.items.count < Content.maximumCount else { throw ContentError.itemReachLimit }
+        let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
+        if maximumItemCountEnabled {
+            let maximumItemCount: Int = UserDefaults.standard[.maximumItemCount]
+            guard content.items.count < maximumItemCount else { throw ContentError.itemReachLimit }
+        }
         guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.itemExists }
         
         item.id = nextID
