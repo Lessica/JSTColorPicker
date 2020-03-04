@@ -22,12 +22,6 @@ class SceneController: NSViewController {
     weak var contentResponder: ContentResponder?
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
-    fileprivate var colorAnnotators: [ColorAnnotator] {
-        return annotators.compactMap({ $0 as? ColorAnnotator })
-    }
-    fileprivate var areaAnnotators: [AreaAnnotator] {
-        return annotators.compactMap({ $0 as? AreaAnnotator })
-    }
     fileprivate var enableForceTouch: Bool {
         get {
             return sceneView.enableForceTouch
@@ -369,14 +363,19 @@ class SceneController: NSViewController {
     
     fileprivate func monitorWindowFlagsChanged(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
+        var handled = false
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
         case [.option]:
-            return useOptionModifiedSceneTool()
+            handled = useOptionModifiedSceneTool()
         case [.command]:
-            return useCommandModifiedSceneTool()
+            handled = useCommandModifiedSceneTool()
         default:
-            return useSelectedSceneTool()
+            handled = useSelectedSceneTool()
         }
+        if handled && sceneView.isMouseInside {
+            sceneOverlayView.updateCursorAppearance()
+        }
+        return handled
     }
     
     @discardableResult

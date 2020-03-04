@@ -51,11 +51,11 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func mouseMoved(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func mouseExited(with event: NSEvent) {
@@ -63,30 +63,34 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func mouseUp(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func mouseDragged(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
     override func rightMouseDragged(with event: NSEvent) {
-        updateCursorAppearance()
+        internalUpdateCursorAppearance()
     }
     
-    fileprivate func updateCursorAppearance() {
+    public func updateCursorAppearance() {
+        internalUpdateCursorAppearance()
+    }
+    
+    fileprivate func internalUpdateCursorAppearance() {
         guard let sceneToolDataSource = sceneToolDataSource else { return }
         if sceneToolDataSource.sceneToolEnabled(self, tool: sceneTool) {
             if sceneState.isManipulating {
