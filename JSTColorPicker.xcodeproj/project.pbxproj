@@ -694,18 +694,18 @@
 			children = (
 				D635BE9C23CD861100FD62B8 /* JST_BOOL.h */,
 				D635BEA123CD861100FD62B8 /* JST_POS.h */,
-				D635BE9E23CD861100FD62B8 /* JST_COLOR.h */,
-				D635BEA223CD861100FD62B8 /* JST_IMAGE.h */,
-				D635BEA023CD861100FD62B8 /* JSTPixelColor.h */,
-				D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */,
-				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
-				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
 				D645E49823E805340039F4F6 /* PixelCoordinate.swift */,
 				D645E49A23E805560039F4F6 /* PixelSize.swift */,
 				D645E49C23E805EA0039F4F6 /* PixelRect.swift */,
-				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
-				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
+				D635BE9E23CD861100FD62B8 /* JST_COLOR.h */,
+				D635BEA023CD861100FD62B8 /* JSTPixelColor.h */,
+				D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */,
+				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
+				D635BEA223CD861100FD62B8 /* JST_IMAGE.h */,
+				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
+				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
+				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
 			);
 			path = Pixel;
 			sourceTree = "<group>";
@@ -923,20 +923,15 @@
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				D6A2759323F3CA3E001D60BC /* Ruler */,
 				D645E4A223E812020039F4F6 /* Annotator */,
+				D6A2759323F3CA3E001D60BC /* Ruler */,
+				D6729C0F240FCBE3000339C2 /* Views */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 				D66460E823D0333A0032727A /* SceneTool.swift */,
 				D6729C02240F7DC5000339C2 /* SceneState.swift */,
 				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D6729C05240FC77D000339C2 /* SceneEvent.swift */,
 				D649230D23CC62D70067C04A /* SceneController.swift */,
-				D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */,
-				D699E0C2240836280011A4CB /* SceneGridView.swift */,
-				D649231823CC647D0067C04A /* SceneScrollView.swift */,
-				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
-				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
-				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -971,11 +966,12 @@
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
+				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
+				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D647B06323D173A700D76CB5 /* Device */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
-				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
@@ -984,7 +980,6 @@
 				D684842023D40C9300BC5E34 /* Grid */,
 				D631E2C823F7FAC300652B17 /* Export */,
 				D699E0C42408E4960011A4CB /* Preferences */,
-				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
@@ -1015,6 +1010,29 @@
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D6729C0F240FCBE3000339C2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */,
+				D699E0C2240836280011A4CB /* SceneGridView.swift */,
+				D649231823CC647D0067C04A /* SceneScrollView.swift */,
+				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
+				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
+				D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6729C10240FCBFC000339C2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
+				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
+				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		D682FC8F23D6DB1800DA1750 /* Content */ = {
@@ -1077,11 +1095,9 @@
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
-				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
+				D6729C10240FCBFC000339C2 /* Views */,
 				D645E4AE23ED8A840039F4F6 /* PreviewResponder.swift */,
-				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
-				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
+				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
