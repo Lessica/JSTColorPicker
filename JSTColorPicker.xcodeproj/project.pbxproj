@@ -926,11 +926,10 @@
 				D645E4A223E812020039F4F6 /* Annotator */,
 				D6A2759323F3CA3E001D60BC /* Ruler */,
 				D6729C0F240FCBE3000339C2 /* Views */,
-				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
-				D66460E823D0333A0032727A /* SceneTool.swift */,
-				D6729C02240F7DC5000339C2 /* SceneState.swift */,
-				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D6729C05240FC77D000339C2 /* SceneEvent.swift */,
+				D6729C02240F7DC5000339C2 /* SceneState.swift */,
+				D66460E823D0333A0032727A /* SceneTool.swift */,
+				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D649230D23CC62D70067C04A /* SceneController.swift */,
 			);
 			path = Scene;
@@ -984,6 +983,7 @@
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
+				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
 			);
 			path = JSTColorPicker;
