@@ -8,17 +8,22 @@
 
 import Cocoa
 
-protocol TrackingToolDelegate: class {
+protocol TrackingToolDataSource: class {
+    var trackingTool: TrackingTool { get }
     func trackingToolEnabled(_ sender: Any, tool: TrackingTool) -> Bool
 }
 
 enum TrackingTool: String {
     
     case arrow = ""
-    case cursor = "CursorItem"
-    case magnify = "MagnifyItem"
-    case minify = "MinifyItem"
-    case move = "MoveItem"
+    case magicCursor = "CursorItem"
+    case magnifyingGlass = "MagnifyItem"
+    case minifyingGlass = "MinifyItem"
+    case movingHand = "MoveItem"
+    
+    static var arrowCursor: NSCursor = {
+        return NSCursor.arrow
+    }()
     
     static var magnifyCursor: NSCursor = {
         return NSCursor.init(image: NSImage(named: "JSTMagnifyMIN")!, hotSpot: NSPoint(x: 8, y: 8))
@@ -34,13 +39,13 @@ enum TrackingTool: String {
     
     var currentCursor: NSCursor {
         get {
-            if self == .cursor {
+            if self == .magicCursor {
                 return NSCursor.crosshair
-            } else if self == .magnify {
+            } else if self == .magnifyingGlass {
                 return TrackingTool.magnifyCursor
-            } else if self == .minify {
+            } else if self == .minifyingGlass {
                 return TrackingTool.minifyCursor
-            } else if self == .move {
+            } else if self == .movingHand {
                 return NSCursor.openHand
             }
             return NSCursor.current
@@ -49,13 +54,13 @@ enum TrackingTool: String {
     
     var highlightCursor: NSCursor {
         get {
-            if self == .cursor {
+            if self == .magicCursor {
                 return NSCursor.crosshair
-            } else if self == .magnify {
+            } else if self == .magnifyingGlass {
                 return TrackingTool.magnifyCursor
-            } else if self == .minify {
+            } else if self == .minifyingGlass {
                 return TrackingTool.minifyCursor
-            } else if self == .move {
+            } else if self == .movingHand {
                 return NSCursor.closedHand
             }
             return NSCursor.current
@@ -64,13 +69,13 @@ enum TrackingTool: String {
     
     var disabledCursor: NSCursor {
         get {
-            if self == .cursor {
+            if self == .magicCursor {
                 return NSCursor.operationNotAllowed
-            } else if self == .magnify {
+            } else if self == .magnifyingGlass {
                 return TrackingTool.noZoomingCursor
-            } else if self == .minify {
+            } else if self == .minifyingGlass {
                 return TrackingTool.noZoomingCursor
-            } else if self == .move {
+            } else if self == .movingHand {
                 return NSCursor.operationNotAllowed
             }
             return NSCursor.current

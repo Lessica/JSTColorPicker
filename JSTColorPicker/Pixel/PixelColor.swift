@@ -56,12 +56,12 @@ class PixelColor: ContentItem {
         // debugPrint("- [PixelColor deinit]")
     }
     
-    var intValue: UInt32 {
-        return pixelColorRep.intValue
+    var rgbValue: UInt32 {
+        return pixelColorRep.rgbValue
     }
     
-    var intValueWithAlpha: UInt32 {
-        return pixelColorRep.intValueWithAlpha
+    var rgbaValue: UInt32 {
+        return pixelColorRep.rgbaValue
     }
     
     var red: UInt8 {
@@ -132,7 +132,7 @@ class PixelColor: ContentItem {
         t["similarity"] = similarity
         t["x"] = coordinate.x
         t["y"] = coordinate.y
-        t["color"] = intValueWithAlpha
+        t["color"] = rgbaValue
         t.push(vm)
     }
     

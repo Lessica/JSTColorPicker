@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .drawAnnotatorsInGridView: false,
             .hideGridsWhenResize: false,
             .hideAnnotatorsWhenResize: true,
-            .usesPredominantAxisScrolling: true,
+            .usesPredominantAxisScrolling: false,
             .confirmBeforeDelete: true,
             .maximumItemCountEnabled: true,
             .maximumItemCount: 99,

@@ -3,8 +3,9 @@
 #import "JST_COLOR.h"
 #import "JST_IMAGE.h"
 #import "JST_POS.h"
-#import <CoreGraphics/CoreGraphics.h>
+
 #import <stdlib.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 
 static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg) {
@@ -18,26 +19,20 @@ static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg) {
         JST_COLOR *pixels = (JST_COLOR *) malloc(imgSize.width * imgSize.height * sizeof(JST_COLOR));
         memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
         pixels_image->pixels = pixels;
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
         CGContextRef context = CGBitmapContextCreate(pixels, (size_t) imgSize.width, (size_t) imgSize.height, 8, imgSize.width * sizeof(JST_COLOR), colorSpace,
-                kCGImageAlphaPremultipliedLast);
+                                                     kCGImageAlphaPremultipliedLast);
         CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
         CGContextRelease(context);
         CGColorSpaceRelease(colorSpace);
     }
     return pixels_image;
 }
-#if !TARGET_OS_OSX
-static inline JST_IMAGE *create_pixels_image_with_uiimage(UIImage *uiimg) {
-    return create_pixels_image_with_cgimage([uiimg CGImage]);
-}
-#else
 static inline JST_IMAGE *create_pixels_image_with_nsimage(NSImage *nsimg) {
     CGSize imgSize = nsimg.size;
     CGRect imgRect = CGRectMake(0, 0, imgSize.width, imgSize.height);
     return create_pixels_image_with_cgimage([nsimg CGImageForProposedRect:&imgRect context:nil hints:nil]);
 }
-#endif
 
 #define SHIFT_XY_BY_ORIEN_NOM1(X, Y, W, H, O) \
 {\
@@ -190,7 +185,7 @@ case 0:\
 static inline void get_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point) {
     SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
     if (x < pixels_image->width &&
-            y < pixels_image->height) {
+        y < pixels_image->height) {
         color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
         color_of_point->red = pixels_image->pixels[y * pixels_image->width + x].blue;
         color_of_point->blue = pixels_image->pixels[y * pixels_image->width + x].red;
@@ -202,7 +197,7 @@ static inline void get_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x
 static inline void set_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point) {
     SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
     if (x < pixels_image->width &&
-            y < pixels_image->height) {
+        y < pixels_image->height) {
         pixels_image->pixels[y * pixels_image->width + x].the_color = color_of_point->the_color;
         pixels_image->pixels[y * pixels_image->width + x].red = color_of_point->blue;
         pixels_image->pixels[y * pixels_image->width + x].blue = color_of_point->red;
@@ -214,10 +209,10 @@ static inline void get_color_in_pixels_image_notran(JST_IMAGE *pixels_image, int
     color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
 }
 
-static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, JST_COLOR **ppixels_data) /* 这个函数产生的返回值需要释放, 第二个参数如果有产出, 也需要释放 */
+static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, JST_COLOR **ppixels_data)
 {
     int W, H;
-    *ppixels_data = NULL; /* 先把需要产出的这里置空, 函数完毕之后需要通过这里判断是否需要释放 */
+    *ppixels_data = NULL;
     JST_COLOR *pixels_buffer = pixels_image->pixels;
     switch (pixels_image->orientation) {
         case 1:
@@ -231,7 +226,7 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
             break;
     }
     if (0 != pixels_image->orientation) {
-        pixels_buffer = (JST_COLOR *) malloc((size_t) (W * H * 4)); /* 通过第二个参数 ppixels_data 延迟释放, 一定要记住 */
+        pixels_buffer = (JST_COLOR *) malloc((size_t) (W * H * 4));
         *ppixels_data = pixels_buffer;
         uint64_t big_count_offset = 0;
         JST_COLOR color_of_point;
@@ -243,13 +238,13 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
         }
     }
     CGDataProviderRef provider = CGDataProviderCreateWithData(
-            NULL, pixels_buffer, (size_t) (4 * W * H), NULL);
-    CGColorSpaceRef cspace = CGColorSpaceCreateDeviceRGB();
+                                                              NULL, pixels_buffer, (size_t) (4 * W * H), NULL);
+    CGColorSpaceRef cspace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wenum-conversion"
     CGImageRef img = CGImageCreate((size_t) W, (size_t) H, 8, (8 * 4), (size_t) (4 * W), cspace,
-            kCGImageAlphaPremultipliedLast,
-            provider, NULL, true, kCGRenderingIntentDefault);
+                                   kCGImageAlphaPremultipliedLast,
+                                   provider, NULL, true, kCGRenderingIntentDefault);
 #pragma clang diagnostic pop
     CFRelease(cspace);
     CFRelease(provider);
@@ -299,43 +294,11 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     }
     return self;
 }
-#if !TARGET_OS_OSX
-+ (JSTPixelImage *)imageWithUIImage:(UIImage *)uiimage {
-    return [[[JSTPixelImage alloc] initWithUIImage:uiimage] autorelease];
-}
-- (JSTPixelImage *)initWithUIImage:(UIImage *)uiimage {
-    self = [super init];
-    if (self) {
-        @autoreleasepool {
-            _pixel_image = create_pixels_image_with_uiimage(uiimage);
-        }
-    }
-    return self;
-}
-- (UIImage *)toUIImage {
-    JST_COLOR *pixels_data = NULL;
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
-    if (pixels_data) {
-        NSData *imgData = nil;
-        @autoreleasepool {
-            UIImage *img0 = [UIImage imageWithCGImage:cgimg];
-            CFRelease(cgimg);
-            imgData = [UIImagePNGRepresentation(img0) retain];
-        }
-        UIImage *img = [UIImage imageWithData:imgData];
-        [imgData release];
-        free(pixels_data);
-        return img;
-    } else {
-        UIImage *img0 = [UIImage imageWithCGImage:cgimg];
-        CFRelease(cgimg);
-        return img0;
-    }
-}
-#else
+
 + (JSTPixelImage *)imageWithNSImage:(NSImage *)nsimage {
     return [[JSTPixelImage alloc] initWithNSImage:nsimage];
 }
+
 - (JSTPixelImage *)initWithNSImage:(NSImage *)nsimage {
     self = [super init];
     if (self) {
@@ -345,6 +308,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     }
     return self;
 }
+
 - (NSImage *)toNSImage {
     JST_COLOR *pixels_data = NULL;
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
@@ -365,7 +329,6 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
         return img0;
     }
 }
-#endif
 
 - (NSData *)pngRepresentation {
     JST_COLOR *pixels_data = NULL;

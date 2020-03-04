@@ -114,7 +114,7 @@ extension PixelImage: LuaSwift.Value {
         t["h"] = size.height
         t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
             let (x, y) = (args.integer, args.integer)
-            if let color = self.color(at: PixelCoordinate(x: Int(x), y: Int(y)))?.intValueWithAlpha {
+            if let color = self.color(at: PixelCoordinate(x: Int(x), y: Int(y)))?.rgbaValue {
                 return .value(color)
             }
             else {
