@@ -6,15 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
-
-extension NSView {
-    
-    func setNeedsDisplay() {
-        setNeedsDisplay(bounds)
-    }
-    
-}
+import Cocoa
 
 class Overlay: NSView {
     

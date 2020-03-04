@@ -16,9 +16,9 @@ class SceneOverlayView: NSView {
     
     fileprivate var trackingArea: NSTrackingArea?
     
-    public weak var trackingToolDataSource: TrackingToolDataSource?
-    fileprivate var trackingTool: TrackingTool {
-        return trackingToolDataSource!.trackingTool
+    public weak var sceneToolDataSource: SceneToolDataSource?
+    fileprivate var sceneTool: SceneTool {
+        return sceneToolDataSource!.sceneTool
     }
     
     public weak var sceneStateDataSource: SceneStateDataSource?
@@ -59,7 +59,7 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseExited(with event: NSEvent) {
-        TrackingTool.arrowCursor.set()
+        SceneTool.arrowCursor.set()
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -93,21 +93,21 @@ class SceneOverlayView: NSView {
     }
     
     fileprivate func updateCursorAppearance() {
-        guard let trackingToolDataSource = trackingToolDataSource else { return }
-        if trackingToolDataSource.trackingToolEnabled(self, tool: trackingTool) {
+        guard let sceneToolDataSource = sceneToolDataSource else { return }
+        if sceneToolDataSource.sceneToolEnabled(self, tool: sceneTool) {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
-                    trackingTool.highlightCursor.set()
+                    sceneTool.highlightCursor.set()
                 }
                 else {
-                    trackingTool.disabledCursor.set()
+                    sceneTool.disabledCursor.set()
                 }
             }
             else {
-                trackingTool.currentCursor.set()
+                sceneTool.currentCursor.set()
             }
         } else {
-            trackingTool.disabledCursor.set()
+            sceneTool.disabledCursor.set()
         }
     }
     

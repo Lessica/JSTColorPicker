@@ -6,7 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 protocol SceneStateDataSource: class {
     var sceneState: SceneState { get }
@@ -20,7 +20,7 @@ enum SceneManipulatingType {
     case basicDragging
     case areaDragging
     
-    public static func leftDraggingType(for tool: TrackingTool) -> SceneManipulatingType {
+    public static func leftDraggingType(for tool: SceneTool) -> SceneManipulatingType {
         switch tool {
         case .magicCursor, .magnifyingGlass:
             return .areaDragging
@@ -30,7 +30,7 @@ enum SceneManipulatingType {
             return .forbidden
         }
     }
-    public static func rightDraggingType(for tool: TrackingTool) -> SceneManipulatingType {
+    public static func rightDraggingType(for tool: SceneTool) -> SceneManipulatingType {
         return .forbidden
     }
     public var isManipulating: Bool {

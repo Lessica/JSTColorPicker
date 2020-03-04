@@ -120,25 +120,25 @@ extension WindowController {
     
     fileprivate func touchBarUpdateButtonState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
-        if identifier == TrackingTool.magicCursor.rawValue {
+        if identifier == SceneTool.magicCursor.rawValue {
             touchBarCursorItem.state = .on
             touchBarMagnifyItem.state = .off
             touchBarMinifyItem.state = .off
             touchBarMoveItem.state = .off
         }
-        else if identifier == TrackingTool.magnifyingGlass.rawValue {
+        else if identifier == SceneTool.magnifyingGlass.rawValue {
             touchBarCursorItem.state = .off
             touchBarMagnifyItem.state = .on
             touchBarMinifyItem.state = .off
             touchBarMoveItem.state = .off
         }
-        else if identifier == TrackingTool.minifyingGlass.rawValue {
+        else if identifier == SceneTool.minifyingGlass.rawValue {
             touchBarCursorItem.state = .off
             touchBarMagnifyItem.state = .off
             touchBarMinifyItem.state = .on
             touchBarMoveItem.state = .off
         }
-        else if identifier == TrackingTool.movingHand.rawValue {
+        else if identifier == SceneTool.movingHand.rawValue {
             touchBarCursorItem.state = .off
             touchBarMagnifyItem.state = .off
             touchBarMinifyItem.state = .off
@@ -151,22 +151,22 @@ extension WindowController {
     }
     
     @IBAction func touchBarUseCursorAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.magicCursor.rawValue)
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         useCursorAction(sender)
     }
     
     @IBAction func touchBarUseMagnifyToolAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.magnifyingGlass.rawValue)
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         useMagnifyToolAction(sender)
     }
     
     @IBAction func touchBarUseMinifyToolAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.minifyingGlass.rawValue)
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         useMinifyToolAction(sender)
     }
     
     @IBAction func touchBarUseMoveToolAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(TrackingTool.movingHand.rawValue)
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         useMoveToolAction(sender)
     }
     

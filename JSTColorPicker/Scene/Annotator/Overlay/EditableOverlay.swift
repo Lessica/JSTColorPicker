@@ -6,15 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
-
-extension CGRect {
-    
-    init(at center: CGPoint, radius: CGFloat) {
-        self.init(x: center.x - radius, y: center.y - radius, width: radius * 2.0, height: radius * 2.0)
-    }
-    
-}
+import Cocoa
 
 class EditableOverlay: Overlay {
     

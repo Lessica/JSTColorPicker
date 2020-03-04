@@ -8,31 +8,6 @@
 
 import Cocoa
 
-extension String {
-    func leftPadding(to length: Int, with character: Character) -> String {
-        if length <= self.count {
-            return String(self)
-        }
-        let newLength = self.count
-        if newLength < length {
-            return String(repeatElement(character, count: length - newLength)) + self
-        } else {
-            let idx = self.index(self.startIndex, offsetBy: newLength - length)
-            return String(self[..<idx])
-        }
-    }
-}
-
-extension NSImage {
-    convenience init(color: NSColor, size: NSSize) {
-        self.init(size: size, flipped: false) { (rect) -> Bool in
-            color.drawSwatch(in: NSRect(origin: .zero, size: rect.size))
-            return true
-        }
-        cacheMode = .never
-    }
-}
-
 class SidebarController: NSViewController {
     
     internal weak var screenshot: Screenshot?
@@ -49,7 +24,7 @@ class SidebarController: NSViewController {
     
     @IBOutlet weak var previewImageView: PreviewImageView!
     @IBOutlet weak var previewOverlayView: PreviewOverlayView!
-    @IBOutlet weak var previewSlider: PreviewSlider!
+    @IBOutlet weak var previewSlider: NSSlider!
     @IBOutlet weak var previewSliderLabel: NSTextField!
     weak var previewOverlayDelegate: PreviewResponder?
     

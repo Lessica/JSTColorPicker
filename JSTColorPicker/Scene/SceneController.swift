@@ -7,98 +7,6 @@
 //
 
 import Cocoa
-import Quartz
-
-extension CGPoint {
-    
-    func toPixelCenterCGPoint() -> CGPoint {
-        return CGPoint(x: floor(x) + 0.5, y: floor(y) + 0.5)
-    }
-    
-    func offsetBy(_ point: CGPoint) -> CGPoint {
-        return CGPoint(x: x + point.x, y: y + point.y)
-    }
-    
-    func offsetBy(dx: CGFloat, dy: CGFloat) -> CGPoint {
-        return CGPoint(x: x + dx, y: y + dy)
-    }
-    
-    static prefix func -(_ point: CGPoint) -> CGPoint {
-        return CGPoint(x: -point.x, y: -point.y)
-    }
-    
-}
-
-extension CGSize: Comparable {
-    
-    public static func < (lhs: CGSize, rhs: CGSize) -> Bool {
-        return lhs.width * lhs.height < rhs.width * rhs.height
-    }
-    
-    static prefix func -(_ size: CGSize) -> CGSize {
-        return CGSize(width: -size.width, height: -size.height)
-    }
-    
-}
-
-extension CGRect {
-
-    func scaleToAspectFit(in rtarget: CGRect) -> CGFloat {
-        // first try to match width
-        let s = rtarget.width / self.width;
-        // if we scale the height to make the widths equal, does it still fit?
-        if self.height * s <= rtarget.height {
-            return s
-        }
-        // no, match height instead
-        return rtarget.height / self.height
-    }
-
-    func aspectFit(in rtarget: CGRect) -> CGRect {
-        let s = scaleToAspectFit(in: rtarget)
-        let w = width * s
-        let h = height * s
-        let x = rtarget.midX - w / 2
-        let y = rtarget.midY - h / 2
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    func scaleToAspectFit(around rtarget: CGRect) -> CGFloat {
-        // fit in the target inside the rectangle instead, and take the reciprocal
-        return 1 / rtarget.scaleToAspectFit(in: self)
-    }
-
-    func aspectFit(around rtarget: CGRect) -> CGRect {
-        let s = scaleToAspectFit(around: rtarget)
-        let w = width * s
-        let h = height * s
-        let x = rtarget.midX - w / 2
-        let y = rtarget.midY - h / 2
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-    
-    var center: CGPoint {
-        return CGPoint(x: midX, y: midY)
-    }
-    
-    func offsetBy(_ point: CGPoint) -> CGRect {
-        return CGRect(origin: origin.offsetBy(point), size: size)
-    }
-    
-}
-
-extension NSRect {
-    func inset(by insets: NSEdgeInsets) -> NSRect {
-        return NSRect(x: origin.x + insets.left, y: origin.y + insets.bottom, width: size.width - insets.left - insets.right, height: size.height - insets.top - insets.bottom)
-    }
-}
-
-extension NSScreen {
-    var displayID: CGDirectDisplayID? {
-        // this method is mentioned by: https://developer.apple.com/documentation/appkit/nsscreen/1388360-devicedescription
-        return deviceDescription[NSDeviceDescriptionKey.init(rawValue: "NSScreenNumber")] as? CGDirectDisplayID
-    }
-}
 
 class SceneController: NSViewController {
     
@@ -196,13 +104,13 @@ class SceneController: NSViewController {
         return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && sceneView.documentVisibleRect.contains(point)
     }
     
-    fileprivate var internalTrackingTool: TrackingTool = .arrow
+    fileprivate var internalSceneTool: SceneTool = .arrow
     fileprivate var internalSceneState: SceneState = SceneState()
     
-    fileprivate var windowSelectedTrackingTool: TrackingTool {
+    fileprivate var windowSelectedSceneTool: SceneTool {
         get {
             guard let tool = view.window?.toolbar?.selectedItemIdentifier?.rawValue else { return .arrow }
-            return TrackingTool(rawValue: tool) ?? .arrow
+            return SceneTool(rawValue: tool) ?? .arrow
         }
     }
     
@@ -250,7 +158,7 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            if self.windowFlagsChanged(with: event) {
+            if self.monitorWindowFlagsChanged(with: event) {
                 return nil
             }
             return event
@@ -258,7 +166,7 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            if self.windowKeyDown(with: event) {
+            if self.monitorWindowKeyDown(with: event) {
                 return nil
             }
             return event
@@ -267,7 +175,7 @@ class SceneController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnifyNotification(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnifyNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
-            self.useSelectedTrackingTool()
+            self.useSelectedSceneTool()
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
@@ -317,7 +225,7 @@ class SceneController: NSViewController {
         sceneView.verticalRulerView?.clientView = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
         
-        useSelectedTrackingTool()
+        useSelectedSceneTool()
     }
     
     fileprivate func cursorClicked(at location: CGPoint) -> Bool {
@@ -399,7 +307,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func requiredStageFor(_ tool: TrackingTool, type: SceneManipulatingType) -> Int {
+    fileprivate func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
         if type == .leftGeneric {
             switch tool {
             case .magicCursor:
@@ -424,14 +332,14 @@ class SceneController: NSViewController {
         if sceneState.type == .leftGeneric {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if isInscenePixelLocation(loc) {
-                if sceneState.stage >= requiredStageFor(trackingTool, type: sceneState.type) {
-                    if trackingTool == .magicCursor {
+                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
+                    if sceneTool == .magicCursor {
                         handled = cursorClicked(at: loc)
                     }
-                    else if trackingTool == .magnifyingGlass {
+                    else if sceneTool == .magnifyingGlass {
                         handled = magnifyToolClicked(at: loc)
                     }
-                    else if trackingTool == .minifyingGlass {
+                    else if sceneTool == .minifyingGlass {
                         handled = minifyToolClicked(at: loc)
                     }
                 }
@@ -447,8 +355,8 @@ class SceneController: NSViewController {
         if sceneState.type == .rightGeneric {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if isInscenePixelLocation(loc) {
-                if sceneState.stage >= requiredStageFor(trackingTool, type: sceneState.type) {
-                    if trackingTool == .magicCursor {
+                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
+                    if sceneTool == .magicCursor {
                         handled = rightCursorClicked(at: loc)
                     }
                 }
@@ -459,45 +367,45 @@ class SceneController: NSViewController {
         }
     }
     
-    fileprivate func windowFlagsChanged(with event: NSEvent) -> Bool {
+    fileprivate func monitorWindowFlagsChanged(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
         case [.option]:
-            return useOptionModifiedTrackingTool()
+            return useOptionModifiedSceneTool()
         case [.command]:
-            return useCommandModifiedTrackingTool()
+            return useCommandModifiedSceneTool()
         default:
-            return useSelectedTrackingTool()
+            return useSelectedSceneTool()
         }
     }
     
     @discardableResult
-    fileprivate func useOptionModifiedTrackingTool() -> Bool {
+    fileprivate func useOptionModifiedSceneTool() -> Bool {
         if sceneState.isManipulating { return false }
-        if trackingTool == .magnifyingGlass {
-            trackingTool = .minifyingGlass
+        if sceneTool == .magnifyingGlass {
+            sceneTool = .minifyingGlass
             return true
         }
-        else if trackingTool == .minifyingGlass {
-            trackingTool = .magnifyingGlass
+        else if sceneTool == .minifyingGlass {
+            sceneTool = .magnifyingGlass
             return true
         }
         return false
     }
     
     @discardableResult
-    fileprivate func useCommandModifiedTrackingTool() -> Bool {
+    fileprivate func useCommandModifiedSceneTool() -> Bool {
         if sceneState.isManipulating { return false }
-        if trackingTool == .magnifyingGlass || trackingTool == .minifyingGlass || trackingTool == .movingHand {
-            trackingTool = .magicCursor
+        if sceneTool == .magnifyingGlass || sceneTool == .minifyingGlass || sceneTool == .movingHand {
+            sceneTool = .magicCursor
             return true
         }
         return false
     }
     
     @discardableResult
-    fileprivate func useSelectedTrackingTool() -> Bool {
-        trackingTool = windowSelectedTrackingTool
+    fileprivate func useSelectedSceneTool() -> Bool {
+        sceneTool = windowSelectedSceneTool
         return true
     }
     
@@ -576,7 +484,7 @@ class SceneController: NSViewController {
         return true
     }
      
-    fileprivate func windowKeyDown(with event: NSEvent) -> Bool {
+    fileprivate func monitorWindowKeyDown(with event: NSEvent) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         
@@ -644,13 +552,13 @@ extension SceneController: ScreenshotLoader {
         reloadSceneRulerConstraints()
         
         sceneView.trackingDelegate = self
-        sceneView.trackingToolDataSource = self
+        sceneView.sceneToolDataSource = self
         sceneView.sceneStateDataSource = self
         
-        sceneOverlayView.trackingToolDataSource = self
+        sceneOverlayView.sceneToolDataSource = self
         sceneOverlayView.sceneStateDataSource = self
         
-        useSelectedTrackingTool()
+        useSelectedSceneTool()
     }
     
     fileprivate func reloadSceneRulerConstraints() {
@@ -708,19 +616,19 @@ extension SceneController: SceneTracking {
 extension SceneController: ToolbarResponder {
     
     func useCursorAction(_ sender: Any?) {
-        trackingTool = .magicCursor
+        sceneTool = .magicCursor
     }
     
     func useMagnifyToolAction(_ sender: Any?) {
-        trackingTool = .magnifyingGlass
+        sceneTool = .magnifyingGlass
     }
     
     func useMinifyToolAction(_ sender: Any?) {
-        trackingTool = .minifyingGlass
+        sceneTool = .minifyingGlass
     }
     
     func useMoveToolAction(_ sender: Any?) {
-        trackingTool = .movingHand
+        sceneTool = .movingHand
     }
     
     func fitWindowAction(_ sender: Any?) {
@@ -741,18 +649,18 @@ extension SceneController: ToolbarResponder {
     
 }
 
-extension SceneController: TrackingToolDataSource {
+extension SceneController: SceneToolDataSource {
     
-    internal var trackingTool: TrackingTool {
+    internal var sceneTool: SceneTool {
         get {
-            return internalTrackingTool
+            return internalSceneTool
         }
         set {
-            internalTrackingTool = newValue
+            internalSceneTool = newValue
         }
     }
     
-    func trackingToolEnabled(_ sender: Any, tool: TrackingTool) -> Bool {
+    func sceneToolEnabled(_ sender: Any, tool: SceneTool) -> Bool {
         if tool == .magnifyingGlass {
             return canMagnify
         }

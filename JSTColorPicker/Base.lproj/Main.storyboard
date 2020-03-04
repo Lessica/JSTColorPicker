@@ -940,7 +940,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="256" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW">
                                 <rect key="frame" x="0.0" y="42" width="256" height="758"/>
                                 <subviews>
                                     <customView id="VAj-Tz-9Wg">
@@ -1165,9 +1165,9 @@ CA
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LE0-eB-1FR" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LE0-eB-1FR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="242" height="15"/>
-                                                                    <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="7To-Iy-80M" customClass="PreviewSliderCell" customModule="JSTColorPicker" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="7To-Iy-80M"/>
                                                                     <connections>
                                                                         <action selector="previewSliderChanged:" target="Z2W-Gy-vmx" id="y7p-MH-uX4"/>
                                                                     </connections>

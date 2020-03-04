@@ -1,5 +1,5 @@
 //
-//  TrackingTool.swift
+//  SceneTool.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/16/20.
@@ -8,12 +8,12 @@
 
 import Cocoa
 
-protocol TrackingToolDataSource: class {
-    var trackingTool: TrackingTool { get }
-    func trackingToolEnabled(_ sender: Any, tool: TrackingTool) -> Bool
+protocol SceneToolDataSource: class {
+    var sceneTool: SceneTool { get }
+    func sceneToolEnabled(_ sender: Any, tool: SceneTool) -> Bool
 }
 
-enum TrackingTool: String {
+enum SceneTool: String {
     
     case arrow = ""
     case magicCursor = "CursorItem"
@@ -42,9 +42,9 @@ enum TrackingTool: String {
             if self == .magicCursor {
                 return NSCursor.crosshair
             } else if self == .magnifyingGlass {
-                return TrackingTool.magnifyCursor
+                return SceneTool.magnifyCursor
             } else if self == .minifyingGlass {
-                return TrackingTool.minifyCursor
+                return SceneTool.minifyCursor
             } else if self == .movingHand {
                 return NSCursor.openHand
             }
@@ -57,9 +57,9 @@ enum TrackingTool: String {
             if self == .magicCursor {
                 return NSCursor.crosshair
             } else if self == .magnifyingGlass {
-                return TrackingTool.magnifyCursor
+                return SceneTool.magnifyCursor
             } else if self == .minifyingGlass {
-                return TrackingTool.minifyCursor
+                return SceneTool.minifyCursor
             } else if self == .movingHand {
                 return NSCursor.closedHand
             }
@@ -72,9 +72,9 @@ enum TrackingTool: String {
             if self == .magicCursor {
                 return NSCursor.operationNotAllowed
             } else if self == .magnifyingGlass {
-                return TrackingTool.noZoomingCursor
+                return SceneTool.noZoomingCursor
             } else if self == .minifyingGlass {
-                return TrackingTool.noZoomingCursor
+                return SceneTool.noZoomingCursor
             } else if self == .movingHand {
                 return NSCursor.operationNotAllowed
             }

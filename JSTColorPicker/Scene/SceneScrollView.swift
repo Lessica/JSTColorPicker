@@ -8,72 +8,6 @@
 
 import Cocoa
 
-extension CGPoint {
-    
-    func distanceTo(_ point: CGPoint) -> CGFloat {
-        let deltaX = abs(x - point.x)
-        let deltaY = abs(y - point.y)
-        return sqrt(deltaX * deltaX + deltaY * deltaY)
-    }
-    
-    public static var null: CGPoint {
-        return CGPoint(x: CGFloat.infinity, y: CGFloat.infinity)
-    }
-    
-    public var isNull: Bool {
-        return self.x == CGFloat.infinity || self.y == CGFloat.infinity
-    }
-    
-}
-
-extension CGRect {
-    
-    init(point1: CGPoint, point2: CGPoint) {
-        self.init(origin: CGPoint(x: min(point1.x, point2.x), y: min(point1.y, point2.y)), size: CGSize(width: abs(point2.x - point1.x), height: abs(point2.y - point1.y)))
-    }
-    
-}
-
-extension NSView {
-    
-    func bringToFront() {
-        guard let sView = superview else {
-            return
-        }
-        removeFromSuperview()
-        sView.addSubview(self)
-    }
-    
-}
-
-extension NSScrollView {
-    
-    func convertFromDocumentView(_ rect: CGRect) -> CGRect {
-        return convert(rect, from: documentView)
-    }
-    
-    func convertFromDocumentView(_ size: CGSize) -> CGSize {
-        return convert(size, from: documentView)
-    }
-    
-    func convertFromDocumentView(_ point: CGPoint) -> CGPoint {
-        return convert(point, from: documentView)
-    }
-    
-    func convertToDocumentView(_ rect: CGRect) -> CGRect {
-        return convert(rect, to: documentView)
-    }
-    
-    func convertToDocumentView(_ size: CGSize) -> CGSize {
-        return convert(size, to: documentView)
-    }
-    
-    func convertToDocumentView(_ point: CGPoint) -> CGPoint {
-        return convert(point, to: documentView)
-    }
-    
-}
-
 class SceneScrollView: NSScrollView {
     
     public var enableForceTouch: Bool = false
@@ -90,7 +24,7 @@ class SceneScrollView: NSScrollView {
     fileprivate var minimumDraggingDistance: CGFloat {
         return enableForceTouch ? 6.0 : 3.0
     }
-    fileprivate func requiredEventStageFor(_ tool: TrackingTool) -> Int {
+    fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int {
         switch tool {
         case .magicCursor, .magnifyingGlass:
             return enableForceTouch ? 1 : 0
@@ -106,9 +40,9 @@ class SceneScrollView: NSScrollView {
     fileprivate var trackingCoordinate = PixelCoordinate.null
     public weak var trackingDelegate: SceneTracking?
     
-    public weak var trackingToolDataSource: TrackingToolDataSource?
-    fileprivate var trackingTool: TrackingTool {
-        return trackingToolDataSource!.trackingTool
+    public weak var sceneToolDataSource: SceneToolDataSource?
+    fileprivate var sceneTool: SceneTool {
+        return sceneToolDataSource!.sceneTool
     }
     
     public weak var sceneStateDataSource: SceneStateDataSource?
@@ -159,6 +93,7 @@ class SceneScrollView: NSScrollView {
         
         SceneScrollView.rulerViewClass = RulerView.self
         contentInsets = NSEdgeInsetsZero
+        drawsBackground = true
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
         usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
@@ -301,7 +236,7 @@ class SceneScrollView: NSScrollView {
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneManipulatingType.leftDraggingType(for: trackingTool)
+            let type = SceneManipulatingType.leftDraggingType(for: sceneTool)
             if sceneState.type != type {
                 if type == .areaDragging {
                     if shouldBeginAreaDragging(for: event) {
@@ -336,7 +271,7 @@ class SceneScrollView: NSScrollView {
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneManipulatingType.rightDraggingType(for: trackingTool)
+            let type = SceneManipulatingType.rightDraggingType(for: sceneTool)
             if sceneState.type != type {
                 sceneState.type = type
             }
@@ -358,7 +293,7 @@ class SceneScrollView: NSScrollView {
     fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
         let shiftPressed = event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
         if enableForceTouch {
-            return shiftPressed || sceneState.stage >= requiredEventStageFor(trackingTool)
+            return shiftPressed || sceneState.stage >= requiredEventStageFor(sceneTool)
         } else {
             return shiftPressed
         }
@@ -387,10 +322,10 @@ class SceneScrollView: NSScrollView {
         if sceneState.type == .areaDragging {
             let draggingArea = overlayPixelRect
             if draggingArea.size > PixelSize(width: 1, height: 1) {
-                if trackingTool == .magicCursor {
+                if sceneTool == .magicCursor {
                     trackingDelegate?.trackCursorDragged(self, to: draggingArea)
                 }
-                else if trackingTool == .magnifyingGlass {
+                else if sceneTool == .magnifyingGlass {
                     trackingDelegate?.trackMagnifyToolDragged(self, to: draggingArea)
                 }
             }

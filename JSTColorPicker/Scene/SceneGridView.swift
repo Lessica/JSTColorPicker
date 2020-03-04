@@ -63,18 +63,6 @@ class SceneGridView: NSView {
     
 }
 
-extension CGRect {
-    
-    var smallestWrappingPixelRect: PixelRect {
-        return PixelRect(point1: CGPoint(x: floor(minX), y: floor(minY)), point2: CGPoint(x: ceil(maxX), y: ceil(maxY)))
-    }
-    
-    var largestWrappedPixelRect: PixelRect {
-        return PixelRect(point1: CGPoint(x: ceil(minX), y: ceil(minY)), point2: CGPoint(x: floor(maxX), y: floor(maxY)))
-    }
-    
-}
-
 extension SceneGridView: SceneTracking {
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {

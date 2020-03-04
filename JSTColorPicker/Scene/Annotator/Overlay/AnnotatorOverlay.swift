@@ -6,7 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class VerticallyCenteredTextFieldCell : NSTextFieldCell {
     
