@@ -79,7 +79,7 @@ class SceneController: NSViewController {
         7.000, 8.000, 12.00, 16.00, 32.00,
         64.00, 128.0, 256.0
     ]
-    fileprivate static let minimumRecognizablePixelWidth: CGFloat = 10.0
+    fileprivate static let minimumRecognizableMagnification: CGFloat = 16.0
     
     @IBOutlet weak var sceneView: SceneScrollView!
     @IBOutlet weak var sceneClipView: SceneClipView!
@@ -426,8 +426,7 @@ class SceneController: NSViewController {
         default: break
         }
         
-        let windowDelta = wrapper.convert(wrapperDelta, to: nil)  // to window coordinate
-        guard abs(windowDelta.width + windowDelta.height) > SceneController.minimumRecognizablePixelWidth else { return false }
+        guard wrapperMagnification >= SceneController.minimumRecognizableMagnification else { return false }
         
         var targetWrapperPoint = pixelLocation.toPixelCenterCGPoint()
         targetWrapperPoint.x += wrapperDelta.width
@@ -551,12 +550,16 @@ extension SceneController: ScreenshotLoader {
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         reloadSceneRulerConstraints()
         
+        sceneOverlayView.sceneToolDataSource = self
+        sceneOverlayView.sceneStateDataSource = self
+        
         sceneView.trackingDelegate = self
         sceneView.sceneToolDataSource = self
         sceneView.sceneStateDataSource = self
-        
-        sceneOverlayView.sceneToolDataSource = self
-        sceneOverlayView.sceneStateDataSource = self
+        sceneView.sceneEventObservers = [
+            SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
+            SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
+        ]
         
         useSelectedSceneTool()
     }

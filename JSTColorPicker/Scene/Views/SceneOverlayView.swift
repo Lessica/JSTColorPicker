@@ -63,32 +63,26 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
         updateCursorAppearance()
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        super.rightMouseDown(with: event)
         updateCursorAppearance()
     }
     
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
         updateCursorAppearance()
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        super.rightMouseUp(with: event)
         updateCursorAppearance()
     }
     
     override func mouseDragged(with event: NSEvent) {
-        super.mouseDragged(with: event)
         updateCursorAppearance()
     }
     
     override func rightMouseDragged(with event: NSEvent) {
-        super.rightMouseDragged(with: event)
         updateCursorAppearance()
     }
     

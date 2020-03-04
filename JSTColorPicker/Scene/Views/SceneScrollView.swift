@@ -52,6 +52,8 @@ class SceneScrollView: NSScrollView {
         }
     }
     
+    public var sceneEventObservers: [SceneEventObserver] = []
+    
     public var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
         return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
@@ -173,6 +175,11 @@ class SceneScrollView: NSScrollView {
     }
     
     override func mouseDown(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseDown(with: event) })
+        
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
             sceneState.type = .leftGeneric
@@ -182,9 +189,18 @@ class SceneScrollView: NSScrollView {
         }
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseDown(with: event) })
     }
     
     override func rightMouseDown(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseDown(with: event) })
+        
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
             sceneState.type = .rightGeneric
@@ -194,10 +210,17 @@ class SceneScrollView: NSScrollView {
         }
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseDown(with: event) })
     }
     
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseUp(with: event) })
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
@@ -212,10 +235,17 @@ class SceneScrollView: NSScrollView {
         sceneState.beginLocation = .null
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseUp(with: event) })
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        super.rightMouseUp(with: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseUp(with: event) })
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
@@ -230,9 +260,18 @@ class SceneScrollView: NSScrollView {
         sceneState.beginLocation = .null
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseUp(with: event) })
     }
     
     override func mouseDragged(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseDragged(with: event) })
+        
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
@@ -265,9 +304,18 @@ class SceneScrollView: NSScrollView {
         trackMovingOrDragging(with: event)
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.mouseDragged(with: event) })
     }
     
     override func rightMouseDragged(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.before) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseDragged(with: event) })
+        
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
@@ -279,6 +327,10 @@ class SceneScrollView: NSScrollView {
         trackMovingOrDragging(with: event)
         
         updateDraggingLayerAppearance(for: event)
+        sceneEventObservers
+            .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.after) })
+            .compactMap({ $0.target })
+            .forEach({ $0.rightMouseDragged(with: event) })
     }
     
     override func smartMagnify(with event: NSEvent) {
