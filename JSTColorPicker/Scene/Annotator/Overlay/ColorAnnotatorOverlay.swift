@@ -10,12 +10,13 @@ import Cocoa
 
 class ColorAnnotatorOverlay: AnnotatorOverlay {
     
-    override var isBordered: Bool {
-        return false
+    override init(label: String) {
+        super.init(label: label)
+        isSmallOverlay = true
     }
     
-    override var isEditable: Bool {
-        return false
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

@@ -16,6 +16,7 @@
 
 @implementation JSTDevice {
     idevice_t cDevice;
+    char *cUDID;
 }
 
 - (NSString *)description {
@@ -33,12 +34,13 @@
 - (instancetype)initWithUDID:(NSString *)udid {
     NSString *name = @"Unknown";
     cDevice = NULL;
-    if (idevice_new_with_options(&cDevice, udid.UTF8String, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
+    cUDID = strndup(udid.UTF8String, udid.length);
+    if (idevice_new_with_options(&cDevice, cUDID, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
         return nil;
     }
     lockdownd_client_t cClient;
     if (lockdownd_client_new(cDevice, &cClient, "JSTColorPicker") != LOCKDOWN_E_SUCCESS) {
-        idevice_free(cDevice);
+        idevice_free(cDevice); cDevice = nil;
         return nil;
     }
     char *cDeviceName;
@@ -59,9 +61,8 @@
 }
 
 - (void)dealloc {
-    if (cDevice) {
-        idevice_free(cDevice);
-    }
+    if (cDevice) { idevice_free(cDevice); cDevice = NULL; }
+    if (cUDID) { free(cUDID); cUDID = NULL; }
 #ifdef DEBUG
     NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif

@@ -9,18 +9,31 @@
 import Foundation
 
 class Annotator {
+    public var pixelItem: ContentItem
+    public var view: AnnotatorOverlay
+    public var rulerMarkers: [RulerMarker] = []
     
-    var pixelItem: ContentItem
-    var view: AnnotatorOverlay
-    var rulerMarkers: [RulerMarker] = []
-    var isHighlighted: Bool = false
-    var label: String = "0"
+    public var isEditable: Bool {
+        get { return view.isEditable }
+        set { view.isEditable = newValue }
+    }
+    public var isSmallAnnotator: Bool {
+        get { return view.isSmallOverlay }
+        set { view.isSmallOverlay = newValue }
+    }
+    public var isHighlighted: Bool {
+        get { return view.isHighlighted }
+        set { view.isHighlighted = newValue }
+    }
+    public var label: String { return view.label }
+    public func setNeedsDisplay() {
+        view.setNeedsDisplay()
+    }
     
     init(pixelItem: ContentItem, view: AnnotatorOverlay) {
         self.pixelItem = pixelItem
         self.view = view
     }
-    
 }
 
 extension Annotator: CustomStringConvertible {

@@ -98,7 +98,11 @@ class SceneController: NSViewController {
         return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && sceneView.documentVisibleRect.contains(point)
     }
     
-    fileprivate var internalSceneTool: SceneTool = .arrow
+    fileprivate var internalSceneTool: SceneTool = .arrow {
+        didSet {
+            updateAnnotatorEditableState()
+        }
+    }
     fileprivate var internalSceneState: SceneState = SceneState()
     
     fileprivate var windowSelectedSceneTool: SceneTool {
@@ -382,11 +386,11 @@ class SceneController: NSViewController {
     fileprivate func useOptionModifiedSceneTool() -> Bool {
         if sceneState.isManipulating { return false }
         if sceneTool == .magnifyingGlass {
-            sceneTool = .minifyingGlass
+            internalSceneTool = .minifyingGlass
             return true
         }
         else if sceneTool == .minifyingGlass {
-            sceneTool = .magnifyingGlass
+            internalSceneTool = .magnifyingGlass
             return true
         }
         return false
@@ -396,7 +400,7 @@ class SceneController: NSViewController {
     fileprivate func useCommandModifiedSceneTool() -> Bool {
         if sceneState.isManipulating { return false }
         if sceneTool == .magnifyingGlass || sceneTool == .minifyingGlass || sceneTool == .movingHand {
-            sceneTool = .magicCursor
+            internalSceneTool = .magicCursor
             return true
         }
         return false
@@ -404,7 +408,7 @@ class SceneController: NSViewController {
     
     @discardableResult
     fileprivate func useSelectedSceneTool() -> Bool {
-        sceneTool = windowSelectedSceneTool
+        internalSceneTool = windowSelectedSceneTool
         return true
     }
     
@@ -619,23 +623,23 @@ extension SceneController: SceneTracking {
 extension SceneController: ToolbarResponder {
     
     func useAnnotateItemAction(_ sender: Any?) {
-        sceneTool = .magicCursor
+        internalSceneTool = .magicCursor
     }
     
     func useMagnifyItemAction(_ sender: Any?) {
-        sceneTool = .magnifyingGlass
+        internalSceneTool = .magnifyingGlass
     }
     
     func useMinifyItemAction(_ sender: Any?) {
-        sceneTool = .minifyingGlass
+        internalSceneTool = .minifyingGlass
     }
     
     func useSelectItemAction(_ sender: Any?) {
-        sceneTool = .selectionArrow
+        internalSceneTool = .selectionArrow
     }
     
     func useMoveItemAction(_ sender: Any?) {
-        sceneTool = .movingHand
+        internalSceneTool = .movingHand
     }
     
     func fitWindowAction(_ sender: Any?) {
@@ -661,9 +665,6 @@ extension SceneController: SceneToolDataSource {
     internal var sceneTool: SceneTool {
         get {
             return internalSceneTool
-        }
-        set {
-            internalSceneTool = newValue
         }
     }
     
@@ -719,7 +720,7 @@ extension SceneController: AnnotatorDataSource {
     
     fileprivate func updateFrame(of annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
-            annotator.view.isSmallArea = true
+            annotator.isSmallAnnotator = true
             let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
             annotator.view.frame = CGRect(origin: pointInMask, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
         }
@@ -727,19 +728,27 @@ extension SceneController: AnnotatorDataSource {
             let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
             // if smaller than default size
             if rectInMask.size < AnnotatorOverlay.defaultSize {
-                annotator.view.isSmallArea = true
+                annotator.isSmallAnnotator = true
                 annotator.view.frame = CGRect(origin: rectInMask.center, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
             } else {
-                annotator.view.isSmallArea = false
+                annotator.isSmallAnnotator = false
                 annotator.view.frame = rectInMask.inset(by: annotator.view.outerInsets)
             }
         }
     }
     
     fileprivate func updateAnnotatorBounds() {
-        annotators.forEach { (annotator) in
-            updateFrame(of: annotator)
-        }
+        annotators.forEach({ updateFrame(of: $0) })
+    }
+    
+    fileprivate func updateAnnotatorEditableState() {
+        let editable = internalSceneTool == .selectionArrow
+        annotators
+            .filter({ $0.isEditable != editable })
+            .forEach({
+                $0.isEditable = editable
+                $0.setNeedsDisplay()
+            })
     }
     
     fileprivate func loadRulerMarkers(for annotator: Annotator) {

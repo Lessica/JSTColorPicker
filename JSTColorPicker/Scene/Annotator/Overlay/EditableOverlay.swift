@@ -10,6 +10,8 @@ import Cocoa
 
 class EditableOverlay: Overlay {
     
+    public var isEditable: Bool = false
+    
     fileprivate static let circleRadius: CGFloat = 3.67
     fileprivate static let circleBorderWidth: CGFloat = 1.0
     fileprivate static let circleFillColorNormal = NSColor.systemGray.cgColor
@@ -18,10 +20,6 @@ class EditableOverlay: Overlay {
     
     public static let outerInsets = NSEdgeInsets(top: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, left: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, bottom: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, right: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth)
     fileprivate static let innerInsets = NSEdgeInsets(top: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, left: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, bottom: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, right: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth)
-    
-    public var isEditable: Bool {
-        return false
-    }
     
     override var outerInsets: NSEdgeInsets {
         return EditableOverlay.outerInsets
