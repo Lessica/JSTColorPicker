@@ -26,59 +26,55 @@ enum SceneTool: String {
     }()
     
     static var magnifyCursor: NSCursor = {
-        return NSCursor.init(image: NSImage(named: "JSTMagnifyMIN")!, hotSpot: NSPoint(x: 8, y: 8))
+        return NSCursor.init(image: NSImage(named: "JSTMagnifyMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
     static var minifyCursor: NSCursor = {
-        return NSCursor.init(image: NSImage(named: "JSTMinifyMIN")!, hotSpot: NSPoint(x: 8, y: 8))
+        return NSCursor.init(image: NSImage(named: "JSTMinifyMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
     static var noZoomingCursor: NSCursor = {
-        return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 8, y: 8))
+        return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
     var currentCursor: NSCursor {
-        get {
-            if self == .magicCursor {
-                return NSCursor.crosshair
-            } else if self == .magnifyingGlass {
-                return SceneTool.magnifyCursor
-            } else if self == .minifyingGlass {
-                return SceneTool.minifyCursor
-            } else if self == .movingHand {
-                return NSCursor.openHand
-            }
+        switch self {
+        case .magicCursor:
+            return NSCursor.crosshair
+        case .magnifyingGlass:
+            return SceneTool.magnifyCursor
+        case .minifyingGlass:
+            return SceneTool.minifyCursor
+        case .movingHand:
+            return NSCursor.openHand
+        default:
             return NSCursor.current
         }
     }
     
     var highlightCursor: NSCursor {
-        get {
-            if self == .magicCursor {
-                return NSCursor.crosshair
-            } else if self == .magnifyingGlass {
-                return SceneTool.magnifyCursor
-            } else if self == .minifyingGlass {
-                return SceneTool.minifyCursor
-            } else if self == .movingHand {
-                return NSCursor.closedHand
-            }
+        switch self {
+        case .magicCursor:
+            return NSCursor.crosshair
+        case .magnifyingGlass:
+            return SceneTool.magnifyCursor
+        case .minifyingGlass:
+            return SceneTool.minifyCursor
+        case .movingHand:
+            return NSCursor.closedHand
+        default:
             return NSCursor.current
         }
     }
     
     var disabledCursor: NSCursor {
-        get {
-            if self == .magicCursor {
-                return NSCursor.operationNotAllowed
-            } else if self == .magnifyingGlass {
-                return SceneTool.noZoomingCursor
-            } else if self == .minifyingGlass {
-                return SceneTool.noZoomingCursor
-            } else if self == .movingHand {
-                return NSCursor.operationNotAllowed
-            }
-            return NSCursor.current
+        switch self {
+        case .magnifyingGlass:
+            return SceneTool.noZoomingCursor
+        case .minifyingGlass:
+            return SceneTool.noZoomingCursor
+        default:
+            return NSCursor.operationNotAllowed
         }
     }
     

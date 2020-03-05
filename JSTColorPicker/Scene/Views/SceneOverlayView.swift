@@ -23,9 +23,20 @@ class SceneOverlayView: NSView {
     
     public weak var sceneStateDataSource: SceneStateDataSource?
     fileprivate var sceneState: SceneState {
-        get {
-            return sceneStateDataSource!.sceneState
-        }
+        return sceneStateDataSource!.sceneState
+    }
+    
+    public weak var annotatorDataSource: AnnotatorDataSource?
+    fileprivate var annotators: [Annotator] {
+        return annotatorDataSource!.annotators
+    }
+    
+    fileprivate var overlays: [Overlay] {
+        return subviews as! [Overlay]
+    }
+    fileprivate var focusedOverlay: Overlay?
+    fileprivate func frontmostOverlay(at point: CGPoint) -> Overlay? {
+        return overlays.reversed().first(where: { $0.frame.contains(point) })
     }
     
     override var isFlipped: Bool {
@@ -52,38 +63,47 @@ class SceneOverlayView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func mouseMoved(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func mouseExited(with event: NSEvent) {
-        SceneTool.arrowCursor.set()
+        internalResetCursorAppearance()
+        internalResetFocusAppearance()
     }
     
     override func mouseDown(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func rightMouseDown(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func mouseUp(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func rightMouseUp(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func mouseDragged(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     override func rightMouseDragged(with event: NSEvent) {
         internalUpdateCursorAppearance()
+        internalUpdateFocusAppearance(with: event)
     }
     
     public func updateCursorAppearance() {
@@ -106,6 +126,47 @@ class SceneOverlayView: NSView {
             }
         } else {
             sceneTool.disabledCursor.set()
+        }
+    }
+    
+    fileprivate func internalResetCursorAppearance() {
+        SceneTool.arrowCursor.set()
+    }
+    
+    fileprivate func internalUpdateFocusAppearance(with event: NSEvent?) {
+        guard let event = event else { return }
+        let loc = convert(event.locationInWindow, from: nil)
+        if let overlay = frontmostOverlay(at: loc) {
+            if let focusedOverlay = focusedOverlay {
+                if overlay == focusedOverlay {
+                    
+                }
+                else {
+                    focusedOverlay.isFocused = false
+                    focusedOverlay.setNeedsDisplay()
+                    overlay.isFocused = true
+                    overlay.setNeedsDisplay()
+                    self.focusedOverlay = overlay
+                }
+            }
+            else {
+                overlay.isFocused = true
+                overlay.setNeedsDisplay()
+                self.focusedOverlay = overlay
+            }
+        }
+        else if let focusedOverlay = focusedOverlay {
+            focusedOverlay.isFocused = false
+            focusedOverlay.setNeedsDisplay()
+            self.focusedOverlay = nil
+        }
+    }
+    
+    fileprivate func internalResetFocusAppearance() {
+        if let focusedOverlay = focusedOverlay {
+            focusedOverlay.isFocused = false
+            focusedOverlay.setNeedsDisplay()
+            self.focusedOverlay = nil
         }
     }
     

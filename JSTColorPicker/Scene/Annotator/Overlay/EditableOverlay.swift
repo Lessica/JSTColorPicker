@@ -12,12 +12,14 @@ class EditableOverlay: Overlay {
     
     fileprivate static let circleRadius: CGFloat = 3.67
     fileprivate static let circleBorderWidth: CGFloat = 1.0
-    fileprivate static let circleFillColor = NSColor.gray.cgColor
+    fileprivate static let circleFillColorNormal = NSColor.systemGray.cgColor
+    fileprivate static let circleFillColorFocused = NSColor.systemBlue.cgColor
     fileprivate static let circleStrokeColor = CGColor.white
-    static let outerInsets = NSEdgeInsets(top: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, left: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, bottom: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, right: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth)
-    static let innerInsets = NSEdgeInsets(top: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, left: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, bottom: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, right: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth)
     
-    var isEditable: Bool {
+    public static let outerInsets = NSEdgeInsets(top: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, left: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, bottom: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, right: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth)
+    fileprivate static let innerInsets = NSEdgeInsets(top: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, left: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, bottom: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, right: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth)
+    
+    public var isEditable: Bool {
         return false
     }
     
@@ -43,7 +45,11 @@ class EditableOverlay: Overlay {
         ctx.saveGState()
         
         ctx.setLineWidth(EditableOverlay.circleBorderWidth)
-        ctx.setFillColor(EditableOverlay.circleFillColor)
+        if isFocused {
+            ctx.setFillColor(EditableOverlay.circleFillColorFocused)
+        } else {
+            ctx.setFillColor(EditableOverlay.circleFillColorNormal)
+        }
         ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
         
         var rects = [

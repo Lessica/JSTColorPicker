@@ -28,16 +28,16 @@ class VerticallyCenteredTextFieldCell : NSTextFieldCell {
 
 class AnnotatorOverlay: EditableOverlay {
     
-    let defaultOffset = CGPoint(x: -15.5, y: -16.5)
-    let defaultSize = CGSize(width: 32.0, height: 32.0)
+    public static let defaultOffset = CGPoint(x: -15.5, y: -16.5)
+    public static let defaultSize = CGSize(width: 32.0, height: 32.0)
     
-    var backgroundCell: VerticallyCenteredTextFieldCell
-    var labelCell: VerticallyCenteredTextFieldCell
+    public var backgroundCell: VerticallyCenteredTextFieldCell
+    public var labelCell: VerticallyCenteredTextFieldCell
     
-    var backgroundView: NSTextField
-    var labelView: NSTextField
+    public var backgroundView: NSTextField
+    public var labelView: NSTextField
     
-    var isSmallArea: Bool = true {
+    public var isSmallArea: Bool = true {
         didSet {
             backgroundView.isHidden = !isSmallArea
             labelView.isHidden = !isSmallArea

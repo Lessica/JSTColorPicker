@@ -551,6 +551,7 @@ extension SceneController: ScreenshotLoader {
         
         sceneOverlayView.sceneToolDataSource = self
         sceneOverlayView.sceneStateDataSource = self
+        sceneOverlayView.annotatorDataSource = self
         
         sceneView.trackingDelegate = self
         sceneView.sceneToolDataSource = self
@@ -687,7 +688,7 @@ extension SceneController: SceneStateDataSource {
     
 }
 
-extension SceneController: AnnotatorManager {
+extension SceneController: AnnotatorDataSource {
     
     @objc fileprivate func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
         hideSceneOverlays()
@@ -716,14 +717,14 @@ extension SceneController: AnnotatorManager {
         if let annotator = annotator as? ColorAnnotator {
             annotator.view.isSmallArea = true
             let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
-            annotator.view.frame = CGRect(origin: pointInMask, size: annotator.view.defaultSize).offsetBy(annotator.view.defaultOffset)
+            annotator.view.frame = CGRect(origin: pointInMask, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
         }
         else if let annotator = annotator as? AreaAnnotator {
             let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
             // if smaller than default size
-            if rectInMask.size < annotator.view.defaultSize {
+            if rectInMask.size < AnnotatorOverlay.defaultSize {
                 annotator.view.isSmallArea = true
-                annotator.view.frame = CGRect(origin: rectInMask.center, size: annotator.view.defaultSize).offsetBy(annotator.view.defaultOffset)
+                annotator.view.frame = CGRect(origin: rectInMask.center, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
             } else {
                 annotator.view.isSmallArea = false
                 annotator.view.frame = rectInMask.inset(by: annotator.view.outerInsets)

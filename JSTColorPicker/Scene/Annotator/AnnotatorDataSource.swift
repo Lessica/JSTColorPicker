@@ -1,5 +1,5 @@
 //
-//  SceneAnnotatorManager.swift
+//  AnnotatorDataSource.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/29/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol AnnotatorManager: class {
+protocol AnnotatorDataSource: class {
     var annotators: [Annotator] { get }
     func loadAnnotators(from content: Content) throws
     func addAnnotators(for items: [ContentItem])

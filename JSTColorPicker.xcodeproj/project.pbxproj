@@ -161,7 +161,7 @@
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
 		D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
-		D6E2455D23E153340012BE5F /* AnnotatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455C23E153340012BE5F /* AnnotatorManager.swift */; };
+		D6E2455D23E153340012BE5F /* AnnotatorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455C23E153340012BE5F /* AnnotatorDataSource.swift */; };
 		D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455E23E186260012BE5F /* ColorAnnotator.swift */; };
 		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
@@ -522,7 +522,7 @@
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
 		D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorIndicator.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
-		D6E2455C23E153340012BE5F /* AnnotatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorManager.swift; sourceTree = "<group>"; };
+		D6E2455C23E153340012BE5F /* AnnotatorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorDataSource.swift; sourceTree = "<group>"; };
 		D6E2455E23E186260012BE5F /* ColorAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotator.swift; sourceTree = "<group>"; };
 		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
@@ -714,7 +714,7 @@
 			isa = PBXGroup;
 			children = (
 				D6729C04240FC3BC000339C2 /* Overlay */,
-				D6E2455C23E153340012BE5F /* AnnotatorManager.swift */,
+				D6E2455C23E153340012BE5F /* AnnotatorDataSource.swift */,
 				D6E2455E23E186260012BE5F /* ColorAnnotator.swift */,
 				D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */,
 				D645E4B423EE74330039F4F6 /* Annotator.swift */,
@@ -1402,7 +1402,7 @@
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
 				D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */,
-				D6E2455D23E153340012BE5F /* AnnotatorManager.swift in Sources */,
+				D6E2455D23E153340012BE5F /* AnnotatorDataSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
