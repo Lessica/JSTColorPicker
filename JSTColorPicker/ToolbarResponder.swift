@@ -9,10 +9,11 @@
 import Cocoa
 
 protocol ToolbarResponder {
-    func useCursorAction(_ sender: Any?)
-    func useMagnifyToolAction(_ sender: Any?)
-    func useMinifyToolAction(_ sender: Any?)
-    func useMoveToolAction(_ sender: Any?)
+    func useAnnotateItemAction(_ sender: Any?)
+    func useMagnifyItemAction(_ sender: Any?)
+    func useMinifyItemAction(_ sender: Any?)
+    func useSelectItemAction(_ sender: Any?)
+    func useMoveItemAction(_ sender: Any?)
     func fitWindowAction(_ sender: Any?)
     func fillWindowAction(_ sender: Any?)
 }

@@ -118,20 +118,24 @@ extension SplitController: SceneTracking {
 
 extension SplitController: ToolbarResponder {
     
-    func useCursorAction(_ sender: Any?) {
-        sceneController.useCursorAction(sender)
+    func useAnnotateItemAction(_ sender: Any?) {
+        sceneController.useAnnotateItemAction(sender)
     }
     
-    func useMagnifyToolAction(_ sender: Any?) {
-        sceneController.useMagnifyToolAction(sender)
+    func useMagnifyItemAction(_ sender: Any?) {
+        sceneController.useMagnifyItemAction(sender)
     }
     
-    func useMinifyToolAction(_ sender: Any?) {
-        sceneController.useMinifyToolAction(sender)
+    func useMinifyItemAction(_ sender: Any?) {
+        sceneController.useMinifyItemAction(sender)
     }
     
-    func useMoveToolAction(_ sender: Any?) {
-        sceneController.useMoveToolAction(sender)
+    func useSelectItemAction(_ sender: Any?) {
+        sceneController.useSelectItemAction(sender)
+    }
+    
+    func useMoveItemAction(_ sender: Any?) {
+        sceneController.useMoveItemAction(sender)
     }
     
     func fitWindowAction(_ sender: Any?) {

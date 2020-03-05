@@ -20,21 +20,18 @@ class WindowController: NSWindowController {
     weak var tabDelegate: TabDelegate?
     
     @IBOutlet weak var openItem: NSToolbarItem!
-    @IBOutlet weak var cursorItem: NSToolbarItem!
+    @IBOutlet weak var annotateItem: NSToolbarItem!
     @IBOutlet weak var magnifyItem: NSToolbarItem!
     @IBOutlet weak var minifyItem: NSToolbarItem!
+    @IBOutlet weak var selectItem: NSToolbarItem!
     @IBOutlet weak var moveItem: NSToolbarItem!
     @IBOutlet weak var fitWindowItem: NSToolbarItem!
     @IBOutlet weak var fillWindowItem: NSToolbarItem!
     @IBOutlet weak var screenshotItem: NSToolbarItem!
     
-    @IBOutlet weak var touchBarOpenItem: NSButton!
-    @IBOutlet weak var touchBarCursorItem: NSButton!
-    @IBOutlet weak var touchBarMagnifyItem: NSButton!
-    @IBOutlet weak var touchBarMinifyItem: NSButton!
-    @IBOutlet weak var touchBarMoveItem: NSButton!
-    @IBOutlet weak var touchBarFitWindowItem: NSButton!
-    @IBOutlet weak var touchBarFillWindowItem: NSButton!
+    @IBOutlet weak var touchBarOpenItem: NSButton!    
+    @IBOutlet weak var touchBarSceneToolControl: NSSegmentedControl!
+    @IBOutlet weak var touchBarSceneActionControl: NSSegmentedControl!
     @IBOutlet weak var touchBarScreenshotItem: NSButton!
     
     fileprivate var viewController: SplitController! {
@@ -83,16 +80,18 @@ class WindowController: NSWindowController {
             case NSEvent.SpecialKey.f1:
                 touchBarOpenAction(event)
             case NSEvent.SpecialKey.f2:
-                touchBarUseCursorAction(event)
+                touchBarUseAnnotateItemAction(event)
             case NSEvent.SpecialKey.f3:
-                touchBarUseMagnifyToolAction(event)
+                touchBarUseMagnifyItemAction(event)
             case NSEvent.SpecialKey.f4:
-                touchBarUseMinifyToolAction(event)
+                touchBarUseMinifyItemAction(event)
             case NSEvent.SpecialKey.f5:
-                touchBarUseMoveToolAction(event)
+                touchBarUseSelectItemAction(event)
             case NSEvent.SpecialKey.f6:
-                touchBarFitWindowAction(event)
+                touchBarUseMoveItemAction(event)
             case NSEvent.SpecialKey.f7:
+                touchBarFitWindowAction(event)
+            case NSEvent.SpecialKey.f8:
                 touchBarFillWindowAction(event)
             default:
                 super.keyDown(with: event)
@@ -121,28 +120,19 @@ extension WindowController {
     fileprivate func touchBarUpdateButtonState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
         if identifier == SceneTool.magicCursor.rawValue {
-            touchBarCursorItem.state = .on
-            touchBarMagnifyItem.state = .off
-            touchBarMinifyItem.state = .off
-            touchBarMoveItem.state = .off
+            touchBarSceneToolControl.selectedSegment = 0
         }
         else if identifier == SceneTool.magnifyingGlass.rawValue {
-            touchBarCursorItem.state = .off
-            touchBarMagnifyItem.state = .on
-            touchBarMinifyItem.state = .off
-            touchBarMoveItem.state = .off
+            touchBarSceneToolControl.selectedSegment = 1
         }
         else if identifier == SceneTool.minifyingGlass.rawValue {
-            touchBarCursorItem.state = .off
-            touchBarMagnifyItem.state = .off
-            touchBarMinifyItem.state = .on
-            touchBarMoveItem.state = .off
+            touchBarSceneToolControl.selectedSegment = 2
+        }
+        else if identifier == SceneTool.selectionArrow.rawValue {
+            touchBarSceneToolControl.selectedSegment = 3
         }
         else if identifier == SceneTool.movingHand.rawValue {
-            touchBarCursorItem.state = .off
-            touchBarMagnifyItem.state = .off
-            touchBarMinifyItem.state = .off
-            touchBarMoveItem.state = .on
+            touchBarSceneToolControl.selectedSegment = 4
         }
     }
     
@@ -150,32 +140,64 @@ extension WindowController {
         openAction(sender)
     }
     
-    @IBAction func touchBarUseCursorAction(_ sender: Any?) {
+    fileprivate func touchBarUseAnnotateItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
-        useCursorAction(sender)
+        useAnnotateItemAction(sender)
     }
     
-    @IBAction func touchBarUseMagnifyToolAction(_ sender: Any?) {
+    fileprivate func touchBarUseMagnifyItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
-        useMagnifyToolAction(sender)
+        useMagnifyItemAction(sender)
     }
     
-    @IBAction func touchBarUseMinifyToolAction(_ sender: Any?) {
+    fileprivate func touchBarUseMinifyItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
-        useMinifyToolAction(sender)
+        useMinifyItemAction(sender)
     }
     
-    @IBAction func touchBarUseMoveToolAction(_ sender: Any?) {
+    fileprivate func touchBarUseSelectItemAction(_ sender: Any?) {
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
+        useSelectItemAction(sender)
+    }
+    
+    fileprivate func touchBarUseMoveItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
-        useMoveToolAction(sender)
+        useMoveItemAction(sender)
     }
     
-    @IBAction func touchBarFitWindowAction(_ sender: Any?) {
+    @IBAction func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
+        if sender.selectedSegment == 0 {
+            touchBarUseAnnotateItemAction(sender)
+        }
+        else if sender.selectedSegment == 1 {
+            touchBarUseMagnifyItemAction(sender)
+        }
+        else if sender.selectedSegment == 2 {
+            touchBarUseMinifyItemAction(sender)
+        }
+        else if sender.selectedSegment == 3 {
+            touchBarUseSelectItemAction(sender)
+        }
+        else if sender.selectedSegment == 4 {
+            touchBarUseMoveItemAction(sender)
+        }
+    }
+    
+    fileprivate func touchBarFitWindowAction(_ sender: Any?) {
         fitWindowAction(sender)
     }
     
-    @IBAction func touchBarFillWindowAction(_ sender: Any?) {
+    fileprivate func touchBarFillWindowAction(_ sender: Any?) {
         fillWindowAction(sender)
+    }
+    
+    @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
+        if sender.selectedSegment == 0 {
+            touchBarFitWindowAction(sender)
+        }
+        else if sender.selectedSegment == 1 {
+            touchBarFillWindowAction(sender)
+        }
     }
     
     @IBAction func touchBarScreenshotAction(_ sender: Any?) {
@@ -190,23 +212,28 @@ extension WindowController: ToolbarResponder {
         NSDocumentController.shared.openDocument(sender)
     }
     
-    @IBAction func useCursorAction(_ sender: Any?) {
-        viewController.useCursorAction(sender)
+    @IBAction func useAnnotateItemAction(_ sender: Any?) {
+        viewController.useAnnotateItemAction(sender)
         touchBarUpdateButtonState()
     }
     
-    @IBAction func useMagnifyToolAction(_ sender: Any?) {
-        viewController.useMagnifyToolAction(sender)
+    @IBAction func useMagnifyItemAction(_ sender: Any?) {
+        viewController.useMagnifyItemAction(sender)
         touchBarUpdateButtonState()
     }
     
-    @IBAction func useMinifyToolAction(_ sender: Any?) {
-        viewController.useMinifyToolAction(sender)
+    @IBAction func useMinifyItemAction(_ sender: Any?) {
+        viewController.useMinifyItemAction(sender)
         touchBarUpdateButtonState()
     }
     
-    @IBAction func useMoveToolAction(_ sender: Any?) {
-        viewController.useMoveToolAction(sender)
+    @IBAction func useSelectItemAction(_ sender: Any?) {
+        viewController.useSelectItemAction(sender)
+        touchBarUpdateButtonState()
+    }
+    
+    @IBAction func useMoveItemAction(_ sender: Any?) {
+        viewController.useMoveItemAction(sender)
         touchBarUpdateButtonState()
     }
     
@@ -253,7 +280,7 @@ extension WindowController: ScreenshotLoader {
     
     func initializeController() {
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
-        window!.toolbar?.selectedItemIdentifier = cursorItem.itemIdentifier
+        window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         touchBarUpdateButtonState()
     }
     

@@ -16,9 +16,10 @@ protocol SceneToolDataSource: class {
 enum SceneTool: String {
     
     case arrow = ""
-    case magicCursor = "CursorItem"
+    case magicCursor = "AnnotateItem"
     case magnifyingGlass = "MagnifyItem"
     case minifyingGlass = "MinifyItem"
+    case selectionArrow = "SelectItem"
     case movingHand = "MoveItem"
     
     static var arrowCursor: NSCursor = {
@@ -45,6 +46,8 @@ enum SceneTool: String {
             return SceneTool.magnifyCursor
         case .minifyingGlass:
             return SceneTool.minifyCursor
+        case .selectionArrow:
+            return NSCursor.arrow
         case .movingHand:
             return NSCursor.openHand
         default:
@@ -60,6 +63,8 @@ enum SceneTool: String {
             return SceneTool.magnifyCursor
         case .minifyingGlass:
             return SceneTool.minifyCursor
+        case .selectionArrow:
+            return NSCursor.arrow
         case .movingHand:
             return NSCursor.closedHand
         default:

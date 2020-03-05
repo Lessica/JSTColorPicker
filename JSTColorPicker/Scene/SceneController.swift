@@ -618,19 +618,23 @@ extension SceneController: SceneTracking {
 
 extension SceneController: ToolbarResponder {
     
-    func useCursorAction(_ sender: Any?) {
+    func useAnnotateItemAction(_ sender: Any?) {
         sceneTool = .magicCursor
     }
     
-    func useMagnifyToolAction(_ sender: Any?) {
+    func useMagnifyItemAction(_ sender: Any?) {
         sceneTool = .magnifyingGlass
     }
     
-    func useMinifyToolAction(_ sender: Any?) {
+    func useMinifyItemAction(_ sender: Any?) {
         sceneTool = .minifyingGlass
     }
     
-    func useMoveToolAction(_ sender: Any?) {
+    func useSelectItemAction(_ sender: Any?) {
+        sceneTool = .selectionArrow
+    }
+    
+    func useMoveItemAction(_ sender: Any?) {
         sceneTool = .movingHand
     }
     
