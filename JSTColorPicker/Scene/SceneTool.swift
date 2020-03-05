@@ -38,7 +38,7 @@ enum SceneTool: String {
         return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
-    var currentCursor: NSCursor {
+    var normalCursor: NSCursor {
         switch self {
         case .magicCursor:
             return NSCursor.crosshair
@@ -55,23 +55,6 @@ enum SceneTool: String {
         }
     }
     
-    var highlightCursor: NSCursor {
-        switch self {
-        case .magicCursor:
-            return NSCursor.crosshair
-        case .magnifyingGlass:
-            return SceneTool.magnifyCursor
-        case .minifyingGlass:
-            return SceneTool.minifyCursor
-        case .selectionArrow:
-            return NSCursor.arrow
-        case .movingHand:
-            return NSCursor.closedHand
-        default:
-            return NSCursor.current
-        }
-    }
-    
     var disabledCursor: NSCursor {
         switch self {
         case .magnifyingGlass:
@@ -80,6 +63,24 @@ enum SceneTool: String {
             return SceneTool.noZoomingCursor
         default:
             return NSCursor.operationNotAllowed
+        }
+    }
+    
+    var manipulatingCursor: NSCursor {
+        switch self {
+        case .movingHand:
+            return NSCursor.closedHand
+        default:
+            return NSCursor.current
+        }
+    }
+    
+    var focusingCursor: NSCursor {
+        switch self {
+        case .selectionArrow:
+            return NSCursor.pointingHand
+        default:
+            return NSCursor.current
         }
     }
     
