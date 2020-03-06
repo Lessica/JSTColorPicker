@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var enableNetworkDiscoveryMenuItem: NSMenuItem!
     @IBOutlet weak var devicesMenu: NSMenu!
     
-    fileprivate let deviceIdentifierPrefix = "device-"
+    fileprivate static let deviceIdentifierPrefix = "device-"
     fileprivate var selectedDeviceUDID: String? {
         get {
             return UserDefaults.standard[.lastSelectedDeviceUDID]
@@ -205,28 +205,38 @@ extension AppDelegate: NSMenuDelegate {
 extension AppDelegate: JSTDeviceDelegate {
     
     func reloadiDevices() {
-        didReceiveiDeviceEvent(deviceService)
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            self?.didReceiveiDeviceEvent()
+        }
+    }
+    
+    fileprivate func didReceiveiDeviceEvent() {
+        didReceiveiDeviceEvent(self.deviceService)
     }
     
     func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
-        let devices = service.devices(includingNetworkDevices: UserDefaults.standard[.enableNetworkDiscovery])
+        let enableNetworkDiscovery: Bool = UserDefaults.standard[.enableNetworkDiscovery]
+        
+        let devices = service.devices(includingNetworkDevices: enableNetworkDiscovery)
             .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
         debugPrint(devices)
         
-        var items: [NSMenuItem] = []
-        for device in devices {
-            let item = NSMenuItem(title: device.menuTitle, action: #selector(deviceItemTapped(_:)), keyEquivalent: "")
-            item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(deviceIdentifierPrefix)\(device.udid)")
-            items.append(item)
+        DispatchQueue.main.async { [weak self] in
+            var items: [NSMenuItem] = []
+            for device in devices {
+                let item = NSMenuItem(title: device.menuTitle, action: #selector(self?.deviceItemTapped(_:)), keyEquivalent: "")
+                item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(AppDelegate.deviceIdentifierPrefix)\(device.udid)")
+                items.append(item)
+            }
+            
+            if items.count > 0 {
+                self?.devicesMenu.items = items
+            } else {
+                self?.resetDevicesMenu()
+            }
+            
+            self?.updateMenuItems()
         }
-        
-        if items.count > 0 {
-            devicesMenu.items = items
-        } else {
-            resetDevicesMenu()
-        }
-        
-        updateMenuItems()
     }
     
     @objc func deviceItemTapped(_ sender: NSMenuItem) {
@@ -245,7 +255,7 @@ extension AppDelegate: JSTDeviceDelegate {
     fileprivate func updateMenuItems() {
         enableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
         var selectedDeviceExists = false
-        let selectedDeviceIdentifier = "\(deviceIdentifierPrefix)\(selectedDeviceUDID ?? "")"
+        let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(selectedDeviceUDID ?? "")"
         for item in devicesMenu.items {
             if let identifier = item.identifier?.rawValue {
                 if identifier == selectedDeviceIdentifier {
@@ -268,7 +278,7 @@ extension AppDelegate: JSTDeviceDelegate {
     fileprivate func selectDeviceItem(_ sender: NSMenuItem) {
         guard let identifier = sender.identifier?.rawValue else { return }
         guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
-        let beginIdx = identifier.index(identifier.startIndex, offsetBy: deviceIdentifierPrefix.lengthOfBytes(using: .utf8))
+        let beginIdx = identifier.index(identifier.startIndex, offsetBy: AppDelegate.deviceIdentifierPrefix.lengthOfBytes(using: .utf8))
         let udid = String(identifier[beginIdx...])
         selectedDeviceUDID = udid
     }

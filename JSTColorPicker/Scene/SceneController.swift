@@ -720,25 +720,35 @@ extension SceneController: AnnotatorDataSource {
     
     fileprivate func updateFrame(of annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
-            annotator.isSmallAnnotator = true
-            let pointInMask = sceneView.convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
-            annotator.view.frame = CGRect(origin: pointInMask, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
+            annotator.isFixedAnnotator = true
+            let pointInMask =
+                sceneView
+                    .convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
+                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+            annotator.view.frame = 
+                CGRect(origin: pointInMask, size: AnnotatorOverlay.fixedOverlaySize)
+                    .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
+                    .inset(by: annotator.view.outerInsets)
         }
         else if let annotator = annotator as? AreaAnnotator {
-            let rectInMask = sceneView.convert(annotator.pixelArea.rect.toCGRect(), from: wrapper).offsetBy(-sceneView.alternativeBoundsOrigin)
+            let rectInMask =
+                sceneView
+                    .convert(annotator.pixelArea.rect.toCGRect(), from: wrapper)
+                    .offsetBy(-sceneView.alternativeBoundsOrigin)
             // if smaller than default size
-            if rectInMask.size < AnnotatorOverlay.defaultSize {
-                annotator.isSmallAnnotator = true
-                annotator.view.frame = CGRect(origin: rectInMask.center, size: AnnotatorOverlay.defaultSize).offsetBy(AnnotatorOverlay.defaultOffset)
+            if rectInMask.size < AnnotatorOverlay.fixedOverlaySize {
+                annotator.isFixedAnnotator = true
+                annotator.view.frame =
+                    CGRect(origin: rectInMask.center, size: AnnotatorOverlay.fixedOverlaySize)
+                        .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
+                        .inset(by: annotator.view.outerInsets)
             } else {
-                annotator.isSmallAnnotator = false
-                annotator.view.frame = rectInMask.inset(by: annotator.view.outerInsets)
+                annotator.isFixedAnnotator = false
+                annotator.view.frame =
+                    rectInMask
+                        .inset(by: annotator.view.outerInsets)
             }
         }
-    }
-    
-    fileprivate func updateAnnotatorBounds() {
-        annotators.forEach({ updateFrame(of: $0) })
     }
     
     fileprivate func updateAnnotatorEditableState() {
@@ -747,8 +757,12 @@ extension SceneController: AnnotatorDataSource {
             .filter({ $0.isEditable != editable })
             .forEach({
                 $0.isEditable = editable
-                $0.setNeedsDisplay()
             })
+        updateAnnotatorBounds()
+    }
+    
+    fileprivate func updateAnnotatorBounds() {
+        annotators.forEach({ updateFrame(of: $0) })
     }
     
     fileprivate func loadRulerMarkers(for annotator: Annotator) {
@@ -874,10 +888,12 @@ extension SceneController: AnnotatorDataSource {
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators.filter({ $0.isHighlighted }).forEach({
             $0.isHighlighted = false
+            $0.setNeedsDisplay()
             hideRulerMarkers(for: $0)
         })
         annotators.filter({ items.contains($0.pixelItem) }).forEach({
             $0.isHighlighted = true
+            $0.setNeedsDisplay()
             showRulerMarkers(for: $0)
             $0.view.bringToFront()
         })

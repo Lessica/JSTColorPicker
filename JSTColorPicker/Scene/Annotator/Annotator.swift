@@ -17,9 +17,9 @@ class Annotator {
         get { return view.isEditable }
         set { view.isEditable = newValue }
     }
-    public var isSmallAnnotator: Bool {
-        get { return view.isSmallOverlay }
-        set { view.isSmallOverlay = newValue }
+    public var isFixedAnnotator: Bool {
+        get { return view.isFixedOverlay }
+        set { view.isFixedOverlay = newValue }
     }
     public var isHighlighted: Bool {
         get { return view.isHighlighted }

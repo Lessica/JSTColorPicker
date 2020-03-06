@@ -18,15 +18,21 @@ class EditableOverlay: Overlay {
     fileprivate static let circleFillColorFocused = NSColor.systemBlue.cgColor
     fileprivate static let circleStrokeColor = CGColor.white
     
-    public static let outerInsets = NSEdgeInsets(top: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, left: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, bottom: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth, right: -EditableOverlay.circleRadius - EditableOverlay.circleBorderWidth)
-    fileprivate static let innerInsets = NSEdgeInsets(top: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, left: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, bottom: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth, right: EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth)
+    fileprivate static let outerInsets = NSEdgeInsets(top: -circleRadius - circleBorderWidth, left: -circleRadius - circleBorderWidth, bottom: -circleRadius - circleBorderWidth, right: -circleRadius - circleBorderWidth)
+    fileprivate static let innerInsets = NSEdgeInsets(top: circleRadius + circleBorderWidth, left: circleRadius + circleBorderWidth, bottom: circleRadius + circleBorderWidth, right: circleRadius + circleBorderWidth)
     
     override var outerInsets: NSEdgeInsets {
-        return EditableOverlay.outerInsets
+        if isEditable {
+            return EditableOverlay.outerInsets
+        }
+        return super.outerInsets
     }
     
     override var innerInsets: NSEdgeInsets {
-        return EditableOverlay.innerInsets
+        if isEditable {
+            return EditableOverlay.innerInsets
+        }
+        return super.innerInsets
     }
     
     override func draw(_ dirtyRect: NSRect) {

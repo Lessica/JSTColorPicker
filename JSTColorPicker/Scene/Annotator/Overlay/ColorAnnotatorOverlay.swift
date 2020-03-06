@@ -12,7 +12,7 @@ class ColorAnnotatorOverlay: AnnotatorOverlay {
     
     override init(label: String) {
         super.init(label: label)
-        isSmallOverlay = true
+        isFixedOverlay = true
     }
     
     required init?(coder: NSCoder) {

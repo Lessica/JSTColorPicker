@@ -21,6 +21,9 @@ class Overlay: NSView {
     fileprivate static let lineDashColorsNormal: [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
     fileprivate static let lineDashColorsFocused: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
     
+    fileprivate static let outerInsets = NSEdgeInsets(top: -borderWidth, left: -borderWidth, bottom: -borderWidth, right: -borderWidth)
+    fileprivate static let innerInsets = NSEdgeInsets(top: borderWidth, left: borderWidth, bottom: borderWidth, right: borderWidth)
+    
     public var isAnimating: Bool = false {
         didSet {
             if isAnimating {
@@ -49,11 +52,11 @@ class Overlay: NSView {
     }
     
     public var outerInsets: NSEdgeInsets {
-        return NSEdgeInsets(top: -Overlay.borderWidth, left: -Overlay.borderWidth, bottom: -Overlay.borderWidth, right: -Overlay.borderWidth)
+        return Overlay.outerInsets
     }
     
     public var innerInsets: NSEdgeInsets {
-        return NSEdgeInsets(top: Overlay.borderWidth, left: Overlay.borderWidth, bottom: Overlay.borderWidth, right: Overlay.borderWidth)
+        return Overlay.innerInsets
     }
     
     override init(frame frameRect: NSRect) {
