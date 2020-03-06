@@ -289,7 +289,7 @@ extension ContentController: ContentResponder {
             let maximumItemCount: Int = UserDefaults.standard[.maximumItemCount]
             guard content.items.count < maximumItemCount else { throw ContentError.itemReachLimit }
         }
-        guard content.items.first(where: { $0 == item }) == nil else { throw ContentError.itemExists }
+        guard content.items.last(where: { $0 == item }) == nil else { throw ContentError.itemExists }
         
         item.id = nextID
         item.similarity = nextSimilarity
@@ -304,35 +304,35 @@ extension ContentController: ContentResponder {
         return try selectContentItem(item)
     }
     
-    func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+    fileprivate func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange }
         return try selectContentItem(color)
     }
     
-    func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
+    fileprivate func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange }
         return try selectContentItem(area)
     }
     
-    func selectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocumentLoaded }
-        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist }
-        tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: false)
+    func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
+        if let item = item {
+            guard let content = content else { throw ContentError.noDocumentLoaded }
+            guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist }
+            tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: false)
+        }
+        else {
+            tableView.deselectAll(nil)
+        }
         return item
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocumentLoaded }
-        var optItem: ContentItem?
-        if let color = content.colors.reversed().first(where: { $0.coordinate == coordinate }) {
-            optItem = color
-        }
-        else if let area = content.areas.reversed().first(where: { $0.rect.contains(coordinate) }) {
-            optItem = area
-        }
-        guard let item = optItem else { throw ContentError.itemDoesNotExist }
+        guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
+            ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
+            else { throw ContentError.itemDoesNotExist }
         return try deleteContentItem(item)
     }
     
@@ -348,7 +348,7 @@ extension ContentController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocumentLoaded }
         guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist }
-        guard content.colors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict }
+        guard content.lazyColors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict }
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange }
         
@@ -359,7 +359,7 @@ extension ContentController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         guard let content = content else { throw ContentError.noDocumentLoaded }
         guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist }
-        guard content.areas.first(where: { $0.rect == rect }) == nil else { throw ContentError.itemConflict }
+        guard content.lazyAreas.first(where: { $0.rect == rect }) == nil else { throw ContentError.itemConflict }
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange }
         

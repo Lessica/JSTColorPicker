@@ -47,15 +47,19 @@ class SceneOverlayView: NSView {
         return annotatorDataSource!.annotators
     }
     
-    fileprivate var overlays: [Overlay] {
-        return subviews as! [Overlay]
+    public var overlays: [AnnotatorOverlay] {
+        return subviews as! [AnnotatorOverlay]
     }
-    fileprivate weak var focusedOverlay: Overlay?
-    fileprivate var isFocused: Bool {
-        return sceneTool == .selectionArrow ? focusedOverlay != nil : false
+    fileprivate weak var internalFocusedOverlay: AnnotatorOverlay?
+    public var isFocused: Bool {
+        return sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false
     }
-    fileprivate func frontmostOverlay(at point: CGPoint) -> Overlay? {
-        return overlays.last(where: { $0.frame.contains(point) })
+    public var focusedOverlay: AnnotatorOverlay? {
+        return sceneTool == .selectionArrow ? internalFocusedOverlay : nil
+    }
+    public func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
+        return overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
+            ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
     
     override func cursorUpdate(with event: NSEvent) {
@@ -122,8 +126,42 @@ class SceneOverlayView: NSView {
         internalUpdateCursorAppearance()
     }
     
-    public func updateCursorAppearance() {
+    public func updateAppearance() {
+        internalUpdateFocusAppearance(with: nil)
         internalUpdateCursorAppearance()
+    }
+    
+    fileprivate func internalUpdateFocusAppearance(with event: NSEvent?) {
+        guard sceneTool == .selectionArrow else {
+            internalResetFocusAppearance()
+            return
+        }
+        
+        var mouseLocation: CGPoint
+        if let event = event { mouseLocation = event.locationInWindow }
+        else if let window = window { mouseLocation = window.mouseLocationOutsideOfEventStream }
+        else { return }
+        
+        let loc = convert(mouseLocation, from: nil)
+        if let overlay = self.frontmostOverlay(at: loc) {
+            if let focusedOverlay = self.internalFocusedOverlay {
+                if overlay != focusedOverlay {
+                    focusedOverlay.isFocused = false
+                    focusedOverlay.setNeedsDisplay()
+                    overlay.isFocused = true
+                    overlay.setNeedsDisplay()
+                    self.internalFocusedOverlay = overlay
+                }
+            }
+            else {
+                overlay.isFocused = true
+                overlay.setNeedsDisplay()
+                self.internalFocusedOverlay = overlay
+            }
+        }
+        else {
+            internalResetFocusAppearance()
+        }
     }
     
     fileprivate func internalUpdateCursorAppearance() {
@@ -148,43 +186,16 @@ class SceneOverlayView: NSView {
         }
     }
     
+    fileprivate func internalResetFocusAppearance() {
+        if let focusedOverlay = self.internalFocusedOverlay {
+            focusedOverlay.isFocused = false
+            focusedOverlay.setNeedsDisplay()
+            self.internalFocusedOverlay = nil
+        }
+    }
+    
     fileprivate func internalResetCursorAppearance() {
         SceneTool.arrowCursor.set()
-    }
-    
-    fileprivate func internalUpdateFocusAppearance(with event: NSEvent?) {
-        guard sceneTool == .selectionArrow else { return }
-        guard let event = event else { return }
-        let loc = convert(event.locationInWindow, from: nil)
-        if let overlay = self.frontmostOverlay(at: loc) {
-            if let focusedOverlay = self.focusedOverlay {
-                if overlay != focusedOverlay {
-                    focusedOverlay.isFocused = false
-                    focusedOverlay.setNeedsDisplay()
-                    overlay.isFocused = true
-                    overlay.setNeedsDisplay()
-                    self.focusedOverlay = overlay
-                }
-            }
-            else {
-                overlay.isFocused = true
-                overlay.setNeedsDisplay()
-                self.focusedOverlay = overlay
-            }
-        }
-        else if let focusedOverlay = self.focusedOverlay {
-            focusedOverlay.isFocused = false
-            focusedOverlay.setNeedsDisplay()
-            self.focusedOverlay = nil
-        }
-    }
-    
-    fileprivate func internalResetFocusAppearance() {
-        if let focusedOverlay = self.focusedOverlay {
-            focusedOverlay.isFocused = false
-            focusedOverlay.setNeedsDisplay()
-            self.focusedOverlay = nil
-        }
     }
     
 }

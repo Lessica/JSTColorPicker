@@ -120,7 +120,7 @@ class SceneController: NSViewController {
     
     fileprivate var prevMagnificationFactor: CGFloat? {
         get {
-            return SceneController.zoomingFactors.reversed().first(where: { $0 < sceneView.magnification })
+            return SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification })
         }
     }
     
@@ -226,32 +226,46 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
     }
     
-    fileprivate func cursorClicked(at location: CGPoint) -> Bool {
-        _ = try? addContentItem(of: PixelCoordinate(location))
-        return true
-    }
-    
-    fileprivate func rightCursorClicked(at location: CGPoint) -> Bool {
-        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
-        
-        var annotatorView: AnnotatorOverlay?
-        if !(annotatorView != nil) {
-            annotatorView = sceneOverlayView.subviews.compactMap({ $0 as? ColorAnnotatorOverlay }).reversed().first(where: { $0.frame.contains(locationInMask) })
-        }
-        if !(annotatorView != nil) {
-            annotatorView = sceneOverlayView.subviews.compactMap({ $0 as? AreaAnnotatorOverlay }).reversed().first(where: { $0.frame.contains(locationInMask) })
-        }
-        
-        if let annotatorView = annotatorView {
-            annotators.filter({ $0.view === annotatorView }).forEach({ _ = try? deleteContentItem($0.pixelItem) })
+    fileprivate func applyAnnotateItem(at location: CGPoint) -> Bool {
+        if let _ = try? addContentItem(of: PixelCoordinate(location)) {
             return true
         }
-        
-        _ = try? deleteContentItem(of: PixelCoordinate(location))
-        return true
+        return false
     }
     
-    fileprivate func magnifyToolClicked(at location: CGPoint) -> Bool {
+    fileprivate func applySelectItem(at location: CGPoint) -> Bool {
+        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
+        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
+            if annotatorView.isHighlighted { return true }
+            if let annotator = annotators.last(where: { $0.view === annotatorView }) {
+                if let _ = try? selectContentItem(annotator.pixelItem) {
+                    return true
+                }
+            }
+        }
+        if let _ = try? selectContentItem(nil) {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func applyDeleteItem(at location: CGPoint) -> Bool {
+        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
+        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
+            if let annotator = annotators.last(where: { $0.view === annotatorView }) {
+                if let _ = try? deleteContentItem(annotator.pixelItem) {
+                    return true
+                }
+            }
+            return false
+        }
+        if let _ = try? deleteContentItem(of: PixelCoordinate(location)) {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func applyMagnifyItem(at location: CGPoint) -> Bool {
         if !canMagnify {
             return false
         }
@@ -278,7 +292,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func minifyToolClicked(at location: CGPoint) -> Bool {
+    fileprivate func applyMinifyItem(at location: CGPoint) -> Bool {
         if !canMinify {
             return false
         }
@@ -316,7 +330,7 @@ class SceneController: NSViewController {
         }
         else if type == .rightGeneric {
             switch tool {
-            case .magicCursor:
+            case .magicCursor, .selectionArrow:
                 return enableForceTouch ? 1 : 0
             default:
                 return 0
@@ -332,13 +346,16 @@ class SceneController: NSViewController {
             if isInscenePixelLocation(loc) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
                     if sceneTool == .magicCursor {
-                        handled = cursorClicked(at: loc)
+                        handled = applyAnnotateItem(at: loc)
                     }
                     else if sceneTool == .magnifyingGlass {
-                        handled = magnifyToolClicked(at: loc)
+                        handled = applyMagnifyItem(at: loc)
                     }
                     else if sceneTool == .minifyingGlass {
-                        handled = minifyToolClicked(at: loc)
+                        handled = applyMinifyItem(at: loc)
+                    }
+                    else if sceneTool == .selectionArrow {
+                        handled = applySelectItem(at: loc)
                     }
                 }
             }
@@ -354,8 +371,8 @@ class SceneController: NSViewController {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if isInscenePixelLocation(loc) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
-                    if sceneTool == .magicCursor {
-                        handled = rightCursorClicked(at: loc)
+                    if sceneTool == .magicCursor || sceneTool == .selectionArrow {
+                        handled = applyDeleteItem(at: loc)
                     }
                 }
             }
@@ -377,7 +394,7 @@ class SceneController: NSViewController {
             handled = useSelectedSceneTool()
         }
         if handled && sceneView.isMouseInside {
-            sceneOverlayView.updateCursorAppearance()
+            sceneOverlayView.updateAppearance()
         }
         return handled
     }
@@ -399,7 +416,15 @@ class SceneController: NSViewController {
     @discardableResult
     fileprivate func useCommandModifiedSceneTool() -> Bool {
         if sceneState.isManipulating { return false }
-        if sceneTool == .magnifyingGlass || sceneTool == .minifyingGlass || sceneTool == .movingHand {
+        if sceneTool == .magicCursor {
+            internalSceneTool = .selectionArrow
+            return true
+        }
+        else if sceneTool == .magnifyingGlass
+            || sceneTool == .minifyingGlass
+            || sceneTool == .selectionArrow
+            || sceneTool == .movingHand
+        {
             internalSceneTool = .magicCursor
             return true
         }
@@ -506,18 +531,18 @@ class SceneController: NSViewController {
                     return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: loc)
                 }
                 else if specialKey == .enter || specialKey == .carriageReturn {
-                    return cursorClicked(at: loc)
+                    return applyAnnotateItem(at: loc)
                 }
                 else if specialKey == .delete {
-                    return rightCursorClicked(at: loc)
+                    return applyDeleteItem(at: loc)
                 }
             }
             else if let characters = event.characters {
                 if characters.contains("-") {
-                    return minifyToolClicked(at: loc)
+                    return applyMinifyItem(at: loc)
                 }
                 else if characters.contains("=") {
-                    return magnifyToolClicked(at: loc)
+                    return applyMagnifyItem(at: loc)
                 }
                 else if characters.contains("`") {
                     return shortcutCopyPixelColor(at: loc)
@@ -759,6 +784,7 @@ extension SceneController: AnnotatorDataSource {
                 $0.isEditable = editable
             })
         updateAnnotatorBounds()
+        sceneOverlayView.updateAppearance()
     }
     
     fileprivate func updateAnnotatorBounds() {
@@ -843,12 +869,8 @@ extension SceneController: AnnotatorDataSource {
     func addAnnotators(for items: [ContentItem]) {
         items.forEach { (item) in
             guard !annotators.contains(where: { $0.pixelItem == item }) else { return }
-            if let color = item as? PixelColor {
-                addAnnotator(for: color)
-            }
-            else if let area = item as? PixelArea {
-                addAnnotator(for: area)
-            }
+            if let color = item as? PixelColor { addAnnotator(for: color) }
+            else if let area = item as? PixelArea { addAnnotator(for: area) }
         }
         debugPrint("add annotators \(items)")
     }
@@ -878,27 +900,36 @@ extension SceneController: AnnotatorDataSource {
     }
     
     func removeAnnotators(for items: [ContentItem]) {
-        let annotatorsToRemove = annotators.filter({ items.contains($0.pixelItem) })
-        annotatorsToRemove.forEach({ hideRulerMarkers(for: $0) })
-        annotatorsToRemove.forEach({ $0.view.removeFromSuperview() })
+        annotators.lazy
+            .filter({ items.contains($0.pixelItem) })
+            .forEach({
+                hideRulerMarkers(for: $0)
+                $0.view.removeFromSuperview()
+            })
         annotators.removeAll(where: { items.contains($0.pixelItem) })
         debugPrint("remove annotators \(items)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
-        annotators.filter({ $0.isHighlighted }).forEach({
-            $0.isHighlighted = false
-            $0.setNeedsDisplay()
-            hideRulerMarkers(for: $0)
-        })
-        annotators.filter({ items.contains($0.pixelItem) }).forEach({
-            $0.isHighlighted = true
-            $0.setNeedsDisplay()
-            showRulerMarkers(for: $0)
-            $0.view.bringToFront()
-        })
+        annotators
+            .filter({ $0.isHighlighted })
+            .reversed()
+            .forEach({
+                $0.isHighlighted = false
+                $0.setNeedsDisplay()
+                hideRulerMarkers(for: $0)
+            })
+        annotators
+            .filter({ items.contains($0.pixelItem) })
+            .reversed()
+            .forEach({
+                $0.isHighlighted = true
+                $0.setNeedsDisplay()
+                showRulerMarkers(for: $0)
+                $0.view.bringToFront()
+            })
         if scrollTo {  // scroll without changing magnification
-            let item = annotators.first(where: { items.contains($0.pixelItem) })?.pixelItem
+            let item = annotators.last(where: { items.contains($0.pixelItem) })?.pixelItem
             if let color = item as? PixelColor {
                 previewAction(self, centeredAt: color.coordinate)
             }
@@ -954,6 +985,10 @@ extension SceneController: ContentResponder {
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         return try contentResponder?.updateContentItem(item, to: rect)
+    }
+    
+    func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
+        return try contentResponder?.selectContentItem(item)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {

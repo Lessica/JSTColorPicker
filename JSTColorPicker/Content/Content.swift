@@ -9,12 +9,12 @@
 import Foundation
 
 class Content: NSObject {
-    var items: [ContentItem] = []  // ordered by id asc
-    var colors: [PixelColor] {
-        return items.compactMap({ $0 as? PixelColor })
+    public var items: [ContentItem] = []  // ordered by id asc
+    public var lazyColors: [PixelColor] {
+        return items.lazy.compactMap({ $0 as? PixelColor })
     }
-    var areas: [PixelArea] {
-        return items.compactMap({ $0 as? PixelArea })
+    public var lazyAreas: [PixelArea] {
+        return items.lazy.compactMap({ $0 as? PixelArea })
     }
     
     override init() {

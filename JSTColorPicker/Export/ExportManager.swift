@@ -212,10 +212,9 @@ x, y = screen.find_image([[
         else {
             var outputString = "x, y = screen.find_color("
             
-            outputString += "{\n"
-            items.compactMap({ $0 as? PixelColor })
-                .forEach({ outputString += "  { \(String($0.coordinate.x).leftPadding(to: 4, with: " ")), \(String($0.coordinate.y).leftPadding(to: 4, with: " ")), \($0.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", $0.similarity * 100.0).leftPadding(to: 6, with: " ")) },  -- \($0.id)\n" })
-            outputString += "}"
+            outputString += items
+                .compactMap({ $0 as? PixelColor })
+                .reduce("{\n", { $0 + "  { \(String($1.coordinate.x).leftPadding(to: 4, with: " ")), \(String($1.coordinate.y).leftPadding(to: 4, with: " ")), \($1.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", $1.similarity * 100.0).leftPadding(to: 6, with: " ")) },  -- \($1.id)\n" }) + "}"
             
             if let area = items.compactMap({ $0 as? PixelArea }).first {
                 outputString += ", \(String(format: "%.2f", area.similarity * 100.0)), \(String(area.rect.origin.x)), \(String(area.rect.origin.y)), \(String(area.rect.opposite.x)), \(String(area.rect.opposite.y)))"

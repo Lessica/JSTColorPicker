@@ -126,21 +126,23 @@ class GridView: NSView {
     
     fileprivate func gridState(at coordinate: PixelCoordinate) -> GridState {
         guard let content = dataSource?.screenshot?.content else { return .none }
-        let isOccupiedByColor = (content.colors.first(where: { $0.coordinate == coordinate }) != nil)
-        let isOccupiedByArea  = (content.areas.first(where: { $0.rect.contains(coordinate) }) != nil)
+        let isOccupiedByColor =
+            shouldDrawAnnotators ? 
+                (content.items.first(where: { ($0 as? PixelColor)?.coordinate == coordinate }) != nil) : false
+        let isOccupiedByArea  =
+            shouldDrawAnnotators ?
+                (content.items.first(where: { (($0 as? PixelArea)?.rect.contains(coordinate) ?? false) }) != nil) : false
         if centerCoordinate == coordinate {
             return .center
         }
-        else if shouldDrawAnnotators {
-            if isOccupiedByColor && isOccupiedByArea {
-                return .bothOccupied
-            }
-            else if isOccupiedByColor {
-                return .colorOccupied
-            }
-            else if isOccupiedByArea {
-                return .areaOccupied
-            }
+        else if isOccupiedByColor && isOccupiedByArea {
+            return .bothOccupied
+        }
+        else if isOccupiedByColor {
+            return .colorOccupied
+        }
+        else if isOccupiedByArea {
+            return .areaOccupied
         }
         return .none
     }
