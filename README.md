@@ -8,7 +8,7 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 
 ## Features
 - Pick colors & areas from PNG screenshots
-- Drag to move/resize annotators
+- Select/Drag to move/resize annotators
 - Read/Write annotator data from/into EXIF dictionary of PNG files
 - Take screenshots directly from iOS devices (depends `libimobiledevice`)
 - Copy/Export annotator data using custom templates
