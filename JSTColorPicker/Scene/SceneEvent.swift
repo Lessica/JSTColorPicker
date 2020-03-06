@@ -17,8 +17,15 @@ struct SceneEventType: OptionSet {
     static let rightMouseUp      = SceneEventType(rawValue: 1 << 3)
     static let mouseDragged      = SceneEventType(rawValue: 1 << 4)
     static let rightMouseDragged = SceneEventType(rawValue: 1 << 5)
+    static let scrollWheel       = SceneEventType(rawValue: 1 << 6)
+    static let magnify           = SceneEventType(rawValue: 1 << 7)
+    static let smartMagnify      = SceneEventType(rawValue: 1 << 8)
     
-    static let all: SceneEventType = [.mouseDown, .rightMouseDown, .mouseUp, .rightMouseUp, .mouseDragged, .rightMouseDragged]
+    static let all: SceneEventType = [
+        .mouseDown, .rightMouseDown, .mouseUp, .rightMouseUp,
+        .mouseDragged, .rightMouseDragged, .scrollWheel, .magnify,
+        .smartMagnify
+    ]
 }
 
 struct SceneEventOrder: OptionSet {

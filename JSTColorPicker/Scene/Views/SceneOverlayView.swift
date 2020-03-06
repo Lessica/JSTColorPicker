@@ -52,11 +52,10 @@ class SceneOverlayView: NSView {
     }
     fileprivate weak var focusedOverlay: Overlay?
     fileprivate var isFocused: Bool {
-        guard sceneTool == .selectionArrow else { return false }
-        return focusedOverlay != nil
+        return sceneTool == .selectionArrow ? focusedOverlay != nil : false
     }
     fileprivate func frontmostOverlay(at point: CGPoint) -> Overlay? {
-        return overlays.reversed().first(where: { $0.frame.contains(point) })
+        return overlays.last(where: { $0.frame.contains(point) })
     }
     
     override func cursorUpdate(with event: NSEvent) {
@@ -108,6 +107,21 @@ class SceneOverlayView: NSView {
         internalUpdateCursorAppearance()
     }
     
+    override func scrollWheel(with event: NSEvent) {
+        internalUpdateFocusAppearance(with: event)
+        internalUpdateCursorAppearance()
+    }
+    
+    override func magnify(with event: NSEvent) {
+        internalUpdateFocusAppearance(with: event)
+        internalUpdateCursorAppearance()
+    }
+    
+    override func smartMagnify(with event: NSEvent) {
+        internalUpdateFocusAppearance(with: event)
+        internalUpdateCursorAppearance()
+    }
+    
     public func updateCursorAppearance() {
         internalUpdateCursorAppearance()
     }
@@ -142,12 +156,9 @@ class SceneOverlayView: NSView {
         guard sceneTool == .selectionArrow else { return }
         guard let event = event else { return }
         let loc = convert(event.locationInWindow, from: nil)
-        if let overlay = frontmostOverlay(at: loc) {
-            if let focusedOverlay = focusedOverlay {
-                if overlay == focusedOverlay {
-                    
-                }
-                else {
+        if let overlay = self.frontmostOverlay(at: loc) {
+            if let focusedOverlay = self.focusedOverlay {
+                if overlay != focusedOverlay {
                     focusedOverlay.isFocused = false
                     focusedOverlay.setNeedsDisplay()
                     overlay.isFocused = true
@@ -161,7 +172,7 @@ class SceneOverlayView: NSView {
                 self.focusedOverlay = overlay
             }
         }
-        else if let focusedOverlay = focusedOverlay {
+        else if let focusedOverlay = self.focusedOverlay {
             focusedOverlay.isFocused = false
             focusedOverlay.setNeedsDisplay()
             self.focusedOverlay = nil
@@ -169,7 +180,7 @@ class SceneOverlayView: NSView {
     }
     
     fileprivate func internalResetFocusAppearance() {
-        if let focusedOverlay = focusedOverlay {
+        if let focusedOverlay = self.focusedOverlay {
             focusedOverlay.isFocused = false
             focusedOverlay.setNeedsDisplay()
             self.focusedOverlay = nil
