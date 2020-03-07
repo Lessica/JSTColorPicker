@@ -173,13 +173,16 @@ class GridView: NSView {
             ctx.setFillColor(color)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)
+            
+            var needsStroke = false
             for linePosition in state.lines(for: rect) {
                 if let beginPoint = linePosition.first, let endPoint = linePosition.last {
                     ctx.move(to: beginPoint)
                     ctx.addLine(to: endPoint)
+                    needsStroke = true
                 }
             }
-            ctx.strokePath()
+            if needsStroke { ctx.strokePath() }
         }
         
         // ctx.saveGState()

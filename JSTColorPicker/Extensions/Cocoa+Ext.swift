@@ -16,7 +16,7 @@ extension NSScreen {
 }
 
 extension NSView {
-    func setNeedsDisplay() {
+    @objc func setNeedsDisplay() {
         setNeedsDisplay(bounds)
     }
     func bringToFront() {

@@ -48,9 +48,9 @@ protocol ScreenshotLoader: class {
 
 class Screenshot: NSDocument {
     
-    var image: PixelImage?
-    var content: Content?
-    lazy var export: ExportManager = {
+    public var image: PixelImage?
+    public var content: Content?
+    public lazy var export: ExportManager = {
         return ExportManager(screenshot: self)
     }()
     

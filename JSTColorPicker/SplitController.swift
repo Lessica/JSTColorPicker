@@ -108,7 +108,7 @@ extension SplitController: SceneTracking {
     }
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
-        if let title = screenshot?.image?.imageURL.lastPathComponent {
+        if let title = screenshot?.fileURL?.lastPathComponent {
             windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
         sidebarController.updatePreview(to: rect, magnification: magnification)

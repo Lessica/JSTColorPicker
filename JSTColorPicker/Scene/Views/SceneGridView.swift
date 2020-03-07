@@ -42,18 +42,21 @@ class SceneGridView: NSView {
         guard !gridRenderingArea.isNull else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        let gridWidth = gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width)
-        let gridHeight = gridRenderingArea.height / CGFloat(gridWrappedPixelRect.height)
-        let gridSize = CGSize(width: gridWidth, height: gridHeight)
+        let gridSize = CGSize(
+            width: gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width),
+            height: gridRenderingArea.height / CGFloat(gridWrappedPixelRect.height)
+        )
         
         // ctx.saveGState()
+        
         ctx.setLineWidth(SceneGridView.gridLineWidth)
         ctx.setStrokeColor(SceneGridView.gridLineColor.cgColor)
-        
         for x in 0 ..< gridWrappedPixelRect.width {
             for y in 0 ..< gridWrappedPixelRect.height {
-                let gridRect = CGRect(origin: gridRenderingArea.origin.offsetBy(dx: CGFloat(x) * gridWidth, dy: CGFloat(y) * gridHeight), size: gridSize)
-                ctx.addRect(gridRect)
+                ctx.addRect(CGRect(
+                    origin: gridRenderingArea.origin.offsetBy(dx: CGFloat(x) * gridSize.width, dy: CGFloat(y) * gridSize.height),
+                    size: gridSize
+                ).intersection(dirtyRect))
             }
         }
         ctx.strokePath()

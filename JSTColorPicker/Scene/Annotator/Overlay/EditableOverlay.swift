@@ -39,22 +39,8 @@ class EditableOverlay: Overlay {
         super.draw(dirtyRect)
         
         guard isEditable else { return }
-        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        
-        // draw editable anchor points
-        
         let drawBounds = bounds.inset(by: innerInsets)
         guard !drawBounds.isNull else { return }
-        
-        ctx.saveGState()
-        
-        ctx.setLineWidth(EditableOverlay.circleBorderWidth)
-        if isFocused {
-            ctx.setFillColor(EditableOverlay.circleFillColorFocused)
-        } else {
-            ctx.setFillColor(EditableOverlay.circleFillColorNormal)
-        }
-        ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
         
         var rects = [
             CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
@@ -62,23 +48,32 @@ class EditableOverlay: Overlay {
             CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
             CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
         ]
-        
         if drawBounds.width > 16.0 {
             rects.append(contentsOf: [
                 CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
                 CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
             ])
         }
-        
         if drawBounds.height > 16.0 {
             rects.append(contentsOf: [
                 CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
                 CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
             ])
         }
+        let drawRects = rects.filter({ needsToDraw($0) })
+        guard drawRects.count > 0 else { return }
+        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        rects.filter({ needsToDraw($0) }).forEach({ ctx.addEllipse(in: $0) })
+        ctx.saveGState()
+        
+        drawRects.forEach({ ctx.addEllipse(in: $0) })
+        
+        ctx.setLineWidth(EditableOverlay.circleBorderWidth)
+        if isFocused { ctx.setFillColor(EditableOverlay.circleFillColorFocused) }
+        else { ctx.setFillColor(EditableOverlay.circleFillColorNormal) }
+        ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
         ctx.drawPath(using: .fillStroke)
+        
         ctx.restoreGState()
         
     }

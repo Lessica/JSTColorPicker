@@ -43,7 +43,9 @@ class Overlay: NSView {
     
     @objc internal func animateLineDash(_ timer: Timer?) {
         lineDashCount += 1
-        setNeedsDisplay()
+        if shouldPerformAnimatableDrawing {
+            setNeedsDisplay()
+        }
     }
     
     public var isFocused: Bool = false
@@ -83,27 +85,34 @@ class Overlay: NSView {
         return self
     }
     
+    fileprivate var shouldPerformAnimatableDrawing: Bool {
+        return isBordered ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
+    }
+    
+    fileprivate func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {
+        guard !drawBounds.isNull else { return false }
+        guard (
+            (drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY) ||
+            (drawBounds.maxX > dirtyRect.minX && drawBounds.maxX < dirtyRect.maxX) ||
+            (drawBounds.maxY > dirtyRect.minY && drawBounds.maxY < dirtyRect.maxY) ||
+            (drawBounds.minX > dirtyRect.minX && drawBounds.minX < dirtyRect.maxX)
+        ) else { return false }
+        return true
+    }
+    
+    // black-white painted dashed lines, draw only inside dirtyRect to improve performance
     override func draw(_ dirtyRect: NSRect) {
         guard isBordered else { return }
-        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        
-        // black-white painted dashed lines, draw only inside dirtyRect to improve performance
         
         let drawBounds = bounds.inset(by: innerInsets)
-        guard !drawBounds.isNull else { return }
+        guard shouldPerformDrawing(dirtyRect, drawBounds) else { return }
+        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
         let drawLength = Overlay.lineDashLengths[0], spaceLength = Overlay.lineDashLengths[1]
         let mixedLength = drawLength + spaceLength
         
         ctx.saveGState()
-        ctx.setLineWidth(Overlay.borderWidth)
         
-        if isFocused {
-            ctx.setStrokeColor(Overlay.lineDashColorsFocused[1])
-        }
-        else {
-            ctx.setStrokeColor(Overlay.lineDashColorsNormal[1])
-        }
         if drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY {
             ctx.move(to: CGPoint(x: max(dirtyRect.minX, drawBounds.minX), y: drawBounds.minY))
             ctx.addLine(to: CGPoint(x: min(dirtyRect.maxX, drawBounds.maxX), y: drawBounds.minY))
@@ -120,15 +129,10 @@ class Overlay: NSView {
             ctx.move(to: CGPoint(x: drawBounds.minX, y: min(dirtyRect.maxY, drawBounds.maxY)))
             ctx.addLine(to: CGPoint(x: drawBounds.minX, y: max(dirtyRect.minY, drawBounds.minY)))
         }
-        
+        ctx.setLineWidth(Overlay.borderWidth)
+        if isFocused { ctx.setStrokeColor(Overlay.lineDashColorsFocused[1]) }
+        else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[1]) }
         ctx.strokePath()
-        
-        if isFocused {
-            ctx.setStrokeColor(Overlay.lineDashColorsFocused[0])
-        }
-        else {
-            ctx.setStrokeColor(Overlay.lineDashColorsNormal[0])
-        }
         
         if drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY {
             let xLower = max(dirtyRect.minX, drawBounds.minX)
@@ -231,6 +235,9 @@ class Overlay: NSView {
             }
         }
         
+        // ctx.setLineWidth(Overlay.borderWidth)
+        if isFocused { ctx.setStrokeColor(Overlay.lineDashColorsFocused[0]) }
+        else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[0]) }
         ctx.strokePath()
         
         ctx.restoreGState()
