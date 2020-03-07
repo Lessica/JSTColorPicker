@@ -370,7 +370,7 @@ extension ContentController: ContentResponder {
     private func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         internalUpdateContentItems([item])
         tableView.reloadData()
-        return item
+        return try selectContentItem(item)
     }
     
 }

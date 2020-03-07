@@ -62,6 +62,16 @@ class SceneOverlayView: NSView {
             ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
     
+    public var isMouseInside: Bool {
+        if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
+            let loc = convert(locationInWindow, from: nil)
+            if bounds.contains(loc) {
+                return true
+            }
+        }
+        return false
+    }
+    
     override func cursorUpdate(with event: NSEvent) {
         // do not perform default behavior
     }
@@ -127,6 +137,7 @@ class SceneOverlayView: NSView {
     }
     
     public func updateAppearance() {
+        guard isMouseInside else { return }
         internalUpdateFocusAppearance(with: nil)
         internalUpdateCursorAppearance()
     }
@@ -166,7 +177,7 @@ class SceneOverlayView: NSView {
     
     fileprivate func internalUpdateCursorAppearance() {
         guard let sceneToolDataSource = sceneToolDataSource else { return }
-        if sceneToolDataSource.sceneToolEnabled(self, tool: sceneTool) {
+        if sceneToolDataSource.sceneToolEnabled(self) {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
                     sceneTool.manipulatingCursor.set()

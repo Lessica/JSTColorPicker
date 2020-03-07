@@ -22,6 +22,12 @@ class SceneController: NSViewController {
     weak var contentResponder: ContentResponder?
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
+    fileprivate var lazyColorAnnotators: [ColorAnnotator] {
+        return annotators.lazy.compactMap({ $0 as? ColorAnnotator })
+    }
+    fileprivate var lazyAreaAnnotators: [AreaAnnotator] {
+        return annotators.lazy.compactMap({ $0 as? AreaAnnotator })
+    }
     fileprivate var enableForceTouch: Bool {
         get {
             return sceneView.enableForceTouch
@@ -639,6 +645,18 @@ extension SceneController: SceneTracking {
         _ = try? addContentItem(of: rect)
     }
     
+    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
+        if let overlay = sceneState.manipulatingOverlay as? ColorAnnotatorOverlay {
+            guard let annotator = lazyColorAnnotators.last(where: { $0.pixelView === overlay }) else { return }
+            guard annotator.pixelColor.coordinate != coordinate else { return }
+            guard let item = annotator.pixelItem.copy() as? PixelColor else { return }
+            if let _ = try? updateContentItem(item, to: coordinate) {
+                // do nothing
+                return
+            }
+        }
+    }
+    
     fileprivate func sceneBoundsChanged() {
         trackSceneBoundsChanged(sceneView, to: wrapperVisibleBounds, of: wrapperMagnification)
     }
@@ -693,11 +711,11 @@ extension SceneController: SceneToolDataSource {
         }
     }
     
-    func sceneToolEnabled(_ sender: Any, tool: SceneTool) -> Bool {
-        if tool == .magnifyingGlass {
+    func sceneToolEnabled(_ sender: Any) -> Bool {
+        if sceneTool == .magnifyingGlass {
             return canMagnify
         }
-        else if tool == .minifyingGlass {
+        else if sceneTool == .minifyingGlass {
             return canMinify
         }
         return true
@@ -713,6 +731,12 @@ extension SceneController: SceneStateDataSource {
         }
         set {
             internalSceneState = newValue
+        }
+    }
+    
+    internal var overlayAtBeginLocation: Overlay? {
+        get {
+            return sceneOverlayView.frontmostOverlay(at: sceneOverlayView.convert(sceneState.beginLocation, from: sceneView))
         }
     }
     

@@ -1,43 +1,39 @@
 //
-//  ColorIndicator.swift
+//  ImageOverlay.swift
 //  JSTColorPicker
 //
-//  Created by Darwin on 1/21/20.
+//  Created by Darwin on 3/7/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
 import Cocoa
 
-class ColorIndicator: NSControl {
+class ImageOverlay: NSView {
     
-    var color: NSColor = .clear
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let area = NSTrackingArea.init(rect: bounds, options: [.activeInKeyWindow, .cursorUpdate], owner: self, userInfo: nil)
-        addTrackingArea(area)
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        if let action = action {
-            NSApp.sendAction(action, to: self.target, from: self)
-        }
-    }
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        return nil
+    }  // disable user interactions
     
     override func cursorUpdate(with event: NSEvent) {
-        NSCursor.pointingHand.set()
+        // do not perform default behavior
+    }
+    
+    override var acceptsFirstResponder: Bool {
+        return false
+    }
+    
+    override var isOpaque: Bool {
+        return false
     }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
-        layer?.isOpaque = true
+        layer?.isOpaque = false
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        wantsLayer = true
-        layer?.isOpaque = true
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setImage(_ image: CGImage) {

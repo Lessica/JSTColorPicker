@@ -59,6 +59,14 @@ class Overlay: NSView {
         return Overlay.innerInsets
     }
     
+    public var capturedImage: NSImage? {
+        guard let rep = bitmapImageRepForCachingDisplay(in: bounds) else { return nil }
+        cacheDisplay(in: bounds, to: rep)
+        let img = NSImage(size: bounds.size)
+        img.addRepresentation(rep)
+        return img
+    }
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         

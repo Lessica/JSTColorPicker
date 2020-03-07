@@ -78,16 +78,27 @@ class SceneScrollView: NSScrollView {
     fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
     fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
     
-    fileprivate lazy var draggingOverlay: DraggingOverlay = {
+    fileprivate lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
         view.wantsLayer = true
         view.isHidden = true
         return view
     }()
-    fileprivate var overlayPixelRect: PixelRect {
-        let rect = convert(draggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
-        guard !rect.isNull else { return PixelRect.null }
+    fileprivate var areaDraggingOverlayPixelRect: PixelRect {
+        let rect = convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
+        guard !rect.isNull else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
+    }
+    fileprivate lazy var annotatorDraggingOverlay: ImageOverlay = {
+        let view = ImageOverlay()
+        view.alphaValue = 0.9
+        view.isHidden = true
+        return view
+    }()
+    fileprivate var annotatorDraggingOverlayPixelCoordinate: PixelCoordinate {
+        let point = convert(annotatorDraggingOverlay.frame.center, to: wrapper)
+        guard wrapper.bounds.contains(point) else { return .null }
+        return PixelCoordinate(point)
     }
     
     override func awakeFromNib() {
@@ -117,7 +128,8 @@ class SceneScrollView: NSScrollView {
         reloadSceneRulers()
         
         reloadSceneBackground()
-        addSubview(draggingOverlay)
+        addSubview(areaDraggingOverlay)
+        addSubview(annotatorDraggingOverlay)
     }
     
     fileprivate func reloadSceneRulers() {
@@ -184,10 +196,11 @@ class SceneScrollView: NSScrollView {
             sceneState.type = .leftGeneric
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
+            sceneState.manipulatingOverlay = nil
             trackMovingOrDragging(with: event)
         }
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDown(with: event) })
@@ -203,10 +216,11 @@ class SceneScrollView: NSScrollView {
             sceneState.type = .rightGeneric
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
+            sceneState.manipulatingOverlay = nil
             trackMovingOrDragging(with: event)
         }
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDown(with: event) })
@@ -225,11 +239,9 @@ class SceneScrollView: NSScrollView {
             }
         }
         
-        sceneState.type = .none
-        sceneState.stage = 0
-        sceneState.beginLocation = .null
+        sceneState.reset()
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseUp(with: event) })
@@ -248,11 +260,9 @@ class SceneScrollView: NSScrollView {
             }
         }
         
-        sceneState.type = .none
-        sceneState.stage = 0
-        sceneState.beginLocation = .null
+        sceneState.reset()
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseUp(with: event) })
@@ -267,10 +277,21 @@ class SceneScrollView: NSScrollView {
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
             let type = SceneManipulatingType.leftDraggingType(for: sceneTool)
-            if sceneState.type != type {
+            if type.level > sceneState.type.level {
                 if type == .areaDragging {
                     if shouldBeginAreaDragging(for: event) {
                         sceneState.type = .areaDragging
+                    } else {
+                        sceneState.type = .forbidden
+                    }
+                }
+                else if type == .annotatorDragging {
+                    if let overlay = overlayForAnnotatorDragging(for: event) as? ColorAnnotatorOverlay,
+                        let capturedImage = overlay.capturedImage
+                    {
+                        sceneState.manipulatingOverlay = overlay
+                        sceneState.type = .annotatorDragging
+                        annotatorDraggingOverlay.setImage(capturedImage, size: capturedImage.size)
                     } else {
                         sceneState.type = .forbidden
                     }
@@ -282,19 +303,22 @@ class SceneScrollView: NSScrollView {
         }
         
         if sceneState.isDragging {
-            if sceneState.type == .basicDragging {
+            if sceneState.type == .sceneDragging {
                 let origin = contentView.bounds.origin
                 let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
                 contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
             }
             else if sceneState.type == .areaDragging {
-                let rect = CGRect(point1: sceneState.beginLocation, point2: convert(event.locationInWindow, from: nil)).inset(by: draggingOverlay.outerInsets).intersection(bounds)
-                draggingOverlay.frame = rect
+                let rect = CGRect(point1: sceneState.beginLocation, point2: currentLocation).inset(by: areaDraggingOverlay.outerInsets).intersection(bounds)
+                areaDraggingOverlay.frame = rect
+            }
+            else if sceneState.type == .annotatorDragging {
+                annotatorDraggingOverlay.setFrameOrigin(currentLocation.offsetBy(-annotatorDraggingOverlay.bounds.center))
             }
         }
         trackMovingOrDragging(with: event)
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDragged(with: event) })
@@ -315,7 +339,7 @@ class SceneScrollView: NSScrollView {
         }
         trackMovingOrDragging(with: event)
         
-        updateDraggingLayerAppearance(for: event)
+        updateDraggingAppearance(for: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDragged(with: event) })
@@ -371,8 +395,12 @@ class SceneScrollView: NSScrollView {
         }
     }
     
+    fileprivate func overlayForAnnotatorDragging(for event: NSEvent) -> Overlay? {
+        return sceneStateDataSource?.overlayAtBeginLocation
+    }
+    
     fileprivate func trackMovingOrDragging(with event: NSEvent) {
-        if sceneState.type != .basicDragging {
+        if sceneState.type != .sceneDragging {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if wrapper.bounds.contains(loc) {
                 let currentCoordinate = PixelCoordinate(loc)
@@ -383,7 +411,7 @@ class SceneScrollView: NSScrollView {
             }
         }
         if sceneState.type == .areaDragging {
-            let draggingArea = overlayPixelRect
+            let draggingArea = areaDraggingOverlayPixelRect
             if !draggingArea.isNull {
                 trackingDelegate?.trackAreaChanged(self, to: draggingArea)
             }
@@ -392,7 +420,7 @@ class SceneScrollView: NSScrollView {
     
     fileprivate func trackDidEndDragging(with event: NSEvent) {
         if sceneState.type == .areaDragging {
-            let draggingArea = overlayPixelRect
+            let draggingArea = areaDraggingOverlayPixelRect
             if draggingArea.size > PixelSize(width: 1, height: 1) {
                 if sceneTool == .magicCursor {
                     trackingDelegate?.trackCursorDragged(self, to: draggingArea)
@@ -402,18 +430,37 @@ class SceneScrollView: NSScrollView {
                 }
             }
         }
-    }
-    
-    fileprivate func updateDraggingLayerAppearance(for event: NSEvent) {
-        if sceneState.type == .areaDragging {
-            if draggingOverlay.isHidden {
-                draggingOverlay.bringToFront()
-                draggingOverlay.isHidden = false
+        else if sceneState.type == .annotatorDragging {
+            let draggingCoordinate = annotatorDraggingOverlayPixelCoordinate
+            if !draggingCoordinate.isNull {
+                if sceneTool == .selectionArrow {
+                    trackingDelegate?.trackCursorDragged(self, to: draggingCoordinate)
+                }
             }
         }
-        else if !draggingOverlay.isHidden {
-            draggingOverlay.isHidden = true
-            draggingOverlay.frame = CGRect.zero
+    }
+    
+    fileprivate func updateDraggingAppearance(for event: NSEvent) {
+        if sceneState.type == .areaDragging {
+            if areaDraggingOverlay.isHidden {
+                areaDraggingOverlay.bringToFront()
+                areaDraggingOverlay.isHidden = false
+            }
+        }
+        else if !areaDraggingOverlay.isHidden {
+            areaDraggingOverlay.isHidden = true
+            areaDraggingOverlay.frame = CGRect.zero
+        }
+        
+        if sceneState.type == .annotatorDragging {
+            if annotatorDraggingOverlay.isHidden {
+                annotatorDraggingOverlay.bringToFront()
+                annotatorDraggingOverlay.isHidden = false
+            }
+        }
+        else if !annotatorDraggingOverlay.isHidden {
+            annotatorDraggingOverlay.isHidden = true
+            annotatorDraggingOverlay.reset()
         }
     }
     

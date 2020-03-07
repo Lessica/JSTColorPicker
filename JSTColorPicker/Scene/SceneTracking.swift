@@ -13,6 +13,7 @@ protocol SceneTracking: class {
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
     func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect)
     func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect)
+    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate)
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect)
 }
 
@@ -21,5 +22,6 @@ extension SceneTracking {
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) { }
     func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
     func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
+    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) { }
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) { }
 }
