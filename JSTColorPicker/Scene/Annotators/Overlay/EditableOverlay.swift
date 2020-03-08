@@ -40,7 +40,7 @@ class EditableOverlay: Overlay {
         
         guard isEditable else { return }
         let drawBounds = bounds.inset(by: innerInsets)
-        guard !drawBounds.isNull else { return }
+        guard !drawBounds.isEmpty else { return }
         
         var rects = [
             CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),

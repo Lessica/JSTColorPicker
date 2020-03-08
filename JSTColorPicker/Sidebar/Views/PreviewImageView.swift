@@ -10,6 +10,8 @@ import Cocoa
 
 class PreviewImageView: NSView {
     
+    override var isOpaque: Bool { return true }
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true

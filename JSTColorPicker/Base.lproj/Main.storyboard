@@ -357,7 +357,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -390,7 +390,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="58" minWidth="58" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -426,7 +426,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -514,7 +514,7 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="242" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -609,7 +609,7 @@ CA
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
@@ -715,8 +715,8 @@ CA
                             </touchBarItem>
                             <touchBarItem id="PNh-sU-yk9">
                                 <viewController key="viewController" id="7Oq-ht-hPs">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                        <rect key="frame" x="4" y="-2" width="288" height="30"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -741,8 +741,8 @@ CA
                             </touchBarItem>
                             <touchBarItem id="JTe-Pb-tmM">
                                 <viewController key="viewController" id="eFW-EM-Kyw">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                        <rect key="frame" x="4" y="-2" width="120" height="30"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -829,7 +829,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="v89-K9-OHt" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                                 <clipView key="contentView" focusRingType="none" id="eZm-mt-gzw" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
@@ -852,10 +852,13 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="TD1-6e-m1I" customClass="SceneGridView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <customView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TD1-6e-m1I" customClass="SceneGridView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="WrF-Ni-B2f" customClass="SceneOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <customView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrF-Ni-B2f" customClass="SceneOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                            </customView>
+                            <customView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58T-sd-pum" customClass="SceneEffectView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                             </customView>
                         </subviews>
@@ -864,17 +867,22 @@ CA
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="trailing" secondItem="v89-K9-OHt" secondAttribute="trailing" id="Awu-ss-gKV"/>
                             <constraint firstItem="WrF-Ni-B2f" firstAttribute="leading" secondItem="TD1-6e-m1I" secondAttribute="leading" id="B1D-ZO-tGo"/>
                             <constraint firstItem="WrF-Ni-B2f" firstAttribute="top" secondItem="TD1-6e-m1I" secondAttribute="top" id="Biu-Pp-ZQk"/>
+                            <constraint firstItem="58T-sd-pum" firstAttribute="bottom" secondItem="TD1-6e-m1I" secondAttribute="bottom" id="Brm-Ns-boK"/>
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="top" secondItem="v89-K9-OHt" secondAttribute="top" id="DXA-me-Uzc"/>
+                            <constraint firstItem="58T-sd-pum" firstAttribute="top" secondItem="TD1-6e-m1I" secondAttribute="top" id="EtG-ob-IY0"/>
                             <constraint firstItem="v89-K9-OHt" firstAttribute="leading" secondItem="Ui0-q0-Y5e" secondAttribute="leading" id="HtC-vc-LTM"/>
+                            <constraint firstItem="58T-sd-pum" firstAttribute="trailing" secondItem="TD1-6e-m1I" secondAttribute="trailing" id="IXe-By-iRX"/>
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="bottom" secondItem="v89-K9-OHt" secondAttribute="bottom" id="JPt-nF-JQB"/>
                             <constraint firstItem="WrF-Ni-B2f" firstAttribute="trailing" secondItem="TD1-6e-m1I" secondAttribute="trailing" id="SKt-R9-Yeo"/>
                             <constraint firstItem="WrF-Ni-B2f" firstAttribute="bottom" secondItem="TD1-6e-m1I" secondAttribute="bottom" id="UQx-KL-JCw"/>
                             <constraint firstItem="TD1-6e-m1I" firstAttribute="leading" secondItem="v89-K9-OHt" secondAttribute="leading" id="Wn4-eA-2l0"/>
+                            <constraint firstItem="58T-sd-pum" firstAttribute="leading" secondItem="TD1-6e-m1I" secondAttribute="leading" id="Znw-ZD-Y3z"/>
                             <constraint firstAttribute="trailing" secondItem="v89-K9-OHt" secondAttribute="trailing" id="icd-qS-pai"/>
                             <constraint firstAttribute="bottom" secondItem="v89-K9-OHt" secondAttribute="bottom" id="yB5-Yq-zs6"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="internalSceneEffectView" destination="58T-sd-pum" id="gvH-Ir-NAD"/>
                         <outlet property="sceneClipView" destination="eZm-mt-gzw" id="wbo-kv-kM5"/>
                         <outlet property="sceneGridLeadingConstraint" destination="Wn4-eA-2l0" id="As5-kc-htY"/>
                         <outlet property="sceneGridTopConstraint" destination="DXA-me-Uzc" id="6CU-Lr-cgZ"/>
@@ -914,7 +922,7 @@ CA
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                     <rect key="frame" x="8" y="8" width="228" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="label" size="11"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -1183,7 +1191,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
@@ -1198,7 +1206,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="optionButtonTapped:" target="Z2W-Gy-vmx" id="h4y-Ov-BRT"/>

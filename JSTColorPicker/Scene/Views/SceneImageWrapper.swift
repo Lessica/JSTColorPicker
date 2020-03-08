@@ -21,22 +21,10 @@ protocol RulerViewClient: class {
 class SceneImageWrapper: NSView {
     
     weak var rulerViewClient: RulerViewClient?
-    
-    override var isFlipped: Bool {
-        return true
-    }
-    
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        return nil
-    }  // disable user interactions
-    
-    override func cursorUpdate(with event: NSEvent) {
-        // do not perform default behavior
-    }
-    
-    override var isOpaque: Bool {
-        return true
-    }
+    override var isFlipped: Bool { return true }
+    override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
+    override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
+    override var isOpaque: Bool { return true }
     
     override func rulerView(_ ruler: NSRulerView, shouldAdd marker: NSRulerMarker) -> Bool {
         return rulerViewClient?.rulerView(ruler as? RulerView, shouldAdd: marker as! RulerMarker) ?? false

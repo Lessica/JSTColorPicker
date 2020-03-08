@@ -19,6 +19,9 @@ struct PixelRect: Codable {
     public var isNull: Bool {
         return self == PixelRect.null
     }
+    public var isEmpty: Bool {
+        return isNull || size == .zero
+    }
     var origin: PixelCoordinate = PixelCoordinate()
     var size: PixelSize         = PixelSize()
     var x: Int      { return origin.x    }

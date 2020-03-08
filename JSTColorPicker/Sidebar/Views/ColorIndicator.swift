@@ -24,9 +24,8 @@ class ColorIndicator: NSControl {
         }
     }
     
-    override func cursorUpdate(with event: NSEvent) {
-        NSCursor.pointingHand.set()
-    }
+    override func cursorUpdate(with event: NSEvent) { NSCursor.pointingHand.set() }
+    override var isOpaque: Bool { return true }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

@@ -21,9 +21,7 @@ class SceneScrollView: NSScrollView {
             reloadSceneRulers()
         }
     }
-    fileprivate var minimumDraggingDistance: CGFloat {
-        return enableForceTouch ? 6.0 : 3.0
-    }
+    fileprivate var minimumDraggingDistance: CGFloat { return enableForceTouch ? 6.0 : 3.0 }
     fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int {
         switch tool {
         case .magicCursor, .magnifyingGlass:
@@ -33,30 +31,18 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate var wrapper: SceneImageWrapper {
-        return documentView as! SceneImageWrapper
-    }
-    fileprivate var trackingArea: NSTrackingArea?
-    fileprivate var trackingCoordinate = PixelCoordinate.null
-    public weak var trackingDelegate: SceneTracking?
-    
-    public weak var sceneToolDataSource: SceneToolDataSource?
-    fileprivate var sceneTool: SceneTool {
-        return sceneToolDataSource!.sceneTool
-    }
-    
-    public weak var sceneStateDataSource: SceneStateDataSource?
-    fileprivate var sceneState: SceneState {
-        get {
-            return sceneStateDataSource!.sceneState
-        }
-    }
-    
-    public var sceneEventObservers: [SceneEventObserver] = []
-    
+    fileprivate static let rulerThickness: CGFloat = 16.0
+    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
+    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
     public var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
         return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
+    }
+    public var alternativeBoundsOrigin: CGPoint {
+        if drawRulersInScene {
+            return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
+        }
+        return CGPoint.zero
     }
     public var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
@@ -68,27 +54,30 @@ class SceneScrollView: NSScrollView {
         return false
     }
     
-    public var alternativeBoundsOrigin: CGPoint {
-        if drawRulersInScene {
-            return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
-        }
-        return CGPoint.zero
-    }
-    fileprivate static let rulerThickness: CGFloat = 16.0
-    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
-    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
+    public weak var trackingDelegate: SceneTracking?
+    fileprivate var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
+    fileprivate var trackingArea: NSTrackingArea?
+    fileprivate var trackingCoordinate = PixelCoordinate.null
+    
+    public var sceneEventObservers: [SceneEventObserver] = []
+    public weak var sceneToolDataSource: SceneToolDataSource?
+    fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
+    public weak var sceneStateDataSource: SceneStateDataSource?
+    fileprivate var sceneState: SceneState { return sceneStateDataSource!.sceneState }
+    public weak var sceneActionEffectViewDataSource: SceneEffectViewDataSource?
+    fileprivate var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource!.sceneEffectView }
     
     fileprivate lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
-        view.wantsLayer = true
         view.isHidden = true
         return view
     }()
     fileprivate var areaDraggingOverlayPixelRect: PixelRect {
-        let rect = convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
-        guard !rect.isNull else { return .null }
+        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
+        guard !rect.isEmpty else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
     }
+    
     fileprivate lazy var annotatorDraggingOverlay: ImageOverlay = {
         let view = ImageOverlay()
         view.alphaValue = 0.9
@@ -96,7 +85,7 @@ class SceneScrollView: NSScrollView {
         return view
     }()
     fileprivate var annotatorDraggingOverlayPixelCoordinate: PixelCoordinate {
-        let point = convert(annotatorDraggingOverlay.frame.center, to: wrapper)
+        let point = sceneActionEffectView.convert(annotatorDraggingOverlay.frame.center, to: wrapper)
         guard wrapper.bounds.contains(point) else { return .null }
         return PixelCoordinate(point)
     }
@@ -125,22 +114,24 @@ class SceneScrollView: NSScrollView {
             rulerView.reservedThicknessForMarkers = SceneScrollView.reservedThicknessForMarkers
             rulerView.reservedThicknessForAccessoryView = SceneScrollView.reservedThicknessForAccessoryView
         }
-        reloadSceneRulers()
         
+        reloadSceneRulers()
         reloadSceneBackground()
-        addSubview(areaDraggingOverlay)
-        addSubview(annotatorDraggingOverlay)
     }
     
-    fileprivate func reloadSceneRulers() {
-        if drawRulersInScene {
-            rulersVisible = true
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if window != nil {
+            sceneActionEffectView.addSubview(areaDraggingOverlay)
+            sceneActionEffectView.addSubview(annotatorDraggingOverlay)
         }
         else {
-            rulersVisible = false
+            areaDraggingOverlay.removeFromSuperview()
+            annotatorDraggingOverlay.removeFromSuperview()
         }
     }
     
+    fileprivate func reloadSceneRulers() { rulersVisible = drawRulersInScene }
     fileprivate func reloadSceneBackground() {
         if drawSceneBackground {
             backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
@@ -164,9 +155,7 @@ class SceneScrollView: NSScrollView {
         super.updateTrackingAreas()
     }
     
-    override func cursorUpdate(with event: NSEvent) {
-        // do not perform default behavior
-    }
+    override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
     override func pressureChange(with event: NSEvent) {
         if event.stage > sceneState.stage {
@@ -174,17 +163,9 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    override func mouseEntered(with event: NSEvent) {
-        trackMovingOrDragging(with: event)
-    }
-    
-    override func mouseMoved(with event: NSEvent) {
-        trackMovingOrDragging(with: event)
-    }
-    
-    override func mouseExited(with event: NSEvent) {
-        trackMovingOrDragging(with: event)
-    }
+    override func mouseEntered(with event: NSEvent) { trackMovingOrDragging(with: event) }
+    override func mouseMoved(with event: NSEvent) { trackMovingOrDragging(with: event) }
+    override func mouseExited(with event: NSEvent) { trackMovingOrDragging(with: event) }
     
     override func mouseDown(with event: NSEvent) {
         sceneEventObservers
@@ -310,10 +291,11 @@ class SceneScrollView: NSScrollView {
             }
             else if sceneState.type == .areaDragging {
                 let rect = CGRect(point1: sceneState.beginLocation, point2: currentLocation).inset(by: areaDraggingOverlay.outerInsets).intersection(bounds)
-                areaDraggingOverlay.frame = rect
+                areaDraggingOverlay.frame = convert(rect, to: sceneActionEffectView)
             }
             else if sceneState.type == .annotatorDragging {
-                annotatorDraggingOverlay.setFrameOrigin(currentLocation.offsetBy(-annotatorDraggingOverlay.bounds.center))
+                let origin = currentLocation.offsetBy(-annotatorDraggingOverlay.bounds.center)
+                annotatorDraggingOverlay.setFrameOrigin(convert(origin, to: sceneActionEffectView))
             }
         }
         trackMovingOrDragging(with: event)
@@ -412,7 +394,7 @@ class SceneScrollView: NSScrollView {
         }
         if sceneState.type == .areaDragging {
             let draggingArea = areaDraggingOverlayPixelRect
-            if !draggingArea.isNull {
+            if !draggingArea.isEmpty {
                 trackingDelegate?.trackAreaChanged(self, to: draggingArea)
             }
         }

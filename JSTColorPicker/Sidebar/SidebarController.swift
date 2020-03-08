@@ -113,7 +113,7 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard !rect.isNull else { return }
+        guard !rect.isEmpty else { return }
         
         if let imageSize = screenshot?.image?.size {
             let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)

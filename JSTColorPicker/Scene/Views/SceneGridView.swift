@@ -10,6 +10,11 @@ import Cocoa
 
 class SceneGridView: NSView {
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        wantsLayer = true
+    }
+    
     override var isFlipped: Bool {
         return true
     }
@@ -22,12 +27,6 @@ class SceneGridView: NSView {
         // do not perform default behavior
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        wantsLayer = true
-        // canDrawConcurrently = true
-    }
-    
     var drawGridsInScene: Bool = false
     fileprivate var shouldDrawGridsInScene: Bool = false
     fileprivate static let minimumMagnificationForGridRendering: CGFloat = 32.0
@@ -38,8 +37,8 @@ class SceneGridView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         guard drawGridsInScene && shouldDrawGridsInScene else { return }
-        guard !gridWrappedPixelRect.isNull else { return }
-        guard !gridRenderingArea.isNull else { return }
+        guard !gridWrappedPixelRect.isEmpty else { return }
+        guard !gridRenderingArea.isEmpty else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
         let gridSize = CGSize(
@@ -70,7 +69,7 @@ extension SceneGridView: SceneTracking {
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sceneView = sender else { return }
-        shouldDrawGridsInScene = !rect.isNull && magnification >= SceneGridView.minimumMagnificationForGridRendering
+        shouldDrawGridsInScene = !rect.isEmpty && magnification >= SceneGridView.minimumMagnificationForGridRendering
         if drawGridsInScene && shouldDrawGridsInScene {
             gridWrappedPixelRect = rect.smallestWrappingPixelRect
             gridRenderingArea = sceneView.convertFromDocumentView(gridWrappedPixelRect.toCGRect()).offsetBy(-sceneView.alternativeBoundsOrigin)

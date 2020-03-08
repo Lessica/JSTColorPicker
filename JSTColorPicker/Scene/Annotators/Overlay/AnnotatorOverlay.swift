@@ -93,7 +93,7 @@ class AnnotatorOverlay: EditableOverlay {
         }
         
         let drawBounds = bounds.inset(by: innerInsets)
-        guard !drawBounds.isNull else { return }
+        guard !drawBounds.isEmpty else { return }
         
         if isHighlighted {
             highlightedBackgroundImage.draw(in: drawBounds)

@@ -90,7 +90,7 @@ class Overlay: NSView {
     }
     
     fileprivate func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {
-        guard !drawBounds.isNull else { return false }
+        guard !drawBounds.isEmpty else { return false }
         guard (
             (drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY) ||
             (drawBounds.maxX > dirtyRect.minX && drawBounds.maxX < dirtyRect.maxX) ||

@@ -81,12 +81,13 @@ class SceneController: NSViewController {
     ]
     fileprivate static let minimumRecognizableMagnification: CGFloat = 16.0
     
-    @IBOutlet weak var sceneView: SceneScrollView!
-    @IBOutlet weak var sceneClipView: SceneClipView!
-    @IBOutlet weak var sceneGridView: SceneGridView!
-    @IBOutlet weak var sceneOverlayView: SceneOverlayView!
-    @IBOutlet weak var sceneGridTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var sceneGridLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var sceneClipView: SceneClipView!
+    @IBOutlet fileprivate weak var sceneView: SceneScrollView!
+    @IBOutlet fileprivate weak var sceneGridView: SceneGridView!
+    @IBOutlet fileprivate weak var sceneOverlayView: SceneOverlayView!
+    @IBOutlet fileprivate weak var internalSceneEffectView: SceneEffectView!
+    @IBOutlet fileprivate weak var sceneGridTopConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var sceneGridLeadingConstraint: NSLayoutConstraint!
     
     fileprivate var horizontalRulerView: RulerView {
         return sceneView.horizontalRulerView as! RulerView
@@ -584,17 +585,18 @@ extension SceneController: ScreenshotLoader {
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         reloadSceneRulerConstraints()
         
-        sceneOverlayView.sceneToolDataSource = self
-        sceneOverlayView.sceneStateDataSource = self
-        sceneOverlayView.annotatorDataSource = self
-        
         sceneView.trackingDelegate = self
         sceneView.sceneToolDataSource = self
         sceneView.sceneStateDataSource = self
+        sceneView.sceneActionEffectViewDataSource = self
         sceneView.sceneEventObservers = [
             SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
             SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
         ]
+        
+        sceneOverlayView.sceneToolDataSource = self
+        sceneOverlayView.sceneStateDataSource = self
+        sceneOverlayView.annotatorDataSource = self
         
         useSelectedSceneTool()
     }
@@ -663,46 +665,6 @@ extension SceneController: SceneTracking {
     
 }
 
-extension SceneController: ToolbarResponder {
-    
-    func useAnnotateItemAction(_ sender: Any?) {
-        internalSceneTool = .magicCursor
-    }
-    
-    func useMagnifyItemAction(_ sender: Any?) {
-        internalSceneTool = .magnifyingGlass
-    }
-    
-    func useMinifyItemAction(_ sender: Any?) {
-        internalSceneTool = .minifyingGlass
-    }
-    
-    func useSelectItemAction(_ sender: Any?) {
-        internalSceneTool = .selectionArrow
-    }
-    
-    func useMoveItemAction(_ sender: Any?) {
-        internalSceneTool = .movingHand
-    }
-    
-    func fitWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: wrapper.bounds)
-    }
-    
-    func fillWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
-    }
-    
-    fileprivate func sceneMagnify(toFit rect: CGRect) {
-        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: rect)
-        }) { [unowned self] in
-            self.sceneBoundsChanged()
-        }
-    }
-    
-}
-
 extension SceneController: SceneToolDataSource {
     
     internal var sceneTool: SceneTool {
@@ -738,6 +700,14 @@ extension SceneController: SceneStateDataSource {
         get {
             return sceneOverlayView.frontmostOverlay(at: sceneOverlayView.convert(sceneState.beginLocation, from: sceneView))
         }
+    }
+    
+}
+
+extension SceneController: SceneEffectViewDataSource {
+    
+    var sceneEffectView: SceneEffectView {
+        return internalSceneEffectView
     }
     
 }
@@ -936,58 +906,66 @@ extension SceneController: AnnotatorDataSource {
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators
-            .filter({ $0.isHighlighted })
             .reversed()
-            .forEach({
-                $0.isHighlighted = false
-                $0.setNeedsDisplay()
-                hideRulerMarkers(for: $0)
-            })
-        annotators
-            .filter({ items.contains($0.pixelItem) })
-            .reversed()
-            .forEach({
-                $0.isHighlighted = true
-                $0.setNeedsDisplay()
-                showRulerMarkers(for: $0)
-                $0.view.bringToFront()
+            .forEach({ (annotator) in
+                if items.contains(annotator.pixelItem) {
+                    if !annotator.isHighlighted {
+                        annotator.isHighlighted = true
+                        showRulerMarkers(for: annotator)
+                        annotator.view.bringToFront()
+                    }
+                }
+                else if annotator.isHighlighted {
+                    annotator.isHighlighted = false
+                    hideRulerMarkers(for: annotator)
+                    annotator.setNeedsDisplay()
+                }
             })
         if scrollTo {  // scroll without changing magnification
             let item = annotators.last(where: { items.contains($0.pixelItem) })?.pixelItem
-            if let color = item as? PixelColor {
-                previewAction(self, centeredAt: color.coordinate)
-            }
-            else if let area = item as? PixelArea {
-                previewAction(self, centeredAt: area.rect.origin)
-            }
+            if let color = item as? PixelColor { previewAction(self, centeredAt: color.coordinate) }
+            else if let area = item as? PixelArea { previewAction(self, centeredAt: area.rect.origin) }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
     }
     
 }
 
-extension SceneController: PreviewResponder {
+extension SceneController: ToolbarResponder {
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
-        if sceneOverlayView.isHidden != isChanging {
-            if isChanging {
-                hideSceneOverlays()
-            } else {
-                showSceneOverlays()
-            }
-        }
-        sceneView.magnification = magnification
+    func useAnnotateItemAction(_ sender: Any?) {
+        internalSceneTool = .magicCursor
     }
     
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !isInscenePixelLocation(centerPoint) {
-            var point = sceneView.convert(centerPoint, from: wrapper)
-            point.x -= sceneView.bounds.width / 2.0
-            point.y -= sceneView.bounds.height / 2.0
-            let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
-            sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
+    func useMagnifyItemAction(_ sender: Any?) {
+        internalSceneTool = .magnifyingGlass
+    }
+    
+    func useMinifyItemAction(_ sender: Any?) {
+        internalSceneTool = .minifyingGlass
+    }
+    
+    func useSelectItemAction(_ sender: Any?) {
+        internalSceneTool = .selectionArrow
+    }
+    
+    func useMoveItemAction(_ sender: Any?) {
+        internalSceneTool = .movingHand
+    }
+    
+    func fitWindowAction(_ sender: Any?) {
+        sceneMagnify(toFit: wrapper.bounds)
+    }
+    
+    func fillWindowAction(_ sender: Any?) {
+        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
+    }
+    
+    fileprivate func sceneMagnify(toFit rect: CGRect) {
+        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+            self.sceneView.animator().magnify(toFit: rect)
+        }) { [unowned self] in
+            self.sceneBoundsChanged()
         }
     }
     
@@ -1021,6 +999,33 @@ extension SceneController: ContentResponder {
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         return try contentResponder?.deleteContentItem(item)
+    }
+    
+}
+
+extension SceneController: PreviewResponder {
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
+        if sceneOverlayView.isHidden != isChanging {
+            if isChanging {
+                hideSceneOverlays()
+            } else {
+                showSceneOverlays()
+            }
+        }
+        sceneView.magnification = magnification
+    }
+    
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
+        if !isInscenePixelLocation(centerPoint) {
+            var point = sceneView.convert(centerPoint, from: wrapper)
+            point.x -= sceneView.bounds.width / 2.0
+            point.y -= sceneView.bounds.height / 2.0
+            let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
+            sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
+        }
     }
     
 }

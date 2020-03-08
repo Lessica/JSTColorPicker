@@ -10,12 +10,14 @@ import Cocoa
 
 class SceneOverlayView: NSView {
     
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        return nil
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        wantsLayer = false
     }
-    override var isFlipped: Bool {
-        return true
-    }
+    
+    override var isFlipped: Bool { return true }
+    override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
+    override func cursorUpdate(with event: NSEvent) { }    // do not perform default behavior
     
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate func createTrackingArea() {
@@ -33,23 +35,13 @@ class SceneOverlayView: NSView {
     }
     
     public weak var sceneToolDataSource: SceneToolDataSource?
-    fileprivate var sceneTool: SceneTool {
-        return sceneToolDataSource!.sceneTool
-    }
-    
+    fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
     public weak var sceneStateDataSource: SceneStateDataSource?
-    fileprivate var sceneState: SceneState {
-        return sceneStateDataSource!.sceneState
-    }
-    
+    fileprivate var sceneState: SceneState { return sceneStateDataSource!.sceneState }
     public weak var annotatorDataSource: AnnotatorDataSource?
-    fileprivate var annotators: [Annotator] {
-        return annotatorDataSource!.annotators
-    }
+    fileprivate var annotators: [Annotator] { return annotatorDataSource!.annotators }
     
-    public var overlays: [AnnotatorOverlay] {
-        return subviews as! [AnnotatorOverlay]
-    }
+    public var overlays: [AnnotatorOverlay] { return subviews as! [AnnotatorOverlay] }
     fileprivate weak var internalFocusedOverlay: AnnotatorOverlay?
     public var isFocused: Bool {
         return sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false
@@ -70,10 +62,6 @@ class SceneOverlayView: NSView {
             }
         }
         return false
-    }
-    
-    override func cursorUpdate(with event: NSEvent) {
-        // do not perform default behavior
     }
     
     override func mouseEntered(with event: NSEvent) {
