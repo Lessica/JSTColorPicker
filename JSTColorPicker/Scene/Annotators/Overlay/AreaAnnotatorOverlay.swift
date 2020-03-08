@@ -10,6 +10,10 @@ import Cocoa
 
 class AreaAnnotatorOverlay: AnnotatorOverlay {
     
+    override var hidesDuringEditing: Bool {
+        return true
+    }
+    
     override init(label: String) {
         super.init(label: label)
         backgroundImage = #imageLiteral(resourceName: "Annotator")

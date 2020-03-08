@@ -10,7 +10,7 @@ import Cocoa
 
 protocol SceneStateDataSource: class {
     var sceneState: SceneState { get }
-    var overlayAtBeginLocation: Overlay? { get }
+    var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? { get }
 }
 
 enum SceneManipulatingType {
@@ -37,6 +37,7 @@ enum SceneManipulatingType {
             return Int.max
         }
     }
+    
     public static func leftDraggingType(for tool: SceneTool) -> SceneManipulatingType {
         switch tool {
         case .magicCursor, .magnifyingGlass:
@@ -49,25 +50,29 @@ enum SceneManipulatingType {
             return .forbidden
         }
     }
+    
     public static func rightDraggingType(for tool: SceneTool) -> SceneManipulatingType {
         return .forbidden
     }
+    
     public var isManipulating: Bool {
         return self != .none
     }
+    
     public var isDragging: Bool {
         if self == .sceneDragging || self == .areaDragging || self == .annotatorDragging {
             return true
         }
         return false
     }
+    
 }
 
 class SceneState {
     public var type: SceneManipulatingType = .none
     private var internalStage: Int = 0
     private var internalBeginLocation: CGPoint = .null
-    private weak var internalManipulatingOverlay: Overlay?
+    private weak var internalManipulatingOverlay: EditableOverlay?
     
     public var stage: Int {
         get {
@@ -85,7 +90,7 @@ class SceneState {
             internalBeginLocation = newValue
         }
     }
-    public var manipulatingOverlay: Overlay? {
+    public var manipulatingOverlay: EditableOverlay? {
         get {
             return type != .none ? internalManipulatingOverlay : nil
         }

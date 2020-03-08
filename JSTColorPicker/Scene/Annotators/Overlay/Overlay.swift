@@ -10,6 +10,27 @@ import Cocoa
 
 class Overlay: NSView {
     
+    public var isFocused: Bool = false
+    public var isBordered: Bool {
+        return false
+    }
+    
+    public var outerInsets: NSEdgeInsets {
+        return Overlay.outerInsets
+    }
+    
+    public var innerInsets: NSEdgeInsets {
+        return Overlay.innerInsets
+    }
+    
+    public var capturedImage: NSImage? {
+        guard let rep = bitmapImageRepForCachingDisplay(in: bounds) else { return nil }
+        cacheDisplay(in: bounds, to: rep)
+        let img = NSImage(size: bounds.size)
+        img.addRepresentation(rep)
+        return img
+    }
+    
     public var lineDashCount: Int = 0
     public var lineDashBeginPhase: CGFloat {
         return CGFloat(lineDashCount % 9)
@@ -42,31 +63,10 @@ class Overlay: NSView {
     }
     
     @objc internal func animateLineDash(_ timer: Timer?) {
-        lineDashCount += 1
         if shouldPerformAnimatableDrawing {
+            lineDashCount += 1
             setNeedsDisplay()
         }
-    }
-    
-    public var isFocused: Bool = false
-    public var isBordered: Bool {
-        return false
-    }
-    
-    public var outerInsets: NSEdgeInsets {
-        return Overlay.outerInsets
-    }
-    
-    public var innerInsets: NSEdgeInsets {
-        return Overlay.innerInsets
-    }
-    
-    public var capturedImage: NSImage? {
-        guard let rep = bitmapImageRepForCachingDisplay(in: bounds) else { return nil }
-        cacheDisplay(in: bounds, to: rep)
-        let img = NSImage(size: bounds.size)
-        img.addRepresentation(rep)
-        return img
     }
     
     override init(frame frameRect: NSRect) {
@@ -86,7 +86,7 @@ class Overlay: NSView {
     }
     
     fileprivate var shouldPerformAnimatableDrawing: Bool {
-        return isBordered ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
+        return (!isHidden && isBordered) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
     }
     
     fileprivate func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {

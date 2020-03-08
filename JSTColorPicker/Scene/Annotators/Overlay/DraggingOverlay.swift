@@ -10,6 +10,8 @@ import Cocoa
 
 class DraggingOverlay: Overlay {
     
+    public var contextRect: PixelRect?
+    
     override var isBordered: Bool {
         return true
     }

@@ -11,17 +11,17 @@ import Cocoa
 protocol SceneTracking: class {
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
-    func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect)
-    func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect)
-    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate)
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect)
+    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect)
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect)
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate)
 }
 
 extension SceneTracking {
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) { }
-    func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
-    func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
-    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) { }
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) { }
+    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) { }
 }

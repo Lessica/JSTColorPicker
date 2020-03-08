@@ -107,7 +107,8 @@ class SceneController: NSViewController {
     
     fileprivate var internalSceneTool: SceneTool = .arrow {
         didSet {
-            updateAnnotatorEditableState()
+            updateAnnotatorEditableStates()
+            sceneOverlayView.updateAppearance()
         }
     }
     fileprivate var internalSceneState: SceneState = SceneState()
@@ -604,7 +605,7 @@ extension SceneController: ScreenshotLoader {
     fileprivate func reloadSceneRulerConstraints() {
         sceneGridTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
         sceneGridLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
-        updateAnnotatorBounds()
+        updateAnnotatorFrames()
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -625,7 +626,7 @@ extension SceneController: SceneTracking {
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if !sceneOverlayView.isHidden {
-            updateAnnotatorBounds()
+            updateAnnotatorFrames()
         }
         sceneGridView.trackSceneBoundsChanged(sender, to: rect, of: magnification)
         trackingDelegate?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
@@ -639,15 +640,26 @@ extension SceneController: SceneTracking {
         trackingDelegate?.trackAreaChanged(sender, to: rect)
     }
     
-    func trackMagnifyToolDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
+    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
         sceneMagnify(toFit: rect.toCGRect())
     }
     
-    func trackCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
-        _ = try? addContentItem(of: rect)
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
+        if let overlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
+            guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelView === overlay }) else { return }
+            guard annotator.pixelArea.rect != rect else { return }
+            guard let item = annotator.pixelItem.copy() as? PixelArea else { return }
+            if let _ = try? updateContentItem(item, to: rect) {
+                // do nothing
+                return
+            }
+        }
+        else {
+            _ = try? addContentItem(of: rect)
+        }
     }
     
-    func trackCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
+    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
         if let overlay = sceneState.manipulatingOverlay as? ColorAnnotatorOverlay {
             guard let annotator = lazyColorAnnotators.last(where: { $0.pixelView === overlay }) else { return }
             guard annotator.pixelColor.coordinate != coordinate else { return }
@@ -696,9 +708,12 @@ extension SceneController: SceneStateDataSource {
         }
     }
     
-    internal var overlayAtBeginLocation: Overlay? {
+    internal var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? {
         get {
-            return sceneOverlayView.frontmostOverlay(at: sceneOverlayView.convert(sceneState.beginLocation, from: sceneView))
+            let loc = sceneOverlayView.convert(sceneState.beginLocation, from: sceneView)
+            guard let overlay = sceneOverlayView.frontmostOverlay(at: loc) else { return nil }
+            overlay.setEditing(at: sceneOverlayView.convert(loc, to: overlay))
+            return overlay
         }
     }
     
@@ -734,7 +749,7 @@ extension SceneController: AnnotatorDataSource {
     fileprivate func showSceneOverlays() {
         sceneGridView.isHidden = false
         sceneOverlayView.isHidden = false
-        updateAnnotatorBounds()
+        updateAnnotatorFrames()
     }
     
     fileprivate func updateFrame(of annotator: Annotator) {
@@ -770,19 +785,24 @@ extension SceneController: AnnotatorDataSource {
         }
     }
     
-    fileprivate func updateAnnotatorEditableState() {
+    fileprivate func updateAnnotatorFrames() {
+        annotators.forEach({ updateFrame(of: $0) })
+    }
+    
+    fileprivate func updateEditableStates(of annotator: Annotator) {
         let editable = internalSceneTool == .selectionArrow
-        annotators
+        if annotator.isEditable != editable { annotator.isEditable = editable }
+        updateFrame(of: annotator)
+    }
+    
+    fileprivate func updateAnnotatorEditableStates() {
+        let editable = internalSceneTool == .selectionArrow
+        annotators.lazy
             .filter({ $0.isEditable != editable })
             .forEach({
                 $0.isEditable = editable
             })
-        updateAnnotatorBounds()
-        sceneOverlayView.updateAppearance()
-    }
-    
-    fileprivate func updateAnnotatorBounds() {
-        annotators.forEach({ updateFrame(of: $0) })
+        updateAnnotatorFrames()
     }
     
     fileprivate func loadRulerMarkers(for annotator: Annotator) {
@@ -874,7 +894,7 @@ extension SceneController: AnnotatorDataSource {
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
-        updateFrame(of: annotator)
+        updateEditableStates(of: annotator)
     }
     
     func addAnnotator(for area: PixelArea) {
@@ -882,15 +902,16 @@ extension SceneController: AnnotatorDataSource {
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelView)
-        updateFrame(of: annotator)
+        updateEditableStates(of: annotator)
     }
     
     func updateAnnotator(for items: [ContentItem]) {
         let itemIDs = items.compactMap({ $0.id })
-        let itemsToRemove = annotators.compactMap({ $0.pixelItem }).filter({ itemIDs.contains($0.id) })
+        let itemsToRemove = annotators
+            .compactMap({ $0.pixelItem })
+            .filter({ itemIDs.contains($0.id) })
         removeAnnotators(for: itemsToRemove)
         addAnnotators(for: items)
-        highlightAnnotators(for: items, scrollTo: false)
     }
     
     func removeAnnotators(for items: [ContentItem]) {
@@ -906,7 +927,6 @@ extension SceneController: AnnotatorDataSource {
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators
-            .reversed()
             .forEach({ (annotator) in
                 if items.contains(annotator.pixelItem) {
                     if !annotator.isHighlighted {

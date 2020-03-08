@@ -38,7 +38,23 @@ enum SceneTool: String {
         return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
-    var normalCursor: NSCursor {
+    fileprivate static var resizeNorthWestSouthEast: NSCursor = {
+        return NSCursor.init(image: NSImage(named: "resizenorthwestsoutheast")!, hotSpot: NSPoint(x: 17, y: 17))
+    }()
+    
+    fileprivate static var resizeNorthSouth: NSCursor = {
+        return NSCursor.init(image: NSImage(named: "resizenorthsouth")!, hotSpot: NSPoint(x: 17, y: 17))
+    }()
+    
+    fileprivate static var resizeNorthEastSouthWest: NSCursor = {
+        return NSCursor.init(image: NSImage(named: "resizenortheastsouthwest")!, hotSpot: NSPoint(x: 17, y: 17))
+    }()
+    
+    fileprivate static var resizeEastWest: NSCursor = {
+        return NSCursor.init(image: NSImage(named: "resizeeastwest")!, hotSpot: NSPoint(x: 17, y: 17))
+    }()
+    
+    public var normalCursor: NSCursor {
         switch self {
         case .magicCursor:
             return NSCursor.crosshair
@@ -55,7 +71,7 @@ enum SceneTool: String {
         }
     }
     
-    var disabledCursor: NSCursor {
+    public var disabledCursor: NSCursor {
         switch self {
         case .magnifyingGlass:
             return SceneTool.noZoomingCursor
@@ -66,7 +82,7 @@ enum SceneTool: String {
         }
     }
     
-    var manipulatingCursor: NSCursor {
+    public var manipulatingCursor: NSCursor {
         switch self {
         case .movingHand:
             return NSCursor.closedHand
@@ -75,10 +91,21 @@ enum SceneTool: String {
         }
     }
     
-    var focusingCursor: NSCursor {
+    public func focusingCursorForEditableDirection(_ direction: EditableDirection) -> NSCursor {
         switch self {
         case .selectionArrow:
-            return NSCursor.pointingHand
+            switch direction {
+            case .northWestSouthEast:
+                return SceneTool.resizeNorthWestSouthEast
+            case .northSouth:
+                return SceneTool.resizeNorthSouth
+            case .northEastSouthWest:
+                return SceneTool.resizeNorthEastSouthWest
+            case .eastWest:
+                return SceneTool.resizeEastWest
+            case .none:
+                return NSCursor.pointingHand
+            }
         default:
             return NSCursor.current
         }
