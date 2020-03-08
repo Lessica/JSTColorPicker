@@ -19,8 +19,8 @@ struct PixelCoordinate: Codable {
     public var isNull: Bool {
         return self == PixelCoordinate.null
     }
-    var x: Int = 0
-    var y: Int = 0
+    public var x: Int = 0
+    public var y: Int = 0
     init() {}
     init(x: Int, y: Int) {
         self.x = x

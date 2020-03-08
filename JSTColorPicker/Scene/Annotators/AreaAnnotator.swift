@@ -26,6 +26,6 @@ class AreaAnnotator: Annotator {
     }
     
     init(pixelItem: PixelArea) {
-        super.init(pixelItem: pixelItem, view: AreaAnnotatorOverlay(label: String(pixelItem.id)))
+        super.init(pixelItem: pixelItem, view: AreaAnnotatorOverlay(label: String(pixelItem.id), rect: pixelItem.rect))
     }
 }

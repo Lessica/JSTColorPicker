@@ -13,8 +13,8 @@ struct PixelSize: Codable {
     public static var zero: PixelSize {
         return PixelSize()
     }
-    var width:  Int = 0
-    var height: Int = 0
+    public var width:  Int = 0
+    public var height: Int = 0
     init() {}
     init(width: Int, height: Int) {
         self.width  = width
@@ -24,7 +24,7 @@ struct PixelSize: Codable {
         width  = Int(floor(size.width))
         height = Int(floor(size.height))
     }
-    func toCGSize() -> CGSize {
+    public func toCGSize() -> CGSize {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 }

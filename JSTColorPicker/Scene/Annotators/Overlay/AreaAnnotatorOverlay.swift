@@ -10,11 +10,14 @@ import Cocoa
 
 class AreaAnnotatorOverlay: AnnotatorOverlay {
     
+    public fileprivate(set) var rect: PixelRect
+    
     override var hidesDuringEditing: Bool {
         return true
     }
     
-    override init(label: String) {
+    init(label: String, rect: PixelRect) {
+        self.rect = rect
         super.init(label: label)
         backgroundImage = #imageLiteral(resourceName: "Annotator")
         highlightedBackgroundImage = #imageLiteral(resourceName: "AnnotatorBlue")

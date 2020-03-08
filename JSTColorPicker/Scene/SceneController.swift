@@ -219,12 +219,13 @@ class SceneController: NSViewController {
         
         let imageSize = image.size
         let initialRect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)  // .aspectFit(in: sceneView.bounds)
+        let initialPixelRect = PixelRect(origin: .zero, size: imageSize)
         imageView.frame = initialRect
         
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
         
-        let wrapper = SceneImageWrapper(frame: initialRect)
+        let wrapper = SceneImageWrapper(pixelBounds: initialPixelRect)
         wrapper.rulerViewClient = self
         wrapper.addSubview(imageView)
         sceneView.documentView = wrapper
@@ -576,7 +577,7 @@ extension SceneController: ScreenshotLoader {
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = false
         
-        let wrapper = SceneImageWrapper()
+        let wrapper = SceneImageWrapper(pixelBounds: .zero)
         wrapper.rulerViewClient = self
         sceneView.documentView = wrapper
         sceneView.verticalRulerView?.clientView = wrapper

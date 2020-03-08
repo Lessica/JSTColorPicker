@@ -20,7 +20,18 @@ protocol RulerViewClient: class {
 
 class SceneImageWrapper: NSView {
     
-    weak var rulerViewClient: RulerViewClient?
+    public weak var rulerViewClient: RulerViewClient?
+    public var pixelBounds: PixelRect
+    
+    init(pixelBounds: PixelRect) {
+        self.pixelBounds = pixelBounds
+        super.init(frame: pixelBounds.toCGRect())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override var isFlipped: Bool { return true }
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior

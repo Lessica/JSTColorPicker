@@ -17,18 +17,34 @@ struct PixelRect: Codable {
         return PixelRect(x: Int.max, y: Int.max, width: 0, height: 0)
     }
     public var isNull: Bool {
-        return self == PixelRect.null
+        return x == Int.max || y == Int.max
     }
     public var isEmpty: Bool {
         return isNull || size == .zero
     }
-    var origin: PixelCoordinate = PixelCoordinate()
-    var size: PixelSize         = PixelSize()
-    var x: Int      { return origin.x    }
-    var y: Int      { return origin.y    }
-    var width: Int  { return size.width  }
-    var height: Int { return size.height }
-    var opposite: PixelCoordinate { return PixelCoordinate(x: x + width, y: y + height) }
+    public var origin: PixelCoordinate = PixelCoordinate()
+    public var size: PixelSize         = PixelSize()
+    public var x: Int      { return origin.x    }
+    public var y: Int      { return origin.y    }
+    public var minX: Int   { return origin.x    }
+    public var minY: Int   { return origin.y    }
+    public var maxX: Int   { return origin.x + size.width  }
+    public var maxY: Int   { return origin.y + size.height }
+    public var width: Int  { return size.width  }
+    public var height: Int { return size.height }
+    public var opposite: PixelCoordinate { return PixelCoordinate(x: x + width, y: y + height) }
+    public var standardized: PixelRect {
+        var rect = self
+        if rect.size.width < 0 {
+            rect.origin.x += rect.size.width
+            rect.size.width = -rect.size.width
+        }
+        if rect.size.height < 0 {
+            rect.origin.y += rect.size.height
+            rect.size.height = -rect.size.height
+        }
+        return rect
+    }
     init() {}
     init(x: Int, y: Int, width: Int, height: Int) {
         self.origin = PixelCoordinate(x: x, y: y)
@@ -48,20 +64,58 @@ struct PixelRect: Codable {
     init(coordinate1: PixelCoordinate, coordinate2: PixelCoordinate) {
         self.init(origin: PixelCoordinate(x: min(coordinate1.x, coordinate2.x), y: min(coordinate1.y, coordinate2.y)), size: PixelSize(width: abs(coordinate2.x - coordinate1.x), height: abs(coordinate2.y - coordinate1.y)))
     }
-    func toCGRect() -> CGRect {
+    public func toCGRect() -> CGRect {
         return CGRect(origin: origin.toCGPoint(), size: size.toCGSize())
     }
-    func contains(_ coordinate: PixelCoordinate) -> Bool {
+    public func contains(_ coordinate: PixelCoordinate) -> Bool {
         if coordinate.x >= x && coordinate.y >= y && coordinate.x < x + width && coordinate.y < y + height {
             return true
         }
         return false
     }
-    func contains(_ rect: PixelRect) -> Bool {
+    public func contains(_ rect: PixelRect) -> Bool {
         if x <= rect.x && y <= rect.y && x + width >= rect.x + rect.width && y + height >= rect.y + rect.height {
             return true
         }
         return false
+    }
+    public func intersection(_ rect: PixelRect) -> PixelRect {
+        var r1 = self
+        var r2 = rect
+        
+        var rect = PixelRect()
+        
+        /* If both of them are empty we can return r2 as an empty rect,
+         so this covers all cases: */
+        if (r1.isEmpty) { return r2 }
+        else if (r2.isEmpty) { return r1 }
+        
+        r1 = r1.standardized
+        r2 = r2.standardized
+        
+        if (r1.origin.x + r1.size.width  <= r2.origin.x ||
+            r2.origin.x + r2.size.width  <= r1.origin.x ||
+            r1.origin.y + r1.size.height <= r2.origin.y ||
+            r2.origin.y + r2.size.height <= r1.origin.y)
+        {
+            return .null
+        }
+        
+        rect.origin.x = (r1.origin.x > r2.origin.x ? r1.origin.x : r2.origin.x)
+        rect.origin.y = (r1.origin.y > r2.origin.y ? r1.origin.y : r2.origin.y)
+        
+        if (r1.origin.x + r1.size.width < r2.origin.x + r2.size.width) {
+            rect.size.width = r1.origin.x + r1.size.width - rect.origin.x
+        } else {
+            rect.size.width = r2.origin.x + r2.size.width - rect.origin.x
+        }
+        
+        if (r1.origin.y + r1.size.height < r2.origin.y + r2.size.height) {
+            rect.size.height = r1.origin.y + r1.size.height - rect.origin.y
+        } else {
+            rect.size.height = r2.origin.y + r2.size.height - rect.origin.y
+        }
+        return rect
     }
 }
 

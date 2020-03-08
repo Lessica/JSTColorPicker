@@ -77,11 +77,11 @@ class SceneScrollView: NSScrollView {
         guard !rect.isEmpty else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
     }
-    fileprivate var annotatorDraggingOverlayRect: PixelRect {
-        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
-        guard !rect.isEmpty else { return .null }
-        return PixelRect(CGRect(point1: CGPoint(x: round(rect.minX), y: round(rect.minY)), point2: CGPoint(x: round(rect.maxX), y: round(rect.maxY))))
-    }
+//    fileprivate var annotatorDraggingOverlayRect: PixelRect {
+//        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
+//        guard !rect.isEmpty else { return .null }
+//        return PixelRect(CGRect(point1: CGPoint(x: round(rect.minX), y: round(rect.minY)), point2: CGPoint(x: round(rect.maxX), y: round(rect.maxY))))
+//    }
     
     fileprivate lazy var colorDraggingOverlay: ImageOverlay = {
         let view = ImageOverlay()
@@ -314,52 +314,72 @@ class SceneScrollView: NSScrollView {
                 }
                 else if let areaAnnotatorOverlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
                     let edge = areaAnnotatorOverlay.editingEdge
-                    let annotatorRect =
+                    let annotatorFrame =
                         areaAnnotatorOverlay.frame
                             .inset(by: areaAnnotatorOverlay.innerInsets)
+                    let annotatorPixelRect = areaAnnotatorOverlay.rect
+                    let locInWrapper = convert(currentLocation, to: wrapper)
                     if edge.isCorner {
-                        var fixedOpposite: CGPoint?
+                        var fixedOpposite: CGPoint?, fixedOppositeCoord: PixelCoordinate?
                         switch edge {
                         case .topLeft:
-                            fixedOpposite = CGPoint(x: annotatorRect.maxX, y: annotatorRect.maxY)
+                            fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.maxY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.maxY)
                         case .topRight:
-                            fixedOpposite = CGPoint(x: annotatorRect.minX, y: annotatorRect.maxY)
+                            fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.maxY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.maxY)
                         case .bottomLeft:
-                            fixedOpposite = CGPoint(x: annotatorRect.maxX, y: annotatorRect.minY)
+                            fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.minY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.minY)
                         case .bottomRight:
-                            fixedOpposite = CGPoint(x: annotatorRect.minX, y: annotatorRect.minY)
+                            fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.minY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.minY)
                         default: break
                         }
-                        if let fixedOpposite = fixedOpposite {
-                            let rect = CGRect(point1: fixedOpposite, point2: locInAction)
+                        if let fixedOpposite = fixedOpposite,
+                            let fixedOppositeCoord = fixedOppositeCoord
+                        {
+                            let newFrame = CGRect(point1: fixedOpposite, point2: locInAction)
                             areaDraggingOverlay.frame =
-                                rect.inset(by: areaDraggingOverlay.outerInsets)
-                                    // .intersection(sceneActionEffectView.bounds)
+                                newFrame.inset(by: areaDraggingOverlay.outerInsets)
+                            let newPixelRect = PixelRect(coordinate1: fixedOppositeCoord, coordinate2: PixelCoordinate(x: Int(round(locInWrapper.x)), y: Int(round(locInWrapper.y))))
+                            areaDraggingOverlay.contextRect = newPixelRect.intersection(wrapper.pixelBounds)
                         }
                     }
                     else if edge.isMiddle {
-                        var fixedLoc = locInAction
+                        var locAligned = locInAction
+                        var locAlignedCoord = PixelCoordinate(x: Int(round(locInWrapper.x)), y: Int(round(locInWrapper.y)))
                         var fixedOpposite: CGPoint?
+                        var fixedOppositeCoord: PixelCoordinate?
                         switch edge {
                         case .middleLeft:
-                            fixedLoc.y = annotatorRect.minY
-                            fixedOpposite = CGPoint(x: annotatorRect.maxX, y: annotatorRect.maxY)
+                            locAligned.y = annotatorFrame.minY
+                            locAlignedCoord.y = annotatorPixelRect.minY
+                            fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.maxY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.maxY)
                         case .topMiddle:
-                            fixedLoc.x = annotatorRect.maxX
-                            fixedOpposite = CGPoint(x: annotatorRect.minX, y: annotatorRect.maxY)
+                            locAligned.x = annotatorFrame.maxX
+                            locAlignedCoord.x = annotatorPixelRect.maxX
+                            fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.maxY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.maxY)
                         case .bottomMiddle:
-                            fixedLoc.x = annotatorRect.minX
-                            fixedOpposite = CGPoint(x: annotatorRect.maxX, y: annotatorRect.minY)
+                            locAligned.x = annotatorFrame.minX
+                            locAlignedCoord.x = annotatorPixelRect.minX
+                            fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.minY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.minY)
                         case .middleRight:
-                            fixedLoc.y = annotatorRect.maxY
-                            fixedOpposite = CGPoint(x: annotatorRect.minX, y: annotatorRect.minY)
+                            locAligned.y = annotatorFrame.maxY
+                            locAlignedCoord.y = annotatorPixelRect.maxY
+                            fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.minY)
+                            fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.minY)
                         default: break
                         }
-                        if let fixedOpposite = fixedOpposite {
-                            let rect = CGRect(point1: fixedOpposite, point2: fixedLoc)
+                        if let fixedOpposite = fixedOpposite, let fixedOppositeCoord = fixedOppositeCoord {
+                            let newFrame = CGRect(point1: fixedOpposite, point2: locAligned)
                             areaDraggingOverlay.frame =
-                                rect.inset(by: areaDraggingOverlay.outerInsets)
-                                    // .intersection(sceneActionEffectView.bounds)
+                                newFrame.inset(by: areaDraggingOverlay.outerInsets)
+                            let newPixelRect = PixelRect(coordinate1: fixedOppositeCoord, coordinate2: locAlignedCoord)
+                            areaDraggingOverlay.contextRect = newPixelRect.intersection(wrapper.pixelBounds)
                         }
                     }
                     else {
@@ -472,8 +492,7 @@ class SceneScrollView: NSScrollView {
             }
         }
         else if sceneState.type == .annotatorDragging {
-            let draggingArea = annotatorDraggingOverlayRect
-            if !draggingArea.isEmpty {
+            if let draggingArea = areaDraggingOverlay.contextRect, !draggingArea.isEmpty {
                 trackingDelegate?.trackAreaChanged(self, to: draggingArea)
             }
         }
@@ -501,8 +520,7 @@ class SceneScrollView: NSScrollView {
                 }
             }
             else if sceneState.manipulatingOverlay is AreaAnnotatorOverlay {
-                let draggingArea = annotatorDraggingOverlayRect
-                if draggingArea.size > PixelSize(width: 1, height: 1) {
+                if let draggingArea = areaDraggingOverlay.contextRect, draggingArea.size > PixelSize(width: 1, height: 1) {
                     if sceneTool == .selectionArrow {
                         trackingDelegate?.trackMagicCursorDragged(self, to: draggingArea)
                     }

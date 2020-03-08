@@ -10,7 +10,10 @@ import Cocoa
 
 class ColorAnnotatorOverlay: AnnotatorOverlay {
     
-    override init(label: String) {
+    public fileprivate(set) var coordinate: PixelCoordinate
+    
+    init(label: String, coordinate: PixelCoordinate) {
+        self.coordinate = coordinate
         super.init(label: label)
         isFixedOverlay = true
     }

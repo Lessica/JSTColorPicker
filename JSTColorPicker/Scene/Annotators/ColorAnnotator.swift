@@ -17,7 +17,7 @@ class ColorAnnotator: Annotator {
     }
     
     init(pixelItem: PixelColor) {
-        super.init(pixelItem: pixelItem, view: ColorAnnotatorOverlay(label: String(pixelItem.id)))
+        super.init(pixelItem: pixelItem, view: ColorAnnotatorOverlay(label: String(pixelItem.id), coordinate: pixelItem.coordinate))
     }
 }
 
