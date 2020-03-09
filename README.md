@@ -21,13 +21,14 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ## Usage
 
 ### Magic Cursor
-- `⌘↵` / **Click** (or **Deep Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
-- `⇧` + **Drag** (or **Deep Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
+- `⌘↵` / **Tap** (or **Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
+- `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
 - `⌘⌫`: Delete *coordinate & color* at current position or *area* contains current position.
+- **Hold** `⌘`: Switch to *Selection Arrow* temporarily.
 
 ### Magnifying Glass
 - **Click**: Magnify to next level from current position.
-- `⇧` + **Drag** (or **Deep Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
+- `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
 - **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
@@ -35,6 +36,9 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - **Click**: Minify to previous level from current position.
 - **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Magnifying Glass* temporarily.
+
+### Selection Arrow
+- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 
 ### Move
 - **Drag**: A simple drag-to-move operation for common mouse device.
