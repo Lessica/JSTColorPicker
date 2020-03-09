@@ -186,7 +186,6 @@ class GridView: NSView {
         }
         
         // ctx.saveGState()
-        ctx.setShouldAntialias(false)
         ctx.setLineWidth(GridState.gridLineWidth)
         GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
         // ctx.restoreGState()
