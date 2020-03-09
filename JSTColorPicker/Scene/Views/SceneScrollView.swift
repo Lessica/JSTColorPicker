@@ -24,7 +24,7 @@ class SceneScrollView: NSScrollView {
     fileprivate var minimumDraggingDistance: CGFloat { return enableForceTouch ? 6.0 : 3.0 }
     fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int {
         switch tool {
-        case .magicCursor, .magnifyingGlass:
+        case .magicCursor, .magnifyingGlass, .selectionArrow:
             return enableForceTouch ? 1 : 0
         default:
             return 0
@@ -269,7 +269,8 @@ class SceneScrollView: NSScrollView {
                     sceneState.type = shouldBeginAreaDragging(for: event) ? .areaDragging : .forbidden
                 }
                 else if type == .annotatorDragging {
-                    if let overlay = editingAnnotatorOverlayForAnnotatorDragging(for: event) {
+                    if shouldBeginAnnotatorDragging(for: event),
+                        let overlay = editingAnnotatorOverlayForAnnotatorDragging(for: event) {
                         var shouldBeginEditing = false
                         if let colorAnnotatorOverlay = overlay as? ColorAnnotatorOverlay,
                             let capturedImage = colorAnnotatorOverlay.capturedImage
@@ -468,6 +469,10 @@ class SceneScrollView: NSScrollView {
         } else {
             return shiftPressed
         }
+    }
+    
+    fileprivate func shouldBeginAnnotatorDragging(for event: NSEvent) -> Bool {
+        return enableForceTouch ? sceneState.stage >= requiredEventStageFor(sceneTool) : true
     }
     
     fileprivate func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {

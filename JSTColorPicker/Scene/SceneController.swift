@@ -197,20 +197,21 @@ class SceneController: NSViewController {
         let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        var shouldNotifySceneBoundsChanged = false
         if self.drawGridsInScene != drawGridsInScene {
             self.drawGridsInScene = drawGridsInScene
-            if drawGridsInScene {
-                sceneBoundsChanged()
-            } else {
-                sceneGridView.setNeedsDisplay()
-            }
+            shouldNotifySceneBoundsChanged = true
         }
         let drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene]
         if self.drawRulersInScene != drawRulersInScene {
             self.drawRulersInScene = drawRulersInScene
             reloadSceneRulerConstraints()
+            shouldNotifySceneBoundsChanged = true
         }
         usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
+        if shouldNotifySceneBoundsChanged {
+            sceneBoundsChanged()
+        }
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
