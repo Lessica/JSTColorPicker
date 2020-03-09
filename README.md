@@ -2,13 +2,8 @@
 Pick color, location, and area from PNG screenshots (i.e. image annotation). This tool uses [sRGB IEC61966-2.1](https://en.wikipedia.org/wiki/SRGB) as its color space.
 
 
-## Screenshots
-![v1.7-2](https://raw.githubusercontent.com/Lessica/JSTColorPicker/master/screenshots/v1.7-2.png?raw=true)
-
-
 ## Features
 - Pick colors & areas from PNG screenshots
-- Select/Drag to move/resize annotators
 - Read/Write annotator data from/into EXIF dictionary of PNG files
 - Take screenshots directly from iOS devices (depends `libimobiledevice`)
 - Copy/Export annotator data using custom templates
@@ -52,11 +47,10 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ### Fit Window / Fill Window
 There's no need to explain.
 
-### Item Actions
-- Select item(s) from left content list.
+### Annotator Management
+- Select one or more item(s) from left content list.
 - Right click to show menu for selected item(s).
 - `0123456789`: Enter item `ID` to select existing item quickly.
-- Modify item *coordinate* or *area* by moving its ruler markers.
 
 ### Export
 - `⌘E`: Export all items using selected template.
@@ -68,10 +62,10 @@ There's no need to explain.
 ## Menu Key Equivalents
 
 ### JSTColorPicker
-- `⌘,` Preferences
+- `⌘,` Preferences...
 - `⌘H` Hide JSTColorPicker
 - `⌥⌘H` Hide Others
-- `⌘Q` Quit
+- `⌘Q` Quit JSTColorPicker
 
 ### File
 - `⌘N` New
@@ -87,7 +81,6 @@ There's no need to explain.
 - `⌘A` Select All
 
 ### View
-- `⇧⌘\` Show All Tabs
 - `⌥⌘T` Show/Hide Toolbar
 - `⌃⌘S` Show/Hide Sidebar
 - `⌃⌘F` Enter/Exit Full Screen
@@ -101,6 +94,7 @@ There's no need to explain.
 - `⌘M` Minimize
 - `⌃⇧⇥` Show Previous Tab
 - `⌃⇥` Show Next Tab
+- `⇧⌘\` Show All Tabs
 
 ### Help
 - `⌘?` JSTColorPicker Help
@@ -108,12 +102,13 @@ There's no need to explain.
 
 ## Toolbar Key Equivalents
 - `⌃F1` Open...
-- `⌃F2` Cursor
-- `⌃F3` Magnifying Glass
-- `⌃F4` Minifying Glass
-- `⌃F5` Move
-- `⌃F6` Fit Window
-- `⌃F7` Fill Window
+- `⌃F2` *Magic Cursor*
+- `⌃F3` *Magnifying Glass*
+- `⌃F4` *Minifying Glass*
+- `⌃F5` *Selection Arrow*
+- `⌃F6` *Move*
+- `⌃F7` Fit Window
+- `⌃F8` Fill Window
 
 
 ## Customizable Templates
@@ -153,14 +148,14 @@ end
   - `image.get_color(x, y)`: returns **argb** integer value of color
   - `image.get_image(x, y, w, h)`: returns cropped image's PNG data representation
 
-`args` is a lua sequence of *colors* and *areas*:
-* *color* item:
+`args` is a lua sequence of *coordinate & color* and *area*:
+* *coordinate & color*:
   - `color.id`
   - `color.similarity`
   - `color.x`
   - `color.y`
   - `color.color`: **argb** integer value of color
-* *area* item:
+* *area*:
   - `area.id`
   - `area.similarity`
   - `area.x`
@@ -168,36 +163,5 @@ end
   - `area.w`: area width in pixels
   - `area.h`: area height in pixels
 
-Test the existence of `item.w` to check if the item is a *color* or an *area*.
-
-### Debug Templates
-
-To view template logs, you have to build and install JSTColorPicker from source code, then click `Show Logs...` from the *export option* menu, search for process `JSTColorPicker` in the `Console.app`.
-
-Click `Reload All Templates` will reply all changes you made to the `templates` folder immediately.
-
-
-## License
-
-MIT License
-
-Copyright (c) 2020 82Flex \<i.82@me.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Test the existence of `item.w` to check if the item is a *coordinate & color* or an *area*.
 

@@ -80,7 +80,7 @@ local generator = function (image, ...)
 end
 
 return {
-    uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  --required, a unique UUID4 identifier
+    uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  -- required, a unique UUID4 identifier
     name = "Example",  -- required, name only for display
     version = "0.1",  -- required, same template with earlier version will not be displayed
     platformVersion = "1.6",  -- minimum required software version

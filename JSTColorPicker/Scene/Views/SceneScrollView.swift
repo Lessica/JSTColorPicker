@@ -23,12 +23,7 @@ class SceneScrollView: NSScrollView {
     }
     fileprivate var minimumDraggingDistance: CGFloat { return enableForceTouch ? 6.0 : 3.0 }
     fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int {
-        switch tool {
-        case .magicCursor, .magnifyingGlass, .selectionArrow:
-            return enableForceTouch ? 1 : 0
-        default:
-            return 0
-        }
+        return enableForceTouch ? 1 : 0
     }
     
     fileprivate static let rulerThickness: CGFloat = 16.0
@@ -265,7 +260,10 @@ class SceneScrollView: NSScrollView {
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
             let type = SceneManipulatingType.leftDraggingType(for: sceneTool)
             if type.level > sceneState.type.level {
-                if type == .areaDragging {
+                if type == .sceneDragging {
+                    sceneState.type = shouldBeginSceneDragging(for: event) ? .sceneDragging : .forbidden
+                }
+                else if type == .areaDragging {
                     sceneState.type = shouldBeginAreaDragging(for: event) ? .areaDragging : .forbidden
                 }
                 else if type == .annotatorDragging {
@@ -462,6 +460,10 @@ class SceneScrollView: NSScrollView {
         super.reflectScrolledClipView(cView)
     }
     
+    fileprivate func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
+        return sceneState.stage >= requiredEventStageFor(sceneTool)
+    }
+    
     fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
         let shiftPressed = event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
         if enableForceTouch {
@@ -472,7 +474,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func shouldBeginAnnotatorDragging(for event: NSEvent) -> Bool {
-        return enableForceTouch ? sceneState.stage >= requiredEventStageFor(sceneTool) : true
+        return sceneState.stage >= requiredEventStageFor(sceneTool)
     }
     
     fileprivate func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {

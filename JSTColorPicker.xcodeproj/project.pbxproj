@@ -150,6 +150,7 @@
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
 		D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974CA24140A9000223B31 /* SceneEffectView.swift */; };
+		D69974E52416595500223B31 /* JSTColorPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = D69974E72416595500223B31 /* JSTColorPicker.html */; };
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
 		D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
 		D699E0CC240908F90011A4CB /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0CB240908F90011A4CB /* FolderController.swift */; };
@@ -513,6 +514,8 @@
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
 		D69974CA24140A9000223B31 /* SceneEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEffectView.swift; sourceTree = "<group>"; };
+		D69974E92416597500223B31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/JSTColorPicker.html; sourceTree = "<group>"; };
+		D69974EA2416598C00223B31 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hans"; path = "zh-Hans.lproj/JSTColorPicker.html"; sourceTree = "<group>"; };
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
 		D699E0C72408E6E80011A4CB /* GeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralController.swift; sourceTree = "<group>"; };
 		D699E0CB240908F90011A4CB /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
@@ -1095,6 +1098,7 @@
 		D69974E22416574D00223B31 /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				D69974E72416595500223B31 /* JSTColorPicker.html */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -1316,6 +1320,7 @@
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
+				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1561,6 +1566,15 @@
 				D64AF0B6240D0B62003A5B17 /* en */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D69974E72416595500223B31 /* JSTColorPicker.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D69974E92416597500223B31 /* en */,
+				D69974EA2416598C00223B31 /* zh-Hans */,
+			);
+			name = JSTColorPicker.html;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1813,7 +1827,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
@@ -1826,7 +1840,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -1844,7 +1858,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPicker/JSTColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"";
@@ -1857,7 +1871,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/lib",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";

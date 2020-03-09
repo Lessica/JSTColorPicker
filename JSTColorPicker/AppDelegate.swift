@@ -71,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func showGithubPage(_ sender: NSMenuItem) {
-        if let url = URL.init(string: "https://github.com/Lessica/JSTColorPicker") {
+        if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
             NSWorkspace.shared.open(url)
         }
     }

@@ -330,23 +330,7 @@ class SceneController: NSViewController {
     }
     
     fileprivate func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
-        if type == .leftGeneric {
-            switch tool {
-            case .magicCursor:
-                return enableForceTouch ? 1 : 0
-            default:
-                return 0
-            }
-        }
-        else if type == .rightGeneric {
-            switch tool {
-            case .magicCursor, .selectionArrow:
-                return enableForceTouch ? 1 : 0
-            default:
-                return 0
-            }
-        }
-        return 0
+        return enableForceTouch ? 1 : 0
     }
     
     override func mouseUp(with event: NSEvent) {

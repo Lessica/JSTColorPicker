@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSTColorPicker</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="1x9q" id="jstcolorpicker">JSTColorPicker</h1><p data-anchor-id="6eya">Pick color, location, and area from PNG screenshots (i.e. image annotation). This tool uses <a href="https://en.wikipedia.org/wiki/SRGB" target="_blank">sRGB IEC61966-2.1</a> as its color space.</p><div class="md-section-divider"></div><h2 data-anchor-id="rxg7" id="features">Features</h2><ul data-anchor-id="r0zz">
+<li>Pick colors &amp; areas from PNG screenshots</li>
+<li>Read/Write annotator data from/into EXIF dictionary of PNG files</li>
+<li>Take screenshots directly from iOS devices (depends <code>libimobiledevice</code>)</li>
+<li>Copy/Export annotator data using custom templates</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="ijw5" id="todos">TODOs</h2><ul data-anchor-id="kfgc">
+<li>Take screenshots from Android devices</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="9cev" id="usage">Usage</h2><div class="md-section-divider"></div><h3 data-anchor-id="awg1" id="magic-cursor">Magic Cursor</h3><ul data-anchor-id="09d9">
+<li><code>⌘↵</code> / <strong>Tap</strong> (or <strong>Click</strong> if <em>Force Touch</em> is enabled): Add current <em>coordinate &amp; color</em> to content list.</li>
+<li><code>⇧</code> + <strong>Drag</strong> (or <strong>Drag</strong> if <em>Force Touch</em> is enabled): Add dragged <em>area</em> to content list.</li>
+<li><code>⌘⌫</code>: Delete <em>coordinate &amp; color</em> at current position or <em>area</em> contains current position.</li>
+<li><strong>Hold</strong> <code>⌘</code>: Switch to <em>Selection Arrow</em> temporarily.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="gufn" id="magnifying-glass">Magnifying Glass</h3><ul data-anchor-id="v3yu">
+<li><strong>Click</strong>: Magnify to next level from current position.</li>
+<li><code>⇧</code> + <strong>Drag</strong> (or <strong>Drag</strong> if <em>Force Touch</em> is enabled): Magnify to fill window with dragged area.</li>
+<li><strong>Hold</strong> <code>⌘</code>: Switch to <em>Magic Cursor</em> temporarily.</li>
+<li><strong>Hold</strong> <code>⌥</code>: Switch to <em>Minifying Glass</em> temporarily.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="t96w" id="minifying-glass">Minifying Glass</h3><ul data-anchor-id="efny">
+<li><strong>Click</strong>: Minify to previous level from current position.</li>
+<li><strong>Hold</strong> <code>⌘</code>: Switch to <em>Magic Cursor</em> temporarily.</li>
+<li><strong>Hold</strong> <code>⌥</code>: Switch to <em>Magnifying Glass</em> temporarily.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="baxu" id="selection-arrow">Selection Arrow</h3><ul data-anchor-id="81ys">
+<li><strong>Hold</strong> <code>⌘</code>: Switch to <em>Magic Cursor</em> temporarily.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="7trq" id="move">Move</h3><ul data-anchor-id="j0bk">
+<li><strong>Drag</strong>: A simple drag-to-move operation for common mouse device.</li>
+<li><strong>Hold</strong> <code>⌘</code>: Switch to <em>Magic Cursor</em> temporarily.</li>
+<li><strong>Move with two fingers</strong>: Standard drag operation for Magic Mouse / Trackpad.</li>
+<li><strong>Pinch with two fingers</strong>: Zoom in or out.</li>
+<li><code>⌘</code> + <code>↑ ↓ ← →</code>: Move cursor by 1 pixel.</li>
+<li><code>⇧⌘</code> + <code>↑ ↓ ← →</code>: Move cursor by 10 pixels.</li>
+<li><code>⌃⌘</code> + <code>↑ ↓ ← →</code>: Move cursor by 100 pixels.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="m368" id="fit-window-fill-window">Fit Window / Fill Window</h3><p data-anchor-id="nzoc">There's no need to explain.</p><div class="md-section-divider"></div><h3 data-anchor-id="oa91" id="annotator-management">Annotator Management</h3><ul data-anchor-id="kr3a">
+<li>Select one or more item(s) from left content list.</li>
+<li>Right click to show menu for selected item(s).</li>
+<li><code>0123456789</code>: Enter item <code>ID</code> to select existing item quickly.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="zouv" id="export">Export</h3><ul data-anchor-id="djxm">
+<li><code>⌘E</code>: Export all items using selected template.</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="vy36" id="others">Others</h3><ul data-anchor-id="0o00">
+<li><code>⌘`</code>: Copy the <em>coordinate &amp; color</em> at the cursor location directly to the general pasteboard.</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="64g0" id="menu-key-equivalents">Menu Key Equivalents</h2><div class="md-section-divider"></div><h3 data-anchor-id="4qzd" id="jstcolorpicker-1">JSTColorPicker</h3><ul data-anchor-id="mkfh">
+<li><code>⌘,</code> Preferences...</li>
+<li><code>⌘H</code> Hide JSTColorPicker</li>
+<li><code>⌥⌘H</code> Hide Others</li>
+<li><code>⌘Q</code> Quit JSTColorPicker</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="crbp" id="file">File</h3><ul data-anchor-id="plpb">
+<li><code>⌘N</code> New</li>
+<li><code>⌘O</code> Open...</li>
+<li><code>⌘W</code> Close</li>
+<li><code>⌘S</code> Save...</li>
+<li><code>⇧⌘S</code> Save As...</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="oywr" id="edit">Edit</h3><ul data-anchor-id="t6vt">
+<li><code>⌘Z</code> Undo</li>
+<li><code>⇧⌘Z</code> Redo</li>
+<li><code>⌫</code> Delete</li>
+<li><code>⌘A</code> Select All</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="xt7a" id="view">View</h3><ul data-anchor-id="m41a">
+<li><code>⌥⌘T</code> Show/Hide Toolbar</li>
+<li><code>⌃⌘S</code> Show/Hide Sidebar</li>
+<li><code>⌃⌘F</code> Enter/Exit Full Screen</li>
+<li><code>⌃⌘G</code> <strong>Toggle Color Grid</strong></li>
+<li><code>⌃⌘C</code> <strong>Toggle Color Panel</strong></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="9w6z" id="devices">Devices</h3><ul data-anchor-id="glx2">
+<li><code>⌥⌘S</code> <strong>Screenshot</strong></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="ap8q" id="window">Window</h3><ul data-anchor-id="sul6">
+<li><code>⌘M</code> Minimize</li>
+<li><code>⌃⇧⇥</code> Show Previous Tab</li>
+<li><code>⌃⇥</code> Show Next Tab</li>
+<li><code>⇧⌘\</code> Show All Tabs</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="b5e2" id="help">Help</h3><ul data-anchor-id="9270">
+<li><code>⌘?</code> JSTColorPicker Help</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="2um0" id="toolbar-key-equivalents">Toolbar Key Equivalents</h2><ul data-anchor-id="656h">
+<li><code>⌃F1</code> Open...</li>
+<li><code>⌃F2</code> <em>Magic Cursor</em></li>
+<li><code>⌃F3</code> <em>Magnifying Glass</em></li>
+<li><code>⌃F4</code> <em>Minifying Glass</em></li>
+<li><code>⌃F5</code> <em>Selection Arrow</em></li>
+<li><code>⌃F6</code> <em>Move</em></li>
+<li><code>⌃F7</code> Fit Window</li>
+<li><code>⌃F8</code> Fill Window</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="7qvi" id="customizable-templates">Customizable Templates</h2><p data-anchor-id="zqxu">JSTColorPicker uses <a href="https://www.lua.org/" target="_blank">Lua 5.3.4</a> as its template engine.</p><p data-anchor-id="k0rz">Click the <em>export option</em> button at the bottom right of window, you will see available templates in <code>templates</code> folder. Click <code>Show Templates...</code> will show that folder in Finder. The name of template file should end up with path extension <code>.lua</code>. Selected template will be applied to all copy/export actions if possible.</p><div class="md-section-divider"></div><h3 data-anchor-id="cbew" id="write-templates">Write Templates</h3><p data-anchor-id="k3zc"><em>Template</em> is a <em>Lua</em> script which simply returns a table:</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="crd6" style=""><ol class="linenums"><li class="L0"><code class="language-lua"><span class="kwd">return</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L1"><code class="language-lua"><span class="pln">    uuid </span><span class="pun">=</span><span class="pln"> </span><span class="str">"0C2E7537-45A6-43AD-82A6-35D774414A09"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln">required</span><span class="pun">,</span><span class="pln"> a unique UUID4 identifier</span></code></li><li class="L2"><code class="language-lua"><span class="pln">    name </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Example"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> required</span><span class="pun">,</span><span class="pln"> name only </span><span class="kwd">for</span><span class="pln"> display</span></code></li><li class="L3"><code class="language-lua"><span class="pln">    version </span><span class="pun">=</span><span class="pln"> </span><span class="str">"0.1"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> required</span><span class="pun">,</span><span class="pln"> same </span><span class="kwd">template</span><span class="pln"> </span><span class="kwd">with</span><span class="pln"> earlier version will </span><span class="kwd">not</span><span class="pln"> be displayed</span></code></li><li class="L4"><code class="language-lua"><span class="pln">    platformVersion </span><span class="pun">=</span><span class="pln"> </span><span class="str">"1.6"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> minimum required software version</span></code></li><li class="L5"><code class="language-lua"><span class="pln">    author </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Lessica"</span><span class="pun">,</span></code></li><li class="L6"><code class="language-lua"><span class="pln">    description </span><span class="pun">=</span><span class="pln"> </span><span class="str">"This is an example of JSTColorPicker export script."</span><span class="pun">,</span></code></li><li class="L7"><code class="language-lua"><span class="pln">    extension </span><span class="pun">=</span><span class="pln"> </span><span class="str">"lua"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> file extension used </span><span class="kwd">for</span><span class="pln"> exporting</span></code></li><li class="L8"><code class="language-lua"><span class="pln">    generator </span><span class="pun">=</span><span class="pln"> generator</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> required</span></code></li><li class="L9"><code class="language-lua"><span class="pun">}</span></code></li></ol></pre><p data-anchor-id="lqbp"><code>generator</code> is a lua function which will be executed when you copy or export item(s):</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="zzn6" style=""><ol class="linenums"><li class="L0"><code class="language-lua"><span class="kwd">local</span><span class="pln"> generator </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">image</span><span class="pun">,</span><span class="pln"> </span><span class="pun">...)</span></code></li><li class="L1"><code class="language-lua"><span class="pln">    </span><span class="pun">--</span></code></li><li class="L2"><code class="language-lua"><span class="pln">    </span><span class="kwd">local</span><span class="pln"> args </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{...}</span></code></li><li class="L3"><code class="language-lua"><span class="pln">    </span><span class="pun">--</span></code></li><li class="L4"><code class="language-lua"><span class="kwd">end</span></code></li></ol></pre><p data-anchor-id="zf47"><code>image</code> is a lua table which represents the opened image document in current window:</p><ul data-anchor-id="j365">
+<li><code>image.w</code>: image width in pixels</li>
+<li><code>image.h</code>: image height in pixels</li>
+<li><code>image.get_color(x, y)</code>: returns <strong>argb</strong> integer value of color</li>
+<li><code>image.get_image(x, y, w, h)</code>: returns cropped image's PNG data representation</li>
+</ul><p data-anchor-id="r3uq"><code>args</code> is a lua sequence of <em>coordinate &amp; color</em> and <em>area</em>:</p><ul data-anchor-id="e801">
+<li><em>coordinate &amp; color</em>: <br>
+<ul><li><code>color.id</code></li>
+<li><code>color.similarity</code></li>
+<li><code>color.x</code></li>
+<li><code>color.y</code></li>
+<li><code>color.color</code>: <strong>argb</strong> integer value of color</li></ul></li>
+<li><em>area</em>: <br>
+<ul><li><code>area.id</code></li>
+<li><code>area.similarity</code></li>
+<li><code>area.x</code></li>
+<li><code>area.y</code></li>
+<li><code>area.w</code>: area width in pixels</li>
+<li><code>area.h</code>: area height in pixels</li></ul></li>
+</ul><p data-anchor-id="2fsl">Test the existence of <code>item.w</code> to check if the item is a <em>coordinate &amp; color</em> or an <em>area</em>.</p></div>
+</body>
+</html>
