@@ -9,38 +9,8 @@
 import OSLog
 import Foundation
 
-extension String {
-    
-    func split(by length: Int) -> [String] {
-        var startIndex = self.startIndex
-        var results = [Substring]()
-
-        while startIndex < self.endIndex {
-            let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
-            results.append(self[startIndex..<endIndex])
-            startIndex = endIndex
-        }
-
-        return results.map { String($0) }
-    }
-    
-}
-
-extension Array {
-    
-    func filterDuplicates(includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element] {
-        var results = [Element]()
-        forEach { (element) in
-            let existingElements = results.filter {
-                return includeElement(element, $0)
-            }
-            if existingElements.count == 0 {
-                results.append(element)
-            }
-        }
-        return results
-    }
-    
+extension NSPasteboard.Name {
+    static let jstColorPicker = NSPasteboard.Name("com.jst.JSTColorPicker.pasteboard")
 }
 
 enum ExportError: LocalizedError {
@@ -59,45 +29,57 @@ enum ExportError: LocalizedError {
 
 class ExportManager {
     
-    static var templateRootURL: URL {
+    public static var templateRootURL: URL {
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("templates")
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         return url
     }
-    
-    static var exampleTemplateURL: URL? {
+    public static var exampleTemplateURL: URL? {
         return Bundle.main.url(forResource: "example", withExtension: "lua")
     }
-    
-    var templates: [Template] = []
-    var selectedTemplate: Template? {
+    public fileprivate(set) var templates: [Template] = []
+    public var selectedTemplate: Template? {
         templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
     }
-    var selectedTemplateUUID: UUID? {
-        get {
-            return UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "")
-        }
-        set {
-            UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString
-        }
+    public var selectedTemplateUUID: UUID? {
+        get { return UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
+        set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
     
-    weak var screenshot: Screenshot?
+    public weak var screenshot: Screenshot?
     
     required init(screenshot: Screenshot) {
         self.screenshot = screenshot
         try? reloadTemplates()
     }
     
-    fileprivate func exportToPasteboardAsString(_ string: String) {
+    fileprivate func exportToGeneralStringPasteboard(_ string: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(string, forType: .string)
     }
     
-    func reloadTemplates() throws {
+    fileprivate lazy var additionalPasteboard = {
+        return NSPasteboard(name: .jstColorPicker)
+    }()
+    
+    fileprivate func exportToAdditionalPasteboard(_ items: [ContentItem]) {
+        additionalPasteboard.clearContents()
+        additionalPasteboard.writeObjects(items)
+    }
+    
+    public var canImportFromAdditionalPasteboard: Bool {
+        return additionalPasteboard.canReadObject(forClasses: [ContentItem.self], options: nil)
+    }
+    
+    public func importFromAdditionalPasteboard() -> [ContentItem]? {
+        let objects = additionalPasteboard.readObjects(forClasses: [ContentItem.self], options: nil)
+        return objects as? [ContentItem]
+    }
+    
+    public func reloadTemplates() throws {
         var errors: [(URL, TemplateError)] = []
         let contents = try FileManager.default.contentsOfDirectory(at: ExportManager.templateRootURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants])
         
@@ -128,27 +110,28 @@ class ExportManager {
         }
     }
     
-    func copyPixelColor(at coordinate: PixelCoordinate) throws {
+    public func copyPixelColor(at coordinate: PixelCoordinate) throws {
         if let color = screenshot?.image?.color(at: coordinate) {
             try copyContentItem(color)
         }
     }
     
-    func copyPixelArea(at rect: PixelRect) throws {
+    public func copyPixelArea(at rect: PixelRect) throws {
         if let area = screenshot?.image?.area(at: rect) {
             try copyContentItem(area)
         }
     }
     
-    func copyContentItem(_ item: ContentItem) throws {
+    public func copyContentItem(_ item: ContentItem) throws {
         try copyContentItems([item])
     }
     
-    func copyContentItems(_ items: [ContentItem]) throws {
+    public func copyContentItems(_ items: [ContentItem]) throws {
         guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
         guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
         do {
-            exportToPasteboardAsString(try selectedTemplate.generate(image, for: items))
+            exportToAdditionalPasteboard(items)
+            exportToGeneralStringPasteboard(try selectedTemplate.generate(image, for: items))
         } catch let error as TemplateError {
             os_log("Cannot generate template: %@, failure reason: %@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
@@ -157,7 +140,7 @@ class ExportManager {
         }
     }
     
-    func exportItems(_ items: [ContentItem], to url: URL) throws {
+    public func exportItems(_ items: [ContentItem], to url: URL) throws {
         guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
         guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
         do {
@@ -172,7 +155,7 @@ class ExportManager {
         }
     }
     
-    func exportAllItems(to url: URL) throws {
+    public func exportAllItems(to url: URL) throws {
         guard let items = screenshot?.content?.items else
         {
             throw ExportError.noDocumentLoaded
@@ -185,14 +168,14 @@ class ExportManager {
         guard let exampleTemplateURL = ExportManager.exampleTemplateURL else { throw ExportError.noTemplateSelected }
         let exampleTemplate = try Template(from: exampleTemplateURL)
         let generatedString = try exampleTemplate.generate(image, for: items)
-        exportToPasteboardAsString(generatedString)
+        exportToGeneralStringPasteboard(generatedString)
     }
     
     private func hardcodedCopyContentItemsNative(_ items: [ContentItem]) throws {
         if items.count == 1 {
             if let item = items.first {
                 if let color = item as? PixelColor {
-                    exportToPasteboardAsString("\(String(color.coordinate.x).leftPadding(to: 4, with: " ")), \(String(color.coordinate.y).leftPadding(to: 4, with: " ")), \(color.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", color.similarity * 100.0).leftPadding(to: 6, with: " "))")
+                    exportToGeneralStringPasteboard("\(String(color.coordinate.x).leftPadding(to: 4, with: " ")), \(String(color.coordinate.y).leftPadding(to: 4, with: " ")), \(color.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", color.similarity * 100.0).leftPadding(to: 6, with: " "))")
                 }
                 else if let area = item as? PixelArea {
                     if let data = screenshot?.image?.pngRepresentation(of: area) {
@@ -200,7 +183,7 @@ class ExportManager {
                             String(format: "\\x%02hhx", $0)
                         }
                         .joined().split(by: 64).joined(separator: "\n")
-                        exportToPasteboardAsString("""
+                        exportToGeneralStringPasteboard("""
 x, y = screen.find_image([[
 \(dataString)
 ]], \(String(format: "%.2f", area.similarity * 100.0)), \(String(area.rect.origin.x)), \(String(area.rect.origin.y)), \(String(area.rect.opposite.x)), \(String(area.rect.opposite.y)))
@@ -222,7 +205,7 @@ x, y = screen.find_image([[
                 outputString += ")"
             }
             
-            exportToPasteboardAsString(outputString)
+            exportToGeneralStringPasteboard(outputString)
         }
     }
     

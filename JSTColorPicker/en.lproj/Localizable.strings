@@ -93,7 +93,7 @@
 "Load image source failed." = "Load image source failed.";
 
 /* ContentError */
-"Maximum item count reached." = "Maximum item count reached.";
+"Maximum item count %d reached." = "Maximum item count %d reached.";
 
 /* TemplateError */
 "Missing required field: %@." = "Missing required field: %@.";
@@ -124,19 +124,22 @@
 "Preferences" = "Preferences";
 
 /* ContentError */
-"The requested item conflicts with another item in the document." = "The requested item conflicts with another item in the document.";
+"The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
 
 /* ContentError */
-"The requested item is out of the document range." = "The requested item is out of the document range.";
+"The requested item conflicts with another item in the document." = "The requested item conflicts with another item in the document.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "This feature is not implemented.";
 
 /* ContentError */
-"This item already exists." = "This item already exists.";
+"This item %@ already exists." = "This item %@ already exists.";
 
 /* ContentError */
-"This item does not exist." = "This item does not exist.";
+"This item %@ does not exist." = "This item %@ does not exist.";
+
+/* ContentError */
+"This operation requires %d more spaces." = "This operation requires %d more spaces.";
 
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "This template requires JSTColorPicker (%@) or later.";

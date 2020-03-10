@@ -5,6 +5,9 @@
 /* Class = "NSButtonCell"; title = "Confirm Before Delete"; ObjectID = "1Y6-DK-gNW"; */
 "1Y6-DK-gNW.title" = "Confirm Before Delete";
 
+/* Class = "NSTextFieldCell"; title = "99"; ObjectID = "2cV-9r-guE"; */
+"2cV-9r-guE.title" = "99";
+
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "Annotation";
 
@@ -37,9 +40,6 @@
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "Hide Annotators When Resize";
-
-/* Class = "NSTextFieldCell"; title = "99"; ObjectID = "2cV-9r-guE"; */
-"2cV-9r-guE.title" = "99";
 
 /* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "Maximum Count";

@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .confirmBeforeDelete: true,
             .maximumItemCountEnabled: true,
             .maximumItemCount: 99,
-            .enableNetworkDiscovery: true,
+            .enableNetworkDiscovery: false,
             .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path
         ]
         UserDefaults.standard.register(defaults: initialValues)

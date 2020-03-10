@@ -35,9 +35,13 @@ extension PixelSize: CustomStringConvertible {
     }
 }
 
-extension PixelSize: Equatable {
+extension PixelSize: Hashable {
     static func == (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width == rhs.width && lhs.height == rhs.height
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(width)
+        hasher.combine(height)
     }
 }
 

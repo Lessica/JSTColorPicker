@@ -10,6 +10,9 @@ import Foundation
 import LuaSwift
 
 class PixelColor: ContentItem {
+    override class var supportsSecureCoding: Bool {
+        return true
+    }
     
     public fileprivate(set) var coordinate: PixelCoordinate
     public fileprivate(set) var pixelColorRep: JSTPixelColor
@@ -31,7 +34,7 @@ class PixelColor: ContentItem {
     }
     
     required init?(coder: NSCoder) {
-        guard let pixelColorRep = coder.decodeObject(forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
+        guard let pixelColorRep = coder.decodeObject(of: [JSTPixelColor.self], forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
         let coordX = coder.decodeInteger(forKey: "coordinate.x")
         let coordY = coder.decodeInteger(forKey: "coordinate.y")
         self.coordinate    = PixelCoordinate(x: coordX, y: coordY)
@@ -50,6 +53,10 @@ class PixelColor: ContentItem {
         coordinate = try container.decode(PixelCoordinate.self, forKey: .coordinate)
         pixelColorRep = JSTPixelColor(red: red, green: green, blue: blue, alpha: alpha)
         try super.init(from: decoder)
+    }
+    
+    required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
+        fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
     }
     
     deinit {

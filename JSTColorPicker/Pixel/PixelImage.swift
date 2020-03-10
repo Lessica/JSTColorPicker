@@ -114,20 +114,22 @@ extension PixelImage: LuaSwift.Value {
         t["h"] = size.height
         t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
             let (x, y) = (args.integer, args.integer)
-            if let color = self.color(at: PixelCoordinate(x: Int(x), y: Int(y)))?.rgbaValue {
+            let coordinate = PixelCoordinate(x: Int(x), y: Int(y))
+            if let color = self.color(at: coordinate)?.rgbaValue {
                 return .value(color)
             }
             else {
-                return .error(ContentError.itemOutOfRange.failureReason!)
+                return .error(ContentError.itemOutOfRange(item: coordinate, range: self.size).failureReason!)
             }
         })
         t["get_image"] = vm.createFunction([ Int64.arg, Int64.arg, Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
             let (x, y, w, h) = (args.integer, args.integer, args.integer, args.integer)
-            if let data = self.pngRepresentation(of: PixelArea(rect: PixelRect(x: Int(x), y: Int(y), width: Int(w), height: Int(h)))) {
+            let area = PixelArea(rect: PixelRect(x: Int(x), y: Int(y), width: Int(w), height: Int(h)))
+            if let data = self.pngRepresentation(of: area) {
                 return .value(data)
             }
             else {
-                return .error(ContentError.itemOutOfRange.failureReason!)
+                return .error(ContentError.itemOutOfRange(item: area, range: self.size).failureReason!)
             }
         })
         t.push(vm)

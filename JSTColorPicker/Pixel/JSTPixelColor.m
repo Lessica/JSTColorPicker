@@ -4,6 +4,10 @@
 
 @implementation JSTPixelColor
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     uint8_t red   = (uint8_t)[coder decodeIntForKey:@"red"];
     uint8_t green = (uint8_t)[coder decodeIntForKey:@"green"];

@@ -125,9 +125,13 @@ extension PixelRect: CustomStringConvertible {
     }
 }
 
-extension PixelRect: Equatable {
+extension PixelRect: Hashable {
     static func == (lhs: PixelRect, rhs: PixelRect) -> Bool {
         return lhs.origin == rhs.origin && lhs.size == rhs.size
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(origin)
+        hasher.combine(size)
     }
 }
 

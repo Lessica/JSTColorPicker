@@ -493,27 +493,27 @@ class SceneScrollView: NSScrollView {
             }
         }
         if sceneState.type == .areaDragging {
-            let draggingArea = areaDraggingOverlayRect
-            if !draggingArea.isEmpty {
-                trackingDelegate?.trackAreaChanged(self, to: draggingArea)
+            let draggingRect = areaDraggingOverlayRect
+            if !draggingRect.isEmpty {
+                trackingDelegate?.trackAreaChanged(self, to: draggingRect)
             }
         }
         else if sceneState.type == .annotatorDragging {
-            if let draggingArea = areaDraggingOverlay.contextRect, !draggingArea.isEmpty {
-                trackingDelegate?.trackAreaChanged(self, to: draggingArea)
+            if let draggingRect = areaDraggingOverlay.contextRect, !draggingRect.isEmpty {
+                trackingDelegate?.trackAreaChanged(self, to: draggingRect)
             }
         }
     }
     
     fileprivate func trackDidEndDragging(with event: NSEvent) {
         if sceneState.type == .areaDragging {
-            let draggingArea = areaDraggingOverlayRect
-            if draggingArea.size > PixelSize(width: 1, height: 1) {
+            let draggingRect = areaDraggingOverlayRect
+            if draggingRect.size > PixelSize(width: 1, height: 1) {
                 if sceneTool == .magicCursor {
-                    trackingDelegate?.trackMagicCursorDragged(self, to: draggingArea)
+                    trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
                 }
                 else if sceneTool == .magnifyingGlass {
-                    trackingDelegate?.trackMagnifyingGlassDragged(self, to: draggingArea)
+                    trackingDelegate?.trackMagnifyingGlassDragged(self, to: draggingRect)
                 }
             }
         }
@@ -527,9 +527,9 @@ class SceneScrollView: NSScrollView {
                 }
             }
             else if sceneState.manipulatingOverlay is AreaAnnotatorOverlay {
-                if let draggingArea = areaDraggingOverlay.contextRect, draggingArea.size > PixelSize(width: 1, height: 1) {
+                if let draggingRect = areaDraggingOverlay.contextRect, draggingRect.size > PixelSize(width: 1, height: 1) {
                     if sceneTool == .selectionArrow {
-                        trackingDelegate?.trackMagicCursorDragged(self, to: draggingArea)
+                        trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
                     }
                 }
             }

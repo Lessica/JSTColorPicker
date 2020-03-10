@@ -10,6 +10,9 @@ import Foundation
 import LuaSwift
 
 class PixelArea: ContentItem {
+    override class var supportsSecureCoding: Bool {
+        return true
+    }
     
     public fileprivate(set) var rect: PixelRect
     
@@ -40,6 +43,10 @@ class PixelArea: ContentItem {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         rect = try container.decode(PixelRect.self, forKey: .rect)
         try super.init(from: decoder)
+    }
+    
+    required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
+        fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
     }
     
     deinit {

@@ -9,7 +9,14 @@
 import Foundation
 import LuaSwift
 
-class ContentItem: NSObject, NSCoding, Comparable, NSCopying, Codable, LuaSwift.Value {
+extension NSPasteboard.PasteboardType {
+    static let content = NSPasteboard.PasteboardType(rawValue: "com.jst.content")
+}
+
+class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {
+    class var supportsSecureCoding: Bool {
+        return true
+    }
     
     var id: Int
     var similarity: Double = 1.0
@@ -66,6 +73,26 @@ class ContentItem: NSObject, NSCoding, Comparable, NSCopying, Codable, LuaSwift.
     
     override var description: String {
         return "(ID: \(id))"
+    }
+    
+    func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [.content]
+    }
+    
+    func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
+        return NSKeyedArchiver.archivedData(withRootObject: self)
+    }
+    
+    static func readableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [.content]
+    }
+    
+    static func readingOptions(forType type: NSPasteboard.PasteboardType, pasteboard: NSPasteboard) -> NSPasteboard.ReadingOptions {
+        return .asKeyedArchive
+    }
+    
+    required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
+        fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
     }
     
 }

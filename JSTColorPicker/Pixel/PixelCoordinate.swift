@@ -41,9 +41,13 @@ extension PixelCoordinate: CustomStringConvertible {
     }
 }
 
-extension PixelCoordinate: Equatable {
+extension PixelCoordinate: Hashable {
     static func == (lhs: PixelCoordinate, rhs: PixelCoordinate) -> Bool {
         return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
     }
 }
 

@@ -188,6 +188,15 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "Bring All to Front";
 
+/* Class = "NSToolbarItem"; label = "Select"; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.label" = "Select";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Select"; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.paletteLabel" = "Select";
+
+/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (⌃F2)"; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.toolTip" = "Selection Arrow (⌃F2)";
+
 /* Class = "NSToolbarItem"; label = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.label" = "Fill Window";
 
@@ -227,11 +236,11 @@
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "Minimize";
 
-/* Class = "NSToolbarItem"; label = "Cursor"; ObjectID = "P19-sN-vdr"; */
-"P19-sN-vdr.label" = "Cursor";
+/* Class = "NSToolbarItem"; label = "Annotate"; ObjectID = "P19-sN-vdr"; */
+"P19-sN-vdr.label" = "Annotate";
 
-/* Class = "NSToolbarItem"; paletteLabel = "Cursor"; ObjectID = "P19-sN-vdr"; */
-"P19-sN-vdr.paletteLabel" = "Cursor";
+/* Class = "NSToolbarItem"; paletteLabel = "Annotate"; ObjectID = "P19-sN-vdr"; */
+"P19-sN-vdr.paletteLabel" = "Annotate";
 
 /* Class = "NSToolbarItem"; toolTip = "Magic Cursor (⌃F2)"; ObjectID = "P19-sN-vdr"; */
 "P19-sN-vdr.toolTip" = "Magic Cursor (⌃F2)";
