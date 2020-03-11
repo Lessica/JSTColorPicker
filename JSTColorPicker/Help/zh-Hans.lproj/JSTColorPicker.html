@@ -1,123 +1,356 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>JSTColorPicker</title>
+    <meta charset="utf-8">
+    <title>JSTColorPicker</title>
+    <link rel="stylesheet" href="../github-markdown.css">
 </head>
-<body>
-<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="autx" id="jstcolorpicker">JSTColorPicker</h1><p data-anchor-id="r783">从 PNG 屏幕截图 (即图像批注) 中选择颜色，位置和区域。该工具使用 <a href="https://en.wikipedia.org/wiki/SRGB" target="_blank">sRGB IEC61966-2.1</a> 作为其色彩空间。</p><div class="md-section-divider"></div><h2 data-anchor-id="gn8q" id="功能特性">功能特性</h2><ul data-anchor-id="mnfw">
-<li>从 PNG 屏幕截图中标注<em>坐标及颜色</em>和<em>区域</em></li>
-<li>从 PNG 文件的 EXIF 字典中读/写标注器数据</li>
-<li>直接从 iOS 设备获取屏幕截图 (依赖于 <code>libimobiledevice</code>)</li>
-<li>使用自定义模板复制/导出标注器数据</li>
-</ul><div class="md-section-divider"></div><h2 data-anchor-id="r2oy" id="todos">TODOs</h2><ul data-anchor-id="9r77">
-<li>从 Android 设备获取屏幕截图</li>
-</ul><div class="md-section-divider"></div><h2 data-anchor-id="0vsa" id="使用说明">使用说明</h2><div class="md-section-divider"></div><h3 data-anchor-id="el07" id="魔术光标">魔术光标</h3><ul data-anchor-id="xmfe">
-<li><code>⌘↵</code> / <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 将当前<em>坐标及颜色标注</em>添加到内容列表.</li>
-<li><code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>): 将当前拖拽<em>区域标注</em>添加到内容列表.</li>
-<li><code>⌘⌫</code>: 删除当前<em>坐标和颜色标注</em>或包含当前位置的<em>区域标注</em>.</li>
-<li><strong>按住</strong> <code>⌘</code>: 暂时切换到<em>选择箭头</em>.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="dh7p" id="放大镜">放大镜</h3><ul data-anchor-id="4ohb">
-<li><strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置放大到下一缩放级别.</li>
-<li><code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>): 放大已拖拽区域, 使之填充整个窗口.</li>
-<li><strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
-<li><strong>按住</strong> <code>⌥</code>: 暂时切换到 <em>缩小镜</em>.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="n3kb" id="缩小镜">缩小镜</h3><ul data-anchor-id="gfts">
-<li><strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置缩小到上一缩放级别.</li>
-<li><strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
-<li><strong>按住</strong> <code>⌥</code>: 暂时切换到 <em>放大镜</em>.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="na2a" id="选择箭头">选择箭头</h3><ul data-anchor-id="te02">
-<li><strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前<em>坐标和颜色标注</em>或包含当前位置的<em>区域标注</em>.</li>
-<li><strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 标注: 修改<em>坐标和颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
-<li><strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="aq4g" id="移动工具">移动工具</h3><ul data-anchor-id="ybjr">
-<li><strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 视图: 常规鼠标设备的简单拖拽移动操作.</li>
-<li><strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
-<li><strong>单指划动</strong>: 妙控鼠标的视图移动操作.</li>
-<li><strong>双指划动</strong>: 妙控板的视图移动操作.</li>
-<li><strong>双指捏合</strong>: 妙控板放大或缩小视图.</li>
-<li><strong>双指双击</strong>: 妙控板智能缩放.</li>
-<li><code>⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 1 个像素.</li>
-<li><code>⇧⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 10 个像素.</li>
-<li><code>⌃⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 100 像素.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="k81s" id="标尺">标尺</h3><ul data-anchor-id="2fci">
-<li><strong>拖动</strong>: 修改<em>坐标和颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="g9a9" id="适合窗口-填充窗口">适合窗口 / 填充窗口</h3><p data-anchor-id="t874">缩放视图到适合/填充窗口的尺寸.</p><div class="md-section-divider"></div><h3 data-anchor-id="kyxv" id="标注管理">标注管理</h3><ul data-anchor-id="cdjo">
-<li>从左侧的标注列表中选择一个或多个项目.</li>
-<li>右键单击以显示所选项目的菜单: <br>
-<ul><li><code>⌘C</code>: 使用当前<em>模板</em>复制所选项目.</li>
-<li><code>⇧⌘S</code>: 将所选<em>区域标注</em>另存为 PNG 文件.</li>
-<li><code>⇧⌘E</code>: 使用当前<em>模板</em>导出所选项目.</li>
-<li><code>↵</code>: 视图定位到所选项目.</li>
-<li><code>⌫</code>: 删除所选项目.</li></ul></li>
-<li><code>0123456789</code>: 快速输入项目 <code>ID</code> 以选择现有项目.</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="xzti" id="导出">导出</h3><ul data-anchor-id="s8wa">
-<li><code>⌘E</code>: 使用当前<em>模板</em>导出所有项目.</li>
-<li>点击右下角列表按钮显示导出选项菜单: <br>
-<ul><li><em>重新加载所有模板</em>: 修改模板文件后, 使用该操作以重载所有<em>模板</em>文件, 立即生效.</li>
-<li><em>显示模板...</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
-<li><em>显示日志...</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li></ul></li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="nszz" id="其他">其他</h3><ul data-anchor-id="uics">
-<li><code>⌘`</code>: 使用当前<em>模板</em>拷贝当前<em>坐标和颜色标注</em>到系统剪贴板.</li>
-</ul><div class="md-section-divider"></div><h2 data-anchor-id="dqjh" id="菜单快捷键">菜单快捷键</h2><div class="md-section-divider"></div><h3 data-anchor-id="icg8" id="jstcolorpicker-1">JSTColorPicker</h3><ul data-anchor-id="k2gg">
-<li><code>⌘,</code> 偏好设置...</li>
-<li><code>⌘H</code> 隐藏 JSTColorPicker</li>
-<li><code>⌥⌘H</code> 隐藏其他窗口</li>
-<li><code>⌘Q</code> 退出 JSTColorPicker</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="l3wa" id="文件">文件</h3><ul data-anchor-id="t2hq">
-<li><code>⌘N</code> 新建</li>
-<li><code>⌘O</code> 打开...</li>
-<li><code>⌘W</code> 关闭</li>
-<li><code>⌘S</code> 保存...</li>
-<li><code>⇧⌘S</code> 另存为...</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="yfq8" id="编辑">编辑</h3><ul data-anchor-id="s6vi">
-<li><code>⌘Z</code> 撤销</li>
-<li><code>⇧⌘Z</code> 重做</li>
-<li><code>⌫</code> 删除</li>
-<li><code>⌘A</code> 全选</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="6fyx" id="视图">视图</h3><ul data-anchor-id="c25z">
-<li><code>⌥⌘T</code> 显示/隐藏工具栏</li>
-<li><code>⌃⌘S</code> 显示/隐藏侧边栏</li>
-<li><code>⌃⌘F</code> 进入/退出全屏幕</li>
-<li><code>⌃⌘G</code> <strong>切换颜色网格</strong></li>
-<li><code>⌃⌘C</code> <strong>切换颜色面板</strong></li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="byiy" id="设备">设备</h3><ul data-anchor-id="3bue">
-<li><code>⌥⌘S</code> <strong>截图</strong></li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="kffh" id="窗口">窗口</h3><ul data-anchor-id="9uen">
-<li><code>⌘M</code> 最小化</li>
-<li><code>⌃⇧⇥</code> 显示上一个标签页</li>
-<li><code>⌃⇥</code> 显示下一个标签页</li>
-<li><code>⇧⌘\</code> 显示所有标签页</li>
-</ul><div class="md-section-divider"></div><h3 data-anchor-id="x32f" id="帮助">帮助</h3><ul data-anchor-id="m2co">
-<li><code>⌘?</code> JSTColorPicker 帮助</li>
-</ul><div class="md-section-divider"></div><h2 data-anchor-id="hvjx" id="工具栏快捷键">工具栏快捷键</h2><ul data-anchor-id="68hd">
-<li><code>⌃F1</code> 打开...</li>
-<li><code>⌃F2</code> <em>魔术光标</em></li>
-<li><code>⌃F3</code> <em>放大镜</em></li>
-<li><code>⌃F4</code> <em>缩小镜</em></li>
-<li><code>⌃F5</code> <em>选择箭头</em></li>
-<li><code>⌃F6</code> <em>移动</em></li>
-<li><code>⌃F7</code> 适合窗口</li>
-<li><code>⌃F8</code> 填充窗口</li>
-</ul><div class="md-section-divider"></div><h2 data-anchor-id="68qa" id="自定义模板">自定义模板</h2><p data-anchor-id="bvc2">JSTColorPicker 使用 <a href="https://www.lua.org/" target="_blank">Lua 5.3.4</a> 作为其模板引擎.</p><p data-anchor-id="x99x">单击窗口右下方的<em>导出选项</em>按钮, 你将能查看并选择全部可用<em>模板</em>. 单击 <code>显示模板...</code> 将在 Finder 中打开默认<em>模板</em>文件夹 <code>templates</code>. 模板文件的文件名应以扩展名 <code>.lua</code> 结尾. 如果可能, 所选<em>模板</em>将应用于所有复制及导出操作.</p><div class="md-section-divider"></div><h3 data-anchor-id="uk41" id="编写自定义模板">编写自定义模板</h3><p data-anchor-id="eako"><em>模板</em>是一个 <em>Lua</em> 脚本文件, 它仅返回一个表:</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="03s9" style=""><ol class="linenums"><li class="L0"><code class="language-lua"><span class="kwd">return</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L1"><code class="language-lua"><span class="pln">    uuid </span><span class="pun">=</span><span class="pln"> </span><span class="str">"0C2E7537-45A6-43AD-82A6-35D774414A09"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">必填,</span><span class="pln"> </span><span class="pun">唯一的</span><span class="pln"> UUID4 </span><span class="pun">标识符</span></code></li><li class="L2"><code class="language-lua"><span class="pln">    name </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Example"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">必填,</span><span class="pln"> </span><span class="pun">仅供显示的模板名称</span></code></li><li class="L3"><code class="language-lua"><span class="pln">    version </span><span class="pun">=</span><span class="pln"> </span><span class="str">"0.1"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">必填,</span><span class="pln"> </span><span class="pun">同一模板的较早版本将被隐藏</span></code></li><li class="L4"><code class="language-lua"><span class="pln">    platformVersion </span><span class="pun">=</span><span class="pln"> </span><span class="str">"1.6"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">模板所需的最低软件版本</span></code></li><li class="L5"><code class="language-lua"><span class="pln">    author </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Lessica"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">作者名称</span></code></li><li class="L6"><code class="language-lua"><span class="pln">    description </span><span class="pun">=</span><span class="pln"> </span><span class="str">"This is an example of JSTColorPicker export script."</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">模板描述</span></code></li><li class="L7"><code class="language-lua"><span class="pln">    extension </span><span class="pun">=</span><span class="pln"> </span><span class="str">"lua"</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">导出时所使用的文件扩展名</span></code></li><li class="L8"><code class="language-lua"><span class="pln">    generator </span><span class="pun">=</span><span class="pln"> generator</span><span class="pun">,</span><span class="pln">  </span><span class="pun">--</span><span class="pln"> </span><span class="pun">必填</span></code></li><li class="L9"><code class="language-lua"><span class="pun">}</span></code></li></ol></pre><p data-anchor-id="ps3v"><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项目时被执行:</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="s0ya" style=""><ol class="linenums"><li class="L0"><code class="language-lua"><span class="kwd">local</span><span class="pln"> generator </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">image</span><span class="pun">,</span><span class="pln"> </span><span class="pun">...)</span></code></li><li class="L1"><code class="language-lua"><span class="pln">    </span><span class="pun">--</span></code></li><li class="L2"><code class="language-lua"><span class="pln">    </span><span class="kwd">local</span><span class="pln"> args </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{...}</span></code></li><li class="L3"><code class="language-lua"><span class="pln">    </span><span class="pun">--</span></code></li><li class="L4"><code class="language-lua"><span class="kwd">end</span></code></li></ol></pre><p data-anchor-id="ohmt">上述 <code>image</code> 是一个 Lua 表, 它代表当前窗口中打开的图像文档:</p><ul data-anchor-id="c8pd">
-<li><code>image.w</code>: 以像素为单位的图像宽度</li>
-<li><code>image.h</code>: 以像素为单位的图像高度</li>
-<li><code>image.get_color(x, y)</code>: 返回该位置颜色的 <strong>argb</strong> 整数值</li>
-<li><code>image.get_image(x, y, w, h)</code>: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式</li>
-</ul><p data-anchor-id="h53o">上述 <code>args</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标和颜色标注</em>及<em>区域标注</em>信息:</p><ul data-anchor-id="ftcu">
-<li>如果是<em>坐标和颜色标注</em>, 则表中应包含如下字段: <br>
-<ul><li><code>color.id</code></li>
-<li><code>color.similarity</code></li>
-<li><code>color.x</code></li>
-<li><code>color.y</code></li>
-<li><code>color.color</code>: 颜色的 <strong>argb</strong> 整数值</li></ul></li>
-<li>如果是<em>区域标注</em>, 则表中应包含如下字段: <br>
-<ul><li><code>area.id</code></li>
-<li><code>area.similarity</code></li>
-<li><code>area.x</code></li>
-<li><code>area.y</code></li>
-<li><code>area.w</code>: 以像素为单位的区域宽度</li>
-<li><code>area.h</code>: 以像素为单位的区域高度</li></ul></li>
-</ul><p data-anchor-id="y78h">通过检查 <code>item.w</code> 字段是否存在即可判断当前表是一个<em>坐标和颜色标注</em>还是<em>区域标注</em>.</p></div>
+
+<body class="markdown-body">
+    <h1>
+        <a id="user-content-jstcolorpicker" class="anchor" href="#jstcolorpicker" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h1>
+    <p>从 PNG 屏幕截图 (即图像批注) 中选择颜色，位置和区域。该工具使用 <a href="https://en.wikipedia.org/wiki/SRGB" rel="nofollow">sRGB
+            IEC61966-2.1</a> 作为其色彩空间。</p>
+    <h2>
+        <a id="user-content-功能特性" class="anchor" href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>功能特性</h2>
+    <ul>
+        <li>从 PNG 屏幕截图中标注<em>坐标及颜色</em>和<em>区域</em>
+        </li>
+        <li>从 PNG 文件的 EXIF 字典中读/写标注器数据</li>
+        <li>直接从 iOS 设备获取屏幕截图 (依赖于 <code>libimobiledevice</code>)</li>
+        <li>使用自定义模板复制/导出标注器数据</li>
+    </ul>
+    <h2>
+        <a id="user-content-todos" class="anchor" href="#todos" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>TODOs</h2>
+    <ul>
+        <li>从 Android 设备获取屏幕截图</li>
+    </ul>
+    <h2>
+        <a id="user-content-使用说明" class="anchor" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>使用说明</h2>
+    <h3>
+        <a id="user-content-魔术光标" class="anchor" href="#%E9%AD%94%E6%9C%AF%E5%85%89%E6%A0%87" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>魔术光标</h3>
+    <ul>
+        <li>
+            <code>⌘↵</code> / <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>):
+            将当前<em>坐标及颜色标注</em>添加到内容列表.
+        </li>
+        <li>
+            <code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>):
+            将当前拖拽<em>区域标注</em>添加到内容列表.
+        </li>
+        <li>
+            <code>⌘⌫</code>: 删除当前<em>坐标和颜色标注</em>或包含当前位置的<em>区域标注</em>.</li>
+        <li>
+            <strong>按住</strong> <code>⌘</code>: 暂时切换到<em>选择箭头</em>.</li>
+    </ul>
+    <h3>
+        <a id="user-content-放大镜" class="anchor" href="#%E6%94%BE%E5%A4%A7%E9%95%9C" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>放大镜</h3>
+    <ul>
+        <li>
+            <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置放大到下一缩放级别.</li>
+        <li>
+            <code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>): 放大已拖拽区域, 使之填充整个窗口.</li>
+        <li>
+            <strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
+        <li>
+            <strong>按住</strong> <code>⌥</code>: 暂时切换到 <em>缩小镜</em>.</li>
+    </ul>
+    <h3>
+        <a id="user-content-缩小镜" class="anchor" href="#%E7%BC%A9%E5%B0%8F%E9%95%9C" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>缩小镜</h3>
+    <ul>
+        <li>
+            <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置缩小到上一缩放级别.</li>
+        <li>
+            <strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
+        <li>
+            <strong>按住</strong> <code>⌥</code>: 暂时切换到 <em>放大镜</em>.</li>
+    </ul>
+    <h3>
+        <a id="user-content-选择箭头" class="anchor" href="#%E9%80%89%E6%8B%A9%E7%AE%AD%E5%A4%B4" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>选择箭头</h3>
+    <ul>
+        <li>
+            <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注:
+            选择当前<em>坐标和颜色标注</em>或包含当前位置的<em>区域标注</em>.
+        </li>
+        <li>
+            <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 标注: 修改<em>坐标和颜色标注</em>到新的位置,
+            修改<em>区域标注</em>的尺寸.</li>
+        <li>
+            <strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
+    </ul>
+    <h3>
+        <a id="user-content-移动工具" class="anchor" href="#%E7%A7%BB%E5%8A%A8%E5%B7%A5%E5%85%B7" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>移动工具</h3>
+    <ul>
+        <li>
+            <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 视图: 常规鼠标设备的简单拖拽移动操作.</li>
+        <li>
+            <strong>按住</strong> <code>⌘</code>: 暂时切换到 <em>魔术光标</em>.</li>
+        <li>
+            <strong>单指划动</strong>: 妙控鼠标的视图移动操作.</li>
+        <li>
+            <strong>双指划动</strong>: 妙控板的视图移动操作.</li>
+        <li>
+            <strong>双指捏合</strong>: 妙控板放大或缩小视图.</li>
+        <li>
+            <strong>双指双击</strong>: 妙控板智能缩放.</li>
+        <li>
+            <code>⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 1 个像素.</li>
+        <li>
+            <code>⇧⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 10 个像素.</li>
+        <li>
+            <code>⌃⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 100 像素.</li>
+    </ul>
+    <h3>
+        <a id="user-content-标尺" class="anchor" href="#%E6%A0%87%E5%B0%BA" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>标尺</h3>
+    <ul>
+        <li>
+            <strong>拖动</strong>: 修改<em>坐标和颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
+    </ul>
+    <h3>
+        <a id="user-content-适合窗口--填充窗口" class="anchor"
+            href="#%E9%80%82%E5%90%88%E7%AA%97%E5%8F%A3--%E5%A1%AB%E5%85%85%E7%AA%97%E5%8F%A3" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>适合窗口 / 填充窗口</h3>
+    <p>缩放视图到适合/填充窗口的尺寸.</p>
+    <h3>
+        <a id="user-content-标注管理" class="anchor" href="#%E6%A0%87%E6%B3%A8%E7%AE%A1%E7%90%86" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>标注管理</h3>
+    <ul>
+        <li>从左侧的标注列表中选择一个或多个项目.</li>
+        <li>右键单击以显示所选项目的菜单:
+            <ul>
+                <li>
+                    <code>⌘C</code>: 使用当前<em>模板</em>复制所选项目.</li>
+                <li>
+                    <code>⇧⌘S</code>: 将所选<em>区域标注</em>另存为 PNG 文件.</li>
+                <li>
+                    <code>⇧⌘E</code>: 使用当前<em>模板</em>导出所选项目.</li>
+                <li>
+                    <code>↵</code>: 视图定位到所选项目.</li>
+                <li>
+                    <code>⌫</code>: 删除所选项目.</li>
+            </ul>
+        </li>
+        <li>
+            <code>0123456789</code>: 快速输入项目 <code>ID</code> 以选择现有项目.</li>
+    </ul>
+    <h3>
+        <a id="user-content-导出" class="anchor" href="#%E5%AF%BC%E5%87%BA" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>导出</h3>
+    <ul>
+        <li>
+            <code>⌘E</code>: 使用当前<em>模板</em>导出所有项目.</li>
+        <li>点击右下角列表按钮显示导出选项菜单:
+            <ul>
+                <li>
+                    <em>重新加载所有模板</em>: 修改模板文件后, 使用该操作以重载所有<em>模板</em>文件, 立即生效.</li>
+                <li>
+                    <em>显示模板...</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
+                <li>
+                    <em>显示日志...</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>
+        <a id="user-content-其他" class="anchor" href="#%E5%85%B6%E4%BB%96" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>其他</h3>
+    <ul>
+        <li>
+            <code>⌘`</code>: 使用当前<em>模板</em>拷贝当前<em>坐标和颜色标注</em>到系统剪贴板.</li>
+    </ul>
+    <h2>
+        <a id="user-content-菜单快捷键" class="anchor" href="#%E8%8F%9C%E5%8D%95%E5%BF%AB%E6%8D%B7%E9%94%AE"
+            aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>菜单快捷键</h2>
+    <h3>
+        <a id="user-content-jstcolorpicker-1" class="anchor" href="#jstcolorpicker-1" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h3>
+    <ul>
+        <li>
+            <code>⌘,</code> 偏好设置...</li>
+        <li>
+            <code>⌘H</code> 隐藏 JSTColorPicker</li>
+        <li>
+            <code>⌥⌘H</code> 隐藏其他窗口</li>
+        <li>
+            <code>⌘Q</code> 退出 JSTColorPicker</li>
+    </ul>
+    <h3>
+        <a id="user-content-文件" class="anchor" href="#%E6%96%87%E4%BB%B6" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>文件</h3>
+    <ul>
+        <li>
+            <code>⌘N</code> 新建</li>
+        <li>
+            <code>⌘O</code> 打开...</li>
+        <li>
+            <code>⌘W</code> 关闭</li>
+        <li>
+            <code>⌘S</code> 保存...</li>
+        <li>
+            <code>⇧⌘S</code> 另存为...</li>
+    </ul>
+    <h3>
+        <a id="user-content-编辑" class="anchor" href="#%E7%BC%96%E8%BE%91" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>编辑</h3>
+    <ul>
+        <li>
+            <code>⌘Z</code> 撤销</li>
+        <li>
+            <code>⇧⌘Z</code> 重做</li>
+        <li>
+            <code>⌫</code> 删除</li>
+        <li>
+            <code>⌘A</code> 全选</li>
+    </ul>
+    <h3>
+        <a id="user-content-视图" class="anchor" href="#%E8%A7%86%E5%9B%BE" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>视图</h3>
+    <ul>
+        <li>
+            <code>⌥⌘T</code> 显示/隐藏工具栏</li>
+        <li>
+            <code>⌃⌘S</code> 显示/隐藏侧边栏</li>
+        <li>
+            <code>⌃⌘F</code> 进入/退出全屏幕</li>
+        <li>
+            <code>⌃⌘G</code> <strong>切换颜色网格</strong>
+        </li>
+        <li>
+            <code>⌃⌘C</code> <strong>切换颜色面板</strong>
+        </li>
+    </ul>
+    <h3>
+        <a id="user-content-设备" class="anchor" href="#%E8%AE%BE%E5%A4%87" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>设备</h3>
+    <ul>
+        <li>
+            <code>⌥⌘S</code> <strong>截图</strong>
+        </li>
+    </ul>
+    <h3>
+        <a id="user-content-窗口" class="anchor" href="#%E7%AA%97%E5%8F%A3" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>窗口</h3>
+    <ul>
+        <li>
+            <code>⌘M</code> 最小化</li>
+        <li>
+            <code>⌃⇧⇥</code> 显示上一个标签页</li>
+        <li>
+            <code>⌃⇥</code> 显示下一个标签页</li>
+        <li>
+            <code>⇧⌘\</code> 显示所有标签页</li>
+    </ul>
+    <h3>
+        <a id="user-content-帮助" class="anchor" href="#%E5%B8%AE%E5%8A%A9" aria-hidden="true"><span aria-hidden="true"
+                class="octicon octicon-link"></span></a>帮助</h3>
+    <ul>
+        <li>
+            <code>⌘?</code> JSTColorPicker 帮助</li>
+    </ul>
+    <h2>
+        <a id="user-content-工具栏快捷键" class="anchor" href="#%E5%B7%A5%E5%85%B7%E6%A0%8F%E5%BF%AB%E6%8D%B7%E9%94%AE"
+            aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>工具栏快捷键</h2>
+    <ul>
+        <li>
+            <code>⌃F1</code> 打开...</li>
+        <li>
+            <code>⌃F2</code> <em>魔术光标</em>
+        </li>
+        <li>
+            <code>⌃F3</code> <em>放大镜</em>
+        </li>
+        <li>
+            <code>⌃F4</code> <em>缩小镜</em>
+        </li>
+        <li>
+            <code>⌃F5</code> <em>选择箭头</em>
+        </li>
+        <li>
+            <code>⌃F6</code> <em>移动</em>
+        </li>
+        <li>
+            <code>⌃F7</code> 适合窗口</li>
+        <li>
+            <code>⌃F8</code> 填充窗口</li>
+    </ul>
+    <h2>
+        <a id="user-content-自定义模板" class="anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF"
+            aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>自定义模板</h2>
+    <p>JSTColorPicker 使用 <a href="https://www.lua.org/" rel="nofollow">Lua 5.3.4</a> 作为其模板引擎.</p>
+    <p>单击窗口右下方的<em>导出选项</em>按钮, 你将能查看并选择全部可用<em>模板</em>. 单击 <code>显示模板...</code> 将在 Finder 中打开默认<em>模板</em>文件夹
+        <code>templates</code>. 模板文件的文件名应以扩展名 <code>.lua</code> 结尾. 如果可能, 所选<em>模板</em>将应用于所有复制及导出操作.</p>
+    <h3>
+        <a id="user-content-编写自定义模板" class="anchor"
+            href="#%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>编写自定义模板</h3>
+    <p><em>模板</em>是一个 <em>Lua</em> 脚本文件, 它仅返回一个表:</p>
+    <div class="highlight highlight-source-lua">
+        <pre><span class="pl-k">return</span> {
+    uuid <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0C2E7537-45A6-43AD-82A6-35D774414A09<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 唯一的 UUID4 标识符</span>
+    name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 仅供显示的模板名称</span>
+    version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0.1<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 同一模板的较早版本将被隐藏</span>
+    platformVersion <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1.6<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 模板所需的最低软件版本</span>
+    author <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Lessica<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 作者名称</span>
+    description <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>This is an example of JSTColorPicker export script.<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 模板描述</span>
+    extension <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lua<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 导出时所使用的文件扩展名</span>
+    generator <span class="pl-k">=</span> generator,  <span class="pl-c"><span class="pl-c">--</span> 必填</span>
+}</pre>
+    </div>
+    <p><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项目时被执行:</p>
+    <div class="highlight highlight-source-lua">
+        <pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, ...)
+    <span class="pl-c"><span class="pl-c">--</span></span>
+    <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">...</span>}
+    <span class="pl-c"><span class="pl-c">--</span></span>
+<span class="pl-k">end</span></pre>
+    </div>
+    <p>上述 <code>image</code> 是一个 Lua 表, 它代表当前窗口中打开的图像文档:</p>
+    <ul>
+        <li>
+            <code>image.w</code>: 以像素为单位的图像宽度</li>
+        <li>
+            <code>image.h</code>: 以像素为单位的图像高度</li>
+        <li>
+            <code>image.get_color(x, y)</code>: 返回该位置颜色的 <strong>argb</strong> 整数值</li>
+        <li>
+            <code>image.get_image(x, y, w, h)</code>: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式</li>
+    </ul>
+    <p>上述 <code>args</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标和颜色标注</em>及<em>区域标注</em>信息:</p>
+    <ul>
+        <li>如果是<em>坐标和颜色标注</em>, 则表中应包含如下字段:
+            <ul>
+                <li><code>color.id</code></li>
+                <li><code>color.similarity</code></li>
+                <li><code>color.x</code></li>
+                <li><code>color.y</code></li>
+                <li>
+                    <code>color.color</code>: 颜色的 <strong>argb</strong> 整数值</li>
+            </ul>
+        </li>
+        <li>如果是<em>区域标注</em>, 则表中应包含如下字段:
+            <ul>
+                <li><code>area.id</code></li>
+                <li><code>area.similarity</code></li>
+                <li><code>area.x</code></li>
+                <li><code>area.y</code></li>
+                <li>
+                    <code>area.w</code>: 以像素为单位的区域宽度</li>
+                <li>
+                    <code>area.h</code>: 以像素为单位的区域高度</li>
+            </ul>
+        </li>
+    </ul>
+    <p>通过检查 <code>item.w</code> 字段是否存在即可判断当前表是一个<em>坐标和颜色标注</em>还是<em>区域标注</em>.</p>
 </body>
+
 </html>

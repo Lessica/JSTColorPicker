@@ -221,6 +221,9 @@
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "Services";
 
+/* Class = "NSMenuItem"; title = "Check for Updates..."; ObjectID = "ntJ-ob-XWI"; */
+"ntJ-ob-XWI.title" = "Check for Updates...";
+
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "Ntw-j7-BEf"; */
 "Ntw-j7-BEf.headerCell.title" = "ID";
 

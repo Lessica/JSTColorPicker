@@ -146,6 +146,7 @@
 		D684842223D4105100BC5E34 /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* Grid.storyboard */; };
 		D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* GridWindowController.swift */; };
 		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
+		D690C95724192C2A00BB1652 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
@@ -510,6 +511,7 @@
 		D684842123D4105100BC5E34 /* Grid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Grid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* GridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindowController.swift; sourceTree = "<group>"; };
 		D690493D240D1A3200E05F37 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		D690C95624192C2A00BB1652 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "github-markdown.css"; sourceTree = "<group>"; };
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
@@ -1099,6 +1101,7 @@
 			isa = PBXGroup;
 			children = (
 				D69974E72416595500223B31 /* JSTColorPicker.html */,
+				D690C95624192C2A00BB1652 /* github-markdown.css */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -1317,6 +1320,7 @@
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
+				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
