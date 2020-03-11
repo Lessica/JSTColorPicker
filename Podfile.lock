@@ -1,8 +1,14 @@
 PODS:
   - MASPreferences (1.3)
+  - Sparkle (1.22.0)
 
 DEPENDENCIES:
   - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
+  - Sparkle
+
+SPEC REPOS:
+  trunk:
+    - Sparkle
 
 EXTERNAL SOURCES:
   MASPreferences:
@@ -15,7 +21,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
+  Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
 
-PODFILE CHECKSUM: ca40b171330d8fcd65e9282ca406b3aea57abc19
+PODFILE CHECKSUM: 7e9ea902833ccf5af9eaeb9794764ad85a2496fc
 
 COCOAPODS: 1.8.4
