@@ -20,8 +20,8 @@
                 <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urm-z9-EMM">
                     <rect key="frame" x="20" y="20" width="440" height="21"/>
                     <subviews>
-                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Nw-sg-vqN">
-                            <rect key="frame" x="89" y="0.0" width="262" height="21"/>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Nw-sg-vqN">
+                            <rect key="frame" x="87" y="0.0" width="266" height="21"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ucr-Vz-gnz">
                                     <rect key="frame" x="-2" y="3" width="165" height="16"/>
@@ -32,7 +32,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mT6-AC-ZhV">
-                                    <rect key="frame" x="163" y="-7" width="105" height="32"/>
+                                    <rect key="frame" x="167" y="-7" width="105" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cah-C6-Q2W"/>
                                     </constraints>

@@ -21,8 +21,8 @@
                 <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jq8-kC-NZv">
                     <rect key="frame" x="20" y="20" width="440" height="21"/>
                     <subviews>
-                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9W-Gw-Gvo">
-                            <rect key="frame" x="83" y="0.0" width="274" height="21"/>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9W-Gw-Gvo">
+                            <rect key="frame" x="81" y="0.0" width="278" height="21"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mv4-Ph-x0p">
                                     <rect key="frame" x="-2" y="3" width="142" height="16"/>
@@ -33,7 +33,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <amPathPopUpButton verticalHuggingPriority="750" imageHugsTitle="YES" canChooseDirectories="YES" canChooseExistingPaths="YES" displayPanelAsSheet="YES" showStandardPaths="YES" placeholder="No Selection" translatesAutoresizingMaskIntoConstraints="NO" id="xm4-2Y-TaL">
-                                    <rect key="frame" x="144" y="-3" width="133" height="25"/>
+                                    <rect key="frame" x="148" y="-3" width="133" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="Koq-V0-0AS"/>
                                     </constraints>

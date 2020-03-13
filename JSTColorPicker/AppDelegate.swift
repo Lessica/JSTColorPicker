@@ -13,6 +13,7 @@ import MASPreferences
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var tabService: TabService?
+    let matchService = PixelMatchService()
     let deviceService = JSTDeviceService()
     let gridController = GridWindowController.newGrid()
     lazy var preferencesController: NSWindowController = {
@@ -24,7 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
         let initialValues: [UserDefaults.Key: Any?] = [
+            
+            .enableNetworkDiscovery: false,
+            
             .enableForceTouch: true,
             .drawSceneBackground: true,
             .drawGridsInScene: true,
@@ -34,12 +39,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .hideGridsWhenResize: false,
             .hideAnnotatorsWhenResize: true,
             .usesPredominantAxisScrolling: false,
+            
             .confirmBeforeDelete: true,
             .maximumItemCountEnabled: true,
             .maximumItemCount: 99,
-            .enableNetworkDiscovery: false,
-            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path
+            
+            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path,
+            
+            .pixelMatchThreshold: 0.1,
+            .pixelMatchIncludeAA: false,
+            .pixelMatchAlpha: 0.5,
+            .pixelMatchAAColor: NSColor.systemYellow,
+            .pixelMatchDiffColor: NSColor.systemRed,
+            .pixelMatchDiffMask: true,
+            
         ]
+        
         UserDefaults.standard.register(defaults: initialValues)
         
         deviceService.delegate = self

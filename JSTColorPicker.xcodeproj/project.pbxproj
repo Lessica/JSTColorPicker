@@ -152,6 +152,8 @@
 		D690C966241A612000BB1652 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
 		D690C967241A612500BB1652 /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; };
 		D690C968241A612700BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
+		D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C96B241BBEA000BB1652 /* PixelMatchService.swift */; };
+		D690C96D241BC07100BB1652 /* PixelMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C96B241BBEA000BB1652 /* PixelMatchService.swift */; };
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
@@ -530,6 +532,7 @@
 		D690C95F241A60DC00BB1652 /* pixelmatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelmatch; sourceTree = BUILT_PRODUCTS_DIR; };
 		D690C961241A60DC00BB1652 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPicker-Bridging-Header.h"; sourceTree = "<group>"; };
+		D690C96B241BBEA000BB1652 /* PixelMatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatchService.swift; sourceTree = "<group>"; };
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
@@ -740,7 +743,6 @@
 				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
 				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
-				D690C9592419440300BB1652 /* PixelMatch.swift */,
 			);
 			path = Pixel;
 			sourceTree = "<group>";
@@ -1005,6 +1007,7 @@
 				D647B06323D173A700D76CB5 /* Device */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
+				D690C96A241BBE6B00BB1652 /* PixelMatch */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
@@ -1111,6 +1114,15 @@
 			children = (
 				D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */,
 				D690C961241A60DC00BB1652 /* main.swift */,
+			);
+			path = PixelMatch;
+			sourceTree = "<group>";
+		};
+		D690C96A241BBE6B00BB1652 /* PixelMatch */ = {
+			isa = PBXGroup;
+			children = (
+				D690C9592419440300BB1652 /* PixelMatch.swift */,
+				D690C96B241BBEA000BB1652 /* PixelMatchService.swift */,
 			);
 			path = PixelMatch;
 			sourceTree = "<group>";
@@ -1510,6 +1522,7 @@
 				D635BEA323CD861100FD62B8 /* JSTPixelColor.m in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
+				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentResponder.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
@@ -1571,6 +1584,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D690C967241A612500BB1652 /* JSTPixelImage.m in Sources */,
+				D690C96D241BC07100BB1652 /* PixelMatchService.swift in Sources */,
 				D690C966241A612000BB1652 /* JSTPixelColor.m in Sources */,
 				D690C968241A612700BB1652 /* PixelMatch.swift in Sources */,
 				D690C962241A60DC00BB1652 /* main.swift in Sources */,

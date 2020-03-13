@@ -2,6 +2,9 @@
 /* toolbarItemLabel */
 "Advanced" = "Advanced";
 
+/* PixelMatchServiceError */
+"Another task is in process, abort." = "Another task is in process, abort.";
+
 /* screenshotItemTapped(_:) */
 "Cancel" = "Cancel";
 
@@ -56,6 +59,9 @@
 /* screenshotItemTapped(_:) */
 "Downloading screenshot from device \"%@\"..." = "Downloading screenshot from device \"%@\"...";
 
+/* PixelMatchServiceError */
+"File does not exist: %@" = "File does not exist: %@";
+
 /* PixelImageError */
 "File read failed." = "File read failed.";
 
@@ -64,6 +70,12 @@
 
 /* toolbarItemLabel */
 "General" = "General";
+
+/* PixelMatchError */
+"Image sizes do not match." = "Image sizes do not match.";
+
+/* PixelMatchServiceError */
+"Image sizes do not match: %dx%d vs %dx%d" = "Image sizes do not match: %dx%d vs %dx%d";
 
 /* TemplateError */
 "Internal error." = "Internal error.";

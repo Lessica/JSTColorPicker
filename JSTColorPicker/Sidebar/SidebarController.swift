@@ -52,6 +52,7 @@ class SidebarController: NSViewController {
         previewSliderLabel.textColor = .white
         colorPanel.mode = .RGB
         colorPanel.showsAlpha = true
+        colorPanel.isContinuous = false
         // colorPanel.styleMask
         previewOverlayView.overlayDelegate = self
     }

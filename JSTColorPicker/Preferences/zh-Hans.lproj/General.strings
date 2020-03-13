@@ -11,6 +11,9 @@
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "标注";
 
+/* Class = "NSTextFieldCell"; title = "Original Image Alpha: "; ObjectID = "Bu1-Ny-gMT"; */
+"Bu1-Ny-gMT.title" = "原始图像透明度: ";
+
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
 "cBd-ZX-L0H.title" = "使用轴向滚动";
 
@@ -22,6 +25,15 @@
 
 /* Class = "NSButtonCell"; title = "Hide Grids When Resize"; ObjectID = "kpn-WU-eHb"; */
 "kpn-WU-eHb.title" = "缩放时隐藏网格";
+
+/* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "lYE-nA-h1B"; */
+"lYE-nA-h1B.label" = "比较";
+
+/* Class = "NSTextFieldCell"; title = "Difference Color: "; ObjectID = "m4o-GL-Izv"; */
+"m4o-GL-Izv.title" = "差异颜色: ";
+
+/* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
+"OcC-2j-6s0.title" = "匹配阀值: ";
 
 /* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
 "pGG-Tu-mxf.title" = "启用 Force Touch";
@@ -35,11 +47,17 @@
 /* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
 "uai-sp-jsU.title" = "在场景中绘制标尺";
 
+/* Class = "NSButtonCell"; title = "Use Opaque Difference Mask"; ObjectID = "uCs-ys-FPM"; */
+"uCs-ys-FPM.title" = "使用不透明的差异遮罩";
+
 /* Class = "NSButtonCell"; title = "Draw Grids in Scene"; ObjectID = "UPj-0j-JbO"; */
 "UPj-0j-JbO.title" = "在场景中绘制网格";
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "缩放时隐藏标注";
+
+/* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
+"xbW-Nc-kC8.title" = "包含抗锯齿差异";
 
 /* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "最大数量";

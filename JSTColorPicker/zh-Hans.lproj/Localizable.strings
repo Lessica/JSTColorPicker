@@ -2,6 +2,9 @@
 /* toolbarItemLabel */
 "Advanced" = "进阶";
 
+/* PixelMatchServiceError */
+"Another task is in process, abort." = "另一项任务正在进行中, 此操作被迫终止.";
+
 /* screenshotItemTapped(_:) */
 "Cancel" = "取消";
 
@@ -56,6 +59,9 @@
 /* screenshotItemTapped(_:) */
 "Downloading screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
 
+/* PixelMatchServiceError */
+"File does not exist: %@" = "文件不存在: %@";
+
 /* PixelImageError */
 "File read failed." = "文件读取失败.";
 
@@ -64,6 +70,12 @@
 
 /* toolbarItemLabel */
 "General" = "通用";
+
+/* PixelMatchError */
+"Image sizes do not match." = "图像尺寸不一致.";
+
+/* PixelMatchServiceError */
+"Image sizes do not match: %dx%d vs %dx%d" = "图像尺寸不一致: %dx%d vs %dx%d";
 
 /* TemplateError */
 "Internal error." = "内部错误.";

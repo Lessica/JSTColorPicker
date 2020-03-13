@@ -11,6 +11,9 @@
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "Annotation";
 
+/* Class = "NSTextFieldCell"; title = "Original Image Alpha: "; ObjectID = "Bu1-Ny-gMT"; */
+"Bu1-Ny-gMT.title" = "Original Image Alpha: ";
+
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
 "cBd-ZX-L0H.title" = "Uses Predominant Axis Scrolling";
 
@@ -22,6 +25,15 @@
 
 /* Class = "NSButtonCell"; title = "Hide Grids When Resize"; ObjectID = "kpn-WU-eHb"; */
 "kpn-WU-eHb.title" = "Hide Grids When Resize";
+
+/* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "lYE-nA-h1B"; */
+"lYE-nA-h1B.label" = "Compare";
+
+/* Class = "NSTextFieldCell"; title = "Difference Color: "; ObjectID = "m4o-GL-Izv"; */
+"m4o-GL-Izv.title" = "Difference Color: ";
+
+/* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
+"OcC-2j-6s0.title" = "Match Threshold: ";
 
 /* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
 "pGG-Tu-mxf.title" = "Enable Force Touch";
@@ -35,11 +47,17 @@
 /* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
 "uai-sp-jsU.title" = "Draw Rulers in Scene";
 
+/* Class = "NSButtonCell"; title = "Use Opaque Difference Mask"; ObjectID = "uCs-ys-FPM"; */
+"uCs-ys-FPM.title" = "Use Opaque Difference Mask";
+
 /* Class = "NSButtonCell"; title = "Draw Grids in Scene"; ObjectID = "UPj-0j-JbO"; */
 "UPj-0j-JbO.title" = "Draw Grids in Scene";
 
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "Hide Annotators When Resize";
+
+/* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
+"xbW-Nc-kC8.title" = "Include Anti-Alias Difference";
 
 /* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "Maximum Count";
