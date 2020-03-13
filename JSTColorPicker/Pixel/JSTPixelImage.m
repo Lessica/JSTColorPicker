@@ -1,8 +1,7 @@
 #import "JSTPixelImage.h"
 #import "JSTPixelColor.h"
-#import "JST_COLOR.h"
-#import "JST_IMAGE.h"
 #import "JST_POS.h"
+#import "JST_COLOR.h"
 
 #import <stdlib.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -257,11 +256,11 @@ static inline JST_IMAGE *create_pixels_image_with_pixels_image_rect(JST_IMAGE *p
         int old_W = pixels_image_->width;
         int new_W = x2 - x1;
         int new_H = y2 - y1;
-        pixels_image = (JST_IMAGE *) malloc(sizeof(JST_IMAGE));
+        pixels_image = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
         memset(pixels_image, 0, sizeof(JST_IMAGE));
         pixels_image->width = new_W;
         pixels_image->height = new_H;
-        JST_COLOR *pixels = (JST_COLOR *) malloc(new_W * new_H * sizeof(JST_COLOR));
+        JST_COLOR *pixels = (JST_COLOR *)malloc(new_W * new_H * sizeof(JST_COLOR));
         memset(pixels, 0, new_W * new_H * sizeof(JST_COLOR));
         pixels_image->pixels = pixels;
         uint64_t big_count_offset = 0;
@@ -284,6 +283,14 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 
 @implementation JSTPixelImage
+
+- (JSTPixelImage *)initWithInternalPointer:(JST_IMAGE *)pointer {
+    self = [super init];
+    if (self) {
+        _pixel_image = pointer;
+    }
+    return self;
+}
 
 - (JSTPixelImage *)initWithCGImage:(CGImageRef)cgimage {
     self = [super init];
@@ -352,12 +359,6 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
     return imgData;
 }
 
-- (JSTPixelImage *)init {
-    self = [super init];
-    _pixel_image = NULL;
-    return self;
-}
-
 - (JSTPixelImage *)crop:(CGRect)rect {
     JSTPixelImage *rectImg = nil;
     @autoreleasepool {
@@ -388,6 +389,10 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
             break;
     }
     return CGSizeMake(W, H);
+}
+
+- (JST_IMAGE *)internalPointer {
+    return _pixel_image;
 }
 
 - (JSTPixelColor *)getJSTColorOfPoint:(CGPoint)point {

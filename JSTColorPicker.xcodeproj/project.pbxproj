@@ -147,6 +147,11 @@
 		D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* GridWindowController.swift */; };
 		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
 		D690C95724192C2A00BB1652 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
+		D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
+		D690C962241A60DC00BB1652 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C961241A60DC00BB1652 /* main.swift */; };
+		D690C966241A612000BB1652 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
+		D690C967241A612500BB1652 /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; };
+		D690C968241A612700BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
 		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
@@ -201,6 +206,15 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D690C95D241A60DC00BB1652 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -301,7 +315,7 @@
 		D635BEA023CD861100FD62B8 /* JSTPixelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelColor.h; sourceTree = "<group>"; };
 		D635BEA123CD861100FD62B8 /* JST_POS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_POS.h; sourceTree = "<group>"; };
 		D635BEA223CD861100FD62B8 /* JST_IMAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_IMAGE.h; sourceTree = "<group>"; };
-		D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPicker-Bridging-Header.h"; sourceTree = "<group>"; };
+		D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelImage.swift; sourceTree = "<group>"; };
 		D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneClipView.swift; sourceTree = "<group>"; };
 		D645E49823E805340039F4F6 /* PixelCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCoordinate.swift; sourceTree = "<group>"; };
@@ -512,6 +526,10 @@
 		D684842323D4106900BC5E34 /* GridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindowController.swift; sourceTree = "<group>"; };
 		D690493D240D1A3200E05F37 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		D690C95624192C2A00BB1652 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "github-markdown.css"; sourceTree = "<group>"; };
+		D690C9592419440300BB1652 /* PixelMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatch.swift; sourceTree = "<group>"; };
+		D690C95F241A60DC00BB1652 /* pixelmatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelmatch; sourceTree = BUILT_PRODUCTS_DIR; };
+		D690C961241A60DC00BB1652 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPicker-Bridging-Header.h"; sourceTree = "<group>"; };
 		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
@@ -568,6 +586,13 @@
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				C622C991FE4842F291BD18EA /* Pods_JSTColorPicker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D690C95C241A60DC00BB1652 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +740,7 @@
 				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
 				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
+				D690C9592419440300BB1652 /* PixelMatch.swift */,
 			);
 			path = Pixel;
 			sourceTree = "<group>";
@@ -947,6 +973,7 @@
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
+				D690C960241A60DC00BB1652 /* PixelMatch */,
 				D658AF9B23CB180C0098C567 /* Products */,
 				D684841323D3E3FD00BC5E34 /* Frameworks */,
 				39B44362740250C81599A741 /* Pods */,
@@ -959,6 +986,7 @@
 				D658AF9A23CB180C0098C567 /* JSTColorPicker.app */,
 				D62834EE23F8E9DB0016573B /* LuaSwift.framework */,
 				D628350D23F8EAAA0016573B /* LuaC.framework */,
+				D690C95F241A60DC00BB1652 /* pixelmatch */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -971,7 +999,7 @@
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
-				D635BEA823CD8C4F00FD62B8 /* JSTColorPicker-Bridging-Header.h */,
+				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D647B06323D173A700D76CB5 /* Device */,
@@ -1076,6 +1104,15 @@
 				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
 			);
 			path = Grid;
+			sourceTree = "<group>";
+		};
+		D690C960241A60DC00BB1652 /* PixelMatch */ = {
+			isa = PBXGroup;
+			children = (
+				D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */,
+				D690C961241A60DC00BB1652 /* main.swift */,
+			);
+			path = PixelMatch;
 			sourceTree = "<group>";
 		};
 		D69974CE2414ADF500223B31 /* Models */ = {
@@ -1254,6 +1291,23 @@
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D690C95E241A60DC00BB1652 /* PixelMatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D690C963241A60DC00BB1652 /* Build configuration list for PBXNativeTarget "PixelMatch" */;
+			buildPhases = (
+				D690C95B241A60DC00BB1652 /* Sources */,
+				D690C95C241A60DC00BB1652 /* Frameworks */,
+				D690C95D241A60DC00BB1652 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PixelMatch;
+			productName = PixelMatch;
+			productReference = D690C95F241A60DC00BB1652 /* pixelmatch */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1271,6 +1325,9 @@
 						CreatedOnToolsVersion = 11.3;
 					};
 					D658AF9923CB180C0098C567 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					D690C95E241A60DC00BB1652 = {
 						CreatedOnToolsVersion = 11.3;
 					};
 				};
@@ -1292,6 +1349,7 @@
 				D658AF9923CB180C0098C567 /* JSTColorPicker */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
+				D690C95E241A60DC00BB1652 /* PixelMatch */,
 			);
 		};
 /* End PBXProject section */
@@ -1466,6 +1524,7 @@
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
+				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
@@ -1504,6 +1563,17 @@
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D690C95B241A60DC00BB1652 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D690C967241A612500BB1652 /* JSTPixelImage.m in Sources */,
+				D690C966241A612000BB1652 /* JSTPixelColor.m in Sources */,
+				D690C968241A612700BB1652 /* PixelMatch.swift in Sources */,
+				D690C962241A60DC00BB1652 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,6 +1954,30 @@
 			};
 			name = Release;
 		};
+		D690C964241A60DC00BB1652 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = pixelmatch;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D690C965241A60DC00BB1652 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = pixelmatch;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1919,6 +2013,15 @@
 			buildConfigurations = (
 				D658AFAB23CB180D0098C567 /* Debug */,
 				D658AFAC23CB180D0098C567 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D690C963241A60DC00BB1652 /* Build configuration list for PBXNativeTarget "PixelMatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D690C964241A60DC00BB1652 /* Debug */,
+				D690C965241A60DC00BB1652 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

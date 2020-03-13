@@ -52,7 +52,7 @@ class PixelImage {
     }
     
     var size: PixelSize {
-        return PixelSize(pixelImageRep.size())
+        return PixelSize(pixelImageRep.size)
     }
     
     var bounds: PixelRect {

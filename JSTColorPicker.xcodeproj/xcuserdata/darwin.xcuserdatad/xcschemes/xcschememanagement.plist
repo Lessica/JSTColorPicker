@@ -7,12 +7,14 @@
 		<key>JSTColorPicker.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>6</integer>
 		</dict>
 		<key>LuaC.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 		<key>LuaSource.xcscheme_^#shared#^_</key>
 		<dict>
@@ -21,13 +23,30 @@
 		</dict>
 		<key>LuaSwift.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+		<key>PixelMatch.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>D62834ED23F8E9DB0016573B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D628350C23F8EAAA0016573B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D690C95E241A60DC00BB1652</key>
 		<dict>
 			<key>primary</key>
 			<true/>
