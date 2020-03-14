@@ -35,8 +35,8 @@
 /* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "lYE-nA-h1B"; */
 "lYE-nA-h1B.label" = "Compare";
 
-/* Class = "NSTextFieldCell"; title = "Difference Color: "; ObjectID = "m4o-GL-Izv"; */
-"m4o-GL-Izv.title" = "Difference Color: ";
+/* Class = "NSTextFieldCell"; title = "Difference Colors: "; ObjectID = "m4o-GL-Izv"; */
+"m4o-GL-Izv.title" = "Difference Colors: ";
 
 /* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
 "OcC-2j-6s0.title" = "Match Threshold: ";

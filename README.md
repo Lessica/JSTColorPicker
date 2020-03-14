@@ -73,6 +73,7 @@ There's no need to explain.
 - `⌘W` Close
 - `⌘S` Save...
 - `⇧⌘S` Save As...
+- `⇧⌘D` Compare Opened Documents
 
 ### Edit
 - `⌘Z` Undo

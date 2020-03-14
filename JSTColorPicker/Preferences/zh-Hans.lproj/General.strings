@@ -35,7 +35,7 @@
 /* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "lYE-nA-h1B"; */
 "lYE-nA-h1B.label" = "比较";
 
-/* Class = "NSTextFieldCell"; title = "Difference Color: "; ObjectID = "m4o-GL-Izv"; */
+/* Class = "NSTextFieldCell"; title = "Difference Colors: "; ObjectID = "m4o-GL-Izv"; */
 "m4o-GL-Izv.title" = "差异颜色: ";
 
 /* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
