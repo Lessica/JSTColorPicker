@@ -5,6 +5,9 @@
 /* PixelMatchServiceError */
 "Another task is in process, abort." = "Another task is in process, abort.";
 
+/* beginPixelMatchComparison(to:) */
+"Calculating Difference..." = "Calculating Difference...";
+
 /* screenshotItemTapped(_:) */
 "Cancel" = "Cancel";
 
@@ -13,6 +16,12 @@
 
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
+
+/* updateMenuItems */
+"Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
+
+/* updateMenuItems */
+"Compare Opened Documents" = "Compare Opened Documents";
 
 /* Delete Confirm */
 "Confirm" = "Confirm";
@@ -58,6 +67,9 @@
 
 /* screenshotItemTapped(_:) */
 "Downloading screenshot from device \"%@\"..." = "Downloading screenshot from device \"%@\"...";
+
+/* updateMenuItems */
+"Exit Comparison Mode" = "Exit Comparison Mode";
 
 /* PixelMatchServiceError */
 "File does not exist: %@" = "File does not exist: %@";
@@ -121,6 +133,9 @@
 
 /* resetDevicesMenu */
 "No device found." = "No device found.";
+
+/* PixelMatchServiceError */
+"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.";
 
 /* ContentError
    ExportError */

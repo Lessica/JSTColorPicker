@@ -8,6 +8,12 @@
 /* Class = "NSTextFieldCell"; title = "99"; ObjectID = "2cV-9r-guE"; */
 "2cV-9r-guE.title" = "99";
 
+/* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
+"3vS-gW-0fD.ibShadowedToolTip" = "通用差异颜色";
+
+/* Class = "NSColorWell"; ibShadowedToolTip = "Anti-Alias Difference Color"; ObjectID = "5HO-8W-nvd"; */
+"5HO-8W-nvd.ibShadowedToolTip" = "抗锯齿差异颜色";
+
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "标注";
 
@@ -43,6 +49,9 @@
 
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "颜色网格";
+
+/* Class = "NSButtonCell"; title = "Allows Background Processing"; ObjectID = "tfR-Z1-4WZ"; */
+"tfR-Z1-4WZ.title" = "允许后台处理";
 
 /* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
 "uai-sp-jsU.title" = "在场景中绘制标尺";

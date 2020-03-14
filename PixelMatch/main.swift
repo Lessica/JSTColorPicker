@@ -40,7 +40,6 @@ let img1 = JSTPixelImage(nsImage: nsimg1)
 guard let nsimg2 = NSImage(contentsOf: img2Path) else { throw PixelMatchServiceError.fileDoesNotExist(url: img2Path) }
 let img2 = JSTPixelImage(nsImage: nsimg2)
 
-if let output = try PixelMatchService().performConcurrentPixelMatch(img1, img2, options: options) {
-    try output.pngRepresentation().write(to: diffPath)
-}
+let output = try PixelMatchService().performConcurrentPixelMatch(img1, img2, options: options)
+try output.pngRepresentation().write(to: diffPath)
 

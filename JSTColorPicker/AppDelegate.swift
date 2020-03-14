@@ -12,11 +12,10 @@ import MASPreferences
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var tabService: TabService?
-    let matchService = PixelMatchService()
-    let deviceService = JSTDeviceService()
-    let gridController = GridWindowController.newGrid()
-    lazy var preferencesController: NSWindowController = {
+    public var tabService: TabService?
+    public let deviceService = JSTDeviceService()
+    public let gridController = GridWindowController.newGrid()
+    private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
         let folderController = FolderController()
         let advancedController = AdvancedController()
@@ -47,11 +46,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path,
             
             .pixelMatchThreshold: 0.1,
-            .pixelMatchIncludeAA: false,
+            .pixelMatchIncludeAA: true,
             .pixelMatchAlpha: 0.5,
             .pixelMatchAAColor: NSColor.systemYellow,
             .pixelMatchDiffColor: NSColor.systemRed,
-            .pixelMatchDiffMask: true,
+            .pixelMatchDiffMask: false,
+            .pixelMatchBackgroundMode: false,
             
         ]
         
@@ -79,17 +79,85 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     
-    func reinitializeTabService() -> WindowController {
+    public func reinitializeTabService() -> WindowController {
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
         return windowController
     }
     
-    @IBAction func showGithubPage(_ sender: NSMenuItem) {
-        if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
-            NSWorkspace.shared.open(url)
+    
+    // MARK: - Preferences Actions
+    
+    @IBAction func preferencesItemTapped(_ sender: Any?) {
+        preferencesController.showWindow(sender)
+    }
+    
+    
+    // MARK: - Compare Actions
+    
+    @IBOutlet weak var compareMenuItem: NSMenuItem!
+    
+    fileprivate var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
+        guard let managedWindows = tabService?.managedWindows else { return nil }
+        let preparedManagedWindows = managedWindows.filter({ ($0.windowController.screenshot?.isLoaded ?? false ) })
+        guard preparedManagedWindows.count >= 2,
+            let firstWindowController = managedWindows.first?.windowController,
+            let firstPreparedWindowController = preparedManagedWindows.first?.windowController,
+            firstWindowController === firstPreparedWindowController
+            else { return nil }
+        return (firstWindowController, preparedManagedWindows.compactMap({ $0.windowController.screenshot?.image }))
+    }
+    
+    fileprivate var firstManagedWindowController: WindowController? {
+        return tabService?.firstManagedWindow?.windowController
+    }
+    
+    @IBAction func compareMenuItemTapped(_ sender: Any?) {
+        if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
+            firstManagedWindowController?.endPixelMatchComparison()
+        }
+        else if let tuple = preparedPixelMatchTuple {
+            if let frontPixelImage = tuple.0.screenshot?.image {
+                if let anotherPixelImage = tuple.1.first(where: { $0 !== frontPixelImage }) {
+                    tuple.0.beginPixelMatchComparison(to: anotherPixelImage)
+                }
+            }
         }
     }
+    
+    
+    // MARK: - Color Grid Actions
+    
+    @IBOutlet weak var gridSwitchMenuItem: NSMenuItem!
+    
+    fileprivate var isGridVisible: Bool {
+        guard let visible = gridController.window?.isVisible else { return false }
+        return visible
+    }
+    
+    @IBAction func gridSwitchMenuItemTapped(_ sender: Any?) {
+        if isGridVisible {
+            gridController.close()
+        } else {
+            gridController.showWindow(sender)
+        }
+    }
+    
+    
+    // MARK: - Color Panel Actions
+    
+    @IBOutlet weak var colorPanelSwitchMenuItem: NSMenuItem!
+    
+    @IBAction func colorPanelSwitchMenuItemTapped(_ sender: Any) {
+        if !NSColorPanel.shared.isVisible {
+            NSColorPanel.shared.orderFront(sender)
+        } else {
+            NSColorPanel.shared.close()
+        }
+    }
+    
+    
+    // MARK: - Device Actions
     
     @IBOutlet weak var enableNetworkDiscoveryMenuItem: NSMenuItem!
     @IBOutlet weak var devicesMenu: NSMenu!
@@ -109,13 +177,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return formatter
     }()
     
-    @IBAction func enableNetworkDiscoveryItemTapped(_ sender: NSMenuItem) {
+    @IBAction func enableNetworkDiscoveryMenuItemTapped(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on
         UserDefaults.standard[.enableNetworkDiscovery] = sender.state == .on
         reloadiDevices()
     }
     
-    @IBAction func screenshotItemTapped(_ sender: Any?) {
+    @IBAction func screenshotMenuItemTapped(_ sender: Any?) {
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
         let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: picturesDirectoryPath).standardizingPath)
@@ -124,6 +192,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let loadingAlert = NSAlert()
                 loadingAlert.messageText = NSLocalizedString("Waiting for device", comment: "screenshotItemTapped(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Downloading screenshot from device \"%@\"...", comment: "screenshotItemTapped(_:)"), device.name)
+                let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+                loadingIndicator.style = .spinning
+                loadingIndicator.startAnimation(nil)
+                loadingAlert.accessoryView = loadingIndicator
                 loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
                 loadingAlert.alertStyle = .informational
                 loadingAlert.buttons.first?.isHidden = true
@@ -180,31 +252,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @IBOutlet weak var showGridItem: NSMenuItem!
-    var isGridVisible: Bool {
-        guard let visible = gridController.window?.isVisible else { return false }
-        return visible
-    }
-    @IBAction func gridSwitchItemTapped(_ sender: Any?) {
-        if isGridVisible {
-            gridController.close()
-        } else {
-            gridController.showWindow(sender)
+    
+    // MARK: - Help Actions
+    
+    @IBAction func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
+        if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
+            NSWorkspace.shared.open(url)
         }
     }
     
-    @IBAction func preferencesItemTapped(_ sender: Any?) {
-        preferencesController.showWindow(sender)
-    }
+}
+
+extension AppDelegate: NSUserInterfaceValidations {
     
-    @IBOutlet weak var showColorPanelItem: NSMenuItem!
-    
-    @IBAction func colorPanelSwitchItemTapped(_ sender: Any) {
-        if !NSColorPanel.shared.isVisible {
-            NSColorPanel.shared.orderFront(sender)
-        } else {
-            NSColorPanel.shared.close()
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(compareMenuItemTapped(_:)) {
+            if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
+                return true
+            }
+            else if preparedPixelMatchTuple != nil {
+                return true
+            }
+            else {
+                return false
+            }
         }
+        return true
     }
     
 }
@@ -212,7 +285,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        updateMenuItems()
+        updateFileMenuItems()
+        updateDevicesMenuItems()
     }
     
 }
@@ -250,7 +324,7 @@ extension AppDelegate: JSTDeviceDelegate {
                 self?.resetDevicesMenu()
             }
             
-            self?.updateMenuItems()
+            self?.updateDevicesMenuItems()
         }
     }
     
@@ -267,7 +341,24 @@ extension AppDelegate: JSTDeviceDelegate {
         ]
     }
     
-    fileprivate func updateMenuItems() {
+    fileprivate func updateFileMenuItems() {
+        if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
+            compareMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
+            compareMenuItem.isEnabled = true
+        }
+        else if let tuple = preparedPixelMatchTuple {
+            let name1 = tuple.1[0].imageSource.url.lastPathComponent
+            let name2 = tuple.1[1].imageSource.url.lastPathComponent
+            compareMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), name1, name2)
+            compareMenuItem.isEnabled = true
+        }
+        else {
+            compareMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")
+            compareMenuItem.isEnabled = false
+        }
+    }
+    
+    fileprivate func updateDevicesMenuItems() {
         enableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
         var selectedDeviceExists = false
         let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(selectedDeviceUDID ?? "")"

@@ -12,7 +12,39 @@ class SidebarController: NSViewController {
     
     internal weak var screenshot: Screenshot?
     
-    @IBOutlet weak var imageLabel: NSTextField!
+    @IBOutlet weak var imageLabel1: NSTextField!
+    @IBOutlet weak var imageLabel2: NSTextField!
+    @IBOutlet weak var imageActionView: NSView!
+    @IBOutlet weak var exitComparisonModeButton: NSButton!
+    
+    fileprivate var imageSource1: PixelImageSource? {
+        return screenshot?.image?.imageSource
+    }
+    fileprivate var imageSource2: PixelImageSource?
+    fileprivate var isInComparisonMode: Bool {
+        return imageSource1 != nil && imageSource2 != nil
+    }
+    fileprivate var exitComparisonHandler: ((Bool) -> Void)?
+    fileprivate func updateInformationPanel() {
+        imageLabel1.isHidden = false
+        if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
+            imageLabel1.stringValue = text
+        }
+        else {
+            imageLabel1.stringValue = "Open or drop an image here."
+        }
+        
+        if let imageSource2 = imageSource2, let text = stringValue(for: imageSource2) {
+            imageLabel2.stringValue = text
+            imageLabel2.isHidden = false
+            imageActionView.isHidden = false
+        }
+        else {
+            imageLabel2.stringValue = "Open or drop an image here."
+            imageLabel2.isHidden = true
+            imageActionView.isHidden = true
+        }
+    }
     
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag: ColorIndicator!
@@ -142,6 +174,12 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         return error
     }
     
+    @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
+        if let exitComparisonHandler = exitComparisonHandler {
+            exitComparisonHandler(true)
+        }
+    }
+    
     @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
         colorPanel.color = sender.color
         colorPanel.orderFront(sender)
@@ -258,7 +296,8 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 extension SidebarController: ScreenshotLoader {
     
     func initializeController() {
-        imageLabel.stringValue = "Open or drop an image here."
+        updateInformationPanel()
+        
         inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
         inspectorColorLabel.stringValue = """
 R:\("-".leftPadding(to: 11, with: " "))
@@ -290,14 +329,10 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     }
     
     func load(_ screenshot: Screenshot) throws {
-        guard let image = screenshot.image else {
-            throw ScreenshotError.invalidImage
-        }
-        guard let source = screenshot.image?.imageSourceRep, let url = screenshot.fileURL else {
-            throw ScreenshotError.invalidImageSource
-        }
+        guard let image = screenshot.image else { throw ScreenshotError.invalidImage }
         self.screenshot = screenshot
-        try renderImageSource(source, itemURL: url)
+        self.imageSource2 = nil
+        updateInformationPanel()
         
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
@@ -313,19 +348,15 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         copyExampleTemplatesIfNeeded()
     }
     
-    fileprivate func renderImageSource(_ source: CGImageSource, itemURL: URL) throws {
-        guard let fileProps = CGImageSourceCopyProperties(source, nil) as? [AnyHashable: Any] else {
-            return
-        }
-        guard let props = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
-            return
-        }
+    fileprivate func stringValue(for source: PixelImageSource) -> String? {
+        guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
+        guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
         let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
         var createdAt: Date?
         if let date = SidebarController.exifDateFormatter.date(from: createdAtStr) {
             createdAt = date
         } else {
-            let attrs = try FileManager.default.attributesOfItem(atPath: itemURL.path)
+            guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
             createdAt = attrs[.creationDate] as? Date
         }
         var createdAtDesc: String?
@@ -335,14 +366,22 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         let fileSize = SidebarController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
-        imageLabel.stringValue = """
-\(itemURL.lastPathComponent) (\(fileSize))
+        return """
+\(source.url.lastPathComponent) (\(fileSize))
 
 Created: \(createdAtDesc ?? "Unknown")
 Dimensions: \(pixelXDimension)×\(pixelYDimension)
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
 Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
+    }
+    
+}
+
+extension SidebarController: NSMenuDelegate {
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
     }
     
 }
@@ -359,10 +398,19 @@ extension SidebarController: PreviewResponder {
     
 }
 
-extension SidebarController: NSMenuDelegate {
+extension SidebarController: PixelMatchResponder {
     
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
+    func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
+        imageSource2 = image.imageSource
+        exitComparisonHandler = completionHandler
+        updateInformationPanel()
+    }
+    
+    func endPixelMatchComparison() {
+        imageSource2 = nil
+        exitComparisonHandler = nil
+        updateInformationPanel()
     }
     
 }
+

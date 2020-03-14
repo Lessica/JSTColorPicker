@@ -5,6 +5,9 @@
 /* PixelMatchServiceError */
 "Another task is in process, abort." = "另一项任务正在进行中, 此操作被迫终止.";
 
+/* beginPixelMatchComparison(to:) */
+"Calculating Difference..." = "分析差异中...";
+
 /* screenshotItemTapped(_:) */
 "Cancel" = "取消";
 
@@ -13,6 +16,12 @@
 
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容.";
+
+/* updateMenuItems */
+"Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
+
+/* updateMenuItems */
+"Compare Opened Documents" = "比较已打开的文档";
 
 /* Delete Confirm */
 "Confirm" = "确认";
@@ -58,6 +67,9 @@
 
 /* screenshotItemTapped(_:) */
 "Downloading screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
+
+/* updateMenuItems */
+"Exit Comparison Mode" = "退出比较模式";
 
 /* PixelMatchServiceError */
 "File does not exist: %@" = "文件不存在: %@";
@@ -121,6 +133,9 @@
 
 /* resetDevicesMenu */
 "No device found." = "未找到设备.";
+
+/* PixelMatchServiceError */
+"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异. 请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试.";
 
 /* ContentError
    ExportError */

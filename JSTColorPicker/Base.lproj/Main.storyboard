@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14550"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -97,6 +96,12 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Compare Opened Documents" keyEquivalent="D" id="d6I-ng-9rQ">
+                                            <connections>
+                                                <action selector="compareMenuItemTapped:" target="Voe-Tx-rLC" id="9y7-wZ-lyH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="vCe-vl-D8R"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
@@ -118,6 +123,9 @@
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="uYJ-qD-W8G"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
@@ -245,13 +253,13 @@ CA
                                         <menuItem title="Toggle Color Grid" keyEquivalent="g" id="f1Y-VB-nPG">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="gridSwitchItemTapped:" target="Voe-Tx-rLC" id="IrU-H6-5y4"/>
+                                                <action selector="gridSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="IrU-H6-5y4"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Toggle Color Panel" keyEquivalent="c" id="8Lc-x4-Wqe">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="colorPanelSwitchItemTapped:" target="Voe-Tx-rLC" id="VZD-Kz-jQH"/>
+                                                <action selector="colorPanelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="VZD-Kz-jQH"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -268,14 +276,14 @@ CA
                                         <menuItem title="Enable Network Discovery" state="on" id="wfH-DD-URU">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="enableNetworkDiscoveryItemTapped:" target="Voe-Tx-rLC" id="Izc-7c-mq8"/>
+                                                <action selector="enableNetworkDiscoveryMenuItemTapped:" target="Voe-Tx-rLC" id="Izc-7c-mq8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
                                         <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="screenshotItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
+                                                <action selector="screenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -315,7 +323,7 @@ CA
                                     <items>
                                         <menuItem title="JSTColorPicker Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showGithubPage:" target="Voe-Tx-rLC" id="pQc-Qt-yjl"/>
+                                                <action selector="showHelpPageMenuItemTapped:" target="Voe-Tx-rLC" id="pQc-Qt-yjl"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -330,10 +338,11 @@ CA
                 <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
+                        <outlet property="colorPanelSwitchMenuItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
+                        <outlet property="compareMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
                         <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
                         <outlet property="enableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
-                        <outlet property="showColorPanelItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
-                        <outlet property="showGridItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
+                        <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -352,7 +361,7 @@ CA
                                 <rect key="frame" x="0.0" y="30" width="248" height="770"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="2Zj-Pk-tPV">
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="770"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="ContentControllerTableView" rowHeight="20" headerView="wpj-SD-TcN" viewBased="YES" id="tGt-bn-9va" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="277" height="745"/>
@@ -364,7 +373,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="col-id" editable="NO" width="30" minWidth="30" maxWidth="30" id="Ntw-j7-BEf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="ID">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -397,7 +406,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-similarity" width="58" minWidth="58" maxWidth="128" id="3hu-9P-0DZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Similarity">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -433,7 +442,7 @@ CA
                                                 </tableColumn>
                                                 <tableColumn identifier="col-desc" editable="NO" width="180" minWidth="180" maxWidth="600" id="UeL-yQ-Jvx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -524,7 +533,7 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="210" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="label" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -712,7 +721,8 @@ CA
                             <touchBarItem id="eXV-YH-bGl">
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpen" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -725,8 +735,9 @@ CA
                             </touchBarItem>
                             <touchBarItem id="PNh-sU-yk9">
                                 <viewController key="viewController" id="7Oq-ht-hPs">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                        <rect key="frame" x="4" y="-2" width="288" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -751,8 +762,9 @@ CA
                             </touchBarItem>
                             <touchBarItem id="JTe-Pb-tmM">
                                 <viewController key="viewController" id="eFW-EM-Kyw">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                        <rect key="frame" x="4" y="-2" width="120" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -770,7 +782,8 @@ CA
                             <touchBarItem id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="0.0" y="-11" width="84" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -843,7 +856,7 @@ CA
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                                 <clipView key="contentView" focusRingType="none" id="eZm-mt-gzw" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view focusRingType="none" id="jIU-6y-5yU">
                                             <rect key="frame" x="0.0" y="0.0" width="985" height="785"/>
@@ -917,32 +930,93 @@ CA
                                 <rect key="frame" x="0.0" y="42" width="248" height="758"/>
                                 <subviews>
                                     <customView id="VAj-Tz-9Wg">
-                                        <rect key="frame" x="0.0" y="0.0" width="248" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="243"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Gfv-9i-i9I">
-                                                <rect key="frame" x="-4" y="-4" width="256" height="50"/>
+                                                <rect key="frame" x="-4" y="-4" width="256" height="249"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Image" identifier="" id="7jL-su-DvD">
                                                         <view key="view" id="BKi-23-lh3">
-                                                            <rect key="frame" x="10" y="7" width="236" height="30"/>
+                                                            <rect key="frame" x="10" y="7" width="236" height="229"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
-                                                                    <rect key="frame" x="8" y="8" width="220" height="14"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" title="Open or drop an image here." drawsBackground="YES" id="X8A-3k-h2W">
-                                                                        <font key="font" metaFont="label" size="11"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Svm-o2-yER">
+                                                                    <rect key="frame" x="8" y="8" width="220" height="213"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
+                                                                            <rect key="frame" x="0.0" y="129" width="155" height="84"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="X8A-3k-h2W">
+                                                                                <font key="font" metaFont="menu" size="11"/>
+                                                                                <string key="title">Open or drop an image here.
+
+
+
+
+</string>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="7kU-O6-2aO">
+                                                                            <rect key="frame" x="0.0" y="96" width="220" height="21"/>
+                                                                            <subviews>
+                                                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9rt-lZ-7Od">
+                                                                                    <rect key="frame" x="31" y="-7" width="158" height="32"/>
+                                                                                    <buttonCell key="cell" type="push" title="Exit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-AZ-7YC">
+                                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                                        <string key="keyEquivalent">D</string>
+                                                                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                                                    </buttonCell>
+                                                                                    <connections>
+                                                                                        <action selector="exitComparisonModeButtonTapped:" target="Z2W-Gy-vmx" id="ezh-hp-ziG"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="9rt-lZ-7Od" firstAttribute="centerX" secondItem="7kU-O6-2aO" secondAttribute="centerX" id="JbL-tt-4o2"/>
+                                                                                <constraint firstItem="9rt-lZ-7Od" firstAttribute="top" secondItem="7kU-O6-2aO" secondAttribute="top" id="TiL-3b-u3a"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="9rt-lZ-7Od" secondAttribute="bottom" id="uFI-no-iOf"/>
+                                                                            </constraints>
+                                                                        </customView>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rZ-oV-Lx3">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="84"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="8Sz-oB-rce">
+                                                                                <font key="font" metaFont="menu" size="11"/>
+                                                                                <string key="title">Open or drop an image here.
+
+
+
+
+</string>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="7kU-O6-2aO" secondAttribute="trailing" id="i5a-Se-8AY"/>
+                                                                        <constraint firstItem="7kU-O6-2aO" firstAttribute="leading" secondItem="Svm-o2-yER" secondAttribute="leading" id="v1w-9D-OjS"/>
+                                                                    </constraints>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="top" secondItem="BKi-23-lh3" secondAttribute="top" constant="8" id="LeZ-uS-LeA"/>
-                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="centerX" secondItem="BKi-23-lh3" secondAttribute="centerX" id="OhN-45-0U8"/>
-                                                                <constraint firstItem="IRz-cZ-umT" firstAttribute="leading" secondItem="BKi-23-lh3" secondAttribute="leading" constant="8" id="vEb-Ck-xuU"/>
-                                                                <constraint firstAttribute="bottom" secondItem="IRz-cZ-umT" secondAttribute="bottom" constant="8" id="wXC-xq-WHd"/>
+                                                                <constraint firstItem="Svm-o2-yER" firstAttribute="leading" secondItem="BKi-23-lh3" secondAttribute="leading" constant="8" id="ZYs-e5-4N8"/>
+                                                                <constraint firstItem="Svm-o2-yER" firstAttribute="top" secondItem="BKi-23-lh3" secondAttribute="top" constant="8" id="deK-lt-uIm"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Svm-o2-yER" secondAttribute="bottom" constant="8" id="dkk-DO-MoJ"/>
+                                                                <constraint firstItem="Svm-o2-yER" firstAttribute="centerX" secondItem="BKi-23-lh3" secondAttribute="centerX" id="yZ4-gy-UU5"/>
                                                             </constraints>
                                                         </view>
                                                     </tabViewItem>
@@ -957,7 +1031,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView id="OBa-Ic-u2F">
-                                        <rect key="frame" x="0.0" y="53" width="248" height="65"/>
+                                        <rect key="frame" x="0.0" y="252" width="248" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="6sq-Gc-igI">
@@ -1106,7 +1180,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView id="HdP-zT-hUX">
-                                        <rect key="frame" x="0.0" y="127" width="248" height="276"/>
+                                        <rect key="frame" x="0.0" y="326" width="248" height="276"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <tabView drawsBackground="NO" controlSize="mini" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="bVO-f8-Cxo">
@@ -1175,7 +1249,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView fixedFrame="YES" id="VHW-Hv-tlU">
-                                        <rect key="frame" x="0.0" y="412" width="248" height="346"/>
+                                        <rect key="frame" x="0.0" y="611" width="248" height="147"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
@@ -1202,7 +1276,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
@@ -1217,7 +1291,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="optionButtonTapped:" target="Z2W-Gy-vmx" id="h4y-Ov-BRT"/>
@@ -1249,8 +1323,11 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="exitComparisonModeButton" destination="9rt-lZ-7Od" id="Mbj-wt-TiS"/>
                         <outlet property="exportButton" destination="Gdd-Og-hUZ" id="plh-lg-ol9"/>
-                        <outlet property="imageLabel" destination="IRz-cZ-umT" id="bjt-LX-qoj"/>
+                        <outlet property="imageActionView" destination="7kU-O6-2aO" id="HJl-ci-Q2Y"/>
+                        <outlet property="imageLabel1" destination="IRz-cZ-umT" id="bjt-LX-qoj"/>
+                        <outlet property="imageLabel2" destination="1rZ-oV-Lx3" id="J29-wv-SCd"/>
                         <outlet property="inspectorAreaLabel" destination="dqs-yK-Ge8" id="feO-Io-3HE"/>
                         <outlet property="inspectorAreaLabel2" destination="hpv-rQ-7mB" id="DyD-HF-opz"/>
                         <outlet property="inspectorColorFlag" destination="djd-CE-KfV" id="Lyv-lM-xCa"/>

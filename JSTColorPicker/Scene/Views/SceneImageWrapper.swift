@@ -22,10 +22,49 @@ class SceneImageWrapper: NSView {
     
     public weak var rulerViewClient: RulerViewClient?
     public var pixelBounds: PixelRect
+    public lazy var imageView: SceneImageView = {
+        let view = SceneImageView()
+        view.isHidden = true
+        return view
+    }()
+    public lazy var maskImageView: SceneImageView = {
+        let mask = SceneImageView()
+        mask.isHidden = true
+        return mask
+    }()
+    public var isInComparisonMode: Bool {
+        return !maskImageView.isHidden
+    }
     
     init(pixelBounds: PixelRect) {
         self.pixelBounds = pixelBounds
         super.init(frame: pixelBounds.toCGRect())
+        addSubview(imageView)
+        addSubview(maskImageView)
+    }
+    
+    public func setImage(_ image: PixelImage?) {
+        if let image = image {
+            imageView.setImage(image.cgImage, size: image.size.toCGSize())
+            imageView.isHidden = false
+        }
+        else {
+            imageView.reset()
+            imageView.frame = .zero
+            imageView.isHidden = true
+        }
+    }
+    
+    public func setMaskImage(_ image: JSTPixelImage?) {
+        if let image = image {
+            maskImageView.setImage(image.toNSImage(), size: image.size)
+            maskImageView.isHidden = false
+        }
+        else {
+            maskImageView.reset()
+            maskImageView.frame = .zero
+            maskImageView.isHidden = true
+        }
     }
     
     required init?(coder: NSCoder) {

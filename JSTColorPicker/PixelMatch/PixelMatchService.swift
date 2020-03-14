@@ -12,6 +12,7 @@ enum PixelMatchServiceError: LocalizedError {
     case taskConflict
     case fileDoesNotExist(url: URL)
     case sizesDoNotMatch(size1: CGSize, size2: CGSize)
+    case noDifferenceDetected
     
     var failureReason: String? {
         switch self {
@@ -20,7 +21,9 @@ enum PixelMatchServiceError: LocalizedError {
         case let .fileDoesNotExist(url):
             return String(format: NSLocalizedString("File does not exist: %@", comment: "PixelMatchServiceError"), url.path)
         case let .sizesDoNotMatch(size1, size2):
-            return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), size1.width, size1.height, size2.width, size2.height)
+            return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
+        case .noDifferenceDetected:
+            return NSLocalizedString("No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.", comment: "PixelMatchServiceError")
         }
     }
 }
@@ -28,22 +31,23 @@ enum PixelMatchServiceError: LocalizedError {
 class PixelMatchService {
     
     public fileprivate(set) var isProcessing: Bool = false
-    public var isInDifferenceMasking: Bool = false
     
-    public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage) throws -> JSTPixelImage? {
+    public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage) throws -> JSTPixelImage {
         var options = MatchOptions()
-        options.threshold      = UserDefaults.standard[.pixelMatchThreshold]
-        options.includeAA      = UserDefaults.standard[.pixelMatchIncludeAA]
-        options.alpha          = UserDefaults.standard[.pixelMatchAlpha]
-        let aaColor: NSColor   = UserDefaults.standard[.pixelMatchAAColor] ?? NSColor.systemYellow
-        options.aaColor        = (UInt8(aaColor.redComponent * 255.0), UInt8(aaColor.greenComponent * 255.0), UInt8(aaColor.blueComponent * 255.0))
-        let diffColor: NSColor = UserDefaults.standard[.pixelMatchDiffColor] ?? NSColor.systemRed
-        options.diffColor      = (UInt8(diffColor.redComponent * 255.0), UInt8(diffColor.greenComponent * 255.0), UInt8(diffColor.blueComponent * 255.0))
-        options.diffMask       = UserDefaults.standard[.pixelMatchDiffMask]
+        options.threshold = UserDefaults.standard[.pixelMatchThreshold]
+        options.includeAA = UserDefaults.standard[.pixelMatchIncludeAA]
+        options.alpha = UserDefaults.standard[.pixelMatchAlpha]
+        if let aaColor: NSColor = (UserDefaults.standard[.pixelMatchAAColor] ?? NSColor.systemYellow).usingColorSpace(.deviceRGB) {
+            options.aaColor = (UInt8(aaColor.redComponent * 255.0), UInt8(aaColor.greenComponent * 255.0), UInt8(aaColor.blueComponent * 255.0))
+        }
+        if let diffColor: NSColor = (UserDefaults.standard[.pixelMatchDiffColor] ?? NSColor.systemRed).usingColorSpace(.deviceRGB) {
+            options.diffColor = (UInt8(diffColor.redComponent * 255.0), UInt8(diffColor.greenComponent * 255.0), UInt8(diffColor.blueComponent * 255.0))
+        }
+        options.diffMask = UserDefaults.standard[.pixelMatchDiffMask]
         return try performConcurrentPixelMatch(img1, img2, options: options)
     }
     
-    public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage, options: MatchOptions) throws -> JSTPixelImage? {
+    public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage, options: MatchOptions) throws -> JSTPixelImage {
         guard !isProcessing else { throw PixelMatchServiceError.taskConflict }
         isProcessing = true
         
@@ -121,11 +125,12 @@ class PixelMatchService {
             
         }
         
-        let outputsPointer = UnsafeMutableBufferPointer<JST_COLOR>.allocate(capacity: totalCount)
-        var outputs = Array(outputsPointer)
+        var outputs: [JST_COLOR] = []
         for idx in 0..<threadCount {
             outputs += threadOutputs[idx]!
         }
+        let outputsPointer = UnsafeMutableBufferPointer<JST_COLOR>.allocate(capacity: totalCount)
+        _ = outputsPointer.initialize(from: outputs)
         
 
         // MARK: - Output Differences
@@ -133,19 +138,19 @@ class PixelMatchService {
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         debugPrint(String(format: "time elapsed: %.3fs", timeElapsed))
         debugPrint(String(format: "approximate count: \(diffCount), difference: %.3f%%", Double(diffCount) / Double(totalCount) * 100.0))
-        if diffCount > 0 {
-            let img = UnsafeMutablePointer<JST_IMAGE>.allocate(capacity: 1)
-            img.pointee.orientation = 0
-            img.pointee.is_destroyed = 0
-            img.pointee.width = Int32(totalColumns)
-            img.pointee.height = Int32(totalRows)
-            img.pointee.pixels = outputsPointer.baseAddress
+        guard diffCount > 0 else {
             isProcessing = false
-            return JSTPixelImage(internalPointer: img)
+            throw PixelMatchServiceError.noDifferenceDetected
         }
         
+        let img = UnsafeMutablePointer<JST_IMAGE>.allocate(capacity: 1)
+        img.pointee.orientation = 0
+        img.pointee.is_destroyed = 0
+        img.pointee.width = Int32(totalColumns)
+        img.pointee.height = Int32(totalRows)
+        img.pointee.pixels = outputsPointer.baseAddress
         isProcessing = false
-        return nil
+        return JSTPixelImage(internalPointer: img)
     }
     
 }

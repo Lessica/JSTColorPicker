@@ -36,6 +36,7 @@ public extension UserDefaults.Key {
     static let pixelMatchAAColor             : UserDefaults.Key     = "defaults.pixelMatchAAColor"             // NSColor
     static let pixelMatchDiffColor           : UserDefaults.Key     = "defaults.pixelMatchDiffColor"           // NSColor
     static let pixelMatchDiffMask            : UserDefaults.Key     = "defaults.pixelMatchDiffMask"            // Bool
+    static let pixelMatchBackgroundMode      : UserDefaults.Key     = "defaults.pixelMatchBackgroundMode"      // Bool
     
 }
 

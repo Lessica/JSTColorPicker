@@ -80,10 +80,10 @@ extension SplitController: DropViewDelegate {
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
-        NotificationCenter.default.post(name: .respondingWindowChanged, object: view.window)
+        NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
         documentController.openDocument(withContentsOf: fileURL as URL, display: true) { [unowned self] (document, documentWasAlreadyOpen, error) in
-            NotificationCenter.default.post(name: .respondingWindowChanged, object: nil)
+            NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
             if let error = error {
                 self.presentError(error)
             }
@@ -294,6 +294,20 @@ extension SplitController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         sceneController.previewAction(sender, centeredAt: coordinate)
+    }
+    
+}
+
+extension SplitController: PixelMatchResponder {
+    
+    func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
+        sceneController.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
+        sidebarController.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
+    }
+    
+    func endPixelMatchComparison() {
+        sceneController.endPixelMatchComparison()
+        sidebarController.endPixelMatchComparison()
     }
     
 }

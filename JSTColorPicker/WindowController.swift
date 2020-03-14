@@ -12,12 +12,16 @@ fileprivate var windowCount = 0
 
 class WindowController: NSWindowController {
     
-    static func newEmptyWindow() -> WindowController {
+    public static func newEmptyWindow() -> WindowController {
         let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
         return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
     }
     
-    weak var tabDelegate: TabDelegate?
+    public weak var tabDelegate: TabDelegate?
+    public lazy var pixelMatchService: PixelMatchService = {
+        return PixelMatchService()
+    }()
+    fileprivate var isInComparisonMode: Bool = false
     
     @IBOutlet weak var openItem: NSToolbarItem!
     @IBOutlet weak var annotateItem: NSToolbarItem!
@@ -39,7 +43,7 @@ class WindowController: NSWindowController {
     }
     fileprivate var currentAlertSheet: NSAlert?
     
-    func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
+    public func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
         if let currentAlertSheet = currentAlertSheet {
             currentAlertSheet.window.orderOut(self)
@@ -106,6 +110,58 @@ class WindowController: NSWindowController {
         print("Root window", rootWindow, rootWindow.title, "has tabs:")
         rootWindow.tabbedWindows?.forEach { window in
             print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
+        }
+    }
+    
+    public func beginPixelMatchComparison(to image: PixelImage) {
+        guard let currentPixelImage = screenshot?.image else { return }
+        
+        isInComparisonMode = true
+        let loadingAlert = NSAlert()
+        loadingAlert.messageText = NSLocalizedString("Calculating Difference...", comment: "beginPixelMatchComparison(to:)")
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "beginPixelMatchComparison(to:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        showSheet(loadingAlert, completionHandler: nil)
+        
+        let queue: DispatchQueue = UserDefaults.standard[.pixelMatchBackgroundMode] ?
+            DispatchQueue.global(qos: .utility) : DispatchQueue.global(qos: .userInitiated)
+        queue.async { [weak self] in
+            guard let self = self else { return }
+            do {
+                let maskImage = try self.pixelMatchService.performConcurrentPixelMatch(currentPixelImage.pixelImageRepresentation, image.pixelImageRepresentation)
+                DispatchQueue.main.sync { [weak self] in
+                    self?.viewController.beginPixelMatchComparison(to: image, with: maskImage) { [weak self] (shouldExit) in
+                        if shouldExit {
+                            self?.endPixelMatchComparison()
+                        }
+                    }
+                    self?.showSheet(nil, completionHandler: nil)
+                }
+            } catch let error {
+                DispatchQueue.main.sync { [weak self] in
+                    let errorAlert = NSAlert(error: error)
+                    self?.showSheet(errorAlert, completionHandler: { [weak self] (resp) in
+                        self?.isInComparisonMode = false
+                    })
+                }
+            }
+        }
+    }
+    
+    public var shouldEndPixelMatchComparison: Bool {
+        return !pixelMatchService.isProcessing && isInComparisonMode
+    }
+    
+    public func endPixelMatchComparison() {
+        if shouldEndPixelMatchComparison {
+            viewController.endPixelMatchComparison()
+            showSheet(nil, completionHandler: nil)
+            isInComparisonMode = false
         }
     }
     
@@ -249,7 +305,7 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func screenshotAction(_ sender: Any?) {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
-        delegate.screenshotItemTapped(sender)
+        delegate.screenshotMenuItemTapped(sender)
     }
     
 }
@@ -264,6 +320,7 @@ extension WindowController: NSWindowDelegate {
     
     func windowDidBecomeMain(_ notification: Notification) {
         gridWindowController?.activeWindowController = self
+        tabDelegate?.activeManagedWindow(windowController: self)
     }
     
     func windowWillReturnUndoManager(_ window: NSWindow) -> UndoManager? {

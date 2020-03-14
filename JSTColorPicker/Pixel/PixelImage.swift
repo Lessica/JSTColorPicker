@@ -26,12 +26,16 @@ enum PixelImageError: LocalizedError {
     }
 }
 
+struct PixelImageSource {
+    let url: URL
+    let cgSource: CGImageSource
+}
+
 class PixelImage {
     
-    var imageURL: URL
-    var imageRep: CGImage
-    var imageSourceRep: CGImageSource
-    var pixelImageRep: JSTPixelImage
+    var cgImage: CGImage
+    var imageSource: PixelImageSource
+    var pixelImageRepresentation: JSTPixelImage
     
     init(contentsOf url: URL) throws {
         guard let dataProvider = CGDataProvider(filename: url.path) else {
@@ -45,14 +49,13 @@ class PixelImage {
             throw PixelImageError.loadImageFailed
         }
         
-        self.imageURL       = url
-        self.imageRep       = cgimg
-        self.imageSourceRep = cgimgSource
-        self.pixelImageRep  = JSTPixelImage(cgImage: cgimg)
+        self.cgImage                   = cgimg
+        self.imageSource               = PixelImageSource(url: url, cgSource: cgimgSource)
+        self.pixelImageRepresentation  = JSTPixelImage(cgImage: cgimg)
     }
     
     var size: PixelSize {
-        return PixelSize(pixelImageRep.size)
+        return PixelSize(pixelImageRepresentation.size)
     }
     
     var bounds: PixelRect {
@@ -61,7 +64,7 @@ class PixelImage {
     
     func color(at coordinate: PixelCoordinate) -> PixelColor? {
         guard bounds.contains(coordinate) else { return nil }
-        return PixelColor(coordinate: coordinate, color: pixelImageRep.getJSTColor(of: coordinate.toCGPoint()))
+        return PixelColor(coordinate: coordinate, color: pixelImageRepresentation.getJSTColor(of: coordinate.toCGPoint()))
     }
     
     func area(at rect: PixelRect) -> PixelArea? {
@@ -70,21 +73,21 @@ class PixelImage {
     }
     
     func pngRepresentation() -> Data {
-        return pixelImageRep.pngRepresentation()
+        return pixelImageRepresentation.pngRepresentation()
     }
     
     func pngRepresentation(of area: PixelArea) -> Data? {
         guard bounds.contains(area.rect) else { return nil }
-        return pixelImageRep.crop(area.rect.toCGRect()).pngRepresentation()
+        return pixelImageRepresentation.crop(area.rect.toCGRect()).pngRepresentation()
     }
     
     func toNSImage() -> NSImage {
-        return pixelImageRep.toNSImage()
+        return pixelImageRepresentation.toNSImage()
     }
     
     func toNSImage(of area: PixelArea) -> NSImage? {
         guard bounds.contains(area.rect) else { return nil }
-        return pixelImageRep.crop(area.rect.toCGRect()).toNSImage()
+        return pixelImageRepresentation.crop(area.rect.toCGRect()).toNSImage()
     }
     
     func downsample(to pointSize: CGSize, scale: CGFloat) -> NSImage {
@@ -96,7 +99,7 @@ class PixelImage {
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
             ] as CFDictionary
-        let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSourceRep, 0, downsampleOptions)!
+        let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource.cgSource, 0, downsampleOptions)!
         return NSImage(cgImage: downsampledImage, size: pointSize)
     }
     

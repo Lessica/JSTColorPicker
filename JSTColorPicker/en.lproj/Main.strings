@@ -53,6 +53,9 @@
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "Toggle Color Panel";
 
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "8Sz-oB-rce"; */
+"8Sz-oB-rce.title" = "Open or drop an image here.\n\n\n\n\n";
+
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "Devices";
 
@@ -109,6 +112,9 @@
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "cmL-jJ-0rb"; */
 "cmL-jJ-0rb.title" = "Show Logs...";
+
+/* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
+"d6I-ng-9rQ.title" = "Compare Opened Documents";
 
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "djd-CE-KfV"; */
 "djd-CE-KfV.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
@@ -263,6 +269,9 @@
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "Find Next";
 
+/* Class = "NSButtonCell"; title = "Exit Comparison Mode"; ObjectID = "Qmq-AZ-7YC"; */
+"Qmq-AZ-7YC.title" = "Exit Comparison Mode";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "r32-UK-sx0"; */
 "r32-UK-sx0.ibShadowedToolTip" = "Add/Locate Item (↵)";
 
@@ -341,8 +350,8 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "Copy";
 
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "X8A-3k-h2W"; */
-"X8A-3k-h2W.title" = "Open or drop an image here.";
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "X8A-3k-h2W"; */
+"X8A-3k-h2W.title" = "Open or drop an image here.\n\n\n\n\n";
 
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "Find…";

@@ -53,6 +53,9 @@ class Screenshot: NSDocument {
     public lazy var export: ExportManager = {
         return ExportManager(screenshot: self)
     }()
+    public var isLoaded: Bool {
+        return image != nil && content != nil
+    }
     
     fileprivate var appDelegate: AppDelegate! {
         return NSApplication.shared.delegate as? AppDelegate
@@ -72,7 +75,7 @@ class Screenshot: NSDocument {
         self.image = image
         self.content = Content()
         
-        let source = image.imageSourceRep
+        let source = image.imageSource.cgSource
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             throw ScreenshotError.invalidImageProperties
         }
@@ -90,15 +93,15 @@ class Screenshot: NSDocument {
     }
     
     override func data(ofType typeName: String) throws -> Data {
-        guard let source = image?.imageSourceRep else {
+        guard let source = image?.imageSource else {
             throw ScreenshotError.invalidImageSource
         }
         
-        guard let uti = CGImageSourceGetType(source) else {
+        guard let uti = CGImageSourceGetType(source.cgSource) else {
             throw ScreenshotError.invalidImageType
         }
         
-        guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
+        guard let metadata = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else {
             throw ScreenshotError.invalidImageProperties
         }
         
@@ -123,7 +126,7 @@ class Screenshot: NSDocument {
         // now it is allowed to unblock main thread from freezing
         unblockUserInteraction()
         
-        CGImageDestinationAddImageFromSource(destination, source, 0, (metadataAsMutable as CFDictionary?))
+        CGImageDestinationAddImageFromSource(destination, source.cgSource, 0, (metadataAsMutable as CFDictionary?))
         CGImageDestinationFinalize(destination)
         
         return destData as Data

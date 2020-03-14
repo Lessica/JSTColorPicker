@@ -216,20 +216,15 @@ class SceneController: NSViewController {
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
-        let imageView = SceneImageView()
-        imageView.setImage(image.imageRep)
-        
-        let imageSize = image.size
-        let initialRect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)  // .aspectFit(in: sceneView.bounds)
-        let initialPixelRect = PixelRect(origin: .zero, size: imageSize)
-        imageView.frame = initialRect
-        
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
         
+        let imageSize = image.size
+        let initialPixelRect = PixelRect(origin: .zero, size: imageSize)
         let wrapper = SceneImageWrapper(pixelBounds: initialPixelRect)
         wrapper.rulerViewClient = self
-        wrapper.addSubview(imageView)
+        wrapper.setImage(image)
+        
         sceneView.documentView = wrapper
         sceneView.verticalRulerView?.clientView = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
@@ -1104,6 +1099,22 @@ extension SceneController: RulerViewClient {
     
     func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
         
+    }
+    
+}
+
+extension SceneController: PixelMatchResponder {
+    
+    fileprivate var isInComparisonMode: Bool {
+        return wrapper.isInComparisonMode
+    }
+    
+    func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: (Bool) -> Void) {
+        wrapper.setMaskImage(maskImage)
+    }
+    
+    func endPixelMatchComparison() {
+        wrapper.setMaskImage(nil)
     }
     
 }

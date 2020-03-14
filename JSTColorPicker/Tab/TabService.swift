@@ -2,48 +2,62 @@
 import Cocoa
 
 extension Notification.Name {
-    static let respondingWindowChanged = Notification.Name("RespondingWindowChanged")
+    static let dropRespondingWindowChanged = Notification.Name("DropRespondingWindowChanged")
 }
 
 class TabService: TabDelegate {
     
-    fileprivate(set) var managedWindows: [ManagedWindow] = []
-    fileprivate weak var respondingWindow: NSWindow?
+    fileprivate var internalActiveOrder: Int = 0
+    fileprivate var pendingActiveOrder: Int {
+        let currentActiveOrder = internalActiveOrder
+        internalActiveOrder += 1
+        return currentActiveOrder
+    }
+    fileprivate var internalManagedWindows: [ManagedWindow] = []
+    fileprivate weak var dropRespondingWindow: NSWindow?
+    
+    public var managedWindows: [ManagedWindow] {
+        return internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder })
+    }
     
     /// Returns the main window of the managed window stack.
     /// Falls back the first element if no window is main. Note that this would
     /// likely be an internal inconsistency we gracefully handle here.
-    var firstRespondingWindow: NSWindow? {
+    public var firstRespondingWindow: NSWindow? {
         
         // FIXME: this is a workaround for drag'n'drop feature that
         //        new document could be opened in the window where user drops ther image in
-        if let respondingWindow = respondingWindow {
-            self.respondingWindow = nil
+        if let respondingWindow = dropRespondingWindow {
+            self.dropRespondingWindow = nil
             return respondingWindow
         }
         
-        let mainManagedWindow = managedWindows
+        return firstManagedWindow.map({ $0.window })
+    }
+    
+    public var firstManagedWindow: ManagedWindow? {
+        let mainManagedWindow = internalManagedWindows
             .first { $0.window.isMainWindow }
         
         // In case we run into the inconsistency, let it crash in debug mode so we
         // can fix our window management setup to prevent this from happening.
-        assert(mainManagedWindow != nil || managedWindows.isEmpty)
+        assert(mainManagedWindow != nil || internalManagedWindows.isEmpty)
         
         return (mainManagedWindow ?? managedWindows.first)
-            .map { $0.window }
     }
     
     init(initialWindowController: WindowController) {
         precondition(addManagedWindow(windowController: initialWindowController) != nil)
-        NotificationCenter.default.addObserver(forName: .respondingWindowChanged, object: nil, queue: nil) { [unowned self] notification in
+        NotificationCenter.default.addObserver(forName: .dropRespondingWindowChanged, object: nil, queue: nil) { [unowned self] notification in
             guard let window = notification.object as? NSWindow else {
-                self.respondingWindow = nil
+                self.dropRespondingWindow = nil
                 return
             }
-            self.respondingWindow = window
+            self.dropRespondingWindow = window
         }
     }
     
+    @discardableResult
     func addManagedWindow(windowController: WindowController) -> ManagedWindow? {
         guard let window = windowController.window else { return nil }
         let subscription = NotificationCenter.default.observe(name: NSWindow.willCloseNotification, object: window) { [unowned self] notification in
@@ -51,16 +65,24 @@ class TabService: TabDelegate {
             self.removeManagedWindow(forWindow: window)
         }
         let management = ManagedWindow(
+            windowActiveOrder: pendingActiveOrder,
             windowController: windowController,
             window: window,
             closingSubscription: subscription)
-        managedWindows.append(management)
+        internalManagedWindows.append(management)
         windowController.tabDelegate = self
         return management
     }
     
+    func activeManagedWindow(windowController: WindowController) -> Int? {
+        guard let management = internalManagedWindows.first(where: { $0.windowController === windowController }) else { return nil }
+        let activeOrder = pendingActiveOrder
+        management.windowActiveOrder = activeOrder
+        return activeOrder
+    }
+    
     func removeManagedWindow(forWindow window: NSWindow) {
-        managedWindows.removeAll(where: { $0.window === window })
+        internalManagedWindows.removeAll(where: { $0.window === window })
     }
     
     deinit {

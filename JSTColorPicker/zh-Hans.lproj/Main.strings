@@ -53,6 +53,9 @@
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "切换颜色面板";
 
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "8Sz-oB-rce"; */
+"8Sz-oB-rce.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
+
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "设备";
 
@@ -109,6 +112,9 @@
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "cmL-jJ-0rb"; */
 "cmL-jJ-0rb.title" = "显示日志...";
+
+/* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
+"d6I-ng-9rQ.title" = "比较已打开的文档";
 
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "djd-CE-KfV"; */
 "djd-CE-KfV.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
@@ -263,6 +269,9 @@
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "查找下一个";
 
+/* Class = "NSButtonCell"; title = "Exit Comparison Mode"; ObjectID = "Qmq-AZ-7YC"; */
+"Qmq-AZ-7YC.title" = "退出比较模式";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "r32-UK-sx0"; */
 "r32-UK-sx0.ibShadowedToolTip" = "添加/定位项目 (↵)";
 
@@ -341,7 +350,7 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";
 
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "X8A-3k-h2W"; */
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "X8A-3k-h2W"; */
 "X8A-3k-h2W.title" = "打开或在拖放图像到此处.";
 
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
