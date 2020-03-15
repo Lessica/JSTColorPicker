@@ -41,7 +41,7 @@ class TabService: TabDelegate {
         
         // In case we run into the inconsistency, let it crash in debug mode so we
         // can fix our window management setup to prevent this from happening.
-        assert(mainManagedWindow != nil || internalManagedWindows.isEmpty)
+        // assert(mainManagedWindow != nil || internalManagedWindows.isEmpty)
         
         return (mainManagedWindow ?? managedWindows.first)
     }

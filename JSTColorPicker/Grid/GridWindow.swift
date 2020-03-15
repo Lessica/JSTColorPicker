@@ -12,9 +12,12 @@ class GridWindow: NSPanel {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        isRestorable = false
         isFloatingPanel = true
         hidesOnDeactivate = true
         becomesKeyOnlyIfNeeded = true
+        isMovable = true
+        isMovableByWindowBackground = true
     }
     
 }

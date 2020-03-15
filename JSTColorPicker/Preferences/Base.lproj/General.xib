@@ -14,11 +14,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="c22-O7-iKe">
+        <customView id="c22-O7-iKe">
             <rect key="frame" x="0.0" y="0.0" width="423" height="248"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <tabView initialItem="DBw-sv-D6x" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
+                <tabView translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
                     <rect key="frame" x="13" y="10" width="397" height="232"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
@@ -134,11 +134,11 @@
                         </tabViewItem>
                         <tabViewItem label="Color Grid" identifier="" id="Qrb-RZ-ezf">
                             <view key="view" id="8yU-rV-VCd">
-                                <rect key="frame" x="10" y="33" width="374" height="76"/>
+                                <rect key="frame" x="10" y="33" width="377" height="76"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaZ-jx-mTk">
-                                        <rect key="frame" x="20" y="20" width="334" height="36"/>
+                                        <rect key="frame" x="20" y="20" width="337" height="36"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
                                                 <rect key="frame" x="-2" y="20" width="203" height="18"/>

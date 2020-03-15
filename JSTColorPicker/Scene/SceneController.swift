@@ -189,6 +189,7 @@ class SceneController: NSViewController {
     }
     
     @objc fileprivate func loadPreferences(_ notification: Notification?) {
+        // guard (notification?.object as? UserDefaults) == UserDefaults.standard else { return }
         debugPrint("[SceneController loadPreferences(_:)]")
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
         let drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground]

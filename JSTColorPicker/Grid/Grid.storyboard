@@ -10,8 +10,8 @@
         <scene sceneID="kD2-oh-2II">
             <objects>
                 <windowController id="DyE-GW-XMO" customClass="GridWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="GridWindow" customModule="JSTColorPicker" customModuleProvider="target">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                    <window key="window" title="Color Grid" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="GridWindow" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="f87-lJ-Hzo" customClass="GridWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="54" y="1373" width="300" height="300"/>
                         <rect key="screenRect" x="-240" y="1050" width="1920" height="1080"/>

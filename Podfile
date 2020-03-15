@@ -4,5 +4,5 @@ use_frameworks!
 
 target :JSTColorPicker do
 	pod 'Sparkle'
-	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
+	pod 'MASPreferences', :path => '../MASPreferences'
 end

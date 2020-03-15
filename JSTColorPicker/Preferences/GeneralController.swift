@@ -23,16 +23,6 @@ class GeneralController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        tabView.selectFirstTabViewItem(nil)
-    }
-    
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        tabView.selectFirstTabViewItem(nil)
-    }
-    
 }
 
 extension GeneralController: MASPreferencesViewController {
@@ -42,7 +32,7 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var hasResizableHeight: Bool {
-        return false
+        return true
     }
     
     var viewIdentifier: String {

@@ -63,7 +63,12 @@ class SidebarController: NSViewController {
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
     
-    fileprivate let colorPanel = NSColorPanel.shared
+    fileprivate var colorPanel: NSColorPanel {
+        let panel = NSColorPanel.shared
+        panel.showsAlpha = true
+        panel.isContinuous = false
+        return panel
+    }
     fileprivate static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
@@ -82,11 +87,8 @@ class SidebarController: NSViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         previewSliderLabel.textColor = .white
-        colorPanel.mode = .RGB
-        colorPanel.showsAlpha = true
-        colorPanel.isContinuous = false
-        // colorPanel.styleMask
         previewOverlayView.overlayDelegate = self
+        _ = colorPanel
     }
     
     override func viewDidLoad() {
