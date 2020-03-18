@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D658AF9923CB180C0098C567"
-               BuildableName = "JSTColorPicker.app"
-               BlueprintName = "JSTColorPicker"
+               BlueprintIdentifier = "D610477824224A170002E990"
+               BuildableName = "JSTColorPickerSparkle.app"
+               BlueprintName = "JSTColorPickerSparkle"
                ReferencedContainer = "container:JSTColorPicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "en"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D658AF9923CB180C0098C567"
-            BuildableName = "JSTColorPicker.app"
-            BlueprintName = "JSTColorPicker"
+            BlueprintIdentifier = "D610477824224A170002E990"
+            BuildableName = "JSTColorPickerSparkle.app"
+            BlueprintName = "JSTColorPickerSparkle"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D658AF9923CB180C0098C567"
-            BuildableName = "JSTColorPicker.app"
-            BlueprintName = "JSTColorPicker"
+            BlueprintIdentifier = "D610477824224A170002E990"
+            BuildableName = "JSTColorPickerSparkle.app"
+            BlueprintName = "JSTColorPickerSparkle"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

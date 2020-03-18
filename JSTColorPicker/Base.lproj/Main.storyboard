@@ -25,7 +25,7 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Check for Updates..." id="ntJ-ob-XWI">
+                                        <menuItem title="Check for Updates..." hidden="YES" id="ntJ-ob-XWI">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="checkForUpdates:" target="7t2-Hn-xkm" id="iYa-Ow-6U3"/>
@@ -339,6 +339,7 @@ CA
                 <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
+                        <outlet property="checkForUpdatesItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
                         <outlet property="colorPanelSwitchMenuItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
                         <outlet property="compareMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
                         <outlet property="devicesMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
@@ -734,8 +735,8 @@ CA
                             </touchBarItem>
                             <touchBarItem id="PNh-sU-yk9">
                                 <viewController key="viewController" id="7Oq-ht-hPs">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                        <rect key="frame" x="4" y="-2" width="288" height="30"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -760,8 +761,8 @@ CA
                             </touchBarItem>
                             <touchBarItem id="JTe-Pb-tmM">
                                 <viewController key="viewController" id="eFW-EM-Kyw">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                        <rect key="frame" x="4" y="-2" width="120" height="30"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -817,9 +818,9 @@ CA
             <objects>
                 <splitViewController id="6eT-at-2NW" customClass="SplitController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem behavior="contentList" id="skQ-Rr-O8f"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="skQ-Rr-O8f"/>
                         <splitViewItem id="sgr-JM-2S3"/>
-                        <splitViewItem canCollapse="YES" behavior="sidebar" id="PDk-zF-z1V"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="PDk-zF-z1V"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="DropSplitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1500" height="800"/>

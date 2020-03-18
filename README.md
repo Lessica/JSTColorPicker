@@ -7,6 +7,7 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - Read/Write annotator data from/into EXIF dictionary of PNG files
 - Take screenshots directly from iOS devices (depends `libimobiledevice`)
 - Copy/Export annotator data using custom templates
+- Show the difference between screenshots
 
 
 ## TODOs

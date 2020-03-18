@@ -25,6 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        if objc_getClass("SUAppcast") != nil {
+            checkForUpdatesItem.isHidden = false
+        }
+        
         let initialValues: [UserDefaults.Key: Any?] = [
             
             .enableNetworkDiscovery: false,
@@ -260,6 +264,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSWorkspace.shared.open(url)
         }
     }
+    
+    
+    // MARK: - Sparkle Hide
+    @IBOutlet weak var checkForUpdatesItem: NSMenuItem!
     
 }
 
