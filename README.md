@@ -5,7 +5,7 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ## Features
 - Pick colors & areas from PNG screenshots
 - Read/Write annotator data from/into EXIF dictionary of PNG files
-- Take screenshots directly from iOS devices (depends `libimobiledevice`)
+- Take screenshots directly from iOS devices (depends [`libimobiledevice`](https://github.com/libimobiledevice/libimobiledevice))
 - Copy/Export annotator data using custom templates
 - Show the difference between screenshots
 
@@ -166,4 +166,10 @@ end
   - `area.h`: area height in pixels
 
 Test the existence of `item.w` to check if the item is a *coordinate & color* or an *area*.
+
+## LICENSE
+- [JSTColorPicker](https://github.com/Lessica/JSTColorPicker/blob/master/LICENSE)
+- [libimobiledevice](https://github.com/libimobiledevice/libimobiledevice/blob/master/COPYING.LESSER)
+- [MASPreferences](https://github.com/shpakovski/MASPreferences/blob/master/LICENSE.md)
+- [Sparkle](https://github.com/sparkle-project/Sparkle/blob/master/LICENSE)
 
