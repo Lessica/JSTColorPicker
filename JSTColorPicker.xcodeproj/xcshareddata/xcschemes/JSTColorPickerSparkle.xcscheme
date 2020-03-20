@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D610477824224A170002E990"
-               BuildableName = "JSTColorPickerSparkle.app"
+               BuildableName = "JSTColorPicker.app"
                BlueprintName = "JSTColorPickerSparkle"
                ReferencedContainer = "container:JSTColorPicker.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D610477824224A170002E990"
-            BuildableName = "JSTColorPickerSparkle.app"
+            BuildableName = "JSTColorPicker.app"
             BlueprintName = "JSTColorPickerSparkle"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D610477824224A170002E990"
-            BuildableName = "JSTColorPickerSparkle.app"
+            BuildableName = "JSTColorPicker.app"
             BlueprintName = "JSTColorPickerSparkle"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
