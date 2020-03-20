@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>JSTColorPicker</title>
+        <item>
+            <title>1.8</title>
+            <pubDate>Wed, 11 Mar 2020 19:59:29 +0800</pubDate>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%201.8-3.html</sparkle:releaseNotesLink>
+            <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%201.8-3.dmg" sparkle:version="3" sparkle:shortVersionString="1.8" length="6162889" type="application/octet-stream"/>
+        </item>
+        <item>
+            <title>1.8</title>
+            <pubDate>Sat, 14 Mar 2020 23:03:42 +0800</pubDate>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%201.8-4.html</sparkle:releaseNotesLink>
+            <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%201.8-4.dmg" sparkle:version="4" sparkle:shortVersionString="1.8" length="6187529" type="application/octet-stream"/>
+        </item>
+    </channel>
+</rss>

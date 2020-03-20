@@ -346,7 +346,7 @@
 		D60C88CC23D5B23700DE5DF6 /* GridWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindow.swift; sourceTree = "<group>"; };
 		D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
-		D61047E124224A170002E990 /* JSTColorPickerSparkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPickerSparkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D61047E124224A170002E990 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61047E324224A950002E990 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D61047E424224B9C0002E990 /* SUUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUUpdater.h; sourceTree = "<group>"; };
 		D61047E524224B9C0002E990 /* SUUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SUUpdater.m; sourceTree = "<group>"; };
@@ -1144,7 +1144,7 @@
 				D62834EE23F8E9DB0016573B /* LuaSwift.framework */,
 				D628350D23F8EAAA0016573B /* LuaC.framework */,
 				D690C95F241A60DC00BB1652 /* pixelmatch */,
-				D61047E124224A170002E990 /* JSTColorPickerSparkle.app */,
+				D61047E124224A170002E990 /* JSTColorPicker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1423,7 +1423,7 @@
 			);
 			name = JSTColorPickerSparkle;
 			productName = JSTColorPicker;
-			productReference = D61047E124224A170002E990 /* JSTColorPickerSparkle.app */;
+			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D62834ED23F8E9DB0016573B /* LuaSwift */ = {
@@ -2019,7 +2019,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -2053,7 +2053,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -2325,7 +2325,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -2359,7 +2359,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
