@@ -23,5 +23,12 @@
             <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.0-2.html</sparkle:releaseNotesLink>
             <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.0-2.dmg" sparkle:version="2" sparkle:shortVersionString="2.0" length="6190109" type="application/octet-stream"/>
         </item>
+        <item>
+            <title>2.1</title>
+            <pubDate>Sun, 22 Mar 2020 18:29:33 +0800</pubDate>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-5.dmg" sparkle:version="5" sparkle:shortVersionString="2.1" length="6190882" type="application/octet-stream"/>
+            <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-5.html</sparkle:releaseNotesLink>
+        </item>
     </channel>
 </rss>
