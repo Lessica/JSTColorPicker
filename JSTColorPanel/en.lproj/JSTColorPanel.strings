@@ -1,0 +1,51 @@
+
+/* Class = "NSTextFieldCell"; title = "Alpha:"; ObjectID = "19Z-jM-RTe"; */
+"19Z-jM-RTe.title" = "Alpha:";
+
+/* Class = "NSTextFieldCell"; title = "%"; ObjectID = "292-r7-csr"; */
+"292-r7-csr.title" = "%";
+
+/* Class = "NSTextFieldCell"; title = "˚"; ObjectID = "3JT-tV-rwR"; */
+"3JT-tV-rwR.title" = "˚";
+
+/* Class = "NSMenuItem"; title = "Hex"; ObjectID = "4gY-WX-amz"; */
+"4gY-WX-amz.title" = "Hex";
+
+/* Class = "NSTextFieldCell"; title = "Blue:"; ObjectID = "6fv-Xn-Vgs"; */
+"6fv-Xn-Vgs.title" = "Blue:";
+
+/* Class = "NSTextFieldCell"; title = "Previous"; ObjectID = "CAo-ac-FL1"; */
+"CAo-ac-FL1.title" = "Previous";
+
+/* Class = "NSTextFieldCell"; title = "New"; ObjectID = "Fdq-Oj-tau"; */
+"Fdq-Oj-tau.title" = "New";
+
+/* Class = "NSButtonCell"; title = "Saturation:"; ObjectID = "GnY-yk-EL6"; */
+"GnY-yk-EL6.title" = "Saturation:";
+
+/* Class = "NSButtonCell"; title = "Brightness:"; ObjectID = "JRf-IT-VnH"; */
+"JRf-IT-VnH.title" = "Brightness:";
+
+/* Class = "NSTextFieldCell"; title = "Green:"; ObjectID = "PzN-Yv-AjH"; */
+"PzN-Yv-AjH.title" = "Green:";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "VZw-du-psE"; */
+"VZw-du-psE.title" = "Copy";
+
+/* Class = "NSButtonCell"; title = "Hue:"; ObjectID = "YuF-Ui-Z5v"; */
+"YuF-Ui-Z5v.title" = "Hue:";
+
+/* Class = "NSMenuItem"; title = "RGB"; ObjectID = "duN-zG-DXG"; */
+"duN-zG-DXG.title" = "RGB";
+
+/* Class = "NSTextFieldCell"; title = "%"; ObjectID = "idK-FY-JVP"; */
+"idK-FY-JVP.title" = "%";
+
+/* Class = "NSTextFieldCell"; title = "Red:"; ObjectID = "nlM-sJ-HUc"; */
+"nlM-sJ-HUc.title" = "Red:";
+
+/* Class = "NSTextFieldCell"; title = "%"; ObjectID = "s8a-2n-VwO"; */
+"s8a-2n-VwO.title" = "%";
+
+/* Class = "NSTextFieldCell"; title = "#"; ObjectID = "zdd-0B-qFy"; */
+"zdd-0B-qFy.title" = "#";

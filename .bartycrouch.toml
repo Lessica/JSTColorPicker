@@ -9,7 +9,7 @@ unstripped = false
 
 [update.code]
 codePath = "JSTColorPicker"
-localizablePath = "."
+localizablePath = "JSTColorPicker"
 defaultToKeys = false
 additive = false
 unstripped = false
