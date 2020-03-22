@@ -127,7 +127,7 @@ public class JSTColorPanel: NSColorPicker, NSColorPickingCustom {
     }
     
     public override var minContentSize: NSSize {
-        return NSSize(width: 660, height: 373)
+        return NSSize(width: 568, height: 332)
     }
     
     public override var buttonToolTip: String {

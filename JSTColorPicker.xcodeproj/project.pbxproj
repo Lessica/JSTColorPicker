@@ -244,8 +244,6 @@
 		D67A89962427B748002A6DDF /* ColorRepresentingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A89922427B748002A6DDF /* ColorRepresentingTextField.swift */; };
 		D67A89992427B817002A6DDF /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D67A89982427B817002A6DDF /* ToolbarIcon.tiff */; };
 		D67A899B2427BA28002A6DDF /* JSTColorPanel.colorPicker in CopyFiles */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; };
-		D67A89A32427BB59002A6DDF /* JSTColorPanel.colorPicker in Resources */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; };
-		D67A89A42427BB62002A6DDF /* JSTColorPanel.colorPicker in Resources */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; };
 		D67A89A52427D7B8002A6DDF /* JSTColorPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D67A89A72427D7B8002A6DDF /* JSTColorPanel.xib */; };
 		D67A89AE2427D8A8002A6DDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D67A89B02427D8A8002A6DDF /* Localizable.strings */; };
 		D67C51C623F1361800829B51 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
@@ -313,20 +311,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D628350C23F8EAAA0016573B;
 			remoteInfo = LuaC;
-		};
-		D67A899C2427BAF3002A6DDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D65AEBBD2427B60100D6A6CA;
-			remoteInfo = JSTColorPanel;
-		};
-		D67A899E2427BAFE002A6DDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D65AEBBD2427B60100D6A6CA;
-			remoteInfo = JSTColorPanel;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1543,7 +1527,6 @@
 			);
 			dependencies = (
 				D610477924224A170002E990 /* PBXTargetDependency */,
-				D67A899F2427BAFE002A6DDF /* PBXTargetDependency */,
 			);
 			name = JSTColorPickerSparkle;
 			productName = JSTColorPicker;
@@ -1602,7 +1585,6 @@
 			);
 			dependencies = (
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
-				D67A899D2427BAF3002A6DDF /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
 			productName = JSTColorPicker;
@@ -1701,7 +1683,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D67A89A42427BB62002A6DDF /* JSTColorPanel.colorPicker in Resources */,
 				D61047D024224A170002E990 /* General.xib in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
@@ -1733,7 +1714,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D67A89A32427BB59002A6DDF /* JSTColorPanel.colorPicker in Resources */,
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
@@ -2105,16 +2085,6 @@
 			isa = PBXTargetDependency;
 			target = D628350C23F8EAAA0016573B /* LuaC */;
 			targetProxy = D628357B23F8EF4F0016573B /* PBXContainerItemProxy */;
-		};
-		D67A899D2427BAF3002A6DDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D65AEBBD2427B60100D6A6CA /* JSTColorPanel */;
-			targetProxy = D67A899C2427BAF3002A6DDF /* PBXContainerItemProxy */;
-		};
-		D67A899F2427BAFE002A6DDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D65AEBBD2427B60100D6A6CA /* JSTColorPanel */;
-			targetProxy = D67A899E2427BAFE002A6DDF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2577,7 +2547,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
@@ -2602,7 +2571,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
