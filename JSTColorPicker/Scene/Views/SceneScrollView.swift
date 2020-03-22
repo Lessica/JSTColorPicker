@@ -98,6 +98,8 @@ class SceneScrollView: NSScrollView {
         drawsBackground = true
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
+        scrollerStyle = .overlay
+        scrollerKnobStyle = .default
         usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
         
         hasVerticalRuler = true

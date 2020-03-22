@@ -101,7 +101,7 @@ class ExportManager {
         // templates.forEach({ dump($0) })
         self.templates.removeAll()
         self.templates.append(contentsOf: templates)
-        errors.forEach({ os_log("Cannot load template: %@, failure reason: %@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
+        errors.forEach({ os_log("Cannot load template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
         
         if !(selectedTemplate != nil) {
             if let uuid = self.templates.first?.uuid {
@@ -133,7 +133,7 @@ class ExportManager {
             exportToAdditionalPasteboard(items)
             exportToGeneralStringPasteboard(try selectedTemplate.generate(image, for: items))
         } catch let error as TemplateError {
-            os_log("Cannot generate template: %@, failure reason: %@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
         } catch let error {
             throw error
@@ -148,7 +148,7 @@ class ExportManager {
                 try data.write(to: url)
             }
         } catch let error as TemplateError {
-            os_log("Cannot generate template: %@, failure reason: %@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
         } catch let error {
             throw error

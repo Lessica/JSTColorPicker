@@ -227,8 +227,9 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     @IBAction func optionButtonTapped(_ sender: NSButton) {
         guard let exportManager = screenshot?.export else { return }
         let items = exportManager.templates
-            .compactMap({ (template) -> NSMenuItem in
+            .compactMap({ [weak self] (template) -> NSMenuItem in
                 let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: "")
+                item.target = self
                 item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(templateIdentifierPrefix)\(template.uuid.uuidString)")
                 let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
                 item.isEnabled = enabled
@@ -266,10 +267,16 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     @IBAction func showLogsMenuTapped(_ sender: NSMenuItem) {
-        NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Applications/Utilities/Console.app", isDirectory: true))
+        let paths = [
+            "/Applications/Utilities/Console.app",
+            "/System/Applications/Utilities/Console.app"
+        ]
+        if let path = paths.first(where: { FileManager.default.fileExists(atPath: $0) }) {
+            NSWorkspace.shared.open(URL(fileURLWithPath: path, isDirectory: true))
+        }
     }
     
-    @objc func templateItemTapped(_ sender: NSMenuItem) {
+    @objc fileprivate func templateItemTapped(_ sender: NSMenuItem) {
         selectTemplateItem(sender)
     }
     

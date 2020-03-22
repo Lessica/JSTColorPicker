@@ -69,69 +69,66 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func mouseMoved(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func mouseExited(with event: NSEvent) {
-        internalResetFocusAppearance()
-        internalResetCursorAppearance()
+        resetAppearance()
     }
     
     override func mouseDown(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func mouseUp(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func mouseDragged(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func rightMouseDragged(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func scrollWheel(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func magnify(with event: NSEvent) {
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        updateAppearance(with: event)
     }
     
     override func smartMagnify(with event: NSEvent) {
+        updateAppearance(with: event)
+    }
+    
+    public func updateAppearance() {
+        updateAppearance(with: nil)
+    }
+    
+    fileprivate func updateAppearance(with event: NSEvent?) {
+        guard isMouseInside else { return }
         internalUpdateFocusAppearance(with: event)
         internalUpdateCursorAppearance(with: event)
     }
     
-    public func updateAppearance() {
-        guard isMouseInside else { return }
-        internalUpdateFocusAppearance(with: nil)
-        internalUpdateCursorAppearance(with: nil)
+    fileprivate func resetAppearance() {
+        internalResetFocusAppearance()
+        internalResetCursorAppearance()
     }
     
     fileprivate func internalUpdateFocusAppearance(with event: NSEvent?) {
