@@ -11,6 +11,9 @@
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
+		D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
+		D60B0F4324286AA30034F21C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
+		D60B0F4724286AA30034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CC23D5B23700DE5DF6 /* GridWindow.swift */; };
 		D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */; };
 		D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C88D023D5D4BD00DE5DF6 /* GridView.swift */; };
@@ -291,6 +294,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D60B0F4524286AA30034F21C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D60B0F3B24286AA30034F21C;
+			remoteInfo = JSTScreenshotHelper;
+		};
 		D610477A24224A170002E990 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -315,6 +325,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D60B0F4824286AA30034F21C /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				D60B0F4724286AA30034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D61047DA24224A170002E990 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +389,13 @@
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
 		D60A691123F2CDBA00ED9748 /* RulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerMarker.swift; sourceTree = "<group>"; };
+		D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = JSTScreenshotHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTScreenshotHelperProtocol.h; sourceTree = "<group>"; };
+		D60B0F3F24286AA30034F21C /* JSTScreenshotHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTScreenshotHelper.h; sourceTree = "<group>"; };
+		D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTScreenshotHelper.m; sourceTree = "<group>"; };
+		D60B0F4224286AA30034F21C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D60B0F4424286AA30034F21C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTScreenshotHelper.entitlements; sourceTree = "<group>"; };
 		D60C88CC23D5B23700DE5DF6 /* GridWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindow.swift; sourceTree = "<group>"; };
 		D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
@@ -729,6 +757,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D60B0F3924286AA30034F21C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D61047C424224A170002E990 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -804,6 +839,19 @@
 				3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
+			isa = PBXGroup;
+			children = (
+				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
+				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
+				D60B0F3F24286AA30034F21C /* JSTScreenshotHelper.h */,
+				D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */,
+				D60B0F4224286AA30034F21C /* main.m */,
+				D60B0F4424286AA30034F21C /* Info.plist */,
+			);
+			path = JSTScreenshotHelper;
 			sourceTree = "<group>";
 		};
 		D61047E824224CC90002E990 /* JSTColorPickerSparkle */ = {
@@ -1177,8 +1225,11 @@
 		D658AF9123CB180C0098C567 = {
 			isa = PBXGroup;
 			children = (
+				D647B06423D198CB00D76CB5 /* lib */,
+				D647B07023D1A2C300D76CB5 /* include */,
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
+				D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
@@ -1198,6 +1249,7 @@
 				D690C95F241A60DC00BB1652 /* pixelmatch */,
 				D61047E124224A170002E990 /* JSTColorPicker.app */,
 				D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */,
+				D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1205,8 +1257,6 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				D647B06423D198CB00D76CB5 /* lib */,
-				D647B07023D1A2C300D76CB5 /* include */,
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
@@ -1512,6 +1562,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
+			buildPhases = (
+				D60B0F3824286AA30034F21C /* Sources */,
+				D60B0F3924286AA30034F21C /* Frameworks */,
+				D60B0F3A24286AA30034F21C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSTScreenshotHelper;
+			productName = JSTScreenshotHelper;
+			productReference = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		D610477824224A170002E990 /* JSTColorPickerSparkle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D61047DE24224A170002E990 /* Build configuration list for PBXNativeTarget "JSTColorPickerSparkle" */;
@@ -1580,11 +1647,13 @@
 				D658AF9823CB180C0098C567 /* Resources */,
 				D62834A823F8E6D10016573B /* Embed Frameworks */,
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
+				D60B0F4824286AA30034F21C /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
+				D60B0F4624286AA30034F21C /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
 			productName = JSTColorPicker;
@@ -1636,6 +1705,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
+					D60B0F3B24286AA30034F21C = {
+						CreatedOnToolsVersion = 11.3;
+					};
 					D62834ED23F8E9DB0016573B = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -1669,6 +1741,7 @@
 			projectRoot = "";
 			targets = (
 				D658AF9923CB180C0098C567 /* JSTColorPicker */,
+				D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */,
 				D610477824224A170002E990 /* JSTColorPickerSparkle */,
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
@@ -1679,6 +1752,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D60B0F3A24286AA30034F21C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D61047CF24224A170002E990 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1821,6 +1901,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D60B0F3824286AA30034F21C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D60B0F4324286AA30034F21C /* main.m in Sources */,
+				D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D610477C24224A170002E990 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2071,6 +2160,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D60B0F4624286AA30034F21C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
+			targetProxy = D60B0F4524286AA30034F21C /* PBXContainerItemProxy */;
+		};
 		D610477924224A170002E990 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D62834ED23F8E9DB0016573B /* LuaSwift */;
@@ -2169,6 +2263,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D60B0F4924286AA30034F21C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = JSTScreenshotHelper/JSTScreenshotHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = JSTScreenshotHelper/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D60B0F4A24286AA30034F21C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = JSTScreenshotHelper/JSTScreenshotHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = JSTScreenshotHelper/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		D61047DF24224A170002E990 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */;
@@ -2183,7 +2307,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(PROJECT_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2192,7 +2316,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/lib",
+					"$(PROJECT_DIR)/lib/",
 				);
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -2217,7 +2341,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(PROJECT_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2226,7 +2350,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/lib",
+					"$(PROJECT_DIR)/lib/",
 				);
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -2489,7 +2613,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(PROJECT_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/include/\"",
 				);
 				INFOPLIST_FILE = JSTColorPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2498,7 +2622,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/lib",
+					"$(PROJECT_DIR)/lib/",
 				);
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -2523,7 +2647,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(PROJECT_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/include/\"",
 				);
 				INFOPLIST_FILE = JSTColorPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2532,7 +2656,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/lib",
+					"$(PROJECT_DIR)/lib/",
 				);
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -2616,6 +2740,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D60B0F4924286AA30034F21C /* Debug */,
+				D60B0F4A24286AA30034F21C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D61047DE24224A170002E990 /* Build configuration list for PBXNativeTarget "JSTColorPickerSparkle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
