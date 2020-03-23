@@ -3,7 +3,7 @@ lib/libcrypto.a filter=lfs diff=lfs merge=lfs -text
 lib/libimobiledevice.a filter=lfs diff=lfs merge=lfs -text
 lib/libplist.a filter=lfs diff=lfs merge=lfs -text
 lib/libssl.a filter=lfs diff=lfs merge=lfs -text
-lib/* linguist-vendored=true
-include/* linguist-vendored=true
-LuaC/include/* linguist-vendored=true
-LuaC/lib/* linguist-vendored=true
+lib/** linguist-vendored=true
+include/** linguist-vendored=true
+LuaC/include/** linguist-vendored=true
+LuaC/lib/** linguist-vendored=true
