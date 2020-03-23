@@ -1,5 +1,5 @@
 //
-//  JSTDeviceService.h
+//  JSTConnectedDeviceStore.h
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
@@ -11,16 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JSTDeviceService, JSTDevice;
+@class JSTConnectedDeviceStore, JSTConnectedDevice;
 
 @protocol JSTDeviceDelegate <NSObject>
-- (void)didReceiveiDeviceEvent:(JSTDeviceService *)service;
+- (void)didReceiveiDeviceEvent:(JSTConnectedDeviceStore *)service;
 @end
 
-@interface JSTDeviceService : NSObject
+@interface JSTConnectedDeviceStore : NSObject
 
 @property (nonatomic, weak) id <JSTDeviceDelegate> delegate;
-- (NSArray <JSTDevice *> *)devicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
+- (NSArray <JSTConnectedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
 
 @end
 

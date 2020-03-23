@@ -11,7 +11,5 @@
 
 #import "JSTPixelColor.h"
 #import "JSTPixelImage.h"
-#import "JSTDevice.h"
-#import "JSTDeviceService.h"
 
 #endif /* JSTColorPicker_Bridging_Header_h */

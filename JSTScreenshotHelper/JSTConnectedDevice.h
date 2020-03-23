@@ -1,5 +1,5 @@
 //
-//  JSTDevice.h
+//  JSTConnectedDevice.h
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
@@ -10,19 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^JSTScreenshotHandler)(NSData * _Nullable imageData, NSError * _Nullable error);
+typedef void (^JSTScreenshotHandler)(NSData * _Nullable, NSError * _Nullable);
 static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
 
-@interface JSTDevice : NSObject
+@interface JSTConnectedDevice : NSObject
 
 @property (nonatomic, copy, readonly) NSString *udid;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSString *menuTitle;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (nullable JSTDevice *)initWithUDID:(NSString *)udid;
-+ (nullable JSTDevice *)deviceWithUDID:(NSString *)udid;
-- (void)screenshotWithCompletionHandler:(JSTScreenshotHandler)completion;
+- (nullable JSTConnectedDevice *)initWithUDID:(NSString *)udid;
++ (nullable JSTConnectedDevice *)deviceWithUDID:(NSString *)udid;
+- (void)takeScreenshotWithCompletionHandler:(JSTScreenshotHandler)completion;
 
 @end
 

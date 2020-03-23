@@ -1,26 +1,26 @@
 //
-//  JSTDeviceService.m
+//  JSTConnectedDeviceStore.m
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import "JSTDeviceService.h"
-#import "JSTDevice.h"
+#import "JSTConnectedDeviceStore.h"
+#import "JSTConnectedDevice.h"
 #import <libimobiledevice/lockdown.h>
 
 static void handle_idevice_event(const idevice_event_t *event, void *user_data) {
-    JSTDeviceService *service = (__bridge JSTDeviceService *)(user_data);
+    JSTConnectedDeviceStore *service = (__bridge JSTConnectedDeviceStore *)(user_data);
     [service.delegate didReceiveiDeviceEvent:service];
 }
 
-@interface JSTDeviceService ()
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTDevice *> *activeDevices;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTDevice *> *allDevices;
+@interface JSTConnectedDeviceStore ()
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *activeDevices;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *allDevices;
 @end
 
-@implementation JSTDeviceService
+@implementation JSTConnectedDeviceStore
 
 - (instancetype)init {
     self = [super init];
@@ -37,7 +37,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
     idevice_event_unsubscribe();
 }
 
-- (NSArray <JSTDevice *> *)devicesIncludingNetworkDevices:(BOOL)includingNetworkDevices {
+- (NSArray <JSTConnectedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices {
     if (includingNetworkDevices) {
         idevice_info_t *cDevices;
         int cUDIDCount = 0;
@@ -57,7 +57,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
                 }
             }
             else {
-                JSTDevice *device = [[JSTDevice alloc] initWithUDID:udid];
+                JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
                 self.allDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }
@@ -85,7 +85,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
                 }
             }
             else {
-                JSTDevice *device = [[JSTDevice alloc] initWithUDID:udid];
+                JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
                 self.allDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }

@@ -7,7 +7,7 @@
 		<key>JSTColorPanel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>JSTColorPicker copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -27,14 +27,14 @@
 		<key>JSTScreenshotHelper.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>2</integer>
 		</dict>
 		<key>LuaC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 		<key>LuaSource.xcscheme_^#shared#^_</key>
 		<dict>
@@ -46,16 +46,33 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>PixelMatch.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>10</integer>
+		</dict>
+		<key>pixel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>D60B0F3B24286AA30034F21C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D60B0F8624288CF20034F21C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D610477824224A170002E990</key>
 		<dict>
 			<key>primary</key>

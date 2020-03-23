@@ -1,0 +1,30 @@
+
+/* kJSTScreenshotError */
+"Could not connect to \"%@\"." = "Could not connect to \"%@\".";
+
+/* kJSTScreenshotError */
+"Could not connect to lockdownd." = "Could not connect to lockdownd.";
+
+/* kJSTScreenshotError */
+"Could not create image from screenshot." = "Could not create image from screenshot.";
+
+/* kJSTScreenshotError */
+"Could not get interface orientation." = "Could not get interface orientation.";
+
+/* kJSTScreenshotError */
+"Could not get PNG/TIFF representation of screenshot." = "Could not get PNG/TIFF representation of screenshot.";
+
+/* kJSTScreenshotError */
+"Could not get screenshot." = "Could not get screenshot.";
+
+/* kJSTScreenshotError */
+"Could not read TIFF representation of screenshot from temporary storage." = "Could not read TIFF representation of screenshot from temporary storage.";
+
+/* kJSTScreenshotError */
+"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.";
+
+/* kJSTScreenshotError */
+"Could not write TIFF representation of screenshot to temporary storage." = "Could not write TIFF representation of screenshot to temporary storage.";
+
+/* kJSTScreenshotError */
+"Device \"%@\" is not reachable." = "Device \"%@\" is not reachable.";

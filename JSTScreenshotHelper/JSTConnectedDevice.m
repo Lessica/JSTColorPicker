@@ -1,20 +1,19 @@
 //
-//  JSTDevice.m
+//  JSTConnectedDevice.m
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import "JSTDevice.h"
+#import "JSTConnectedDevice.h"
 #import "JSTPixelImage.h"
 #import <libimobiledevice/libimobiledevice.h>
 #import <libimobiledevice/lockdown.h>
 #import <libimobiledevice/screenshotr.h>
 #import <libimobiledevice/sbservices.h>
 
-
-@implementation JSTDevice {
+@implementation JSTConnectedDevice {
     idevice_t cDevice;
     char *cUDID;
 }
@@ -25,10 +24,6 @@
 
 - (BOOL)isEqual:(id)object {
     return [self.udid isEqual:object];
-}
-
-- (NSString *)menuTitle {
-    return [NSString stringWithFormat:@"%@ (%@)", self.name, self.udid];
 }
 
 - (instancetype)initWithUDID:(NSString *)udid {
@@ -57,7 +52,7 @@
 }
 
 + (instancetype)deviceWithUDID:(NSString *)udid {
-    return [[JSTDevice alloc] initWithUDID:udid];
+    return [[JSTConnectedDevice alloc] initWithUDID:udid];
 }
 
 - (void)dealloc {
@@ -68,7 +63,7 @@
 #endif
 }
 
-- (void)screenshotWithCompletionHandler:(JSTScreenshotHandler)completion {
+- (void)takeScreenshotWithCompletionHandler:(JSTScreenshotHandler)completion {
     
     idevice_t device = self->cDevice;
     lockdownd_client_t lckd = NULL;
