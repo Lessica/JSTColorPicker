@@ -7,13 +7,17 @@
 //
 
 import Cocoa
+import PromiseKit
 import MASPreferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     public var tabService: TabService?
-    public let deviceService = JSTDeviceService()
+    public var helperConnection: NSXPCConnection?
+    @IBOutlet weak var menu: NSMenu!
+    @IBOutlet weak var mainMenu: NSMenu!
+    
     public let gridController = GridWindowController.newGrid()
     private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
@@ -61,12 +65,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.register(defaults: initialValues)
         
-        deviceService.delegate = self
-        reloadiDevices()
+        let connectionToService = NSXPCConnection(serviceName: "com.jst.JSTScreenshotHelper")
+        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
+        connectionToService.resume()
+        self.helperConnection = connectionToService
+        
+        resetDevicesSubMenu()
+        setupScreenshotHelper()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        
+        self.helperConnection?.invalidate()
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
@@ -99,6 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Compare Actions
     
+    @IBOutlet weak var fileMenu: NSMenu!
     @IBOutlet weak var compareMenuItem: NSMenuItem!
     
     fileprivate var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
@@ -165,6 +175,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var enableNetworkDiscoveryMenuItem: NSMenuItem!
     @IBOutlet weak var devicesMenu: NSMenu!
+    @IBOutlet weak var devicesSubMenu: NSMenu!
     
     fileprivate static let deviceIdentifierPrefix = "device-"
     fileprivate var selectedDeviceUDID: String? {
@@ -182,77 +193,111 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     @IBAction func enableNetworkDiscoveryMenuItemTapped(_ sender: NSMenuItem) {
-        sender.state = sender.state == .on ? .off : .on
-        UserDefaults.standard[.enableNetworkDiscovery] = sender.state == .on
-        reloadiDevices()
+        let enabled = sender.state == .on
+        sender.state = !enabled ? .on : .off
+        UserDefaults.standard[.enableNetworkDiscovery] = !enabled
+        setupScreenshotHelper()
+    }
+    
+    fileprivate func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
+        return Promise<[String: String]> { seal in
+            proxy.lookupDevice(byUDID: udid) { (data, error) in
+                if let error = error {
+                    seal.reject(error)
+                    return
+                }
+                seal.fulfill(try! PropertyListSerialization.propertyList(from: data!, options: [], format: nil) as! [String: String])
+            }
+        }
+    }
+    
+    fileprivate func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<Data> {
+        return Promise<Data> { seal in
+            proxy.takeScreenshot(byUDID: udid) { (data, error) in
+                if let error = error {
+                    seal.reject(error)
+                    return
+                }
+                seal.fulfill(data!)
+            }
+        }
+    }
+    
+    fileprivate func promiseSaveScreenshot(_ data: Data, to path: String) -> Promise<URL> {
+        let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: path).standardizingPath)
+        return Promise<URL> { seal in
+            do {
+                var isDirectory: ObjCBool = false
+                if !FileManager.default.fileExists(atPath: picturesDirectoryURL.path, isDirectory: &isDirectory) {
+                    try FileManager.default.createDirectory(at: picturesDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+                }
+                var picturesURL = picturesDirectoryURL
+                picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
+                picturesURL.appendPathExtension("png")
+                try data.write(to: picturesURL)
+                seal.fulfill(picturesURL)
+            } catch let error {
+                seal.reject(error)
+            }
+        }
+    }
+    
+    fileprivate func promiseOpenDocument(at url: URL) -> Promise<Void> {
+        return Promise<Void> { seal in
+            NSDocumentController.shared.openDocument(withContentsOf: url, display: true) { (document, documentWasAlreadyOpen, error) in
+                if let error = error {
+                    seal.reject(error)
+                    return
+                }
+                seal.fulfill_()
+            }
+        }
     }
     
     @IBAction func screenshotMenuItemTapped(_ sender: Any?) {
-        guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
+        
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
-        let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: picturesDirectoryPath).standardizingPath)
-        if let selectedDeviceUDID = selectedDeviceUDID {
-            if let device = JSTDevice(udid: selectedDeviceUDID) {
-                let loadingAlert = NSAlert()
-                loadingAlert.messageText = NSLocalizedString("Waiting for device", comment: "screenshotItemTapped(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Downloading screenshot from device \"%@\"...", comment: "screenshotItemTapped(_:)"), device.name)
-                let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
-                loadingIndicator.style = .spinning
-                loadingIndicator.startAnimation(nil)
-                loadingAlert.accessoryView = loadingIndicator
-                loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
-                loadingAlert.alertStyle = .informational
-                loadingAlert.buttons.first?.isHidden = true
-                windowController.showSheet(loadingAlert, completionHandler: nil)
-                DispatchQueue.global(qos: .default).async {
-                    device.screenshot { (data, error) in
-                        DispatchQueue.main.async {
-                            if let error = error {
-                                let alert = NSAlert(error: error)
-                                windowController.showSheet(alert, completionHandler: nil)
-                            } else if let data = data {
-                                do {
-                                    var isDirectory: ObjCBool = false
-                                    if !FileManager.default.fileExists(atPath: picturesDirectoryURL.path, isDirectory: &isDirectory) {
-                                        try FileManager.default.createDirectory(at: picturesDirectoryURL, withIntermediateDirectories: true, attributes: nil)
-                                    }
-                                    var picturesURL = picturesDirectoryURL
-                                    picturesURL.appendPathComponent("screenshot_\(AppDelegate.screenshotDateFormatter.string(from: Date.init()))")
-                                    picturesURL.appendPathExtension("png")
-                                    try data.write(to: picturesURL)
-                                    NSDocumentController.shared.openDocument(withContentsOf: picturesURL, display: true) { (document, documentWasAlreadyOpen, error) in
-                                        if let error = error {
-                                            let alert = NSAlert(error: error)
-                                            windowController.showSheet(alert, completionHandler: nil)
-                                        } else {
-                                            windowController.showSheet(nil, completionHandler: nil)
-                                        }
-                                    }
-                                } catch let error {
-                                    let alert = NSAlert(error: error)
-                                    windowController.showSheet(alert, completionHandler: nil)
-                                }
-                            } else {
-                                windowController.showSheet(nil, completionHandler: nil)
-                            }
-                        }
-                    }
-                }
-            } else {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString("Unable to connect", comment: "screenshotItemTapped(_:)")
-                alert.informativeText = NSLocalizedString("Try again later.", comment: "screenshotItemTapped(_:)")
-                alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
-                alert.alertStyle = .warning
-                windowController.showSheet(alert, completionHandler: nil)
-            }
-        } else {
+        guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
+        guard let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol else { return }
+        
+        guard let selectedDeviceUDID = selectedDeviceUDID else {
             let alert = NSAlert()
-            alert.messageText = NSLocalizedString("No device available", comment: "screenshotItemTapped(_:)")
-            alert.informativeText = NSLocalizedString("Connect to your iOS device via USB or network.", comment: "screenshotItemTapped(_:)")
+            alert.messageText = NSLocalizedString("No device selected", comment: "screenshotItemTapped(_:)")
+            alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "screenshotItemTapped(_:)")
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
             alert.alertStyle = .warning
             windowController.showSheet(alert, completionHandler: nil)
+            return
+        }
+        
+        let loadingAlert = NSAlert()
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        
+        firstly { () -> Promise<[String: String]> in
+            loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "screenshotItemTapped(_:)")
+            loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"...", comment: "screenshotItemTapped(_:)"), selectedDeviceUDID)
+            windowController.showSheet(loadingAlert, completionHandler: nil)
+            return self.promiseProxyLookupDevice(proxy, by: selectedDeviceUDID)
+        }.then { [unowned self] (device) -> Promise<Data> in
+            loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "screenshotItemTapped(_:)")
+            loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"...", comment: "screenshotItemTapped(_:)"), device["name"]!)
+            return self.promiseProxyTakeScreenshot(proxy, by: device["udid"]!)
+        }.then { [unowned self] (data) -> Promise<URL> in
+            return self.promiseSaveScreenshot(data, to: picturesDirectoryPath)
+        }.then { [unowned self] (url) -> Promise<Void> in
+            windowController.showSheet(nil, completionHandler: nil)
+            return self.promiseOpenDocument(at: url)
+        }.catch { (error) in
+            let alert = NSAlert(error: error)
+            windowController.showSheet(alert, completionHandler: nil)
+        }.finally {
+            // do nothing
         }
     }
     
@@ -293,60 +338,34 @@ extension AppDelegate: NSUserInterfaceValidations {
 extension AppDelegate: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        updateFileMenuItems()
-        updateDevicesMenuItems()
+        if menu == self.fileMenu {
+            updateFileMenuItems()
+        }
+        else if menu == self.devicesMenu {
+            updateDevicesMenuItems()
+        }
+        else if menu == self.devicesSubMenu {
+            updateDevicesSubMenuItems()
+        }
     }
     
 }
 
-extension AppDelegate: JSTDeviceDelegate {
+extension AppDelegate {
     
-    func reloadiDevices() {
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            self?.didReceiveiDeviceEvent()
+    fileprivate func setupScreenshotHelper() {
+        let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
+        if let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol {
+            proxy.setNetworkDiscoveryEnabled(enabled)
         }
     }
     
-    fileprivate func didReceiveiDeviceEvent() {
-        didReceiveiDeviceEvent(self.deviceService)
-    }
-    
-    func didReceiveiDeviceEvent(_ service: JSTDeviceService) {
-        let enableNetworkDiscovery: Bool = UserDefaults.standard[.enableNetworkDiscovery]
-        
-        let devices = service.devices(includingNetworkDevices: enableNetworkDiscovery)
-            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
-        debugPrint(devices)
-        
-        DispatchQueue.main.async { [weak self] in
-            var items: [NSMenuItem] = []
-            for device in devices {
-                let item = NSMenuItem(title: device.menuTitle, action: #selector(self?.deviceItemTapped(_:)), keyEquivalent: "")
-                item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(AppDelegate.deviceIdentifierPrefix)\(device.udid)")
-                items.append(item)
-            }
-            
-            if items.count > 0 {
-                self?.devicesMenu.items = items
-            } else {
-                self?.resetDevicesMenu()
-            }
-            
-            self?.updateDevicesMenuItems()
-        }
-    }
-    
-    @objc func deviceItemTapped(_ sender: NSMenuItem) {
-        selectDeviceItem(sender)
-    }
-    
-    fileprivate func resetDevicesMenu() {
-        let emptyItem = NSMenuItem(title: NSLocalizedString("No device found.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
+    fileprivate func resetDevicesSubMenu() {
+        let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
         emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+        emptyItem.isEnabled = false
         emptyItem.state = .off
-        devicesMenu.items = [
-            emptyItem
-        ]
+        devicesSubMenu.items = [ emptyItem ]
     }
     
     fileprivate func updateFileMenuItems() {
@@ -368,29 +387,75 @@ extension AppDelegate: JSTDeviceDelegate {
     
     fileprivate func updateDevicesMenuItems() {
         enableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
-        var selectedDeviceExists = false
-        let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(selectedDeviceUDID ?? "")"
-        for item in devicesMenu.items {
-            if let identifier = item.identifier?.rawValue {
-                if identifier == selectedDeviceIdentifier {
-                    item.state = .on
-                    selectedDeviceExists = true
-                } else {
-                    item.state = .off
-                }
-            }
+    }
+    
+    fileprivate func updateDevicesSubMenuItems() {
+        
+        let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
+        
+        for item in devicesSubMenu.items {
+            guard let deviceIdentifier = item.identifier?.rawValue else { continue }
+            item.isEnabled = true
+            item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
         }
-        if !selectedDeviceExists {
-            if let firstItem = devicesMenu.items.first {
-                selectDeviceItem(firstItem)
-            } else {
-                selectedDeviceUDID = nil
+        
+        reloadDevicesSubMenuItems()
+        
+    }
+    
+    fileprivate func reloadDevicesSubMenuItems() {
+        guard let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol else { return }
+        
+        let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            
+            proxy.discoveredDevices { (data, error) in
+                
+                guard let data = data else { return }
+                guard let devices = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [[String: String]] else { return }
+                
+                DispatchQueue.main.async { [weak self] in
+                    
+                    var items: [NSMenuItem] = []
+                    for device in devices {
+                        
+                        guard let udid = device["udid"], let name = device["name"] else { continue }
+                        // if self?.selectedDeviceUDID == nil { self?.selectedDeviceUDID = udid }
+                        
+                        let deviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(udid)"
+                        let item = NSMenuItem(title: "\(name) (\(udid))", action: #selector(self?.deviceItemTapped(_:)), keyEquivalent: "")
+                        item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceIdentifier)
+                        item.isEnabled = true
+                        item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
+                        items.append(item)
+                        
+                    }
+                    
+                    if items.count > 0 {
+                        self?.devicesSubMenu.items = items
+                    }
+                    else {
+                        self?.resetDevicesSubMenu()
+                    }
+                    
+                    self?.devicesSubMenu.update()
+                    
+                }
+                
             }
+            
         }
     }
     
-    fileprivate func selectDeviceItem(_ sender: NSMenuItem) {
-        guard let identifier = sender.identifier?.rawValue else { return }
+    @objc fileprivate func deviceItemTapped(_ sender: NSMenuItem) {
+        selectDeviceSubMenuItem(sender)
+    }
+    
+    fileprivate func selectDeviceSubMenuItem(_ sender: NSMenuItem?) {
+        guard let identifier = sender?.identifier?.rawValue else {
+            selectedDeviceUDID = nil
+            return
+        }
         guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
         let beginIdx = identifier.index(identifier.startIndex, offsetBy: AppDelegate.deviceIdentifierPrefix.lengthOfBytes(using: .utf8))
         let udid = String(identifier[beginIdx...])

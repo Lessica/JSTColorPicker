@@ -27,6 +27,9 @@
 "Confirm" = "Confirm";
 
 /* screenshotItemTapped(_:) */
+"Connect to device" = "Connect to device";
+
+/* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "Connect to your iOS device via USB or network.";
 
 /* Delete Confirm */
@@ -39,7 +42,10 @@
 "Do you want to remove selected item %@?" = "Do you want to remove selected item %@?";
 
 /* screenshotItemTapped(_:) */
-"Downloading screenshot from device \"%@\"..." = "Downloading screenshot from device \"%@\"...";
+"Download screenshot from device \"%@\"..." = "Download screenshot from device \"%@\"...";
+
+/* screenshotItemTapped(_:) */
+"Establish connection to device \"%@\"..." = "Establish connection to device \"%@\"...";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
@@ -102,10 +108,7 @@
 "Missing root entry: template must return a table." = "Missing root entry: template must return a table.";
 
 /* screenshotItemTapped(_:) */
-"No device available" = "No device available";
-
-/* resetDevicesMenu */
-"No device found." = "No device found.";
+"No device selected" = "No device selected";
 
 /* PixelMatchServiceError */
 "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.";
@@ -122,6 +125,9 @@
 
 /* PreferencesController */
 "Preferences" = "Preferences";
+
+/* screenshotItemTapped(_:) */
+"Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
 
 /* ContentError */
 "The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
@@ -144,14 +150,8 @@
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "This template requires JSTColorPicker (%@) or later.";
 
-/* screenshotItemTapped(_:) */
-"Try again later." = "Try again later.";
-
-/* screenshotItemTapped(_:) */
-"Unable to connect" = "Unable to connect";
-
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
 
 /* screenshotItemTapped(_:) */
-"Waiting for device" = "Waiting for device";
+"Wait for device" = "Wait for device";

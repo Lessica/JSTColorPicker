@@ -27,6 +27,9 @@
 "Confirm" = "确认";
 
 /* screenshotItemTapped(_:) */
+"Connect to device" = "连接到设备";
+
+/* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备.";
 
 /* Delete Confirm */
@@ -39,7 +42,10 @@
 "Do you want to remove selected item %@?" = "你确定要删除选定的项目 %@?";
 
 /* screenshotItemTapped(_:) */
-"Downloading screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
+"Download screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
+
+/* screenshotItemTapped(_:) */
+"Establish connection to device \"%@\"..." = "正在与设备 \"%@\" 建立连接...";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
@@ -102,10 +108,7 @@
 "Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
 
 /* screenshotItemTapped(_:) */
-"No device available" = "没有可用的设备";
-
-/* resetDevicesMenu */
-"No device found." = "未找到设备.";
+"No device selected" = "未选中设备";
 
 /* PixelMatchServiceError */
 "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异. 请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试.";
@@ -122,6 +125,9 @@
 
 /* PreferencesController */
 "Preferences" = "偏好设置";
+
+/* screenshotItemTapped(_:) */
+"Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
 
 /* ContentError */
 "The requested item %@ is out of the document range %@." = "请求的项目 %@ 已超出文档范围 %@.";
@@ -144,14 +150,8 @@
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本.";
 
-/* screenshotItemTapped(_:) */
-"Try again later." = "请稍后重试.";
-
-/* screenshotItemTapped(_:) */
-"Unable to connect" = "无法连接";
-
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
 
 /* screenshotItemTapped(_:) */
-"Waiting for device" = "正在等待设备";
+"Wait for device" = "等待设备响应";

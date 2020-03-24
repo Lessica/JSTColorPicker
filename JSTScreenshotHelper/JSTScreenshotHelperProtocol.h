@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSTXPCDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol JSTScreenshotHelperProtocol
 
-- (void)setIncludingNetworkDevices:(BOOL)includingNetworkDevices;
-- (NSArray <JSTXPCDevice *> *)discoveredDevices;
-- (void)takeScreenshot:(JSTXPCDevice *)aDevice withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
+- (void)setNetworkDiscoveryEnabled:(BOOL)enabled;
+- (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
+- (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
+- (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
 
 @end
 

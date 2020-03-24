@@ -1,13 +1,16 @@
 PODS:
   - MASPreferences (1.3)
+  - PromiseKit/CorePromise (6.13.1)
   - Sparkle (1.22.0)
 
 DEPENDENCIES:
   - MASPreferences (from `../MASPreferences`)
+  - PromiseKit/CorePromise
   - Sparkle
 
 SPEC REPOS:
   trunk:
+    - PromiseKit
     - Sparkle
 
 EXTERNAL SOURCES:
@@ -16,8 +19,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
 
-PODFILE CHECKSUM: f60f2514d7196e909112cecb3e73148f438cb617
+PODFILE CHECKSUM: d57ec96e6a07f70eaf67e876e04784bd30b98677
 
 COCOAPODS: 1.8.4

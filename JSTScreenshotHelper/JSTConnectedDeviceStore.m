@@ -17,7 +17,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
 
 @interface JSTConnectedDeviceStore ()
 @property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *activeDevices;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *allDevices;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *cachedDevices;
 @end
 
 @implementation JSTConnectedDeviceStore
@@ -28,7 +28,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         idevice_error_t error = idevice_event_subscribe(&handle_idevice_event, (__bridge void *)self);
         NSAssert(error == IDEVICE_E_SUCCESS, @"idevice_event_subscribe %d", error);
         _activeDevices = [NSMutableDictionary dictionary];
-        _allDevices = [NSMutableDictionary dictionary];
+        _cachedDevices = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -48,17 +48,17 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         [self.activeDevices removeAllObjects];
         for (NSInteger i = 0; i < cUDIDCount; i++) {
             NSString *udid = [NSString stringWithUTF8String:cDevices[i]->udid];
-            if (self.allDevices[udid]) {
+            if (self.cachedDevices[udid]) {
                 if (self.activeDevices[udid]) {
                     continue;
                 }
                 else {
-                    self.activeDevices[udid] = self.allDevices[udid];
+                    self.activeDevices[udid] = self.cachedDevices[udid];
                 }
             }
             else {
                 JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
-                self.allDevices[udid] = device;
+                self.cachedDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }
         }
@@ -76,17 +76,17 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         [self.activeDevices removeAllObjects];
         for (NSInteger i = 0; i < cUDIDCount; i++) {
             NSString *udid = [NSString stringWithUTF8String:cUDIDs[i]];
-            if (self.allDevices[udid]) {
+            if (self.cachedDevices[udid]) {
                 if (self.activeDevices[udid]) {
                     continue;
                 }
                 else {
-                    self.activeDevices[udid] = self.allDevices[udid];
+                    self.activeDevices[udid] = self.cachedDevices[udid];
                 }
             }
             else {
                 JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
-                self.allDevices[udid] = device;
+                self.cachedDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }
         }

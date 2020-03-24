@@ -11,5 +11,6 @@
 
 #import "JSTPixelColor.h"
 #import "JSTPixelImage.h"
+#import "JSTScreenshotHelperProtocol.h"
 
 #endif /* JSTColorPicker_Bridging_Header_h */

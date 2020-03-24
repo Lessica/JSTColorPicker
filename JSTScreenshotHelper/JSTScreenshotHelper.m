@@ -11,40 +11,62 @@
 #import "JSTConnectedDeviceStore.h"
 
 @interface JSTScreenshotHelper () <JSTDeviceDelegate>
-@property (nonatomic, assign) BOOL includingNetworkDevices;
+@property (nonatomic, assign) BOOL isNetworkDiscoveryEnabled;
 @property (nonatomic, strong) NSArray <JSTConnectedDevice *> *connectedDevices;
 @property (nonatomic, strong) JSTConnectedDeviceStore *deviceService;
 @end
 
 @implementation JSTScreenshotHelper
 
-- (void)setIncludingNetworkDevices:(BOOL)includingNetworkDevices {
-    _includingNetworkDevices = includingNetworkDevices;
+- (void)setNetworkDiscoveryEnabled:(BOOL)enabled {
+    _isNetworkDiscoveryEnabled = enabled;
 }
 
-- (NSArray <JSTXPCDevice *> *)discoveredDevices {
-    NSMutableArray <JSTXPCDevice *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.connectedDevices.count];
+- (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
+    NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.connectedDevices.count];
     for (JSTConnectedDevice *connectedDevice in self.connectedDevices) {
-        JSTXPCDevice *discoveredDevice = [[JSTXPCDevice alloc] initWithUDID:connectedDevice.udid andName:connectedDevice.name];
-        [discoveredDevices addObject:discoveredDevice];
+        [discoveredDevices addObject:@{
+            @"name": connectedDevice.name,
+            @"udid": connectedDevice.udid,
+        }];
     }
-    return discoveredDevices;
+    reply([NSPropertyListSerialization dataWithPropertyList:discoveredDevices
+                                                     format:NSPropertyListBinaryFormat_v1_0
+                                                    options:0
+                                                      error:nil], nil);
 }
 
+- (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
+    JSTConnectedDevice *targetDevice = nil;
+    for (JSTConnectedDevice *connectedDevice in self.connectedDevices) {
+        if ([connectedDevice.udid isEqualToString:udid]) {
+            targetDevice = connectedDevice;
+            break;
+        }
+    }
+    if (!targetDevice) {
+        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
+        return;
+    }
+    reply([NSPropertyListSerialization dataWithPropertyList:@{
+        @"name": targetDevice.name,
+        @"udid": targetDevice.udid,
+    } format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil], nil);
+}
 
-- (void)takeScreenshot:(JSTXPCDevice *)aDevice withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
+- (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     JSTConnectedDevice *targetDevice = nil;
     for (JSTConnectedDevice *device in self.connectedDevices) {
-        if ([device.udid isEqualToString:aDevice.udid]) {
+        if ([device.udid isEqualToString:udid]) {
             targetDevice = device;
             break;
         }
     }
     if (!targetDevice) {
-        targetDevice = [JSTConnectedDevice deviceWithUDID:aDevice.udid];
+        targetDevice = [JSTConnectedDevice deviceWithUDID:udid];
     }
     if (!targetDevice) {
-        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), aDevice.name] }]);
+        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
     }
     [targetDevice takeScreenshotWithCompletionHandler:^(NSData * _Nullable imageData, NSError * _Nullable error) {
@@ -58,12 +80,14 @@
     {
         _deviceService = [[JSTConnectedDeviceStore alloc] init];
         _deviceService.delegate = self;
+        [self didReceiveiDeviceEvent:self.deviceService];
     }
     return self;
 }
 
 - (void)didReceiveiDeviceEvent:(nonnull JSTConnectedDeviceStore *)service {
-    _connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.includingNetworkDevices];
+    _connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
+    NSLog(@"%@", self.connectedDevices);
 }
 
 @end
