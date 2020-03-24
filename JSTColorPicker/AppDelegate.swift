@@ -254,7 +254,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    fileprivate var isTakingScreenshot: Bool = false
+    
     @IBAction func screenshotMenuItemTapped(_ sender: Any?) {
+        
+        guard !self.isTakingScreenshot else { return }
+        self.isTakingScreenshot = true
         
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
@@ -266,7 +271,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "screenshotItemTapped(_:)")
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
             alert.alertStyle = .warning
-            windowController.showSheet(alert, completionHandler: nil)
+            windowController.showSheet(alert) { [weak self] (resp) in
+                self?.isTakingScreenshot = false
+            }
             return
         }
         
@@ -296,8 +303,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }.catch { (error) in
             let alert = NSAlert(error: error)
             windowController.showSheet(alert, completionHandler: nil)
-        }.finally {
+        }.finally { [weak self] in
             // do nothing
+            self?.isTakingScreenshot = false
         }
     }
     

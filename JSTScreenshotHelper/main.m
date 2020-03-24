@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSTScreenshotHelper.h"
+#import "JSTConnectedDeviceStore.h"
 
 @interface ServiceDelegate : NSObject <NSXPCListenerDelegate>
 @end
@@ -22,8 +23,11 @@
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(JSTScreenshotHelperProtocol)];
     
     // Next, set the object that the connection exports. All messages sent on the connection to this service will be sent to the exported object to handle. The connection retains the exported object.
-    JSTScreenshotHelper *exportedObject = [JSTScreenshotHelper new];
+    JSTScreenshotHelper *exportedObject = [[JSTScreenshotHelper alloc] init];
     newConnection.exportedObject = exportedObject;
+    newConnection.invalidationHandler = ^{
+        [exportedObject disconnectAllDevices];
+    };
     
     // Resuming the connection allows the system to deliver more incoming messages.
     [newConnection resume];

@@ -15,11 +15,6 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
     [service.delegate didReceiveiDeviceEvent:service];
 }
 
-@interface JSTConnectedDeviceStore ()
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *activeDevices;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *cachedDevices;
-@end
-
 @implementation JSTConnectedDeviceStore
 
 - (instancetype)init {
@@ -94,6 +89,16 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         idevice_device_list_free(cUDIDs);
         return [self.activeDevices allValues];
     }
+}
+
+- (void)disconnectDevice:(JSTConnectedDevice *)device {
+    [self.activeDevices removeObjectForKey:device.udid];
+    [self.cachedDevices removeObjectForKey:device.udid];
+}
+
+- (void)disconnectAllDevices {
+    [self.activeDevices removeAllObjects];
+    [self.cachedDevices removeAllObjects];
 }
 
 @end

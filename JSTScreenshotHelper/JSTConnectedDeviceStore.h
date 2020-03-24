@@ -20,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSTConnectedDeviceStore : NSObject
 
 @property (nonatomic, weak) id <JSTDeviceDelegate> delegate;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *activeDevices;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTConnectedDevice *> *cachedDevices;
+
+- (void)disconnectDevice:(JSTConnectedDevice *)device;
+- (void)disconnectAllDevices;
 - (NSArray <JSTConnectedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
 
 @end

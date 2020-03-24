@@ -12,8 +12,6 @@
 
 @interface JSTScreenshotHelper () <JSTDeviceDelegate>
 @property (nonatomic, assign) BOOL isNetworkDiscoveryEnabled;
-@property (nonatomic, strong) NSArray <JSTConnectedDevice *> *connectedDevices;
-@property (nonatomic, strong) JSTConnectedDeviceStore *deviceService;
 @end
 
 @implementation JSTScreenshotHelper
@@ -23,8 +21,8 @@
 }
 
 - (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.connectedDevices.count];
-    for (JSTConnectedDevice *connectedDevice in self.connectedDevices) {
+    NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.deviceService.activeDevices.count];
+    for (JSTConnectedDevice *connectedDevice in self.deviceService.activeDevices.allValues) {
         [discoveredDevices addObject:@{
             @"name": connectedDevice.name,
             @"udid": connectedDevice.udid,
@@ -37,13 +35,7 @@
 }
 
 - (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTConnectedDevice *targetDevice = nil;
-    for (JSTConnectedDevice *connectedDevice in self.connectedDevices) {
-        if ([connectedDevice.udid isEqualToString:udid]) {
-            targetDevice = connectedDevice;
-            break;
-        }
-    }
+    JSTConnectedDevice *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
@@ -55,13 +47,7 @@
 }
 
 - (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTConnectedDevice *targetDevice = nil;
-    for (JSTConnectedDevice *device in self.connectedDevices) {
-        if ([device.udid isEqualToString:udid]) {
-            targetDevice = device;
-            break;
-        }
-    }
+    JSTConnectedDevice *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
         targetDevice = [JSTConnectedDevice deviceWithUDID:udid];
     }
@@ -69,9 +55,21 @@
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
     }
+    __weak typeof(self) weakSelf = self;
     [targetDevice takeScreenshotWithCompletionHandler:^(NSData * _Nullable imageData, NSError * _Nullable error) {
         reply(imageData, error);
+        if (error) {
+            [weakSelf disconnectDevice:targetDevice];
+        }
     }];
+}
+
+- (void)disconnectDevice:(JSTConnectedDevice *)device {
+    [self.deviceService disconnectDevice:device];
+}
+
+- (void)disconnectAllDevices {
+    [self.deviceService disconnectAllDevices];
 }
 
 - (instancetype)init {
@@ -86,8 +84,8 @@
 }
 
 - (void)didReceiveiDeviceEvent:(nonnull JSTConnectedDeviceStore *)service {
-    _connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
-    NSLog(@"%@", self.connectedDevices);
+    NSArray <JSTConnectedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
+    NSLog(@"%@", connectedDevices);
 }
 
 @end
