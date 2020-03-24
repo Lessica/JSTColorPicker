@@ -3,12 +3,10 @@ JSTScreenshotHelper/lib/libcrypto.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libimobiledevice.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libplist.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libssl.a filter=lfs diff=lfs merge=lfs -text
-
 include/** linguist-vendored=true
 lib/** linguist-vendored=true
-
 LuaC/include/** linguist-vendored=true
 LuaC/lib/** linguist-vendored=true
-
 JSTScreenshotHelper/include/** linguist-vendored=true
 JSTScreenshotHelper/lib/** linguist-vendored=true
+JSTScreenshotHelper/lib/libusb-1.0.a filter=lfs diff=lfs merge=lfs -text
