@@ -13,8 +13,6 @@
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
 		D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
 		D60B0F4324286AA30034F21C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
-		D60B0F4724286AA30034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D60B0F512428877F0034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D60B0F52242887A10034F21C /* JSTConnectedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* JSTConnectedDevice.m */; };
 		D60B0F53242887A10034F21C /* JSTConnectedDeviceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTConnectedDeviceStore.m */; };
 		D60B0F5524288A2A0034F21C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06C23D1A2B000D76CB5 /* libcrypto.a */; };
@@ -195,10 +193,27 @@
 		D628357623F8EDAF0016573B /* lmem.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355523F8EDAE0016573B /* lmem.c */; };
 		D628357723F8EDAF0016573B /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355623F8EDAE0016573B /* ldump.c */; };
 		D628357823F8EDAF0016573B /* lfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355723F8EDAE0016573B /* lfunc.c */; };
+		D629E59A242BC7E100AF333F /* JSTConnectedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* JSTConnectedDevice.m */; };
+		D629E59B242BC7E100AF333F /* JSTConnectedDeviceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTConnectedDeviceStore.m */; };
+		D629E59C242BC7E100AF333F /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
+		D629E59D242BC7E100AF333F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
+		D629E59E242BC80A00AF333F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6DF0F9224292B27001E30F0 /* Localizable.strings */; };
+		D629E59F242BC82800AF333F /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D626936C242A5BF100463E36 /* libusb-1.0.a */; };
+		D629E5A0242BC82800AF333F /* libimobiledevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06623D1A12300D76CB5 /* libimobiledevice.a */; };
+		D629E5A1242BC82800AF333F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06C23D1A2B000D76CB5 /* libcrypto.a */; };
+		D629E5A2242BC82800AF333F /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06D23D1A2B000D76CB5 /* libssl.a */; };
+		D629E5A3242BC82900AF333F /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
+		D629E5A4242BC82900AF333F /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
+		D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
+		D629E5A8242BC92F00AF333F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
+		D629E5A9242BCC9C00AF333F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D63FE1D1242B234500F1982A /* AppDelegate.m */; };
 		D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631E2C623F7B38B00652B17 /* Defaults.swift */; };
 		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
 		D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */; };
 		D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */; };
+		D63FE1D2242B234500F1982A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D63FE1D1242B234500F1982A /* AppDelegate.m */; };
+		D63FE1D7242B234600F1982A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D63FE1D5242B234600F1982A /* MainMenu.xib */; };
+		D63FE1E3242B25BB00F1982A /* JSTScreenshotHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49823E805340039F4F6 /* PixelCoordinate.swift */; };
 		D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49A23E805560039F4F6 /* PixelSize.swift */; };
 		D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49C23E805EA0039F4F6 /* PixelRect.swift */; };
@@ -290,13 +305,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D60B0F4524286AA30034F21C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D60B0F3B24286AA30034F21C;
-			remoteInfo = JSTScreenshotHelper;
-		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -367,27 +375,23 @@
 			remoteGlobalIDString = D628350C23F8EAAA0016573B;
 			remoteInfo = LuaC;
 		};
+		D629E5A5242BC8B100AF333F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D60B0F8624288CF20034F21C;
+			remoteInfo = pixel;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D60B0F4824286AA30034F21C /* Embed XPC Services */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
-			files = (
-				D60B0F4724286AA30034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */,
-			);
-			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F50242887610034F21C /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				D60B0F512428877F0034F21C /* JSTScreenshotHelper.xpc in Embed XPC Services */,
+				D63FE1E3242B25BB00F1982A /* JSTScreenshotHelper.xpc in Embed XPC Services */,
 			);
 			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +592,12 @@
 		D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelImage.swift; sourceTree = "<group>"; };
 		D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneClipView.swift; sourceTree = "<group>"; };
+		D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPickerHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D63FE1D0242B234500F1982A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D63FE1D1242B234500F1982A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D63FE1D6242B234600F1982A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D63FE1D8242B234600F1982A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D63FE1DB242B234600F1982A /* JSTColorPickerHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerHelper.entitlements; sourceTree = "<group>"; };
 		D645E49823E805340039F4F6 /* PixelCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCoordinate.swift; sourceTree = "<group>"; };
 		D645E49A23E805560039F4F6 /* PixelSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSize.swift; sourceTree = "<group>"; };
 		D645E49C23E805EA0039F4F6 /* PixelRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelRect.swift; sourceTree = "<group>"; };
@@ -899,6 +909,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D63FE1CB242B234500F1982A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
+				D629E5A4242BC82900AF333F /* libusbmuxd.a in Frameworks */,
+				D629E5A2242BC82800AF333F /* libssl.a in Frameworks */,
+				D629E5A3242BC82900AF333F /* libplist.a in Frameworks */,
+				D629E59F242BC82800AF333F /* libusb-1.0.a in Frameworks */,
+				D629E5A0242BC82800AF333F /* libimobiledevice.a in Frameworks */,
+				D629E5A1242BC82800AF333F /* libcrypto.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D658AF9723CB180C0098C567 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -948,6 +972,8 @@
 				D60B0F4424286AA30034F21C /* Info.plist */,
 				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
 				D6DF0F9224292B27001E30F0 /* Localizable.strings */,
+				D63FE1D0242B234500F1982A /* AppDelegate.h */,
+				D63FE1D1242B234500F1982A /* AppDelegate.m */,
 				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
 				D647B10723D1FDB000D76CB5 /* JSTConnectedDevice.h */,
 				D647B10823D1FDB000D76CB5 /* JSTConnectedDevice.m */,
@@ -1119,6 +1145,16 @@
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
 			);
 			path = Pixel;
+			sourceTree = "<group>";
+		};
+		D63FE1CF242B234500F1982A /* JSTColorPickerHelper */ = {
+			isa = PBXGroup;
+			children = (
+				D63FE1D8242B234600F1982A /* Info.plist */,
+				D63FE1DB242B234600F1982A /* JSTColorPickerHelper.entitlements */,
+				D63FE1D5242B234600F1982A /* MainMenu.xib */,
+			);
+			path = JSTColorPickerHelper;
 			sourceTree = "<group>";
 		};
 		D645E4A223E812020039F4F6 /* Annotators */ = {
@@ -1339,6 +1375,7 @@
 			isa = PBXGroup;
 			children = (
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
+				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
 				D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
@@ -1363,6 +1400,7 @@
 				D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */,
 				D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */,
 				D60B0F8724288CF20034F21C /* libpixel.a */,
+				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1779,6 +1817,24 @@
 			productReference = D628350D23F8EAAA0016573B /* LuaC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D63FE1CD242B234500F1982A /* JSTColorPickerHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D63FE1DE242B234600F1982A /* Build configuration list for PBXNativeTarget "JSTColorPickerHelper" */;
+			buildPhases = (
+				D63FE1CA242B234500F1982A /* Sources */,
+				D63FE1CB242B234500F1982A /* Frameworks */,
+				D63FE1CC242B234500F1982A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D629E5A6242BC8B100AF333F /* PBXTargetDependency */,
+			);
+			name = JSTColorPickerHelper;
+			productName = JSTColorPickerHelper;
+			productReference = D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D658AF9923CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D658AFAA23CB180D0098C567 /* Build configuration list for PBXNativeTarget "JSTColorPicker" */;
@@ -1789,14 +1845,12 @@
 				D658AF9823CB180C0098C567 /* Resources */,
 				D62834A823F8E6D10016573B /* Embed Frameworks */,
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
-				D60B0F4824286AA30034F21C /* Embed XPC Services */,
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
-				D60B0F4624286AA30034F21C /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 			);
@@ -1864,6 +1918,9 @@
 					D628350C23F8EAAA0016573B = {
 						CreatedOnToolsVersion = 11.3;
 					};
+					D63FE1CD242B234500F1982A = {
+						CreatedOnToolsVersion = 11.3;
+					};
 					D658AF9923CB180C0098C567 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -1892,6 +1949,7 @@
 			targets = (
 				D658AF9923CB180C0098C567 /* JSTColorPicker */,
 				D610477824224A170002E990 /* JSTColorPickerSparkle */,
+				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
 				D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */,
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
@@ -1939,6 +1997,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D63FE1CC242B234500F1982A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D629E5A8242BC92F00AF333F /* Assets.xcassets in Resources */,
+				D629E59E242BC80A00AF333F /* Localizable.strings in Resources */,
+				D63FE1D7242B234600F1982A /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2061,6 +2129,7 @@
 				D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */,
 				D60B0F52242887A10034F21C /* JSTConnectedDevice.m in Sources */,
 				D60B0F53242887A10034F21C /* JSTConnectedDeviceStore.m in Sources */,
+				D629E5A9242BCC9C00AF333F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2206,6 +2275,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D63FE1CA242B234500F1982A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D629E59D242BC7E100AF333F /* main.m in Sources */,
+				D629E59B242BC7E100AF333F /* JSTConnectedDeviceStore.m in Sources */,
+				D63FE1D2242B234500F1982A /* AppDelegate.m in Sources */,
+				D629E59A242BC7E100AF333F /* JSTConnectedDevice.m in Sources */,
+				D629E59C242BC7E100AF333F /* JSTScreenshotHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D658AF9623CB180C0098C567 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2313,11 +2394,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D60B0F4624286AA30034F21C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
-			targetProxy = D60B0F4524286AA30034F21C /* PBXContainerItemProxy */;
-		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
@@ -2368,9 +2444,22 @@
 			target = D628350C23F8EAAA0016573B /* LuaC */;
 			targetProxy = D628357B23F8EF4F0016573B /* PBXContainerItemProxy */;
 		};
+		D629E5A6242BC8B100AF333F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D60B0F8624288CF20034F21C /* pixel */;
+			targetProxy = D629E5A5242BC8B100AF333F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D63FE1D5242B234600F1982A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D63FE1D6242B234600F1982A /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		D64AF09D240D05BB003A5B17 /* General.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2468,20 +2557,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SANDBOXED=1",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(TARGET_NAME)/lib/\"",
-					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2496,17 +2581,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(TARGET_NAME)/include/\"",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/$(TARGET_NAME)/lib/\"",
-					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2552,6 +2636,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -2578,6 +2663,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -2605,6 +2691,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaSwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2632,6 +2719,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaSwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2672,6 +2760,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/LuaC/lib/\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaC;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2710,11 +2799,73 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/LuaC/lib/\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaC;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D63FE1DC242B234600F1982A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SANDBOXED=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
+				);
+				INFOPLIST_FILE = JSTColorPickerHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPickerHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D63FE1DD242B234600F1982A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
+				);
+				INFOPLIST_FILE = JSTColorPickerHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPickerHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -2855,7 +3006,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D SANDBOXED";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -2886,7 +3039,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D SANDBOXED";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -2909,6 +3064,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPanel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2933,6 +3089,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPanel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2947,6 +3104,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = pixelmatch;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2959,6 +3117,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = pixelmatch;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -3009,6 +3168,15 @@
 			buildConfigurations = (
 				D628351723F8EAAA0016573B /* Debug */,
 				D628351823F8EAAA0016573B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D63FE1DE242B234600F1982A /* Build configuration list for PBXNativeTarget "JSTColorPickerHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D63FE1DC242B234600F1982A /* Debug */,
+				D63FE1DD242B234600F1982A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

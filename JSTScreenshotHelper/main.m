@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "JSTScreenshotHelper.h"
 #import "JSTConnectedDeviceStore.h"
 
@@ -43,11 +44,25 @@ int main(int argc, const char *argv[])
     // Create the delegate for the service.
     ServiceDelegate *delegate = [ServiceDelegate new];
     
+#ifdef SANDBOXED
+    // Set up the one NSXPCListener for this service. It will handle all incoming connections.
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSXPCListener *listener = [[NSXPCListener alloc] initWithMachServiceName:bundleIdentifier];
+    listener.delegate = delegate;
+    
+    // Resuming the serviceListener starts this service. This method does not return.
+    [listener resume];
+    
+    return NSApplicationMain(argc, argv);
+#else
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [NSXPCListener serviceListener];
     listener.delegate = delegate;
     
     // Resuming the serviceListener starts this service. This method does not return.
     [listener resume];
+    
+    CFRunLoopRun();
     return 0;
+#endif
 }

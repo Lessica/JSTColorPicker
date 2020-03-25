@@ -60,6 +60,7 @@
         reply(imageData, error);
         if (error) {
             [weakSelf disconnectDevice:targetDevice];
+            [weakSelf didReceiveiDeviceEvent:self.deviceService];
         }
     }];
 }
@@ -84,8 +85,10 @@
 }
 
 - (void)didReceiveiDeviceEvent:(nonnull JSTConnectedDeviceStore *)service {
-    NSArray <JSTConnectedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
-    NSLog(@"%@", connectedDevices);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray <JSTConnectedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
+        NSLog(@"%@", connectedDevices);
+    });
 }
 
 @end

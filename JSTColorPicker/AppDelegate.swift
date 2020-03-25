@@ -10,6 +10,17 @@ import Cocoa
 import PromiseKit
 import MASPreferences
 
+enum XPCError: LocalizedError {
+    case timeout
+    
+    var failureReason: String? {
+        switch self {
+        case .timeout:
+            return NSLocalizedString("Connection timeout.", comment: "XPCError")
+        }
+    }
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -65,9 +76,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.register(defaults: initialValues)
         
+        #if SANDBOXED
+        let helperBundleIdentifier = "GXZ23M5TP2.com.jst.JSTColorPickerHelper"
+        let connectionToService = NSXPCConnection(machServiceName: helperBundleIdentifier, options: [])
+        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
+        connectionToService.resume()
+        #else
         let connectionToService = NSXPCConnection(serviceName: "com.jst.JSTScreenshotHelper")
         connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
         connectionToService.resume()
+        #endif
         self.helperConnection = connectionToService
         
         resetDevicesSubMenu()
@@ -201,6 +219,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
         return Promise<[String: String]> { seal in
+            after(.seconds(3)).done {
+                seal.reject(XPCError.timeout)
+            }
             proxy.lookupDevice(byUDID: udid) { (data, error) in
                 if let error = error {
                     seal.reject(error)
@@ -213,6 +234,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<Data> {
         return Promise<Data> { seal in
+            after(.seconds(30)).done {
+                seal.reject(XPCError.timeout)
+            }
             proxy.takeScreenshot(byUDID: udid) { (data, error) in
                 if let error = error {
                     seal.reject(error)
@@ -226,6 +250,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate func promiseSaveScreenshot(_ data: Data, to path: String) -> Promise<URL> {
         let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: path).standardizingPath)
         return Promise<URL> { seal in
+            after(.seconds(5)).done {
+                seal.reject(XPCError.timeout)
+            }
             do {
                 var isDirectory: ObjCBool = false
                 if !FileManager.default.fileExists(atPath: picturesDirectoryURL.path, isDirectory: &isDirectory) {
@@ -244,6 +271,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate func promiseOpenDocument(at url: URL) -> Promise<Void> {
         return Promise<Void> { seal in
+            after(.seconds(5)).done {
+                seal.reject(XPCError.timeout)
+            }
             NSDocumentController.shared.openDocument(withContentsOf: url, display: true) { (document, documentWasAlreadyOpen, error) in
                 if let error = error {
                     seal.reject(error)

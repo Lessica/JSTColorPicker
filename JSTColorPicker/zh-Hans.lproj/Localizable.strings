@@ -32,6 +32,9 @@
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备.";
 
+/* XPCError */
+"Connection timeout." = "连接超时.";
+
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
 

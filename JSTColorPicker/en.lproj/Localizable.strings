@@ -32,6 +32,9 @@
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "Connect to your iOS device via USB or network.";
 
+/* XPCError */
+"Connection timeout." = "Connection timeout.";
+
 /* Delete Confirm */
 "Delete Confirm" = "Delete Confirm";
 
