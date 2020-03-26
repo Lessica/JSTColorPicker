@@ -1764,8 +1764,8 @@
 				D61047CF24224A170002E990 /* Resources */,
 				D61047DA24224A170002E990 /* Embed Frameworks */,
 				D61047DD24224A170002E990 /* [CP] Embed Pods Frameworks */,
-				D60B0F50242887610034F21C /* Embed XPC Services */,
 				D62693642429F4B200463E36 /* Embed Color Pickers */,
+				D60B0F50242887610034F21C /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
