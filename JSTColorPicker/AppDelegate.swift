@@ -77,12 +77,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.register(defaults: initialValues)
         
         #if SANDBOXED
-        let helperBundleIdentifier = "GXZ23M5TP2.com.jst.JSTColorPickerHelper"
-        let connectionToService = NSXPCConnection(machServiceName: helperBundleIdentifier, options: [])
+        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier, options: [])
         connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
         connectionToService.resume()
         #else
-        let connectionToService = NSXPCConnection(serviceName: "com.jst.JSTScreenshotHelper")
+        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
         connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
         connectionToService.resume()
         #endif

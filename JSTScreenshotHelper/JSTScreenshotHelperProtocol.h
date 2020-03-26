@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString * const kJSTColorPickerBundleIdentifier = @"com.jst.JSTColorPicker";
+static NSString * const kJSTColorPickerHelperBundleIdentifier = @"GXZ23M5TP2.com.jst.JSTColorPickerHelper";
+static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
+static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
+static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScreenshotHelper";
+
 @protocol JSTScreenshotHelperProtocol
 
 - (void)setNetworkDiscoveryEnabled:(BOOL)enabled;

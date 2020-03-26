@@ -259,7 +259,6 @@
 		D67A89942427B748002A6DDF /* JSTColorPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A89902427B748002A6DDF /* JSTColorPanel.swift */; };
 		D67A89962427B748002A6DDF /* ColorRepresentingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A89922427B748002A6DDF /* ColorRepresentingTextField.swift */; };
 		D67A89992427B817002A6DDF /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D67A89982427B817002A6DDF /* ToolbarIcon.tiff */; };
-		D67A899B2427BA28002A6DDF /* JSTColorPanel.colorPicker in CopyFiles */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D67A89A52427D7B8002A6DDF /* JSTColorPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D67A89A72427D7B8002A6DDF /* JSTColorPanel.xib */; };
 		D67A89AE2427D8A8002A6DDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D67A89B02427D8A8002A6DDF /* Localizable.strings */; };
 		D67C51C623F1361800829B51 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
@@ -451,16 +450,6 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D67A899A2427BA0D002A6DDF /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = $HOME/Library/ColorPickers;
-			dstSubfolderSpec = 0;
-			files = (
-				D67A899B2427BA28002A6DDF /* JSTColorPanel.colorPicker in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 		D690C95D241A60DC00BB1652 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -1866,7 +1855,6 @@
 				D65AEBBA2427B60100D6A6CA /* Sources */,
 				D65AEBBB2427B60100D6A6CA /* Frameworks */,
 				D65AEBBC2427B60100D6A6CA /* Resources */,
-				D67A899A2427BA0D002A6DDF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2555,6 +2543,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2579,6 +2568,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2628,7 +2618,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
@@ -2655,7 +2645,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
@@ -2815,6 +2805,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2847,6 +2838,7 @@
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
@@ -2993,7 +2985,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3026,7 +3018,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3056,6 +3048,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3081,6 +3074,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
