@@ -1360,9 +1360,9 @@
 			isa = PBXGroup;
 			children = (
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
-				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
-				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
 				D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */,
+				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
+				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
@@ -1931,11 +1931,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D658AF9923CB180C0098C567 /* JSTColorPicker */,
 				D610477824224A170002E990 /* JSTColorPickerSparkle */,
-				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
 				D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */,
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
+				D658AF9923CB180C0098C567 /* JSTColorPicker */,
+				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,

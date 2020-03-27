@@ -79,19 +79,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         #if SANDBOXED
         let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier, options: [])
-        connectionToService.interruptionHandler = {
-            debugPrint("interrupted")
-        }
-        connectionToService.invalidationHandler = {
-            debugPrint("invalidated")
-        }
-        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
-        connectionToService.resume()
         #else
         let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
+        #endif
+        
+        // FIXME:
+        //
+        //  It is still not clear that why `NSXPCConnection` is invalidated right after it was
+        //  created only when `JSTColorPickerHelper` is launched outside Xcode debugging. Unfortunately,
+        //  I can't find any related logs in `Console.app`.
+        //
+        //  But if I launch `JSTColorPickerHelper`, then launch `JSTColorPicker` both from Xcode,
+        //  the problem goes away. I would appreciate it if you can tell me why.
+        //
+        
+        connectionToService.interruptionHandler = { debugPrint("interrupted") }
+        connectionToService.invalidationHandler = { debugPrint("invalidated") }  // <- error occurred
         connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
         connectionToService.resume()
-        #endif
         self.helperConnection = connectionToService
         
         resetDevicesSubMenu()

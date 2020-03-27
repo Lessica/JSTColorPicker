@@ -10,7 +10,6 @@
 #import <Cocoa/Cocoa.h>
 #import "JSTScreenshotHelper.h"
 #import "JSTConnectedDeviceStore.h"
-
 #ifdef SANDBOXED
 #import "JSTLoginItem.h"
 #endif
@@ -47,10 +46,10 @@
 
 @end
 
+#ifdef SANDBOXED
 int main(int argc, const char *argv[])
 {
-#ifdef SANDBOXED
-
+    
     NSString *applicationBundleIdentifier = kJSTColorPickerBundleIdentifier;
     NSString *applicationBundlePath = [NSString stringWithFormat:@"/Applications/%@", kJSTColorPickerBundleName];
     NSBundle *applicationBundle = [[NSBundle alloc] initWithPath:applicationBundlePath];
@@ -153,13 +152,10 @@ int main(int argc, const char *argv[])
 
         return EXIT_SUCCESS;
     }
-
-#endif
     
     // Create the delegate for the service.
     ServiceDelegate *delegate = [ServiceDelegate new];
     
-#ifdef SANDBOXED
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [[NSXPCListener alloc] initWithMachServiceName:bundleIdentifier];
     if (!listener) { return EXIT_FAILURE; }
@@ -170,7 +166,14 @@ int main(int argc, const char *argv[])
     
     [[NSRunLoop currentRunLoop] run];
     return EXIT_SUCCESS;
+}
 #else
+int main(int argc, const char *argv[])
+{
+    
+    // Create the delegate for the service.
+    ServiceDelegate *delegate = [ServiceDelegate new];
+    
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [NSXPCListener serviceListener];
     if (!listener) { return EXIT_FAILURE; }
@@ -181,5 +184,6 @@ int main(int argc, const char *argv[])
     
     [[NSRunLoop currentRunLoop] run];
     return EXIT_SUCCESS;
-#endif
+    
 }
+#endif
