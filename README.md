@@ -14,6 +14,21 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - Take screenshots from Android devices
 
 
+## FIXME
+
+This is the architecture currently used:
+
+  - a non-sandboxed, main application with GUI: `JSTColorPickerSparkle`
+    * an xpc service, screenshot helper without GUI: `JSTScreenshotHelper`
+
+But, we have to implement something like this:
+
+  - a sandboxed, main application with GUI: `JSTColorPicker` (upload to App Store)
+  - a non-sandboxed, screenshot helper without GUI: `JSTColorPickerHelper` (outside the App Store, cannot be bundled with the main application)
+
+See: [Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html#//apple_ref/doc/uid/10000172i-SW6)
+
+
 ## Usage
 
 ### Magic Cursor
