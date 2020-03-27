@@ -9,6 +9,7 @@
 import Cocoa
 import PromiseKit
 import MASPreferences
+import ServiceManagement
 
 enum XPCError: LocalizedError {
     case timeout
@@ -78,6 +79,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         #if SANDBOXED
         let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier, options: [])
+        connectionToService.interruptionHandler = {
+            debugPrint("interrupted")
+        }
+        connectionToService.invalidationHandler = {
+            debugPrint("invalidated")
+        }
         connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
         connectionToService.resume()
         #else
@@ -292,7 +299,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
         guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
-        guard let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol else { return }
+        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol else { return }
         
         guard let selectedDeviceUDID = selectedDeviceUDID else {
             let alert = NSAlert()
@@ -392,7 +401,9 @@ extension AppDelegate {
     
     fileprivate func setupScreenshotHelper() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
-        if let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol {
+        if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol {
             proxy.setNetworkDiscoveryEnabled(enabled)
         }
     }
@@ -441,7 +452,9 @@ extension AppDelegate {
     }
     
     fileprivate func reloadDevicesSubMenuItems() {
-        guard let proxy = self.helperConnection?.remoteObjectProxy as? JSTScreenshotHelperProtocol else { return }
+        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol else { return }
         
         let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
         DispatchQueue.global(qos: .default).async { [weak self] in

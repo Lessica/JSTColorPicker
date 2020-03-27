@@ -11,6 +11,11 @@
 #import "JSTScreenshotHelper.h"
 #import "JSTConnectedDeviceStore.h"
 
+#ifdef SANDBOXED
+#import "JSTLoginItem.h"
+#endif
+
+
 @interface ServiceDelegate : NSObject <NSXPCListenerDelegate>
 @end
 
@@ -26,6 +31,9 @@
     // Next, set the object that the connection exports. All messages sent on the connection to this service will be sent to the exported object to handle. The connection retains the exported object.
     JSTScreenshotHelper *exportedObject = [[JSTScreenshotHelper alloc] init];
     newConnection.exportedObject = exportedObject;
+    newConnection.interruptionHandler = ^{
+        [exportedObject disconnectAllDevices];
+    };
     newConnection.invalidationHandler = ^{
         [exportedObject disconnectAllDevices];
     };
@@ -42,48 +50,48 @@
 int main(int argc, const char *argv[])
 {
 #ifdef SANDBOXED
-    
+
     NSString *applicationBundleIdentifier = kJSTColorPickerBundleIdentifier;
     NSString *applicationBundlePath = [NSString stringWithFormat:@"/Applications/%@", kJSTColorPickerBundleName];
     NSBundle *applicationBundle = [[NSBundle alloc] initWithPath:applicationBundlePath];
-    
+
     if (![[applicationBundle bundleIdentifier] isEqualToString:applicationBundleIdentifier]) {
         NSLog(@"application not found");
         return EXIT_FAILURE;
     }
-    
-    
+
+
     NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *bundleIdentifier = [mainBundle bundleIdentifier];
     NSString *bundleVersion = [[mainBundle infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey];
-    
+
     NSString *bundlePath = [mainBundle bundlePath];
     NSString *targetPath = [[NSString stringWithFormat:@"~/Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
-    
+
     if (![bundlePath isEqualToString:targetPath]) {
-        
+
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        
+
         BOOL shouldReplace = YES;
         if ([fileManager fileExistsAtPath:targetPath]) {
-            
+
             NSBundle *testBundle = [[NSBundle alloc] initWithPath:targetPath];
             NSString *testBundleIdentifier = [testBundle bundleIdentifier];
             NSString *testBundleVersion = [[testBundle infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey];
-            
+
             if ([bundleIdentifier isEqualToString:testBundleIdentifier] && [bundleVersion isEqualToString:testBundleVersion]) {
                 shouldReplace = NO;
             }
-            
+
         }
-        
+
         if (shouldReplace) {
-            
+
             NSLog(@"copy \"%@\" to \"%@\"", bundlePath, targetPath);
-            
+
             NSError *error = nil;
             BOOL succeed = NO;
-            
+
             if ([fileManager fileExistsAtPath:targetPath]) {
                 succeed = [fileManager removeItemAtPath:targetPath error:&error];
                 if (!succeed) {
@@ -91,7 +99,7 @@ int main(int argc, const char *argv[])
                     return EXIT_FAILURE;
                 }
             }
-            
+
             NSString *directoryPath = [targetPath stringByDeletingLastPathComponent];
             if (![fileManager fileExistsAtPath:directoryPath]) {
                 succeed = [fileManager createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:&error];
@@ -100,26 +108,52 @@ int main(int argc, const char *argv[])
                     return EXIT_FAILURE;
                 }
             }
-            
+
             succeed = [fileManager copyItemAtPath:bundlePath toPath:targetPath error:&error];
             if (!succeed) {
                 NSLog(@"error occurred: %@", error);
                 return EXIT_FAILURE;
             }
-            
+
         }
-        
+
+        sleep(1);
+
         if ([fileManager fileExistsAtPath:targetPath]) {
-            
-            NSLog(@"ready to launch \"%@\"", targetPath);
-            
-            
-            
+
+            NSURL *targetURL = [NSURL fileURLWithPath:targetPath];
+            [JSTLoginItem setLaunchAtLogin:targetURL enabled:YES];
+            NSLog(@"set start at login \"%@\"", targetPath);
+
+            if (@available(macOS 10.15, *)) {
+                NSWorkspaceOpenConfiguration *configuration = [NSWorkspaceOpenConfiguration configuration];
+                [[NSWorkspace sharedWorkspace] openApplicationAtURL:targetURL configuration:configuration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                    if (!app) {
+                        NSLog(@"launch failed: %@", error);
+                        exit(EXIT_FAILURE);
+                    }
+                    NSLog(@"launch succeed: %@", app);
+                    exit(EXIT_SUCCESS);
+                }];
+
+                [[NSRunLoop currentRunLoop] run];
+                return EXIT_SUCCESS;
+            } else {
+                NSError *launchError = nil;
+                NSRunningApplication *app = [[NSWorkspace sharedWorkspace] launchApplicationAtURL:targetURL options:(NSWorkspaceLaunchAndHide | NSWorkspaceLaunchWithoutAddingToRecents) configuration:@{} error:&launchError];
+                if (!app) {
+                    NSLog(@"launch failed: %@", launchError);
+                    return EXIT_FAILURE;
+                }
+                NSLog(@"launch succeed: %@", app);
+                return EXIT_SUCCESS;
+            }
+
         }
-        
+
         return EXIT_SUCCESS;
     }
-    
+
 #endif
     
     // Create the delegate for the service.
@@ -128,21 +162,24 @@ int main(int argc, const char *argv[])
 #ifdef SANDBOXED
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [[NSXPCListener alloc] initWithMachServiceName:bundleIdentifier];
+    if (!listener) { return EXIT_FAILURE; }
     listener.delegate = delegate;
     
     // Resuming the serviceListener starts this service. This method does not return.
     [listener resume];
     
-    return NSApplicationMain(argc, argv);
+    [[NSRunLoop currentRunLoop] run];
+    return EXIT_SUCCESS;
 #else
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [NSXPCListener serviceListener];
+    if (!listener) { return EXIT_FAILURE; }
     listener.delegate = delegate;
     
     // Resuming the serviceListener starts this service. This method does not return.
     [listener resume];
     
-    CFRunLoopRun();
+    [[NSRunLoop currentRunLoop] run];
     return EXIT_SUCCESS;
 #endif
 }
