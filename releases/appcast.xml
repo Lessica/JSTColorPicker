@@ -30,5 +30,19 @@
             <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-5.dmg" sparkle:version="5" sparkle:shortVersionString="2.1" length="6190882" type="application/octet-stream"/>
             <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-5.html</sparkle:releaseNotesLink>
         </item>
+        <item>
+            <title>2.1</title>
+            <pubDate>Thu, 26 Mar 2020 15:21:36 +0800</pubDate>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-6.html</sparkle:releaseNotesLink>
+            <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-6.dmg" sparkle:version="6" sparkle:shortVersionString="2.1" length="9789174" type="application/octet-stream"/>
+        </item>
+        <item>
+            <title>2.1</title>
+            <pubDate>Fri, 27 Mar 2020 19:38:13 +0800</pubDate>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-7.html</sparkle:releaseNotesLink>
+            <enclosure url="https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/JSTColorPicker%202.1-7.dmg" sparkle:version="7" sparkle:shortVersionString="2.1" length="9788907" type="application/octet-stream"/>
+        </item>
     </channel>
 </rss>
