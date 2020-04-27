@@ -82,14 +82,12 @@ class Screenshot: NSDocument {
         
         guard let EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
         guard let archivedContentBase64EncodedString = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? String else { return }
-        guard let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) else {
-            throw ScreenshotError.cannotDeserializeContent
+        if let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
+            guard let archivedContent = NSKeyedUnarchiver.unarchiveObject(with: archivedContentData) as? Content else {
+                throw ScreenshotError.cannotDeserializeContent
+            }
+            self.content = archivedContent
         }
-        guard let archivedContent = NSKeyedUnarchiver.unarchiveObject(with: archivedContentData) as? Content else {
-            throw ScreenshotError.cannotDeserializeContent
-        }
-        
-        self.content = archivedContent
     }
     
     override func data(ofType typeName: String) throws -> Data {
