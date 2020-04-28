@@ -130,12 +130,16 @@ class PixelColor: ContentItem {
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        return PixelColor(id: id, coordinate: coordinate, color: pixelColorRep.copy() as! JSTPixelColor)
+        let obj = PixelColor(id: id, coordinate: coordinate, color: pixelColorRep.copy() as! JSTPixelColor)
+        obj.delay = delay
+        obj.similarity = similarity
+        return obj
     }
     
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"] = id
+        t["delay"] = delay
         t["similarity"] = similarity
         t["x"] = coordinate.x
         t["y"] = coordinate.y
@@ -145,13 +149,17 @@ class PixelColor: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel color (table with keys [id,similarity,x,y,color])"
+    fileprivate static let typeName: String = "pixel color (table with keys [id,delay,similarity,x,y,color])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["id"] is Number) || !(t["similarity"] is Number) || !(t["x"] is Number)
-            || !(t["y"] is Number) || !(t["color"] is Number)
+        if !(t["id"] is Number) ||
+            !(t["delay"] is Number) ||
+            !(t["similarity"] is Number) ||
+            !(t["x"] is Number) ||
+            !(t["y"] is Number) ||
+            !(t["color"] is Number)
         {
             return typeName
         }

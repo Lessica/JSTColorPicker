@@ -9,13 +9,22 @@
 import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
+    static let toggleID = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleDelay = NSUserInterfaceItemIdentifier("toggle-delay")
+    static let toggleSimilarity = NSUserInterfaceItemIdentifier("toggle-similarity")
+    static let toggleDescription = NSUserInterfaceItemIdentifier("toggle-desc")
+}
+
+extension NSUserInterfaceItemIdentifier {
     static let columnID = NSUserInterfaceItemIdentifier("col-id")
+    static let columnDelay = NSUserInterfaceItemIdentifier("col-delay")
     static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 
 extension NSUserInterfaceItemIdentifier {
     static let cellID = NSUserInterfaceItemIdentifier("cell-id")
+    static let cellDelay = NSUserInterfaceItemIdentifier("cell-delay")
     static let cellSimilarity = NSUserInterfaceItemIdentifier("cell-similarity")
     static let cellDescription = NSUserInterfaceItemIdentifier("cell-desc")
 }
@@ -78,6 +87,12 @@ class ContentController: NSViewController {
         }
         return 1
     }
+    fileprivate var nextDelay: Double {
+        if let lastDelay = content?.items.last?.delay {
+            return lastDelay
+        }
+        return 1.0
+    }
     fileprivate var nextSimilarity: Double {
         if let lastSimilarity = content?.items.last?.similarity {
             return lastSimilarity
@@ -87,7 +102,15 @@ class ContentController: NSViewController {
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
+    @IBOutlet var tableMenu: NSMenu!
+    @IBOutlet var tableHeaderMenu: NSMenu!
+    
     @IBOutlet weak var tableView: ContentTableView!
+    @IBOutlet weak var columnID: NSTableColumn!
+    @IBOutlet weak var columnDelay: NSTableColumn!
+    @IBOutlet weak var columnSimilarity: NSTableColumn!
+    @IBOutlet weak var columnDescription: NSTableColumn!
+    
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField: NSTextField!
 
@@ -102,12 +125,33 @@ class ContentController: NSViewController {
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        loadPreferences(nil)
+    }
+    
+    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+        updateTableViewColumnHeaders()
     }
     
     override func willPresentError(_ error: Error) -> Error {
         let error = super.willPresentError(error)
         debugPrint(error.localizedDescription)
         return error
+    }
+    
+    @IBAction func delayFieldChanged(_ sender: NSTextField) {
+        guard let content = content else { return }
+        let row = tableView.row(for: sender)
+        assert(row >= 0 && row < content.items.count)
+        let value = sender.doubleValue
+        if value >= 0 {
+            let item = content.items[row].copy() as! ContentItem
+            item.delay = value / 1000.0
+            internalUpdateContentItems([item])
+        }
+        let delay = String(Int(content.items[row].delay * 1000.0))
+        sender.stringValue = delay + "ms"
     }
     
     @IBAction func similarityFieldChanged(_ sender: NSTextField) {
@@ -117,11 +161,11 @@ class ContentController: NSViewController {
         let value = sender.doubleValue
         if value >= 1 && value <= 100 {
             let item = content.items[row].copy() as! ContentItem
-            item.similarity = min(max(sender.doubleValue / 100.0, 0.01), 1.0)
+            item.similarity = min(max(value / 100.0, 0.01), 1.0)
             internalUpdateContentItems([item])
         }
         let similarity = String(Int(content.items[row].similarity * 100.0))
-        sender.stringValue = similarity
+        sender.stringValue = similarity + "%"
     }
     
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
@@ -269,6 +313,7 @@ extension ContentController: ContentResponder {
         guard content.items.last(where: { $0 == item }) == nil else { throw ContentError.itemExists(item: item) }
         
         item.id = nextID
+        item.delay = nextDelay
         item.similarity = nextSimilarity
         internalAddContentItems([item])
         tableView.reloadData()
@@ -308,6 +353,7 @@ extension ContentController: ContentResponder {
             }
             if let relatedItem = relatedItem {
                 relatedItem.id = beginID
+                relatedItem.delay = item.delay
                 relatedItem.similarity = item.similarity
                 relatedItems.append(relatedItem)
                 beginID += 1
@@ -439,11 +485,42 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         else if item.action == #selector(paste(_:)) {
             return screenshot?.export.canImportFromAdditionalPasteboard ?? false
         }
+        else if item.action == #selector(toggleHeader(_:)) {
+            if let menuItem = item as? NSMenuItem {
+                if menuItem.identifier == .toggleID {
+                    return false
+                }
+                return true
+            }
+            return false
+        }
         return false
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
+        if menu == tableHeaderMenu {
+            tableHeaderMenu.items.forEach { (menuItem) in
+                if menuItem.identifier == .toggleID {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnID] ? .on : .off
+                }
+                else if menuItem.identifier == .toggleDelay {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnDelay] ? .on : .off
+                }
+                else if menuItem.identifier == .toggleSimilarity {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnSimilarity] ? .on : .off
+                }
+                else if menuItem.identifier == .toggleDescription {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
+                }
+            }
+        }
+    }
+    
+    fileprivate func updateTableViewColumnHeaders() {
+        columnID.isHidden = !UserDefaults.standard[.toggleTableColumnID]
+        columnDelay.isHidden = !UserDefaults.standard[.toggleTableColumnDelay]
+        columnSimilarity.isHidden = !UserDefaults.standard[.toggleTableColumnSimilarity]
+        columnDescription.isHidden = !UserDefaults.standard[.toggleTableColumnDescription]
     }
     
     fileprivate func deleteConfirmForItems(_ itemsToRemove: [ContentItem]) -> Bool {
@@ -557,6 +634,28 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
     }
     
+    @IBAction func toggleHeader(_ sender: NSMenuItem) {
+        var defaultKey: UserDefaults.Key?
+        if sender.identifier == .toggleID {
+            defaultKey = .toggleTableColumnID
+        }
+        else if sender.identifier == .toggleDelay {
+            defaultKey = .toggleTableColumnDelay
+        }
+        else if sender.identifier == .toggleSimilarity {
+            defaultKey = .toggleTableColumnSimilarity
+        }
+        else if sender.identifier == .toggleDescription {
+            defaultKey = .toggleTableColumnDescription
+        }
+        if let key = defaultKey {
+            let val: Bool = UserDefaults.standard[key]
+            UserDefaults.standard[key] = !val
+            sender.state = !val ? .on : .off
+            updateTableViewColumnHeaders()
+        }
+    }
+    
 }
 
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
@@ -587,13 +686,21 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             if col == .columnID {
                 cell.textField?.stringValue = String(item.id)
             }
+            else if col == .columnDelay {
+                let delay = String(Int(item.delay * 1000.0))
+                cell.textField?.toolTip = """
+                Delay Interval: \(delay)ms
+                Click here to edit.
+                """
+                cell.textField?.stringValue = delay + "ms"
+            }
             else if col == .columnSimilarity {
                 let similarity = String(Int(item.similarity * 100.0))
                 cell.textField?.toolTip = """
                 Similarity: \(similarity)%
                 Click here to edit.
                 """
-                cell.textField?.stringValue = similarity
+                cell.textField?.stringValue = similarity + "%"
             }
             else if col == .columnDescription {
                 if let color = item as? PixelColor {

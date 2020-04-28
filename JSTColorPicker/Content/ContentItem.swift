@@ -19,24 +19,28 @@ class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, Lua
     }
     
     var id: Int
+    var delay: Double = 1.0
     var similarity: Double = 1.0
     
     init(id: Int) {
         self.id = id
     }
     
-    init(id: Int, similarity: Double) {
+    init(id: Int, delay: Double, similarity: Double) {
         self.id = id
+        self.delay = delay
         self.similarity = similarity
     }
-    
+
     required init?(coder: NSCoder) {
         self.id = coder.decodeInteger(forKey: "id")
+        self.delay = coder.decodeDouble(forKey: "delay")
         self.similarity = coder.decodeDouble(forKey: "similarity")
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
+        coder.encode(delay, forKey: "delay")
         coder.encode(similarity, forKey: "similarity")
     }
     
@@ -50,24 +54,30 @@ class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, Lua
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        return ContentItem(id: id)
+        return ContentItem(id: id, delay: delay, similarity: similarity)
     }
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"] = id
-        t["similarity"] = Double(self.similarity)
+        t["delay"] = Double(delay)
+        t["similarity"] = Double(similarity)
         t.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "content item (table with keys [id,similarity])"
+    fileprivate static let typeName: String = "content item (table with keys [id,similarity,delay])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["id"] is Number) || !(t["similarity"] is Number) { return typeName }
+        if !(t["id"] is Number) ||
+            !(t["delay"] is Number) ||
+            !(t["similarity"] is Number)
+        {
+            return typeName
+        }
         return nil
     }
     

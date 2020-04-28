@@ -11,8 +11,17 @@
 /* Class = "NSMenuItem"; title = "JSTColorPicker"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "JSTColorPicker";
 
+/* Class = "NSTableColumn"; headerCell.title = "Delay"; ObjectID = "21M-5G-cdl"; */
+"21M-5G-cdl.headerCell.title" = "Delay";
+
+/* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "21M-5G-cdl"; */
+"21M-5G-cdl.headerToolTip" = "Delay (ms)";
+
 /* Class = "NSTableColumn"; headerCell.title = "Similarity"; ObjectID = "3hu-9P-0DZ"; */
 "3hu-9P-0DZ.headerCell.title" = "Similarity";
+
+/* Class = "NSTableColumn"; headerToolTip = "Similarity (%)"; ObjectID = "3hu-9P-0DZ"; */
+"3hu-9P-0DZ.headerToolTip" = "Similarity (%)";
 
 /* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
 "4EN-yA-p0u.title" = "Find";
@@ -44,6 +53,9 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Redo";
 
+/* Class = "NSMenuItem"; title = "ID"; ObjectID = "76Y-q5-6a8"; */
+"76Y-q5-6a8.title" = "ID";
+
 /* Class = "NSTabViewItem"; label = "Image"; ObjectID = "7jL-su-DvD"; */
 "7jL-su-DvD.label" = "Image";
 
@@ -70,6 +82,9 @@
 
 /* Class = "NSToolbarItem"; toolTip = "Minifying Glass (⌃F4)"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.toolTip" = "Minifying Glass (⌃F4)";
+
+/* Class = "NSMenuItem"; title = "Delay"; ObjectID = "aSq-S1-Z94"; */
+"aSq-S1-Z94.title" = "Delay";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Window";
@@ -100,6 +115,9 @@
 
 /* Class = "NSToolbarItem"; toolTip = "Snapshot (⌥⌘S)"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.toolTip" = "Snapshot (⌥⌘S)";
+
+/* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "BOv-Xm-yEK"; */
+"BOv-Xm-yEK.title" = "Similarity";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "BSQ-PE-12V"; */
 "BSQ-PE-12V.title" = "Text Cell";
@@ -148,6 +166,9 @@
 
 /* Class = "NSMenuItem"; title = "Select Device"; ObjectID = "Gxd-vS-gSq"; */
 "Gxd-vS-gSq.title" = "Select Device";
+
+/* Class = "NSMenuItem"; title = "Description"; ObjectID = "gXr-CH-wgt"; */
+"gXr-CH-wgt.title" = "Description";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "View";
@@ -313,6 +334,9 @@
 
 /* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "UeL-yQ-Jvx"; */
 "UeL-yQ-Jvx.headerCell.title" = "Description";
+
+/* Class = "NSTableColumn"; headerToolTip = "Description"; ObjectID = "UeL-yQ-Jvx"; */
+"UeL-yQ-Jvx.headerToolTip" = "Description";
 
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";

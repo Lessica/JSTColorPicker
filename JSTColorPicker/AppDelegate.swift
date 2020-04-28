@@ -47,6 +47,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let initialValues: [UserDefaults.Key: Any?] = [
             
+            .toggleTableColumnID: true,
+            .toggleTableColumnDelay: true,
+            .toggleTableColumnSimilarity: false,
+            .toggleTableColumnDescription: true,
+            
             .enableNetworkDiscovery: false,
             
             .enableForceTouch: true,

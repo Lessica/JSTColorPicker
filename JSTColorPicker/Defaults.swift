@@ -14,6 +14,11 @@ public extension UserDefaults.Key {
     static let lastSelectedTemplateUUID      : UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"      // String
     static let enableNetworkDiscovery        : UserDefaults.Key     = "defaults.enableNetworkDiscovery"        // Bool
     
+    static let toggleTableColumnID           : UserDefaults.Key     = "defaults.tableColumn.toggle-id"         // Bool
+    static let toggleTableColumnDelay        : UserDefaults.Key     = "defaults.tableColumn.toggle-delay"      // Bool
+    static let toggleTableColumnSimilarity   : UserDefaults.Key     = "defaults.tableColumn.toggle-similarity" // Bool
+    static let toggleTableColumnDescription  : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"       // Bool
+    
     static let enableForceTouch              : UserDefaults.Key     = "defaults.enableForceTouch"              // Bool
     static let drawSceneBackground           : UserDefaults.Key     = "defaults.drawSceneBackground"           // Bool
     static let drawRulersInScene             : UserDefaults.Key     = "defaults.drawRulersInScene"             // Bool
