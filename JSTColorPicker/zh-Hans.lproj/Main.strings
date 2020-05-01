@@ -92,6 +92,9 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
 
+/* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "b8i-OZ-eiI"; */
+"b8i-OZ-eiI.title" = "区域: (x, y, w, h)";
+
 /* Class = "NSToolbarItem"; label = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.label" = "适应窗口";
 
@@ -158,8 +161,8 @@
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker 帮助";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Copy Selected (⌘C)"; ObjectID = "Gdd-Og-hUZ"; */
-"Gdd-Og-hUZ.ibShadowedToolTip" = "复制选中项 (⌘C)";
+/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "Gdd-Og-hUZ"; */
+"Gdd-Og-hUZ.ibShadowedToolTip" = "导出全部项 (⌘E)";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "粘贴";
@@ -193,6 +196,9 @@
 
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "颜色选取器";
+
+/* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "ivt-4l-oba"; */
+"ivt-4l-oba.title" = "颜色与坐标: (x, y)";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "截图";
@@ -257,6 +263,9 @@
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "打开最近使用";
 
+/* Class = "NSMenuItem"; title = "Area: (x1, y1, x2, y2)"; ObjectID = "obF-Ti-QPz"; */
+"obF-Ti-QPz.title" = "区域: (x1, y1, x2, y2)";
+
 /* Class = "NSMenuItem"; title = "Hide JSTColorPicker"; ObjectID = "Olw-nP-bQN"; */
 "Olw-nP-bQN.title" = "隐藏 JSTColorPicker";
 
@@ -281,8 +290,8 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "Pbb-dn-eVi"; */
 "Pbb-dn-eVi.title" = "复制";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Templates..."; ObjectID = "pqW-4d-vSK"; */
-"pqW-4d-vSK.ibShadowedToolTip" = "模板...";
+/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "pqW-4d-vSK"; */
+"pqW-4d-vSK.ibShadowedToolTip" = "导出首选项 (⌥⌘E)";
 
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "保存...";
@@ -290,7 +299,7 @@
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "查找下一个";
 
-/* Class = "NSButtonCell"; title = "Exit Comparison Mode"; ObjectID = "Qmq-AZ-7YC"; */
+/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "Qmq-AZ-7YC"; */
 "Qmq-AZ-7YC.title" = "退出比较模式";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "r32-UK-sx0"; */
@@ -385,3 +394,6 @@
 
 /* Class = "NSMenuItem"; title = "Reload All Templates"; ObjectID = "zKV-Tx-oRG"; */
 "zKV-Tx-oRG.title" = "重新加载所有模板";
+
+/* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "zqB-jb-bkD"; */
+"zqB-jb-bkD.title" = "重置列...";

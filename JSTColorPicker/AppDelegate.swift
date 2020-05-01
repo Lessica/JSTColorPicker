@@ -52,6 +52,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .toggleTableColumnSimilarity: false,
             .toggleTableColumnDescription: true,
             
+            .useAlternativeAreaRepresentation: false,
+            
             .enableNetworkDiscovery: false,
             
             .enableForceTouch: true,

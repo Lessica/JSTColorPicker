@@ -571,7 +571,8 @@ CA
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="addCoordinateAction:" target="jWv-ak-Q1b" id="Py9-3v-aOn"/>
+                                            <action selector="addCoordinateAction:" target="jWv-ak-Q1b" id="yFE-yU-2Qa"/>
+                                            <outlet property="menu" destination="zcv-4j-A4N" id="x9b-9I-cFB"/>
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
@@ -619,6 +620,9 @@ CA
                         <outlet property="columnDescription" destination="UeL-yQ-Jvx" id="DGE-TC-XdZ"/>
                         <outlet property="columnID" destination="Ntw-j7-BEf" id="QJc-f9-yrm"/>
                         <outlet property="columnSimilarity" destination="3hu-9P-0DZ" id="Ojo-G8-pfN"/>
+                        <outlet property="itemReprAreaAltMenuItem" destination="b8i-OZ-eiI" id="8vq-wc-eJh"/>
+                        <outlet property="itemReprAreaMenuItem" destination="obF-Ti-QPz" id="rsd-0L-gjW"/>
+                        <outlet property="itemReprMenu" destination="zcv-4j-A4N" id="ZZt-1c-t0u"/>
                         <outlet property="tableHeaderMenu" destination="ePf-Vh-aIA" id="c4x-dR-TCC"/>
                         <outlet property="tableMenu" destination="em0-cZ-Yb4" id="Ta6-8p-rlw"/>
                         <outlet property="tableView" destination="tGt-bn-9va" id="gte-85-omt"/>
@@ -692,9 +696,39 @@ CA
                                 <action selector="toggleHeader:" target="jWv-ak-Q1b" id="oKU-Vu-6VN"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="AYT-Cd-PGD"/>
+                        <menuItem title="Reset Columns..." keyEquivalent="r" id="zqB-jb-bkD">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <connections>
+                                <action selector="resetColumns:" target="jWv-ak-Q1b" id="QMm-N8-oLv"/>
+                            </connections>
+                        </menuItem>
                     </items>
                     <connections>
                         <outlet property="delegate" destination="jWv-ak-Q1b" id="un9-UO-dvW"/>
+                    </connections>
+                </menu>
+                <menu id="zcv-4j-A4N">
+                    <items>
+                        <menuItem title="Color &amp; Coordinate: (x, y)" state="on" enabled="NO" id="ivt-4l-oba">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="P4E-sR-nUI"/>
+                        <menuItem title="Area: (x1, y1, x2, y2)" state="on" id="obF-Ti-QPz">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleItemRepr:" target="jWv-ak-Q1b" id="Xrm-GK-uEl"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Area: (x, y, w, h)" id="b8i-OZ-eiI">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleItemRepr:" target="jWv-ak-Q1b" id="RyQ-RO-xQc"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="jWv-ak-Q1b" id="GcO-uE-1N2"/>
                     </connections>
                 </menu>
             </objects>
@@ -1043,8 +1077,8 @@ CA
                                                                             <rect key="frame" x="0.0" y="96" width="220" height="21"/>
                                                                             <subviews>
                                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9rt-lZ-7Od">
-                                                                                    <rect key="frame" x="31" y="-7" width="158" height="32"/>
-                                                                                    <buttonCell key="cell" type="push" title="Exit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-AZ-7YC">
+                                                                                    <rect key="frame" x="30" y="-7" width="161" height="32"/>
+                                                                                    <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-AZ-7YC">
                                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                         <font key="font" metaFont="menu" size="11"/>
                                                                                         <string key="keyEquivalent">D</string>
@@ -1349,7 +1383,7 @@ CA
                                             <constraint firstAttribute="height" constant="1" id="2Vu-Ae-POM"/>
                                         </constraints>
                                     </box>
-                                    <button toolTip="Copy Selected (⌘C)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gdd-Og-hUZ">
+                                    <button toolTip="Export All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gdd-Og-hUZ">
                                         <rect key="frame" x="8" y="4" width="188" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="176" id="DIC-xF-g3j"/>
@@ -1364,7 +1398,7 @@ CA
                                             <action selector="exportButtonTapped:" target="Z2W-Gy-vmx" id="6Mn-vu-EO4"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="Templates..." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pqW-4d-vSK">
+                                    <button toolTip="Export Options (⌥⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pqW-4d-vSK">
                                         <rect key="frame" x="188" y="4" width="52" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="yRo-bv-eSU"/>
@@ -1372,6 +1406,8 @@ CA
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu" size="11"/>
+                                            <string key="keyEquivalent">e</string>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="optionButtonTapped:" target="Z2W-Gy-vmx" id="h4y-Ov-BRT"/>
@@ -1426,20 +1462,20 @@ CA
                 <menu autoenablesItems="NO" id="rtn-Zg-Uqc">
                     <items>
                         <menuItem isSeparatorItem="YES" id="aNW-xi-RSB"/>
-                        <menuItem title="Reload All Templates" id="zKV-Tx-oRG">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Reload All Templates" keyEquivalent="r" id="zKV-Tx-oRG">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="reloadAllTemplatesMenuTapped:" target="Z2W-Gy-vmx" id="2LM-MF-ahI"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Show Templates..." id="4WQ-hK-LNU">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Show Templates..." keyEquivalent="f" id="4WQ-hK-LNU">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="showTemplatesMenuTapped:" target="Z2W-Gy-vmx" id="rrj-Y8-4iC"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Show Logs..." id="cmL-jJ-0rb">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Show Logs..." keyEquivalent="l" id="cmL-jJ-0rb">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="showLogsMenuTapped:" target="Z2W-Gy-vmx" id="nwd-X1-S05"/>
                             </connections>

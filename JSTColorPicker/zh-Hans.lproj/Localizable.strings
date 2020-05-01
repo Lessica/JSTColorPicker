@@ -153,6 +153,18 @@
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本.";
 
+/* Tool Tip: Description of Pixel Area */
+"TOOLTIP_DESC_PIXEL_AREA" = "原点: %@\n对点: %@\n尺寸: %@";
+
+/* Tool Tip: Description of Pixel Color */
+"TOOLTIP_DESC_PIXEL_COLOR" = "位置: %@\nCSS: %@\nRGBA: %@";
+
+/* Tool Tip: Modify Delay Interval */
+"TOOLTIP_MODIFY_DELAY_INTVAL" = "延迟: %@ms\n单击此处以修改.";
+
+/* Tool Tip: Modify Similiarity */
+"TOOLTIP_MODIFY_SIMILARITY" = "相似度: %@%%\n单击此处以修改.";
+
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
 

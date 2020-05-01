@@ -10,38 +10,40 @@ import Foundation
 
 public extension UserDefaults.Key {
     
-    static let lastSelectedDeviceUDID        : UserDefaults.Key     = "defaults.lastSelectedDeviceUDID"        // String
-    static let lastSelectedTemplateUUID      : UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"      // String
-    static let enableNetworkDiscovery        : UserDefaults.Key     = "defaults.enableNetworkDiscovery"        // Bool
+    static let lastSelectedDeviceUDID               : UserDefaults.Key     = "defaults.lastSelectedDeviceUDID"                 // String
+    static let lastSelectedTemplateUUID             : UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"               // String
+    static let enableNetworkDiscovery               : UserDefaults.Key     = "defaults.enableNetworkDiscovery"                 // Bool
     
-    static let toggleTableColumnID           : UserDefaults.Key     = "defaults.tableColumn.toggle-id"         // Bool
-    static let toggleTableColumnDelay        : UserDefaults.Key     = "defaults.tableColumn.toggle-delay"      // Bool
-    static let toggleTableColumnSimilarity   : UserDefaults.Key     = "defaults.tableColumn.toggle-similarity" // Bool
-    static let toggleTableColumnDescription  : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"       // Bool
+    static let toggleTableColumnID                  : UserDefaults.Key     = "defaults.tableColumn.toggle-id"                  // Bool
+    static let toggleTableColumnDelay               : UserDefaults.Key     = "defaults.tableColumn.toggle-delay"               // Bool
+    static let toggleTableColumnSimilarity          : UserDefaults.Key     = "defaults.tableColumn.toggle-similarity"          // Bool
+    static let toggleTableColumnDescription         : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"                // Bool
     
-    static let enableForceTouch              : UserDefaults.Key     = "defaults.enableForceTouch"              // Bool
-    static let drawSceneBackground           : UserDefaults.Key     = "defaults.drawSceneBackground"           // Bool
-    static let drawRulersInScene             : UserDefaults.Key     = "defaults.drawRulersInScene"             // Bool
-    static let drawGridsInScene              : UserDefaults.Key     = "defaults.drawGridsInScene"              // Bool
-    static let drawBackgroundInGridView      : UserDefaults.Key     = "defaults.drawBackgroundInGridView"      // Bool
-    static let drawAnnotatorsInGridView      : UserDefaults.Key     = "defaults.drawAnnotatorsInGridView"      // Bool
-    static let hideGridsWhenResize           : UserDefaults.Key     = "defaults.hideGridsWhenResize"           // Bool
-    static let hideAnnotatorsWhenResize      : UserDefaults.Key     = "defaults.hideAnnotatorsWhenResize"      // Bool
-    static let usesPredominantAxisScrolling  : UserDefaults.Key     = "defaults.usesPredominantAxisScrolling"  // Bool
+    static let useAlternativeAreaRepresentation     : UserDefaults.Key     = "defaults.useAlternativeAreaRepresentation"       // Bool
     
-    static let confirmBeforeDelete           : UserDefaults.Key     = "defaults.confirmBeforeDelete"           // Bool
-    static let maximumItemCountEnabled       : UserDefaults.Key     = "defaults.maximumItemCountEnabled"       // Bool
-    static let maximumItemCount              : UserDefaults.Key     = "defaults.maximumItemCount"              // Int
+    static let enableForceTouch                     : UserDefaults.Key     = "defaults.enableForceTouch"                       // Bool
+    static let drawSceneBackground                  : UserDefaults.Key     = "defaults.drawSceneBackground"                    // Bool
+    static let drawRulersInScene                    : UserDefaults.Key     = "defaults.drawRulersInScene"                      // Bool
+    static let drawGridsInScene                     : UserDefaults.Key     = "defaults.drawGridsInScene"                       // Bool
+    static let drawBackgroundInGridView             : UserDefaults.Key     = "defaults.drawBackgroundInGridView"               // Bool
+    static let drawAnnotatorsInGridView             : UserDefaults.Key     = "defaults.drawAnnotatorsInGridView"               // Bool
+    static let hideGridsWhenResize                  : UserDefaults.Key     = "defaults.hideGridsWhenResize"                    // Bool
+    static let hideAnnotatorsWhenResize             : UserDefaults.Key     = "defaults.hideAnnotatorsWhenResize"               // Bool
+    static let usesPredominantAxisScrolling         : UserDefaults.Key     = "defaults.usesPredominantAxisScrolling"           // Bool
     
-    static let screenshotSavingPath          : UserDefaults.Key     = "defaults.screenshotSavingPath"          // String
+    static let confirmBeforeDelete                  : UserDefaults.Key     = "defaults.confirmBeforeDelete"                    // Bool
+    static let maximumItemCountEnabled              : UserDefaults.Key     = "defaults.maximumItemCountEnabled"                // Bool
+    static let maximumItemCount                     : UserDefaults.Key     = "defaults.maximumItemCount"                       // Int
     
-    static let pixelMatchThreshold           : UserDefaults.Key     = "defaults.pixelMatchThreshold"           // Double
-    static let pixelMatchIncludeAA           : UserDefaults.Key     = "defaults.pixelMatchIncludeAA"           // Bool
-    static let pixelMatchAlpha               : UserDefaults.Key     = "defaults.pixelMatchAlpha"               // Double
-    static let pixelMatchAAColor             : UserDefaults.Key     = "defaults.pixelMatchAAColor"             // NSColor
-    static let pixelMatchDiffColor           : UserDefaults.Key     = "defaults.pixelMatchDiffColor"           // NSColor
-    static let pixelMatchDiffMask            : UserDefaults.Key     = "defaults.pixelMatchDiffMask"            // Bool
-    static let pixelMatchBackgroundMode      : UserDefaults.Key     = "defaults.pixelMatchBackgroundMode"      // Bool
+    static let screenshotSavingPath                 : UserDefaults.Key     = "defaults.screenshotSavingPath"                   // String
+    
+    static let pixelMatchThreshold                  : UserDefaults.Key     = "defaults.pixelMatchThreshold"                    // Double
+    static let pixelMatchIncludeAA                  : UserDefaults.Key     = "defaults.pixelMatchIncludeAA"                    // Bool
+    static let pixelMatchAlpha                      : UserDefaults.Key     = "defaults.pixelMatchAlpha"                        // Double
+    static let pixelMatchAAColor                    : UserDefaults.Key     = "defaults.pixelMatchAAColor"                      // NSColor
+    static let pixelMatchDiffColor                  : UserDefaults.Key     = "defaults.pixelMatchDiffColor"                    // NSColor
+    static let pixelMatchDiffMask                   : UserDefaults.Key     = "defaults.pixelMatchDiffMask"                     // Bool
+    static let pixelMatchBackgroundMode             : UserDefaults.Key     = "defaults.pixelMatchBackgroundMode"               // Bool
     
 }
 
@@ -61,6 +63,10 @@ public extension UserDefaults {
 
     func value<T>(forKey key: Key) -> T? {
         return value(forKey: key.rawValue) as? T
+    }
+    
+    func removeObject(forKey key: Key) {
+        removeObject(forKey: key.rawValue)
     }
 
     func register(defaults: [Key: Any?]) {

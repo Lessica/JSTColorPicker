@@ -225,15 +225,28 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     @IBAction func optionButtonTapped(_ sender: NSButton) {
+        
         guard let exportManager = screenshot?.export else { return }
+        
+        var itemIdx: Int = 0
         let items = exportManager.templates
             .compactMap({ [weak self] (template) -> NSMenuItem in
-                let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: "")
+                
+                itemIdx += 1
+                var keyEqu = ""
+                if itemIdx <= 10 {
+                    keyEqu = String(format: "%d", itemIdx % 10)
+                }
+                
+                let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: keyEqu)
                 item.target = self
                 item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(templateIdentifierPrefix)\(template.uuid.uuidString)")
+                item.keyEquivalentModifierMask = [.option, .command]
+                
                 let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
                 item.isEnabled = enabled
                 item.state = template.uuid.uuidString == exportManager.selectedTemplate?.uuid.uuidString ? .on : .off
+                
                 if enabled {
                     item.toolTip = """
                     \(template.name) (\(template.version))
@@ -245,11 +258,14 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
                 else {
                     item.toolTip = TemplateError.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
                 }
+                
                 return item
             })
             .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
+        
         optionMenu.items = items + reservedOptionMenuItems
         optionMenu.popUp(positioning: nil, at: NSEvent.mouseLocation, in: nil)
+        
     }
     
     @IBAction func reloadAllTemplatesMenuTapped(_ sender: NSMenuItem) {

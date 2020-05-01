@@ -32,6 +32,7 @@ extension NSUserInterfaceItemIdentifier {
 enum ContentError: LocalizedError {
     case itemExists(item: CustomStringConvertible)
     case itemDoesNotExist(item: CustomStringConvertible)
+    case itemNotValid(item: CustomStringConvertible)
     case itemOutOfRange(item: CustomStringConvertible, range: CustomStringConvertible)
     case itemReachLimit(totalSpace: Int)
     case itemReachLimitBatch(moreSpace: Int)
@@ -44,6 +45,8 @@ enum ContentError: LocalizedError {
             return String(format: NSLocalizedString("This item %@ already exists.", comment: "ContentError"), item.description)
         case let .itemDoesNotExist(item):
             return String(format: NSLocalizedString("This item %@ does not exist.", comment: "ContentError"), item.description)
+        case let .itemNotValid(item):
+            return String(format: "This requested item %@ is not valid.", item.description)
         case let .itemOutOfRange(item, range):
             return String(format: NSLocalizedString("The requested item %@ is out of the document range %@.", comment: "ContentError"), item.description, range.description)
         case let .itemReachLimit(totalSpace):
@@ -104,6 +107,9 @@ class ContentController: NSViewController {
     
     @IBOutlet var tableMenu: NSMenu!
     @IBOutlet var tableHeaderMenu: NSMenu!
+    @IBOutlet var itemReprMenu: NSMenu!
+    @IBOutlet var itemReprAreaMenuItem: NSMenuItem!
+    @IBOutlet var itemReprAreaAltMenuItem: NSMenuItem!
     
     @IBOutlet weak var tableView: ContentTableView!
     @IBOutlet weak var columnID: NSTableColumn!
@@ -131,13 +137,36 @@ class ContentController: NSViewController {
     }
     
     @objc fileprivate func loadPreferences(_ notification: Notification?) {
-        updateTableViewColumnHeaders()
+        updateColumns()
     }
     
     override func willPresentError(_ error: Error) -> Error {
         let error = super.willPresentError(error)
         debugPrint(error.localizedDescription)
         return error
+    }
+    
+    @IBAction func resetColumns(_ sender: NSMenuItem) {
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnID)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnDelay)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnSimilarity)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
+        
+        columnID.width = 30.0
+        columnDelay.width = 60.0
+        columnSimilarity.width = 60.0
+        columnDescription.width = 180.0
+        
+        tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
+        let tableCols: [NSTableColumn] = [
+            columnID,
+            columnDelay,
+            columnSimilarity,
+            columnDescription
+        ]
+        tableCols.forEach({ tableView.addTableColumn($0) })
+        
+        updateColumns()
     }
     
     @IBAction func delayFieldChanged(_ sender: NSTextField) {
@@ -180,38 +209,16 @@ class ContentController: NSViewController {
         var x2 = Int.max
         var y2 = Int.max
         
-        scanner.scanInt(&x)
-        scanner.scanInt(&y)
-        scanner.scanInt(&x2)
-        scanner.scanInt(&y2)
+        let scanned1 = scanner.scanInt(&x)
+        let scanned2 = scanner.scanInt(&y)
+        let scanned3 = scanner.scanInt(&x2)
+        let scanned4 = scanner.scanInt(&y2)
         
+        if !scanned1 || !scanned2 { return }
         guard x >= 0 && y >= 0 && x < size.width && y < size.height else { return }
-        if x2 >= 0 && y2 >= 0 && x2 < size.width && y2 < size.height {
-            let rect = PixelRect(coordinate1: PixelCoordinate(x: x, y: y), coordinate2: PixelCoordinate(x: x2, y: y2))
-            
-            do {
-                if let item = try addContentItem(of: rect) {
-                    if let _ = try selectContentItem(item) {
-                        sender.stringValue = ""
-                        makeFirstResponder(tableView)
-                    }
-                }
-            }
-            catch ContentError.itemExists {
-                do {
-                    if let _ = try selectContentItem(of: rect) {
-                        sender.stringValue = ""
-                        makeFirstResponder(tableView)
-                    }
-                }
-                catch let error {
-                    presentError(error)
-                }
-            }
-            catch let error {
-                presentError(error)
-            }
-        } else {
+        
+        // color & coordinate
+        if !scanned3 || !scanned4 {
             let coordinate = PixelCoordinate(x: x, y: y)
             
             do {
@@ -236,6 +243,49 @@ class ContentController: NSViewController {
             catch let error {
                 presentError(error)
             }
+        }
+        else {
+            
+            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+            var tryRect: PixelRect?
+            
+            // area
+            if !useAlt {
+                if x2 >= 0 && y2 >= 0 && x2 < size.width && y2 < size.height {
+                    tryRect = PixelRect(coordinate1: PixelCoordinate(x: x, y: y), coordinate2: PixelCoordinate(x: x2, y: y2))
+                }
+            }
+            else {
+                if x2 > 0 && y2 > 0 && (x + x2) < size.width && (y + y2) < size.height {
+                    tryRect = PixelRect(origin: PixelCoordinate(x: x, y: y), size: PixelSize(width: x2, height: y2))
+                }
+            }
+            
+            guard let rect = tryRect else { return }
+            
+            do {
+                if let item = try addContentItem(of: rect) {
+                    if let _ = try selectContentItem(item) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+            }
+            catch ContentError.itemExists {
+                do {
+                    if let _ = try selectContentItem(of: rect) {
+                        sender.stringValue = ""
+                        makeFirstResponder(tableView)
+                    }
+                }
+                catch let error {
+                    presentError(error)
+                }
+            }
+            catch let error {
+                presentError(error)
+            }
+            
         }
     }
     
@@ -299,6 +349,7 @@ extension ContentController: ContentResponder {
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        guard rect.size > PixelSize(width: 1, height: 1) else { throw ContentError.itemNotValid(item: rect) }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         return try addContentItem(area)
     }
@@ -494,6 +545,12 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
             }
             return false
         }
+        else if item.action == #selector(resetColumns(_:)) {
+            return true
+        }
+        else if item.action == #selector(toggleItemRepr(_:)) {
+            return true
+        }
         return false
     }
     
@@ -514,9 +571,20 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 }
             }
         }
+        else if menu == itemReprMenu {
+            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+            if useAlt {
+                itemReprAreaMenuItem.state = .off
+                itemReprAreaAltMenuItem.state = .on
+            }
+            else {
+                itemReprAreaMenuItem.state = .on
+                itemReprAreaAltMenuItem.state = .off
+            }
+        }
     }
     
-    fileprivate func updateTableViewColumnHeaders() {
+    fileprivate func updateColumns() {
         columnID.isHidden = !UserDefaults.standard[.toggleTableColumnID]
         columnDelay.isHidden = !UserDefaults.standard[.toggleTableColumnDelay]
         columnSimilarity.isHidden = !UserDefaults.standard[.toggleTableColumnSimilarity]
@@ -652,7 +720,16 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
             let val: Bool = UserDefaults.standard[key]
             UserDefaults.standard[key] = !val
             sender.state = !val ? .on : .off
-            updateTableViewColumnHeaders()
+            updateColumns()
+        }
+    }
+    
+    @IBAction func toggleItemRepr(_ sender: NSMenuItem) {
+        if sender == itemReprAreaMenuItem {
+            UserDefaults.standard[.useAlternativeAreaRepresentation] = false
+        }
+        else if sender == itemReprAreaAltMenuItem {
+            UserDefaults.standard[.useAlternativeAreaRepresentation] = true
         }
     }
     
@@ -688,36 +765,22 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             }
             else if col == .columnDelay {
                 let delay = String(Int(item.delay * 1000.0))
-                cell.textField?.toolTip = """
-                Delay Interval: \(delay)ms
-                Click here to edit.
-                """
+                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_DELAY_INTVAL", comment: "Tool Tip: Modify Delay Interval"), delay)
                 cell.textField?.stringValue = delay + "ms"
             }
             else if col == .columnSimilarity {
                 let similarity = String(Int(item.similarity * 100.0))
-                cell.textField?.toolTip = """
-                Similarity: \(similarity)%
-                Click here to edit.
-                """
+                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
                 cell.textField?.stringValue = similarity + "%"
             }
             else if col == .columnDescription {
                 if let color = item as? PixelColor {
                     cell.imageView?.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
-                    cell.textField?.toolTip = """
-                    Location: \(color.coordinate)
-                    CSS: \(color.cssString)
-                    RGBA: \(color.cssRGBAString)
-                    """
+                    cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString)
                 }
                 else if let area = item as? PixelArea {
                     cell.imageView?.image = NSImage(named: "JSTCropSmall")
-                    cell.textField?.toolTip = """
-                    Origin: \(area.rect.origin)
-                    Opposite: \(area.rect.opposite)
-                    Size: \(area.rect.size)
-                    """
+                    cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description)
                 }
                 cell.textField?.stringValue = item.description
             }
