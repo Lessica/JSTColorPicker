@@ -83,6 +83,9 @@
 /* Class = "NSToolbarItem"; toolTip = "Minifying Glass (⌃F4)"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.toolTip" = "放大镜 (⌃F4)";
 
+/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "aP1-f1-wxI"; */
+"aP1-f1-wxI.title" = "颜色指示器";
+
 /* Class = "NSMenuItem"; title = "Delay"; ObjectID = "aSq-S1-Z94"; */
 "aSq-S1-Z94.title" = "延迟";
 
@@ -137,6 +140,9 @@
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "比较已打开的文档";
 
+/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "DDt-ew-ypP"; */
+"DDt-ew-ypP.title" = "重置面板...";
+
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "djd-CE-KfV"; */
 "djd-CE-KfV.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
 
@@ -158,11 +164,17 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "帮助";
 
+/* Class = "NSMenuItem"; title = "Information"; ObjectID = "fch-zD-eHV"; */
+"fch-zD-eHV.title" = "信息";
+
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker 帮助";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "Gdd-Og-hUZ"; */
 "Gdd-Og-hUZ.ibShadowedToolTip" = "导出全部项 (⌘E)";
+
+/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "GGS-Lz-Zee"; */
+"GGS-Lz-Zee.title" = "图像预览";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "粘贴";

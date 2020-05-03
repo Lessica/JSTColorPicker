@@ -578,7 +578,7 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="270" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -1040,7 +1040,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="248" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW">
+                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="ngz-zP-wIW" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="42" width="248" height="758"/>
                                 <subviews>
                                     <customView id="VAj-Tz-9Wg">
@@ -1062,7 +1062,7 @@ CA
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                             <rect key="frame" x="0.0" y="129" width="155" height="84"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="X8A-3k-h2W">
-                                                                                <font key="font" metaFont="menu" size="11"/>
+                                                                                <font key="font" metaFont="label" size="11"/>
                                                                                 <string key="title">Open or drop an image here.
 
 
@@ -1080,7 +1080,7 @@ CA
                                                                                     <rect key="frame" x="30" y="-7" width="161" height="32"/>
                                                                                     <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-AZ-7YC">
                                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                                        <font key="font" metaFont="label" size="11"/>
                                                                                         <string key="keyEquivalent">D</string>
                                                                                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                                     </buttonCell>
@@ -1098,7 +1098,7 @@ CA
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rZ-oV-Lx3">
                                                                             <rect key="frame" x="0.0" y="0.0" width="155" height="84"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="8Sz-oB-rce">
-                                                                                <font key="font" metaFont="menu" size="11"/>
+                                                                                <font key="font" metaFont="label" size="11"/>
                                                                                 <string key="title">Open or drop an image here.
 
 
@@ -1373,6 +1373,10 @@ CA
                                     <real value="255"/>
                                     <real value="250"/>
                                 </holdingPriorities>
+                                <connections>
+                                    <outlet property="delegate" destination="Z2W-Gy-vmx" id="sDa-2t-qPt"/>
+                                    <outlet property="menu" destination="Kn4-3p-alR" id="UQG-ls-xnn"/>
+                                </connections>
                             </splitView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJt-oH-ODD">
                                 <rect key="frame" x="0.0" y="0.0" width="248" height="42"/>
@@ -1390,7 +1394,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
@@ -1405,7 +1409,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </buttonCell>
@@ -1452,10 +1456,16 @@ CA
                         <outlet property="inspectorColorLabel2" destination="huo-Ij-tNn" id="Fkm-ID-GVq"/>
                         <outlet property="optionButton" destination="pqW-4d-vSK" id="NIG-D9-4Es"/>
                         <outlet property="optionMenu" destination="rtn-Zg-Uqc" id="kbz-Fl-DFV"/>
+                        <outlet property="paneMenu" destination="Kn4-3p-alR" id="p4r-91-9Zl"/>
+                        <outlet property="paneViewInformation" destination="VAj-Tz-9Wg" id="Exq-KR-880"/>
+                        <outlet property="paneViewInspector" destination="OBa-Ic-u2F" id="HUB-xR-L41"/>
+                        <outlet property="paneViewPlaceholder" destination="VHW-Hv-tlU" id="4P4-Xy-9NJ"/>
+                        <outlet property="paneViewPreview" destination="HdP-zT-hUX" id="MFi-Hy-PWR"/>
                         <outlet property="previewImageView" destination="hjE-mX-KFT" id="sQi-a4-dpp"/>
                         <outlet property="previewOverlayView" destination="6ix-tE-zJZ" id="NOP-LM-YTs"/>
                         <outlet property="previewSlider" destination="LE0-eB-1FR" id="wfn-PP-f0H"/>
                         <outlet property="previewSliderLabel" destination="N2K-Kd-4Iw" id="3fc-Lm-Xkr"/>
+                        <outlet property="splitView" destination="ngz-zP-wIW" id="4rO-rd-e2k"/>
                     </connections>
                 </viewController>
                 <customObject id="xBN-5i-sBA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1483,6 +1493,38 @@ CA
                     </items>
                     <connections>
                         <outlet property="delegate" destination="Z2W-Gy-vmx" id="BII-Qw-Kn7"/>
+                    </connections>
+                </menu>
+                <menu id="Kn4-3p-alR">
+                    <items>
+                        <menuItem title="Information" state="on" identifier="toggle-info" id="fch-zD-eHV">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="togglePane:" target="Z2W-Gy-vmx" id="qc3-GR-edC"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Color Inspector" state="on" identifier="toggle-inspector" id="aP1-f1-wxI">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="togglePane:" target="Z2W-Gy-vmx" id="tCD-fg-Abf"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Image Preview" state="on" identifier="toggle-preview" id="GGS-Lz-Zee">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="togglePane:" target="Z2W-Gy-vmx" id="bMh-NB-hm6"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="izd-f5-aoZ"/>
+                        <menuItem title="Reset Panes..." keyEquivalent="r" id="DDt-ew-ypP">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <connections>
+                                <action selector="resetPanes:" target="Z2W-Gy-vmx" id="g95-2W-sbh"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="Z2W-Gy-vmx" id="MbO-Uu-mQr"/>
                     </connections>
                 </menu>
             </objects>

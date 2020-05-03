@@ -9,10 +9,10 @@
 import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
-    static let toggleID = NSUserInterfaceItemIdentifier("toggle-id")
-    static let toggleDelay = NSUserInterfaceItemIdentifier("toggle-delay")
-    static let toggleSimilarity = NSUserInterfaceItemIdentifier("toggle-similarity")
-    static let toggleDescription = NSUserInterfaceItemIdentifier("toggle-desc")
+    static let toggleTableColumnID = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleTableColumnDelay = NSUserInterfaceItemIdentifier("toggle-delay")
+    static let toggleTableColumnSimilarity = NSUserInterfaceItemIdentifier("toggle-similarity")
+    static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
 }
 
 extension NSUserInterfaceItemIdentifier {
@@ -20,13 +20,6 @@ extension NSUserInterfaceItemIdentifier {
     static let columnDelay = NSUserInterfaceItemIdentifier("col-delay")
     static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
-}
-
-extension NSUserInterfaceItemIdentifier {
-    static let cellID = NSUserInterfaceItemIdentifier("cell-id")
-    static let cellDelay = NSUserInterfaceItemIdentifier("cell-delay")
-    static let cellSimilarity = NSUserInterfaceItemIdentifier("cell-similarity")
-    static let cellDescription = NSUserInterfaceItemIdentifier("cell-desc")
 }
 
 enum ContentError: LocalizedError {
@@ -538,7 +531,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
         else if item.action == #selector(toggleHeader(_:)) {
             if let menuItem = item as? NSMenuItem {
-                if menuItem.identifier == .toggleID {
+                if menuItem.identifier == .toggleTableColumnID {
                     return false
                 }
                 return true
@@ -556,17 +549,17 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == tableHeaderMenu {
-            tableHeaderMenu.items.forEach { (menuItem) in
-                if menuItem.identifier == .toggleID {
+            menu.items.forEach { (menuItem) in
+                if menuItem.identifier == .toggleTableColumnID {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnID] ? .on : .off
                 }
-                else if menuItem.identifier == .toggleDelay {
+                else if menuItem.identifier == .toggleTableColumnDelay {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnDelay] ? .on : .off
                 }
-                else if menuItem.identifier == .toggleSimilarity {
+                else if menuItem.identifier == .toggleTableColumnSimilarity {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnSimilarity] ? .on : .off
                 }
-                else if menuItem.identifier == .toggleDescription {
+                else if menuItem.identifier == .toggleTableColumnDescription {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
                 }
             }
@@ -585,10 +578,27 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     fileprivate func updateColumns() {
-        columnID.isHidden = !UserDefaults.standard[.toggleTableColumnID]
-        columnDelay.isHidden = !UserDefaults.standard[.toggleTableColumnDelay]
-        columnSimilarity.isHidden = !UserDefaults.standard[.toggleTableColumnSimilarity]
-        columnDescription.isHidden = !UserDefaults.standard[.toggleTableColumnDescription]
+        var hiddenValue: Bool!
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnID]
+        if columnID.isHidden != hiddenValue {
+            columnID.isHidden = hiddenValue
+        }
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnDelay]
+        if columnDelay.isHidden != hiddenValue {
+            columnDelay.isHidden = hiddenValue
+        }
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnSimilarity]
+        if columnSimilarity.isHidden != hiddenValue {
+            columnSimilarity.isHidden = hiddenValue
+        }
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnDescription]
+        if columnDescription.isHidden != hiddenValue {
+            columnDescription.isHidden = hiddenValue
+        }
     }
     
     fileprivate func deleteConfirmForItems(_ itemsToRemove: [ContentItem]) -> Bool {
@@ -704,16 +714,16 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     @IBAction func toggleHeader(_ sender: NSMenuItem) {
         var defaultKey: UserDefaults.Key?
-        if sender.identifier == .toggleID {
+        if sender.identifier == .toggleTableColumnID {
             defaultKey = .toggleTableColumnID
         }
-        else if sender.identifier == .toggleDelay {
+        else if sender.identifier == .toggleTableColumnDelay {
             defaultKey = .toggleTableColumnDelay
         }
-        else if sender.identifier == .toggleSimilarity {
+        else if sender.identifier == .toggleTableColumnSimilarity {
             defaultKey = .toggleTableColumnSimilarity
         }
-        else if sender.identifier == .toggleDescription {
+        else if sender.identifier == .toggleTableColumnDescription {
             defaultKey = .toggleTableColumnDescription
         }
         if let key = defaultKey {

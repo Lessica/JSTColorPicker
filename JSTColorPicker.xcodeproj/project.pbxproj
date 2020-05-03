@@ -230,6 +230,8 @@
 		D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A0240D05E0003A5B17 /* Folder.xib */; };
 		D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A3240D05E5003A5B17 /* Advanced.xib */; };
 		D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0AC240D069A003A5B17 /* Localizable.strings */; };
+		D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */; };
+		D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */; };
 		D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9D23CB180C0098C567 /* AppDelegate.swift */; };
 		D658AFA023CB180C0098C567 /* SplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* SplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
@@ -763,6 +765,7 @@
 		D64AF0B2240D0B57003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Folder.strings; sourceTree = "<group>"; };
 		D64AF0B4240D0B5B003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Advanced.strings; sourceTree = "<group>"; };
 		D64AF0B6240D0B62003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitView.swift; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
@@ -1511,6 +1514,7 @@
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
+				D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2130,6 +2134,7 @@
 			files = (
 				D610477D24224A170002E990 /* Foundation+Ext.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
+				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
 				D610478124224A170002E990 /* Screenshot.swift in Sources */,
@@ -2295,6 +2300,7 @@
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
+				D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,

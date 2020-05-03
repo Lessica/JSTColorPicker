@@ -83,6 +83,9 @@
 /* Class = "NSToolbarItem"; toolTip = "Minifying Glass (⌃F4)"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.toolTip" = "Minifying Glass (⌃F4)";
 
+/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "aP1-f1-wxI"; */
+"aP1-f1-wxI.title" = "Color Inspector";
+
 /* Class = "NSMenuItem"; title = "Delay"; ObjectID = "aSq-S1-Z94"; */
 "aSq-S1-Z94.title" = "Delay";
 
@@ -137,6 +140,9 @@
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "Compare Opened Documents";
 
+/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "DDt-ew-ypP"; */
+"DDt-ew-ypP.title" = "Reset Panes...";
+
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "djd-CE-KfV"; */
 "djd-CE-KfV.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
 
@@ -158,11 +164,17 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "Help";
 
+/* Class = "NSMenuItem"; title = "Information"; ObjectID = "fch-zD-eHV"; */
+"fch-zD-eHV.title" = "Information";
+
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker Help";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "Gdd-Og-hUZ"; */
 "Gdd-Og-hUZ.ibShadowedToolTip" = "Export All... (⌘E)";
+
+/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "GGS-Lz-Zee"; */
+"GGS-Lz-Zee.title" = "Image Preview";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "Paste";

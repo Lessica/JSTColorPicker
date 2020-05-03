@@ -52,6 +52,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .toggleTableColumnSimilarity: false,
             .toggleTableColumnDescription: true,
             
+            .togglePaneViewPreview: true,
+            .togglePaneViewInspector: true,
+            .togglePaneViewInformation: true,
+            
             .useAlternativeAreaRepresentation: false,
             
             .enableNetworkDiscovery: false,

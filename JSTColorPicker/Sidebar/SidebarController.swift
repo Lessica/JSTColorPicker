@@ -8,14 +8,33 @@
 
 import Cocoa
 
+extension NSUserInterfaceItemIdentifier {
+    static let togglePaneViewInformation = NSUserInterfaceItemIdentifier("toggle-info")
+    static let togglePaneViewInspector = NSUserInterfaceItemIdentifier("toggle-inspector")
+    static let togglePaneViewPreview = NSUserInterfaceItemIdentifier("toggle-preview")
+}
+
+enum PaneDividerIndex: Int {
+    case information = 0
+    case inspector
+    case preview
+}
+
 class SidebarController: NSViewController {
     
     internal weak var screenshot: Screenshot?
+    
+    @IBOutlet weak var splitView: NSSplitView!
     
     @IBOutlet weak var imageLabel1: NSTextField!
     @IBOutlet weak var imageLabel2: NSTextField!
     @IBOutlet weak var imageActionView: NSView!
     @IBOutlet weak var exitComparisonModeButton: NSButton!
+    
+    @IBOutlet weak var paneViewInformation: NSView!
+    @IBOutlet weak var paneViewInspector: NSView!
+    @IBOutlet weak var paneViewPreview: NSView!
+    @IBOutlet weak var paneViewPlaceholder: NSView!
     
     fileprivate var imageSource1: PixelImageSource? {
         return screenshot?.image?.imageSource
@@ -26,6 +45,7 @@ class SidebarController: NSViewController {
     }
     fileprivate var exitComparisonHandler: ((Bool) -> Void)?
     fileprivate func updateInformationPanel() {
+        
         imageLabel1.isHidden = false
         if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
             imageLabel1.stringValue = text
@@ -33,6 +53,7 @@ class SidebarController: NSViewController {
         else {
             imageLabel1.stringValue = "Open or drop an image here."
         }
+        imageLabel1.displayIfNeeded()
         
         if let imageSource2 = imageSource2, let text = stringValue(for: imageSource2) {
             imageLabel2.stringValue = text
@@ -44,6 +65,8 @@ class SidebarController: NSViewController {
             imageLabel2.isHidden = true
             imageActionView.isHidden = true
         }
+        imageLabel2.displayIfNeeded()
+        
     }
     
     @IBOutlet weak var inspectorColorLabel: NSTextField!
@@ -94,6 +117,9 @@ class SidebarController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeController()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        loadPreferences(nil)
     }
     
     func updateItemInspector(for item: ContentItem, submit: Bool) {
@@ -192,6 +218,9 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
         previewSliderLabel.isHidden = !isPressed
     }
+    
+    
+    // MARK: -
     
     @IBOutlet var optionMenu: NSMenu!
     fileprivate var reservedOptionMenuItems: [NSMenuItem] = []
@@ -316,6 +345,95 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         }
     }
     
+    
+    // MARK: -
+    
+    @IBOutlet var paneMenu: NSMenu!
+    
+    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+        updatePanes()
+    }
+    
+    @IBAction func resetPanes(_ sender: NSMenuItem) {
+        resetDividers()
+        
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewInformation)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
+        
+        splitView.display()
+    }
+    
+    @IBAction func togglePane(_ sender: NSMenuItem) {
+        var defaultKey: UserDefaults.Key?
+        if sender.identifier == .togglePaneViewInformation {
+            defaultKey = .togglePaneViewInformation
+        }
+        else if sender.identifier == .togglePaneViewInspector {
+            defaultKey = .togglePaneViewInspector
+        }
+        else if sender.identifier == .togglePaneViewPreview {
+            defaultKey = .togglePaneViewPreview
+        }
+        if let key = defaultKey {
+            let val: Bool = UserDefaults.standard[key]
+            UserDefaults.standard[key] = !val
+            sender.state = !val ? .on : .off
+            
+            splitView.display()
+        }
+    }
+    
+    fileprivate func updatePanes() {
+        var paneChanged = false
+        var hiddenValue: Bool!
+        
+        hiddenValue = !UserDefaults.standard[.togglePaneViewInformation]
+        if paneViewInformation.isHidden != hiddenValue {
+            paneViewInformation.isHidden = hiddenValue
+            paneChanged = true
+        }
+        
+        hiddenValue = !UserDefaults.standard[.togglePaneViewInspector]
+        if paneViewInspector.isHidden != hiddenValue {
+            paneViewInspector.isHidden = hiddenValue
+            paneChanged = true
+        }
+        
+        hiddenValue = !UserDefaults.standard[.togglePaneViewPreview]
+        if paneViewPreview.isHidden != hiddenValue {
+            paneViewPreview.isHidden = hiddenValue
+            paneChanged = true
+        }
+        
+        if paneChanged {
+            splitView.adjustSubviews()
+            splitView.display()
+        }
+    }
+    
+    fileprivate func resetDividers() {
+        var dividerPos: CGFloat = 0
+        
+        if !paneViewInformation.isHidden {
+            dividerPos += paneViewInformation.subviews.first!.frame.height
+            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.information.rawValue)
+            dividerPos += splitView.dividerThickness
+        }
+        
+        if !paneViewInspector.isHidden {
+            dividerPos += paneViewInspector.subviews.first!.frame.height
+            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.inspector.rawValue)
+            dividerPos += splitView.dividerThickness
+        }
+        
+        if !paneViewPreview.isHidden {
+            dividerPos += paneViewPreview.subviews.first!.frame.height
+            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.preview.rawValue)
+            dividerPos += splitView.dividerThickness
+        }
+    }
+    
 }
 
 extension SidebarController: ScreenshotLoader {
@@ -370,6 +488,8 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         exportButton.isEnabled = true
         optionButton.isEnabled = true
         
+        resetDividers()
+        
         copyExampleTemplatesIfNeeded()
     }
     
@@ -403,10 +523,48 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
     
 }
 
+extension SidebarController: NSUserInterfaceValidations {
+    
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        guard screenshot != nil else { return false }
+        if item.action == #selector(togglePane(_:)) {
+            return true
+        }
+        else if item.action == #selector(resetPanes(_:)) {
+            return true
+        }
+        return false
+    }
+    
+}
+
 extension SidebarController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        if menu == paneMenu {
+            menu.items.forEach { (menuItem) in
+                if menuItem.identifier == .togglePaneViewInformation {
+                    menuItem.state = UserDefaults.standard[.togglePaneViewInformation] ? .on : .off
+                }
+                else if menuItem.identifier == .togglePaneViewInspector {
+                    menuItem.state = UserDefaults.standard[.togglePaneViewInspector] ? .on : .off
+                }
+                else if menuItem.identifier == .togglePaneViewPreview {
+                    menuItem.state = UserDefaults.standard[.togglePaneViewPreview] ? .on : .off
+                }
+            }
+        }
+        
+    }
+    
+}
+
+extension SidebarController: NSSplitViewDelegate {
+    
+    func splitView(_ splitView: NSSplitView, effectiveRect proposedEffectiveRect: NSRect, forDrawnRect drawnRect: NSRect, ofDividerAt dividerIndex: Int) -> NSRect {
+        guard dividerIndex < splitView.arrangedSubviews.count else { return proposedEffectiveRect }
+        return splitView.arrangedSubviews[dividerIndex].isHidden ? .zero : proposedEffectiveRect
     }
     
 }

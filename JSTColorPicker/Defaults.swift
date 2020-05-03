@@ -19,6 +19,10 @@ public extension UserDefaults.Key {
     static let toggleTableColumnSimilarity          : UserDefaults.Key     = "defaults.tableColumn.toggle-similarity"          // Bool
     static let toggleTableColumnDescription         : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"                // Bool
     
+    static let togglePaneViewInformation            : UserDefaults.Key     = "defaults.paneView.toggle-info"                   // Bool
+    static let togglePaneViewInspector              : UserDefaults.Key     = "defaults.paneView.toggle-inspector"              // Bool
+    static let togglePaneViewPreview                : UserDefaults.Key     = "defaults.paneView.toggle-preview"                // Bool
+    
     static let useAlternativeAreaRepresentation     : UserDefaults.Key     = "defaults.useAlternativeAreaRepresentation"       // Bool
     
     static let enableForceTouch                     : UserDefaults.Key     = "defaults.enableForceTouch"                       // Bool
