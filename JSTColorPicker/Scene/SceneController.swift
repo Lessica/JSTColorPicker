@@ -624,7 +624,7 @@ extension SceneController: SceneTracking {
     }
     
     func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
-        sceneMagnify(toFit: rect.toCGRect())
+        sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
     }
     
     func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
@@ -792,14 +792,14 @@ extension SceneController: AnnotatorDataSource {
         if let annotator = annotator as? ColorAnnotator {
             let coordinate = annotator.pixelColor.coordinate
             
-            let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage(with: annotator.pixelColor.toNSColor()), imageOrigin: RulerMarker.horizontalOrigin)
             markerCoordinateH.type = .horizontal
             markerCoordinateH.position = .origin
             markerCoordinateH.coordinate = coordinate
             markerCoordinateH.annotator = annotator
             annotator.rulerMarkers.append(markerCoordinateH)
             
-            let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage(with: annotator.pixelColor.toNSColor()), imageOrigin: RulerMarker.verticalOrigin)
             markerCoordinateV.type = .vertical
             markerCoordinateV.position = .origin
             markerCoordinateV.coordinate = coordinate
@@ -811,28 +811,28 @@ extension SceneController: AnnotatorDataSource {
             let origin = rect.origin
             let opposite = rect.opposite
             
-            let markerOriginH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(origin.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            let markerOriginH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(origin.x), image: RulerMarker.horizontalImage(), imageOrigin: RulerMarker.horizontalOrigin)
             markerOriginH.type = .horizontal
             markerOriginH.position = .origin
             markerOriginH.coordinate = origin
             markerOriginH.annotator = annotator
             annotator.rulerMarkers.append(markerOriginH)
             
-            let markerOriginV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(origin.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            let markerOriginV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(origin.y), image: RulerMarker.verticalImage(), imageOrigin: RulerMarker.verticalOrigin)
             markerOriginV.type = .vertical
             markerOriginV.position = .origin
             markerOriginV.coordinate = origin
             markerOriginV.annotator = annotator
             annotator.rulerMarkers.append(markerOriginV)
             
-            let markerOppositeH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(opposite.x), image: RulerMarker.horizontalImage, imageOrigin: RulerMarker.horizontalOrigin)
+            let markerOppositeH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(opposite.x), image: RulerMarker.horizontalImage(), imageOrigin: RulerMarker.horizontalOrigin)
             markerOppositeH.type = .horizontal
             markerOppositeH.position = .opposite
             markerOppositeH.coordinate = opposite
             markerOppositeH.annotator = annotator
             annotator.rulerMarkers.append(markerOppositeH)
             
-            let markerOppositeV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(opposite.y), image: RulerMarker.verticalImage, imageOrigin: RulerMarker.verticalOrigin)
+            let markerOppositeV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(opposite.y), image: RulerMarker.verticalImage(), imageOrigin: RulerMarker.verticalOrigin)
             markerOppositeV.type = .vertical
             markerOppositeV.position = .opposite
             markerOppositeV.coordinate = opposite
@@ -927,7 +927,7 @@ extension SceneController: AnnotatorDataSource {
         if scrollTo {  // scroll without changing magnification
             let item = annotators.last(where: { items.contains($0.pixelItem) })?.pixelItem
             if let color = item as? PixelColor { previewAction(self, centeredAt: color.coordinate) }
-            else if let area = item as? PixelArea { previewAction(self, centeredAt: area.rect.origin) }
+            else if let area = item as? PixelArea { previewAction(self, toFit: area.rect) }
         }
         debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
     }
@@ -964,9 +964,15 @@ extension SceneController: ToolbarResponder {
         sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
     }
     
-    fileprivate func sceneMagnify(toFit rect: CGRect) {
+    fileprivate func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
+        let fitRect = adjust
+            ? rect.insetBy(dx: -sceneView.alternativeBoundsOrigin.x, dy: -sceneView.alternativeBoundsOrigin.y)
+            : rect
+        guard !fitRect.isEmpty else {
+            return
+        }
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-            self.sceneView.animator().magnify(toFit: rect)
+            self.sceneView.animator().magnify(toFit: fitRect)
         }) { [unowned self] in
             self.sceneBoundsChanged()
         }
@@ -1029,6 +1035,10 @@ extension SceneController: PreviewResponder {
             let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
             sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
         }
+    }
+    
+    func previewAction(_ sender: Any?, toFit rect: PixelRect) {
+        sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
     }
     
 }

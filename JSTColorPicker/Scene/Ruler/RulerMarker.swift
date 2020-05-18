@@ -25,32 +25,42 @@ class RulerMarker: NSRulerMarker {
     static let horizontalOrigin = CGPoint(x: RulerMarker.markerSize.width / 2.0, y: 0.0)
     static let verticalOrigin   = CGPoint(x: RulerMarker.markerSize.width, y: RulerMarker.markerSize.height / 2.0)
     
-    static var horizontalImage: NSImage = {
+    static func horizontalImage(with fillColor: NSColor? = nil) -> NSImage {
         let size = RulerMarker.markerSize
         return NSImage(size: size, flipped: false) { (rect) -> Bool in
+            let fixedRect = rect.insetBy(dx: 0.5, dy: 0.5)
             let path = NSBezierPath()
-            path.move(to: NSPoint(x: rect.width / 2.0, y: 0.0))
-            path.line(to: NSPoint(x: rect.width, y: rect.height))
-            path.line(to: NSPoint(x: 0.0, y: rect.height))
+            path.move(to: NSPoint(x: fixedRect.midX, y: fixedRect.minY))
+            path.line(to: NSPoint(x: fixedRect.maxX, y: fixedRect.maxY))
+            path.line(to: NSPoint(x: fixedRect.minX, y: fixedRect.maxY))
             path.close()
-            NSColor.labelColor.set()
-            path.fill()
+            if let fillColor = fillColor {
+                fillColor.setFill()
+                path.fill()
+            }
+            NSColor.labelColor.setStroke()
+            path.stroke()
             return true
         }
-    }()
-    static var verticalImage: NSImage = {
+    }
+    static func verticalImage(with fillColor: NSColor? = nil) -> NSImage {
         let size = RulerMarker.markerSize
         return NSImage(size: size, flipped: false) { (rect) -> Bool in
+            let fixedRect = rect.insetBy(dx: 0.5, dy: 0.5)
             let path = NSBezierPath()
-            path.move(to: NSPoint(x: rect.width, y: rect.height / 2.0))
-            path.line(to: NSPoint(x: 0.0, y: rect.height))
-            path.line(to: NSPoint(x: 0.0, y: 0.0))
+            path.move(to: NSPoint(x: fixedRect.maxX, y: fixedRect.midY))
+            path.line(to: NSPoint(x: fixedRect.minX, y: fixedRect.maxY))
+            path.line(to: NSPoint(x: fixedRect.minX, y: fixedRect.minY))
             path.close()
-            NSColor.labelColor.set()
-            path.fill()
+            if let fillColor = fillColor {
+                fillColor.setFill()
+                path.fill()
+            }
+            NSColor.labelColor.setStroke()
+            path.stroke()
             return true
         }
-    }()
+    }
     
     var type: RulerMarkerType = .horizontal
     var position: RulerMarkerPosition = .origin
