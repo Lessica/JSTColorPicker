@@ -10,6 +10,8 @@ import Foundation
 
 public extension UserDefaults.Key {
     
+    static let AppleMomentumScrollSupported         : UserDefaults.Key     = "AppleMomentumScrollSupported"                    // Bool
+    
     static let lastSelectedDeviceUDID               : UserDefaults.Key     = "defaults.lastSelectedDeviceUDID"                 // String
     static let lastSelectedTemplateUUID             : UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"               // String
     static let enableNetworkDiscovery               : UserDefaults.Key     = "defaults.enableNetworkDiscovery"                 // Bool

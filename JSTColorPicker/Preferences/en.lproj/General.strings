@@ -44,6 +44,9 @@
 /* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
 "pGG-Tu-mxf.title" = "Enable Force Touch";
 
+/* Class = "NSButtonCell"; title = "Enable Scrolling Inertia (Requires restart)"; ObjectID = "PMf-zJ-I4C"; */
+"PMf-zJ-I4C.title" = "Enable Scrolling Inertia (Requires restart)";
+
 /* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */
 "QKj-aX-mro.title" = "Draw Background in Color Grid";
 

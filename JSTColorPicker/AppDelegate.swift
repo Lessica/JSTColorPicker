@@ -47,6 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let initialValues: [UserDefaults.Key: Any?] = [
             
+            .AppleMomentumScrollSupported: false,
+            
             .toggleTableColumnID: true,
             .toggleTableColumnDelay: true,
             .toggleTableColumnSimilarity: false,

@@ -21,7 +21,7 @@
 "Bu1-Ny-gMT.title" = "原始图像透明度: ";
 
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
-"cBd-ZX-L0H.title" = "使用轴向滚动";
+"cBd-ZX-L0H.title" = "启用轴向滚动";
 
 /* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "DBw-sv-D6x"; */
 "DBw-sv-D6x.label" = "场景";
@@ -42,7 +42,10 @@
 "OcC-2j-6s0.title" = "匹配阀值: ";
 
 /* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
-"pGG-Tu-mxf.title" = "启用 Force Touch";
+"pGG-Tu-mxf.title" = "启用力度触控";
+
+/* Class = "NSButtonCell"; title = "Enable Scrolling Inertia (Requires restart)"; ObjectID = "PMf-zJ-I4C"; */
+"PMf-zJ-I4C.title" = "启用惯性滚动 (需要重启)";
 
 /* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */
 "QKj-aX-mro.title" = "在颜色网格中绘制背景";
