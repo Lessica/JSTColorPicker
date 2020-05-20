@@ -16,12 +16,12 @@
 
 @implementation OpenCVWrapper
 
-+ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image :(CGSize)size {
++ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image {
     
     cv::Mat imageMat = [image CVMat];
     
-    std::vector<std::vector<cv::Point> >rectangles;
-    std::vector<cv::Point> largestRectangle;
+    std::vector <std::vector<cv::Point> >rectangles;
+    std::vector <cv::Point> largestRectangle;
     
     OpenCVWrapper_GetRectangles(imageMat, rectangles);
     OpenCVWrapper_GetLargestRectangle(rectangles, largestRectangle);
@@ -54,7 +54,7 @@
         
         //NSLog(@"center: %@", NSStringFromPoint(center));
         
-        NSNumber *(^angleFromPoint)(NSValue *) = ^(NSValue *value){
+        NSNumber *(^AngleFromPoint)(NSValue *) = ^(NSValue *value){
             CGPoint point = [value pointValue];
             CGFloat theta = atan2f(point.y - center.y, point.x - center.x);
             CGFloat angle = fmodf(M_PI - M_PI_4 + theta, 2 * M_PI);
@@ -62,7 +62,7 @@
         };
         
         NSArray <NSValue *> *sortedPoints = [points sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [angleFromPoint(a) compare:angleFromPoint(b)];
+            return [AngleFromPoint(a) compare:AngleFromPoint(b)];
         }];
         
         //NSLog(@"sorted points: %@", sortedPoints);
@@ -83,10 +83,10 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     
     // blur will enhance edge detection
     cv::Mat blurred(image);
-    GaussianBlur(image, blurred, cvSize(11,11), 0);
+    GaussianBlur(image, blurred, cvSize(5, 5), 0);
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
-    std::vector<std::vector<cv::Point> > contours;
+    std::vector<std::vector<cv::Point>> contours;
     
     // find squares in every color plane of the image
     for (int c = 0; c < 3; c++)
@@ -102,15 +102,15 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             // Canny helps to catch squares with gradient shading
             if (l == 0)
             {
-                Canny(gray0, gray, 10, 20, 3);
-                //Canny(gray0, gray, 0, 50, 5);
+                //Canny(gray0, gray, 10, 20, 3);
+                Canny(gray0, gray, 0, 50, 5);
                 
                 // Dilate helps to remove potential holes between edge segments
                 dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
             }
             else
             {
-                gray = gray0 >= (l+1) * 255 / threshold_level;
+                gray = gray0 >= (l + 1) * 255 / threshold_level;
             }
             
             // Find contours and store them in a list
@@ -135,7 +135,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
                     
                     for (int j = 2; j < 5; j++)
                     {
-                        double cosine = fabs(OpenCVWrapper_Angle(approx[j%4], approx[j-2], approx[j-1]));
+                        double cosine = fabs(OpenCVWrapper_Angle(approx[j % 4], approx[j - 2], approx[j - 1]));
                         maxCosine = MAX(maxCosine, cosine);
                     }
                     
@@ -180,10 +180,10 @@ static double OpenCVWrapper_Angle(cv::Point pt1, cv::Point pt2, cv::Point pt0) {
     return (dx1 * dx2 + dy1 * dy2) / sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2) + 1e-10);
 }
 
-+ (NSImage *)transformedImage:(CGFloat)newWidth :(CGFloat)newHeight :(NSImage *)origImage :(CGPoint [4])corners :(CGSize)size {
++ (NSImage *)transformedImageOf:(NSImage *)image toSize:(CGSize)newSize withCorners:(CGPoint [4])corners {
     
-    cv::Mat imageMat = [origImage CVMat];
-    cv::Mat newImageMat = cv::Mat( cvSize(newWidth,newHeight), CV_8UC4);
+    cv::Mat imageMat = [image CVMat];
+    cv::Mat newImageMat = cv::Mat(cvSize(newSize.width, newSize.height), CV_8UC4);
     
     cv::Point2f src[4], dst[4];
     src[0].x = corners[0].x;
@@ -197,14 +197,14 @@ static double OpenCVWrapper_Angle(cv::Point pt1, cv::Point pt2, cv::Point pt0) {
     
     dst[0].x = 0;
     dst[0].y = 0;
-    dst[1].x = newWidth - 1;
+    dst[1].x = newSize.width - 1;
     dst[1].y = 0;
-    dst[2].x = newWidth - 1;
-    dst[2].y = newHeight - 1;
+    dst[2].x = newSize.width - 1;
+    dst[2].y = newSize.height - 1;
     dst[3].x = 0;
-    dst[3].y = newHeight - 1;
+    dst[3].y = newSize.height - 1;
  
-    cv::warpPerspective(imageMat, newImageMat, cv::getPerspectiveTransform(src, dst), cvSize(newWidth, newHeight));
+    cv::warpPerspective(imageMat, newImageMat, cv::getPerspectiveTransform(src, dst), cvSize(newSize.width, newSize.height));
     
     return [NSImage imageWithCVMat:newImageMat];
     

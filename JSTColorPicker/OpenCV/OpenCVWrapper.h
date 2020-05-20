@@ -10,8 +10,11 @@
 #import <AppKit/AppKit.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface OpenCVWrapper : NSObject
-+ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image :(CGSize)size;
-+ (NSImage *)transformedImage:(CGFloat)newWidth :(CGFloat)newHeight :(NSImage *)origImage :(CGPoint [4])corners :(CGSize)size;
++ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image;
++ (NSImage *)transformedImageOf:(NSImage *)image toSize:(CGSize)newSize withCorners:(CGPoint [_Nonnull 4])corners;
 @end
 
+NS_ASSUME_NONNULL_END
