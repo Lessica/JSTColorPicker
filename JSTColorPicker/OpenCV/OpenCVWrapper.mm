@@ -1,9 +1,9 @@
 //
 //  OpenCVWrapper.mm
-//  CamScanner
+//  JSTColorPicker
 //
-//  Created by Srinija on 16/05/17.
-//  Copyright © 2017 Srinija Ammapalli. All rights reserved.
+//  Created by Darwin on 5/19/20.
+//  Copyright © 2020 JST. All rights reserved.
 //
 
 #import "OpenCVWrapper.h"
@@ -20,18 +20,17 @@
     
     cv::Mat imageMat = [image CVMat];
     
-    std::vector<std::vector<cv::Point> >rectangle;
+    std::vector<std::vector<cv::Point> >rectangles;
     std::vector<cv::Point> largestRectangle;
     
-    OpenCVWrapper_GetRectangles(imageMat, rectangle);
-    OpenCVWrapper_GetlargestRectangle(rectangle, largestRectangle);
+    OpenCVWrapper_GetRectangles(imageMat, rectangles);
+    OpenCVWrapper_GetLargestRectangle(rectangles, largestRectangle);
     
     if (largestRectangle.size() == 4)
     {
         // https://stackoverflow.com/questions/20395547/sorting-an-array-of-x-and-y-vertice-points-ios-objective-c/20399468#20399468
         
-        NSArray <NSValue *> *points = [NSArray array];
-        points = @[
+        NSArray <NSValue *> *points = @[
             [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[0].x, (CGFloat)largestRectangle[0].y}],
             [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[1].x, (CGFloat)largestRectangle[1].y}],
             [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[2].x, (CGFloat)largestRectangle[2].y}],
@@ -55,26 +54,22 @@
         
         //NSLog(@"center: %@", NSStringFromPoint(center));
         
-        NSNumber *(^angleFromPoint)(id) = ^(NSValue *value){
+        NSNumber *(^angleFromPoint)(NSValue *) = ^(NSValue *value){
             CGPoint point = [value pointValue];
             CGFloat theta = atan2f(point.y - center.y, point.x - center.x);
             CGFloat angle = fmodf(M_PI - M_PI_4 + theta, 2 * M_PI);
             return @(angle);
         };
         
-        NSArray *sortedPoints = [points sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSArray <NSValue *> *sortedPoints = [points sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
             return [angleFromPoint(a) compare:angleFromPoint(b)];
         }];
         
         //NSLog(@"sorted points: %@", sortedPoints);
         
-        NSMutableArray <NSValue *> *squarePoints = [[NSMutableArray alloc] init];
-        [squarePoints addObject:[sortedPoints objectAtIndex:0]];
-        [squarePoints addObject:[sortedPoints objectAtIndex:1]];
-        [squarePoints addObject:[sortedPoints objectAtIndex:2]];
-        [squarePoints addObject:[sortedPoints objectAtIndex:3]];
+        NSMutableArray <NSValue *> *squarePoints = [[NSMutableArray alloc] initWithArray:sortedPoints];
+        
         imageMat.release();
-
         return squarePoints;
         
     } else {
@@ -107,8 +102,8 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             // Canny helps to catch squares with gradient shading
             if (l == 0)
             {
-                Canny(gray0, gray, 10, 20, 3); //
-                //                Canny(gray0, gray, 0, 50, 5);
+                Canny(gray0, gray, 10, 20, 3);
+                //Canny(gray0, gray, 0, 50, 5);
                 
                 // Dilate helps to remove potential holes between edge segments
                 dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
@@ -153,7 +148,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     
 }
 
-static void OpenCVWrapper_GetlargestRectangle(const std::vector<std::vector<cv::Point> >& rectangles, std::vector<cv::Point>& largestRectangle)
+static void OpenCVWrapper_GetLargestRectangle(const std::vector<std::vector<cv::Point> >& rectangles, std::vector<cv::Point>& largestRectangle)
 {
     if (!rectangles.size()) {
         return;

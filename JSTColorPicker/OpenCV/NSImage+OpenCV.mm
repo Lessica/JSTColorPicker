@@ -18,8 +18,8 @@
     CGContextRef bitmapCtx = CGBitmapContextCreate(NULL /* data - pass NULL to let CG allocate the memory */,
                                                    [self size].width,
                                                    [self size].height,
-                                                   8 /* bitsPerComponent */,
-                                                   0 /* bytesPerRow - CG will calculate it for you if it's allocating the data.  This might get padded out a bit for better alignment */,
+                                                   8    /* bitsPerComponent */,
+                                                   0    /* bytesPerRow - CG will calculate it for you if it's allocating the data.  This might get padded out a bit for better alignment */,
                                                    [[NSColorSpace genericRGBColorSpace] CGColorSpace],
                                                    kCGBitmapByteOrder32Host|kCGImageAlphaPremultipliedFirst);
     
