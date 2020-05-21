@@ -53,6 +53,8 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/appcast.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -66,7 +68,5 @@
 			<dict/>
 		</dict>
 	</array>
-	<key>SUFeedURL</key>
-	<string>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/appcast.xml</string>
 </dict>
 </plist>

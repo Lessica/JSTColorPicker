@@ -521,6 +521,12 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true
         }
+        else if item.action == #selector(smartTrim(_:)) {
+            guard tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count == 1 else { return false }
+            if let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first {
+                if let _ = content.items[targetIndex] as? PixelArea { return true }
+            }
+        }
         else if item.action == #selector(saveAs(_:)) {
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
@@ -740,6 +746,32 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
         else if sender == itemReprAreaAltMenuItem {
             UserDefaults.standard[.useAlternativeAreaRepresentation] = true
+        }
+    }
+    
+    private func smartTrimPixelArea(_ item: PixelArea) throws -> ContentItem? {
+        guard let croppedNSImage = screenshot?.image?.toNSImage(of: item) else { return nil }
+        
+        let bestChildRect = OpenCVWrapper.bestChildRectangle(of: croppedNSImage)
+        guard !bestChildRect.isEmpty else { return nil }
+        
+        let trimmedRect = PixelRect(CGRect(origin: bestChildRect.origin.offsetBy(item.rect.origin.toCGPoint()), size: bestChildRect.size))
+        guard trimmedRect != item.rect else { return nil }
+        
+        return try updateContentItem(item, to: trimmedRect)
+    }
+    
+    @IBAction func smartTrim(_ sender: NSMenuItem) {
+        guard let collection = content?.items else { return }
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
+        do {
+            guard let _ = try smartTrimPixelArea(selectedArea) else {
+                NSSound.beep()
+                return
+            }
+        } catch let error {
+            presentError(error)
         }
     }
     

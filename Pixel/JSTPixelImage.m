@@ -7,26 +7,261 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 
+#pragma mark - NSImage (Compatibility)
+
+@interface NSImage (Compatibility)
+
+/**
+ The underlying Core Graphics image object. This will actually use `CGImageForProposedRect` with the image size.
+ */
+@property (nonatomic, readonly, nullable) CGImageRef CGImage;
+/**
+ The scale factor of the image. This wil actually use `bestRepresentationForRect` with image size and pixel size to calculate the scale factor. If failed, use the default value 1.0. Should be greater than or equal to 1.0.
+ */
+@property (nonatomic, readonly) CGFloat scale;
+
+// These are convenience methods to make AppKit's `NSImage` match UIKit's `UIImage` behavior. The scale factor should be greater than or equal to 1.0.
+
+/**
+ Returns an image object with the scale factor and orientation. The representation is created from the Core Graphics image object.
+ @note The difference between this and `initWithCGImage:size` is that `initWithCGImage:size` will actually create a `NSCGImageSnapshotRep` representation and always use `backingScaleFactor` as scale factor. So we should avoid it and use `NSBitmapImageRep` with `initWithCGImage:` instead.
+ @note The difference between this and UIKit's `UIImage` equivalent method is the way to process orientation. If the provided image orientation is not equal to Up orientation, this method will firstly rotate the CGImage to the correct orientation to work compatible with `NSImageView`. However, UIKit will not actually rotate CGImage and just store it as `imageOrientation` property.
+ @param cgImage A Core Graphics image object
+ @param scale The image scale factor
+ @param orientation The orientation of the image data
+ @return The image object
+ */
+- (nonnull instancetype)initWithCGImage:(nonnull CGImageRef)cgImage scale:(CGFloat)scale orientation:(CGImagePropertyOrientation)orientation;
+
+/**
+ Returns an image object with the scale factor. The representation is created from the image data.
+ @note The difference between these this and `initWithData:` is that `initWithData:` will always use `backingScaleFactor` as scale factor.
+ @param data The image data
+ @param scale The image scale factor
+ @return The image object
+ */
+- (nullable instancetype)initWithData:(nonnull NSData *)data scale:(CGFloat)scale;
+
+@end
+
+static inline CGAffineTransform SDCGContextTransformFromOrientation(CGImagePropertyOrientation orientation, CGSize size) {
+    // Inspiration from @libfeihu
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (orientation) {
+        case kCGImagePropertyOrientationDown:
+        case kCGImagePropertyOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, size.width, size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case kCGImagePropertyOrientationLeft:
+        case kCGImagePropertyOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case kCGImagePropertyOrientationRight:
+        case kCGImagePropertyOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        case kCGImagePropertyOrientationUp:
+        case kCGImagePropertyOrientationUpMirrored:
+            break;
+    }
+    
+    switch (orientation) {
+        case kCGImagePropertyOrientationUpMirrored:
+        case kCGImagePropertyOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case kCGImagePropertyOrientationLeftMirrored:
+        case kCGImagePropertyOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        case kCGImagePropertyOrientationUp:
+        case kCGImagePropertyOrientationDown:
+        case kCGImagePropertyOrientationLeft:
+        case kCGImagePropertyOrientationRight:
+            break;
+    }
+    
+    return transform;
+}
+
+@implementation NSImage (Compatibility)
+
++ (BOOL)CGImageContainsAlpha:(CGImageRef)cgImage {
+    if (!cgImage) {
+        return NO;
+    }
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(cgImage);
+    BOOL hasAlpha = !(alphaInfo == kCGImageAlphaNone ||
+                      alphaInfo == kCGImageAlphaNoneSkipFirst ||
+                      alphaInfo == kCGImageAlphaNoneSkipLast);
+    return hasAlpha;
+}
+
++ (CGColorSpaceRef)colorSpaceGetDeviceRGB {
+    CGColorSpaceRef screenColorSpace = NSScreen.mainScreen.colorSpace.CGColorSpace;
+    if (screenColorSpace) {
+        return screenColorSpace;
+    }
+    static CGColorSpaceRef colorSpace;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+    });
+    return colorSpace;
+}
+
++ (CGImageRef)CGImageCreateDecoded:(CGImageRef)cgImage orientation:(CGImagePropertyOrientation)orientation {
+    if (!cgImage) {
+        return NULL;
+    }
+    size_t width = CGImageGetWidth(cgImage);
+    size_t height = CGImageGetHeight(cgImage);
+    if (width == 0 || height == 0) return NULL;
+    size_t newWidth;
+    size_t newHeight;
+    switch (orientation) {
+        case kCGImagePropertyOrientationLeft:
+        case kCGImagePropertyOrientationLeftMirrored:
+        case kCGImagePropertyOrientationRight:
+        case kCGImagePropertyOrientationRightMirrored: {
+            // These orientation should swap width & height
+            newWidth = height;
+            newHeight = width;
+        }
+            break;
+        default: {
+            newWidth = width;
+            newHeight = height;
+        }
+            break;
+    }
+    
+    BOOL hasAlpha = [self CGImageContainsAlpha:cgImage];
+    // iOS prefer BGRA8888 (premultiplied) or BGRX8888 bitmapInfo for screen rendering, which is same as `UIGraphicsBeginImageContext()` or `- [CALayer drawInContext:]`
+    // Though you can use any supported bitmapInfo (see: https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-BCIBHHBB ) and let Core Graphics reorder it when you call `CGContextDrawImage`
+    // But since our build-in coders use this bitmapInfo, this can have a little performance benefit
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
+    bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
+    CGContextRef context = CGBitmapContextCreate(NULL, newWidth, newHeight, 8, 0, [self colorSpaceGetDeviceRGB], bitmapInfo);
+    if (!context) {
+        return NULL;
+    }
+    
+    // Apply transform
+    CGAffineTransform transform = SDCGContextTransformFromOrientation(orientation, CGSizeMake(newWidth, newHeight));
+    CGContextConcatCTM(context, transform);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage); // The rect is bounding box of CGImage, don't swap width & height
+    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    
+    return newImageRef;
+}
+
+- (nullable CGImageRef)CGImage {
+    NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
+    CGImageRef cgImage = [self CGImageForProposedRect:&imageRect context:nil hints:nil];
+    return cgImage;
+}
+
+- (CGFloat)scale {
+    CGFloat scale = 1;
+    NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
+    NSImageRep *imageRep = [self bestRepresentationForRect:imageRect context:nil hints:nil];
+    CGFloat width = imageRep.size.width;
+    CGFloat height = imageRep.size.height;
+    NSUInteger pixelWidth = imageRep.pixelsWide;
+    NSUInteger pixelHeight = imageRep.pixelsHigh;
+    if (width > 0 && height > 0) {
+        CGFloat widthScale = pixelWidth / width;
+        CGFloat heightScale = pixelHeight / height;
+        if (widthScale == heightScale && widthScale >= 1) {
+            // Protect because there may be `NSImageRepMatchesDevice` (0)
+            scale = widthScale;
+        }
+    }
+    
+    return scale;
+}
+
+- (instancetype)initWithCGImage:(nonnull CGImageRef)cgImage scale:(CGFloat)scale orientation:(CGImagePropertyOrientation)orientation {
+    NSBitmapImageRep *imageRep;
+    if (orientation != kCGImagePropertyOrientationUp) {
+        // AppKit design is different from UIKit. Where CGImage based image rep does not respect to any orientation. Only data based image rep which contains the EXIF metadata can automatically detect orientation.
+        // This should be nonnull, until the memory is exhausted cause `CGBitmapContextCreate` failed.
+        CGImageRef rotatedCGImage = [NSImage CGImageCreateDecoded:cgImage orientation:orientation];
+        imageRep = [[NSBitmapImageRep alloc] initWithCGImage:rotatedCGImage];
+        CGImageRelease(rotatedCGImage);
+    } else {
+        imageRep = [[NSBitmapImageRep alloc] initWithCGImage:cgImage];
+    }
+    if (scale < 1) {
+        scale = 1;
+    }
+    CGFloat pixelWidth = imageRep.pixelsWide;
+    CGFloat pixelHeight = imageRep.pixelsHigh;
+    NSSize size = NSMakeSize(pixelWidth / scale, pixelHeight / scale);
+    self = [self initWithSize:size];
+    if (self) {
+        imageRep.size = size;
+        [self addRepresentation:imageRep];
+    }
+    return self;
+}
+
+- (instancetype)initWithData:(nonnull NSData *)data scale:(CGFloat)scale {
+    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:data];
+    if (!imageRep) {
+        return nil;
+    }
+    if (scale < 1) {
+        scale = 1;
+    }
+    CGFloat pixelWidth = imageRep.pixelsWide;
+    CGFloat pixelHeight = imageRep.pixelsHigh;
+    NSSize size = NSMakeSize(pixelWidth / scale, pixelHeight / scale);
+    self = [self initWithSize:size];
+    if (self) {
+        imageRep.size = size;
+        [self addRepresentation:imageRep];
+    }
+    return self;
+}
+
+@end
+
+
+#pragma mark - JSTPixelImage
+
 static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg) {
     JST_IMAGE *pixels_image = NULL;
-    @autoreleasepool {
-        CGSize imgSize = CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg));
-        pixels_image = (JST_IMAGE *) malloc(sizeof(JST_IMAGE));
-        memset(pixels_image, 0, sizeof(JST_IMAGE));
-        pixels_image->width = imgSize.width;
-        pixels_image->height = imgSize.height;
-        JST_COLOR *pixels = (JST_COLOR *) malloc(imgSize.width * imgSize.height * sizeof(JST_COLOR));
-        memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
-        pixels_image->pixels = pixels;
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-        CGContextRef context = CGBitmapContextCreate(pixels, (size_t) imgSize.width, (size_t) imgSize.height, 8, imgSize.width * sizeof(JST_COLOR), colorSpace,
-                                                     kCGImageAlphaPremultipliedLast);
-        CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
-        CGContextRelease(context);
-        CGColorSpaceRelease(colorSpace);
-    }
+    CGSize imgSize = CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg));
+    pixels_image = (JST_IMAGE *) malloc(sizeof(JST_IMAGE));
+    memset(pixels_image, 0, sizeof(JST_IMAGE));
+    pixels_image->width = imgSize.width;
+    pixels_image->height = imgSize.height;
+    JST_COLOR *pixels = (JST_COLOR *) malloc(imgSize.width * imgSize.height * sizeof(JST_COLOR));
+    memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
+    pixels_image->pixels = pixels;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    CGContextRef context = CGBitmapContextCreate(pixels, (size_t) imgSize.width, (size_t) imgSize.height, 8, imgSize.width * sizeof(JST_COLOR), colorSpace,
+                                                 kCGImageAlphaPremultipliedLast);
+    CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
     return pixels_image;
 }
+
 static inline JST_IMAGE *create_pixels_image_with_nsimage(NSImage *nsimg) {
     CGSize imgSize = nsimg.size;
     CGRect imgRect = CGRectMake(0, 0, imgSize.width, imgSize.height);
@@ -208,11 +443,14 @@ static inline void get_color_in_pixels_image_notran(JST_IMAGE *pixels_image, int
     color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
 }
 
-static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, JST_COLOR **ppixels_data)
+static inline void callback_release_data(void *info, const void *data, size_t size) {
+    free((unsigned char *)data);
+}
+
+static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image)
 {
+    
     int W, H;
-    *ppixels_data = NULL;
-    JST_COLOR *pixels_buffer = pixels_image->pixels;
     switch (pixels_image->orientation) {
         case 1:
         case 2:
@@ -224,9 +462,10 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
             H = pixels_image->height;
             break;
     }
+    
+    size_t pixels_buffer_len = (size_t) (W * H * 4);
+    JST_COLOR *pixels_buffer = (JST_COLOR *) malloc(pixels_buffer_len);
     if (0 != pixels_image->orientation) {
-        pixels_buffer = (JST_COLOR *) malloc((size_t) (W * H * 4));
-        *ppixels_data = pixels_buffer;
         uint64_t big_count_offset = 0;
         JST_COLOR color_of_point;
         for (int y = 0; y < H; ++y) {
@@ -235,9 +474,11 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
                 pixels_buffer[big_count_offset++].the_color = color_of_point.the_color;
             }
         }
+    } else {
+        memcpy(pixels_buffer, pixels_image->pixels, pixels_buffer_len);
     }
-    CGDataProviderRef provider = CGDataProviderCreateWithData(
-                                                              NULL, pixels_buffer, (size_t) (4 * W * H), NULL);
+    
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, pixels_buffer, pixels_buffer_len, (CGDataProviderReleaseDataCallback)&callback_release_data);
     CGColorSpaceRef cspace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wenum-conversion"
@@ -245,32 +486,32 @@ static inline CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_imag
                                    kCGImageAlphaPremultipliedLast,
                                    provider, NULL, true, kCGRenderingIntentDefault);
 #pragma clang diagnostic pop
-    CFRelease(cspace);
-    CFRelease(provider);
+    CGColorSpaceRelease(cspace);
+    CGDataProviderRelease(provider);
+    
     return img;
+    
 }
 
 static inline JST_IMAGE *create_pixels_image_with_pixels_image_rect(JST_IMAGE *pixels_image_, uint8_t orien, int x1, int y1, int x2, int y2) {
     JST_IMAGE *pixels_image = NULL;
-    @autoreleasepool {
-        int old_W = pixels_image_->width;
-        int new_W = x2 - x1;
-        int new_H = y2 - y1;
-        pixels_image = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
-        memset(pixels_image, 0, sizeof(JST_IMAGE));
-        pixels_image->width = new_W;
-        pixels_image->height = new_H;
-        JST_COLOR *pixels = (JST_COLOR *)malloc(new_W * new_H * sizeof(JST_COLOR));
-        memset(pixels, 0, new_W * new_H * sizeof(JST_COLOR));
-        pixels_image->pixels = pixels;
-        uint64_t big_count_offset = 0;
-        for (int y = y1; y < y2; ++y) {
-            for (int x = x1; x < x2; ++x) {
-                pixels[big_count_offset++] = pixels_image_->pixels[y * old_W + x];
-            }
+    int old_W = pixels_image_->width;
+    int new_W = x2 - x1;
+    int new_H = y2 - y1;
+    pixels_image = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
+    memset(pixels_image, 0, sizeof(JST_IMAGE));
+    pixels_image->width = new_W;
+    pixels_image->height = new_H;
+    JST_COLOR *pixels = (JST_COLOR *)malloc(new_W * new_H * sizeof(JST_COLOR));
+    memset(pixels, 0, new_W * new_H * sizeof(JST_COLOR));
+    pixels_image->pixels = pixels;
+    uint64_t big_count_offset = 0;
+    for (int y = y1; y < y2; ++y) {
+        for (int x = x1; x < x2; ++x) {
+            pixels[big_count_offset++] = pixels_image_->pixels[y * old_W + x];
         }
-        GET_ROTATE_ROTATE3(pixels_image_->orientation, orien, pixels_image->orientation);
     }
+    GET_ROTATE_ROTATE3(pixels_image_->orientation, orien, pixels_image->orientation);
     return pixels_image;
 }
 
@@ -295,9 +536,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 - (JSTPixelImage *)initWithCGImage:(CGImageRef)cgimage {
     self = [super init];
     if (self) {
-        @autoreleasepool {
-            _pixel_image = create_pixels_image_with_cgimage(cgimage);
-        }
+        _pixel_image = create_pixels_image_with_cgimage(cgimage);
     }
     return self;
 }
@@ -309,70 +548,46 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 - (JSTPixelImage *)initWithNSImage:(NSImage *)nsimage {
     self = [super init];
     if (self) {
-        @autoreleasepool {
-            _pixel_image = create_pixels_image_with_nsimage(nsimage);
-        }
+        _pixel_image = create_pixels_image_with_nsimage(nsimage);
     }
     return self;
 }
 
 - (NSImage *)toNSImage {
-    JST_COLOR *pixels_data = NULL;
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
-    if (pixels_data) {
-        NSData *imgData = nil;
-        @autoreleasepool {
-            NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
-            [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-            CFRelease(cgimg);
-            imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
-        }
-        NSImage *img = [[NSImage alloc] initWithData:imgData];
-        free(pixels_data);
-        return img;
-    } else {
-        NSImage *img0 = [[NSImage alloc] initWithCGImage:cgimg size:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-        CFRelease(cgimg);
-        return img0;
-    }
+    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image);
+    NSImage *img0 = [[NSImage alloc] initWithCGImage:cgimg scale:1.0 orientation:kCGImagePropertyOrientationUp];
+    // This object will be managed by Swift ARC, we should not release it...
+    //CGImageRelease(cgimg);
+    return img0;
 }
 
 - (NSData *)pngRepresentation {
-    JST_COLOR *pixels_data = NULL;
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
+    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image);
     NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
     [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-    CFRelease(cgimg);
-    NSData *imgData = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
-    if (pixels_data) free(pixels_data);
-    return imgData;
+    NSData *data = [newRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+    CGImageRelease(cgimg);
+    return data;
 }
 
 - (NSData *)tiffRepresentation {
-    JST_COLOR *pixels_data = NULL;
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image, &pixels_data);
+    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixel_image);
     NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
     [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
-    CFRelease(cgimg);
-    NSData *imgData = [newRep representationUsingType:NSBitmapImageFileTypeTIFF properties:@{}];
-    if (pixels_data) free(pixels_data);
-    return imgData;
+    NSData *data = [newRep representationUsingType:NSBitmapImageFileTypeTIFF properties:@{}];
+    CGImageRelease(cgimg);
+    return data;
 }
 
 - (JSTPixelImage *)crop:(CGRect)rect {
-    JSTPixelImage *rectImg = nil;
-    @autoreleasepool {
-        int x1 = (int) rect.origin.x;
-        int y1 = (int) rect.origin.y;
-        int x2 = (int) rect.origin.x + (int) rect.size.width;
-        int y2 = (int) rect.origin.y + (int) rect.size.height;
-        SHIFT_RECT_BY_ORIEN(x1, y1, x2, y2, _pixel_image->width, _pixel_image->height, _pixel_image->orientation);
-        y2 = (y2 > _pixel_image->height) ? _pixel_image->height : y2;
-        x2 = (x2 > _pixel_image->width) ? _pixel_image->width : x2;
-        rectImg = [[JSTPixelImage alloc] init];
-        rectImg->_pixel_image = create_pixels_image_with_pixels_image_rect(_pixel_image, 0, x1, y1, x2, y2);
-    }
-    return rectImg;
+    int x1 = (int) rect.origin.x;
+    int y1 = (int) rect.origin.y;
+    int x2 = (int) rect.origin.x + (int) rect.size.width;
+    int y2 = (int) rect.origin.y + (int) rect.size.height;
+    SHIFT_RECT_BY_ORIEN(x1, y1, x2, y2, _pixel_image->width, _pixel_image->height, _pixel_image->orientation);
+    y2 = (y2 > _pixel_image->height) ? _pixel_image->height : y2;
+    x2 = (x2 > _pixel_image->width) ? _pixel_image->width : x2;
+    return [[JSTPixelImage alloc] initWithInternalPointer:create_pixels_image_with_pixels_image_rect(_pixel_image, 0, x1, y1, x2, y2)];
 }
 
 - (CGSize)size {

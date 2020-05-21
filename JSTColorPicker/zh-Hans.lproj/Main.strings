@@ -1,4 +1,7 @@
 
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "0N8-3R-guS"; */
+"0N8-3R-guS.title" = "全选";
+
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "查找";
 
@@ -86,6 +89,9 @@
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "aP1-f1-wxI"; */
 "aP1-f1-wxI.title" = "颜色指示器";
 
+/* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "ARq-jY-i0P"; */
+"ARq-jY-i0P.title" = "智能裁切";
+
 /* Class = "NSMenuItem"; title = "Delay"; ObjectID = "aSq-S1-Z94"; */
 "aSq-S1-Z94.title" = "延迟";
 
@@ -134,6 +140,9 @@
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "另存为...";
 
+/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.title" = "导出为...";
+
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "cmL-jJ-0rb"; */
 "cmL-jJ-0rb.title" = "显示日志...";
 
@@ -163,6 +172,9 @@
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
+"fAq-vA-bJd.title" = "智能裁切";
 
 /* Class = "NSMenuItem"; title = "Information"; ObjectID = "fch-zD-eHV"; */
 "fch-zD-eHV.title" = "信息";
@@ -368,6 +380,9 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
 
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "vET-H3-9Jx"; */
+"vET-H3-9Jx.title" = "粘贴";
+
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "清除菜单";
 
@@ -382,9 +397,6 @@
 
 /* Class = "NSToolbarItem"; toolTip = "Open (⌃F1)"; ObjectID = "w6N-7T-9Nd"; */
 "w6N-7T-9Nd.toolTip" = "打开 (⌃F1)";
-
-/* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "WeT-3V-zwk"; */
-"WeT-3V-zwk.title" = "粘贴并匹配样式";
 
 /* Class = "NSMenuItem"; title = "Enable Network Discovery"; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.title" = "启用网络发现";

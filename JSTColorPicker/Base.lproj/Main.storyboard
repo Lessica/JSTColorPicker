@@ -118,6 +118,11 @@
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Export As..." keyEquivalent="E" id="cIT-qf-fbP">
+                                            <connections>
+                                                <action selector="exportAs:" target="Ady-hI-5gd" id="t1n-Ot-zUv"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Revert to Saved" keyEquivalent="r" id="kt2-f5-ySm">
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="P3Z-6I-nHl"/>
@@ -159,10 +164,15 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        <menuItem title="Smart Trim" keyEquivalent="t" id="fAq-vA-bJd">
                                             <connections>
-                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="cEh-KX-wJQ"/>
+                                                <action selector="smartTrim:" target="Ady-hI-5gd" id="KdY-BK-fAm"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qIG-UE-DdE"/>
+                                        <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
+                                            <connections>
+                                                <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Delete" id="pa3-QI-u2k">
@@ -172,11 +182,6 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="delete:" target="Ady-hI-5gd" id="0Mk-Ml-PaM"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
-                                            <connections>
-                                                <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
@@ -631,11 +636,32 @@ CA
                 <customObject id="3aj-p6-68g" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="em0-cZ-Yb4">
                     <items>
-                        <menuItem title="Copy" keyEquivalent="c" id="Pbb-dn-eVi">
+                        <menuItem title="Locate" id="Hat-pH-Npm">
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="copy:" target="jWv-ak-Q1b" id="86o-dg-IDu"/>
+                                <action selector="locate:" target="jWv-ak-Q1b" id="SZI-T3-nAi"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="xnZ-Hc-BGc"/>
+                        <menuItem title="Copy" keyEquivalent="c" id="Pbb-dn-eVi">
+                            <connections>
+                                <action selector="copy:" target="jWv-ak-Q1b" id="Lbp-5a-pbg"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Paste" keyEquivalent="v" id="vET-H3-9Jx">
+                            <connections>
+                                <action selector="paste:" target="jWv-ak-Q1b" id="jJV-zC-hnf"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Smart Trim" keyEquivalent="t" id="ARq-jY-i0P">
+                            <connections>
+                                <action selector="smartTrim:" target="jWv-ak-Q1b" id="RZG-6D-5Ic"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="kSx-z3-iE9"/>
                         <menuItem title="Save As..." keyEquivalent="S" id="Sem-0g-3Kf">
                             <connections>
                                 <action selector="saveAs:" target="jWv-ak-Q1b" id="vcc-p4-ISL"/>
@@ -647,13 +673,9 @@ CA
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="JH5-mi-0El"/>
-                        <menuItem title="Locate" id="Hat-pH-Npm">
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Select All" keyEquivalent="a" id="0N8-3R-guS">
                             <connections>
-                                <action selector="locate:" target="jWv-ak-Q1b" id="SZI-T3-nAi"/>
+                                <action selector="selectAll:" target="3aj-p6-68g" id="Wf9-TZ-ddM"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Delete" id="4lo-8e-kgl">

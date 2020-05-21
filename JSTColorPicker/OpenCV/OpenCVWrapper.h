@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OpenCVWrapper : NSObject
-+ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image;
++ (CGRect)bestChildRectangleOf:(NSImage * _Nonnull)image;
 + (NSImage *)transformedImageOf:(NSImage *)image toSize:(CGSize)newSize withCorners:(CGPoint [_Nonnull 4])corners;
 @end
 

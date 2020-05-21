@@ -16,74 +16,32 @@
 
 @implementation OpenCVWrapper
 
-+ (NSMutableArray <NSValue *> *)largestSquarePointsOf:(NSImage *)image {
++ (CGRect)bestChildRectangleOf:(NSImage * _Nonnull)image {
     
     cv::Mat imageMat = [image CVMat];
     
-    std::vector <std::vector<cv::Point> >rectangles;
-    std::vector <cv::Point> largestRectangle;
+    std::vector <std::vector<cv::Point>>rectangles;
+    std::vector <cv::Point> bestChildRectangle;
     
     OpenCVWrapper_GetRectangles(imageMat, rectangles);
-    OpenCVWrapper_GetLargestRectangle(rectangles, largestRectangle);
+    OpenCVWrapper_GuessBestChildRectangle(cv::Rect(0, 0, image.size.width, image.size.height), rectangles, bestChildRectangle);
     
-    if (largestRectangle.size() == 4)
-    {
-        // https://stackoverflow.com/questions/20395547/sorting-an-array-of-x-and-y-vertice-points-ios-objective-c/20399468#20399468
-        
-        NSArray <NSValue *> *points = @[
-            [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[0].x, (CGFloat)largestRectangle[0].y}],
-            [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[1].x, (CGFloat)largestRectangle[1].y}],
-            [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[2].x, (CGFloat)largestRectangle[2].y}],
-            [NSValue valueWithPoint:(CGPoint){(CGFloat)largestRectangle[3].x, (CGFloat)largestRectangle[3].y}],
-        ];
-        
-        CGPoint min = [points[0] pointValue];
-        CGPoint max = min;
-        for (NSValue *value in points) {
-            CGPoint point = [value pointValue];
-            min.x = fminf(point.x, min.x);
-            min.y = fminf(point.y, min.y);
-            max.x = fmaxf(point.x, max.x);
-            max.y = fmaxf(point.y, max.y);
-        }
-        
-        CGPoint center = {
-            0.5f * (min.x + max.x),
-            0.5f * (min.y + max.y),
-        };
-        
-        //NSLog(@"center: %@", NSStringFromPoint(center));
-        
-        NSNumber *(^AngleFromPoint)(NSValue *) = ^(NSValue *value){
-            CGPoint point = [value pointValue];
-            CGFloat theta = atan2f(point.y - center.y, point.x - center.x);
-            CGFloat angle = fmodf(M_PI - M_PI_4 + theta, 2 * M_PI);
-            return @(angle);
-        };
-        
-        NSArray <NSValue *> *sortedPoints = [points sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [AngleFromPoint(a) compare:AngleFromPoint(b)];
-        }];
-        
-        //NSLog(@"sorted points: %@", sortedPoints);
-        
-        NSMutableArray <NSValue *> *squarePoints = [[NSMutableArray alloc] initWithArray:sortedPoints];
-        
+    if (bestChildRectangle.size() != 4) {
         imageMat.release();
-        return squarePoints;
-        
-    } else {
-        imageMat.release();
-        return nil;
+        return CGRectNull;
     }
+    
+    cv::Rect bestChildRect = cv::boundingRect(cv::Mat(bestChildRectangle));
+    return CGRectMake(bestChildRect.x, bestChildRect.y, bestChildRect.width, bestChildRect.height);
+    
 }
 
 // http://stackoverflow.com/questions/8667818/opencv-c-obj-c-detecting-a-sheet-of-paper-square-detection
-static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<cv::Point> >&rectangles) {
+static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<cv::Point>>&rectangles) {
     
     // blur will enhance edge detection
     cv::Mat blurred(image);
-    GaussianBlur(image, blurred, cvSize(5, 5), 0);
+    cv::blur(image, blurred, cvSize(5, 5));
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
     std::vector<std::vector<cv::Point>> contours;
@@ -92,7 +50,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     for (int c = 0; c < 3; c++)
     {
         int ch[] = {c, 0};
-        mixChannels(&blurred, 1, &gray0, 1, ch, 1);
+        cv::mixChannels(&blurred, 1, &gray0, 1, ch, 1);
         
         // try several threshold levels
         const int threshold_level = 2;
@@ -103,10 +61,11 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             if (l == 0)
             {
                 //Canny(gray0, gray, 10, 20, 3);
-                Canny(gray0, gray, 0, 50, 5);
+                cv::Canny(gray0, gray, 0, 20, 3);
                 
                 // Dilate helps to remove potential holes between edge segments
-                dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
+                cv::dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
+                
             }
             else
             {
@@ -114,7 +73,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             }
             
             // Find contours and store them in a list
-            findContours(gray, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+            cv::findContours(gray, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
             
             // Test contours
             std::vector<cv::Point> approx;
@@ -122,14 +81,14 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             {
                 // approximate contour with accuracy proportional
                 // to the contour perimeter
-                approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.02, true);
+                cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.075 /* round corners */, true);
                 
                 // Note: absolute value of an area is used because
                 // area may be positive or negative - in accordance with the
                 // contour orientation
                 if (approx.size() == 4 &&
-                    fabs(contourArea(cv::Mat(approx))) > 1000 &&
-                    isContourConvex(cv::Mat(approx)))
+                    fabs(cv::contourArea(cv::Mat(approx))) > 1000 &&
+                    cv::isContourConvex(cv::Mat(approx)))
                 {
                     double maxCosine = 0;
                     
@@ -148,7 +107,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     
 }
 
-static void OpenCVWrapper_GetLargestRectangle(const std::vector<std::vector<cv::Point> >& rectangles, std::vector<cv::Point>& largestRectangle)
+static void OpenCVWrapper_GuessBestChildRectangle(const cv::Rect rect, const std::vector<std::vector<cv::Point>>& rectangles, std::vector<cv::Point>& largestRectangle)
 {
     if (!rectangles.size()) {
         return;
@@ -159,11 +118,10 @@ static void OpenCVWrapper_GetLargestRectangle(const std::vector<std::vector<cv::
     
     for (size_t i = 0; i < rectangles.size(); i++)
     {
-        cv::Rect rectangle = boundingRect(cv::Mat(rectangles[i]));
+        cv::Rect rectangle = cv::boundingRect(cv::Mat(rectangles[i]));
         double area = rectangle.width * rectangle.height;
                 
-        if (maxArea < area)
-        {
+        if (maxArea < area && rect != rectangle) {
             maxArea = area;
             index = i;
         }
