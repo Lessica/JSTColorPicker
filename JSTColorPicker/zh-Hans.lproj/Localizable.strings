@@ -47,6 +47,9 @@
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
 
+/* resetDevicesMenu */
+"Download screenshot helper..." = "下载设备截图组件...";
+
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "正在与设备 \"%@\" 建立连接...";
 

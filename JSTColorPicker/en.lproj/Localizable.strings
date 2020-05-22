@@ -47,6 +47,9 @@
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "Download screenshot from device \"%@\"...";
 
+/* resetDevicesMenu */
+"Download screenshot helper..." = "Download screenshot helper...";
+
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "Establish connection to device \"%@\"...";
 

@@ -277,7 +277,7 @@ CA
                                     <items>
                                         <menuItem title="Select Device" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Select Device" id="5FZ-FF-ebV">
+                                            <menu key="submenu" title="Select Device" autoenablesItems="NO" id="5FZ-FF-ebV">
                                                 <connections>
                                                     <outlet property="delegate" destination="Voe-Tx-rLC" id="fbI-yT-cpc"/>
                                                 </connections>
@@ -293,7 +293,7 @@ CA
                                         <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="screenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
+                                                <action selector="devicesTakeScreenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -351,9 +351,10 @@ CA
                         <outlet property="checkForUpdatesItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
                         <outlet property="colorPanelSwitchMenuItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
                         <outlet property="compareMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
+                        <outlet property="devicesEnableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
                         <outlet property="devicesMenu" destination="1Il-r8-iYp" id="6DE-0J-47r"/>
                         <outlet property="devicesSubMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
-                        <outlet property="enableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
+                        <outlet property="devicesTakeScreenshotMenuItem" destination="k2M-xo-Glg" id="uFh-af-Dcp"/>
                         <outlet property="fileMenu" destination="bib-Uj-vzu" id="huq-wG-vw3"/>
                         <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
@@ -583,7 +584,7 @@ CA
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-UE-Kue">
                                         <rect key="frame" x="32" y="8" width="270" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="TIn-N1-SEI">
-                                            <font key="font" metaFont="message" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -1084,7 +1085,7 @@ CA
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRz-cZ-umT">
                                                                             <rect key="frame" x="0.0" y="129" width="155" height="84"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="X8A-3k-h2W">
-                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                                <font key="font" metaFont="label" size="11"/>
                                                                                 <string key="title">Open or drop an image here.
 
 
@@ -1102,7 +1103,7 @@ CA
                                                                                     <rect key="frame" x="30" y="-7" width="161" height="32"/>
                                                                                     <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-AZ-7YC">
                                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                                        <font key="font" metaFont="label" size="11"/>
                                                                                         <string key="keyEquivalent">D</string>
                                                                                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                                     </buttonCell>
@@ -1120,7 +1121,7 @@ CA
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rZ-oV-Lx3">
                                                                             <rect key="frame" x="0.0" y="0.0" width="155" height="84"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" drawsBackground="YES" id="8Sz-oB-rce">
-                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                                <font key="font" metaFont="label" size="11"/>
                                                                                 <string key="title">Open or drop an image here.
 
 
@@ -1416,7 +1417,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MfM-KE-B13">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
@@ -1431,7 +1432,7 @@ CA
                                         </constraints>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zOZ-kE-5KS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message" size="11"/>
+                                            <font key="font" metaFont="label" size="11"/>
                                             <string key="keyEquivalent">e</string>
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </buttonCell>

@@ -39,6 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return controller
     }()
     
+    
+    // MARK: - Application Events
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         if objc_getClass("SUAppcast") != nil {
@@ -93,6 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationResetDevicesSubMenu()
         applicationEstablishXPCConnection()
         applicationSetupScreenshotHelper()
+        
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -222,7 +226,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Device Actions
     
-    @IBOutlet weak var enableNetworkDiscoveryMenuItem: NSMenuItem!
+    @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem: NSMenuItem!
+    @IBOutlet weak var devicesTakeScreenshotMenuItem: NSMenuItem!
     @IBOutlet weak var devicesMenu: NSMenu!
     @IBOutlet weak var devicesSubMenu: NSMenu!
     
@@ -317,7 +322,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate var isTakingScreenshot: Bool = false
     
-    @IBAction func screenshotMenuItemTapped(_ sender: Any?) {
+    @IBAction func devicesTakeScreenshotMenuItemTapped(_ sender: Any?) {
         
         guard !self.isTakingScreenshot else { return }
         self.isTakingScreenshot = true
@@ -401,6 +406,9 @@ extension AppDelegate: NSUserInterfaceValidations {
                 return false
             }
         }
+        else if item.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
+            return applicationHasScreenshotHelper()
+        }
         return true
     }
     
@@ -422,7 +430,20 @@ extension AppDelegate: NSMenuDelegate {
     
 }
 
+
+// MARK: -
+
 extension AppDelegate {
+    
+    
+    // MARK: - Device List
+    
+    #if SANDBOXED
+    fileprivate func applicationHasScreenshotHelper() -> Bool {
+        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
+        return FileManager.default.fileExists(atPath: launchAgentPath)
+    }
+    #endif
     
     fileprivate func applicationSetupScreenshotHelper() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
@@ -435,9 +456,13 @@ extension AppDelegate {
     
     fileprivate func applicationResetDevicesSubMenu() {
         #if SANDBOXED
-        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
-        if !FileManager.default.fileExists(atPath: launchAgentPath) {
-            
+        if !applicationHasScreenshotHelper() {
+            let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
+            downloadItem.target = self
+            downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+            downloadItem.isEnabled = true
+            downloadItem.state = .off
+            devicesSubMenu.items = [ downloadItem ]
             return
         }
         #endif
@@ -467,21 +492,20 @@ extension AppDelegate {
     }
     
     fileprivate func updateDevicesMenuItems() {
-        enableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
+        devicesEnableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
+        #if SANDBOXED
+        devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
+        #endif
     }
     
     fileprivate func updateDevicesSubMenuItems() {
-        
         let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
-        
         for item in devicesSubMenu.items {
             guard let deviceIdentifier = item.identifier?.rawValue else { continue }
             item.isEnabled = true
             item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
         }
-        
         reloadDevicesSubMenuItems()
-        
     }
     
     fileprivate func reloadDevicesSubMenuItems() {
@@ -506,7 +530,7 @@ extension AppDelegate {
                         // if self?.selectedDeviceUDID == nil { self?.selectedDeviceUDID = udid }
                         
                         let deviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(udid)"
-                        let item = NSMenuItem(title: "\(name) (\(udid))", action: #selector(self?.deviceItemTapped(_:)), keyEquivalent: "")
+                        let item = NSMenuItem(title: "\(name) (\(udid))", action: #selector(self?.actionDeviceItemTapped(_:)), keyEquivalent: "")
                         item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceIdentifier)
                         item.isEnabled = true
                         item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
@@ -530,7 +554,10 @@ extension AppDelegate {
         }
     }
     
-    @objc fileprivate func deviceItemTapped(_ sender: NSMenuItem) {
+    
+    // MARK: - Device Action: Select
+    
+    @objc fileprivate func actionDeviceItemTapped(_ sender: NSMenuItem) {
         selectDeviceSubMenuItem(sender)
     }
     
@@ -544,6 +571,16 @@ extension AppDelegate {
         let udid = String(identifier[beginIdx...])
         selectedDeviceUDID = udid
     }
+    
+    
+    // MARK: - Device Action: Download Redirect
+    
+    @objc fileprivate func actionRedirectToDownloadPage() {
+        if let url = URL(string: "https://82flex.github.io/JSTColorPicker/") {
+            NSWorkspace.shared.open(url)
+        }
+    }
+    
     
 }
 

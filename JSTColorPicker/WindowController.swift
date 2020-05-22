@@ -305,7 +305,7 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func screenshotAction(_ sender: Any?) {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
-        delegate.screenshotMenuItemTapped(sender)
+        delegate.devicesTakeScreenshotMenuItemTapped(sender)
     }
     
 }
