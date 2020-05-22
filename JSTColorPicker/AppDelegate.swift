@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .AppleMomentumScrollSupported: false,
             
             .toggleTableColumnID: true,
-            .toggleTableColumnDelay: true,
+            .toggleTableColumnDelay: false,
             .toggleTableColumnSimilarity: false,
             .toggleTableColumnDescription: true,
             

@@ -41,7 +41,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     
     // blur will enhance edge detection
     cv::Mat blurred(image);
-    cv::blur(image, blurred, cvSize(5, 5));
+    cv::GaussianBlur(image, blurred, cvSize(5, 5), 0);
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
     std::vector<std::vector<cv::Point>> contours;
@@ -60,8 +60,8 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             // Canny helps to catch squares with gradient shading
             if (l == 0)
             {
-                //Canny(gray0, gray, 10, 20, 3);
-                cv::Canny(gray0, gray, 0, 20, 3);
+                
+                cv::Canny(gray0, gray, 10 /* threshold1 */, 20 /* threshold2 */, 3 /* apertureSize */, true);
                 
                 // Dilate helps to remove potential holes between edge segments
                 cv::dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
@@ -81,7 +81,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             {
                 // approximate contour with accuracy proportional
                 // to the contour perimeter
-                cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.075 /* round corners */, true);
+                cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.075 /* epsilon */, true);
                 
                 // Note: absolute value of an area is used because
                 // area may be positive or negative - in accordance with the
@@ -98,8 +98,9 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
                         maxCosine = MAX(maxCosine, cosine);
                     }
                     
-                    if (maxCosine < 0.3)
+                    if (maxCosine < 0.2) {  // >= 79°
                         rectangles.push_back(approx);
+                    }
                 }
             }
         }

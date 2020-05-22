@@ -218,7 +218,6 @@ class ContentController: NSViewController {
                 if let item = try addContentItem(of: coordinate) {
                     if let _ = try selectContentItem(item) {
                         sender.stringValue = ""
-                        makeFirstResponder(tableView)
                     }
                 }
             }
@@ -226,7 +225,6 @@ class ContentController: NSViewController {
                 do {
                     if let _ = try selectContentItem(of: coordinate) {
                         sender.stringValue = ""
-                        makeFirstResponder(tableView)
                     }
                 }
                 catch let error {
@@ -260,7 +258,6 @@ class ContentController: NSViewController {
                 if let item = try addContentItem(of: rect) {
                     if let _ = try selectContentItem(item) {
                         sender.stringValue = ""
-                        makeFirstResponder(tableView)
                     }
                 }
             }
@@ -268,7 +265,6 @@ class ContentController: NSViewController {
                 do {
                     if let _ = try selectContentItem(of: rect) {
                         sender.stringValue = ""
-                        makeFirstResponder(tableView)
                     }
                 }
                 catch let error {
@@ -428,6 +424,7 @@ extension ContentController: ContentResponder {
             guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
             tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: false)
             tableView.scrollRowToVisible(itemIndex)
+            makeFirstResponder(tableView)
         }
         else {
             tableView.deselectAll(nil)
@@ -439,6 +436,7 @@ extension ContentController: ContentResponder {
         if !set.isEmpty, let lastIndex = set.last {
             tableView.selectRowIndexes(set, byExtendingSelection: false)
             tableView.scrollRowToVisible(lastIndex)
+            makeFirstResponder(tableView)
         }
         else {
             tableView.deselectAll(nil)

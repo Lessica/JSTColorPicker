@@ -163,6 +163,6 @@
 /* #undef OPENCV_TRACE */
 
 /* Library QR-code decoding */
-#define HAVE_QUIRC
+/* #undef HAVE_QUIRC */
 
 #endif // OPENCV_CVCONFIG_H_INCLUDED
