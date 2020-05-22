@@ -90,30 +90,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.register(defaults: initialValues)
         
-        #if SANDBOXED
-        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier, options: [])
-        #else
-        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
-        #endif
-        
-        // FIXME:
-        //
-        //  It is still not clear that why `NSXPCConnection` is invalidated right after it was
-        //  created only when `JSTColorPickerHelper` is launched outside Xcode debugging. Unfortunately,
-        //  I can't find any related logs in `Console.app`.
-        //
-        //  But if I launch `JSTColorPickerHelper`, then launch `JSTColorPicker` both from Xcode,
-        //  the problem goes away. I would appreciate it if you can tell me why.
-        //
-        
-        connectionToService.interruptionHandler = { debugPrint("interrupted") }
-        connectionToService.invalidationHandler = { debugPrint("invalidated") }  // <- error occurred
-        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
-        connectionToService.resume()
-        self.helperConnection = connectionToService
-        
-        resetDevicesSubMenu()
-        setupScreenshotHelper()
+        applicationResetDevicesSubMenu()
+        applicationEstablishXPCConnection()
+        applicationSetupScreenshotHelper()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -125,7 +104,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        let windowController = reinitializeTabService()
+        let windowController = applicationReinitializeTabService()
         windowController.showWindow(self)
         return true
     }
@@ -134,7 +113,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     
-    public func reinitializeTabService() -> WindowController {
+    func application(_ application: NSApplication, open urls: [URL]) {
+        guard let url = urls.first else { return }
+        guard url.scheme == "jstcolorpicker" else { return }
+        if url.host == "activate" {
+            applicationEstablishXPCConnection()
+        }
+    }
+    
+    fileprivate func applicationEstablishXPCConnection() {
+        if let prevConnection = self.helperConnection {
+            prevConnection.invalidate()
+            self.helperConnection = nil
+        }
+        
+        #if SANDBOXED
+        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
+        #else
+        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
+        #endif
+        
+        connectionToService.interruptionHandler = { debugPrint("xpc conection interrupted") }
+        connectionToService.invalidationHandler = { debugPrint("xpc conection invalidated") }  // <- error occurred
+        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
+        connectionToService.resume()
+        
+        self.helperConnection = connectionToService
+    }
+    
+    public func applicationReinitializeTabService() -> WindowController {
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
         return windowController
@@ -238,7 +245,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let enabled = sender.state == .on
         sender.state = !enabled ? .on : .off
         UserDefaults.standard[.enableNetworkDiscovery] = !enabled
-        setupScreenshotHelper()
+        applicationSetupScreenshotHelper()
     }
     
     fileprivate func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
@@ -417,7 +424,7 @@ extension AppDelegate: NSMenuDelegate {
 
 extension AppDelegate {
     
-    fileprivate func setupScreenshotHelper() {
+    fileprivate func applicationSetupScreenshotHelper() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
         if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
             debugPrint(error)
@@ -426,12 +433,17 @@ extension AppDelegate {
         }
     }
     
-    fileprivate func resetDevicesSubMenu() {
-        let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
-        emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
-        emptyItem.isEnabled = false
-        emptyItem.state = .off
-        devicesSubMenu.items = [ emptyItem ]
+    fileprivate func applicationResetDevicesSubMenu() {
+        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
+        if FileManager.default.fileExists(atPath: launchAgentPath) {
+            let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
+            emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+            emptyItem.isEnabled = false
+            emptyItem.state = .off
+            devicesSubMenu.items = [ emptyItem ]
+        } else {
+            
+        }
     }
     
     fileprivate func updateFileMenuItems() {
@@ -503,7 +515,7 @@ extension AppDelegate {
                         self?.devicesSubMenu.items = items
                     }
                     else {
-                        self?.resetDevicesSubMenu()
+                        self?.applicationResetDevicesSubMenu()
                     }
                     
                     self?.devicesSubMenu.update()

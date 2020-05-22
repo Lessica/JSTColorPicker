@@ -177,7 +177,7 @@ class Screenshot: NSDocument {
             }
             else {
                 // initial window
-                let windowController = appDelegate.reinitializeTabService()
+                let windowController = appDelegate.applicationReinitializeTabService()
                 addWindowController(windowController)
                 try windowController.load(self)
                 windowController.showWindow(self)

@@ -205,7 +205,6 @@
 		D629E5A3242BC82900AF333F /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06523D1A12300D76CB5 /* libplist.a */; };
 		D629E5A4242BC82900AF333F /* libusbmuxd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D647B06723D1A12300D76CB5 /* libusbmuxd.a */; };
 		D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
-		D629E5A8242BC92F00AF333F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
 		D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631E2C623F7B38B00652B17 /* Defaults.swift */; };
 		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
 		D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */; };
@@ -298,6 +297,8 @@
 		D69FD9DC24776F8800ACBF74 /* libopencv_imgproc.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94924776EB400ACBF74 /* libopencv_imgproc.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9DD24776F8F00ACBF74 /* libopencv_core.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94824776EB400ACBF74 /* libopencv_core.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9DE24776F8F00ACBF74 /* libopencv_imgproc.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94924776EB400ACBF74 /* libopencv_imgproc.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */; };
+		D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9E724778DBF00ACBF74 /* AppIcon.icns */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
@@ -312,7 +313,6 @@
 		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
 		D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6652823FAB9A600037D02 /* ExportManager.swift */; };
-		D6FFD46F242DDDAF00AE1B4C /* JSTLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FFD46D242DDD8E00AE1B4C /* JSTLoginItem.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated-declarations"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -999,6 +999,8 @@
 		D69FD9D824776EC600ACBF74 /* cvconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cvconfig.h; sourceTree = "<group>"; };
 		D69FD9D924776EC600ACBF74 /* opencv_modules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencv_modules.hpp; sourceTree = "<group>"; };
 		D69FD9DA24776EC600ACBF74 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
+		D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.jst.JSTColorPicker.ScreenshotHelper.plist; sourceTree = "<group>"; };
+		D69FD9E724778DBF00ACBF74 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = DerivedData/JSTColorPicker/Build/Products/Debug/JSTColorPicker.app/Contents/Resources/AppIcon.icns; sourceTree = SOURCE_ROOT; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
@@ -1014,8 +1016,6 @@
 		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
 		D6F6652823FAB9A600037D02 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
-		D6FFD46C242DDD8E00AE1B4C /* JSTLoginItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTLoginItem.h; sourceTree = "<group>"; };
-		D6FFD46D242DDD8E00AE1B4C /* JSTLoginItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTLoginItem.m; sourceTree = "<group>"; };
 		E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPickerSparkle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1135,9 +1135,9 @@
 				D60B0F4424286AA30034F21C /* Info.plist */,
 				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
 				D6DF0F9224292B27001E30F0 /* Localizable.strings */,
+				D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */,
+				D69FD9E724778DBF00ACBF74 /* AppIcon.icns */,
 				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
-				D6FFD46C242DDD8E00AE1B4C /* JSTLoginItem.h */,
-				D6FFD46D242DDD8E00AE1B4C /* JSTLoginItem.m */,
 				D647B10723D1FDB000D76CB5 /* JSTConnectedDevice.h */,
 				D647B10823D1FDB000D76CB5 /* JSTConnectedDevice.m */,
 				D647B10423D1A52000D76CB5 /* JSTConnectedDeviceStore.h */,
@@ -2430,8 +2430,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D629E5A8242BC92F00AF333F /* Assets.xcassets in Resources */,
 				D629E59E242BC80A00AF333F /* Localizable.strings in Resources */,
+				D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */,
+				D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2708,7 +2709,6 @@
 			files = (
 				D629E59D242BC7E100AF333F /* main.m in Sources */,
 				D629E59B242BC7E100AF333F /* JSTConnectedDeviceStore.m in Sources */,
-				D6FFD46F242DDDAF00AE1B4C /* JSTLoginItem.m in Sources */,
 				D629E59A242BC7E100AF333F /* JSTConnectedDevice.m in Sources */,
 				D629E59C242BC7E100AF333F /* JSTScreenshotHelper.m in Sources */,
 			);
@@ -2977,7 +2977,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -3002,7 +3002,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -3257,12 +3257,11 @@
 		D63FE1DC242B234600F1982A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3291,12 +3290,11 @@
 		D63FE1DD242B234600F1982A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";

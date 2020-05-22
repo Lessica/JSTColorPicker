@@ -1,4 +1,13 @@
 
+/* No comment provided by engineer. */
+"Cancel" = "取消";
+
+/* kJSTScreenshotHelperError */
+"Cannot find main application of JSTColorPicker: %@" = "找不到 JSTColorPicker 的主应用程序: %@";
+
+/* kJSTScreenshotHelperError */
+"Cannot write launch item to: %@" = "无法写入启动项: %@";
+
 /* kJSTScreenshotError */
 "Could not connect to \"%@\"." = "无法连接到 \"%@\".";
 
@@ -28,3 +37,12 @@
 
 /* kJSTScreenshotError */
 "Device \"%@\" is not reachable." = "设备 \"%@\" 暂不可用.";
+
+/* JSTScreenshotHelperInstall */
+"Do you want to remove JSTColorPickerHelper from login items?" = "要将 JSTColorPicker 设备截图组件从启动项中移除吗?";
+
+/* JSTScreenshotHelperInstall */
+"Do you want to setup JSTColorPickerHelper as a login item?" = "要将 JSTColorPicker 设备截图组件设置为启动项吗?";
+
+/* No comment provided by engineer. */
+"OK" = "好";
