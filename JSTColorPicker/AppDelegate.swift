@@ -434,16 +434,19 @@ extension AppDelegate {
     }
     
     fileprivate func applicationResetDevicesSubMenu() {
+        #if SANDBOXED
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
-        if FileManager.default.fileExists(atPath: launchAgentPath) {
-            let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
-            emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
-            emptyItem.isEnabled = false
-            emptyItem.state = .off
-            devicesSubMenu.items = [ emptyItem ]
-        } else {
+        if !FileManager.default.fileExists(atPath: launchAgentPath) {
             
+            return
         }
+        #endif
+        
+        let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
+        emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+        emptyItem.isEnabled = false
+        emptyItem.state = .off
+        devicesSubMenu.items = [ emptyItem ]
     }
     
     fileprivate func updateFileMenuItems() {
