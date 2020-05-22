@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="CSH-gG-8Jg">
+            <objects>
+                <viewController id="ifY-36-Ao8" sceneMemberID="viewController">
+                    <view key="view" id="zip-Pl-41D">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vtn-Gd-3hm">
+                                <rect key="frame" x="179" y="142" width="93" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Tag List HERE" id="od4-Me-E63">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vtn-Gd-3hm" firstAttribute="centerY" secondItem="zip-Pl-41D" secondAttribute="centerY" id="Jj6-0T-nb5"/>
+                            <constraint firstItem="vtn-Gd-3hm" firstAttribute="centerX" secondItem="zip-Pl-41D" secondAttribute="centerX" id="kib-vf-Yhz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="ykx-Es-M9D" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="48" y="202"/>
+        </scene>
+    </scenes>
+</document>

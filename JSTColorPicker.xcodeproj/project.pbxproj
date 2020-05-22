@@ -299,6 +299,10 @@
 		D69FD9DE24776F8F00ACBF74 /* libopencv_imgproc.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94924776EB400ACBF74 /* libopencv_imgproc.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */; };
 		D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9E724778DBF00ACBF74 /* AppIcon.icns */; };
+		D69FD9ED2477CF5A00ACBF74 /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */; };
+		D69FD9EE2477CF5A00ACBF74 /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */; };
+		D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
+		D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
@@ -1001,6 +1005,8 @@
 		D69FD9DA24776EC600ACBF74 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
 		D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.jst.JSTColorPicker.ScreenshotHelper.plist; sourceTree = "<group>"; };
 		D69FD9E724778DBF00ACBF74 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = DerivedData/JSTColorPicker/Build/Products/Debug/JSTColorPicker.app/Contents/Resources/AppIcon.icns; sourceTree = SOURCE_ROOT; };
+		D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TagList.storyboard; sourceTree = "<group>"; };
+		D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Scene.storyboard; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
@@ -1576,6 +1582,8 @@
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
+				D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */,
+				D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
@@ -2400,10 +2408,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D61047D024224A170002E990 /* General.xib in Resources */,
+				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
+				D69FD9ED2477CF5A00ACBF74 /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
@@ -2441,10 +2451,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
+				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
+				D69FD9EE2477CF5A00ACBF74 /* TagList.storyboard in Resources */,
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,

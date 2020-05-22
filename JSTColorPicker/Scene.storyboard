@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Scene Controller-->
+        <scene sceneID="PLg-8L-AcG">
+            <objects>
+                <viewController id="jsz-Ju-e0d" customClass="SceneController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" focusRingType="none" id="LSe-l3-GPX">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="W7m-Sv-4Wm" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <clipView key="contentView" focusRingType="none" id="sQJ-yc-X1x" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view focusRingType="none" id="V2d-Mg-fgu">
+                                            <rect key="frame" x="0.0" y="0.0" width="985" height="785"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </subviews>
+                                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                </clipView>
+                                <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="LfN-XO-MdU">
+                                    <rect key="frame" x="0.0" y="784" width="1000" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OKd-TY-Jrf">
+                                    <rect key="frame" x="984" y="0.0" width="16" height="800"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="k96-rq-b85" customClass="SceneGridView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                            </customView>
+                            <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gm2-nK-LVB" customClass="SceneOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                            </customView>
+                            <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="p5F-Ek-hEY" customClass="SceneEffectView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="trailing" secondItem="k96-rq-b85" secondAttribute="trailing" id="1Ya-JM-fxU"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="leading" secondItem="W7m-Sv-4Wm" secondAttribute="leading" id="3g2-kF-XNz"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="top" secondItem="k96-rq-b85" secondAttribute="top" id="8uv-cH-aOc"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="HwD-Rg-fmM"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="leading" secondItem="k96-rq-b85" secondAttribute="leading" id="Ju9-cx-KIu"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="leading" secondItem="k96-rq-b85" secondAttribute="leading" id="Liw-V2-Ia6"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="top" secondItem="W7m-Sv-4Wm" secondAttribute="top" id="PrM-2q-5NA"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="top" secondItem="k96-rq-b85" secondAttribute="top" id="Qc5-Zv-lBl"/>
+                            <constraint firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="SA0-FP-amj"/>
+                            <constraint firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="TeC-i8-Deo"/>
+                            <constraint firstItem="W7m-Sv-4Wm" firstAttribute="leading" secondItem="LSe-l3-GPX" secondAttribute="leading" id="Ttr-TX-L5H"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="trailing" secondItem="k96-rq-b85" secondAttribute="trailing" id="Zgm-Lt-zIG"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="bottom" secondItem="k96-rq-b85" secondAttribute="bottom" id="efi-cf-ZRU"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="idK-Va-glX"/>
+                            <constraint firstItem="W7m-Sv-4Wm" firstAttribute="top" secondItem="LSe-l3-GPX" secondAttribute="top" id="ntz-rt-KTI"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="bottom" secondItem="k96-rq-b85" secondAttribute="bottom" id="wpX-XE-dj4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="internalSceneEffectView" destination="p5F-Ek-hEY" id="5P4-Cu-8Q3"/>
+                        <outlet property="sceneClipView" destination="sQJ-yc-X1x" id="Vqt-wf-8ut"/>
+                        <outlet property="sceneGridLeadingConstraint" destination="3g2-kF-XNz" id="t8O-6R-cDO"/>
+                        <outlet property="sceneGridTopConstraint" destination="PrM-2q-5NA" id="mWI-77-uWV"/>
+                        <outlet property="sceneGridView" destination="k96-rq-b85" id="AJp-Yk-LEU"/>
+                        <outlet property="sceneOverlayView" destination="Gm2-nK-LVB" id="nWh-VT-7h5"/>
+                        <outlet property="sceneView" destination="W7m-Sv-4Wm" id="nWj-kh-ab7"/>
+                    </connections>
+                </viewController>
+                <customObject id="PDh-lv-bLW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1343" y="127"/>
+        </scene>
+    </scenes>
+</document>

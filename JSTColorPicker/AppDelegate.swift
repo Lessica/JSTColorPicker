@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .toggleTableColumnDescription: true,
             
             .togglePaneViewPreview: true,
-            .togglePaneViewInspector: true,
+            .togglePaneViewInspector: false,
             .togglePaneViewInformation: true,
             
             .useAlternativeAreaRepresentation: false,
@@ -114,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+        return false
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -407,7 +407,11 @@ extension AppDelegate: NSUserInterfaceValidations {
             }
         }
         else if item.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
+            #if SANDBOXED
             return applicationHasScreenshotHelper()
+            #else
+            return true
+            #endif
         }
         return true
     }
