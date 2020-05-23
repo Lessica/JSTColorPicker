@@ -13,6 +13,8 @@
 		1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C472247987C9008ECD6F /* Sidebar.storyboard */; };
 		1842C477247988E8008ECD6F /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C47A247988E8008ECD6F /* TagList.storyboard */; };
 		1842C478247988E8008ECD6F /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C47A247988E8008ECD6F /* TagList.storyboard */; };
+		1842C48124798E63008ECD6F /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842C48024798E63008ECD6F /* TagListController.swift */; };
+		1842C48224798E63008ECD6F /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842C48024798E63008ECD6F /* TagListController.swift */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
@@ -516,6 +518,7 @@
 		1842C479247988E8008ECD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TagList.storyboard; sourceTree = "<group>"; };
 		1842C47C247988ED008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TagList.strings; sourceTree = "<group>"; };
 		1842C47E247988F0008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TagList.strings"; sourceTree = "<group>"; };
+		1842C48024798E63008ECD6F /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1134,6 +1137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1842C47F24798E46008ECD6F /* TagList */ = {
+			isa = PBXGroup;
+			children = (
+				1842C48024798E63008ECD6F /* TagListController.swift */,
+			);
+			path = TagList;
+			sourceTree = "<group>";
+		};
 		39B44362740250C81599A741 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,6 +1622,7 @@
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D69974E22416574D00223B31 /* Help */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
+				1842C47F24798E46008ECD6F /* TagList */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
@@ -2648,6 +2660,7 @@
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
+				1842C48124798E63008ECD6F /* TagListController.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
@@ -2794,6 +2807,7 @@
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
+				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,

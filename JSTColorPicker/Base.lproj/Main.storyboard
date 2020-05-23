@@ -277,7 +277,7 @@ CA
                                     <items>
                                         <menuItem title="Select Device" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Select Device" autoenablesItems="NO" id="5FZ-FF-ebV">
+                                            <menu key="submenu" title="Select Device" id="5FZ-FF-ebV">
                                                 <connections>
                                                     <outlet property="delegate" destination="Voe-Tx-rLC" id="fbI-yT-cpc"/>
                                                 </connections>
