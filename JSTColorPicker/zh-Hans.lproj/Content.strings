@@ -1,0 +1,83 @@
+/* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
+"71D-st-arP.headerCell.title" = "ID";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "aWf-2B-iRG"; */
+"aWf-2B-iRG.title" = "文本单元格";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "COB-7T-s9l"; */
+"COB-7T-s9l.title" = "粘贴";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "dc7-7n-fj3"; */
+"dc7-7n-fj3.title" = "文本单元格";
+
+/* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "dmE-sc-yBQ"; */
+"dmE-sc-yBQ.title" = "区域: (x, y, w, h)";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "FUc-jS-0Vm"; */
+"FUc-jS-0Vm.title" = "复制";
+
+/* Class = "NSMenuItem"; title = "Description"; ObjectID = "gf5-SR-cVU"; */
+"gf5-SR-cVU.title" = "描述";
+
+/* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "jKH-wp-n6X"; */
+"jKH-wp-n6X.title" = "颜色与坐标: (x, y)";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "jqt-id-cp6"; */
+"jqt-id-cp6.placeholderString" = "添加/定位项目...";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "jxT-WR-Lp9"; */
+"jxT-WR-Lp9.title" = "删除";
+
+/* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "Lwj-iT-akK"; */
+"Lwj-iT-akK.title" = "相似度";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "Lyu-4U-FxO"; */
+"Lyu-4U-FxO.ibShadowedToolTip" = "添加/定位项目 (↵)";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OWW-WD-eeB"; */
+"OWW-WD-eeB.title" = "文本单元格";
+
+/* Class = "NSTableColumn"; headerCell.title = "Delay"; ObjectID = "pOV-gi-XyL"; */
+"pOV-gi-XyL.headerCell.title" = "延迟";
+
+/* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "pOV-gi-XyL"; */
+"pOV-gi-XyL.headerToolTip" = "延迟 (以毫秒计)";
+
+/* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "q07-T2-0Ey"; */
+"q07-T2-0Ey.title" = "智能裁切";
+
+/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "qQO-Qw-Wgz"; */
+"qQO-Qw-Wgz.title" = "导出为...";
+
+/* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.title" = "另存为...";
+
+/* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Sbm-OL-z0k"; */
+"Sbm-OL-z0k.title" = "定位";
+
+/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "Sv2-uF-rau"; */
+"Sv2-uF-rau.headerCell.title" = "描述";
+
+/* Class = "NSTableColumn"; headerToolTip = "Description"; ObjectID = "Sv2-uF-rau"; */
+"Sv2-uF-rau.headerToolTip" = "描述";
+
+/* Class = "NSMenuItem"; title = "Area: (x1, y1, x2, y2)"; ObjectID = "sVk-oR-IHz"; */
+"sVk-oR-IHz.title" = "区域: (x1, y1, x2, y2)";
+
+/* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "ued-v5-LbG"; */
+"ued-v5-LbG.title" = "重置列...";
+
+/* Class = "NSMenuItem"; title = "Delay"; ObjectID = "UX5-QO-Eh6"; */
+"UX5-QO-Eh6.title" = "延迟";
+
+/* Class = "NSMenuItem"; title = "ID"; ObjectID = "w8Q-1g-gYa"; */
+"w8Q-1g-gYa.title" = "ID";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
+"wys-cG-VKM.title" = "全选";
+
+/* Class = "NSTableColumn"; headerCell.title = "Similarity"; ObjectID = "zht-Da-JGH"; */
+"zht-Da-JGH.headerCell.title" = "相似度";
+
+/* Class = "NSTableColumn"; headerToolTip = "Similarity (%)"; ObjectID = "zht-Da-JGH"; */
+"zht-Da-JGH.headerToolTip" = "相似度 (以百分比计)";

@@ -1,7 +1,3 @@
-
-/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "0N8-3R-guS"; */
-"0N8-3R-guS.title" = "全选";
-
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "查找";
 
@@ -14,35 +10,14 @@
 /* Class = "NSMenuItem"; title = "JSTColorPicker"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "JSTColorPicker";
 
-/* Class = "NSTableColumn"; headerCell.title = "Delay"; ObjectID = "21M-5G-cdl"; */
-"21M-5G-cdl.headerCell.title" = "延迟";
-
-/* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "21M-5G-cdl"; */
-"21M-5G-cdl.headerToolTip" = "延迟 (以毫秒计)";
-
-/* Class = "NSTableColumn"; headerCell.title = "Similarity"; ObjectID = "3hu-9P-0DZ"; */
-"3hu-9P-0DZ.headerCell.title" = "相似度";
-
-/* Class = "NSTableColumn"; headerToolTip = "Similarity (%)"; ObjectID = "3hu-9P-0DZ"; */
-"3hu-9P-0DZ.headerToolTip" = "相似度 (以百分比计)";
-
 /* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
 "4EN-yA-p0u.title" = "查找";
 
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
 "4J7-dP-txa.title" = "进入全屏";
 
-/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "4lo-8e-kgl"; */
-"4lo-8e-kgl.title" = "删除";
-
-/* Class = "NSTabViewItem"; label = "Indicator"; ObjectID = "4MT-u6-eot"; */
-"4MT-u6-eot.label" = "指示器";
-
 /* Class = "NSMenuItem"; title = "Quit JSTColorPicker"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "退出 JSTColorPicker";
-
-/* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "4WQ-hK-LNU"; */
-"4WQ-hK-LNU.title" = "显示模板...";
 
 /* Class = "NSMenu"; title = "Select Device"; ObjectID = "5FZ-FF-ebV"; */
 "5FZ-FF-ebV.title" = "选择设备";
@@ -56,26 +31,11 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "重做";
 
-/* Class = "NSMenuItem"; title = "ID"; ObjectID = "76Y-q5-6a8"; */
-"76Y-q5-6a8.title" = "ID";
-
-/* Class = "NSTabViewItem"; label = "Image"; ObjectID = "7jL-su-DvD"; */
-"7jL-su-DvD.label" = "图像";
-
-/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "7PR-rN-AE5"; */
-"7PR-rN-AE5.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
-
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "切换颜色面板";
 
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "8Sz-oB-rce"; */
-"8Sz-oB-rce.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
-
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "设备";
-
-/* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "aeS-ua-1Yg"; */
-"aeS-ua-1Yg.title" = "100%";
 
 /* Class = "NSToolbarItem"; label = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.label" = "缩小";
@@ -86,23 +46,11 @@
 /* Class = "NSToolbarItem"; toolTip = "Minifying Glass (⌃F4)"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.toolTip" = "放大镜 (⌃F4)";
 
-/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "aP1-f1-wxI"; */
-"aP1-f1-wxI.title" = "颜色指示器";
-
-/* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "ARq-jY-i0P"; */
-"ARq-jY-i0P.title" = "智能裁切";
-
-/* Class = "NSMenuItem"; title = "Delay"; ObjectID = "aSq-S1-Z94"; */
-"aSq-S1-Z94.title" = "延迟";
-
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "窗口";
 
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
-
-/* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "b8i-OZ-eiI"; */
-"b8i-OZ-eiI.title" = "区域: (x, y, w, h)";
 
 /* Class = "NSToolbarItem"; label = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.label" = "适应窗口";
@@ -128,12 +76,6 @@
 /* Class = "NSToolbarItem"; toolTip = "Snapshot (⌥⌘S)"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.toolTip" = "截图 (⌥⌘S)";
 
-/* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "BOv-Xm-yEK"; */
-"BOv-Xm-yEK.title" = "相似度";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "BSQ-PE-12V"; */
-"BSQ-PE-12V.title" = "文本单元格";
-
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "查找所选内容";
 
@@ -143,17 +85,8 @@
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.title" = "导出为...";
 
-/* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "cmL-jJ-0rb"; */
-"cmL-jJ-0rb.title" = "显示日志...";
-
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "比较已打开的文档";
-
-/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "DDt-ew-ypP"; */
-"DDt-ew-ypP.title" = "重置面板...";
-
-/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "djd-CE-KfV"; */
-"djd-CE-KfV.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
 "dMs-cI-mzQ.title" = "文件";
@@ -176,17 +109,8 @@
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
 "fAq-vA-bJd.title" = "智能裁切";
 
-/* Class = "NSMenuItem"; title = "Information"; ObjectID = "fch-zD-eHV"; */
-"fch-zD-eHV.title" = "信息";
-
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker 帮助";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "Gdd-Og-hUZ"; */
-"Gdd-Og-hUZ.ibShadowedToolTip" = "导出全部项 (⌘E)";
-
-/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "GGS-Lz-Zee"; */
-"GGS-Lz-Zee.title" = "图像预览";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "粘贴";
@@ -194,17 +118,8 @@
 /* Class = "NSMenuItem"; title = "Select Device"; ObjectID = "Gxd-vS-gSq"; */
 "Gxd-vS-gSq.title" = "选择设备";
 
-/* Class = "NSMenuItem"; title = "Description"; ObjectID = "gXr-CH-wgt"; */
-"gXr-CH-wgt.title" = "描述";
-
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "视图";
-
-/* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Hat-pH-Npm"; */
-"Hat-pH-Npm.title" = "定位";
-
-/* Class = "NSTabViewItem"; label = "Preview"; ObjectID = "hdA-fo-TDq"; */
-"hdA-fo-TDq.label" = "预览";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
 "HyV-fh-RgO.title" = "视图";
@@ -215,14 +130,8 @@
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
 "IAo-SY-fd9.title" = "打开...";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "iEU-JB-h0L"; */
-"iEU-JB-h0L.title" = "文本单元格";
-
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "颜色选取器";
-
-/* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "ivt-4l-oba"; */
-"ivt-4l-oba.title" = "颜色与坐标: (x, y)";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "截图";
@@ -230,17 +139,11 @@
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "全部显示";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "kFe-G6-0m7"; */
-"kFe-G6-0m7.title" = "文本单元格";
-
 /* Class = "NSMenuItem"; title = "Show Sidebar"; ObjectID = "kIP-vf-haE"; */
 "kIP-vf-haE.title" = "显示边栏";
 
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "kt2-f5-ySm"; */
 "kt2-f5-ySm.title" = "还原为上次保存的内容";
-
-/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "LE0-eB-1FR"; */
-"LE0-eB-1FR.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "前置所有窗口";
@@ -272,23 +175,14 @@
 /* Class = "NSToolbarItem"; toolTip = "Move (⌃F5)"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.toolTip" = "移动 (⌃F5)";
 
-/* Class = "NSButtonCell"; title = "Export All..."; ObjectID = "MfM-KE-B13"; */
-"MfM-KE-B13.title" = "导出全部项...";
-
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "服务";
 
 /* Class = "NSMenuItem"; title = "Check for Updates..."; ObjectID = "ntJ-ob-XWI"; */
 "ntJ-ob-XWI.title" = "检查更新...";
 
-/* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "Ntw-j7-BEf"; */
-"Ntw-j7-BEf.headerCell.title" = "ID";
-
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "打开最近使用";
-
-/* Class = "NSMenuItem"; title = "Area: (x1, y1, x2, y2)"; ObjectID = "obF-Ti-QPz"; */
-"obF-Ti-QPz.title" = "区域: (x1, y1, x2, y2)";
 
 /* Class = "NSMenuItem"; title = "Hide JSTColorPicker"; ObjectID = "Olw-nP-bQN"; */
 "Olw-nP-bQN.title" = "隐藏 JSTColorPicker";
@@ -311,23 +205,11 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "删除";
 
-/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "Pbb-dn-eVi"; */
-"Pbb-dn-eVi.title" = "复制";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "pqW-4d-vSK"; */
-"pqW-4d-vSK.ibShadowedToolTip" = "导出首选项 (⌥⌘E)";
-
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "保存...";
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "查找下一个";
-
-/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "Qmq-AZ-7YC"; */
-"Qmq-AZ-7YC.title" = "退出比较模式";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "r32-UK-sx0"; */
-"r32-UK-sx0.ibShadowedToolTip" = "添加/定位项目 (↵)";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "缩放";
@@ -338,14 +220,8 @@
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "跳到所选内容";
 
-/* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "Sem-0g-3Kf"; */
-"Sem-0g-3Kf.title" = "另存为...";
-
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "snW-S8-Cw5"; */
 "snW-S8-Cw5.title" = "显示工具栏";
-
-/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "syq-pP-liz"; */
-"syq-pP-liz.title" = "导出为...";
 
 /* Class = "NSToolbarItem"; label = "Magnify"; ObjectID = "TA2-eZ-zBd"; */
 "TA2-eZ-zBd.label" = "放大";
@@ -359,17 +235,8 @@
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";
 
-/* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "TIn-N1-SEI"; */
-"TIn-N1-SEI.placeholderString" = "添加/定位项目...";
-
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "打开最近使用";
-
-/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "UeL-yQ-Jvx"; */
-"UeL-yQ-Jvx.headerCell.title" = "描述";
-
-/* Class = "NSTableColumn"; headerToolTip = "Description"; ObjectID = "UeL-yQ-Jvx"; */
-"UeL-yQ-Jvx.headerToolTip" = "描述";
 
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
@@ -379,9 +246,6 @@
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
-
-/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "vET-H3-9Jx"; */
-"vET-H3-9Jx.title" = "粘贴";
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "清除菜单";
@@ -407,17 +271,8 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";
 
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "X8A-3k-h2W"; */
-"X8A-3k-h2W.title" = "打开或在拖放图像到此处.";
-
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "查找...";
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "查找与替换...";
-
-/* Class = "NSMenuItem"; title = "Reload All Templates"; ObjectID = "zKV-Tx-oRG"; */
-"zKV-Tx-oRG.title" = "重新加载所有模板";
-
-/* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "zqB-jb-bkD"; */
-"zqB-jb-bkD.title" = "重置列...";

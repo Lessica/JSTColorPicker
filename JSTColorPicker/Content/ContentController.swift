@@ -148,7 +148,7 @@ class ContentController: NSViewController {
         columnID.width = 30.0
         columnDelay.width = 60.0
         columnSimilarity.width = 60.0
-        columnDescription.width = 180.0
+        columnDescription.width = 200.0
         
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [

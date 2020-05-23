@@ -1,0 +1,59 @@
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1g8-wL-HKB"; */
+"1g8-wL-HKB.title" = "Open or drop an image here.\n\n\n\n\n";
+
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1sd-w8-by3"; */
+"1sd-w8-by3.title" = "Open or drop an image here.\n\n\n\n\n";
+
+/* Class = "NSTabViewItem"; label = "Indicator"; ObjectID = "5rp-rb-ETI"; */
+"5rp-rb-ETI.label" = "Indicator";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
+"8AH-8J-GW3.ibShadowedToolTip" = "Increase/Decrease Magnification (⌘=/⌘-)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "bwz-6j-3gj"; */
+"bwz-6j-3gj.ibShadowedToolTip" = "Export All... (⌘E)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "Dbw-cW-F99"; */
+"Dbw-cW-F99.ibShadowedToolTip" = "Export Options (⌥⌘E)";
+
+/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "dml-TB-Eg1"; */
+"dml-TB-Eg1.title" = "Image Preview";
+
+/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "G8B-c4-3S6"; */
+"G8B-c4-3S6.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
+
+/* Class = "NSMenuItem"; title = "Information"; ObjectID = "heo-bx-vn7"; */
+"heo-bx-vn7.title" = "Information";
+
+/* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
+"Imo-Rx-LeR.title" = "100%";
+
+/* Class = "NSButtonCell"; title = "Export All..."; ObjectID = "j00-Um-3Fu"; */
+"j00-Um-3Fu.title" = "Export All...";
+
+/* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "lLo-u9-UXv"; */
+"lLo-u9-UXv.title" = "Show Logs...";
+
+/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "ocQ-Zc-yHF"; */
+"ocQ-Zc-yHF.title" = "Quit Comparison Mode";
+
+/* Class = "NSTabViewItem"; label = "Preview"; ObjectID = "Rgk-bz-S0l"; */
+"Rgk-bz-S0l.label" = "Preview";
+
+/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
+"UID-HV-iAj.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
+
+/* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "UNR-ux-raK"; */
+"UNR-ux-raK.title" = "Show Templates...";
+
+/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "VSv-f4-iqr"; */
+"VSv-f4-iqr.title" = "Reset Panes...";
+
+/* Class = "NSMenuItem"; title = "Reload All Templates"; ObjectID = "wn5-aj-tl9"; */
+"wn5-aj-tl9.title" = "Reload All Templates";
+
+/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "xfl-dO-INl"; */
+"xfl-dO-INl.title" = "Color Inspector";
+
+/* Class = "NSTabViewItem"; label = "Image"; ObjectID = "ztq-UM-Jyu"; */
+"ztq-UM-Jyu.label" = "Image";

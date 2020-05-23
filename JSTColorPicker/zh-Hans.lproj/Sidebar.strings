@@ -1,0 +1,59 @@
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1g8-wL-HKB"; */
+"1g8-wL-HKB.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
+
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1sd-w8-by3"; */
+"1sd-w8-by3.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
+
+/* Class = "NSTabViewItem"; label = "Indicator"; ObjectID = "5rp-rb-ETI"; */
+"5rp-rb-ETI.label" = "指示器";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
+"8AH-8J-GW3.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "bwz-6j-3gj"; */
+"bwz-6j-3gj.ibShadowedToolTip" = "导出全部项... (⌘E)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "Dbw-cW-F99"; */
+"Dbw-cW-F99.ibShadowedToolTip" = "导出首选项 (⌥⌘E)";
+
+/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "dml-TB-Eg1"; */
+"dml-TB-Eg1.title" = "图像预览";
+
+/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "G8B-c4-3S6"; */
+"G8B-c4-3S6.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
+
+/* Class = "NSMenuItem"; title = "Information"; ObjectID = "heo-bx-vn7"; */
+"heo-bx-vn7.title" = "信息";
+
+/* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
+"Imo-Rx-LeR.title" = "100%";
+
+/* Class = "NSButtonCell"; title = "Export All..."; ObjectID = "j00-Um-3Fu"; */
+"j00-Um-3Fu.title" = "导出全部项...";
+
+/* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "lLo-u9-UXv"; */
+"lLo-u9-UXv.title" = "显示日志...";
+
+/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "ocQ-Zc-yHF"; */
+"ocQ-Zc-yHF.title" = "退出比较模式";
+
+/* Class = "NSTabViewItem"; label = "Preview"; ObjectID = "Rgk-bz-S0l"; */
+"Rgk-bz-S0l.label" = "预览";
+
+/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
+"UID-HV-iAj.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
+
+/* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "UNR-ux-raK"; */
+"UNR-ux-raK.title" = "显示模板...";
+
+/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "VSv-f4-iqr"; */
+"VSv-f4-iqr.title" = "重置面板...";
+
+/* Class = "NSMenuItem"; title = "Reload All Templates"; ObjectID = "wn5-aj-tl9"; */
+"wn5-aj-tl9.title" = "重新加载所有模板";
+
+/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "xfl-dO-INl"; */
+"xfl-dO-INl.title" = "颜色指示器";
+
+/* Class = "NSTabViewItem"; label = "Image"; ObjectID = "ztq-UM-Jyu"; */
+"ztq-UM-Jyu.label" = "图像";

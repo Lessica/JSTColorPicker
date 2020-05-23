@@ -51,7 +51,7 @@ class SidebarController: NSViewController {
             imageLabel1.stringValue = text
         }
         else {
-            imageLabel1.stringValue = "Open or drop an image here."
+            imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
         }
         imageLabel1.displayIfNeeded()
         
@@ -61,7 +61,7 @@ class SidebarController: NSViewController {
             imageActionView.isHidden = false
         }
         else {
-            imageLabel2.stringValue = "Open or drop an image here."
+            imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
             imageLabel2.isHidden = true
             imageActionView.isHidden = true
         }
@@ -107,15 +107,12 @@ class SidebarController: NSViewController {
         return formatter
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        previewSliderLabel.textColor = .white
-        previewOverlayView.overlayDelegate = self
-        _ = colorPanel
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _ = colorPanel
+        previewSliderLabel.textColor = .white
+        previewOverlayView.overlayDelegate = self
         initializeController()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)

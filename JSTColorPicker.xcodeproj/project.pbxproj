@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1842C4642479832C008ECD6F /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C4672479832C008ECD6F /* Content.storyboard */; };
+		1842C4652479832C008ECD6F /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C4672479832C008ECD6F /* Content.storyboard */; };
+		1842C46F247987C9008ECD6F /* Sidebar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C472247987C9008ECD6F /* Sidebar.storyboard */; };
+		1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C472247987C9008ECD6F /* Sidebar.storyboard */; };
+		1842C477247988E8008ECD6F /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C47A247988E8008ECD6F /* TagList.storyboard */; };
+		1842C478247988E8008ECD6F /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C47A247988E8008ECD6F /* TagList.storyboard */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
@@ -299,8 +305,6 @@
 		D69FD9DE24776F8F00ACBF74 /* libopencv_imgproc.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94924776EB400ACBF74 /* libopencv_imgproc.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */; };
 		D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9E724778DBF00ACBF74 /* AppIcon.icns */; };
-		D69FD9ED2477CF5A00ACBF74 /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */; };
-		D69FD9EE2477CF5A00ACBF74 /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */; };
 		D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
 		D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
@@ -503,6 +507,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1842C4662479832C008ECD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Content.storyboard; sourceTree = "<group>"; };
+		1842C4692479832F008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Content.strings; sourceTree = "<group>"; };
+		1842C46B24798330008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Content.strings"; sourceTree = "<group>"; };
+		1842C471247987C9008ECD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sidebar.storyboard; sourceTree = "<group>"; };
+		1842C474247987CF008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Sidebar.strings; sourceTree = "<group>"; };
+		1842C476247987CF008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Sidebar.strings"; sourceTree = "<group>"; };
+		1842C479247988E8008ECD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TagList.storyboard; sourceTree = "<group>"; };
+		1842C47C247988ED008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TagList.strings; sourceTree = "<group>"; };
+		1842C47E247988F0008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TagList.strings"; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1005,7 +1018,6 @@
 		D69FD9DA24776EC600ACBF74 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
 		D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.jst.JSTColorPicker.ScreenshotHelper.plist; sourceTree = "<group>"; };
 		D69FD9E724778DBF00ACBF74 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = DerivedData/JSTColorPicker/Build/Products/Debug/JSTColorPicker.app/Contents/Resources/AppIcon.icns; sourceTree = SOURCE_ROOT; };
-		D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TagList.storyboard; sourceTree = "<group>"; };
 		D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Scene.storyboard; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
@@ -1582,8 +1594,10 @@
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
+				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */,
-				D69FD9EC2477CF5A00ACBF74 /* TagList.storyboard */,
+				1842C472247987C9008ECD6F /* Sidebar.storyboard */,
+				1842C47A247988E8008ECD6F /* TagList.storyboard */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
@@ -2408,14 +2422,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D61047D024224A170002E990 /* General.xib in Resources */,
+				1842C46F247987C9008ECD6F /* Sidebar.storyboard in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
-				D69FD9ED2477CF5A00ACBF74 /* TagList.storyboard in Resources */,
+				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
+				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
@@ -2451,14 +2467,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
+				1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
-				D69FD9EE2477CF5A00ACBF74 /* TagList.storyboard in Resources */,
+				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
+				1842C4652479832C008ECD6F /* Content.storyboard in Resources */,
 				D684842223D4105100BC5E34 /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
@@ -2894,6 +2912,36 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1842C4672479832C008ECD6F /* Content.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1842C4662479832C008ECD6F /* Base */,
+				1842C4692479832F008ECD6F /* en */,
+				1842C46B24798330008ECD6F /* zh-Hans */,
+			);
+			name = Content.storyboard;
+			sourceTree = "<group>";
+		};
+		1842C472247987C9008ECD6F /* Sidebar.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1842C471247987C9008ECD6F /* Base */,
+				1842C474247987CF008ECD6F /* en */,
+				1842C476247987CF008ECD6F /* zh-Hans */,
+			);
+			name = Sidebar.storyboard;
+			sourceTree = "<group>";
+		};
+		1842C47A247988E8008ECD6F /* TagList.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1842C479247988E8008ECD6F /* Base */,
+				1842C47C247988ED008ECD6F /* en */,
+				1842C47E247988F0008ECD6F /* zh-Hans */,
+			);
+			name = TagList.storyboard;
+			sourceTree = "<group>";
+		};
 		D64AF09D240D05BB003A5B17 /* General.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

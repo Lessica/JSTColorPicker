@@ -18,6 +18,8 @@ class ContainerView: NSView {
 
     override func awakeFromNib() {
         
+        super.awakeFromNib()
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event: NSEvent) -> NSEvent? in
             self.keyDown(with: event)
             return event
