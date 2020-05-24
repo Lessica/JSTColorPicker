@@ -4,9 +4,6 @@
 /* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1sd-w8-by3"; */
 "1sd-w8-by3.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
 
-/* Class = "NSTabViewItem"; label = "Indicator"; ObjectID = "5rp-rb-ETI"; */
-"5rp-rb-ETI.label" = "指示器";
-
 /* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
 "8AH-8J-GW3.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
 
@@ -37,9 +34,6 @@
 /* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "ocQ-Zc-yHF"; */
 "ocQ-Zc-yHF.title" = "退出比较模式";
 
-/* Class = "NSTabViewItem"; label = "Preview"; ObjectID = "Rgk-bz-S0l"; */
-"Rgk-bz-S0l.label" = "预览";
-
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
 "UID-HV-iAj.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
 
@@ -54,6 +48,3 @@
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "xfl-dO-INl"; */
 "xfl-dO-INl.title" = "颜色指示器";
-
-/* Class = "NSTabViewItem"; label = "Image"; ObjectID = "ztq-UM-Jyu"; */
-"ztq-UM-Jyu.label" = "图像";

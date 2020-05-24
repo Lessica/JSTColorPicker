@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "aWf-2B-iRG"; */
 "aWf-2B-iRG.title" = "文本单元格";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
+"COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
+
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.title" = "粘贴";
 
@@ -12,6 +15,9 @@
 
 /* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "dmE-sc-yBQ"; */
 "dmE-sc-yBQ.title" = "区域: (x, y, w, h)";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "FUc-jS-0Vm"; */
+"FUc-jS-0Vm.ibShadowedToolTip" = "以当前模版拷贝选中项";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "FUc-jS-0Vm"; */
 "FUc-jS-0Vm.title" = "复制";
@@ -23,7 +29,7 @@
 "jKH-wp-n6X.title" = "颜色与坐标: (x, y)";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "jqt-id-cp6"; */
-"jqt-id-cp6.placeholderString" = "添加/定位项目...";
+"jqt-id-cp6.placeholderString" = "添加/定位项...";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "jxT-WR-Lp9"; */
 "jxT-WR-Lp9.title" = "删除";
@@ -32,7 +38,7 @@
 "Lwj-iT-akK.title" = "相似度";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "Lyu-4U-FxO"; */
-"Lyu-4U-FxO.ibShadowedToolTip" = "添加/定位项目 (↵)";
+"Lyu-4U-FxO.ibShadowedToolTip" = "添加/定位项 (↵)";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OWW-WD-eeB"; */
 "OWW-WD-eeB.title" = "文本单元格";
@@ -43,14 +49,26 @@
 /* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "pOV-gi-XyL"; */
 "pOV-gi-XyL.headerToolTip" = "延迟 (以毫秒计)";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
+"q07-T2-0Ey.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
+
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.title" = "智能裁切";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "qQO-Qw-Wgz"; */
+"qQO-Qw-Wgz.ibShadowedToolTip" = "以当前模版导出选中项";
 
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "qQO-Qw-Wgz"; */
 "qQO-Qw-Wgz.title" = "导出为...";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.ibShadowedToolTip" = "将选中区域另存为 PNG 文件";
+
 /* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.title" = "另存为...";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll and scale scene to fit this item"; ObjectID = "Sbm-OL-z0k"; */
+"Sbm-OL-z0k.ibShadowedToolTip" = "滚动并缩放场景, 使选中项处于合适位置";
 
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.title" = "定位";

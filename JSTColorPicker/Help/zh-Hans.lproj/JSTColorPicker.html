@@ -20,7 +20,7 @@
         <li>从 PNG 屏幕截图中标注<em>坐标及颜色</em>和<em>区域</em>
         </li>
         <li>从 PNG 文件的 EXIF 字典中读/写标注器数据</li>
-        <li>直接从 iOS 设备获取屏幕截图 (依赖于 <code>libimobiledevice</code>)</li>
+        <li>直接从 iOS 设备获取屏幕截图 (你需要额外下载并安装 <a href="https://82flex.github.io/JSTColorPicker/" target="_blank"><em>设备截图组件</em></a> 以使用此功能.)</li>
         <li>使用自定义模板复制/导出标注器数据</li>
     </ul>
     <h2>
@@ -126,38 +126,53 @@
         <a id="user-content-标注管理" class="anchor" href="#%E6%A0%87%E6%B3%A8%E7%AE%A1%E7%90%86" aria-hidden="true"><span
                 aria-hidden="true" class="octicon octicon-link"></span></a>标注管理</h3>
     <ul>
-        <li>从左侧的标注列表中选择一个或多个项目.</li>
-        <li>右键单击以显示所选项目的菜单:
+        <li>从左侧的标注列表中选择一个或多个项.</li>
+        <li>右键单击以显示所选项的菜单:
             <ul>
                 <li>
-                    <code>⌘C</code>: 使用当前<em>模板</em>复制所选项目.</li>
+                    <code>↵</code>: 将场景滚动定位到所选项, 并调整缩放比例以适配其尺寸.</li>
+                <li>
+                    <code>⌘C</code>: 使用当前<em>模板</em>复制所选项.</li>
+                <li>
+                    <code>⌘V</code>: 将来自其他文档的项粘贴到该文档中.</li>
+                <li>
+                    <code>⌘T</code>: 使用 Canny 边缘检测算法对选中区域进行智能裁切.</li>
                 <li>
                     <code>⇧⌘S</code>: 将所选<em>区域标注</em>另存为 PNG 文件.</li>
                 <li>
-                    <code>⇧⌘E</code>: 使用当前<em>模板</em>导出所选项目.</li>
+                    <code>⇧⌘E</code>: 使用当前<em>模板</em>导出所选项.</li>
                 <li>
-                    <code>↵</code>: 视图定位到所选项目.</li>
+                    <code>⌘A</code>: 选中所有项.</li>
                 <li>
-                    <code>⌫</code>: 删除所选项目.</li>
+                    <code>⌫</code>: 删除所选项.</li>
             </ul>
         </li>
         <li>
-            <code>0123456789</code>: 快速输入项目 <code>ID</code> 以选择现有项目.</li>
+            <code>0123456789</code>: 快速输入项 <code>ID</code> 以选择现有项.</li>
+        <li>
+            在左下角的输入框中输入如下格式的数据, 并键入回车, 可以添加/定位项. 右键单击 <code>+</code> 以切换数据录入的格式.
+            <ul>
+                <li>颜色与坐标: (x, y)</li>
+                <li>区域: (x1, y1, x2, y2)</li>
+                <li>区域: (x, y, w, h)</li>
+            </ul>
+        </li>
     </ul>
     <h3>
         <a id="user-content-导出" class="anchor" href="#%E5%AF%BC%E5%87%BA" aria-hidden="true"><span aria-hidden="true"
                 class="octicon octicon-link"></span></a>导出</h3>
     <ul>
         <li>
-            <code>⌘E</code>: 使用当前<em>模板</em>导出所有项目.</li>
-        <li>点击右下角列表按钮显示导出选项菜单:
+            <code>⌘E</code>: 使用当前<em>模板</em>导出所有项.</li>
+        <li>
+            <code>⌥⌘E</code> 或点击右下角列表按钮显示导出选项菜单:
             <ul>
                 <li>
-                    <em>重新加载所有模板</em>: 修改模板文件后, 使用该操作以重载所有<em>模板</em>文件, 立即生效.</li>
+                    <code>⌥⌘R</code> <em>重新加载所有模板</em>: 修改模板文件后, 使用该操作以重载所有<em>模板</em>文件, 立即生效.</li>
                 <li>
-                    <em>显示模板...</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
+                    <code>⌥⌘F</code> <em>显示模板...</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
                 <li>
-                    <em>显示日志...</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li>
+                    <code>⌥⌘L</code> <em>显示日志...</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li>
             </ul>
         </li>
     </ul>
@@ -299,16 +314,16 @@
     <div class="highlight highlight-source-lua">
         <pre><span class="pl-k">return</span> {
     uuid <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0C2E7537-45A6-43AD-82A6-35D774414A09<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 唯一的 UUID4 标识符</span>
-    name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 仅供显示的模板名称</span>
-    version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0.1<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 必填, 同一模板的较早版本将被隐藏</span>
-    platformVersion <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1.6<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 模板所需的最低软件版本</span>
-    author <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Lessica<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 作者名称</span>
+    name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>,                               <span class="pl-c"><span class="pl-c">--</span> 必填, 仅供显示的模板名称</span>
+    version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0.1<span class="pl-pds">"</span></span>,                                <span class="pl-c"><span class="pl-c">--</span> 必填, 同一模板的较早版本将被隐藏</span>
+    platformVersion <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1.6<span class="pl-pds">"</span></span>,                        <span class="pl-c"><span class="pl-c">--</span> 模板所需的最低软件版本</span>
+    author <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Lessica<span class="pl-pds">"</span></span>,                             <span class="pl-c"><span class="pl-c">--</span> 此模版作者的名称</span>
     description <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>This is an example of JSTColorPicker export script.<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 模板描述</span>
-    extension <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lua<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> 导出时所使用的文件扩展名</span>
-    generator <span class="pl-k">=</span> generator,  <span class="pl-c"><span class="pl-c">--</span> 必填</span>
+    extension <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lua<span class="pl-pds">"</span></span>,                              <span class="pl-c"><span class="pl-c">--</span> 导出时所使用的文件扩展名</span>
+    generator <span class="pl-k">=</span> generator,                          <span class="pl-c"><span class="pl-c">--</span> 必填, 生成器回调函数</span>
 }</pre>
     </div>
-    <p><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项目时被执行:</p>
+    <p><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项时被执行:</p>
     <div class="highlight highlight-source-lua">
         <pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, ...)
     <span class="pl-c"><span class="pl-c">--</span></span>

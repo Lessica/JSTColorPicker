@@ -123,7 +123,7 @@
                                                 <action selector="exportAs:" target="Ady-hI-5gd" id="t1n-Ot-zUv"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="kt2-f5-ySm">
+                                        <menuItem title="Revert to Saved" hidden="YES" enabled="NO" keyEquivalent="r" id="kt2-f5-ySm">
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="P3Z-6I-nHl"/>
                                             </connections>
@@ -603,7 +603,7 @@ CA
                 <controllerPlaceholder storyboardName="Scene" id="FJc-lg-yGv" sceneMemberID="viewController"/>
                 <customObject id="cY9-Yk-X7i" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2154" y="243"/>
+            <point key="canvasLocation" x="2149" y="246"/>
         </scene>
         <!--Sidebar-->
         <scene sceneID="N51-Ui-gow">

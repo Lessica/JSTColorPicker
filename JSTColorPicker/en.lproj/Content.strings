@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "aWf-2B-iRG"; */
 "aWf-2B-iRG.title" = "Text Cell";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
+"COB-7T-s9l.ibShadowedToolTip" = "Paste items from another document";
+
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.title" = "Paste";
 
@@ -12,6 +15,9 @@
 
 /* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "dmE-sc-yBQ"; */
 "dmE-sc-yBQ.title" = "Area: (x, y, w, h)";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "FUc-jS-0Vm"; */
+"FUc-jS-0Vm.ibShadowedToolTip" = "Copy these items with current template";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "FUc-jS-0Vm"; */
 "FUc-jS-0Vm.title" = "Copy";
@@ -43,14 +49,26 @@
 /* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "pOV-gi-XyL"; */
 "pOV-gi-XyL.headerToolTip" = "Delay (ms)";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
+"q07-T2-0Ey.ibShadowedToolTip" = "Trim this area with Canny edge detection algorithm";
+
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.title" = "Smart Trim";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "qQO-Qw-Wgz"; */
+"qQO-Qw-Wgz.ibShadowedToolTip" = "Export these items with current template";
 
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "qQO-Qw-Wgz"; */
 "qQO-Qw-Wgz.title" = "Export As...";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.ibShadowedToolTip" = "Save this area to a PNG file";
+
 /* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.title" = "Save As...";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll and scale scene to fit this item"; ObjectID = "Sbm-OL-z0k"; */
+"Sbm-OL-z0k.ibShadowedToolTip" = "Scroll and scale scene to fit this item";
 
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.title" = "Locate";

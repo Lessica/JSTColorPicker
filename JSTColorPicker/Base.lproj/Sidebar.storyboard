@@ -121,11 +121,11 @@
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPz-OZ-Hua">
                                                 <rect key="frame" x="-3" y="-4" width="276" height="59"/>
                                                 <view key="contentView" id="mzD-mX-KZ8">
-                                                    <rect key="frame" x="8" y="4" width="260" height="51"/>
+                                                    <rect key="frame" x="8" y="0.0" width="260" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-ma-a5Q">
-                                                            <rect key="frame" x="0.0" y="0.0" width="260" height="51"/>
+                                                            <rect key="frame" x="0.0" y="4" width="260" height="51"/>
                                                             <subviews>
                                                                 <customView id="PKs-GF-oI7">
                                                                     <rect key="frame" x="0.0" y="0.0" width="127" height="51"/>
@@ -244,12 +244,12 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="o0R-ma-a5Q" firstAttribute="leading" secondItem="mzD-mX-KZ8" secondAttribute="leading" id="RMP-Sd-cxE"/>
-                                                        <constraint firstItem="o0R-ma-a5Q" firstAttribute="top" secondItem="mzD-mX-KZ8" secondAttribute="top" id="Rsj-bE-MHc"/>
-                                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="o0R-ma-a5Q" secondAttribute="bottom" id="Whv-Lh-ZuF"/>
+                                                        <constraint firstItem="o0R-ma-a5Q" firstAttribute="top" secondItem="mzD-mX-KZ8" secondAttribute="top" constant="4" id="Rsj-bE-MHc"/>
+                                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="o0R-ma-a5Q" secondAttribute="bottom" constant="4" id="Whv-Lh-ZuF"/>
                                                         <constraint firstAttribute="trailing" secondItem="o0R-ma-a5Q" secondAttribute="trailing" id="tWc-N1-vtQ"/>
                                                     </constraints>
                                                 </view>
-                                                <size key="contentViewMargins" width="8" height="4"/>
+                                                <size key="contentViewMargins" width="8" height="0.0"/>
                                             </box>
                                         </subviews>
                                         <constraints>

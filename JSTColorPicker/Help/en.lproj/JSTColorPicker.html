@@ -19,7 +19,7 @@
     <ul>
         <li>Pick colors &amp; areas from PNG screenshots</li>
         <li>Read/Write annotator data from/into EXIF dictionary of PNG files</li>
-        <li>Take screenshots directly from iOS devices (depends <code>libimobiledevice</code>)</li>
+        <li>Take screenshots directly from iOS devices (You need to download and install an extra <a href="https://82flex.github.io/JSTColorPicker/" target="_blank"><em>Screenshot Helper</em></a> outside App Store.)</li>
         <li>Copy/Export annotator data using custom templates</li>
     </ul>
     <h2>
@@ -262,14 +262,14 @@
     <p><em>Template</em> is a <em>Lua</em> script which simply returns a table:</p>
     <div class="highlight highlight-source-lua">
         <pre><span class="pl-k">return</span> {
-    uuid <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0C2E7537-45A6-43AD-82A6-35D774414A09<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span>required, a unique UUID4 identifier</span>
-    name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> required, name only for display</span>
-    version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0.1<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> required, same template with earlier version will not be displayed</span>
-    platformVersion <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1.6<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> minimum required software version</span>
+    uuid <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0C2E7537-45A6-43AD-82A6-35D774414A09<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> required, a unique UUID4 identifier</span>
+    name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>,                               <span class="pl-c"><span class="pl-c">--</span> required, name only for display</span>
+    version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>0.1<span class="pl-pds">"</span></span>,                                <span class="pl-c"><span class="pl-c">--</span> required, same template with earlier version will not be displayed</span>
+    platformVersion <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1.6<span class="pl-pds">"</span></span>,                        <span class="pl-c"><span class="pl-c">--</span> minimum required software version</span>
     author <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Lessica<span class="pl-pds">"</span></span>,
     description <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>This is an example of JSTColorPicker export script.<span class="pl-pds">"</span></span>,
-    extension <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lua<span class="pl-pds">"</span></span>,  <span class="pl-c"><span class="pl-c">--</span> file extension used for exporting</span>
-    generator <span class="pl-k">=</span> generator,  <span class="pl-c"><span class="pl-c">--</span> required</span>
+    extension <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lua<span class="pl-pds">"</span></span>,                              <span class="pl-c"><span class="pl-c">--</span> file extension used for exporting</span>
+    generator <span class="pl-k">=</span> generator,                          <span class="pl-c"><span class="pl-c">--</span> required</span>
 }</pre>
     </div>
     <p><code>generator</code> is a lua function which will be executed when you copy or export item(s):</p>

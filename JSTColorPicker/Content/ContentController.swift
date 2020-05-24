@@ -39,7 +39,7 @@ enum ContentError: LocalizedError {
         case let .itemDoesNotExist(item):
             return String(format: NSLocalizedString("This item %@ does not exist.", comment: "ContentError"), item.description)
         case let .itemNotValid(item):
-            return String(format: "This requested item %@ is not valid.", item.description)
+            return String(format: NSLocalizedString("This requested item %@ is not valid.", comment: "ContentError"), item.description)
         case let .itemOutOfRange(item, range):
             return String(format: NSLocalizedString("The requested item %@ is out of the document range %@.", comment: "ContentError"), item.description, range.description)
         case let .itemReachLimit(totalSpace):
@@ -193,89 +193,96 @@ class ContentController: NSViewController {
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
         guard let image = screenshot?.image else { return }
         
-        let size = image.size
-        let scanner = Scanner(string: sender.stringValue)
-        scanner.charactersToBeSkipped = CharacterSet.alphanumerics.inverted
-        
-        var x = Int.max
-        var y = Int.max
-        var x2 = Int.max
-        var y2 = Int.max
-        
-        let scanned1 = scanner.scanInt(&x)
-        let scanned2 = scanner.scanInt(&y)
-        let scanned3 = scanner.scanInt(&x2)
-        let scanned4 = scanner.scanInt(&y2)
-        
-        if !scanned1 || !scanned2 { return }
-        guard x >= 0 && y >= 0 && x < size.width && y < size.height else { return }
-        
-        // color & coordinate
-        if !scanned3 || !scanned4 {
-            let coordinate = PixelCoordinate(x: x, y: y)
+        do {
             
-            do {
-                if let item = try addContentItem(of: coordinate) {
-                    if let _ = try selectContentItem(item) {
-                        sender.stringValue = ""
+            let inputVal = sender.stringValue.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            guard !inputVal.isEmpty else { return }
+            
+            let scanner = Scanner(string: inputVal)
+            scanner.charactersToBeSkipped = CharacterSet.alphanumerics.inverted
+            
+            var x = Int.max
+            var y = Int.max
+            let scanned1 = scanner.scanInt(&x)
+            let scanned2 = scanner.scanInt(&y)
+            
+            guard scanned1 && scanned2 else {
+                throw ContentError.itemNotValid(item: inputVal)
+            }
+            
+            var x2 = Int.max
+            var y2 = Int.max
+            let scanned3 = scanner.scanInt(&x2)
+            let scanned4 = scanner.scanInt(&y2)
+            
+            var addedOrSelected = false
+            
+            // color & coordinate
+            if !scanned3 || !scanned4 {
+                
+                let coordinate = PixelCoordinate(x: x, y: y)
+                
+                guard image.bounds.contains(coordinate) else {
+                    throw ContentError.itemOutOfRange(item: coordinate, range: image.size)
+                }
+                
+                do {
+                    if let item = try addContentItem(of: coordinate) {
+                        if let _ = try selectContentItem(item) {
+                            sender.stringValue = ""
+                            addedOrSelected = true
+                        }
                     }
                 }
-            }
-            catch ContentError.itemExists {
-                do {
+                catch ContentError.itemExists {
                     if let _ = try selectContentItem(of: coordinate) {
                         sender.stringValue = ""
+                        addedOrSelected = true
                     }
                 }
-                catch let error {
-                    presentError(error)
-                }
-            }
-            catch let error {
-                presentError(error)
-            }
-        }
-        else {
-            
-            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
-            var tryRect: PixelRect?
-            
-            // area
-            if !useAlt {
-                if x2 >= 0 && y2 >= 0 && x2 < size.width && y2 < size.height {
-                    tryRect = PixelRect(coordinate1: PixelCoordinate(x: x, y: y), coordinate2: PixelCoordinate(x: x2, y: y2))
-                }
+                
             }
             else {
-                if x2 > 0 && y2 > 0 && (x + x2) < size.width && (y + y2) < size.height {
-                    tryRect = PixelRect(origin: PixelCoordinate(x: x, y: y), size: PixelSize(width: x2, height: y2))
+                
+                let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+                
+                var rect: PixelRect!
+                if !useAlt {
+                    rect = PixelRect(coordinate1: PixelCoordinate(x: x, y: y), coordinate2: PixelCoordinate(x: x2, y: y2))
                 }
-            }
-            
-            guard let rect = tryRect else { return }
-            
-            do {
-                if let item = try addContentItem(of: rect) {
-                    if let _ = try selectContentItem(item) {
-                        sender.stringValue = ""
+                else {
+                    rect = PixelRect(origin: PixelCoordinate(x: x, y: y), size: PixelSize(width: x2, height: y2))
+                }
+                
+                guard image.bounds.contains(rect) else {
+                    throw ContentError.itemOutOfRange(item: rect, range: image.bounds)
+                }
+                
+                do {
+                    if let item = try addContentItem(of: rect) {
+                        if let _ = try selectContentItem(item) {
+                            sender.stringValue = ""
+                            addedOrSelected = true
+                        }
                     }
                 }
-            }
-            catch ContentError.itemExists {
-                do {
+                catch ContentError.itemExists {
                     if let _ = try selectContentItem(of: rect) {
                         sender.stringValue = ""
+                        addedOrSelected = true
                     }
                 }
-                catch let error {
-                    presentError(error)
-                }
-            }
-            catch let error {
-                presentError(error)
+                
             }
             
+            if !addedOrSelected {
+                throw ContentError.itemNotValid(item: inputVal)
+            }
+            
+        } catch let error {
+            presentError(error)
         }
+        
     }
     
     @IBAction func addCoordinateAction(_ sender: NSButton) {

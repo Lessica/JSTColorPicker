@@ -155,6 +155,9 @@
 /* ContentError */
 "This operation requires %d more spaces." = "This operation requires %d more spaces.";
 
+/* ContentError */
+"This requested item %@ is not valid." = "This requested item %@ is not valid.";
+
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "This template requires JSTColorPicker (%@) or later.";
 

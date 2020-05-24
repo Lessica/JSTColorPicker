@@ -182,7 +182,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="248" id="ep1-B6-8yg"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.96296296296296291" horizontal="YES" id="NM7-Vt-IF5">
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="NM7-Vt-IF5">
                                     <rect key="frame" x="0.0" y="754" width="308" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -224,7 +224,7 @@
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsN-Fd-s2i">
                                         <rect key="frame" x="32" y="8" width="270" height="14"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="jqt-id-cp6">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="jqt-id-cp6">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -278,7 +278,7 @@
                 <customObject id="YIx-oB-8lo" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="ziX-dt-DMr">
                     <items>
-                        <menuItem title="Locate" id="Sbm-OL-z0k">
+                        <menuItem title="Locate" toolTip="Scroll and scale scene to fit this item" id="Sbm-OL-z0k">
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -288,28 +288,28 @@ DQ
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="tqz-IX-tjD"/>
-                        <menuItem title="Copy" keyEquivalent="c" id="FUc-jS-0Vm">
+                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="FUc-jS-0Vm">
                             <connections>
                                 <action selector="copy:" target="oDF-UT-bv5" id="qOk-2h-Oyd"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Paste" keyEquivalent="v" id="COB-7T-s9l">
+                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste items from another document" id="COB-7T-s9l">
                             <connections>
                                 <action selector="paste:" target="oDF-UT-bv5" id="5wN-18-Rn0"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Smart Trim" keyEquivalent="t" id="q07-T2-0Ey">
+                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm" id="q07-T2-0Ey">
                             <connections>
                                 <action selector="smartTrim:" target="oDF-UT-bv5" id="NIQ-11-Etn"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="ghr-h9-c65"/>
-                        <menuItem title="Save As..." keyEquivalent="S" id="qZ8-We-LFE">
+                        <menuItem title="Save As..." keyEquivalent="S" toolTip="Save this area to a PNG file" id="qZ8-We-LFE">
                             <connections>
                                 <action selector="saveAs:" target="oDF-UT-bv5" id="c8E-T0-zCB"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Export As..." keyEquivalent="E" id="qQO-Qw-Wgz">
+                        <menuItem title="Export As..." keyEquivalent="E" toolTip="Export these items with current template" id="qQO-Qw-Wgz">
                             <connections>
                                 <action selector="exportAs:" target="oDF-UT-bv5" id="mm4-lO-HZu"/>
                             </connections>

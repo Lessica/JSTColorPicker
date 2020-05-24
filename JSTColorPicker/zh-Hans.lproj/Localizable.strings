@@ -38,10 +38,10 @@
 "Delete Confirm" = "删除确认";
 
 /* Delete Confirm */
-"Do you want to remove selected %d items?" = "你确定要删除选定的 %d 个项目吗?";
+"Do you want to remove selected %d items?" = "你确定要删除选定的 %d 个项吗?";
 
 /* Delete Confirm */
-"Do you want to remove selected item %@?" = "你确定要删除选定的项目 %@?";
+"Do you want to remove selected item %@?" = "你确定要删除选定的项 %@?";
 
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
@@ -101,7 +101,7 @@
 "Load image source failed." = "加载映像源失败.";
 
 /* ContentError */
-"Maximum item count %d reached." = "已达到最大项目数量 %d.";
+"Maximum item count %d reached." = "已达到最大项数量 %d.";
 
 /* TemplateError */
 "Missing required field: %@." = "缺少必填字段: %@.";
@@ -138,22 +138,25 @@
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
 
 /* ContentError */
-"The requested item %@ is out of the document range %@." = "请求的项目 %@ 已超出文档范围 %@.";
+"The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
 
 /* ContentError */
-"The requested item conflicts with another item in the document." = "请求的项目与文档中的另一个项目冲突.";
+"The requested item conflicts with another item in the document." = "请求的项与文档中的另一个项冲突.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现.";
 
 /* ContentError */
-"This item %@ already exists." = "此项目 %@ 已存在.";
+"This item %@ already exists." = "此项 %@ 已存在.";
 
 /* ContentError */
-"This item %@ does not exist." = "此项目 %@ 不存在.";
+"This item %@ does not exist." = "此项 %@ 不存在.";
 
 /* ContentError */
 "This operation requires %d more spaces." = "此操作需要 %d 额外空间.";
+
+/* ContentError */
+"This requested item %@ is not valid." = "请求的项 %@ 是无效的.";
 
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本.";
