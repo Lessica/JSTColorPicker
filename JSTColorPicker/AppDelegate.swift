@@ -66,12 +66,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .enableNetworkDiscovery: false,
             
             .enableForceTouch: true,
-            .drawSceneBackground: true,
+            .drawSceneBackground: false,
             .drawGridsInScene: true,
             .drawRulersInScene: true,
-            .drawBackgroundInGridView: true,
+            .drawBackgroundInGridView: false,
             .drawAnnotatorsInGridView: false,
-            .hideGridsWhenResize: false,
+            .hideGridsWhenResize: true,
             .hideAnnotatorsWhenResize: true,
             .usesPredominantAxisScrolling: false,
             
