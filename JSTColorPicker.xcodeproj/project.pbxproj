@@ -17,6 +17,8 @@
 		1842C48224798E63008ECD6F /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842C48024798E63008ECD6F /* TagListController.swift */; };
 		18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
+		18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
+		18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
@@ -522,6 +524,7 @@
 		1842C47E247988F0008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TagList.strings"; sourceTree = "<group>"; };
 		1842C48024798E63008ECD6F /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
 		18B6EA94247ABE6F00A61386 /* Tag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tag.xcdatamodel; sourceTree = "<group>"; };
+		18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransformer.swift; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1143,6 +1146,7 @@
 		1842C47F24798E46008ECD6F /* TagList */ = {
 			isa = PBXGroup;
 			children = (
+				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
 				1842C48024798E63008ECD6F /* TagListController.swift */,
 			);
 			path = TagList;
@@ -2619,6 +2623,7 @@
 			files = (
 				D610477D24224A170002E990 /* Foundation+Ext.swift in Sources */,
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
+				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
@@ -2823,6 +2828,7 @@
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
+				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,

@@ -48,7 +48,6 @@ class TagListController: NSViewController {
                 ("TabBar",         "tabbar",          "#FF99C3"),
                 ("NavigationBar",  "navbar",          "#FFD6E7"),
                 ("Skeleton",       "skeleton",        "#AAD8D8"),
-                ("Notification",   "notification",    "#269A99"),
                 
             ]
         }) { [weak self] in

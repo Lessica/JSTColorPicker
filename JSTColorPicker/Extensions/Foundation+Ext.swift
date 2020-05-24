@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     func leftPadding(to length: Int, with character: Character) -> String {
         if length <= self.count {
             return String(self)
@@ -23,7 +23,7 @@ extension String {
     }
 }
 
-extension String {
+public extension String {
     func split(by length: Int) -> [String] {
         var startIndex = self.startIndex
         var results = [Substring]()
@@ -36,7 +36,7 @@ extension String {
     }
 }
 
-extension Array {
+public extension Array {
     func filterDuplicates(includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element] {
         var results = [Element]()
         forEach { (element) in

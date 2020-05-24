@@ -55,12 +55,17 @@
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" usesSingleLineMode="YES" id="5s5-ir-9Cd">
                                                                                     <font key="font" metaFont="system"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
                                                                                 <connections>
                                                                                     <binding destination="0tv-fh-aAf" name="value" keyPath="objectValue.label" id="D8n-Rb-8qJ">
                                                                                         <dictionary key="options">
                                                                                             <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                        </dictionary>
+                                                                                    </binding>
+                                                                                    <binding destination="0tv-fh-aAf" name="textColor" keyPath="objectValue.colorHex" id="jAe-nm-Ol6">
+                                                                                        <dictionary key="options">
+                                                                                            <string key="NSValueTransformerName">ColorTransformer</string>
                                                                                         </dictionary>
                                                                                     </binding>
                                                                                 </connections>
