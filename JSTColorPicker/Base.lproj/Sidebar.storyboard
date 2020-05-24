@@ -17,9 +17,8 @@
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="42" width="270" height="758"/>
                                 <subviews>
-                                    <customView id="s0i-Tq-xqT">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
                                         <rect key="frame" x="0.0" y="0.0" width="270" height="237"/>
-                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlX-Nk-OkF">
                                                 <rect key="frame" x="-3" y="-4" width="276" height="243"/>
@@ -114,9 +113,8 @@
                                             <constraint firstItem="SlX-Nk-OkF" firstAttribute="top" secondItem="s0i-Tq-xqT" secondAttribute="top" id="vja-YA-xzc"/>
                                         </constraints>
                                     </customView>
-                                    <customView misplaced="YES" id="E8g-qZ-f5e">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
                                         <rect key="frame" x="0.0" y="246" width="270" height="56"/>
-                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPz-OZ-Hua">
                                                 <rect key="frame" x="-3" y="-4" width="276" height="59"/>
@@ -259,21 +257,20 @@
                                             <constraint firstItem="HPz-OZ-Hua" firstAttribute="leading" secondItem="E8g-qZ-f5e" secondAttribute="leading" id="yIa-51-qrm"/>
                                         </constraints>
                                     </customView>
-                                    <customView id="XPn-It-24S">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
                                         <rect key="frame" x="0.0" y="311" width="270" height="278"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-zE-Ub5">
-                                                <rect key="frame" x="10" y="-4" width="250" height="284"/>
+                                                <rect key="frame" x="10" y="18" width="250" height="262"/>
                                                 <view key="contentView" id="kW4-LL-dQv">
-                                                    <rect key="frame" x="8" y="0.0" width="234" height="284"/>
+                                                    <rect key="frame" x="8" y="0.0" width="234" height="262"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <view horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7i-wdv" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="4" y="54" width="226" height="226"/>
+                                                            <rect key="frame" x="4" y="32" width="226" height="226"/>
                                                         </view>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="W1Q-HV-wY8" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="4" y="54" width="226" height="226"/>
+                                                            <rect key="frame" x="4" y="32" width="226" height="226"/>
                                                             <subviews>
                                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rhi-Yn-OJy">
                                                                     <rect key="frame" x="96" y="12" width="35" height="13"/>
@@ -292,7 +289,7 @@
                                                             </constraints>
                                                         </customView>
                                                         <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8AH-8J-GW3">
-                                                            <rect key="frame" x="4" y="30" width="226" height="16"/>
+                                                            <rect key="frame" x="4" y="8" width="226" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="u4c-19-v8O"/>
                                                             </constraints>
@@ -326,12 +323,11 @@
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="xEc-bj-Jcd"/>
                                         </constraints>
                                     </customView>
-                                    <customView misplaced="YES" id="H61-xT-7a0">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
                                         <rect key="frame" x="0.0" y="598" width="270" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="270" height="163"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="270" height="185"/>
                                                 <connections>
                                                     <segue destination="JDK-dI-n6a" kind="embed" id="hb4-4p-dHm"/>
                                                 </connections>
