@@ -1,0 +1,24 @@
+
+/* Class = "NSMenuItem"; title = "View Items"; ObjectID = "2V1-x9-KGa"; */
+"2V1-x9-KGa.title" = "查看项";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "5s5-ir-9Cd"; */
+"5s5-ir-9Cd.title" = "表格单元格";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "gEQ-OL-daT"; */
+"gEQ-OL-daT.title" = "删除";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "predicate"; ObjectID = "Jap-qb-z5J"; */
+"Jap-qb-z5J.ibShadowedDisplayName" = "predicate";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "MWq-Mh-IKj"; */
+"MWq-Mh-IKj.title" = "全选";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
+"P0n-tt-x07.placeholderString" = "标签";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "rLA-oc-Whe"; */
+"rLA-oc-Whe.title" = "文本单元格";
+
+/* Class = "NSBox"; title = "Tags"; ObjectID = "yUd-5h-qZT"; */
+"yUd-5h-qZT.title" = "标签";

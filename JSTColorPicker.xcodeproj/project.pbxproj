@@ -320,6 +320,8 @@
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
 		D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */; };
+		D6CD28A5247BAA550051BE18 /* TagListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A4247BAA550051BE18 /* TagListRowView.swift */; };
+		D6CD28A6247BAA550051BE18 /* TagListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A4247BAA550051BE18 /* TagListRowView.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
 		D6DF0F9024292B27001E30F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6DF0F9224292B27001E30F0 /* Localizable.strings */; };
 		D6E2455D23E153340012BE5F /* AnnotatorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455C23E153340012BE5F /* AnnotatorDataSource.swift */; };
@@ -1035,6 +1037,7 @@
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
 		D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorIndicator.swift; sourceTree = "<group>"; };
+		D6CD28A4247BAA550051BE18 /* TagListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListRowView.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D6DF0F9124292B27001E30F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D6DF0F9324292B29001E30F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1147,7 +1150,10 @@
 			isa = PBXGroup;
 			children = (
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
+				1842C47A247988E8008ECD6F /* TagList.storyboard */,
+				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				1842C48024798E63008ECD6F /* TagListController.swift */,
+				D6CD28A4247BAA550051BE18 /* TagListRowView.swift */,
 			);
 			path = TagList;
 			sourceTree = "<group>";
@@ -1615,8 +1621,6 @@
 				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */,
 				1842C472247987C9008ECD6F /* Sidebar.storyboard */,
-				1842C47A247988E8008ECD6F /* TagList.storyboard */,
-				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
@@ -2643,6 +2647,7 @@
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				D610479024224A170002E990 /* ContentResponder.swift in Sources */,
+				D6CD28A5247BAA550051BE18 /* TagListRowView.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
 				D610479324224A170002E990 /* Cocoa+Ext.swift in Sources */,
@@ -2842,6 +2847,7 @@
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,
 				D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */,
+				D6CD28A6247BAA550051BE18 /* TagListRowView.swift in Sources */,
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,

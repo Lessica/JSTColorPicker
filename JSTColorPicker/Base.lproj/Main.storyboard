@@ -459,6 +459,7 @@ CA
                         </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                            <outlet property="initialFirstResponder" destination="0wu-Hd-GrI" id="WSU-oV-EUw"/>
                         </connections>
                     </window>
                     <touchBar key="touchBar" id="ZNC-mo-cGK">
@@ -560,6 +561,14 @@ CA
                 </windowController>
             </objects>
             <point key="canvasLocation" x="-156" y="274"/>
+        </scene>
+        <!--ContentTableView-->
+        <scene sceneID="9nh-PJ-abz">
+            <objects>
+                <controllerPlaceholder storyboardName="Content" referencedIdentifier="ContentTableView" id="0wu-Hd-GrI" sceneMemberID="viewController"/>
+                <customObject id="zO5-Md-TAd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-156" y="518"/>
         </scene>
         <!--Split Controller-->
         <scene sceneID="0aX-sE-QLw">

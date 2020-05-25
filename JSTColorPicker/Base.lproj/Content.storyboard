@@ -20,7 +20,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="308" height="770"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="ContentControllerTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <tableView identifier="ContentTableView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="ContentControllerTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="362" height="745"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -174,6 +174,7 @@
                                                 <outlet property="dataSource" destination="oDF-UT-bv5" id="dJ0-8x-qRa"/>
                                                 <outlet property="delegate" destination="oDF-UT-bv5" id="Fbc-7L-NDn"/>
                                                 <outlet property="menu" destination="ziX-dt-DMr" id="z9p-w8-DHt"/>
+                                                <outlet property="nextKeyView" destination="GsN-Fd-s2i" id="OWR-KV-6oa"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -234,6 +235,7 @@
                                         </textFieldCell>
                                         <connections>
                                             <action selector="addCoordinateFieldChanged:" target="oDF-UT-bv5" id="T6B-Qh-PLk"/>
+                                            <outlet property="nextKeyView" destination="whT-lD-qQJ" id="S8k-XH-04a"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -284,34 +286,34 @@ DQ
 </string>
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="locate:" target="oDF-UT-bv5" id="d6h-vv-dPP"/>
+                                <action selector="locate:" target="YIx-oB-8lo" id="sEq-cm-ZsQ"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="tqz-IX-tjD"/>
                         <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="FUc-jS-0Vm">
                             <connections>
-                                <action selector="copy:" target="oDF-UT-bv5" id="qOk-2h-Oyd"/>
+                                <action selector="copy:" target="YIx-oB-8lo" id="k5U-EW-4W2"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Paste" keyEquivalent="v" toolTip="Paste items from another document" id="COB-7T-s9l">
                             <connections>
-                                <action selector="paste:" target="oDF-UT-bv5" id="5wN-18-Rn0"/>
+                                <action selector="paste:" target="YIx-oB-8lo" id="rh3-0q-hxU"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm" id="q07-T2-0Ey">
                             <connections>
-                                <action selector="smartTrim:" target="oDF-UT-bv5" id="NIQ-11-Etn"/>
+                                <action selector="smartTrim:" target="YIx-oB-8lo" id="Yec-2h-809"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="ghr-h9-c65"/>
                         <menuItem title="Save As..." keyEquivalent="S" toolTip="Save this area to a PNG file" id="qZ8-We-LFE">
                             <connections>
-                                <action selector="saveAs:" target="oDF-UT-bv5" id="c8E-T0-zCB"/>
+                                <action selector="saveAs:" target="YIx-oB-8lo" id="IRG-l1-fNf"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Export As..." keyEquivalent="E" toolTip="Export these items with current template" id="qQO-Qw-Wgz">
                             <connections>
-                                <action selector="exportAs:" target="oDF-UT-bv5" id="mm4-lO-HZu"/>
+                                <action selector="exportAs:" target="YIx-oB-8lo" id="ZzB-b5-lfB"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="WOl-dJ-AqS"/>
@@ -326,7 +328,7 @@ CA
 </string>
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="delete:" target="oDF-UT-bv5" id="UcX-2V-UVn"/>
+                                <action selector="delete:" target="YIx-oB-8lo" id="1i0-7c-QHh"/>
                             </connections>
                         </menuItem>
                     </items>
@@ -397,6 +399,14 @@ CA
                 </menu>
             </objects>
             <point key="canvasLocation" x="2287" y="763"/>
+        </scene>
+        <!--TagSearchField-->
+        <scene sceneID="znG-VI-uh8">
+            <objects>
+                <controllerPlaceholder storyboardName="TagList" referencedIdentifier="TagSearchField" id="whT-lD-qQJ" sceneMemberID="viewController"/>
+                <customObject id="Ihv-Ut-9yz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2288" y="1229"/>
         </scene>
     </scenes>
     <resources>

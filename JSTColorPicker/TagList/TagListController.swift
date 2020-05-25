@@ -8,46 +8,50 @@
 
 import Cocoa
 
-class TagListController: NSViewController {
+class TagListController: NSViewController, NSTableViewDelegate {
     
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: NSArrayController!
+    @IBOutlet var tagMenu: NSMenu!
     @IBOutlet weak var tableView: NSTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        setupPersistentStore(fetchInitialTags: { () -> ([(String, String, String)]) in
+        tagCtrl.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        setupPersistentStore(fetchInitialTags: { () -> ([(String, String)]) in
             return [
                 
                 /* Controls */
-                ("Button",         "button",          "#269A99"),
-                ("Switch",         "switch",          "#5AD8A6"),
-                ("Slider",         "slider",          "#BDEFDB"),
-                ("Checkbox",       "checkbox",        "#FF9D4D"),
-                ("Radio",          "radio",           "#FFD8B8"),
-                ("TextField",      "textfield",       "#BDD2FD"),
-                ("Rate",           "rate",            "#F6BD16"),
-                ("BackTop",        "backtop",         "#FBE5A2"),
-                
-                /* Status */
-                ("Disabled",       "disabled",        "#C2C8D5"),
-                ("Active",         "active",          "#5D7092"),
+                ("Button",         "#171E6D"),
+                ("Switch",         "#1E3388"),
+                ("Slider",         "#27539B"),
+                ("Checkbox",       "#3073AE"),
+                ("Radio",          "#3993C2"),
+                ("TextField",      "#42B3D5"),
+                ("Rate",           "#75C6D1"),
+                ("BackTop",        "#A9DACC"),
                 
                 /* Displays */
-                ("Label",          "label",           "#5B8FF9"),
-                ("Badge",          "badge",           "#E8684A"),
-                ("Media",          "media",           "#9270CA"),
-                ("Alert",          "alert",           "#F6C3B7"),
-                ("Keyboard",       "keyboard",        "#D3C6EA"),
-                ("Progress",       "progress",        "#6DC8EC"),
-                ("Spin",           "spin",            "#B6E3F5"),
+                ("Label",          "#044E48"),
+                ("Badge",          "#06746B"),
+                ("Media",          "#20876B"),
+                ("Box",            "#6A9A48"),
+                ("Hud",            "#B5AC23"),
+                ("Keyboard",       "#E6B80B"),
+                ("Progress",       "#FACA3E"),
+                ("Spin",           "#FFDF80"),
                 
                 /* Layouts */
-                ("TabBar",         "tabbar",          "#FF99C3"),
-                ("NavigationBar",  "navbar",          "#FFD6E7"),
-                ("Skeleton",       "skeleton",        "#AAD8D8"),
+                ("StatusBar",      "#661900"),
+                ("TabBar",         "#B22C00"),
+                ("NavigationBar",  "#E6450F"),
+                ("Skeleton",       "#FF6500"),
+                ("Notification",   "#FF8C00"),
+                
+                /* Status */
+                ("Disabled",       "#657899"),
+                ("Active",         "#1C314E"),
                 
             ]
         }) { [weak self] in
@@ -55,7 +59,7 @@ class TagListController: NSViewController {
         }
     }
     
-    fileprivate func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String, String)]), completionClosure: @escaping () -> ()) {
+    fileprivate func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping () -> ()) {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
         }
@@ -87,11 +91,13 @@ class TagListController: NSViewController {
                     
                     if let self = self {
                         
+                        var idx = 1
                         fetchInitialTags().forEach { (tag) in
                             let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.managedObjectContext) as! Tag
-                            obj.label = tag.0
-                            obj.name = tag.1
-                            obj.colorHex = tag.2
+                            obj.order = Int64(idx)
+                            obj.name = tag.0
+                            obj.colorHex = tag.1
+                            idx += 1
                         }
                         
                         do {
@@ -111,6 +117,10 @@ class TagListController: NSViewController {
             }
             
         }
+    }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return TagListRowView()
     }
     
 }

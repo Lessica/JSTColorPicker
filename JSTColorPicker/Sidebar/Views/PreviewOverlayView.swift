@@ -69,16 +69,18 @@ class PreviewOverlayView: NSView {
         
         // ctx.saveGState()
         
+        let insetArea = highlightArea.insetBy(dx: 1.0, dy: 1.0)
+        
         // fill background
         ctx.setFillColor(PreviewOverlayView.overlayColor)
-        ctx.addRect(highlightArea)
+        ctx.addRect(insetArea)
         ctx.addRect(bounds)
         ctx.fillPath(using: .evenOdd)
         
         // stroke border
         ctx.setLineWidth(PreviewOverlayView.overlayBorderWidth)
         ctx.setStrokeColor(PreviewOverlayView.overlayBorderColor)
-        ctx.addRect(highlightArea)
+        ctx.addRect(insetArea)
         ctx.strokePath()
         
         // ctx.restoreGState()

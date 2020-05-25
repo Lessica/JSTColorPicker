@@ -1,0 +1,24 @@
+
+/* Class = "NSMenuItem"; title = "View Items"; ObjectID = "2V1-x9-KGa"; */
+"2V1-x9-KGa.title" = "View Items";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "5s5-ir-9Cd"; */
+"5s5-ir-9Cd.title" = "Table View Cell";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "gEQ-OL-daT"; */
+"gEQ-OL-daT.title" = "Delete";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "predicate"; ObjectID = "Jap-qb-z5J"; */
+"Jap-qb-z5J.ibShadowedDisplayName" = "predicate";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "MWq-Mh-IKj"; */
+"MWq-Mh-IKj.title" = "Select All";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
+"P0n-tt-x07.placeholderString" = "Tags";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "rLA-oc-Whe"; */
+"rLA-oc-Whe.title" = "Text Cell";
+
+/* Class = "NSBox"; title = "Tags"; ObjectID = "yUd-5h-qZT"; */
+"yUd-5h-qZT.title" = "Tags";
