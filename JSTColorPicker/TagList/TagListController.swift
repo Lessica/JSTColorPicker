@@ -11,8 +11,7 @@ import Cocoa
 class TagListController: NSViewController, NSTableViewDelegate {
     
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
-    @IBOutlet var tagCtrl: NSArrayController!
-    @IBOutlet var tagMenu: NSMenu!
+    @IBOutlet var tagCtrl: TagController!
     @IBOutlet weak var tableView: NSTableView!
 
     override func viewDidLoad() {
@@ -83,7 +82,9 @@ class TagListController: NSViewController, NSTableViewDelegate {
                 
                 let storeURL = docURL.appendingPathComponent("JSTColorPicker/TagList.sqlite")
                 if FileManager.default.fileExists(atPath: storeURL.path) {
+                    
                     try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+                    
                 } else {
                     
                     try FileManager.default.createDirectory(at: storeURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
@@ -111,16 +112,11 @@ class TagListController: NSViewController, NSTableViewDelegate {
                 }
                 
                 DispatchQueue.main.sync(execute: completionClosure)
-            }
-            catch let error {
+            } catch {
                 fatalError("error migrating store: \(error)")
             }
             
         }
-    }
-    
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return TagListRowView()
     }
     
 }

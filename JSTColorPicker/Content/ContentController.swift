@@ -279,7 +279,7 @@ class ContentController: NSViewController {
                 throw ContentError.itemNotValid(item: inputVal)
             }
             
-        } catch let error {
+        } catch {
             presentError(error)
         }
         
@@ -654,7 +654,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 try screenshot?.export.copyContentItems(selectedItems)
             }
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -663,7 +663,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         guard let items = screenshot?.export.importFromAdditionalPasteboard() else { return }
         do {
             try importContentItems(items)
-        } catch let error {
+        } catch {
             presentError(error)
         }
     }
@@ -687,7 +687,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         do {
             try data.write(to: url)
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -709,7 +709,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 }
             }
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -718,7 +718,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         do {
             try screenshot?.export.exportItems(items, to: url)
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -775,7 +775,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 NSSound.beep()
                 return
             }
-        } catch let error {
+        } catch {
             presentError(error)
         }
     }

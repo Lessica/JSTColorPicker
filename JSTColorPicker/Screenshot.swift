@@ -182,7 +182,7 @@ class Screenshot: NSDocument {
                 try windowController.load(self)
                 windowController.showWindow(self)
             }
-        } catch let error {
+        } catch {
             debugPrint(error)
         }
     }

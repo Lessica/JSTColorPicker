@@ -21,7 +21,7 @@ class ColorTransformer: ValueTransformer {
     
     override func transformedValue(_ value: Any?) -> Any? {
         guard let type = value as? String else { return nil }
-        return NSColor.fromHexString(hex: type, alpha: 1.0)
+        return NSColor(css: type, alpha: 1.0)
     }
 
 }

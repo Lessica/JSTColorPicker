@@ -67,19 +67,19 @@ extension String  {
 }
 
 extension NSColor {
-    class func fromHex(hex: Int, alpha: CGFloat) -> NSColor {
-        let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
-        let blue = CGFloat((hex & 0xFF)) / 255.0
-        return NSColor(calibratedRed: red, green: green, blue: blue, alpha: alpha)
+    convenience init(css: Int, alpha: CGFloat) {
+        let red = CGFloat((css & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((css & 0xFF00) >> 8) / 255.0
+        let blue = CGFloat((css & 0xFF)) / 255.0
+        self.init(calibratedRed: red, green: green, blue: blue, alpha: alpha)
     }
-    class func fromHexString(hex: String, alpha: CGFloat) -> NSColor? {
+    convenience init?(css: String, alpha: CGFloat) {
         // Handle two types of literals: 0x and # prefixed
         var cleanedString = ""
-        if hex.hasPrefix("0x") {
-            cleanedString = String(hex.dropFirst(2))
-        } else if hex.hasPrefix("#") {
-            cleanedString = String(hex.dropFirst(1))
+        if css.hasPrefix("0x") {
+            cleanedString = String(css.dropFirst(2))
+        } else if css.hasPrefix("#") {
+            cleanedString = String(css.dropFirst(1))
         }
         // Ensure it only contains valid hex characters 0
         let validHexPattern = "[a-fA-F0-9]+"
@@ -90,9 +90,18 @@ extension NSColor {
             let red = CGFloat((theInt & 0xFF0000) >> 16) / 255.0
             let green = CGFloat((theInt & 0xFF00) >> 8) / 255.0
             let blue = CGFloat((theInt & 0xFF)) / 255.0
-            return NSColor(calibratedRed: red, green: green, blue: blue, alpha: alpha)
+            self.init(calibratedRed: red, green: green, blue: blue, alpha: alpha)
         } else {
             return nil
         }
+    }
+    public var sharpCSS: String {
+        guard colorSpace == NSColorSpace.sRGB || colorSpace == NSColorSpace.deviceRGB || colorSpace == NSColorSpace.genericRGB else {
+            return "#FFFFFF"
+        }
+        return String(format: "#%02X%02X%02X", Int(redComponent * 0xFF), Int(greenComponent * 0xFF), Int(blueComponent * 0xFF))
+    }
+    static var random: NSColor {
+        return NSColor(calibratedRed: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
     }
 }

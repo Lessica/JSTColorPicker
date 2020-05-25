@@ -299,7 +299,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 picturesURL.appendPathExtension("png")
                 try data.write(to: picturesURL)
                 seal.fulfill(picturesURL)
-            } catch let error {
+            } catch {
                 seal.reject(error)
             }
         }

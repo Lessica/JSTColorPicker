@@ -160,7 +160,7 @@ extension SplitController: ScreenshotLoader {
             try contentController.load(screenshot)
             try sceneController.load(screenshot)
             try sidebarController.load(screenshot)
-        } catch let error {
+        } catch {
             if let _ = screenshot.fileURL {
                 presentError(error)
             }
@@ -174,7 +174,7 @@ extension SplitController: ContentResponder {
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.addContentItem(of: coordinate)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -183,7 +183,7 @@ extension SplitController: ContentResponder {
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
         do {
             return try contentController.addContentItem(of: rect)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -192,7 +192,7 @@ extension SplitController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         do {
             return try contentController.updateContentItem(item, to: rect)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -201,7 +201,7 @@ extension SplitController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.updateContentItem(item, to: coordinate)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -210,7 +210,7 @@ extension SplitController: ContentResponder {
     func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
         do {
             return try contentController.selectContentItem(item)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -219,7 +219,7 @@ extension SplitController: ContentResponder {
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(of: coordinate)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil
@@ -228,7 +228,7 @@ extension SplitController: ContentResponder {
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(item)
-        } catch let error {
+        } catch {
             presentError(error)
         }
         return nil

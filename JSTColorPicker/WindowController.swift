@@ -142,7 +142,7 @@ class WindowController: NSWindowController {
                     }
                     self?.showSheet(nil, completionHandler: nil)
                 }
-            } catch let error {
+            } catch {
                 DispatchQueue.main.sync { [weak self] in
                     let errorAlert = NSAlert(error: error)
                     self?.showSheet(errorAlert, completionHandler: { [weak self] (resp) in

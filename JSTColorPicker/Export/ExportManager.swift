@@ -135,7 +135,7 @@ class ExportManager {
         } catch let error as TemplateError {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
-        } catch let error {
+        } catch {
             throw error
         }
     }
@@ -150,7 +150,7 @@ class ExportManager {
         } catch let error as TemplateError {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
-        } catch let error {
+        } catch {
             throw error
         }
     }

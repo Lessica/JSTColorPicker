@@ -236,7 +236,7 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
                 }
             }
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -245,7 +245,7 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         do {
             try screenshot?.export.exportAllItems(to: url)
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
@@ -298,7 +298,7 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         do {
             try screenshot?.export.reloadTemplates()
         }
-        catch let error {
+        catch {
             presentError(error)
         }
     }
