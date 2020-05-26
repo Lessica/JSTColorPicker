@@ -1,18 +1,15 @@
 
-/* Class = "NSMenuItem"; title = "View Items"; ObjectID = "2V1-x9-KGa"; */
-"2V1-x9-KGa.title" = "View Items";
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "36l-Jz-ijV"; */
+"36l-Jz-ijV.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "5s5-ir-9Cd"; */
-"5s5-ir-9Cd.title" = "Table View Cell";
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected tags"; ObjectID = "GwW-Rj-u1w"; */
+"GwW-Rj-u1w.ibShadowedToolTip" = "Remove selected tags";
 
-/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "gEQ-OL-daT"; */
-"gEQ-OL-daT.title" = "Delete";
+/* Class = "NSButton"; ibShadowedToolTip = "Insert a tag before selection"; ObjectID = "J0k-D4-VsM"; */
+"J0k-D4-VsM.ibShadowedToolTip" = "Insert a tag before selection";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "predicate"; ObjectID = "Jap-qb-z5J"; */
 "Jap-qb-z5J.ibShadowedDisplayName" = "predicate";
-
-/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "MWq-Mh-IKj"; */
-"MWq-Mh-IKj.title" = "Select All";
 
 /* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
 "P0n-tt-x07.placeholderString" = "Tags";

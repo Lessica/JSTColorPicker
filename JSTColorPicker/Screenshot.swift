@@ -130,7 +130,7 @@ class Screenshot: NSDocument {
         return destData as Data
     }
     
-    // it is safe to write png files asynchronously
+    // is it safe to write png files asynchronously?
     override func canAsynchronouslyWrite(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) -> Bool {
         return true
     }

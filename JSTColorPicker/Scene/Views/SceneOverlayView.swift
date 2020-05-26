@@ -13,6 +13,8 @@ class SceneOverlayView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = false
+        
+        registerForDraggedTypes([TagListController.dragDropType])
     }
     
     override var isFlipped: Bool { return true }
@@ -69,11 +71,11 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func mouseMoved(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func mouseExited(with event: NSEvent) {
@@ -81,49 +83,49 @@ class SceneOverlayView: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func mouseUp(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func rightMouseUp(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func mouseDragged(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func rightMouseDragged(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func scrollWheel(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func magnify(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     override func smartMagnify(with event: NSEvent) {
-        updateAppearance(with: event)
+        updateAppearance(with: event.locationInWindow)
     }
     
     public func updateAppearance() {
         updateAppearance(with: nil)
     }
     
-    fileprivate func updateAppearance(with event: NSEvent?) {
+    fileprivate func updateAppearance(with locInWindow: CGPoint?) {
         guard isMouseInside else { return }
-        internalUpdateFocusAppearance(with: event)
-        internalUpdateCursorAppearance(with: event)
+        internalUpdateFocusAppearance(with: locInWindow)
+        internalUpdateCursorAppearance(with: locInWindow)
     }
     
     fileprivate func resetAppearance() {
@@ -131,16 +133,13 @@ class SceneOverlayView: NSView {
         internalResetCursorAppearance()
     }
     
-    fileprivate func internalUpdateFocusAppearance(with event: NSEvent?) {
+    fileprivate func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
         guard sceneTool == .selectionArrow else {
             internalResetFocusAppearance()
             return
         }
         
-        var mouseLocation: CGPoint
-        if let event = event { mouseLocation = event.locationInWindow }
-        else if let window = window { mouseLocation = window.mouseLocationOutsideOfEventStream }
-        else { return }
+        guard let mouseLocation: CGPoint = locInWindow ?? window?.mouseLocationOutsideOfEventStream else { return }
         
         let loc = convert(mouseLocation, from: nil)
         if let overlay = self.frontmostOverlay(at: loc) {
@@ -164,7 +163,7 @@ class SceneOverlayView: NSView {
         }
     }
     
-    fileprivate func internalUpdateCursorAppearance(with event: NSEvent?) {
+    fileprivate func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
         guard let sceneToolDataSource = sceneToolDataSource else { return }
         if sceneToolDataSource.sceneToolEnabled(self) {
             if sceneState.isManipulating {
@@ -176,10 +175,7 @@ class SceneOverlayView: NSView {
                 }
             }
             else if let focusedOverlay = focusedOverlay {
-                var mouseLocation: CGPoint?
-                if let event = event { mouseLocation = event.locationInWindow }
-                else if let window = window { mouseLocation = window.mouseLocationOutsideOfEventStream }
-                if let mouseLocation = mouseLocation {
+                if let mouseLocation = locInWindow ?? window?.mouseLocationOutsideOfEventStream {
                     let locInOverlay = focusedOverlay.convert(mouseLocation, from: nil)
                     let direction = focusedOverlay.direction(at: locInOverlay)
                     sceneTool.focusingCursorForEditableDirection(direction).set()
@@ -203,6 +199,38 @@ class SceneOverlayView: NSView {
     
     fileprivate func internalResetCursorAppearance() {
         SceneTool.arrowCursor.set()
+    }
+    
+    
+    // MARK: - Drag/Drop
+    
+    fileprivate func updateDraggingAppearance(with locInWindow: CGPoint?) {
+        guard isMouseInside else { return }
+        internalUpdateFocusAppearance(with: locInWindow)
+    }
+    
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        updateDraggingAppearance(with: sender.draggingLocation)
+        if internalFocusedOverlay != nil {
+            return .copy
+        }
+        return []
+    }
+    
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        updateDraggingAppearance(with: sender.draggingLocation)
+        if internalFocusedOverlay != nil {
+            return .copy
+        }
+        return []
+    }
+    
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        resetAppearance()
+    }
+    
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        return false
     }
     
 }

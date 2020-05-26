@@ -8,16 +8,32 @@
 
 import Cocoa
 
-class TagListController: NSViewController, NSTableViewDelegate {
+class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: TagController!
     @IBOutlet weak var tableView: NSTableView!
+    
+    fileprivate var undoToken: NotificationToken?
+    fileprivate var redoToken: NotificationToken?
+    
+    static public var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.tag.table-row")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tagCtrl.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        tableView.registerForDraggedTypes([TagListController.dragDropType])
+        
+        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
+            self.tagCtrl.rearrangeObjects()
+        }
+        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
+            self.tagCtrl.rearrangeObjects()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
+        
         setupPersistentStore(fetchInitialTags: { () -> ([(String, String)]) in
             return [
                 
@@ -53,12 +69,18 @@ class TagListController: NSViewController, NSTableViewDelegate {
                 ("Active",         "#1C314E"),
                 
             ]
-        }) { [weak self] in
-            self?.tableView.reloadData()
+        }) { [weak self] (_ error: Error?) in
+            if let error = error {
+                self?.presentError(error)
+                return
+            }
+            self?.managedObjectContext.undoManager = self?.undoManager
+            self?.tagCtrl.rearrangeObjects()
         }
+        
     }
     
-    fileprivate func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping () -> ()) {
+    fileprivate func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
         }
@@ -70,13 +92,12 @@ class TagListController: NSViewController, NSTableViewDelegate {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
         managedObjectContext.persistentStoreCoordinator = coordinator
         
-        let queue = DispatchQueue.global(qos: .background)
+        guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+            fatalError("unable to resolve library directory")
+        }
         
+        let queue = DispatchQueue.global(qos: .background)
         queue.async { [weak self] in
-            
-            guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
-                fatalError("unable to resolve library directory")
-            }
             
             do {
                 
@@ -104,19 +125,161 @@ class TagListController: NSViewController, NSTableViewDelegate {
                         do {
                             try self.managedObjectContext.save()
                         } catch {
-                            fatalError("failure to save context: \(error)")
+                            DispatchQueue.main.sync {
+                                completionClosure(error)
+                            }
                         }
                         
                     }
                     
                 }
                 
-                DispatchQueue.main.sync(execute: completionClosure)
+                DispatchQueue.main.sync {
+                    completionClosure(nil)
+                }
             } catch {
-                fatalError("error migrating store: \(error)")
+                DispatchQueue.main.sync {
+                    completionClosure(error)
+                }
             }
             
         }
+    }
+    
+    
+    // MARK: - Actions
+    
+    @IBAction private func insertTagBtnTapped(_ sender: NSButton) {
+        tagCtrl.insert(sender)
+        setNeedsRearrangeMOC()
+        setNeedsSaveMOC()
+    }
+    
+    @IBAction private func removeTagBtnTapped(_ sender: NSButton) {
+        tagCtrl.remove(sender)
+        setNeedsSaveMOC()
+    }
+    
+    @IBAction private func tagFieldValueChanged(_ sender: NSTextField) {
+        setNeedsSaveMOC()
+    }
+    
+    @objc private func mocDidChangeNotification(_ noti: NSNotification) {
+        guard let moc = noti.object as? NSManagedObjectContext else { return }
+        guard moc == managedObjectContext else { return }
+        rearrangeMOCIfNeeded()
+        saveMOCIfNeeded()
+    }
+    
+    fileprivate var shouldRearrangeMOC: Bool = false
+    fileprivate var shouldSaveMOC: Bool = false
+    
+    fileprivate func setNeedsRearrangeMOC() {
+        shouldRearrangeMOC = true
+    }
+    
+    fileprivate func setNeedsSaveMOC() {
+        shouldSaveMOC = true
+    }
+    
+    fileprivate func saveMOCIfNeeded() {
+        guard shouldSaveMOC else { return }
+        shouldSaveMOC = false
+        guard managedObjectContext.hasChanges else { return }
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            if error.code == 133021, let itemName = ((managedObjectContext.insertedObjects.first ?? managedObjectContext.updatedObjects.first) as? Tag)?.name {
+                presentError(ContentError.itemExists(item: itemName))
+            } else {
+                presentError(error)
+            }
+            managedObjectContext.rollback()
+        } catch {
+            presentError(error)
+            managedObjectContext.rollback()
+        }
+    }
+    
+    fileprivate func rearrangeMOCIfNeeded() {
+        guard shouldRearrangeMOC else { return }
+        shouldRearrangeMOC = false
+        guard let items = tagCtrl.arrangedObjects as? [Tag] else { return }
+        reorderTags(items)
+    }
+    
+    fileprivate func reorderTags(_ items: [Tag]) {
+        var itemIdx: Int64 = 0
+        items.forEach({
+            $0.order = itemIdx
+            itemIdx += 1
+        })
+    }
+    
+    
+    // MARK: - Drag/Drop
+    
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return nil }
+        let item = NSPasteboardItem()
+        item.setPropertyList([
+            "row": row,
+            "name": collection[row].name ?? ""
+        ], forType: TagListController.dragDropType)
+        return item
+    }
+    
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard tagCtrl.filterPredicate == nil else { return [] }
+        if dropOperation == .above {
+            return .move
+        }
+        return []
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        guard var collection = tagCtrl.arrangedObjects as? [Tag] else { return false }
+        
+        var oldIndexes = [Int]()
+        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.dragDropType) as? [String: Any],
+                let index = obj["row"] as? Int
+            {
+                oldIndexes.append(index)
+            }
+        }
+
+        var oldIndexOffset = 0
+        var newIndexOffset = 0
+
+        // For simplicity, the code below uses `tableView.moveRowAtIndex` to move rows around directly.
+        // You may want to move rows in your content array and then call `tableView.reloadData()` instead.
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0
+        
+        tableView.beginUpdates()
+        for oldIndex in oldIndexes {
+            if oldIndex < row {
+                let tag = collection.remove(at: oldIndex + oldIndexOffset)
+                collection.insert(tag, at: row - 1)
+                tableView.moveRow(at: oldIndex + oldIndexOffset, to: row - 1)
+                oldIndexOffset -= 1
+            } else {
+                let tag = collection.remove(at: oldIndex)
+                collection.insert(tag, at: row + newIndexOffset)
+                tableView.moveRow(at: oldIndex, to: row + newIndexOffset)
+                newIndexOffset += 1
+            }
+        }
+        tableView.endUpdates()
+        
+        NSAnimationContext.endGrouping()
+        
+        reorderTags(collection)
+        tagCtrl.content = NSMutableArray(array: collection)
+        
+        setNeedsSaveMOC()
+        return true
     }
     
 }

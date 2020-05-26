@@ -3,7 +3,7 @@
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String" defaultValueString="#000000" regularExpressionString="#[0-9a-fA-F]{6}"/>
         <attribute name="message" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="Unnamed" spotlightIndexingEnabled="YES"/>
+        <attribute name="name" attributeType="String" minValueString="1" defaultValueString="Untitled" spotlightIndexingEnabled="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
