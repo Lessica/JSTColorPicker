@@ -13,6 +13,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: TagController!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet var tagMenu: NSMenu!
     
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
@@ -149,13 +150,18 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     
     // MARK: - Actions
     
-    @IBAction private func insertTagBtnTapped(_ sender: NSButton) {
+    @IBAction func delete(_ sender: Any) {
+        //removeTagBtnTapped(sender)
+        // TODO: delete tags
+    }
+    
+    @IBAction private func insertTagBtnTapped(_ sender: Any) {
         tagCtrl.insert(sender)
         setNeedsRearrangeMOC()
         setNeedsSaveMOC()
     }
     
-    @IBAction private func removeTagBtnTapped(_ sender: NSButton) {
+    @IBAction private func removeTagBtnTapped(_ sender: Any) {
         tagCtrl.remove(sender)
         setNeedsSaveMOC()
     }

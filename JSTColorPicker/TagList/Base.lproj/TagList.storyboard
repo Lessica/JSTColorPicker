@@ -105,6 +105,7 @@
                                                         <connections>
                                                             <outlet property="dataSource" destination="ifY-36-Ao8" id="meA-Ps-bdn"/>
                                                             <outlet property="delegate" destination="ifY-36-Ao8" id="RBz-jj-cEy"/>
+                                                            <outlet property="menu" destination="ftf-wG-U6b" id="2Ys-pG-Jlf"/>
                                                             <outlet property="nextKeyView" destination="wFY-S4-W5D" id="gRN-1Q-eaq"/>
                                                         </connections>
                                                     </tableView>
@@ -199,6 +200,7 @@
                         <outlet property="managedObjectContext" destination="YLI-lU-QNR" id="C9w-aQ-X8v"/>
                         <outlet property="tableView" destination="rNA-mn-1hm" id="mNb-rm-Yep"/>
                         <outlet property="tagCtrl" destination="lSV-Dz-huJ" id="CcU-lL-xia"/>
+                        <outlet property="tagMenu" destination="ftf-wG-U6b" id="MUB-xx-Pyk"/>
                     </connections>
                 </viewController>
                 <customObject id="ykx-Es-M9D" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -208,6 +210,31 @@
                         <outlet property="managedObjectContext" destination="YLI-lU-QNR" id="86n-CU-bZN"/>
                     </connections>
                 </arrayController>
+                <menu id="ftf-wG-U6b">
+                    <items>
+                        <menuItem title="Change Color" id="Ndd-m7-WU5">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="t2T-iT-AIi"/>
+                        <menuItem title="Select All" keyEquivalent="a" id="jlg-DV-J8c">
+                            <connections>
+                                <action selector="selectAll:" target="ykx-Es-M9D" id="hvV-cG-Dlu"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Delete" id="Jns-u7-V7q">
+                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="delete:" target="ykx-Es-M9D" id="UZ9-vh-7Ae"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="ifY-36-Ao8" id="k0U-w0-Y9L"/>
+                    </connections>
+                </menu>
             </objects>
             <point key="canvasLocation" x="48" y="202"/>
         </scene>
