@@ -20,7 +20,7 @@
                                     <rect key="frame" x="8" y="8" width="238" height="342"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <searchField identifier="TagSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ">
+                                        <searchField identifier="TagSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ">
                                             <rect key="frame" x="0.0" y="320" width="238" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="BJk-Wg-z1n"/>

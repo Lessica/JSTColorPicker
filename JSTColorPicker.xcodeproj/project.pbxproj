@@ -1566,6 +1566,7 @@
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */,
 				D645E4A223E812020039F4F6 /* Annotators */,
 				D69974CE2414ADF500223B31 /* Models */,
 				D6729C0F240FCBE3000339C2 /* Views */,
@@ -1617,24 +1618,21 @@
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
-				D658AFA323CB180D0098C567 /* Main.storyboard */,
-				1842C4672479832C008ECD6F /* Content.storyboard */,
-				D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */,
-				1842C472247987C9008ECD6F /* Sidebar.storyboard */,
-				D6729C07240FC7FC000339C2 /* Extensions */,
+				D69974E22416574D00223B31 /* Help */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
+				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D649231623CC64490067C04A /* Scene */,
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
+				1842C47F24798E46008ECD6F /* TagList */,
+				D699E0C42408E4960011A4CB /* Preferences */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				D631E2C823F7FAC300652B17 /* Export */,
-				D699E0C42408E4960011A4CB /* Preferences */,
-				D69974E22416574D00223B31 /* Help */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
-				1842C47F24798E46008ECD6F /* TagList */,
+				D6729C07240FC7FC000339C2 /* Extensions */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
@@ -1751,6 +1749,7 @@
 		D682FC8F23D6DB1800DA1750 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
 				D66CABE823F583E000BFB4CB /* ContentResponder.swift */,
@@ -2119,6 +2118,7 @@
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				1842C472247987C9008ECD6F /* Sidebar.storyboard */,
 				D69974D12414B79A00223B31 /* Models */,
 				D6729C10240FCBFC000339C2 /* Views */,
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,

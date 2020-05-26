@@ -281,6 +281,7 @@ class ContentController: NSViewController {
             
         } catch {
             presentError(error)
+            makeFirstResponder(sender)
         }
         
     }
