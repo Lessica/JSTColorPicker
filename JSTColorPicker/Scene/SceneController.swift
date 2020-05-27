@@ -373,16 +373,18 @@ class SceneController: NSViewController {
         }
     }
     
-    fileprivate func monitorWindowFlagsChanged(with event: NSEvent) -> Bool {
+    @discardableResult
+    fileprivate func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         var handled = false
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
+        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
+        switch modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
         case [.option]:
-            handled = useOptionModifiedSceneTool()
-        case [.command]:
-            handled = useCommandModifiedSceneTool()
+            handled = useOptionModifiedSceneTool(forceReset)
+        case [.control]:
+            handled = useCommandModifiedSceneTool(forceReset)
         default:
-            handled = useSelectedSceneTool()
+            handled = useSelectedSceneTool(forceReset)
         }
         if handled && sceneView.isMouseInside {
             sceneOverlayView.updateAppearance()
@@ -391,13 +393,14 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useOptionModifiedSceneTool() -> Bool {
-        if sceneState.isManipulating { return false }
-        if sceneTool == .magnifyingGlass {
+    fileprivate func useOptionModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+        guard forceReset || !sceneState.isManipulating else { return false }
+        let selectedSceneTool = windowSelectedSceneTool
+        if selectedSceneTool == .magnifyingGlass {
             internalSceneTool = .minifyingGlass
             return true
         }
-        else if sceneTool == .minifyingGlass {
+        else if selectedSceneTool == .minifyingGlass {
             internalSceneTool = .magnifyingGlass
             return true
         }
@@ -405,16 +408,17 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useCommandModifiedSceneTool() -> Bool {
-        if sceneState.isManipulating { return false }
-        if sceneTool == .magicCursor {
+    fileprivate func useCommandModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+        guard forceReset || !sceneState.isManipulating else { return false }
+        let selectedSceneTool = windowSelectedSceneTool
+        if selectedSceneTool == .magicCursor {
             internalSceneTool = .selectionArrow
             return true
         }
-        else if sceneTool == .magnifyingGlass
-            || sceneTool == .minifyingGlass
-            || sceneTool == .selectionArrow
-            || sceneTool == .movingHand
+        else if selectedSceneTool == .magnifyingGlass
+            || selectedSceneTool == .minifyingGlass
+            || selectedSceneTool == .selectionArrow
+            || selectedSceneTool == .movingHand
         {
             internalSceneTool = .magicCursor
             return true
@@ -423,7 +427,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useSelectedSceneTool() -> Bool {
+    fileprivate func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
         internalSceneTool = windowSelectedSceneTool
         return true
     }
@@ -501,8 +505,10 @@ class SceneController: NSViewController {
         try? screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
         return true
     }
-     
-    fileprivate func monitorWindowKeyDown(with event: NSEvent) -> Bool {
+    
+    @discardableResult
+    fileprivate func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
+        guard let event = event else { return false }
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         
@@ -676,6 +682,10 @@ extension SceneController: SceneToolDataSource {
             return canMinify
         }
         return true
+    }
+    
+    func resetSceneTool() {
+        monitorWindowFlagsChanged(with: nil, forceReset: true)
     }
     
 }

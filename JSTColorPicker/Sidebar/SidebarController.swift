@@ -90,6 +90,7 @@ class SidebarController: NSViewController {
         let panel = NSColorPanel.shared
         panel.showsAlpha = true
         panel.isContinuous = false
+        panel.mode = .RGB
         return panel
     }
     fileprivate static var byteFormatter: ByteCountFormatter = {
@@ -152,6 +153,8 @@ CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 \(color.coordinate.description.leftPadding(to: 13, with: " "))
 """
                 colorPanel.color = nsColor
+                colorPanel.setTarget(nil)
+                colorPanel.setAction(nil)
             }
         }
         else if let area = item as? PixelArea {
@@ -207,6 +210,8 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     
     @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
         colorPanel.color = sender.color
+        colorPanel.setTarget(nil)
+        colorPanel.setAction(nil)
         colorPanel.orderFront(sender)
     }
     
@@ -590,6 +595,14 @@ extension SidebarController: PixelMatchResponder {
         imageSource2 = nil
         exitComparisonHandler = nil
         updateInformationPanel()
+    }
+    
+}
+
+extension SidebarController {
+    
+    public var tagListController: TagListController! {
+        return children.first as? TagListController
     }
     
 }

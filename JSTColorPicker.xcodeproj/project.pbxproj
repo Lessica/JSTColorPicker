@@ -271,6 +271,16 @@
 		D67A89992427B817002A6DDF /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D67A89982427B817002A6DDF /* ToolbarIcon.tiff */; };
 		D67A89A52427D7B8002A6DDF /* JSTColorPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D67A89A72427D7B8002A6DDF /* JSTColorPanel.xib */; };
 		D67A89AE2427D8A8002A6DDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D67A89B02427D8A8002A6DDF /* Localizable.strings */; };
+		D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */; };
+		D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */; };
+		D67A8F10247E6D6000153DE5 /* ConnectionDragController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */; };
+		D67A8F11247E6D6000153DE5 /* ConnectionDragController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */; };
+		D67A8F12247E6D6000153DE5 /* LineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */; };
+		D67A8F13247E6D6000153DE5 /* LineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */; };
+		D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */; };
+		D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */; };
+		D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */; };
+		D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */; };
 		D67C51C623F1361800829B51 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
 		D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */; };
 		D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C923F137B900829B51 /* EditableOverlay.swift */; };
@@ -865,6 +875,11 @@
 		D67A89AB2427D7BE002A6DDF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/JSTColorPanel.strings"; sourceTree = "<group>"; };
 		D67A89AF2427D8A8002A6DDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D67A89B12427D8AC002A6DDF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragEndpoint.swift; sourceTree = "<group>"; };
+		D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDragController.swift; sourceTree = "<group>"; };
+		D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineOverlay.swift; sourceTree = "<group>"; };
+		D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetainingViewController.swift; sourceTree = "<group>"; };
+		D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListOverlayView.swift; sourceTree = "<group>"; };
 		D67C51C523F1361800829B51 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		D67C51C723F1365500829B51 /* AnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D67C51C923F137B900829B51 /* EditableOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableOverlay.swift; sourceTree = "<group>"; };
@@ -1153,6 +1168,7 @@
 				1842C47A247988E8008ECD6F /* TagList.storyboard */,
 				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				D6CD28A7247BD4670051BE18 /* TagController.swift */,
+				D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */,
 				1842C48024798E63008ECD6F /* TagListController.swift */,
 			);
 			path = TagList;
@@ -1633,6 +1649,7 @@
 				D631E2C823F7FAC300652B17 /* Export */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
+				D67A8F09247E6D2E00153DE5 /* DragLine */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
@@ -1744,6 +1761,17 @@
 				D67A89982427B817002A6DDF /* ToolbarIcon.tiff */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D67A8F09247E6D2E00153DE5 /* DragLine */ = {
+			isa = PBXGroup;
+			children = (
+				D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */,
+				D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */,
+				D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */,
+				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
+			);
+			path = DragLine;
 			sourceTree = "<group>";
 		};
 		D682FC8F23D6DB1800DA1750 /* Content */ = {
@@ -2662,7 +2690,9 @@
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
 				D61047A024224A170002E990 /* EditableOverlay.swift in Sources */,
+				D67A8F12247E6D6000153DE5 /* LineOverlay.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
+				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
 				D61047A324224A170002E990 /* ToolbarResponder.swift in Sources */,
 				D61047A424224A170002E990 /* Template.swift in Sources */,
@@ -2684,8 +2714,10 @@
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
+				D67A8F10247E6D6000153DE5 /* ConnectionDragController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
+				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				D61047B724224A170002E990 /* ContentTableView.swift in Sources */,
 				D61047B824224A170002E990 /* PreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
@@ -2696,6 +2728,7 @@
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
+				D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				D61047C124224A170002E990 /* SceneTool.swift in Sources */,
 				D61047C224224A170002E990 /* CoreGraphics+Ext.swift in Sources */,
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
@@ -2784,9 +2817,11 @@
 				D6E2455D23E153340012BE5F /* AnnotatorDataSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
+				D67A8F13247E6D6000153DE5 /* LineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
+				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
@@ -2794,10 +2829,12 @@
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
+				D67A8F11247E6D6000153DE5 /* ConnectionDragController.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentResponder.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
@@ -2844,6 +2881,7 @@
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
+				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,

@@ -11,6 +11,7 @@ import Cocoa
 protocol SceneToolDataSource: class {
     var sceneTool: SceneTool { get }
     func sceneToolEnabled(_ sender: Any) -> Bool
+    func resetSceneTool()
 }
 
 enum SceneTool: String {

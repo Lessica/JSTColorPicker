@@ -363,7 +363,7 @@ CA
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
             </objects>
-            <point key="canvasLocation" x="-156" y="-76"/>
+            <point key="canvasLocation" x="-568" y="-68"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -556,11 +556,27 @@ CA
                         <outlet property="touchBarSceneActionControl" destination="E0k-qA-DRk" id="0M3-09-dSl"/>
                         <outlet property="touchBarSceneToolControl" destination="IfU-je-mpH" id="Kmu-Bf-kgA"/>
                         <outlet property="touchBarScreenshotItem" destination="Tud-ma-aIR" id="dz1-AP-WmP"/>
-                        <segue destination="6eT-at-2NW" kind="relationship" relationship="window.shadowedContentViewController" id="jok-74-4jv"/>
+                        <segue destination="KqA-fc-gUf" kind="relationship" relationship="window.shadowedContentViewController" id="4US-Ff-ae8"/>
                     </connections>
                 </windowController>
             </objects>
-            <point key="canvasLocation" x="-156" y="274"/>
+            <point key="canvasLocation" x="-568" y="274"/>
+        </scene>
+        <!--Retaining View Controller-->
+        <scene sceneID="0bD-xN-wuN">
+            <objects>
+                <viewController id="KqA-fc-gUf" customClass="RetainingViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <containerView key="view" id="sRd-nS-edv">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <segue destination="6eT-at-2NW" kind="embed" id="cRo-8q-ZDL"/>
+                        </connections>
+                    </containerView>
+                </viewController>
+                <customObject id="xKd-JE-N2P" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2" y="246"/>
         </scene>
         <!--ContentTableView-->
         <scene sceneID="9nh-PJ-abz">

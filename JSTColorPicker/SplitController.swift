@@ -62,6 +62,10 @@ extension SplitController: DropViewDelegate {
         return children[2] as? SidebarController
     }
     
+    fileprivate var tagListController: TagListController! {
+        return sidebarController.tagListController
+    }
+    
     fileprivate var windowTitle: String {
         get {
             return view.window?.title ?? ""
@@ -151,7 +155,7 @@ extension SplitController: ToolbarResponder {
 extension SplitController: ScreenshotLoader {
     
     func initializeController() {
-        
+        tagListController.sceneToolDataSource = sceneController
     }
     
     func load(_ screenshot: Screenshot) throws {

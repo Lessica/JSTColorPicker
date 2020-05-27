@@ -8,7 +8,9 @@
 
 import Cocoa
 
-class SceneOverlayView: NSView {
+class SceneOverlayView: NSView, DragEndpoint {
+    
+    var state: DragEndpointState = .idle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -204,33 +206,64 @@ class SceneOverlayView: NSView {
     
     // MARK: - Drag/Drop
     
+    fileprivate func isAcceptableDraggingTarget(_ target: AnnotatorOverlay?) -> Bool {
+        guard target != nil else { return false }
+        if let _ = target as? AreaAnnotatorOverlay {
+            return true
+        }
+        return false
+    }
+    
     fileprivate func updateDraggingAppearance(with locInWindow: CGPoint?) {
         guard isMouseInside else { return }
         internalUpdateFocusAppearance(with: locInWindow)
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        guard case .idle = state else { return [] }
+        guard (sender.draggingSource as? ConnectionDragController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if internalFocusedOverlay != nil {
-            return .copy
+        if isAcceptableDraggingTarget(internalFocusedOverlay) {
+            state = .target
+            return sender.draggingSourceOperationMask
+        } else {
+            state = .source
         }
         return []
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        guard state != .idle else { return [] }
+        guard (sender.draggingSource as? ConnectionDragController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if internalFocusedOverlay != nil {
-            return .copy
+        if isAcceptableDraggingTarget(internalFocusedOverlay) {
+            state = .target
+            return sender.draggingSourceOperationMask
+        } else {
+            state = .source
         }
         return []
     }
     
     override func draggingExited(_ sender: NSDraggingInfo?) {
+        guard case .target = state else { return }
         resetAppearance()
+        state = .idle
+    }
+    
+    override func draggingEnded(_ sender: NSDraggingInfo) {
+        guard case .target = state else { return }
+        resetAppearance()
+        state = .idle
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        return false
+        guard let controller = sender.draggingSource as? ConnectionDragController else { return false }
+        controller.connect(to: self)
+        
+        // TODO: get focused overlay and its content item, then do item modifications
+        
+        return true
     }
     
 }

@@ -13,12 +13,26 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: TagController!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var tableViewOverlay: TagListOverlayView!
     @IBOutlet var tagMenu: NSMenu!
+    
+    public weak var sceneToolDataSource: SceneToolDataSource? {
+        get { return tableViewOverlay.sceneToolDataSource }
+        set { tableViewOverlay.sceneToolDataSource = newValue }
+    }
     
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
     static public var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.tag.table-row")
+    
+    fileprivate var colorPanel: NSColorPanel {
+        let panel = NSColorPanel.shared
+        panel.showsAlpha = false
+        panel.isContinuous = false
+        panel.mode = .RGB
+        return panel
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,8 +165,10 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     // MARK: - Actions
     
     @IBAction func delete(_ sender: Any) {
-        //removeTagBtnTapped(sender)
-        // TODO: delete tags
+        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return }
+        let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
+            .filteredIndexSet(includeInteger: { $0 < collection.count })
+        tagCtrl.remove(contentsOf: rows.map({ collection[$0] }))
     }
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
@@ -226,6 +242,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     // MARK: - Drag/Drop
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        guard case .idle = tableViewOverlay.state else { return nil }
         guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
@@ -236,6 +253,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard case .idle = tableViewOverlay.state else { return [] }
         guard tagCtrl.filterPredicate == nil else { return [] }
         if dropOperation == .above {
             return .move
@@ -244,6 +262,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        guard case .idle = tableViewOverlay.state else { return false }
         guard var collection = tagCtrl.arrangedObjects as? [Tag] else { return false }
         
         var oldIndexes = [Int]()
@@ -288,4 +307,48 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
         return true
     }
     
+    
+    // MARK: - Menu
+    
+    fileprivate weak var menuTargetObject: Tag?
+    
+    @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
+        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return }
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let css = collection[targetIndex].colorHex, let color = NSColor(css: css, alpha: 1.0) else { return }
+        
+        menuTargetObject = collection[targetIndex]
+        
+        colorPanel.setTarget(nil)
+        colorPanel.setAction(nil)
+        colorPanel.color = color
+        
+        colorPanel.setTarget(self)
+        colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
+        colorPanel.orderFront(sender)
+    }
+    
+    @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
+        guard let tag = menuTargetObject, tag.managedObjectContext != nil else { return }
+        tag.colorHex = sender.color.sharpCSS
+        setNeedsSaveMOC()
+    }
+    
 }
+
+extension TagListController: NSUserInterfaceValidations {
+    
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(changeColorItemTapped(_:)) {
+            guard tableView.clickedRow >= 0 else { return false }
+            if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
+            return true
+        }
+        else if item.action == #selector(delete(_:)) {
+            return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+        }
+        return false
+    }
+    
+}
+

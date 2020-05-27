@@ -121,6 +121,9 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="26" width="238" height="290"/>
+                                        </customView>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jUr-Es-8V9">
                                             <rect key="frame" x="170" y="0.0" width="68" height="22"/>
                                             <subviews>
@@ -175,14 +178,18 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="CoQ-3m-17h" firstAttribute="bottom" secondItem="sPi-cH-fIS" secondAttribute="bottom" id="80k-On-sEK"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="leading" secondItem="gPU-aP-bwc" secondAttribute="leading" id="Agu-XQ-Wd4"/>
                                         <constraint firstAttribute="trailing" secondItem="sPi-cH-fIS" secondAttribute="trailing" id="C5p-cG-ThE"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="centerX" secondItem="gPU-aP-bwc" secondAttribute="centerX" id="Ic7-g0-Kr0"/>
+                                        <constraint firstItem="CoQ-3m-17h" firstAttribute="trailing" secondItem="sPi-cH-fIS" secondAttribute="trailing" id="JGn-B6-bOL"/>
                                         <constraint firstItem="sPi-cH-fIS" firstAttribute="leading" secondItem="gPU-aP-bwc" secondAttribute="leading" id="Mrm-C5-k7E"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="top" secondItem="gPU-aP-bwc" secondAttribute="top" id="QHV-ve-LLI"/>
                                         <constraint firstItem="jUr-Es-8V9" firstAttribute="top" secondItem="sPi-cH-fIS" secondAttribute="bottom" constant="4" id="RLh-IN-Sud"/>
                                         <constraint firstAttribute="trailing" secondItem="jUr-Es-8V9" secondAttribute="trailing" id="gHe-oo-Ldv"/>
+                                        <constraint firstItem="CoQ-3m-17h" firstAttribute="top" secondItem="sPi-cH-fIS" secondAttribute="top" id="gLI-wg-zsb"/>
                                         <constraint firstItem="sPi-cH-fIS" firstAttribute="top" secondItem="57S-WH-dXZ" secondAttribute="bottom" constant="4" id="nBs-xt-ZsI"/>
+                                        <constraint firstItem="CoQ-3m-17h" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" id="oTQ-a2-Jua"/>
                                         <constraint firstAttribute="bottom" secondItem="jUr-Es-8V9" secondAttribute="bottom" id="ubB-xp-NFd"/>
                                     </constraints>
                                 </view>
@@ -199,6 +206,7 @@
                     <connections>
                         <outlet property="managedObjectContext" destination="YLI-lU-QNR" id="C9w-aQ-X8v"/>
                         <outlet property="tableView" destination="rNA-mn-1hm" id="mNb-rm-Yep"/>
+                        <outlet property="tableViewOverlay" destination="CoQ-3m-17h" id="NHD-41-WHI"/>
                         <outlet property="tagCtrl" destination="lSV-Dz-huJ" id="CcU-lL-xia"/>
                         <outlet property="tagMenu" destination="ftf-wG-U6b" id="MUB-xx-Pyk"/>
                     </connections>
@@ -214,6 +222,9 @@
                     <items>
                         <menuItem title="Change Color" id="Ndd-m7-WU5">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="changeColorItemTapped:" target="ifY-36-Ao8" id="cCA-NF-BMN"/>
+                            </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="t2T-iT-AIi"/>
                         <menuItem title="Select All" keyEquivalent="a" id="jlg-DV-J8c">

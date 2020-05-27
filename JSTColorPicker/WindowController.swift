@@ -39,7 +39,7 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarScreenshotItem: NSButton!
     
     fileprivate var viewController: SplitController! {
-        return self.window!.contentViewController as? SplitController
+        return self.window!.contentViewController?.children.first as? SplitController
     }
     fileprivate var currentAlertSheet: NSAlert?
     
@@ -319,12 +319,26 @@ extension WindowController: NSWindowDelegate {
     }
     
     func windowDidBecomeMain(_ notification: Notification) {
-        gridWindowController?.activeWindowController = self
-        tabDelegate?.activeManagedWindow(windowController: self)
+        guard let window = notification.object as? NSWindow else { return }
+        if window == self.window {
+            gridWindowController?.activeWindowController = self
+            tabDelegate?.activeManagedWindow(windowController: self)
+        }
+    }
+    
+    func windowWillClose(_ notification: Notification) {
+        guard let window = notification.object as? NSWindow else { return }
+        if window == NSColorPanel.shared, let window = window as? NSColorPanel {
+            window.setTarget(nil)
+            window.setAction(nil)
+        }
     }
     
     func windowWillReturnUndoManager(_ window: NSWindow) -> UndoManager? {
-        return screenshot?.undoManager
+        if window == self.window {
+            return screenshot?.undoManager
+        }
+        return nil
     }
     
 }
@@ -339,6 +353,8 @@ extension WindowController: ScreenshotLoader {
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         touchBarUpdateButtonState()
+        
+        NSColorPanel.shared.delegate = self
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -354,3 +370,4 @@ extension WindowController: SceneTracking {
     }
     
 }
+
