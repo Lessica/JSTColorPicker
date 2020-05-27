@@ -8,10 +8,11 @@
 
 import Cocoa
 
-class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class TagListController: NSViewController {
     
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: TagController!
+    @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var tableViewOverlay: TagListOverlayView!
     @IBOutlet var tagMenu: NSMenu!
@@ -36,6 +37,9 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableViewOverlay.dataSource = self
+        tableViewOverlay.dragDelegate = self
         
         tagCtrl.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         tableView.registerForDraggedTypes([TagListController.dragDropType])
@@ -86,10 +90,12 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
             ]
         }) { [weak self] (_ error: Error?) in
             if let error = error {
+                self?.tagCtrl.isEditable = false
                 self?.presentError(error)
                 return
             }
             self?.managedObjectContext.undoManager = self?.undoManager
+            self?.tagCtrl.isEditable = true
             self?.tagCtrl.rearrangeObjects()
         }
         
@@ -165,7 +171,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     // MARK: - Actions
     
     @IBAction func delete(_ sender: Any) {
-        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return }
+        guard let collection = managedTags else { return }
         let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
             .filteredIndexSet(includeInteger: { $0 < collection.count })
         tagCtrl.remove(contentsOf: rows.map({ collection[$0] }))
@@ -239,11 +245,71 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     }
     
     
-    // MARK: - Drag/Drop
+    // MARK: - Menu
+    
+    fileprivate weak var menuTargetObject: Tag?
+    
+    @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
+        guard let collection = managedTags else { return }
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let css = collection[targetIndex].colorHex, let color = NSColor(css: css, alpha: 1.0) else { return }
+        
+        menuTargetObject = collection[targetIndex]
+        
+        colorPanel.setTarget(nil)
+        colorPanel.setAction(nil)
+        colorPanel.color = color
+        
+        colorPanel.setTarget(self)
+        colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
+        colorPanel.orderFront(sender)
+    }
+    
+    @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
+        guard let tag = menuTargetObject, tag.managedObjectContext != nil else { return }
+        tag.colorHex = sender.color.sharpCSS
+        setNeedsSaveMOC()
+    }
+    
+}
+
+extension TagListController: TagListDataSource {
+    
+    var managedTags: [Tag]? {
+        return tagCtrl.arrangedObjects as? [Tag]
+    }
+    
+}
+
+extension TagListController: TagListDragDelegate {
+    
+    var canPerformDrag: Bool {
+        return tagCtrl.isEditable
+    }
+    
+    var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }
+    
+    func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet {
+        var indexes = tableView.selectedRowIndexes
+        let rowAtPoint = tableView.row(at: scrollView.convert(point, to: tableView))
+        if rowAtPoint > 0 && !indexes.contains(rowAtPoint) {
+            let theIndexSet = IndexSet(integer: rowAtPoint)
+            tableView.selectRowIndexes(theIndexSet, byExtendingSelection: false)
+            indexes = theIndexSet
+        }
+        if shouldHighlight {
+            makeFirstResponder(tableView)
+        }
+        return indexes
+    }
+    
+}
+
+extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard case .idle = tableViewOverlay.state else { return nil }
-        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return nil }
+        guard let collection = managedTags else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
@@ -263,7 +329,7 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         guard case .idle = tableViewOverlay.state else { return false }
-        guard var collection = tagCtrl.arrangedObjects as? [Tag] else { return false }
+        guard var collection = managedTags else { return false }
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
@@ -305,33 +371,6 @@ class TagListController: NSViewController, NSTableViewDelegate, NSTableViewDataS
         
         setNeedsSaveMOC()
         return true
-    }
-    
-    
-    // MARK: - Menu
-    
-    fileprivate weak var menuTargetObject: Tag?
-    
-    @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
-        guard let collection = tagCtrl.arrangedObjects as? [Tag] else { return }
-        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
-        guard let css = collection[targetIndex].colorHex, let color = NSColor(css: css, alpha: 1.0) else { return }
-        
-        menuTargetObject = collection[targetIndex]
-        
-        colorPanel.setTarget(nil)
-        colorPanel.setAction(nil)
-        colorPanel.color = color
-        
-        colorPanel.setTarget(self)
-        colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
-        colorPanel.orderFront(sender)
-    }
-    
-    @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
-        guard let tag = menuTargetObject, tag.managedObjectContext != nil else { return }
-        tag.colorHex = sender.color.sharpCSS
-        setNeedsSaveMOC()
     }
     
 }

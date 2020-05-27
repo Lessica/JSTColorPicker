@@ -31,6 +31,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </searchFieldCell>
                                             <connections>
+                                                <binding destination="lSV-Dz-huJ" name="enabled" keyPath="isEditable" id="Hpk-Ki-OVE"/>
                                                 <binding destination="lSV-Dz-huJ" name="predicate" keyPath="filterPredicate" id="Jap-qb-z5J">
                                                     <dictionary key="options">
                                                         <string key="NSDisplayName">predicate</string>
@@ -103,6 +104,12 @@
                                                             </tableColumn>
                                                         </tableColumns>
                                                         <connections>
+                                                            <binding destination="lSV-Dz-huJ" name="enabled" keyPath="isEditable" id="bUH-FC-vzO"/>
+                                                            <binding destination="lSV-Dz-huJ" name="hidden" keyPath="isEditable" previousBinding="bUH-FC-vzO" id="TEq-0e-DmZ">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                </dictionary>
+                                                            </binding>
                                                             <outlet property="dataSource" destination="ifY-36-Ao8" id="meA-Ps-bdn"/>
                                                             <outlet property="delegate" destination="ifY-36-Ao8" id="RBz-jj-cEy"/>
                                                             <outlet property="menu" destination="ftf-wG-U6b" id="2Ys-pG-Jlf"/>
@@ -121,6 +128,17 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
+                                        <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
+                                            <rect key="frame" x="32" y="164" width="174" height="14"/>
+                                            <textFieldCell key="cell" controlSize="small" enabled="NO" allowsUndo="NO" focusRingType="none" alignment="center" title="Unable to access tag database." id="gqF-EC-Oma">
+                                                <font key="font" metaFont="message" size="11"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="lSV-Dz-huJ" name="hidden" keyPath="isEditable" id="2Ez-yP-BWK"/>
+                                            </connections>
+                                        </textField>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="26" width="238" height="290"/>
                                         </customView>
@@ -179,8 +197,10 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="bottom" secondItem="sPi-cH-fIS" secondAttribute="bottom" id="80k-On-sEK"/>
+                                        <constraint firstItem="6yp-7K-zYS" firstAttribute="centerY" secondItem="gPU-aP-bwc" secondAttribute="centerY" id="8dz-zw-TUc"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="leading" secondItem="gPU-aP-bwc" secondAttribute="leading" id="Agu-XQ-Wd4"/>
                                         <constraint firstAttribute="trailing" secondItem="sPi-cH-fIS" secondAttribute="trailing" id="C5p-cG-ThE"/>
+                                        <constraint firstItem="6yp-7K-zYS" firstAttribute="centerX" secondItem="gPU-aP-bwc" secondAttribute="centerX" id="E8Y-NE-Fib"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="centerX" secondItem="gPU-aP-bwc" secondAttribute="centerX" id="Ic7-g0-Kr0"/>
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="trailing" secondItem="sPi-cH-fIS" secondAttribute="trailing" id="JGn-B6-bOL"/>
                                         <constraint firstItem="sPi-cH-fIS" firstAttribute="leading" secondItem="gPU-aP-bwc" secondAttribute="leading" id="Mrm-C5-k7E"/>
@@ -188,6 +208,7 @@
                                         <constraint firstItem="jUr-Es-8V9" firstAttribute="top" secondItem="sPi-cH-fIS" secondAttribute="bottom" constant="4" id="RLh-IN-Sud"/>
                                         <constraint firstAttribute="trailing" secondItem="jUr-Es-8V9" secondAttribute="trailing" id="gHe-oo-Ldv"/>
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="top" secondItem="sPi-cH-fIS" secondAttribute="top" id="gLI-wg-zsb"/>
+                                        <constraint firstItem="6yp-7K-zYS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sPi-cH-fIS" secondAttribute="leading" id="iSS-Wi-xdz"/>
                                         <constraint firstItem="sPi-cH-fIS" firstAttribute="top" secondItem="57S-WH-dXZ" secondAttribute="bottom" constant="4" id="nBs-xt-ZsI"/>
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" id="oTQ-a2-Jua"/>
                                         <constraint firstAttribute="bottom" secondItem="jUr-Es-8V9" secondAttribute="bottom" id="ubB-xp-NFd"/>
@@ -205,6 +226,7 @@
                     </view>
                     <connections>
                         <outlet property="managedObjectContext" destination="YLI-lU-QNR" id="C9w-aQ-X8v"/>
+                        <outlet property="scrollView" destination="sPi-cH-fIS" id="ctB-Ve-sLc"/>
                         <outlet property="tableView" destination="rNA-mn-1hm" id="mNb-rm-Yep"/>
                         <outlet property="tableViewOverlay" destination="CoQ-3m-17h" id="NHD-41-WHI"/>
                         <outlet property="tagCtrl" destination="lSV-Dz-huJ" id="CcU-lL-xia"/>
@@ -213,7 +235,7 @@
                 </viewController>
                 <customObject id="ykx-Es-M9D" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <managedObjectContext id="YLI-lU-QNR"/>
-                <arrayController mode="entity" entityName="Tag" automaticallyPreparesContent="YES" id="lSV-Dz-huJ" customClass="TagController" customModule="JSTColorPicker" customModuleProvider="target">
+                <arrayController mode="entity" entityName="Tag" editable="NO" automaticallyPreparesContent="YES" id="lSV-Dz-huJ" customClass="TagController" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
                         <outlet property="managedObjectContext" destination="YLI-lU-QNR" id="86n-CU-bZN"/>
                     </connections>

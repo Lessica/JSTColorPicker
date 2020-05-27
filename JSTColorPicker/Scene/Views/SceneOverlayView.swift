@@ -221,7 +221,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard case .idle = state else { return [] }
-        guard (sender.draggingSource as? ConnectionDragController)?.sourceEndpoint != nil else { return [] }
+        guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
         if isAcceptableDraggingTarget(internalFocusedOverlay) {
             state = .target
@@ -234,7 +234,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard state != .idle else { return [] }
-        guard (sender.draggingSource as? ConnectionDragController)?.sourceEndpoint != nil else { return [] }
+        guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
         if isAcceptableDraggingTarget(internalFocusedOverlay) {
             state = .target
@@ -258,7 +258,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let controller = sender.draggingSource as? ConnectionDragController else { return false }
+        guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
         // TODO: get focused overlay and its content item, then do item modifications

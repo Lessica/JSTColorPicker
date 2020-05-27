@@ -15,6 +15,10 @@
 		1842C478247988E8008ECD6F /* TagList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C47A247988E8008ECD6F /* TagList.storyboard */; };
 		1842C48124798E63008ECD6F /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842C48024798E63008ECD6F /* TagListController.swift */; };
 		1842C48224798E63008ECD6F /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842C48024798E63008ECD6F /* TagListController.swift */; };
+		18B22FF1247EBD65003F70BA /* TagListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF0247EBD65003F70BA /* TagListDataSource.swift */; };
+		18B22FF2247EBD65003F70BA /* TagListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF0247EBD65003F70BA /* TagListDataSource.swift */; };
+		18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */; };
+		18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */; };
 		18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
@@ -273,10 +277,10 @@
 		D67A89AE2427D8A8002A6DDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D67A89B02427D8A8002A6DDF /* Localizable.strings */; };
 		D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */; };
 		D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */; };
-		D67A8F10247E6D6000153DE5 /* ConnectionDragController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */; };
-		D67A8F11247E6D6000153DE5 /* ConnectionDragController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */; };
-		D67A8F12247E6D6000153DE5 /* LineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */; };
-		D67A8F13247E6D6000153DE5 /* LineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */; };
+		D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* DragConnectionController.swift */; };
+		D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0B247E6D5F00153DE5 /* DragConnectionController.swift */; };
+		D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* DragLineOverlay.swift */; };
+		D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0C247E6D5F00153DE5 /* DragLineOverlay.swift */; };
 		D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */; };
 		D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */; };
 		D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */; };
@@ -535,6 +539,8 @@
 		1842C47C247988ED008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TagList.strings; sourceTree = "<group>"; };
 		1842C47E247988F0008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TagList.strings"; sourceTree = "<group>"; };
 		1842C48024798E63008ECD6F /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
+		18B22FF0247EBD65003F70BA /* TagListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDataSource.swift; sourceTree = "<group>"; };
+		18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDragDelegate.swift; sourceTree = "<group>"; };
 		18B6EA94247ABE6F00A61386 /* Tag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tag.xcdatamodel; sourceTree = "<group>"; };
 		18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransformer.swift; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -876,8 +882,8 @@
 		D67A89AF2427D8A8002A6DDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D67A89B12427D8AC002A6DDF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragEndpoint.swift; sourceTree = "<group>"; };
-		D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDragController.swift; sourceTree = "<group>"; };
-		D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineOverlay.swift; sourceTree = "<group>"; };
+		D67A8F0B247E6D5F00153DE5 /* DragConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragConnectionController.swift; sourceTree = "<group>"; };
+		D67A8F0C247E6D5F00153DE5 /* DragLineOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragLineOverlay.swift; sourceTree = "<group>"; };
 		D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetainingViewController.swift; sourceTree = "<group>"; };
 		D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListOverlayView.swift; sourceTree = "<group>"; };
 		D67C51C523F1361800829B51 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
@@ -1165,9 +1171,12 @@
 			isa = PBXGroup;
 			children = (
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
+				D67A8F09247E6D2E00153DE5 /* DragLine */,
 				1842C47A247988E8008ECD6F /* TagList.storyboard */,
 				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				D6CD28A7247BD4670051BE18 /* TagController.swift */,
+				18B22FF0247EBD65003F70BA /* TagListDataSource.swift */,
+				18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */,
 				D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */,
 				1842C48024798E63008ECD6F /* TagListController.swift */,
 			);
@@ -1649,12 +1658,12 @@
 				D631E2C823F7FAC300652B17 /* Export */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
-				D67A8F09247E6D2E00153DE5 /* DragLine */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
+				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
 			);
 			path = JSTColorPicker;
@@ -1767,9 +1776,8 @@
 			isa = PBXGroup;
 			children = (
 				D67A8F0A247E6D5F00153DE5 /* DragEndpoint.swift */,
-				D67A8F0C247E6D5F00153DE5 /* LineOverlay.swift */,
-				D67A8F0B247E6D5F00153DE5 /* ConnectionDragController.swift */,
-				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
+				D67A8F0C247E6D5F00153DE5 /* DragLineOverlay.swift */,
+				D67A8F0B247E6D5F00153DE5 /* DragConnectionController.swift */,
 			);
 			path = DragLine;
 			sourceTree = "<group>";
@@ -2403,7 +2411,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
 					D60B0F3B24286AA30034F21C = {
@@ -2659,6 +2667,7 @@
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
+				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
 				D610478124224A170002E990 /* Screenshot.swift in Sources */,
 				D610478224224A170002E990 /* AnnotatorDataSource.swift in Sources */,
@@ -2674,6 +2683,7 @@
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
+				18B22FF1247EBD65003F70BA /* TagListDataSource.swift in Sources */,
 				D610479024224A170002E990 /* ContentResponder.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
@@ -2690,7 +2700,7 @@
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
 				D61047A024224A170002E990 /* EditableOverlay.swift in Sources */,
-				D67A8F12247E6D6000153DE5 /* LineOverlay.swift in Sources */,
+				D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
@@ -2714,7 +2724,7 @@
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
-				D67A8F10247E6D6000153DE5 /* ConnectionDragController.swift in Sources */,
+				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
@@ -2817,7 +2827,7 @@
 				D6E2455D23E153340012BE5F /* AnnotatorDataSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
-				D67A8F13247E6D6000153DE5 /* LineOverlay.swift in Sources */,
+				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
@@ -2829,8 +2839,9 @@
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
-				D67A8F11247E6D6000153DE5 /* ConnectionDragController.swift in Sources */,
+				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
+				18B22FF2247EBD65003F70BA /* TagListDataSource.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentResponder.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
@@ -2857,6 +2868,7 @@
 				D69374132403A92E007AF7AF /* Template.swift in Sources */,
 				D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */,
 				D6729C06240FC77D000339C2 /* SceneEvent.swift in Sources */,
+				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
@@ -3105,6 +3117,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -3130,6 +3143,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -3182,6 +3196,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 9;
@@ -3219,6 +3234,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 9;
@@ -3569,6 +3585,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 9;
@@ -3612,6 +3629,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 9;
@@ -3701,6 +3719,7 @@
 		D690C964241A60DC00BB1652 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3714,6 +3733,7 @@
 		D690C965241A60DC00BB1652 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;

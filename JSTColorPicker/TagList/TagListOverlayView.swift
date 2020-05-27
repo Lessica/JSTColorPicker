@@ -18,19 +18,33 @@ class TagListOverlayView: NSView, DragEndpoint {
         }
     }
     
+    override var isFlipped: Bool {
+        return true
+    }
+    
+    public weak var dataSource: TagListDataSource?
+    public weak var dragDelegate: TagListDragDelegate?
+    
     public weak var sceneToolDataSource: SceneToolDataSource?
     fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
     
     override func rightMouseDown(with event: NSEvent) {
-        guard sceneTool == .selectionArrow else {
+        guard let dragDelegate = dragDelegate, let dataSource = dataSource else {
             super.rightMouseDown(with: event)
             return
         }
         
-        // TODO: change selection, highlight table view row, and get its object
+        guard dragDelegate.canPerformDrag && sceneTool == .selectionArrow else {
+            super.rightMouseDown(with: event)
+            return
+        }
         
-        let controller = ConnectionDragController(type: TagListController.dragDropType)
-        controller.trackDrag(forMouseDownEvent: event, in: self, with: "\(self)")
+        let locInOverlay = convert(event.locationInWindow, from: nil)
+        let rowIndexes = dragDelegate.selectedRowIndexes(at: locInOverlay, shouldHighlight: true)
+        let selectedTagNames = rowIndexes.compactMap({ dataSource.managedTags?[$0].name })
+        
+        let controller = DragConnectionController(type: TagListController.dragDropType)
+        controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)
     }
     
 }

@@ -1,8 +1,8 @@
 // Created by Rob Mayoff on 4/29/17.
 
-import AppKit
+import Cocoa
 
-class ConnectionDragController: NSObject, NSDraggingSource {
+class DragConnectionController: NSObject, NSDraggingSource {
 
     var pasteboardType: NSPasteboard.PasteboardType
     var sourceEndpoint: DragEndpoint?
@@ -36,7 +36,7 @@ class ConnectionDragController: NSObject, NSDraggingSource {
 
     func draggingSession(_ session: NSDraggingSession, willBeginAt screenPoint: NSPoint) {
         sourceEndpoint?.state = .source
-        lineOverlay = LineOverlay(startScreenPoint: screenPoint, endScreenPoint: screenPoint)
+        lineOverlay = DragLineOverlay(startScreenPoint: screenPoint, endScreenPoint: screenPoint)
     }
 
     func draggingSession(_ session: NSDraggingSession, movedTo screenPoint: NSPoint) {
@@ -50,7 +50,7 @@ class ConnectionDragController: NSObject, NSDraggingSource {
 
     func ignoreModifierKeys(for session: NSDraggingSession) -> Bool { return true }
 
-    private var lineOverlay: LineOverlay?
+    private var lineOverlay: DragLineOverlay?
 
 }
 

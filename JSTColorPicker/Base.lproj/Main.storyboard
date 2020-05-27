@@ -363,7 +363,7 @@ CA
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
             </objects>
-            <point key="canvasLocation" x="-568" y="-68"/>
+            <point key="canvasLocation" x="-1691" y="-86"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -560,14 +560,14 @@ CA
                     </connections>
                 </windowController>
             </objects>
-            <point key="canvasLocation" x="-568" y="274"/>
+            <point key="canvasLocation" x="-1692" y="274"/>
         </scene>
         <!--Retaining View Controller-->
         <scene sceneID="0bD-xN-wuN">
             <objects>
                 <viewController id="KqA-fc-gUf" customClass="RetainingViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" id="sRd-nS-edv">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                    <containerView key="view" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-nS-edv">
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <segue destination="6eT-at-2NW" kind="embed" id="cRo-8q-ZDL"/>
@@ -576,7 +576,7 @@ CA
                 </viewController>
                 <customObject id="xKd-JE-N2P" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2" y="246"/>
+            <point key="canvasLocation" x="-568" y="246"/>
         </scene>
         <!--ContentTableView-->
         <scene sceneID="9nh-PJ-abz">
@@ -596,7 +596,7 @@ CA
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="asx-f5-VzZ"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="DropSplitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="1500" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="delegate" destination="6eT-at-2NW" id="PpJ-tK-Bak"/>

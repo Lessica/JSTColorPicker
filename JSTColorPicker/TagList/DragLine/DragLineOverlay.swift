@@ -1,14 +1,14 @@
 // Created by Rob Mayoff on 4/28/17.
 
-import AppKit
+import Cocoa
 
-class LineOverlay {
+class DragLineOverlay {
 
     init(startScreenPoint: CGPoint, endScreenPoint: CGPoint) {
         self.startScreenPoint = startScreenPoint
         self.endScreenPoint = endScreenPoint
 
-        NotificationCenter.default.addObserver(self, selector: #selector(LineOverlay.screenLayoutDidChange(_:)), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DragLineOverlay.screenLayoutDidChange(_:)), name: NSApplication.didChangeScreenParametersNotification, object: nil)
         synchronizeWindowsToScreens()
     }
 

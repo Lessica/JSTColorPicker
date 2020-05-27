@@ -57,7 +57,10 @@ class WindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
+        
+        NSColorPanel.shared.delegate = self
         viewController.trackingObject = self
+        
         initializeController()
     }
     
@@ -353,8 +356,6 @@ extension WindowController: ScreenshotLoader {
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         touchBarUpdateButtonState()
-        
-        NSColorPanel.shared.delegate = self
     }
     
     func load(_ screenshot: Screenshot) throws {

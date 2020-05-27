@@ -2,7 +2,6 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String" defaultValueString="#000000" regularExpressionString="#[0-9a-fA-F]{6}"/>
-        <attribute name="message" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="name" attributeType="String" minValueString="1" defaultValueString="Untitled" spotlightIndexingEnabled="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <uniquenessConstraints>
@@ -12,6 +11,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Tag" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Tag" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>
