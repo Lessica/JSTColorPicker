@@ -25,7 +25,8 @@ class TagListController: NSViewController {
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
-    static public var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.tag.table-row")
+    static public var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
+    static fileprivate var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
     fileprivate var colorPanel: NSColorPanel {
         let panel = NSColorPanel.shared
@@ -42,7 +43,7 @@ class TagListController: NSViewController {
         tableViewOverlay.dragDelegate = self
         
         tagCtrl.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
-        tableView.registerForDraggedTypes([TagListController.dragDropType])
+        tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tagCtrl.rearrangeObjects()
@@ -314,7 +315,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         item.setPropertyList([
             "row": row,
             "name": collection[row].name ?? ""
-        ], forType: TagListController.dragDropType)
+        ], forType: TagListController.inlinePasteboardType)
         return item
     }
     
@@ -333,7 +334,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
-            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.dragDropType) as? [String: Any],
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.inlinePasteboardType) as? [String: Any],
                 let index = obj["row"] as? Int
             {
                 oldIndexes.append(index)

@@ -10,7 +10,7 @@ import Foundation
 import LuaSwift
 
 extension NSPasteboard.PasteboardType {
-    static let content = NSPasteboard.PasteboardType(rawValue: "com.jst.content")
+    static let content = NSPasteboard.PasteboardType(rawValue: "public.jst.content")
 }
 
 class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {

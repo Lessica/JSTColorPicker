@@ -243,7 +243,7 @@ class SceneController: NSViewController {
     fileprivate func applySelectItem(at location: CGPoint) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
-            if annotatorView.isHighlighted { return true }
+            if annotatorView.isSelected { return true }
             if let annotator = annotators.last(where: { $0.view === annotatorView }) {
                 if let _ = try? selectContentItem(annotator.pixelItem) {
                     return true
@@ -922,14 +922,14 @@ extension SceneController: AnnotatorDataSource {
         annotators
             .forEach({ (annotator) in
                 if items.contains(annotator.pixelItem) {
-                    if !annotator.isHighlighted {
-                        annotator.isHighlighted = true
+                    if !annotator.isSelected {
+                        annotator.isSelected = true
                         showRulerMarkers(for: annotator)
                         annotator.view.bringToFront()
                     }
                 }
-                else if annotator.isHighlighted {
-                    annotator.isHighlighted = false
+                else if annotator.isSelected {
+                    annotator.isSelected = false
                     hideRulerMarkers(for: annotator)
                     annotator.setNeedsDisplay()
                 }
@@ -975,8 +975,9 @@ extension SceneController: ToolbarResponder {
     }
     
     fileprivate func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
+        let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
         let fitRect = adjust
-            ? rect.insetBy(dx: -sceneView.alternativeBoundsOrigin.x, dy: -sceneView.alternativeBoundsOrigin.y)
+            ? rect.insetBy(dx: -altClipped.width, dy: -altClipped.height)
             : rect
         guard !fitRect.isEmpty else {
             return

@@ -65,7 +65,7 @@ class EditableOverlay: Overlay {
     fileprivate static let circleRadius: CGFloat = 3.67
     fileprivate static let circleBorderWidth: CGFloat = 1.0
     fileprivate static let circleFillColorNormal = NSColor.systemGray.cgColor
-    fileprivate static let circleFillColorFocused = NSColor.systemBlue.cgColor
+    fileprivate static let circleFillColorHighlighted = NSColor.systemBlue.cgColor
     fileprivate static let circleStrokeColor = CGColor.white
     
     fileprivate static let outerInsets = NSEdgeInsets(top: -circleRadius - circleBorderWidth, left: -circleRadius - circleBorderWidth, bottom: -circleRadius - circleBorderWidth, right: -circleRadius - circleBorderWidth)
@@ -143,7 +143,7 @@ class EditableOverlay: Overlay {
         drawRects.forEach({ ctx.addEllipse(in: $0) })
         
         ctx.setLineWidth(EditableOverlay.circleBorderWidth)
-        if isFocused { ctx.setFillColor(EditableOverlay.circleFillColorFocused) }
+        if isFocused || isSelected { ctx.setFillColor(EditableOverlay.circleFillColorHighlighted) }
         else { ctx.setFillColor(EditableOverlay.circleFillColorNormal) }
         ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
         ctx.drawPath(using: .fillStroke)

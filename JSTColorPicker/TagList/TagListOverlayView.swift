@@ -43,7 +43,7 @@ class TagListOverlayView: NSView, DragEndpoint {
         let rowIndexes = dragDelegate.selectedRowIndexes(at: locInOverlay, shouldHighlight: true)
         let selectedTagNames = rowIndexes.compactMap({ dataSource.managedTags?[$0].name })
         
-        let controller = DragConnectionController(type: TagListController.dragDropType)
+        let controller = DragConnectionController(type: TagListController.attachPasteboardType)
         controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)
     }
     

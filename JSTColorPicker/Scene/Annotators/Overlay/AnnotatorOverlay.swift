@@ -14,7 +14,6 @@ class AnnotatorOverlay: EditableOverlay {
     public static let fixedOverlaySize = CGSize(width: 24.0, height: 24.0)
     
     public var isFixedOverlay: Bool = true
-    public var isHighlighted: Bool = false
     public var label: String {
         return internalLabel
     }
@@ -95,7 +94,7 @@ class AnnotatorOverlay: EditableOverlay {
         let drawBounds = bounds.inset(by: innerInsets)
         guard !drawBounds.isEmpty else { return }
         
-        if isHighlighted {
+        if isSelected {
             highlightedBackgroundImage.draw(in: drawBounds)
             internalHighlightedAttributedLabel.draw(
                 with: CGRect(

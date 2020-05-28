@@ -21,9 +21,9 @@ class Annotator {
         get { return view.isFixedOverlay }
         set { view.isFixedOverlay = newValue }
     }
-    public var isHighlighted: Bool {
-        get { return view.isHighlighted }
-        set { view.isHighlighted = newValue }
+    public var isSelected: Bool {
+        get { return view.isSelected }
+        set { view.isSelected = newValue }
     }
     public var label: String { return view.label }
     public func setNeedsDisplay() {
@@ -38,6 +38,6 @@ class Annotator {
 
 extension Annotator: CustomStringConvertible {
     var description: String {
-        return "[Annotator \(pixelItem), isHighlighted = \(isHighlighted)]"
+        return "[Annotator \(pixelItem), isSelected = \(isSelected)]"
     }
 }

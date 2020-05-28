@@ -16,7 +16,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         super.awakeFromNib()
         wantsLayer = false
         
-        registerForDraggedTypes([TagListController.dragDropType])
+        registerForDraggedTypes([TagListController.attachPasteboardType])
     }
     
     override var isFlipped: Bool { return true }

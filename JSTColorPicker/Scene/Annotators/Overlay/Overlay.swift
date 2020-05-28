@@ -40,20 +40,26 @@ class Overlay: NSView {
     fileprivate static let borderWidth: CGFloat = 1.0
     fileprivate static let lineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
     fileprivate static let lineDashColorsNormal: [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
-    fileprivate static let lineDashColorsFocused: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    fileprivate static let lineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
     
     fileprivate static let outerInsets = NSEdgeInsets(top: -borderWidth, left: -borderWidth, bottom: -borderWidth, right: -borderWidth)
     fileprivate static let innerInsets = NSEdgeInsets(top: borderWidth, left: borderWidth, bottom: borderWidth, right: borderWidth)
     
-    public var isAnimating: Bool = false {
+    public var isSelected: Bool = false {
         didSet {
-            if isAnimating {
+            guard isBordered else { return }
+            if isSelected {
                 lineDashCount = lineDashCount % 9
+                if let oldTimer = lineDashTimer {
+                    oldTimer.invalidate()
+                    lineDashTimer = nil
+                }
                 let timer = Timer(fireAt: Date(), interval: 0.1, target: self, selector: #selector(animateLineDash(_:)), userInfo: nil, repeats: true)
                 RunLoop.current.add(timer, forMode: .common)
                 lineDashTimer = timer
             } else {
                 lineDashTimer?.invalidate()
+                lineDashTimer = nil
             }
         }
     }
@@ -130,7 +136,7 @@ class Overlay: NSView {
             ctx.addLine(to: CGPoint(x: drawBounds.minX, y: max(dirtyRect.minY, drawBounds.minY)))
         }
         ctx.setLineWidth(Overlay.borderWidth)
-        if isFocused { ctx.setStrokeColor(Overlay.lineDashColorsFocused[1]) }
+        if isFocused || isSelected { ctx.setStrokeColor(Overlay.lineDashColorsHighlighted[1]) }
         else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[1]) }
         ctx.strokePath()
         
@@ -236,7 +242,7 @@ class Overlay: NSView {
         }
         
         // ctx.setLineWidth(Overlay.borderWidth)
-        if isFocused { ctx.setStrokeColor(Overlay.lineDashColorsFocused[0]) }
+        if isFocused || isSelected { ctx.setStrokeColor(Overlay.lineDashColorsHighlighted[0]) }
         else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[0]) }
         ctx.strokePath()
         
