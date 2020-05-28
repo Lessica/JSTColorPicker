@@ -19,6 +19,8 @@
 		18B22FF2247EBD65003F70BA /* TagListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF0247EBD65003F70BA /* TagListDataSource.swift */; };
 		18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */; };
 		18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */; };
+		18B22FF724801979003F70BA /* TagListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF624801979003F70BA /* TagListTableView.swift */; };
+		18B22FF824801979003F70BA /* TagListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF624801979003F70BA /* TagListTableView.swift */; };
 		18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
@@ -541,6 +543,7 @@
 		1842C48024798E63008ECD6F /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
 		18B22FF0247EBD65003F70BA /* TagListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDataSource.swift; sourceTree = "<group>"; };
 		18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDragDelegate.swift; sourceTree = "<group>"; };
+		18B22FF624801979003F70BA /* TagListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListTableView.swift; sourceTree = "<group>"; };
 		18B6EA94247ABE6F00A61386 /* Tag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tag.xcdatamodel; sourceTree = "<group>"; };
 		18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransformer.swift; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1178,6 +1181,7 @@
 				18B22FF0247EBD65003F70BA /* TagListDataSource.swift */,
 				18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */,
 				D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */,
+				18B22FF624801979003F70BA /* TagListTableView.swift */,
 				1842C48024798E63008ECD6F /* TagListController.swift */,
 			);
 			path = TagList;
@@ -2723,6 +2727,7 @@
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
+				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
@@ -2872,6 +2877,7 @@
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
+				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,

@@ -29,4 +29,11 @@ class ContentTableView: NSTableView {
         super.keyDown(with: event)
     }
     
+    override func rightMouseDown(with event: NSEvent) {
+        if row(at: convert(event.locationInWindow, from: nil)) < 0 {
+            deselectAll(nil)
+        }
+        super.rightMouseDown(with: event)
+    }
+    
 }

@@ -13,7 +13,7 @@ class TagListController: NSViewController {
     @IBOutlet var managedObjectContext: NSManagedObjectContext!
     @IBOutlet var tagCtrl: TagController!
     @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var tableView: TagListTableView!
     @IBOutlet weak var tableViewOverlay: TagListOverlayView!
     @IBOutlet var tagMenu: NSMenu!
     
@@ -280,6 +280,19 @@ extension TagListController: TagListDataSource {
         return tagCtrl.arrangedObjects as? [Tag]
     }
     
+    func managedTag(of name: String) -> Tag? {
+        return managedTags?.first(where: { $0.name == name })
+    }
+    
+    func managedTags(of names: [String]) -> [Tag] {
+        return managedTags?.filter({ (tag) -> Bool in
+            if let tagName = tag.name {
+                return names.contains(tagName)
+            }
+            return false
+        }) ?? []
+    }
+    
 }
 
 extension TagListController: TagListDragDelegate {
@@ -293,15 +306,23 @@ extension TagListController: TagListDragDelegate {
     func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet {
         var indexes = tableView.selectedRowIndexes
         let rowAtPoint = tableView.row(at: scrollView.convert(point, to: tableView))
-        if rowAtPoint > 0 && !indexes.contains(rowAtPoint) {
-            let theIndexSet = IndexSet(integer: rowAtPoint)
-            tableView.selectRowIndexes(theIndexSet, byExtendingSelection: false)
-            indexes = theIndexSet
+        if rowAtPoint > 0 {
+            if !indexes.contains(rowAtPoint) {
+                let theIndexSet = IndexSet(integer: rowAtPoint)
+                tableView.selectRowIndexes(theIndexSet, byExtendingSelection: false)
+                indexes = theIndexSet
+            }
+        } else {
+            indexes = IndexSet()
         }
         if shouldHighlight {
             makeFirstResponder(tableView)
         }
         return indexes
+    }
+    
+    func visibleRects(of rowIndexes: IndexSet) -> [CGRect] {
+        return rowIndexes.map({ scrollView.convert(tableView.rect(ofRow: $0), from: tableView) })
     }
     
 }
@@ -388,6 +409,16 @@ extension TagListController: NSUserInterfaceValidations {
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
         return false
+    }
+    
+}
+
+extension TagListController: NSMenuDelegate {
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menu == tagMenu {
+            
+        }
     }
     
 }

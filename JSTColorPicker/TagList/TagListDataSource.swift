@@ -11,5 +11,7 @@ import Foundation
 protocol TagListDataSource: class {
     
     var managedTags: [Tag]? { get }
+    func managedTag(of name: String) -> Tag?
+    func managedTags(of names: [String]) -> [Tag]
     
 }

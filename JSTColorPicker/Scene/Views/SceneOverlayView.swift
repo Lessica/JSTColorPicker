@@ -208,10 +208,14 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     fileprivate func isAcceptableDraggingTarget(_ target: AnnotatorOverlay?) -> Bool {
         guard target != nil else { return false }
-        if let _ = target as? AreaAnnotatorOverlay {
-            return true
-        }
-        return false
+//        if let _ = target as? ColorAnnotatorOverlay {
+//            return true
+//        }
+//        else if let _ = target as? AreaAnnotatorOverlay {
+//            return true
+//        }
+//        return false
+        return true
     }
     
     fileprivate func updateDraggingAppearance(with locInWindow: CGPoint?) {
@@ -260,6 +264,14 @@ class SceneOverlayView: NSView, DragEndpoint {
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
+        
+        var tagNames: [String] = []
+        sender.enumerateDraggingItems(options: [], for: self, classes: [NSPasteboardItem.self], searchOptions: [:]) { (dragItem, _, _) in
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.attachPasteboardType) as? [String] {
+                obj.forEach({ tagNames.append($0) })
+            }
+        }
+        debugPrint(tagNames)
         
         // TODO: get focused overlay and its content item, then do item modifications
         

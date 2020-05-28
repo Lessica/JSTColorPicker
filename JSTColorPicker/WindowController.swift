@@ -89,11 +89,11 @@ class WindowController: NSWindowController {
             case NSEvent.SpecialKey.f2:
                 touchBarUseAnnotateItemAction(event)
             case NSEvent.SpecialKey.f3:
-                touchBarUseMagnifyItemAction(event)
-            case NSEvent.SpecialKey.f4:
-                touchBarUseMinifyItemAction(event)
-            case NSEvent.SpecialKey.f5:
                 touchBarUseSelectItemAction(event)
+            case NSEvent.SpecialKey.f4:
+                touchBarUseMagnifyItemAction(event)
+            case NSEvent.SpecialKey.f5:
+                touchBarUseMinifyItemAction(event)
             case NSEvent.SpecialKey.f6:
                 touchBarUseMoveItemAction(event)
             case NSEvent.SpecialKey.f7:
@@ -174,24 +174,37 @@ class WindowController: NSWindowController {
     
 }
 
+enum SceneToolIndex: Int {
+    case magicCursor = 0
+    case selectionArrow
+    case magnifyingGlass
+    case minifyingGlass
+    case movingHand
+}
+
+enum SceneActionIndex: Int {
+    case fitWindow = 0
+    case fillWindow
+}
+
 extension WindowController {
     
     fileprivate func touchBarUpdateButtonState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
         if identifier == SceneTool.magicCursor.rawValue {
-            touchBarSceneToolControl.selectedSegment = 0
-        }
-        else if identifier == SceneTool.magnifyingGlass.rawValue {
-            touchBarSceneToolControl.selectedSegment = 1
-        }
-        else if identifier == SceneTool.minifyingGlass.rawValue {
-            touchBarSceneToolControl.selectedSegment = 2
+            touchBarSceneToolControl.selectedSegment = SceneToolIndex.magicCursor.rawValue
         }
         else if identifier == SceneTool.selectionArrow.rawValue {
-            touchBarSceneToolControl.selectedSegment = 3
+            touchBarSceneToolControl.selectedSegment = SceneToolIndex.selectionArrow.rawValue
+        }
+        else if identifier == SceneTool.magnifyingGlass.rawValue {
+            touchBarSceneToolControl.selectedSegment = SceneToolIndex.magnifyingGlass.rawValue
+        }
+        else if identifier == SceneTool.minifyingGlass.rawValue {
+            touchBarSceneToolControl.selectedSegment = SceneToolIndex.minifyingGlass.rawValue
         }
         else if identifier == SceneTool.movingHand.rawValue {
-            touchBarSceneToolControl.selectedSegment = 4
+            touchBarSceneToolControl.selectedSegment = SceneToolIndex.movingHand.rawValue
         }
     }
     
@@ -225,19 +238,19 @@ extension WindowController {
     }
     
     @IBAction func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
-        if sender.selectedSegment == 0 {
+        if sender.selectedSegment == SceneToolIndex.magicCursor.rawValue {
             touchBarUseAnnotateItemAction(sender)
         }
-        else if sender.selectedSegment == 1 {
-            touchBarUseMagnifyItemAction(sender)
-        }
-        else if sender.selectedSegment == 2 {
-            touchBarUseMinifyItemAction(sender)
-        }
-        else if sender.selectedSegment == 3 {
+        else if sender.selectedSegment == SceneToolIndex.selectionArrow.rawValue {
             touchBarUseSelectItemAction(sender)
         }
-        else if sender.selectedSegment == 4 {
+        else if sender.selectedSegment == SceneToolIndex.magnifyingGlass.rawValue {
+            touchBarUseMagnifyItemAction(sender)
+        }
+        else if sender.selectedSegment == SceneToolIndex.minifyingGlass.rawValue {
+            touchBarUseMinifyItemAction(sender)
+        }
+        else if sender.selectedSegment == SceneToolIndex.movingHand.rawValue {
             touchBarUseMoveItemAction(sender)
         }
     }
@@ -251,10 +264,10 @@ extension WindowController {
     }
     
     @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
-        if sender.selectedSegment == 0 {
+        if sender.selectedSegment == SceneActionIndex.fitWindow.rawValue {
             touchBarFitWindowAction(sender)
         }
-        else if sender.selectedSegment == 1 {
+        else if sender.selectedSegment == SceneActionIndex.fillWindow.rawValue {
             touchBarFillWindowAction(sender)
         }
     }
