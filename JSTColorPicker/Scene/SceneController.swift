@@ -243,14 +243,18 @@ class SceneController: NSViewController {
     fileprivate func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
-            if annotatorView.isSelected { return true }
-            if let annotator = annotators.last(where: { $0.view === annotatorView }) {
+            guard let annotator = annotators.last(where: { $0.view === annotatorView }) else { return false }
+            if annotatorView.isSelected && extend {
+                if let _ = try? deselectContentItem(annotator.pixelItem) {
+                    return true
+                }
+            }
+            else {
                 if let _ = try? selectContentItem(annotator.pixelItem, byExtendingSelection: extend) {
                     return true
                 }
             }
-        }
-        if let _ = try? selectContentItem(nil, byExtendingSelection: false) {
+        } else if let _ = try? selectContentItem(nil, byExtendingSelection: false) {
             return true
         }
         return false
@@ -1018,6 +1022,10 @@ extension SceneController: ContentResponder {
     
     func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
         return try contentResponder?.selectContentItem(item, byExtendingSelection: extend)
+    }
+    
+    func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try contentResponder?.deselectContentItem(item)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {

@@ -90,7 +90,6 @@ class SidebarController: NSViewController {
         let panel = NSColorPanel.shared
         panel.showsAlpha = true
         panel.isContinuous = false
-        panel.mode = .RGB
         return panel
     }
     fileprivate static var byteFormatter: ByteCountFormatter = {
@@ -152,9 +151,11 @@ A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " ")
 CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 \(color.coordinate.description.leftPadding(to: 13, with: " "))
 """
-                colorPanel.color = nsColor
-                colorPanel.setTarget(nil)
-                colorPanel.setAction(nil)
+                if colorPanel.isVisible {
+                    colorPanel.setTarget(nil)
+                    colorPanel.setAction(nil)
+                    colorPanel.color = nsColor
+                }
             }
         }
         else if let area = item as? PixelArea {
@@ -209,9 +210,10 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
     }
     
     @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
-        colorPanel.color = sender.color
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
+        colorPanel.color = sender.color
+        
         colorPanel.orderFront(sender)
     }
     

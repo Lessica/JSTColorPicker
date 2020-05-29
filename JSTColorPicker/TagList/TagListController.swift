@@ -32,7 +32,6 @@ class TagListController: NSViewController {
         let panel = NSColorPanel.shared
         panel.showsAlpha = false
         panel.isContinuous = false
-        panel.mode = .RGB
         return panel
     }
 

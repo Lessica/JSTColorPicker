@@ -440,6 +440,15 @@ extension ContentController: ContentResponder {
         return item
     }
     
+    func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
+        tableView.deselectRow(itemIndex)
+        //tableView.scrollRowToVisible(itemIndex)
+        makeFirstResponder(tableView)
+        return item
+    }
+    
     fileprivate func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
         if !set.isEmpty, let lastIndex = set.last {
             tableView.selectRowIndexes(set, byExtendingSelection: extend)

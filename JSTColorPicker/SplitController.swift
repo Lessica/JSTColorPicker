@@ -220,6 +220,15 @@ extension SplitController: ContentResponder {
         return nil
     }
     
+    func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
+        do {
+            return try contentController.deselectContentItem(item)
+        } catch {
+            presentError(error)
+        }
+        return nil
+    }
+    
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(of: coordinate)
