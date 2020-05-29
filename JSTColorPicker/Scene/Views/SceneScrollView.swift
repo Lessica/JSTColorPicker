@@ -141,6 +141,7 @@ class SceneScrollView: NSScrollView {
         else {
             backgroundColor = NSColor.controlBackgroundColor
         }
+        // FIXME: use CICheckerboardGenerator instead
     }
     
     fileprivate func createTrackingArea() {

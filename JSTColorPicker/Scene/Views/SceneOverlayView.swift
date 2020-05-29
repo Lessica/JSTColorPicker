@@ -208,13 +208,6 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     fileprivate func isAcceptableDraggingTarget(_ target: AnnotatorOverlay?) -> Bool {
         guard target != nil else { return false }
-//        if let _ = target as? ColorAnnotatorOverlay {
-//            return true
-//        }
-//        else if let _ = target as? AreaAnnotatorOverlay {
-//            return true
-//        }
-//        return false
         return true
     }
     
@@ -271,9 +264,9 @@ class SceneOverlayView: NSView, DragEndpoint {
                 obj.forEach({ tagNames.append($0) })
             }
         }
-        debugPrint(tagNames)
         
         // TODO: get focused overlay and its content item, then do item modifications
+        debugPrint(tagNames)
         
         return true
     }

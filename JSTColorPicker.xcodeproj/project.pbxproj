@@ -249,6 +249,10 @@
 		D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0AC240D069A003A5B17 /* Localizable.strings */; };
 		D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */; };
 		D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */; };
+		D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */; };
+		D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */; };
+		D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */; };
+		D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */; };
 		D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9D23CB180C0098C567 /* AppDelegate.swift */; };
 		D658AFA023CB180C0098C567 /* SplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* SplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
@@ -849,6 +853,8 @@
 		D64AF0B4240D0B5B003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Advanced.strings; sourceTree = "<group>"; };
 		D64AF0B6240D0B62003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitView.swift; sourceTree = "<group>"; };
+		D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
@@ -1173,6 +1179,8 @@
 		1842C47F24798E46008ECD6F /* TagList */ = {
 			isa = PBXGroup;
 			children = (
+				D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */,
+				D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */,
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
 				D67A8F09247E6D2E00153DE5 /* DragLine */,
 				1842C47A247988E8008ECD6F /* TagList.storyboard */,
@@ -2695,6 +2703,7 @@
 				D610479424224A170002E990 /* ImageOverlay.swift in Sources */,
 				D610479524224A170002E990 /* GridView.swift in Sources */,
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
+				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				D610479724224A170002E990 /* SidebarController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
@@ -2738,6 +2747,7 @@
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
+				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
@@ -2825,6 +2835,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
+				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
@@ -2858,6 +2869,7 @@
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,
+				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,

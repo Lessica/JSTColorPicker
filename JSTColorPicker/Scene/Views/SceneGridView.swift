@@ -40,6 +40,7 @@ class SceneGridView: NSView {
         guard !gridWrappedPixelRect.isEmpty else { return }
         guard !gridRenderingArea.isEmpty else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
+        ctx.setAllowsAntialiasing(false)
         
         let gridSize = CGSize(
             width: gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width),

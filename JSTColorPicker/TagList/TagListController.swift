@@ -252,7 +252,7 @@ class TagListController: NSViewController {
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
         guard let collection = managedTags else { return }
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
-        guard let css = collection[targetIndex].colorHex, let color = NSColor(css: css, alpha: 1.0) else { return }
+        guard let color = NSColor(css: collection[targetIndex].colorHex, alpha: 1.0) else { return }
         
         menuTargetObject = collection[targetIndex]
         
@@ -284,12 +284,7 @@ extension TagListController: TagListDataSource {
     }
     
     func managedTags(of names: [String]) -> [Tag] {
-        return managedTags?.filter({ (tag) -> Bool in
-            if let tagName = tag.name {
-                return names.contains(tagName)
-            }
-            return false
-        }) ?? []
+        return managedTags?.filter({ names.contains($0.name) }) ?? []
     }
     
 }
