@@ -19,29 +19,18 @@ class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, Lua
     }
     
     var id: Int
-    var delay: Double = 1.0
-    var similarity: Double = 1.0
+    var order: Int = 0
     
     init(id: Int) {
         self.id = id
     }
-    
-    init(id: Int, delay: Double, similarity: Double) {
-        self.id = id
-        self.delay = delay
-        self.similarity = similarity
-    }
 
     required init?(coder: NSCoder) {
         self.id = coder.decodeInteger(forKey: "id")
-        self.delay = coder.decodeDouble(forKey: "delay")
-        self.similarity = coder.decodeDouble(forKey: "similarity")
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
-        coder.encode(delay, forKey: "delay")
-        coder.encode(similarity, forKey: "similarity")
     }
     
     override func isEqual(_ object: Any?) -> Bool {
@@ -54,27 +43,23 @@ class ContentItem: NSObject, NSSecureCoding, Comparable, NSCopying, Codable, Lua
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        return ContentItem(id: id, delay: delay, similarity: similarity)
+        return ContentItem(id: id)
     }
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"] = id
-        t["delay"] = Double(delay)
-        t["similarity"] = Double(similarity)
         t.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "content item (table with keys [id,similarity,delay])"
+    fileprivate static let typeName: String = "content item (table with keys [id])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["id"] is Number) ||
-            !(t["delay"] is Number) ||
-            !(t["similarity"] is Number)
+        if !(t["id"] is Number)
         {
             return typeName
         }

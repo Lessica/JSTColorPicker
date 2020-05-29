@@ -171,42 +171,4 @@ class ExportManager {
         exportToGeneralStringPasteboard(generatedString)
     }
     
-    private func hardcodedCopyContentItemsNative(_ items: [ContentItem]) throws {
-        if items.count == 1 {
-            if let item = items.first {
-                if let color = item as? PixelColor {
-                    exportToGeneralStringPasteboard("\(String(color.coordinate.x).leftPadding(to: 4, with: " ")), \(String(color.coordinate.y).leftPadding(to: 4, with: " ")), \(color.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", color.similarity * 100.0).leftPadding(to: 6, with: " "))")
-                }
-                else if let area = item as? PixelArea {
-                    if let data = screenshot?.image?.pngRepresentation(of: area) {
-                        let dataString = data.map {
-                            String(format: "\\x%02hhx", $0)
-                        }
-                        .joined().split(by: 64).joined(separator: "\n")
-                        exportToGeneralStringPasteboard("""
-x, y = screen.find_image([[
-\(dataString)
-]], \(String(format: "%.2f", area.similarity * 100.0)), \(String(area.rect.origin.x)), \(String(area.rect.origin.y)), \(String(area.rect.opposite.x)), \(String(area.rect.opposite.y)))
-""")
-                    }
-                }
-            }
-        }
-        else {
-            var outputString = "x, y = screen.find_color("
-            
-            outputString += items
-                .compactMap({ $0 as? PixelColor })
-                .reduce("{\n", { $0 + "  { \(String($1.coordinate.x).leftPadding(to: 4, with: " ")), \(String($1.coordinate.y).leftPadding(to: 4, with: " ")), \($1.pixelColorRep.hexString.leftPadding(to: 8, with: " ")), \(String(format: "%.2f", $1.similarity * 100.0).leftPadding(to: 6, with: " ")) },  -- \($1.id)\n" }) + "}"
-            
-            if let area = items.compactMap({ $0 as? PixelArea }).first {
-                outputString += ", \(String(format: "%.2f", area.similarity * 100.0)), \(String(area.rect.origin.x)), \(String(area.rect.origin.y)), \(String(area.rect.opposite.x)), \(String(area.rect.opposite.y)))"
-            } else {
-                outputString += ")"
-            }
-            
-            exportToGeneralStringPasteboard(outputString)
-        }
-    }
-    
 }

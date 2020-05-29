@@ -1,8 +1,6 @@
+
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerCell.title" = "ID";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "aWf-2B-iRG"; */
-"aWf-2B-iRG.title" = "文本单元格";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
@@ -34,20 +32,11 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "jxT-WR-Lp9"; */
 "jxT-WR-Lp9.title" = "删除";
 
-/* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "Lwj-iT-akK"; */
-"Lwj-iT-akK.title" = "相似度";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "Lyu-4U-FxO"; */
 "Lyu-4U-FxO.ibShadowedToolTip" = "添加/定位项 (↵)";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OWW-WD-eeB"; */
 "OWW-WD-eeB.title" = "文本单元格";
-
-/* Class = "NSTableColumn"; headerCell.title = "Delay"; ObjectID = "pOV-gi-XyL"; */
-"pOV-gi-XyL.headerCell.title" = "延迟";
-
-/* Class = "NSTableColumn"; headerToolTip = "Delay (ms)"; ObjectID = "pOV-gi-XyL"; */
-"pOV-gi-XyL.headerToolTip" = "延迟 (以毫秒计)";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
@@ -85,17 +74,8 @@
 /* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "ued-v5-LbG"; */
 "ued-v5-LbG.title" = "重置列...";
 
-/* Class = "NSMenuItem"; title = "Delay"; ObjectID = "UX5-QO-Eh6"; */
-"UX5-QO-Eh6.title" = "延迟";
-
 /* Class = "NSMenuItem"; title = "ID"; ObjectID = "w8Q-1g-gYa"; */
 "w8Q-1g-gYa.title" = "ID";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
 "wys-cG-VKM.title" = "全选";
-
-/* Class = "NSTableColumn"; headerCell.title = "Similarity"; ObjectID = "zht-Da-JGH"; */
-"zht-Da-JGH.headerCell.title" = "相似度";
-
-/* Class = "NSTableColumn"; headerToolTip = "Similarity (%)"; ObjectID = "zht-Da-JGH"; */
-"zht-Da-JGH.headerToolTip" = "相似度 (以百分比计)";

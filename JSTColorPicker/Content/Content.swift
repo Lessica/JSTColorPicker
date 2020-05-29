@@ -9,6 +9,7 @@
 import Foundation
 
 class Content: NSObject {
+    
     public var items: [ContentItem] = []  // ordered by id asc
     public var lazyColors: [PixelColor] {
         return items.lazy.compactMap({ $0 as? PixelColor })
@@ -21,14 +22,18 @@ class Content: NSObject {
         super.init()
         // default empty init
     }
+    
     required init?(coder: NSCoder) {
         guard let items = coder.decodeObject(forKey: "items") as? [ContentItem] else { return nil }
         self.items = items
     }
+    
 }
 
 extension Content: NSCoding {
+    
     func encode(with coder: NSCoder) {
         coder.encode(items, forKey: "items")
     }
+    
 }

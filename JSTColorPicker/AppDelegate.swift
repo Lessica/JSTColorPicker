@@ -53,8 +53,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .AppleMomentumScrollSupported: true,
             
             .toggleTableColumnID: true,
-            .toggleTableColumnDelay: false,
-            .toggleTableColumnSimilarity: false,
             .toggleTableColumnDescription: true,
             
             .togglePaneViewPreview: true,

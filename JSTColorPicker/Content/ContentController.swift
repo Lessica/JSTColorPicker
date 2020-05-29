@@ -10,15 +10,11 @@ import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
     static let toggleTableColumnID = NSUserInterfaceItemIdentifier("toggle-id")
-    static let toggleTableColumnDelay = NSUserInterfaceItemIdentifier("toggle-delay")
-    static let toggleTableColumnSimilarity = NSUserInterfaceItemIdentifier("toggle-similarity")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
 }
 
 extension NSUserInterfaceItemIdentifier {
     static let columnID = NSUserInterfaceItemIdentifier("col-id")
-    static let columnDelay = NSUserInterfaceItemIdentifier("col-delay")
-    static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 
@@ -83,18 +79,6 @@ class ContentController: NSViewController {
         }
         return 1
     }
-    fileprivate var nextDelay: Double {
-        if let lastDelay = content?.items.last?.delay {
-            return lastDelay
-        }
-        return 1.0
-    }
-    fileprivate var nextSimilarity: Double {
-        if let lastSimilarity = content?.items.last?.similarity {
-            return lastSimilarity
-        }
-        return 1.0
-    }
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
@@ -106,8 +90,6 @@ class ContentController: NSViewController {
     
     @IBOutlet weak var tableView: ContentTableView!
     @IBOutlet weak var columnID: NSTableColumn!
-    @IBOutlet weak var columnDelay: NSTableColumn!
-    @IBOutlet weak var columnSimilarity: NSTableColumn!
     @IBOutlet weak var columnDescription: NSTableColumn!
     
     @IBOutlet weak var addCoordinateButton: NSButton!
@@ -118,6 +100,8 @@ class ContentController: NSViewController {
         initializeController()
         
         tableView.tableViewResponder = self
+        tableView.registerForDraggedTypes([.content])
+        
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
         }
@@ -141,53 +125,19 @@ class ContentController: NSViewController {
     
     @IBAction func resetColumns(_ sender: NSMenuItem) {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnID)
-        UserDefaults.standard.removeObject(forKey: .toggleTableColumnDelay)
-        UserDefaults.standard.removeObject(forKey: .toggleTableColumnSimilarity)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
         
         columnID.width = 30.0
-        columnDelay.width = 60.0
-        columnSimilarity.width = 60.0
         columnDescription.width = 200.0
         
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [
             columnID,
-            columnDelay,
-            columnSimilarity,
             columnDescription
         ]
         tableCols.forEach({ tableView.addTableColumn($0) })
         
         updateColumns()
-    }
-    
-    @IBAction func delayFieldChanged(_ sender: NSTextField) {
-        guard let content = content else { return }
-        let row = tableView.row(for: sender)
-        assert(row >= 0 && row < content.items.count)
-        let value = sender.doubleValue
-        if value >= 0 {
-            let item = content.items[row].copy() as! ContentItem
-            item.delay = value / 1000.0
-            internalUpdateContentItems([item])
-        }
-        let delay = String(Int(content.items[row].delay * 1000.0))
-        sender.stringValue = delay + "ms"
-    }
-    
-    @IBAction func similarityFieldChanged(_ sender: NSTextField) {
-        guard let content = content else { return }
-        let row = tableView.row(for: sender)
-        assert(row >= 0 && row < content.items.count)
-        let value = sender.doubleValue
-        if value >= 1 && value <= 100 {
-            let item = content.items[row].copy() as! ContentItem
-            item.similarity = min(max(value / 100.0, 0.01), 1.0)
-            internalUpdateContentItems([item])
-        }
-        let similarity = String(Int(content.items[row].similarity * 100.0))
-        sender.stringValue = similarity + "%"
     }
     
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
@@ -361,8 +311,6 @@ extension ContentController: ContentResponder {
         guard content.items.last(where: { $0 == item }) == nil else { throw ContentError.itemExists(item: item) }
         
         item.id = nextID
-        item.delay = nextDelay
-        item.similarity = nextSimilarity
         internalAddContentItems([item])
         tableView.reloadData()
         
@@ -401,8 +349,6 @@ extension ContentController: ContentResponder {
             }
             if let relatedItem = relatedItem {
                 relatedItem.id = beginID
-                relatedItem.delay = item.delay
-                relatedItem.similarity = item.similarity
                 relatedItems.append(relatedItem)
                 beginID += 1
             }
@@ -574,12 +520,6 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 if menuItem.identifier == .toggleTableColumnID {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnID] ? .on : .off
                 }
-                else if menuItem.identifier == .toggleTableColumnDelay {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnDelay] ? .on : .off
-                }
-                else if menuItem.identifier == .toggleTableColumnSimilarity {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnSimilarity] ? .on : .off
-                }
                 else if menuItem.identifier == .toggleTableColumnDescription {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
                 }
@@ -604,16 +544,6 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         hiddenValue = !UserDefaults.standard[.toggleTableColumnID]
         if columnID.isHidden != hiddenValue {
             columnID.isHidden = hiddenValue
-        }
-        
-        hiddenValue = !UserDefaults.standard[.toggleTableColumnDelay]
-        if columnDelay.isHidden != hiddenValue {
-            columnDelay.isHidden = hiddenValue
-        }
-        
-        hiddenValue = !UserDefaults.standard[.toggleTableColumnSimilarity]
-        if columnSimilarity.isHidden != hiddenValue {
-            columnSimilarity.isHidden = hiddenValue
         }
         
         hiddenValue = !UserDefaults.standard[.toggleTableColumnDescription]
@@ -738,12 +668,6 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         if sender.identifier == .toggleTableColumnID {
             defaultKey = .toggleTableColumnID
         }
-        else if sender.identifier == .toggleTableColumnDelay {
-            defaultKey = .toggleTableColumnDelay
-        }
-        else if sender.identifier == .toggleTableColumnSimilarity {
-            defaultKey = .toggleTableColumnSimilarity
-        }
         else if sender.identifier == .toggleTableColumnDescription {
             defaultKey = .toggleTableColumnDescription
         }
@@ -820,16 +744,6 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             if col == .columnID {
                 cell.textField?.stringValue = String(item.id)
             }
-            else if col == .columnDelay {
-                let delay = String(Int(item.delay * 1000.0))
-                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_DELAY_INTVAL", comment: "Tool Tip: Modify Delay Interval"), delay)
-                cell.textField?.stringValue = delay + "ms"
-            }
-            else if col == .columnSimilarity {
-                let similarity = String(Int(item.similarity * 100.0))
-                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
-                cell.textField?.stringValue = similarity + "%"
-            }
             else if col == .columnDescription {
                 if let color = item as? PixelColor {
                     cell.imageView?.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
@@ -845,6 +759,62 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         }
         return nil
     }
+    
+//    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+//        guard let collection = content?.items, row < collection.count else { return nil }
+//        return collection[row]
+//    }
+//    
+//    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+//        if dropOperation == .above {
+//            return .move
+//        }
+//        return []
+//    }
+//    
+//    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+//        guard var collection = content?.items else { return false }
+//        
+//        var oldIndexes = [Int]()
+//        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
+//            if let item = dragItem.item as? ContentItem,
+//                let index = item.row
+//            {
+//                oldIndexes.append(index)
+//                item.row = nil
+//            }
+//        }
+//
+//        var oldIndexOffset = 0
+//        var newIndexOffset = 0
+//
+//        // For simplicity, the code below uses `tableView.moveRowAtIndex` to move rows around directly.
+//        // You may want to move rows in your content array and then call `tableView.reloadData()` instead.
+//        NSAnimationContext.beginGrouping()
+//        NSAnimationContext.current.duration = 0
+//        
+//        tableView.beginUpdates()
+//        for oldIndex in oldIndexes {
+//            if oldIndex < row {
+//                let tag = collection.remove(at: oldIndex + oldIndexOffset)
+//                collection.insert(tag, at: row - 1)
+//                tableView.moveRow(at: oldIndex + oldIndexOffset, to: row - 1)
+//                oldIndexOffset -= 1
+//            } else {
+//                let tag = collection.remove(at: oldIndex)
+//                collection.insert(tag, at: row + newIndexOffset)
+//                tableView.moveRow(at: oldIndex, to: row + newIndexOffset)
+//                newIndexOffset += 1
+//            }
+//        }
+//        tableView.endUpdates()
+//        
+//        NSAnimationContext.endGrouping()
+//        
+//        
+//        
+//        return true
+//    }
     
 }
 

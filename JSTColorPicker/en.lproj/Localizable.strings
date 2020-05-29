@@ -1,3 +1,4 @@
+
 /* toolbarItemLabel */
 "Advanced" = "Advanced";
 
@@ -166,12 +167,6 @@
 
 /* Tool Tip: Description of Pixel Color */
 "TOOLTIP_DESC_PIXEL_COLOR" = "Location: %@\nCSS: %@\nRGBA: %@";
-
-/* Tool Tip: Modify Delay Interval */
-"TOOLTIP_MODIFY_DELAY_INTVAL" = "Delay Interval: %@ms\nClick here to edit.";
-
-/* Tool Tip: Modify Similiarity */
-"TOOLTIP_MODIFY_SIMILARITY" = "Similarity: %@%%\nClick here to edit.";
 
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
