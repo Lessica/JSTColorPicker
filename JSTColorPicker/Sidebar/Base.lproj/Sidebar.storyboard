@@ -11,23 +11,23 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="42" width="270" height="758"/>
+                                <rect key="frame" x="0.0" y="42" width="240" height="758"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
-                                        <rect key="frame" x="0.0" y="0.0" width="270" height="237"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="237"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlX-Nk-OkF">
-                                                <rect key="frame" x="-3" y="-4" width="276" height="243"/>
+                                                <rect key="frame" x="-3" y="-4" width="246" height="243"/>
                                                 <view key="contentView" id="dLI-77-rkV">
-                                                    <rect key="frame" x="8" y="0.0" width="260" height="243"/>
+                                                    <rect key="frame" x="8" y="0.0" width="230" height="243"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-iH-KBU">
-                                                            <rect key="frame" x="8" y="16" width="244" height="211"/>
+                                                            <rect key="frame" x="8" y="16" width="214" height="211"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
                                                                     <rect key="frame" x="0.0" y="127" width="155" height="84"/>
@@ -44,10 +44,10 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="5ER-JY-eJ2">
-                                                                    <rect key="frame" x="0.0" y="96" width="244" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="96" width="214" height="19"/>
                                                                     <subviews>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pFl-IO-QPP">
-                                                                            <rect key="frame" x="49" y="-6" width="147" height="28"/>
+                                                                            <rect key="frame" x="34" y="-6" width="147" height="28"/>
                                                                             <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="message" size="11"/>
@@ -114,22 +114,22 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
-                                        <rect key="frame" x="0.0" y="246" width="270" height="53"/>
+                                        <rect key="frame" x="0.0" y="246" width="240" height="53"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPz-OZ-Hua">
-                                                <rect key="frame" x="-3" y="-4" width="276" height="59"/>
+                                                <rect key="frame" x="-3" y="-4" width="246" height="59"/>
                                                 <view key="contentView" id="mzD-mX-KZ8">
-                                                    <rect key="frame" x="8" y="0.0" width="260" height="59"/>
+                                                    <rect key="frame" x="8" y="0.0" width="230" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-ma-a5Q">
-                                                            <rect key="frame" x="0.0" y="4" width="260" height="51"/>
+                                                            <rect key="frame" x="0.0" y="4" width="230" height="51"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="PKs-GF-oI7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="127" height="51"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="CIm-qT-p2S">
-                                                                            <rect key="frame" x="44" y="0.0" width="40" height="51"/>
+                                                                            <rect key="frame" x="36" y="0.0" width="40" height="51"/>
                                                                             <subviews>
                                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UID-HV-iAj" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>
@@ -179,10 +179,10 @@
                                                                     </constraints>
                                                                 </customView>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="zY2-vb-2Mh">
-                                                                    <rect key="frame" x="136" y="0.0" width="124" height="51"/>
+                                                                    <rect key="frame" x="121" y="0.0" width="109" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="gvP-3V-m3U">
-                                                                            <rect key="frame" x="42" y="0.0" width="40" height="51"/>
+                                                                            <rect key="frame" x="35" y="0.0" width="40" height="51"/>
                                                                             <subviews>
                                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G8B-c4-3S6" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>
@@ -256,10 +256,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
-                                        <rect key="frame" x="0.0" y="308" width="270" height="256"/>
+                                        <rect key="frame" x="0.0" y="308" width="240" height="256"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-zE-Ub5">
-                                                <rect key="frame" x="10" y="-4" width="250" height="262"/>
+                                                <rect key="frame" x="-5" y="-4" width="250" height="262"/>
                                                 <view key="contentView" id="kW4-LL-dQv">
                                                     <rect key="frame" x="8" y="0.0" width="234" height="262"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -315,17 +315,16 @@
                                             </box>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="UFe-zE-Ub5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XPn-It-24S" secondAttribute="leading" id="8WB-y2-IaC"/>
                                             <constraint firstAttribute="bottom" secondItem="UFe-zE-Ub5" secondAttribute="bottom" id="LCa-dI-02H"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="centerX" secondItem="XPn-It-24S" secondAttribute="centerX" id="lM0-VH-r73"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="xEc-bj-Jcd"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
-                                        <rect key="frame" x="0.0" y="573" width="270" height="185"/>
+                                        <rect key="frame" x="0.0" y="573" width="240" height="185"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="270" height="185"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="185"/>
                                                 <connections>
                                                     <segue destination="JDK-dI-n6a" kind="embed" id="hb4-4p-dHm"/>
                                                 </connections>
@@ -351,55 +350,66 @@
                                 </connections>
                             </splitView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-gN-yLQ">
-                                <rect key="frame" x="0.0" y="0.0" width="270" height="42"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="42"/>
                                 <subviews>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="KZa-vT-7c9">
-                                        <rect key="frame" x="0.0" y="39" width="270" height="5"/>
+                                        <rect key="frame" x="0.0" y="39" width="240" height="5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="B3V-o5-DgE"/>
                                         </constraints>
                                     </box>
-                                    <button toolTip="Export All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-6j-3gj">
-                                        <rect key="frame" x="20" y="6" width="186" height="27"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="176" id="VP4-Zv-NJN"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j00-Um-3Fu">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message" size="11"/>
-                                            <string key="keyEquivalent">e</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="exportButtonTapped:" target="IfO-80-1iw" id="yTw-Em-k5M"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Export Options (⌥⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
-                                        <rect key="frame" x="200" y="6" width="50" height="27"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="zoN-9M-igl"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b77-A5-RZE">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message" size="11"/>
-                                            <string key="keyEquivalent">e</string>
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="optionButtonTapped:" target="IfO-80-1iw" id="5Jz-lV-8qS"/>
-                                            <outlet property="menu" destination="4at-bQ-1Zt" id="kxi-XC-bx4"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmm-f0-UlU">
+                                        <rect key="frame" x="8" y="12" width="224" height="18"/>
+                                        <subviews>
+                                            <button toolTip="Export All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-6j-3gj">
+                                                <rect key="frame" x="-5" y="-6" width="186" height="27"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="176" id="VP4-Zv-NJN"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j00-Um-3Fu">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="keyEquivalent">e</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="exportButtonTapped:" target="IfO-80-1iw" id="yTw-Em-k5M"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Export Options (⌥⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
+                                                <rect key="frame" x="179" y="-6" width="50" height="27"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="zoN-9M-igl"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b77-A5-RZE">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="keyEquivalent">e</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="optionButtonTapped:" target="IfO-80-1iw" id="5Jz-lV-8qS"/>
+                                                    <outlet property="menu" destination="4at-bQ-1Zt" id="kxi-XC-bx4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="bwz-6j-3gj" firstAttribute="centerY" secondItem="e8Z-gN-yLQ" secondAttribute="centerY" id="9eM-6f-EQF"/>
-                                    <constraint firstItem="Dbw-cW-F99" firstAttribute="leading" secondItem="bwz-6j-3gj" secondAttribute="trailing" constant="4" id="Btg-Aq-cGd"/>
+                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e8Z-gN-yLQ" secondAttribute="leading" constant="8" id="6X6-fB-oJt"/>
                                     <constraint firstAttribute="trailing" secondItem="KZa-vT-7c9" secondAttribute="trailing" id="JmS-0G-RYk"/>
                                     <constraint firstItem="KZa-vT-7c9" firstAttribute="leading" secondItem="e8Z-gN-yLQ" secondAttribute="leading" id="MvF-iQ-AaR"/>
                                     <constraint firstItem="KZa-vT-7c9" firstAttribute="top" secondItem="e8Z-gN-yLQ" secondAttribute="top" id="QtP-ar-zEH"/>
-                                    <constraint firstItem="Dbw-cW-F99" firstAttribute="height" secondItem="bwz-6j-3gj" secondAttribute="height" id="mVj-O3-5ZU"/>
-                                    <constraint firstItem="Dbw-cW-F99" firstAttribute="centerY" secondItem="e8Z-gN-yLQ" secondAttribute="centerY" id="w5X-ig-699"/>
-                                    <constraint firstItem="bwz-6j-3gj" firstAttribute="centerX" secondItem="e8Z-gN-yLQ" secondAttribute="centerX" constant="-22" id="yL3-ug-iX3"/>
+                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="centerX" secondItem="e8Z-gN-yLQ" secondAttribute="centerX" id="Zi8-8A-wqs"/>
+                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="centerY" secondItem="e8Z-gN-yLQ" secondAttribute="centerY" id="ffD-sf-WKs"/>
                                     <constraint firstAttribute="height" constant="42" id="ztU-4S-w6m"/>
                                 </constraints>
                             </customView>

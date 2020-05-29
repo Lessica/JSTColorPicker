@@ -255,7 +255,7 @@ extension ContentController {
         })
         actionDelegate?.contentActionAdded(items)
         items.forEach { (item) in
-            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0 < $1 })
+            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
         }
     }
@@ -279,7 +279,7 @@ extension ContentController {
         actionDelegate?.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         items.forEach { (item) in
-            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0 < $1 })
+            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
         }
     }
@@ -759,62 +759,6 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         }
         return nil
     }
-    
-//    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-//        guard let collection = content?.items, row < collection.count else { return nil }
-//        return collection[row]
-//    }
-//    
-//    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-//        if dropOperation == .above {
-//            return .move
-//        }
-//        return []
-//    }
-//    
-//    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-//        guard var collection = content?.items else { return false }
-//        
-//        var oldIndexes = [Int]()
-//        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
-//            if let item = dragItem.item as? ContentItem,
-//                let index = item.row
-//            {
-//                oldIndexes.append(index)
-//                item.row = nil
-//            }
-//        }
-//
-//        var oldIndexOffset = 0
-//        var newIndexOffset = 0
-//
-//        // For simplicity, the code below uses `tableView.moveRowAtIndex` to move rows around directly.
-//        // You may want to move rows in your content array and then call `tableView.reloadData()` instead.
-//        NSAnimationContext.beginGrouping()
-//        NSAnimationContext.current.duration = 0
-//        
-//        tableView.beginUpdates()
-//        for oldIndex in oldIndexes {
-//            if oldIndex < row {
-//                let tag = collection.remove(at: oldIndex + oldIndexOffset)
-//                collection.insert(tag, at: row - 1)
-//                tableView.moveRow(at: oldIndex + oldIndexOffset, to: row - 1)
-//                oldIndexOffset -= 1
-//            } else {
-//                let tag = collection.remove(at: oldIndex)
-//                collection.insert(tag, at: row + newIndexOffset)
-//                tableView.moveRow(at: oldIndex, to: row + newIndexOffset)
-//                newIndexOffset += 1
-//            }
-//        }
-//        tableView.endUpdates()
-//        
-//        NSAnimationContext.endGrouping()
-//        
-//        
-//        
-//        return true
-//    }
     
 }
 
