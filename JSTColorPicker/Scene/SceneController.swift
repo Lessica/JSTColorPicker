@@ -240,17 +240,17 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func applySelectItem(at location: CGPoint) -> Bool {
+    fileprivate func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
             if annotatorView.isSelected { return true }
             if let annotator = annotators.last(where: { $0.view === annotatorView }) {
-                if let _ = try? selectContentItem(annotator.pixelItem) {
+                if let _ = try? selectContentItem(annotator.pixelItem, byExtendingSelection: extend) {
                     return true
                 }
             }
         }
-        if let _ = try? selectContentItem(nil) {
+        if let _ = try? selectContentItem(nil, byExtendingSelection: false) {
             return true
         }
         return false
@@ -346,7 +346,10 @@ class SceneController: NSViewController {
                         handled = applyMinifyItem(at: loc)
                     }
                     else if sceneTool == .selectionArrow {
-                        handled = applySelectItem(at: loc)
+                        let commandPressed = event.modifierFlags
+                            .intersection(.deviceIndependentFlagsMask)
+                            .contains(.command)
+                        handled = applySelectItem(at: loc, byExtendingSelection: commandPressed)
                     }
                 }
             }
@@ -378,7 +381,10 @@ class SceneController: NSViewController {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         var handled = false
         let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
-        switch modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.shift) {
+        switch modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .subtracting([.shift, .command])
+        {
         case [.option]:
             handled = useOptionModifiedSceneTool(forceReset)
         case [.control]:
@@ -512,7 +518,8 @@ class SceneController: NSViewController {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
         
-        let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        let flags = event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
         if flags.contains(.command) {
             
             var distance: CGFloat = 1.0
@@ -674,14 +681,14 @@ extension SceneController: SceneToolDataSource {
         }
     }
     
-    func sceneToolEnabled(_ sender: Any) -> Bool {
+    var sceneToolEnabled: Bool {
         if sceneTool == .magnifyingGlass {
             return canMagnify
         }
         else if sceneTool == .minifyingGlass {
             return canMinify
         }
-        return true
+        return screenshot != nil
     }
     
     func resetSceneTool() {
@@ -977,8 +984,8 @@ extension SceneController: ToolbarResponder {
     fileprivate func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
         let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
         let fitRect = adjust
-            ? rect.insetBy(dx: -altClipped.width, dy: -altClipped.height)
-            : rect
+            ? rect.insetBy(dx: -(altClipped.width + 1.0), dy: -(altClipped.height + 1.0))
+            : rect.insetBy(dx: -1.0, dy: -1.0)
         guard !fitRect.isEmpty else {
             return
         }
@@ -1009,8 +1016,8 @@ extension SceneController: ContentResponder {
         return try contentResponder?.updateContentItem(item, to: rect)
     }
     
-    func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
-        return try contentResponder?.selectContentItem(item)
+    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
+        return try contentResponder?.selectContentItem(item, byExtendingSelection: extend)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {

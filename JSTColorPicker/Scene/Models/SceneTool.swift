@@ -10,7 +10,7 @@ import Cocoa
 
 protocol SceneToolDataSource: class {
     var sceneTool: SceneTool { get }
-    func sceneToolEnabled(_ sender: Any) -> Bool
+    var sceneToolEnabled: Bool { get }
     func resetSceneTool()
 }
 

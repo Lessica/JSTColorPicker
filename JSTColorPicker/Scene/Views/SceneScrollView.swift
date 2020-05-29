@@ -467,7 +467,9 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
-        let shiftPressed = event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.shift)
+        let shiftPressed = event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.shift)
         if enableForceTouch {
             return shiftPressed || sceneState.stage >= requiredEventStageFor(sceneTool)
         } else {

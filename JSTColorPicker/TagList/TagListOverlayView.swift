@@ -36,12 +36,20 @@ class TagListOverlayView: NSView, DragEndpoint {
     fileprivate static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
     
     override func rightMouseDown(with event: NSEvent) {
-        guard let dragDelegate = dragDelegate, let dataSource = dataSource else {
+        guard let dragDelegate = dragDelegate,
+            let dataSource = dataSource,
+            let sceneToolDataSource = sceneToolDataSource
+            else
+        {
             super.rightMouseDown(with: event)
             return
         }
         
-        guard dragDelegate.canPerformDrag && sceneTool == .selectionArrow else {
+        guard dragDelegate.canPerformDrag
+            && sceneTool == .selectionArrow
+            && sceneToolDataSource.sceneToolEnabled
+            else
+        {
             super.rightMouseDown(with: event)
             return
         }
@@ -73,7 +81,10 @@ class TagListOverlayView: NSView, DragEndpoint {
         rects
             .filter({ dirtyRect.intersects($0) })
             .forEach({
-                ctx.addRect($0.insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth))
+                ctx.addRect($0
+                    .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
+                    .offsetBy(dx: 0.0, dy: -0.5)
+                )
             })
         ctx.strokePath()
     }

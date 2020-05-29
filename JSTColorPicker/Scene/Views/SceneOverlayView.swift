@@ -167,7 +167,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     fileprivate func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
         guard let sceneToolDataSource = sceneToolDataSource else { return }
-        if sceneToolDataSource.sceneToolEnabled(self) {
+        if sceneToolDataSource.sceneToolEnabled {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
                     sceneTool.manipulatingCursor.set()

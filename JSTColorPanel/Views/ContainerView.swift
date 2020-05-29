@@ -40,7 +40,9 @@ class ContainerView: NSView {
             return
         }
         
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
+        switch event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+        {
         case [.command] where event.characters == "z":
             Logger.debug(message: "CMD+Z pressed")
             colorPanel.setColor(hsv: undoManager.undo())

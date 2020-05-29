@@ -211,9 +211,9 @@ extension SplitController: ContentResponder {
         return nil
     }
     
-    func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
         do {
-            return try contentController.selectContentItem(item)
+            return try contentController.selectContentItem(item, byExtendingSelection: extend)
         } catch {
             presentError(error)
         }

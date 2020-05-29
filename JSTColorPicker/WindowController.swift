@@ -82,7 +82,10 @@ class WindowController: NSWindowController {
     
     override func keyDown(with event: NSEvent) {
         // for windows keyboards
-        if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == [.function, .control] {
+        if event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .subtracting(.function) == [.control]
+        {
             switch event.specialKey {
             case NSEvent.SpecialKey.f1:
                 touchBarOpenAction(event)

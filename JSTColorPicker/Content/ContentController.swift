@@ -228,7 +228,7 @@ class ContentController: NSViewController {
                 
                 do {
                     if let item = try addContentItem(of: coordinate) {
-                        if let _ = try selectContentItem(item) {
+                        if let _ = try selectContentItem(item, byExtendingSelection: false) {
                             sender.stringValue = ""
                             addedOrSelected = true
                         }
@@ -260,7 +260,7 @@ class ContentController: NSViewController {
                 
                 do {
                     if let item = try addContentItem(of: rect) {
-                        if let _ = try selectContentItem(item) {
+                        if let _ = try selectContentItem(item, byExtendingSelection: false) {
                             sender.stringValue = ""
                             addedOrSelected = true
                         }
@@ -366,7 +366,7 @@ extension ContentController: ContentResponder {
         internalAddContentItems([item])
         tableView.reloadData()
         
-        return try selectContentItem(item)
+        return try selectContentItem(item, byExtendingSelection: false)
     }
     
     @discardableResult
@@ -410,27 +410,27 @@ extension ContentController: ContentResponder {
         internalAddContentItems(relatedItems)
         tableView.reloadData()
         
-        selectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count))
+        selectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count), byExtendingSelection: false)
         return relatedItems
     }
     
     fileprivate func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
-        return try selectContentItem(color)
+        return try selectContentItem(color, byExtendingSelection: false)
     }
     
     fileprivate func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
-        return try selectContentItem(area)
+        return try selectContentItem(area, byExtendingSelection: false)
     }
     
-    func selectContentItem(_ item: ContentItem?) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
         if let item = item {
             guard let content = content else { throw ContentError.noDocumentLoaded }
             guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
-            tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: false)
+            tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: extend)
             tableView.scrollRowToVisible(itemIndex)
             makeFirstResponder(tableView)
         }
@@ -440,9 +440,9 @@ extension ContentController: ContentResponder {
         return item
     }
     
-    fileprivate func selectContentItems(in set: IndexSet) {
+    fileprivate func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
         if !set.isEmpty, let lastIndex = set.last {
-            tableView.selectRowIndexes(set, byExtendingSelection: false)
+            tableView.selectRowIndexes(set, byExtendingSelection: extend)
             tableView.scrollRowToVisible(lastIndex)
             makeFirstResponder(tableView)
         }
@@ -493,7 +493,7 @@ extension ContentController: ContentResponder {
     private func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         internalUpdateContentItems([item])
         tableView.reloadData()
-        return try selectContentItem(item)
+        return try selectContentItem(item, byExtendingSelection: false)
     }
     
 }
