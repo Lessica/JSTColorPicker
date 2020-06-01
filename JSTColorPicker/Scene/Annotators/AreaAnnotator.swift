@@ -9,14 +9,17 @@
 import Foundation
 
 class AreaAnnotator: Annotator {
+    
     var pixelArea: PixelArea {
-        return pixelItem as! PixelArea
+        return contentItem as! PixelArea
     }
+    
     var pixelView: AreaAnnotatorOverlay {
-        return view as! AreaAnnotatorOverlay
+        return overlay as! AreaAnnotatorOverlay
     }
     
     init(pixelItem: PixelArea) {
         super.init(pixelItem: pixelItem, view: AreaAnnotatorOverlay(label: String(pixelItem.id), rect: pixelItem.rect))
     }
+    
 }

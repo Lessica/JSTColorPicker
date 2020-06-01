@@ -77,11 +77,11 @@ class SidebarController: NSViewController {
     @IBOutlet weak var inspectorColorFlag2: ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel2: NSTextField!
     
+    public weak var previewOverlayDelegate: PreviewResponder!
     @IBOutlet weak var previewImageView: PreviewImageView!
     @IBOutlet weak var previewOverlayView: PreviewOverlayView!
     @IBOutlet weak var previewSlider: NSSlider!
     @IBOutlet weak var previewSliderLabel: NSTextField!
-    weak var previewOverlayDelegate: PreviewResponder?
     
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
@@ -113,7 +113,37 @@ class SidebarController: NSViewController {
         _ = colorPanel
         previewSliderLabel.textColor = .white
         previewOverlayView.overlayDelegate = self
-        initializeController()
+        
+        updateInformationPanel()
+                
+        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
+        inspectorColorLabel.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
+        inspectorColorLabel2.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel2.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+        previewSlider.isEnabled = false
+        exportButton.isEnabled = false
+        optionButton.isEnabled = false
+        
+        reservedOptionMenuItems.removeAll()
+        reservedOptionMenuItems.append(contentsOf: optionMenu.items)
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         loadPreferences(nil)
@@ -442,39 +472,6 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 
 extension SidebarController: ScreenshotLoader {
     
-    func initializeController() {
-        updateInformationPanel()
-        
-        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
-        inspectorColorLabel.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
-        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
-        inspectorColorLabel2.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel2.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
-        previewSlider.isEnabled = false
-        exportButton.isEnabled = false
-        optionButton.isEnabled = false
-        
-        reservedOptionMenuItems.removeAll()
-        reservedOptionMenuItems.append(contentsOf: optionMenu.items)
-    }
-    
     func load(_ screenshot: Screenshot) throws {
         guard let image = screenshot.image else { throw ScreenshotError.invalidImage }
         self.screenshot = screenshot
@@ -576,11 +573,11 @@ extension SidebarController: NSSplitViewDelegate {
 extension SidebarController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        previewOverlayDelegate?.previewAction(sender, centeredAt: coordinate)
+        previewOverlayDelegate.previewAction(sender, centeredAt: coordinate)
     }
     
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        previewOverlayDelegate?.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
+        previewOverlayDelegate.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
     }
     
 }

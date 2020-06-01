@@ -12,15 +12,20 @@ class SplitController: NSSplitViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentController.actionDelegate = self
-        sceneController.trackingDelegate = self
-        sceneController.contentResponder = self
-        sidebarController.previewOverlayDelegate = self
     }
     
     override func viewDidLoad() {
+        
+        contentController.actionDelegate         = self
+        sceneController.trackingDelegate         = self
+        sceneController.contentResponder         = self
+        sidebarController.previewOverlayDelegate = self
+        
         super.viewDidLoad()
-        initializeController()
+        
+        sceneController.tagListDataSource = tagListController
+        tagListController.sceneToolDataSource = sceneController
+        
     }
     
     override var representedObject: Any? {
@@ -29,7 +34,7 @@ class SplitController: NSSplitViewController {
         }
     }
     
-    weak var trackingObject: SceneTracking?
+    public weak var trackingObject: SceneTracking!
     internal weak var screenshot: Screenshot?
     
     deinit {
@@ -102,7 +107,7 @@ extension SplitController: SceneTracking {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
         sidebarController.updateItemInspector(for: color, submit: false)
-        trackingObject?.trackColorChanged(sender, at: coordinate)
+        trackingObject.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
@@ -153,10 +158,6 @@ extension SplitController: ToolbarResponder {
 }
 
 extension SplitController: ScreenshotLoader {
-    
-    func initializeController() {
-        tagListController.sceneToolDataSource = sceneController
-    }
     
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
@@ -211,6 +212,15 @@ extension SplitController: ContentResponder {
         return nil
     }
     
+    func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
+        do {
+            return try contentController.updateContentItem(item)
+        } catch {
+            presentError(error)
+        }
+        return nil
+    }
+    
     func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
         do {
             return try contentController.selectContentItem(item, byExtendingSelection: extend)
@@ -253,10 +263,10 @@ extension SplitController: ContentActionDelegate {
     
     fileprivate func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
-            trackingObject?.trackColorChanged(nil, at: item.coordinate)
+            trackingObject.trackColorChanged(nil, at: item.coordinate)
         }
         else if let item = item as? PixelArea {
-            trackingObject?.trackAreaChanged(nil, to: item.rect)
+            trackingObject.trackAreaChanged(nil, to: item.rect)
         }
     }
     

@@ -17,7 +17,7 @@ class TagListController: NSViewController {
     @IBOutlet weak var tableViewOverlay: TagListOverlayView!
     @IBOutlet var tagMenu: NSMenu!
     
-    public weak var sceneToolDataSource: SceneToolDataSource? {
+    public weak var sceneToolDataSource: SceneToolDataSource! {
         get { return tableViewOverlay.sceneToolDataSource }
         set { tableViewOverlay.sceneToolDataSource = newValue }
     }
@@ -300,7 +300,7 @@ extension TagListController: TagListDragDelegate {
     func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet {
         var indexes = tableView.selectedRowIndexes
         let rowAtPoint = tableView.row(at: scrollView.convert(point, to: tableView))
-        if rowAtPoint > 0 {
+        if rowAtPoint >= 0 {
             if !indexes.contains(rowAtPoint) {
                 let theIndexSet = IndexSet(integer: rowAtPoint)
                 tableView.selectRowIndexes(theIndexSet, byExtendingSelection: false)

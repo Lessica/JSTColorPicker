@@ -21,7 +21,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     override var isFlipped: Bool { return true }
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
-    override func cursorUpdate(with event: NSEvent) { }    // do not perform default behavior
+    override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate func createTrackingArea() {
@@ -38,12 +38,16 @@ class SceneOverlayView: NSView, DragEndpoint {
         super.updateTrackingAreas()
     }
     
-    public weak var sceneToolDataSource: SceneToolDataSource?
-    fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
-    public weak var sceneStateDataSource: SceneStateDataSource?
-    fileprivate var sceneState: SceneState { return sceneStateDataSource!.sceneState }
-    public weak var annotatorDataSource: AnnotatorDataSource?
-    fileprivate var annotators: [Annotator] { return annotatorDataSource!.annotators }
+    public weak var contentResponder: ContentResponder!
+    public weak var sceneToolDataSource: SceneToolDataSource!
+    fileprivate var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
+    public weak var sceneStateDataSource: SceneStateDataSource!
+    fileprivate var sceneState: SceneState { return sceneStateDataSource.sceneState }
+    public weak var annotatorDataSource: AnnotatorDataSource!
+    fileprivate var annotators: [Annotator] { return annotatorDataSource.annotators }
+    fileprivate func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
+        return annotators.first(where: { $0.overlay == overlay })?.contentItem
+    }
     
     public var overlays: [AnnotatorOverlay] { return subviews as! [AnnotatorOverlay] }
     fileprivate weak var internalFocusedOverlay: AnnotatorOverlay?
@@ -166,7 +170,6 @@ class SceneOverlayView: NSView, DragEndpoint {
     }
     
     fileprivate func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
-        guard let sceneToolDataSource = sceneToolDataSource else { return }
         if sceneToolDataSource.sceneToolEnabled {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
@@ -255,6 +258,10 @@ class SceneOverlayView: NSView, DragEndpoint {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard let focusedOverlay = internalFocusedOverlay, isAcceptableDraggingTarget(focusedOverlay) else { return false }
+        guard let origItem = contentItem(of: focusedOverlay) else { return false }
+        guard let replItem = origItem.copy() as? ContentItem else { return false }
+            
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
@@ -265,10 +272,13 @@ class SceneOverlayView: NSView, DragEndpoint {
             }
         }
         
-        // TODO: get focused overlay and its content item, then do item modifications
         debugPrint(tagNames)
+        replItem.tags.append(contentsOf: tagNames)
+        if let _ = try? contentResponder.updateContentItem(replItem) {
+            return true
+        }
         
-        return true
+        return false
     }
     
 }

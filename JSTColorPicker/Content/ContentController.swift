@@ -68,7 +68,8 @@ extension NSViewController {
 
 class ContentController: NSViewController {
     
-    weak var actionDelegate: ContentActionDelegate?
+    public weak var actionDelegate: ContentActionDelegate!
+    
     internal weak var screenshot: Screenshot?
     fileprivate var content: Content? {
         return screenshot?.content
@@ -79,6 +80,7 @@ class ContentController: NSViewController {
         }
         return 1
     }
+    
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
@@ -97,7 +99,9 @@ class ContentController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeController()
+        
+        addCoordinateButton.isEnabled = false
+        addCoordinateField.isEnabled = false
         
         tableView.tableViewResponder = self
         tableView.registerForDraggedTypes([.content])
@@ -108,6 +112,7 @@ class ContentController: NSViewController {
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
         }
+        tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         loadPreferences(nil)
@@ -253,7 +258,7 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
             targetSelf.internalDeleteContentItems(items)  // memory captured and managed by UndoManager
         })
-        actionDelegate?.contentActionAdded(items)
+        actionDelegate.contentActionAdded(items)
         items.forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
@@ -265,7 +270,7 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.internalAddContentItems(items)  // memory captured and managed by UndoManager
         })
-        actionDelegate?.contentActionDeleted(items)
+        actionDelegate.contentActionDeleted(items)
         content.items.removeAll(where: { items.contains($0) })
     }
     
@@ -276,7 +281,7 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.internalUpdateContentItems(itemToRemove)  // memory captured and managed by UndoManager
         })
-        actionDelegate?.contentActionUpdated(items)
+        actionDelegate.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         items.forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
@@ -445,7 +450,7 @@ extension ContentController: ContentResponder {
         return try updateContentItem(area)
     }
     
-    private func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
+    func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         internalUpdateContentItems([item])
         tableView.reloadData()
         return try selectContentItem(item, byExtendingSelection: false)
@@ -460,12 +465,11 @@ extension ContentController: ContentTableViewResponder {
     }
     
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
-        guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
         let selectedItems = (tableView.clickedRow >= 0 ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
             .filteredIndexSet(includeInteger: { $0 < collection.count })
             .map({ collection[$0] })
-        delegate.contentActionConfirmed(selectedItems)
+        actionDelegate.contentActionConfirmed(selectedItems)
     }
     
 }
@@ -719,12 +723,11 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        guard let delegate = actionDelegate else { return }
         guard let collection = content?.items else { return }
         let selectedItems = tableView.selectedRowIndexes
             .filteredIndexSet(includeInteger: { $0 < collection.count })
             .map({ collection[$0] })
-        delegate.contentActionSelected(selectedItems)
+        actionDelegate.contentActionSelected(selectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -763,13 +766,6 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
 }
 
 extension ContentController: ScreenshotLoader {
-    
-    func initializeController() {
-        self.screenshot = nil
-        addCoordinateButton.isEnabled = false
-        addCoordinateField.isEnabled = false
-        tableView.reloadData()
-    }
     
     func load(_ screenshot: Screenshot) throws {
         guard let _ = screenshot.content else {

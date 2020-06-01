@@ -15,7 +15,7 @@ protocol ContentTableViewResponder: class {
 
 class ContentTableView: NSTableView {
     
-    weak var tableViewResponder: ContentTableViewResponder?
+    public weak var tableViewResponder: ContentTableViewResponder!
     
     override func keyDown(with event: NSEvent) {
         guard let specialKey = event.specialKey else {
@@ -27,7 +27,7 @@ class ContentTableView: NSTableView {
             .isEmpty
             && (specialKey == .carriageReturn || specialKey == .enter)
         {
-            tableViewResponder?.tableViewDoubleAction(self)
+            tableViewResponder.tableViewDoubleAction(self)
             return
         }
         super.keyDown(with: event)

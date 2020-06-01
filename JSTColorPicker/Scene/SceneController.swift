@@ -18,16 +18,20 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
-    weak var trackingDelegate: SceneTracking?
-    weak var contentResponder: ContentResponder?
+    public weak var trackingDelegate: SceneTracking!
+    public weak var contentResponder: ContentResponder!
+    public weak var tagListDataSource: TagListDataSource!
+    
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
+    
     fileprivate var lazyColorAnnotators: [ColorAnnotator] {
         return annotators.lazy.compactMap({ $0 as? ColorAnnotator })
     }
     fileprivate var lazyAreaAnnotators: [AreaAnnotator] {
         return annotators.lazy.compactMap({ $0 as? AreaAnnotator })
     }
+    
     fileprivate var enableForceTouch: Bool {
         get {
             return sceneView.enableForceTouch
@@ -160,7 +164,35 @@ class SceneController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeController()
+        
+        sceneView.minMagnification = SceneController.minimumZoomingFactor
+        sceneView.maxMagnification = SceneController.maximumZoomingFactor
+        sceneView.magnification = SceneController.minimumZoomingFactor
+        sceneView.allowsMagnification = false
+        
+        let wrapper = SceneImageWrapper(pixelBounds: .zero)
+        wrapper.rulerViewClient = self
+        sceneView.documentView                    = wrapper
+        sceneView.verticalRulerView?.clientView   = wrapper
+        sceneView.horizontalRulerView?.clientView = wrapper
+        
+        // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
+        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
+        reloadSceneRulerConstraints()
+        
+        sceneView.sceneEventObservers = [
+            SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
+            SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
+        ]
+        
+        sceneView.trackingDelegate                = self
+        sceneView.sceneToolDataSource             = self
+        sceneView.sceneStateDataSource            = self
+        sceneView.sceneActionEffectViewDataSource = self
+        sceneOverlayView.sceneToolDataSource      = self
+        sceneOverlayView.sceneStateDataSource     = self
+        sceneOverlayView.annotatorDataSource      = self
+        sceneOverlayView.contentResponder         = self
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
@@ -183,6 +215,7 @@ class SceneController: NSViewController {
         windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
             self.useSelectedSceneTool()
         }
+        useSelectedSceneTool()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         loadPreferences(nil)
@@ -243,14 +276,14 @@ class SceneController: NSViewController {
     fileprivate func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
-            guard let annotator = annotators.last(where: { $0.view === annotatorView }) else { return false }
+            guard let annotator = annotators.last(where: { $0.overlay === annotatorView }) else { return false }
             if annotatorView.isSelected && extend {
-                if let _ = try? deselectContentItem(annotator.pixelItem) {
+                if let _ = try? deselectContentItem(annotator.contentItem) {
                     return true
                 }
             }
             else {
-                if let _ = try? selectContentItem(annotator.pixelItem, byExtendingSelection: extend) {
+                if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
                     return true
                 }
             }
@@ -263,8 +296,8 @@ class SceneController: NSViewController {
     fileprivate func applyDeleteItem(at location: CGPoint) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
-            if let annotator = annotators.last(where: { $0.view === annotatorView }) {
-                if let _ = try? deleteContentItem(annotator.pixelItem) {
+            if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
+                if let _ = try? deleteContentItem(annotator.contentItem) {
                     return true
                 }
             }
@@ -570,38 +603,6 @@ class SceneController: NSViewController {
 
 extension SceneController: ScreenshotLoader {
     
-    func initializeController() {
-        sceneView.minMagnification = SceneController.minimumZoomingFactor
-        sceneView.maxMagnification = SceneController.maximumZoomingFactor
-        sceneView.magnification = SceneController.minimumZoomingFactor
-        sceneView.allowsMagnification = false
-        
-        let wrapper = SceneImageWrapper(pixelBounds: .zero)
-        wrapper.rulerViewClient = self
-        sceneView.documentView = wrapper
-        sceneView.verticalRulerView?.clientView = wrapper
-        sceneView.horizontalRulerView?.clientView = wrapper
-        
-        // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
-        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
-        reloadSceneRulerConstraints()
-        
-        sceneView.trackingDelegate = self
-        sceneView.sceneToolDataSource = self
-        sceneView.sceneStateDataSource = self
-        sceneView.sceneActionEffectViewDataSource = self
-        sceneView.sceneEventObservers = [
-            SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
-            SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
-        ]
-        
-        sceneOverlayView.sceneToolDataSource = self
-        sceneOverlayView.sceneStateDataSource = self
-        sceneOverlayView.annotatorDataSource = self
-        
-        useSelectedSceneTool()
-    }
-    
     fileprivate func reloadSceneRulerConstraints() {
         sceneGridTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
         sceneGridLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
@@ -629,15 +630,15 @@ extension SceneController: SceneTracking {
             updateAnnotatorFrames()
         }
         sceneGridView.trackSceneBoundsChanged(sender, to: rect, of: magnification)
-        trackingDelegate?.trackSceneBoundsChanged(sender, to: rect, of: magnification)
+        trackingDelegate.trackSceneBoundsChanged(sender, to: rect, of: magnification)
     }
     
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        trackingDelegate?.trackColorChanged(sender, at: coordinate)
+        trackingDelegate.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
-        trackingDelegate?.trackAreaChanged(sender, to: rect)
+        trackingDelegate.trackAreaChanged(sender, to: rect)
     }
     
     func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
@@ -648,7 +649,7 @@ extension SceneController: SceneTracking {
         if let overlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
             guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelView === overlay }) else { return }
             guard annotator.pixelArea.rect != rect else { return }
-            guard let item = annotator.pixelItem.copy() as? PixelArea else { return }
+            guard let item = annotator.contentItem.copy() as? PixelArea else { return }
             if let _ = try? updateContentItem(item, to: rect) {
                 // do nothing
                 return
@@ -663,7 +664,7 @@ extension SceneController: SceneTracking {
         if let overlay = sceneState.manipulatingOverlay as? ColorAnnotatorOverlay {
             guard let annotator = lazyColorAnnotators.last(where: { $0.pixelView === overlay }) else { return }
             guard annotator.pixelColor.coordinate != coordinate else { return }
-            guard let item = annotator.pixelItem.copy() as? PixelColor else { return }
+            guard let item = annotator.contentItem.copy() as? PixelColor else { return }
             if let _ = try? updateContentItem(item, to: coordinate) {
                 // do nothing
                 return
@@ -763,10 +764,10 @@ extension SceneController: AnnotatorDataSource {
                 sceneView
                     .convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
                     .offsetBy(-sceneView.alternativeBoundsOrigin)
-            annotator.view.frame = 
+            annotator.overlay.frame = 
                 CGRect(origin: pointInMask, size: AnnotatorOverlay.fixedOverlaySize)
                     .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
-                    .inset(by: annotator.view.outerInsets)
+                    .inset(by: annotator.overlay.outerInsets)
         }
         else if let annotator = annotator as? AreaAnnotator {
             let rectInMask =
@@ -776,15 +777,15 @@ extension SceneController: AnnotatorDataSource {
             // if smaller than default size
             if rectInMask.size < AnnotatorOverlay.fixedOverlaySize {
                 annotator.isFixedAnnotator = true
-                annotator.view.frame =
+                annotator.overlay.frame =
                     CGRect(origin: rectInMask.center, size: AnnotatorOverlay.fixedOverlaySize)
                         .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
-                        .inset(by: annotator.view.outerInsets)
+                        .inset(by: annotator.overlay.outerInsets)
             } else {
                 annotator.isFixedAnnotator = false
-                annotator.view.frame =
+                annotator.overlay.frame =
                     rectInMask
-                        .inset(by: annotator.view.outerInsets)
+                        .inset(by: annotator.overlay.outerInsets)
             }
         }
     }
@@ -886,7 +887,7 @@ extension SceneController: AnnotatorDataSource {
     
     func addAnnotators(for items: [ContentItem]) {
         items.forEach { (item) in
-            guard !annotators.contains(where: { $0.pixelItem == item }) else { return }
+            guard !annotators.contains(where: { $0.contentItem == item }) else { return }
             if let color = item as? PixelColor { addAnnotator(for: color) }
             else if let area = item as? PixelArea { addAnnotator(for: area) }
         }
@@ -912,7 +913,7 @@ extension SceneController: AnnotatorDataSource {
     func updateAnnotator(for items: [ContentItem]) {
         let itemIDs = items.compactMap({ $0.id })
         let itemsToRemove = annotators
-            .compactMap({ $0.pixelItem })
+            .compactMap({ $0.contentItem })
             .filter({ itemIDs.contains($0.id) })
         removeAnnotators(for: itemsToRemove)
         addAnnotators(for: items)
@@ -920,23 +921,23 @@ extension SceneController: AnnotatorDataSource {
     
     func removeAnnotators(for items: [ContentItem]) {
         annotators.lazy
-            .filter({ items.contains($0.pixelItem) })
+            .filter({ items.contains($0.contentItem) })
             .forEach({
                 hideRulerMarkers(for: $0)
-                $0.view.removeFromSuperview()
+                $0.overlay.removeFromSuperview()
             })
-        annotators.removeAll(where: { items.contains($0.pixelItem) })
+        annotators.removeAll(where: { items.contains($0.contentItem) })
         debugPrint("remove annotators \(items.debugDescription)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
         annotators
             .forEach({ (annotator) in
-                if items.contains(annotator.pixelItem) {
+                if items.contains(annotator.contentItem) {
                     if !annotator.isSelected {
                         annotator.isSelected = true
                         showRulerMarkers(for: annotator)
-                        annotator.view.bringToFront()
+                        annotator.overlay.bringToFront()
                     }
                 }
                 else if annotator.isSelected {
@@ -946,7 +947,7 @@ extension SceneController: AnnotatorDataSource {
                 }
             })
         if scrollTo {  // scroll without changing magnification
-            let item = annotators.last(where: { items.contains($0.pixelItem) })?.pixelItem
+            let item = annotators.last(where: { items.contains($0.contentItem) })?.contentItem
             if let color = item as? PixelColor { previewAction(self, centeredAt: color.coordinate) }
             else if let area = item as? PixelArea { previewAction(self, toFit: area.rect) }
         }
@@ -1005,35 +1006,39 @@ extension SceneController: ToolbarResponder {
 extension SceneController: ContentResponder {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder?.addContentItem(of: coordinate)
+        return try contentResponder.addContentItem(of: coordinate)
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        return try contentResponder?.addContentItem(of: rect)
+        return try contentResponder.addContentItem(of: rect)
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder?.updateContentItem(item, to: coordinate)
+        return try contentResponder.updateContentItem(item, to: coordinate)
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        return try contentResponder?.updateContentItem(item, to: rect)
+        return try contentResponder.updateContentItem(item, to: rect)
+    }
+    
+    func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try contentResponder.updateContentItem(item)
     }
     
     func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        return try contentResponder?.selectContentItem(item, byExtendingSelection: extend)
+        return try contentResponder.selectContentItem(item, byExtendingSelection: extend)
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder?.deselectContentItem(item)
+        return try contentResponder.deselectContentItem(item)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder?.deleteContentItem(of: coordinate)
+        return try contentResponder.deleteContentItem(of: coordinate)
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder?.deleteContentItem(item)
+        return try contentResponder.deleteContentItem(item)
     }
     
 }
@@ -1102,7 +1107,7 @@ extension SceneController: RulerViewClient {
         }
         
         guard coordinate != marker.coordinate else { return }
-        let item = marker.annotator?.pixelItem.copy()
+        let item = marker.annotator?.contentItem.copy()
         if let item = item as? PixelColor {
             if let _ = try? updateContentItem(item, to: coordinate) {
                 // do nothing

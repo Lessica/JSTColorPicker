@@ -33,9 +33,9 @@ class DropSplitView: NSSplitView {
     
     private var fileTypeIsAllowed = false
     private var acceptedFileExtensions: [String] {
-        return dropDelegate?.acceptedFileExtensions ?? []
+        return dropDelegate.acceptedFileExtensions
     }
-    @IBOutlet weak var dropDelegate : DropViewDelegate?
+    @IBOutlet weak var dropDelegate : DropViewDelegate!
     
     fileprivate func checkExtension(drag: NSDraggingInfo) -> Bool {
         guard let fileExt = drag.draggedFileURL?.pathExtension?.lowercased() else {
@@ -46,7 +46,7 @@ class DropSplitView: NSSplitView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        if !(dropDelegate?.allowsDrop ?? false) {
+        if !dropDelegate.allowsDrop {
             return []
         }
         if checkExtension(drag: sender) {
@@ -71,7 +71,7 @@ class DropSplitView: NSSplitView {
             return false
         }
         
-        dropDelegate?.dropView(self, didDropFileWith: draggedFileURL)
+        dropDelegate.dropView(self, didDropFileWith: draggedFileURL)
         return true
     }
     

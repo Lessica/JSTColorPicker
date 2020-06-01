@@ -104,7 +104,7 @@ class PixelImage {
     }
     
     deinit {
-        debugPrint("- [PixelImage deinit]")
+        // debugPrint("- [PixelImage deinit]")
     }
     
 }

@@ -17,7 +17,7 @@ class WindowController: NSWindowController {
         return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
     }
     
-    public weak var tabDelegate: TabDelegate?
+    public weak var tabDelegate: TabDelegate!
     public lazy var pixelMatchService: PixelMatchService = {
         return PixelMatchService()
     }()
@@ -61,12 +61,13 @@ class WindowController: NSWindowController {
         NSColorPanel.shared.delegate = self
         viewController.trackingObject = self
         
-        initializeController()
+        window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
+        window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
+        touchBarUpdateButtonState()
     }
     
     override func newWindowForTab(_ sender: Any?) {
         guard let window = window else { preconditionFailure("window not loaded") }
-        guard let tabDelegate = self.tabDelegate else { return }
         guard let newWindow = tabDelegate.addManagedWindow(windowController: WindowController.newEmptyWindow())?.window else { preconditionFailure() }
         window.addTabbedWindow(newWindow, ordered: .above)
         newWindow.makeKeyAndOrderFront(self)
@@ -341,7 +342,7 @@ extension WindowController: NSWindowDelegate {
         guard let window = notification.object as? NSWindow else { return }
         if window == self.window {
             gridWindowController?.activeWindowController = self
-            tabDelegate?.activeManagedWindow(windowController: self)
+            tabDelegate.activeManagedWindow(windowController: self)
         }
     }
     
@@ -366,12 +367,6 @@ extension WindowController: ScreenshotLoader {
     
     internal var screenshot: Screenshot? {
         return document as? Screenshot
-    }
-    
-    func initializeController() {
-        window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
-        window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
-        touchBarUpdateButtonState()
     }
     
     func load(_ screenshot: Screenshot) throws {

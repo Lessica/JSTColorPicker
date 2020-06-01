@@ -9,15 +9,18 @@
 import Foundation
 
 class ColorAnnotator: Annotator {
+    
     var pixelColor: PixelColor {
-        return pixelItem as! PixelColor
+        return contentItem as! PixelColor
     }
+    
     var pixelView: ColorAnnotatorOverlay {
-        return view as! ColorAnnotatorOverlay
+        return overlay as! ColorAnnotatorOverlay
     }
     
     init(pixelItem: PixelColor) {
         super.init(pixelItem: pixelItem, view: ColorAnnotatorOverlay(label: String(pixelItem.id), coordinate: pixelItem.coordinate))
     }
+    
 }
 

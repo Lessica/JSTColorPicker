@@ -68,7 +68,7 @@ enum GridState: CaseIterable {
 
 class GridView: NSView {
     
-    weak var dataSource: ScreenshotLoader?
+    public weak var dataSource: ScreenshotLoader!
     var shouldDrawAnnotators: Bool = false
     var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
@@ -98,7 +98,7 @@ class GridView: NSView {
         return view
     }()
     fileprivate var pixelImage: PixelImage? {
-        return dataSource?.screenshot?.image
+        return dataSource.screenshot?.image
     }
     
     fileprivate func shimAnimation(_ opaque: Bool) {
@@ -125,7 +125,7 @@ class GridView: NSView {
     }
     
     fileprivate func gridState(at coordinate: PixelCoordinate) -> GridState {
-        guard let content = dataSource?.screenshot?.content else { return .none }
+        guard let content = dataSource.screenshot?.content else { return .none }
         let isOccupiedByColor =
             shouldDrawAnnotators ? 
                 (content.items.first(where: { ($0 as? PixelColor)?.coordinate == coordinate }) != nil) : false

@@ -10,7 +10,7 @@ import Cocoa
 
 class PreviewOverlayView: NSView {
     
-    weak var overlayDelegate: PreviewResponder?
+    public weak var overlayDelegate: PreviewResponder!
     
     var imageSize: CGSize = CGSize.zero {
         didSet {
@@ -118,7 +118,7 @@ class PreviewOverlayView: NSView {
         guard imageArea.contains(loc) else { return }
         
         let relLoc = CGPoint(x: (loc.x - imageArea.minX) / imageScale, y: (loc.y - imageArea.minY) / imageScale)
-        overlayDelegate?.previewAction(self, centeredAt: PixelCoordinate(relLoc))
+        overlayDelegate.previewAction(self, centeredAt: PixelCoordinate(relLoc))
     }
     
 }

@@ -49,18 +49,18 @@ class SceneScrollView: NSScrollView {
         return false
     }
     
-    public weak var trackingDelegate: SceneTracking?
+    public weak var trackingDelegate: SceneTracking!
     fileprivate var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
     fileprivate var trackingArea: NSTrackingArea?
     fileprivate var trackingCoordinate = PixelCoordinate.null
     
     public var sceneEventObservers: [SceneEventObserver] = []
-    public weak var sceneToolDataSource: SceneToolDataSource?
-    fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
-    public weak var sceneStateDataSource: SceneStateDataSource?
-    fileprivate var sceneState: SceneState { return sceneStateDataSource!.sceneState }
-    public weak var sceneActionEffectViewDataSource: SceneEffectViewDataSource?
-    fileprivate var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource!.sceneEffectView }
+    public weak var sceneToolDataSource: SceneToolDataSource!
+    fileprivate var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
+    public weak var sceneStateDataSource: SceneStateDataSource!
+    fileprivate var sceneState: SceneState { return sceneStateDataSource.sceneState }
+    public weak var sceneActionEffectViewDataSource: SceneEffectViewDataSource!
+    fileprivate var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource.sceneEffectView }
     
     fileprivate lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
@@ -483,7 +483,7 @@ class SceneScrollView: NSScrollView {
     }
     
     fileprivate func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
-        return sceneStateDataSource?.editingAnnotatorOverlayAtBeginLocation
+        return sceneStateDataSource.editingAnnotatorOverlayAtBeginLocation
     }
     
     fileprivate func trackMovingOrDragging(with event: NSEvent) {

@@ -14,7 +14,7 @@ class TagListOverlayView: NSView, DragEndpoint {
         didSet {
             if state == .idle {
                 highlightedRects = nil
-                sceneToolDataSource!.resetSceneTool()
+                sceneToolDataSource.resetSceneTool()
                 setNeedsDisplay()
             }
         }
@@ -24,10 +24,10 @@ class TagListOverlayView: NSView, DragEndpoint {
         return true
     }
     
-    public weak var dataSource: TagListDataSource?
-    public weak var dragDelegate: TagListDragDelegate?
+    public weak var dataSource: TagListDataSource!
+    public weak var dragDelegate: TagListDragDelegate!
     
-    public weak var sceneToolDataSource: SceneToolDataSource?
+    public weak var sceneToolDataSource: SceneToolDataSource!
     fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
     
     fileprivate var highlightedRects: [CGRect]?
@@ -36,15 +36,6 @@ class TagListOverlayView: NSView, DragEndpoint {
     fileprivate static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
     
     override func rightMouseDown(with event: NSEvent) {
-        guard let dragDelegate = dragDelegate,
-            let dataSource = dataSource,
-            let sceneToolDataSource = sceneToolDataSource
-            else
-        {
-            super.rightMouseDown(with: event)
-            return
-        }
-        
         guard dragDelegate.canPerformDrag
             && sceneTool == .selectionArrow
             && sceneToolDataSource.sceneToolEnabled

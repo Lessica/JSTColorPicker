@@ -69,6 +69,7 @@ enum SceneManipulatingType {
 }
 
 class SceneState {
+    
     public var type: SceneManipulatingType = .none
     private var internalStage: Int = 0
     private var internalBeginLocation: CGPoint = .null
@@ -82,6 +83,7 @@ class SceneState {
             internalStage = newValue
         }
     }
+    
     public var beginLocation: CGPoint {
         get {
             return type != .none ? internalBeginLocation : .null
@@ -90,6 +92,7 @@ class SceneState {
             internalBeginLocation = newValue
         }
     }
+    
     public var manipulatingOverlay: EditableOverlay? {
         get {
             return type != .none ? internalManipulatingOverlay : nil
@@ -98,16 +101,20 @@ class SceneState {
             internalManipulatingOverlay = newValue
         }
     }
+    
     public var isManipulating: Bool {
         return type.isManipulating
     }
+    
     public var isDragging: Bool {
         return type.isDragging
     }
+    
     public func reset() {
         type = .none
         internalStage = 0
         internalBeginLocation = .null
         internalManipulatingOverlay = nil
     }
+    
 }
