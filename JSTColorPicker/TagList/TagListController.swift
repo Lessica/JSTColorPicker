@@ -10,8 +10,9 @@ import Cocoa
 
 class TagListController: NSViewController {
     
-    @IBOutlet var managedObjectContext: NSManagedObjectContext!
-    @IBOutlet var tagCtrl: TagController!
+    @IBOutlet var internalContext: NSManagedObjectContext!
+    @IBOutlet var internalController: TagController!
+    
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var tableView: TagListTableView!
     @IBOutlet weak var tableViewOverlay: TagListOverlayView!
@@ -41,14 +42,14 @@ class TagListController: NSViewController {
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
         
-        tagCtrl.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
-            self.tagCtrl.rearrangeObjects()
+            self.internalController.rearrangeObjects()
         }
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
-            self.tagCtrl.rearrangeObjects()
+            self.internalController.rearrangeObjects()
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
@@ -90,13 +91,13 @@ class TagListController: NSViewController {
             ]
         }) { [weak self] (_ error: Error?) in
             if let error = error {
-                self?.tagCtrl.isEditable = false
+                self?.internalController.isEditable = false
                 self?.presentError(error)
                 return
             }
-            self?.managedObjectContext.undoManager = self?.undoManager
-            self?.tagCtrl.isEditable = true
-            self?.tagCtrl.rearrangeObjects()
+            self?.internalContext.undoManager = self?.undoManager
+            self?.internalController.isEditable = true
+            self?.internalController.rearrangeObjects()
         }
         
     }
@@ -111,7 +112,7 @@ class TagListController: NSViewController {
         }
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
-        managedObjectContext.persistentStoreCoordinator = coordinator
+        internalContext.persistentStoreCoordinator = coordinator
         
         guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
             fatalError("unable to resolve library directory")
@@ -136,7 +137,7 @@ class TagListController: NSViewController {
                         
                         var idx = 1
                         fetchInitialTags().forEach { (tag) in
-                            let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.managedObjectContext) as! Tag
+                            let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.internalContext) as! Tag
                             obj.order = Int64(idx)
                             obj.name = tag.0
                             obj.colorHex = tag.1
@@ -144,7 +145,7 @@ class TagListController: NSViewController {
                         }
                         
                         do {
-                            try self.managedObjectContext.save()
+                            try self.internalContext.save()
                         } catch {
                             DispatchQueue.main.sync {
                                 completionClosure(error)
@@ -156,6 +157,7 @@ class TagListController: NSViewController {
                 }
                 
                 DispatchQueue.main.sync {
+                    NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: self?.internalContext)
                     completionClosure(nil)
                 }
             } catch {
@@ -171,20 +173,19 @@ class TagListController: NSViewController {
     // MARK: - Actions
     
     @IBAction func delete(_ sender: Any) {
-        guard let collection = managedTags else { return }
         let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
-        tagCtrl.remove(contentsOf: rows.map({ collection[$0] }))
+            .filteredIndexSet(includeInteger: { $0 < managedTags.count })
+        internalController.remove(contentsOf: rows.map({ managedTags[$0] }))
     }
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
-        tagCtrl.insert(sender)
+        internalController.insert(sender)
         setNeedsRearrangeMOC()
         setNeedsSaveMOC()
     }
     
     @IBAction private func removeTagBtnTapped(_ sender: Any) {
-        tagCtrl.remove(sender)
+        internalController.remove(sender)
         setNeedsSaveMOC()
     }
     
@@ -194,7 +195,7 @@ class TagListController: NSViewController {
     
     @objc private func mocDidChangeNotification(_ noti: NSNotification) {
         guard let moc = noti.object as? NSManagedObjectContext else { return }
-        guard moc == managedObjectContext else { return }
+        guard moc == internalContext else { return }
         rearrangeMOCIfNeeded()
         saveMOCIfNeeded()
     }
@@ -213,26 +214,26 @@ class TagListController: NSViewController {
     fileprivate func saveMOCIfNeeded() {
         guard shouldSaveMOC else { return }
         shouldSaveMOC = false
-        guard managedObjectContext.hasChanges else { return }
+        guard internalContext.hasChanges else { return }
         do {
-            try managedObjectContext.save()
+            try internalContext.save()
         } catch let error as NSError {
-            if error.code == 133021, let itemName = ((managedObjectContext.insertedObjects.first ?? managedObjectContext.updatedObjects.first) as? Tag)?.name {
+            if error.code == 133021, let itemName = ((internalContext.insertedObjects.first ?? internalContext.updatedObjects.first) as? Tag)?.name {
                 presentError(ContentError.itemExists(item: itemName))
             } else {
                 presentError(error)
             }
-            managedObjectContext.rollback()
+            internalContext.rollback()
         } catch {
             presentError(error)
-            managedObjectContext.rollback()
+            internalContext.rollback()
         }
     }
     
     fileprivate func rearrangeMOCIfNeeded() {
         guard shouldRearrangeMOC else { return }
         shouldRearrangeMOC = false
-        guard let items = tagCtrl.arrangedObjects as? [Tag] else { return }
+        guard let items = internalController.arrangedObjects as? [Tag] else { return }
         reorderTags(items)
     }
     
@@ -250,11 +251,10 @@ class TagListController: NSViewController {
     fileprivate weak var menuTargetObject: Tag?
     
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
-        guard let collection = managedTags else { return }
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
-        guard let color = NSColor(css: collection[targetIndex].colorHex, alpha: 1.0) else { return }
+        guard let color = NSColor(css: managedTags[targetIndex].colorHex, alpha: 1.0) else { return }
         
-        menuTargetObject = collection[targetIndex]
+        menuTargetObject = managedTags[targetIndex]
         
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
@@ -275,25 +275,18 @@ class TagListController: NSViewController {
 
 extension TagListController: TagListDataSource {
     
-    var managedTags: [Tag]? {
-        return tagCtrl.arrangedObjects as? [Tag]
-    }
+    var managedObjectContext: NSManagedObjectContext { internalContext }
+    var managedTagController: TagController { internalController }
     
-    func managedTag(of name: String) -> Tag? {
-        return managedTags?.first(where: { $0.name == name })
-    }
-    
-    func managedTags(of names: [String]) -> [Tag] {
-        return managedTags?.filter({ names.contains($0.name) }) ?? []
-    }
+    var managedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }
+    func managedTag(of name: String) -> Tag? { managedTags.first(where: { $0.name == name }) }
+    func managedTags(of names: [String]) -> [Tag] { managedTags.filter({ names.contains($0.name) }) }
     
 }
 
 extension TagListController: TagListDragDelegate {
     
-    var canPerformDrag: Bool {
-        return tagCtrl.isEditable
-    }
+    var canPerformDrag: Bool { internalController.isEditable }
     
     var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }
     
@@ -315,9 +308,7 @@ extension TagListController: TagListDragDelegate {
         return indexes
     }
     
-    func visibleRects(of rowIndexes: IndexSet) -> [CGRect] {
-        return rowIndexes.map({ scrollView.convert(tableView.rect(ofRow: $0), from: tableView) })
-    }
+    func visibleRects(of rowIndexes: IndexSet) -> [CGRect] { rowIndexes.map({ scrollView.convert(tableView.rect(ofRow: $0), from: tableView) }) }
     
 }
 
@@ -325,18 +316,17 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard case .idle = tableViewOverlay.state else { return nil }
-        guard let collection = managedTags else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
-            "name": collection[row].name
+            "name": managedTags[row].name
         ], forType: TagListController.inlinePasteboardType)
         return item
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         guard case .idle = tableViewOverlay.state else { return [] }
-        guard tagCtrl.filterPredicate == nil else { return [] }
+        guard internalController.filterPredicate == nil else { return [] }
         if dropOperation == .above {
             return .move
         }
@@ -345,7 +335,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         guard case .idle = tableViewOverlay.state else { return false }
-        guard var collection = managedTags else { return false }
+        var collection = managedTags
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
@@ -383,7 +373,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         NSAnimationContext.endGrouping()
         
         reorderTags(collection)
-        tagCtrl.content = NSMutableArray(array: collection)
+        internalController.content = NSMutableArray(array: collection)
         
         setNeedsSaveMOC()
         return true

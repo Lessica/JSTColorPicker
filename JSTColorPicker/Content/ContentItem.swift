@@ -20,6 +20,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     
     public var id: Int
     public var tags: [String] = []
+    public var managedTags = NSHashTable<Tag>.weakObjects()  // unserialized
     
     init(id: Int) {
         self.id = id

@@ -8,10 +8,18 @@
 
 import Foundation
 
+extension NSNotification.Name {
+    public static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")
+}
+
 protocol TagListDataSource: class {
     
-    var managedTags: [Tag]? { get }
+    var managedObjectContext: NSManagedObjectContext { get }
+    
+    var managedTags: [Tag] { get }
     func managedTag(of name: String) -> Tag?
     func managedTags(of names: [String]) -> [Tag]
+    
+    var managedTagController: TagController { get }
     
 }

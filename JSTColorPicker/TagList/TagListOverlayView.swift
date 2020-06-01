@@ -55,7 +55,7 @@ class TagListOverlayView: NSView, DragEndpoint {
         highlightedRects = dragDelegate
             .visibleRects(of: rowIndexes)
         
-        let selectedTagNames = rowIndexes.compactMap({ dataSource.managedTags?[$0].name })
+        let selectedTagNames = rowIndexes.compactMap({ dataSource.managedTags[$0].name })
         
         let controller = DragConnectionController(type: TagListController.attachPasteboardType)
         controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)

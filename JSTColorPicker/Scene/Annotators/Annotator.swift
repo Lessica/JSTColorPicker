@@ -34,9 +34,9 @@ class Annotator {
         overlay.setNeedsDisplay()
     }
     
-    init(pixelItem: ContentItem, view: AnnotatorOverlay) {
-        self.contentItem = pixelItem
-        self.overlay = view
+    init(_ item: ContentItem, _ overlay: AnnotatorOverlay) {
+        self.contentItem = item
+        self.overlay = overlay
     }
     
 }

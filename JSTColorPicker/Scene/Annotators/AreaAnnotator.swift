@@ -14,12 +14,14 @@ class AreaAnnotator: Annotator {
         return contentItem as! PixelArea
     }
     
-    var pixelView: AreaAnnotatorOverlay {
+    var pixelOverlay: AreaAnnotatorOverlay {
         return overlay as! AreaAnnotatorOverlay
     }
     
-    init(pixelItem: PixelArea) {
-        super.init(pixelItem: pixelItem, view: AreaAnnotatorOverlay(label: String(pixelItem.id), rect: pixelItem.rect))
+    init(_ area: PixelArea) {
+        let overlay = AreaAnnotatorOverlay(label: String(area.id), rect: area.rect)
+        super.init(area, overlay)
     }
     
 }
+

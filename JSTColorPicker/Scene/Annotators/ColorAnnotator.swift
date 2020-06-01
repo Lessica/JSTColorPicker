@@ -14,12 +14,13 @@ class ColorAnnotator: Annotator {
         return contentItem as! PixelColor
     }
     
-    var pixelView: ColorAnnotatorOverlay {
+    var pixelOverlay: ColorAnnotatorOverlay {
         return overlay as! ColorAnnotatorOverlay
     }
     
-    init(pixelItem: PixelColor) {
-        super.init(pixelItem: pixelItem, view: ColorAnnotatorOverlay(label: String(pixelItem.id), coordinate: pixelItem.coordinate))
+    init(_ color: PixelColor) {
+        let overlay = ColorAnnotatorOverlay(label: String(color.id), coordinate: color.coordinate)
+        super.init(color, overlay)
     }
     
 }

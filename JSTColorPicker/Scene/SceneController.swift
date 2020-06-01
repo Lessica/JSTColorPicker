@@ -20,7 +20,6 @@ class SceneController: NSViewController {
     
     public weak var trackingDelegate: SceneTracking!
     public weak var contentResponder: ContentResponder!
-    public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
@@ -647,7 +646,7 @@ extension SceneController: SceneTracking {
     
     func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
         if let overlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
-            guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelView === overlay }) else { return }
+            guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelArea.rect != rect else { return }
             guard let item = annotator.contentItem.copy() as? PixelArea else { return }
             if let _ = try? updateContentItem(item, to: rect) {
@@ -662,7 +661,7 @@ extension SceneController: SceneTracking {
     
     func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
         if let overlay = sceneState.manipulatingOverlay as? ColorAnnotatorOverlay {
-            guard let annotator = lazyColorAnnotators.last(where: { $0.pixelView === overlay }) else { return }
+            guard let annotator = lazyColorAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelColor.coordinate != coordinate else { return }
             guard let item = annotator.contentItem.copy() as? PixelColor else { return }
             if let _ = try? updateContentItem(item, to: coordinate) {
@@ -895,18 +894,18 @@ extension SceneController: AnnotatorDataSource {
     }
     
     func addAnnotator(for color: PixelColor) {
-        let annotator = ColorAnnotator(pixelItem: color.copy() as! PixelColor)
+        let annotator = ColorAnnotator(color.copy() as! PixelColor)
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
-        sceneOverlayView.addSubview(annotator.pixelView)
+        sceneOverlayView.addSubview(annotator.pixelOverlay)
         updateEditableStates(of: annotator)
     }
     
     func addAnnotator(for area: PixelArea) {
-        let annotator = AreaAnnotator(pixelItem: area.copy() as! PixelArea)
+        let annotator = AreaAnnotator(area.copy() as! PixelArea)
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
-        sceneOverlayView.addSubview(annotator.pixelView)
+        sceneOverlayView.addSubview(annotator.pixelOverlay)
         updateEditableStates(of: annotator)
     }
     
@@ -1160,3 +1159,4 @@ extension SceneController: PixelMatchResponder {
     }
     
 }
+

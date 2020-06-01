@@ -9,16 +9,21 @@
 import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
+    
     static let toggleTableColumnID          = NSUserInterfaceItemIdentifier("toggle-id")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
+    
 }
 
 extension NSUserInterfaceItemIdentifier {
+    
     static let columnID          = NSUserInterfaceItemIdentifier("col-id")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
+    
 }
 
 enum ContentError: LocalizedError {
+    
     case itemExists(item: CustomStringConvertible)
     case itemDoesNotExist(item: CustomStringConvertible)
     case itemNotValid(item: CustomStringConvertible)
@@ -48,6 +53,7 @@ enum ContentError: LocalizedError {
             return NSLocalizedString("No document loaded.", comment: "ContentError")
         }
     }
+    
 }
 
 protocol ContentActionDelegate: class {
@@ -69,6 +75,7 @@ extension NSViewController {
 class ContentController: NSViewController {
     
     public weak var actionDelegate: ContentActionDelegate!
+    public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
     fileprivate var content: Content? {
@@ -115,6 +122,8 @@ class ContentController: NSViewController {
         tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         loadPreferences(nil)
     }
     
@@ -778,3 +787,14 @@ extension ContentController: ScreenshotLoader {
     }
     
 }
+
+extension ContentController {
+    
+    @objc private func mocDidChangeNotification(_ noti: NSNotification) {
+        guard let moc = noti.object as? NSManagedObjectContext else { return }
+        guard moc == tagListDataSource.managedObjectContext else { return }
+        // TODO: fetch managed tags
+    }
+    
+}
+
