@@ -149,6 +149,14 @@ open class VirtualMachine {
         return popValue(-1) as! Table
     }
     
+    open func createTable<T: Value>(withSequence sequence: [T]) -> Table {
+        let table = createTable(sequence.count, keyCapacity: sequence.count)
+        for idx in 1...sequence.count {
+            table[idx] = sequence[idx - 1]
+        }
+        return table
+    }
+    
     internal func popError() -> String {
         let err = popValue(-1) as! String
         if let fn = errorHandler { fn(err) }

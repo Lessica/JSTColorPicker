@@ -9,46 +9,54 @@
 import Foundation
 import LuaSwift
 
-struct PixelCoordinate: Codable {
-    public static var zero: PixelCoordinate {
-        return PixelCoordinate()
-    }
-    public static var null: PixelCoordinate {
-        return PixelCoordinate(x: Int.max, y: Int.max)
-    }
-    public var isNull: Bool {
-        return self == PixelCoordinate.null
-    }
+struct PixelCoordinate {
+    
+    public static var zero: PixelCoordinate { PixelCoordinate() }
+    
+    public static var null: PixelCoordinate { PixelCoordinate(x: Int.max, y: Int.max) }
+    
+    public var isNull: Bool { self == PixelCoordinate.null }
+    
     public var x: Int = 0
     public var y: Int = 0
+    
     init() {}
+    
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
     }
+    
     init(_ point: CGPoint) {
         x = Int(floor(point.x))
         y = Int(floor(point.y))
     }
+    
     func toCGPoint() -> CGPoint {
         return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
+    
 }
 
 extension PixelCoordinate: CustomStringConvertible {
+    
     var description: String {
         return "(\(x),\(y))"
     }
+    
 }
 
 extension PixelCoordinate: Hashable {
+    
     static func == (lhs: PixelCoordinate, rhs: PixelCoordinate) -> Bool {
         return lhs.x == rhs.x && lhs.y == rhs.y
     }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(x)
         hasher.combine(y)
     }
+    
 }
 
 extension PixelCoordinate: LuaSwift.Value {

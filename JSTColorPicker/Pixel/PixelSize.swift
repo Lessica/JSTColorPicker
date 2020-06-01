@@ -9,46 +9,58 @@
 import Foundation
 import LuaSwift
 
-struct PixelSize: Codable {
-    public static var zero: PixelSize {
-        return PixelSize()
-    }
+struct PixelSize {
+    
+    public static var zero: PixelSize { PixelSize() }
+    
     public var width:  Int = 0
     public var height: Int = 0
+    
     init() {}
+    
     init(width: Int, height: Int) {
         self.width  = width
         self.height = height
     }
+    
     init(_ size: CGSize) {
         width  = Int(floor(size.width))
         height = Int(floor(size.height))
     }
+    
     public func toCGSize() -> CGSize {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
+    
 }
 
 extension PixelSize: CustomStringConvertible {
+    
     var description: String {
         return "{w:\(width),h:\(height)}"
     }
+    
 }
 
 extension PixelSize: Hashable {
+    
     static func == (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width == rhs.width && lhs.height == rhs.height
     }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(width)
         hasher.combine(height)
     }
+    
 }
 
 extension PixelSize: Comparable {
+    
     static func < (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width * lhs.height < rhs.width * rhs.height
     }
+    
 }
 
 extension PixelSize: LuaSwift.Value {

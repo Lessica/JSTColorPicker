@@ -10,39 +10,31 @@ import Foundation
 import LuaSwift
 
 class PixelArea: ContentItem {
+    
     override class var supportsSecureCoding: Bool {
         return true
     }
     
     public fileprivate(set) var rect: PixelRect
     
-    init(id: Int, rect: PixelRect) {
+    public init(id: Int, rect: PixelRect) {
         self.rect = rect
         super.init(id: id)
     }
     
-    init(rect: PixelRect) {
+    public init(rect: PixelRect) {
         self.rect = rect
         super.init(id: 0)
     }
     
-    enum CodingKeys: String, CodingKey {
-        case rect
-    }
-    
     required init?(coder: NSCoder) {
-        let coordX = coder.decodeInteger(forKey: "rect.origin.x")
-        let coordY = coder.decodeInteger(forKey: "rect.origin.y")
-        let sizeW  = coder.decodeInteger(forKey: "rect.size.width")
-        let sizeH  = coder.decodeInteger(forKey: "rect.size.height")
-        self.rect  = PixelRect(x: coordX, y: coordY, width: sizeW, height: sizeH)
+        self.rect  = PixelRect(
+            x: coder.decodeInteger(forKey: "rect.origin.x"),
+            y: coder.decodeInteger(forKey: "rect.origin.y"),
+            width: coder.decodeInteger(forKey: "rect.size.width"),
+            height: coder.decodeInteger(forKey: "rect.size.height")
+        )
         super.init(coder: coder)
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        rect = try container.decode(PixelRect.self, forKey: .rect)
-        try super.init(from: decoder)
     }
     
     required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
@@ -58,12 +50,6 @@ class PixelArea: ContentItem {
         return self == object
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(rect, forKey: .rect)
-    }
-    
     override func encode(with coder: NSCoder) {
         super.encode(with: coder)
         coder.encode(rect.origin.x, forKey: "rect.origin.x")
@@ -73,32 +59,35 @@ class PixelArea: ContentItem {
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        let obj = PixelArea(id: id, rect: rect)
-        return obj
+        let item = PixelArea(id: id, rect: rect)
+        item.tags = tags
+        return item
     }
     
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["id"] = id
-        t["x"] = rect.x
-        t["y"] = rect.y
-        t["w"] = rect.width
-        t["h"] = rect.height
+        t["id"]   = id
+        t["tags"] = vm.createTable(withSequence: tags)
+        t["x"]    = rect.x
+        t["y"]    = rect.y
+        t["w"]    = rect.width
+        t["h"]    = rect.height
         t.push(vm)
     }
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel area (table with keys [id,x,y,w,h])"
+    fileprivate static let typeName: String = "pixel area (table with keys [id,tags,x,y,w,h])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["id"] is Number) ||
-            !(t["x"] is Number) ||
-            !(t["y"] is Number) ||
-            !(t["w"] is Number) ||
-            !(t["h"] is Number)
+        if  !(t["id"]   is  Number)  ||
+            !(t["tags"] is  Table)   ||
+            !(t["x"]    is  Number)  ||
+            !(t["y"]    is  Number)  ||
+            !(t["w"]    is  Number)  ||
+            !(t["h"]    is  Number)
         {
             return typeName
         }
@@ -108,13 +97,17 @@ class PixelArea: ContentItem {
 }
 
 extension PixelArea /*: Equatable*/ {
+    
     static func == (lhs: PixelArea, rhs: PixelArea) -> Bool {
         return lhs.rect == rhs.rect
     }
+    
 }
 
 extension PixelArea /*: CustomStringConvertible*/ {
-    override var description: String {
-        return rect.description
-    }
+    
+    override var description: String { rect.description }
+    
+    override var debugDescription: String { "<#\(id): \(tags); \(rect.description)>" }
+    
 }

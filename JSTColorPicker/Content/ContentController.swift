@@ -9,12 +9,12 @@
 import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
-    static let toggleTableColumnID = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleTableColumnID          = NSUserInterfaceItemIdentifier("toggle-id")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
 }
 
 extension NSUserInterfaceItemIdentifier {
-    static let columnID = NSUserInterfaceItemIdentifier("col-id")
+    static let columnID          = NSUserInterfaceItemIdentifier("col-id")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 

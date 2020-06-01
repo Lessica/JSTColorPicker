@@ -890,7 +890,7 @@ extension SceneController: AnnotatorDataSource {
             if let color = item as? PixelColor { addAnnotator(for: color) }
             else if let area = item as? PixelArea { addAnnotator(for: area) }
         }
-        debugPrint("add annotators \(items)")
+        debugPrint("add annotators \(items.debugDescription)")
     }
     
     func addAnnotator(for color: PixelColor) {
@@ -926,7 +926,7 @@ extension SceneController: AnnotatorDataSource {
                 $0.view.removeFromSuperview()
             })
         annotators.removeAll(where: { items.contains($0.pixelItem) })
-        debugPrint("remove annotators \(items)")
+        debugPrint("remove annotators \(items.debugDescription)")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
@@ -950,7 +950,7 @@ extension SceneController: AnnotatorDataSource {
             if let color = item as? PixelColor { previewAction(self, centeredAt: color.coordinate) }
             else if let area = item as? PixelArea { previewAction(self, toFit: area.rect) }
         }
-        debugPrint("highlight annotators \(items), scroll = \(scrollTo)")
+        debugPrint("highlight annotators \(items.debugDescription), scroll = \(scrollTo)")
     }
     
 }

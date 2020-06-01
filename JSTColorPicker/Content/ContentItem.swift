@@ -13,12 +13,13 @@ extension NSPasteboard.PasteboardType {
     static let content = NSPasteboard.PasteboardType(rawValue: "public.jst.content")
 }
 
-class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {
+class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {
     class var supportsSecureCoding: Bool {
         return true
     }
     
-    var id: Int
+    public var id: Int
+    public var tags: [String] = []
     
     init(id: Int) {
         self.id = id
@@ -26,10 +27,12 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable, LuaSwift.Value,
 
     required init?(coder: NSCoder) {
         self.id = coder.decodeInteger(forKey: "id")
+        self.tags = (coder.decodeObject(forKey: "tags") as? [String]) ?? []
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
+        coder.encode(tags, forKey: "tags")
     }
     
     override func isEqual(_ object: Any?) -> Bool {
@@ -38,23 +41,27 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable, LuaSwift.Value,
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        return ContentItem(id: id)
+        let item = ContentItem(id: id)
+        item.tags = tags
+        return item
     }
     
     func push(_ vm: VirtualMachine) {
-        let t = vm.createTable()
-        t["id"] = id
-        t.push(vm)
+        let vmTable = vm.createTable()
+        vmTable["id"] = id
+        vmTable["tags"] = vm.createTable(withSequence: tags)
+        vmTable.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "content item (table with keys [id])"
+    fileprivate static let typeName: String = "content item (table with keys [id,tags])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["id"] is Number)
+        if  !(t["id"]   is Number) ||
+            !(t["tags"] is Table)
         {
             return typeName
         }
@@ -62,7 +69,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable, LuaSwift.Value,
     }
     
     override var description: String {
-        return "(ID: \(id))"
+        return "<#\(id): \(tags)>"
     }
     
     func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {

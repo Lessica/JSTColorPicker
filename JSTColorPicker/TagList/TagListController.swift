@@ -329,7 +329,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
-            "name": collection[row].name ?? ""
+            "name": collection[row].name
         ], forType: TagListController.inlinePasteboardType)
         return item
     }
