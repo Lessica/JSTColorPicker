@@ -122,8 +122,9 @@ class ContentController: NSViewController {
         tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mocDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mocWillSaveNotification(_:)), name: NSNotification.Name.NSManagedObjectContextWillSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mocDidSaveNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         loadPreferences(nil)
     }
     
@@ -263,39 +264,58 @@ class ContentController: NSViewController {
 extension ContentController {
     
     fileprivate func internalAddContentItems(_ items: [ContentItem]) {
+        
         guard let content = content else { return }
+        
+        undoManager?.beginUndoGrouping()
         undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
             targetSelf.internalDeleteContentItems(items)  // memory captured and managed by UndoManager
         })
+        undoManager?.endUndoGrouping()
+        
         actionDelegate.contentActionAdded(items)
         items.forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
         }
+        
     }
     
     fileprivate func internalDeleteContentItems(_ items: [ContentItem]) {
+        
         guard let content = content else { return }
+        
+        undoManager?.beginUndoGrouping()
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.internalAddContentItems(items)  // memory captured and managed by UndoManager
         })
+        undoManager?.endUndoGrouping()
+        
         actionDelegate.contentActionDeleted(items)
         content.items.removeAll(where: { items.contains($0) })
+        
     }
     
     fileprivate func internalUpdateContentItems(_ items: [ContentItem]) {
+        
         guard let content = content else { return }
+        
         let itemIDs = items.compactMap({ $0.id })
         let itemToRemove = content.items.filter({ itemIDs.contains($0.id) })
+        
+        undoManager?.beginUndoGrouping()
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
             targetSelf.internalUpdateContentItems(itemToRemove)  // memory captured and managed by UndoManager
         })
+        undoManager?.endUndoGrouping()
+        
         actionDelegate.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         items.forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
         }
+        
     }
     
 }
@@ -790,10 +810,24 @@ extension ContentController: ScreenshotLoader {
 
 extension ContentController {
     
-    @objc private func mocDidChangeNotification(_ noti: NSNotification) {
+    @objc private func mocDidLoadNotification(_ noti: NSNotification) {
         guard let moc = noti.object as? NSManagedObjectContext else { return }
         guard moc == tagListDataSource.managedObjectContext else { return }
-        // TODO: fetch managed tags
+        
+    }
+    
+    @objc private func mocWillSaveNotification(_ noti: NSNotification) {
+        guard let moc = noti.object as? NSManagedObjectContext else { return }
+        guard moc == tagListDataSource.managedObjectContext else { return }
+        
+        undoManager?.beginUndoGrouping()
+    }
+    
+    @objc private func mocDidSaveNotification(_ noti: NSNotification) {
+        guard let moc = noti.object as? NSManagedObjectContext else { return }
+        guard moc == tagListDataSource.managedObjectContext else { return }
+        
+        undoManager?.endUndoGrouping()
     }
     
 }

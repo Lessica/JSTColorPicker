@@ -23,8 +23,10 @@ class TagListController: NSViewController {
         set { tableViewOverlay.sceneToolDataSource = newValue }
     }
     
-    fileprivate var undoToken: NotificationToken?
-    fileprivate var redoToken: NotificationToken?
+    fileprivate var willUndoToken: NotificationToken?
+    fileprivate var willRedoToken: NotificationToken?
+    fileprivate var didUndoToken: NotificationToken?
+    fileprivate var didRedoToken: NotificationToken?
     
     static public var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static fileprivate var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
@@ -45,10 +47,17 @@ class TagListController: NSViewController {
         internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         
-        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
+        willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: undoManager, using: { [unowned self] _ in
+            self.setNeedsSaveMOC()
+        })
+        willRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillRedoChange, object: undoManager, using: { [unowned self] _ in
+            self.setNeedsSaveMOC()
+        })
+        
+        didUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
             self.internalController.rearrangeObjects()
         }
-        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
+        didRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] _ in
             self.internalController.rearrangeObjects()
         }
         
