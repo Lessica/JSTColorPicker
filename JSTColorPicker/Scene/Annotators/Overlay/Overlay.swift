@@ -87,6 +87,8 @@ class Overlay: NSView {
         
         wantsLayer = true
         canDrawSubviewsIntoLayer = true
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layerContentsPlacement = .center
     }
     
     required init?(coder: NSCoder) {

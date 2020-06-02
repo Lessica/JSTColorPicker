@@ -20,6 +20,7 @@ class SceneImageView: NSView {
         wantsLayer = true
         layer?.isOpaque = true
         layer?.magnificationFilter = .nearest
+        layerContentsRedrawPolicy = .never
     }
     
     required init?(coder: NSCoder) {

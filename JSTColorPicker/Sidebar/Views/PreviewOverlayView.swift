@@ -43,7 +43,10 @@ class PreviewOverlayView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         wantsLayer = true
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layerContentsPlacement = .center
     }
     
     fileprivate func createTrackingArea() {

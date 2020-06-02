@@ -259,13 +259,12 @@ class TagListController: NSViewController {
     
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
-        guard let color = NSColor(css: arrangedTags[targetIndex].colorHex, alpha: 1.0) else { return }
         
         menuTargetObject = arrangedTags[targetIndex]
         
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
-        colorPanel.color = color
+        colorPanel.color = NSColor(css: arrangedTags[targetIndex].colorHex, alpha: 1.0)
         
         colorPanel.setTarget(self)
         colorPanel.setAction(#selector(colorPanelValueChanged(_:)))

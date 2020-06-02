@@ -59,13 +59,6 @@ extension NSImage {
     }
 }
 
-extension String  {
-    func conformsTo(pattern: String) -> Bool {
-        let pattern = NSPredicate(format:"SELF MATCHES %@", pattern)
-        return pattern.evaluate(with: self)
-    }
-}
-
 extension NSColor {
     convenience init(css: Int, alpha: CGFloat) {
         let red = CGFloat((css & 0xFF0000) >> 16) / 255.0
@@ -73,27 +66,19 @@ extension NSColor {
         let blue = CGFloat((css & 0xFF)) / 255.0
         self.init(calibratedRed: red, green: green, blue: blue, alpha: alpha)
     }
-    convenience init?(css: String, alpha: CGFloat) {
-        // Handle two types of literals: 0x and # prefixed
+    convenience init(css: String, alpha: CGFloat) {
         var cleanedString = ""
-        if css.hasPrefix("0x") {
-            cleanedString = String(css.dropFirst(2))
-        } else if css.hasPrefix("#") {
-            cleanedString = String(css.dropFirst(1))
-        }
-        // Ensure it only contains valid hex characters 0
-        let validHexPattern = "[a-fA-F0-9]+"
-        if cleanedString.conformsTo(pattern: validHexPattern) {
-            var theInt: UInt32 = 0
-            let scanner = Scanner(string: cleanedString)
-            scanner.scanHexInt32(&theInt)
-            let red = CGFloat((theInt & 0xFF0000) >> 16) / 255.0
-            let green = CGFloat((theInt & 0xFF00) >> 8) / 255.0
-            let blue = CGFloat((theInt & 0xFF)) / 255.0
-            self.init(calibratedRed: red, green: green, blue: blue, alpha: alpha)
-        } else {
-            return nil
-        }
+        if css.hasPrefix("0x") { cleanedString = String(css.dropFirst(2)) }
+        else if css.hasPrefix("#") { cleanedString = String(css.dropFirst(1)) }
+        var theInt: UInt32 = 0
+        let scanner = Scanner(string: cleanedString)
+        assert(scanner.scanHexInt32(&theInt))
+        self.init(
+            calibratedRed: CGFloat((theInt & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((theInt & 0xFF00) >> 8) / 255.0,
+            blue: CGFloat((theInt & 0xFF)) / 255.0,
+            alpha: alpha
+        )
     }
     public var sharpCSS: String {
         guard colorSpace == NSColorSpace.sRGB || colorSpace == NSColorSpace.deviceRGB || colorSpace == NSColorSpace.genericRGB else {

@@ -12,7 +12,10 @@ class SceneGridView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         wantsLayer = true
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layerContentsPlacement = .center
     }
     
     override var isFlipped: Bool {

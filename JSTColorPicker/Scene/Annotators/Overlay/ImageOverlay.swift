@@ -25,6 +25,8 @@ class ImageOverlay: NSView {
         super.init(frame: frameRect)
         wantsLayer = true
         layer?.isOpaque = false
+        layerContentsRedrawPolicy = .never
+        layerContentsPlacement = .scaleAxesIndependently
     }
     
     required init?(coder: NSCoder) {

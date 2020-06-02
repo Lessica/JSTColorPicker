@@ -116,7 +116,10 @@ class GridView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = true
+        
         layer?.isOpaque = true
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layerContentsPlacement = .center
         
         hPixelNum = Int(bounds.width / pixelSize.width)
         vPixelNum = Int(bounds.height / pixelSize.height)

@@ -21,11 +21,11 @@ extension Tag {
     @NSManaged public var order: Int64
     
     public var color: NSColor {
-        return NSColor(css: colorHex, alpha: 1.0)!
+        return NSColor(css: colorHex, alpha: 1.0)
     }
     
     public func colorWithAlphaComponent(_ alpha: CGFloat) -> NSColor {
-        return NSColor(css: colorHex, alpha: alpha)!
+        return NSColor(css: colorHex, alpha: alpha)
     }
 
 }

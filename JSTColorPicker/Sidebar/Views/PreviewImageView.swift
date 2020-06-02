@@ -17,6 +17,7 @@ class PreviewImageView: NSView {
         wantsLayer = true
         layer?.isOpaque = true
         layer?.contentsGravity = .resizeAspect
+        layerContentsRedrawPolicy = .never
     }
     
     required init?(coder: NSCoder) {
@@ -24,6 +25,7 @@ class PreviewImageView: NSView {
         wantsLayer = true
         layer?.isOpaque = true
         layer?.contentsGravity = .resizeAspect
+        layerContentsRedrawPolicy = .never
     }
     
     func setImage(_ image: CGImage) {
