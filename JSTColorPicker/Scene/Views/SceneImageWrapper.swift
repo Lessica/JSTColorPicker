@@ -71,7 +71,9 @@ class SceneImageWrapper: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var isFlipped: Bool { return true }
+    override var isFlipped: Bool { true }
+    override var wantsDefaultClipping: Bool { false }
+    
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     override var isOpaque: Bool { return true }

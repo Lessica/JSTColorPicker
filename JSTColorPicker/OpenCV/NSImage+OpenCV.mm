@@ -21,7 +21,7 @@
                                                    8    /* bitsPerComponent */,
                                                    0    /* bytesPerRow - CG will calculate it for you if it's allocating the data.  This might get padded out a bit for better alignment */,
                                                    [[NSColorSpace genericRGBColorSpace] CGColorSpace],
-                                                   kCGBitmapByteOrder32Host|kCGImageAlphaPremultipliedFirst);
+                                                   kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedFirst);
     
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:bitmapCtx flipped:NO]];

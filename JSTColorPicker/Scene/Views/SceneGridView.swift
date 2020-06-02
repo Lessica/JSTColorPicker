@@ -18,9 +18,8 @@ class SceneGridView: NSView {
         layerContentsPlacement = .center
     }
     
-    override var isFlipped: Bool {
-        return true
-    }
+    override var isFlipped: Bool { true }
+    override var wantsDefaultClipping: Bool { false }
     
     override func hitTest(_ point: NSPoint) -> NSView? {
         return nil
@@ -39,6 +38,7 @@ class SceneGridView: NSView {
     fileprivate var gridRenderingArea: CGRect = .null
     
     override func draw(_ dirtyRect: NSRect) {
+        guard !inLiveResize else { return }
         guard drawGridsInScene && shouldDrawGridsInScene else { return }
         guard !gridWrappedPixelRect.isEmpty else { return }
         guard !gridRenderingArea.isEmpty else { return }
@@ -65,6 +65,11 @@ class SceneGridView: NSView {
         ctx.strokePath()
         
         // ctx.restoreGState()
+    }
+    
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        needsDisplay = true
     }
     
 }

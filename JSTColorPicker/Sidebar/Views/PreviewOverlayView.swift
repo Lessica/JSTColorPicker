@@ -32,14 +32,14 @@ class PreviewOverlayView: NSView {
         }
     }
     
-    override var isFlipped: Bool {
-        return true
-    }
-    
     fileprivate static let overlayColor: CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
     fileprivate static let overlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
     fileprivate static let overlayBorderWidth: CGFloat = 1.0
     fileprivate var trackingArea: NSTrackingArea?
+    
+    override var isFlipped: Bool { true }
+    override var isOpaque: Bool { false }
+    override var wantsDefaultClipping: Bool { false }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -69,7 +69,8 @@ class PreviewOverlayView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        guard highlightArea.width > 6.0 && highlightArea.height > 6.0 else {
+        guard !inLiveResize && highlightArea.width > 6.0 && highlightArea.height > 6.0 else
+        {
             ctx.setFillColor(PreviewOverlayView.overlayColor)
             ctx.addRect(bounds)
             ctx.fillPath()
@@ -128,6 +129,11 @@ class PreviewOverlayView: NSView {
         
         let relLoc = CGPoint(x: (loc.x - imageArea.minX) / imageScale, y: (loc.y - imageArea.minY) / imageScale)
         overlayDelegate.previewAction(self, centeredAt: PixelCoordinate(relLoc))
+    }
+    
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        needsDisplay = true
     }
     
 }

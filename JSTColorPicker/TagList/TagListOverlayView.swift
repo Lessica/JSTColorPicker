@@ -20,9 +20,9 @@ class TagListOverlayView: NSView, DragEndpoint {
         }
     }
     
-    override var isFlipped: Bool {
-        return true
-    }
+    override var isFlipped: Bool { true }
+    override var isOpaque: Bool { false }
+    override var wantsDefaultClipping: Bool { false }
     
     public weak var dataSource: TagListDataSource!
     public weak var dragDelegate: TagListDragDelegate!
@@ -71,6 +71,7 @@ class TagListOverlayView: NSView, DragEndpoint {
     }
     
     override func draw(_ dirtyRect: NSRect) {
+        guard !inLiveResize else { return }
         guard let rects = highlightedRects else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
@@ -85,6 +86,11 @@ class TagListOverlayView: NSView, DragEndpoint {
                 )
             })
         ctx.strokePath()
+    }
+    
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        needsDisplay = true
     }
     
 }

@@ -18,8 +18,9 @@ class ImageOverlay: NSView {
         // do not perform default behavior
     }
     
-    override var acceptsFirstResponder: Bool { return false }
-    override var isOpaque: Bool { return false }
+    override var isOpaque: Bool { false }
+    override var acceptsFirstResponder: Bool { false }
+    override var wantsDefaultClipping: Bool { false }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

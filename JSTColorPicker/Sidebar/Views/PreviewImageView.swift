@@ -10,7 +10,8 @@ import Cocoa
 
 class PreviewImageView: NSView {
     
-    override var isOpaque: Bool { return true }
+    override var isOpaque: Bool { true }
+    override var wantsDefaultClipping: Bool { false }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

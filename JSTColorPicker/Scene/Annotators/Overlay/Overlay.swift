@@ -82,6 +82,8 @@ class Overlay: NSView {
         }
     }
     
+    override var wantsDefaultClipping: Bool { false }
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         
@@ -117,6 +119,7 @@ class Overlay: NSView {
     
     // black-white painted dashed lines, draw only inside dirtyRect to improve performance
     override func draw(_ dirtyRect: NSRect) {
+        //guard !inLiveResize else { return }
         guard isBordered else { return }
         
         let drawBounds = bounds.inset(by: innerInsets)

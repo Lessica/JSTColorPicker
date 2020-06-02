@@ -111,6 +111,9 @@ class GridView: NSView {
         }
     }
     
+    override var isOpaque: Bool { false }
+    override var wantsDefaultClipping: Bool { false }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = true
@@ -149,6 +152,7 @@ class GridView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
+        guard !inLiveResize else { return }
         guard let pixelImage = pixelImage else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
@@ -191,6 +195,11 @@ class GridView: NSView {
         GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
         // ctx.restoreGState()
         
+    }
+    
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        needsDisplay = true
     }
     
 }

@@ -12,8 +12,10 @@ class SceneImageView: NSView {
     
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
-    override var acceptsFirstResponder: Bool { return false }
-    override var isOpaque: Bool { return true }
+    
+    override var isOpaque: Bool { true }
+    override var acceptsFirstResponder: Bool { false }
+    override var wantsDefaultClipping: Bool { false }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

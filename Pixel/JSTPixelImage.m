@@ -147,7 +147,7 @@ static inline CGAffineTransform SDCGContextTransformFromOrientation(CGImagePrope
             break;
     }
     
-    BOOL hasAlpha = [self CGImageContainsAlpha:cgImage];
+    BOOL hasAlpha = NO /* [self CGImageContainsAlpha:cgImage] */;
     // iOS prefer BGRA8888 (premultiplied) or BGRX8888 bitmapInfo for screen rendering, which is same as `UIGraphicsBeginImageContext()` or `- [CALayer drawInContext:]`
     // Though you can use any supported bitmapInfo (see: https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-BCIBHHBB ) and let Core Graphics reorder it when you call `CGContextDrawImage`
     // But since our build-in coders use this bitmapInfo, this can have a little performance benefit
@@ -254,8 +254,15 @@ static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg) {
     memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
     pixels_image->pixels = pixels;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-    CGContextRef context = CGBitmapContextCreate(pixels, (size_t) imgSize.width, (size_t) imgSize.height, 8, imgSize.width * sizeof(JST_COLOR), colorSpace,
-                                                 kCGImageAlphaPremultipliedLast);
+    CGContextRef context = CGBitmapContextCreate(
+                                                 pixels,
+                                                 (size_t) imgSize.width,
+                                                 (size_t) imgSize.height,
+                                                 8,
+                                                 imgSize.width * sizeof(JST_COLOR),
+                                                 colorSpace,
+                                                 kCGImageAlphaNoneSkipLast /* kCGImageAlphaPremultipliedLast */
+                                                 );
     CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);

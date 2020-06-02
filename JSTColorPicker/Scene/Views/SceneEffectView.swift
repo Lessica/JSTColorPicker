@@ -19,9 +19,8 @@ class SceneEffectView: NSView {
         wantsLayer = false
     }
     
-    override var isFlipped: Bool {
-        return true
-    }
+    override var isFlipped: Bool { true }
+    override var wantsDefaultClipping: Bool { false }
     
     override func hitTest(_ point: NSPoint) -> NSView? {
         return nil
