@@ -76,10 +76,8 @@ class GridView: NSView {
         }
     }
     func updateDisplayIfNeeded() {
-        guard let shouldTrack = window?.isVisible else { return }
-        if shouldTrack {
-            setNeedsDisplay()
-        }
+        guard window?.isVisible ?? false else { return }
+        setNeedsDisplay()
     }
     var animating: Bool = false {
         didSet {

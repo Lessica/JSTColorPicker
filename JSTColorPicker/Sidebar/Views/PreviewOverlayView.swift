@@ -69,6 +69,12 @@ class PreviewOverlayView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
+        guard highlightArea.width > 6.0 && highlightArea.height > 6.0 else {
+            ctx.setFillColor(PreviewOverlayView.overlayColor)
+            ctx.addRect(bounds)
+            ctx.fillPath()
+            return
+        }
         
         // ctx.saveGState()
         

@@ -35,6 +35,13 @@ class TagListOverlayView: NSView, DragEndpoint {
     fileprivate static let focusLineWidth: CGFloat = 2.0
     fileprivate static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        wantsLayer = true
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layerContentsPlacement = .center
+    }
+    
     override func rightMouseDown(with event: NSEvent) {
         guard dragDelegate.canPerformDrag
             && sceneTool == .selectionArrow

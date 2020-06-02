@@ -115,29 +115,9 @@ class SidebarController: NSViewController {
         previewOverlayView.overlayDelegate = self
         
         updateInformationPanel()
-                
-        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
-        inspectorColorLabel.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
-        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
-        inspectorColorLabel2.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel2.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
+        resetItemInspector()
+        resetPreview()
+        
         previewSlider.isEnabled = false
         exportButton.isEnabled = false
         optionButton.isEnabled = false
@@ -150,6 +130,22 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     }
     
     func updateItemInspector(for item: ContentItem, submit: Bool) {
+        
+        guard !paneViewInspector.isHidden else {
+            
+            if let color = item as? PixelColor,
+                submit && colorPanel.isVisible
+            {
+                let nsColor = color.toNSColor()
+                
+                colorPanel.setTarget(nil)
+                colorPanel.setAction(nil)
+                colorPanel.color = nsColor
+            }
+            
+            return
+        }
+        
         if let color = item as? PixelColor {
             
             if !submit {
@@ -202,10 +198,45 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 """
             }
         }
+        
     }
+    
+    private func resetItemInspector() {
+        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
+        inspectorColorLabel.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
+        inspectorColorLabel2.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel2.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+    }
+    
+    private var lastStoredRect: CGRect?
+    private var lastStoredMagnification: CGFloat?
     
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
         guard !rect.isEmpty else { return }
+        
+        guard !paneViewPreview.isHidden else {
+            lastStoredRect = rect
+            lastStoredMagnification = magnification
+            return
+        }
         
         if let imageSize = screenshot?.image?.size {
             let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
@@ -218,8 +249,15 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         previewSlider.doubleValue = Double(log2(magnification))
     }
     
+    private func resetPreview() {
+        guard let lastStoredRect = lastStoredRect,
+            let lastStoredMagnification = lastStoredMagnification else { return }
+        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
+    }
+    
     func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
-        guard let rect = rect, let magnification = magnification else { return }
+        guard let rect = rect,
+            let magnification = magnification else { return }
         updatePreview(to: rect, magnification: magnification)
     }
     
@@ -431,12 +469,18 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
         hiddenValue = !UserDefaults.standard[.togglePaneViewInspector]
         if paneViewInspector.isHidden != hiddenValue {
             paneViewInspector.isHidden = hiddenValue
+            if !hiddenValue {
+                resetItemInspector()
+            }
             paneChanged = true
         }
         
         hiddenValue = !UserDefaults.standard[.togglePaneViewPreview]
         if paneViewPreview.isHidden != hiddenValue {
             paneViewPreview.isHidden = hiddenValue
+            if !hiddenValue {
+                resetPreview()
+            }
             paneChanged = true
         }
         
