@@ -183,8 +183,8 @@ class TagListController: NSViewController {
     
     @IBAction func delete(_ sender: Any) {
         let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < managedTags.count })
-        internalController.remove(contentsOf: rows.map({ managedTags[$0] }))
+            .filteredIndexSet(includeInteger: { $0 < arrangedTags.count })
+        internalController.remove(contentsOf: rows.map({ arrangedTags[$0] }))
     }
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
@@ -259,9 +259,9 @@ class TagListController: NSViewController {
     
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
-        guard let color = NSColor(css: managedTags[targetIndex].colorHex, alpha: 1.0) else { return }
+        guard let color = NSColor(css: arrangedTags[targetIndex].colorHex, alpha: 1.0) else { return }
         
-        menuTargetObject = managedTags[targetIndex]
+        menuTargetObject = arrangedTags[targetIndex]
         
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
@@ -282,12 +282,38 @@ class TagListController: NSViewController {
 
 extension TagListController: TagListDataSource {
     
-    var managedObjectContext: NSManagedObjectContext { internalContext }
-    var managedTagController: TagController { internalController }
+    var arrangedTagController: TagController { internalController }
+    var arrangedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }
     
-    var managedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }
-    func managedTag(of name: String) -> Tag? { managedTags.first(where: { $0.name == name }) }
-    func managedTags(of names: [String]) -> [Tag] { managedTags.filter({ names.contains($0.name) }) }
+    var managedObjectContext: NSManagedObjectContext { internalContext }
+    func managedTag(of name: String) -> Tag? {
+        do {
+            let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            let fetchedTags = try internalContext.fetch(fetchRequest)
+            return fetchedTags.first
+        } catch {
+            debugPrint(error)
+        }
+        return nil
+    }
+    func managedTags(of names: [String]) -> [Tag] {
+        do {
+            var predicates: [NSPredicate] = []
+            for name in names {
+                predicates.append(NSPredicate(format: "name == %@", name))
+            }
+            let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+            let fetchedTags = try internalContext.fetch(fetchRequest)
+            return fetchedTags
+        } catch {
+            debugPrint(error)
+        }
+        return []
+    }
     
 }
 
@@ -326,7 +352,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
-            "name": managedTags[row].name
+            "name": arrangedTags[row].name
         ], forType: TagListController.inlinePasteboardType)
         return item
     }
@@ -342,7 +368,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         guard case .idle = tableViewOverlay.state else { return false }
-        var collection = managedTags
+        var collection = arrangedTags
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in

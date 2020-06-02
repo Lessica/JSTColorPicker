@@ -39,10 +39,14 @@ class Annotator {
         self.overlay = overlay
     }
     
+    deinit {}
+    
 }
 
 extension Annotator: CustomStringConvertible {
+    
     var description: String {
         return "[Annotator \(contentItem), isSelected = \(isSelected)]"
     }
+    
 }

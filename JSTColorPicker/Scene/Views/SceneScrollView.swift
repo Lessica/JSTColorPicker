@@ -282,7 +282,7 @@ class SceneScrollView: NSScrollView {
                         else if let areaAnnotatorOverlay = overlay as? AreaAnnotatorOverlay,
                             areaAnnotatorOverlay.editingEdge != .none
                         {
-                            areaDraggingOverlay.lineDashCount = areaAnnotatorOverlay.lineDashCount
+                            areaDraggingOverlay.animationState = areaAnnotatorOverlay.animationState
                             shouldBeginEditing = true
                         }
                         if shouldBeginEditing {
@@ -561,7 +561,7 @@ class SceneScrollView: NSScrollView {
         else if !areaDraggingOverlay.isHidden {
             areaDraggingOverlay.isHidden = true
             areaDraggingOverlay.frame = CGRect.zero
-            areaDraggingOverlay.lineDashCount = 0
+            areaDraggingOverlay.animationState = OverlayAnimationState()
         }
     }
     

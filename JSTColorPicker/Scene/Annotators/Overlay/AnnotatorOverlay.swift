@@ -10,8 +10,9 @@ import Cocoa
 
 class AnnotatorOverlay: EditableOverlay {
     
-    public static let fixedOverlayOffset = CGPoint(x: -12.0, y: -12.0)
-    public static let fixedOverlaySize = CGSize(width: 24.0, height: 24.0)
+    public static let fixedOverlayOffset         = CGPoint(x: -12.0, y: -12.0)
+    public static let fixedOverlaySize           = CGSize(width: 24.0, height: 24.0)
+    public static let minimumBorderedOverlaySize = CGSize(width: 32.0, height: 32.0)
     
     public var isFixedOverlay: Bool = true
     public var label: String {
@@ -24,14 +25,14 @@ class AnnotatorOverlay: EditableOverlay {
     
     override var outerInsets: NSEdgeInsets {
         if isFixedOverlay {
-            return AnnotatorOverlay.outerInsets
+            return AnnotatorOverlay.defaultOuterInsets
         }
         return super.outerInsets
     }
     
     override var innerInsets: NSEdgeInsets {
         if isFixedOverlay {
-            return AnnotatorOverlay.innerInsets
+            return AnnotatorOverlay.defaultInnerInsets
         }
         return super.innerInsets
     }
@@ -43,9 +44,9 @@ class AnnotatorOverlay: EditableOverlay {
     public var highlightedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRed")
     public var focusedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRedFocused")
     
-    fileprivate static let borderWidth: CGFloat = 0.0
-    fileprivate static let outerInsets = NSEdgeInsets(top: -borderWidth, left: -borderWidth, bottom: -borderWidth, right: -borderWidth)
-    fileprivate static let innerInsets = NSEdgeInsets(top: borderWidth, left: borderWidth, bottom: borderWidth, right: borderWidth)
+    fileprivate static let defaultBorderWidth: CGFloat = 0.0
+    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
+    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
     
     fileprivate var internalLabel: String
     fileprivate lazy var internalAttributedLabel: NSAttributedString = {

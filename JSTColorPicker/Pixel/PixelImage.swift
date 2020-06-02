@@ -62,9 +62,14 @@ class PixelImage {
     
     public var bounds: PixelRect { PixelRect(origin: .zero, size: size) }
     
-    public func color(at coordinate: PixelCoordinate) -> PixelColor? {
+    public func rawColor(at coordinate: PixelCoordinate) -> JSTPixelColor? {
         guard bounds.contains(coordinate) else { return nil }
-        return PixelColor(coordinate: coordinate, color: pixelImageRepresentation.getJSTColor(of: coordinate.toCGPoint()))
+        return pixelImageRepresentation.getJSTColor(of: coordinate.toCGPoint())
+    }
+    
+    public func color(at coordinate: PixelCoordinate) -> PixelColor? {
+        guard let rawColor = rawColor(at: coordinate) else { return nil }
+        return PixelColor(coordinate: coordinate, color: rawColor)
     }
     
     public func area(at rect: PixelRect) -> PixelArea? {
@@ -118,7 +123,7 @@ extension PixelImage: LuaSwift.Value {
         t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
             let (x, y) = (args.integer, args.integer)
             let coordinate = PixelCoordinate(x: Int(x), y: Int(y))
-            if let color = self.color(at: coordinate)?.rgbaValue {
+            if let color = self.rawColor(at: coordinate)?.rgbaValue {
                 return .value(color)
             }
             else {

@@ -8,6 +8,10 @@
 
 import Cocoa
 
+struct OverlayAnimationState {
+    public var lineDashCount: Int = 0
+}
+
 class Overlay: NSView {
     
     public var isFocused: Bool = false
@@ -16,11 +20,11 @@ class Overlay: NSView {
     }
     
     public var outerInsets: NSEdgeInsets {
-        return Overlay.outerInsets
+        return Overlay.defaultOuterInsets
     }
     
     public var innerInsets: NSEdgeInsets {
-        return Overlay.innerInsets
+        return Overlay.defaultInnerInsets
     }
     
     public var capturedImage: NSImage? {
@@ -31,46 +35,49 @@ class Overlay: NSView {
         return img
     }
     
-    public var lineDashCount: Int = 0
-    public var lineDashBeginPhase: CGFloat {
-        return CGFloat(lineDashCount % 9)
+    public func invalidateAnimationTimer() {
+        animationTimer?.invalidate()
+        animationTimer = nil
     }
-    fileprivate var lineDashTimer: Timer?
+    public var animationState = OverlayAnimationState()
+    public var animationBeginPhase: CGFloat { CGFloat(animationState.lineDashCount % 9) }
+    fileprivate var animationTimer: Timer?
     
-    fileprivate static let borderWidth: CGFloat = 1.0
-    fileprivate static let lineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
-    fileprivate static let lineDashColorsNormal: [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
-    fileprivate static let lineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    fileprivate static let defaultBorderWidth    :  CGFloat  = 1.67
+    fileprivate static let defaultLineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
     
-    fileprivate static let outerInsets = NSEdgeInsets(top: -borderWidth, left: -borderWidth, bottom: -borderWidth, right: -borderWidth)
-    fileprivate static let innerInsets = NSEdgeInsets(top: borderWidth, left: borderWidth, bottom: borderWidth, right: borderWidth)
+    public var lineDashColorsNormal                        : [CGColor]?
+    public var lineDashColorsHighlighted                   : [CGColor]?
+    fileprivate var internalLineDashColorsNormal           : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
+    fileprivate var internalLineDashColorsHighlighted      : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
+    fileprivate static let defaultLineDashColorsNormal     : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
+    fileprivate static let defaultLineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    
+    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
+    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
     
     public var isSelected: Bool = false {
         didSet {
-            guard isBordered else { return }
+            //guard isBordered else { return }
             if isSelected {
-                lineDashCount = lineDashCount % 9
-                if let oldTimer = lineDashTimer {
-                    oldTimer.invalidate()
-                    lineDashTimer = nil
-                }
+                invalidateAnimationTimer()
+                animationState.lineDashCount %= 9
                 let timer = Timer(fireAt: Date(), interval: 0.1, target: self, selector: #selector(animateLineDash(_:)), userInfo: nil, repeats: true)
                 RunLoop.current.add(timer, forMode: .common)
-                lineDashTimer = timer
+                animationTimer = timer
             } else {
-                lineDashTimer?.invalidate()
-                lineDashTimer = nil
+                invalidateAnimationTimer()
             }
         }
     }
     
     deinit {
-        lineDashTimer?.invalidate()
+        invalidateAnimationTimer()
     }
     
     @objc internal func animateLineDash(_ timer: Timer?) {
         if shouldPerformAnimatableDrawing {
-            lineDashCount += 1
+            animationState.lineDashCount += 1
             setNeedsDisplay()
         }
     }
@@ -114,7 +121,7 @@ class Overlay: NSView {
         guard shouldPerformDrawing(dirtyRect, drawBounds) else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        let drawLength = Overlay.lineDashLengths[0], spaceLength = Overlay.lineDashLengths[1]
+        let drawLength = Overlay.defaultLineDashLengths[0], spaceLength = Overlay.defaultLineDashLengths[1]
         let mixedLength = drawLength + spaceLength
         
         ctx.saveGState()
@@ -135,15 +142,15 @@ class Overlay: NSView {
             ctx.move(to: CGPoint(x: drawBounds.minX, y: min(dirtyRect.maxY, drawBounds.maxY)))
             ctx.addLine(to: CGPoint(x: drawBounds.minX, y: max(dirtyRect.minY, drawBounds.minY)))
         }
-        ctx.setLineWidth(Overlay.borderWidth)
-        if isFocused || isSelected { ctx.setStrokeColor(Overlay.lineDashColorsHighlighted[1]) }
-        else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[1]) }
+        ctx.setLineWidth(Overlay.defaultBorderWidth)
+        if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[1]) }
+        else { ctx.setStrokeColor(internalLineDashColorsNormal[1]) }
         ctx.strokePath()
         
         if drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY {
             let xLower = max(dirtyRect.minX, drawBounds.minX)
             let xUpper = min(dirtyRect.maxX, drawBounds.maxX)
-            let beginX = drawBounds.minX + lineDashBeginPhase
+            let beginX = drawBounds.minX + animationBeginPhase
             let deltaX = xLower - (floor((xLower - beginX) / (mixedLength)) * mixedLength) - beginX
             var drawX: CGFloat
             if deltaX < drawLength {
@@ -168,7 +175,7 @@ class Overlay: NSView {
         if drawBounds.maxX > dirtyRect.minX && drawBounds.maxX < dirtyRect.maxX {
             let yUpper = min(dirtyRect.maxY, drawBounds.maxY)
             let yLower = max(dirtyRect.minY, drawBounds.minY)
-            let beginY = drawBounds.maxY - lineDashBeginPhase
+            let beginY = drawBounds.maxY - animationBeginPhase
             let deltaY = beginY - (yUpper + (floor((beginY - yUpper) / (mixedLength)) * mixedLength))
             var drawY: CGFloat
             if deltaY < drawLength {
@@ -193,7 +200,7 @@ class Overlay: NSView {
         if drawBounds.maxY > dirtyRect.minY && drawBounds.maxY < dirtyRect.maxY {
             let xLower = max(dirtyRect.minX, drawBounds.minX)
             let xUpper = min(dirtyRect.maxX, drawBounds.maxX)
-            let beginX = drawBounds.minX + lineDashBeginPhase
+            let beginX = drawBounds.minX + animationBeginPhase
             let deltaX = xLower - (floor((xLower - beginX) / (mixedLength)) * mixedLength) - beginX
             var drawX: CGFloat
             if deltaX < drawLength {
@@ -218,7 +225,7 @@ class Overlay: NSView {
         if drawBounds.minX > dirtyRect.minX && drawBounds.minX < dirtyRect.maxX {
             let yUpper = min(dirtyRect.maxY, drawBounds.maxY)
             let yLower = max(dirtyRect.minY, drawBounds.minY)
-            let beginY = drawBounds.maxY - lineDashBeginPhase
+            let beginY = drawBounds.maxY - animationBeginPhase
             let deltaY = beginY - (yUpper + (floor((beginY - yUpper) / (mixedLength)) * mixedLength))
             var drawY: CGFloat
             if deltaY < drawLength {
@@ -241,9 +248,9 @@ class Overlay: NSView {
             }
         }
         
-        // ctx.setLineWidth(Overlay.borderWidth)
-        if isFocused || isSelected { ctx.setStrokeColor(Overlay.lineDashColorsHighlighted[0]) }
-        else { ctx.setStrokeColor(Overlay.lineDashColorsNormal[0]) }
+        // ctx.setLineWidth(Overlay.defaultBorderWidth)
+        if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[0]) }
+        else { ctx.setStrokeColor(internalLineDashColorsNormal[0]) }
         ctx.strokePath()
         
         ctx.restoreGState()

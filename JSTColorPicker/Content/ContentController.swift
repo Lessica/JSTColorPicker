@@ -297,11 +297,11 @@ extension ContentController {
         guard let content = content else { return }
         
         let itemIDs = items.compactMap({ $0.id })
-        let itemToRemove = content.items.filter({ itemIDs.contains($0.id) })
+        let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
         
         undoManager?.beginUndoGrouping()
         undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-            targetSelf.internalUpdateContentItems(itemToRemove)  // memory captured and managed by UndoManager
+            targetSelf.internalUpdateContentItems(itemsToRemove)  // memory captured and managed by UndoManager
         })
         undoManager?.endUndoGrouping()
         
@@ -460,7 +460,7 @@ extension ContentController: ContentResponder {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         
-        color.id = item.id
+        color.copyFrom(item)
         return try updateContentItem(color)
     }
     
@@ -471,7 +471,7 @@ extension ContentController: ContentResponder {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         
-        area.id = item.id
+        area.copyFrom(item)
         return try updateContentItem(area)
     }
     

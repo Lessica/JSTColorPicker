@@ -47,6 +47,11 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
         return item
     }
     
+    func copyFrom(_ item: ContentItem) {
+        id = item.id
+        tags = item.tags
+    }
+    
     func push(_ vm: VirtualMachine) {
         let vmTable = vm.createTable()
         vmTable["id"] = id

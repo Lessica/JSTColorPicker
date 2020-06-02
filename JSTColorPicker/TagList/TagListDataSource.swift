@@ -16,10 +16,10 @@ protocol TagListDataSource: class {
     
     var managedObjectContext: NSManagedObjectContext { get }
     
-    var managedTags: [Tag] { get }
+    var arrangedTags: [Tag] { get }
     func managedTag(of name: String) -> Tag?
     func managedTags(of names: [String]) -> [Tag]
     
-    var managedTagController: TagController { get }
+    var arrangedTagController: TagController { get }
     
 }

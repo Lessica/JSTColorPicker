@@ -62,14 +62,21 @@ class EditableOverlay: Overlay {
         return false
     }
     
-    fileprivate static let circleRadius: CGFloat = 3.67
-    fileprivate static let circleBorderWidth: CGFloat = 1.0
-    fileprivate static let circleFillColorNormal = NSColor.systemGray.cgColor
-    fileprivate static let circleFillColorHighlighted = NSColor.systemBlue.cgColor
-    fileprivate static let circleStrokeColor = CGColor.white
+    fileprivate static let defaultCircleRadius     : CGFloat = 4.67
+    fileprivate static let defaultCircleBorderWidth: CGFloat = 1.67
     
-    fileprivate static let outerInsets = NSEdgeInsets(top: -circleRadius - circleBorderWidth, left: -circleRadius - circleBorderWidth, bottom: -circleRadius - circleBorderWidth, right: -circleRadius - circleBorderWidth)
-    fileprivate static let innerInsets = NSEdgeInsets(top: circleRadius + circleBorderWidth, left: circleRadius + circleBorderWidth, bottom: circleRadius + circleBorderWidth, right: circleRadius + circleBorderWidth)
+    public var circleFillColorNormal                         : CGColor?
+    public var circleFillColorHighlighted                    : CGColor?
+    public var circleStrokeColor                             : CGColor?
+    fileprivate var internalCircleFillColorNormal            : CGColor { circleFillColorNormal      ?? EditableOverlay.defaultCircleFillColorNormal }
+    fileprivate var internalCircleFillColorHighlighted       : CGColor { circleFillColorHighlighted ?? EditableOverlay.defaultCircleFillColorHighlighted }
+    fileprivate var internalCircleStrokeColor                : CGColor { circleStrokeColor          ?? EditableOverlay.defaultCircleStrokeColor }
+    fileprivate static let defaultCircleFillColorNormal      : CGColor = NSColor.systemGray.cgColor
+    fileprivate static let defaultCircleFillColorHighlighted : CGColor = NSColor.systemBlue.cgColor
+    fileprivate static let defaultCircleStrokeColor          : CGColor = CGColor.white
+    
+    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultCircleRadius - defaultCircleBorderWidth, left: -defaultCircleRadius - defaultCircleBorderWidth, bottom: -defaultCircleRadius - defaultCircleBorderWidth, right: -defaultCircleRadius - defaultCircleBorderWidth)
+    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultCircleRadius + defaultCircleBorderWidth, left: defaultCircleRadius + defaultCircleBorderWidth, bottom: defaultCircleRadius + defaultCircleBorderWidth, right: defaultCircleRadius + defaultCircleBorderWidth)
     
     public func direction(at point: CGPoint) -> EditableDirection {
         guard isBordered && isEditable else { return .none }
@@ -78,7 +85,7 @@ class EditableOverlay: Overlay {
     
     public func edge(at point: CGPoint) -> EditableEdge {
         guard isBordered && isEditable else { return .none }
-        let edgeRadius = EditableOverlay.circleRadius + EditableOverlay.circleBorderWidth
+        let edgeRadius = EditableOverlay.defaultCircleRadius + EditableOverlay.defaultCircleBorderWidth
         let drawBounds = bounds.inset(by: innerInsets)
              if CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomLeft }
         else if CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomRight }
@@ -93,21 +100,21 @@ class EditableOverlay: Overlay {
     
     fileprivate func rectsForDrawBounds(_ drawBounds: CGRect) -> [CGRect] {
         var rects = [
-            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
-            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
-            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
-            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
+            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),
+            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),
+            CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
+            CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
         ]
         if drawBounds.width > 16.0 {
             rects.append(contentsOf: [
-                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: EditableOverlay.circleRadius),
-                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: EditableOverlay.circleRadius),
+                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),
+                CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
             ])
         }
         if drawBounds.height > 16.0 {
             rects.append(contentsOf: [
-                CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
-                CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: EditableOverlay.circleRadius),
+                CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: EditableOverlay.defaultCircleRadius),
+                CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: EditableOverlay.defaultCircleRadius),
             ])
         }
         return rects
@@ -115,14 +122,14 @@ class EditableOverlay: Overlay {
     
     override var outerInsets: NSEdgeInsets {
         if isBordered && isEditable {
-            return EditableOverlay.outerInsets
+            return EditableOverlay.defaultOuterInsets
         }
         return super.outerInsets
     }
     
     override var innerInsets: NSEdgeInsets {
         if isBordered && isEditable {
-            return EditableOverlay.innerInsets
+            return EditableOverlay.defaultInnerInsets
         }
         return super.innerInsets
     }
@@ -142,10 +149,10 @@ class EditableOverlay: Overlay {
         
         drawRects.forEach({ ctx.addEllipse(in: $0) })
         
-        ctx.setLineWidth(EditableOverlay.circleBorderWidth)
-        if isFocused || isSelected { ctx.setFillColor(EditableOverlay.circleFillColorHighlighted) }
-        else { ctx.setFillColor(EditableOverlay.circleFillColorNormal) }
-        ctx.setStrokeColor(EditableOverlay.circleStrokeColor)
+        ctx.setLineWidth(EditableOverlay.defaultCircleBorderWidth)
+        if isFocused || isSelected { ctx.setFillColor(internalCircleFillColorHighlighted) }
+        else { ctx.setFillColor(internalCircleFillColorNormal) }
+        ctx.setStrokeColor(internalCircleStrokeColor)
         ctx.drawPath(using: .fillStroke)
         
         ctx.restoreGState()
