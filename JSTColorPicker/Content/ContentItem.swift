@@ -14,13 +14,13 @@ extension NSPasteboard.PasteboardType {
 }
 
 class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {
+    
     class var supportsSecureCoding: Bool {
         return true
     }
     
     public var id: Int
     public var tags: [String] = []
-    public var managedTags = NSHashTable<Tag>.weakObjects()  // unserialized
     
     init(id: Int) {
         self.id = id

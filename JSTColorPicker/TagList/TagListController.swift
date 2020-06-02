@@ -48,10 +48,10 @@ class TagListController: NSViewController {
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         
         willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: undoManager, using: { [unowned self] _ in
-            self.setNeedsSaveMOC()
+            self.setNeedsSaveManagedTags()
         })
         willRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillRedoChange, object: undoManager, using: { [unowned self] _ in
-            self.setNeedsSaveMOC()
+            self.setNeedsSaveManagedTags()
         })
         
         didUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
@@ -61,7 +61,7 @@ class TagListController: NSViewController {
             self.internalController.rearrangeObjects()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(mocDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
         setupPersistentStore(fetchInitialTags: { () -> ([(String, String)]) in
             return [
@@ -189,40 +189,38 @@ class TagListController: NSViewController {
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
         internalController.insert(sender)
-        setNeedsRearrangeMOC()
-        setNeedsSaveMOC()
+        setNeedsRearrangeManagedTags()
+        setNeedsSaveManagedTags()
     }
     
     @IBAction private func removeTagBtnTapped(_ sender: Any) {
         internalController.remove(sender)
-        setNeedsSaveMOC()
+        setNeedsSaveManagedTags()
     }
     
     @IBAction private func tagFieldValueChanged(_ sender: NSTextField) {
-        setNeedsSaveMOC()
+        setNeedsSaveManagedTags()
     }
     
-    @objc private func mocDidChangeNotification(_ noti: NSNotification) {
-        guard let moc = noti.object as? NSManagedObjectContext else { return }
-        guard moc == internalContext else { return }
-        rearrangeMOCIfNeeded()
-        saveMOCIfNeeded()
+    @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
+        rearrangeManagedTagsIfNeeded()
+        saveManagedTagsIfNeeded()
     }
     
-    fileprivate var shouldRearrangeMOC: Bool = false
-    fileprivate var shouldSaveMOC: Bool = false
+    fileprivate var shouldRearrangeManagedTags: Bool = false
+    fileprivate var shouldSaveManagedTags: Bool = false
     
-    fileprivate func setNeedsRearrangeMOC() {
-        shouldRearrangeMOC = true
+    fileprivate func setNeedsRearrangeManagedTags() {
+        shouldRearrangeManagedTags = true
     }
     
-    fileprivate func setNeedsSaveMOC() {
-        shouldSaveMOC = true
+    fileprivate func setNeedsSaveManagedTags() {
+        shouldSaveManagedTags = true
     }
     
-    fileprivate func saveMOCIfNeeded() {
-        guard shouldSaveMOC else { return }
-        shouldSaveMOC = false
+    fileprivate func saveManagedTagsIfNeeded() {
+        guard shouldSaveManagedTags else { return }
+        shouldSaveManagedTags = false
         guard internalContext.hasChanges else { return }
         do {
             try internalContext.save()
@@ -239,9 +237,9 @@ class TagListController: NSViewController {
         }
     }
     
-    fileprivate func rearrangeMOCIfNeeded() {
-        guard shouldRearrangeMOC else { return }
-        shouldRearrangeMOC = false
+    fileprivate func rearrangeManagedTagsIfNeeded() {
+        guard shouldRearrangeManagedTags else { return }
+        shouldRearrangeManagedTags = false
         guard let items = internalController.arrangedObjects as? [Tag] else { return }
         reorderTags(items)
     }
@@ -277,7 +275,7 @@ class TagListController: NSViewController {
     @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
         guard let tag = menuTargetObject, tag.managedObjectContext != nil else { return }
         tag.colorHex = sender.color.sharpCSS
-        setNeedsSaveMOC()
+        setNeedsSaveManagedTags()
     }
     
 }
@@ -384,7 +382,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         reorderTags(collection)
         internalController.content = NSMutableArray(array: collection)
         
-        setNeedsSaveMOC()
+        setNeedsSaveManagedTags()
         return true
     }
     

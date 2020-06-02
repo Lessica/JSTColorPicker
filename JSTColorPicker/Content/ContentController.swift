@@ -75,7 +75,6 @@ extension NSViewController {
 class ContentController: NSViewController {
     
     public weak var actionDelegate: ContentActionDelegate!
-    public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
     fileprivate var content: Content? {
@@ -122,9 +121,6 @@ class ContentController: NSViewController {
         tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mocDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mocWillSaveNotification(_:)), name: NSNotification.Name.NSManagedObjectContextWillSave, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mocDidSaveNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         loadPreferences(nil)
     }
     
@@ -804,30 +800,6 @@ extension ContentController: ScreenshotLoader {
         addCoordinateButton.isEnabled = true
         addCoordinateField.isEnabled = true
         tableView.reloadData()
-    }
-    
-}
-
-extension ContentController {
-    
-    @objc private func mocDidLoadNotification(_ noti: NSNotification) {
-        guard let moc = noti.object as? NSManagedObjectContext else { return }
-        guard moc == tagListDataSource.managedObjectContext else { return }
-        
-    }
-    
-    @objc private func mocWillSaveNotification(_ noti: NSNotification) {
-        guard let moc = noti.object as? NSManagedObjectContext else { return }
-        guard moc == tagListDataSource.managedObjectContext else { return }
-        
-        undoManager?.beginUndoGrouping()
-    }
-    
-    @objc private func mocDidSaveNotification(_ noti: NSNotification) {
-        guard let moc = noti.object as? NSManagedObjectContext else { return }
-        guard moc == tagListDataSource.managedObjectContext else { return }
-        
-        undoManager?.endUndoGrouping()
     }
     
 }

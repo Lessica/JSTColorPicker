@@ -18,8 +18,9 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
-    public weak var trackingDelegate: SceneTracking!
     public weak var contentResponder: ContentResponder!
+    public weak var trackingDelegate: SceneTracking!
+    public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
@@ -217,6 +218,8 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         loadPreferences(nil)
     }
     
@@ -894,7 +897,8 @@ extension SceneController: AnnotatorDataSource {
     }
     
     func addAnnotator(for color: PixelColor) {
-        let annotator = ColorAnnotator(color.copy() as! PixelColor)
+        let copiedColor = color.copy() as! PixelColor
+        let annotator = ColorAnnotator(copiedColor)
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelOverlay)
@@ -902,7 +906,8 @@ extension SceneController: AnnotatorDataSource {
     }
     
     func addAnnotator(for area: PixelArea) {
-        let annotator = AreaAnnotator(area.copy() as! PixelArea)
+        let copiedArea = area.copy() as! PixelArea
+        let annotator = AreaAnnotator(copiedArea)
         loadRulerMarkers(for: annotator)
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelOverlay)
@@ -1156,6 +1161,22 @@ extension SceneController: PixelMatchResponder {
     
     func endPixelMatchComparison() {
         wrapper.setMaskImage(nil)
+    }
+    
+}
+
+extension SceneController {
+    
+    @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
+        attachManagedTags()
+    }
+    
+    @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
+        attachManagedTags()
+    }
+    
+    fileprivate func attachManagedTags() {
+        
     }
     
 }

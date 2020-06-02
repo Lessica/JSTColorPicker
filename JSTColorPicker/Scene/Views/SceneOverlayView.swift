@@ -209,7 +209,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     // MARK: - Drag/Drop
     
-    fileprivate func isAcceptableDraggingTarget(_ target: AnnotatorOverlay?) -> Bool {
+    fileprivate func isAcceptableDraggingTarget(_ draggingInfo: NSDraggingInfo, target: AnnotatorOverlay?) -> Bool {
         guard target != nil else { return false }
         return true
     }
@@ -223,7 +223,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         guard case .idle = state else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if isAcceptableDraggingTarget(internalFocusedOverlay) {
+        if isAcceptableDraggingTarget(sender, target: internalFocusedOverlay) {
             state = .target
             return sender.draggingSourceOperationMask
         } else {
@@ -236,7 +236,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         guard state != .idle else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if isAcceptableDraggingTarget(internalFocusedOverlay) {
+        if isAcceptableDraggingTarget(sender, target: internalFocusedOverlay) {
             state = .target
             return sender.draggingSourceOperationMask
         } else {
@@ -258,22 +258,23 @@ class SceneOverlayView: NSView, DragEndpoint {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let focusedOverlay = internalFocusedOverlay, isAcceptableDraggingTarget(focusedOverlay) else { return false }
+        guard let focusedOverlay = internalFocusedOverlay,
+            isAcceptableDraggingTarget(sender, target: focusedOverlay) else { return false }
         guard let origItem = contentItem(of: focusedOverlay) else { return false }
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
-        var tagNames: [String] = []
+        var tagNames = Set<String>()
         sender.enumerateDraggingItems(options: [], for: self, classes: [NSPasteboardItem.self], searchOptions: [:]) { (dragItem, _, _) in
             if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.attachPasteboardType) as? [String] {
-                obj.forEach({ tagNames.append($0) })
+                obj.forEach({ tagNames.insert($0) })
             }
         }
-        
-        debugPrint(tagNames)
+        tagNames.subtract(replItem.tags)  // removes tag names that already exist
         replItem.tags.append(contentsOf: tagNames)
+        
         if let _ = try? contentResponder.updateContentItem(replItem) {
             return true
         }
