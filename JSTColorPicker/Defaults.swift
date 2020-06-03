@@ -16,7 +16,8 @@ public extension UserDefaults.Key {
     static let lastSelectedTemplateUUID             : UserDefaults.Key     = "defaults.lastSelectedTemplateUUID"               // String
     static let enableNetworkDiscovery               : UserDefaults.Key     = "defaults.enableNetworkDiscovery"                 // Bool
     
-    static let toggleTableColumnID                  : UserDefaults.Key     = "defaults.tableColumn.toggle-id"                  // Bool
+    static let toggleTableColumnIdentifier          : UserDefaults.Key     = "defaults.tableColumn.toggle-id"                  // Bool
+    static let toggleTableColumnTag                 : UserDefaults.Key     = "defaults.tableColumn.toggle-tag"                 // Bool
     static let toggleTableColumnDescription         : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"                // Bool
     
     static let togglePaneViewInformation            : UserDefaults.Key     = "defaults.paneView.toggle-info"                   // Bool
@@ -191,7 +192,7 @@ public extension UserDefaults {
 
 public extension UserDefaults {
 
-    struct Key: Hashable, RawRepresentable, ExpressibleByStringLiteral {
+    struct Key: Codable, Hashable, RawRepresentable, ExpressibleByStringLiteral {
 
         public var rawValue: String
 

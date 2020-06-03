@@ -2,6 +2,9 @@
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerCell.title" = "ID";
 
+/* Class = "NSTableColumn"; headerToolTip = "The primary key, a integer field of the item."; ObjectID = "71D-st-arP"; */
+"71D-st-arP.headerToolTip" = "ID";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
 
@@ -38,6 +41,12 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OWW-WD-eeB"; */
 "OWW-WD-eeB.title" = "文本单元格";
 
+/* Class = "NSTableColumn"; headerCell.title = "Tag"; ObjectID = "oZV-av-rVK"; */
+"oZV-av-rVK.headerCell.title" = "标签";
+
+/* Class = "NSTableColumn"; headerToolTip = "The first, major tag of the item."; ObjectID = "oZV-av-rVK"; */
+"oZV-av-rVK.headerToolTip" = "标签";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
 
@@ -65,7 +74,7 @@
 /* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "Sv2-uF-rau"; */
 "Sv2-uF-rau.headerCell.title" = "描述";
 
-/* Class = "NSTableColumn"; headerToolTip = "Description"; ObjectID = "Sv2-uF-rau"; */
+/* Class = "NSTableColumn"; headerToolTip = "The detailed description of the item."; ObjectID = "Sv2-uF-rau"; */
 "Sv2-uF-rau.headerToolTip" = "描述";
 
 /* Class = "NSMenuItem"; title = "Area: (x1, y1, x2, y2)"; ObjectID = "sVk-oR-IHz"; */
@@ -79,3 +88,9 @@
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
 "wys-cG-VKM.title" = "全选";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "YgK-ZS-zbR"; */
+"YgK-ZS-zbR.title" = "文本单元格";
+
+/* Class = "NSMenuItem"; title = "Tag"; ObjectID = "Ynp-1q-dyO"; */
+"Ynp-1q-dyO.title" = "标签";

@@ -10,14 +10,16 @@ import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let toggleTableColumnID          = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleTableColumnTag         = NSUserInterfaceItemIdentifier("toggle-tag")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
     
 }
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let columnID          = NSUserInterfaceItemIdentifier("col-id")
+    static let columnIdentifier  = NSUserInterfaceItemIdentifier("col-id")
+    static let columnTag         = NSUserInterfaceItemIdentifier("col-tag")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
     
 }
@@ -75,6 +77,7 @@ extension NSViewController {
 class ContentController: NSViewController {
     
     public weak var actionDelegate: ContentActionDelegate!
+    public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
     fileprivate var content: Content? {
@@ -90,18 +93,19 @@ class ContentController: NSViewController {
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
-    @IBOutlet var tableMenu: NSMenu!
-    @IBOutlet var tableHeaderMenu: NSMenu!
-    @IBOutlet var itemReprMenu: NSMenu!
-    @IBOutlet var itemReprAreaMenuItem: NSMenuItem!
+    @IBOutlet var tableMenu              : NSMenu!
+    @IBOutlet var tableHeaderMenu        : NSMenu!
+    @IBOutlet var itemReprMenu           : NSMenu!
+    @IBOutlet var itemReprAreaMenuItem   : NSMenuItem!
     @IBOutlet var itemReprAreaAltMenuItem: NSMenuItem!
     
     @IBOutlet weak var tableView: ContentTableView!
-    @IBOutlet weak var columnID: NSTableColumn!
+    @IBOutlet weak var columnIdentifier : NSTableColumn!
+    @IBOutlet weak var columnTag        : NSTableColumn!
     @IBOutlet weak var columnDescription: NSTableColumn!
     
     @IBOutlet weak var addCoordinateButton: NSButton!
-    @IBOutlet weak var addCoordinateField: NSTextField!
+    @IBOutlet weak var addCoordinateField : NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,9 +122,10 @@ class ContentController: NSViewController {
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
         }
-        tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         loadPreferences(nil)
     }
     
@@ -135,15 +140,18 @@ class ContentController: NSViewController {
     }
     
     @IBAction func resetColumns(_ sender: NSMenuItem) {
-        UserDefaults.standard.removeObject(forKey: .toggleTableColumnID)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnIdentifier)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnTag)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
         
-        columnID.width = 30.0
+        columnIdentifier.width  = 30.0
+        columnTag.width         = 80.0
         columnDescription.width = 200.0
         
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [
-            columnID,
+            columnIdentifier,
+            columnTag,
             columnDescription
         ]
         tableCols.forEach({ tableView.addTableColumn($0) })
@@ -527,7 +535,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
         else if item.action == #selector(toggleHeader(_:)) {
             if let menuItem = item as? NSMenuItem {
-                if menuItem.identifier == .toggleTableColumnID {
+                if menuItem.identifier == .toggleTableColumnIdentifier {
                     return false
                 }
                 return true
@@ -546,8 +554,11 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == tableHeaderMenu {
             menu.items.forEach { (menuItem) in
-                if menuItem.identifier == .toggleTableColumnID {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnID] ? .on : .off
+                if menuItem.identifier      == .toggleTableColumnIdentifier {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnIdentifier]  ? .on : .off
+                }
+                else if menuItem.identifier == .toggleTableColumnTag {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnTag]         ? .on : .off
                 }
                 else if menuItem.identifier == .toggleTableColumnDescription {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
@@ -570,9 +581,14 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     fileprivate func updateColumns() {
         var hiddenValue: Bool!
         
-        hiddenValue = !UserDefaults.standard[.toggleTableColumnID]
-        if columnID.isHidden != hiddenValue {
-            columnID.isHidden = hiddenValue
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnIdentifier]
+        if columnIdentifier.isHidden != hiddenValue {
+            columnIdentifier.isHidden = hiddenValue
+        }
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnTag]
+        if columnTag.isHidden != hiddenValue {
+            columnTag.isHidden = hiddenValue
         }
         
         hiddenValue = !UserDefaults.standard[.toggleTableColumnDescription]
@@ -694,8 +710,11 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     @IBAction func toggleHeader(_ sender: NSMenuItem) {
         var defaultKey: UserDefaults.Key?
-        if sender.identifier == .toggleTableColumnID {
-            defaultKey = .toggleTableColumnID
+        if sender.identifier == .toggleTableColumnIdentifier {
+            defaultKey = .toggleTableColumnIdentifier
+        }
+        else if sender.identifier == .toggleTableColumnTag {
+            defaultKey = .toggleTableColumnTag
         }
         else if sender.identifier == .toggleTableColumnDescription {
             defaultKey = .toggleTableColumnDescription
@@ -769,8 +788,17 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
             let col = tableColumn.identifier
             let item = content.items[row]
-            if col == .columnID {
+            if col == .columnIdentifier {
                 cell.textField?.stringValue = String(item.id)
+            }
+            else if col == .columnTag {
+                if let firstTag = item.tags.first {
+                    cell.textField?.stringValue = "\u{25CF} \(firstTag)"
+                    cell.textField?.textColor = tagListDataSource.managedTag(of: firstTag)?.color
+                } else {
+                    cell.textField?.stringValue = NSLocalizedString("None", comment: "None")
+                    cell.textField?.textColor = nil
+                }
             }
             else if col == .columnDescription {
                 if let color = item as? PixelColor {
@@ -799,7 +827,27 @@ extension ContentController: ScreenshotLoader {
         self.screenshot = screenshot
         addCoordinateButton.isEnabled = true
         addCoordinateField.isEnabled = true
+        
         tableView.reloadData()
+    }
+    
+}
+
+extension ContentController {
+    
+    @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
+        contentItemColorize()
+    }
+    
+    @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
+        contentItemColorize()
+    }
+    
+    fileprivate func contentItemColorize() {
+        tableView.reloadData(
+            forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
+            columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnTag))
+        )
     }
     
 }

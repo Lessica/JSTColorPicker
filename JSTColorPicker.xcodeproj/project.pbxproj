@@ -340,6 +340,8 @@
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */; };
 		D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */; };
+		D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6CB454E248784EF00F5C7A1 /* InitialValues.plist */; };
+		D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6CB454E248784EF00F5C7A1 /* InitialValues.plist */; };
 		D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
@@ -1069,6 +1071,7 @@
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
 		D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorIndicator.swift; sourceTree = "<group>"; };
+		D6CB454E248784EF00F5C7A1 /* InitialValues.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InitialValues.plist; sourceTree = "<group>"; };
 		D6CD28A7247BD4670051BE18 /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D6DF0F9124292B27001E30F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1884,6 +1887,7 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				D64AF09D240D05BB003A5B17 /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
@@ -2499,6 +2503,7 @@
 			files = (
 				D61047D024224A170002E990 /* General.xib in Resources */,
 				1842C46F247987C9008ECD6F /* Sidebar.storyboard in Resources */,
+				D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
@@ -2544,6 +2549,7 @@
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
 				1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */,
+				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,

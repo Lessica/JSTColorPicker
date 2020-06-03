@@ -286,6 +286,9 @@ extension TagListController: TagListDataSource {
     
     var managedObjectContext: NSManagedObjectContext { internalContext }
     func managedTag(of name: String) -> Tag? {
+        if arrangedTags.count > 0 {
+            return arrangedTags.first(where: { $0.name == name })
+        }
         do {
             let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
             fetchRequest.fetchLimit = 1
@@ -298,6 +301,9 @@ extension TagListController: TagListDataSource {
         return nil
     }
     func managedTags(of names: [String]) -> [Tag] {
+        if arrangedTags.count > 0 {
+            return arrangedTags.filter({ names.contains($0.name) })
+        }
         do {
             var predicates: [NSPredicate] = []
             for name in names {

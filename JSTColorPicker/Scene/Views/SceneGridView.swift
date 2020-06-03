@@ -29,7 +29,7 @@ class SceneGridView: NSView {
         // do not perform default behavior
     }
     
-    var drawGridsInScene: Bool = false
+    public var drawGridsInScene: Bool = false
     fileprivate var shouldDrawGridsInScene: Bool = false
     fileprivate static let minimumMagnificationForGridRendering: CGFloat = 32.0
     fileprivate static let gridLineWidth: CGFloat = 1.0
@@ -38,13 +38,21 @@ class SceneGridView: NSView {
     fileprivate var gridRenderingArea: CGRect = .null
     
     override func draw(_ dirtyRect: NSRect) {
-        guard !inLiveResize else { return }
-        guard drawGridsInScene && shouldDrawGridsInScene else { return }
-        guard !gridWrappedPixelRect.isEmpty else { return }
-        guard !gridRenderingArea.isEmpty else { return }
-        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        ctx.setAllowsAntialiasing(false)
         
+        // if condition not satisfy, do not draw
+        guard !inLiveResize
+            && drawGridsInScene
+            && shouldDrawGridsInScene
+            && !isHidden
+            && !gridWrappedPixelRect.isEmpty
+            && !gridRenderingArea.isEmpty
+            else
+        { return }
+        
+        // got context
+        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
+        
+        // calculate size for single grid
         let gridSize = CGSize(
             width: gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width),
             height: gridRenderingArea.height / CGFloat(gridWrappedPixelRect.height)
@@ -72,18 +80,64 @@ class SceneGridView: NSView {
         needsDisplay = true
     }
     
+    fileprivate weak var storedSceneView: SceneScrollView?
+    fileprivate var storedRect: CGRect?
+    fileprivate var storedMagnification: CGFloat?
+    override var isHidden: Bool {
+        didSet {
+            if !isHidden {
+                if let rect = storedRect, let magnification = storedMagnification {
+                    trackSceneBoundsChanged(storedSceneView, to: rect, of: magnification)
+                }
+            } else {
+                storedSceneView = nil
+                storedRect = nil
+                storedMagnification = nil
+            }
+        }
+    }
+    
+    fileprivate var shouldPauseTracking: Bool = false
+    
 }
 
 extension SceneGridView: SceneTracking {
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+        
         guard let sceneView = sender else { return }
+        
         shouldDrawGridsInScene = !rect.isEmpty && magnification >= SceneGridView.minimumMagnificationForGridRendering
-        if drawGridsInScene && shouldDrawGridsInScene {
+        if drawGridsInScene && shouldDrawGridsInScene && !isHidden {
+            
+            // reset pause flag if necessary
+            if shouldPauseTracking {
+                shouldPauseTracking = false
+            }
+            
+            // update draw areas, and positions
             gridWrappedPixelRect = rect.smallestWrappingPixelRect
             gridRenderingArea = sceneView.convertFromDocumentView(gridWrappedPixelRect.toCGRect()).offsetBy(-sceneView.alternativeBoundsOrigin)
+            
+            // perform drawing in next loop
+            setNeedsDisplay(bounds)
+            
         }
-        setNeedsDisplay(bounds)
+        else {
+            
+            // clear current core graphics context if necessary
+            if !shouldPauseTracking {
+                shouldPauseTracking = true
+                setNeedsDisplay(bounds)
+            }
+            
+            // store unused values
+            storedSceneView = sceneView
+            storedRect = rect
+            storedMagnification = magnification
+            
+        }
+        
     }
     
 }

@@ -126,6 +126,9 @@
 /* ExportError */
 "No template selected." = "No template selected.";
 
+/* None */
+"None" = "None";
+
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
 

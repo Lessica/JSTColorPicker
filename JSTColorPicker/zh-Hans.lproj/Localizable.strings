@@ -126,6 +126,9 @@
 /* ExportError */
 "No template selected." = "未选择模板.";
 
+/* None */
+"None" = "无";
+
 /* screenshotItemTapped(_:) */
 "OK" = "好";
 

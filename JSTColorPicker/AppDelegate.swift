@@ -48,52 +48,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             checkForUpdatesItem.isHidden = false
         }
         
-        let initialValues: [UserDefaults.Key: Any?] = [
-            
-            .AppleMomentumScrollSupported: true,
-            
-            .toggleTableColumnID: true,
-            .toggleTableColumnDescription: true,
-            
-            .togglePaneViewPreview: true,
-            .togglePaneViewInspector: false,
-            .togglePaneViewInformation: true,
-            
-            .useAlternativeAreaRepresentation: false,
-            
-            .enableNetworkDiscovery: false,
-            
-            .enableForceTouch: true,
-            .drawSceneBackground: false,
-            .drawGridsInScene: true,
-            .drawRulersInScene: true,
-            .drawBackgroundInGridView: false,
-            .drawAnnotatorsInGridView: false,
-            .hideGridsWhenResize: true,
-            .hideAnnotatorsWhenResize: true,
-            .usesPredominantAxisScrolling: false,
-            
-            .confirmBeforeDelete: true,
-            .maximumItemCountEnabled: true,
-            .maximumItemCount: 99,
-            
-            .screenshotSavingPath: FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask).first?.appendingPathComponent("JSTColorPicker").path,
-            
-            .pixelMatchThreshold: 0.1,
-            .pixelMatchIncludeAA: true,
-            .pixelMatchAlpha: 0.5,
-            .pixelMatchAAColor: NSColor.systemYellow,
-            .pixelMatchDiffColor: NSColor.systemRed,
-            .pixelMatchDiffMask: false,
-            .pixelMatchBackgroundMode: false,
-            
+        var initialValues: [UserDefaults.Key: Any?] = [
+            .screenshotSavingPath              : FileManager.default
+                .urls(for: .picturesDirectory, in: .userDomainMask)
+                .first?.appendingPathComponent("JSTColorPicker").path,
+            .pixelMatchAAColor                 : NSColor.systemYellow,
+            .pixelMatchDiffColor               : NSColor.systemRed,
         ]
         
+        (try?
+            PropertyListSerialization.propertyList(
+                from: Data(contentsOf: Bundle.main.url(forResource: "InitialValues", withExtension: "plist")!),
+                options: [],
+                format: nil
+            )
+            as? [String : Any?])?.forEach({ initialValues[UserDefaults.Key(rawValue: $0.key)] = $0.value })
         UserDefaults.standard.register(defaults: initialValues)
         
-        applicationResetDevicesSubMenu()
-        applicationEstablishXPCConnection()
-        applicationSetupScreenshotHelper()
+        applicationXPCResetUI()
+        applicationXPCEstablish()
+        applicationXPCSetup()
         
     }
     
@@ -119,11 +93,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let url = urls.first else { return }
         guard url.scheme == "jstcolorpicker" else { return }
         if url.host == "activate" {
-            applicationEstablishXPCConnection()
+            applicationXPCEstablish()
         }
     }
     
-    fileprivate func applicationEstablishXPCConnection() {
+    fileprivate func applicationXPCEstablish() {
         if let prevConnection = self.helperConnection {
             prevConnection.invalidate()
             self.helperConnection = nil
@@ -248,7 +222,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let enabled = sender.state == .on
         sender.state = !enabled ? .on : .off
         UserDefaults.standard[.enableNetworkDiscovery] = !enabled
-        applicationSetupScreenshotHelper()
+        applicationXPCSetup()
     }
     
     fileprivate func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
@@ -447,7 +421,7 @@ extension AppDelegate {
     }
     #endif
     
-    fileprivate func applicationSetupScreenshotHelper() {
+    fileprivate func applicationXPCSetup() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
         if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
             debugPrint(error)
@@ -456,7 +430,7 @@ extension AppDelegate {
         }
     }
     
-    fileprivate func applicationResetDevicesSubMenu() {
+    fileprivate func applicationXPCResetUI() {
         #if SANDBOXED
         if !applicationHasScreenshotHelper() {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
@@ -544,7 +518,7 @@ extension AppDelegate {
                         self?.devicesSubMenu.items = items
                     }
                     else {
-                        self?.applicationResetDevicesSubMenu()
+                        self?.applicationXPCResetUI()
                     }
                     
                     self?.devicesSubMenu.update()

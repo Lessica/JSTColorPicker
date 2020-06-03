@@ -226,30 +226,43 @@ class SceneController: NSViewController {
     
     @objc fileprivate func loadPreferences(_ notification: Notification?) {
         // guard (notification?.object as? UserDefaults) == UserDefaults.standard else { return }
+        
         debugPrint("[SceneController loadPreferences(_:)]")
+        
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
+        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
+        hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
+        
         let drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground]
         if self.drawSceneBackground != drawSceneBackground {
             self.drawSceneBackground = drawSceneBackground
         }
-        let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
-        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
-        hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        
         var shouldNotifySceneBoundsChanged = false
+        
+        let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         if self.drawGridsInScene != drawGridsInScene {
             self.drawGridsInScene = drawGridsInScene
             shouldNotifySceneBoundsChanged = true
         }
+        
+        let hideGridsInScene = !drawGridsInScene
+        if sceneGridView.isHidden != hideGridsInScene {
+            sceneGridView.isHidden = hideGridsInScene
+        }
+        
         let drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene]
         if self.drawRulersInScene != drawRulersInScene {
             self.drawRulersInScene = drawRulersInScene
             reloadSceneRulerConstraints()
             shouldNotifySceneBoundsChanged = true
         }
-        usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
+        
         if shouldNotifySceneBoundsChanged {
             sceneBoundsChanged()
         }
+        
     }
     
     fileprivate func renderImage(_ image: PixelImage) {
@@ -746,17 +759,21 @@ extension SceneController: AnnotatorDataSource {
     }
     
     fileprivate func hideSceneOverlays() {
-        if hideGridsWhenResize {
+        if hideGridsWhenResize && !sceneGridView.isHidden {
             sceneGridView.isHidden = true
         }
-        if hideAnnotatorsWhenResize {
+        if hideAnnotatorsWhenResize && !sceneOverlayView.isHidden {
             sceneOverlayView.isHidden = true
         }
     }
     
     fileprivate func showSceneOverlays() {
-        sceneGridView.isHidden = false
-        sceneOverlayView.isHidden = false
+        if drawGridsInScene && sceneGridView.isHidden {
+            sceneGridView.isHidden = false
+        }
+        if sceneOverlayView.isHidden {
+            sceneOverlayView.isHidden = false
+        }
         updateAnnotatorFrames()
     }
     
