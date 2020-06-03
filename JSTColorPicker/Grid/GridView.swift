@@ -69,17 +69,20 @@ enum GridState: CaseIterable {
 class GridView: NSView {
     
     public weak var dataSource: ScreenshotLoader!
-    var shouldDrawAnnotators: Bool = false
-    var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
+    public var shouldDrawAnnotators: Bool = false
+    public var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
             updateDisplayIfNeeded()
         }
     }
-    func updateDisplayIfNeeded() {
+    public func updateDisplayIfNeeded() {
         guard window?.isVisible ?? false else { return }
-        setNeedsDisplay()
+        setNeedsDisplayAll()
     }
-    var animating: Bool = false {
+    public func setNeedsDisplayAll() {
+        setNeedsDisplay(bounds)
+    }
+    public var animating: Bool = false {
         didSet {
             if animating {
                 shimAnimation(false)

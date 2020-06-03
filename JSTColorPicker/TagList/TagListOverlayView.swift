@@ -15,7 +15,7 @@ class TagListOverlayView: NSView, DragEndpoint {
             if state == .idle {
                 highlightedRects = nil
                 sceneToolDataSource.resetSceneTool()
-                setNeedsDisplay()
+                setNeedsDisplay(bounds)
             }
         }
     }
@@ -67,7 +67,7 @@ class TagListOverlayView: NSView, DragEndpoint {
         let controller = DragConnectionController(type: TagListController.attachPasteboardType)
         controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)
         
-        setNeedsDisplay()
+        setNeedsDisplay(bounds)
     }
     
     override func draw(_ dirtyRect: NSRect) {

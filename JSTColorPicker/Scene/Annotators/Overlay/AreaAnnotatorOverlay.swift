@@ -29,8 +29,4 @@ class AreaAnnotatorOverlay: AnnotatorOverlay {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setNeedsDisplay() {
-        super.setNeedsDisplay(visibleRect)
-    }
-    
 }

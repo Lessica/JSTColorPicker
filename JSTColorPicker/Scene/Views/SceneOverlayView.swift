@@ -154,15 +154,15 @@ class SceneOverlayView: NSView, DragEndpoint {
             if let focusedOverlay = self.internalFocusedOverlay {
                 if overlay != focusedOverlay {
                     focusedOverlay.isFocused = false
-                    focusedOverlay.setNeedsDisplay()
+                    focusedOverlay.setNeedsDisplay(visibleOnly: false)
                     overlay.isFocused = true
-                    overlay.setNeedsDisplay()
+                    overlay.setNeedsDisplay(visibleOnly: false)
                     self.internalFocusedOverlay = overlay
                 }
             }
             else {
                 overlay.isFocused = true
-                overlay.setNeedsDisplay()
+                overlay.setNeedsDisplay(visibleOnly: false)
                 self.internalFocusedOverlay = overlay
             }
         }
@@ -199,7 +199,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     fileprivate func internalResetFocusAppearance() {
         if let focusedOverlay = self.internalFocusedOverlay {
             focusedOverlay.isFocused = false
-            focusedOverlay.setNeedsDisplay()
+            focusedOverlay.setNeedsDisplay(visibleOnly: false)
             self.internalFocusedOverlay = nil
         }
     }

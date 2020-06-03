@@ -78,7 +78,15 @@ class Overlay: NSView {
     @objc internal func animateLineDash(_ timer: Timer?) {
         if shouldPerformAnimatableDrawing {
             animationState.lineDashCount += 1
-            setNeedsDisplay()
+            setNeedsDisplay(visibleOnly: true)
+        }
+    }
+    
+    public func setNeedsDisplay(visibleOnly: Bool) {
+        if visibleOnly {
+            super.setNeedsDisplay(visibleRect)
+        } else {
+            super.setNeedsDisplay(bounds)
         }
     }
     

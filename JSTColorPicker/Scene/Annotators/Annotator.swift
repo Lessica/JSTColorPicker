@@ -30,9 +30,6 @@ class Annotator {
     }
     
     public var label: String { return overlay.label }
-    public func setNeedsDisplay() {
-        overlay.setNeedsDisplay()
-    }
     
     init(_ item: ContentItem, _ overlay: AnnotatorOverlay) {
         self.contentItem = item

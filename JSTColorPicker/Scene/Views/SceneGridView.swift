@@ -83,7 +83,7 @@ extension SceneGridView: SceneTracking {
             gridWrappedPixelRect = rect.smallestWrappingPixelRect
             gridRenderingArea = sceneView.convertFromDocumentView(gridWrappedPixelRect.toCGRect()).offsetBy(-sceneView.alternativeBoundsOrigin)
         }
-        setNeedsDisplay()
+        setNeedsDisplay(bounds)
     }
     
 }

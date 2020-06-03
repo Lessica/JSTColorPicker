@@ -14,7 +14,7 @@ class PreviewOverlayView: NSView {
     
     var imageSize: CGSize = CGSize.zero {
         didSet {
-            setNeedsDisplay()
+            setNeedsDisplay(bounds)
         }
     }
     
@@ -28,7 +28,7 @@ class PreviewOverlayView: NSView {
     
     var highlightArea: CGRect = CGRect.zero {
         didSet {
-            setNeedsDisplay()
+            setNeedsDisplay(bounds)
         }
     }
     

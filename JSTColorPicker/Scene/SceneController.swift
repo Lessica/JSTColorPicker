@@ -978,7 +978,7 @@ extension SceneController: AnnotatorDataSource {
                 else if annotator.isSelected {
                     annotator.isSelected = false
                     annotatorHideRulerMarkers(annotator)
-                    annotator.setNeedsDisplay()
+                    annotator.overlay.setNeedsDisplay(visibleOnly: false)
                 }
             })
         if scrollTo {  // scroll without changing magnification

@@ -43,7 +43,7 @@ class GridViewController: NSViewController {
         let drawAnnotatorsInGridView: Bool = UserDefaults.standard[.drawAnnotatorsInGridView]
         if gridView.shouldDrawAnnotators != drawAnnotatorsInGridView {
             gridView.shouldDrawAnnotators = drawAnnotatorsInGridView
-            gridView.setNeedsDisplay()
+            gridView.setNeedsDisplayAll()
         }
     }
     
