@@ -145,8 +145,8 @@ class ContentController: NSViewController {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
         
         columnIdentifier.width  = 30.0
-        columnTag.width         = 80.0
-        columnDescription.width = 200.0
+        columnTag.width         = 60.0
+        columnDescription.width = 150.0
         
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [
