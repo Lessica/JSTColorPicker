@@ -27,6 +27,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     public var tabService: TabService?
     public var helperConnection: NSXPCConnection?
+    
+    #if !SANDBOXED
+    @IBOutlet public var sparkUpdater: SUUpdater!
+    #else
+    @IBOutlet public var sparkUpdater: SUUpdater!
+    #endif
+    
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
     
@@ -63,7 +70,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 format: nil
             )
             as? [String : Any?])?.forEach({ initialValues[UserDefaults.Key(rawValue: $0.key)] = $0.value })
+        
         UserDefaults.standard.register(defaults: initialValues)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationApplyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        applicationApplyPreferences(nil)
         
         applicationXPCResetUI()
         applicationXPCEstablish()
@@ -557,6 +568,19 @@ extension AppDelegate {
         }
     }
     
+    
+}
+
+extension AppDelegate {
+    
+    @objc fileprivate func applicationApplyPreferences(_ notification: Notification?) {
+        #if !SANDBOXED
+        let automaticallyChecksForUpdates: Bool = UserDefaults.standard[.checkUpdatesAutomatically]
+        if automaticallyChecksForUpdates != sparkUpdater.automaticallyChecksForUpdates {
+            sparkUpdater.automaticallyChecksForUpdates = automaticallyChecksForUpdates
+        }
+        #endif
+    }
     
 }
 

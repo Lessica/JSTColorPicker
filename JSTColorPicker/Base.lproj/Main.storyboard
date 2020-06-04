@@ -359,6 +359,7 @@ CA
                         <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
+                        <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -591,9 +592,9 @@ CA
             <objects>
                 <splitViewController id="6eT-at-2NW" customClass="SplitController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="750" behavior="contentList" id="Ewe-3Z-1Vt"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="Ewe-3Z-1Vt"/>
                         <splitViewItem id="tdS-OK-dU7"/>
-                        <splitViewItem canCollapse="YES" behavior="sidebar" id="asx-f5-VzZ"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="asx-f5-VzZ"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="DropSplitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>

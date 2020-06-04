@@ -1,4 +1,3 @@
-
 /* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
 "1xD-ZG-hUt.title" = "在颜色网格中绘制标注";
 
@@ -44,7 +43,7 @@
 /* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
 "pGG-Tu-mxf.title" = "启用力度触控";
 
-/* Class = "NSButtonCell"; title = "Enable Scrolling Inertia (Requires restart)"; ObjectID = "PMf-zJ-I4C"; */
+/* Class = "NSButtonCell"; title = "Enable Scrolling Inertia (Requires Restart)"; ObjectID = "PMf-zJ-I4C"; */
 "PMf-zJ-I4C.title" = "启用惯性滚动 (需要重启)";
 
 /* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */

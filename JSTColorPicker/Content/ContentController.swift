@@ -123,13 +123,14 @@ class ContentController: NSViewController {
             self.tableView.reloadData()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
-        loadPreferences(nil)
+        
+        applyPreferences(nil)
     }
     
-    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+    @objc fileprivate func applyPreferences(_ notification: Notification?) {
         updateColumns()
     }
     
@@ -840,7 +841,9 @@ extension ContentController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        contentItemColorize()
+        DispatchQueue.main.async { [unowned self] in
+            self.contentItemColorize()
+        }
     }
     
     fileprivate func contentItemColorize() {

@@ -203,8 +203,10 @@ class TagListController: NSViewController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        rearrangeManagedTagsIfNeeded()
-        saveManagedTagsIfNeeded()
+        DispatchQueue.main.async { [unowned self] in
+            self.rearrangeManagedTagsIfNeeded()
+            self.saveManagedTagsIfNeeded()
+        }
     }
     
     fileprivate var shouldRearrangeManagedTags: Bool = false

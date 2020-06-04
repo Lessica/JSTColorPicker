@@ -22,8 +22,8 @@ class GridViewController: NSViewController {
         super.viewDidLoad()
         reloadGridBackground()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        loadPreferences(nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        applyPreferences(nil)
     }
     
     fileprivate func reloadGridBackground() {
@@ -35,7 +35,7 @@ class GridViewController: NSViewController {
         }
     }
     
-    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+    @objc fileprivate func applyPreferences(_ notification: Notification?) {
         let drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView]
         if self.drawBackgroundInGridView != drawBackgroundInGridView {
             self.drawBackgroundInGridView = drawBackgroundInGridView

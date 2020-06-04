@@ -50,6 +50,9 @@ public extension UserDefaults.Key {
     static let pixelMatchDiffMask                   : UserDefaults.Key     = "defaults.pixelMatchDiffMask"                     // Bool
     static let pixelMatchBackgroundMode             : UserDefaults.Key     = "defaults.pixelMatchBackgroundMode"               // Bool
     
+    static let enableGPUAcceleration                : UserDefaults.Key     = "defaults.enableGPUAcceleration"                  // Bool
+    static let checkUpdatesAutomatically            : UserDefaults.Key     = "SUEnableAutomaticChecks"                         // Bool
+    
 }
 
 #if os(iOS)

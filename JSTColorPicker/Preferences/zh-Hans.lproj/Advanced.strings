@@ -1,6 +1,11 @@
+/* Class = "NSButtonCell"; title = "Enable GPU Acceleration (Requires Restart)"; ObjectID = "17f-lU-3gg"; */
+"17f-lU-3gg.title" = "启用 GPU 加速 (需要重启)";
 
 /* Class = "NSButtonCell"; title = "Reset All..."; ObjectID = "77F-vw-gCA"; */
 "77F-vw-gCA.title" = "重置所有...";
 
 /* Class = "NSTextFieldCell"; title = "Reset to Factory Defaults: "; ObjectID = "Mkj-za-2eM"; */
 "Mkj-za-2eM.title" = "重置为出厂默认值: ";
+
+/* Class = "NSButtonCell"; title = "Check Updates Automatically"; ObjectID = "Zt3-E3-OhA"; */
+"Zt3-E3-OhA.title" = "自动检查更新";

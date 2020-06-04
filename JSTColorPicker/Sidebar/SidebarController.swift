@@ -15,7 +15,7 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 enum PaneDividerIndex: Int {
-    case information = 0
+    case info = 0
     case inspector
     case preview
 }
@@ -31,10 +31,10 @@ class SidebarController: NSViewController {
     @IBOutlet weak var imageActionView: NSView!
     @IBOutlet weak var exitComparisonModeButton: NSButton!
     
-    @IBOutlet weak var paneViewInformation: NSView!
-    @IBOutlet weak var paneViewInspector: NSView!
-    @IBOutlet weak var paneViewPreview: NSView!
-    @IBOutlet weak var paneViewPlaceholder: NSView!
+    @IBOutlet weak var paneViewInfo         : NSView!
+    @IBOutlet weak var paneViewInspector    : NSView!
+    @IBOutlet weak var paneViewPreview      : NSView!
+    @IBOutlet weak var paneViewPlaceholder  : NSView!
     
     fileprivate var imageSource1: PixelImageSource? {
         return screenshot?.image?.imageSource
@@ -125,8 +125,8 @@ class SidebarController: NSViewController {
         reservedOptionMenuItems.removeAll()
         reservedOptionMenuItems.append(contentsOf: optionMenu.items)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        loadPreferences(nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        applyPreferences(nil)
     }
     
     func updateItemInspector(for item: ContentItem, submit: Bool) {
@@ -422,7 +422,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     
     @IBOutlet var paneMenu: NSMenu!
     
-    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+    @objc fileprivate func applyPreferences(_ notification: Notification?) {
         updatePanes()
     }
     
@@ -461,8 +461,8 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         var hiddenValue: Bool!
         
         hiddenValue = !UserDefaults.standard[.togglePaneViewInformation]
-        if paneViewInformation.isHidden != hiddenValue {
-            paneViewInformation.isHidden = hiddenValue
+        if paneViewInfo.isHidden != hiddenValue {
+            paneViewInfo.isHidden = hiddenValue
             paneChanged = true
         }
         
@@ -490,25 +490,19 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         }
     }
     
+    @IBOutlet weak var dividerConstraintInfo       : NSLayoutConstraint!
+    @IBOutlet weak var dividerConstraintInspector  : NSLayoutConstraint!
+    @IBOutlet weak var dividerConstraintPreview    : NSLayoutConstraint!
+    
     fileprivate func resetDividers() {
-        var dividerPos: CGFloat = 0
-        
-        if !paneViewInformation.isHidden {
-            dividerPos += paneViewInformation.subviews.first!.frame.height
-            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.information.rawValue)
-            dividerPos += splitView.dividerThickness
+        if !paneViewInfo.isHidden {
+            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.info.rawValue), ofDividerAt: PaneDividerIndex.info.rawValue)
         }
-        
         if !paneViewInspector.isHidden {
-            dividerPos += paneViewInspector.subviews.first!.frame.height
-            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.inspector.rawValue)
-            dividerPos += splitView.dividerThickness
+            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.inspector.rawValue), ofDividerAt: PaneDividerIndex.inspector.rawValue)
         }
-        
         if !paneViewPreview.isHidden {
-            dividerPos += paneViewPreview.subviews.first!.frame.height
-            splitView.setPosition(dividerPos, ofDividerAt: PaneDividerIndex.preview.rawValue)
-            dividerPos += splitView.dividerThickness
+            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.preview.rawValue), ofDividerAt: PaneDividerIndex.preview.rawValue)
         }
     }
     

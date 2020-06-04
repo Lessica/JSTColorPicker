@@ -11,6 +11,7 @@ import Cocoa
 class SceneGridView: NSView {
     
     override func awakeFromNib() {
+        enableGPUAcceleration = UserDefaults.standard[.enableGPUAcceleration]
         super.awakeFromNib()
         
         wantsLayer = true
@@ -112,9 +113,14 @@ class SceneGridView: NSView {
                     trackSceneBoundsChanged(storedSceneView, to: rect, of: magnification)
                 }
             } else {
+                
                 storedSceneView = nil
                 storedRect = nil
                 storedMagnification = nil
+                
+                backingGridSize = nil
+                backingPixelSize = nil
+                
             }
         }
     }
@@ -127,6 +133,8 @@ class SceneGridView: NSView {
         shapeLayer.shouldRasterize = true
         shapeLayer.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
         shapeLayer.allowsEdgeAntialiasing = false
+        shapeLayer.minificationFilter = .trilinear
+        shapeLayer.magnificationFilter = .trilinear
         shapeLayer.lineWidth = SceneGridView.defaultGridLineWidth
         shapeLayer.strokeColor = SceneGridView.defaultGridLineColor
         shapeLayer.fillColor = nil
@@ -219,7 +227,7 @@ extension SceneGridView: SceneTracking {
                     }
                     
                     backingLayer.path = shapePath
-                    debugPrint("replaced path: \(shapePath)")
+                    //debugPrint("replaced path: \(shapePath)")
                     
                     backingGridSize = gridSize
                     backingPixelSize = pixelSize

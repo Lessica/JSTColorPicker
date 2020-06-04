@@ -7,24 +7,19 @@
 //
 
 import Cocoa
+import CoreImage
 
 class SceneScrollView: NSScrollView {
     
     public var enableForceTouch: Bool = false
     public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
-        didSet {
-            reloadSceneBackground()
-        }
+        didSet { reloadSceneBackground() }
     }
     public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
-        didSet {
-            reloadSceneRulers()
-        }
+        didSet { reloadSceneRulers() }
     }
-    fileprivate var minimumDraggingDistance: CGFloat { return enableForceTouch ? 6.0 : 3.0 }
-    fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int {
-        return enableForceTouch ? 1 : 0
-    }
+    fileprivate var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
+    fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
     
     fileprivate static let rulerThickness: CGFloat = 16.0
     fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
@@ -133,15 +128,41 @@ class SceneScrollView: NSScrollView {
         }
     }
     
+    fileprivate lazy var checkerboardImage: NSImage = {
+        let filter = CIFilter(name: "CICheckerboardGenerator")!
+        
+        let ciCount = 8
+        let ciSize = CGSize(width: 80.0, height: 80.0)
+        let aSize = CGSize(width: ciSize.width * CGFloat(ciCount), height: ciSize.height * CGFloat(ciCount))
+        
+        let ciWidth = NSNumber(value: Double(ciSize.width))
+        let ciCenter = CIVector(cgPoint: .zero)
+        
+        let darkColor = CIColor.init(cgColor: CGColor.init(gray: 0xCC / 0xFF, alpha: 0.6))
+        let lightColor = CIColor.clear
+        let sharpness = NSNumber(value: 1.0)
+        
+        filter.setDefaults()
+        filter.setValue(ciWidth, forKey: "inputWidth")
+        filter.setValue(ciCenter, forKey: "inputCenter")
+        filter.setValue(darkColor, forKey: "inputColor0")
+        filter.setValue(lightColor, forKey: "inputColor1")
+        filter.setValue(sharpness, forKey: "inputSharpness")
+        
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(filter.outputImage!, from: CGRect(origin: .zero, size: aSize))
+        
+        return NSImage(cgImage: cgImage!, size: ciSize)
+    }()
+    
     fileprivate func reloadSceneRulers() { rulersVisible = drawRulersInScene }
     fileprivate func reloadSceneBackground() {
         if drawSceneBackground {
-            backgroundColor = NSColor.init(patternImage: NSImage(named: "JSTBackgroundPattern")!)
+            backgroundColor = NSColor.init(patternImage: checkerboardImage)
         }
         else {
             backgroundColor = NSColor.controlBackgroundColor
         }
-        // FIXME: use CICheckerboardGenerator instead
     }
     
     fileprivate func createTrackingArea() {

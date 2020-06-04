@@ -11,6 +11,8 @@ import MASPreferences
 
 class AdvancedController: NSViewController {
     
+    @IBOutlet weak var checkUpdatesCheckbox: NSButton!
+    
     init() {
         super.init(nibName: "Advanced", bundle: nil)
     }
@@ -21,6 +23,22 @@ class AdvancedController: NSViewController {
     
     @IBAction func resetAllAction(_ sender: NSButton) {
         NSUserDefaultsController.shared.revertToInitialValues(sender)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        #if SANDBOXED
+        checkUpdatesCheckbox.isEnabled = false
+        #else
+        checkUpdatesCheckbox.isEnabled = true
+        #endif
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        UserDefaults.standard[.checkUpdatesAutomatically] = (NSApp.delegate as? AppDelegate)?.sparkUpdater.automaticallyChecksForUpdates ?? false
     }
     
 }

@@ -218,16 +218,16 @@ class SceneController: NSViewController {
         }
         useSelectedSceneTool()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
-        loadPreferences(nil)
+        applyPreferences(nil)
     }
     
-    @objc fileprivate func loadPreferences(_ notification: Notification?) {
+    @objc fileprivate func applyPreferences(_ notification: Notification?) {
         // guard (notification?.object as? UserDefaults) == UserDefaults.standard else { return }
         
-        debugPrint("[SceneController loadPreferences(_:)]")
+        debugPrint("[SceneController applyPreferences(_:)]")
         
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
@@ -1220,7 +1220,9 @@ extension SceneController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        annotatorColorizeAll()
+        DispatchQueue.main.async { [unowned self] in
+            self.annotatorColorizeAll()
+        }
     }
     
     fileprivate func annotatorColorize(_ annotator: Annotator) {
