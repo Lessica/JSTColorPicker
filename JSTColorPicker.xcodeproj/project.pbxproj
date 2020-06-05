@@ -2209,9 +2209,9 @@
 			children = (
 				D6E166A8248A481300D8D1C5 /* Edit.storyboard */,
 				185D7EED248A80C4001C283B /* EditWindow.swift */,
+				185D7EF0248A8518001C283B /* EditViewController.swift */,
 				185D7EE7248A8019001C283B /* EditCoordinateController.swift */,
 				185D7EEA248A8025001C283B /* EditAreaController.swift */,
-				185D7EF0248A8518001C283B /* EditViewController.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";

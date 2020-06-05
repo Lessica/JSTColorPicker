@@ -268,13 +268,15 @@ class SceneOverlayView: NSView, DragEndpoint {
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
-        var tagNames = Set<String>()
+        var tagNames = [String]()
         sender.enumerateDraggingItems(options: [], for: self, classes: [NSPasteboardItem.self], searchOptions: [:]) { (dragItem, _, _) in
             if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.attachPasteboardType) as? [String] {
-                obj.forEach({ tagNames.insert($0) })
+                obj.forEach({ tagNames.append($0) })
             }
         }
-        tagNames.subtract(replItem.tags)  // removes tag names that already exist
+        
+        let tagSet = Set<String>(replItem.tags)
+        tagNames.removeAll(where: { tagSet.contains($0) })
         replItem.tags.append(contentsOf: tagNames)
         
         if let _ = try? contentResponder.updateContentItem(replItem) {
