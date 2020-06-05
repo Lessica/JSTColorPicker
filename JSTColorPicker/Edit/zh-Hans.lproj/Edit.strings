@@ -1,0 +1,56 @@
+/* Class = "NSTextFieldCell"; title = "Opposite Y: "; ObjectID = "7FU-fC-tAm"; */
+"7FU-fC-tAm.title" = "对点 Y: ";
+
+/* Class = "NSTextFieldCell"; title = "Origin Y: "; ObjectID = "7hi-tL-x2j"; */
+"7hi-tL-x2j.title" = "原点 Y: ";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "abA-Ke-xKL"; */
+"abA-Ke-xKL.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Width: "; ObjectID = "aqD-e5-Wi9"; */
+"aqD-e5-Wi9.title" = "宽度: ";
+
+/* Class = "NSViewController"; title = "Edit Location"; ObjectID = "ctg-Pv-CEh"; */
+"ctg-Pv-CEh.title" = "修改位置";
+
+/* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
+"IQb-2C-TvS.title" = "原点 X: ";
+
+/* Class = "NSBox"; title = "Area"; ObjectID = "jKL-Xg-wfl"; */
+"jKL-Xg-wfl.title" = "区域";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
+"kHm-RB-ux9.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Opposite X: "; ObjectID = "Kj7-lQ-uRK"; */
+"Kj7-lQ-uRK.title" = "对点 X: ";
+
+/* Class = "NSTextFieldCell"; title = "Color: "; ObjectID = "Lij-yf-Qhn"; */
+"Lij-yf-Qhn.title" = "颜色: ";
+
+/* Class = "NSTextFieldCell"; title = "Height: "; ObjectID = "LnB-Z2-dCx"; */
+"LnB-Z2-dCx.title" = "高度: ";
+
+/* Class = "NSTextFieldCell"; title = "Coordinate Y: "; ObjectID = "M82-1D-OTf"; */
+"M82-1D-OTf.title" = "坐标 Y: ";
+
+/* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
+"p8E-5k-JXY.title" = "坐标 X: ";
+
+/* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
+"Ujz-vy-7WQ.title" = "● #FFFFFF";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
+"Uqy-8z-m0T.title" = "好";
+
+/* Class = "NSBox"; title = "Location"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "位置";
+
+/* Class = "NSButtonCell"; title = "Fixed Ratio"; ObjectID = "Wxm-gf-Pi2"; */
+"Wxm-gf-Pi2.title" = "固定比例";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "yv9-A6-ZQK"; */
+"yv9-A6-ZQK.title" = "好";
+
+/* Class = "NSViewController"; title = "Edit Area"; ObjectID = "ZWq-hK-DTj"; */
+"ZWq-hK-DTj.title" = "修改区域";

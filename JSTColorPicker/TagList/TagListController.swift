@@ -203,9 +203,9 @@ class TagListController: NSViewController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [unowned self] in
-            self.rearrangeManagedTagsIfNeeded()
-            self.saveManagedTagsIfNeeded()
+        DispatchQueue.main.async { [weak self] in
+            self?.rearrangeManagedTagsIfNeeded()
+            self?.saveManagedTagsIfNeeded()
         }
     }
     

@@ -1,4 +1,3 @@
-
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerCell.title" = "ID";
 
@@ -25,6 +24,9 @@
 
 /* Class = "NSMenuItem"; title = "Description"; ObjectID = "gf5-SR-cVU"; */
 "gf5-SR-cVU.title" = "Description";
+
+/* Class = "NSMenuItem"; title = "Relocate"; ObjectID = "iSf-IL-2kW"; */
+"iSf-IL-2kW.title" = "Relocate";
 
 /* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "jKH-wp-n6X"; */
 "jKH-wp-n6X.title" = "Color & Coordinate: (x, y)";
@@ -94,6 +96,3 @@
 
 /* Class = "NSMenuItem"; title = "Tag"; ObjectID = "Ynp-1q-dyO"; */
 "Ynp-1q-dyO.title" = "Tag";
-
-/* Class = "NSMenuItem"; title = "Relocate"; ObjectID = "iSf-IL-2kW"; */
-"iSf-IL-2kW.title" = "Relocate";

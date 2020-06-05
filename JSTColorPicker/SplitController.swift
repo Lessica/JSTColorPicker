@@ -92,10 +92,10 @@ extension SplitController: DropViewDelegate {
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
         NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
-        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { [unowned self] (document, documentWasAlreadyOpen, error) in
+        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { [weak self] (document, documentWasAlreadyOpen, error) in
             NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
             if let error = error {
-                self.presentError(error)
+                self?.presentError(error)
             }
         }
     }
@@ -175,11 +175,13 @@ extension SplitController: ScreenshotLoader {
     
 }
 
-extension SplitController: ContentResponder {
+extension SplitController: ContentDelegate {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.addContentItem(of: coordinate)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -189,6 +191,8 @@ extension SplitController: ContentResponder {
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
         do {
             return try contentController.addContentItem(of: rect)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -198,6 +202,8 @@ extension SplitController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         do {
             return try contentController.updateContentItem(item, to: rect)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -207,6 +213,8 @@ extension SplitController: ContentResponder {
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.updateContentItem(item, to: coordinate)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -216,15 +224,19 @@ extension SplitController: ContentResponder {
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         do {
             return try contentController.updateContentItem(item)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
         return nil
     }
     
-    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
         do {
             return try contentController.selectContentItem(item, byExtendingSelection: extend)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -234,6 +246,8 @@ extension SplitController: ContentResponder {
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
         do {
             return try contentController.deselectContentItem(item)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -243,6 +257,8 @@ extension SplitController: ContentResponder {
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(of: coordinate)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
@@ -252,10 +268,16 @@ extension SplitController: ContentResponder {
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         do {
             return try contentController.deleteContentItem(item)
+        } catch ContentError.userAborted {
+            return nil
         } catch {
             presentError(error)
         }
         return nil
+    }
+    
+    func deselectAllContentItems() {
+        contentController.deselectAllContentItems()
     }
     
 }

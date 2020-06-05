@@ -1,4 +1,3 @@
-
 /* toolbarItemLabel */
 "Advanced" = "进阶";
 
@@ -127,7 +126,7 @@
 "No template selected." = "未选择模板.";
 
 /* None */
-"None" = "无";
+"None" = "-";
 
 /* screenshotItemTapped(_:) */
 "OK" = "好";

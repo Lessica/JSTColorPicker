@@ -11,14 +11,14 @@ import Cocoa
 class SceneGridView: NSView {
     
     override func awakeFromNib() {
-        enableGPUAcceleration = UserDefaults.standard[.enableGPUAcceleration]
         super.awakeFromNib()
         
         wantsLayer = true
-        layer?.addSublayer(backingLayer)
-        
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
+        
+        enableGPUAcceleration = UserDefaults.standard[.enableGPUAcceleration]
+        if enableGPUAcceleration { layer?.addSublayer(backingLayer) }
     }
     
     override var isFlipped: Bool { true }

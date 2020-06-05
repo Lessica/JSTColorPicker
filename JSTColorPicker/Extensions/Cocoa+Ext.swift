@@ -83,7 +83,18 @@ extension NSColor {
         }
         return String(format: "#%02X%02X%02X", Int(redComponent * 0xFF), Int(greenComponent * 0xFF), Int(blueComponent * 0xFF))
     }
-    static var random: NSColor {
+    public static var random: NSColor {
         return NSColor(calibratedRed: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
+    }
+    public var isLightColor: Bool? {
+        var colorBrightness: CGFloat = 0.0
+        guard let colorSpaceModel = cgColor.colorSpace?.model else { return nil }
+        if colorSpaceModel == .rgb {
+            guard let colorComponents = cgColor.components else { return nil }
+            colorBrightness = ((colorComponents[0] * 299.0) + (colorComponents[1] * 587.0) + (colorComponents[2] * 114.0)) / 1000.0
+        } else {
+            getWhite(&colorBrightness, alpha: nil)
+        }
+        return colorBrightness >= 0.5
     }
 }

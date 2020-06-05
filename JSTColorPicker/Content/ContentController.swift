@@ -34,6 +34,7 @@ enum ContentError: LocalizedError {
     case itemReachLimitBatch(moreSpace: Int)
     case itemConflict(item1: CustomStringConvertible, item2: CustomStringConvertible)
     case noDocumentLoaded
+    case userAborted
     
     var failureReason: String? {
         switch self {
@@ -53,6 +54,8 @@ enum ContentError: LocalizedError {
             return String(format: NSLocalizedString("The requested item conflicts with another item in the document.", comment: "ContentError"), item1.description, item2.description)
         case .noDocumentLoaded:
             return NSLocalizedString("No document loaded.", comment: "ContentError")
+        case .userAborted:
+            return NSLocalizedString("User aborted.", comment: "ContentError")
         }
     }
     
@@ -197,19 +200,13 @@ class ContentController: NSViewController {
                 }
                 
                 do {
-                    if let item = try addContentItem(of: coordinate) {
-                        if let _ = try selectContentItem(item, byExtendingSelection: false) {
-                            sender.stringValue = ""
-                            addedOrSelected = true
-                        }
-                    }
+                    _ = try addContentItem(of: coordinate)
+                } catch ContentError.itemExists {
+                    try selectContentItem(of: coordinate)
                 }
-                catch ContentError.itemExists {
-                    if let _ = try selectContentItem(of: coordinate) {
-                        sender.stringValue = ""
-                        addedOrSelected = true
-                    }
-                }
+                
+                sender.stringValue = ""
+                addedOrSelected = true
                 
             }
             else {
@@ -229,19 +226,13 @@ class ContentController: NSViewController {
                 }
                 
                 do {
-                    if let item = try addContentItem(of: rect) {
-                        if let _ = try selectContentItem(item, byExtendingSelection: false) {
-                            sender.stringValue = ""
-                            addedOrSelected = true
-                        }
-                    }
+                    _ = try addContentItem(of: rect)
+                } catch ContentError.itemExists {
+                    try selectContentItem(of: rect)
                 }
-                catch ContentError.itemExists {
-                    if let _ = try selectContentItem(of: rect) {
-                        sender.stringValue = ""
-                        addedOrSelected = true
-                    }
-                }
+                
+                sender.stringValue = ""
+                addedOrSelected = true
                 
             }
             
@@ -325,23 +316,38 @@ extension ContentController {
     
 }
 
-extension ContentController: ContentResponder {
+extension ContentController: ContentDataSource {
+    
+    func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem {
+        guard let image = screenshot?.image              else { throw ContentError.noDocumentLoaded }
+        guard let color = image.color(at: coordinate)    else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
+        return color
+    }
+    
+    func contentItem(of rect: PixelRect) throws -> ContentItem {
+        guard let image = screenshot?.image              else { throw ContentError.noDocumentLoaded }
+        guard rect.size > PixelSize(width: 1, height: 1) else { throw ContentError.itemNotValid(item: rect) }
+        guard let area = image.area(at: rect)            else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+        return area
+    }
+    
+}
+
+extension ContentController: ContentDelegate {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
-        guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
-        return try addContentItem(color)
+        return try addContentItem(contentItem(of: coordinate))
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
-        guard rect.size > PixelSize(width: 1, height: 1) else { throw ContentError.itemNotValid(item: rect) }
-        guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
-        return try addContentItem(area)
+        return try addContentItem(contentItem(of: rect))
     }
     
+    @discardableResult
     fileprivate func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+        
         guard let content = content else { throw ContentError.noDocumentLoaded }
+        
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
             let maximumItemCount: Int = UserDefaults.standard[.maximumItemCount]
@@ -354,10 +360,12 @@ extension ContentController: ContentResponder {
         tableView.reloadData()
         
         return try selectContentItem(item, byExtendingSelection: false)
+        
     }
     
     @discardableResult
-    fileprivate func importContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
+    fileprivate func importContentItems(_ items: [ContentItem]) throws -> [ContentItem] {
+        
         guard let content = content, let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
@@ -397,41 +405,51 @@ extension ContentController: ContentResponder {
         
         selectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count), byExtendingSelection: false)
         return relatedItems
+        
     }
     
+    @discardableResult
     fileprivate func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         return try selectContentItem(color, byExtendingSelection: false)
     }
     
+    @discardableResult
     fileprivate func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
+        
+        guard let image = screenshot?.image   else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+        
         return try selectContentItem(area, byExtendingSelection: false)
+        
     }
     
-    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        if let item = item {
-            guard let content = content else { throw ContentError.noDocumentLoaded }
-            guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
-            tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: extend)
-            tableView.scrollRowToVisible(itemIndex)
-            makeFirstResponder(tableView)
-        }
-        else {
-            tableView.deselectAll(nil)
-        }
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
+        
+        guard let content = content                              else { throw ContentError.noDocumentLoaded }
+        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
+        
+        tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: extend)
+        tableView.scrollRowToVisible(itemIndex)
+        makeFirstResponder(tableView)
         return item
+        
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocumentLoaded }
+        
+        guard let content = content                              else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
+        
         tableView.deselectRow(itemIndex)
-        //tableView.scrollRowToVisible(itemIndex)
         makeFirstResponder(tableView)
         return item
+        
+    }
+    
+    func deselectAllContentItems() {
+        tableView.deselectAll(nil)
     }
     
     fileprivate func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
@@ -446,48 +464,68 @@ extension ContentController: ContentResponder {
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        
         guard let content = content else { throw ContentError.noDocumentLoaded }
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
             else { throw ContentError.itemDoesNotExist(item: coordinate) }
+        
         return try deleteContentItem(item)
+        
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocumentLoaded }
-        guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
-        guard deleteConfirmForItems([item]) else { return nil }
+        
+        guard let content = content                                                   else { throw ContentError.noDocumentLoaded }
+        guard let itemIndex = content.items.firstIndex(of: item)                      else { throw ContentError.itemDoesNotExist(item: item) }
+        guard deleteConfirmForItems([item])                                           else { throw ContentError.userAborted }
+        
         internalDeleteContentItems([item])
         tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
         return item
+        
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocumentLoaded }
-        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist(item: item) }
-        guard content.lazyColors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict(item1: coordinate, item2: item) }
-        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
-        guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         
-        color.copyFrom(item)
-        return try updateContentItem(color)
+        guard let content = content, let image = screenshot?.image                    else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0.id == item.id })                 != nil else { throw ContentError.itemDoesNotExist(item: item) }
+        guard content.lazyColors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict(item1: coordinate, item2: item) }
+        guard let replItem = image.color(at: coordinate)                              else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
+        
+        replItem.copyFrom(item)
+        internalUpdateContentItems([replItem])
+        tableView.reloadData()
+        return try selectContentItem(replItem, byExtendingSelection: false)
+        
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        guard let content = content else { throw ContentError.noDocumentLoaded }
-        guard content.items.first(where: { $0 == item }) != nil else { throw ContentError.itemDoesNotExist(item: item) }
-        guard content.lazyAreas.first(where: { $0.rect == rect }) == nil else { throw ContentError.itemConflict(item1: rect, item2: item) }
-        guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
-        guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         
-        area.copyFrom(item)
-        return try updateContentItem(area)
+        guard let content = content, let image = screenshot?.image                    else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0.id == item.id })    != nil              else { throw ContentError.itemDoesNotExist(item: item) }
+        guard content.lazyAreas.first(where: { $0.rect == rect }) == nil              else { throw ContentError.itemConflict(item1: rect, item2: item) }
+        guard let replItem = image.area(at: rect)                                     else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+        
+        replItem.copyFrom(item)
+        internalUpdateContentItems([replItem])
+        tableView.reloadData()
+        
+        return try selectContentItem(replItem, byExtendingSelection: false)
+        
     }
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
-        internalUpdateContentItems([item])
+        
+        guard let content = content                                                   else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0.id == item.id })    != nil              else { throw ContentError.itemDoesNotExist(item: item) }
+        
+        let replItem = item.copy() as! ContentItem
+        internalUpdateContentItems([replItem])
         tableView.reloadData()
-        return try selectContentItem(item, byExtendingSelection: false)
+        
+        return try selectContentItem(replItem, byExtendingSelection: false)
+        
     }
     
 }
@@ -624,11 +662,31 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func relocate(_ sender: Any) {
-        //guard let collection = content?.items else { return }
-        //guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let window = view.window else { return }
+        guard let collection = content?.items else { return }
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
         
-        // TODO: relocate
-        //let targetItem = collection[targetIndex]
+        var panel: EditWindow?
+        let targetItem = collection[targetIndex]
+        if targetItem is PixelColor {
+            panel = EditWindow.newEditCoordinatePanel()
+        } else if targetItem is PixelArea {
+            panel = EditWindow.newEditAreaPanel()
+        }
+        
+        if let panel = panel {
+            
+            panel.contentDelegate = self
+            panel.contentDataSource = self
+            panel.contentItem = targetItem
+            
+            window.beginSheet(panel) { (resp) in
+                if resp == .OK {
+                    // do nothing
+                }
+            }
+            
+        }
     }
     
     @IBAction func delete(_ sender: Any) {
@@ -854,8 +912,8 @@ extension ContentController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [unowned self] in
-            self.contentItemColorize()
+        DispatchQueue.main.async { [weak self] in
+            self?.contentItemColorize()
         }
     }
     
