@@ -40,7 +40,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         super.updateTrackingAreas()
     }
     
-    public weak var contentResponder: ContentResponder!
+    public weak var contentResponder: ContentDelegate!
     public weak var sceneToolDataSource: SceneToolDataSource!
     fileprivate var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
     public weak var sceneStateDataSource: SceneStateDataSource!

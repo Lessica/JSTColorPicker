@@ -18,7 +18,7 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
-    public weak var contentResponder: ContentResponder!
+    public weak var contentResponder: ContentDelegate!
     public weak var trackingDelegate: SceneTracking!
     public weak var tagListDataSource: TagListDataSource!
     
@@ -300,8 +300,8 @@ class SceneController: NSViewController {
                     return true
                 }
             }
-        } else if let _ = try? selectContentItem(nil, byExtendingSelection: false) {
-            return true
+        } else {
+            deselectAllContentItems()
         }
         return false
     }
@@ -665,10 +665,7 @@ extension SceneController: SceneTracking {
             guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelArea.rect != rect else { return }
             guard let item = annotator.contentItem.copy() as? PixelArea else { return }
-            if let _ = try? updateContentItem(item, to: rect) {
-                // do nothing
-                return
-            }
+            _ = try? updateContentItem(item, to: rect)
         }
         else {
             _ = try? addContentItem(of: rect)
@@ -680,10 +677,7 @@ extension SceneController: SceneTracking {
             guard let annotator = lazyColorAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelColor.coordinate != coordinate else { return }
             guard let item = annotator.contentItem.copy() as? PixelColor else { return }
-            if let _ = try? updateContentItem(item, to: coordinate) {
-                // do nothing
-                return
-            }
+            _ = try? updateContentItem(item, to: coordinate)
         }
     }
     
@@ -1054,7 +1048,7 @@ extension SceneController: ToolbarResponder {
     
 }
 
-extension SceneController: ContentResponder {
+extension SceneController: ContentDelegate {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         return try contentResponder.addContentItem(of: coordinate)
@@ -1076,7 +1070,7 @@ extension SceneController: ContentResponder {
         return try contentResponder.updateContentItem(item)
     }
     
-    func selectContentItem(_ item: ContentItem?, byExtendingSelection extend: Bool) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
         return try contentResponder.selectContentItem(item, byExtendingSelection: extend)
     }
     
@@ -1090,6 +1084,10 @@ extension SceneController: ContentResponder {
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         return try contentResponder.deleteContentItem(item)
+    }
+    
+    func deselectAllContentItems() {
+        contentResponder.deselectAllContentItems()
     }
     
 }
@@ -1160,10 +1158,7 @@ extension SceneController: RulerViewClient {
         guard coordinate != marker.coordinate else { return }
         let item = marker.annotator?.contentItem.copy()
         if let item = item as? PixelColor {
-            if let _ = try? updateContentItem(item, to: coordinate) {
-                // do nothing
-                return
-            }
+            _ = try? updateContentItem(item, to: coordinate)
         }
         else if let item = item as? PixelArea {
             var rect: PixelRect?
@@ -1174,10 +1169,7 @@ extension SceneController: RulerViewClient {
                 rect = PixelRect(coordinate1: item.rect.origin, coordinate2: coordinate)
             }
             if let rect = rect {
-                if let _ = try? updateContentItem(item, to: rect) {
-                    // do nothing
-                    return
-                }
+                _ = try? updateContentItem(item, to: rect)
             }
         }
         
@@ -1219,8 +1211,8 @@ extension SceneController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [unowned self] in
-            self.annotatorColorizeAll()
+        DispatchQueue.main.async { [weak self] in
+            self?.annotatorColorizeAll()
         }
     }
     
