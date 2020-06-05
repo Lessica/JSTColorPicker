@@ -10,13 +10,13 @@ import Cocoa
 
 class GridWindowController: NSWindowController {
 
-    static func newGrid() -> GridWindowController {
+    static func newGridController() -> GridWindowController {
         let windowStoryboard = NSStoryboard(name: "Grid", bundle: nil)
         let gridWindowController = windowStoryboard.instantiateInitialController() as! GridWindowController
         return gridWindowController
     }
     
-    var activeWindowController: WindowController? {
+    public var activeWindowController: WindowController? {
         didSet {
             guard let windowController = activeWindowController else { return }
             guard let gridView = gridView else { return }

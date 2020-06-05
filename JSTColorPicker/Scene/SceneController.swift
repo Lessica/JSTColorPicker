@@ -225,9 +225,6 @@ class SceneController: NSViewController {
     }
     
     @objc fileprivate func applyPreferences(_ notification: Notification?) {
-        // guard (notification?.object as? UserDefaults) == UserDefaults.standard else { return }
-        
-        debugPrint("[SceneController applyPreferences(_:)]")
         
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
@@ -587,11 +584,13 @@ class SceneController: NSViewController {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
                     return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: loc)
                 }
-                else if specialKey == .enter || specialKey == .carriageReturn {
-                    return applyAnnotateItem(at: loc)
-                }
-                else if specialKey == .delete {
-                    return applyDeleteItem(at: loc)
+                else if isInscenePixelLocation(loc) {
+                    if specialKey == .enter || specialKey == .carriageReturn {
+                        return applyAnnotateItem(at: loc)
+                    }
+                    else if specialKey == .delete {
+                        return applyDeleteItem(at: loc)
+                    }
                 }
             }
             else if let characters = event.characters {

@@ -1,0 +1,15 @@
+
+/* Class = "NSTextFieldCell"; title = "Coordinate Y: "; ObjectID = "M82-1D-OTf"; */
+"M82-1D-OTf.title" = "坐标 Y: ";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
+"Uqy-8z-m0T.title" = "好";
+
+/* Class = "NSBox"; title = "Location"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "位置";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
+"kHm-RB-ux9.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
+"p8E-5k-JXY.title" = "坐标 X: ";

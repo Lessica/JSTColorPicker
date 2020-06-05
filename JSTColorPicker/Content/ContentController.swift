@@ -145,10 +145,6 @@ class ContentController: NSViewController {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnTag)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
         
-        columnIdentifier.width  = 30.0
-        columnTag.width         = 60.0
-        columnDescription.width = 150.0
-        
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [
             columnIdentifier,
@@ -156,6 +152,10 @@ class ContentController: NSViewController {
             columnDescription
         ]
         tableCols.forEach({ tableView.addTableColumn($0) })
+        
+        columnIdentifier.width  = 30.0
+        columnTag.width         = 60.0
+        columnDescription.width = 150.0
         
         updateColumns()
     }
@@ -499,11 +499,12 @@ extension ContentController: ContentTableViewResponder {
     }
     
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
-        guard let collection = content?.items else { return }
-        let selectedItems = (tableView.clickedRow >= 0 ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
-            .map({ collection[$0] })
-        actionDelegate.contentActionConfirmed(selectedItems)
+        let optionPressed = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.option)
+        if !optionPressed {
+            locate(sender)
+        } else {
+            relocate(sender)
+        }
     }
     
 }
@@ -515,7 +516,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:)) || item.action == #selector(exportAs(_:)) {
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
-        else if item.action == #selector(locate(_:)) {
+        else if item.action == #selector(locate(_:)) || item.action == #selector(relocate(_:)) {
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true
@@ -615,7 +616,19 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func locate(_ sender: Any) {
-        tableViewDoubleAction(tableView)
+        guard let collection = content?.items else { return }
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        
+        let targetItem = collection[targetIndex]
+        actionDelegate.contentActionConfirmed([targetItem])
+    }
+    
+    @IBAction func relocate(_ sender: Any) {
+        //guard let collection = content?.items else { return }
+        //guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        
+        // TODO: relocate
+        //let targetItem = collection[targetIndex]
     }
     
     @IBAction func delete(_ sender: Any) {

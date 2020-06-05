@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
     
-    public let gridController = GridWindowController.newGrid()
+    public let gridController = GridWindowController.newGridController()
     private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
         let folderController = FolderController()
@@ -574,12 +574,7 @@ extension AppDelegate {
 extension AppDelegate {
     
     @objc fileprivate func applicationApplyPreferences(_ notification: Notification?) {
-        #if !SANDBOXED
-        let automaticallyChecksForUpdates: Bool = UserDefaults.standard[.checkUpdatesAutomatically]
-        if automaticallyChecksForUpdates != sparkUpdater.automaticallyChecksForUpdates {
-            sparkUpdater.automaticallyChecksForUpdates = automaticallyChecksForUpdates
-        }
-        #endif
+        debugPrint("- [AppDelegate applicationApplyPreferences(_:)]")
     }
     
 }

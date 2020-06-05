@@ -279,6 +279,13 @@ class TagListController: NSViewController {
         setNeedsSaveManagedTags()
     }
     
+    
+    // MARK: - Action
+    
+    @IBAction func tableViewAction(_ sender: TagListTableView) { }
+    
+    @IBAction func tableViewDoubleAction(_ sender: TagListTableView) { }
+    
 }
 
 extension TagListController: TagListDataSource {

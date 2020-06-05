@@ -22,10 +22,10 @@ class ContentTableView: NSTableView {
             super.keyDown(with: event)
             return
         }
-        if event.modifierFlags
+        let flags = event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
-            .isEmpty
-            && (specialKey == .carriageReturn || specialKey == .enter)
+            .subtracting(.option)
+        if flags.isEmpty && (specialKey == .carriageReturn || specialKey == .enter)
         {
             tableViewResponder.tableViewDoubleAction(self)
             return
