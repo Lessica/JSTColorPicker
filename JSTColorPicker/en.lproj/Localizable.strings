@@ -141,10 +141,10 @@
 "Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
 
 /* ContentError */
-"The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
+"The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
 
 /* ContentError */
-"The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
+"The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "This feature is not implemented.";
@@ -170,8 +170,14 @@
 /* Tool Tip: Description of Pixel Color */
 "TOOLTIP_DESC_PIXEL_COLOR" = "Location: %@\nCSS: %@\nRGBA: %@";
 
+/* Tool Tip: Modify Similiarity */
+"TOOLTIP_MODIFY_SIMILARITY" = "Similarity: %@%%\nClick here to edit.";
+
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
+
+/* ContentError */
+"User aborted." = "User aborted.";
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";

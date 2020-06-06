@@ -10,6 +10,9 @@
 /* Class = "NSTextFieldCell"; title = "Width: "; ObjectID = "aqD-e5-Wi9"; */
 "aqD-e5-Wi9.title" = "宽度: ";
 
+/* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
+"b1c-AO-Wxw.title" = "[错误信息]";
+
 /* Class = "NSViewController"; title = "Edit Location"; ObjectID = "ctg-Pv-CEh"; */
 "ctg-Pv-CEh.title" = "修改位置";
 
@@ -46,8 +49,8 @@
 /* Class = "NSBox"; title = "Location"; ObjectID = "WvB-Hs-BAB"; */
 "WvB-Hs-BAB.title" = "位置";
 
-/* Class = "NSButtonCell"; title = "Fixed Ratio"; ObjectID = "Wxm-gf-Pi2"; */
-"Wxm-gf-Pi2.title" = "固定比例";
+/* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
+"XWu-hr-oyw.title" = "[错误信息]";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "yv9-A6-ZQK"; */
 "yv9-A6-ZQK.title" = "好";

@@ -50,6 +50,8 @@
 	<true/>
 	<key>defaults.tableColumn.toggle-id</key>
 	<true/>
+	<key>defaults.tableColumn.toggle-similarity</key>
+	<true/>
 	<key>defaults.tableColumn.toggle-tag</key>
 	<true/>
 	<key>defaults.useAlternativeAreaRepresentation</key>

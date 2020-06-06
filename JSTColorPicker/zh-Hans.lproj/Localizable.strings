@@ -141,10 +141,10 @@
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
 
 /* ContentError */
-"The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
+"The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
 
 /* ContentError */
-"The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
+"The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现.";
@@ -170,8 +170,14 @@
 /* Tool Tip: Description of Pixel Color */
 "TOOLTIP_DESC_PIXEL_COLOR" = "位置: %@\nCSS: %@\nRGBA: %@";
 
+/* Tool Tip: Modify Similiarity */
+"TOOLTIP_MODIFY_SIMILARITY" = "相似度: %@%%\n单击此处以修改.";
+
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
+
+/* ContentError */
+"User aborted." = "用户已取消.";
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";

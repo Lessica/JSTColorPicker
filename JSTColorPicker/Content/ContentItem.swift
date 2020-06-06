@@ -16,6 +16,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     
     public var id: Int
     public var tags: [String] = []
+    public var similarity: Double = 1.0
     
     init(id: Int) {
         self.id = id
@@ -24,11 +25,13 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     required init?(coder: NSCoder) {
         self.id = coder.decodeInteger(forKey: "id")
         self.tags = (coder.decodeObject(forKey: "tags") as? [String]) ?? []
+        self.similarity = coder.decodeDouble(forKey: "similarity")
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
         coder.encode(tags, forKey: "tags")
+        coder.encode(similarity, forKey: "similarity")
     }
     
     override func isEqual(_ object: Any?) -> Bool {
@@ -43,6 +46,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     func copyFrom(_ item: ContentItem) {
         id = item.id
         tags = item.tags
+        similarity = item.similarity
     }
     
     func push(_ vm: VirtualMachine) {

@@ -17,6 +17,7 @@ public extension UserDefaults.Key {
     static let enableNetworkDiscovery               : UserDefaults.Key     = "defaults.enableNetworkDiscovery"                 // Bool
     
     static let toggleTableColumnIdentifier          : UserDefaults.Key     = "defaults.tableColumn.toggle-id"                  // Bool
+    static let toggleTableColumnSimilarity          : UserDefaults.Key     = "defaults.tableColumn.toggle-similarity"          // Bool
     static let toggleTableColumnTag                 : UserDefaults.Key     = "defaults.tableColumn.toggle-tag"                 // Bool
     static let toggleTableColumnDescription         : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"                // Bool
     

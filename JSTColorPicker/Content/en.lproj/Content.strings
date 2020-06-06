@@ -49,11 +49,20 @@
 /* Class = "NSTableColumn"; headerToolTip = "The first, major tag of the item."; ObjectID = "oZV-av-rVK"; */
 "oZV-av-rVK.headerToolTip" = "The first, major tag of the item.";
 
+/* Class = "NSTableColumn"; headerCell.title = "Similarity"; ObjectID = "pnx-EH-SzG"; */
+"pnx-EH-SzG.headerCell.title" = "Similarity";
+
+/* Class = "NSTableColumn"; headerToolTip = "The value of confidence guessed and defined by user."; ObjectID = "pnx-EH-SzG"; */
+"pnx-EH-SzG.headerToolTip" = "The value of confidence guessed and defined by user.";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.ibShadowedToolTip" = "Trim this area with Canny edge detection algorithm";
 
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.title" = "Smart Trim";
+
+/* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "QFI-7f-OXu"; */
+"QFI-7f-OXu.title" = "Similarity";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "qQO-Qw-Wgz"; */
 "qQO-Qw-Wgz.ibShadowedToolTip" = "Export these items with current template";
@@ -87,6 +96,9 @@
 
 /* Class = "NSMenuItem"; title = "ID"; ObjectID = "w8Q-1g-gYa"; */
 "w8Q-1g-gYa.title" = "ID";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "wfg-Vz-ZiE"; */
+"wfg-Vz-ZiE.title" = "Text Cell";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
 "wys-cG-VKM.title" = "Select All";

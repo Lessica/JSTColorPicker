@@ -11,6 +11,7 @@ import Cocoa
 extension NSUserInterfaceItemIdentifier {
     
     static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
+    static let toggleTableColumnSimilarity  = NSUserInterfaceItemIdentifier("toggle-similarity")
     static let toggleTableColumnTag         = NSUserInterfaceItemIdentifier("toggle-tag")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
     
@@ -19,6 +20,7 @@ extension NSUserInterfaceItemIdentifier {
 extension NSUserInterfaceItemIdentifier {
     
     static let columnIdentifier  = NSUserInterfaceItemIdentifier("col-id")
+    static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnTag         = NSUserInterfaceItemIdentifier("col-tag")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
     
@@ -87,10 +89,16 @@ class ContentController: NSViewController {
         return screenshot?.content
     }
     fileprivate var nextID: Int {
-        if let maxID = content?.items.last?.id {
-            return maxID + 1
+        if let lastID = content?.items.last?.id {
+            return lastID + 1
         }
         return 1
+    }
+    fileprivate var nextSimilarity: Double {
+        if let lastSimilarity = content?.items.last?.similarity {
+            return lastSimilarity
+        }
+        return 1.0
     }
     
     fileprivate var undoToken: NotificationToken?
@@ -104,6 +112,7 @@ class ContentController: NSViewController {
     
     @IBOutlet weak var tableView: ContentTableView!
     @IBOutlet weak var columnIdentifier : NSTableColumn!
+    @IBOutlet weak var columnSimilarity : NSTableColumn!
     @IBOutlet weak var columnTag        : NSTableColumn!
     @IBOutlet weak var columnDescription: NSTableColumn!
     
@@ -145,22 +154,38 @@ class ContentController: NSViewController {
     
     @IBAction func resetColumns(_ sender: NSMenuItem) {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnIdentifier)
+        UserDefaults.standard.removeObject(forKey: .toggleTableColumnSimilarity)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnTag)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnDescription)
         
         tableView.tableColumns.forEach({ tableView.removeTableColumn($0) })
         let tableCols: [NSTableColumn] = [
             columnIdentifier,
+            columnSimilarity,
             columnTag,
             columnDescription
         ]
         tableCols.forEach({ tableView.addTableColumn($0) })
-        
-        columnIdentifier.width  = 30.0
-        columnTag.width         = 60.0
-        columnDescription.width = 150.0
+        tableCols.forEach({ $0.width = $0.minWidth })
         
         updateColumns()
+    }
+    
+    @IBAction func similarityFieldChanged(_ sender: NSTextField) {
+        guard let content = content else { return }
+        
+        let row = tableView.row(for: sender)
+        assert(row >= 0 && row < content.items.count)
+        
+        let value = sender.doubleValue
+        if value >= 1 && value <= 100 {
+            let item = content.items[row].copy() as! ContentItem
+            item.similarity = min(max(value / 100.0, 0.01), 1.0)
+            internalUpdateContentItems([item])
+        }
+        
+        let similarity = String(Int(content.items[row].similarity * 100.0))
+        sender.stringValue = similarity + "%"
     }
     
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
@@ -356,6 +381,8 @@ extension ContentController: ContentDelegate {
         guard content.items.last(where: { $0 == item }) == nil else { throw ContentError.itemExists(item: item) }
         
         item.id = nextID
+        item.similarity = nextSimilarity
+        
         internalAddContentItems([item])
         tableView.reloadData()
         
@@ -599,6 +626,9 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 if menuItem.identifier      == .toggleTableColumnIdentifier {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnIdentifier]  ? .on : .off
                 }
+                else if menuItem.identifier == .toggleTableColumnSimilarity {
+                    menuItem.state = UserDefaults.standard[.toggleTableColumnSimilarity]  ? .on : .off
+                }
                 else if menuItem.identifier == .toggleTableColumnTag {
                     menuItem.state = UserDefaults.standard[.toggleTableColumnTag]         ? .on : .off
                 }
@@ -626,6 +656,11 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         hiddenValue = !UserDefaults.standard[.toggleTableColumnIdentifier]
         if columnIdentifier.isHidden != hiddenValue {
             columnIdentifier.isHidden = hiddenValue
+        }
+        
+        hiddenValue = !UserDefaults.standard[.toggleTableColumnSimilarity]
+        if columnSimilarity.isHidden != hiddenValue {
+            columnSimilarity.isHidden = hiddenValue
         }
         
         hiddenValue = !UserDefaults.standard[.toggleTableColumnTag]
@@ -787,6 +822,9 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         if sender.identifier == .toggleTableColumnIdentifier {
             defaultKey = .toggleTableColumnIdentifier
         }
+        else if sender.identifier == .toggleTableColumnSimilarity {
+            defaultKey = .toggleTableColumnSimilarity
+        }
         else if sender.identifier == .toggleTableColumnTag {
             defaultKey = .toggleTableColumnTag
         }
@@ -864,6 +902,11 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             let item = content.items[row]
             if col == .columnIdentifier {
                 cell.textField?.stringValue = String(item.id)
+            }
+            else if col == .columnSimilarity {
+                let similarity = String(Int(item.similarity * 100.0))
+                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
+                cell.textField?.stringValue = similarity + "%"
             }
             else if col == .columnTag {
                 if let firstTag = item.tags.first {

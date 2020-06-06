@@ -103,30 +103,33 @@ class PixelColor: ContentItem {
     override func copy(with zone: NSZone? = nil) -> Any {
         let item = PixelColor(id: id, coordinate: coordinate, color: pixelColorRep.copy() as! JSTPixelColor)
         item.tags = tags
+        item.similarity = similarity
         return item
     }
     
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["id"]    = id
-        t["tags"]  = vm.createTable(withSequence: tags)
-        t["x"]     = coordinate.x
-        t["y"]     = coordinate.y
-        t["color"] = rgbaValue
+        t["id"]         = id
+        t["tags"]       = vm.createTable(withSequence: tags)
+        t["similarity"] = similarity
+        t["x"]          = coordinate.x
+        t["y"]          = coordinate.y
+        t["color"]      = rgbaValue
         t.push(vm)
     }
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel color (table with keys [id,tags,x,y,color])"
+    fileprivate static let typeName: String = "pixel color (table with keys [id,tags,similarity,x,y,color])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]    is Number)     ||
-            !(t["tags"]  is Table)      ||
-            !(t["x"]     is Number)     ||
-            !(t["y"]     is Number)     ||
+        if  !(t["id"]    is Number)      ||
+            !(t["tags"]  is Table)       ||
+            !(t["similarity"] is Number) ||
+            !(t["x"]     is Number)      ||
+            !(t["y"]     is Number)      ||
             !(t["color"] is Number)
         {
             return typeName
@@ -165,7 +168,7 @@ extension PixelColor /*: CustomStringConvertible*/ {
     
     override var description: String { "\(pixelColorRep) \(coordinate)" }
     
-    override var debugDescription: String { "<#\(id): \(tags); \(pixelColorRep) \(coordinate)>" }
+    override var debugDescription: String { "<#\(id): \(tags) (\(Int(similarity * 100.0))%); \(pixelColorRep) \(coordinate)>" }
     
 }
 

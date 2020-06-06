@@ -75,32 +75,35 @@ class PixelArea: ContentItem {
     override func copy(with zone: NSZone? = nil) -> Any {
         let item = PixelArea(id: id, rect: rect)
         item.tags = tags
+        item.similarity = similarity
         return item
     }
     
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["id"]   = id
-        t["tags"] = vm.createTable(withSequence: tags)
-        t["x"]    = rect.x
-        t["y"]    = rect.y
-        t["w"]    = rect.width
-        t["h"]    = rect.height
+        t["id"]         = id
+        t["tags"]       = vm.createTable(withSequence: tags)
+        t["similarity"] = similarity
+        t["x"]          = rect.x
+        t["y"]          = rect.y
+        t["w"]          = rect.width
+        t["h"]          = rect.height
         t.push(vm)
     }
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel area (table with keys [id,tags,x,y,w,h])"
+    fileprivate static let typeName: String = "pixel area (table with keys [id,tags,similarity,x,y,w,h])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]   is  Number)  ||
-            !(t["tags"] is  Table)   ||
-            !(t["x"]    is  Number)  ||
-            !(t["y"]    is  Number)  ||
-            !(t["w"]    is  Number)  ||
+        if  !(t["id"]   is  Number)      ||
+            !(t["tags"] is  Table)       ||
+            !(t["similarity"] is Number) ||
+            !(t["x"]    is  Number)      ||
+            !(t["y"]    is  Number)      ||
+            !(t["w"]    is  Number)      ||
             !(t["h"]    is  Number)
         {
             return typeName
@@ -139,7 +142,7 @@ extension PixelArea /*: CustomStringConvertible*/ {
     
     override var description: String { rect.description }
     
-    override var debugDescription: String { "<#\(id): \(tags); \(rect.description)>" }
+    override var debugDescription: String { "<#\(id): \(tags) (\(Int(similarity * 100.0))%); \(rect.description)>" }
     
 }
 
