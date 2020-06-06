@@ -534,7 +534,8 @@ class SceneScrollView: NSScrollView {
     fileprivate func trackDidEndDragging(with event: NSEvent) {
         if sceneState.type == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
-            if draggingRect.size > PixelSize(width: 1, height: 1) {
+            if draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
+            {
                 if sceneTool == .magicCursor {
                     trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
                 }
@@ -553,7 +554,9 @@ class SceneScrollView: NSScrollView {
                 }
             }
             else if sceneState.manipulatingOverlay is AreaAnnotatorOverlay {
-                if let draggingRect = areaDraggingOverlay.contextRect, draggingRect.size > PixelSize(width: 1, height: 1) {
+                if let draggingRect = areaDraggingOverlay.contextRect,
+                    draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
+                {
                     if sceneTool == .selectionArrow {
                         trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
                     }

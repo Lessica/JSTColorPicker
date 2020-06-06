@@ -9,32 +9,32 @@
 import Foundation
 import LuaSwift
 
-struct PixelRect {
+struct PixelRect: Codable {
     
     public static var zero: PixelRect { PixelRect() }
     
     public static var null: PixelRect { PixelRect(x: Int.max, y: Int.max, width: 0, height: 0) }
     
-    public var isNull: Bool { x == Int.max || y == Int.max }
-    
-    public var isEmpty: Bool { isNull || size == .zero }
+    public var isNull         : Bool { x == Int.max || y == Int.max }
+    public var isEmpty        : Bool { isNull || size == .zero      }
+    public var hasStandardized: Bool { width >= 0 && height >= 0    }
     
     public var origin: PixelCoordinate = PixelCoordinate()
     public var size:   PixelSize       = PixelSize()
     
-    public var x: Int      { return origin.x    }
-    public var y: Int      { return origin.y    }
+    public var x: Int      { origin.x    }
+    public var y: Int      { origin.y    }
     
-    public var minX: Int   { return origin.x    }
-    public var minY: Int   { return origin.y    }
+    public var minX: Int   { origin.x    }
+    public var minY: Int   { origin.y    }
     
-    public var maxX: Int   { return origin.x + size.width  }
-    public var maxY: Int   { return origin.y + size.height }
+    public var maxX: Int   { origin.x + size.width  }
+    public var maxY: Int   { origin.y + size.height }
     
-    public var width: Int  { return size.width  }
-    public var height: Int { return size.height }
+    public var width: Int  { size.width  }
+    public var height: Int { size.height }
     
-    public var opposite: PixelCoordinate { return PixelCoordinate(x: x + width, y: y + height) }
+    public var opposite: PixelCoordinate { PixelCoordinate(x: x + width, y: y + height) }
     
     public var standardized: PixelRect {
         var rect = self

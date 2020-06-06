@@ -144,7 +144,7 @@
 "The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
 
 /* ContentError */
-"The requested item conflicts with another item in the document." = "请求的项与文档中的另一个项冲突.";
+"The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现.";

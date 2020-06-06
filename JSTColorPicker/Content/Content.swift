@@ -8,15 +8,11 @@
 
 import Foundation
 
-class Content: NSObject {
+class Content: NSObject, Codable {
     
     public var items: [ContentItem] = []  // ordered by id asc
-    public var lazyColors: [PixelColor] {
-        return items.lazy.compactMap({ $0 as? PixelColor })
-    }
-    public var lazyAreas: [PixelArea] {
-        return items.lazy.compactMap({ $0 as? PixelArea })
-    }
+    public var lazyColors: [PixelColor] { items.lazy.compactMap({ $0 as? PixelColor }) }
+    public var lazyAreas : [PixelArea]  { items.lazy.compactMap({ $0 as? PixelArea })  }
     
     override init() {
         super.init()

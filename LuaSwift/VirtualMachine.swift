@@ -151,8 +151,10 @@ open class VirtualMachine {
     
     open func createTable<T: Value>(withSequence sequence: [T]) -> Table {
         let table = createTable(sequence.count, keyCapacity: sequence.count)
-        for idx in 1...sequence.count {
-            table[idx] = sequence[idx - 1]
+        if sequence.count > 0 {
+            for idx in 1...sequence.count {
+                table[idx] = sequence[idx - 1]
+            }
         }
         return table
     }

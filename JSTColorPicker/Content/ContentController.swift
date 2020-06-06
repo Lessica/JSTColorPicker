@@ -51,7 +51,7 @@ enum ContentError: LocalizedError {
         case let .itemReachLimitBatch(moreSpace):
             return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "ContentError"), moreSpace)
         case let .itemConflict(item1, item2):
-            return String(format: NSLocalizedString("The requested item conflicts with another item in the document.", comment: "ContentError"), item1.description, item2.description)
+            return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "ContentError"), item1.description, item2.description)
         case .noDocumentLoaded:
             return NSLocalizedString("No document loaded.", comment: "ContentError")
         case .userAborted:
@@ -117,7 +117,7 @@ class ContentController: NSViewController {
         addCoordinateField.isEnabled = false
         
         tableView.tableViewResponder = self
-        tableView.registerForDraggedTypes([.content])
+        tableView.registerForDraggedTypes([.color, .area])
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
@@ -325,9 +325,9 @@ extension ContentController: ContentDataSource {
     }
     
     func contentItem(of rect: PixelRect) throws -> ContentItem {
-        guard let image = screenshot?.image              else { throw ContentError.noDocumentLoaded }
-        guard rect.size > PixelSize(width: 1, height: 1) else { throw ContentError.itemNotValid(item: rect) }
-        guard let area = image.area(at: rect)            else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+        guard let image = screenshot?.image                                      else { throw ContentError.noDocumentLoaded }
+        guard rect.hasStandardized && rect.size > PixelSize(width: 1, height: 1) else { throw ContentError.itemNotValid(item: rect) }
+        guard let area = image.area(at: rect)                                    else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         return area
     }
     
@@ -386,12 +386,14 @@ extension ContentController: ContentDelegate {
                 let coordinate = color.coordinate
                 guard !existingCoordinates.contains(coordinate) else { throw ContentError.itemExists(item: color) }
                 guard let newItem = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size)}
+                newItem.copyFrom(color)
                 relatedItem = newItem
             }
             else if let area = item as? PixelArea {
                 let rect = area.rect
                 guard !existingRects.contains(rect) else { throw ContentError.itemExists(item: area) }
                 guard let newItem = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+                newItem.copyFrom(area)
                 relatedItem = newItem
             }
             if let relatedItem = relatedItem {
@@ -488,10 +490,10 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         
-        guard let content = content, let image = screenshot?.image                    else { throw ContentError.noDocumentLoaded }
-        guard content.items.first(where: { $0.id == item.id })                 != nil else { throw ContentError.itemDoesNotExist(item: item) }
-        guard content.lazyColors.first(where: { $0.coordinate == coordinate }) == nil else { throw ContentError.itemConflict(item1: coordinate, item2: item) }
-        guard let replItem = image.color(at: coordinate)                              else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
+        guard let content = content, let image = screenshot?.image                              else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw ContentError.itemDoesNotExist(item: item) }
+        if let conflictItem = content.lazyColors.first(where: { $0.coordinate == coordinate })       { throw ContentError.itemConflict(item1: coordinate, item2: conflictItem) }
+        guard let replItem = image.color(at: coordinate)                                        else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         
         replItem.copyFrom(item)
         internalUpdateContentItems([replItem])
@@ -502,10 +504,10 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         
-        guard let content = content, let image = screenshot?.image                    else { throw ContentError.noDocumentLoaded }
-        guard content.items.first(where: { $0.id == item.id })    != nil              else { throw ContentError.itemDoesNotExist(item: item) }
-        guard content.lazyAreas.first(where: { $0.rect == rect }) == nil              else { throw ContentError.itemConflict(item1: rect, item2: item) }
-        guard let replItem = image.area(at: rect)                                     else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
+        guard let content = content, let image = screenshot?.image                              else { throw ContentError.noDocumentLoaded }
+        guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw ContentError.itemDoesNotExist(item: item) }
+        if let conflictItem = content.lazyAreas.first(where: { $0.rect == rect })                    { throw ContentError.itemConflict(item1: rect, item2: conflictItem) }
+        guard let replItem = image.area(at: rect)                                               else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         
         replItem.copyFrom(item)
         internalUpdateContentItems([replItem])
@@ -518,7 +520,7 @@ extension ContentController: ContentDelegate {
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         
         guard let content = content                                                   else { throw ContentError.noDocumentLoaded }
-        guard content.items.first(where: { $0.id == item.id })    != nil              else { throw ContentError.itemDoesNotExist(item: item) }
+        guard content.items.first(where: { $0.id == item.id }) != nil                 else { throw ContentError.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
         internalUpdateContentItems([replItem])

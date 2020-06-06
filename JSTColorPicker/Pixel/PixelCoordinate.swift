@@ -9,7 +9,7 @@
 import Foundation
 import LuaSwift
 
-struct PixelCoordinate {
+struct PixelCoordinate: Codable {
     
     public static var zero: PixelCoordinate { PixelCoordinate() }
     

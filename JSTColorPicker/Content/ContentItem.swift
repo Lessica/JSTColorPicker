@@ -9,15 +9,10 @@
 import Foundation
 import LuaSwift
 
-extension NSPasteboard.PasteboardType {
-    static let content = NSPasteboard.PasteboardType(rawValue: "public.jst.content")
-}
-
-class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading {
+class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading, Codable
+{
     
-    class var supportsSecureCoding: Bool {
-        return true
-    }
+    class var supportsSecureCoding: Bool { true }
     
     public var id: Int
     public var tags: [String] = []
@@ -42,9 +37,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let item = ContentItem(id: id)
-        item.tags = tags
-        return item
+        fatalError("copy(with:) has not been implemented")
     }
     
     func copyFrom(_ item: ContentItem) {
@@ -53,49 +46,44 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     }
     
     func push(_ vm: VirtualMachine) {
-        let vmTable = vm.createTable()
-        vmTable["id"] = id
-        vmTable["tags"] = vm.createTable(withSequence: tags)
-        vmTable.push(vm)
+        fatalError("push(_:) has not been implemented")
     }
     
     func kind() -> Kind { return .table }
     
     fileprivate static let typeName: String = "content item (table with keys [id,tags])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
-        if value.kind() != .table { return typeName }
-        if let result = Table.arg(vm, value: value) { return result }
-        let t = value as! Table
-        if  !(t["id"]   is Number) ||
-            !(t["tags"] is Table)
-        {
-            return typeName
-        }
-        return nil
+        fatalError("arg(_:value:) has not been implemented")
     }
     
-    override var description: String {
-        return "<#\(id): \(tags)>"
-    }
+    override var description: String { "<#\(id): \(tags)>" }
     
-    func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
-        return [.content]
-    }
     
-    func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
-        return NSKeyedArchiver.archivedData(withRootObject: self)
-    }
-    
-    static func readableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
-        return [.content]
-    }
-    
-    static func readingOptions(forType type: NSPasteboard.PasteboardType, pasteboard: NSPasteboard) -> NSPasteboard.ReadingOptions {
-        return .asKeyedArchive
-    }
+    // MARK: - Pasteboard
     
     required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
         fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
     }
     
+    class func readableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        fatalError("readableTypes(for:) has not been implemented")
+    }
+    
+    func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        fatalError("writableTypes(for:) has not been implemented")
+    }
+    
+    static func readingOptions(forType type: NSPasteboard.PasteboardType, pasteboard: NSPasteboard) -> NSPasteboard.ReadingOptions {
+        return .asData
+    }
+    
+    func writingOptions(forType type: NSPasteboard.PasteboardType, pasteboard: NSPasteboard) -> NSPasteboard.WritingOptions {
+        return .promised
+    }
+    
+    func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
+        return try? PropertyListEncoder().encode(self)
+    }
+    
 }
+

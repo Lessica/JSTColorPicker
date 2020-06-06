@@ -9,16 +9,22 @@
 import Foundation
 import LuaSwift
 
+extension NSPasteboard.PasteboardType {
+    static let color = NSPasteboard.PasteboardType(rawValue: "public.jst.content.color")
+}
+
 class PixelColor: ContentItem {
     
-    override class var supportsSecureCoding: Bool {
-        return true
-    }
+    override class var supportsSecureCoding: Bool { true }
     
     public fileprivate(set) var coordinate: PixelCoordinate
     public fileprivate(set) var pixelColorRep: JSTPixelColor
     
-    public init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
+    enum CodingKeys: String, CodingKey {
+        case red, green, blue, alpha, coordinate
+    }
+    
+    init(id: Int, coordinate: PixelCoordinate, color: JSTPixelColor) {
         self.coordinate    = coordinate
         self.pixelColorRep = color
         super.init(id: id)
@@ -40,53 +46,33 @@ class PixelColor: ContentItem {
         super.init(coder: coder)
     }
     
-    required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
-        fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let red = try container.decode(UInt8.self, forKey: .red)
+        let green = try container.decode(UInt8.self, forKey: .green)
+        let blue = try container.decode(UInt8.self, forKey: .blue)
+        let alpha = try container.decode(UInt8.self, forKey: .alpha)
+        
+        coordinate = try container.decode(PixelCoordinate.self, forKey: .coordinate)
+        pixelColorRep = JSTPixelColor(red: red, green: green, blue: blue, alpha: alpha)
+        try super.init(from: decoder)
     }
     
     deinit {
         // debugPrint("- [PixelColor deinit]")
     }
     
-    public var rgbValue: UInt32 {
-        return pixelColorRep.rgbValue
-    }
-    
-    public var rgbaValue: UInt32 {
-        return pixelColorRep.rgbaValue
-    }
-    
-    public var red: UInt8 {
-        return pixelColorRep.red
-    }
-    
-    public var green: UInt8 {
-        return pixelColorRep.green
-    }
-    
-    public var blue: UInt8 {
-        return pixelColorRep.blue
-    }
-    
-    public var alpha: UInt8 {
-        return pixelColorRep.alpha
-    }
-    
-    public var hexString: String {
-        return pixelColorRep.hexString
-    }
-    
-    public var hexStringWithAlpha: String {
-        return pixelColorRep.hexStringWithAlpha
-    }
-    
-    public var cssString: String {
-        return pixelColorRep.cssString
-    }
-    
-    public var cssRGBAString: String {
-        return pixelColorRep.cssRGBAString
-    }
+    public var rgbValue          : UInt32 { pixelColorRep.rgbValue           }
+    public var rgbaValue         : UInt32 { pixelColorRep.rgbaValue          }
+    public var red               : UInt8  { pixelColorRep.red                }
+    public var green             : UInt8  { pixelColorRep.green              }
+    public var blue              : UInt8  { pixelColorRep.blue               }
+    public var alpha             : UInt8  { pixelColorRep.alpha              }
+    public var hexString         : String { pixelColorRep.hexString          }
+    public var hexStringWithAlpha: String { pixelColorRep.hexStringWithAlpha }
+    public var cssString         : String { pixelColorRep.cssString          }
+    public var cssRGBAString     : String { pixelColorRep.cssRGBAString      }
     
     public func toNSColor() -> NSColor {
         return pixelColorRep.toNSColor()
@@ -95,6 +81,16 @@ class PixelColor: ContentItem {
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? PixelColor else { return false }
         return self == object
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(red, forKey: .red)
+        try container.encode(green, forKey: .green)
+        try container.encode(blue, forKey: .blue)
+        try container.encode(alpha, forKey: .alpha)
+        try container.encode(coordinate, forKey: .coordinate)
     }
     
     override func encode(with coder: NSCoder) {
@@ -138,6 +134,23 @@ class PixelColor: ContentItem {
         return nil
     }
     
+    
+    // MARK: - Pasteboard
+    
+    required convenience init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
+        guard let item = try? PropertyListDecoder().decode(PixelColor.self, from: propertyList as! Data) else { return nil }
+        self.init(id: item.id, coordinate: item.coordinate, color: item.pixelColorRep)
+        copyFrom(item)
+    }
+    
+    override class func readableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [.color]
+    }
+    
+    override func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [.color]
+    }
+    
 }
 
 extension PixelColor /*: Equatable*/ {
@@ -155,3 +168,4 @@ extension PixelColor /*: CustomStringConvertible*/ {
     override var debugDescription: String { "<#\(id): \(tags); \(pixelColorRep) \(coordinate)>" }
     
 }
+

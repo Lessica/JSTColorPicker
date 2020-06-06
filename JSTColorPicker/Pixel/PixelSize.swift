@@ -9,7 +9,7 @@
 import Foundation
 import LuaSwift
 
-struct PixelSize {
+struct PixelSize: Codable {
     
     public static var zero: PixelSize { PixelSize() }
     
