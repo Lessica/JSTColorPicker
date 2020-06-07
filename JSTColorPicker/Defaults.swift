@@ -25,6 +25,9 @@ public extension UserDefaults.Key {
     static let togglePaneViewInspector              : UserDefaults.Key     = "defaults.paneView.toggle-inspector"              // Bool
     static let togglePaneViewPreview                : UserDefaults.Key     = "defaults.paneView.toggle-preview"                // Bool
     
+    static let togglePreviewArea                    : UserDefaults.Key     = "defaults.preview.toggle-area"                    // Bool
+    static let togglePreviewColor                   : UserDefaults.Key     = "defaults.preview.toggle-color"                   // Bool
+    
     static let useAlternativeAreaRepresentation     : UserDefaults.Key     = "defaults.useAlternativeAreaRepresentation"       // Bool
     
     static let enableForceTouch                     : UserDefaults.Key     = "defaults.enableForceTouch"                       // Bool

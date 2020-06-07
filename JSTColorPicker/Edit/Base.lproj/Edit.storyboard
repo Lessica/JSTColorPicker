@@ -13,7 +13,7 @@
                     <window key="window" identifier="EditCoordinateWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditCoordinate" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Aq1-y7-abd" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="294" y="323" width="271" height="185"/>
+                        <rect key="contentRect" x="294" y="323" width="271" height="214"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <connections>
                             <outlet property="delegate" destination="mDo-V2-CWK" id="yCU-dU-VYO"/>
@@ -25,7 +25,7 @@
                 </windowController>
                 <customObject id="s8x-lF-Beo" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="235" y="207"/>
+            <point key="canvasLocation" x="323" y="234"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="ZJJ-Jt-fBS">
@@ -34,7 +34,7 @@
                     <window key="window" identifier="EditAreaWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditArea" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="hom-ZD-2fV" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="249" width="449" height="243"/>
+                        <rect key="contentRect" x="196" y="249" width="446" height="519"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <connections>
                             <outlet property="delegate" destination="AdQ-5s-3ep" id="QOC-2e-gdx"/>
@@ -46,20 +46,20 @@
                 </windowController>
                 <customObject id="6xG-ne-bk1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="596"/>
+            <point key="canvasLocation" x="322" y="763"/>
         </scene>
         <!--Edit Area-->
         <scene sceneID="GD1-H6-d2m">
             <objects>
                 <viewController title="Edit Area" id="ZWq-hK-DTj" customClass="EditAreaController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="PZG-na-dgU">
-                        <rect key="frame" x="0.0" y="0.0" width="446" height="243"/>
+                        <rect key="frame" x="0.0" y="0.0" width="446" height="519"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKW-or-DSk">
-                                <rect key="frame" x="20" y="20" width="406" height="203"/>
+                                <rect key="frame" x="20" y="20" width="406" height="479"/>
                                 <subviews>
                                     <box title="Area" translatesAutoresizingMaskIntoConstraints="NO" id="jKL-Xg-wfl">
-                                        <rect key="frame" x="-3" y="37" width="412" height="166"/>
+                                        <rect key="frame" x="-3" y="313" width="412" height="166"/>
                                         <view key="contentView" id="s9I-Hd-DWn">
                                             <rect key="frame" x="3" y="3" width="406" height="148"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,19 +355,57 @@
                                             <constraint firstAttribute="width" constant="406" id="RKE-A2-ccy"/>
                                         </constraints>
                                     </box>
+                                    <box title="Preview" translatesAutoresizingMaskIntoConstraints="NO" id="pxe-de-bqq">
+                                        <rect key="frame" x="-3" y="25" width="412" height="284"/>
+                                        <view key="contentView" id="bjm-I0-nmL">
+                                            <rect key="frame" x="3" y="3" width="406" height="266"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="eTc-l0-fdu" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <rect key="frame" x="90" y="20" width="226" height="226"/>
+                                                </customView>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ndv-iA-Yh4" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <rect key="frame" x="90" y="20" width="226" height="226"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="226" id="djp-Fh-h0h"/>
+                                                        <constraint firstAttribute="width" constant="226" id="jq0-wy-64C"/>
+                                                    </constraints>
+                                                </customView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ndv-iA-Yh4" firstAttribute="centerX" secondItem="bjm-I0-nmL" secondAttribute="centerX" id="S8J-w5-VmN"/>
+                                                <constraint firstItem="eTc-l0-fdu" firstAttribute="trailing" secondItem="Ndv-iA-Yh4" secondAttribute="trailing" id="T5b-l3-Hah"/>
+                                                <constraint firstItem="eTc-l0-fdu" firstAttribute="bottom" secondItem="Ndv-iA-Yh4" secondAttribute="bottom" id="TDL-dq-N7m"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ndv-iA-Yh4" secondAttribute="bottom" constant="20" symbolic="YES" id="XpQ-vh-2k5"/>
+                                                <constraint firstItem="Ndv-iA-Yh4" firstAttribute="top" secondItem="bjm-I0-nmL" secondAttribute="top" constant="20" symbolic="YES" id="eW1-QV-Hhc"/>
+                                                <constraint firstItem="eTc-l0-fdu" firstAttribute="leading" secondItem="Ndv-iA-Yh4" secondAttribute="leading" id="q13-NI-ogp"/>
+                                                <constraint firstItem="eTc-l0-fdu" firstAttribute="top" secondItem="Ndv-iA-Yh4" secondAttribute="top" id="zIP-Cx-4g5"/>
+                                            </constraints>
+                                        </view>
+                                    </box>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vJ-ca-jMK">
-                                        <rect key="frame" x="-2" y="189" width="92" height="14"/>
+                                        <rect key="frame" x="-2" y="465" width="92" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" allowsUndo="NO" alignment="center" title="[Error Message]" id="XWu-hr-oyw">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ord-0s-5q8">
-                                        <rect key="frame" x="258" y="0.0" width="148" height="21"/>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ord-0s-5q8">
+                                        <rect key="frame" x="137" y="0.0" width="269" height="21"/>
                                         <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GkF-q3-HIp">
+                                                <rect key="frame" x="-6" y="-7" width="125" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pn8-8c-InX">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleAction:" target="ZWq-hK-DTj" id="EKR-52-0Y3"/>
+                                                </connections>
+                                            </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ENb-OQ-H23">
-                                                <rect key="frame" x="-6" y="-7" width="82" height="32"/>
+                                                <rect key="frame" x="115" y="-7" width="82" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="abA-Ke-xKL">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -380,8 +418,8 @@ Gw
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xPR-wl-fB5">
-                                                <rect key="frame" x="72" y="-7" width="82" height="32"/>
-                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yv9-A6-ZQK">
+                                                <rect key="frame" x="193" y="-7" width="82" height="32"/>
+                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yv9-A6-ZQK">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -393,25 +431,33 @@ DQ
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="xPR-wl-fB5" firstAttribute="width" secondItem="ENb-OQ-H23" secondAttribute="width" id="nie-Ua-aij"/>
+                                        </constraints>
                                         <visibilityPriorities>
+                                            <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="pxe-de-bqq" firstAttribute="width" secondItem="jKL-Xg-wfl" secondAttribute="width" id="FoA-c1-gzj"/>
                                     <constraint firstItem="2vJ-ca-jMK" firstAttribute="width" relation="lessThanOrEqual" secondItem="jKL-Xg-wfl" secondAttribute="width" id="VBQ-Wy-bmy"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -430,6 +476,9 @@ DQ
                         <outlet property="box" destination="jKL-Xg-wfl" id="LrZ-7r-43w"/>
                         <outlet property="cancelBtn" destination="ENb-OQ-H23" id="F3F-nE-uwS"/>
                         <outlet property="okBtn" destination="xPR-wl-fB5" id="ll3-ad-Y1K"/>
+                        <outlet property="previewBox" destination="pxe-de-bqq" id="17N-pZ-IDi"/>
+                        <outlet property="previewImageView" destination="eTc-l0-fdu" id="YSr-nU-Jex"/>
+                        <outlet property="previewOverlayView" destination="Ndv-iA-Yh4" id="cRd-bP-8hx"/>
                         <outlet property="textFieldError" destination="2vJ-ca-jMK" id="mwk-aB-yg0"/>
                         <outlet property="textFieldHeight" destination="ppA-8r-FTf" id="rPq-E8-Hd0"/>
                         <outlet property="textFieldOppositeX" destination="pA8-pH-RDL" id="ag7-It-XKP"/>
@@ -437,11 +486,12 @@ DQ
                         <outlet property="textFieldOriginX" destination="UmD-Ma-H1a" id="323-ZC-ppl"/>
                         <outlet property="textFieldOriginY" destination="WKF-WS-2Mm" id="yla-pv-xTg"/>
                         <outlet property="textFieldWidth" destination="ExD-ii-sb6" id="bWT-Dn-nJ1"/>
+                        <outlet property="toggleBtn" destination="GkF-q3-HIp" id="urT-Ih-GBd"/>
                     </connections>
                 </viewController>
                 <customObject id="zNk-nL-xcj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="846" y="596"/>
+            <point key="canvasLocation" x="893" y="763"/>
         </scene>
         <!--Edit Location-->
         <scene sceneID="TzK-J3-O6H">
@@ -627,7 +677,7 @@ Gw
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KuI-iN-S37">
                                                 <rect key="frame" x="72" y="-7" width="82" height="32"/>
-                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Uqy-8z-m0T">
+                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Uqy-8z-m0T">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -684,7 +734,7 @@ DQ
                 </viewController>
                 <customObject id="jXz-KE-S94" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="578" y="207"/>
+            <point key="canvasLocation" x="894" y="234"/>
         </scene>
     </scenes>
 </document>

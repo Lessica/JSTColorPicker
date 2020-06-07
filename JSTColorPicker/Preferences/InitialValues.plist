@@ -46,6 +46,10 @@
 	<true/>
 	<key>defaults.pixelMatchThreshold</key>
 	<real>0.1</real>
+	<key>defaults.preview.toggle-color</key>
+	<false/>
+	<key>defaults.preview.toggle-area</key>
+	<false/>
 	<key>defaults.tableColumn.toggle-desc</key>
 	<true/>
 	<key>defaults.tableColumn.toggle-id</key>

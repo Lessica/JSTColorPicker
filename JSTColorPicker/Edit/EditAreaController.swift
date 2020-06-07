@@ -10,8 +10,10 @@ import Cocoa
 
 class EditAreaController: EditViewController {
     
-    @IBOutlet weak var box      : NSBox!
+    @IBOutlet weak var box          : NSBox!
+    @IBOutlet weak var previewBox   : NSBox!
 
+    @IBOutlet weak var toggleBtn    : NSButton!
     @IBOutlet weak var cancelBtn    : NSButton!
     @IBOutlet weak var okBtn        : NSButton!
     
@@ -24,9 +26,21 @@ class EditAreaController: EditViewController {
     
     @IBOutlet weak var textFieldError    : NSTextField!
     
+    @IBOutlet weak var previewImageView  : PreviewImageView!
+    @IBOutlet weak var previewOverlayView: PreviewOverlayView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let previewOn: Bool = UserDefaults.standard[.togglePreviewArea]
+        previewBox.isHidden = !previewOn
+        toggleBtn.state = previewBox.isHidden ? .on : .off
+    }
+    
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        setupPreviewIfNeeded()
         updateDisplay(with: contentItem)
         if isAdd {
             box.title = NSLocalizedString("New Area", comment: "EditAreaController")
@@ -45,6 +59,8 @@ class EditAreaController: EditViewController {
         textFieldHeight   .stringValue = String(pixelArea.rect.height)
         textFieldOppositeX.stringValue = String(pixelArea.rect.maxX)
         textFieldOppositeY.stringValue = String(pixelArea.rect.maxY)
+        
+        updatePreview(to: pixelArea.rect.toCGRect())
     }
     
     private func testContentItem(fromOpposite: Bool, with item: ContentItem? = nil) throws -> ContentItem? {
@@ -85,6 +101,7 @@ class EditAreaController: EditViewController {
             okBtn.isEnabled = (item != contentItem)
             textFieldError.isHidden = true
         } catch {
+            resetPreview()
             textFieldError.stringValue = "\n\(error.localizedDescription)"
             okBtn.isEnabled = false
             textFieldError.isHidden = false
@@ -117,6 +134,59 @@ class EditAreaController: EditViewController {
         } catch {
             presentError(error)
         }
+    }
+    
+    @IBAction private func toggleAction(_ sender: NSButton) {
+        previewBox.isHidden = !previewBox.isHidden
+        sender.state = previewBox.isHidden ? .on : .off
+        UserDefaults.standard[.togglePreviewArea] = !previewBox.isHidden
+        
+        setupPreviewIfNeeded()
+    }
+    
+    private var didSetupPreview: Bool = false
+    private func setupPreviewIfNeeded() {
+        guard let image = image else { return }
+        guard !previewBox.isHidden && !didSetupPreview else { return }
+        didSetupPreview = true
+        
+        let previewSize = image.size.toCGSize()
+        let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
+        let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
+        previewImageView.setImage(previewImage)
+        previewOverlayView.imageSize = previewSize
+        previewOverlayView.highlightArea = previewRect
+        
+        previewOverlayView.overlayDelegate = self
+    }
+    
+    private func updatePreview(to rect: CGRect) {
+        guard didSetupPreview else { return }
+        guard !rect.isEmpty else { return }
+        
+        if let imageSize = image?.size {
+            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+            previewOverlayView.highlightArea = highlightRect
+        }
+    }
+    
+    private func resetPreview() {
+        guard didSetupPreview else { return }
+        previewOverlayView.highlightArea = CGRect.null
+    }
+    
+}
+
+extension EditAreaController: PreviewResponder {
+    
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        // TODO
+    }
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+        
     }
     
 }

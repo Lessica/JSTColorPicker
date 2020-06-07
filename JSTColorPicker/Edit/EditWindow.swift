@@ -20,6 +20,8 @@ class EditWindow: NSWindow {
     
     public var isAdd: Bool = true
     public var contentItem: ContentItem?
+    
+    public weak var loader: ScreenshotLoader?
     public weak var contentDelegate: ContentDelegate?
     public weak var contentDataSource: ContentDataSource?
 

@@ -725,8 +725,10 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         
         if let panel = panel {
             
+            panel.loader = self
             panel.contentDelegate = self
             panel.contentDataSource = self
+
             panel.contentItem = targetItem
             panel.isAdd = false
             
@@ -752,8 +754,10 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         
         if let panel = panel {
             
+            panel.loader = self
             panel.contentDelegate = self
             panel.contentDataSource = self
+            
             panel.contentItem = nil
             panel.isAdd = true
             

@@ -10,31 +10,33 @@ import Cocoa
 
 class PreviewOverlayView: NSView {
     
-    public weak var overlayDelegate: PreviewResponder!
+    public weak var overlayDelegate: PreviewResponder?
     
-    var imageSize: CGSize = CGSize.zero {
+    public var imageSize: CGSize = CGSize.zero {
         didSet {
             setNeedsDisplay(bounds)
         }
     }
     
-    var imageArea: CGRect {
+    public var imageArea: CGRect {
         return CGRect(origin: .zero, size: imageSize).aspectFit(in: bounds).intersection(visibleRect)
     }
     
-    var imageScale: CGFloat {
+    public var imageScale: CGFloat {
         return CGRect(origin: .zero, size: imageSize).scaleToAspectFit(in: bounds)
     }
     
-    var highlightArea: CGRect = CGRect.zero {
+    public var highlightArea: CGRect = CGRect.zero {
         didSet {
             setNeedsDisplay(bounds)
         }
     }
     
-    fileprivate static let overlayColor: CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
-    fileprivate static let overlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
-    fileprivate static let overlayBorderWidth: CGFloat = 1.0
+    fileprivate static let defaultOverlayColor      : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
+    fileprivate static let defaultOverlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
+    fileprivate static let defaultOverlayBorderWidth: CGFloat = 1.0
+    fileprivate static let minimumOverlayRadius     : CGFloat = 3.0
+    fileprivate static let minimumOverlayDiameter   : CGFloat = minimumOverlayRadius * 2
     fileprivate var trackingArea: NSTrackingArea?
     
     override var isFlipped: Bool { true }
@@ -69,31 +71,37 @@ class PreviewOverlayView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        guard !inLiveResize && highlightArea.width > 6.0 && highlightArea.height > 6.0 else
+        guard !inLiveResize
+            && !highlightArea.isEmpty else
         {
-            ctx.setFillColor(PreviewOverlayView.overlayColor)
+            ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
             ctx.addRect(bounds)
             ctx.fillPath()
             return
         }
         
-        // ctx.saveGState()
-        
-        let insetArea = highlightArea.insetBy(dx: 1.0, dy: 1.0)
+        let isSmallArea = highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter
         
         // fill background
-        ctx.setFillColor(PreviewOverlayView.overlayColor)
-        ctx.addRect(insetArea)
+        ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
+        if !isSmallArea {
+            ctx.addRect(highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth))
+        } else {
+            ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
+        }
         ctx.addRect(bounds)
         ctx.fillPath(using: .evenOdd)
         
         // stroke border
-        ctx.setLineWidth(PreviewOverlayView.overlayBorderWidth)
-        ctx.setStrokeColor(PreviewOverlayView.overlayBorderColor)
-        ctx.addRect(insetArea)
+        ctx.setLineWidth(PreviewOverlayView.defaultOverlayBorderWidth)
+        ctx.setStrokeColor(PreviewOverlayView.defaultOverlayBorderColor)
+        if !isSmallArea {
+            ctx.addRect(highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth))
+        } else {
+            ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
+        }
         ctx.strokePath()
         
-        // ctx.restoreGState()
     }
     
     fileprivate func mouseInside() -> Bool {
@@ -107,6 +115,7 @@ class PreviewOverlayView: NSView {
     }
     
     fileprivate func updateCursorAppearance() {
+        guard overlayDelegate != nil else { return }
         if !mouseInside() { return }
         NSCursor.pointingHand.set()
     }
@@ -128,7 +137,7 @@ class PreviewOverlayView: NSView {
         guard imageArea.contains(loc) else { return }
         
         let relLoc = CGPoint(x: (loc.x - imageArea.minX) / imageScale, y: (loc.y - imageArea.minY) / imageScale)
-        overlayDelegate.previewAction(self, centeredAt: PixelCoordinate(relLoc))
+        overlayDelegate?.previewAction(self, centeredAt: PixelCoordinate(relLoc))
     }
     
     override func viewDidEndLiveResize() {

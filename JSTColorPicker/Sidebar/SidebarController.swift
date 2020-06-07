@@ -70,18 +70,18 @@ class SidebarController: NSViewController {
     }
     
     @IBOutlet weak var inspectorColorLabel: NSTextField!
-    @IBOutlet weak var inspectorColorFlag: ColorIndicator!
-    @IBOutlet weak var inspectorAreaLabel: NSTextField!
+    @IBOutlet weak var inspectorColorFlag : ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabel : NSTextField!
     
     @IBOutlet weak var inspectorColorLabel2: NSTextField!
-    @IBOutlet weak var inspectorColorFlag2: ColorIndicator!
-    @IBOutlet weak var inspectorAreaLabel2: NSTextField!
+    @IBOutlet weak var inspectorColorFlag2 : ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabel2 : NSTextField!
     
-    public weak var previewOverlayDelegate: PreviewResponder!
-    @IBOutlet weak var previewImageView: PreviewImageView!
-    @IBOutlet weak var previewOverlayView: PreviewOverlayView!
-    @IBOutlet weak var previewSlider: NSSlider!
-    @IBOutlet weak var previewSliderLabel: NSTextField!
+    public weak var previewOverlayDelegate : PreviewResponder!
+    @IBOutlet weak var previewImageView    : PreviewImageView!
+    @IBOutlet weak var previewOverlayView  : PreviewOverlayView!
+    @IBOutlet weak var previewSlider       : NSSlider!
+    @IBOutlet weak var previewSliderLabel  : NSTextField!
     
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
@@ -229,7 +229,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     private var lastStoredRect: CGRect?
     private var lastStoredMagnification: CGFloat?
     
-    func updatePreview(to rect: CGRect, magnification: CGFloat) {
+    public func updatePreview(to rect: CGRect, magnification: CGFloat) {
         guard !rect.isEmpty else { return }
         
         guard !paneViewPreview.isHidden else {
@@ -255,7 +255,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
     }
     
-    func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
+    public func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
         guard let rect = rect,
             let magnification = magnification else { return }
         updatePreview(to: rect, magnification: magnification)

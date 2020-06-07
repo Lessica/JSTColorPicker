@@ -40,6 +40,15 @@
 /* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
 "p8E-5k-JXY.title" = "坐标 X: ";
 
+/* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Pn8-8c-InX"; */
+"Pn8-8c-InX.alternateTitle" = "显示预览";
+
+/* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "Pn8-8c-InX"; */
+"Pn8-8c-InX.title" = "隐藏预览";
+
+/* Class = "NSBox"; title = "Preview"; ObjectID = "pxe-de-bqq"; */
+"pxe-de-bqq.title" = "预览";
+
 /* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
 "Ujz-vy-7WQ.title" = "● #FFFFFF";
 

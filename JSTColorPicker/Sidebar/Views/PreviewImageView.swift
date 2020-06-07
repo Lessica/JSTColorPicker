@@ -29,25 +29,25 @@ class PreviewImageView: NSView {
         layerContentsRedrawPolicy = .never
     }
     
-    func setImage(_ image: CGImage) {
+    public func setImage(_ image: CGImage) {
         layer?.contents = image
     }
     
-    func setImage(_ image: NSImage) {
+    public func setImage(_ image: NSImage) {
         layer?.contents = image
     }
     
-    func setImage(_ image: CGImage, size: CGSize) {
+    public func setImage(_ image: CGImage, size: CGSize) {
         setFrameSize(size)
         layer?.contents = image
     }
     
-    func setImage(_ image: NSImage, size: CGSize) {
+    public func setImage(_ image: NSImage, size: CGSize) {
         setFrameSize(size)
         layer?.contents = image
     }
     
-    func reset() {
+    public func reset() {
         layer?.contents = nil
     }
     
