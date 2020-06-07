@@ -40,27 +40,41 @@ class EditAreaController: EditViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        undoManager?.disableUndoRegistration()
         setupPreviewIfNeeded()
-        updateDisplay(with: contentItem)
+        updateDisplay(with: (contentItem as? PixelArea)?.rect)
         if isAdd {
             box.title = NSLocalizedString("New Area", comment: "EditAreaController")
         } else {
             box.title = NSLocalizedString("Edit Area", comment: "EditAreaController")
             validateInputs(nil)
         }
+        undoManager?.enableUndoRegistration()
     }
     
-    private func updateDisplay(with item: ContentItem?) {
-        guard let pixelArea = item as? PixelArea else { return }
+    private var lastRectangle: PixelRect?
+    
+    private var currentRectangle: PixelRect {
+        PixelRect(
+            x: textFieldOriginX.integerValue,
+            y: textFieldOriginY.integerValue,
+            width: textFieldWidth.integerValue,
+            height: textFieldHeight.integerValue
+        )
+    }
+    
+    private func updateDisplay(with rect: PixelRect?) {
+        guard let rect = rect else { return }
         
-        textFieldOriginX  .stringValue = String(pixelArea.rect.minX)
-        textFieldOriginY  .stringValue = String(pixelArea.rect.minY)
-        textFieldWidth    .stringValue = String(pixelArea.rect.width)
-        textFieldHeight   .stringValue = String(pixelArea.rect.height)
-        textFieldOppositeX.stringValue = String(pixelArea.rect.maxX)
-        textFieldOppositeY.stringValue = String(pixelArea.rect.maxY)
+        textFieldOriginX  .stringValue = String(rect.minX)
+        textFieldOriginY  .stringValue = String(rect.minY)
+        textFieldWidth    .stringValue = String(rect.width)
+        textFieldHeight   .stringValue = String(rect.height)
+        textFieldOppositeX.stringValue = String(rect.maxX)
+        textFieldOppositeY.stringValue = String(rect.maxY)
         
-        updatePreview(to: pixelArea.rect.toCGRect())
+        updatePreview(to: rect.toCGRect())
+        lastRectangle = rect
     }
     
     private func testContentItem(fromOpposite: Bool, with item: ContentItem? = nil) throws -> ContentItem? {
@@ -95,17 +109,24 @@ class EditAreaController: EditViewController {
     }
     
     @IBAction private func validateInputs(_ sender: NSTextField?) {
+        internalValidateInputs(sender)
+    }
+    
+    @discardableResult
+    private func internalValidateInputs(_ sender: NSTextField?) -> ContentItem? {
         do {
             let item = try testContentItem(fromOpposite: sender == textFieldOppositeX || sender == textFieldOppositeY)
-            updateDisplay(with: item)
+            updateDisplay(with: (item as? PixelArea)?.rect)
             okBtn.isEnabled = (item != contentItem)
             textFieldError.isHidden = true
+            return item
         } catch {
             resetPreview()
             textFieldError.stringValue = "\n\(error.localizedDescription)"
             okBtn.isEnabled = false
             textFieldError.isHidden = false
         }
+        return nil
     }
     
     @IBAction private func cancelAction(_ sender: NSButton) {
@@ -118,15 +139,15 @@ class EditAreaController: EditViewController {
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
             let origItem: ContentItem? = contentItem
-            if let replItem = try testContentItem(fromOpposite: false, with: origItem) as? PixelArea
+            if let replArea = try testContentItem(fromOpposite: false, with: origItem) as? PixelArea
             {
                 if isAdd {
-                    if let _ = try delegate.addContentItem(of: replItem.rect) {
+                    if let _ = try delegate.addContentItem(of: replArea.rect) {
                         parent.endSheet(window, returnCode: .OK)
                     }
                 } else {
                     guard let origItem = origItem else { return }
-                    if let _ = try delegate.updateContentItem(origItem, to: replItem.rect) {
+                    if let _ = try delegate.updateContentItem(origItem, to: replArea.rect) {
                         parent.endSheet(window, returnCode: .OK)
                     }
                 }
@@ -161,15 +182,13 @@ class EditAreaController: EditViewController {
     }
     
     private func updatePreview(to rect: CGRect) {
-        guard didSetupPreview else { return }
-        guard !rect.isEmpty else { return }
+        guard didSetupPreview && !rect.isEmpty else { return }
+        guard let imageSize = image?.size else { return }
         
-        if let imageSize = image?.size {
-            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
-            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
-            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
-            previewOverlayView.highlightArea = highlightRect
-        }
+        let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+        let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+        let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+        previewOverlayView.highlightArea = highlightRect
     }
     
     private func resetPreview() {
@@ -182,11 +201,23 @@ class EditAreaController: EditViewController {
 extension EditAreaController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        // TODO
+        guard let imageBounds = image?.bounds else { return }
+        guard let origRect = (internalValidateInputs(nil) as? PixelArea)?.rect else { return }
+        
+        let point = coordinate.toCGPoint()
+        let replRect = PixelRect(
+            CGRect(
+                x: point.x - CGFloat(origRect.width) / 2.0,
+                y: point.y - CGFloat(origRect.height) / 2.0,
+                width: CGFloat(origRect.width),
+                height: CGFloat(origRect.height)
+            )
+        ).intersection(imageBounds)
+        
+        updateDisplay(with: replRect)
+        validateInputs(nil)
     }
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        
-    }
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) { }
     
 }

@@ -9,7 +9,7 @@
         <!--Window Controller-->
         <scene sceneID="g0x-iQ-JaZ">
             <objects>
-                <windowController storyboardIdentifier="EditCoordinateWindowController" id="mDo-V2-CWK" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="EditCoordinateWindowController" id="mDo-V2-CWK" customClass="EditWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" identifier="EditCoordinateWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditCoordinate" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Aq1-y7-abd" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -30,7 +30,7 @@
         <!--Window Controller-->
         <scene sceneID="ZJJ-Jt-fBS">
             <objects>
-                <windowController storyboardIdentifier="EditAreaWindowController" id="AdQ-5s-3ep" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="EditAreaWindowController" id="AdQ-5s-3ep" customClass="EditWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" identifier="EditAreaWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditArea" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="hom-ZD-2fV" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -86,14 +86,15 @@
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="FB4-aX-2gX"/>
                                                                             </constraints>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="0Oh-nm-jjR">
-                                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="zdf-WL-oS4"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="0Oh-nm-jjR">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="jCG-OP-AO1"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="s8m-Gg-6PG"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="6Xx-3p-lb4"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -122,14 +123,15 @@
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKF-WS-2Mm">
                                                                             <rect key="frame" x="83" y="0.0" width="96" height="21"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="omj-2v-f7L">
-                                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="1B0-dd-ui8"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="omj-2v-f7L">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="fCD-o8-Jsv"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="3Ei-nf-0cv"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="6I2-TL-vBh"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -158,14 +160,15 @@
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExD-ii-sb6">
                                                                             <rect key="frame" x="83" y="0.0" width="96" height="21"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="WD6-13-p1Q">
-                                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="cMq-19-ljg"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="WD6-13-p1Q">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="HU9-ZZ-BZA"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="g64-dp-JTk"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="MII-dw-y7X"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -194,14 +197,15 @@
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppA-8r-FTf">
                                                                             <rect key="frame" x="83" y="0.0" width="96" height="21"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Ywy-b7-Mie">
-                                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="d77-Yc-I7x"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Ywy-b7-Mie">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="YQG-tO-hZj"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="n5P-cD-xhG"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="nZD-zW-7TV"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -258,13 +262,15 @@
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-pH-RDL">
                                                                             <rect key="frame" x="83" y="0.0" width="96" height="21"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="H1Y-nG-oND">
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="H1Y-nG-oND">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="rao-DG-NQs"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="srd-NG-Pdq"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="CGx-Eg-whn"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -293,13 +299,15 @@
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDG-hO-JLQ">
                                                                             <rect key="frame" x="83" y="0.0" width="96" height="21"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Ydp-42-Ge4">
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Ydp-42-Ge4">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
                                                                                 <action selector="validateInputs:" target="ZWq-hK-DTj" id="1sA-KN-Cra"/>
+                                                                                <outlet property="delegate" destination="ZWq-hK-DTj" id="Fud-h6-yUB"/>
+                                                                                <outlet property="formatter" destination="tPo-nn-PNA" id="OmR-Jb-VqS"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -490,6 +498,10 @@ DQ
                     </connections>
                 </viewController>
                 <customObject id="zNk-nL-xcj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="tPo-nn-PNA">
+                    <real key="minimum" value="0.0"/>
+                    <real key="maximum" value="4096"/>
+                </numberFormatter>
             </objects>
             <point key="canvasLocation" x="893" y="763"/>
         </scene>
@@ -525,14 +537,15 @@ DQ
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOm-bv-au7">
                                                                     <rect key="frame" x="95" y="0.0" width="96" height="21"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="TSI-jU-9zO">
-                                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="m0S-vF-jbY"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="TSI-jU-9zO">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <action selector="validateInputs:" target="ctg-Pv-CEh" id="iES-Ck-aUq"/>
+                                                                        <outlet property="delegate" destination="ctg-Pv-CEh" id="aRC-6q-ubM"/>
+                                                                        <outlet property="formatter" destination="3aV-WG-ypq" id="jn3-vf-2cH"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -561,14 +574,15 @@ DQ
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGN-31-Nhc">
                                                                     <rect key="frame" x="95" y="0.0" width="96" height="21"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="9zb-cB-a7N">
-                                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="fv6-mt-Mgl"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="9zb-cB-a7N">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <action selector="validateInputs:" target="ctg-Pv-CEh" id="ZV7-Mf-iHL"/>
+                                                                        <outlet property="delegate" destination="ctg-Pv-CEh" id="9pw-k6-bMA"/>
+                                                                        <outlet property="formatter" destination="3aV-WG-ypq" id="4HA-wT-rn3"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -733,6 +747,10 @@ DQ
                     </connections>
                 </viewController>
                 <customObject id="jXz-KE-S94" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="3aV-WG-ypq">
+                    <real key="minimum" value="0.0"/>
+                    <real key="maximum" value="4096"/>
+                </numberFormatter>
             </objects>
             <point key="canvasLocation" x="894" y="234"/>
         </scene>

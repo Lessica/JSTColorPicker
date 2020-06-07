@@ -22,3 +22,8 @@ class EditViewController: NSViewController {
     public weak var contentDelegate: ContentDelegate? { (view.window as? EditWindow)?.contentDelegate }
     
 }
+
+extension EditViewController: NSTextFieldDelegate {
+    
+}
+

@@ -33,6 +33,8 @@
 		18B22FF824801979003F70BA /* TagListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF624801979003F70BA /* TagListTableView.swift */; };
 		18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
 		18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */; };
+		18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D202BF248D32EC007A079F /* EditWindowController.swift */; };
+		18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D202BF248D32EC007A079F /* EditWindowController.swift */; };
 		18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
 		18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
@@ -570,6 +572,7 @@
 		18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDragDelegate.swift; sourceTree = "<group>"; };
 		18B22FF624801979003F70BA /* TagListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListTableView.swift; sourceTree = "<group>"; };
 		18B6EA94247ABE6F00A61386 /* Tag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tag.xcdatamodel; sourceTree = "<group>"; };
+		18D202BF248D32EC007A079F /* EditWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWindowController.swift; sourceTree = "<group>"; };
 		18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransformer.swift; sourceTree = "<group>"; };
 		2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
@@ -2209,6 +2212,7 @@
 			children = (
 				D6E166A8248A481300D8D1C5 /* Edit.storyboard */,
 				185D7EED248A80C4001C283B /* EditWindow.swift */,
+				18D202BF248D32EC007A079F /* EditWindowController.swift */,
 				185D7EF0248A8518001C283B /* EditViewController.swift */,
 				185D7EE7248A8019001C283B /* EditCoordinateController.swift */,
 				185D7EEA248A8025001C283B /* EditAreaController.swift */,
@@ -2788,6 +2792,7 @@
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
+				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
@@ -2913,6 +2918,7 @@
 				D66CABE923F583E000BFB4CB /* ContentDelegate.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
