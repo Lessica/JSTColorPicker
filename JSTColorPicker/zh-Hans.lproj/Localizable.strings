@@ -49,6 +49,12 @@
 /* resetDevicesMenu */
 "Download screenshot helper..." = "下载设备截图组件...";
 
+/* EditCoordinateController */
+"Edit Area" = "修改区域";
+
+/* EditCoordinateController */
+"Edit Color & Coordinate" = "修改颜色与坐标";
+
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "正在与设备 \"%@\" 建立连接...";
 
@@ -111,6 +117,12 @@
 
 /* TemplateError */
 "Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
+
+/* EditAreaController */
+"New Area" = "新区域";
+
+/* EditCoordinateController */
+"New Color & Coordinate" = "新颜色与坐标";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "未选中设备";

@@ -10,6 +10,7 @@ import Cocoa
 
 class EditViewController: NSViewController {
     
+    public var isAdd: Bool { (view.window as? EditWindow)?.isAdd ?? true }
     public var contentItem: ContentItem? {
         get { (view.window as? EditWindow)?.contentItem }
         set { (view.window as? EditWindow)?.contentItem = newValue }

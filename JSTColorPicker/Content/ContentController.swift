@@ -106,7 +106,13 @@ class ContentController: NSViewController {
     
     @IBOutlet var tableMenu              : NSMenu!
     @IBOutlet var tableHeaderMenu        : NSMenu!
+    
+    @IBOutlet var itemNewMenu            : NSMenu!
+    @IBOutlet var itemNewColorMenuItem   : NSMenuItem!
+    @IBOutlet var itemNewAreaMenuItem    : NSMenuItem!
+    
     @IBOutlet var itemReprMenu           : NSMenu!
+    @IBOutlet var itemReprColorMenuItem  : NSMenuItem!
     @IBOutlet var itemReprAreaMenuItem   : NSMenuItem!
     @IBOutlet var itemReprAreaAltMenuItem: NSMenuItem!
     
@@ -273,7 +279,13 @@ class ContentController: NSViewController {
     }
     
     @IBAction func addCoordinateAction(_ sender: NSButton) {
-        addCoordinateFieldChanged(addCoordinateField)
+        if addCoordinateField.stringValue.isEmpty {
+            if let event = view.window?.currentEvent {
+                NSMenu.popUpContextMenu(itemNewMenu, with: event, for: sender)
+            }
+        } else {
+            addCoordinateFieldChanged(addCoordinateField)
+        }
     }
     
     deinit {
@@ -614,7 +626,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         else if item.action == #selector(resetColumns(_:)) {
             return true
         }
-        else if item.action == #selector(toggleItemRepr(_:)) {
+        else if item.action == #selector(create(_:)) || item.action == #selector(toggleItemRepr(_:)) {
             return true
         }
         return false
@@ -716,6 +728,34 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
             panel.contentDelegate = self
             panel.contentDataSource = self
             panel.contentItem = targetItem
+            panel.isAdd = false
+            
+            window.beginSheet(panel) { (resp) in
+                if resp == .OK {
+                    // do nothing
+                }
+            }
+            
+        }
+    }
+    
+    @IBAction func create(_ sender: NSMenuItem?) {
+        guard let window = view.window else { return }
+        guard content?.items != nil else { return }
+        
+        var panel: EditWindow?
+        if sender == itemNewColorMenuItem {
+            panel = EditWindow.newEditCoordinatePanel()
+        } else if sender == itemNewAreaMenuItem {
+            panel = EditWindow.newEditAreaPanel()
+        }
+        
+        if let panel = panel {
+            
+            panel.contentDelegate = self
+            panel.contentDataSource = self
+            panel.contentItem = nil
+            panel.isAdd = true
             
             window.beginSheet(panel) { (resp) in
                 if resp == .OK {
@@ -840,7 +880,10 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func toggleItemRepr(_ sender: NSMenuItem) {
-        if sender == itemReprAreaMenuItem {
+        if sender == itemReprColorMenuItem {
+            
+        }
+        else if sender == itemReprAreaMenuItem {
             UserDefaults.standard[.useAlternativeAreaRepresentation] = false
         }
         else if sender == itemReprAreaAltMenuItem {

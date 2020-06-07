@@ -46,8 +46,8 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "OK";
 
-/* Class = "NSBox"; title = "Location"; ObjectID = "WvB-Hs-BAB"; */
-"WvB-Hs-BAB.title" = "Location";
+/* Class = "NSBox"; title = "Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "Color & Coordinate";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[Error Message]";

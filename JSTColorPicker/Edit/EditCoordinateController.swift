@@ -10,6 +10,8 @@ import Cocoa
 
 class EditCoordinateController: EditViewController {
     
+    @IBOutlet weak var box      : NSBox!
+    
     @IBOutlet weak var cancelBtn: NSButton!
     @IBOutlet weak var okBtn    : NSButton!
     
@@ -23,7 +25,12 @@ class EditCoordinateController: EditViewController {
         super.viewWillAppear()
         
         updateDisplay(with: contentItem)
-        validateInputs(nil)
+        if isAdd {
+            box.title = NSLocalizedString("New Color & Coordinate", comment: "EditCoordinateController")
+        } else {
+            box.title = NSLocalizedString("Edit Color & Coordinate", comment: "EditCoordinateController")
+            validateInputs(nil)
+        }
     }
     
     private func updateDisplay(with item: ContentItem?) {
@@ -67,13 +74,20 @@ class EditCoordinateController: EditViewController {
     
     @IBAction private func okAction(_ sender: NSButton) {
         guard let delegate = contentDelegate else { return }
-        guard let origItem = contentItem else { return }
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
+            let origItem: ContentItem? = contentItem
             if let replItem = try testContentItem(with: origItem) as? PixelColor
             {
-                if let _ = try delegate.updateContentItem(origItem, to: replItem.coordinate) {
-                    parent.endSheet(window, returnCode: .OK)
+                if isAdd {
+                    if let _ = try delegate.addContentItem(of: replItem.coordinate) {
+                        parent.endSheet(window, returnCode: .OK)
+                    }
+                } else {
+                    guard let origItem = origItem else { return }
+                    if let _ = try delegate.updateContentItem(origItem, to: replItem.coordinate) {
+                        parent.endSheet(window, returnCode: .OK)
+                    }
                 }
             }
         } catch {

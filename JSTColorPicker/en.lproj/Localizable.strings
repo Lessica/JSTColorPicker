@@ -49,6 +49,12 @@
 /* resetDevicesMenu */
 "Download screenshot helper..." = "Download screenshot helper...";
 
+/* EditCoordinateController */
+"Edit Area" = "Edit Area";
+
+/* EditCoordinateController */
+"Edit Color & Coordinate" = "Edit Color & Coordinate";
+
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "Establish connection to device \"%@\"...";
 
@@ -111,6 +117,12 @@
 
 /* TemplateError */
 "Missing root entry: template must return a table." = "Missing root entry: template must return a table.";
+
+/* EditAreaController */
+"New Area" = "New Area";
+
+/* EditCoordinateController */
+"New Color & Coordinate" = "New Color & Coordinate";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "No device selected";

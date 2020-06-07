@@ -427,6 +427,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="box" destination="jKL-Xg-wfl" id="LrZ-7r-43w"/>
                         <outlet property="cancelBtn" destination="ENb-OQ-H23" id="F3F-nE-uwS"/>
                         <outlet property="okBtn" destination="xPR-wl-fB5" id="ll3-ad-Y1K"/>
                         <outlet property="textFieldError" destination="2vJ-ca-jMK" id="mwk-aB-yg0"/>
@@ -452,7 +453,7 @@ DQ
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CdX-nG-nz8">
                                 <rect key="frame" x="20" y="20" width="231" height="174"/>
                                 <subviews>
-                                    <box title="Location" translatesAutoresizingMaskIntoConstraints="NO" id="WvB-Hs-BAB">
+                                    <box title="Color &amp; Coordinate" translatesAutoresizingMaskIntoConstraints="NO" id="WvB-Hs-BAB">
                                         <rect key="frame" x="-3" y="37" width="237" height="137"/>
                                         <view key="contentView" id="eD1-Le-QOP">
                                             <rect key="frame" x="3" y="3" width="231" height="119"/>
@@ -672,6 +673,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="box" destination="WvB-Hs-BAB" id="4gR-Bv-4Ek"/>
                         <outlet property="cancelBtn" destination="ZS2-Yv-PBN" id="BK4-99-azI"/>
                         <outlet property="okBtn" destination="KuI-iN-S37" id="Bk2-MI-DW3"/>
                         <outlet property="textFieldColor" destination="hP4-Mt-i3l" id="19E-yT-GG3"/>

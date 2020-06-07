@@ -212,17 +212,17 @@
                                         </constraints>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="zbg-53-bJl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addCoordinateAction:" target="oDF-UT-bv5" id="l60-Uz-Csu"/>
-                                            <outlet property="menu" destination="cPL-pb-5cS" id="sJ1-g4-VUl"/>
+                                            <outlet property="menu" destination="1HL-Zx-eDR" id="Bmo-56-jKO"/>
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsN-Fd-s2i">
                                         <rect key="frame" x="32" y="8" width="210" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="jqt-id-cp6">
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <allowedInputSourceLocales>
@@ -265,9 +265,13 @@
                         <outlet property="columnIdentifier" destination="71D-st-arP" id="bLD-ac-vcN"/>
                         <outlet property="columnSimilarity" destination="pnx-EH-SzG" id="c6k-Ci-tgF"/>
                         <outlet property="columnTag" destination="oZV-av-rVK" id="9jm-DH-212"/>
+                        <outlet property="itemNewAreaMenuItem" destination="gSx-dD-DgQ" id="8yc-Jt-SF3"/>
+                        <outlet property="itemNewColorMenuItem" destination="7Qu-yW-xLS" id="Vss-bk-J1A"/>
+                        <outlet property="itemNewMenu" destination="Cqe-SJ-8Rv" id="0xI-hS-XYh"/>
                         <outlet property="itemReprAreaAltMenuItem" destination="dmE-sc-yBQ" id="RHr-Hb-Xil"/>
                         <outlet property="itemReprAreaMenuItem" destination="sVk-oR-IHz" id="GwM-dB-mQn"/>
-                        <outlet property="itemReprMenu" destination="cPL-pb-5cS" id="fle-v2-DO5"/>
+                        <outlet property="itemReprColorMenuItem" destination="jKH-wp-n6X" id="uW6-i9-xZj"/>
+                        <outlet property="itemReprMenu" destination="1HL-Zx-eDR" id="myl-lI-9cs"/>
                         <outlet property="tableHeaderMenu" destination="a29-Fd-YbH" id="xcF-yj-1HS"/>
                         <outlet property="tableMenu" destination="ziX-dt-DMr" id="VPq-xk-rVu"/>
                         <outlet property="tableView" destination="JHd-l9-l6u" id="BtV-as-1Vb"/>
@@ -379,27 +383,53 @@ CA
                         <outlet property="delegate" destination="oDF-UT-bv5" id="UiB-ME-udp"/>
                     </connections>
                 </menu>
-                <menu id="cPL-pb-5cS">
+                <menu id="Cqe-SJ-8Rv">
                     <items>
-                        <menuItem title="Color &amp; Coordinate: (x, y)" state="on" enabled="NO" id="jKH-wp-n6X">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                        </menuItem>
-                        <menuItem isSeparatorItem="YES" id="lry-i6-xMN"/>
-                        <menuItem title="Area: (x1, y1, x2, y2)" state="on" id="sVk-oR-IHz">
+                        <menuItem title="Add Color &amp; Coordinate..." id="7Qu-yW-xLS">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="l5j-kl-n7d"/>
+                                <action selector="create:" target="oDF-UT-bv5" id="CSg-vR-jDO"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Area: (x, y, w, h)" id="dmE-sc-yBQ">
+                        <menuItem title="Add Area..." id="gSx-dD-DgQ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="lmi-en-dex"/>
+                                <action selector="create:" target="oDF-UT-bv5" id="W2r-Aj-nb8"/>
                             </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="IMH-Di-kpO"/>
+                        <menuItem title="Quick Add Patterns" id="as6-mp-8ga">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Quick Add Patterns" id="1HL-Zx-eDR">
+                                <items>
+                                    <menuItem title="Color &amp; Coordinate: (x, y)" state="on" id="jKH-wp-n6X">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="E9A-gt-LTD"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="lry-i6-xMN"/>
+                                    <menuItem title="Area: (x1, y1, x2, y2)" state="on" id="sVk-oR-IHz">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="l5j-kl-n7d"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Area: (x, y, w, h)" id="dmE-sc-yBQ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="lmi-en-dex"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="oDF-UT-bv5" id="fcb-A2-QPz"/>
+                                </connections>
+                            </menu>
                         </menuItem>
                     </items>
                     <connections>
-                        <outlet property="delegate" destination="oDF-UT-bv5" id="im2-Gr-8eS"/>
+                        <outlet property="delegate" destination="oDF-UT-bv5" id="RiR-oA-qM8"/>
                     </connections>
                 </menu>
             </objects>

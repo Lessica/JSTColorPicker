@@ -1,8 +1,17 @@
+/* Class = "NSMenu"; title = "Quick Add Patterns"; ObjectID = "1HL-Zx-eDR"; */
+"1HL-Zx-eDR.title" = "快速添加样式";
+
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerCell.title" = "ID";
 
 /* Class = "NSTableColumn"; headerToolTip = "The primary key, a integer field of the item."; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerToolTip" = "ID";
+
+/* Class = "NSMenuItem"; title = "Add Color & Coordinate..."; ObjectID = "7Qu-yW-xLS"; */
+"7Qu-yW-xLS.title" = "添加颜色与坐标...";
+
+/* Class = "NSMenuItem"; title = "Quick Add Patterns"; ObjectID = "as6-mp-8ga"; */
+"as6-mp-8ga.title" = "快速添加样式";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
@@ -24,6 +33,9 @@
 
 /* Class = "NSMenuItem"; title = "Description"; ObjectID = "gf5-SR-cVU"; */
 "gf5-SR-cVU.title" = "描述";
+
+/* Class = "NSMenuItem"; title = "Add Area..."; ObjectID = "gSx-dD-DgQ"; */
+"gSx-dD-DgQ.title" = "添加区域...";
 
 /* Class = "NSMenuItem"; title = "Relocate"; ObjectID = "iSf-IL-2kW"; */
 "iSf-IL-2kW.title" = "调整位置";

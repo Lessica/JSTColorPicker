@@ -18,6 +18,7 @@ class EditWindow: NSWindow {
         return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditAreaWindowController") as! NSWindowController).window as! EditWindow
     }
     
+    public var isAdd: Bool = true
     public var contentItem: ContentItem?
     public weak var contentDelegate: ContentDelegate?
     public weak var contentDataSource: ContentDataSource?
