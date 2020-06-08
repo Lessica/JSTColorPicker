@@ -72,8 +72,12 @@ protocol ContentActionDelegate: class {
 }
 
 extension NSViewController {
+    var firstResponder: NSResponder? {
+        guard let window = view.window else { return nil }
+        return window.firstResponder
+    }
     @discardableResult
-    func makeFirstResponder(_ responder: NSResponder) -> Bool {
+    func makeFirstResponder(_ responder: NSResponder?) -> Bool {
         guard let window = view.window else { return false }
         return window.makeFirstResponder(responder)
     }
@@ -104,23 +108,24 @@ class ContentController: NSViewController {
     fileprivate var undoToken: NotificationToken?
     fileprivate var redoToken: NotificationToken?
     
-    @IBOutlet var tableMenu              : NSMenu!
-    @IBOutlet var tableHeaderMenu        : NSMenu!
+    @IBOutlet var tableMenu               : NSMenu!
+    @IBOutlet var tableHeaderMenu         : NSMenu!
+    @IBOutlet var tableRemoveTagsMenu     : NSMenu!
     
-    @IBOutlet var itemNewMenu            : NSMenu!
-    @IBOutlet var itemNewColorMenuItem   : NSMenuItem!
-    @IBOutlet var itemNewAreaMenuItem    : NSMenuItem!
+    @IBOutlet var itemNewMenu             : NSMenu!
+    @IBOutlet var itemNewColorMenuItem    : NSMenuItem!
+    @IBOutlet var itemNewAreaMenuItem     : NSMenuItem!
     
-    @IBOutlet var itemReprMenu           : NSMenu!
-    @IBOutlet var itemReprColorMenuItem  : NSMenuItem!
-    @IBOutlet var itemReprAreaMenuItem   : NSMenuItem!
-    @IBOutlet var itemReprAreaAltMenuItem: NSMenuItem!
+    @IBOutlet var itemReprMenu            : NSMenu!
+    @IBOutlet var itemReprColorMenuItem   : NSMenuItem!
+    @IBOutlet var itemReprAreaMenuItem    : NSMenuItem!
+    @IBOutlet var itemReprAreaAltMenuItem : NSMenuItem!
     
-    @IBOutlet weak var tableView: ContentTableView!
-    @IBOutlet weak var columnIdentifier : NSTableColumn!
-    @IBOutlet weak var columnSimilarity : NSTableColumn!
-    @IBOutlet weak var columnTag        : NSTableColumn!
-    @IBOutlet weak var columnDescription: NSTableColumn!
+    @IBOutlet weak var tableView          : ContentTableView!
+    @IBOutlet weak var columnIdentifier   : NSTableColumn!
+    @IBOutlet weak var columnSimilarity   : NSTableColumn!
+    @IBOutlet weak var columnTag          : NSTableColumn!
+    @IBOutlet weak var columnDescription  : NSTableColumn!
     
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField : NSTextField!
@@ -649,6 +654,9 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 }
             }
         }
+        else if menu == tableRemoveTagsMenu {
+            // see numberOfItems(in:)
+        }
         else if menu == itemReprMenu {
             let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
             if useAlt {
@@ -660,6 +668,23 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
                 itemReprAreaAltMenuItem.state = .off
             }
         }
+    }
+    
+    func numberOfItems(in menu: NSMenu) -> Int {
+        if menu == tableRemoveTagsMenu
+        {
+            guard let collection = content?.items else { return 0 }
+            guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return 0 }
+            return collection[targetIndex].tags.count
+        }
+        return -1  // unchanged
+    }
+    
+    func menu(_ menu: NSMenu, update item: NSMenuItem, at index: Int, shouldCancel: Bool) -> Bool {
+        if menu == tableRemoveTagsMenu {
+            
+        }
+        return true
     }
     
     fileprivate func updateColumns() {

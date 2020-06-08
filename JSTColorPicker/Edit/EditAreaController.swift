@@ -42,17 +42,28 @@ class EditAreaController: EditViewController {
         
         undoManager?.disableUndoRegistration()
         setupPreviewIfNeeded()
-        updateDisplay(with: (contentItem as? PixelArea)?.rect)
+        updateDisplay(nil, with: contentItem)
         if isAdd {
             box.title = NSLocalizedString("New Area", comment: "EditAreaController")
         } else {
             box.title = NSLocalizedString("Edit Area", comment: "EditAreaController")
-            validateInputs(nil)
+            validateInputs(view)
         }
         undoManager?.enableUndoRegistration()
+        
+        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: nil)
+        { [unowned self] (notification) in
+            guard (notification.object as? UndoManager) == self.undoManager else { return }
+            self.validateInputs(nil)
+        }
+        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: nil)
+        { [unowned self] (notification) in
+            guard (notification.object as? UndoManager) == self.undoManager else { return }
+            self.validateInputs(nil)
+        }
     }
     
-    private var lastRectangle: PixelRect?
+    private var lastDisplayedArea: PixelArea?
     
     private var currentRectangle: PixelRect {
         PixelRect(
@@ -63,9 +74,10 @@ class EditAreaController: EditViewController {
         )
     }
     
-    private func updateDisplay(with rect: PixelRect?) {
-        guard let rect = rect else { return }
+    private func updateDisplay(_ sender: Any?, with item: ContentItem?) {
+        guard let pixelArea = item as? PixelArea else { return }
         
+        let rect = pixelArea.rect
         textFieldOriginX  .stringValue = String(rect.minX)
         textFieldOriginY  .stringValue = String(rect.minY)
         textFieldWidth    .stringValue = String(rect.width)
@@ -73,8 +85,25 @@ class EditAreaController: EditViewController {
         textFieldOppositeX.stringValue = String(rect.maxX)
         textFieldOppositeY.stringValue = String(rect.maxY)
         
+        if let lastDisplayedArea = lastDisplayedArea, lastDisplayedArea.rect != pixelArea.rect, sender != nil
+        {
+            undoManager?.beginUndoGrouping()
+            undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
+                if let field = sender as? NSTextField, targetSelf.firstResponder != field
+                {
+                    targetSelf.makeFirstResponder(field)
+                } else {
+                    targetSelf.makeFirstResponder(nil)
+                }
+                targetSelf.updateDisplay(sender, with: lastDisplayedArea)
+            })
+            undoManager?.endUndoGrouping()
+        }
+        
         updatePreview(to: rect.toCGRect())
-        lastRectangle = rect
+        if sender != nil {
+            lastDisplayedArea = pixelArea
+        }
     }
     
     private func testContentItem(fromOpposite: Bool, with item: ContentItem? = nil) throws -> ContentItem? {
@@ -108,15 +137,16 @@ class EditAreaController: EditViewController {
         return replItem
     }
     
-    @IBAction private func validateInputs(_ sender: NSTextField?) {
+    @IBAction private func validateInputs(_ sender: Any?) {
         internalValidateInputs(sender)
     }
     
     @discardableResult
-    private func internalValidateInputs(_ sender: NSTextField?) -> ContentItem? {
+    private func internalValidateInputs(_ sender: Any?) -> ContentItem? {
         do {
-            let item = try testContentItem(fromOpposite: sender == textFieldOppositeX || sender == textFieldOppositeY)
-            updateDisplay(with: (item as? PixelArea)?.rect)
+            let field = sender as? NSTextField
+            let item = try testContentItem(fromOpposite: field == textFieldOppositeX || field == textFieldOppositeY)
+            updateDisplay(sender, with: item)
             okBtn.isEnabled = (item != contentItem)
             textFieldError.isHidden = true
             return item
@@ -163,6 +193,9 @@ class EditAreaController: EditViewController {
         UserDefaults.standard[.togglePreviewArea] = !previewBox.isHidden
         
         setupPreviewIfNeeded()
+        if !previewBox.isHidden {
+            updatePreview(to: currentRectangle.toCGRect())
+        }
     }
     
     private var didSetupPreview: Bool = false
@@ -196,6 +229,10 @@ class EditAreaController: EditViewController {
         previewOverlayView.highlightArea = CGRect.null
     }
     
+    deinit {
+        debugPrint("- [EditAreaController deinit]")
+    }
+    
 }
 
 extension EditAreaController: PreviewResponder {
@@ -214,8 +251,9 @@ extension EditAreaController: PreviewResponder {
             )
         ).intersection(imageBounds)
         
-        updateDisplay(with: replRect)
-        validateInputs(nil)
+        makeFirstResponder(nil)
+        updateDisplay(nil, with: PixelArea(rect: replRect))
+        internalValidateInputs(sender)
     }
     
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) { }

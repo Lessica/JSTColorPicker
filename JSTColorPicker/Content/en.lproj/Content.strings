@@ -37,8 +37,8 @@
 /* Class = "NSMenuItem"; title = "Add Area..."; ObjectID = "gSx-dD-DgQ"; */
 "gSx-dD-DgQ.title" = "Add Area...";
 
-/* Class = "NSMenuItem"; title = "Relocate"; ObjectID = "iSf-IL-2kW"; */
-"iSf-IL-2kW.title" = "Relocate";
+/* Class = "NSMenuItem"; title = "Relocate..."; ObjectID = "iSf-IL-2kW"; */
+"iSf-IL-2kW.title" = "Relocate...";
 
 /* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "jKH-wp-n6X"; */
 "jKH-wp-n6X.title" = "Color & Coordinate: (x, y)";

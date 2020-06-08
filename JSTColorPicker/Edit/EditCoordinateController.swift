@@ -24,16 +24,31 @@ class EditCoordinateController: EditViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        updateDisplay(with: contentItem)
+        undoManager?.beginUndoGrouping()
+        updateDisplay(nil, with: contentItem)
         if isAdd {
             box.title = NSLocalizedString("New Color & Coordinate", comment: "EditCoordinateController")
         } else {
             box.title = NSLocalizedString("Edit Color & Coordinate", comment: "EditCoordinateController")
-            validateInputs(nil)
+            validateInputs(view)
+        }
+        undoManager?.endUndoGrouping()
+        
+        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: nil)
+        { [unowned self] (notification) in
+            guard (notification.object as? UndoManager) == self.undoManager else { return }
+            self.validateInputs(nil)
+        }
+        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: nil)
+        { [unowned self] (notification) in
+            guard (notification.object as? UndoManager) == self.undoManager else { return }
+            self.validateInputs(nil)
         }
     }
     
-    private func updateDisplay(with item: ContentItem?) {
+    private var lastDisplayedColor: PixelColor?
+    
+    private func updateDisplay(_ sender: Any?, with item: ContentItem?) {
         guard let pixelColor = item as? PixelColor else { return }
         
         textFieldOriginX.stringValue   = String(pixelColor.coordinate.x)
@@ -43,6 +58,25 @@ class EditCoordinateController: EditViewController {
         let nsColor = pixelColor.toNSColor()
         textFieldColor.textColor       = nsColor
         textFieldColor.backgroundColor = (nsColor.isLightColor ?? false) ? .black : .white
+        
+        if let lastDisplayedColor = lastDisplayedColor, lastDisplayedColor.coordinate != pixelColor.coordinate, sender != nil
+        {
+            undoManager?.beginUndoGrouping()
+            undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
+                if let field = sender as? NSTextField, targetSelf.firstResponder != field
+                {
+                    targetSelf.makeFirstResponder(field)
+                } else {
+                    targetSelf.makeFirstResponder(nil)
+                }
+                targetSelf.updateDisplay(sender, with: lastDisplayedColor)
+            })
+            undoManager?.endUndoGrouping()
+        }
+        
+        if sender != nil {
+            lastDisplayedColor = pixelColor
+        }
     }
     
     private func testContentItem(with item: ContentItem? = nil) throws -> ContentItem? {
@@ -54,10 +88,10 @@ class EditCoordinateController: EditViewController {
         return replItem
     }
     
-    @IBAction private func validateInputs(_ sender: NSTextField?) {
+    @IBAction private func validateInputs(_ sender: Any?) {
         do {
             let item = try testContentItem()
-            updateDisplay(with: item)
+            updateDisplay(sender, with: item)
             okBtn.isEnabled = (item != contentItem)
             textFieldError.isHidden = true
         } catch {
@@ -93,6 +127,10 @@ class EditCoordinateController: EditViewController {
         } catch {
             presentError(error)
         }
+    }
+    
+    deinit {
+        debugPrint("- [EditCoordinateController deinit]")
     }
     
 }

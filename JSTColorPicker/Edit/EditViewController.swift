@@ -21,6 +21,9 @@ class EditViewController: NSViewController {
     public weak var contentDataSource: ContentDataSource? { (view.window as? EditWindow)?.contentDataSource }
     public weak var contentDelegate: ContentDelegate? { (view.window as? EditWindow)?.contentDelegate }
     
+    internal var undoToken: NotificationToken?
+    internal var redoToken: NotificationToken?
+    
 }
 
 extension EditViewController: NSTextFieldDelegate {

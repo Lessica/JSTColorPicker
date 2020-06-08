@@ -19,8 +19,8 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "Jns-u7-V7q"; */
 "Jns-u7-V7q.title" = "删除";
 
-/* Class = "NSMenuItem"; title = "Change Color"; ObjectID = "Ndd-m7-WU5"; */
-"Ndd-m7-WU5.title" = "更换颜色";
+/* Class = "NSMenuItem"; title = "Change Color..."; ObjectID = "Ndd-m7-WU5"; */
+"Ndd-m7-WU5.title" = "更换颜色...";
 
 /* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
 "P0n-tt-x07.placeholderString" = "标签";
