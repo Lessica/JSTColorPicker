@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Origin Y: "; ObjectID = "7hi-tL-x2j"; */
 "7hi-tL-x2j.title" = "Origin Y: ";
 
+/* Class = "NSBox"; title = "Preview"; ObjectID = "A6n-Ur-CSs"; */
+"A6n-Ur-CSs.title" = "Preview";
+
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "abA-Ke-xKL"; */
 "abA-Ke-xKL.title" = "Cancel";
 
@@ -48,6 +51,12 @@
 
 /* Class = "NSBox"; title = "Preview"; ObjectID = "pxe-de-bqq"; */
 "pxe-de-bqq.title" = "Preview";
+
+/* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Sev-EQ-tCf"; */
+"Sev-EQ-tCf.alternateTitle" = "Show Preview";
+
+/* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "Sev-EQ-tCf"; */
+"Sev-EQ-tCf.title" = "Hide Preview";
 
 /* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
 "Ujz-vy-7WQ.title" = "● #FFFFFF";

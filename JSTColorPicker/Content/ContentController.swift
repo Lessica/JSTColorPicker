@@ -494,9 +494,7 @@ extension ContentController: ContentDelegate {
         guard let content = content                              else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
         
-        tableView.selectRowIndexes(IndexSet(integer: itemIndex), byExtendingSelection: extend)
-        tableView.scrollRowToVisible(itemIndex)
-        makeFirstResponder(tableView)
+        selectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
         return item
         
     }
@@ -518,7 +516,11 @@ extension ContentController: ContentDelegate {
     
     private func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
         if !set.isEmpty, let lastIndex = set.last {
-            tableView.selectRowIndexes(set, byExtendingSelection: extend)
+            if tableView.selectedRowIndexes != set {
+                tableView.selectRowIndexes(set, byExtendingSelection: extend)
+            } else {
+                internalTableViewSelectionDidChange(nil)
+            }
             tableView.scrollRowToVisible(lastIndex)
             makeFirstResponder(tableView)
         }
@@ -1015,6 +1017,10 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
+        internalTableViewSelectionDidChange(notification)
+    }
+    
+    private func internalTableViewSelectionDidChange(_ notification: Notification?) {
         guard let collection = content?.items else { return }
         let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
         actionDelegate.contentActionSelected(realSelectedItems)

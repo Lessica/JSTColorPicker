@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Origin Y: "; ObjectID = "7hi-tL-x2j"; */
 "7hi-tL-x2j.title" = "原点 Y: ";
 
+/* Class = "NSBox"; title = "Preview"; ObjectID = "A6n-Ur-CSs"; */
+"A6n-Ur-CSs.title" = "预览";
+
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "abA-Ke-xKL"; */
 "abA-Ke-xKL.title" = "取消";
 
@@ -48,6 +51,12 @@
 
 /* Class = "NSBox"; title = "Preview"; ObjectID = "pxe-de-bqq"; */
 "pxe-de-bqq.title" = "预览";
+
+/* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Sev-EQ-tCf"; */
+"Sev-EQ-tCf.alternateTitle" = "显示预览";
+
+/* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "Sev-EQ-tCf"; */
+"Sev-EQ-tCf.title" = "隐藏预览";
 
 /* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
 "Ujz-vy-7WQ.title" = "● #FFFFFF";

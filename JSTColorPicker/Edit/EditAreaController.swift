@@ -23,7 +23,6 @@ class EditAreaController: EditViewController {
     @IBOutlet weak var textFieldHeight   : NSTextField!
     @IBOutlet weak var textFieldOppositeX: NSTextField!
     @IBOutlet weak var textFieldOppositeY: NSTextField!
-    
     @IBOutlet weak var textFieldError    : NSTextField!
     
     @IBOutlet weak var previewImageView  : PreviewImageView!
@@ -66,7 +65,10 @@ class EditAreaController: EditViewController {
     private var lastDisplayedArea: PixelArea?
     
     private var currentRectangle: PixelRect {
-        PixelRect(
+        if textFieldOriginX.stringValue.isEmpty || textFieldOriginY.stringValue.isEmpty || textFieldWidth.stringValue.isEmpty || textFieldHeight.stringValue.isEmpty {
+            return .null
+        }
+        return PixelRect(
             x: textFieldOriginX.integerValue,
             y: textFieldOriginY.integerValue,
             width: textFieldWidth.integerValue,
@@ -236,9 +238,10 @@ class EditAreaController: EditViewController {
 extension EditAreaController: PreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        guard let imageBounds = image?.bounds else { return }
+        guard let image = image else { return }
         guard let origRect = (internalValidateInputs(nil) as? PixelArea)?.rect else { return }
         
+        let imageBounds = image.bounds
         let point = coordinate.toCGPoint()
         let replRect = PixelRect(
             CGRect(
@@ -250,7 +253,7 @@ extension EditAreaController: PreviewResponder {
         ).intersection(imageBounds)
         
         makeFirstResponder(nil)
-        updateDisplay(nil, with: PixelArea(rect: replRect))
+        updateDisplay(nil, with: image.area(at: replRect))
         internalValidateInputs(sender)
     }
     

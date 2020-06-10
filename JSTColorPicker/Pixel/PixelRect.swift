@@ -75,6 +75,9 @@ struct PixelRect: Codable {
     }
     
     public func toCGRect() -> CGRect {
+        if isNull {
+            return .null
+        }
         return CGRect(origin: origin.toCGPoint(), size: size.toCGSize())
     }
     

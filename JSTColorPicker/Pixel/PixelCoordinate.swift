@@ -33,6 +33,9 @@ struct PixelCoordinate: Codable {
     }
     
     func toCGPoint() -> CGPoint {
+        if isNull {
+            return .null
+        }
         return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
     

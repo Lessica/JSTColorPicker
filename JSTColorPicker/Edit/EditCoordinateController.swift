@@ -10,21 +10,34 @@ import Cocoa
 
 class EditCoordinateController: EditViewController {
     
-    @IBOutlet weak var box      : NSBox!
+    @IBOutlet weak var box          : NSBox!
+    @IBOutlet weak var previewBox   : NSBox!
     
-    @IBOutlet weak var cancelBtn: NSButton!
-    @IBOutlet weak var okBtn    : NSButton!
+    @IBOutlet weak var toggleBtn    : NSButton!
+    @IBOutlet weak var cancelBtn    : NSButton!
+    @IBOutlet weak var okBtn        : NSButton!
     
     @IBOutlet weak var textFieldOriginX: NSTextField!
     @IBOutlet weak var textFieldOriginY: NSTextField!
     @IBOutlet weak var textFieldColor  : NSTextField!
-    
     @IBOutlet weak var textFieldError  : NSTextField!
+    
+    @IBOutlet weak var previewImageView  : PreviewImageView!
+    @IBOutlet weak var previewOverlayView: PreviewOverlayView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let previewOn: Bool = UserDefaults.standard[.togglePreviewColor]
+        previewBox.isHidden = !previewOn
+        toggleBtn.state = previewBox.isHidden ? .on : .off
+    }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         
         undoManager?.disableUndoRegistration()
+        setupPreviewIfNeeded()
         updateDisplay(nil, with: contentItem)
         if isAdd {
             box.title = NSLocalizedString("New Color & Coordinate", comment: "EditCoordinateController")
@@ -48,11 +61,22 @@ class EditCoordinateController: EditViewController {
     
     private var lastDisplayedColor: PixelColor?
     
+    private var currentCoordinate: PixelCoordinate {
+        if textFieldOriginX.stringValue.isEmpty || textFieldOriginY.stringValue.isEmpty {
+            return .null
+        }
+        return PixelCoordinate(
+            x: textFieldOriginX.integerValue,
+            y: textFieldOriginY.integerValue
+        )
+    }
+    
     private func updateDisplay(_ sender: Any?, with item: ContentItem?) {
         guard let pixelColor = item as? PixelColor else { return }
         
-        textFieldOriginX.stringValue   = String(pixelColor.coordinate.x)
-        textFieldOriginY.stringValue   = String(pixelColor.coordinate.y)
+        let coord = pixelColor.coordinate
+        textFieldOriginX.stringValue   = String(coord.x)
+        textFieldOriginY.stringValue   = String(coord.y)
         textFieldColor  .stringValue   = "\u{25CF} \(pixelColor.cssString)"
         
         let nsColor = pixelColor.toNSColor()
@@ -72,6 +96,7 @@ class EditCoordinateController: EditViewController {
             })
         }
         
+        updatePreview(to: coord.toCGPoint())
         if sender != nil {
             lastDisplayedColor = pixelColor
         }
@@ -87,16 +112,23 @@ class EditCoordinateController: EditViewController {
     }
     
     @IBAction private func validateInputs(_ sender: Any?) {
+        internalValidateInputs(sender)
+    }
+    
+    @discardableResult
+    private func internalValidateInputs(_ sender: Any?) -> ContentItem? {
         do {
             let item = try testContentItem()
             updateDisplay(sender, with: item)
             okBtn.isEnabled = (item != contentItem)
             textFieldError.isHidden = true
+            return item
         } catch {
             textFieldError.stringValue = "\n\(error.localizedDescription)"
             okBtn.isEnabled = false
             textFieldError.isHidden = false
         }
+        return nil
     }
     
     @IBAction private func cancelAction(_ sender: NSButton) {
@@ -127,8 +159,66 @@ class EditCoordinateController: EditViewController {
         }
     }
     
+    @IBAction private func toggleAction(_ sender: NSButton) {
+        previewBox.isHidden = !previewBox.isHidden
+        sender.state = previewBox.isHidden ? .on : .off
+        UserDefaults.standard[.togglePreviewColor] = !previewBox.isHidden
+        
+        setupPreviewIfNeeded()
+        if !previewBox.isHidden {
+            updatePreview(to: currentCoordinate.toCGPoint())
+        }
+    }
+    
+    private var didSetupPreview: Bool = false
+    private func setupPreviewIfNeeded() {
+        guard let image = image else { return }
+        guard !previewBox.isHidden && !didSetupPreview else { return }
+        didSetupPreview = true
+        
+        let previewSize = image.size.toCGSize()
+        let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
+        let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
+        previewImageView.setImage(previewImage)
+        previewOverlayView.imageSize = previewSize
+        previewOverlayView.highlightArea = previewRect
+        
+        previewOverlayView.overlayDelegate = self
+    }
+    
+    private func updatePreview(to point: CGPoint) {
+        guard didSetupPreview && !point.isNull else { return }
+        guard let imageSize = image?.size else { return }
+        
+        let rect = CGRect(at: point, radius: 1.0)
+        let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+        let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+        let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+        previewOverlayView.highlightArea = highlightRect
+    }
+    
+    private func resetPreview() {
+        guard didSetupPreview else { return }
+        previewOverlayView.highlightArea = CGRect.null
+    }
+    
     deinit {
         debugPrint("- [EditCoordinateController deinit]")
     }
     
 }
+
+extension EditCoordinateController: PreviewResponder {
+    
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        guard let image = image else { return }
+        
+        makeFirstResponder(nil)
+        updateDisplay(nil, with: image.color(at: coordinate))
+        internalValidateInputs(sender)
+    }
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) { }
+    
+}
+
