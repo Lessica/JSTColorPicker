@@ -80,6 +80,15 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
         return removedElement
     }
     
+    /// Remove specific element from the ordered set.
+    @discardableResult
+    public mutating func remove(_ member: Element) -> Element? {
+        guard let memberIndex = array.firstIndex(of: member) else { return nil }
+        let removedElement = array.remove(at: memberIndex)
+        set.remove(removedElement)
+        return removedElement
+    }
+    
     /// Remove and return the element at the beginning of the ordered set.
     public mutating func removeFirst() -> Element {
         let firstElement = array.removeFirst()

@@ -996,15 +996,16 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func removeTag(_ sender: NSMenuItem) {
-        guard let parent = sender.menu        else { return }
-        guard let collection = content?.items else { return }
-        guard tableView.clickedRow >= 0       else { return }
+        guard let parent = sender.menu else { return }
+        guard let selectedItems = selectedContentItems,
+            let menuTags = preparedMenuTags else { return }
         
         let targetTagIndex = parent.index(of: sender)
-        let targetItem = collection[tableView.clickedRow].copy() as! ContentItem
-        targetItem.tags.remove(at: targetTagIndex)
+        let targetTag = menuTags[targetTagIndex]
+        let copiedItems = selectedItems.map({ $0.copy() as! ContentItem })
+        copiedItems.forEach({ $0.tags.remove(targetTag) })
         
-        let itemIndexes = internalUpdateContentItems([targetItem])
+        let itemIndexes = internalUpdateContentItems(copiedItems)
         let col = tableView.column(withIdentifier: .columnTag)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
     }
