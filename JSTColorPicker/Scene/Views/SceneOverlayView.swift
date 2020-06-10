@@ -25,8 +25,8 @@ class SceneOverlayView: NSView, DragEndpoint {
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
-    fileprivate var trackingArea: NSTrackingArea?
-    fileprivate func createTrackingArea() {
+    private var trackingArea: NSTrackingArea?
+    private func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
@@ -42,18 +42,18 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     public weak var contentResponder: ContentDelegate!
     public weak var sceneToolDataSource: SceneToolDataSource!
-    fileprivate var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
+    private var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
     public weak var sceneStateDataSource: SceneStateDataSource!
-    fileprivate var sceneState: SceneState { return sceneStateDataSource.sceneState }
+    private var sceneState: SceneState { return sceneStateDataSource.sceneState }
     public weak var annotatorDataSource: AnnotatorDataSource!
-    fileprivate var annotators: [Annotator] { return annotatorDataSource.annotators }
-    fileprivate func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
+    private var annotators: [Annotator] { return annotatorDataSource.annotators }
+    private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
         return annotators.first(where: { $0.overlay == overlay })?.contentItem
     }
     
     public var overlays: [AnnotatorOverlay] { return subviews as! [AnnotatorOverlay] }
-    fileprivate weak var internalFocusedOverlay: AnnotatorOverlay?
-    fileprivate var internalEditableDirection: EditableDirection = .none
+    private weak var internalFocusedOverlay: AnnotatorOverlay?
+    private var internalEditableDirection: EditableDirection = .none
     public var isFocused: Bool {
         return sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false
     }
@@ -130,18 +130,18 @@ class SceneOverlayView: NSView, DragEndpoint {
         updateAppearance(with: nil)
     }
     
-    fileprivate func updateAppearance(with locInWindow: CGPoint?) {
+    private func updateAppearance(with locInWindow: CGPoint?) {
         guard isMouseInside else { return }
         internalUpdateFocusAppearance(with: locInWindow)
         internalUpdateCursorAppearance(with: locInWindow)
     }
     
-    fileprivate func resetAppearance() {
+    private func resetAppearance() {
         internalResetFocusAppearance()
         internalResetCursorAppearance()
     }
     
-    fileprivate func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
+    private func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
         guard sceneTool == .selectionArrow else {
             internalResetFocusAppearance()
             return
@@ -171,7 +171,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         }
     }
     
-    fileprivate func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
+    private func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
         if sceneToolDataSource.sceneToolEnabled {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
@@ -196,7 +196,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         }
     }
     
-    fileprivate func internalResetFocusAppearance() {
+    private func internalResetFocusAppearance() {
         if let focusedOverlay = self.internalFocusedOverlay {
             focusedOverlay.isFocused = false
             focusedOverlay.setNeedsDisplay(visibleOnly: false)
@@ -204,19 +204,19 @@ class SceneOverlayView: NSView, DragEndpoint {
         }
     }
     
-    fileprivate func internalResetCursorAppearance() {
+    private func internalResetCursorAppearance() {
         SceneTool.arrowCursor.set()
     }
     
     
     // MARK: - Drag/Drop
     
-    fileprivate func isAcceptableDraggingTarget(_ draggingInfo: NSDraggingInfo, target: AnnotatorOverlay?) -> Bool {
+    private func isAcceptableDraggingTarget(_ draggingInfo: NSDraggingInfo, target: AnnotatorOverlay?) -> Bool {
         guard target != nil else { return false }
         return true
     }
     
-    fileprivate func updateDraggingAppearance(with locInWindow: CGPoint?) {
+    private func updateDraggingAppearance(with locInWindow: CGPoint?) {
         guard isMouseInside else { return }
         internalUpdateFocusAppearance(with: locInWindow)
     }
@@ -268,16 +268,11 @@ class SceneOverlayView: NSView, DragEndpoint {
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
-        var tagNames = [String]()
         sender.enumerateDraggingItems(options: [], for: self, classes: [NSPasteboardItem.self], searchOptions: [:]) { (dragItem, _, _) in
             if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.attachPasteboardType) as? [String] {
-                obj.forEach({ tagNames.append($0) })
+                obj.forEach({ replItem.tags.append($0) })
             }
         }
-        
-        let tagSet = Set<String>(replItem.tags)
-        tagNames.removeAll(where: { tagSet.contains($0) })
-        replItem.tags.append(contentsOf: tagNames)
         
         if let _ = try? contentResponder.updateContentItem(replItem) {
             return true

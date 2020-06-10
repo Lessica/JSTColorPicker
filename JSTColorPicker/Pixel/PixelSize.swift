@@ -74,7 +74,7 @@ extension PixelSize: LuaSwift.Value {
     
     func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel size (table with keys [w,h])"
+    private static let typeName: String = "pixel size (table with keys [w,h])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

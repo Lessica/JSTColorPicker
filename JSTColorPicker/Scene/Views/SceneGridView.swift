@@ -29,15 +29,15 @@ class SceneGridView: NSView {
     public var drawGridsInScene: Bool = false
     public var enableGPUAcceleration: Bool = true
     
-    fileprivate static let minimumScaleOfGridDrawing  : CGFloat = 32.0
-    fileprivate static let minimumScaleOfRasterization: CGFloat = 0.8
-    fileprivate static let maximumScaleOfRasterization: CGFloat = 1.2
-    fileprivate static let defaultGridLineWidth       : CGFloat = 1.0
-    fileprivate static let defaultGridLineColor = CGColor(gray: 1.0, alpha: 0.3)
+    private static let minimumScaleOfGridDrawing  : CGFloat = 32.0
+    private static let minimumScaleOfRasterization: CGFloat = 0.8
+    private static let maximumScaleOfRasterization: CGFloat = 1.2
+    private static let defaultGridLineWidth       : CGFloat = 1.0
+    private static let defaultGridLineColor = CGColor(gray: 1.0, alpha: 0.3)
     
-    fileprivate var shouldDrawGridsInScene: Bool = false
-    fileprivate var gridWrappedPixelRect: PixelRect = .null
-    fileprivate var gridRenderingArea: CGRect = .null
+    private var shouldDrawGridsInScene: Bool = false
+    private var gridWrappedPixelRect: PixelRect = .null
+    private var gridRenderingArea: CGRect = .null
     
     
     // MARK: - CPU Drawing
@@ -99,10 +99,10 @@ class SceneGridView: NSView {
     
     // MARK: - Hidden Resets
     
-    fileprivate weak var storedSceneView: SceneScrollView?
-    fileprivate var storedRect: CGRect?
-    fileprivate var storedMagnification: CGFloat?
-    fileprivate var shouldPauseTracking: Bool = false
+    private weak var storedSceneView: SceneScrollView?
+    private var storedRect: CGRect?
+    private var storedMagnification: CGFloat?
+    private var shouldPauseTracking: Bool = false
     
     override var isHidden: Bool {
         didSet {

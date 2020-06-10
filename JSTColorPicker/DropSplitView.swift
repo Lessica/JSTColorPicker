@@ -37,7 +37,7 @@ class DropSplitView: NSSplitView {
     }
     @IBOutlet weak var dropDelegate : DropViewDelegate!
     
-    fileprivate func checkExtension(drag: NSDraggingInfo) -> Bool {
+    private func checkExtension(drag: NSDraggingInfo) -> Bool {
         guard let fileExt = drag.draggedFileURL?.pathExtension?.lowercased() else {
             return false
         }

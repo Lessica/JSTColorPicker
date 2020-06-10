@@ -23,15 +23,15 @@ class TagListController: NSViewController {
         set { tableViewOverlay.sceneToolDataSource = newValue }
     }
     
-    fileprivate var willUndoToken: NotificationToken?
-    fileprivate var willRedoToken: NotificationToken?
-    fileprivate var didUndoToken: NotificationToken?
-    fileprivate var didRedoToken: NotificationToken?
+    private var willUndoToken: NotificationToken?
+    private var willRedoToken: NotificationToken?
+    private var didUndoToken: NotificationToken?
+    private var didRedoToken: NotificationToken?
     
     static public var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
-    static fileprivate var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
+    static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
-    fileprivate var colorPanel: NSColorPanel {
+    private var colorPanel: NSColorPanel {
         let panel = NSColorPanel.shared
         panel.showsAlpha = false
         panel.isContinuous = false
@@ -111,7 +111,7 @@ class TagListController: NSViewController {
         
     }
     
-    fileprivate func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
+    private func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
         }
@@ -209,18 +209,18 @@ class TagListController: NSViewController {
         }
     }
     
-    fileprivate var shouldRearrangeManagedTags: Bool = false
-    fileprivate var shouldSaveManagedTags: Bool = false
+    private var shouldRearrangeManagedTags: Bool = false
+    private var shouldSaveManagedTags: Bool = false
     
-    fileprivate func setNeedsRearrangeManagedTags() {
+    private func setNeedsRearrangeManagedTags() {
         shouldRearrangeManagedTags = true
     }
     
-    fileprivate func setNeedsSaveManagedTags() {
+    private func setNeedsSaveManagedTags() {
         shouldSaveManagedTags = true
     }
     
-    fileprivate func saveManagedTagsIfNeeded() {
+    private func saveManagedTagsIfNeeded() {
         guard shouldSaveManagedTags else { return }
         shouldSaveManagedTags = false
         guard internalContext.hasChanges else { return }
@@ -239,14 +239,14 @@ class TagListController: NSViewController {
         }
     }
     
-    fileprivate func rearrangeManagedTagsIfNeeded() {
+    private func rearrangeManagedTagsIfNeeded() {
         guard shouldRearrangeManagedTags else { return }
         shouldRearrangeManagedTags = false
         guard let items = internalController.arrangedObjects as? [Tag] else { return }
         reorderTags(items)
     }
     
-    fileprivate func reorderTags(_ items: [Tag]) {
+    private func reorderTags(_ items: [Tag]) {
         var itemIdx: Int64 = 0
         items.forEach({
             $0.order = itemIdx
@@ -257,7 +257,7 @@ class TagListController: NSViewController {
     
     // MARK: - Menu
     
-    fileprivate weak var menuTargetObject: Tag?
+    private weak var menuTargetObject: Tag?
     
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
@@ -428,23 +428,19 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
 }
 
-extension TagListController: NSUserInterfaceValidations {
+extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(changeColorItemTapped(_:)) {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(changeColorItemTapped(_:)) {
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true
         }
-        else if item.action == #selector(delete(_:)) {
+        else if menuItem.action == #selector(delete(_:)) {
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
         return false
     }
-    
-}
-
-extension TagListController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == tagMenu {

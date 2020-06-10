@@ -89,20 +89,20 @@ class GridView: NSView {
             }
         }
     }
-    fileprivate var pixelSize = CGSize(width: 20.0, height: 20.0)
-    fileprivate var hPixelNum: Int = 0
-    fileprivate var vPixelNum: Int = 0
-    fileprivate lazy var centerOverlay: NSView = {
+    private var pixelSize = CGSize(width: 20.0, height: 20.0)
+    private var hPixelNum: Int = 0
+    private var vPixelNum: Int = 0
+    private lazy var centerOverlay: NSView = {
         let view = NSView()
         view.wantsLayer = true
         view.layer?.backgroundColor = .white
         return view
     }()
-    fileprivate var pixelImage: PixelImage? {
+    private var pixelImage: PixelImage? {
         return dataSource.screenshot?.image
     }
     
-    fileprivate func shimAnimation(_ opaque: Bool) {
+    private func shimAnimation(_ opaque: Bool) {
         if !animating { return }
         NSAnimationContext.runAnimationGroup({ [weak self] (context) in
             guard let self = self else { return }
@@ -131,7 +131,7 @@ class GridView: NSView {
         addSubview(centerOverlay)
     }
     
-    fileprivate func gridState(at coordinate: PixelCoordinate) -> GridState {
+    private func gridState(at coordinate: PixelCoordinate) -> GridState {
         guard let content = dataSource.screenshot?.content else { return .none }
         let isOccupiedByColor =
             shouldDrawAnnotators ? 

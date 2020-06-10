@@ -39,7 +39,7 @@ class ExportManager {
     public static var exampleTemplateURL: URL? {
         return Bundle.main.url(forResource: "example", withExtension: "lua")
     }
-    public fileprivate(set) var templates: [Template] = []
+    public private(set) var templates: [Template] = []
     public var selectedTemplate: Template? {
         templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
     }
@@ -55,17 +55,17 @@ class ExportManager {
         try? reloadTemplates()
     }
     
-    fileprivate func exportToGeneralStringPasteboard(_ string: String) {
+    private func exportToGeneralStringPasteboard(_ string: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(string, forType: .string)
     }
     
-    fileprivate lazy var additionalPasteboard = {
+    private lazy var additionalPasteboard = {
         return NSPasteboard(name: .jstColorPicker)
     }()
     
-    fileprivate func exportToAdditionalPasteboard(_ items: [ContentItem]) {
+    private func exportToAdditionalPasteboard(_ items: [ContentItem]) {
         additionalPasteboard.clearContents()
         additionalPasteboard.writeObjects(items)
     }

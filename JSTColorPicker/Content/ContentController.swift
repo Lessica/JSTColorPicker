@@ -15,14 +15,12 @@ extension NSUserInterfaceItemIdentifier {
     static let toggleTableColumnTag         = NSUserInterfaceItemIdentifier("toggle-tag")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
     
-}
-
-extension NSUserInterfaceItemIdentifier {
-    
     static let columnIdentifier  = NSUserInterfaceItemIdentifier("col-id")
-    static let columnSimilarity = NSUserInterfaceItemIdentifier("col-similarity")
+    static let columnSimilarity  = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnTag         = NSUserInterfaceItemIdentifier("col-tag")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
+    
+    static let removeTags        = NSUserInterfaceItemIdentifier("remove-tags")
     
 }
 
@@ -72,15 +70,18 @@ protocol ContentActionDelegate: class {
 }
 
 extension NSViewController {
+    
     var firstResponder: NSResponder? {
         guard let window = view.window else { return nil }
         return window.firstResponder
     }
+    
     @discardableResult
     func makeFirstResponder(_ responder: NSResponder?) -> Bool {
         guard let window = view.window else { return false }
         return window.makeFirstResponder(responder)
     }
+    
 }
 
 class ContentController: NSViewController {
@@ -89,28 +90,31 @@ class ContentController: NSViewController {
     public weak var tagListDataSource: TagListDataSource!
     
     internal weak var screenshot: Screenshot?
-    fileprivate var content: Content? {
+    private var content: Content? {
         return screenshot?.content
     }
-    fileprivate var nextID: Int {
+    private var nextID: Int {
         if let lastID = content?.items.last?.id {
             return lastID + 1
         }
         return 1
     }
-    fileprivate var nextSimilarity: Double {
+    private var nextSimilarity: Double {
         if let lastSimilarity = content?.items.last?.similarity {
             return lastSimilarity
         }
         return 1.0
     }
     
-    fileprivate var undoToken: NotificationToken?
-    fileprivate var redoToken: NotificationToken?
+    private var undoToken: NotificationToken?
+    private var redoToken: NotificationToken?
+    
+    @IBOutlet var tableMenuDelegateProxy  : NSMenuDelegateProxy!
     
     @IBOutlet var tableMenu               : NSMenu!
     @IBOutlet var tableHeaderMenu         : NSMenu!
     @IBOutlet var tableRemoveTagsMenu     : NSMenu!
+    @IBOutlet var tableRemoveTagsMenuItem : NSMenuItem!
     
     @IBOutlet var itemNewMenu             : NSMenu!
     @IBOutlet var itemNewColorMenuItem    : NSMenuItem!
@@ -129,6 +133,25 @@ class ContentController: NSViewController {
     
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField : NSTextField!
+    
+    private var selectedRowIndex: Int? {
+        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first
+    }
+    
+    private var selectedRowIndexes: IndexSet {
+        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow))
+            ? IndexSet(integer: tableView.clickedRow)
+            : IndexSet(tableView.selectedRowIndexes)
+    }
+    
+    private var selectedContentItems: [ContentItem]? {
+        guard let collection = content?.items else { return nil }
+        return selectedRowIndexes.map { collection[$0] }
+    }
+    
+    private var preparedSelectedItemCount: Int?
+    private var preparedMenuTags: OrderedSet<String>?
+    private var preparedMenuTagsAndCounts: [String: Int]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +176,7 @@ class ContentController: NSViewController {
         applyPreferences(nil)
     }
     
-    @objc fileprivate func applyPreferences(_ notification: Notification?) {
+    @objc private func applyPreferences(_ notification: Notification?) {
         updateColumns()
     }
     
@@ -192,7 +215,11 @@ class ContentController: NSViewController {
         if value >= 1 && value <= 100 {
             let item = content.items[row].copy() as! ContentItem
             item.similarity = min(max(value / 100.0, 0.01), 1.0)
-            internalUpdateContentItems([item])
+            
+            let itemIndexes = internalUpdateContentItems([item])
+            let col = tableView.column(withIdentifier: .columnSimilarity)
+            tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
+            return
         }
         
         let similarity = String(Int(content.items[row].similarity * 100.0))
@@ -301,59 +328,50 @@ class ContentController: NSViewController {
 
 extension ContentController {
     
-    fileprivate func internalAddContentItems(_ items: [ContentItem]) {
-        
-        guard let content = content else { return }
-        
-        undoManager?.beginUndoGrouping()
-        undoManager?.registerUndo(withTarget: self, handler: { targetSelf in
-            targetSelf.internalDeleteContentItems(items)  // memory captured and managed by UndoManager
-        })
-        undoManager?.endUndoGrouping()
-        
+    @discardableResult
+    private func internalAddContentItems(_ items: [ContentItem]) -> IndexSet {
+        guard let content = content else { return IndexSet() }
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items) })
         actionDelegate.contentActionAdded(items)
-        items.forEach { (item) in
+        var indexes = IndexSet()
+        items.sorted(by: { $0.id < $1.id }).forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
+            indexes.insert(idx)
         }
-        
+        return indexes
     }
     
-    fileprivate func internalDeleteContentItems(_ items: [ContentItem]) {
-        
-        guard let content = content else { return }
-        
-        undoManager?.beginUndoGrouping()
-        undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-            targetSelf.internalAddContentItems(items)  // memory captured and managed by UndoManager
-        })
-        undoManager?.endUndoGrouping()
-        
-        actionDelegate.contentActionDeleted(items)
-        content.items.removeAll(where: { items.contains($0) })
-        
-    }
-    
-    fileprivate func internalUpdateContentItems(_ items: [ContentItem]) {
-        
-        guard let content = content else { return }
-        
-        let itemIDs = items.compactMap({ $0.id })
+    @discardableResult
+    private func internalDeleteContentItems(_ items: [ContentItem]) -> IndexSet {
+        guard let content = content else { return IndexSet() }
+        let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
-        
-        undoManager?.beginUndoGrouping()
-        undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-            targetSelf.internalUpdateContentItems(itemsToRemove)  // memory captured and managed by UndoManager
-        })
-        undoManager?.endUndoGrouping()
-        
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalAddContentItems(itemsToRemove) })
+        actionDelegate.contentActionDeleted(items)
+        let indexes = content.items
+            .enumerated()
+            .filter({ itemIDs.contains($1.id) })
+            .reduce(into: IndexSet()) { $0.insert($1.offset) }
+        content.items.remove(at: indexes)
+        return indexes
+    }
+    
+    @discardableResult
+    private func internalUpdateContentItems(_ items: [ContentItem]) -> IndexSet {
+        guard let content = content else { return IndexSet() }
+        let itemIDs = Set(items.compactMap({ $0.id }))
+        let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove) })
         actionDelegate.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
-        items.forEach { (item) in
+        var indexes = IndexSet()
+        items.sorted(by: { $0.id < $1.id }).forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
+            indexes.insert(idx)
         }
-        
+        return indexes
     }
     
 }
@@ -386,7 +404,7 @@ extension ContentController: ContentDelegate {
     }
     
     @discardableResult
-    fileprivate func addContentItem(_ item: ContentItem) throws -> ContentItem? {
+    private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
         
         guard let content = content else { throw ContentError.noDocumentLoaded }
         
@@ -408,7 +426,7 @@ extension ContentController: ContentDelegate {
     }
     
     @discardableResult
-    fileprivate func importContentItems(_ items: [ContentItem]) throws -> [ContentItem] {
+    private func importContentItems(_ items: [ContentItem]) throws -> [ContentItem] {
         
         guard let content = content, let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
@@ -455,14 +473,14 @@ extension ContentController: ContentDelegate {
     }
     
     @discardableResult
-    fileprivate func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+    private func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let image = screenshot?.image else { throw ContentError.noDocumentLoaded }
         guard let color = image.color(at: coordinate) else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         return try selectContentItem(color, byExtendingSelection: false)
     }
     
     @discardableResult
-    fileprivate func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
+    private func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
         
         guard let image = screenshot?.image   else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
@@ -498,7 +516,7 @@ extension ContentController: ContentDelegate {
         tableView.deselectAll(nil)
     }
     
-    fileprivate func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
+    private func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
         if !set.isEmpty, let lastIndex = set.last {
             tableView.selectRowIndexes(set, byExtendingSelection: extend)
             tableView.scrollRowToVisible(lastIndex)
@@ -522,12 +540,12 @@ extension ContentController: ContentDelegate {
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
         
-        guard let content = content                                                   else { throw ContentError.noDocumentLoaded }
-        guard let itemIndex = content.items.firstIndex(of: item)                      else { throw ContentError.itemDoesNotExist(item: item) }
-        guard deleteConfirmForItems([item])                                           else { throw ContentError.userAborted }
+        guard let content = content                      else { throw ContentError.noDocumentLoaded }
+        guard content.items.firstIndex(of: item) != nil  else { throw ContentError.itemDoesNotExist(item: item) }
+        guard deleteConfirmForItems([item])              else { throw ContentError.userAborted }
         
-        internalDeleteContentItems([item])
-        tableView.removeRows(at: IndexSet(integer: itemIndex), withAnimation: .effectFade)
+        let itemIndexes = internalDeleteContentItems([item])
+        tableView.removeRows(at: itemIndexes, withAnimation: .effectFade)
         return item
         
     }
@@ -540,8 +558,11 @@ extension ContentController: ContentDelegate {
         guard let replItem = image.color(at: coordinate)                                        else { throw ContentError.itemOutOfRange(item: coordinate, range: image.size) }
         
         replItem.copyFrom(item)
-        internalUpdateContentItems([replItem])
-        tableView.reloadData()
+        
+        let itemIndexes = internalUpdateContentItems([replItem])
+        let col = tableView.column(withIdentifier: .columnDescription)
+        tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
+        
         return try selectContentItem(replItem, byExtendingSelection: false)
         
     }
@@ -554,8 +575,10 @@ extension ContentController: ContentDelegate {
         guard let replItem = image.area(at: rect)                                               else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
         
         replItem.copyFrom(item)
-        internalUpdateContentItems([replItem])
-        tableView.reloadData()
+        
+        let itemIndexes = internalUpdateContentItems([replItem])
+        let col = tableView.column(withIdentifier: .columnDescription)
+        tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
         return try selectContentItem(replItem, byExtendingSelection: false)
         
@@ -567,8 +590,8 @@ extension ContentController: ContentDelegate {
         guard content.items.first(where: { $0.id == item.id }) != nil                 else { throw ContentError.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
-        internalUpdateContentItems([replItem])
-        tableView.reloadData()
+        let itemIndexes = internalUpdateContentItems([replItem])
+        tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
         
         return try selectContentItem(replItem, byExtendingSelection: false)
         
@@ -593,101 +616,133 @@ extension ContentController: ContentTableViewResponder {
     
 }
 
-extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
+extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        guard let content = content else { return false }
-        if item.action == #selector(delete(_:)) || item.action == #selector(copy(_:)) || item.action == #selector(exportAs(_:)) {
-            return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
-        }
-        else if item.action == #selector(locate(_:)) || item.action == #selector(relocate(_:)) {
-            guard tableView.clickedRow >= 0 else { return false }
-            if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
-            return true
-        }
-        else if item.action == #selector(smartTrim(_:)) {
-            guard tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count == 1 else { return false }
-            if let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first {
-                if let _ = content.items[targetIndex] as? PixelArea { return true }
+    func menuWillOpen(_ menu: NSMenu) {
+        // menu item without action
+        if menu == tableMenu {
+            if content != nil {
+                tableRemoveTagsMenuItem.isEnabled = tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+            } else {
+                tableRemoveTagsMenuItem.isEnabled = false
             }
         }
-        else if item.action == #selector(saveAs(_:)) {
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // menu item with action
+        if menuItem.action == #selector(delete(_:))
+            || menuItem.action == #selector(copy(_:))
+            || menuItem.action == #selector(exportAs(_:))
+        {  // contents available / multiple targets / from both menu
+            guard content != nil else { return false }
+            return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+        }
+        else if menuItem.action == #selector(locate(_:)) || menuItem.action == #selector(relocate(_:))
+        {  // contents available / single target / from right click menu
+            guard content != nil            else { return false }
             guard tableView.clickedRow >= 0 else { return false }
-            if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
-            if let _ = content.items[tableView.clickedRow] as? PixelArea { return true }
+            return !(tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow))
         }
-        else if item.action == #selector(paste(_:)) {
-            return screenshot?.export.canImportFromAdditionalPasteboard ?? false
-        }
-        else if item.action == #selector(toggleHeader(_:)) {
-            if let menuItem = item as? NSMenuItem {
-                if menuItem.identifier == .toggleTableColumnIdentifier {
+        else if menuItem.action == #selector(smartTrim(_:)) || menuItem.action == #selector(saveAs(_:))
+        {  // contents available / single target / from both menu / must be an area
+            guard let content = content else { return false }
+            if tableView.clickedRow >= 0 {
+                if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) {
                     return false
                 }
-                return true
+                let targetIndex = tableView.clickedRow
+                if content.items[targetIndex] is PixelArea { return true }
+            } else if tableView.selectedRowIndexes.count == 1 {
+                if let targetIndex = tableView.selectedRowIndexes.first {
+                    if content.items[targetIndex] is PixelArea { return true }
+                }
+                return false
             }
             return false
         }
-        else if item.action == #selector(resetColumns(_:)) {
+        else if menuItem.action == #selector(paste(_:))
+        {  // contents available / paste manager
+            guard content != nil else { return false }
+            return screenshot?.export.canImportFromAdditionalPasteboard ?? false
+        }
+        else if menuItem.action == #selector(toggleHeader(_:))
+        {
+            if menuItem.identifier == .toggleTableColumnIdentifier {
+                return false
+            }
             return true
         }
-        else if item.action == #selector(create(_:)) || item.action == #selector(toggleItemRepr(_:)) {
+        else if menuItem.action == #selector(create(_:))
+            || menuItem.action == #selector(toggleItemRepr(_:))
+            || menuItem.action == #selector(removeTag(_:))
+        {  // contents available
+            guard content != nil else { return false }
+            return true
+        }
+        else if menuItem.action == #selector(resetColumns(_:))
+        {
             return true
         }
         return false
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        if menu == tableHeaderMenu {
-            menu.items.forEach { (menuItem) in
-                if menuItem.identifier      == .toggleTableColumnIdentifier {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnIdentifier]  ? .on : .off
-                }
-                else if menuItem.identifier == .toggleTableColumnSimilarity {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnSimilarity]  ? .on : .off
-                }
-                else if menuItem.identifier == .toggleTableColumnTag {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnTag]         ? .on : .off
-                }
-                else if menuItem.identifier == .toggleTableColumnDescription {
-                    menuItem.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
-                }
-            }
-        }
-        else if menu == tableRemoveTagsMenu {
-            // see numberOfItems(in:)
-        }
-        else if menu == itemReprMenu {
-            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
-            if useAlt {
-                itemReprAreaMenuItem.state = .off
-                itemReprAreaAltMenuItem.state = .on
-            }
-            else {
-                itemReprAreaMenuItem.state = .on
-                itemReprAreaAltMenuItem.state = .off
-            }
-        }
     }
     
     func numberOfItems(in menu: NSMenu) -> Int {
         if menu == tableRemoveTagsMenu
         {
             guard let collection = content?.items else { return 0 }
-            guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return 0 }
-            return collection[targetIndex].tags.count
+            let selectedIndexes = selectedRowIndexes
+            preparedSelectedItemCount = selectedIndexes.count
+            let allTags = selectedIndexes
+                .flatMap({ collection[$0].tags })
+            preparedMenuTags = OrderedSet<String>(allTags)
+            preparedMenuTagsAndCounts = allTags
+                .reduce(into: [String: Int](), { $0[$1, default: 0] += 1 })
+            return preparedMenuTags?.count ?? 0
         }
         return -1  // unchanged
     }
     
     func menu(_ menu: NSMenu, update item: NSMenuItem, at index: Int, shouldCancel: Bool) -> Bool {
-        if menu == tableRemoveTagsMenu {
-            
+        if menu == tableHeaderMenu {
+            if item.identifier      == .toggleTableColumnIdentifier {
+                item.state = UserDefaults.standard[.toggleTableColumnIdentifier]  ? .on : .off
+            }
+            else if item.identifier == .toggleTableColumnSimilarity {
+                item.state = UserDefaults.standard[.toggleTableColumnSimilarity]  ? .on : .off
+            }
+            else if item.identifier == .toggleTableColumnTag {
+                item.state = UserDefaults.standard[.toggleTableColumnTag]         ? .on : .off
+            }
+            else if item.identifier == .toggleTableColumnDescription {
+                item.state = UserDefaults.standard[.toggleTableColumnDescription] ? .on : .off
+            }
+        }
+        else if menu == tableRemoveTagsMenu {
+            guard !shouldCancel else {
+                preparedSelectedItemCount = nil
+                preparedMenuTags = nil
+                preparedMenuTagsAndCounts = nil
+                return false
+            }
+            guard let selectedItemCount = preparedSelectedItemCount,
+                let menuTitle = preparedMenuTags?[index],
+                let menuCount = preparedMenuTagsAndCounts?[menuTitle] else
+            { return false }
+            item.title = "\(menuTitle) (\(menuCount))"
+            item.state = menuCount >= selectedItemCount ? .on : .mixed
+            item.target = self
+            item.action = #selector(removeTag(_:))
+        }
+        else if menu == itemReprMenu {
+            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+            itemReprAreaMenuItem.state    = useAlt ? .off : .on
+            itemReprAreaAltMenuItem.state = useAlt ? .on : .off
         }
         return true
     }
     
-    fileprivate func updateColumns() {
+    private func updateColumns() {
         var hiddenValue: Bool!
         
         hiddenValue = !UserDefaults.standard[.toggleTableColumnIdentifier]
@@ -711,7 +766,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
     }
     
-    fileprivate func deleteConfirmForItems(_ itemsToRemove: [ContentItem]) -> Bool {
+    private func deleteConfirmForItems(_ itemsToRemove: [ContentItem]) -> Bool {
         guard UserDefaults.standard[.confirmBeforeDelete] else { return true }
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Delete Confirm", comment: "Delete Confirm")
@@ -729,7 +784,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     @IBAction func locate(_ sender: Any) {
         guard let collection = content?.items else { return }
-        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let targetIndex = selectedRowIndex else { return }
         
         let targetItem = collection[targetIndex]
         actionDelegate.contentActionConfirmed([targetItem])
@@ -738,7 +793,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     @IBAction func relocate(_ sender: Any) {
         guard let window = view.window else { return }
         guard let collection = content?.items else { return }
-        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let targetIndex = selectedRowIndex else { return }
         
         var panel: EditWindow?
         let targetItem = collection[targetIndex]
@@ -797,8 +852,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     @IBAction func delete(_ sender: Any) {
         guard let collection = content?.items else { return }
-        let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
+        let rows = selectedRowIndexes
         let itemsToRemove = rows.map({ collection[$0] })
         guard deleteConfirmForItems(itemsToRemove) else { return }
         internalDeleteContentItems(itemsToRemove)
@@ -806,10 +860,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func copy(_ sender: Any) {
-        guard let collection = content?.items else { return }
-        let selectedItems = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
-            .map({ collection[$0] })
+        guard let selectedItems = selectedContentItems else { return }
         do {
             if (selectedItems.count == 1) {
                 try screenshot?.export.copyContentItem(selectedItems.first!)
@@ -832,20 +883,21 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func saveAs(_ sender: Any) {
-        guard tableView.clickedRow >= 0 else { return }
-        guard let area = content?.items[tableView.clickedRow] as? PixelArea else { return }
+        guard let collection = content?.items else { return }
+        guard let targetIndex = selectedRowIndex else { return }
+        guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
         let panel = NSSavePanel()
         panel.allowedFileTypes = ["png"]
-        panel.beginSheetModal(for: view.window!) { (resp) in
+        panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
                 if let url = panel.url {
-                    self.saveCroppedImage(of: area, to: url)
+                    self?.saveCroppedImage(of: selectedArea, to: url)
                 }
             }
         }
     }
     
-    fileprivate func saveCroppedImage(of area: PixelArea, to url: URL) {
+    private func saveCroppedImage(of area: PixelArea, to url: URL) {
         guard let data = screenshot?.image?.pngRepresentation(of: area) else { return }
         do {
             try data.write(to: url)
@@ -856,10 +908,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     }
     
     @IBAction func exportAs(_ sender: Any) {
-        guard let collection = content?.items else { return }
-        let selectedItems = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
-            .map({ collection[$0] })
+        guard let selectedItems = selectedContentItems else { return }
         do {
             guard let template = screenshot?.export.selectedTemplate else { throw ExportError.noTemplateSelected }
             let panel = NSSavePanel()
@@ -877,7 +926,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
     }
     
-    fileprivate func exportItems(_ items: [ContentItem], to url: URL) {
+    private func exportItems(_ items: [ContentItem], to url: URL) {
         do {
             try screenshot?.export.exportItems(items, to: url)
         }
@@ -934,7 +983,7 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
     
     @IBAction func smartTrim(_ sender: NSMenuItem) {
         guard let collection = content?.items else { return }
-        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        guard let targetIndex = selectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
         do {
             guard let _ = try smartTrimPixelArea(selectedArea) else {
@@ -946,16 +995,28 @@ extension ContentController: NSUserInterfaceValidations, NSMenuDelegate {
         }
     }
     
+    @IBAction func removeTag(_ sender: NSMenuItem) {
+        guard let parent = sender.menu        else { return }
+        guard let collection = content?.items else { return }
+        guard tableView.clickedRow >= 0       else { return }
+        
+        let targetTagIndex = parent.index(of: sender)
+        let targetItem = collection[tableView.clickedRow].copy() as! ContentItem
+        targetItem.tags.remove(at: targetTagIndex)
+        
+        let itemIndexes = internalUpdateContentItems([targetItem])
+        let col = tableView.column(withIdentifier: .columnTag)
+        tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
+    }
+    
 }
 
 extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let collection = content?.items else { return }
-        let selectedItems = tableView.selectedRowIndexes
-            .filteredIndexSet(includeInteger: { $0 < collection.count })
-            .map({ collection[$0] })
-        actionDelegate.contentActionSelected(selectedItems)
+        let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
+        actionDelegate.contentActionSelected(realSelectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -1022,6 +1083,21 @@ extension ContentController: ScreenshotLoader {
     
 }
 
+extension ContentController: NSMenuDelegateAlternate {
+    
+    // This is a work-around for the strange Cocoa NSMenuDelegate.
+    func menuNeedsUpdateAlternate(_ altMenu: NSMenu) {
+        var idx = 0
+        for item in altMenu.items {
+            if !menu(altMenu, update: item, at: idx, shouldCancel: false) {
+                break
+            }
+            idx += 1
+        }
+    }
+    
+}
+
 extension ContentController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
@@ -1034,10 +1110,11 @@ extension ContentController {
         }
     }
     
-    fileprivate func contentItemColorize() {
+    private func contentItemColorize() {
+        let col = tableView.column(withIdentifier: .columnTag)
         tableView.reloadData(
             forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
-            columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnTag))
+            columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet()
         )
     }
     

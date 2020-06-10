@@ -267,7 +267,7 @@ open class VirtualMachine {
         return popValue(-1) as! Function
     }
     
-    fileprivate func argError(_ expectedType: String, at argPosition: Int) {
+    private func argError(_ expectedType: String, at argPosition: Int) {
         luaL_argerror(vm, Int32(argPosition), (expectedType as NSString).utf8String)
     }
     

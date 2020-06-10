@@ -8,7 +8,7 @@
 
 import Cocoa
 
-fileprivate var windowCount = 0
+private var windowCount = 0
 
 class WindowController: NSWindowController {
     
@@ -21,7 +21,7 @@ class WindowController: NSWindowController {
     public lazy var pixelMatchService: PixelMatchService = {
         return PixelMatchService()
     }()
-    fileprivate var isInComparisonMode: Bool = false
+    private var isInComparisonMode: Bool = false
     
     @IBOutlet weak var openItem: NSToolbarItem!
     @IBOutlet weak var annotateItem: NSToolbarItem!
@@ -38,10 +38,10 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarSceneActionControl: NSSegmentedControl!
     @IBOutlet weak var touchBarScreenshotItem: NSButton!
     
-    fileprivate var viewController: SplitController! {
+    private var viewController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
     }
-    fileprivate var currentAlertSheet: NSAlert?
+    private var currentAlertSheet: NSAlert?
     
     public func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
@@ -112,7 +112,7 @@ class WindowController: NSWindowController {
         }
     }
     
-    fileprivate func inspectWindowHierarchy() {
+    private func inspectWindowHierarchy() {
         let rootWindow = window!
         print("Root window", rootWindow, rootWindow.title, "has tabs:")
         rootWindow.tabbedWindows?.forEach { window in
@@ -193,7 +193,7 @@ enum SceneActionIndex: Int {
 
 extension WindowController {
     
-    fileprivate func touchBarUpdateButtonState() {
+    private func touchBarUpdateButtonState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
         if identifier == SceneTool.magicCursor.rawValue {
             touchBarSceneToolControl.selectedSegment = SceneToolIndex.magicCursor.rawValue
@@ -216,27 +216,27 @@ extension WindowController {
         openAction(sender)
     }
     
-    fileprivate func touchBarUseAnnotateItemAction(_ sender: Any?) {
+    private func touchBarUseAnnotateItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         useAnnotateItemAction(sender)
     }
     
-    fileprivate func touchBarUseMagnifyItemAction(_ sender: Any?) {
+    private func touchBarUseMagnifyItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         useMagnifyItemAction(sender)
     }
     
-    fileprivate func touchBarUseMinifyItemAction(_ sender: Any?) {
+    private func touchBarUseMinifyItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         useMinifyItemAction(sender)
     }
     
-    fileprivate func touchBarUseSelectItemAction(_ sender: Any?) {
+    private func touchBarUseSelectItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
         useSelectItemAction(sender)
     }
     
-    fileprivate func touchBarUseMoveItemAction(_ sender: Any?) {
+    private func touchBarUseMoveItemAction(_ sender: Any?) {
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         useMoveItemAction(sender)
     }
@@ -259,11 +259,11 @@ extension WindowController {
         }
     }
     
-    fileprivate func touchBarFitWindowAction(_ sender: Any?) {
+    private func touchBarFitWindowAction(_ sender: Any?) {
         fitWindowAction(sender)
     }
     
-    fileprivate func touchBarFillWindowAction(_ sender: Any?) {
+    private func touchBarFillWindowAction(_ sender: Any?) {
         fillWindowAction(sender)
     }
     
@@ -332,7 +332,7 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    fileprivate var gridWindowController: GridWindowController? {
+    private var gridWindowController: GridWindowController? {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
         let grid = delegate.gridController
         return grid

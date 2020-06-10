@@ -24,7 +24,7 @@ class GridWindowController: NSWindowController {
         }
     }
     
-    fileprivate var gridView: GridView? {
+    private var gridView: GridView? {
         guard let viewController = window?.contentViewController as? GridViewController else { return nil }
         return viewController.gridView
     }

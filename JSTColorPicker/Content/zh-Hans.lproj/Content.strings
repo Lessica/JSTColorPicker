@@ -13,6 +13,9 @@
 /* Class = "NSMenuItem"; title = "Quick Add Patterns"; ObjectID = "as6-mp-8ga"; */
 "as6-mp-8ga.title" = "快速添加样式";
 
+/* Class = "NSMenuItem"; title = "Choose Tags..."; ObjectID = "AXF-B1-mtL"; */
+"AXF-B1-mtL.title" = "选择标签...";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
 
@@ -25,11 +28,17 @@
 /* Class = "NSMenuItem"; title = "Area: (x, y, w, h)"; ObjectID = "dmE-sc-yBQ"; */
 "dmE-sc-yBQ.title" = "区域: (x, y, w, h)";
 
+/* Class = "NSMenuItem"; title = "Remove Tags"; ObjectID = "Flt-gl-Srj"; */
+"Flt-gl-Srj.title" = "移除标签";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "FUc-jS-0Vm"; */
 "FUc-jS-0Vm.ibShadowedToolTip" = "以当前模版拷贝选中项";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "FUc-jS-0Vm"; */
 "FUc-jS-0Vm.title" = "复制";
+
+/* Class = "NSMenu"; title = "Remove Tags"; ObjectID = "Fy9-R8-mSs"; */
+"Fy9-R8-mSs.title" = "移除标签";
 
 /* Class = "NSMenuItem"; title = "Description"; ObjectID = "gf5-SR-cVU"; */
 "gf5-SR-cVU.title" = "描述";

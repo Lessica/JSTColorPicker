@@ -18,12 +18,12 @@ class SceneScrollView: NSScrollView {
     public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
         didSet { reloadSceneRulers() }
     }
-    fileprivate var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
-    fileprivate func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
+    private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
+    private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
     
-    fileprivate static let rulerThickness: CGFloat = 16.0
-    fileprivate static let reservedThicknessForMarkers: CGFloat = 15.0
-    fileprivate static let reservedThicknessForAccessoryView: CGFloat = 0.0
+    private static let rulerThickness: CGFloat = 16.0
+    private static let reservedThicknessForMarkers: CGFloat = 15.0
+    private static let reservedThicknessForAccessoryView: CGFloat = 0.0
     public var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
         return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
@@ -45,41 +45,41 @@ class SceneScrollView: NSScrollView {
     }
     
     public weak var trackingDelegate: SceneTracking!
-    fileprivate var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
-    fileprivate var trackingArea: NSTrackingArea?
-    fileprivate var trackingCoordinate = PixelCoordinate.null
+    private var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
+    private var trackingArea: NSTrackingArea?
+    private var trackingCoordinate = PixelCoordinate.null
     
     public var sceneEventObservers: [SceneEventObserver] = []
     public weak var sceneToolDataSource: SceneToolDataSource!
-    fileprivate var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
+    private var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
     public weak var sceneStateDataSource: SceneStateDataSource!
-    fileprivate var sceneState: SceneState { return sceneStateDataSource.sceneState }
+    private var sceneState: SceneState { return sceneStateDataSource.sceneState }
     public weak var sceneActionEffectViewDataSource: SceneEffectViewDataSource!
-    fileprivate var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource.sceneEffectView }
+    private var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource.sceneEffectView }
     
-    fileprivate lazy var areaDraggingOverlay: DraggingOverlay = {
+    private lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
         view.isHidden = true
         return view
     }()
-    fileprivate var areaDraggingOverlayRect: PixelRect {
+    private var areaDraggingOverlayRect: PixelRect {
         let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
         guard !rect.isEmpty else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
     }
-//    fileprivate var annotatorDraggingOverlayRect: PixelRect {
+//    private var annotatorDraggingOverlayRect: PixelRect {
 //        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
 //        guard !rect.isEmpty else { return .null }
 //        return PixelRect(CGRect(point1: CGPoint(x: round(rect.minX), y: round(rect.minY)), point2: CGPoint(x: round(rect.maxX), y: round(rect.maxY))))
 //    }
     
-    fileprivate lazy var colorDraggingOverlay: ImageOverlay = {
+    private lazy var colorDraggingOverlay: ImageOverlay = {
         let view = ImageOverlay()
         view.alphaValue = 0.9
         view.isHidden = true
         return view
     }()
-    fileprivate var colorDraggingOverlayCoordinate: PixelCoordinate {
+    private var colorDraggingOverlayCoordinate: PixelCoordinate {
         let point = sceneActionEffectView.convert(colorDraggingOverlay.frame.center, to: wrapper)
         guard wrapper.bounds.contains(point) else { return .null }
         return PixelCoordinate(point)
@@ -128,7 +128,7 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate lazy var checkerboardImage: NSImage = {
+    private lazy var checkerboardImage: NSImage = {
         let filter = CIFilter(name: "CICheckerboardGenerator")!
         
         let ciCount = 8
@@ -155,8 +155,8 @@ class SceneScrollView: NSScrollView {
         return NSImage(cgImage: cgImage!, size: ciSize)
     }()
     
-    fileprivate func reloadSceneRulers() { rulersVisible = drawRulersInScene }
-    fileprivate func reloadSceneBackground() {
+    private func reloadSceneRulers() { rulersVisible = drawRulersInScene }
+    private func reloadSceneBackground() {
         if drawSceneBackground {
             backgroundColor = NSColor.init(patternImage: checkerboardImage)
         }
@@ -165,7 +165,7 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate func createTrackingArea() {
+    private func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(rect: visibleRectExcludingRulers, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
@@ -484,11 +484,11 @@ class SceneScrollView: NSScrollView {
         super.reflectScrolledClipView(cView)
     }
     
-    fileprivate func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
+    private func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
         return sceneState.stage >= requiredEventStageFor(sceneTool)
     }
     
-    fileprivate func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
+    private func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
         let shiftPressed = event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
             .contains(.shift)
@@ -499,15 +499,15 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate func shouldBeginAnnotatorDragging(for event: NSEvent) -> Bool {
+    private func shouldBeginAnnotatorDragging(for event: NSEvent) -> Bool {
         return sceneState.stage >= requiredEventStageFor(sceneTool)
     }
     
-    fileprivate func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
+    private func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
         return sceneStateDataSource.editingAnnotatorOverlayAtBeginLocation
     }
     
-    fileprivate func trackMovingOrDragging(with event: NSEvent) {
+    private func trackMovingOrDragging(with event: NSEvent) {
         if sceneState.type != .sceneDragging {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if wrapper.bounds.contains(loc) {
@@ -531,7 +531,7 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate func trackDidEndDragging(with event: NSEvent) {
+    private func trackDidEndDragging(with event: NSEvent) {
         if sceneState.type == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
             if draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
@@ -565,7 +565,7 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    fileprivate func updateDraggingAppearance(for event: NSEvent) {
+    private func updateDraggingAppearance(for event: NSEvent) {
         if sceneState.type == .annotatorDragging && sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
             if colorDraggingOverlay.isHidden {
                 colorDraggingOverlay.bringToFront()

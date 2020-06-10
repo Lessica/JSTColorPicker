@@ -215,7 +215,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="addCoordinateAction:" target="oDF-UT-bv5" id="l60-Uz-Csu"/>
-                                            <outlet property="menu" destination="1HL-Zx-eDR" id="Bmo-56-jKO"/>
+                                            <outlet property="menu" destination="1HL-Zx-eDR" id="k29-P5-2m0"/>
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsN-Fd-s2i">
@@ -272,7 +272,9 @@
                         <outlet property="itemReprMenu" destination="1HL-Zx-eDR" id="myl-lI-9cs"/>
                         <outlet property="tableHeaderMenu" destination="a29-Fd-YbH" id="xcF-yj-1HS"/>
                         <outlet property="tableMenu" destination="ziX-dt-DMr" id="VPq-xk-rVu"/>
+                        <outlet property="tableMenuDelegateProxy" destination="jpi-jj-flh" id="A8R-be-QAX"/>
                         <outlet property="tableRemoveTagsMenu" destination="Fy9-R8-mSs" id="K24-Tq-jgt"/>
+                        <outlet property="tableRemoveTagsMenuItem" destination="Flt-gl-Srj" id="2vt-jM-uD7"/>
                         <outlet property="tableView" destination="JHd-l9-l6u" id="BtV-as-1Vb"/>
                     </connections>
                 </viewController>
@@ -390,7 +392,7 @@ CA
                         </menuItem>
                     </items>
                     <connections>
-                        <outlet property="delegate" destination="oDF-UT-bv5" id="UiB-ME-udp"/>
+                        <outlet property="delegate" destination="jpi-jj-flh" id="CXO-Xz-AgI"/>
                     </connections>
                 </menu>
                 <menu id="Cqe-SJ-8Rv">
@@ -433,15 +435,20 @@ CA
                                     </menuItem>
                                 </items>
                                 <connections>
-                                    <outlet property="delegate" destination="oDF-UT-bv5" id="fcb-A2-QPz"/>
+                                    <outlet property="delegate" destination="jpi-jj-flh" id="LRE-vI-clf"/>
                                 </connections>
                             </menu>
                         </menuItem>
                     </items>
                     <connections>
-                        <outlet property="delegate" destination="oDF-UT-bv5" id="RiR-oA-qM8"/>
+                        <outlet property="delegate" destination="jpi-jj-flh" id="kOL-vF-whm"/>
                     </connections>
                 </menu>
+                <customObject id="jpi-jj-flh" customClass="NSMenuDelegateProxy" customModule="JSTColorPicker" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="oDF-UT-bv5" id="539-gb-OI3"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="2287" y="763"/>
         </scene>

@@ -17,8 +17,8 @@ class PixelColor: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     
-    public fileprivate(set) var coordinate: PixelCoordinate
-    public fileprivate(set) var pixelColorRep: JSTPixelColor
+    public private(set) var coordinate: PixelCoordinate
+    public private(set) var pixelColorRep: JSTPixelColor
     
     enum CodingKeys: String, CodingKey {
         case red, green, blue, alpha, coordinate
@@ -83,6 +83,13 @@ class PixelColor: ContentItem {
         return self == object
     }
     
+    override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(coordinate.x, forKey: "coordinate.x")
+        coder.encode(coordinate.y, forKey: "coordinate.y")
+        coder.encode(pixelColorRep, forKey: "pixelColorRep")
+    }
+    
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -91,13 +98,6 @@ class PixelColor: ContentItem {
         try container.encode(blue, forKey: .blue)
         try container.encode(alpha, forKey: .alpha)
         try container.encode(coordinate, forKey: .coordinate)
-    }
-    
-    override func encode(with coder: NSCoder) {
-        super.encode(with: coder)
-        coder.encode(coordinate.x, forKey: "coordinate.x")
-        coder.encode(coordinate.y, forKey: "coordinate.y")
-        coder.encode(pixelColorRep, forKey: "pixelColorRep")
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -110,7 +110,7 @@ class PixelColor: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
-        t["tags"]       = vm.createTable(withSequence: tags)
+        t["tags"]       = vm.createTable(withSequence: tags.contents)
         t["similarity"] = similarity
         t["x"]          = coordinate.x
         t["y"]          = coordinate.y
@@ -120,7 +120,7 @@ class PixelColor: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel color (table with keys [id,tags,similarity,x,y,color])"
+    private static let typeName: String = "pixel color (table with keys [id,tags,similarity,x,y,color])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
@@ -168,7 +168,7 @@ extension PixelColor /*: CustomStringConvertible*/ {
     
     override var description: String { "\(pixelColorRep) \(coordinate)" }
     
-    override var debugDescription: String { "<#\(id): \(tags) (\(Int(similarity * 100.0))%); \(pixelColorRep) \(coordinate)>" }
+    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(pixelColorRep) \(coordinate)>" }
     
 }
 

@@ -25,14 +25,14 @@ class SceneController: NSViewController {
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
     
-    fileprivate var lazyColorAnnotators: [ColorAnnotator] {
+    private var lazyColorAnnotators: [ColorAnnotator] {
         return annotators.lazy.compactMap({ $0 as? ColorAnnotator })
     }
-    fileprivate var lazyAreaAnnotators: [AreaAnnotator] {
+    private var lazyAreaAnnotators: [AreaAnnotator] {
         return annotators.lazy.compactMap({ $0 as? AreaAnnotator })
     }
     
-    fileprivate var enableForceTouch: Bool {
+    private var enableForceTouch: Bool {
         get {
             return sceneView.enableForceTouch
         }
@@ -40,7 +40,7 @@ class SceneController: NSViewController {
             sceneView.enableForceTouch = newValue
         }
     }
-    fileprivate var drawGridsInScene: Bool {
+    private var drawGridsInScene: Bool {
         get {
             return sceneGridView.drawGridsInScene
         }
@@ -48,7 +48,7 @@ class SceneController: NSViewController {
             sceneGridView.drawGridsInScene = newValue
         }
     }
-    fileprivate var drawRulersInScene: Bool {
+    private var drawRulersInScene: Bool {
         get {
             return sceneView.drawRulersInScene
         }
@@ -56,7 +56,7 @@ class SceneController: NSViewController {
             sceneView.drawRulersInScene = newValue
         }
     }
-    fileprivate var drawSceneBackground: Bool {
+    private var drawSceneBackground: Bool {
         get {
             return sceneView.drawSceneBackground
         }
@@ -64,7 +64,7 @@ class SceneController: NSViewController {
             sceneView.drawSceneBackground = newValue
         }
     }
-    fileprivate var usesPredominantAxisScrolling: Bool {
+    private var usesPredominantAxisScrolling: Bool {
         get {
             return sceneView.usesPredominantAxisScrolling
         }
@@ -72,72 +72,72 @@ class SceneController: NSViewController {
             sceneView.usesPredominantAxisScrolling = newValue
         }
     }
-    fileprivate var hideGridsWhenResize: Bool = false
-    fileprivate var hideAnnotatorsWhenResize: Bool = true
+    private var hideGridsWhenResize: Bool = false
+    private var hideAnnotatorsWhenResize: Bool = true
     
-    fileprivate static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
-    fileprivate static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
-    fileprivate static let zoomingFactors: [CGFloat] = [
+    private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
+    private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
+    private static let zoomingFactors: [CGFloat] = [
         0.250, 0.333, 0.500, 0.667, 1.000,
         2.000, 3.000, 4.000, 5.000, 6.000,
         7.000, 8.000, 12.00, 16.00, 32.00,
         64.00, 128.0, 256.0
     ]
-    fileprivate static let minimumRecognizableMagnification: CGFloat = 16.0
+    private static let minimumRecognizableMagnification: CGFloat = 16.0
     
-    @IBOutlet fileprivate weak var sceneClipView: SceneClipView!
-    @IBOutlet fileprivate weak var sceneView: SceneScrollView!
-    @IBOutlet fileprivate weak var sceneGridView: SceneGridView!
-    @IBOutlet fileprivate weak var sceneOverlayView: SceneOverlayView!
-    @IBOutlet fileprivate weak var sceneTagView: SceneTagView!
-    @IBOutlet fileprivate weak var internalSceneEffectView: SceneEffectView!
-    @IBOutlet fileprivate weak var sceneGridTopConstraint: NSLayoutConstraint!
-    @IBOutlet fileprivate weak var sceneGridLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var sceneClipView: SceneClipView!
+    @IBOutlet private weak var sceneView: SceneScrollView!
+    @IBOutlet private weak var sceneGridView: SceneGridView!
+    @IBOutlet private weak var sceneOverlayView: SceneOverlayView!
+    @IBOutlet private weak var sceneTagView: SceneTagView!
+    @IBOutlet private weak var internalSceneEffectView: SceneEffectView!
+    @IBOutlet private weak var sceneGridTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var sceneGridLeadingConstraint: NSLayoutConstraint!
     
-    fileprivate var horizontalRulerView: RulerView {
+    private var horizontalRulerView: RulerView {
         return sceneView.horizontalRulerView as! RulerView
     }
-    fileprivate var verticalRulerView: RulerView {
+    private var verticalRulerView: RulerView {
         return sceneView.verticalRulerView as! RulerView
     }
-    fileprivate var wrapper: SceneImageWrapper {
+    private var wrapper: SceneImageWrapper {
         return sceneView.documentView as! SceneImageWrapper
     }
-    fileprivate func isInsceneLocation(_ point: CGPoint) -> Bool {
+    private func isInsceneLocation(_ point: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(point)
     }
-    fileprivate func isInscenePixelLocation(_ point: CGPoint) -> Bool {
+    private func isInscenePixelLocation(_ point: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && sceneView.documentVisibleRect.contains(point)
     }
     
-    fileprivate var internalSceneTool: SceneTool = .arrow {
+    private var internalSceneTool: SceneTool = .arrow {
         didSet {
             updateAnnotatorEditableStates()
             sceneOverlayView.updateAppearance()
         }
     }
-    fileprivate var internalSceneState: SceneState = SceneState()
+    private var internalSceneState: SceneState = SceneState()
     
-    fileprivate var windowSelectedSceneTool: SceneTool {
+    private var windowSelectedSceneTool: SceneTool {
         get {
             guard let tool = view.window?.toolbar?.selectedItemIdentifier?.rawValue else { return .arrow }
             return SceneTool(rawValue: tool) ?? .arrow
         }
     }
     
-    fileprivate var nextMagnificationFactor: CGFloat? {
+    private var nextMagnificationFactor: CGFloat? {
         get {
             return SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification })
         }
     }
     
-    fileprivate var prevMagnificationFactor: CGFloat? {
+    private var prevMagnificationFactor: CGFloat? {
         get {
             return SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification })
         }
     }
     
-    fileprivate var canMagnify: Bool {
+    private var canMagnify: Bool {
         get {
             if !sceneView.allowsMagnification {
                 return false
@@ -149,7 +149,7 @@ class SceneController: NSViewController {
         }
     }
     
-    fileprivate var canMinify: Bool {
+    private var canMinify: Bool {
         get {
             if !sceneView.allowsMagnification {
                 return false
@@ -161,7 +161,7 @@ class SceneController: NSViewController {
         }
     }
     
-    fileprivate var windowActiveNotificationToken: NotificationToken?
+    private var windowActiveNotificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,7 +224,7 @@ class SceneController: NSViewController {
         applyPreferences(nil)
     }
     
-    @objc fileprivate func applyPreferences(_ notification: Notification?) {
+    @objc private func applyPreferences(_ notification: Notification?) {
         
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
         hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
@@ -262,7 +262,7 @@ class SceneController: NSViewController {
         
     }
     
-    fileprivate func renderImage(_ image: PixelImage) {
+    private func renderImage(_ image: PixelImage) {
         sceneView.magnification = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = true
         
@@ -279,14 +279,14 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
     }
     
-    fileprivate func applyAnnotateItem(at location: CGPoint) -> Bool {
+    private func applyAnnotateItem(at location: CGPoint) -> Bool {
         if let _ = try? addContentItem(of: PixelCoordinate(location)) {
             return true
         }
         return false
     }
     
-    fileprivate func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
+    private func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
             guard let annotator = annotators.last(where: { $0.overlay === annotatorView }) else { return false }
@@ -306,7 +306,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func applyDeleteItem(at location: CGPoint) -> Bool {
+    private func applyDeleteItem(at location: CGPoint) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
             if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
@@ -322,7 +322,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func applyMagnifyItem(at location: CGPoint) -> Bool {
+    private func applyMagnifyItem(at location: CGPoint) -> Bool {
         if !canMagnify {
             return false
         }
@@ -349,7 +349,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func applyMinifyItem(at location: CGPoint) -> Bool {
+    private func applyMinifyItem(at location: CGPoint) -> Bool {
         if !canMinify {
             return false
         }
@@ -376,7 +376,7 @@ class SceneController: NSViewController {
         return false
     }
     
-    fileprivate func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
+    private func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
         return enableForceTouch ? 1 : 0
     }
     
@@ -427,7 +427,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
+    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         var handled = false
         let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
@@ -449,7 +449,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useOptionModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+    private func useOptionModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
         guard forceReset || !sceneState.isManipulating else { return false }
         let selectedSceneTool = windowSelectedSceneTool
         if selectedSceneTool == .magnifyingGlass {
@@ -464,7 +464,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useCommandModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+    private func useCommandModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
         guard forceReset || !sceneState.isManipulating else { return false }
         let selectedSceneTool = windowSelectedSceneTool
         if selectedSceneTool == .magicCursor {
@@ -483,13 +483,13 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
+    private func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
         internalSceneTool = windowSelectedSceneTool
         return true
     }
     
     @discardableResult
-    fileprivate func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
+    private func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
         guard isInscenePixelLocation(pixelLocation) else { return false }
         
         var wrapperDelta = CGSize.zero
@@ -555,7 +555,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
+    private func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
         guard let screenshot = screenshot else { return false }
         guard isInscenePixelLocation(pixelLocation) else { return false }
         try? screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
@@ -563,7 +563,7 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    fileprivate func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
+    private func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
         guard let event = event else { return false }
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let loc = wrapper.convert(event.locationInWindow, from: nil)
@@ -618,7 +618,7 @@ class SceneController: NSViewController {
 
 extension SceneController: ScreenshotLoader {
     
-    fileprivate func reloadSceneRulerConstraints() {
+    private func reloadSceneRulerConstraints() {
         sceneGridTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
         sceneGridLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
         updateAnnotatorFrames()
@@ -681,7 +681,7 @@ extension SceneController: SceneTracking {
         }
     }
     
-    fileprivate func sceneBoundsChanged() {
+    private func sceneBoundsChanged() {
         trackSceneBoundsChanged(sceneView, to: wrapperVisibleBounds, of: wrapperMagnification)
     }
     
@@ -743,15 +743,15 @@ extension SceneController: SceneEffectViewDataSource {
 
 extension SceneController: AnnotatorDataSource {
     
-    @objc fileprivate func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
+    @objc private func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
         hideSceneOverlays()
     }
     
-    @objc fileprivate func sceneDidEndLiveMagnifyNotification(_ notification: NSNotification) {
+    @objc private func sceneDidEndLiveMagnifyNotification(_ notification: NSNotification) {
         showSceneOverlays()
     }
     
-    fileprivate func hideSceneOverlays() {
+    private func hideSceneOverlays() {
         if hideGridsWhenResize && !sceneGridView.isHidden {
             sceneGridView.isHidden = true
         }
@@ -760,7 +760,7 @@ extension SceneController: AnnotatorDataSource {
         }
     }
     
-    fileprivate func showSceneOverlays() {
+    private func showSceneOverlays() {
         if drawGridsInScene && sceneGridView.isHidden {
             sceneGridView.isHidden = false
         }
@@ -1031,7 +1031,7 @@ extension SceneController: ToolbarResponder {
         sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
     }
     
-    fileprivate func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
+    private func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
         let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
         let fitRect = adjust
             ? rect.insetBy(dx: -(altClipped.width + 1.0), dy: -(altClipped.height + 1.0))
@@ -1190,7 +1190,7 @@ extension SceneController: RulerViewClient {
 
 extension SceneController: PixelMatchResponder {
     
-    fileprivate var isInComparisonMode: Bool {
+    private var isInComparisonMode: Bool {
         return wrapper.isInComparisonMode
     }
     
@@ -1216,7 +1216,7 @@ extension SceneController {
         }
     }
     
-    fileprivate func annotatorColorize(_ annotator: Annotator) {
+    private func annotatorColorize(_ annotator: Annotator) {
         guard let tagName = annotator.contentItem.tags.first,
             let tag = tagListDataSource.managedTag(of: tagName) else
         {
@@ -1230,7 +1230,7 @@ extension SceneController {
             .circleFillColorHighlighted = tag.color.cgColor
     }
     
-    fileprivate func annotatorColorizeAll() {
+    private func annotatorColorizeAll() {
         annotators
             .forEach({ annotatorColorize($0) })
     }

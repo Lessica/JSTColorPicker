@@ -10,7 +10,7 @@ import Cocoa
 
 class ColorAnnotatorOverlay: AnnotatorOverlay {
     
-    public fileprivate(set) var coordinate: PixelCoordinate
+    public private(set) var coordinate: PixelCoordinate
     
     init(label: String, coordinate: PixelCoordinate) {
         self.coordinate = coordinate

@@ -56,27 +56,27 @@ class EditableOverlay: Overlay {
     public var isEditable: Bool = false
     public var editingEdge: EditableEdge { return isEditable ? internalEditingEdge : .none }
     public func setEditing(at point: CGPoint) { internalEditingEdge = edge(at: point) }
-    fileprivate var internalEditingEdge: EditableEdge = .none
+    private var internalEditingEdge: EditableEdge = .none
     
     public var hidesDuringEditing: Bool {
         return false
     }
     
-    fileprivate static let defaultCircleRadius     : CGFloat = 4.67
-    fileprivate static let defaultCircleBorderWidth: CGFloat = 1.67
+    private static let defaultCircleRadius     : CGFloat = 4.67
+    private static let defaultCircleBorderWidth: CGFloat = 1.67
     
     public var circleFillColorNormal                         : CGColor?
     public var circleFillColorHighlighted                    : CGColor?
     public var circleStrokeColor                             : CGColor?
-    fileprivate var internalCircleFillColorNormal            : CGColor { circleFillColorNormal      ?? EditableOverlay.defaultCircleFillColorNormal }
-    fileprivate var internalCircleFillColorHighlighted       : CGColor { circleFillColorHighlighted ?? EditableOverlay.defaultCircleFillColorHighlighted }
-    fileprivate var internalCircleStrokeColor                : CGColor { circleStrokeColor          ?? EditableOverlay.defaultCircleStrokeColor }
-    fileprivate static let defaultCircleFillColorNormal      : CGColor = NSColor.systemGray.cgColor
-    fileprivate static let defaultCircleFillColorHighlighted : CGColor = NSColor.systemBlue.cgColor
-    fileprivate static let defaultCircleStrokeColor          : CGColor = CGColor.white
+    private var internalCircleFillColorNormal            : CGColor { circleFillColorNormal      ?? EditableOverlay.defaultCircleFillColorNormal }
+    private var internalCircleFillColorHighlighted       : CGColor { circleFillColorHighlighted ?? EditableOverlay.defaultCircleFillColorHighlighted }
+    private var internalCircleStrokeColor                : CGColor { circleStrokeColor          ?? EditableOverlay.defaultCircleStrokeColor }
+    private static let defaultCircleFillColorNormal      : CGColor = NSColor.systemGray.cgColor
+    private static let defaultCircleFillColorHighlighted : CGColor = NSColor.systemBlue.cgColor
+    private static let defaultCircleStrokeColor          : CGColor = CGColor.white
     
-    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultCircleRadius - defaultCircleBorderWidth, left: -defaultCircleRadius - defaultCircleBorderWidth, bottom: -defaultCircleRadius - defaultCircleBorderWidth, right: -defaultCircleRadius - defaultCircleBorderWidth)
-    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultCircleRadius + defaultCircleBorderWidth, left: defaultCircleRadius + defaultCircleBorderWidth, bottom: defaultCircleRadius + defaultCircleBorderWidth, right: defaultCircleRadius + defaultCircleBorderWidth)
+    private static let defaultOuterInsets = NSEdgeInsets(top: -defaultCircleRadius - defaultCircleBorderWidth, left: -defaultCircleRadius - defaultCircleBorderWidth, bottom: -defaultCircleRadius - defaultCircleBorderWidth, right: -defaultCircleRadius - defaultCircleBorderWidth)
+    private static let defaultInnerInsets = NSEdgeInsets(top: defaultCircleRadius + defaultCircleBorderWidth, left: defaultCircleRadius + defaultCircleBorderWidth, bottom: defaultCircleRadius + defaultCircleBorderWidth, right: defaultCircleRadius + defaultCircleBorderWidth)
     
     public func direction(at point: CGPoint) -> EditableDirection {
         guard isBordered && isEditable else { return .none }
@@ -98,7 +98,7 @@ class EditableOverlay: Overlay {
         return .none
     }
     
-    fileprivate func rectsForDrawBounds(_ drawBounds: CGRect) -> [CGRect] {
+    private func rectsForDrawBounds(_ drawBounds: CGRect) -> [CGRect] {
         var rects = [
             CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),
             CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),

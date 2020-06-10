@@ -56,23 +56,23 @@ class SplitController: NSSplitViewController {
 
 extension SplitController: DropViewDelegate {
     
-    fileprivate var contentController: ContentController! {
+    private var contentController: ContentController! {
         return children[0] as? ContentController
     }
     
-    fileprivate var sceneController: SceneController! {
+    private var sceneController: SceneController! {
         return children[1] as? SceneController
     }
     
-    fileprivate var sidebarController: SidebarController! {
+    private var sidebarController: SidebarController! {
         return children[2] as? SidebarController
     }
     
-    fileprivate var tagListController: TagListController! {
+    private var tagListController: TagListController! {
         return sidebarController.tagListController
     }
     
-    fileprivate var windowTitle: String {
+    private var windowTitle: String {
         get {
             return view.window?.title ?? ""
         }
@@ -284,7 +284,7 @@ extension SplitController: ContentDelegate {
 
 extension SplitController: ContentActionDelegate {
     
-    fileprivate func contentItemChanged(_ item: ContentItem) {
+    private func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
             trackingObject.trackColorChanged(nil, at: item.coordinate)
         }

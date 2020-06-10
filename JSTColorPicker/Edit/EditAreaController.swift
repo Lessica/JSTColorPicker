@@ -87,7 +87,6 @@ class EditAreaController: EditViewController {
         
         if let lastDisplayedArea = lastDisplayedArea, lastDisplayedArea.rect != pixelArea.rect, sender != nil
         {
-            undoManager?.beginUndoGrouping()
             undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
                 if let field = sender as? NSTextField, targetSelf.firstResponder != field
                 {
@@ -97,7 +96,6 @@ class EditAreaController: EditViewController {
                 }
                 targetSelf.updateDisplay(sender, with: lastDisplayedArea)
             })
-            undoManager?.endUndoGrouping()
         }
         
         updatePreview(to: rect.toCGRect())

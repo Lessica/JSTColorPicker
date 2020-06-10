@@ -299,7 +299,7 @@ public class JSTColorPanel: NSColorPicker, NSColorPickingCustom {
     }
     
     /// Format an input from a text field string, as a number in the range specified
-    fileprivate func formatColorNumber(string: String, minimum: Int?, maximum: Int?) -> CGFloat? {
+    private func formatColorNumber(string: String, minimum: Int?, maximum: Int?) -> CGFloat? {
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .none

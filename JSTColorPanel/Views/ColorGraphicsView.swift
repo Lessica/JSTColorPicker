@@ -48,7 +48,7 @@ class ColorGraphicsView: NSView {
         drawSecondarySlider(context)
     }
     
-    fileprivate struct Constants {
+    private struct Constants {
         static let bottomSliderHeight: CGFloat = 16.0
         static let verticalMargin: CGFloat = 8.0
     }

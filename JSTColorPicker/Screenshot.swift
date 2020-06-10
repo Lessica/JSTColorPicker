@@ -56,11 +56,11 @@ class Screenshot: NSDocument {
         return image != nil && content != nil
     }
     
-    fileprivate var appDelegate: AppDelegate! {
+    private var appDelegate: AppDelegate! {
         return NSApplication.shared.delegate as? AppDelegate
     }
     
-    fileprivate var tabService: TabService? {
+    private var tabService: TabService? {
         get {
             return appDelegate.tabService
         }

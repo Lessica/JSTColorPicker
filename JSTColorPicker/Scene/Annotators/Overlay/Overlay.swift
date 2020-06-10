@@ -41,20 +41,20 @@ class Overlay: NSView {
     }
     public var animationState = OverlayAnimationState()
     public var animationBeginPhase: CGFloat { CGFloat(animationState.lineDashCount % 9) }
-    fileprivate var animationTimer: Timer?
+    private var animationTimer: Timer?
     
-    fileprivate static let defaultBorderWidth    :  CGFloat  = 1.67
-    fileprivate static let defaultLineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
+    private static let defaultBorderWidth    :  CGFloat  = 1.67
+    private static let defaultLineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
     
     public var lineDashColorsNormal                        : [CGColor]?
     public var lineDashColorsHighlighted                   : [CGColor]?
-    fileprivate var internalLineDashColorsNormal           : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
-    fileprivate var internalLineDashColorsHighlighted      : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
-    fileprivate static let defaultLineDashColorsNormal     : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
-    fileprivate static let defaultLineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    private var internalLineDashColorsNormal           : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
+    private var internalLineDashColorsHighlighted      : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
+    private static let defaultLineDashColorsNormal     : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
+    private static let defaultLineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
     
-    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
-    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
+    private static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
+    private static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
     
     public var isSelected: Bool = false {
         didSet {
@@ -110,11 +110,11 @@ class Overlay: NSView {
         return self
     }
     
-    fileprivate var shouldPerformAnimatableDrawing: Bool {
+    private var shouldPerformAnimatableDrawing: Bool {
         return (!isHidden && isBordered) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
     }
     
-    fileprivate func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {
+    private func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {
         guard !drawBounds.isEmpty else { return false }
         guard (
             (drawBounds.minY > dirtyRect.minY && drawBounds.minY < dirtyRect.maxY) ||

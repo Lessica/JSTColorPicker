@@ -70,7 +70,7 @@ public extension RGB {
         return newRGB
     }
     
-    fileprivate func convertNumberToHex(number: CGFloat) -> String {
+    private func convertNumberToHex(number: CGFloat) -> String {
         var strNum = String(Int(number * 255), radix: 16)
         
         if (strNum.count < 2) {
@@ -80,7 +80,7 @@ public extension RGB {
         return strNum
     }
     
-    fileprivate static func convertHexToNumber(hex string: String) -> Int? {
+    private static func convertHexToNumber(hex string: String) -> Int? {
         return Int(string, radix: 16)
     }
     

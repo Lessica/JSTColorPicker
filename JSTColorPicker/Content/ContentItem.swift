@@ -14,8 +14,12 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     
     class var supportsSecureCoding: Bool { true }
     
+    enum CodingKeys: String, CodingKey {
+        case id, tags, similarity
+    }
+    
     public var id: Int
-    public var tags: [String] = []
+    public var tags = OrderedSet<String>()
     public var similarity: Double = 1.0
     
     init(id: Int) {
@@ -23,15 +27,29 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     }
 
     required init?(coder: NSCoder) {
-        self.id = coder.decodeInteger(forKey: "id")
-        self.tags = (coder.decodeObject(forKey: "tags") as? [String]) ?? []
-        self.similarity = coder.decodeDouble(forKey: "similarity")
+        id = coder.decodeInteger(forKey: "id")
+        tags = OrderedSet((coder.decodeObject(forKey: "tags") as? [String]) ?? [])
+        similarity = coder.decodeDouble(forKey: "similarity")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        tags = OrderedSet(try container.decode([String].self, forKey: .tags))
+        similarity = try container.decode(Double.self, forKey: .similarity)
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
-        coder.encode(tags, forKey: "tags")
+        coder.encode(tags.contents, forKey: "tags")
         coder.encode(similarity, forKey: "similarity")
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(tags.contents, forKey: .tags)
+        try container.encode(similarity, forKey: .similarity)
     }
     
     override func isEqual(_ object: Any?) -> Bool {
@@ -55,7 +73,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     
     func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "content item (table with keys [id,tags])"
+    private static let typeName: String = "content item (table with keys [id,tags])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         fatalError("arg(_:value:) has not been implemented")
     }

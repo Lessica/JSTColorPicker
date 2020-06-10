@@ -89,7 +89,7 @@ class SceneClipView: NSClipView {
         The `contentInsets` scaled to the scale factor of a new potential bounds
         rect. Used by `constrainBoundsRect(NSRect)`.
     */
-    fileprivate func convertedContentInsetsToProposedBoundsSize(_ proposedBoundsSize: NSSize) -> NSEdgeInsets {
+    private func convertedContentInsetsToProposedBoundsSize(_ proposedBoundsSize: NSSize) -> NSEdgeInsets {
         // Base the scale factor on the width scale factor to the new proposedBounds.
         let fromBoundsToProposedBoundsFactor = bounds.width > 0 ? (proposedBoundsSize.width / bounds.width) : 1.0
  

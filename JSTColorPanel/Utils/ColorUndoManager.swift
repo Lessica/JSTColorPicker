@@ -9,8 +9,8 @@
 import Cocoa
 
 class ColorUndoManager  {
-    fileprivate var history: [HSV] = []
-    fileprivate var current: Int = 0
+    private var history: [HSV] = []
+    private var current: Int = 0
     
     var lastItem: Int {
         get {

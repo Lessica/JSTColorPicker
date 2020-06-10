@@ -32,12 +32,12 @@ class PreviewOverlayView: NSView {
         }
     }
     
-    fileprivate static let defaultOverlayColor      : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
-    fileprivate static let defaultOverlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
-    fileprivate static let defaultOverlayBorderWidth: CGFloat = 1.0
-    fileprivate static let minimumOverlayRadius     : CGFloat = 3.0
-    fileprivate static let minimumOverlayDiameter   : CGFloat = minimumOverlayRadius * 2
-    fileprivate var trackingArea: NSTrackingArea?
+    private static let defaultOverlayColor      : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
+    private static let defaultOverlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
+    private static let defaultOverlayBorderWidth: CGFloat = 1.0
+    private static let minimumOverlayRadius     : CGFloat = 3.0
+    private static let minimumOverlayDiameter   : CGFloat = minimumOverlayRadius * 2
+    private var trackingArea: NSTrackingArea?
     
     override var isFlipped: Bool { true }
     override var isOpaque: Bool { false }
@@ -51,7 +51,7 @@ class PreviewOverlayView: NSView {
         layerContentsPlacement = .center
     }
     
-    fileprivate func createTrackingArea() {
+    private func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(rect: imageArea, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
@@ -104,7 +104,7 @@ class PreviewOverlayView: NSView {
         
     }
     
-    fileprivate func mouseInside() -> Bool {
+    private func mouseInside() -> Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
             if visibleRect.contains(loc) {
@@ -114,7 +114,7 @@ class PreviewOverlayView: NSView {
         return false
     }
     
-    fileprivate func updateCursorAppearance() {
+    private func updateCursorAppearance() {
         guard overlayDelegate != nil else { return }
         if !mouseInside() { return }
         NSCursor.pointingHand.set()

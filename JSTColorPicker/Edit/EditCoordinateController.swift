@@ -24,7 +24,7 @@ class EditCoordinateController: EditViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        undoManager?.beginUndoGrouping()
+        undoManager?.disableUndoRegistration()
         updateDisplay(nil, with: contentItem)
         if isAdd {
             box.title = NSLocalizedString("New Color & Coordinate", comment: "EditCoordinateController")
@@ -32,7 +32,7 @@ class EditCoordinateController: EditViewController {
             box.title = NSLocalizedString("Edit Color & Coordinate", comment: "EditCoordinateController")
             validateInputs(view)
         }
-        undoManager?.endUndoGrouping()
+        undoManager?.enableUndoRegistration()
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: nil)
         { [unowned self] (notification) in
@@ -61,7 +61,6 @@ class EditCoordinateController: EditViewController {
         
         if let lastDisplayedColor = lastDisplayedColor, lastDisplayedColor.coordinate != pixelColor.coordinate, sender != nil
         {
-            undoManager?.beginUndoGrouping()
             undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
                 if let field = sender as? NSTextField, targetSelf.firstResponder != field
                 {
@@ -71,7 +70,6 @@ class EditCoordinateController: EditViewController {
                 }
                 targetSelf.updateDisplay(sender, with: lastDisplayedColor)
             })
-            undoManager?.endUndoGrouping()
         }
         
         if sender != nil {

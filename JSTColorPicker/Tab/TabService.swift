@@ -7,14 +7,14 @@ extension Notification.Name {
 
 class TabService: TabDelegate {
     
-    fileprivate var internalActiveOrder: Int = 0
-    fileprivate var pendingActiveOrder: Int {
+    private var internalActiveOrder: Int = 0
+    private var pendingActiveOrder: Int {
         let currentActiveOrder = internalActiveOrder
         internalActiveOrder += 1
         return currentActiveOrder
     }
-    fileprivate var internalManagedWindows: [ManagedWindow] = []
-    fileprivate weak var dropRespondingWindow: NSWindow?
+    private var internalManagedWindows: [ManagedWindow] = []
+    private weak var dropRespondingWindow: NSWindow?
     
     public var managedWindows: [ManagedWindow] {
         return internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder })

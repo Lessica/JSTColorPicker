@@ -252,6 +252,10 @@
 		D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B023EE72A30039F4F6 /* AreaAnnotatorOverlay.swift */; };
 		D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */; };
 		D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B423EE74330039F4F6 /* Annotator.swift */; };
+		D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */; };
+		D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */; };
+		D64790F82490E79C003159FD /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
+		D64790F92490E79C003159FD /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
 		D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230B23CC56E20067C04A /* DropSplitView.swift */; };
 		D649230E23CC62D70067C04A /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230D23CC62D70067C04A /* SceneController.swift */; };
 		D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649231823CC647D0067C04A /* SceneScrollView.swift */; };
@@ -707,6 +711,8 @@
 		D645E4B023EE72A30039F4F6 /* AreaAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D645E4B223EE72BC0039F4F6 /* AreaAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAnnotator.swift; sourceTree = "<group>"; };
 		D645E4B423EE74330039F4F6 /* Annotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotator.swift; sourceTree = "<group>"; };
+		D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuDelegateProxy.swift; sourceTree = "<group>"; };
+		D64790F72490E79C003159FD /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		D647B06523D1A12300D76CB5 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
 		D647B06623D1A12300D76CB5 /* libimobiledevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimobiledevice.a; sourceTree = "<group>"; };
 		D647B06723D1A12300D76CB5 /* libusbmuxd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libusbmuxd.a; sourceTree = "<group>"; };
@@ -1828,6 +1834,8 @@
 		D682FC8F23D6DB1800DA1750 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				D64790F72490E79C003159FD /* OrderedSet.swift */,
+				D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */,
 				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
@@ -2729,6 +2737,7 @@
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
+				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
 				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
@@ -2774,6 +2783,7 @@
 				D61047A424224A170002E990 /* Template.swift in Sources */,
 				D61047A524224A170002E990 /* GeneralController.swift in Sources */,
 				D61047A724224A170002E990 /* SceneEvent.swift in Sources */,
+				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
@@ -2891,6 +2901,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
@@ -2914,6 +2925,7 @@
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
+				D64790F92490E79C003159FD /* OrderedSet.swift in Sources */,
 				18B22FF2247EBD65003F70BA /* TagListDataSource.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentDelegate.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,

@@ -44,36 +44,36 @@ class AnnotatorOverlay: EditableOverlay {
     public var highlightedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRed")
     public var focusedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRedFocused")
     
-    fileprivate static let defaultBorderWidth: CGFloat = 0.0
-    fileprivate static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
-    fileprivate static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
+    private static let defaultBorderWidth: CGFloat = 0.0
+    private static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
+    private static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
     
-    fileprivate var internalLabel: String
-    fileprivate lazy var internalAttributedLabel: NSAttributedString = {
+    private var internalLabel: String
+    private lazy var internalAttributedLabel: NSAttributedString = {
         return NSAttributedString(string: internalLabel, attributes: [
             NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
             NSAttributedString.Key.foregroundColor: textColor
         ])
     }()
-    fileprivate lazy var internalAttributedLabelSize: CGSize = {
+    private lazy var internalAttributedLabelSize: CGSize = {
         return internalAttributedLabel.size()
     }()
-    fileprivate lazy var internalHighlightedAttributedLabel: NSAttributedString = {
+    private lazy var internalHighlightedAttributedLabel: NSAttributedString = {
         return NSAttributedString(string: internalLabel, attributes: [
             NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
             NSAttributedString.Key.foregroundColor: highlightedTextColor
         ])
     }()
-    fileprivate lazy var internalHighlightedAttributedLabelSize: CGSize = {
+    private lazy var internalHighlightedAttributedLabelSize: CGSize = {
         return internalHighlightedAttributedLabel.size()
     }()
-    fileprivate lazy var internalFocusedAttributedLabel: NSAttributedString = {
+    private lazy var internalFocusedAttributedLabel: NSAttributedString = {
         return NSAttributedString(string: internalLabel, attributes: [
             NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
             NSAttributedString.Key.foregroundColor: focusedTextColor
         ])
     }()
-    fileprivate lazy var internalFocusedAttributedLabelSize: CGSize = {
+    private lazy var internalFocusedAttributedLabelSize: CGSize = {
         return internalFocusedAttributedLabel.size()
     }()
     

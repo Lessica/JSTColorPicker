@@ -28,12 +28,12 @@ class TagListOverlayView: NSView, DragEndpoint {
     public weak var dragDelegate: TagListDragDelegate!
     
     public weak var sceneToolDataSource: SceneToolDataSource!
-    fileprivate var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
+    private var sceneTool: SceneTool { return sceneToolDataSource!.sceneTool }
     
-    fileprivate var highlightedRects: [CGRect]?
+    private var highlightedRects: [CGRect]?
     
-    fileprivate static let focusLineWidth: CGFloat = 2.0
-    fileprivate static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
+    private static let focusLineWidth: CGFloat = 2.0
+    private static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
     
     override func awakeFromNib() {
         super.awakeFromNib()

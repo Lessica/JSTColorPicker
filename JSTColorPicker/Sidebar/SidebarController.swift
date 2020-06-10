@@ -36,15 +36,15 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewPreview      : NSView!
     @IBOutlet weak var paneViewPlaceholder  : NSView!
     
-    fileprivate var imageSource1: PixelImageSource? {
+    private var imageSource1: PixelImageSource? {
         return screenshot?.image?.imageSource
     }
-    fileprivate var imageSource2: PixelImageSource?
-    fileprivate var isInComparisonMode: Bool {
+    private var imageSource2: PixelImageSource?
+    private var isInComparisonMode: Bool {
         return imageSource1 != nil && imageSource2 != nil
     }
-    fileprivate var exitComparisonHandler: ((Bool) -> Void)?
-    fileprivate func updateInformationPanel() {
+    private var exitComparisonHandler: ((Bool) -> Void)?
+    private func updateInformationPanel() {
         
         imageLabel1.isHidden = false
         if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
@@ -86,22 +86,22 @@ class SidebarController: NSViewController {
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
     
-    fileprivate var colorPanel: NSColorPanel {
+    private var colorPanel: NSColorPanel {
         let panel = NSColorPanel.shared
         panel.showsAlpha = true
         panel.isContinuous = false
         return panel
     }
-    fileprivate static var byteFormatter: ByteCountFormatter = {
+    private static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
     }()
-    fileprivate static var exifDateFormatter: DateFormatter = {
+    private static var exifDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
     }()
-    fileprivate static var defaultDateFormatter: DateFormatter = {
+    private static var defaultDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
@@ -295,8 +295,8 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     // MARK: -
     
     @IBOutlet var optionMenu: NSMenu!
-    fileprivate var reservedOptionMenuItems: [NSMenuItem] = []
-    fileprivate let templateIdentifierPrefix = "template-"
+    private var reservedOptionMenuItems: [NSMenuItem] = []
+    private let templateIdentifierPrefix = "template-"
     
     @IBAction func exportButtonTapped(_ sender: NSButton) {
         do {
@@ -316,7 +316,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         }
     }
     
-    fileprivate func exportAllItems(to url: URL) {
+    private func exportAllItems(to url: URL) {
         do {
             try screenshot?.export.exportAllItems(to: url)
         }
@@ -393,11 +393,11 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         }
     }
     
-    @objc fileprivate func templateItemTapped(_ sender: NSMenuItem) {
+    @objc private func templateItemTapped(_ sender: NSMenuItem) {
         selectTemplateItem(sender)
     }
     
-    fileprivate func selectTemplateItem(_ sender: NSMenuItem) {
+    private func selectTemplateItem(_ sender: NSMenuItem) {
         guard let identifier = sender.identifier?.rawValue else { return }
         guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
         let beginIdx = identifier.index(identifier.startIndex, offsetBy: templateIdentifierPrefix.lengthOfBytes(using: .utf8))
@@ -405,7 +405,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         screenshot?.export.selectedTemplateUUID = UUID(uuidString: udidString)
     }
     
-    fileprivate func copyExampleTemplatesIfNeeded() {
+    private func copyExampleTemplatesIfNeeded() {
         guard let exportManager = screenshot?.export else { return }
         if exportManager.templates.count == 0 {
             if let exampleTemplateURL = ExportManager.exampleTemplateURL {
@@ -422,7 +422,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     
     @IBOutlet var paneMenu: NSMenu!
     
-    @objc fileprivate func applyPreferences(_ notification: Notification?) {
+    @objc private func applyPreferences(_ notification: Notification?) {
         updatePanes()
     }
     
@@ -456,7 +456,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         }
     }
     
-    fileprivate func updatePanes() {
+    private func updatePanes() {
         var paneChanged = false
         var hiddenValue: Bool!
         
@@ -494,7 +494,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     @IBOutlet weak var dividerConstraintInspector  : NSLayoutConstraint!
     @IBOutlet weak var dividerConstraintPreview    : NSLayoutConstraint!
     
-    fileprivate func resetDividers() {
+    private func resetDividers() {
         if !paneViewInfo.isHidden {
             splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.info.rawValue), ofDividerAt: PaneDividerIndex.info.rawValue)
         }
@@ -532,7 +532,7 @@ extension SidebarController: ScreenshotLoader {
         copyExampleTemplatesIfNeeded()
     }
     
-    fileprivate func stringValue(for source: PixelImageSource) -> String? {
+    private func stringValue(for source: PixelImageSource) -> String? {
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
         let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
@@ -562,22 +562,18 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
     
 }
 
-extension SidebarController: NSUserInterfaceValidations {
+extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
     
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard screenshot != nil else { return false }
-        if item.action == #selector(togglePane(_:)) {
+        if menuItem.action == #selector(togglePane(_:)) {
             return true
         }
-        else if item.action == #selector(resetPanes(_:)) {
+        else if menuItem.action == #selector(resetPanes(_:)) {
             return true
         }
         return false
     }
-    
-}
-
-extension SidebarController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         

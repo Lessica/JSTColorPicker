@@ -39,19 +39,19 @@ enum SceneTool: String {
         return NSCursor.init(image: NSImage(named: "JSTNoZoomingMIN")!, hotSpot: NSPoint(x: 15, y: 15))
     }()
     
-    fileprivate static var resizeNorthWestSouthEast: NSCursor = {
+    private static var resizeNorthWestSouthEast: NSCursor = {
         return NSCursor.init(image: NSImage(named: "resizenorthwestsoutheast")!, hotSpot: NSPoint(x: 17, y: 17))
     }()
     
-    fileprivate static var resizeNorthSouth: NSCursor = {
+    private static var resizeNorthSouth: NSCursor = {
         return NSCursor.init(image: NSImage(named: "resizenorthsouth")!, hotSpot: NSPoint(x: 17, y: 17))
     }()
     
-    fileprivate static var resizeNorthEastSouthWest: NSCursor = {
+    private static var resizeNorthEastSouthWest: NSCursor = {
         return NSCursor.init(image: NSImage(named: "resizenortheastsouthwest")!, hotSpot: NSPoint(x: 17, y: 17))
     }()
     
-    fileprivate static var resizeEastWest: NSCursor = {
+    private static var resizeEastWest: NSCursor = {
         return NSCursor.init(image: NSImage(named: "resizeeastwest")!, hotSpot: NSPoint(x: 17, y: 17))
     }()
     

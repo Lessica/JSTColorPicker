@@ -30,7 +30,7 @@ enum PixelMatchServiceError: LocalizedError {
 
 class PixelMatchService {
     
-    public fileprivate(set) var isProcessing: Bool = false
+    public private(set) var isProcessing: Bool = false
     
     public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage) throws -> JSTPixelImage {
         var options = MatchOptions()

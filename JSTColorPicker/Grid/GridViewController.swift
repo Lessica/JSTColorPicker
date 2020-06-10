@@ -26,7 +26,7 @@ class GridViewController: NSViewController {
         applyPreferences(nil)
     }
     
-    fileprivate func reloadGridBackground() {
+    private func reloadGridBackground() {
         if drawBackgroundInGridView {
             view.layer?.backgroundColor = NSColor(patternImage: NSImage(named: "JSTBackgroundPattern")!).cgColor
         }
@@ -35,7 +35,7 @@ class GridViewController: NSViewController {
         }
     }
     
-    @objc fileprivate func applyPreferences(_ notification: Notification?) {
+    @objc private func applyPreferences(_ notification: Notification?) {
         let drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView]
         if self.drawBackgroundInGridView != drawBackgroundInGridView {
             self.drawBackgroundInGridView = drawBackgroundInGridView

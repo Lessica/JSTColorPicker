@@ -11,7 +11,7 @@ extension CGPoint: Value {
     
     public func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "point (table with keys [x,y])"
+    private static let typeName: String = "point (table with keys [x,y])"
     public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
@@ -33,7 +33,7 @@ extension CGSize: Value {
     
     public func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "size (table with keys [w,h])"
+    private static let typeName: String = "size (table with keys [w,h])"
     public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

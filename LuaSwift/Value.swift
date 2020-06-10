@@ -6,7 +6,7 @@ public protocol Value {
 
 open class StoredValue: Value, Equatable {
     
-    fileprivate let registryLocation: Int
+    private let registryLocation: Int
     internal unowned var vm: VirtualMachine
     
     internal init(_ vm: VirtualMachine) {

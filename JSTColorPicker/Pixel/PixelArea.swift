@@ -17,7 +17,7 @@ class PixelArea: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     
-    public fileprivate(set) var rect: PixelRect
+    public private(set) var rect: PixelRect
     
     public init(id: Int, rect: PixelRect) {
         self.rect = rect
@@ -58,18 +58,18 @@ class PixelArea: ContentItem {
         return self == object
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(rect, forKey: .rect)
-    }
-    
     override func encode(with coder: NSCoder) {
         super.encode(with: coder)
         coder.encode(rect.origin.x, forKey: "rect.origin.x")
         coder.encode(rect.origin.y, forKey: "rect.origin.y")
         coder.encode(rect.size.width, forKey: "rect.size.width")
         coder.encode(rect.size.height, forKey: "rect.size.height")
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(rect, forKey: .rect)
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -82,7 +82,7 @@ class PixelArea: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
-        t["tags"]       = vm.createTable(withSequence: tags)
+        t["tags"]       = vm.createTable(withSequence: tags.contents)
         t["similarity"] = similarity
         t["x"]          = rect.x
         t["y"]          = rect.y
@@ -93,7 +93,7 @@ class PixelArea: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    fileprivate static let typeName: String = "pixel area (table with keys [id,tags,similarity,x,y,w,h])"
+    private static let typeName: String = "pixel area (table with keys [id,tags,similarity,x,y,w,h])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
@@ -142,7 +142,7 @@ extension PixelArea /*: CustomStringConvertible*/ {
     
     override var description: String { rect.description }
     
-    override var debugDescription: String { "<#\(id): \(tags) (\(Int(similarity * 100.0))%); \(rect.description)>" }
+    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(rect.description)>" }
     
 }
 

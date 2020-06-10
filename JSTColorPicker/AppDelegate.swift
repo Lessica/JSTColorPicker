@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate func applicationXPCEstablish() {
+    private func applicationXPCEstablish() {
         if let prevConnection = self.helperConnection {
             prevConnection.invalidate()
             self.helperConnection = nil
@@ -147,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileMenu: NSMenu!
     @IBOutlet weak var compareMenuItem: NSMenuItem!
     
-    fileprivate var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
+    private var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
         guard let managedWindows = tabService?.managedWindows else { return nil }
         let preparedManagedWindows = managedWindows.filter({ ($0.windowController.screenshot?.isLoaded ?? false ) })
         guard preparedManagedWindows.count >= 2,
@@ -158,7 +158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return (firstWindowController, preparedManagedWindows.compactMap({ $0.windowController.screenshot?.image }))
     }
     
-    fileprivate var firstManagedWindowController: WindowController? {
+    private var firstManagedWindowController: WindowController? {
         return tabService?.firstManagedWindow?.windowController
     }
     
@@ -180,7 +180,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var gridSwitchMenuItem: NSMenuItem!
     
-    fileprivate var isGridVisible: Bool {
+    private var isGridVisible: Bool {
         guard let visible = gridController.window?.isVisible else { return false }
         return visible
     }
@@ -214,8 +214,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var devicesMenu: NSMenu!
     @IBOutlet weak var devicesSubMenu: NSMenu!
     
-    fileprivate static let deviceIdentifierPrefix = "device-"
-    fileprivate var selectedDeviceUDID: String? {
+    private static let deviceIdentifierPrefix = "device-"
+    private var selectedDeviceUDID: String? {
         get {
             return UserDefaults.standard[.lastSelectedDeviceUDID]
         }
@@ -223,7 +223,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             UserDefaults.standard[.lastSelectedDeviceUDID] = newValue
         }
     }
-    fileprivate static var screenshotDateFormatter: DateFormatter = {
+    private static var screenshotDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         return formatter
@@ -236,7 +236,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationXPCSetup()
     }
     
-    fileprivate func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
+    private func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
         return Promise<[String: String]> { seal in
             after(.seconds(3)).done {
                 seal.reject(XPCError.timeout)
@@ -251,7 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<Data> {
+    private func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<Data> {
         return Promise<Data> { seal in
             after(.seconds(30)).done {
                 seal.reject(XPCError.timeout)
@@ -266,7 +266,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate func promiseSaveScreenshot(_ data: Data, to path: String) -> Promise<URL> {
+    private func promiseSaveScreenshot(_ data: Data, to path: String) -> Promise<URL> {
         let picturesDirectoryURL = URL(fileURLWithPath: NSString(string: path).standardizingPath)
         return Promise<URL> { seal in
             after(.seconds(5)).done {
@@ -288,7 +288,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate func promiseOpenDocument(at url: URL) -> Promise<Void> {
+    private func promiseOpenDocument(at url: URL) -> Promise<Void> {
         return Promise<Void> { seal in
             after(.seconds(5)).done {
                 seal.reject(XPCError.timeout)
@@ -303,7 +303,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate var isTakingScreenshot: Bool = false
+    private var isTakingScreenshot: Bool = false
     
     @IBAction func devicesTakeScreenshotMenuItemTapped(_ sender: Any?) {
         
@@ -375,10 +375,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 
-extension AppDelegate: NSUserInterfaceValidations {
+extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(compareMenuItemTapped(_:)) {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(compareMenuItemTapped(_:)) {
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
             }
@@ -389,7 +389,7 @@ extension AppDelegate: NSUserInterfaceValidations {
                 return false
             }
         }
-        else if item.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
+        else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
             #if SANDBOXED
             return applicationHasScreenshotHelper()
             #else
@@ -398,10 +398,6 @@ extension AppDelegate: NSUserInterfaceValidations {
         }
         return true
     }
-    
-}
-
-extension AppDelegate: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == self.fileMenu {
@@ -426,13 +422,13 @@ extension AppDelegate {
     // MARK: - Device List
     
     #if SANDBOXED
-    fileprivate func applicationHasScreenshotHelper() -> Bool {
+    private func applicationHasScreenshotHelper() -> Bool {
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
         return FileManager.default.fileExists(atPath: launchAgentPath)
     }
     #endif
     
-    fileprivate func applicationXPCSetup() {
+    private func applicationXPCSetup() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
         if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
             debugPrint(error)
@@ -441,7 +437,7 @@ extension AppDelegate {
         }
     }
     
-    fileprivate func applicationXPCResetUI() {
+    private func applicationXPCResetUI() {
         #if SANDBOXED
         if !applicationHasScreenshotHelper() {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
@@ -461,7 +457,7 @@ extension AppDelegate {
         devicesSubMenu.items = [ emptyItem ]
     }
     
-    fileprivate func updateFileMenuItems() {
+    private func updateFileMenuItems() {
         if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
             compareMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
             compareMenuItem.isEnabled = true
@@ -478,14 +474,14 @@ extension AppDelegate {
         }
     }
     
-    fileprivate func updateDevicesMenuItems() {
+    private func updateDevicesMenuItems() {
         devicesEnableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
         #if SANDBOXED
         devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
         #endif
     }
     
-    fileprivate func updateDevicesSubMenuItems() {
+    private func updateDevicesSubMenuItems() {
         let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
         for item in devicesSubMenu.items {
             guard let deviceIdentifier = item.identifier?.rawValue else { continue }
@@ -495,7 +491,7 @@ extension AppDelegate {
         reloadDevicesSubMenuItems()
     }
     
-    fileprivate func reloadDevicesSubMenuItems() {
+    private func reloadDevicesSubMenuItems() {
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
             debugPrint(error)
         }) as? JSTScreenshotHelperProtocol else { return }
@@ -544,11 +540,11 @@ extension AppDelegate {
     
     // MARK: - Device Action: Select
     
-    @objc fileprivate func actionDeviceItemTapped(_ sender: NSMenuItem) {
+    @objc private func actionDeviceItemTapped(_ sender: NSMenuItem) {
         selectDeviceSubMenuItem(sender)
     }
     
-    fileprivate func selectDeviceSubMenuItem(_ sender: NSMenuItem?) {
+    private func selectDeviceSubMenuItem(_ sender: NSMenuItem?) {
         guard let identifier = sender?.identifier?.rawValue else {
             selectedDeviceUDID = nil
             return
@@ -562,7 +558,7 @@ extension AppDelegate {
     
     // MARK: - Device Action: Download Redirect
     
-    @objc fileprivate func actionRedirectToDownloadPage() {
+    @objc private func actionRedirectToDownloadPage() {
         if let url = URL(string: "https://82flex.github.io/JSTColorPicker/") {
             NSWorkspace.shared.open(url)
         }
@@ -573,7 +569,7 @@ extension AppDelegate {
 
 extension AppDelegate {
     
-    @objc fileprivate func applicationApplyPreferences(_ notification: Notification?) {
+    @objc private func applicationApplyPreferences(_ notification: Notification?) {
         debugPrint("- [AppDelegate applicationApplyPreferences(_:)]")
     }
     
