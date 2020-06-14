@@ -134,6 +134,9 @@
    ExportError */
 "No document loaded." = "未加载任何文档.";
 
+/* Content Tag Submenu */
+"No tag attached" = "未关联标签";
+
 /* ExportError */
 "No template selected." = "未选择模板.";
 

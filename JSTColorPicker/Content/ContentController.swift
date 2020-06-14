@@ -374,6 +374,21 @@ extension ContentController {
         return indexes
     }
     
+    private func internalSelectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
+        if !set.isEmpty, let lastIndex = set.last {
+            if tableView.selectedRowIndexes != set {
+                tableView.selectRowIndexes(set, byExtendingSelection: extend)
+            } else {
+                internalTableViewSelectionDidChange(nil)
+            }
+            tableView.scrollRowToVisible(lastIndex)
+            makeFirstResponder(tableView)
+        }
+        else {
+            tableView.deselectAll(nil)
+        }
+    }
+    
 }
 
 extension ContentController: ContentDataSource {
@@ -467,7 +482,7 @@ extension ContentController: ContentDelegate {
         internalAddContentItems(relatedItems)
         tableView.reloadData()
         
-        selectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count), byExtendingSelection: false)
+        internalSelectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count), byExtendingSelection: false)
         return relatedItems
         
     }
@@ -494,7 +509,7 @@ extension ContentController: ContentDelegate {
         guard let content = content                              else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
         
-        selectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
+        internalSelectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
         return item
         
     }
@@ -512,21 +527,6 @@ extension ContentController: ContentDelegate {
     
     func deselectAllContentItems() {
         tableView.deselectAll(nil)
-    }
-    
-    private func selectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
-        if !set.isEmpty, let lastIndex = set.last {
-            if tableView.selectedRowIndexes != set {
-                tableView.selectRowIndexes(set, byExtendingSelection: extend)
-            } else {
-                internalTableViewSelectionDidChange(nil)
-            }
-            tableView.scrollRowToVisible(lastIndex)
-            makeFirstResponder(tableView)
-        }
-        else {
-            tableView.deselectAll(nil)
-        }
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
@@ -700,7 +700,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             preparedMenuTags = OrderedSet<String>(allTags)
             preparedMenuTagsAndCounts = allTags
                 .reduce(into: [String: Int](), { $0[$1, default: 0] += 1 })
-            return preparedMenuTags?.count ?? 0
+            return max(preparedMenuTags?.count ?? 0, 1)
         }
         return -1  // unchanged
     }
@@ -728,9 +728,16 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 return false
             }
             guard let selectedItemCount = preparedSelectedItemCount,
-                let menuTitle = preparedMenuTags?[index],
-                let menuCount = preparedMenuTagsAndCounts?[menuTitle] else
+                let menuTags = preparedMenuTags,
+                let menuTagsAndCounts = preparedMenuTagsAndCounts else
             { return false }
+            guard index < menuTags.count else {
+                item.title = NSLocalizedString("No tag attached", comment: "Content Tag Submenu")
+                item.isEnabled = false
+                return false
+            }
+            let menuTitle = menuTags[index]
+            let menuCount = menuTagsAndCounts[menuTitle] ?? 0
             item.title = "\(menuTitle) (\(menuCount))"
             item.state = menuCount >= selectedItemCount ? .on : .mixed
             item.target = self
@@ -1010,6 +1017,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         let itemIndexes = internalUpdateContentItems(copiedItems)
         let col = tableView.column(withIdentifier: .columnTag)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
+        
+        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
     }
     
 }
@@ -1037,36 +1046,36 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let content = content else { return nil }
         guard let tableColumn = tableColumn else { return nil }
-        if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? NSTableCellView {
+        if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? ContentCellView {
             let col = tableColumn.identifier
             let item = content.items[row]
             if col == .columnIdentifier {
-                cell.textField?.stringValue = String(item.id)
+                cell.text = String(item.id)
             }
             else if col == .columnSimilarity {
                 let similarity = String(Int(item.similarity * 100.0))
-                cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
-                cell.textField?.stringValue = similarity + "%"
+                cell.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
+                cell.text = similarity + "%"
             }
             else if col == .columnTag {
                 if let firstTag = item.tags.first {
-                    cell.textField?.stringValue = "\u{25CF} \(firstTag)"
-                    cell.textField?.textColor = tagListDataSource.managedTag(of: firstTag)?.color
+                    cell.normalTextColor = tagListDataSource.managedTag(of: firstTag)?.color
+                    cell.text = "\u{25CF} \(firstTag)"
                 } else {
-                    cell.textField?.stringValue = NSLocalizedString("None", comment: "None")
-                    cell.textField?.textColor = nil
+                    cell.normalTextColor = nil
+                    cell.text = NSLocalizedString("None", comment: "None")
                 }
             }
             else if col == .columnDescription {
                 if let color = item as? PixelColor {
-                    cell.imageView?.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
-                    cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString)
+                    cell.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
+                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString)
                 }
                 else if let area = item as? PixelArea {
-                    cell.imageView?.image = NSImage(named: "JSTCropSmall")
-                    cell.textField?.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description)
+                    cell.image = NSImage(named: "JSTCropSmall")
+                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description)
                 }
-                cell.textField?.stringValue = item.description
+                cell.text = item.description
             }
             return cell
         }

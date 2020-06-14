@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Origin Y: "; ObjectID = "7hi-tL-x2j"; */
 "7hi-tL-x2j.title" = "Origin Y: ";
 
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
+"7qb-5Y-1eO.title" = "Cancel";
+
 /* Class = "NSBox"; title = "Preview"; ObjectID = "A6n-Ur-CSs"; */
 "A6n-Ur-CSs.title" = "Preview";
 
@@ -19,11 +22,20 @@
 /* Class = "NSViewController"; title = "Edit Color & Coordinate"; ObjectID = "ctg-Pv-CEh"; */
 "ctg-Pv-CEh.title" = "Edit Color & Coordinate";
 
+/* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "d7Y-BF-gov"; */
+"d7Y-BF-gov.alternateTitle" = "Show Preview";
+
+/* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "d7Y-BF-gov"; */
+"d7Y-BF-gov.title" = "Hide Preview";
+
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "Origin X: ";
 
 /* Class = "NSBox"; title = "Edit Area"; ObjectID = "jKL-Xg-wfl"; */
 "jKL-Xg-wfl.title" = "Edit Area";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "KcP-Rr-yyA"; */
+"KcP-Rr-yyA.title" = "OK";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
 "kHm-RB-ux9.title" = "Cancel";

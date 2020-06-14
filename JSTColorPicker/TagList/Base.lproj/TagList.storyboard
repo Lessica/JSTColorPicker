@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -65,7 +65,7 @@
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                 <prototypeCellViews>
-                                                                    <tableCellView id="yGX-y2-tND">
+                                                                    <tableCellView id="yGX-y2-tND" customClass="TagListCellView" customModule="JSTColorPicker" customModuleProvider="target">
                                                                         <rect key="frame" x="1" y="1" width="233" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
@@ -79,11 +79,6 @@
                                                                                 </textFieldCell>
                                                                                 <connections>
                                                                                     <action selector="tagFieldValueChanged:" target="ifY-36-Ao8" id="Haq-IR-CC8"/>
-                                                                                    <binding destination="yGX-y2-tND" name="textColor" keyPath="objectValue.colorHex" id="uyz-Sj-zbk">
-                                                                                        <dictionary key="options">
-                                                                                            <string key="NSValueTransformerName">ColorTransformer</string>
-                                                                                        </dictionary>
-                                                                                    </binding>
                                                                                     <binding destination="yGX-y2-tND" name="value" keyPath="objectValue.name" id="Lrt-pd-bER">
                                                                                         <dictionary key="options">
                                                                                             <bool key="NSConditionallySetsEditable" value="YES"/>
