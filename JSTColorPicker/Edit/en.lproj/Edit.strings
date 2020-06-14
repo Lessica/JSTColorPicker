@@ -16,14 +16,14 @@
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[Error Message]";
 
-/* Class = "NSViewController"; title = "Edit Location"; ObjectID = "ctg-Pv-CEh"; */
-"ctg-Pv-CEh.title" = "Edit Location";
+/* Class = "NSViewController"; title = "Edit Color & Coordinate"; ObjectID = "ctg-Pv-CEh"; */
+"ctg-Pv-CEh.title" = "Edit Color & Coordinate";
 
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "Origin X: ";
 
-/* Class = "NSBox"; title = "Area"; ObjectID = "jKL-Xg-wfl"; */
-"jKL-Xg-wfl.title" = "Area";
+/* Class = "NSBox"; title = "Edit Area"; ObjectID = "jKL-Xg-wfl"; */
+"jKL-Xg-wfl.title" = "Edit Area";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
 "kHm-RB-ux9.title" = "Cancel";
@@ -64,8 +64,8 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "OK";
 
-/* Class = "NSBox"; title = "Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
-"WvB-Hs-BAB.title" = "Color & Coordinate";
+/* Class = "NSBox"; title = "Edit Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "Edit Color & Coordinate";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[Error Message]";

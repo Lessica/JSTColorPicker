@@ -16,14 +16,14 @@
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[错误信息]";
 
-/* Class = "NSViewController"; title = "Edit Location"; ObjectID = "ctg-Pv-CEh"; */
-"ctg-Pv-CEh.title" = "修改位置";
+/* Class = "NSViewController"; title = "Edit Color & Coordinate"; ObjectID = "ctg-Pv-CEh"; */
+"ctg-Pv-CEh.title" = "修改颜色与坐标";
 
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "原点 X: ";
 
-/* Class = "NSBox"; title = "Area"; ObjectID = "jKL-Xg-wfl"; */
-"jKL-Xg-wfl.title" = "区域";
+/* Class = "NSBox"; title = "Edit Area"; ObjectID = "jKL-Xg-wfl"; */
+"jKL-Xg-wfl.title" = "修改区域";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
 "kHm-RB-ux9.title" = "取消";
@@ -64,8 +64,8 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "好";
 
-/* Class = "NSBox"; title = "Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
-"WvB-Hs-BAB.title" = "颜色与坐标";
+/* Class = "NSBox"; title = "Edit Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "修改颜色与坐标";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[错误信息]";
