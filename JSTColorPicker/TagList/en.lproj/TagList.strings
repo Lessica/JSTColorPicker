@@ -19,6 +19,9 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "Jns-u7-V7q"; */
 "Jns-u7-V7q.title" = "Delete";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Import tags from document"; ObjectID = "LsJ-yu-RS8"; */
+"LsJ-yu-RS8.ibShadowedToolTip" = "Import tags from document";
+
 /* Class = "NSMenuItem"; title = "Change Color..."; ObjectID = "Ndd-m7-WU5"; */
 "Ndd-m7-WU5.title" = "Change Color...";
 

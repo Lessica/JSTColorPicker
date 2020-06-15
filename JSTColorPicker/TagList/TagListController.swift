@@ -187,6 +187,10 @@ class TagListController: NSViewController {
         internalController.remove(contentsOf: rows.map({ arrangedTags[$0] }))
     }
     
+    @IBAction private func importTagBtnTapped(_ sender: Any) {
+        
+    }
+    
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
         internalController.insert(sender)
         setNeedsRearrangeManagedTags()
