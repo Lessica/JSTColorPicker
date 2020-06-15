@@ -67,11 +67,6 @@ class SceneScrollView: NSScrollView {
         guard !rect.isEmpty else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
     }
-//    private var annotatorDraggingOverlayRect: PixelRect {
-//        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
-//        guard !rect.isEmpty else { return .null }
-//        return PixelRect(CGRect(point1: CGPoint(x: round(rect.minX), y: round(rect.minY)), point2: CGPoint(x: round(rect.maxX), y: round(rect.maxY))))
-//    }
     
     private lazy var colorDraggingOverlay: ImageOverlay = {
         let view = ImageOverlay()
@@ -334,6 +329,14 @@ class SceneScrollView: NSScrollView {
                 if sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
                     let origin = locInAction.offsetBy(-colorDraggingOverlay.bounds.center)
                     colorDraggingOverlay.setFrameOrigin(origin)
+                    let beginLocInWrapper = convert(sceneState.beginLocation, to: wrapper)
+                    let locInWrapper = convert(currentLocation, to: wrapper)
+                    areaDraggingOverlay.contextRect = PixelRect(
+                        x: Int(beginLocInWrapper.x),
+                        y: Int(beginLocInWrapper.y),
+                        width: Int(locInWrapper.x) - Int(beginLocInWrapper.x),
+                        height: Int(locInWrapper.y) - Int(beginLocInWrapper.y)
+                    )
                 }
                 else if let areaAnnotatorOverlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
                     let edge = areaAnnotatorOverlay.editingEdge
@@ -365,7 +368,13 @@ class SceneScrollView: NSScrollView {
                             let newFrame = CGRect(point1: fixedOpposite, point2: locInAction)
                             areaDraggingOverlay.frame =
                                 newFrame.inset(by: areaDraggingOverlay.outerInsets)
-                            let newPixelRect = PixelRect(coordinate1: fixedOppositeCoord, coordinate2: PixelCoordinate(x: Int(round(locInWrapper.x)), y: Int(round(locInWrapper.y))))
+                            let newPixelRect = PixelRect(
+                                coordinate1: fixedOppositeCoord,
+                                coordinate2: PixelCoordinate(
+                                    x: Int(round(locInWrapper.x)),
+                                    y: Int(round(locInWrapper.y))
+                                )
+                            )
                             areaDraggingOverlay.contextRect = newPixelRect.intersection(wrapper.pixelBounds)
                         }
                     }
@@ -401,7 +410,10 @@ class SceneScrollView: NSScrollView {
                             let newFrame = CGRect(point1: fixedOpposite, point2: locAligned)
                             areaDraggingOverlay.frame =
                                 newFrame.inset(by: areaDraggingOverlay.outerInsets)
-                            let newPixelRect = PixelRect(coordinate1: fixedOppositeCoord, coordinate2: locAlignedCoord)
+                            let newPixelRect = PixelRect(
+                                coordinate1: fixedOppositeCoord,
+                                coordinate2: locAlignedCoord
+                            )
                             areaDraggingOverlay.contextRect = newPixelRect.intersection(wrapper.pixelBounds)
                         }
                     }

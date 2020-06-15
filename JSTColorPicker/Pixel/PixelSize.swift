@@ -24,8 +24,8 @@ struct PixelSize: Codable {
     }
     
     init(_ size: CGSize) {
-        width  = Int(floor(size.width))
-        height = Int(floor(size.height))
+        width  = Int(size.width)
+        height = Int(size.height)
     }
     
     public func toCGSize() -> CGSize {

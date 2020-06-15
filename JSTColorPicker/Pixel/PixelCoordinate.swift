@@ -28,8 +28,8 @@ struct PixelCoordinate: Codable {
     }
     
     init(_ point: CGPoint) {
-        x = Int(floor(point.x))
-        y = Int(floor(point.y))
+        x = Int(point.x)
+        y = Int(point.y)
     }
     
     func toCGPoint() -> CGPoint {

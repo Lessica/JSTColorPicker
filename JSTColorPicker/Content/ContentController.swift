@@ -1060,7 +1060,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             else if col == .columnTag {
                 if let firstTag = item.tags.first {
                     cell.normalTextColor = tagListDataSource.managedTag(of: firstTag)?.color
-                    cell.text = "\u{25CF} \(firstTag)"
+                    cell.text = "\u{25CF} " + item.tags.joined(separator: "/")
                 } else {
                     cell.normalTextColor = nil
                     cell.text = NSLocalizedString("None", comment: "None")
