@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="16002"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -483,6 +483,65 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="dKW-or-DSk" secondAttribute="bottom" constant="20" symbolic="YES" id="g76-Zj-e0v"/>
                         </constraints>
                     </view>
+                    <touchBar key="touchBar" principalItem="oae-lE-CVK" id="tQI-Qa-i4m">
+                        <touchBarItems>
+                            <touchBarGroupItem id="oae-lE-CVK">
+                                <touchBar key="groupTouchBar" id="dgz-4U-dqp">
+                                    <touchBarItems>
+                                        <touchBarItem id="OBS-Gc-UCd">
+                                            <viewController key="viewController" id="MRn-Tl-HjN">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brr-9e-o8c">
+                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qOP-7N-d4C">
+                                                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="toggleAction:" target="ZWq-hK-DTj" id="PFU-e0-Z2c"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFixedSpaceLarge" id="kvv-BC-bpC"/>
+                                        <touchBarItem id="mDY-wZ-DbA">
+                                            <viewController key="viewController" id="uAb-QH-zEZ">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-OI-P6R">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bH-EZ-CHg">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="cancelAction:" target="ZWq-hK-DTj" id="g7K-eD-n9w"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarItem id="bgg-RU-0jK">
+                                            <viewController key="viewController" id="bhG-LL-hTB">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="okAction:" target="ZWq-hK-DTj" id="yOp-KB-38f"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                    </touchBarItems>
+                                </touchBar>
+                            </touchBarGroupItem>
+                        </touchBarItems>
+                    </touchBar>
                     <connections>
                         <outlet property="box" destination="jKL-Xg-wfl" id="LrZ-7r-43w"/>
                         <outlet property="cancelBtn" destination="ENb-OQ-H23" id="F3F-nE-uwS"/>
@@ -498,6 +557,9 @@ DQ
                         <outlet property="textFieldOriginY" destination="WKF-WS-2Mm" id="yla-pv-xTg"/>
                         <outlet property="textFieldWidth" destination="ExD-ii-sb6" id="bWT-Dn-nJ1"/>
                         <outlet property="toggleBtn" destination="GkF-q3-HIp" id="urT-Ih-GBd"/>
+                        <outlet property="touchBarCancelBtn" destination="PCo-OI-P6R" id="ZMs-LY-aH7"/>
+                        <outlet property="touchBarOkBtn" destination="SCY-R8-b88" id="vtI-Ld-V7i"/>
+                        <outlet property="touchBarToggleBtn" destination="brr-9e-o8c" id="xOy-0l-WF7"/>
                     </connections>
                 </viewController>
                 <customObject id="zNk-nL-xcj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -786,58 +848,63 @@ DQ
                             <constraint firstItem="CdX-nG-nz8" firstAttribute="leading" secondItem="LTA-CR-bP0" secondAttribute="leading" constant="20" symbolic="YES" id="hH4-fd-se4"/>
                         </constraints>
                     </view>
-                    <touchBar key="touchBar" id="bBd-8I-N3o">
+                    <touchBar key="touchBar" principalItem="KMd-mH-F9e" id="bBd-8I-N3o">
                         <touchBarItems>
-                            <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="1M7-zk-oGN"/>
-                            <touchBarItem id="FjK-wv-6Bq">
-                                <viewController key="viewController" id="zQr-8E-w2R">
-                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
-                                        <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
-                                        <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Y-BF-gov">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="toggleAction:" target="ctg-Pv-CEh" id="uub-bA-lNw"/>
-                                        </connections>
-                                    </button>
-                                </viewController>
-                            </touchBarItem>
-                            <touchBarItem id="bM0-hU-UP8">
-                                <viewController key="viewController" id="hxk-yj-Kge">
-                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qb-5Y-1eO">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
+                            <touchBarGroupItem id="KMd-mH-F9e">
+                                <touchBar key="groupTouchBar" id="vg2-Yt-dOO">
+                                    <touchBarItems>
+                                        <touchBarItem id="FjK-wv-6Bq">
+                                            <viewController key="viewController" id="zQr-8E-w2R">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Y-BF-gov">
+                                                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="toggleAction:" target="ctg-Pv-CEh" id="uub-bA-lNw"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFixedSpaceLarge" id="bMg-sq-brD"/>
+                                        <touchBarItem id="bM0-hU-UP8">
+                                            <viewController key="viewController" id="hxk-yj-Kge">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qb-5Y-1eO">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="cancelAction:" target="ctg-Pv-CEh" id="Y4c-PS-NgE"/>
-                                        </connections>
-                                    </button>
-                                </viewController>
-                            </touchBarItem>
-                            <touchBarItem id="s3F-RS-fIB">
-                                <viewController key="viewController" id="iZJ-RX-uL0">
-                                    <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="cancelAction:" target="ctg-Pv-CEh" id="Y4c-PS-NgE"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarItem id="s3F-RS-fIB">
+                                            <viewController key="viewController" id="iZJ-RX-uL0">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="okAction:" target="ctg-Pv-CEh" id="IAD-KE-YZd"/>
-                                        </connections>
-                                    </button>
-                                </viewController>
-                            </touchBarItem>
-                            <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="J3R-KW-IVi"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="okAction:" target="ctg-Pv-CEh" id="IAD-KE-YZd"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                    </touchBarItems>
+                                </touchBar>
+                            </touchBarGroupItem>
                         </touchBarItems>
                     </touchBar>
                     <connections>
@@ -852,6 +919,9 @@ DQ
                         <outlet property="textFieldOriginX" destination="pOm-bv-au7" id="Wwh-aS-dNd"/>
                         <outlet property="textFieldOriginY" destination="yGN-31-Nhc" id="ek5-PD-761"/>
                         <outlet property="toggleBtn" destination="bLe-Mm-f5f" id="bbj-nr-Qm3"/>
+                        <outlet property="touchBarCancelBtn" destination="PgQ-b2-q6Q" id="oHX-e3-cYE"/>
+                        <outlet property="touchBarOkBtn" destination="pdq-MP-EyQ" id="ClR-l8-M7e"/>
+                        <outlet property="touchBarToggleBtn" destination="Ogy-2O-QUF" id="U4e-8s-miZ"/>
                     </connections>
                 </viewController>
                 <customObject id="jXz-KE-S94" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

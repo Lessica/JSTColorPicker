@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2bH-EZ-CHg"; */
+"2bH-EZ-CHg.title" = "取消";
+
 /* Class = "NSTextFieldCell"; title = "Opposite Y: "; ObjectID = "7FU-fC-tAm"; */
 "7FU-fC-tAm.title" = "对点 Y: ";
 
@@ -64,6 +67,12 @@
 /* Class = "NSBox"; title = "Preview"; ObjectID = "pxe-de-bqq"; */
 "pxe-de-bqq.title" = "预览";
 
+/* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "qOP-7N-d4C"; */
+"qOP-7N-d4C.alternateTitle" = "显示预览";
+
+/* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "qOP-7N-d4C"; */
+"qOP-7N-d4C.title" = "隐藏预览";
+
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Sev-EQ-tCf"; */
 "Sev-EQ-tCf.alternateTitle" = "显示预览";
 
@@ -81,6 +90,9 @@
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[错误信息]";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "Y35-CF-HpA"; */
+"Y35-CF-HpA.title" = "好";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "yv9-A6-ZQK"; */
 "yv9-A6-ZQK.title" = "好";

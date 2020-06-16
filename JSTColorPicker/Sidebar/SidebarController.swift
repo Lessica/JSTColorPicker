@@ -327,6 +327,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     
     @IBAction func optionButtonTapped(_ sender: NSButton) {
         
+        guard let event = view.window?.currentEvent else { return }
         guard let exportManager = screenshot?.export else { return }
         
         var itemIdx: Int = 0
@@ -365,7 +366,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
             .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
         
         optionMenu.items = items + reservedOptionMenuItems
-        optionMenu.popUp(positioning: nil, at: NSEvent.mouseLocation, in: nil)
+        NSMenu.popUpContextMenu(optionMenu, with: event, for: sender)
         
     }
     
@@ -564,7 +565,12 @@ Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 
 extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
     
+    private var hasAttachedSheet: Bool {
+        return view.window?.attachedSheet != nil
+    }
+    
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard !hasAttachedSheet else { return false }
         guard screenshot != nil else { return false }
         if menuItem.action == #selector(togglePane(_:)) {
             return true
@@ -572,11 +578,10 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
         else if menuItem.action == #selector(resetPanes(_:)) {
             return true
         }
-        return false
+        return true
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
         if menu == paneMenu {
             menu.items.forEach { (menuItem) in
                 if menuItem.identifier == .togglePaneViewInformation {
@@ -590,7 +595,6 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
                 }
             }
         }
-        
     }
     
 }

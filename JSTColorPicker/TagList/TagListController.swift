@@ -434,7 +434,12 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
 
 extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
+    private var hasAttachedSheet: Bool {
+        return view.window?.attachedSheet != nil
+    }
+    
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard !hasAttachedSheet else { return false }
         if menuItem.action == #selector(changeColorItemTapped(_:)) {
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }

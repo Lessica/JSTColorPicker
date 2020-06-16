@@ -312,9 +312,8 @@ class ContentController: NSViewController {
     
     @IBAction func addCoordinateAction(_ sender: NSButton) {
         if addCoordinateField.stringValue.isEmpty {
-            if let event = view.window?.currentEvent {
-                NSMenu.popUpContextMenu(itemNewMenu, with: event, for: sender)
-            }
+            guard let event = view.window?.currentEvent else { return }
+            NSMenu.popUpContextMenu(itemNewMenu, with: event, for: sender)
         } else {
             addCoordinateFieldChanged(addCoordinateField)
         }
@@ -620,6 +619,10 @@ extension ContentController: ContentTableViewResponder {
 
 extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
+    private var hasAttachedSheet: Bool {
+        return view.window?.attachedSheet != nil
+    }
+    
     func menuWillOpen(_ menu: NSMenu) {
         // menu item without action
         if menu == tableMenu {
@@ -632,6 +635,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard !hasAttachedSheet else { return false }
         // menu item with action
         if menuItem.action == #selector(delete(_:))
             || menuItem.action == #selector(copy(_:))
@@ -812,6 +816,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
         
         if let panel = panel {
+            
+            internalSelectContentItems(in: IndexSet(integer: targetIndex), byExtendingSelection: false)
             
             panel.loader = self
             panel.contentDelegate = self

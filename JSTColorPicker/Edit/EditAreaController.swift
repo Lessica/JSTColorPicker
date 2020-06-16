@@ -17,6 +17,10 @@ class EditAreaController: EditViewController {
     @IBOutlet weak var cancelBtn    : NSButton!
     @IBOutlet weak var okBtn        : NSButton!
     
+    @IBOutlet weak var touchBarToggleBtn    : NSButton!
+    @IBOutlet weak var touchBarCancelBtn    : NSButton!
+    @IBOutlet weak var touchBarOkBtn        : NSButton!
+    
     @IBOutlet weak var textFieldOriginX  : NSTextField!
     @IBOutlet weak var textFieldOriginY  : NSTextField!
     @IBOutlet weak var textFieldWidth    : NSTextField!
@@ -33,7 +37,10 @@ class EditAreaController: EditViewController {
         
         let previewOn: Bool = UserDefaults.standard[.togglePreviewArea]
         previewBox.isHidden = !previewOn
-        toggleBtn.state = previewBox.isHidden ? .on : .off
+        
+        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
+        toggleBtn.state = toggleOn
+        touchBarToggleBtn.state = toggleOn
     }
     
     override func viewWillAppear() {
@@ -147,13 +154,20 @@ class EditAreaController: EditViewController {
             let field = sender as? NSTextField
             let item = try testContentItem(fromOpposite: field == textFieldOppositeX || field == textFieldOppositeY)
             updateDisplay(sender, with: item)
-            okBtn.isEnabled = (item != contentItem)
+            
+            let okEnabled = (item != contentItem)
+            okBtn.isEnabled = okEnabled
+            touchBarOkBtn.isEnabled = okEnabled
+            
             textFieldError.isHidden = true
             return item
         } catch {
             resetPreview()
             textFieldError.stringValue = "\n\(error.localizedDescription)"
+            
             okBtn.isEnabled = false
+            touchBarOkBtn.isEnabled = false
+            
             textFieldError.isHidden = false
         }
         return nil
@@ -189,7 +203,11 @@ class EditAreaController: EditViewController {
     
     @IBAction private func toggleAction(_ sender: NSButton) {
         previewBox.isHidden = !previewBox.isHidden
-        sender.state = previewBox.isHidden ? .on : .off
+        
+        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
+        toggleBtn.state = toggleOn
+        touchBarToggleBtn.state = toggleOn
+        
         UserDefaults.standard[.togglePreviewArea] = !previewBox.isHidden
         
         setupPreviewIfNeeded()

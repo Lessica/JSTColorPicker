@@ -17,6 +17,10 @@ class EditCoordinateController: EditViewController {
     @IBOutlet weak var cancelBtn    : NSButton!
     @IBOutlet weak var okBtn        : NSButton!
     
+    @IBOutlet weak var touchBarToggleBtn    : NSButton!
+    @IBOutlet weak var touchBarCancelBtn    : NSButton!
+    @IBOutlet weak var touchBarOkBtn        : NSButton!
+    
     @IBOutlet weak var textFieldOriginX: NSTextField!
     @IBOutlet weak var textFieldOriginY: NSTextField!
     @IBOutlet weak var textFieldColor  : NSTextField!
@@ -30,7 +34,10 @@ class EditCoordinateController: EditViewController {
         
         let previewOn: Bool = UserDefaults.standard[.togglePreviewColor]
         previewBox.isHidden = !previewOn
-        toggleBtn.state = previewBox.isHidden ? .on : .off
+        
+        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
+        toggleBtn.state = toggleOn
+        touchBarToggleBtn.state = toggleOn
     }
     
     override func viewWillAppear() {
@@ -120,12 +127,19 @@ class EditCoordinateController: EditViewController {
         do {
             let item = try testContentItem()
             updateDisplay(sender, with: item)
-            okBtn.isEnabled = (item != contentItem)
+            
+            let okEnabled = (item != contentItem)
+            okBtn.isEnabled = okEnabled
+            touchBarOkBtn.isEnabled = okEnabled
+            
             textFieldError.isHidden = true
             return item
         } catch {
             textFieldError.stringValue = "\n\(error.localizedDescription)"
+            
             okBtn.isEnabled = false
+            touchBarOkBtn.isEnabled = false
+            
             textFieldError.isHidden = false
         }
         return nil
@@ -161,7 +175,11 @@ class EditCoordinateController: EditViewController {
     
     @IBAction private func toggleAction(_ sender: NSButton) {
         previewBox.isHidden = !previewBox.isHidden
-        sender.state = previewBox.isHidden ? .on : .off
+        
+        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
+        toggleBtn.state = toggleOn
+        touchBarToggleBtn.state = toggleOn
+        
         UserDefaults.standard[.togglePreviewColor] = !previewBox.isHidden
         
         setupPreviewIfNeeded()
