@@ -66,11 +66,11 @@
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                 <prototypeCellViews>
                                                                     <tableCellView id="yGX-y2-tND" customClass="TagListCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="1" y="1" width="101" height="17"/>
+                                                                        <rect key="frame" x="1" y="1" width="233" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="101" height="17"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="233" height="17"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="36l-Jz-ijV">
                                                                                     <font key="font" metaFont="system"/>
@@ -138,7 +138,7 @@
                                             <rect key="frame" x="0.0" y="26" width="238" height="273"/>
                                         </customView>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jUr-Es-8V9">
-                                            <rect key="frame" x="169" y="0.0" width="68" height="22"/>
+                                            <rect key="frame" x="170" y="0.0" width="68" height="22"/>
                                             <subviews>
                                                 <button toolTip="Insert a tag before selection" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0k-D4-VsM">
                                                     <rect key="frame" x="0.0" y="3" width="30" height="20"/>
@@ -190,7 +190,7 @@
                                             </customSpacing>
                                         </stackView>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePt-jN-vZn">
-                                            <rect key="frame" x="1" y="0.0" width="30" height="22"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
                                             <subviews>
                                                 <button toolTip="Import tags from document" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LsJ-yu-RS8">
                                                     <rect key="frame" x="0.0" y="3" width="30" height="20"/>
@@ -229,13 +229,13 @@
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="top" secondItem="sPi-cH-fIS" secondAttribute="top" id="gLI-wg-zsb"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="trailing" secondItem="sPi-cH-fIS" secondAttribute="trailing" id="heu-I8-kGv"/>
                                         <constraint firstItem="6yp-7K-zYS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sPi-cH-fIS" secondAttribute="leading" constant="8" id="iSS-Wi-xdz"/>
-                                        <constraint firstItem="sPi-cH-fIS" firstAttribute="trailing" secondItem="jUr-Es-8V9" secondAttribute="trailing" constant="1" id="j6C-zo-3aJ"/>
+                                        <constraint firstItem="sPi-cH-fIS" firstAttribute="trailing" secondItem="jUr-Es-8V9" secondAttribute="trailing" id="j6C-zo-3aJ"/>
                                         <constraint firstItem="sPi-cH-fIS" firstAttribute="top" secondItem="57S-WH-dXZ" secondAttribute="bottom" constant="4" id="nBs-xt-ZsI"/>
                                         <constraint firstItem="jUr-Es-8V9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ePt-jN-vZn" secondAttribute="trailing" constant="8" id="nd4-He-n9v"/>
                                         <constraint firstItem="CoQ-3m-17h" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" id="oTQ-a2-Jua"/>
                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" id="ovH-SY-mZh"/>
                                         <constraint firstAttribute="bottom" secondItem="jUr-Es-8V9" secondAttribute="bottom" id="ubB-xp-NFd"/>
-                                        <constraint firstItem="ePt-jN-vZn" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" constant="1" id="yD2-0l-Rcn"/>
+                                        <constraint firstItem="ePt-jN-vZn" firstAttribute="leading" secondItem="sPi-cH-fIS" secondAttribute="leading" id="yD2-0l-Rcn"/>
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>

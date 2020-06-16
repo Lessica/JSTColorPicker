@@ -31,9 +31,10 @@ class SceneGridView: NSView {
     
     private static let minimumScaleOfGridDrawing  : CGFloat = 32.0
     private static let minimumScaleOfRasterization: CGFloat = 0.8
-    private static let maximumScaleOfRasterization: CGFloat = 1.2
+    private static let maximumScaleOfRasterization: CGFloat = 1.25
     private static let defaultGridLineWidth       : CGFloat = 1.0
-    private static let defaultGridLineColor = CGColor(gray: 1.0, alpha: 0.3)
+    private static let defaultGridLineColor       = CGColor(gray: 1.0, alpha: 0.3)
+    private static let defaultCachedSquareSize    = CGSize(width: 256.0, height: 256.0)
     
     private var shouldDrawGridsInScene: Bool = false
     private var gridWrappedPixelRect: PixelRect = .null
@@ -210,7 +211,11 @@ extension SceneGridView: SceneTracking {
                 }
                 else
                 {
-                    let pixelSize = PixelSize(width: gridWrappedPixelRect.width + 1, height: gridWrappedPixelRect.height + 1)
+                    let pixelSize = PixelSize(
+                        width: gridWrappedPixelRect.width + max(Int(SceneGridView.defaultCachedSquareSize.width / gridSize.width), 1),
+                        height: gridWrappedPixelRect.height + max(Int(SceneGridView.defaultCachedSquareSize.height / gridSize.height), 1)
+                    )
+                    debugPrint("update cached square: \(pixelSize)")
                     
                     let maxX = CGFloat(pixelSize.width) * gridSize.width
                     let maxY = CGFloat(pixelSize.height) * gridSize.height

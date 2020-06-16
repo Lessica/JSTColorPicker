@@ -19,6 +19,10 @@ class FolderController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func actionRequiresRestart(_ sender: NSButton) {
+        
+    }
+    
 }
 
 extension FolderController: MASPreferencesViewController {

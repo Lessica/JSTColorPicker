@@ -800,7 +800,6 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func relocate(_ sender: Any) {
-        guard let window = view.window else { return }
         guard let collection = content?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         
@@ -821,7 +820,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             panel.contentItem = targetItem
             panel.isAdd = false
             
-            window.beginSheet(panel) { (resp) in
+            view.window!.beginSheet(panel) { (resp) in
                 if resp == .OK {
                     // do nothing
                 }
@@ -831,7 +830,6 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func create(_ sender: NSMenuItem?) {
-        guard let window = view.window else { return }
         guard content?.items != nil else { return }
         
         var panel: EditWindow?
@@ -850,7 +848,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             panel.contentItem = nil
             panel.isAdd = true
             
-            window.beginSheet(panel) { (resp) in
+            view.window!.beginSheet(panel) { (resp) in
                 if resp == .OK {
                     // do nothing
                 }

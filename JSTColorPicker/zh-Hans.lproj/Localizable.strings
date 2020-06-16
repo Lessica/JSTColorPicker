@@ -152,6 +152,12 @@
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
+/* actionRequiresRestart(_:) */
+"Restart" = "重启";
+
+/* actionRequiresRestart(_:) */
+"Restart required" = "需要重启";
+
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
 
@@ -172,6 +178,9 @@
 
 /* ContentError */
 "This operation requires %d more spaces." = "此操作需要 %d 额外空间.";
+
+/* actionRequiresRestart(_:) */
+"This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效.";
 
 /* ContentError */
 "This requested item %@ is not valid." = "请求的项 %@ 是无效的.";

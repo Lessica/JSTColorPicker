@@ -28,6 +28,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
+                                <action selector="actionRequiresRestart:" target="-2" id="BJG-3a-liD"/>
                                 <binding destination="ypL-f1-voe" name="value" keyPath="values.defaults.enableGPUAcceleration" id="aJ2-6Z-uot"/>
                             </connections>
                         </button>

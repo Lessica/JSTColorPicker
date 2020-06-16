@@ -320,6 +320,9 @@
 		D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9823D7348500DA1750 /* ContentTableView.swift */; };
 		D684842223D4105100BC5E34 /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D684842123D4105100BC5E34 /* Grid.storyboard */; };
 		D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* GridWindowController.swift */; };
+		D68A1FD62498B17F001E3FDA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68A1FD52498B17F001E3FDA /* main.swift */; };
+		D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D68A1FD32498B17F001E3FDA /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D68A1FE22498B439001E3FDA /* relaunch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D68A1FD32498B17F001E3FDA /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
 		D690C95724192C2A00BB1652 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
@@ -455,6 +458,20 @@
 			remoteGlobalIDString = D60B0F8624288CF20034F21C;
 			remoteInfo = pixel;
 		};
+		D68A1FDA2498B225001E3FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D68A1FD22498B17F001E3FDA;
+			remoteInfo = relaunch;
+		};
+		D68A1FDF2498B420001E3FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D68A1FD22498B17F001E3FDA;
+			remoteInfo = relaunch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -523,6 +540,37 @@
 				D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D68A1FD12498B17F001E3FDA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D68A1FDD2498B24F001E3FDA /* Embed Tools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */,
+			);
+			name = "Embed Tools";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D68A1FE12498B426001E3FDA /* Embed Tools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				D68A1FE22498B439001E3FDA /* relaunch in Embed Tools */,
+			);
+			name = "Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D690C95D241A60DC00BB1652 /* CopyFiles */ = {
@@ -941,6 +989,8 @@
 		D684841423D3E3FD00BC5E34 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D684842123D4105100BC5E34 /* Grid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Grid.storyboard; sourceTree = "<group>"; };
 		D684842323D4106900BC5E34 /* GridWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridWindowController.swift; sourceTree = "<group>"; };
+		D68A1FD32498B17F001E3FDA /* relaunch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = relaunch; sourceTree = BUILT_PRODUCTS_DIR; };
+		D68A1FD52498B17F001E3FDA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D690493D240D1A3200E05F37 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		D690C95624192C2A00BB1652 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "github-markdown.css"; sourceTree = "<group>"; };
 		D690C9592419440300BB1652 /* PixelMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatch.swift; sourceTree = "<group>"; };
@@ -1200,6 +1250,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D65AEBBB2427B60100D6A6CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D68A1FD02498B17F001E3FDA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1667,6 +1724,7 @@
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
 				D60B0F8824288CF20034F21C /* pixel */,
+				D68A1FD42498B17F001E3FDA /* relaunch */,
 				D658AF9B23CB180C0098C567 /* Products */,
 				D684841323D3E3FD00BC5E34 /* Frameworks */,
 				39B44362740250C81599A741 /* Pods */,
@@ -1685,6 +1743,7 @@
 				D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */,
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
+				D68A1FD32498B17F001E3FDA /* relaunch */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1876,6 +1935,14 @@
 				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
 			);
 			path = Grid;
+			sourceTree = "<group>";
+		};
+		D68A1FD42498B17F001E3FDA /* relaunch */ = {
+			isa = PBXGroup;
+			children = (
+				D68A1FD52498B17F001E3FDA /* main.swift */,
+			);
+			path = relaunch;
 			sourceTree = "<group>";
 		};
 		D690C960241A60DC00BB1652 /* PixelMatch */ = {
@@ -2348,6 +2415,7 @@
 				D62693642429F4B200463E36 /* Embed Color Pickers */,
 				D60B0F50242887610034F21C /* Embed XPC Services */,
 				D69FD94024741B9300ACBF74 /* Embed Dynamic Libraries */,
+				D68A1FDD2498B24F001E3FDA /* Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -2356,6 +2424,7 @@
 				D60B0F4F2428874F0034F21C /* PBXTargetDependency */,
 				D62693672429F4D800463E36 /* PBXTargetDependency */,
 				D60B0F9A24288EFA0034F21C /* PBXTargetDependency */,
+				D68A1FDB2498B225001E3FDA /* PBXTargetDependency */,
 			);
 			name = JSTColorPickerSparkle;
 			productName = JSTColorPicker;
@@ -2429,6 +2498,7 @@
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 				D69FD93C24741A4000ACBF74 /* Embed Dynamic Libraries */,
+				D68A1FE12498B426001E3FDA /* Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -2436,6 +2506,7 @@
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
+				D68A1FE02498B420001E3FDA /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
 			productName = JSTColorPicker;
@@ -2458,6 +2529,23 @@
 			productName = JSTColorPanel;
 			productReference = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */;
 			productType = "com.apple.product-type.bundle";
+		};
+		D68A1FD22498B17F001E3FDA /* relaunch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D68A1FD92498B17F001E3FDA /* Build configuration list for PBXNativeTarget "relaunch" */;
+			buildPhases = (
+				D68A1FCF2498B17F001E3FDA /* Sources */,
+				D68A1FD02498B17F001E3FDA /* Frameworks */,
+				D68A1FD12498B17F001E3FDA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = relaunch;
+			productName = relaunch;
+			productReference = D68A1FD32498B17F001E3FDA /* relaunch */;
+			productType = "com.apple.product-type.tool";
 		};
 		D690C95E241A60DC00BB1652 /* PixelMatch */ = {
 			isa = PBXNativeTarget;
@@ -2484,7 +2572,7 @@
 		D658AF9223CB180C0098C567 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
@@ -2509,6 +2597,9 @@
 					D65AEBBD2427B60100D6A6CA = {
 						CreatedOnToolsVersion = 11.3;
 						LastSwiftMigration = 1130;
+					};
+					D68A1FD22498B17F001E3FDA = {
+						CreatedOnToolsVersion = 11.5;
 					};
 					D690C95E241A60DC00BB1652 = {
 						CreatedOnToolsVersion = 11.3;
@@ -2538,6 +2629,7 @@
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
 				D60B0F8624288CF20034F21C /* pixel */,
+				D68A1FD22498B17F001E3FDA /* relaunch */,
 			);
 		};
 /* End PBXProject section */
@@ -3028,6 +3120,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D68A1FCF2498B17F001E3FDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D68A1FD62498B17F001E3FDA /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D690C95B241A60DC00BB1652 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3096,6 +3196,16 @@
 			isa = PBXTargetDependency;
 			target = D60B0F8624288CF20034F21C /* pixel */;
 			targetProxy = D629E5A5242BC8B100AF333F /* PBXContainerItemProxy */;
+		};
+		D68A1FDB2498B225001E3FDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D68A1FD22498B17F001E3FDA /* relaunch */;
+			targetProxy = D68A1FDA2498B225001E3FDA /* PBXContainerItemProxy */;
+		};
+		D68A1FE02498B420001E3FDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D68A1FD22498B17F001E3FDA /* relaunch */;
+			targetProxy = D68A1FDF2498B420001E3FDA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3830,10 +3940,33 @@
 			};
 			name = Release;
 		};
+		D68A1FD72498B17F001E3FDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D68A1FD82498B17F001E3FDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D690C964241A60DC00BB1652 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3847,7 +3980,6 @@
 		D690C965241A60DC00BB1652 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3938,6 +4070,15 @@
 			buildConfigurations = (
 				D65AEBC12427B60100D6A6CA /* Debug */,
 				D65AEBC22427B60100D6A6CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D68A1FD92498B17F001E3FDA /* Build configuration list for PBXNativeTarget "relaunch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D68A1FD72498B17F001E3FDA /* Debug */,
+				D68A1FD82498B17F001E3FDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

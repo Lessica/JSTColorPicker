@@ -23,6 +23,20 @@ class GeneralController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func actionRequiresRestart(_ sender: NSButton) {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")
+        alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
+        alert.addButton(withTitle: NSLocalizedString("Restart", comment: "actionRequiresRestart(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "actionRequiresRestart(_:)"))
+        alert.beginSheetModal(for: view.window!) { resp in
+            if resp == .alertFirstButtonReturn {
+                NSApp.relaunch(sender)
+            }
+        }
+    }
+    
 }
 
 extension GeneralController: MASPreferencesViewController {

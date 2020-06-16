@@ -152,6 +152,12 @@
 /* PreferencesController */
 "Preferences" = "Preferences";
 
+/* actionRequiresRestart(_:) */
+"Restart" = "Restart";
+
+/* actionRequiresRestart(_:) */
+"Restart required" = "Restart required";
+
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
 
@@ -172,6 +178,9 @@
 
 /* ContentError */
 "This operation requires %d more spaces." = "This operation requires %d more spaces.";
+
+/* actionRequiresRestart(_:) */
+"This option requires application to restart to complete the modification." = "This option requires application to restart to complete the modification.";
 
 /* ContentError */
 "This requested item %@ is not valid." = "This requested item %@ is not valid.";

@@ -41,6 +41,20 @@ class AdvancedController: NSViewController {
         UserDefaults.standard[.checkUpdatesAutomatically] = (NSApp.delegate as? AppDelegate)?.sparkUpdater.automaticallyChecksForUpdates ?? false
     }
     
+    @IBAction func actionRequiresRestart(_ sender: NSButton) {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")
+        alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
+        alert.addButton(withTitle: NSLocalizedString("Restart", comment: "actionRequiresRestart(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "actionRequiresRestart(_:)"))
+        alert.beginSheetModal(for: view.window!) { resp in
+            if resp == .alertFirstButtonReturn {
+                NSApp.relaunch(sender)
+            }
+        }
+    }
+    
 }
 
 extension AdvancedController: MASPreferencesViewController {
