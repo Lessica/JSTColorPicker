@@ -390,7 +390,7 @@ extension ContentController {
     
 }
 
-extension ContentController: ContentDataSource {
+extension ContentController: ContentItemSource {
     
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem {
         guard let image = screenshot?.image              else { throw ContentError.noDocumentLoaded }
@@ -737,7 +737,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             { return false }
             guard index < menuTags.count else {
                 item.title = NSLocalizedString("No tag attached", comment: "Content Tag Submenu")
-                item.isEnabled = false
+                item.state = .off
+                item.target = nil
+                item.action = nil
                 return false
             }
             let menuTitle = menuTags[index]
@@ -821,7 +823,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
             panel.loader = self
             panel.contentDelegate = self
-            panel.contentDataSource = self
+            panel.contentItemSource = self
 
             panel.contentItem = targetItem
             panel.isAdd = false
@@ -849,7 +851,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
             panel.loader = self
             panel.contentDelegate = self
-            panel.contentDataSource = self
+            panel.contentItemSource = self
             
             panel.contentItem = nil
             panel.isAdd = true
@@ -1062,12 +1064,40 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                 cell.text = similarity + "%"
             }
             else if col == .columnTag {
-                if let firstTag = item.tags.first {
-                    cell.normalTextColor = tagListDataSource.managedTag(of: firstTag)?.color
-                    cell.text = "\u{25CF} " + item.tags.joined(separator: "/")
+                if !item.tags.isEmpty {
+                    
+                    let allTags = item.tags.contents
+                    
+                    if let firstTag = allTags.first {
+                        cell.normalTextColor = tagListDataSource
+                            .managedTag(of: firstTag)?
+                            .color
+                    }
+                    
+                    cell.text = "\u{25CF} " + allTags.joined(separator: "/")
+                    
+                    let attachedTags = tagListDataSource
+                        .managedTags(of: allTags)
+                        .map({ $0.name })
+                    
+                    let attachedSet = Set(attachedTags)
+                    let otherTags = allTags.filter({ !attachedSet.contains($0) })
+                    
+                    let chunkedAttachedTagsText = attachedTags.isEmpty ? "-" : attachedTags
+                        .chunked(into: 6)
+                        .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
+                        .joined(separator: ", \n")
+                    
+                    let chunkedOtherTagsText = otherTags.isEmpty ? "-" : otherTags
+                        .chunked(into: 6)
+                        .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
+                        .joined(separator: ", \n")
+                    
+                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_TAG_CELL_VIEW", comment: "Tool Tip: Tag Cell View"), chunkedAttachedTagsText, chunkedOtherTagsText)
                 } else {
                     cell.normalTextColor = nil
                     cell.text = NSLocalizedString("None", comment: "None")
+                    cell.toolTip = NSLocalizedString("No tag attached", comment: "Tool Tip: Tag Cell View")
                 }
             }
             else if col == .columnDescription {
@@ -1118,6 +1148,15 @@ extension ContentController: NSMenuDelegateAlternate {
     
 }
 
+extension ContentController: TagListImportSource {
+    
+    var importableTagNames: [String]? {
+        guard let content = content else { return nil }
+        return OrderedSet<String>(content.items.flatMap({ $0.tags })).contents
+    }
+    
+}
+
 extension ContentController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
@@ -1125,6 +1164,18 @@ extension ContentController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
+//        var changedTags = Set<Tag>()
+//        if let insertedTags = noti.userInfo?[NSInsertedObjectsKey] as? Set<Tag> {
+//            changedTags.formUnion(insertedTags)
+//        }
+//        if let updatedTags = noti.userInfo?[NSUpdatedObjectsKey] as? Set<Tag> {
+//            changedTags.formUnion(updatedTags)
+//        }
+//        if let deletedTags = noti.userInfo?[NSDeletedObjectsKey] as? Set<Tag> {
+//            changedTags.formUnion(deletedTags)
+//        }
+//        let changedTagNames = changedTags.map({ $0.name })
+//        debugPrint(changedTagNames)
         DispatchQueue.main.async { [weak self] in
             self?.contentItemColorize()
         }

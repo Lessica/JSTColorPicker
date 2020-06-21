@@ -69,4 +69,12 @@ public extension Array {
         arr.removeAll { set.contains($0.offset) }
         self = arr.map { $0.element }
     }
+    func chunked(into size: Int) -> [[Element]] {
+        if count <= size {
+            return [Array(self)]
+        }
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
+    }
 }

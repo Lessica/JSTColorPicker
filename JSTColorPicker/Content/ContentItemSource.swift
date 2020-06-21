@@ -1,5 +1,5 @@
 //
-//  ContentDataSource.swift
+//  ContentItemSource.swift
 //  JSTColorPicker
 //
 //  Created by Apple on 2020/6/5.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ContentDataSource: class {
+protocol ContentItemSource: class {
     
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem
     func contentItem(of rect: PixelRect) throws -> ContentItem

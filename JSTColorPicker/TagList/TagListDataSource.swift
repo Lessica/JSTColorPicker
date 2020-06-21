@@ -6,7 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 extension NSNotification.Name {
     public static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")

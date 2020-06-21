@@ -20,7 +20,7 @@
 "Jns-u7-V7q.title" = "删除";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Import tags from document"; ObjectID = "LsJ-yu-RS8"; */
-"LsJ-yu-RS8.ibShadowedToolTip" = "从当前文档导入标签";
+"LsJ-yu-RS8.ibShadowedToolTip" = "从当前文档关联标签";
 
 /* Class = "NSMenuItem"; title = "Change Color..."; ObjectID = "Ndd-m7-WU5"; */
 "Ndd-m7-WU5.title" = "更换颜色...";

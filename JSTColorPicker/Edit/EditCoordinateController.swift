@@ -110,7 +110,7 @@ class EditCoordinateController: EditViewController {
     }
     
     private func testContentItem(with item: ContentItem? = nil) throws -> ContentItem? {
-        guard let dataSource = contentDataSource else { return nil }
+        guard let dataSource = contentItemSource else { return nil }
         let replItem = try dataSource.contentItem(of: PixelCoordinate(x: textFieldOriginX.integerValue, y: textFieldOriginY.integerValue))
         if let origItem = item {
             replItem.copyFrom(origItem)

@@ -23,8 +23,9 @@ class SplitController: NSSplitViewController {
         
         super.viewDidLoad()
         
-        contentController.tagListDataSource = tagListController
-        sceneController.tagListDataSource = tagListController
+        contentController.tagListDataSource   = tagListController
+        sceneController.tagListDataSource     = tagListController
+        tagListController.importItemSource    = contentController
         tagListController.sceneToolDataSource = sceneController
         
     }

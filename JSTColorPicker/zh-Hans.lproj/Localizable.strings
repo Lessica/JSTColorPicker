@@ -37,6 +37,9 @@
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
 
+/* Import Confirm */
+"Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗?";
+
 /* Delete Confirm */
 "Do you want to remove selected %d items?" = "你确定要删除选定的 %d 个项吗?";
 
@@ -78,6 +81,12 @@
 
 /* PixelMatchServiceError */
 "Image sizes do not match: %dx%d vs %dx%d" = "图像尺寸不一致: %dx%d vs %dx%d";
+
+/* Import Confirm */
+"Import Confirm" = "关联确认";
+
+/* Import Confirm */
+"Import Failed" = "关联失败";
 
 /* TemplateError */
 "Internal error." = "内部错误.";
@@ -136,6 +145,9 @@
 
 /* Content Tag Submenu */
 "No tag attached" = "未关联标签";
+
+/* Import Confirm */
+"No tag to import" = "当前文档中的所有标签业已关联到数据库, 无标签可供关联";
 
 /* ExportError */
 "No template selected." = "未选择模板.";
@@ -196,6 +208,9 @@
 
 /* Tool Tip: Modify Similiarity */
 "TOOLTIP_MODIFY_SIMILARITY" = "相似度: %@%%\n单击此处以修改.";
+
+/* Tool Tip: Tag Cell View */
+"TOOLTIP_TAG_CELL_VIEW" = "已关联标签: \n%@\n\n其他标签: \n%@";
 
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";

@@ -114,7 +114,7 @@ class EditAreaController: EditViewController {
     }
     
     private func testContentItem(fromOpposite: Bool, with item: ContentItem? = nil) throws -> ContentItem? {
-        guard let dataSource = contentDataSource else { return nil }
+        guard let dataSource = contentItemSource else { return nil }
         let replRect = (fromOpposite ?
             PixelRect(
                 coordinate1: PixelCoordinate(

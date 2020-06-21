@@ -18,7 +18,7 @@ class EditViewController: NSViewController {
         set { (view.window as? EditWindow)?.contentItem = newValue }
     }
     
-    public weak var contentDataSource: ContentDataSource? { (view.window as? EditWindow)?.contentDataSource }
+    public weak var contentItemSource: ContentItemSource? { (view.window as? EditWindow)?.contentItemSource }
     public weak var contentDelegate: ContentDelegate? { (view.window as? EditWindow)?.contentDelegate }
     
     internal var undoToken: NotificationToken?

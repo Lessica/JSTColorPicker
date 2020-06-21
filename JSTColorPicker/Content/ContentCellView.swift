@@ -16,11 +16,6 @@ class ContentCellView: NSTableCellView {
         }
     }
     
-    public var normalToolTip: String? {
-        get { textField?.toolTip }
-        set { textField?.toolTip = newValue }
-    }
-    
     public var text: String? {
         get { textField?.stringValue }
         set { textField?.stringValue = newValue ?? "" }

@@ -17,11 +17,13 @@ class TagListController: NSViewController {
     @IBOutlet weak var tableView: TagListTableView!
     @IBOutlet weak var tableViewOverlay: TagListOverlayView!
     @IBOutlet var tagMenu: NSMenu!
+    @IBOutlet var alertTextView: AlertTextView!
     
     public weak var sceneToolDataSource: SceneToolDataSource! {
         get { return tableViewOverlay.sceneToolDataSource }
         set { tableViewOverlay.sceneToolDataSource = newValue }
     }
+    public weak var importItemSource: TagListImportSource?
     
     private var willUndoToken: NotificationToken?
     private var willRedoToken: NotificationToken?
@@ -187,8 +189,55 @@ class TagListController: NSViewController {
         internalController.remove(contentsOf: rows.map({ arrangedTags[$0] }))
     }
     
+    private func importConfirmForTags(_ tagsToImport: [String]) -> Bool {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        if tagsToImport.count > 0 {
+            alert.messageText = NSLocalizedString("Import Confirm", comment: "Import Confirm")
+            alert.informativeText = String(format: NSLocalizedString("Do you want to import following %d tags from current document?", comment: "Import Confirm"), tagsToImport.count)
+            if Bundle.main.loadNibNamed("AlertTextView", owner: self, topLevelObjects: nil) {
+                alertTextView.text = tagsToImport
+                    .map({ "\u{25CF} " + $0 })
+                    .joined(separator: "\n")
+                alert.accessoryView = alertTextView
+            }
+            alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "Import Confirm"))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Import Confirm"))
+            return alert.runModal() == .alertFirstButtonReturn
+        } else {
+            alert.messageText = NSLocalizedString("Import Failed", comment: "Import Confirm")
+            alert.informativeText = NSLocalizedString("No tag to import", comment: "Import Confirm")
+            alert.accessoryView = nil
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Import Confirm"))
+            alert.runModal()
+            return false
+        }
+    }
+    
     @IBAction private func importTagBtnTapped(_ sender: Any) {
+        guard let tagNames = importItemSource?.importableTagNames else { return }
         
+        let arrangedTagNamesSet = Set(arrangedTags.map { $0.name })
+        let missingNames = tagNames.filter { !arrangedTagNamesSet.contains($0) }
+        
+        guard importConfirmForTags(missingNames) else { return }
+        
+        do {
+            let lastOrder = arrangedTags.last?.order ?? 0
+            
+            var idx = lastOrder
+            missingNames.forEach { (tagName) in
+                let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.internalContext) as! Tag
+                obj.order = Int64(idx)
+                obj.name = tagName
+                obj.colorHex = NSColor.random.sharpCSS
+                idx += 1
+            }
+            
+            try self.internalContext.save()
+        } catch {
+            presentError(error)
+        }
     }
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
@@ -303,9 +352,11 @@ extension TagListController: TagListDataSource {
             return arrangedTags.first(where: { $0.name == name })
         }
         do {
+            let sort = NSSortDescriptor(key: #keyPath(Tag.order), ascending: true)
             let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
             fetchRequest.fetchLimit = 1
             fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            fetchRequest.sortDescriptors = [sort]
             let fetchedTags = try internalContext.fetch(fetchRequest)
             return fetchedTags.first
         } catch {
@@ -322,9 +373,11 @@ extension TagListController: TagListDataSource {
             for name in names {
                 predicates.append(NSPredicate(format: "name == %@", name))
             }
+            let sort = NSSortDescriptor(key: #keyPath(Tag.order), ascending: true)
             let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
-            fetchRequest.fetchLimit = 1
+            fetchRequest.fetchLimit = names.count
             fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+            fetchRequest.sortDescriptors = [sort]
             let fetchedTags = try internalContext.fetch(fetchRequest)
             return fetchedTags
         } catch {
