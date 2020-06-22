@@ -244,6 +244,17 @@ extension SplitController: ContentDelegate {
         return nil
     }
     
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
+        do {
+            return try contentController.selectContentItems(items, byExtendingSelection: extend)
+        } catch ContentError.userAborted {
+            return nil
+        } catch {
+            presentError(error)
+        }
+        return nil
+    }
+    
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
         do {
             return try contentController.deselectContentItem(item)

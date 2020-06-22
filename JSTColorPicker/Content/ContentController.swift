@@ -28,6 +28,7 @@ enum ContentError: LocalizedError {
     
     case itemExists(item: CustomStringConvertible)
     case itemDoesNotExist(item: CustomStringConvertible)
+    case itemDoesNotExistPartial
     case itemNotValid(item: CustomStringConvertible)
     case itemOutOfRange(item: CustomStringConvertible, range: CustomStringConvertible)
     case itemReachLimit(totalSpace: Int)
@@ -42,6 +43,8 @@ enum ContentError: LocalizedError {
             return String(format: NSLocalizedString("This item %@ already exists.", comment: "ContentError"), item.description)
         case let .itemDoesNotExist(item):
             return String(format: NSLocalizedString("This item %@ does not exist.", comment: "ContentError"), item.description)
+        case .itemDoesNotExistPartial:
+            return NSLocalizedString("Some of these items do not exist.", comment: "ContentError")
         case let .itemNotValid(item):
             return String(format: NSLocalizedString("This requested item %@ is not valid.", comment: "ContentError"), item.description)
         case let .itemOutOfRange(item, range):
@@ -384,7 +387,9 @@ extension ContentController {
             makeFirstResponder(tableView)
         }
         else {
-            tableView.deselectAll(nil)
+            if !extend {
+                tableView.deselectAll(nil)
+            }
         }
     }
     
@@ -495,33 +500,34 @@ extension ContentController: ContentDelegate {
     
     @discardableResult
     private func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
-        
         guard let image = screenshot?.image   else { throw ContentError.noDocumentLoaded }
         guard let area = image.area(at: rect) else { throw ContentError.itemOutOfRange(item: rect, range: image.size) }
-        
         return try selectContentItem(area, byExtendingSelection: false)
-        
     }
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        
         guard let content = content                              else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
-        
         internalSelectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
         return item
-        
+    }
+    
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        let itemIndexes = IndexSet(
+            items.compactMap({ content.items.firstIndex(of: $0) })
+        )
+        guard itemIndexes.count == items.count else { throw ContentError.itemDoesNotExistPartial  }
+        internalSelectContentItems(in: itemIndexes, byExtendingSelection: extend)
+        return items
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        
         guard let content = content                              else { throw ContentError.noDocumentLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw ContentError.itemDoesNotExist(item: item) }
-        
         tableView.deselectRow(itemIndex)
         makeFirstResponder(tableView)
         return item
-        
     }
     
     func deselectAllContentItems() {

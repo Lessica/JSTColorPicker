@@ -22,7 +22,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     override var isFlipped: Bool { true }
     override var wantsDefaultClipping: Bool { false }
     
-    override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
     private var trackingArea: NSTrackingArea?
@@ -42,32 +42,33 @@ class SceneOverlayView: NSView, DragEndpoint {
     
     public weak var contentDelegate: ContentDelegate!
     public weak var sceneToolSource: SceneToolSource!
-    private var sceneTool: SceneTool { return sceneToolSource.sceneTool }
+    private var sceneTool: SceneTool { sceneToolSource.sceneTool }
     public weak var sceneStateSource: SceneStateSource!
-    private var sceneState: SceneState { return sceneStateSource.sceneState }
+    private var sceneState: SceneState { sceneStateSource.sceneState }
     public weak var sceneTagsEffectViewSource: SceneEffectViewSource!
-    private var sceneTagsEffectView: SceneEffectView { return sceneTagsEffectViewSource.sceneEffectView }
+    private var sceneTagsEffectView: SceneEffectView { sceneTagsEffectViewSource.sceneEffectView }
     public weak var annotatorSource: AnnotatorSource!
-    private var annotators: [Annotator] { return annotatorSource.annotators }
+    private var annotators: [Annotator] { annotatorSource.annotators }
     private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
         return annotators.first(where: { $0.overlay == overlay })?.contentItem
     }
     
-    public var overlays: [AnnotatorOverlay] { return subviews as! [AnnotatorOverlay] }
+    public var overlays: [AnnotatorOverlay] { subviews as! [AnnotatorOverlay] }
     private weak var internalFocusedOverlay: AnnotatorOverlay?
+    
+    public var editableDirection: EditableDirection { focusedOverlay != nil ? internalEditableDirection : .none }
     private var internalEditableDirection: EditableDirection = .none
-    public var isFocused: Bool {
-        return sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false
-    }
-    public var focusedOverlay: AnnotatorOverlay? {
-        return sceneTool == .selectionArrow ? internalFocusedOverlay : nil
-    }
+    
+    public var isFocused: Bool { sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false }
+    public var focusedOverlay: AnnotatorOverlay? { sceneTool == .selectionArrow ? internalFocusedOverlay : nil }
+    
     public func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
-        return overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
+        overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
             ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
-    public var editableDirection: EditableDirection {
-        return focusedOverlay != nil ? internalEditableDirection : .none
+    public func overlays(at point: CGPoint, byReordering reorder: Bool) -> [AnnotatorOverlay] {
+        // FIXME: reorder
+        return overlays.filter({ $0.frame.contains(point) })
     }
     
     public var isMouseInside: Bool {

@@ -185,14 +185,15 @@ class SceneController: NSViewController {
             SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
         ]
         
-        sceneView.trackingDelegate            = self
-        sceneView.sceneToolSource             = self
-        sceneView.sceneStateSource            = self
-        sceneView.sceneActionEffectViewSource = self
-        sceneOverlayView.sceneToolSource      = self
-        sceneOverlayView.sceneStateSource     = self
-        sceneOverlayView.annotatorSource      = self
-        sceneOverlayView.contentDelegate      = self
+        sceneView.trackingDelegate                 = self
+        sceneView.sceneToolSource                  = self
+        sceneView.sceneStateSource                 = self
+        sceneView.sceneActionEffectViewSource      = self
+        sceneOverlayView.sceneToolSource           = self
+        sceneOverlayView.sceneStateSource          = self
+        sceneOverlayView.sceneTagsEffectViewSource = self
+        sceneOverlayView.annotatorSource           = self
+        sceneOverlayView.contentDelegate           = self
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
@@ -285,22 +286,36 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applySelectItem(at location: CGPoint, byExtendingSelection extend: Bool) -> Bool {
+    private func applySelectItem(at location: CGPoint, byThroughoutSelection throughout: Bool, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
-        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
-            guard let annotator = annotators.last(where: { $0.overlay === annotatorView }) else { return false }
-            if annotatorView.isSelected && extend {
-                if let _ = try? deselectContentItem(annotator.contentItem) {
+        if throughout {  // shift pressed
+            let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask, byReordering: true)
+            if annotatorOverlays.count > 0 {
+                let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
+                let contentItems = annotators
+                    .filter({ annotatorOverlaysSet.contains($0.overlay) })
+                    .compactMap({ $0.contentItem })
+                if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
                     return true
                 }
-            }
-            else {
-                if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
-                    return true
-                }
+            } else {
+                deselectAllContentItems()
             }
         } else {
-            deselectAllContentItems()
+            if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locationInMask) {
+                guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
+                if annotatorOverlay.isSelected && extend {
+                    if let _ = try? deselectContentItem(annotator.contentItem) {
+                        return true
+                    }
+                } else {
+                    if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
+                        return true
+                    }
+                }
+            } else {
+                deselectAllContentItems()
+            }
         }
         return false
     }
@@ -395,10 +410,11 @@ class SceneController: NSViewController {
                         handled = applyMinifyItem(at: loc)
                     }
                     else if sceneTool == .selectionArrow {
-                        let commandPressed = event.modifierFlags
+                        let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
-                            .contains(.command)
-                        handled = applySelectItem(at: loc, byExtendingSelection: commandPressed)
+                        let commandPressed = modifierFlags.contains(.command)
+                        let shiftPressed   = modifierFlags.contains(.shift)
+                        handled = applySelectItem(at: loc, byThroughoutSelection: shiftPressed, byExtendingSelection: commandPressed)
                     }
                 }
             }
@@ -1071,6 +1087,10 @@ extension SceneController: ContentDelegate {
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
         return try contentDelegate.selectContentItem(item, byExtendingSelection: extend)
+    }
+    
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
+        return try contentDelegate.selectContentItems(items, byExtendingSelection: extend)
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {

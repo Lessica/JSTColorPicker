@@ -174,6 +174,9 @@
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
 
 /* ContentError */
+"Some of these items do not exist." = "部分项目不存在.";
+
+/* ContentError */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
 
 /* ContentError */
