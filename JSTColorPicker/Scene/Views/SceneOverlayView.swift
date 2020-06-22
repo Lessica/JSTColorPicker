@@ -40,13 +40,15 @@ class SceneOverlayView: NSView, DragEndpoint {
         super.updateTrackingAreas()
     }
     
-    public weak var contentResponder: ContentDelegate!
-    public weak var sceneToolDataSource: SceneToolDataSource!
-    private var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
-    public weak var sceneStateDataSource: SceneStateDataSource!
-    private var sceneState: SceneState { return sceneStateDataSource.sceneState }
-    public weak var annotatorDataSource: AnnotatorDataSource!
-    private var annotators: [Annotator] { return annotatorDataSource.annotators }
+    public weak var contentDelegate: ContentDelegate!
+    public weak var sceneToolSource: SceneToolSource!
+    private var sceneTool: SceneTool { return sceneToolSource.sceneTool }
+    public weak var sceneStateSource: SceneStateSource!
+    private var sceneState: SceneState { return sceneStateSource.sceneState }
+    public weak var sceneTagsEffectViewSource: SceneEffectViewSource!
+    private var sceneTagsEffectView: SceneEffectView { return sceneTagsEffectViewSource.sceneEffectView }
+    public weak var annotatorSource: AnnotatorSource!
+    private var annotators: [Annotator] { return annotatorSource.annotators }
     private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
         return annotators.first(where: { $0.overlay == overlay })?.contentItem
     }
@@ -172,7 +174,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     }
     
     private func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
-        if sceneToolDataSource.sceneToolEnabled {
+        if sceneToolSource.sceneToolEnabled {
             if sceneState.isManipulating {
                 if sceneState.type != .forbidden {
                     sceneTool.manipulatingCursor.set()
@@ -274,7 +276,7 @@ class SceneOverlayView: NSView, DragEndpoint {
             }
         }
         
-        if let _ = try? contentResponder.updateContentItem(replItem) {
+        if let _ = try? contentDelegate.updateContentItem(replItem) {
             return true
         }
         

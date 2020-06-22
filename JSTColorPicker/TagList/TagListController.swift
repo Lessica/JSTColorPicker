@@ -19,9 +19,9 @@ class TagListController: NSViewController {
     @IBOutlet var tagMenu: NSMenu!
     @IBOutlet var alertTextView: AlertTextView!
     
-    public weak var sceneToolDataSource: SceneToolDataSource! {
-        get { return tableViewOverlay.sceneToolDataSource }
-        set { tableViewOverlay.sceneToolDataSource = newValue }
+    public weak var sceneToolSource: SceneToolSource! {
+        get { return tableViewOverlay.sceneToolSource }
+        set { tableViewOverlay.sceneToolSource = newValue }
     }
     public weak var importItemSource: TagListImportSource?
     
@@ -341,7 +341,7 @@ class TagListController: NSViewController {
     
 }
 
-extension TagListController: TagListDataSource {
+extension TagListController: TagListSource {
     
     var arrangedTagController: TagController { internalController }
     var arrangedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }

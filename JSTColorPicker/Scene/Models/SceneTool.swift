@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol SceneToolDataSource: class {
+protocol SceneToolSource: class {
     var sceneTool: SceneTool { get }
     var sceneToolEnabled: Bool { get }
     func resetSceneTool()

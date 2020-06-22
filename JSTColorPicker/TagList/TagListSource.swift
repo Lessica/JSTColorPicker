@@ -1,5 +1,5 @@
 //
-//  TagListDataSource.swift
+//  TagListSource.swift
 //  JSTColorPicker
 //
 //  Created by Apple on 2020/5/27.
@@ -12,7 +12,7 @@ extension NSNotification.Name {
     public static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")
 }
 
-protocol TagListDataSource: class {
+protocol TagListSource: class {
     
     var managedObjectContext: NSManagedObjectContext { get }
     

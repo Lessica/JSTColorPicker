@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol SceneStateDataSource: class {
+protocol SceneStateSource: class {
     var sceneState: SceneState { get }
     var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? { get }
 }

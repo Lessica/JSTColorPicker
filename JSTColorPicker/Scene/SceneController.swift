@@ -18,9 +18,9 @@ class SceneController: NSViewController {
         return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
     }
     
-    public weak var contentResponder: ContentDelegate!
+    public weak var contentDelegate: ContentDelegate!
     public weak var trackingDelegate: SceneTracking!
-    public weak var tagListDataSource: TagListDataSource!
+    public weak var tagListSource: TagListSource!
     
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
@@ -89,7 +89,6 @@ class SceneController: NSViewController {
     @IBOutlet private weak var sceneView: SceneScrollView!
     @IBOutlet private weak var sceneGridView: SceneGridView!
     @IBOutlet private weak var sceneOverlayView: SceneOverlayView!
-    @IBOutlet private weak var sceneTagView: SceneTagView!
     @IBOutlet private weak var internalSceneEffectView: SceneEffectView!
     @IBOutlet private weak var sceneGridTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var sceneGridLeadingConstraint: NSLayoutConstraint!
@@ -186,14 +185,14 @@ class SceneController: NSViewController {
             SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
         ]
         
-        sceneView.trackingDelegate                = self
-        sceneView.sceneToolDataSource             = self
-        sceneView.sceneStateDataSource            = self
-        sceneView.sceneActionEffectViewDataSource = self
-        sceneOverlayView.sceneToolDataSource      = self
-        sceneOverlayView.sceneStateDataSource     = self
-        sceneOverlayView.annotatorDataSource      = self
-        sceneOverlayView.contentResponder         = self
+        sceneView.trackingDelegate            = self
+        sceneView.sceneToolSource             = self
+        sceneView.sceneStateSource            = self
+        sceneView.sceneActionEffectViewSource = self
+        sceneOverlayView.sceneToolSource      = self
+        sceneOverlayView.sceneStateSource     = self
+        sceneOverlayView.annotatorSource      = self
+        sceneOverlayView.contentDelegate      = self
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
@@ -687,7 +686,7 @@ extension SceneController: SceneTracking {
     
 }
 
-extension SceneController: SceneToolDataSource {
+extension SceneController: SceneToolSource {
     
     internal var sceneTool: SceneTool {
         get {
@@ -711,7 +710,7 @@ extension SceneController: SceneToolDataSource {
     
 }
 
-extension SceneController: SceneStateDataSource {
+extension SceneController: SceneStateSource {
     
     internal var sceneState: SceneState {
         get {
@@ -733,7 +732,7 @@ extension SceneController: SceneStateDataSource {
     
 }
 
-extension SceneController: SceneEffectViewDataSource {
+extension SceneController: SceneEffectViewSource {
     
     var sceneEffectView: SceneEffectView {
         return internalSceneEffectView
@@ -741,7 +740,7 @@ extension SceneController: SceneEffectViewDataSource {
     
 }
 
-extension SceneController: AnnotatorDataSource {
+extension SceneController: AnnotatorSource {
     
     @objc private func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
         hideSceneOverlays()
@@ -1051,43 +1050,43 @@ extension SceneController: ToolbarResponder {
 extension SceneController: ContentDelegate {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder.addContentItem(of: coordinate)
+        return try contentDelegate.addContentItem(of: coordinate)
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        return try contentResponder.addContentItem(of: rect)
+        return try contentDelegate.addContentItem(of: rect)
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder.updateContentItem(item, to: coordinate)
+        return try contentDelegate.updateContentItem(item, to: coordinate)
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        return try contentResponder.updateContentItem(item, to: rect)
+        return try contentDelegate.updateContentItem(item, to: rect)
     }
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder.updateContentItem(item)
+        return try contentDelegate.updateContentItem(item)
     }
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        return try contentResponder.selectContentItem(item, byExtendingSelection: extend)
+        return try contentDelegate.selectContentItem(item, byExtendingSelection: extend)
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder.deselectContentItem(item)
+        return try contentDelegate.deselectContentItem(item)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentResponder.deleteContentItem(of: coordinate)
+        return try contentDelegate.deleteContentItem(of: coordinate)
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentResponder.deleteContentItem(item)
+        return try contentDelegate.deleteContentItem(item)
     }
     
     func deselectAllContentItems() {
-        contentResponder.deselectAllContentItems()
+        contentDelegate.deselectAllContentItems()
     }
     
 }
@@ -1218,7 +1217,7 @@ extension SceneController {
     
     private func annotatorColorize(_ annotator: Annotator) {
         guard let tagName = annotator.contentItem.tags.first,
-            let tag = tagListDataSource.managedTag(of: tagName) else
+            let tag = tagListSource.managedTag(of: tagName) else
         {
             annotator.overlay.lineDashColorsHighlighted  = nil
             annotator.overlay.circleFillColorHighlighted = nil

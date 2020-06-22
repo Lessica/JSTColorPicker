@@ -18,15 +18,15 @@ class SplitController: NSSplitViewController {
         
         contentController.actionDelegate         = self
         sceneController.trackingDelegate         = self
-        sceneController.contentResponder         = self
+        sceneController.contentDelegate          = self
         sidebarController.previewOverlayDelegate = self
         
         super.viewDidLoad()
         
-        contentController.tagListDataSource   = tagListController
-        sceneController.tagListDataSource     = tagListController
-        tagListController.importItemSource    = contentController
-        tagListController.sceneToolDataSource = sceneController
+        contentController.tagListSource    = tagListController
+        sceneController.tagListSource      = tagListController
+        tagListController.importItemSource = contentController
+        tagListController.sceneToolSource  = sceneController
         
     }
     

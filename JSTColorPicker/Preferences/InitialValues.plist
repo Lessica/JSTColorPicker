@@ -12,6 +12,8 @@
 	<false/>
 	<key>defaults.drawGridsInScene</key>
 	<true/>
+	<key>defaults.drawTagsInScene</key>
+	<true/>
 	<key>defaults.drawRulersInScene</key>
 	<true/>
 	<key>defaults.drawSceneBackground</key>

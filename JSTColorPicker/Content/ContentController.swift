@@ -87,7 +87,7 @@ extension NSViewController {
 class ContentController: NSViewController {
     
     public weak var actionDelegate: ContentActionDelegate!
-    public weak var tagListDataSource: TagListDataSource!
+    public weak var tagListSource: TagListSource!
     
     internal weak var screenshot: Screenshot?
     private var content: Content? {
@@ -1069,14 +1069,14 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     let allTags = item.tags.contents
                     
                     if let firstTag = allTags.first {
-                        cell.normalTextColor = tagListDataSource
+                        cell.normalTextColor = tagListSource
                             .managedTag(of: firstTag)?
                             .color
                     }
                     
                     cell.text = "\u{25CF} " + allTags.joined(separator: "/")
                     
-                    let attachedTags = tagListDataSource
+                    let attachedTags = tagListSource
                         .managedTags(of: allTags)
                         .map({ $0.name })
                     

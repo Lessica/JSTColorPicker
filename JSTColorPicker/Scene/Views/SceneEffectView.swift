@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol SceneEffectViewDataSource: class {
+protocol SceneEffectViewSource: class {
     var sceneEffectView: SceneEffectView { get }
 }
 

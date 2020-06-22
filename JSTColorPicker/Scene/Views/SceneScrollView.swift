@@ -50,12 +50,12 @@ class SceneScrollView: NSScrollView {
     private var trackingCoordinate = PixelCoordinate.null
     
     public var sceneEventObservers: [SceneEventObserver] = []
-    public weak var sceneToolDataSource: SceneToolDataSource!
-    private var sceneTool: SceneTool { return sceneToolDataSource.sceneTool }
-    public weak var sceneStateDataSource: SceneStateDataSource!
-    private var sceneState: SceneState { return sceneStateDataSource.sceneState }
-    public weak var sceneActionEffectViewDataSource: SceneEffectViewDataSource!
-    private var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewDataSource.sceneEffectView }
+    public weak var sceneToolSource: SceneToolSource!
+    private var sceneTool: SceneTool { return sceneToolSource.sceneTool }
+    public weak var sceneStateSource: SceneStateSource!
+    private var sceneState: SceneState { return sceneStateSource.sceneState }
+    public weak var sceneActionEffectViewSource: SceneEffectViewSource!
+    private var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewSource.sceneEffectView }
     
     private lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
@@ -126,16 +126,15 @@ class SceneScrollView: NSScrollView {
     private lazy var checkerboardImage: NSImage = {
         let filter = CIFilter(name: "CICheckerboardGenerator")!
         
-        let ciCount = 8
-        let ciSize = CGSize(width: 80.0, height: 80.0)
-        let aSize = CGSize(width: ciSize.width * CGFloat(ciCount), height: ciSize.height * CGFloat(ciCount))
+        let ciCount: Int    = 8
+        let ciSize : CGSize = CGSize(width: 80.0, height: 80.0)
+        let aSize  : CGSize = CGSize(width: ciSize.width * CGFloat(ciCount), height: ciSize.height * CGFloat(ciCount))
         
-        let ciWidth = NSNumber(value: Double(ciSize.width))
-        let ciCenter = CIVector(cgPoint: .zero)
-        
-        let darkColor = CIColor.init(cgColor: CGColor.init(gray: 0xCC / 0xFF, alpha: 0.6))
+        let ciWidth    = NSNumber(value: Double(ciSize.width))
+        let ciCenter   = CIVector(cgPoint: .zero)
+        let darkColor  = CIColor.init(cgColor: CGColor.init(gray: 0xCC / 0xFF, alpha: 0.6))
         let lightColor = CIColor.clear
-        let sharpness = NSNumber(value: 1.0)
+        let sharpness  = NSNumber(value: 1.0)
         
         filter.setDefaults()
         filter.setValue(ciWidth, forKey: "inputWidth")
@@ -516,7 +515,7 @@ class SceneScrollView: NSScrollView {
     }
     
     private func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
-        return sceneStateDataSource.editingAnnotatorOverlayAtBeginLocation
+        return sceneStateSource.editingAnnotatorOverlayAtBeginLocation
     }
     
     private func trackMovingOrDragging(with event: NSEvent) {
