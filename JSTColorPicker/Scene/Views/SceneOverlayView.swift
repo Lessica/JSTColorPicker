@@ -66,10 +66,7 @@ class SceneOverlayView: NSView, DragEndpoint {
         overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
             ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
-    public func overlays(at point: CGPoint, byReordering reorder: Bool) -> [AnnotatorOverlay] {
-        // FIXME: reorder
-        return overlays.filter({ $0.frame.contains(point) })
-    }
+    public func overlays(at point: CGPoint) -> [AnnotatorOverlay] { overlays.filter({ $0.frame.contains(point) }) }
     
     public var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {

@@ -111,6 +111,7 @@ class ContentController: NSViewController {
     
     private var undoToken: NotificationToken?
     private var redoToken: NotificationToken?
+    private var delayedRowIndexes: IndexSet?
     
     @IBOutlet var tableMenuDelegateProxy  : NSMenuDelegateProxy!
     
@@ -167,9 +168,17 @@ class ContentController: NSViewController {
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
+            if let indexes = self.delayedRowIndexes {
+                self.tableView.selectRowIndexes(indexes, byExtendingSelection: false)
+                self.delayedRowIndexes = nil
+            }
         }
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
+            if let indexes = self.delayedRowIndexes {
+                self.tableView.selectRowIndexes(indexes, byExtendingSelection: false)
+                self.delayedRowIndexes = nil
+            }
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
@@ -349,7 +358,9 @@ extension ContentController {
         guard let content = content else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalAddContentItems(itemsToRemove) })
+        undoManager?.registerUndo(withTarget: self, handler: { (target) in
+            target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove)
+        })
         actionDelegate.contentActionDeleted(items)
         let indexes = content.items
             .enumerated()
@@ -483,6 +494,7 @@ extension ContentController: ContentDelegate {
                 beginID += 1
             }
         }
+        
         internalAddContentItems(relatedItems)
         tableView.reloadData()
         

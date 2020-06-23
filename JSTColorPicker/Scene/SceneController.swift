@@ -286,10 +286,10 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applySelectItem(at location: CGPoint, byThroughoutSelection throughout: Bool, byExtendingSelection extend: Bool) -> Bool {
+    private func applySelectItem(at location: CGPoint, byThroughoutHit throughout: Bool, byExtendingSelection extend: Bool) -> Bool {
         let locationInMask = sceneOverlayView.convert(location, from: wrapper)
         if throughout {  // shift pressed
-            let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask, byReordering: true)
+            let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask)
             if annotatorOverlays.count > 0 {
                 let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
                 let contentItems = annotators
@@ -414,7 +414,7 @@ class SceneController: NSViewController {
                             .intersection(.deviceIndependentFlagsMask)
                         let commandPressed = modifierFlags.contains(.command)
                         let shiftPressed   = modifierFlags.contains(.shift)
-                        handled = applySelectItem(at: loc, byThroughoutSelection: shiftPressed, byExtendingSelection: commandPressed)
+                        handled = applySelectItem(at: loc, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
                     }
                 }
             }
@@ -832,11 +832,11 @@ extension SceneController: AnnotatorSource {
     
     private func updateAnnotatorEditableStates() {
         let editable = internalSceneTool == .selectionArrow
-        annotators.lazy
-            .filter({ $0.isEditable != editable })
-            .forEach({
-                $0.isEditable = editable
-            })
+        for annotator in annotators {
+            if annotator.isEditable != editable {
+                annotator.isEditable = editable
+            }
+        }
         updateAnnotatorFrames()
     }
     
@@ -920,11 +920,11 @@ extension SceneController: AnnotatorSource {
     }
     
     private func addAnnotatorsAdvanced(for items: [ContentItem], with overlayAnimationStates: [Int: OverlayAnimationState]? = nil) {
-        items.forEach { (item) in
+        for item in items {
             guard !annotators.contains(where: { $0.contentItem == item }) else { return }
             let state = overlayAnimationStates?[item.id]
-            if let color = item as? PixelColor { addAnnotator(for: color, with: state) }
-            else if let area = item as? PixelArea { addAnnotator(for: area, with: state) }
+            if item is PixelColor { addAnnotator(for: item as! PixelColor, with: state) }
+            else if item is PixelArea { addAnnotator(for: item as! PixelArea, with: state) }
         }
         debugPrint("add annotators \(items.debugDescription)")
     }
@@ -977,40 +977,53 @@ extension SceneController: AnnotatorSource {
     @discardableResult
     private func removeAnnotatorsAdvanced(for items: [ContentItem]) -> [Int: OverlayAnimationState] {
         var states = [Int: OverlayAnimationState]()
-        annotators.lazy
-            .filter({ items.contains($0.contentItem) })
-            .forEach({
-                states[$0.contentItem.id] = $0.overlay.animationState
-                annotatorHideRulerMarkers($0)
-                $0.overlay.invalidateAnimationTimer()
-                $0.overlay.removeFromSuperview()
-            })
-        annotators.removeAll(where: { items.contains($0.contentItem) })
+        var removeIndexSet = IndexSet()
+        for (index, annotator) in annotators.enumerated() {
+            if items.contains(annotator.contentItem) {
+                removeIndexSet.insert(index)
+                
+                states[annotator.contentItem.id] = annotator.overlay.animationState
+                annotatorHideRulerMarkers(annotator)
+                annotator.overlay.removeFromAnimationGroup()
+                annotator.overlay.removeFromSuperview()
+            }
+        }
+        annotators.remove(at: removeIndexSet)
         debugPrint("remove annotators \(items.debugDescription)")
         return states
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
-        annotators
-            .forEach({ (annotator) in
-                if items.contains(annotator.contentItem) {
-                    if !annotator.isSelected {
-                        annotator.isSelected = true
-                        annotatorShowRulerMarkers(annotator)
-                        annotator.overlay.bringToFront()
-                    }
-                }
-                else if annotator.isSelected {
-                    annotator.isSelected = false
-                    annotatorHideRulerMarkers(annotator)
-                    annotator.overlay.setNeedsDisplay(visibleOnly: false)
-                }
-            })
-        if scrollTo {  // scroll without changing magnification
-            let item = annotators.last(where: { items.contains($0.contentItem) })?.contentItem
-            if let color = item as? PixelColor { previewAction(self, centeredAt: color.coordinate) }
-            else if let area = item as? PixelArea { previewAction(self, toFit: area.rect) }
+        
+        var selectAnnotators: [Annotator] = []
+        
+        for annotator in annotators {
+            if items.contains(annotator.contentItem) {
+                selectAnnotators.append(annotator)
+            } else if annotator.isSelected {
+                annotator.isSelected = false
+                annotatorHideRulerMarkers(annotator)
+                annotator.overlay.setNeedsDisplay(visibleOnly: false)
+            }
         }
+        
+        selectAnnotators.sort(by: { $0.overlay.frame.size.width * $0.overlay.frame.size.height > $1.overlay.frame.size.width * $1.overlay.frame.size.height })
+        
+        for annotator in selectAnnotators {
+            annotator.overlay.bringToFront()
+            if !annotator.isSelected {
+                annotator.isSelected = true
+                annotatorShowRulerMarkers(annotator)
+            }
+        }
+        
+        if scrollTo {  // scroll without changing magnification
+            if let item = annotators.last(where: { items.contains($0.contentItem) })?.contentItem {
+                if item is PixelColor { previewAction(self, centeredAt: (item as! PixelColor).coordinate) }
+                else if item is PixelArea { previewAction(self, toFit: (item as! PixelArea).rect) }
+            }
+        }
+        
         debugPrint("highlight annotators \(items.debugDescription), scroll = \(scrollTo)")
     }
     
@@ -1018,33 +1031,14 @@ extension SceneController: AnnotatorSource {
 
 extension SceneController: ToolbarResponder {
     
-    func useAnnotateItemAction(_ sender: Any?) {
-        internalSceneTool = .magicCursor
-    }
+    func useAnnotateItemAction(_ sender: Any?) { internalSceneTool = .magicCursor }
+    func useMagnifyItemAction(_ sender: Any?)  { internalSceneTool = .magnifyingGlass }
+    func useMinifyItemAction(_ sender: Any?)   { internalSceneTool = .minifyingGlass }
+    func useSelectItemAction(_ sender: Any?)   { internalSceneTool = .selectionArrow }
+    func useMoveItemAction(_ sender: Any?)     { internalSceneTool = .movingHand }
     
-    func useMagnifyItemAction(_ sender: Any?) {
-        internalSceneTool = .magnifyingGlass
-    }
-    
-    func useMinifyItemAction(_ sender: Any?) {
-        internalSceneTool = .minifyingGlass
-    }
-    
-    func useSelectItemAction(_ sender: Any?) {
-        internalSceneTool = .selectionArrow
-    }
-    
-    func useMoveItemAction(_ sender: Any?) {
-        internalSceneTool = .movingHand
-    }
-    
-    func fitWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: wrapper.bounds)
-    }
-    
-    func fillWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds))
-    }
+    func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapper.bounds) }
+    func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds)) }
     
     private func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
         let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
@@ -1250,8 +1244,7 @@ extension SceneController {
     }
     
     private func annotatorColorizeAll() {
-        annotators
-            .forEach({ annotatorColorize($0) })
+        annotators.forEach({ annotatorColorize($0) })
     }
     
 }

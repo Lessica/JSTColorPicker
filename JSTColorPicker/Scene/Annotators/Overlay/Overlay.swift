@@ -8,9 +8,19 @@
 
 import Cocoa
 
+
+// MARK: - Animation Structs
+
 struct OverlayAnimationState {
     public var lineDashCount: Int = 0
 }
+
+struct OverlayAnimationProxy: Hashable {
+    public weak var overlay: Overlay?
+}
+
+
+// MARK: - Definitions
 
 class Overlay: NSView {
     
@@ -35,60 +45,89 @@ class Overlay: NSView {
         return img
     }
     
-    public func invalidateAnimationTimer() {
-        animationTimer?.invalidate()
-        animationTimer = nil
-    }
     public var animationState = OverlayAnimationState()
     public var animationBeginPhase: CGFloat { CGFloat(animationState.lineDashCount % 9) }
-    private var animationTimer: Timer?
     
-    private static let defaultBorderWidth    :  CGFloat  = 1.67
-    private static let defaultLineDashLengths: [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
+    private static let defaultBorderWidth     :  CGFloat  = 1.67
+    private static let defaultLineDashLengths : [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
     
-    public var lineDashColorsNormal                        : [CGColor]?
-    public var lineDashColorsHighlighted                   : [CGColor]?
-    private var internalLineDashColorsNormal           : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
-    private var internalLineDashColorsHighlighted      : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
-    private static let defaultLineDashColorsNormal     : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
-    private static let defaultLineDashColorsHighlighted: [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    public var lineDashColorsNormal                     : [CGColor]?
+    public var lineDashColorsHighlighted                : [CGColor]?
+    private var internalLineDashColorsNormal            : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
+    private var internalLineDashColorsHighlighted       : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
+    private static let defaultLineDashColorsNormal      : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
+    private static let defaultLineDashColorsHighlighted : [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
     
     private static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
     private static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
     
-    public var isSelected: Bool = false {
-        didSet {
-            //guard isBordered else { return }
-            if isSelected {
-                invalidateAnimationTimer()
-                animationState.lineDashCount %= 9
-                let timer = Timer(fireAt: Date(), interval: 0.1, target: self, selector: #selector(animateLineDash(_:)), userInfo: nil, repeats: true)
-                RunLoop.current.add(timer, forMode: .common)
-                animationTimer = timer
-            } else {
-                invalidateAnimationTimer()
-            }
+    
+    // MARK: - Animation
+    
+    private static var sharedAnimationTimer: Timer?
+    private static func installSharedAnimationTimer() {
+        if let oldTimer = sharedAnimationTimer {
+            oldTimer.invalidate()
+            sharedAnimationTimer = nil
         }
+        let timer = Timer(fireAt: Date(), interval: 0.1, target: self, selector: #selector(sharedAnimateAction(_:)), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer, forMode: .common)
+        sharedAnimationTimer = timer
+        debugPrint("installSharedAnimationTimer()")
+    }
+    private static func invalidateSharedAnimationTimer() {
+        sharedAnimationTimer?.invalidate()
+        sharedAnimationTimer = nil
+        debugPrint("invalidateSharedAnimationTimer()")
+    }
+    private static var sharedAnimationProxies = Set<OverlayAnimationProxy>()
+    @objc internal static func sharedAnimateAction(_ timer: Timer) {
+        sharedAnimationProxies
+            .compactMap({ $0.overlay })
+            .forEach({ $0.animateAction(timer) })
+        debugPrint("sharedAnimateAction(_:)")
     }
     
-    deinit {
-        invalidateAnimationTimer()
-    }
-    
-    @objc internal func animateLineDash(_ timer: Timer?) {
+    private func animateAction(_ timer: Timer) {
         if shouldPerformAnimatableDrawing {
             animationState.lineDashCount += 1
             setNeedsDisplay(visibleOnly: true)
         }
     }
     
-    public func setNeedsDisplay(visibleOnly: Bool) {
-        if visibleOnly {
-            super.setNeedsDisplay(visibleRect)
-        } else {
-            super.setNeedsDisplay(bounds)
+    public func addToAnimationGroup() {
+        Overlay.sharedAnimationProxies.insert(OverlayAnimationProxy(overlay: self))
+        if Overlay.sharedAnimationTimer == nil && !Overlay.sharedAnimationProxies.isEmpty {
+            Overlay.installSharedAnimationTimer()
         }
     }
+    
+    public func removeFromAnimationGroup() {
+        let proxies = Overlay.sharedAnimationProxies
+            .filter({ $0.overlay == nil || $0.overlay == self })
+        Overlay.sharedAnimationProxies.subtract(proxies)
+        if Overlay.sharedAnimationTimer != nil && Overlay.sharedAnimationProxies.isEmpty {
+            Overlay.invalidateSharedAnimationTimer()
+        }
+    }
+    
+    public var isSelected: Bool = false {
+        didSet {
+            if isSelected {
+                animationState.lineDashCount %= 9
+                addToAnimationGroup()
+            } else {
+                removeFromAnimationGroup()
+            }
+        }
+    }
+    
+    deinit {
+        removeFromAnimationGroup()
+    }
+    
+    
+    // MARK: - CPU Drawing
     
     override var wantsDefaultClipping: Bool { false }
     
@@ -108,6 +147,14 @@ class Overlay: NSView {
     override func hitTest(_ point: NSPoint) -> NSView? {
         guard frame.contains(point) else { return nil }
         return self
+    }
+    
+    public func setNeedsDisplay(visibleOnly: Bool) {
+        if visibleOnly {
+            super.setNeedsDisplay(visibleRect)
+        } else {
+            super.setNeedsDisplay(bounds)
+        }
     }
     
     private var shouldPerformAnimatableDrawing: Bool {
