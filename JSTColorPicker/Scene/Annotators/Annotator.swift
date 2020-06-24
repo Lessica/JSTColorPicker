@@ -36,8 +36,6 @@ class Annotator {
         self.overlay = overlay
     }
     
-    deinit {}
-    
 }
 
 extension Annotator: CustomStringConvertible {

@@ -390,6 +390,43 @@ class SceneController: NSViewController {
         return false
     }
     
+    private func shortcutAnnotatorSwitching(at location: CGPoint, byForwardingSelection forward: Bool) -> Bool {
+        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
+        let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask, bySizeReordering: true)
+        guard annotatorOverlays.count > 1 else { return false }
+        
+        var selectedOverlayIndex: Int?
+        for (overlayIndex, annotatorOverlay) in annotatorOverlays.enumerated() {
+            if annotatorOverlay.isSelected {
+                if selectedOverlayIndex == nil {
+                    selectedOverlayIndex = overlayIndex
+                } else {
+                    // only one selected overlay accepted
+                    return false
+                }
+            }
+        }
+        
+        guard let firstIndex = selectedOverlayIndex else         { return false }
+        
+        var nextIndex: Int!
+        if firstIndex == 0 && forward {
+            nextIndex = annotatorOverlays.count - 1
+        } else if firstIndex == annotatorOverlays.count - 1 && !forward {
+            nextIndex = 0
+        } else {
+            nextIndex = forward ? firstIndex - 1 : firstIndex + 1
+        }
+        
+        if let nextAnnotator = annotators.first(where: { $0.overlay == annotatorOverlays[nextIndex] }) {
+            if let _ = try? selectContentItems([nextAnnotator.contentItem], byExtendingSelection: false) {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     private func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
         return enableForceTouch ? 1 : 0
     }
@@ -617,6 +654,12 @@ class SceneController: NSViewController {
                 }
                 else if characters.contains("`") {
                     return shortcutCopyPixelColor(at: loc)
+                }
+                else if characters.contains("[") {
+                    return shortcutAnnotatorSwitching(at: loc, byForwardingSelection: true)
+                }
+                else if characters.contains("]") {
+                    return shortcutAnnotatorSwitching(at: loc, byForwardingSelection: false)
                 }
             }
             
