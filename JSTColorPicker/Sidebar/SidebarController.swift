@@ -40,34 +40,7 @@ class SidebarController: NSViewController {
         return screenshot?.image?.imageSource
     }
     private var imageSource2: PixelImageSource?
-    private var isInComparisonMode: Bool {
-        return imageSource1 != nil && imageSource2 != nil
-    }
     private var exitComparisonHandler: ((Bool) -> Void)?
-    private func updateInformationPanel() {
-        
-        imageLabel1.isHidden = false
-        if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
-            imageLabel1.stringValue = text
-        }
-        else {
-            imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
-        }
-        imageLabel1.displayIfNeeded()
-        
-        if let imageSource2 = imageSource2, let text = stringValue(for: imageSource2) {
-            imageLabel2.stringValue = text
-            imageLabel2.isHidden = false
-            imageActionView.isHidden = false
-        }
-        else {
-            imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
-            imageLabel2.isHidden = true
-            imageActionView.isHidden = true
-        }
-        imageLabel2.displayIfNeeded()
-        
-    }
     
     @IBOutlet weak var inspectorColorLabel: NSTextField!
     @IBOutlet weak var inspectorColorFlag : ColorIndicator!
@@ -77,7 +50,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var inspectorColorFlag2 : ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel2 : NSTextField!
     
-    public weak var previewOverlayDelegate : PreviewResponder!
+    public weak var previewOverlayDelegate : ItemPreviewResponder!
     @IBOutlet weak var previewImageView    : PreviewImageView!
     @IBOutlet weak var previewOverlayView  : PreviewOverlayView!
     @IBOutlet weak var previewSlider       : NSSlider!
@@ -86,26 +59,8 @@ class SidebarController: NSViewController {
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
     
-    private var colorPanel: NSColorPanel {
-        let panel = NSColorPanel.shared
-        panel.showsAlpha = true
-        panel.isContinuous = false
-        return panel
-    }
-    private static var byteFormatter: ByteCountFormatter = {
-        let formatter = ByteCountFormatter.init()
-        return formatter
-    }()
-    private static var exifDateFormatter: DateFormatter = {
-        let formatter = DateFormatter.init()
-        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
-        return formatter
-    }()
-    private static var defaultDateFormatter: DateFormatter = {
-        let formatter = DateFormatter.init()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter
-    }()
+    private var lastStoredRect: CGRect?
+    private var lastStoredMagnification: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +70,7 @@ class SidebarController: NSViewController {
         previewOverlayView.overlayDelegate = self
         
         updateInformationPanel()
-        resetItemInspector()
+        resetInspector()
         resetPreview()
         
         previewSlider.isEnabled = false
@@ -129,138 +84,6 @@ class SidebarController: NSViewController {
         applyPreferences(nil)
     }
     
-    func updateItemInspector(for item: ContentItem, submit: Bool) {
-        
-        guard !paneViewInspector.isHidden else {
-            
-            if let color = item as? PixelColor,
-                submit && colorPanel.isVisible
-            {
-                let nsColor = color.toNSColor()
-                
-                colorPanel.setTarget(nil)
-                colorPanel.setAction(nil)
-                colorPanel.color = nsColor
-            }
-            
-            return
-        }
-        
-        if let color = item as? PixelColor {
-            
-            if !submit {
-                inspectorColorLabel.stringValue = """
-R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
-G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
-B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
-"""
-                let nsColor = color.toNSColor()
-                inspectorColorFlag.color = nsColor
-                inspectorColorFlag.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
-                inspectorAreaLabel.stringValue = """
-CSS:\(color.cssString.leftPadding(to: 9, with: " "))
-\(color.coordinate.description.leftPadding(to: 13, with: " "))
-"""
-            }
-            else {
-                inspectorColorLabel2.stringValue = """
-R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
-G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
-B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
-A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
-"""
-                let nsColor = color.toNSColor()
-                inspectorColorFlag2.color = nsColor
-                inspectorColorFlag2.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
-                inspectorAreaLabel2.stringValue = """
-CSS:\(color.cssString.leftPadding(to: 9, with: " "))
-\(color.coordinate.description.leftPadding(to: 13, with: " "))
-"""
-                if colorPanel.isVisible {
-                    colorPanel.setTarget(nil)
-                    colorPanel.setAction(nil)
-                    colorPanel.color = nsColor
-                }
-            }
-        }
-        else if let area = item as? PixelArea {
-            if !submit {
-                inspectorAreaLabel.stringValue = """
-W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
-H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
-"""
-            }
-            else {
-                inspectorAreaLabel2.stringValue = """
-W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
-H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
-"""
-            }
-        }
-        
-    }
-    
-    private func resetItemInspector() {
-        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
-        inspectorColorLabel.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
-        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
-        inspectorColorLabel2.stringValue = """
-R:\("-".leftPadding(to: 11, with: " "))
-G:\("-".leftPadding(to: 11, with: " "))
-B:\("-".leftPadding(to: 11, with: " "))
-A:\("-".leftPadding(to: 11, with: " "))
-"""
-        inspectorAreaLabel2.stringValue = """
-CSS:\("-".leftPadding(to: 9, with: " "))
-\("-".leftPadding(to: 13, with: " "))
-"""
-    }
-    
-    private var lastStoredRect: CGRect?
-    private var lastStoredMagnification: CGFloat?
-    
-    public func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard !rect.isEmpty else { return }
-        
-        guard !paneViewPreview.isHidden else {
-            lastStoredRect = rect
-            lastStoredMagnification = magnification
-            return
-        }
-        
-        if let imageSize = screenshot?.image?.size {
-            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
-            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
-            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
-            previewOverlayView.highlightArea = highlightRect
-        }
-        
-        previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-        previewSlider.doubleValue = Double(log2(magnification))
-    }
-    
-    private func resetPreview() {
-        guard let lastStoredRect = lastStoredRect,
-            let lastStoredMagnification = lastStoredMagnification else { return }
-        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
-    }
-    
-    public func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
-        guard let rect = rect,
-            let magnification = magnification else { return }
-        updatePreview(to: rect, magnification: magnification)
-    }
-    
     deinit {
         debugPrint("- [SidebarController deinit]")
     }
@@ -271,28 +94,8 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         return error
     }
     
-    @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
-        if let exitComparisonHandler = exitComparisonHandler {
-            exitComparisonHandler(true)
-        }
-    }
     
-    @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
-        colorPanel.setTarget(nil)
-        colorPanel.setAction(nil)
-        colorPanel.color = sender.color
-        
-        colorPanel.orderFront(sender)
-    }
-    
-    @IBAction func previewSliderChanged(_ sender: NSSlider) {
-        let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
-        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
-        previewSliderLabel.isHidden = !isPressed
-    }
-    
-    
-    // MARK: -
+    // MARK: - Templates
     
     @IBOutlet var optionMenu: NSMenu!
     private var reservedOptionMenuItems: [NSMenuItem] = []
@@ -419,7 +222,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
     }
     
     
-    // MARK: -
+    // MARK: - Panes
     
     @IBOutlet var paneMenu: NSMenu!
     
@@ -471,7 +274,7 @@ CSS:\("-".leftPadding(to: 9, with: " "))
         if paneViewInspector.isHidden != hiddenValue {
             paneViewInspector.isHidden = hiddenValue
             if !hiddenValue {
-                resetItemInspector()
+                resetInspector()
             }
             paneChanged = true
         }
@@ -511,6 +314,21 @@ CSS:\("-".leftPadding(to: 9, with: " "))
 
 extension SidebarController: ScreenshotLoader {
     
+    private static var byteFormatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter.init()
+        return formatter
+    }()
+    private static var exifDateFormatter: DateFormatter = {
+        let formatter = DateFormatter.init()
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        return formatter
+    }()
+    private static var defaultDateFormatter: DateFormatter = {
+        let formatter = DateFormatter.init()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
     func load(_ screenshot: Screenshot) throws {
         guard let image = screenshot.image else { throw ScreenshotError.invalidImage }
         self.screenshot = screenshot
@@ -531,6 +349,31 @@ extension SidebarController: ScreenshotLoader {
         resetDividers()
         
         copyExampleTemplatesIfNeeded()
+    }
+    
+    private func updateInformationPanel() {
+        
+        imageLabel1.isHidden = false
+        if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
+            imageLabel1.stringValue = text
+        }
+        else {
+            imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
+        }
+        imageLabel1.displayIfNeeded()
+        
+        if let imageSource2 = imageSource2, let text = stringValue(for: imageSource2) {
+            imageLabel2.stringValue = text
+            imageLabel2.isHidden = false
+            imageActionView.isHidden = false
+        }
+        else {
+            imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
+            imageLabel2.isHidden = true
+            imageActionView.isHidden = true
+        }
+        imageLabel2.displayIfNeeded()
+        
     }
     
     private func stringValue(for source: PixelImageSource) -> String? {
@@ -559,6 +402,204 @@ Dimensions: \(pixelXDimension)×\(pixelYDimension)
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
 Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
+    }
+    
+}
+
+extension SidebarController: ItemInspector {
+    
+    private var colorPanel: NSColorPanel {
+        get {
+            let panel = NSColorPanel.shared
+            panel.showsAlpha = true
+            panel.isContinuous = false
+            return panel
+        }
+    }
+    
+    @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
+        colorPanel.setTarget(nil)
+        colorPanel.setAction(nil)
+        colorPanel.color = sender.color
+        
+        colorPanel.orderFront(sender)
+    }
+    
+    func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool) {
+        
+        guard !paneViewInspector.isHidden else {
+            
+            if let color = item as? PixelColor,
+                submit && colorPanel.isVisible
+            {
+                let nsColor = color.toNSColor()
+                
+                colorPanel.setTarget(nil)
+                colorPanel.setAction(nil)
+                colorPanel.color = nsColor
+            }
+            
+            return
+        }
+        
+        if let color = item as? PixelColor {
+            
+            if !submit {
+                inspectorColorLabel.stringValue = """
+R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
+G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
+B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
+"""
+                let nsColor = color.toNSColor()
+                inspectorColorFlag.color = nsColor
+                inspectorColorFlag.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
+                inspectorAreaLabel.stringValue = """
+CSS:\(color.cssString.leftPadding(to: 9, with: " "))
+\(color.coordinate.description.leftPadding(to: 13, with: " "))
+"""
+            }
+            else {
+                inspectorColorLabel2.stringValue = """
+R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
+G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
+B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
+A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
+"""
+                let nsColor = color.toNSColor()
+                inspectorColorFlag2.color = nsColor
+                inspectorColorFlag2.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
+                inspectorAreaLabel2.stringValue = """
+CSS:\(color.cssString.leftPadding(to: 9, with: " "))
+\(color.coordinate.description.leftPadding(to: 13, with: " "))
+"""
+                if colorPanel.isVisible {
+                    colorPanel.setTarget(nil)
+                    colorPanel.setAction(nil)
+                    colorPanel.color = nsColor
+                }
+            }
+        }
+        else if let area = item as? PixelArea {
+            if !submit {
+                inspectorAreaLabel.stringValue = """
+W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
+H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
+"""
+            }
+            else {
+                inspectorAreaLabel2.stringValue = """
+W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
+H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
+"""
+            }
+        }
+        
+    }
+    
+    private func resetInspector() {
+        inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
+        inspectorColorLabel.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
+        inspectorColorLabel2.stringValue = """
+R:\("-".leftPadding(to: 11, with: " "))
+G:\("-".leftPadding(to: 11, with: " "))
+B:\("-".leftPadding(to: 11, with: " "))
+A:\("-".leftPadding(to: 11, with: " "))
+"""
+        inspectorAreaLabel2.stringValue = """
+CSS:\("-".leftPadding(to: 9, with: " "))
+\("-".leftPadding(to: 13, with: " "))
+"""
+    }
+    
+}
+
+extension SidebarController: ItemPreviewDelegate {
+    
+    public func updatePreview(to rect: CGRect, magnification: CGFloat) {
+        guard !rect.isEmpty else { return }
+        
+        guard !paneViewPreview.isHidden else {
+            lastStoredRect = rect
+            lastStoredMagnification = magnification
+            return
+        }
+        
+        if let imageSize = screenshot?.image?.size {
+            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
+            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+            previewOverlayView.highlightArea = highlightRect
+        }
+        
+        previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        previewSlider.doubleValue = Double(log2(magnification))
+    }
+    
+    private func resetPreview() {
+        guard let lastStoredRect = lastStoredRect,
+            let lastStoredMagnification = lastStoredMagnification else { return }
+        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
+    }
+    
+    public func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
+        guard let rect = rect,
+            let magnification = magnification else { return }
+        updatePreview(to: rect, magnification: magnification)
+    }
+    
+}
+
+extension SidebarController: ItemPreviewResponder {
+    
+    @IBAction func previewSliderChanged(_ sender: NSSlider) {
+        let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
+        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
+        previewSliderLabel.isHidden = !isPressed
+    }
+    
+    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
+        previewOverlayDelegate.previewAction(sender, centeredAt: coordinate)
+    }
+    
+    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+        previewOverlayDelegate.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
+    }
+    
+}
+
+extension SidebarController: PixelMatchResponder {
+    
+    @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
+        if let exitComparisonHandler = exitComparisonHandler {
+            exitComparisonHandler(true)
+        }
+    }
+    
+    func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
+        imageSource2 = image.imageSource
+        exitComparisonHandler = completionHandler
+        updateInformationPanel()
+    }
+    
+    func endPixelMatchComparison() {
+        imageSource2 = nil
+        exitComparisonHandler = nil
+        updateInformationPanel()
+    }
+    
+    private var isInComparisonMode: Bool {
+        return imageSource1 != nil && imageSource2 != nil
     }
     
 }
@@ -604,34 +645,6 @@ extension SidebarController: NSSplitViewDelegate {
     func splitView(_ splitView: NSSplitView, effectiveRect proposedEffectiveRect: NSRect, forDrawnRect drawnRect: NSRect, ofDividerAt dividerIndex: Int) -> NSRect {
         guard dividerIndex < splitView.arrangedSubviews.count else { return proposedEffectiveRect }
         return splitView.arrangedSubviews[dividerIndex].isHidden ? .zero : proposedEffectiveRect
-    }
-    
-}
-
-extension SidebarController: PreviewResponder {
-    
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        previewOverlayDelegate.previewAction(sender, centeredAt: coordinate)
-    }
-    
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        previewOverlayDelegate.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
-    }
-    
-}
-
-extension SidebarController: PixelMatchResponder {
-    
-    func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
-        imageSource2 = image.imageSource
-        exitComparisonHandler = completionHandler
-        updateInformationPanel()
-    }
-    
-    func endPixelMatchComparison() {
-        imageSource2 = nil
-        exitComparisonHandler = nil
-        updateInformationPanel()
     }
     
 }

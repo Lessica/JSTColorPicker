@@ -10,7 +10,7 @@ import Cocoa
 
 class PreviewOverlayView: NSView {
     
-    public weak var overlayDelegate: PreviewResponder?
+    public weak var overlayDelegate: ItemPreviewResponder?
     
     public var imageSize: CGSize = CGSize.zero {
         didSet {

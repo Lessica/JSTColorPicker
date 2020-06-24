@@ -9,7 +9,5 @@
 import Cocoa
 
 protocol TagImportSource: class {
-    
     var importableTagNames: [String]? { get }
-    
 }

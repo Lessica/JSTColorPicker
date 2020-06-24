@@ -226,7 +226,7 @@ class EditCoordinateController: EditViewController {
     
 }
 
-extension EditCoordinateController: PreviewResponder {
+extension EditCoordinateController: ItemPreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         guard let image = image else { return }

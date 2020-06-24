@@ -1148,7 +1148,7 @@ extension SceneController: ContentDelegate {
     
 }
 
-extension SceneController: PreviewResponder {
+extension SceneController: ItemPreviewResponder {
     
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }

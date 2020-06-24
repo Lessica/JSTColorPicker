@@ -108,14 +108,14 @@ extension SplitController: SceneTracking {
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
-        sidebarController.updateItemInspector(for: color, submit: false)
+        sidebarController.inspectItem(color, shouldSubmit: false)
         trackingObject.trackColorChanged(sender, at: coordinate)
     }
     
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
-        sidebarController.updateItemInspector(for: area, submit: false)
+        sidebarController.inspectItem(area, shouldSubmit: false)
     }
     
     func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
@@ -307,10 +307,9 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionAdded(_ items: [ContentItem]) {
         sceneController.addAnnotators(for: items)
-        sceneController.highlightAnnotators(for: items, scrollTo: false)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.updateItemInspector(for: item, submit: true)
+            sidebarController.inspectItem(item, shouldSubmit: true)
         }
     }
     
@@ -318,23 +317,25 @@ extension SplitController: ContentActionDelegate {
         sceneController.updateAnnotator(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.updateItemInspector(for: item, submit: true)
+            sidebarController.inspectItem(item, shouldSubmit: true)
         }
     }
     
     func contentActionSelected(_ items: [ContentItem]) {
         sceneController.highlightAnnotators(for: items, scrollTo: false)
+        tagListController.highlightTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.updateItemInspector(for: item, submit: true)
+            sidebarController.inspectItem(item, shouldSubmit: true)
         }
     }
     
     func contentActionConfirmed(_ items: [ContentItem]) {
-        sceneController.highlightAnnotators(for: items, scrollTo: true)  // scroll
+        sceneController.highlightAnnotators(for: items, scrollTo: true)  // with scroll
+        tagListController.highlightTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.updateItemInspector(for: item, submit: true)
+            sidebarController.inspectItem(item, shouldSubmit: true)
         }
     }
     
@@ -344,7 +345,7 @@ extension SplitController: ContentActionDelegate {
     
 }
 
-extension SplitController: PreviewResponder {
+extension SplitController: ItemPreviewResponder {
     
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
         sceneController.previewAction(sender, toMagnification: magnification, isChanging: isChanging)

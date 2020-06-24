@@ -13,13 +13,9 @@ extension NSNotification.Name {
 }
 
 protocol TagListSource: class {
-    
     var managedObjectContext: NSManagedObjectContext { get }
-    
     var arrangedTags: [Tag] { get }
     func managedTag(of name: String) -> Tag?
     func managedTags(of names: [String]) -> [Tag]
-    
     var arrangedTagController: TagController { get }
-    
 }

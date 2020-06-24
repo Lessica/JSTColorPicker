@@ -1,5 +1,5 @@
 //
-//  PreviewResponder.swift
+//  ItemPreviewResponder.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 2/7/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PreviewResponder: class {
+protocol ItemPreviewResponder: class {
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate)
     func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool)
 }

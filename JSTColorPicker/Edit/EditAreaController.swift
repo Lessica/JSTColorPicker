@@ -253,7 +253,7 @@ class EditAreaController: EditViewController {
     
 }
 
-extension EditAreaController: PreviewResponder {
+extension EditAreaController: ItemPreviewResponder {
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         guard let image = image else { return }

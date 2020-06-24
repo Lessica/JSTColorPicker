@@ -512,3 +512,16 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
 }
 
+extension TagListController: TagListPreviewDelegate {
+    
+    func highlightTags(for items: [ContentItem]) {
+        // TODO: highlight tags
+    }
+    
+    @discardableResult
+    private func internalHighlightTags(for items: [ContentItem]) -> IndexSet? {
+        return nil
+    }
+    
+}
+

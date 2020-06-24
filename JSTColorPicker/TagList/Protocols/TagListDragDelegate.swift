@@ -9,10 +9,8 @@
 import Foundation
 
 protocol TagListDragDelegate: class {
-    
     var canPerformDrag: Bool { get }
     var selectedRowIndexes: IndexSet { get }
     func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet
     func visibleRects(of rowIndexes: IndexSet) -> [CGRect]
-    
 }

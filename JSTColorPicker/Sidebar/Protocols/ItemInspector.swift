@@ -1,5 +1,5 @@
 //
-//  TagListPreviewDelegate.swift
+//  ItemInspector.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 6/24/20.
@@ -8,6 +8,6 @@
 
 import Cocoa
 
-protocol TagListPreviewDelegate: class {
-    func highlightTags(for items: [ContentItem])
+protocol ItemInspector: class {
+    func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool)
 }
