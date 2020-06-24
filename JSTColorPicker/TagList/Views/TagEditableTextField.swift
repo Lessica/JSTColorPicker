@@ -1,5 +1,5 @@
 //
-//  TagListEditableTextField.swift
+//  TagEditableTextField.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 6/24/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagListEditableTextField: NSTextField {
+class TagEditableTextField: NSTextField {
     
     override func becomeFirstResponder() -> Bool {
         textColor = .labelColor

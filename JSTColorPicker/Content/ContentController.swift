@@ -1166,7 +1166,7 @@ extension ContentController: NSMenuDelegateAlternate {
     
 }
 
-extension ContentController: TagListImportSource {
+extension ContentController: TagImportSource {
     
     var importableTagNames: [String]? {
         guard let content = content else { return nil }

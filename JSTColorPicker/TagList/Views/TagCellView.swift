@@ -1,5 +1,5 @@
 //
-//  TagListCellView.swift
+//  TagCellView.swift
 //  JSTColorPicker
 //
 //  Created by Apple on 2020/6/15.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagListCellView: NSTableCellView {
+class TagCellView: NSTableCellView {
 
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {

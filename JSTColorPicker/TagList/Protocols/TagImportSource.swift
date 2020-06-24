@@ -1,5 +1,5 @@
 //
-//  TagListImportSource.swift
+//  TagImportSource.swift
 //  JSTColorPicker
 //
 //  Created by Apple on 2020/6/21.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol TagListImportSource: class {
+protocol TagImportSource: class {
     
     var importableTagNames: [String]? { get }
     

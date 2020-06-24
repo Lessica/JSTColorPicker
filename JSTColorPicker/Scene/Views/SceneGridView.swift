@@ -148,14 +148,7 @@ class SceneGridView: NSView {
     
 }
 
-extension SceneGridView: CALayerDelegate {
-    
-    // disable backingLayer's animations
-    func action(for layer: CALayer, forKey event: String) -> CAAction? {
-        return NSNull()
-    }
-    
-}
+extension SceneGridView: CALayerDelegate {}
 
 extension SceneGridView: SceneTracking {
     
@@ -204,9 +197,14 @@ extension SceneGridView: SceneTracking {
                     ),
                     let backingPixelSize = backingPixelSize, (gridWrappedPixelRect.width <= backingPixelSize.width && gridWrappedPixelRect.height <= backingPixelSize.height)
                 {
-                    backingLayer.transform = CATransform3DConcat(
-                        CATransform3DMakeScale(gridSize.width / backingGridSize.width, gridSize.height / backingGridSize.height, 1.0),
-                        CATransform3DMakeTranslation(gridRenderingArea.minX, gridRenderingArea.minY, 0.0)
+                    backingLayer.setAffineTransform(
+                        CGAffineTransform(
+                            scaleX: gridSize.width / backingGridSize.width,
+                            y: gridSize.height / backingGridSize.height
+                        ).concatenating(CGAffineTransform(
+                            translationX: gridRenderingArea.minX,
+                            y: gridRenderingArea.minY
+                        ))
                     )
                 }
                 else
@@ -237,7 +235,12 @@ extension SceneGridView: SceneTracking {
                     backingGridSize = gridSize
                     backingPixelSize = pixelSize
                     
-                    backingLayer.transform = CATransform3DMakeTranslation(gridRenderingArea.minX, gridRenderingArea.minY, 0.0)
+                    backingLayer.setAffineTransform(
+                        CGAffineTransform(
+                            translationX: gridRenderingArea.minX,
+                            y: gridRenderingArea.minY
+                        )
+                    )
                 }
                 
             }

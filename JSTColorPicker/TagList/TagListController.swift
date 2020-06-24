@@ -23,7 +23,7 @@ class TagListController: NSViewController {
         get { return tableViewOverlay.sceneToolSource }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
-    public weak var importItemSource: TagListImportSource?
+    public weak var importItemSource: TagImportSource?
     
     private var willUndoToken: NotificationToken?
     private var willRedoToken: NotificationToken?

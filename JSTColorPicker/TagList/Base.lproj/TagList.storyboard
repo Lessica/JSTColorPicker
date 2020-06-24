@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +25,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="BJk-Wg-z1n"/>
                                             </constraints>
                                             <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" placeholderString="Tags" usesSingleLineMode="YES" bezelStyle="round" recentsAutosaveName="TagSearch" id="P0n-tt-x07">
-                                                <font key="font" metaFont="label" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </searchFieldCell>
@@ -44,15 +43,46 @@
                                             <rect key="frame" x="0.0" y="26" width="238" height="273"/>
                                             <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Q9a-31-8kW">
                                                 <rect key="frame" x="1" y="1" width="236" height="271"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView identifier="TagListTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveName="TagListTableView" rowHeight="20" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="236" height="271"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="269" height="271"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
+                                                            <tableColumn editable="NO" width="30" minWidth="30" maxWidth="30" id="XC9-Lg-cBA">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Oun-4Q-Sxx">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="Swr-H3-w9y" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                        <rect key="frame" x="1" y="1" width="30" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-Sc-b4D">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="17"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="-" usesSingleLineMode="YES" id="FUe-D3-zFx">
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="UFU-Sc-b4D" id="Jw0-xa-kYV"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
+                                                            </tableColumn>
                                                             <tableColumn width="233" minWidth="40" maxWidth="1000" id="7mA-Qd-o8i">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -65,14 +95,14 @@
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                 <prototypeCellViews>
-                                                                    <tableCellView id="yGX-y2-tND" customClass="TagListCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="1" y="1" width="233" height="17"/>
+                                                                    <tableCellView id="yGX-y2-tND" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                        <rect key="frame" x="34" y="1" width="233" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
-                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagListEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="233" height="17"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="36l-Jz-ijV">
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" usesSingleLineMode="YES" id="36l-Jz-ijV">
                                                                                     <font key="font" metaFont="system"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -126,7 +156,7 @@
                                         <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
                                             <rect key="frame" x="32" y="156" width="174" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" focusRingType="none" alignment="center" title="Unable to access tag database." drawsBackground="YES" usesSingleLineMode="YES" id="gqF-EC-Oma">
-                                                <font key="font" metaFont="label" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -147,7 +177,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="cqv-pr-Ki0">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="insertTagBtnTapped:" target="ifY-36-Ao8" id="t3z-cE-CFA"/>
@@ -161,7 +191,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="yEd-Uj-rgg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="removeTagBtnTapped:" target="ifY-36-Ao8" id="V9Q-oJ-ad2"/>
@@ -199,7 +229,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="importTagBtnTapped:" target="ifY-36-Ao8" id="0XS-qC-k4z"/>
