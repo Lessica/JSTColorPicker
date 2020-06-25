@@ -55,6 +55,9 @@
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "颜色网格";
 
+/* Class = "NSButtonCell"; title = "Uses Detailed Tool Tips"; ObjectID = "spB-al-HtT"; */
+"spB-al-HtT.title" = "显示详细的提示资讯";
+
 /* Class = "NSButtonCell"; title = "Allows Background Processing"; ObjectID = "tfR-Z1-4WZ"; */
 "tfR-Z1-4WZ.title" = "允许后台处理";
 

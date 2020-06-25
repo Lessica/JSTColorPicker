@@ -28,7 +28,7 @@ public extension UserDefaults.Key {
     static let togglePreviewArea                    : UserDefaults.Key     = "defaults.preview.toggle-area"                    // Bool
     static let togglePreviewColor                   : UserDefaults.Key     = "defaults.preview.toggle-color"                   // Bool
     
-    static let useAlternativeAreaRepresentation     : UserDefaults.Key     = "defaults.useAlternativeAreaRepresentation"       // Bool
+    static let usesAlternativeAreaRepresentation    : UserDefaults.Key     = "defaults.usesAlternativeAreaRepresentation"      // Bool
     
     static let enableForceTouch                     : UserDefaults.Key     = "defaults.enableForceTouch"                       // Bool
     static let drawSceneBackground                  : UserDefaults.Key     = "defaults.drawSceneBackground"                    // Bool
@@ -41,6 +41,7 @@ public extension UserDefaults.Key {
     static let hideAnnotatorsWhenResize             : UserDefaults.Key     = "defaults.hideAnnotatorsWhenResize"               // Bool
     static let usesPredominantAxisScrolling         : UserDefaults.Key     = "defaults.usesPredominantAxisScrolling"           // Bool
     
+    static let usesDetailedToolTips                 : UserDefaults.Key     = "defaults.usesDetailedToolTips"                   // Bool
     static let confirmBeforeDelete                  : UserDefaults.Key     = "defaults.confirmBeforeDelete"                    // Bool
     static let maximumItemCountEnabled              : UserDefaults.Key     = "defaults.maximumItemCountEnabled"                // Bool
     static let maximumItemCount                     : UserDefaults.Key     = "defaults.maximumItemCount"                       // Int

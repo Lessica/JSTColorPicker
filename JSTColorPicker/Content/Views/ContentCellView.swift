@@ -25,6 +25,11 @@ class ContentCellView: NSTableCellView {
         get { imageView?.image }
         set { imageView?.image = newValue }
     }
+    
+    public var allowsExpansionToolTips: Bool? {
+        get { textField?.allowsExpansionToolTips }
+        set { textField?.allowsExpansionToolTips = newValue ?? false }
+    }
 
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {

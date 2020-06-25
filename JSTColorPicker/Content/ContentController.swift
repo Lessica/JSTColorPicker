@@ -134,6 +134,7 @@ class ContentController: NSViewController {
     @IBOutlet weak var columnSimilarity   : NSTableColumn!
     @IBOutlet weak var columnTag          : NSTableColumn!
     @IBOutlet weak var columnDescription  : NSTableColumn!
+    private var usesDetailedToolTips: Bool = false
     
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField : NSTextField!
@@ -190,6 +191,16 @@ class ContentController: NSViewController {
     
     @objc private func applyPreferences(_ notification: Notification?) {
         updateColumns()
+        
+        if notification == nil {
+            usesDetailedToolTips = UserDefaults.standard[.usesDetailedToolTips]
+        } else {
+            let toValue: Bool = UserDefaults.standard[.usesDetailedToolTips]
+            if usesDetailedToolTips != toValue {
+                usesDetailedToolTips = toValue
+                tableView.reloadData()
+            }
+        }
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -286,7 +297,7 @@ class ContentController: NSViewController {
             }
             else {
                 
-                let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+                let useAlt: Bool = UserDefaults.standard[.usesAlternativeAreaRepresentation]
                 
                 var rect: PixelRect!
                 if !useAlt {
@@ -768,7 +779,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             item.action = #selector(removeTag(_:))
         }
         else if menu == itemReprMenu {
-            let useAlt: Bool = UserDefaults.standard[.useAlternativeAreaRepresentation]
+            let useAlt: Bool = UserDefaults.standard[.usesAlternativeAreaRepresentation]
             itemReprAreaMenuItem.state    = useAlt ? .off : .on
             itemReprAreaAltMenuItem.state = useAlt ? .on : .off
         }
@@ -995,10 +1006,10 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
         }
         else if sender == itemReprAreaMenuItem {
-            UserDefaults.standard[.useAlternativeAreaRepresentation] = false
+            UserDefaults.standard[.usesAlternativeAreaRepresentation] = false
         }
         else if sender == itemReprAreaAltMenuItem {
-            UserDefaults.standard[.useAlternativeAreaRepresentation] = true
+            UserDefaults.standard[.usesAlternativeAreaRepresentation] = true
         }
     }
     
@@ -1078,7 +1089,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             }
             else if col == .columnSimilarity {
                 let similarity = String(Int(item.similarity * 100.0))
-                cell.toolTip = String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity)
+                cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_MODIFY_SIMILARITY", comment: "Tool Tip: Modify Similiarity"), similarity) : nil
                 cell.text = similarity + "%"
             }
             else if col == .columnTag {
@@ -1094,24 +1105,32 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     
                     cell.text = "\u{25CF} " + allTags.joined(separator: "/")
                     
-                    let attachedTags = tagListSource
-                        .managedTags(of: allTags)
-                        .map({ $0.name })
-                    
-                    let attachedSet = Set(attachedTags)
-                    let otherTags = allTags.filter({ !attachedSet.contains($0) })
-                    
-                    let chunkedAttachedTagsText = attachedTags.isEmpty ? "-" : attachedTags
-                        .chunked(into: 6)
-                        .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
-                        .joined(separator: ", \n")
-                    
-                    let chunkedOtherTagsText = otherTags.isEmpty ? "-" : otherTags
-                        .chunked(into: 6)
-                        .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
-                        .joined(separator: ", \n")
-                    
-                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_TAG_CELL_VIEW", comment: "Tool Tip: Tag Cell View"), chunkedAttachedTagsText, chunkedOtherTagsText)
+                    if usesDetailedToolTips {
+                        
+                        let attachedTags = tagListSource
+                            .managedTags(of: allTags)
+                            .map({ $0.name })
+                        
+                        let attachedSet = Set(attachedTags)
+                        let otherTags = allTags.filter({ !attachedSet.contains($0) })
+                        
+                        let chunkedAttachedTagsText = attachedTags.isEmpty ? "-" : attachedTags
+                            .chunked(into: 6)
+                            .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
+                            .joined(separator: ", \n")
+                        
+                        let chunkedOtherTagsText = otherTags.isEmpty ? "-" : otherTags
+                            .chunked(into: 6)
+                            .reduce(into: [String](), { $0.append($1.joined(separator: ", ")) })
+                            .joined(separator: ", \n")
+                        
+                        cell.toolTip = String(format: NSLocalizedString("TOOLTIP_TAG_CELL_VIEW", comment: "Tool Tip: Tag Cell View"), chunkedAttachedTagsText, chunkedOtherTagsText)
+                        cell.allowsExpansionToolTips = false
+                        
+                    } else {
+                        cell.toolTip = nil
+                        cell.allowsExpansionToolTips = true
+                    }
                 } else {
                     cell.normalTextColor = nil
                     cell.text = NSLocalizedString("None", comment: "None")
@@ -1121,11 +1140,10 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             else if col == .columnDescription {
                 if let color = item as? PixelColor {
                     cell.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
-                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString)
-                }
-                else if let area = item as? PixelArea {
+                    cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString) : nil
+                } else if let area = item as? PixelArea {
                     cell.image = NSImage(named: "JSTCropSmall")
-                    cell.toolTip = String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description)
+                    cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description) : nil
                 }
                 cell.text = item.description
             }

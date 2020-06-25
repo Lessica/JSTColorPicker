@@ -159,11 +159,11 @@
                         </tabViewItem>
                         <tabViewItem label="Color Grid" identifier="" id="Qrb-RZ-ezf">
                             <view key="view" id="8yU-rV-VCd">
-                                <rect key="frame" x="10" y="33" width="554" height="76"/>
+                                <rect key="frame" x="10" y="33" width="434" height="76"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaZ-jx-mTk">
-                                        <rect key="frame" x="20" y="20" width="514" height="36"/>
+                                        <rect key="frame" x="20" y="20" width="394" height="36"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
                                                 <rect key="frame" x="-2" y="20" width="203" height="18"/>
@@ -209,12 +209,22 @@
                         </tabViewItem>
                         <tabViewItem label="Annotation" identifier="" id="AZY-Lx-ojw">
                             <view key="view" id="ibT-Qp-igG">
-                                <rect key="frame" x="10" y="33" width="434" height="83"/>
+                                <rect key="frame" x="10" y="33" width="434" height="105"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMr-ya-cMx">
-                                        <rect key="frame" x="20" y="20" width="394" height="43"/>
+                                        <rect key="frame" x="20" y="20" width="394" height="65"/>
                                         <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVN-0E-XuN">
+                                                <rect key="frame" x="-2" y="49" width="165" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Uses Detailed Tool Tips" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="spB-al-HtT">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.usesDetailedToolTips" id="lOJ-8f-nlS"/>
+                                                </connections>
+                                            </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6b1-O7-Cvg">
                                                 <rect key="frame" x="-2" y="27" width="157" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Confirm Before Delete" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1Y6-DK-gNW">
@@ -238,7 +248,7 @@
                                                             <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.maximumItemCountEnabled" id="J2v-k9-38j"/>
                                                         </connections>
                                                     </button>
-                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lnt-R1-3wY">
+                                                    <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnt-R1-3wY">
                                                         <rect key="frame" x="125" y="0.0" width="48" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="48" id="6vD-nb-daP"/>
@@ -281,8 +291,10 @@
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
@@ -522,5 +534,9 @@
             <point key="canvasLocation" x="134.5" y="180"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="c61-nB-UBl"/>
+        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="zUm-YD-OQF">
+            <real key="minimum" value="1"/>
+            <real key="maximum" value="65535"/>
+        </numberFormatter>
     </objects>
 </document>

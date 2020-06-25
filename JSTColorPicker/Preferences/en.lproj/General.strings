@@ -55,6 +55,9 @@
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "Color Grid";
 
+/* Class = "NSButtonCell"; title = "Uses Detailed Tool Tips"; ObjectID = "spB-al-HtT"; */
+"spB-al-HtT.title" = "Uses Detailed Tool Tips";
+
 /* Class = "NSButtonCell"; title = "Allows Background Processing"; ObjectID = "tfR-Z1-4WZ"; */
 "tfR-Z1-4WZ.title" = "Allows Background Processing";
 

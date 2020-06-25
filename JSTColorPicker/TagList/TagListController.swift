@@ -483,6 +483,14 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         return true
     }
     
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let tableColumn = tableColumn else { return nil }
+        if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? TagCellView {
+            return cell
+        }
+        return nil
+    }
+    
 }
 
 extension TagListController: NSMenuItemValidation, NSMenuDelegate {

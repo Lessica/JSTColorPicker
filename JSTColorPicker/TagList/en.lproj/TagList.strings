@@ -1,6 +1,12 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "36l-Jz-ijV"; */
 "36l-Jz-ijV.title" = "Table View Cell";
 
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "7mA-Qd-o8i"; */
+"7mA-Qd-o8i.headerCell.title" = "Name";
+
+/* Class = "NSTextFieldCell"; title = "-"; ObjectID = "FUe-D3-zFx"; */
+"FUe-D3-zFx.title" = "-";
+
 /* Class = "NSTextFieldCell"; title = "Unable to access tag database."; ObjectID = "gqF-EC-Oma"; */
 "gqF-EC-Oma.title" = "Unable to access tag database.";
 
@@ -25,11 +31,17 @@
 /* Class = "NSMenuItem"; title = "Change Color..."; ObjectID = "Ndd-m7-WU5"; */
 "Ndd-m7-WU5.title" = "Change Color...";
 
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Oun-4Q-Sxx"; */
+"Oun-4Q-Sxx.title" = "Text Cell";
+
 /* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
 "P0n-tt-x07.placeholderString" = "Tags";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "rLA-oc-Whe"; */
 "rLA-oc-Whe.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Flags"; ObjectID = "XC9-Lg-cBA"; */
+"XC9-Lg-cBA.headerCell.title" = "Flags";
 
 /* Class = "NSBox"; title = "Tags"; ObjectID = "yUd-5h-qZT"; */
 "yUd-5h-qZT.title" = "Tags";

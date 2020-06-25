@@ -154,11 +154,11 @@ class SidebarController: NSViewController {
                 
                 if enabled {
                     item.toolTip = """
-                    \(template.name) (\(template.version))
-                    by \(template.author ?? "Unknown")
-                    ------
-                    \(template.description ?? "")
-                    """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.description ?? "")
+"""
                 }
                 else {
                     item.toolTip = TemplateError.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason

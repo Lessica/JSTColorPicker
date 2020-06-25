@@ -60,7 +60,9 @@
 	<true/>
 	<key>defaults.tableColumn.toggle-tag</key>
 	<true/>
-	<key>defaults.useAlternativeAreaRepresentation</key>
+	<key>defaults.usesAlternativeAreaRepresentation</key>
+	<false/>
+	<key>defaults.usesDetailedToolTips</key>
 	<false/>
 	<key>defaults.usesPredominantAxisScrolling</key>
 	<false/>
