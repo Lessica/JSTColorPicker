@@ -8,6 +8,17 @@
 
 import Cocoa
 
+extension NSUserInterfaceItemIdentifier {
+    static let columnFlags = NSUserInterfaceItemIdentifier("col-flags")
+    static let columnName  = NSUserInterfaceItemIdentifier("col-name")
+}
+
+enum TagListHighlightMode {
+    case multiple
+    case single
+    case none
+}
+
 class TagListController: NSViewController {
     
     @IBOutlet var internalContext: NSManagedObjectContext!
@@ -23,6 +34,7 @@ class TagListController: NSViewController {
         get { return tableViewOverlay.sceneToolSource }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
+    public weak var contentDelegate: ContentDelegate?
     public weak var importItemSource: TagImportSource?
     
     private var willUndoToken: NotificationToken?
@@ -39,6 +51,9 @@ class TagListController: NSViewController {
         panel.isContinuous = false
         return panel
     }
+    
+    private var highlightMode = TagListHighlightMode.none
+    private var highlightContext: [String: Int]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -215,7 +230,10 @@ class TagListController: NSViewController {
     }
     
     @IBAction private func importTagBtnTapped(_ sender: Any) {
-        guard let tagNames = importItemSource?.importableTagNames else { return }
+        guard let tagNames = importItemSource?.importableTagNames else {
+            presentError(ContentError.noDocumentLoaded)
+            return
+        }
         
         let arrangedTagNamesSet = Set(arrangedTags.map { $0.name })
         let missingNames = tagNames.filter { !arrangedTagNamesSet.contains($0) }
@@ -390,7 +408,12 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var canPerformDrag: Bool { internalController.isEditable }
+    var shouldPerformDragging: Bool { internalController.isEditable }
+    
+    func willPerformDragging(_ sender: Any?) -> Bool {
+        contentDelegate?.deselectAllContentItems()
+        return internalController.isEditable
+    }
     
     var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }
     
@@ -486,6 +509,23 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? TagCellView {
+            let col = tableColumn.identifier
+            if col == .columnFlags {
+                guard highlightMode != .none else {
+                    cell.text = "-"
+                    return cell
+                }
+                if let tagCount = highlightContext?[arrangedTags[row].name] {
+                    if highlightMode == .multiple {
+                        cell.text = String(tagCount)
+                    }
+                    else if highlightMode == .single {
+                        cell.text = "\u{25CF}"
+                    }
+                } else {
+                    cell.text = ""
+                }
+            }
             return cell
         }
         return nil
@@ -513,9 +553,7 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        if menu == tagMenu {
-            
-        }
+        if menu == tagMenu {}
     }
     
 }
@@ -523,7 +561,19 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
 extension TagListController: TagListPreviewDelegate {
     
     func highlightTags(for items: [ContentItem]) {
-        // TODO: highlight tags
+        if items.count > 0 {
+            highlightMode = items.count == 1 ? .single : .multiple
+            highlightContext = Dictionary(counted: items.flatMap({ $0.tags }))
+        }
+        else {
+            highlightMode = .none
+            highlightContext = nil
+        }
+        let col = tableView.column(withIdentifier: .columnFlags)
+        tableView.reloadData(
+            forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
+            columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet()
+        )
     }
     
     @discardableResult

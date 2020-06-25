@@ -78,3 +78,10 @@ public extension Array {
         }
     }
 }
+
+public extension Dictionary where Value == Int {
+    init<S: Sequence>(counted list: S) where S.Element == Key {
+        let ones = repeatElement(1, count: Int.max)
+        try! self.init(zip(list, ones), uniquingKeysWith: +)
+    }
+}

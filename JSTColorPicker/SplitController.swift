@@ -25,8 +25,9 @@ class SplitController: NSSplitViewController {
         
         contentController.tagListSource    = tagListController
         sceneController.tagListSource      = tagListController
-        tagListController.importItemSource = contentController
         tagListController.sceneToolSource  = sceneController
+        tagListController.importItemSource = contentController
+        tagListController.contentDelegate  = self
         
     }
     

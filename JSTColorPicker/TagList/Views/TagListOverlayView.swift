@@ -43,7 +43,7 @@ class TagListOverlayView: NSView, DragEndpoint {
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        guard dragDelegate.canPerformDrag
+        guard dragDelegate.shouldPerformDragging
             && sceneTool == .selectionArrow
             && sceneToolSource.sceneToolEnabled
             else
@@ -56,6 +56,10 @@ class TagListOverlayView: NSView, DragEndpoint {
         let rowIndexes = dragDelegate.selectedRowIndexes(at: locInOverlay, shouldHighlight: true)
         guard rowIndexes.count > 0 else {
             //super.rightMouseDown(with: event)
+            return
+        }
+        
+        guard dragDelegate.willPerformDragging(self) else {
             return
         }
         
@@ -81,6 +85,7 @@ class TagListOverlayView: NSView, DragEndpoint {
             .filter({ dirtyRect.intersects($0) })
             .forEach({
                 ctx.addRect($0
+                    .intersection(dirtyRect)
                     .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
                     .offsetBy(dx: 0.0, dy: -0.5)
                 )

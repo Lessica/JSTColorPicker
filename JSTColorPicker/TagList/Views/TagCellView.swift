@@ -9,13 +9,24 @@
 import Cocoa
 
 class TagCellView: NSTableCellView {
-
+    
+    public var text: String? {
+        get { textField?.stringValue }
+        set { textField?.stringValue = newValue ?? "" }
+    }
+    
+    public var image: NSImage? {
+        get { imageView?.image }
+        set { imageView?.image = newValue }
+    }
+    
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {
+            guard let tag = objectValue as? Tag else { return }
             if backgroundStyle == .emphasized {
                 textField?.textColor = .white
             } else {
-                textField?.textColor = (objectValue as? Tag)?.color
+                textField?.textColor = tag.color
             }
         }
     }

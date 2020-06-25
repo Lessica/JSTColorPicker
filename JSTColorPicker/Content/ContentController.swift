@@ -169,17 +169,13 @@ class ContentController: NSViewController {
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
-            if let indexes = self.delayedRowIndexes {
-                self.tableView.selectRowIndexes(indexes, byExtendingSelection: false)
-                self.delayedRowIndexes = nil
-            }
+            self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
+            self.delayedRowIndexes = nil
         }
         redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
             self.tableView.reloadData()
-            if let indexes = self.delayedRowIndexes {
-                self.tableView.selectRowIndexes(indexes, byExtendingSelection: false)
-                self.delayedRowIndexes = nil
-            }
+            self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
+            self.delayedRowIndexes = nil
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
@@ -398,8 +394,8 @@ extension ContentController {
         return indexes
     }
     
-    private func internalSelectContentItems(in set: IndexSet, byExtendingSelection extend: Bool) {
-        if !set.isEmpty, let lastIndex = set.last {
+    private func internalSelectContentItems(in set: IndexSet?, byExtendingSelection extend: Bool) {
+        if let set = set, !set.isEmpty, let lastIndex = set.last {
             if tableView.selectedRowIndexes != set {
                 tableView.selectRowIndexes(set, byExtendingSelection: extend)
             } else {
@@ -410,7 +406,11 @@ extension ContentController {
         }
         else {
             if !extend {
-                tableView.deselectAll(nil)
+                if !tableView.selectedRowIndexes.isEmpty {
+                    tableView.deselectAll(nil)
+                } else {
+                    internalTableViewSelectionDidChange(nil)
+                }
             }
         }
     }
