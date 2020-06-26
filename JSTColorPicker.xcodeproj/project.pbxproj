@@ -624,10 +624,6 @@
 
 /* Begin PBXFileReference section */
 		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		180725B024A64868006D4551 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
-		180725B324A64868006D4551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
-		180725B524A64868006D4551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		180725B624A64868006D4551 /* QuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickLook.entitlements; sourceTree = "<group>"; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
 		180C6A89249F92AB00B42656 /* AlertTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertTextView.xib; sourceTree = "<group>"; };
 		180C6A8C249F92BB00B42656 /* AlertTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTextView.swift; sourceTree = "<group>"; };
@@ -1300,17 +1296,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180725AF24A64868006D4551 /* QuickLook */ = {
-			isa = PBXGroup;
-			children = (
-				180725B024A64868006D4551 /* PreviewViewController.swift */,
-				180725B224A64868006D4551 /* PreviewViewController.xib */,
-				180725B524A64868006D4551 /* Info.plist */,
-				180725B624A64868006D4551 /* QuickLook.entitlements */,
-			);
-			path = QuickLook;
-			sourceTree = "<group>";
-		};
 		1842C47F24798E46008ECD6F /* TagList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1754,7 +1739,6 @@
 				D690C960241A60DC00BB1652 /* PixelMatch */,
 				D60B0F8824288CF20034F21C /* pixel */,
 				D68A1FD42498B17F001E3FDA /* relaunch */,
-				180725AF24A64868006D4551 /* QuickLook */,
 				D658AF9B23CB180C0098C567 /* Products */,
 				D684841323D3E3FD00BC5E34 /* Frameworks */,
 				39B44362740250C81599A741 /* Pods */,
@@ -3310,14 +3294,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		180725B224A64868006D4551 /* PreviewViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				180725B324A64868006D4551 /* Base */,
-			);
-			name = PreviewViewController.xib;
-			sourceTree = "<group>";
-		};
 		1842C4672479832C008ECD6F /* Content.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
