@@ -623,6 +623,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		180725B024A64868006D4551 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		180725B324A64868006D4551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		180725B524A64868006D4551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		180725B624A64868006D4551 /* QuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickLook.entitlements; sourceTree = "<group>"; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
 		180C6A89249F92AB00B42656 /* AlertTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertTextView.xib; sourceTree = "<group>"; };
 		180C6A8C249F92BB00B42656 /* AlertTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTextView.swift; sourceTree = "<group>"; };
@@ -1295,6 +1300,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180725AF24A64868006D4551 /* QuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				180725B024A64868006D4551 /* PreviewViewController.swift */,
+				180725B224A64868006D4551 /* PreviewViewController.xib */,
+				180725B524A64868006D4551 /* Info.plist */,
+				180725B624A64868006D4551 /* QuickLook.entitlements */,
+			);
+			path = QuickLook;
+			sourceTree = "<group>";
+		};
 		1842C47F24798E46008ECD6F /* TagList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1738,6 +1754,7 @@
 				D690C960241A60DC00BB1652 /* PixelMatch */,
 				D60B0F8824288CF20034F21C /* pixel */,
 				D68A1FD42498B17F001E3FDA /* relaunch */,
+				180725AF24A64868006D4551 /* QuickLook */,
 				D658AF9B23CB180C0098C567 /* Products */,
 				D684841323D3E3FD00BC5E34 /* Frameworks */,
 				39B44362740250C81599A741 /* Pods */,
@@ -1948,6 +1965,7 @@
 				D684841423D3E3FD00BC5E34 /* libz.tbd */,
 				E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */,
 				2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */,
+				180725AD24A64868006D4551 /* Quartz.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2522,7 +2540,6 @@
 				D62834E923F8E9DB0016573B /* Headers */,
 				D62834EA23F8E9DB0016573B /* Sources */,
 				D62834EB23F8E9DB0016573B /* Frameworks */,
-				D62834EC23F8E9DB0016573B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -2541,7 +2558,6 @@
 				D628350823F8EAAA0016573B /* Headers */,
 				D628350923F8EAAA0016573B /* Sources */,
 				D628350A23F8EAAA0016573B /* Frameworks */,
-				D628350B23F8EAAA0016573B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -2657,7 +2673,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
 					D60B0F3B24286AA30034F21C = {
@@ -2748,20 +2764,6 @@
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D62834EC23F8E9DB0016573B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D628350B23F8EAAA0016573B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3308,6 +3310,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		180725B224A64868006D4551 /* PreviewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				180725B324A64868006D4551 /* Base */,
+			);
+			name = PreviewViewController.xib;
+			sourceTree = "<group>";
+		};
 		1842C4672479832C008ECD6F /* Content.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4041,6 +4051,7 @@
 		D68A1FD72498B17F001E3FDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4053,6 +4064,7 @@
 		D68A1FD82498B17F001E3FDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4065,6 +4077,7 @@
 		D690C964241A60DC00BB1652 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4078,6 +4091,7 @@
 		D690C965241A60DC00BB1652 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;

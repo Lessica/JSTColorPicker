@@ -7,10 +7,6 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>png</string>
-			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
@@ -19,6 +15,10 @@
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.png</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>$(PRODUCT_MODULE_NAME).Screenshot</string>
 		</dict>
@@ -43,7 +43,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>com.jst.JSTColorPicker</string>
+			<string>com.jst.JSTColorPicker.URL</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>jstcolorpicker</string>
@@ -68,17 +68,26 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
-	<key>UTExportedTypeDeclarations</key>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.image</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>PNG Image</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.jst.JSTColorPicker.content</string>
+			<string>public.png</string>
 			<key>UTTypeTagSpecification</key>
-			<dict/>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>png</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 </dict>

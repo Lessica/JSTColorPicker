@@ -26,7 +26,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="BJk-Wg-z1n"/>
                                             </constraints>
                                             <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" placeholderString="Tags" usesSingleLineMode="YES" bezelStyle="round" recentsAutosaveName="TagSearch" id="P0n-tt-x07">
-                                                <font key="font" metaFont="message" size="11"/>
+                                                <font key="font" metaFont="toolTip"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </searchFieldCell>
@@ -116,6 +116,7 @@
                                                                                             <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                                         </dictionary>
                                                                                     </binding>
+                                                                                    <binding destination="yGX-y2-tND" name="toolTip" keyPath="objectValue.toolTip" id="LGL-m9-RXi"/>
                                                                                 </connections>
                                                                             </textField>
                                                                         </subviews>
@@ -158,7 +159,7 @@
                                         <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
                                             <rect key="frame" x="32" y="156" width="174" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" focusRingType="none" alignment="center" title="Unable to access tag database." drawsBackground="YES" usesSingleLineMode="YES" id="gqF-EC-Oma">
-                                                <font key="font" metaFont="message" size="11"/>
+                                                <font key="font" metaFont="toolTip"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -179,7 +180,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="cqv-pr-Ki0">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="toolTip"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="insertTagBtnTapped:" target="ifY-36-Ao8" id="t3z-cE-CFA"/>
@@ -193,7 +194,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="yEd-Uj-rgg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="toolTip"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="removeTagBtnTapped:" target="ifY-36-Ao8" id="V9Q-oJ-ad2"/>
@@ -231,7 +232,7 @@
                                                     </constraints>
                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="toolTip"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="importTagBtnTapped:" target="ifY-36-Ao8" id="0XS-qC-k4z"/>
