@@ -354,16 +354,16 @@ extension SidebarController: ScreenshotLoader {
     private func updateInformationPanel() {
         
         imageLabel1.isHidden = false
-        if let imageSource1 = imageSource1, let text = stringValue(for: imageSource1) {
-            imageLabel1.stringValue = text
+        if let imageSource1 = imageSource1, let attributedText = attributedStringValue(for: imageSource1) {
+            imageLabel1.attributedStringValue = attributedText
         }
         else {
             imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
         }
         imageLabel1.displayIfNeeded()
         
-        if let imageSource2 = imageSource2, let text = stringValue(for: imageSource2) {
-            imageLabel2.stringValue = text
+        if let imageSource2 = imageSource2, let attributedText = attributedStringValue(for: imageSource2) {
+            imageLabel2.attributedStringValue = attributedText
             imageLabel2.isHidden = false
             imageActionView.isHidden = false
         }
@@ -376,32 +376,58 @@ extension SidebarController: ScreenshotLoader {
         
     }
     
-    private func stringValue(for source: PixelImageSource) -> String? {
+    private func attributedStringValue(for source: PixelImageSource) -> NSAttributedString? {
+        
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
-        let createdAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
-        var createdAt: Date?
-        if let date = SidebarController.exifDateFormatter.date(from: createdAtStr) {
-            createdAt = date
-        } else {
-            guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
-            createdAt = attrs[.creationDate] as? Date
-        }
+        guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
+        
         var createdAtDesc: String?
-        if let createdAt = createdAt {
+        if let createdAt = attrs[.creationDate] as? Date {
             createdAtDesc = SidebarController.defaultDateFormatter.string(from: createdAt)
         }
+        var modifiedAtDesc: String?
+        if let modifiedAt = attrs[.modificationDate] as? Date {
+            modifiedAtDesc = SidebarController.defaultDateFormatter.string(from: modifiedAt)
+        }
+        
+        let snapshotAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
+        var snapshotAtDesc: String?
+        if let snapshotAt = SidebarController.exifDateFormatter.date(from: snapshotAtStr) {
+            snapshotAtDesc = SidebarController.defaultDateFormatter.string(from: snapshotAt)
+        }
+        
         let fileSize = SidebarController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
-        return """
-\(source.url.lastPathComponent) (\(fileSize))
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byClipping
+        let attributedResult = NSMutableAttributedString(string: source.url.lastPathComponent, attributes: [
+            NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 11.0),
+            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle
+        ])
+        let attributedString1 =
+"""
+\nPNG Image - \(fileSize)
 
-Created: \(createdAtDesc ?? "Unknown")
+Created At: \(createdAtDesc ?? "Unknown")
+Modified At: \(modifiedAtDesc ?? "Unknown")
+
+Snapshot At: \(snapshotAtDesc ?? "Unknown")
 Dimensions: \(pixelXDimension)×\(pixelYDimension)
 Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
 Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
 """
+        attributedResult.append(NSAttributedString(string: attributedString1, attributes: [
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 11.0),
+            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle
+        ]))
+        
+        return attributedResult
+        
     }
     
 }
