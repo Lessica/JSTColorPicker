@@ -45,7 +45,7 @@ class SplitController: NSSplitViewController {
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
-        sidebarController.ensureOverlayBounds(to: sceneController.wrapperVisibleBounds, magnification: sceneController.wrapperMagnification)
+        sidebarController.ensureOverlayBounds(to: sceneController.wrapperRestrictedRect, magnification: sceneController.wrapperRestrictedMagnification)
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -119,11 +119,14 @@ extension SplitController: SceneTracking {
         sidebarController.inspectItem(area, shouldSubmit: false)
     }
     
-    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+        guard let sender = sender else { return }
+        
+        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
         if let title = screenshot?.fileURL?.lastPathComponent {
-            windowTitle = "\(title) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+            windowTitle = "\(title) @ \(Int((restrictedMagnification * 100.0).rounded(.toNearestOrEven)))%"
         }
-        sidebarController.updatePreview(to: rect, magnification: magnification)
+        sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
     }
     
 }

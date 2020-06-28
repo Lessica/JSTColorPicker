@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol SceneTracking: class {
-    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
+    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect)
     func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect)
@@ -18,7 +18,7 @@ protocol SceneTracking: class {
 }
 
 extension SceneTracking {
-    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
+    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) { }
     func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) { }
     func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }

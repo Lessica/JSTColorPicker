@@ -16,6 +16,12 @@
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容.";
 
+/* Information Panel */
+"Color Profile" = "颜色配置文件";
+
+/* Information Panel */
+"Color Space" = "色彩空间";
+
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
 
@@ -34,8 +40,14 @@
 /* XPCError */
 "Connection timeout." = "连接超时.";
 
+/* Information Panel */
+"Created At" = "创建时间";
+
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
+
+/* Information Panel */
+"Dimensions" = "尺寸";
 
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗?";
@@ -127,6 +139,9 @@
 /* TemplateError */
 "Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
 
+/* Information Panel */
+"Modified At" = "修改时间";
+
 /* EditAreaController */
 "New Area" = "新区域";
 
@@ -161,6 +176,9 @@
 /* updateInformationPanel */
 "Open or drop an image here." = "打开或拖拽文件到此处.";
 
+/* Information Panel */
+"PNG Image" = "PNG 图像";
+
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
@@ -172,6 +190,9 @@
 
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
+
+/* Information Panel */
+"Snapshot At" = "内容创建时间";
 
 /* ContentError */
 "Some of these items do not exist." = "部分项目不存在.";

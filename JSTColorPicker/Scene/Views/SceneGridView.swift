@@ -36,9 +36,15 @@ class SceneGridView: NSView {
     private static let defaultGridLineColor       = CGColor(gray: 1.0, alpha: 0.3)
     private static let defaultCachedSquareSize    = CGSize(width: 256.0, height: 256.0)
     
-    private var shouldDrawGridsInScene: Bool = false
-    private var gridWrappedPixelRect: PixelRect = .null
-    private var gridRenderingArea: CGRect = .null
+    private var wrappedPixelRect: PixelRect = .null
+    private var wrappedRenderingArea: CGRect = .null
+    private var scaleSatisfiedGridDrawing: Bool = false
+    private var positionSatisfiedGridDrawing: Bool {
+        !wrappedPixelRect.isEmpty
+            && !wrappedRenderingArea.isEmpty
+            && wrappedRenderingArea.width > 0
+            && wrappedRenderingArea.height > 0
+    }
     
     
     // MARK: - CPU Drawing
@@ -49,12 +55,16 @@ class SceneGridView: NSView {
         guard !enableGPUAcceleration
             && !inLiveResize
             && drawGridsInScene
-            && shouldDrawGridsInScene
+            && scaleSatisfiedGridDrawing
+            && positionSatisfiedGridDrawing
             && !isHidden
-            && !gridWrappedPixelRect.isEmpty
-            && !gridRenderingArea.isEmpty
             else
-        { return }
+        {
+            debugPrint("cleared draw(_:)")
+            return
+        }
+        
+        debugPrint("painted draw(_:)")
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
@@ -64,22 +74,22 @@ class SceneGridView: NSView {
         
         // calculate size for single grid
         let gridSize = CGSize(
-            width: gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width),
-            height: gridRenderingArea.height / CGFloat(gridWrappedPixelRect.height)
+            width: wrappedRenderingArea.width / CGFloat(wrappedPixelRect.width),
+            height: wrappedRenderingArea.height / CGFloat(wrappedPixelRect.height)
         )
-        let maxX = CGFloat(gridWrappedPixelRect.width) * gridSize.width
-        let maxY = CGFloat(gridWrappedPixelRect.height) * gridSize.height
+        let maxX = wrappedRenderingArea.minX + CGFloat(wrappedPixelRect.width) * gridSize.width
+        let maxY = wrappedRenderingArea.minY + CGFloat(wrappedPixelRect.height) * gridSize.height
         
         // ctx.saveGState()
         
-        for x in 0 ..< gridWrappedPixelRect.width {
-            let xPos = gridRenderingArea.minX + CGFloat(x) * gridSize.width
-            ctx.move(to: CGPoint(x: xPos, y: 0.0))
+        for x in 1 ..< wrappedPixelRect.width {
+            let xPos = wrappedRenderingArea.minX + CGFloat(x) * gridSize.width
+            ctx.move(to: CGPoint(x: xPos, y: wrappedRenderingArea.minY))
             ctx.addLine(to: CGPoint(x: xPos, y: maxY))
         }
-        for y in 0 ..< gridWrappedPixelRect.height {
-            let yPos = gridRenderingArea.minY + CGFloat(y) * gridSize.height
-            ctx.move(to: CGPoint(x: 0.0, y: yPos))
+        for y in 1 ..< wrappedPixelRect.height {
+            let yPos = wrappedRenderingArea.minY + CGFloat(y) * gridSize.height
+            ctx.move(to: CGPoint(x: wrappedRenderingArea.minX, y: yPos))
             ctx.addLine(to: CGPoint(x: maxX, y: yPos))
         }
         
@@ -102,17 +112,19 @@ class SceneGridView: NSView {
     
     private weak var storedSceneView: SceneScrollView?
     private var storedRect: CGRect?
-    private var storedMagnification: CGFloat?
+    private var storedMagnification: CGFloat?  // not used
     private var shouldPauseTracking: Bool = false
     
     override var isHidden: Bool {
         didSet {
             if !isHidden {
+                
                 if  let rect = storedRect,
                     let magnification = storedMagnification
                 {
-                    trackSceneBoundsChanged(storedSceneView, to: rect, of: magnification)
+                    trackVisibleRectChanged(storedSceneView, to: rect, of: magnification)
                 }
+                
             } else {
                 
                 storedSceneView = nil
@@ -155,38 +167,45 @@ extension SceneGridView: SceneTracking {
     
     // MARK: - GPU Drawing
     
-    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         
         guard let sceneView = sender else { return }
         
-        shouldDrawGridsInScene = !rect.isEmpty && magnification >= SceneGridView.minimumScaleOfGridDrawing
-        if drawGridsInScene && shouldDrawGridsInScene && !isHidden {
+        scaleSatisfiedGridDrawing = magnification >= SceneGridView.minimumScaleOfGridDrawing
+        var drawable: Bool = drawGridsInScene && scaleSatisfiedGridDrawing && !isHidden
+        
+        if drawable {
+            // update draw areas, and positions
+            let wrappedRestrictedRect = rect.intersection(sceneView.wrapperBounds)
+            if !rect.isEmpty && !wrappedRestrictedRect.isEmpty {
+                wrappedPixelRect = wrappedRestrictedRect.smallestWrappingPixelRect
+                wrappedRenderingArea = sceneView
+                    .convertFromDocumentView(wrappedPixelRect.toCGRect())
+                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+                drawable = enableGPUAcceleration ? positionSatisfiedGridDrawing : true
+            } else {
+                wrappedPixelRect = .null
+                wrappedRenderingArea = .null
+                drawable = false
+            }
+        }
+            
+        if drawable {
             
             // reset pause flag if necessary
             if shouldPauseTracking {
                 shouldPauseTracking = false
             }
             
-            // update draw areas, and positions
-            gridWrappedPixelRect = rect.smallestWrappingPixelRect
-            guard !gridWrappedPixelRect.isEmpty else { return }
-            
-            gridRenderingArea = sceneView
-                .convertFromDocumentView(gridWrappedPixelRect.toCGRect())
-                .offsetBy(-sceneView.alternativeBoundsOrigin)
-            guard gridRenderingArea.width > 0 && gridRenderingArea.height > 0 else { return }
-            
             // perform drawing in next loop
             if !enableGPUAcceleration {
-                
                 setNeedsDisplay(bounds)
-                
             } else {
                 
                 // calculate size for single grid
                 let gridSize = CGSize(
-                    width: gridRenderingArea.width / CGFloat(gridWrappedPixelRect.width),
-                    height: gridRenderingArea.height / CGFloat(gridWrappedPixelRect.height)
+                    width: wrappedRenderingArea.width / CGFloat(wrappedPixelRect.width),
+                    height: wrappedRenderingArea.height / CGFloat(wrappedPixelRect.height)
                 )
                 
                 if  backingLayer.path != nil,
@@ -195,52 +214,55 @@ extension SceneGridView: SceneTracking {
                         SceneGridView.minimumScaleOfRasterization...SceneGridView.maximumScaleOfRasterization ~= (gridSize.width / backingGridSize.width)
                         && SceneGridView.minimumScaleOfRasterization...SceneGridView.maximumScaleOfRasterization ~= (gridSize.height / backingGridSize.height)
                     ),
-                    let backingPixelSize = backingPixelSize, (gridWrappedPixelRect.width <= backingPixelSize.width && gridWrappedPixelRect.height <= backingPixelSize.height)
+                    let backingPixelSize = backingPixelSize, (wrappedPixelRect.width <= backingPixelSize.width && wrappedPixelRect.height <= backingPixelSize.height)
                 {
+                    
                     backingLayer.setAffineTransform(
                         CGAffineTransform(
-                            scaleX: gridSize.width / backingGridSize.width,
+                            translationX: rect.minX <= 0.0 ? wrappedRenderingArea.minX : wrappedRenderingArea.maxX - gridSize.width * CGFloat(backingPixelSize.width),
+                            y: rect.minY <= 0.0 ? wrappedRenderingArea.minY : wrappedRenderingArea.maxY - gridSize.height * CGFloat(backingPixelSize.height)
+                        ).scaledBy(
+                            x: gridSize.width / backingGridSize.width,
                             y: gridSize.height / backingGridSize.height
-                        ).concatenating(CGAffineTransform(
-                            translationX: gridRenderingArea.minX,
-                            y: gridRenderingArea.minY
-                        ))
+                        )
                     )
+                    
                 }
                 else
                 {
+                    
                     let pixelSize = PixelSize(
-                        width: gridWrappedPixelRect.width + max(Int(SceneGridView.defaultCachedSquareSize.width / gridSize.width), 1),
-                        height: gridWrappedPixelRect.height + max(Int(SceneGridView.defaultCachedSquareSize.height / gridSize.height), 1)
+                        width: wrappedPixelRect.width + max(Int(SceneGridView.defaultCachedSquareSize.width / gridSize.width), 1),
+                        height: wrappedPixelRect.height + max(Int(SceneGridView.defaultCachedSquareSize.height / gridSize.height), 1)
                     )
                     debugPrint("update cached square: \(pixelSize)")
                     
                     let maxX = CGFloat(pixelSize.width) * gridSize.width
                     let maxY = CGFloat(pixelSize.height) * gridSize.height
                     let shapePath = CGMutablePath()
-                    for x in 0 ..< pixelSize.width {
+                    for x in 1 ..< pixelSize.width {
                         let xPos = CGFloat(x) * gridSize.width
                         shapePath.move(to: CGPoint(x: xPos, y: 0.0))
                         shapePath.addLine(to: CGPoint(x: xPos, y: maxY))
                     }
-                    for y in 0 ..< pixelSize.height {
+                    for y in 1 ..< pixelSize.height {
                         let yPos = CGFloat(y) * gridSize.height
                         shapePath.move(to: CGPoint(x: 0.0, y: yPos))
                         shapePath.addLine(to: CGPoint(x: maxX, y: yPos))
                     }
                     
                     backingLayer.path = shapePath
-                    //debugPrint("replaced path: \(shapePath)")
                     
                     backingGridSize = gridSize
                     backingPixelSize = pixelSize
                     
                     backingLayer.setAffineTransform(
                         CGAffineTransform(
-                            translationX: gridRenderingArea.minX,
-                            y: gridRenderingArea.minY
+                            translationX: rect.minX <= 0.0 ? wrappedRenderingArea.minX : wrappedRenderingArea.maxX - gridSize.width * CGFloat(pixelSize.width),
+                            y: rect.minY <= 0.0 ? wrappedRenderingArea.minY : wrappedRenderingArea.maxY - gridSize.height * CGFloat(pixelSize.height)
                         )
                     )
+                    
                 }
                 
             }
@@ -255,6 +277,8 @@ extension SceneGridView: SceneTracking {
                 setNeedsDisplay(bounds)
                 if backingLayer.path != nil {
                     backingLayer.path = nil
+                    
+                    debugPrint("cleared cached square")
                 }
             }
             

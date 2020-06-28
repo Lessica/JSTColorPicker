@@ -11,6 +11,13 @@ import CoreImage
 
 class SceneScrollView: NSScrollView {
     
+    
+    // MARK: - Tracking
+    
+    public weak var trackingDelegate: SceneTracking!
+    private var trackingArea: NSTrackingArea?
+    private var trackingCoordinate = PixelCoordinate.null
+    
     public var enableForceTouch: Bool = false
     public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
         didSet { reloadSceneBackground() }
@@ -20,6 +27,18 @@ class SceneScrollView: NSScrollView {
     }
     private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
     private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
+    
+    
+    // MARK: - Wrapper Shortcuts
+    private var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
+    public var wrapperBounds: CGRect { wrapper.bounds }
+    public var wrapperVisibleRect: CGRect { wrapper.visibleRect }
+    public var wrapperMangnification: CGFloat { magnification }
+    public var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
+    public var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, maxMagnification), minMagnification) }
+    
+    
+    // MARK: - Rulers Shortcuts
     
     private static let rulerThickness: CGFloat = 16.0
     private static let reservedThicknessForMarkers: CGFloat = 15.0
@@ -34,6 +53,10 @@ class SceneScrollView: NSScrollView {
         }
         return CGPoint.zero
     }
+    
+    
+    // MARK: - Location Shortcuts
+    
     public var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
@@ -44,18 +67,19 @@ class SceneScrollView: NSScrollView {
         return false
     }
     
-    public weak var trackingDelegate: SceneTracking!
-    private var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
-    private var trackingArea: NSTrackingArea?
-    private var trackingCoordinate = PixelCoordinate.null
     
-    public var sceneEventObservers: [SceneEventObserver] = []
+    // MARK: - Scene Shortcuts
+    
+    public var sceneEventObservers = Set<SceneEventObserver>()
     public weak var sceneToolSource: SceneToolSource!
-    private var sceneTool: SceneTool { return sceneToolSource.sceneTool }
+    private var sceneTool: SceneTool { sceneToolSource.sceneTool }
     public weak var sceneStateSource: SceneStateSource!
-    private var sceneState: SceneState { return sceneStateSource.sceneState }
+    private var sceneState: SceneState { sceneStateSource.sceneState }
     public weak var sceneActionEffectViewSource: SceneEffectViewSource!
-    private var sceneActionEffectView: SceneEffectView { return sceneActionEffectViewSource.sceneEffectView }
+    private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sceneEffectView }
+    
+    
+    // MARK: - Dragging Shortcuts
     
     private lazy var areaDraggingOverlay: DraggingOverlay = {
         let view = DraggingOverlay()
@@ -63,7 +87,7 @@ class SceneScrollView: NSScrollView {
         return view
     }()
     private var areaDraggingOverlayRect: PixelRect {
-        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapper.bounds)
+        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapperBounds)
         guard !rect.isEmpty else { return .null }
         return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
     }
@@ -76,7 +100,7 @@ class SceneScrollView: NSScrollView {
     }()
     private var colorDraggingOverlayCoordinate: PixelCoordinate {
         let point = sceneActionEffectView.convert(colorDraggingOverlay.frame.center, to: wrapper)
-        guard wrapper.bounds.contains(point) else { return .null }
+        guard wrapperBounds.contains(point) else { return .null }
         return PixelCoordinate(point)
     }
     
@@ -467,6 +491,10 @@ class SceneScrollView: NSScrollView {
     }
     
     override func magnify(with event: NSEvent) {
+        // FIX: weird behavior in AppKit
+        let currentLocation = wrapper.convert(event.locationInWindow, from: nil)
+        guard wrapperBounds.contains(currentLocation) else { return }
+        
         sceneEventObservers
             .filter({ $0.types.contains(.magnify) && $0.order.contains(.before) })
             .forEach({ $0.target?.magnify(with: event) })
@@ -479,6 +507,10 @@ class SceneScrollView: NSScrollView {
     }
     
     override func smartMagnify(with event: NSEvent) {
+        // FIX: weird behavior in AppKit
+        let currentLocation = wrapper.convert(event.locationInWindow, from: nil)
+        guard wrapperBounds.contains(currentLocation) else { return }
+        
         sceneEventObservers
             .filter({ $0.types.contains(.smartMagnify) && $0.order.contains(.before) })
             .forEach({ $0.target?.smartMagnify(with: event) })
@@ -490,9 +522,15 @@ class SceneScrollView: NSScrollView {
             .forEach({ $0.target?.smartMagnify(with: event) })
     }
     
-    override func reflectScrolledClipView(_ cView: NSClipView) {
-        trackingDelegate?.trackSceneBoundsChanged(self, to: cView.bounds.intersection(wrapper.bounds), of: max(min(magnification, maxMagnification), minMagnification))
-        super.reflectScrolledClipView(cView)
+    override func reflectScrolledClipView(_ clipView: NSClipView) {
+        guard let trackingDelegate = trackingDelegate else { return }
+        let rect = wrapperVisibleRect
+        if rect.isEmpty {
+            // FIX: weird behavior in AppKit
+            guard Thread.callStackSymbols.first(where: { $0.contains("magnifyWithEvent:") }) == nil else { return }
+        }
+        trackingDelegate.trackVisibleRectChanged(self, to: rect, of: magnification)
+        super.reflectScrolledClipView(clipView)
     }
     
     private func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
@@ -521,7 +559,7 @@ class SceneScrollView: NSScrollView {
     private func trackMovingOrDragging(with event: NSEvent) {
         if sceneState.type != .sceneDragging {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
-            if wrapper.bounds.contains(loc) {
+            if wrapperBounds.contains(loc) {
                 let currentCoordinate = PixelCoordinate(loc)
                 if currentCoordinate != trackingCoordinate {
                     trackingCoordinate = currentCoordinate

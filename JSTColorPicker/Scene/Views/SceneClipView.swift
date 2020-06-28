@@ -35,7 +35,7 @@ class SceneClipView: NSClipView {
         let documentFrame = documentView.frame
         let outsetDocumentFrame = NSRect(x: documentFrame.minX - minXInset,
                                          y: documentFrame.minY - minYInset,
-                                     width: (documentFrame.width + (minXInset + maxXInset)),
+                                     width: documentFrame.width  + (minXInset + maxXInset),
                                     height: documentFrame.height + (minYInset + maxYInset))
  
         if newClipBoundsRect.width > outsetDocumentFrame.width {

@@ -16,6 +16,12 @@
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
 
+/* Information Panel */
+"Color Profile" = "Color Profile";
+
+/* Information Panel */
+"Color Space" = "Color Space";
+
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
 
@@ -34,8 +40,14 @@
 /* XPCError */
 "Connection timeout." = "Connection timeout.";
 
+/* Information Panel */
+"Created At" = "Created At";
+
 /* Delete Confirm */
 "Delete Confirm" = "Delete Confirm";
+
+/* Information Panel */
+"Dimensions" = "Dimensions";
 
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "Do you want to import following %d tags from current document?";
@@ -127,6 +139,9 @@
 /* TemplateError */
 "Missing root entry: template must return a table." = "Missing root entry: template must return a table.";
 
+/* Information Panel */
+"Modified At" = "Modified At";
+
 /* EditAreaController */
 "New Area" = "New Area";
 
@@ -161,6 +176,9 @@
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
 
+/* Information Panel */
+"PNG Image" = "PNG Image";
+
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -172,6 +190,9 @@
 
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
+
+/* Information Panel */
+"Snapshot At" = "Snapshot At";
 
 /* ContentError */
 "Some of these items do not exist." = "Some of these items do not exist.";

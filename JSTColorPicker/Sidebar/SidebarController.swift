@@ -408,19 +408,19 @@ extension SidebarController: ScreenshotLoader {
             NSAttributedString.Key.foregroundColor: NSColor.labelColor,
             NSAttributedString.Key.paragraphStyle: paragraphStyle
         ])
-        let attributedString1 =
-"""
-\nPNG Image - \(fileSize)
-
-Created At: \(createdAtDesc ?? "Unknown")
-Modified At: \(modifiedAtDesc ?? "Unknown")
-
-Snapshot At: \(snapshotAtDesc ?? "Unknown")
-Dimensions: \(pixelXDimension)×\(pixelYDimension)
-Color Space: \(props[kCGImagePropertyColorModel] ?? "Unknown")
-Color Profile: \(props[kCGImagePropertyProfileName] ?? "Unknown")
-"""
-        attributedResult.append(NSAttributedString(string: attributedString1, attributes: [
+        
+        var additionalString = "\n"
+        additionalString += String(format: "%@ - %@", NSLocalizedString("PNG Image", comment: "Information Panel"), fileSize) + "\n"
+        additionalString += "\n"
+        additionalString += String(format: "%@: %@", NSLocalizedString("Created At", comment: "Information Panel"), createdAtDesc ?? "Unknown") + "\n"
+        additionalString += String(format: "%@: %@", NSLocalizedString("Modified At", comment: "Information Panel"), modifiedAtDesc ?? "Unknown") + "\n"
+        if snapshotAtDesc != nil { additionalString += String(format: "%@: %@", NSLocalizedString("Snapshot At", comment: "Information Panel"), snapshotAtDesc ?? "Unknown") + "\n" }
+        additionalString += "\n"
+        additionalString += String(format: "%@: %@", NSLocalizedString("Dimensions", comment: "Information Panel"), "\(pixelXDimension)×\(pixelYDimension)") + "\n"
+        additionalString += String(format: "%@: %@", NSLocalizedString("Color Space", comment: "Information Panel"), (props[kCGImagePropertyColorModel] as? String) ?? "Unknown") + "\n"
+        additionalString += String(format: "%@: %@", NSLocalizedString("Color Profile", comment: "Information Panel"), (props[kCGImagePropertyProfileName] as? String) ?? "Unknown")
+        
+        attributedResult.append(NSAttributedString(string: additionalString, attributes: [
             NSAttributedString.Key.font: NSFont.systemFont(ofSize: 11.0),
             NSAttributedString.Key.foregroundColor: NSColor.labelColor,
             NSAttributedString.Key.paragraphStyle: paragraphStyle
@@ -553,19 +553,24 @@ CSS:\("-".leftPadding(to: 9, with: " "))
 extension SidebarController: ItemPreviewDelegate {
     
     public func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard !rect.isEmpty else { return }
-        
         guard !paneViewPreview.isHidden else {
             lastStoredRect = rect
             lastStoredMagnification = magnification
             return
         }
         
-        if let imageSize = screenshot?.image?.size {
-            let previewRect = CGRect(origin: .zero, size: imageSize.toCGSize()).aspectFit(in: previewImageView.bounds)
+        if let imageSize = screenshot?.image?.size, !rect.isEmpty {
+            
+            let imageBounds = CGRect(origin: .zero, size: imageSize.toCGSize())
+            let imageRestrictedRect = rect.intersection(imageBounds)
+            
+            let previewRect = imageBounds.aspectFit(in: previewImageView.bounds)
             let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
-            let highlightRect = CGRect(x: previewRect.minX + rect.minX * previewScale, y: previewRect.minY + rect.minY * previewScale, width: rect.width * previewScale, height: rect.height * previewScale)
+            
+            let highlightRect = CGRect(x: previewRect.minX + imageRestrictedRect.minX * previewScale, y: previewRect.minY + imageRestrictedRect.minY * previewScale, width: imageRestrictedRect.width * previewScale, height: imageRestrictedRect.height * previewScale)
+            
             previewOverlayView.highlightArea = highlightRect
+            
         }
         
         previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"

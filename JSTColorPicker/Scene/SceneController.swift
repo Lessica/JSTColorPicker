@@ -10,14 +10,6 @@ import Cocoa
 
 class SceneController: NSViewController {
     
-    public var wrapperVisibleBounds: CGRect {
-        return sceneClipView.bounds.intersection(wrapper.bounds)
-    }
-    
-    public var wrapperMagnification: CGFloat {
-        return max(min(sceneView.magnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor)
-    }
-    
     public weak var contentDelegate: ContentDelegate!
     public weak var trackingDelegate: SceneTracking!
     public weak var tagListSource: TagListSource!
@@ -25,12 +17,8 @@ class SceneController: NSViewController {
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
     
-    private var lazyColorAnnotators: [ColorAnnotator] {
-        return annotators.lazy.compactMap({ $0 as? ColorAnnotator })
-    }
-    private var lazyAreaAnnotators: [AreaAnnotator] {
-        return annotators.lazy.compactMap({ $0 as? AreaAnnotator })
-    }
+    private var lazyColorAnnotators: [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
+    private var lazyAreaAnnotators: [AreaAnnotator] { annotators.lazy.compactMap({ $0 as? AreaAnnotator }) }
     
     private var enableForceTouch: Bool {
         get {
@@ -93,20 +81,19 @@ class SceneController: NSViewController {
     @IBOutlet private weak var sceneGridTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var sceneGridLeadingConstraint: NSLayoutConstraint!
     
-    private var horizontalRulerView: RulerView {
-        return sceneView.horizontalRulerView as! RulerView
-    }
-    private var verticalRulerView: RulerView {
-        return sceneView.verticalRulerView as! RulerView
-    }
-    private var wrapper: SceneImageWrapper {
-        return sceneView.documentView as! SceneImageWrapper
-    }
-    private func isInsceneLocation(_ point: CGPoint) -> Bool {
-        return sceneView.visibleRectExcludingRulers.contains(point)
-    }
-    private func isInscenePixelLocation(_ point: CGPoint) -> Bool {
-        return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(point, from: wrapper)) && sceneView.documentVisibleRect.contains(point)
+    private var horizontalRulerView: RulerView { sceneView.horizontalRulerView as! RulerView }
+    private var verticalRulerView: RulerView { sceneView.verticalRulerView as! RulerView }
+    
+    private var wrapper: SceneImageWrapper { sceneView.documentView as! SceneImageWrapper }
+    public var wrapperBounds: CGRect { wrapper.bounds }
+    public var wrapperVisibleRect: CGRect { wrapper.visibleRect }
+    public var wrapperMangnification: CGFloat { sceneView.magnification }
+    public var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
+    public var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    
+    private func isVisibleWrapperLocation(_ locInWrapper: CGPoint) -> Bool {  // point: a location in wrapper's coordinate
+        return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(locInWrapper, from: wrapper))
+            && wrapperVisibleRect.contains(locInWrapper)
     }
     
     private var internalSceneTool: SceneTool = .arrow {
@@ -124,17 +111,8 @@ class SceneController: NSViewController {
         }
     }
     
-    private var nextMagnificationFactor: CGFloat? {
-        get {
-            return SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification })
-        }
-    }
-    
-    private var prevMagnificationFactor: CGFloat? {
-        get {
-            return SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification })
-        }
-    }
+    private var nextMagnificationFactor: CGFloat? { SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification }) }
+    private var prevMagnificationFactor: CGFloat? { SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification }) }
     
     private var canMagnify: Bool {
         get {
@@ -180,10 +158,10 @@ class SceneController: NSViewController {
         sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
         reloadSceneRulerConstraints()
         
-        sceneView.sceneEventObservers = [
+        sceneView.sceneEventObservers = Set([
             SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
             SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
-        ]
+        ])
         
         sceneView.trackingDelegate                 = self
         sceneView.sceneToolSource                  = self
@@ -256,8 +234,8 @@ class SceneController: NSViewController {
             shouldNotifySceneBoundsChanged = true
         }
         
-        if shouldNotifySceneBoundsChanged {
-            sceneBoundsChanged()
+        if notification != nil && shouldNotifySceneBoundsChanged {
+            notifyVisibleRectChanged()
         }
         
     }
@@ -336,18 +314,18 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applyMagnifyItem(at location: CGPoint) -> Bool {
+    private func applyMagnifyItem(at locInWrapper: CGPoint) -> Bool {
         if !canMagnify {
             return false
         }
         if let next = nextMagnificationFactor {
-            if isInscenePixelLocation(location) {
+            if isVisibleWrapperLocation(locInWrapper) {
                 self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-                    self.sceneView.animator().setMagnification(next, centeredAt: location)
+                    self.sceneView.animator().setMagnification(next, centeredAt: locInWrapper)
                 }) { [unowned self] in
                     self.showSceneOverlays()
-                    self.sceneBoundsChanged()
+                    self.notifyVisibleRectChanged()
                 }
             } else {
                 self.hideSceneOverlays()
@@ -355,7 +333,7 @@ class SceneController: NSViewController {
                     self.sceneView.animator().magnification = next
                 }) { [unowned self] in
                     self.showSceneOverlays()
-                    self.sceneBoundsChanged()
+                    self.notifyVisibleRectChanged()
                 }
             }
             return true
@@ -363,18 +341,18 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applyMinifyItem(at location: CGPoint) -> Bool {
+    private func applyMinifyItem(at locInWrapper: CGPoint) -> Bool {
         if !canMinify {
             return false
         }
         if let prev = prevMagnificationFactor {
-            if isInscenePixelLocation(location) {
+            if isVisibleWrapperLocation(locInWrapper) {
                 self.hideSceneOverlays()
                 NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
-                    self.sceneView.animator().setMagnification(prev, centeredAt: location)
+                    self.sceneView.animator().setMagnification(prev, centeredAt: locInWrapper)
                 }) { [unowned self] in
                     self.showSceneOverlays()
-                    self.sceneBoundsChanged()
+                    self.notifyVisibleRectChanged()
                 }
             } else {
                 self.hideSceneOverlays()
@@ -382,7 +360,7 @@ class SceneController: NSViewController {
                     self.sceneView.animator().magnification = prev
                 }) { [unowned self] in
                     self.showSceneOverlays()
-                    self.sceneBoundsChanged()
+                    self.notifyVisibleRectChanged()
                 }
             }
             return true
@@ -434,24 +412,24 @@ class SceneController: NSViewController {
     override func mouseUp(with event: NSEvent) {
         var handled = false
         if sceneState.type == .leftGeneric {
-            let loc = wrapper.convert(event.locationInWindow, from: nil)
-            if isInscenePixelLocation(loc) {
+            let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+            if isVisibleWrapperLocation(locInWrapper) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
                     if sceneTool == .magicCursor {
-                        handled = applyAnnotateItem(at: loc)
+                        handled = applyAnnotateItem(at: locInWrapper)
                     }
                     else if sceneTool == .magnifyingGlass {
-                        handled = applyMagnifyItem(at: loc)
+                        handled = applyMagnifyItem(at: locInWrapper)
                     }
                     else if sceneTool == .minifyingGlass {
-                        handled = applyMinifyItem(at: loc)
+                        handled = applyMinifyItem(at: locInWrapper)
                     }
                     else if sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
                         let commandPressed = modifierFlags.contains(.command)
                         let shiftPressed   = modifierFlags.contains(.shift)
-                        handled = applySelectItem(at: loc, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
+                        handled = applySelectItem(at: locInWrapper, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
                     }
                 }
             }
@@ -464,11 +442,11 @@ class SceneController: NSViewController {
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
         if sceneState.type == .rightGeneric {
-            let loc = wrapper.convert(event.locationInWindow, from: nil)
-            if isInscenePixelLocation(loc) {
+            let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+            if isVisibleWrapperLocation(locInWrapper) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
                     if sceneTool == .magicCursor || sceneTool == .selectionArrow {
-                        handled = applyDeleteItem(at: loc)
+                        handled = applyDeleteItem(at: locInWrapper)
                     }
                 }
             }
@@ -541,8 +519,8 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    private func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from pixelLocation: CGPoint) -> Bool {
-        guard isInscenePixelLocation(pixelLocation) else { return false }
+    private func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from wrapperLocation: CGPoint) -> Bool {
+        guard isVisibleWrapperLocation(wrapperLocation) else { return false }
         
         var wrapperDelta = CGSize.zero
         switch direction {
@@ -557,17 +535,15 @@ class SceneController: NSViewController {
         default: break
         }
         
-        guard wrapperMagnification >= SceneController.minimumRecognizableMagnification else { return false }
+        guard wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification else { return false }
         
-        var targetWrapperPoint = pixelLocation.toPixelCenterCGPoint()
-        targetWrapperPoint.x += wrapperDelta.width
-        targetWrapperPoint.y += wrapperDelta.height
+        var toWrapperPoint = wrapperLocation.toPixelCenterCGPoint()
+        toWrapperPoint.x += wrapperDelta.width
+        toWrapperPoint.y += wrapperDelta.height
         
-        guard wrapper.bounds.contains(targetWrapperPoint) else {
-            return false
-        }
+        guard wrapperBounds.contains(toWrapperPoint) else { return false }
         
-        guard isInscenePixelLocation(targetWrapperPoint) else {
+        guard isVisibleWrapperLocation(toWrapperPoint) else {
             let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
             
             var clipOrigin = sceneClipView.bounds.origin
@@ -590,7 +566,7 @@ class SceneController: NSViewController {
         guard let mainScreen = window.screen else { return false }
         guard let displayID = mainScreen.displayID else { return false }
         
-        let windowPoint = wrapper.convert(targetWrapperPoint, to: nil)
+        let windowPoint = wrapper.convert(toWrapperPoint, to: nil)
         let screenPoint = window.convertPoint(toScreen: windowPoint)
         let screenFrame = mainScreen.frame
         let targetDisplayMousePosition = CGPoint(x: screenPoint.x - screenFrame.origin.x, y: screenFrame.size.height - (screenPoint.y - screenFrame.origin.y))
@@ -602,15 +578,15 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        trackColorChanged(sceneView, at: PixelCoordinate(targetWrapperPoint))
+        trackColorChanged(sceneView, at: PixelCoordinate(toWrapperPoint))
         return true
     }
     
     @discardableResult
-    private func shortcutCopyPixelColor(at pixelLocation: CGPoint) -> Bool {
+    private func shortcutCopyPixelColor(at wrapperLocation: CGPoint) -> Bool {
         guard let screenshot = screenshot else { return false }
-        guard isInscenePixelLocation(pixelLocation) else { return false }
-        try? screenshot.export.copyPixelColor(at: PixelCoordinate(pixelLocation))
+        guard isVisibleWrapperLocation(wrapperLocation) else { return false }
+        try? screenshot.export.copyPixelColor(at: PixelCoordinate(wrapperLocation))
         return true
     }
     
@@ -618,7 +594,7 @@ class SceneController: NSViewController {
     private func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
         guard let event = event else { return false }
         guard let window = view.window, window.isKeyWindow else { return false }  // important
-        let loc = wrapper.convert(event.locationInWindow, from: nil)
+        let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
         
         let flags = event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
@@ -634,32 +610,32 @@ class SceneController: NSViewController {
             
             if let specialKey = event.specialKey {
                 if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
-                    return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: loc)
+                    return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: locInWrapper)
                 }
-                else if isInscenePixelLocation(loc) {
+                else if isVisibleWrapperLocation(locInWrapper) {
                     if specialKey == .enter || specialKey == .carriageReturn {
-                        return applyAnnotateItem(at: loc)
+                        return applyAnnotateItem(at: locInWrapper)
                     }
                     else if specialKey == .delete {
-                        return applyDeleteItem(at: loc)
+                        return applyDeleteItem(at: locInWrapper)
                     }
                 }
             }
             else if let characters = event.characters {
                 if characters.contains("-") {
-                    return applyMinifyItem(at: loc)
+                    return applyMinifyItem(at: locInWrapper)
                 }
                 else if characters.contains("=") {
-                    return applyMagnifyItem(at: loc)
+                    return applyMagnifyItem(at: locInWrapper)
                 }
                 else if characters.contains("`") {
-                    return shortcutCopyPixelColor(at: loc)
+                    return shortcutCopyPixelColor(at: locInWrapper)
                 }
                 else if characters.contains("[") {
-                    return shortcutAnnotatorSwitching(at: loc, byForwardingSelection: true)
+                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: true)
                 }
                 else if characters.contains("]") {
-                    return shortcutAnnotatorSwitching(at: loc, byForwardingSelection: false)
+                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: false)
                 }
             }
             
@@ -698,12 +674,12 @@ extension SceneController: ScreenshotLoader {
 
 extension SceneController: SceneTracking {
     
-    func trackSceneBoundsChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if !sceneOverlayView.isHidden {
             updateAnnotatorFrames()
         }
-        sceneGridView.trackSceneBoundsChanged(sender, to: rect, of: magnification)
-        trackingDelegate.trackSceneBoundsChanged(sender, to: rect, of: magnification)
+        sceneGridView.trackVisibleRectChanged(sender, to: rect, of: magnification)
+        trackingDelegate.trackVisibleRectChanged(sender, to: rect, of: magnification)
     }
     
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
@@ -739,8 +715,8 @@ extension SceneController: SceneTracking {
         }
     }
     
-    private func sceneBoundsChanged() {
-        trackSceneBoundsChanged(sceneView, to: wrapperVisibleBounds, of: wrapperMagnification)
+    private func notifyVisibleRectChanged() {
+        trackVisibleRectChanged(sceneView, to: wrapperRestrictedRect, of: wrapperRestrictedMagnification)
     }
     
 }
@@ -1080,8 +1056,8 @@ extension SceneController: ToolbarResponder {
     func useSelectItemAction(_ sender: Any?)   { internalSceneTool = .selectionArrow }
     func useMoveItemAction(_ sender: Any?)     { internalSceneTool = .movingHand }
     
-    func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapper.bounds) }
-    func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapper.bounds)) }
+    func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapperBounds) }
+    func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds)) }
     
     private func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
         let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
@@ -1094,7 +1070,7 @@ extension SceneController: ToolbarResponder {
         NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
             self.sceneView.animator().magnify(toFit: fitRect)
         }) { [unowned self] in
-            self.sceneBoundsChanged()
+            self.notifyVisibleRectChanged()
         }
     }
     
@@ -1163,9 +1139,9 @@ extension SceneController: ItemPreviewResponder {
     }
     
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        let centerPoint = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !isInscenePixelLocation(centerPoint) {
-            var point = sceneView.convert(centerPoint, from: wrapper)
+        let centeredPointInWrapper = coordinate.toCGPoint().toPixelCenterCGPoint()
+        if !isVisibleWrapperLocation(centeredPointInWrapper) {
+            var point = sceneView.convert(centeredPointInWrapper, from: wrapper)
             point.x -= sceneView.bounds.width / 2.0
             point.y -= sceneView.bounds.height / 2.0
             let clipCenterPoint = sceneClipView.convert(point, from: sceneView)

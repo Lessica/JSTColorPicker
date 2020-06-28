@@ -1367,6 +1367,14 @@
 			path = JSTColorPickerSparkle;
 			sourceTree = "<group>";
 		};
+		D612A44924A89E5300F2BC4D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D66460EA23D056440032727A /* SceneTracking.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		D626936E242A5BFC00463E36 /* libusb-1.0 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1717,6 +1725,7 @@
 		D649231623CC64490067C04A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				D612A44924A89E5300F2BC4D /* Protocols */,
 				D645E4A223E812020039F4F6 /* Annotators */,
 				D69974CE2414ADF500223B31 /* Models */,
 				D6729C0F240FCBE3000339C2 /* Views */,
@@ -1996,7 +2005,6 @@
 		D69974CE2414ADF500223B31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D66460E823D0333A0032727A /* SceneTool.swift */,
 				D6729C02240F7DC5000339C2 /* SceneState.swift */,
 				D6729C05240FC77D000339C2 /* SceneEvent.swift */,
