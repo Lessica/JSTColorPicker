@@ -236,6 +236,9 @@
 /* Tool Tip: Tag Cell View */
 "TOOLTIP_TAG_CELL_VIEW" = "Attached Tags: \n%@\n\nOther Tags: \n%@";
 
+/* Setup Persistent Store */
+"Unable to access tag database." = "Unable to access tag database.";
+
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
 

@@ -686,5 +686,9 @@ extension SidebarController {
         return children.first as? TagListController
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "TagListContainer" && segue.destinationController is TagListController else { return }
+    }
+    
 }
 

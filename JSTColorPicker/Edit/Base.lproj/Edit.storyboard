@@ -37,7 +37,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="249" width="446" height="519"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <connections>
                             <outlet property="delegate" destination="AdQ-5s-3ep" id="QOC-2e-gdx"/>
                         </connections>
@@ -492,6 +492,7 @@ DQ
                                             <viewController key="viewController" id="MRn-Tl-HjN">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brr-9e-o8c">
                                                     <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qOP-7N-d4C">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -507,6 +508,7 @@ DQ
                                             <viewController key="viewController" id="uAb-QH-zEZ">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-OI-P6R">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bH-EZ-CHg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -524,6 +526,7 @@ Gw
                                             <viewController key="viewController" id="bhG-LL-hTB">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -857,6 +860,7 @@ DQ
                                             <viewController key="viewController" id="zQr-8E-w2R">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
                                                     <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Y-BF-gov">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -872,6 +876,7 @@ DQ
                                             <viewController key="viewController" id="hxk-yj-Kge">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qb-5Y-1eO">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -889,6 +894,7 @@ Gw
                                             <viewController key="viewController" id="iZJ-RX-uL0">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -931,6 +937,139 @@ DQ
                 </numberFormatter>
             </objects>
             <point key="canvasLocation" x="893" y="1"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="kSE-6x-0dr">
+            <objects>
+                <windowController storyboardIdentifier="EditTagsWindowController" id="K8U-q1-gjd" customClass="EditWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" identifier="EditTagsWindow" allowsToolTipsWhenApplicationIsInactive="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditTags" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="apS-QQ-eiT" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="249" width="288" height="418"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <connections>
+                            <outlet property="delegate" destination="K8U-q1-gjd" id="jYS-Rj-lbD"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="Rd9-dN-dGl" kind="relationship" relationship="window.shadowedContentViewController" id="qcM-la-wwL"/>
+                    </connections>
+                </windowController>
+                <customObject id="QQt-EP-wYf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="322" y="1485"/>
+        </scene>
+        <!--Edit Tags Controller-->
+        <scene sceneID="AlO-iO-qu9">
+            <objects>
+                <viewController id="Rd9-dN-dGl" customClass="EditTagsController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="W9u-QK-jXI">
+                        <rect key="frame" x="0.0" y="0.0" width="288" height="418"/>
+                        <subviews>
+                            <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ds2-Bt-PfN">
+                                <rect key="frame" x="20" y="20" width="248" height="378"/>
+                                <subviews>
+                                    <box title="Edit Tags" translatesAutoresizingMaskIntoConstraints="NO" id="ghs-AJ-eau">
+                                        <rect key="frame" x="-3" y="25" width="254" height="353"/>
+                                        <view key="contentView" id="AFb-qV-y60">
+                                            <rect key="frame" x="3" y="3" width="248" height="335"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <containerView translatesAutoresizingMaskIntoConstraints="NO" id="0hG-WL-H5d">
+                                                    <rect key="frame" x="0.0" y="0.0" width="248" height="335"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="335" id="3EC-xh-M4a"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <segue destination="iu1-8X-uHF" kind="embed" identifier="TagListContainerEmbed" id="GZC-fR-e7u"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="0hG-WL-H5d" secondAttribute="bottom" id="H3t-s1-2Yz"/>
+                                                <constraint firstAttribute="trailing" secondItem="0hG-WL-H5d" secondAttribute="trailing" id="azR-oJ-U9c"/>
+                                                <constraint firstItem="0hG-WL-H5d" firstAttribute="top" secondItem="AFb-qV-y60" secondAttribute="top" id="hEj-lu-oiX"/>
+                                                <constraint firstItem="0hG-WL-H5d" firstAttribute="leading" secondItem="AFb-qV-y60" secondAttribute="leading" id="tvG-Yd-f9w"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="248" id="ZWs-mb-JwS"/>
+                                        </constraints>
+                                    </box>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCI-sT-vfa">
+                                        <rect key="frame" x="100" y="0.0" width="148" height="21"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gfT-mT-vtw">
+                                                <rect key="frame" x="-6" y="-7" width="82" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kgt-ps-SMu">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="cancelAction:" target="Rd9-dN-dGl" id="1le-h0-r07"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5xk-6u-RC8">
+                                                <rect key="frame" x="72" y="-7" width="82" height="32"/>
+                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2y0-1K-Lgi">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="okAction:" target="Rd9-dN-dGl" id="xEY-F2-red"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="5xk-6u-RC8" firstAttribute="width" secondItem="gfT-mT-vtw" secondAttribute="width" id="QUG-gP-GbI"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ds2-Bt-PfN" firstAttribute="leading" secondItem="W9u-QK-jXI" secondAttribute="leading" constant="20" symbolic="YES" id="6NI-Go-4uY"/>
+                            <constraint firstAttribute="width" priority="500" constant="288" id="EpT-ob-IUu"/>
+                            <constraint firstAttribute="height" priority="500" constant="418" id="a9l-lk-mmf"/>
+                            <constraint firstAttribute="trailing" secondItem="ds2-Bt-PfN" secondAttribute="trailing" constant="20" symbolic="YES" id="aDl-hM-AlI"/>
+                            <constraint firstItem="ds2-Bt-PfN" firstAttribute="top" secondItem="W9u-QK-jXI" secondAttribute="top" constant="20" symbolic="YES" id="iG4-q2-ZeQ"/>
+                            <constraint firstAttribute="bottom" secondItem="ds2-Bt-PfN" secondAttribute="bottom" constant="20" symbolic="YES" id="l9m-2L-iTA"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="xaF-Iv-0oB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893" y="1485"/>
+        </scene>
+        <!--TagList-->
+        <scene sceneID="H0v-vc-tVP">
+            <objects>
+                <controllerPlaceholder storyboardName="TagList" id="iu1-8X-uHF" sceneMemberID="viewController"/>
+                <customObject id="uJl-fF-mq0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893" y="1879"/>
         </scene>
     </scenes>
 </document>

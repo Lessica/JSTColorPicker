@@ -21,21 +21,29 @@ enum TagListHighlightMode {
 
 class TagListController: NSViewController {
     
-    @IBOutlet var internalContext: NSManagedObjectContext!
-    @IBOutlet var internalController: TagController!
+    public weak var embeddedDelegate: TagListEmbedDelegate?
+    public var isEmbeddedMode: Bool { embeddedDelegate != nil }
     
-    @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var tableView: TagListTableView!
-    @IBOutlet weak var tableViewOverlay: TagListOverlayView!
-    @IBOutlet var tagMenu: NSMenu!
-    @IBOutlet var alertTextView: AlertTextView!
+    private var highlightMode = TagListHighlightMode.none
+    private var highlightContext: [String: Int]?
     
+    public weak var contentDelegate: ContentDelegate?
+    public weak var importItemSource: TagImportSource?
     public weak var sceneToolSource: SceneToolSource! {
         get { return tableViewOverlay.sceneToolSource }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
-    public weak var contentDelegate: ContentDelegate?
-    public weak var importItemSource: TagImportSource?
+    
+    @IBOutlet var internalContext             : NSManagedObjectContext!
+    @IBOutlet var internalController          : TagController!
+    @IBOutlet var tagMenu                     : NSMenu!
+    @IBOutlet var alertTextView               : AlertTextView!
+    @IBOutlet weak var loadingErrorLabel      : NSTextField!
+    @IBOutlet weak var searchField            : NSSearchField!
+    @IBOutlet weak var scrollView             : NSScrollView!
+    @IBOutlet weak var tableView              : TagListTableView!
+    @IBOutlet weak var tableViewOverlay       : TagListOverlayView!
+    @IBOutlet weak var tableActionCustomView  : NSView!
     
     private var willUndoToken: NotificationToken?
     private var willRedoToken: NotificationToken?
@@ -52,11 +60,11 @@ class TagListController: NSViewController {
         return panel
     }
     
-    private var highlightMode = TagListHighlightMode.none
-    private var highlightContext: [String: Int]?
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.isEmbeddedMode = isEmbeddedMode
+        tableActionCustomView.isHidden = isEmbeddedMode
         
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
@@ -80,8 +88,9 @@ class TagListController: NSViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
+        let embeddedMode = self.isEmbeddedMode
         setupPersistentStore(fetchInitialTags: { () -> ([(String, String)]) in
-            return [
+            return embeddedMode ? [] : [
                 
                 /* Controls */
                 ("Button",         "#171E6D"),
@@ -116,14 +125,33 @@ class TagListController: NSViewController {
                 
             ]
         }) { [weak self] (_ error: Error?) in
+            
             if let error = error {
+                
                 self?.internalController.isEditable = false
+                
+                self?.searchField.isEnabled         = false
+                self?.tableView.isEnabled           = false
+                self?.tableView.isHidden            = true
+                self?.loadingErrorLabel.isHidden    = false
+                self?.loadingErrorLabel.stringValue = NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
+                
                 self?.presentError(error)
+                
                 return
+                
             }
+            
             self?.internalContext.undoManager = self?.undoManager
-            self?.internalController.isEditable = true
+            self?.internalController.isEditable = !embeddedMode
             self?.internalController.rearrangeObjects()
+            
+            self?.searchField.isEnabled         = true
+            self?.tableView.isEnabled           = true
+            self?.tableView.isHidden            = false
+            self?.loadingErrorLabel.isHidden    = true
+            self?.loadingErrorLabel.stringValue = ""
+            
         }
         
     }
@@ -408,7 +436,7 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var shouldPerformDragging: Bool { internalController.isEditable }
+    var shouldPerformDragging: Bool { !isEmbeddedMode && internalController.isEditable }
     
     func willPerformDragging(_ sender: Any?) -> Bool {
         contentDelegate?.deselectAllContentItems()
@@ -442,7 +470,7 @@ extension TagListController: TagListDragDelegate {
 extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        guard case .idle = tableViewOverlay.state else { return nil }
+        guard !isEmbeddedMode, case .idle = tableViewOverlay.state else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
@@ -526,6 +554,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
                     cell.text = ""
                 }
             }
+            cell.textField?.isEditable = !isEmbeddedMode
             return cell
         }
         return nil

@@ -8,6 +8,11 @@
 
 import Cocoa
 
+enum EditType {
+    case add
+    case edit
+}
+
 class EditWindow: NSWindow {
     
     public static func newEditCoordinatePanel() -> EditWindow {
@@ -18,8 +23,14 @@ class EditWindow: NSWindow {
         return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditAreaWindowController") as! NSWindowController).window as! EditWindow
     }
     
-    public var isAdd: Bool = true
+    public static func newEditTagsPanel() -> EditWindow {
+        return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditTagsWindowController") as! NSWindowController).window as! EditWindow
+    }
+    
+    public var isAdd: Bool { type == .add }
+    public var type: EditType = .add
     public var contentItem: ContentItem?
+    public var contentItems: [ContentItem]?
     
     public weak var loader: ScreenshotLoader?
     public weak var contentDelegate: ContentDelegate?

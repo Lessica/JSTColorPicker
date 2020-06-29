@@ -302,6 +302,9 @@ DQ
                         <menuItem isSeparatorItem="YES" id="xfS-Z5-Yd0"/>
                         <menuItem title="Choose Tags..." id="AXF-B1-mtL">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="tags:" target="YIx-oB-8lo" id="3AO-9k-5wp"/>
+                            </connections>
                         </menuItem>
                         <menuItem title="Remove Tags" id="Flt-gl-Srj">
                             <modifierMask key="keyEquivalentModifierMask"/>

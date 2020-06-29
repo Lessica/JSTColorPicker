@@ -9,6 +9,13 @@
 import Cocoa
 
 class TagListTableView: NSTableView {
+    
+    public var isEmbeddedMode: Bool = false
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        if isEmbeddedMode { return nil }
+        return super.menu(for: event)
+    }
 
     override func rightMouseDown(with event: NSEvent) {
         if row(at: convert(event.locationInWindow, from: nil)) < 0 {

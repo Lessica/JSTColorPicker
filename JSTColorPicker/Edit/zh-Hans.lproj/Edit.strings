@@ -1,6 +1,9 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2bH-EZ-CHg"; */
 "2bH-EZ-CHg.title" = "取消";
 
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2y0-1K-Lgi"; */
+"2y0-1K-Lgi.title" = "好";
+
 /* Class = "NSTextFieldCell"; title = "Opposite Y: "; ObjectID = "7FU-fC-tAm"; */
 "7FU-fC-tAm.title" = "对点 Y: ";
 
@@ -31,6 +34,9 @@
 /* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "d7Y-BF-gov"; */
 "d7Y-BF-gov.title" = "隐藏预览";
 
+/* Class = "NSBox"; title = "Edit Tags"; ObjectID = "ghs-AJ-eau"; */
+"ghs-AJ-eau.title" = "修改标签";
+
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "原点 X: ";
 
@@ -39,6 +45,9 @@
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "KcP-Rr-yyA"; */
 "KcP-Rr-yyA.title" = "好";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kgt-ps-SMu"; */
+"kgt-ps-SMu.title" = "取消";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "kHm-RB-ux9"; */
 "kHm-RB-ux9.title" = "取消";

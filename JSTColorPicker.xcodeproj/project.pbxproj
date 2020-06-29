@@ -154,6 +154,10 @@
 		D61047E624224B9C0002E990 /* SUUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SUUpdater.m */; };
 		D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
 		D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
+		D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
+		D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
+		D61336BE24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */; };
+		D61336BF24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */; };
 		D62693632429F3EE00463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D62693652429F4C500463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -677,6 +681,8 @@
 		D61047E724224CB10002E990 /* JSTColorPickerSparkle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPickerSparkle-Bridging-Header.h"; sourceTree = "<group>"; };
 		D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerSparkle.entitlements; sourceTree = "<group>"; };
 		D61336B324A99FED006263E5 /* RulerViewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerViewClient.swift; sourceTree = "<group>"; };
+		D61336BA24A9DDC8006263E5 /* EditTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagsController.swift; sourceTree = "<group>"; };
+		D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListEmbedDelegate.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneOverlayView.swift; sourceTree = "<group>"; };
 		D626936C242A5BF100463E36 /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusb-1.0.a"; sourceTree = "<group>"; };
 		D626936F242A5BFC00463E36 /* libusb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libusb.h; sourceTree = "<group>"; };
@@ -2332,6 +2338,7 @@
 				185D7EF0248A8518001C283B /* EditViewController.swift */,
 				185D7EE7248A8019001C283B /* EditCoordinateController.swift */,
 				185D7EEA248A8025001C283B /* EditAreaController.swift */,
+				D61336BA24A9DDC8006263E5 /* EditTagsController.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -2364,6 +2371,7 @@
 			isa = PBXGroup;
 			children = (
 				18B22FF0247EBD65003F70BA /* TagListSource.swift */,
+				D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */,
 				18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */,
 				D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */,
 				180C6A86249F652800B42656 /* TagImportSource.swift */,
@@ -2929,6 +2937,7 @@
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
 				D610478124224A170002E990 /* Screenshot.swift in Sources */,
 				D610478224224A170002E990 /* AnnotatorSource.swift in Sources */,
+				D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				185D7EF1248A8518001C283B /* EditViewController.swift in Sources */,
 				D610478324224A170002E990 /* AnnotatorOverlay.swift in Sources */,
 				D610478424224A170002E990 /* SceneClipView.swift in Sources */,
@@ -2975,6 +2984,7 @@
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
+				D61336BE24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
@@ -3098,6 +3108,7 @@
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
+				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				D659168E24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
@@ -3178,6 +3189,7 @@
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
+				D61336BF24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,

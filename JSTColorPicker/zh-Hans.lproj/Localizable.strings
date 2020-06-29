@@ -236,6 +236,9 @@
 /* Tool Tip: Tag Cell View */
 "TOOLTIP_TAG_CELL_VIEW" = "已关联标签: \n%@\n\n其他标签: \n%@";
 
+/* Setup Persistent Store */
+"Unable to access tag database." = "无法访问标签数据库.";
+
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
 

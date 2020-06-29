@@ -669,6 +669,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         if menuItem.action == #selector(delete(_:))
             || menuItem.action == #selector(copy(_:))
             || menuItem.action == #selector(exportAs(_:))
+            || menuItem.action == #selector(tags(_:))
         {  // contents available / multiple targets / from both menu
             guard content != nil else { return false }
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
@@ -853,9 +854,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             panel.loader = self
             panel.contentDelegate = self
             panel.contentItemSource = self
-
             panel.contentItem = targetItem
-            panel.isAdd = false
+            panel.type = .edit
             
             view.window!.beginSheet(panel) { (resp) in
                 if resp == .OK {
@@ -863,6 +863,25 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 }
             }
             
+        }
+    }
+    
+    @IBAction func tags(_ sender: NSMenuItem?) {
+        guard let collection = content?.items else { return }
+        let rows = selectedRowIndexes
+        let itemsToEdit = rows.map({ collection[$0] })
+        
+        let panel = EditWindow.newEditTagsPanel()
+        internalSelectContentItems(in: rows, byExtendingSelection: false)
+        
+        panel.contentDelegate = self
+        panel.contentItems = itemsToEdit
+        panel.type = .edit
+        
+        view.window!.beginSheet(panel) { (resp) in
+            if resp == .OK {
+                // do nothing
+            }
         }
     }
     
@@ -883,7 +902,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             panel.contentItemSource = self
             
             panel.contentItem = nil
-            panel.isAdd = true
+            panel.type = .add
             
             view.window!.beginSheet(panel) { (resp) in
                 if resp == .OK {
