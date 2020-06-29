@@ -23,13 +23,17 @@ class TagListController: NSViewController {
     
     public weak var embeddedDelegate: TagListEmbedDelegate?
     public var isEmbeddedMode: Bool { embeddedDelegate != nil }
+    private var isDatabaseLoaded: Bool = false {
+        didSet { reloadEmbeddedState(isDatabaseLoaded) }
+    }
     
     private var highlightMode = TagListHighlightMode.none
     private var highlightContext: [String: Int]?
     
-    public weak var contentDelegate: ContentDelegate?
-    public weak var importItemSource: TagImportSource?
-    public weak var sceneToolSource: SceneToolSource! {
+    public weak var contentDelegate   : ContentDelegate?
+    public weak var importItemSource  : TagImportSource?
+    public weak var sceneToolSource   : SceneToolSource!
+    {
         get { return tableViewOverlay.sceneToolSource }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
@@ -47,8 +51,8 @@ class TagListController: NSViewController {
     
     private var willUndoToken: NotificationToken?
     private var willRedoToken: NotificationToken?
-    private var didUndoToken: NotificationToken?
-    private var didRedoToken: NotificationToken?
+    private var didUndoToken : NotificationToken?
+    private var didRedoToken : NotificationToken?
     
     static public var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
@@ -60,11 +64,19 @@ class TagListController: NSViewController {
         return panel
     }
     
+    private func reloadEmbeddedState(_ state: Bool) {
+        tableView.isEmbeddedMode       = isEmbeddedMode
+        tableActionCustomView.isHidden = isEmbeddedMode
+        internalController.isEditable  = state ? !isEmbeddedMode : false
+        searchField.isEnabled          = state
+        tableView.isEnabled            = state
+        tableView.isHidden             = !state
+        loadingErrorLabel.isHidden     = state
+        loadingErrorLabel.stringValue  = state ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.isEmbeddedMode = isEmbeddedMode
-        tableActionCustomView.isHidden = isEmbeddedMode
         
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
@@ -89,7 +101,7 @@ class TagListController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
         let embeddedMode = self.isEmbeddedMode
-        setupPersistentStore(fetchInitialTags: { () -> ([(String, String)]) in
+        setupPersistentStore(withInitialTags: { () -> ([(String, String)]) in
             return embeddedMode ? [] : [
                 
                 /* Controls */
@@ -125,38 +137,19 @@ class TagListController: NSViewController {
                 
             ]
         }) { [weak self] (_ error: Error?) in
-            
             if let error = error {
-                
-                self?.internalController.isEditable = false
-                
-                self?.searchField.isEnabled         = false
-                self?.tableView.isEnabled           = false
-                self?.tableView.isHidden            = true
-                self?.loadingErrorLabel.isHidden    = false
-                self?.loadingErrorLabel.stringValue = NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
-                
+                self?.isDatabaseLoaded = false
                 self?.presentError(error)
-                
                 return
-                
             }
-            
             self?.internalContext.undoManager = self?.undoManager
-            self?.internalController.isEditable = !embeddedMode
+            self?.isDatabaseLoaded = true
             self?.internalController.rearrangeObjects()
-            
-            self?.searchField.isEnabled         = true
-            self?.tableView.isEnabled           = true
-            self?.tableView.isHidden            = false
-            self?.loadingErrorLabel.isHidden    = true
-            self?.loadingErrorLabel.stringValue = ""
-            
         }
         
     }
     
-    private func setupPersistentStore(fetchInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
+    private func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
         }
@@ -190,7 +183,7 @@ class TagListController: NSViewController {
                     if let self = self {
                         
                         var idx = 1
-                        fetchInitialTags().forEach { (tag) in
+                        withInitialTags().forEach { (tag) in
                             let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.internalContext) as! Tag
                             obj.order = Int64(idx)
                             obj.name = tag.0

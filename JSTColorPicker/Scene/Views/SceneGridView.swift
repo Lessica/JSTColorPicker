@@ -71,7 +71,7 @@ class SceneGridView: NSView {
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        ctx.setShouldAntialias(false)
+        ctx.setShouldAntialias(true)
         ctx.setLineWidth(SceneGridView.defaultGridLineWidth)
         ctx.setStrokeColor(SceneGridView.defaultGridLineColor)
         
@@ -148,8 +148,8 @@ class SceneGridView: NSView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.shouldRasterize = true
         shapeLayer.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
-        shapeLayer.allowsEdgeAntialiasing = false
-        shapeLayer.minificationFilter = .trilinear
+        shapeLayer.allowsEdgeAntialiasing = true
+        shapeLayer.minificationFilter = .linear
         shapeLayer.magnificationFilter = .trilinear
         shapeLayer.lineWidth = SceneGridView.defaultGridLineWidth
         shapeLayer.strokeColor = SceneGridView.defaultGridLineColor

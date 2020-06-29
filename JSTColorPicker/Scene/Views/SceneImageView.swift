@@ -20,7 +20,9 @@ class SceneImageView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
+        
         layer?.isOpaque = true
+        layer?.minificationFilter = .linear
         layer?.magnificationFilter = .nearest
         layerContentsRedrawPolicy = .never
     }

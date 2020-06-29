@@ -54,16 +54,16 @@
                                                     </constraints>
                                                 </customView>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="qAb-om-glU">
-                                                    <rect key="frame" x="0.0" y="26" width="238" height="513"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="539"/>
                                                     <subviews>
                                                         <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
-                                                            <rect key="frame" x="0.0" y="0.0" width="238" height="513"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="238" height="539"/>
                                                             <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Q9a-31-8kW">
-                                                                <rect key="frame" x="1" y="1" width="236" height="511"/>
+                                                                <rect key="frame" x="1" y="1" width="236" height="537"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="20" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="269" height="511"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="269" height="537"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -127,12 +127,12 @@
                                                                                                 </textFieldCell>
                                                                                                 <connections>
                                                                                                     <action selector="tagFieldValueChanged:" target="ifY-36-Ao8" id="Haq-IR-CC8"/>
-                                                                                                    <binding destination="yGX-y2-tND" name="toolTip" keyPath="objectValue.toolTip" id="LGL-m9-RXi"/>
                                                                                                     <binding destination="yGX-y2-tND" name="value" keyPath="objectValue.name" id="FZ4-aI-wcc">
                                                                                                         <dictionary key="options">
                                                                                                             <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                                                         </dictionary>
                                                                                                     </binding>
+                                                                                                    <binding destination="yGX-y2-tND" name="toolTip" keyPath="objectValue.toolTip" id="LGL-m9-RXi"/>
                                                                                                 </connections>
                                                                                             </textField>
                                                                                         </subviews>
@@ -167,7 +167,7 @@
                                                             </scroller>
                                                         </scrollView>
                                                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
-                                                            <rect key="frame" x="53" y="250" width="132" height="14"/>
+                                                            <rect key="frame" x="53" y="263" width="132" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" focusRingType="none" alignment="center" title="Loading tag database..." drawsBackground="YES" usesSingleLineMode="YES" id="gqF-EC-Oma">
                                                                 <font key="font" metaFont="message" size="11"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -175,7 +175,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="238" height="513"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="238" height="539"/>
                                                         </customView>
                                                     </subviews>
                                                     <constraints>
@@ -192,8 +192,8 @@
                                                         <constraint firstItem="6yp-7K-zYS" firstAttribute="centerY" secondItem="sPi-cH-fIS" secondAttribute="centerY" id="qH1-Mv-wUu"/>
                                                     </constraints>
                                                 </customView>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="QuS-we-HDF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="18"/>
+                                                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QuS-we-HDF">
+                                                    <rect key="frame" x="0.0" y="551" width="238" height="18"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePt-jN-vZn">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="18"/>
