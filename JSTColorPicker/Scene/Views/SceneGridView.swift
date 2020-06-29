@@ -16,6 +16,9 @@ class SceneGridView: NSView {
         wantsLayer = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
+        if let compositingFilter = CIFilter(name: "CIOverlayBlendMode") {
+            layer?.compositingFilter = compositingFilter
+        }
         
         enableGPUAcceleration = UserDefaults.standard[.enableGPUAcceleration]
         if enableGPUAcceleration { layer?.addSublayer(backingLayer) }
@@ -33,7 +36,7 @@ class SceneGridView: NSView {
     private static let minimumScaleOfRasterization: CGFloat = 0.8
     private static let maximumScaleOfRasterization: CGFloat = 1.25
     private static let defaultGridLineWidth       : CGFloat = 1.0
-    private static let defaultGridLineColor       = CGColor(gray: 1.0, alpha: 0.3)
+    private static let defaultGridLineColor       = CGColor(gray: 1.0, alpha: 1.0)
     private static let defaultCachedSquareSize    = CGSize(width: 256.0, height: 256.0)
     
     private var wrappedPixelRect: PixelRect = .null

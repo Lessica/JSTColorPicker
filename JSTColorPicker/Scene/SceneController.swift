@@ -91,7 +91,10 @@ class SceneController: NSViewController {
     public var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
     public var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
     
-    private func isVisibleWrapperLocation(_ locInWrapper: CGPoint) -> Bool {  // point: a location in wrapper's coordinate
+    private func isVisibleLocation(_ location: CGPoint) -> Bool {
+        return sceneView.visibleRectExcludingRulers.contains(location)
+    }
+    private func isVisibleWrapperLocation(_ locInWrapper: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(locInWrapper, from: wrapper))
             && wrapperVisibleRect.contains(locInWrapper)
     }
@@ -257,17 +260,18 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
     }
     
-    private func applyAnnotateItem(at location: CGPoint) -> Bool {
-        if let _ = try? addContentItem(of: PixelCoordinate(location)) {
+    private func applyAnnotateItem(at locInWrapper: CGPoint) -> Bool {
+        guard isVisibleWrapperLocation(locInWrapper) else { return false }
+        if let _ = try? addContentItem(of: PixelCoordinate(locInWrapper)) {
             return true
         }
         return false
     }
     
     private func applySelectItem(at location: CGPoint, byThroughoutHit throughout: Bool, byExtendingSelection extend: Bool) -> Bool {
-        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
+        let locInMask = sceneOverlayView.convert(location, from: sceneView)
         if throughout {  // shift pressed
-            let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask)
+            let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
             if annotatorOverlays.count > 0 {
                 let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
                 let contentItems = annotators
@@ -280,7 +284,7 @@ class SceneController: NSViewController {
                 deselectAllContentItems()
             }
         } else {
-            if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locationInMask) {
+            if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locInMask) {
                 guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
                 if annotatorOverlay.isSelected && extend {
                     if let _ = try? deselectContentItem(annotator.contentItem) {
@@ -298,9 +302,9 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applyDeleteItem(at location: CGPoint) -> Bool {
-        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
-        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locationInMask) {
+    private func applyDeleteItem(at locInWrapper: CGPoint) -> Bool {
+        let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
+        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
             if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
                 if let _ = try? deleteContentItem(annotator.contentItem) {
                     return true
@@ -308,7 +312,7 @@ class SceneController: NSViewController {
             }
             return false
         }
-        if let _ = try? deleteContentItem(of: PixelCoordinate(location)) {
+        if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper)) {
             return true
         }
         return false
@@ -368,9 +372,9 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func shortcutAnnotatorSwitching(at location: CGPoint, byForwardingSelection forward: Bool) -> Bool {
-        let locationInMask = sceneOverlayView.convert(location, from: wrapper)
-        let annotatorOverlays = sceneOverlayView.overlays(at: locationInMask, bySizeReordering: true)
+    private func shortcutAnnotatorSwitching(at locInWrapper: CGPoint, byForwardingSelection forward: Bool) -> Bool {
+        let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
+        let annotatorOverlays = sceneOverlayView.overlays(at: locInMask, bySizeReordering: true)
         guard annotatorOverlays.count > 1 else { return false }
         
         var selectedOverlayIndex: Int?
@@ -412,24 +416,26 @@ class SceneController: NSViewController {
     override func mouseUp(with event: NSEvent) {
         var handled = false
         if sceneState.type == .leftGeneric {
-            let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
-            if isVisibleWrapperLocation(locInWrapper) {
+            let location = sceneView.convert(event.locationInWindow, from: nil)
+            if isVisibleLocation(location) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
-                    if sceneTool == .magicCursor {
-                        handled = applyAnnotateItem(at: locInWrapper)
-                    }
-                    else if sceneTool == .magnifyingGlass {
-                        handled = applyMagnifyItem(at: locInWrapper)
-                    }
-                    else if sceneTool == .minifyingGlass {
-                        handled = applyMinifyItem(at: locInWrapper)
-                    }
-                    else if sceneTool == .selectionArrow {
+                    if sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
                         let commandPressed = modifierFlags.contains(.command)
                         let shiftPressed   = modifierFlags.contains(.shift)
-                        handled = applySelectItem(at: locInWrapper, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
+                        handled = applySelectItem(at: location, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
+                    } else {
+                        let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+                        if sceneTool == .magicCursor {
+                            handled = applyAnnotateItem(at: locInWrapper)
+                        }
+                        else if sceneTool == .magnifyingGlass {
+                            handled = applyMagnifyItem(at: locInWrapper)
+                        }
+                        else if sceneTool == .minifyingGlass {
+                            handled = applyMinifyItem(at: locInWrapper)
+                        }
                     }
                 }
             }
@@ -519,8 +525,8 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    private func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from wrapperLocation: CGPoint) -> Bool {
-        guard isVisibleWrapperLocation(wrapperLocation) else { return false }
+    private func shortcutMoveCursorOrScene(by direction: NSEvent.SpecialKey, for pixelDistance: CGFloat, from locInWrapper: CGPoint) -> Bool {
+        guard isVisibleWrapperLocation(locInWrapper) else { return false }
         
         var wrapperDelta = CGSize.zero
         switch direction {
@@ -537,7 +543,7 @@ class SceneController: NSViewController {
         
         guard wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification else { return false }
         
-        var toWrapperPoint = wrapperLocation.toPixelCenterCGPoint()
+        var toWrapperPoint = locInWrapper.toPixelCenterCGPoint()
         toWrapperPoint.x += wrapperDelta.width
         toWrapperPoint.y += wrapperDelta.height
         
@@ -583,10 +589,10 @@ class SceneController: NSViewController {
     }
     
     @discardableResult
-    private func shortcutCopyPixelColor(at wrapperLocation: CGPoint) -> Bool {
+    private func shortcutCopyPixelColor(at locInWrapper: CGPoint) -> Bool {
         guard let screenshot = screenshot else { return false }
-        guard isVisibleWrapperLocation(wrapperLocation) else { return false }
-        try? screenshot.export.copyPixelColor(at: PixelCoordinate(wrapperLocation))
+        guard isVisibleWrapperLocation(locInWrapper) else { return false }
+        try? screenshot.export.copyPixelColor(at: PixelCoordinate(locInWrapper))
         return true
     }
     
@@ -758,9 +764,9 @@ extension SceneController: SceneStateSource {
     
     internal var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? {
         get {
-            let loc = sceneOverlayView.convert(sceneState.beginLocation, from: sceneView)
-            guard let overlay = sceneOverlayView.frontmostOverlay(at: loc) else { return nil }
-            overlay.setEditing(at: sceneOverlayView.convert(loc, to: overlay))
+            let locInMask = sceneOverlayView.convert(sceneState.beginLocation, from: sceneView)
+            guard let overlay = sceneOverlayView.frontmostOverlay(at: locInMask) else { return nil }
+            overlay.setEditing(at: sceneOverlayView.convert(locInMask, to: overlay))
             return overlay
         }
     }
@@ -1141,11 +1147,11 @@ extension SceneController: ItemPreviewResponder {
     func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
         let centeredPointInWrapper = coordinate.toCGPoint().toPixelCenterCGPoint()
         if !isVisibleWrapperLocation(centeredPointInWrapper) {
-            var point = sceneView.convert(centeredPointInWrapper, from: wrapper)
-            point.x -= sceneView.bounds.width / 2.0
-            point.y -= sceneView.bounds.height / 2.0
-            let clipCenterPoint = sceneClipView.convert(point, from: sceneView)
-            sceneClipView.animator().setBoundsOrigin(clipCenterPoint)
+            var centeredPoint = sceneView.convert(centeredPointInWrapper, from: wrapper)
+            centeredPoint.x -= sceneView.bounds.width / 2.0
+            centeredPoint.y -= sceneView.bounds.height / 2.0
+            let clipCenteredPoint = sceneClipView.convert(centeredPoint, from: sceneView)
+            sceneClipView.animator().setBoundsOrigin(clipCenteredPoint)
         }
     }
     

@@ -12,24 +12,8 @@ import CoreImage
 class SceneScrollView: NSScrollView {
     
     
-    // MARK: - Tracking
-    
-    public weak var trackingDelegate: SceneTracking!
-    private var trackingArea: NSTrackingArea?
-    private var trackingCoordinate = PixelCoordinate.null
-    
-    public var enableForceTouch: Bool = false
-    public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
-        didSet { reloadSceneBackground() }
-    }
-    public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
-        didSet { reloadSceneRulers() }
-    }
-    private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
-    private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
-    
-    
     // MARK: - Wrapper Shortcuts
+    
     private var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
     public var wrapperBounds: CGRect { wrapper.bounds }
     public var wrapperVisibleRect: CGRect { wrapper.visibleRect }
@@ -104,6 +88,11 @@ class SceneScrollView: NSScrollView {
         return PixelCoordinate(point)
     }
     
+    
+    // MARK: - Interface Builder
+    
+    override var isFlipped: Bool { true }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -147,55 +136,29 @@ class SceneScrollView: NSScrollView {
         }
     }
     
-    private lazy var checkerboardImage: NSImage = {
-        let filter = CIFilter(name: "CICheckerboardGenerator")!
-        
-        let ciCount: Int    = 8
-        let ciSize : CGSize = CGSize(width: 80.0, height: 80.0)
-        let aSize  : CGSize = CGSize(width: ciSize.width * CGFloat(ciCount), height: ciSize.height * CGFloat(ciCount))
-        
-        let ciWidth    = NSNumber(value: Double(ciSize.width))
-        let ciCenter   = CIVector(cgPoint: .zero)
-        let darkColor  = CIColor.init(cgColor: CGColor.init(gray: 0xCC / 0xFF, alpha: 0.6))
-        let lightColor = CIColor.clear
-        let sharpness  = NSNumber(value: 1.0)
-        
-        filter.setDefaults()
-        filter.setValue(ciWidth, forKey: "inputWidth")
-        filter.setValue(ciCenter, forKey: "inputCenter")
-        filter.setValue(darkColor, forKey: "inputColor0")
-        filter.setValue(lightColor, forKey: "inputColor1")
-        filter.setValue(sharpness, forKey: "inputSharpness")
-        
-        let context = CIContext(options: nil)
-        let cgImage = context.createCGImage(filter.outputImage!, from: CGRect(origin: .zero, size: aSize))
-        
-        return NSImage(cgImage: cgImage!, size: ciSize)
-    }()
+    public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
+        didSet { reloadSceneBackground() }
+    }
+    public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
+        didSet { reloadSceneRulers() }
+    }
     
     private func reloadSceneRulers() { rulersVisible = drawRulersInScene }
     private func reloadSceneBackground() {
         if drawSceneBackground {
-            backgroundColor = NSColor.init(patternImage: checkerboardImage)
+            backgroundColor = NSColor.init(patternImage: SceneScrollView.checkerboardImage)
         }
         else {
             backgroundColor = NSColor.controlBackgroundColor
         }
     }
     
-    private func createTrackingArea() {
-        let trackingArea = NSTrackingArea.init(rect: visibleRectExcludingRulers, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
-        addTrackingArea(trackingArea)
-        self.trackingArea = trackingArea
-    }
     
-    override func updateTrackingAreas() {
-        if let trackingArea = trackingArea {
-            removeTrackingArea(trackingArea)
-        }
-        createTrackingArea()
-        super.updateTrackingAreas()
-    }
+    // MARK: - Events
+    
+    public var enableForceTouch: Bool = false
+    private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
+    private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
     
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
@@ -491,7 +454,6 @@ class SceneScrollView: NSScrollView {
     }
     
     override func magnify(with event: NSEvent) {
-        // FIX: weird behavior in AppKit
         let currentLocation = wrapper.convert(event.locationInWindow, from: nil)
         guard wrapperBounds.contains(currentLocation) else { return }
         
@@ -507,7 +469,6 @@ class SceneScrollView: NSScrollView {
     }
     
     override func smartMagnify(with event: NSEvent) {
-        // FIX: weird behavior in AppKit
         let currentLocation = wrapper.convert(event.locationInWindow, from: nil)
         guard wrapperBounds.contains(currentLocation) else { return }
         
@@ -527,10 +488,31 @@ class SceneScrollView: NSScrollView {
         let rect = wrapperVisibleRect
         if rect.isEmpty {
             // FIX: weird behavior in AppKit
-            guard Thread.callStackSymbols.first(where: { $0.contains("magnifyWithEvent:") }) == nil else { return }
+            guard Thread.callStackSymbols.first(where: { $0.contains("magnifyWithEvent:") || $0.contains("runAnimationGroup:") }) == nil else { return }
         }
         trackingDelegate.trackVisibleRectChanged(self, to: rect, of: magnification)
         super.reflectScrolledClipView(clipView)
+    }
+    
+    
+    // MARK: - Event Tracking
+    
+    public weak var trackingDelegate: SceneTracking!
+    private var trackingArea: NSTrackingArea?
+    private var trackingCoordinate = PixelCoordinate.null
+    
+    private func createTrackingArea() {
+        let trackingArea = NSTrackingArea.init(rect: visibleRectExcludingRulers, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        addTrackingArea(trackingArea)
+        self.trackingArea = trackingArea
+    }
+    
+    override func updateTrackingAreas() {
+        if let trackingArea = trackingArea {
+            removeTrackingArea(trackingArea)
+        }
+        createTrackingArea()
+        super.updateTrackingAreas()
     }
     
     private func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
@@ -639,3 +621,32 @@ class SceneScrollView: NSScrollView {
     }
     
 }
+
+extension SceneScrollView {
+    private static var checkerboardImage: NSImage = {
+        let filter = CIFilter(name: "CICheckerboardGenerator")!
+        
+        let ciCount: Int    = 8
+        let ciSize : CGSize = CGSize(width: 80.0, height: 80.0)
+        let aSize  : CGSize = CGSize(width: ciSize.width * CGFloat(ciCount), height: ciSize.height * CGFloat(ciCount))
+        
+        let ciWidth    = NSNumber(value: Double(ciSize.width))
+        let ciCenter   = CIVector(cgPoint: .zero)
+        let darkColor  = CIColor.init(cgColor: CGColor.init(gray: 0xCC / 0xFF, alpha: 0.6))
+        let lightColor = CIColor.clear
+        let sharpness  = NSNumber(value: 1.0)
+        
+        filter.setDefaults()
+        filter.setValue(ciWidth, forKey: "inputWidth")
+        filter.setValue(ciCenter, forKey: "inputCenter")
+        filter.setValue(darkColor, forKey: "inputColor0")
+        filter.setValue(lightColor, forKey: "inputColor1")
+        filter.setValue(sharpness, forKey: "inputSharpness")
+        
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(filter.outputImage!, from: CGRect(origin: .zero, size: aSize))
+        
+        return NSImage(cgImage: cgImage!, size: ciSize)
+    }()
+}
+

@@ -152,6 +152,8 @@
 		D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62834EE23F8E9DB0016573B /* LuaSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D628350D23F8EAAA0016573B /* LuaC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61047E624224B9C0002E990 /* SUUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SUUpdater.m */; };
+		D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
+		D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */; };
 		D62693632429F3EE00463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D62693652429F4C500463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -674,6 +676,7 @@
 		D61047E524224B9C0002E990 /* SUUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SUUpdater.m; sourceTree = "<group>"; };
 		D61047E724224CB10002E990 /* JSTColorPickerSparkle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPickerSparkle-Bridging-Header.h"; sourceTree = "<group>"; };
 		D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerSparkle.entitlements; sourceTree = "<group>"; };
+		D61336B324A99FED006263E5 /* RulerViewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerViewClient.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneOverlayView.swift; sourceTree = "<group>"; };
 		D626936C242A5BF100463E36 /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusb-1.0.a"; sourceTree = "<group>"; };
 		D626936F242A5BFC00463E36 /* libusb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libusb.h; sourceTree = "<group>"; };
@@ -2304,6 +2307,7 @@
 			children = (
 				D60A690F23F2C89200ED9748 /* RulerView.swift */,
 				D60A691123F2CDBA00ED9748 /* RulerMarker.swift */,
+				D61336B324A99FED006263E5 /* RulerViewClient.swift */,
 			);
 			path = Ruler;
 			sourceTree = "<group>";
@@ -2943,6 +2947,7 @@
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
+				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
 				D610479324224A170002E990 /* Cocoa+Ext.swift in Sources */,
 				D610479424224A170002E990 /* ImageOverlay.swift in Sources */,
 				D610479524224A170002E990 /* GridView.swift in Sources */,
@@ -3185,6 +3190,7 @@
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
+				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,
 				D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */,
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,

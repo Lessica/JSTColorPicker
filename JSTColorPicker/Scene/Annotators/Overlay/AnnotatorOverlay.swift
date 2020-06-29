@@ -12,7 +12,7 @@ class AnnotatorOverlay: EditableOverlay {
     
     public static let fixedOverlayOffset         = CGPoint(x: -12.0, y: -12.0)
     public static let fixedOverlaySize           = CGSize(width: 24.0, height: 24.0)
-    public static let minimumBorderedOverlaySize = CGSize(width: 32.0, height: 32.0)
+    public static let minimumBorderedOverlaySize = CGSize(width: 16.0, height: 16.0)
     
     public var isFixedOverlay: Bool = true
     public var label: String {

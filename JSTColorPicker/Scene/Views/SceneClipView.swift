@@ -14,6 +14,8 @@ import Cocoa
 */
 class SceneClipView: NSClipView {
     
+    override var isFlipped: Bool { true }
+    
     override func constrainBoundsRect(_ proposedBounds: NSRect) -> NSRect {
         guard let documentView = documentView else { return super.constrainBoundsRect(proposedBounds) }
  

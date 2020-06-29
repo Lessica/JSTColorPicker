@@ -64,6 +64,10 @@ class EditableOverlay: Overlay {
     
     private static let defaultCircleRadius     : CGFloat = 4.67
     private static let defaultCircleBorderWidth: CGFloat = 1.67
+    private static let minimumSizeForMiddleCircle = CGSize(
+        width: (defaultCircleRadius + defaultCircleBorderWidth) * 6.0,
+        height: (defaultCircleRadius + defaultCircleBorderWidth) * 6.0
+    )
     
     public var circleFillColorNormal                         : CGColor?
     public var circleFillColorHighlighted                    : CGColor?
@@ -91,10 +95,10 @@ class EditableOverlay: Overlay {
         else if CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomRight }
         else if CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: edgeRadius).contains(point) { return .topRight }
         else if CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: edgeRadius).contains(point) { return .topLeft }
-        else if drawBounds.width > 16.0  && CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomMiddle }
-        else if drawBounds.width > 16.0  && CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: edgeRadius).contains(point) { return .topMiddle }
-        else if drawBounds.height > 16.0 && CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: edgeRadius).contains(point) { return .middleLeft }
-        else if drawBounds.height > 16.0 && CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: edgeRadius).contains(point) { return .middleRight }
+             else if drawBounds.width  > EditableOverlay.minimumSizeForMiddleCircle.width  && CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomMiddle }
+             else if drawBounds.width  > EditableOverlay.minimumSizeForMiddleCircle.width  && CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: edgeRadius).contains(point) { return .topMiddle    }
+             else if drawBounds.height > EditableOverlay.minimumSizeForMiddleCircle.height && CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: edgeRadius).contains(point) { return .middleLeft   }
+             else if drawBounds.height > EditableOverlay.minimumSizeForMiddleCircle.height && CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: edgeRadius).contains(point) { return .middleRight  }
         return .none
     }
     
@@ -105,13 +109,13 @@ class EditableOverlay: Overlay {
             CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
             CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
         ]
-        if drawBounds.width > 16.0 {
+        if drawBounds.width > EditableOverlay.minimumSizeForMiddleCircle.width {
             rects.append(contentsOf: [
                 CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.minY), radius: EditableOverlay.defaultCircleRadius),
                 CGRect(at: CGPoint(x: drawBounds.midX, y: drawBounds.maxY), radius: EditableOverlay.defaultCircleRadius),
             ])
         }
-        if drawBounds.height > 16.0 {
+        if drawBounds.height > EditableOverlay.minimumSizeForMiddleCircle.height {
             rects.append(contentsOf: [
                 CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.midY), radius: EditableOverlay.defaultCircleRadius),
                 CGRect(at: CGPoint(x: drawBounds.maxX, y: drawBounds.midY), radius: EditableOverlay.defaultCircleRadius),
