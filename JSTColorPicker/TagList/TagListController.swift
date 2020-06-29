@@ -34,12 +34,12 @@ class TagListController: NSViewController {
     public weak var importItemSource  : TagImportSource?
     public weak var sceneToolSource   : SceneToolSource!
     {
-        get { return tableViewOverlay.sceneToolSource }
+        get { tableViewOverlay.sceneToolSource }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
     
-    @IBOutlet var internalContext             : NSManagedObjectContext!
-    @IBOutlet var internalController          : TagController!
+    @IBOutlet var internalContext             : NSManagedObjectContext!  // FIXME: move to a shared space
+    @IBOutlet var internalController          : TagController!           // FIXME: move to a shared space
     @IBOutlet var tagMenu                     : NSMenu!
     @IBOutlet var alertTextView               : AlertTextView!
     @IBOutlet weak var loadingErrorLabel      : NSTextField!

@@ -103,42 +103,42 @@ public extension UserDefaults {
 public extension UserDefaults {
 
     subscript<T>(key: Key) -> T? {
-        get { return value(forKey: key) }
+        get { value(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> SystemColor? {
-        get { return color(forKey: key) }
+        get { color(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> URL? {
-        get { return url(forKey: key) }
+        get { url(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> Bool {
-        get { return bool(forKey: key) }
+        get { bool(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> Int {
-        get { return integer(forKey: key) }
+        get { integer(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> Double {
-        get { return double(forKey: key) }
+        get { double(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> Float {
-        get { return float(forKey: key) }
+        get { float(forKey: key) }
         set { set(newValue, forKey: key) }
     }
 
     subscript(key: Key) -> CGFloat {
-        get { return CGFloat(float(forKey: key) as Float) }
+        get { CGFloat(float(forKey: key) as Float) }
         set { set(newValue, forKey: key) }
     }
 

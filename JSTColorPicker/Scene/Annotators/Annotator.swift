@@ -15,17 +15,17 @@ class Annotator {
     public var rulerMarkers: [RulerMarker] = []
     
     public var isEditable: Bool {
-        get { return overlay.isEditable }
+        get { overlay.isEditable }
         set { overlay.isEditable = newValue }
     }
     
     public var isFixedAnnotator: Bool {
-        get { return overlay.isFixedOverlay }
+        get { overlay.isFixedOverlay }
         set { overlay.isFixedOverlay = newValue }
     }
     
     public var isSelected: Bool {
-        get { return overlay.isSelected }
+        get { overlay.isSelected }
         set { overlay.isSelected = newValue }
     }
     

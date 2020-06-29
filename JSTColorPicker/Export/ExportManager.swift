@@ -44,7 +44,7 @@ class ExportManager {
         templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
     }
     public var selectedTemplateUUID: UUID? {
-        get { return UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
+        get { UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
         set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
     
