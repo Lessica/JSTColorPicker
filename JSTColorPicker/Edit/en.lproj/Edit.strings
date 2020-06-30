@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "1Y2-lj-x3S"; */
+"1Y2-lj-x3S.title" = "OK";
+
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2bH-EZ-CHg"; */
 "2bH-EZ-CHg.title" = "Cancel";
 
@@ -12,6 +15,9 @@
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
 "7qb-5Y-1eO.title" = "Cancel";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "8MM-oB-27f"; */
+"8MM-oB-27f.title" = "Cancel";
 
 /* Class = "NSBox"; title = "Preview"; ObjectID = "A6n-Ur-CSs"; */
 "A6n-Ur-CSs.title" = "Preview";

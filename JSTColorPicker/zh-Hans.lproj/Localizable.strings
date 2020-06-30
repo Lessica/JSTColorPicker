@@ -162,7 +162,7 @@
 "No tag attached" = "未关联标签";
 
 /* Import Confirm */
-"No tag to import" = "当前文档中的所有标签业已关联到数据库, 无标签可供关联";
+"No tag to import" = "当前文档中的所有标签业已关联到数据库, 无标签可供关联.";
 
 /* ExportError */
 "No template selected." = "未选择模板.";

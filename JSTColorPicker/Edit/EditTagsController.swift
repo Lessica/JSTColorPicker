@@ -10,6 +10,14 @@ import Cocoa
 
 class EditTagsController: NSViewController {
     
+    @IBOutlet weak var box          : NSBox!
+    
+    @IBOutlet weak var cancelBtn    : NSButton!
+    @IBOutlet weak var okBtn        : NSButton!
+    
+    @IBOutlet weak var touchBarCancelBtn    : NSButton!
+    @IBOutlet weak var touchBarOkBtn        : NSButton!
+    
     public var tagListController: TagListController! {
         return children.first as? TagListController
     }

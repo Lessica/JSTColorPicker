@@ -492,7 +492,6 @@ DQ
                                             <viewController key="viewController" id="MRn-Tl-HjN">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brr-9e-o8c">
                                                     <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qOP-7N-d4C">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -508,7 +507,6 @@ DQ
                                             <viewController key="viewController" id="uAb-QH-zEZ">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-OI-P6R">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bH-EZ-CHg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -526,7 +524,6 @@ Gw
                                             <viewController key="viewController" id="bhG-LL-hTB">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -860,7 +857,6 @@ DQ
                                             <viewController key="viewController" id="zQr-8E-w2R">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
                                                     <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Y-BF-gov">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -876,7 +872,6 @@ DQ
                                             <viewController key="viewController" id="hxk-yj-Kge">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qb-5Y-1eO">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -894,7 +889,6 @@ Gw
                                             <viewController key="viewController" id="iZJ-RX-uL0">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1058,6 +1052,57 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="ds2-Bt-PfN" secondAttribute="bottom" constant="20" symbolic="YES" id="l9m-2L-iTA"/>
                         </constraints>
                     </view>
+                    <touchBar key="touchBar" principalItem="7cA-Bg-fJZ" id="U3Q-cV-bGd">
+                        <touchBarItems>
+                            <touchBarGroupItem id="7cA-Bg-fJZ">
+                                <touchBar key="groupTouchBar" id="p4M-0D-qGb">
+                                    <touchBarItems>
+                                        <touchBarItem id="Vf1-XX-7CX">
+                                            <viewController key="viewController" id="4Jl-H1-bUW">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ja7-8E-0Gh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8MM-oB-27f">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="cancelAction:" target="Rd9-dN-dGl" id="pV4-D4-X5Q"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarItem id="KRw-0b-TlX">
+                                            <viewController key="viewController" id="OQs-BK-zVg">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-DR-AkT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Y2-lj-x3S">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="okAction:" target="Rd9-dN-dGl" id="vgb-mD-bLF"/>
+                                                    </connections>
+                                                </button>
+                                            </viewController>
+                                        </touchBarItem>
+                                    </touchBarItems>
+                                </touchBar>
+                            </touchBarGroupItem>
+                        </touchBarItems>
+                    </touchBar>
+                    <connections>
+                        <outlet property="box" destination="ghs-AJ-eau" id="LgQ-hF-pye"/>
+                        <outlet property="cancelBtn" destination="gfT-mT-vtw" id="vzb-gb-NB6"/>
+                        <outlet property="okBtn" destination="5xk-6u-RC8" id="CQ8-f6-bKs"/>
+                        <outlet property="touchBarCancelBtn" destination="ja7-8E-0Gh" id="u40-NM-gFI"/>
+                        <outlet property="touchBarOkBtn" destination="KsN-DR-AkT" id="LKU-P9-cE3"/>
+                    </connections>
                 </viewController>
                 <customObject id="xaF-Iv-0oB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
