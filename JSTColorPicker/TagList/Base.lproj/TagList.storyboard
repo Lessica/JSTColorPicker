@@ -32,7 +32,7 @@
                                                                 <constraint firstAttribute="height" constant="22" id="BJk-Wg-z1n"/>
                                                             </constraints>
                                                             <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" borderStyle="bezel" focusRingType="none" placeholderString="Tags" usesSingleLineMode="YES" bezelStyle="round" recentsAutosaveName="TagSearch" id="P0n-tt-x07">
-                                                                <font key="font" metaFont="message" size="11"/>
+                                                                <font key="font" metaFont="menu" size="11"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </searchFieldCell>
@@ -63,7 +63,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="20" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="269" height="537"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="302" height="537"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -101,6 +101,36 @@
                                                                                     </tableCellView>
                                                                                 </prototypeCellViews>
                                                                             </tableColumn>
+                                                                            <tableColumn identifier="col-checked" editable="NO" width="30" minWidth="30" maxWidth="30" id="3f6-yQ-zUB">
+                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Checked">
+                                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </tableHeaderCell>
+                                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" enabled="NO" alignment="left" title="Text Cell" id="lkm-tq-To5">
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <prototypeCellViews>
+                                                                                    <tableCellView id="6rS-aE-9Be" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                                        <rect key="frame" x="34" y="1" width="30" height="17"/>
+                                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                        <subviews>
+                                                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gcf-2X-IFc">
+                                                                                                <rect key="frame" x="6" y="-1" width="18" height="18"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" allowsMixedState="YES" inset="2" id="G3l-16-GYx">
+                                                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                </buttonCell>
+                                                                                            </button>
+                                                                                        </subviews>
+                                                                                        <connections>
+                                                                                            <outlet property="checkbox" destination="Gcf-2X-IFc" id="7wH-rB-84m"/>
+                                                                                        </connections>
+                                                                                    </tableCellView>
+                                                                                </prototypeCellViews>
+                                                                            </tableColumn>
                                                                             <tableColumn identifier="col-name" editable="NO" width="233" minWidth="40" maxWidth="1000" id="7mA-Qd-o8i">
                                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Name">
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -114,7 +144,7 @@
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="yGX-y2-tND" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="34" y="1" width="233" height="17"/>
+                                                                                        <rect key="frame" x="67" y="1" width="233" height="17"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
@@ -169,7 +199,7 @@
                                                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
                                                             <rect key="frame" x="53" y="263" width="132" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" focusRingType="none" alignment="center" title="Loading tag database..." drawsBackground="YES" usesSingleLineMode="YES" id="gqF-EC-Oma">
-                                                                <font key="font" metaFont="message" size="11"/>
+                                                                <font key="font" metaFont="menu" size="11"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -205,7 +235,7 @@
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="importTagBtnTapped:" target="ifY-36-Ao8" id="0XS-qC-k4z"/>
@@ -230,7 +260,7 @@
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="cqv-pr-Ki0">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="insertTagBtnTapped:" target="ifY-36-Ao8" id="t3z-cE-CFA"/>
@@ -244,7 +274,7 @@
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="yEd-Uj-rgg">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="removeTagBtnTapped:" target="ifY-36-Ao8" id="V9Q-oJ-ad2"/>
@@ -323,6 +353,11 @@
                         <outlet property="scrollView" destination="sPi-cH-fIS" id="ctB-Ve-sLc"/>
                         <outlet property="searchField" destination="57S-WH-dXZ" id="3gV-ce-AKd"/>
                         <outlet property="tableActionCustomView" destination="QuS-we-HDF" id="qRd-Lu-N7B"/>
+                        <outlet property="tableColumnChecked" destination="3f6-yQ-zUB" id="and-5p-6d8"/>
+                        <outlet property="tableColumnFlags" destination="XC9-Lg-cBA" id="YbE-GF-vud"/>
+                        <outlet property="tableColumnName" destination="7mA-Qd-o8i" id="ohy-93-y8O"/>
+                        <outlet property="tableContentCustomView" destination="qAb-om-glU" id="ikZ-XG-PpV"/>
+                        <outlet property="tableSearchCustomView" destination="K6j-Zr-Q1x" id="Asd-ZK-mYj"/>
                         <outlet property="tableView" destination="rNA-mn-1hm" id="mNb-rm-Yep"/>
                         <outlet property="tableViewOverlay" destination="CoQ-3m-17h" id="NHD-41-WHI"/>
                         <outlet property="tagMenu" destination="ftf-wG-U6b" id="MUB-xx-Pyk"/>

@@ -40,8 +40,8 @@
 /* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "d7Y-BF-gov"; */
 "d7Y-BF-gov.title" = "隐藏预览";
 
-/* Class = "NSBox"; title = "Edit Tags"; ObjectID = "ghs-AJ-eau"; */
-"ghs-AJ-eau.title" = "修改标签";
+/* Class = "NSBox"; title = "Choose Tags"; ObjectID = "ghs-AJ-eau"; */
+"ghs-AJ-eau.title" = "选择标签";
 
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "原点 X: ";

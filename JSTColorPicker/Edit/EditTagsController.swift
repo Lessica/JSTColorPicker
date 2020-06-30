@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditTagsController: NSViewController {
+class EditTagsController: EditViewController {
     
     @IBOutlet weak var box          : NSBox!
     
@@ -48,6 +48,16 @@ class EditTagsController: NSViewController {
 }
 
 extension EditTagsController: TagListEmbedDelegate {
+    
+    func stateOfTag(of name: String) -> NSControl.StateValue {
+        guard let contentItems = contentItems else { return .off }
+        let matchesCount = contentItems
+            .lazy
+            .filter({ $0.tags.contains(name) })
+            .count
+        guard matchesCount > 0 else { return .off }
+        return matchesCount == contentItems.count ? .on : .mixed
+    }
     
 }
 

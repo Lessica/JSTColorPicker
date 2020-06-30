@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "36l-Jz-ijV"; */
 "36l-Jz-ijV.title" = "Table View Cell";
 
+/* Class = "NSTableColumn"; headerCell.title = "Checked"; ObjectID = "3f6-yQ-zUB"; */
+"3f6-yQ-zUB.headerCell.title" = "Checked";
+
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "7mA-Qd-o8i"; */
 "7mA-Qd-o8i.headerCell.title" = "Name";
 
@@ -24,6 +27,9 @@
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "Jns-u7-V7q"; */
 "Jns-u7-V7q.title" = "Delete";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "lkm-tq-To5"; */
+"lkm-tq-To5.title" = "Text Cell";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Import tags from document"; ObjectID = "LsJ-yu-RS8"; */
 "LsJ-yu-RS8.ibShadowedToolTip" = "Import tags from document";

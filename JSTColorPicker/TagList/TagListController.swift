@@ -9,8 +9,9 @@
 import Cocoa
 
 extension NSUserInterfaceItemIdentifier {
-    static let columnFlags = NSUserInterfaceItemIdentifier("col-flags")
-    static let columnName  = NSUserInterfaceItemIdentifier("col-name")
+    static let columnFlags      = NSUserInterfaceItemIdentifier("col-flags")
+    static let columnChecked    = NSUserInterfaceItemIdentifier("col-checked")
+    static let columnName       = NSUserInterfaceItemIdentifier("col-name")
 }
 
 enum TagListHighlightMode {
@@ -47,7 +48,14 @@ class TagListController: NSViewController {
     @IBOutlet weak var scrollView             : NSScrollView!
     @IBOutlet weak var tableView              : TagListTableView!
     @IBOutlet weak var tableViewOverlay       : TagListOverlayView!
+    
     @IBOutlet weak var tableActionCustomView  : NSView!
+    @IBOutlet weak var tableSearchCustomView  : NSView!
+    @IBOutlet weak var tableContentCustomView : NSView!
+    
+    @IBOutlet weak var tableColumnFlags       : NSTableColumn!
+    @IBOutlet weak var tableColumnChecked     : NSTableColumn!
+    @IBOutlet weak var tableColumnName        : NSTableColumn!
     
     private var willUndoToken: NotificationToken?
     private var willRedoToken: NotificationToken?
@@ -67,6 +75,8 @@ class TagListController: NSViewController {
     private func reloadEmbeddedState(_ state: Bool) {
         tableView.isEmbeddedMode       = isEmbeddedMode
         tableActionCustomView.isHidden = isEmbeddedMode
+        tableColumnFlags.isHidden      = isEmbeddedMode
+        tableColumnChecked.isHidden    = !isEmbeddedMode
         internalController.isEditable  = state ? !isEmbeddedMode : false
         searchField.isEnabled          = state
         tableView.isEnabled            = state
@@ -532,22 +542,32 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? TagCellView {
             let col = tableColumn.identifier
             if col == .columnFlags {
-                guard highlightMode != .none else {
+                if highlightMode == .none {
                     cell.text = "-"
-                    return cell
                 }
-                if let tagCount = highlightContext?[arrangedTags[row].name] {
-                    if highlightMode == .multiple {
-                        cell.text = String(tagCount)
+                else {
+                    let tagName = arrangedTags[row].name
+                    if let tagCount = highlightContext?[tagName] {
+                        if highlightMode == .multiple {
+                            cell.text = String(tagCount)
+                        }
+                        else if highlightMode == .single {
+                            cell.text = "\u{25CF}"
+                        }
+                    } else {
+                        cell.text = ""
                     }
-                    else if highlightMode == .single {
-                        cell.text = "\u{25CF}"
-                    }
-                } else {
-                    cell.text = ""
                 }
             }
-            cell.textField?.isEditable = !isEmbeddedMode
+            else if col == .columnChecked,
+                let embeddedDelegate = embeddedDelegate
+            {
+                let tagName = arrangedTags[row].name
+                cell.state = embeddedDelegate.stateOfTag(of: tagName)
+            }
+            else if col == .columnName {
+                cell.isEditable = !isEmbeddedMode
+            }
             return cell
         }
         return nil
