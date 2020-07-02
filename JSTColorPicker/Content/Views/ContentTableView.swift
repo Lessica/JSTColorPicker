@@ -17,6 +17,15 @@ class ContentTableView: NSTableView {
     
     public weak var tableViewResponder: ContentTableViewResponder!
     
+    private var hasAttachedSheet: Bool {
+        return window?.attachedSheet != nil
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        guard !hasAttachedSheet else { return nil }
+        return super.menu(for: event)
+    }
+    
     override func keyDown(with event: NSEvent) {
         guard let specialKey = event.specialKey else {
             super.keyDown(with: event)

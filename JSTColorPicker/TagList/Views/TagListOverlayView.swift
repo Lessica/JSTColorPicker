@@ -35,6 +35,10 @@ class TagListOverlayView: NSView, DragEndpoint {
     private static let focusLineWidth: CGFloat = 2.0
     private static let focusLineColor = NSColor(white: 1.0, alpha: 1.0)
     
+    private var hasAttachedSheet: Bool {
+        return window?.attachedSheet != nil
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = true
@@ -43,7 +47,8 @@ class TagListOverlayView: NSView, DragEndpoint {
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        guard dragDelegate.shouldPerformDragging
+        guard !hasAttachedSheet
+            && dragDelegate.shouldPerformDragging
             && sceneTool == .selectionArrow
             && sceneToolSource.sceneToolEnabled
             else

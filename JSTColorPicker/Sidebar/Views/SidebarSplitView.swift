@@ -10,4 +10,13 @@ import Cocoa
 
 class SidebarSplitView: NSSplitView {
     
+    private var hasAttachedSheet: Bool {
+        return window?.attachedSheet != nil
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        guard !hasAttachedSheet else { return nil }
+        return super.menu(for: event)
+    }
+    
 }

@@ -12,8 +12,14 @@ class TagListTableView: NSTableView {
     
     public var isEmbeddedMode: Bool = false
     
+    private var hasAttachedSheet: Bool {
+        return window?.attachedSheet != nil
+    }
+    
     override func menu(for event: NSEvent) -> NSMenu? {
-        if isEmbeddedMode { return nil }
+        if hasAttachedSheet
+            || isEmbeddedMode
+        { return nil }
         return super.menu(for: event)
     }
 

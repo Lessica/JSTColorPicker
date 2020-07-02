@@ -73,16 +73,18 @@ class TagListController: NSViewController {
     }
     
     private func reloadEmbeddedState(_ state: Bool) {
-        tableView.isEmbeddedMode       = isEmbeddedMode
-        tableActionCustomView.isHidden = isEmbeddedMode
-        tableColumnFlags.isHidden      = isEmbeddedMode
-        tableColumnChecked.isHidden    = !isEmbeddedMode
-        internalController.isEditable  = state ? !isEmbeddedMode : false
-        searchField.isEnabled          = state
-        tableView.isEnabled            = state
-        tableView.isHidden             = !state
-        loadingErrorLabel.isHidden     = state
-        loadingErrorLabel.stringValue  = state ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
+        tableView.isEmbeddedMode            = isEmbeddedMode
+        tableActionCustomView.isHidden      = isEmbeddedMode
+        tableColumnFlags.isHidden           = isEmbeddedMode
+        tableColumnChecked.isHidden         = !isEmbeddedMode
+        internalController.isEditable       = state ? !isEmbeddedMode : false
+        searchField.isEnabled               = state
+        tableView.isEnabled                 = state
+        tableView.isHidden                  = !state
+        tableView.allowsMultipleSelection   = !isEmbeddedMode
+        tableView.gridStyleMask             = isEmbeddedMode ? [] : [.solidVerticalGridLineMask]
+        loadingErrorLabel.isHidden          = state
+        loadingErrorLabel.stringValue       = state ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
     }
     
     override func viewDidLoad() {
