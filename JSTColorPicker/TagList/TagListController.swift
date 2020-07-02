@@ -275,7 +275,9 @@ class TagListController: NSViewController {
         guard importConfirmForTags(missingNames) else { return }
         
         do {
-            let lastOrder = arrangedTags.last?.order ?? 0
+            
+            let lastOrder = Int(arrangedTags.last?.order ?? 0)
+            let lastRowIndex = tableView.numberOfRows - 1
             
             var idx = lastOrder
             missingNames.forEach { (tagName) in
@@ -286,7 +288,17 @@ class TagListController: NSViewController {
                 idx += 1
             }
             
+            let addedRowIndexes = IndexSet(integersIn: (lastRowIndex + 1)...(lastRowIndex + idx - lastOrder))
+            tableView.insertRows(at: addedRowIndexes)  // make sure that these stubs are inserted
+            
             try self.internalContext.save()
+            
+            if let lastAddedRowIndex = addedRowIndexes.last {
+                tableView.selectRowIndexes(addedRowIndexes, byExtendingSelection: false)
+                tableView.scrollRowToVisible(lastAddedRowIndex)
+                makeFirstResponder(tableView)
+            }
+            
         } catch {
             presentError(error)
         }

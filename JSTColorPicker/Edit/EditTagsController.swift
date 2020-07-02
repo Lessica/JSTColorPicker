@@ -21,8 +21,9 @@ class EditTagsController: EditViewController {
     public var tagListController: TagListController! {
         return children.first as? TagListController
     }
-
-    private var tagStates: [String: NSControl.StateValue] = [:]
+    
+    private var cachedTagNames: [String] = []
+    private var cachedTagStates: [String: NSControl.StateValue] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +50,13 @@ class EditTagsController: EditViewController {
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
             
-            let onTagNames = Set(
-                tagStates
-                    .filter({ $0.value == .on })
-                    .map({ $0.key })
-            )
+            let onTagNames =
+                cachedTagNames
+                    .filter({ cachedTagStates[$0] == .on })
+            
             let offTagNames = Set(
-                tagStates
-                    .filter({ $0.value == .off })
-                    .map({ $0.key })
+                cachedTagNames
+                    .filter({ cachedTagStates[$0] == .off })
             )
             
             if let origItems = contentItems {
@@ -89,11 +88,12 @@ class EditTagsController: EditViewController {
 extension EditTagsController: TagListEmbedDelegate {
     
     func embedState(of name: String) -> NSControl.StateValue {
-        if let cachedState = tagStates[name] {
+        if let cachedState = cachedTagStates[name] {
             return cachedState
         }
         let newState = internalStateOfTag(of: name)
-        tagStates[name] = newState
+        cachedTagNames.append(name)
+        cachedTagStates[name] = newState
         return newState
     }
     
@@ -108,10 +108,10 @@ extension EditTagsController: TagListEmbedDelegate {
     }
     
     func embedStateChanged(of name: String, to state: NSControl.StateValue) {
-        tagStates[name] = state
+        cachedTagStates[name] = state
         okBtn.isEnabled = true
         touchBarOkBtn.isEnabled = true
-        debugPrint(tagStates)
+        debugPrint(cachedTagStates)
     }
     
 }
