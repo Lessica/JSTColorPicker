@@ -92,6 +92,7 @@ class TagListController: NSViewController {
         
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
+        tableViewOverlay.tableRowHeight = tableView.rowHeight
         
         internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
@@ -468,7 +469,23 @@ extension TagListController: TagListDragDelegate {
         return indexes
     }
     
-    func visibleRects(of rowIndexes: IndexSet) -> [CGRect] { rowIndexes.map({ scrollView.convert(tableView.rect(ofRow: $0), from: tableView) }) }
+    func visibleRects(of rowIndexes: IndexSet) -> [CGRect] {
+        var rects = [CGRect]()
+        var prevRect: CGRect = .null
+        for rowIndex in rowIndexes {
+            let rect = tableView.rect(ofRow: rowIndex)
+            if !rect.offsetBy(dx: 0.0, dy: -0.1)
+                .intersects(prevRect)
+            {
+                if !prevRect.isNull { rects.append(prevRect) }
+                prevRect = rect
+            } else {
+                prevRect = prevRect.union(rect)
+            }
+        }
+        if !prevRect.isNull { rects.append(prevRect) }
+        return rects.map({ scrollView.convert($0, from: tableView) })
+    }
     
 }
 

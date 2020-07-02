@@ -30,6 +30,7 @@ class TagListOverlayView: NSView, DragEndpoint {
     public weak var sceneToolSource: SceneToolSource!
     private var sceneTool: SceneTool { return sceneToolSource!.sceneTool }
     
+    public var tableRowHeight: CGFloat = 16.0
     private var highlightedRects: [CGRect]?
     
     private static let focusLineWidth: CGFloat = 2.0
@@ -86,15 +87,25 @@ class TagListOverlayView: NSView, DragEndpoint {
         
         ctx.setLineWidth(TagListOverlayView.focusLineWidth)
         ctx.setStrokeColor(TagListOverlayView.focusLineColor.cgColor)
-        rects
-            .filter({ dirtyRect.intersects($0) })
-            .forEach({
-                ctx.addRect($0
-                    .intersection(dirtyRect)
+        
+        let outerRect = dirtyRect
+            .insetBy(dx: 0.0, dy: 0.5)
+            .offsetBy(dx: 0.0, dy: 0.5)
+        for rect in rects.filter({ outerRect.intersects($0) }) {
+            let innerRect = rect.intersection(outerRect)
+            if innerRect.height > tableRowHeight + 2.0 {
+                ctx.addRect(innerRect
                     .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
                     .offsetBy(dx: 0.0, dy: -0.5)
                 )
-            })
+            } else {
+                ctx.addRect(rect
+                    .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
+                    .offsetBy(dx: 0.0, dy: -0.5)
+                )
+            }
+        }
+        
         ctx.strokePath()
     }
     
