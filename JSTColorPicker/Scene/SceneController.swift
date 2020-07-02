@@ -1104,6 +1104,10 @@ extension SceneController: ContentDelegate {
         return try contentDelegate.updateContentItem(item)
     }
     
+    func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
+        return try contentDelegate.updateContentItems(items)
+    }
+    
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
         return try contentDelegate.selectContentItem(item, byExtendingSelection: extend)
     }

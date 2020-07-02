@@ -123,6 +123,9 @@
                                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                     <font key="font" metaFont="system"/>
                                                                                                 </buttonCell>
+                                                                                                <connections>
+                                                                                                    <action selector="checkedButtonAction:" target="ifY-36-Ao8" id="moi-I9-iZg"/>
+                                                                                                </connections>
                                                                                             </button>
                                                                                         </subviews>
                                                                                         <connections>

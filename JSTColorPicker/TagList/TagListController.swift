@@ -391,6 +391,13 @@ class TagListController: NSViewController {
     
     @IBAction func tableViewDoubleAction(_ sender: TagListTableView) { }
     
+    @IBAction func checkedButtonAction(_ sender: NSButton) {
+        if sender.allowsMixedState { sender.allowsMixedState = false }
+        guard let embeddedDelegate = embeddedDelegate else { return }
+        let checkedRow = tableView.row(for: sender)
+        embeddedDelegate.embedStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
+    }
+    
 }
 
 extension TagListController: TagListSource {
@@ -582,7 +589,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
                 let embeddedDelegate = embeddedDelegate
             {
                 let tagName = arrangedTags[row].name
-                cell.state = embeddedDelegate.stateOfTag(of: tagName)
+                cell.state = embeddedDelegate.embedState(of: tagName)
             }
             else if col == .columnName {
                 cell.isEditable = !isEmbeddedMode

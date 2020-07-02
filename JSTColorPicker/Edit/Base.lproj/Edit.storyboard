@@ -524,7 +524,7 @@ Gw
                                             <viewController key="viewController" id="bhG-LL-hTB">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -889,7 +889,7 @@ Gw
                                             <viewController key="viewController" id="iZJ-RX-uL0">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -1078,7 +1078,7 @@ Gw
                                             <viewController key="viewController" id="OQs-BK-zVg">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-DR-AkT">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Y2-lj-x3S">
+                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Y2-lj-x3S">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                         <string key="keyEquivalent" base64-UTF8="YES">

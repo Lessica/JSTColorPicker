@@ -16,6 +16,7 @@ protocol ContentDelegate: class {
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem?
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem?
     func updateContentItem(_ item: ContentItem) throws -> ContentItem?
+    func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]?
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem?
     func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]?

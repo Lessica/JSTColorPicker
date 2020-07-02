@@ -459,10 +459,11 @@ extension ContentController: ContentDelegate {
         item.id = nextID
         item.similarity = nextSimilarity
         
-        internalAddContentItems([item])
+        let itemIndexes = internalAddContentItems([item])
         tableView.reloadData()
         
-        return try selectContentItem(item, byExtendingSelection: false)
+        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        return item
         
     }
     
@@ -558,21 +559,24 @@ extension ContentController: ContentDelegate {
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        
         guard let content = content else { throw ContentError.noDocumentLoaded }
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
             else { throw ContentError.itemDoesNotExist(item: coordinate) }
-        
-        return try deleteContentItem(item)
-        
+        return try deleteContentItem(item, bySkipingValidation: true)
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+        return try deleteContentItem(item, bySkipingValidation: false)
+    }
+    
+    private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool) throws -> ContentItem? {
         
-        guard let content = content                      else { throw ContentError.noDocumentLoaded }
-        guard content.items.firstIndex(of: item) != nil  else { throw ContentError.itemDoesNotExist(item: item) }
-        guard deleteConfirmForItems([item])              else { throw ContentError.userAborted }
+        if !skip {
+            guard let content = content else { throw ContentError.noDocumentLoaded }
+            guard content.items.firstIndex(of: item) != nil else { throw ContentError.itemDoesNotExist(item: item) }
+        }
+        guard deleteConfirmForItems([item]) else { throw ContentError.userAborted }
         
         let itemIndexes = internalDeleteContentItems([item])
         tableView.removeRows(at: itemIndexes, withAnimation: .effectFade)
@@ -593,7 +597,8 @@ extension ContentController: ContentDelegate {
         let col = tableView.column(withIdentifier: .columnDescription)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
-        return try selectContentItem(replItem, byExtendingSelection: false)
+        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        return replItem
         
     }
     
@@ -610,7 +615,8 @@ extension ContentController: ContentDelegate {
         let col = tableView.column(withIdentifier: .columnDescription)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
-        return try selectContentItem(replItem, byExtendingSelection: false)
+        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        return replItem
         
     }
     
@@ -620,10 +626,28 @@ extension ContentController: ContentDelegate {
         guard content.items.first(where: { $0.id == item.id }) != nil                 else { throw ContentError.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
-        let itemIndexes = internalUpdateContentItems([replItem])
-        tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
+        let replItemIndexes = internalUpdateContentItems([replItem])
+        tableView.reloadData(forRowIndexes: replItemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
         
-        return try selectContentItem(replItem, byExtendingSelection: false)
+        internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
+        return replItem
+        
+    }
+    
+    func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
+        
+        guard let content = content else { throw ContentError.noDocumentLoaded }
+        let itemIndexes = IndexSet(
+            items.compactMap({ content.items.firstIndex(of: $0) })
+        )
+        guard itemIndexes.count == items.count else { throw ContentError.itemDoesNotExistPartial  }
+        
+        let replItems = items.map({ $0.copy() as! ContentItem })
+        let replItemIndexes = internalUpdateContentItems(replItems)
+        tableView.reloadData(forRowIndexes: replItemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
+        
+        internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
+        return replItems
         
     }
     

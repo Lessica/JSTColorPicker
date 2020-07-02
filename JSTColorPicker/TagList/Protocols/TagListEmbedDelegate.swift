@@ -9,6 +9,7 @@
 import Foundation
 
 protocol TagListEmbedDelegate: class {
-    func stateOfTag(of name: String) -> NSControl.StateValue
+    func embedState(of name: String) -> NSControl.StateValue
+    func embedStateChanged(of name: String, to state: NSControl.StateValue)
 }
 
