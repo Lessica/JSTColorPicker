@@ -93,9 +93,8 @@ class ContentController: NSViewController {
     public weak var tagListSource: TagListSource!
     
     internal weak var screenshot: Screenshot?
-    private var content: Content? {
-        return screenshot?.content
-    }
+    private var content: Content? { screenshot?.content }
+    
     private var nextID: Int {
         if let lastID = content?.items.last?.id {
             return lastID + 1
@@ -165,6 +164,7 @@ class ContentController: NSViewController {
         addCoordinateField.isEnabled = false
         
         tableView.tableViewResponder = self
+        tableView.contextUndoManager = screenshot?.undoManager
         tableView.registerForDraggedTypes([.color, .area])
         
         undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
@@ -230,18 +230,22 @@ class ContentController: NSViewController {
         let row = tableView.row(for: sender)
         assert(row >= 0 && row < content.items.count)
         
-        let value = sender.doubleValue
-        if value >= 1 && value <= 100 {
-            let item = content.items[row].copy() as! ContentItem
-            item.similarity = min(max(value / 100.0, 0.01), 1.0)
+        let origItem = content.items[row]
+        let value = sender.doubleValue, origValue = origItem.similarity * 100.0
+        if value >= 1 && value <= 100 && abs(value - origValue) >= 0.99 {
             
-            let itemIndexes = internalUpdateContentItems([item])
+            let replItem = origItem.copy() as! ContentItem
+            replItem.similarity = min(max(value / 100.0, 0.01), 1.0)
+            
+            let itemIndexes = internalUpdateContentItems([replItem])
             let col = tableView.column(withIdentifier: .columnSimilarity)
             tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
+            
             return
+            
         }
         
-        let similarity = String(Int(content.items[row].similarity * 100.0))
+        let similarity = String(Int(origItem.similarity * 100.0))
         sender.stringValue = similarity + "%"
     }
     
@@ -350,6 +354,7 @@ extension ContentController {
     private func internalAddContentItems(_ items: [ContentItem]) -> IndexSet {
         guard let content = content else { return IndexSet() }
         undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items) })
+        // TODO: undo action name
         actionDelegate.contentActionAdded(items)
         var indexes = IndexSet()
         items.sorted(by: { $0.id < $1.id }).forEach { (item) in
@@ -368,6 +373,7 @@ extension ContentController {
         undoManager?.registerUndo(withTarget: self, handler: { (target) in
             target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove)
         })
+        // TODO: undo action name
         actionDelegate.contentActionDeleted(items)
         let indexes = content.items
             .enumerated()
@@ -383,6 +389,7 @@ extension ContentController {
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
         undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove) })
+        // TODO: undo action name
         actionDelegate.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         var indexes = IndexSet()
@@ -672,9 +679,7 @@ extension ContentController: ContentTableViewResponder {
 
 extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
-    private var hasAttachedSheet: Bool {
-        return view.window?.attachedSheet != nil
-    }
+    private var hasAttachedSheet: Bool { view.window?.attachedSheet != nil }
     
     func menuWillOpen(_ menu: NSMenu) {
         // menu item without action

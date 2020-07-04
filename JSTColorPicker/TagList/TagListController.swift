@@ -22,47 +22,50 @@ enum TagListHighlightMode {
 
 class TagListController: NSViewController {
     
-    public weak var embeddedDelegate: TagListEmbedDelegate?
-    public var isEmbeddedMode: Bool { embeddedDelegate != nil }
-    private var isDatabaseLoaded: Bool = false {
-        didSet { reloadEmbeddedState(isDatabaseLoaded) }
-    }
+    public weak var embeddedDelegate              : TagListEmbedDelegate?
+    public var isEmbeddedMode                     : Bool { embeddedDelegate != nil }
     
-    private var highlightMode = TagListHighlightMode.none
-    private var highlightContext: [String: Int]?
+    private var highlightMode                     : TagListHighlightMode = .none
+    private var highlightContext                  : [String: Int]?
     
-    public weak var contentDelegate   : ContentDelegate?
-    public weak var importItemSource  : TagImportSource?
-    public weak var sceneToolSource   : SceneToolSource!
+    public weak var contentDelegate               : ContentDelegate?
+    public weak var importItemSource              : TagImportSource?
+    public weak var sceneToolSource               : SceneToolSource!
     {
-        get { tableViewOverlay.sceneToolSource }
+        get { tableViewOverlay.sceneToolSource            }
         set { tableViewOverlay.sceneToolSource = newValue }
     }
     
-    @IBOutlet var internalContext             : NSManagedObjectContext!  // FIXME: move to a shared space
-    @IBOutlet var internalController          : TagController!           // FIXME: move to a shared space
-    @IBOutlet var tagMenu                     : NSMenu!
-    @IBOutlet var alertTextView               : AlertTextView!
-    @IBOutlet weak var loadingErrorLabel      : NSTextField!
-    @IBOutlet weak var searchField            : NSSearchField!
-    @IBOutlet weak var scrollView             : NSScrollView!
-    @IBOutlet weak var tableView              : TagListTableView!
-    @IBOutlet weak var tableViewOverlay       : TagListOverlayView!
+    private static var sharedContext              : NSManagedObjectContext?
+    private static var sharedUndoManager          : UndoManager = { return UndoManager() }()
+    private var isContextLoaded                   : Bool          { TagListController.sharedContext != nil }
     
-    @IBOutlet weak var tableActionCustomView  : NSView!
-    @IBOutlet weak var tableSearchCustomView  : NSView!
-    @IBOutlet weak var tableContentCustomView : NSView!
+    @IBOutlet var internalController              : TagController!
+    @IBOutlet var tagMenu                         : NSMenu!
+    @IBOutlet var alertTextView                   : AlertTextView!
+    @IBOutlet weak var loadingErrorLabel          : NSTextField!
+    @IBOutlet weak var buttonImport               : NSButton!
+    @IBOutlet weak var buttonAdd                  : NSButton!
+    @IBOutlet weak var buttonDelete               : NSButton!
+    @IBOutlet weak var searchField                : NSSearchField!
+    @IBOutlet weak var scrollView                 : NSScrollView!
+    @IBOutlet weak var tableView                  : TagListTableView!
+    @IBOutlet weak var tableViewOverlay           : TagListOverlayView!
     
-    @IBOutlet weak var tableColumnFlags       : NSTableColumn!
-    @IBOutlet weak var tableColumnChecked     : NSTableColumn!
-    @IBOutlet weak var tableColumnName        : NSTableColumn!
+    @IBOutlet weak var tableActionCustomView      : NSView!
+    @IBOutlet weak var tableSearchCustomView      : NSView!
+    @IBOutlet weak var tableContentCustomView     : NSView!
     
-    private var willUndoToken: NotificationToken?
-    private var willRedoToken: NotificationToken?
-    private var didUndoToken : NotificationToken?
-    private var didRedoToken : NotificationToken?
+    @IBOutlet weak var tableColumnFlags           : NSTableColumn!
+    @IBOutlet weak var tableColumnChecked         : NSTableColumn!
+    @IBOutlet weak var tableColumnName            : NSTableColumn!
     
-    static public var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
+    private var willUndoToken                     : NotificationToken?
+    private var willRedoToken                     : NotificationToken?
+    private var didUndoToken                      : NotificationToken?
+    private var didRedoToken                      : NotificationToken?
+    
+    static public var attachPasteboardType  = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
     private var colorPanel: NSColorPanel {
@@ -72,19 +75,20 @@ class TagListController: NSViewController {
         return panel
     }
     
-    private func reloadEmbeddedState(_ state: Bool) {
+    private func reloadEmbeddedState() {
         tableView.isEmbeddedMode            = isEmbeddedMode
         tableActionCustomView.isHidden      = isEmbeddedMode
         tableColumnFlags.isHidden           = isEmbeddedMode
         tableColumnChecked.isHidden         = !isEmbeddedMode
-        internalController.isEditable       = state ? !isEmbeddedMode : false
-        searchField.isEnabled               = state
-        tableView.isEnabled                 = state
-        tableView.isHidden                  = !state
+        internalController.isEditable       = isContextLoaded ? !isEmbeddedMode : false
+        searchField.isEnabled               = isContextLoaded
+        tableView.isEnabled                 = isContextLoaded
+        tableView.isHidden                  = !isContextLoaded
         tableView.allowsMultipleSelection   = !isEmbeddedMode
         tableView.gridStyleMask             = isEmbeddedMode ? [] : [.solidVerticalGridLineMask]
-        loadingErrorLabel.isHidden          = state
-        loadingErrorLabel.stringValue       = state ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
+        loadingErrorLabel.isHidden          = isContextLoaded
+        loadingErrorLabel.stringValue       = isContextLoaded ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
+        tableView.contextUndoManager        = TagListController.sharedUndoManager
     }
     
     override func viewDidLoad() {
@@ -113,56 +117,76 @@ class TagListController: NSViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
-        let embeddedMode = self.isEmbeddedMode
-        setupPersistentStore(withInitialTags: { () -> ([(String, String)]) in
-            return embeddedMode ? [] : [
+        if let context = TagListController.sharedContext {
+            
+            self.internalController.managedObjectContext = context
+            self.internalController.rearrangeObjects()
+            self.reloadEmbeddedState()
+            
+        } else {
+            
+            TagListController.setupPersistentStore(withInitialTags: { () -> ([(String, String)]) in
+                return [
+                    
+                    /* Controls */
+                    ("Button",         "#171E6D"),
+                    ("Switch",         "#1E3388"),
+                    ("Slider",         "#27539B"),
+                    ("Checkbox",       "#3073AE"),
+                    ("Radio",          "#3993C2"),
+                    ("TextField",      "#42B3D5"),
+                    ("Rate",           "#75C6D1"),
+                    ("BackTop",        "#A9DACC"),
+                    
+                    /* Displays */
+                    ("Label",          "#044E48"),
+                    ("Badge",          "#06746B"),
+                    ("Media",          "#20876B"),
+                    ("Box",            "#6A9A48"),
+                    ("Hud",            "#B5AC23"),
+                    ("Keyboard",       "#E6B80B"),
+                    ("Progress",       "#FACA3E"),
+                    ("Spin",           "#FFDF80"),
+                    
+                    /* Layouts */
+                    ("StatusBar",      "#661900"),
+                    ("TabBar",         "#B22C00"),
+                    ("NavigationBar",  "#E6450F"),
+                    ("Skeleton",       "#FF6500"),
+                    ("Notification",   "#FF8C00"),
+                    
+                    /* Status */
+                    ("Disabled",       "#657899"),
+                    ("Active",         "#1C314E"),
+                    
+                ]
+            }) { [weak self] (_ context: NSManagedObjectContext?, _ error: Error?) in
                 
-                /* Controls */
-                ("Button",         "#171E6D"),
-                ("Switch",         "#1E3388"),
-                ("Slider",         "#27539B"),
-                ("Checkbox",       "#3073AE"),
-                ("Radio",          "#3993C2"),
-                ("TextField",      "#42B3D5"),
-                ("Rate",           "#75C6D1"),
-                ("BackTop",        "#A9DACC"),
+                if let context = context {
+                    
+                    context.undoManager = TagListController.sharedUndoManager
+                    TagListController.sharedContext = context
+                    NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: context)
+                    
+                    self?.internalController.managedObjectContext = context
+                    self?.internalController.rearrangeObjects()
+                    self?.reloadEmbeddedState()
+                    
+                } else if let error = error {
+                    
+                    self?.reloadEmbeddedState()
+                    self?.presentError(error)
+                    
+                }
                 
-                /* Displays */
-                ("Label",          "#044E48"),
-                ("Badge",          "#06746B"),
-                ("Media",          "#20876B"),
-                ("Box",            "#6A9A48"),
-                ("Hud",            "#B5AC23"),
-                ("Keyboard",       "#E6B80B"),
-                ("Progress",       "#FACA3E"),
-                ("Spin",           "#FFDF80"),
-                
-                /* Layouts */
-                ("StatusBar",      "#661900"),
-                ("TabBar",         "#B22C00"),
-                ("NavigationBar",  "#E6450F"),
-                ("Skeleton",       "#FF6500"),
-                ("Notification",   "#FF8C00"),
-                
-                /* Status */
-                ("Disabled",       "#657899"),
-                ("Active",         "#1C314E"),
-                
-            ]
-        }) { [weak self] (_ error: Error?) in
-            if let error = error {
-                self?.isDatabaseLoaded = false
-                self?.presentError(error)
-                return
             }
-            self?.internalContext.undoManager = self?.undoManager
-            self?.isDatabaseLoaded = true
-            self?.internalController.rearrangeObjects()
+            
         }
         
     }
     
-    private func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (Error?) -> ()) {
+    private class func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
+    {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
         }
@@ -171,15 +195,16 @@ class TagListController: NSViewController {
             fatalError("error initializing model from \(tagModelURL)")
         }
         
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
-        internalContext.persistentStoreCoordinator = coordinator
+        context.persistentStoreCoordinator = coordinator
         
         guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
             fatalError("unable to resolve library directory")
         }
         
         let queue = DispatchQueue.global(qos: .background)
-        queue.async { [weak self] in
+        queue.async {
             
             do {
                 
@@ -193,37 +218,29 @@ class TagListController: NSViewController {
                     try FileManager.default.createDirectory(at: storeURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
                     try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
                     
-                    if let self = self {
-                        
-                        var idx = 1
-                        withInitialTags().forEach { (tag) in
-                            let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.internalContext) as! Tag
-                            obj.order = Int64(idx)
-                            obj.name = tag.0
-                            obj.colorHex = tag.1
-                            idx += 1
-                        }
-                        
-                        do {
-                            try self.internalContext.save()
-                        } catch {
-                            DispatchQueue.main.sync {
-                                completionClosure(error)
-                            }
-                        }
-                        
+                    var idx = 1
+                    withInitialTags().forEach { (tag) in
+                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
+                        obj.order = Int64(idx)
+                        obj.name = tag.0
+                        obj.colorHex = tag.1
+                        idx += 1
                     }
+                    
+                    try context.save()
                     
                 }
                 
                 DispatchQueue.main.sync {
-                    NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: self?.internalContext)
-                    completionClosure(nil)
+                    completionClosure(context, nil)
                 }
+                
             } catch {
+                
                 DispatchQueue.main.sync {
-                    completionClosure(error)
+                    completionClosure(nil, error)
                 }
+                
             }
             
         }
@@ -264,7 +281,10 @@ class TagListController: NSViewController {
     }
     
     @IBAction private func importTagBtnTapped(_ sender: Any) {
-        guard let tagNames = importItemSource?.importableTagNames else {
+        
+        guard let context = TagListController.sharedContext,
+            let tagNames = importItemSource?.importableTagNames else
+        {
             presentError(ContentError.noDocumentLoaded)
             return
         }
@@ -281,7 +301,7 @@ class TagListController: NSViewController {
             
             var idx = lastOrder
             missingNames.forEach { (tagName) in
-                let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: self.internalContext) as! Tag
+                let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
                 obj.order = Int64(idx)
                 obj.name = tagName
                 obj.colorHex = NSColor.random.sharpCSS
@@ -291,7 +311,7 @@ class TagListController: NSViewController {
             let addedRowIndexes = IndexSet(integersIn: (lastRowIndex + 1)...(lastRowIndex + idx - lastOrder))
             tableView.insertRows(at: addedRowIndexes)  // make sure that these stubs are inserted
             
-            try self.internalContext.save()
+            try context.save()
             
             if let lastAddedRowIndex = addedRowIndexes.last {
                 tableView.selectRowIndexes(addedRowIndexes, byExtendingSelection: false)
@@ -306,7 +326,7 @@ class TagListController: NSViewController {
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
         internalController.insert(sender)
-        setNeedsRearrangeManagedTags()
+        setNeedsReorderManagedTags()
         setNeedsSaveManagedTags()
     }
     
@@ -321,7 +341,7 @@ class TagListController: NSViewController {
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
         DispatchQueue.main.async { [weak self] in
-            self?.rearrangeManagedTagsIfNeeded()
+            self?.reorderManagedTagsIfNeeded()
             self?.saveManagedTagsIfNeeded()
         }
     }
@@ -329,7 +349,7 @@ class TagListController: NSViewController {
     private var shouldRearrangeManagedTags: Bool = false
     private var shouldSaveManagedTags: Bool = false
     
-    private func setNeedsRearrangeManagedTags() {
+    private func setNeedsReorderManagedTags() {
         shouldRearrangeManagedTags = true
     }
     
@@ -338,25 +358,27 @@ class TagListController: NSViewController {
     }
     
     private func saveManagedTagsIfNeeded() {
-        guard shouldSaveManagedTags else { return }
+        guard let context = TagListController.sharedContext, shouldSaveManagedTags else { return }
         shouldSaveManagedTags = false
-        guard internalContext.hasChanges else { return }
+        guard context.hasChanges else { return }
         do {
-            try internalContext.save()
+            try context.save()
         } catch let error as NSError {
-            if error.code == 133021, let itemName = ((internalContext.insertedObjects.first ?? internalContext.updatedObjects.first) as? Tag)?.name {
+            if error.code == 133021,
+                let itemName = ((context.insertedObjects.first ?? context.updatedObjects.first) as? Tag)?.name
+            {
                 presentError(ContentError.itemExists(item: itemName))
             } else {
                 presentError(error)
             }
-            internalContext.rollback()
+            context.rollback()
         } catch {
             presentError(error)
-            internalContext.rollback()
+            context.rollback()
         }
     }
     
-    private func rearrangeManagedTagsIfNeeded() {
+    private func reorderManagedTagsIfNeeded() {
         guard shouldRearrangeManagedTags else { return }
         shouldRearrangeManagedTags = false
         guard let items = internalController.arrangedObjects as? [Tag] else { return }
@@ -374,11 +396,13 @@ class TagListController: NSViewController {
     
     // MARK: - Menu
     
+    private var menuTargetIndex: IndexSet.Element?
     private weak var menuTargetObject: Tag?
     
     @IBAction private func changeColorItemTapped(_ sender: NSMenuItem) {
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
         
+        menuTargetIndex = targetIndex
         menuTargetObject = arrangedTags[targetIndex]
         
         colorPanel.setTarget(nil)
@@ -388,12 +412,28 @@ class TagListController: NSViewController {
         colorPanel.setTarget(self)
         colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
         colorPanel.orderFront(sender)
+        
+        tableView.selectRowIndexes(
+            IndexSet(integer: targetIndex),
+            byExtendingSelection: false
+        )
     }
     
     @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
-        guard let tag = menuTargetObject, tag.managedObjectContext != nil else { return }
+        
+        guard let index = menuTargetIndex,
+            let tag = menuTargetObject,
+            tag.managedObjectContext != nil else
+        { return }
+        
         tag.colorHex = sender.color.sharpCSS
         setNeedsSaveManagedTags()
+        
+        tableView.reloadData(
+            forRowIndexes: IndexSet(integer: index),
+            columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns)
+        )
+        
     }
     
     
@@ -416,30 +456,41 @@ extension TagListController: TagListSource {
     
     var arrangedTagController: TagController { internalController }
     var arrangedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }
+    var managedObjectContext: NSManagedObjectContext? { TagListController.sharedContext }
     
-    var managedObjectContext: NSManagedObjectContext { internalContext }
     func managedTag(of name: String) -> Tag? {
+        
         if arrangedTags.count > 0 {
             return arrangedTags.first(where: { $0.name == name })
         }
+        
+        guard let context = TagListController.sharedContext else { return nil }
+        
         do {
+            
             let sort = NSSortDescriptor(key: #keyPath(Tag.order), ascending: true)
             let fetchRequest = NSFetchRequest<Tag>.init(entityName: "Tag")
             fetchRequest.fetchLimit = 1
             fetchRequest.predicate = NSPredicate(format: "name == %@", name)
             fetchRequest.sortDescriptors = [sort]
-            let fetchedTags = try internalContext.fetch(fetchRequest)
-            return fetchedTags.first
+            
+            return (try context.fetch(fetchRequest)).first
+            
         } catch {
             debugPrint(error)
         }
+        
         return nil
     }
     func managedTags(of names: [String]) -> [Tag] {
+        
         if arrangedTags.count > 0 {
             return arrangedTags.filter({ names.contains($0.name) })
         }
+        
+        guard let context = TagListController.sharedContext else { return [] }
         do {
+            
             var predicates: [NSPredicate] = []
             for name in names {
                 predicates.append(NSPredicate(format: "name == %@", name))
@@ -449,11 +500,13 @@ extension TagListController: TagListSource {
             fetchRequest.fetchLimit = names.count
             fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
             fetchRequest.sortDescriptors = [sort]
-            let fetchedTags = try internalContext.fetch(fetchRequest)
-            return fetchedTags
+            
+            return try context.fetch(fetchRequest)
+            
         } catch {
             debugPrint(error)
         }
+        
         return []
     }
     
@@ -615,9 +668,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
 
 extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
-    private var hasAttachedSheet: Bool {
-        return view.window?.attachedSheet != nil
-    }
+    private var hasAttachedSheet: Bool { view.window?.attachedSheet != nil }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
@@ -654,11 +705,6 @@ extension TagListController: TagListPreviewDelegate {
             forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
             columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet()
         )
-    }
-    
-    @discardableResult
-    private func internalHighlightTags(for items: [ContentItem]) -> IndexSet? {
-        return nil
     }
     
 }

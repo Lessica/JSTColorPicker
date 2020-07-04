@@ -937,7 +937,7 @@ DQ
             <objects>
                 <windowController storyboardIdentifier="EditTagsWindowController" id="K8U-q1-gjd" customClass="EditWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" identifier="EditTagsWindow" allowsToolTipsWhenApplicationIsInactive="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="EditTags" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="apS-QQ-eiT" customClass="EditWindow" customModule="JSTColorPicker" customModuleProvider="target">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="249" width="288" height="388"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>

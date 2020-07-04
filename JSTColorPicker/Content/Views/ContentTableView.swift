@@ -13,13 +13,13 @@ protocol ContentTableViewResponder: class {
     func tableViewDoubleAction(_ sender: ContentTableView)
 }
 
-class ContentTableView: NSTableView {
+class ContentTableView: NSTableView, UndoProxy {
     
     public weak var tableViewResponder: ContentTableViewResponder!
+    private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     
-    private var hasAttachedSheet: Bool {
-        return window?.attachedSheet != nil
-    }
+    public var contextUndoManager: UndoManager?
+    override var undoManager: UndoManager? { contextUndoManager }
     
     override func menu(for event: NSEvent) -> NSMenu? {
         guard !hasAttachedSheet else { return nil }

@@ -101,6 +101,7 @@ class EditCoordinateController: EditViewController {
                 }
                 targetSelf.updateDisplay(sender, with: lastDisplayedColor)
             })
+            // TODO: undo action name
         }
         
         updatePreview(to: coord.toCGPoint())

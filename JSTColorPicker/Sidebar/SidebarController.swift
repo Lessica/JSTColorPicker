@@ -637,9 +637,7 @@ extension SidebarController: PixelMatchResponder {
 
 extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
     
-    private var hasAttachedSheet: Bool {
-        return view.window?.attachedSheet != nil
-    }
+    private var hasAttachedSheet: Bool { view.window?.attachedSheet != nil }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }

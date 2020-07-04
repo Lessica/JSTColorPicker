@@ -31,6 +31,12 @@
 		185D7EF2248A8518001C283B /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185D7EF0248A8518001C283B /* EditViewController.swift */; };
 		185D7EF4248A936A001C283B /* ContentItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185D7EF3248A936A001C283B /* ContentItemSource.swift */; };
 		185D7EF5248A936A001C283B /* ContentItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185D7EF3248A936A001C283B /* ContentItemSource.swift */; };
+		1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF3D24B0FEA30067D02F /* UndoProxy.swift */; };
+		1885CF3F24B0FEA30067D02F /* UndoProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF3D24B0FEA30067D02F /* UndoProxy.swift */; };
+		1885CF4124B105A00067D02F /* ContentSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF4024B105A00067D02F /* ContentSearchField.swift */; };
+		1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF4024B105A00067D02F /* ContentSearchField.swift */; };
+		1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF4324B106340067D02F /* TagListSearchField.swift */; };
+		1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885CF4324B106340067D02F /* TagListSearchField.swift */; };
 		18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF0247EBD65003F70BA /* TagListSource.swift */; };
 		18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF0247EBD65003F70BA /* TagListSource.swift */; };
 		18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */; };
@@ -648,6 +654,9 @@
 		185D7EED248A80C4001C283B /* EditWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWindow.swift; sourceTree = "<group>"; };
 		185D7EF0248A8518001C283B /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		185D7EF3248A936A001C283B /* ContentItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItemSource.swift; sourceTree = "<group>"; };
+		1885CF3D24B0FEA30067D02F /* UndoProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoProxy.swift; sourceTree = "<group>"; };
+		1885CF4024B105A00067D02F /* ContentSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSearchField.swift; sourceTree = "<group>"; };
+		1885CF4324B106340067D02F /* TagListSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListSearchField.swift; sourceTree = "<group>"; };
 		18B22FF0247EBD65003F70BA /* TagListSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListSource.swift; sourceTree = "<group>"; };
 		18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListDragDelegate.swift; sourceTree = "<group>"; };
 		18B22FF624801979003F70BA /* TagListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListTableView.swift; sourceTree = "<group>"; };
@@ -1318,6 +1327,14 @@
 			path = TagList;
 			sourceTree = "<group>";
 		};
+		1885CF3C24B0FE750067D02F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1885CF3D24B0FEA30067D02F /* UndoProxy.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		39B44362740250C81599A741 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1793,6 +1810,7 @@
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
+				1885CF3C24B0FE750067D02F /* Protocols */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
@@ -2352,6 +2370,7 @@
 				D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */,
 				D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */,
 				18B22FF624801979003F70BA /* TagListTableView.swift */,
+				1885CF4324B106340067D02F /* TagListSearchField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2395,6 +2414,7 @@
 				18D202C52496951B007A079F /* ContentCellView.swift */,
 				D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */,
 				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
+				1885CF4024B105A00067D02F /* ContentSearchField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2989,6 +3009,7 @@
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
+				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				185D7EE8248A8019001C283B /* EditCoordinateController.swift in Sources */,
 				1842C48124798E63008ECD6F /* TagListController.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
@@ -2998,6 +3019,7 @@
 				18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D61047B124224A170002E990 /* TabService.swift in Sources */,
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
+				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
@@ -3010,6 +3032,7 @@
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				18D202C32496920C007A079F /* TagCellView.swift in Sources */,
 				D61047B724224A170002E990 /* ContentTableView.swift in Sources */,
+				1885CF4124B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D61047B824224A170002E990 /* ItemPreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
@@ -3114,6 +3137,7 @@
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
 				D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */,
+				1885CF3F24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				D6E2455D23E153340012BE5F /* AnnotatorSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
@@ -3171,6 +3195,7 @@
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
+				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
@@ -3183,6 +3208,7 @@
 				18D202C72496951B007A079F /* ContentCellView.swift in Sources */,
 				185D7EF5248A936A001C283B /* ContentItemSource.swift in Sources */,
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
+				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,

@@ -105,6 +105,7 @@ class EditAreaController: EditViewController {
                 }
                 targetSelf.updateDisplay(sender, with: lastDisplayedArea)
             })
+            // TODO: undo action name
         }
         
         updatePreview(to: rect.toCGRect())

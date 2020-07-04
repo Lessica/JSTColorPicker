@@ -355,8 +355,8 @@ extension WindowController: NSWindowDelegate {
     }
     
     func windowWillReturnUndoManager(_ window: NSWindow) -> UndoManager? {
-        if window == self.window {
-            return screenshot?.undoManager
+        if let firstResponder = window.firstResponder as? UndoProxy {
+            return firstResponder.undoManager
         }
         return nil
     }
