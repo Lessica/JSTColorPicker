@@ -212,32 +212,41 @@ class EditAreaController: EditViewController {
         }
     }
     
-    private func reloadPreviewState(animated: Bool, completionHandler: ((_ isHidden: Bool) -> Void)? = nil) {
+    private func reloadPreviewState(animated: Bool, completionHandler completion: ((_ isHidden: Bool) -> Void)? = nil) {
+        
+        let minimumHeightNormal  : CGFloat = 243.0
+        let minimumHeightExpanded: CGFloat = 523.0
+        
         let previewOff: Bool = !UserDefaults.standard[.togglePreviewArea]
         let shouldAnimate = (previewBox.isHidden != previewOff)
         self.toggleBtn.state = previewOff ? .on : .off
         self.touchBarToggleBtn.state = previewOff ? .on : .off
+        
+        let additionalHeight = textFieldError.isHidden ? 0.0 : textFieldError.bounds.height
         if animated && shouldAnimate {
             if previewOff {
                 
                 self.previewBox.isHidden = true
                 self.toggleBtn.isEnabled = false
                 self.touchBarToggleBtn.isEnabled = false
+                self.textFieldError.alphaValue = 0.0
                 
                 self.heightConstraint.priority = .defaultHigh
-                self.heightConstraint.constant = 523.0
+                self.heightConstraint.constant = minimumHeightExpanded + additionalHeight
                 
                 NSAnimationContext.runAnimationGroup({ (context) in
-                    self.heightConstraint.animator().constant = 243.0
+                    self.heightConstraint.animator().constant = minimumHeightNormal + additionalHeight
                 }) { [weak self] in
                     guard let self = self else { return }
-                    
-                    self.toggleBtn.isEnabled = true
-                    self.touchBarToggleBtn.isEnabled = true
+                    self.heightConstraint.constant = minimumHeightNormal
                     
                     self.previewBox.isHidden = true
-                    self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
-                    completionHandler?(true)
+                    self.toggleBtn.isEnabled = true
+                    self.touchBarToggleBtn.isEnabled = true
+                    self.textFieldError.alphaValue = 1.0
+                    
+                    self.heightConstraint.priority = .middle
+                    completion?(true)
                 }
                 
             } else {
@@ -245,30 +254,40 @@ class EditAreaController: EditViewController {
                 self.previewBox.isHidden = true
                 self.toggleBtn.isEnabled = false
                 self.touchBarToggleBtn.isEnabled = false
+                self.textFieldError.alphaValue = 0.0
                 
                 self.heightConstraint.priority = .defaultHigh
-                self.heightConstraint.constant = 243.0
+                self.heightConstraint.constant = minimumHeightNormal + additionalHeight
                 
                 NSAnimationContext.runAnimationGroup({ (context) in
-                    self.heightConstraint.animator().constant = 523.0
+                    self.heightConstraint.animator().constant = minimumHeightExpanded + additionalHeight
                 }) { [weak self] in
                     guard let self = self else { return }
-                    
-                    self.toggleBtn.isEnabled = true
-                    self.touchBarToggleBtn.isEnabled = true
+                    self.heightConstraint.constant = minimumHeightExpanded
                     
                     self.previewBox.isHidden = false
-                    self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
-                    completionHandler?(false)
+                    self.toggleBtn.isEnabled = true
+                    self.touchBarToggleBtn.isEnabled = true
+                    self.textFieldError.alphaValue = 1.0
+                    
+                    self.heightConstraint.priority = .middle
+                    completion?(false)
                 }
                 
             }
         } else {
+            
             self.previewBox.isHidden = previewOff
-            self.heightConstraint.constant = previewOff ? 243.0 : 523.0
-            self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
-            completionHandler?(!previewOff)
+            self.toggleBtn.isEnabled = true
+            self.touchBarToggleBtn.isEnabled = true
+            self.textFieldError.alphaValue = 1.0
+            
+            self.heightConstraint.constant = previewOff ? 214.0 : 493.0
+            self.heightConstraint.priority = .middle
+            completion?(!previewOff)
+            
         }
+        
     }
     
     private var didSetupPreview: Bool = false

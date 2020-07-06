@@ -37,7 +37,7 @@ class EditTagsController: EditViewController {
             let controller = segue.destinationController as? TagListController else
         { return }
         
-        controller.embeddedDelegate = self
+        controller.editDelegate = self
     }
     
     @IBAction private func cancelAction(_ sender: NSButton) {
@@ -85,9 +85,9 @@ class EditTagsController: EditViewController {
     
 }
 
-extension EditTagsController: TagListEmbedDelegate {
+extension EditTagsController: TagListEditDelegate {
     
-    func embedState(of name: String) -> NSControl.StateValue {
+    func editState(of name: String) -> NSControl.StateValue {
         if let cachedState = cachedTagStates[name] {
             return cachedState
         }
@@ -107,7 +107,7 @@ extension EditTagsController: TagListEmbedDelegate {
         return matchesCount == contentItems.count ? .on : .mixed
     }
     
-    func embedStateChanged(of name: String, to state: NSControl.StateValue) {
+    func editStateChanged(of name: String, to state: NSControl.StateValue) {
         cachedTagStates[name] = state
         okBtn.isEnabled = true
         touchBarOkBtn.isEnabled = true

@@ -9,5 +9,5 @@
 import Cocoa
 
 protocol TagListPreviewDelegate: class {
-    func highlightTags(for items: [ContentItem])
+    func previewTags(for items: [ContentItem])
 }

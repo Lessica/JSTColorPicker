@@ -109,3 +109,8 @@ extension NSApplication {
         task.launch()
     }
 }
+
+extension NSLayoutConstraint.Priority {
+    public static let middle = NSLayoutConstraint.Priority(rawValue: 500.0)
+}
+

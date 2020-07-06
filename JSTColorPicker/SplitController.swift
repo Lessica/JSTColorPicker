@@ -338,7 +338,7 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionSelected(_ items: [ContentItem]) {
         sceneController.highlightAnnotators(for: items, scrollTo: false)
-        tagListController.highlightTags(for: items)
+        tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
             sidebarController.inspectItem(item, shouldSubmit: true)
@@ -347,7 +347,7 @@ extension SplitController: ContentActionDelegate {
     
     func contentActionConfirmed(_ items: [ContentItem]) {
         sceneController.highlightAnnotators(for: items, scrollTo: true)  // with scroll
-        tagListController.highlightTags(for: items)
+        tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
             sidebarController.inspectItem(item, shouldSubmit: true)

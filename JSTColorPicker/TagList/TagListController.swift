@@ -14,19 +14,30 @@ extension NSUserInterfaceItemIdentifier {
     static let columnName       = NSUserInterfaceItemIdentifier("col-name")
 }
 
-enum TagListHighlightMode {
+enum TagListPreviewMode {
     case multiple
     case single
     case none
 }
 
+@objc private class TagListControllerWrapper: NSObject {
+    
+    public weak var object: TagListController?
+    init(_ obj: TagListController?) { object = obj }
+    
+    @objc internal func colorPanelValueChanged(_ sender: NSColorPanel) {
+        object?.colorPanelValueChanged(sender)
+    }
+    
+}
+
 class TagListController: NSViewController {
     
-    public weak var embeddedDelegate              : TagListEmbedDelegate?
-    public var isEmbeddedMode                     : Bool { embeddedDelegate != nil }
+    public weak var editDelegate                  : TagListEditDelegate?
+    public var isEditMode                         : Bool { editDelegate != nil }
     
-    private var highlightMode                     : TagListHighlightMode = .none
-    private var highlightContext                  : [String: Int]?
+    private var previewMode                       : TagListPreviewMode = .none
+    private var previewContext                    : [String: Int]?
     
     public weak var contentDelegate               : ContentDelegate?
     public weak var importItemSource              : TagImportSource?
@@ -76,16 +87,16 @@ class TagListController: NSViewController {
     }
     
     private func reloadEmbeddedState() {
-        tableView.isEmbeddedMode            = isEmbeddedMode
-        tableActionCustomView.isHidden      = isEmbeddedMode
-        tableColumnFlags.isHidden           = isEmbeddedMode
-        tableColumnChecked.isHidden         = !isEmbeddedMode
-        internalController.isEditable       = isContextLoaded ? !isEmbeddedMode : false
+        tableView.isEmbeddedMode            = isEditMode
+        tableActionCustomView.isHidden      = isEditMode
+        tableColumnFlags.isHidden           = isEditMode
+        tableColumnChecked.isHidden         = !isEditMode
+        internalController.isEditable       = isContextLoaded ? !isEditMode : false
         searchField.isEnabled               = isContextLoaded
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
-        tableView.allowsMultipleSelection   = !isEmbeddedMode
-        tableView.gridStyleMask             = isEmbeddedMode ? [] : [.solidVerticalGridLineMask]
+        tableView.allowsMultipleSelection   = !isEditMode
+        tableView.gridStyleMask             = isEditMode ? [] : [.solidVerticalGridLineMask]
         loadingErrorLabel.isHidden          = isContextLoaded
         loadingErrorLabel.stringValue       = isContextLoaded ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
         tableView.contextUndoManager        = TagListController.sharedUndoManager
@@ -155,10 +166,6 @@ class TagListController: NSViewController {
                     ("NavigationBar",  "#E6450F"),
                     ("Skeleton",       "#FF6500"),
                     ("Notification",   "#FF8C00"),
-                    
-                    /* Status */
-                    ("Disabled",       "#657899"),
-                    ("Active",         "#1C314E"),
                     
                 ]
             }) { [weak self] (_ context: NSManagedObjectContext?, _ error: Error?) in
@@ -424,11 +431,12 @@ class TagListController: NSViewController {
         menuTargetIndex = targetIndex
         menuTargetObject = arrangedTags[targetIndex]
         
-        colorPanel.setTarget(nil)
+        colorPanel.strongTarget = nil
         colorPanel.setAction(nil)
         colorPanel.color = NSColor(css: arrangedTags[targetIndex].colorHex, alpha: 1.0)
         
-        colorPanel.setTarget(self)
+        let wrapper = TagListControllerWrapper(self)
+        colorPanel.strongTarget = wrapper
         colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
         colorPanel.orderFront(sender)
         
@@ -438,7 +446,7 @@ class TagListController: NSViewController {
         )
     }
     
-    @objc private func colorPanelValueChanged(_ sender: NSColorPanel) {
+    @objc internal func colorPanelValueChanged(_ sender: NSColorPanel) {
         
         guard let index = menuTargetIndex,
             let tag = menuTargetObject,
@@ -464,9 +472,9 @@ class TagListController: NSViewController {
     
     @IBAction func checkedButtonAction(_ sender: NSButton) {
         if sender.allowsMixedState { sender.allowsMixedState = false }
-        guard let embeddedDelegate = embeddedDelegate else { return }
+        guard let editDelegate = editDelegate else { return }
         let checkedRow = tableView.row(for: sender)
-        embeddedDelegate.embedStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
+        editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
     }
     
 }
@@ -533,7 +541,7 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var shouldPerformDragging: Bool { !isEmbeddedMode && internalController.isEditable }
+    var shouldPerformDragging: Bool { !isEditMode && internalController.isEditable }
     
     func willPerformDragging(_ sender: Any?) -> Bool {
         contentDelegate?.deselectAllContentItems()
@@ -583,7 +591,7 @@ extension TagListController: TagListDragDelegate {
 extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        guard !isEmbeddedMode, case .idle = tableViewOverlay.state else { return nil }
+        guard !isEditMode, case .idle = tableViewOverlay.state else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
@@ -652,16 +660,16 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? TagCellView {
             let col = tableColumn.identifier
             if col == .columnFlags {
-                if highlightMode == .none {
+                if previewMode == .none {
                     cell.text = "-"
                 }
                 else {
                     let tagName = arrangedTags[row].name
-                    if let tagCount = highlightContext?[tagName] {
-                        if highlightMode == .multiple {
+                    if let tagCount = previewContext?[tagName] {
+                        if previewMode == .multiple {
                             cell.text = String(tagCount)
                         }
-                        else if highlightMode == .single {
+                        else if previewMode == .single {
                             cell.text = "\u{25CF}"
                         }
                     } else {
@@ -670,13 +678,13 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
                 }
             }
             else if col == .columnChecked,
-                let embeddedDelegate = embeddedDelegate
+                let editDelegate = editDelegate
             {
                 let tagName = arrangedTags[row].name
-                cell.state = embeddedDelegate.embedState(of: tagName)
+                cell.state = editDelegate.editState(of: tagName)
             }
             else if col == .columnName {
-                cell.isEditable = !isEmbeddedMode
+                cell.isEditable = !isEditMode
             }
             return cell
         }
@@ -710,14 +718,14 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
 
 extension TagListController: TagListPreviewDelegate {
     
-    func highlightTags(for items: [ContentItem]) {
+    func previewTags(for items: [ContentItem]) {
         if items.count > 0 {
-            highlightMode = items.count == 1 ? .single : .multiple
-            highlightContext = Dictionary(counted: items.flatMap({ $0.tags }))
+            previewMode = items.count == 1 ? .single : .multiple
+            previewContext = Dictionary(counted: items.flatMap({ $0.tags }))
         }
         else {
-            highlightMode = .none
-            highlightContext = nil
+            previewMode = .none
+            previewContext = nil
         }
         let col = tableView.column(withIdentifier: .columnFlags)
         tableView.reloadData(

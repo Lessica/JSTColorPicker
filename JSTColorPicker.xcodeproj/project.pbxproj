@@ -162,8 +162,8 @@
 		D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
 		D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
 		D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
-		D61336BE24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */; };
-		D61336BF24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */; };
+		D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */; };
+		D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */; };
 		D62693632429F3EE00463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D62693652429F4C500463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -261,6 +261,8 @@
 		D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */; };
 		D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */; };
 		D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */; };
+		D636A3A524B3544200672844 /* NSColorPanel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */; };
+		D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */; };
 		D63FE1E3242B25BB00F1982A /* JSTScreenshotHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49823E805340039F4F6 /* PixelCoordinate.swift */; };
 		D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49A23E805560039F4F6 /* PixelSize.swift */; };
@@ -691,7 +693,7 @@
 		D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerSparkle.entitlements; sourceTree = "<group>"; };
 		D61336B324A99FED006263E5 /* RulerViewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerViewClient.swift; sourceTree = "<group>"; };
 		D61336BA24A9DDC8006263E5 /* EditTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagsController.swift; sourceTree = "<group>"; };
-		D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListEmbedDelegate.swift; sourceTree = "<group>"; };
+		D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListEditDelegate.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneOverlayView.swift; sourceTree = "<group>"; };
 		D626936C242A5BF100463E36 /* libusb-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusb-1.0.a"; sourceTree = "<group>"; };
 		D626936F242A5BFC00463E36 /* libusb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libusb.h; sourceTree = "<group>"; };
@@ -786,6 +788,7 @@
 		D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelImage.swift; sourceTree = "<group>"; };
 		D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneClipView.swift; sourceTree = "<group>"; };
+		D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColorPanel+Ext.swift"; sourceTree = "<group>"; };
 		D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPickerHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63FE1D8242B234600F1982A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D63FE1DB242B234600F1982A /* JSTColorPickerHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerHelper.entitlements; sourceTree = "<group>"; };
@@ -1918,6 +1921,7 @@
 				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
 				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
+				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2390,7 +2394,7 @@
 			isa = PBXGroup;
 			children = (
 				18B22FF0247EBD65003F70BA /* TagListSource.swift */,
-				D61336BD24A9E3D5006263E5 /* TagListEmbedDelegate.swift */,
+				D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */,
 				18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */,
 				D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */,
 				180C6A86249F652800B42656 /* TagImportSource.swift */,
@@ -2996,6 +3000,7 @@
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
 				D61047A324224A170002E990 /* ToolbarResponder.swift in Sources */,
+				D636A3A524B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				D61047A424224A170002E990 /* Template.swift in Sources */,
 				D659168A24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -3004,7 +3009,7 @@
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
-				D61336BE24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */,
+				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
@@ -3215,7 +3220,7 @@
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
-				D61336BF24A9E3D5006263E5 /* TagListEmbedDelegate.swift in Sources */,
+				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
@@ -3233,6 +3238,7 @@
 				D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */,
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,
 				185D7EE9248A8019001C283B /* EditCoordinateController.swift in Sources */,
+				D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 			);
