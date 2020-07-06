@@ -374,7 +374,7 @@ CA
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
@@ -478,49 +478,55 @@ CA
                                     </button>
                                 </viewController>
                             </touchBarItem>
-                            <touchBarItem id="PNh-sU-yk9">
-                                <viewController key="viewController" id="7Oq-ht-hPs">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
-                                        <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
-                                            <font key="font" metaFont="system"/>
-                                            <segments>
-                                                <segment image="JSTCursor" width="54"/>
-                                                <segment image="JSTArrow" width="54" selected="YES" tag="1"/>
-                                                <segment image="JSTMagnify" width="54">
-                                                    <nil key="label"/>
-                                                </segment>
-                                                <segment image="JSTMinify" width="54">
-                                                    <nil key="label"/>
-                                                </segment>
-                                                <segment image="JSTMove" width="54">
-                                                    <nil key="label"/>
-                                                </segment>
-                                            </segments>
-                                        </segmentedCell>
-                                        <connections>
-                                            <action selector="touchBarSceneToolControlAction:" target="B8D-0N-5wS" id="JBo-ZL-gBr"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </viewController>
-                            </touchBarItem>
-                            <touchBarItem id="JTe-Pb-tmM">
-                                <viewController key="viewController" id="eFW-EM-Kyw">
-                                    <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
-                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
-                                            <font key="font" metaFont="system"/>
-                                            <segments>
-                                                <segment image="JSTScaleToFit" width="54"/>
-                                                <segment image="JSTScaleToFill" width="54" tag="1"/>
-                                            </segments>
-                                        </segmentedCell>
-                                        <connections>
-                                            <action selector="touchBarSceneActionControlAction:" target="B8D-0N-5wS" id="FZc-tJ-7V1"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </viewController>
-                            </touchBarItem>
+                            <touchBarGroupItem id="yMh-dv-JMi">
+                                <touchBar key="groupTouchBar" id="TJk-1Z-9Wd">
+                                    <touchBarItems>
+                                        <touchBarItem id="PNh-sU-yk9">
+                                            <viewController key="viewController" id="7Oq-ht-hPs">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
+                                                        <font key="font" metaFont="system"/>
+                                                        <segments>
+                                                            <segment image="JSTCursor" width="54" selected="YES"/>
+                                                            <segment image="JSTArrow" width="54" tag="1"/>
+                                                            <segment image="JSTMagnify" width="54" tag="2">
+                                                                <nil key="label"/>
+                                                            </segment>
+                                                            <segment image="JSTMinify" width="54" tag="3">
+                                                                <nil key="label"/>
+                                                            </segment>
+                                                            <segment image="JSTMove" width="54" tag="4">
+                                                                <nil key="label"/>
+                                                            </segment>
+                                                        </segments>
+                                                    </segmentedCell>
+                                                    <connections>
+                                                        <action selector="touchBarSceneToolControlAction:" target="B8D-0N-5wS" id="JBo-ZL-gBr"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </viewController>
+                                        </touchBarItem>
+                                        <touchBarItem id="JTe-Pb-tmM">
+                                            <viewController key="viewController" id="eFW-EM-Kyw">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
+                                                        <font key="font" metaFont="system"/>
+                                                        <segments>
+                                                            <segment image="JSTScaleToFit" width="54" tag="5"/>
+                                                            <segment image="JSTScaleToFill" width="54" tag="6"/>
+                                                        </segments>
+                                                    </segmentedCell>
+                                                    <connections>
+                                                        <action selector="touchBarSceneActionControlAction:" target="B8D-0N-5wS" id="FZc-tJ-7V1"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </viewController>
+                                        </touchBarItem>
+                                    </touchBarItems>
+                                </touchBar>
+                            </touchBarGroupItem>
                             <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Vva-yk-jRZ"/>
                             <touchBarItem id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
@@ -537,6 +543,9 @@ CA
                                 </viewController>
                             </touchBarItem>
                         </touchBarItems>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="iuA-Mq-5Rz"/>
+                        </connections>
                     </touchBar>
                     <connections>
                         <outlet property="annotateItem" destination="P19-sN-vdr" id="2Ww-Mb-seU"/>

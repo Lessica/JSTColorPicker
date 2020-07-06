@@ -10,15 +10,15 @@ import Cocoa
 
 class SceneController: NSViewController {
     
-    public weak var contentDelegate: ContentDelegate!
-    public weak var trackingDelegate: SceneTracking!
-    public weak var tagListSource: TagListSource!
+    public weak var contentDelegate   : ContentDelegate!
+    public weak var trackingDelegate  : SceneTracking!
+    public weak var tagListSource     : TagListSource!
     
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
     
-    private var lazyColorAnnotators: [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
-    private var lazyAreaAnnotators: [AreaAnnotator] { annotators.lazy.compactMap({ $0 as? AreaAnnotator }) }
+    private var lazyColorAnnotators  : [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
+    private var lazyAreaAnnotators   : [AreaAnnotator]  { annotators.lazy.compactMap({ $0 as? AreaAnnotator })  }
     
     private var enableForceTouch: Bool {
         get {
@@ -60,8 +60,8 @@ class SceneController: NSViewController {
             sceneView.usesPredominantAxisScrolling = newValue
         }
     }
-    private var hideGridsWhenResize: Bool = false
-    private var hideAnnotatorsWhenResize: Bool = true
+    private var hideGridsWhenResize       : Bool = false
+    private var hideAnnotatorsWhenResize  : Bool = true
     
     private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -73,23 +73,23 @@ class SceneController: NSViewController {
     ]
     private static let minimumRecognizableMagnification: CGFloat = 16.0
     
-    @IBOutlet private weak var sceneClipView: SceneClipView!
-    @IBOutlet private weak var sceneView: SceneScrollView!
-    @IBOutlet private weak var sceneGridView: SceneGridView!
-    @IBOutlet private weak var sceneOverlayView: SceneOverlayView!
-    @IBOutlet private weak var internalSceneEffectView: SceneEffectView!
-    @IBOutlet private weak var sceneGridTopConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var sceneGridLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var sceneClipView               : SceneClipView!
+    @IBOutlet private weak var sceneView                   : SceneScrollView!
+    @IBOutlet private weak var sceneGridView               : SceneGridView!
+    @IBOutlet private weak var sceneOverlayView            : SceneOverlayView!
+    @IBOutlet private weak var internalSceneEffectView     : SceneEffectView!
+    @IBOutlet private weak var sceneGridTopConstraint      : NSLayoutConstraint!
+    @IBOutlet private weak var sceneGridLeadingConstraint  : NSLayoutConstraint!
     
-    private var horizontalRulerView: RulerView { sceneView.horizontalRulerView as! RulerView }
-    private var verticalRulerView: RulerView { sceneView.verticalRulerView as! RulerView }
+    private var horizontalRulerView            : RulerView         { sceneView.horizontalRulerView as! RulerView    }
+    private var verticalRulerView              : RulerView         { sceneView.verticalRulerView as! RulerView      }
     
-    private var wrapper: SceneImageWrapper { sceneView.documentView as! SceneImageWrapper }
-    public var wrapperBounds: CGRect { wrapper.bounds }
-    public var wrapperVisibleRect: CGRect { wrapper.visibleRect }
-    public var wrapperMangnification: CGFloat { sceneView.magnification }
-    public var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
-    public var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    private var wrapper                        : SceneImageWrapper { sceneView.documentView as! SceneImageWrapper   }
+    public var wrapperBounds                   : CGRect            { wrapper.bounds                                 }
+    public var wrapperVisibleRect              : CGRect            { wrapper.visibleRect                            }
+    public var wrapperMangnification           : CGFloat           { sceneView.magnification                        }
+    public var wrapperRestrictedRect           : CGRect            { wrapperVisibleRect.intersection(wrapperBounds) }
+    public var wrapperRestrictedMagnification  : CGFloat           { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
     
     private func isVisibleLocation(_ location: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(location)
@@ -146,9 +146,9 @@ class SceneController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneView.minMagnification = SceneController.minimumZoomingFactor
-        sceneView.maxMagnification = SceneController.maximumZoomingFactor
-        sceneView.magnification = SceneController.minimumZoomingFactor
+        sceneView.minMagnification    = SceneController.minimumZoomingFactor
+        sceneView.maxMagnification    = SceneController.maximumZoomingFactor
+        sceneView.magnification       = SceneController.minimumZoomingFactor
         sceneView.allowsMagnification = false
         
         let wrapper = SceneImageWrapper(pixelBounds: .zero)
@@ -1050,6 +1050,7 @@ extension SceneController: AnnotatorSource {
         }
         
         debugPrint("highlight annotators \(items.debugDescription), scroll = \(scrollTo)")
+        
     }
     
 }

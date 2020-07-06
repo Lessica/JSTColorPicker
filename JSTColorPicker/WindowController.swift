@@ -383,3 +383,11 @@ extension WindowController: SceneTracking {
     
 }
 
+extension WindowController: NSTouchBarDelegate {
+    
+    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
+        
+    }
+    
+}
+
