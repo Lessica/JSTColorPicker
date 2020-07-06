@@ -73,19 +73,19 @@ class Overlay: NSView {
         let timer = Timer(fireAt: Date(), interval: 0.1, target: self, selector: #selector(sharedAnimateAction(_:)), userInfo: nil, repeats: true)
         RunLoop.current.add(timer, forMode: .common)
         sharedAnimationTimer = timer
-        debugPrint("installSharedAnimationTimer()")
+        //debugPrint("installSharedAnimationTimer()")
     }
     private static func invalidateSharedAnimationTimer() {
         sharedAnimationTimer?.invalidate()
         sharedAnimationTimer = nil
-        debugPrint("invalidateSharedAnimationTimer()")
+        //debugPrint("invalidateSharedAnimationTimer()")
     }
     private static var sharedAnimationProxies = Set<OverlayAnimationProxy>()
     @objc internal static func sharedAnimateAction(_ timer: Timer) {
         sharedAnimationProxies
             .compactMap({ $0.overlay })
             .forEach({ $0.animateAction(timer) })
-        debugPrint("sharedAnimateAction(_:)")
+        //debugPrint("sharedAnimateAction(_:)")
     }
     
     private func animateAction(_ timer: Timer) {

@@ -1256,18 +1256,6 @@ extension ContentController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-//        var changedTags = Set<Tag>()
-//        if let insertedTags = noti.userInfo?[NSInsertedObjectsKey] as? Set<Tag> {
-//            changedTags.formUnion(insertedTags)
-//        }
-//        if let updatedTags = noti.userInfo?[NSUpdatedObjectsKey] as? Set<Tag> {
-//            changedTags.formUnion(updatedTags)
-//        }
-//        if let deletedTags = noti.userInfo?[NSDeletedObjectsKey] as? Set<Tag> {
-//            changedTags.formUnion(deletedTags)
-//        }
-//        let changedTagNames = changedTags.map({ $0.name })
-//        debugPrint(changedTagNames)
         DispatchQueue.main.async { [weak self] in
             self?.contentItemColorize()
         }

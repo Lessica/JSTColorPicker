@@ -23,26 +23,27 @@ class WindowController: NSWindowController {
     }()
     private var isInComparisonMode: Bool = false
     
-    @IBOutlet weak var openItem: NSToolbarItem!
-    @IBOutlet weak var annotateItem: NSToolbarItem!
-    @IBOutlet weak var magnifyItem: NSToolbarItem!
-    @IBOutlet weak var minifyItem: NSToolbarItem!
-    @IBOutlet weak var selectItem: NSToolbarItem!
-    @IBOutlet weak var moveItem: NSToolbarItem!
-    @IBOutlet weak var fitWindowItem: NSToolbarItem!
-    @IBOutlet weak var fillWindowItem: NSToolbarItem!
-    @IBOutlet weak var screenshotItem: NSToolbarItem!
+    @IBOutlet weak var openItem                    : NSToolbarItem!
+    @IBOutlet weak var annotateItem                : NSToolbarItem!
+    @IBOutlet weak var magnifyItem                 : NSToolbarItem!
+    @IBOutlet weak var minifyItem                  : NSToolbarItem!
+    @IBOutlet weak var selectItem                  : NSToolbarItem!
+    @IBOutlet weak var moveItem                    : NSToolbarItem!
+    @IBOutlet weak var fitWindowItem               : NSToolbarItem!
+    @IBOutlet weak var fillWindowItem              : NSToolbarItem!
+    @IBOutlet weak var screenshotItem              : NSToolbarItem!
     
-    @IBOutlet weak var touchBarOpenItem: NSButton!    
-    @IBOutlet weak var touchBarSceneToolControl: NSSegmentedControl!
-    @IBOutlet weak var touchBarSceneActionControl: NSSegmentedControl!
-    @IBOutlet weak var touchBarScreenshotItem: NSButton!
+    @IBOutlet weak var touchBarOpenItem            : NSButton!
+    @IBOutlet weak var touchBarSceneToolControl    : NSSegmentedControl!
+    @IBOutlet weak var touchBarSceneActionControl  : NSSegmentedControl!
+    @IBOutlet weak var touchBarScreenshotItem      : NSButton!
+    
+    private var firstResponderObservation          : NSKeyValueObservation?
     
     private var viewController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
     }
     private var currentAlertSheet: NSAlert?
-    
     public func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
         if let currentAlertSheet = currentAlertSheet {
@@ -64,6 +65,13 @@ class WindowController: NSWindowController {
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         touchBarUpdateButtonState()
+        
+        #if DEBUG
+        firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (window, change) in
+            guard let firstResponder = change.newValue as? NSResponder else { return }
+            debugPrint("First Responder: \(firstResponder.className)")
+        })
+        #endif
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -363,6 +371,10 @@ extension WindowController: NSWindowDelegate {
     
 }
 
+extension WindowController: NSTouchBarDelegate {
+    
+}
+
 extension WindowController: ScreenshotLoader {
     
     internal var screenshot: Screenshot? {
@@ -379,14 +391,6 @@ extension WindowController: SceneTracking {
     
     func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         gridWindowController?.trackColorChanged(sender, at: coordinate)
-    }
-    
-}
-
-extension WindowController: NSTouchBarDelegate {
-    
-    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
-        
     }
     
 }
