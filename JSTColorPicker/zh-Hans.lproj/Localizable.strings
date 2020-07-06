@@ -1,3 +1,6 @@
+/* internalAddContentItems(_:) */
+"Add Items" = "添加项";
+
 /* toolbarItemLabel */
 "Advanced" = "进阶";
 
@@ -46,6 +49,9 @@
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
 
+/* internalDeleteContentItems(_:) */
+"Delete Items" = "删除项";
+
 /* Information Panel */
 "Dimensions" = "尺寸";
 
@@ -69,6 +75,9 @@
 
 /* EditCoordinateController */
 "Edit Color & Coordinate" = "修改颜色与坐标";
+
+/* updateDisplay(_:with:isRegistered:) */
+"Edit Coordinate" = "修改坐标";
 
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "正在与设备 \"%@\" 建立连接...";
@@ -241,6 +250,9 @@
 
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
+
+/* internalUpdateContentItems(_:) */
+"Update Items" = "更新项";
 
 /* ContentError */
 "User aborted." = "用户已取消.";

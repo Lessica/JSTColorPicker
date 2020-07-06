@@ -1,3 +1,6 @@
+/* internalAddContentItems(_:) */
+"Add Items" = "Add Items";
+
 /* toolbarItemLabel */
 "Advanced" = "Advanced";
 
@@ -46,6 +49,9 @@
 /* Delete Confirm */
 "Delete Confirm" = "Delete Confirm";
 
+/* internalDeleteContentItems(_:) */
+"Delete Items" = "Delete Items";
+
 /* Information Panel */
 "Dimensions" = "Dimensions";
 
@@ -69,6 +75,9 @@
 
 /* EditCoordinateController */
 "Edit Color & Coordinate" = "Edit Color & Coordinate";
+
+/* updateDisplay(_:with:isRegistered:) */
+"Edit Coordinate" = "Edit Coordinate";
 
 /* screenshotItemTapped(_:) */
 "Establish connection to device \"%@\"..." = "Establish connection to device \"%@\"...";
@@ -241,6 +250,9 @@
 
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
+
+/* internalUpdateContentItems(_:) */
+"Update Items" = "Update Items";
 
 /* ContentError */
 "User aborted." = "User aborted.";
