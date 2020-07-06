@@ -10,34 +10,31 @@ import Cocoa
 
 class EditCoordinateController: EditViewController {
     
-    @IBOutlet weak var box          : NSBox!
-    @IBOutlet weak var previewBox   : NSBox!
+    @IBOutlet weak var box                  : NSBox!
+    @IBOutlet weak var previewBox           : NSBox!
     
-    @IBOutlet weak var toggleBtn    : NSButton!
-    @IBOutlet weak var cancelBtn    : NSButton!
-    @IBOutlet weak var okBtn        : NSButton!
+    @IBOutlet weak var toggleBtn            : NSButton!
+    @IBOutlet weak var cancelBtn            : NSButton!
+    @IBOutlet weak var okBtn                : NSButton!
     
     @IBOutlet weak var touchBarToggleBtn    : NSButton!
     @IBOutlet weak var touchBarCancelBtn    : NSButton!
     @IBOutlet weak var touchBarOkBtn        : NSButton!
     
-    @IBOutlet weak var textFieldOriginX: NSTextField!
-    @IBOutlet weak var textFieldOriginY: NSTextField!
-    @IBOutlet weak var textFieldColor  : NSTextField!
-    @IBOutlet weak var textFieldError  : NSTextField!
+    @IBOutlet weak var textFieldOriginX     : NSTextField!
+    @IBOutlet weak var textFieldOriginY     : NSTextField!
+    @IBOutlet weak var textFieldColor       : NSTextField!
+    @IBOutlet weak var textFieldError       : NSTextField!
     
-    @IBOutlet weak var previewImageView  : PreviewImageView!
-    @IBOutlet weak var previewOverlayView: PreviewOverlayView!
+    @IBOutlet weak var previewImageView     : PreviewImageView!
+    @IBOutlet weak var previewOverlayView   : PreviewOverlayView!
+    
+    @IBOutlet weak var heightConstraint     : NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let previewOn: Bool = UserDefaults.standard[.togglePreviewColor]
-        previewBox.isHidden = !previewOn
-        
-        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
-        toggleBtn.state = toggleOn
-        touchBarToggleBtn.state = toggleOn
+        reloadPreviewState(animated: false)
     }
     
     override func viewWillAppear() {
@@ -54,15 +51,15 @@ class EditCoordinateController: EditViewController {
         }
         undoManager?.enableUndoRegistration()
         
-        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: nil)
-        { [unowned self] (notification) in
-            guard (notification.object as? UndoManager) == self.undoManager else { return }
-            self.validateInputs(nil)
-        }
-        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: nil)
-        { [unowned self] (notification) in
-            guard (notification.object as? UndoManager) == self.undoManager else { return }
-            self.validateInputs(nil)
+        if let undoManager = undoManager, undoToken == nil && redoToken == nil {
+            undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager)
+            { [unowned self] _ in
+                self.validateInputs(nil)
+            }
+            redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager)
+            { [unowned self] _ in
+                self.validateInputs(nil)
+            }
         }
     }
     
@@ -78,7 +75,7 @@ class EditCoordinateController: EditViewController {
         )
     }
     
-    private func updateDisplay(_ sender: Any?, with item: ContentItem?) {
+    private func updateDisplay(_ sender: Any?, with item: ContentItem?, isRegistered registered: Bool = false) {
         guard let pixelColor = item as? PixelColor else { return }
         
         let coord = pixelColor.coordinate
@@ -99,9 +96,11 @@ class EditCoordinateController: EditViewController {
                 } else {
                     targetSelf.makeFirstResponder(nil)
                 }
-                targetSelf.updateDisplay(sender, with: lastDisplayedColor)
+                targetSelf.updateDisplay(sender, with: lastDisplayedColor, isRegistered: true)
             })
-            // TODO: undo action name
+            if !registered {
+                undoManager?.setActionName(NSLocalizedString("Edit Coordinate", comment: "updateDisplay(_:with:isRegistered:)"))
+            }
         }
         
         updatePreview(to: coord.toCGPoint())
@@ -175,17 +174,72 @@ class EditCoordinateController: EditViewController {
     }
     
     @IBAction private func toggleAction(_ sender: NSButton) {
-        previewBox.isHidden = !previewBox.isHidden
-        
-        let toggleOn: NSControl.StateValue = previewBox.isHidden ? .on : .off
-        toggleBtn.state = toggleOn
-        touchBarToggleBtn.state = toggleOn
-        
-        UserDefaults.standard[.togglePreviewColor] = !previewBox.isHidden
-        
-        setupPreviewIfNeeded()
-        if !previewBox.isHidden {
-            updatePreview(to: currentCoordinate.toCGPoint())
+        UserDefaults.standard[.togglePreviewColor] = (sender.state == .off)
+        reloadPreviewState(animated: true) { [weak self] (hidden) in
+            guard let self = self else { return }
+            self.setupPreviewIfNeeded()
+            if !hidden {
+                self.updatePreview(to: self.currentCoordinate.toCGPoint())
+            }
+        }
+    }
+    
+    private func reloadPreviewState(animated: Bool, completionHandler: ((_ isHidden: Bool) -> Void)? = nil) {
+        let previewOff: Bool = !UserDefaults.standard[.togglePreviewColor]
+        let shouldAnimate = (previewBox.isHidden != previewOff)
+        self.toggleBtn.state = previewOff ? .on : .off
+        self.touchBarToggleBtn.state = previewOff ? .on : .off
+        if animated && shouldAnimate {
+            if previewOff {
+                
+                self.previewBox.isHidden = true
+                self.toggleBtn.isEnabled = false
+                self.touchBarToggleBtn.isEnabled = false
+                
+                self.heightConstraint.priority = .defaultHigh
+                self.heightConstraint.constant = 493.0
+                
+                NSAnimationContext.runAnimationGroup({ (context) in
+                    self.heightConstraint.animator().constant = 214.0
+                }) { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.toggleBtn.isEnabled = true
+                    self.touchBarToggleBtn.isEnabled = true
+                    
+                    self.previewBox.isHidden = true
+                    self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
+                    completionHandler?(true)
+                }
+                
+            } else {
+                
+                self.previewBox.isHidden = true
+                self.toggleBtn.isEnabled = false
+                self.touchBarToggleBtn.isEnabled = false
+                
+                self.heightConstraint.priority = .defaultHigh
+                self.heightConstraint.constant = 214.0
+                
+                NSAnimationContext.runAnimationGroup({ (context) in
+                    self.heightConstraint.animator().constant = 493.0
+                }) { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.toggleBtn.isEnabled = true
+                    self.touchBarToggleBtn.isEnabled = true
+                    
+                    self.previewBox.isHidden = false
+                    self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
+                    completionHandler?(false)
+                }
+                
+            }
+        } else {
+            self.previewBox.isHidden = previewOff
+            self.heightConstraint.constant = previewOff ? 214.0 : 493.0
+            self.heightConstraint.priority = NSLayoutConstraint.Priority(rawValue: 500.0)
+            completionHandler?(!previewOff)
         }
     }
     

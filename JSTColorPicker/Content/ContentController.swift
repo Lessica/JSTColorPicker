@@ -164,19 +164,7 @@ class ContentController: NSViewController {
         addCoordinateField.isEnabled = false
         
         tableView.tableViewResponder = self
-        tableView.contextUndoManager = screenshot?.undoManager
         tableView.registerForDraggedTypes([.color, .area])
-        
-        undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] (notification) in
-            self.tableView.reloadData()
-            self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
-            self.delayedRowIndexes = nil
-        }
-        redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] (notification) in
-            self.tableView.reloadData()
-            self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
-            self.delayedRowIndexes = nil
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
@@ -351,10 +339,12 @@ class ContentController: NSViewController {
 extension ContentController {
     
     @discardableResult
-    private func internalAddContentItems(_ items: [ContentItem]) -> IndexSet {
+    private func internalAddContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = content else { return IndexSet() }
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items) })
-        // TODO: undo action name
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items, isRegistered: true) })
+        if !registered {
+            undoManager?.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
+        }
         actionDelegate.contentActionAdded(items)
         var indexes = IndexSet()
         items.sorted(by: { $0.id < $1.id }).forEach { (item) in
@@ -366,14 +356,16 @@ extension ContentController {
     }
     
     @discardableResult
-    private func internalDeleteContentItems(_ items: [ContentItem]) -> IndexSet {
+    private func internalDeleteContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = content else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
         undoManager?.registerUndo(withTarget: self, handler: { (target) in
-            target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove)
+            target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove, isRegistered: true)
         })
-        // TODO: undo action name
+        if !registered {
+            undoManager?.setActionName(NSLocalizedString("Delete Items", comment: "internalDeleteContentItems(_:)"))
+        }
         actionDelegate.contentActionDeleted(items)
         let indexes = content.items
             .enumerated()
@@ -384,12 +376,14 @@ extension ContentController {
     }
     
     @discardableResult
-    private func internalUpdateContentItems(_ items: [ContentItem]) -> IndexSet {
+    private func internalUpdateContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = content else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove) })
-        // TODO: undo action name
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove, isRegistered: true) })
+        if !registered {
+            undoManager?.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
+        }
         actionDelegate.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         var indexes = IndexSet()
@@ -1211,6 +1205,20 @@ extension ContentController: ScreenshotLoader {
         self.screenshot = screenshot
         addCoordinateButton.isEnabled = true
         addCoordinateField.isEnabled = true
+        
+        if let undoManager = screenshot.undoManager {
+            tableView.contextUndoManager = undoManager
+            undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
+                self.tableView.reloadData()
+                self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
+                self.delayedRowIndexes = nil
+            }
+            redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] _ in
+                self.tableView.reloadData()
+                self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
+                self.delayedRowIndexes = nil
+            }
+        }
         
         tableView.reloadData()
     }
