@@ -374,7 +374,7 @@ CA
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
@@ -464,7 +464,7 @@ CA
                     </window>
                     <touchBar key="touchBar" id="ZNC-mo-cGK">
                         <touchBarItems>
-                            <touchBarItem id="eXV-YH-bGl">
+                            <touchBarItem visibilityPriority="1000" id="eXV-YH-bGl">
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
@@ -478,10 +478,10 @@ CA
                                     </button>
                                 </viewController>
                             </touchBarItem>
-                            <touchBarGroupItem id="yMh-dv-JMi">
+                            <touchBarGroupItem visibilityPriority="750" id="yMh-dv-JMi">
                                 <touchBar key="groupTouchBar" id="TJk-1Z-9Wd">
                                     <touchBarItems>
-                                        <touchBarItem id="PNh-sU-yk9">
+                                        <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
@@ -507,7 +507,7 @@ CA
                                                 </segmentedControl>
                                             </viewController>
                                         </touchBarItem>
-                                        <touchBarItem id="JTe-Pb-tmM">
+                                        <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
@@ -528,7 +528,7 @@ CA
                                 </touchBar>
                             </touchBarGroupItem>
                             <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Vva-yk-jRZ"/>
-                            <touchBarItem id="PQH-8F-ERn">
+                            <touchBarItem visibilityPriority="1000" id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>

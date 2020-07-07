@@ -103,7 +103,7 @@ class SidebarController: NSViewController {
     
     @IBAction func exportButtonTapped(_ sender: NSButton) {
         do {
-            guard let template = screenshot?.export.selectedTemplate else { throw ExportError.noTemplateSelected }
+            guard let template = screenshot?.export.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
             let panel = NSSavePanel()
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { (resp) in
@@ -161,7 +161,7 @@ by \(template.author ?? "Unknown")
 """
                 }
                 else {
-                    item.toolTip = TemplateError.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+                    item.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
                 }
                 
                 return item
@@ -330,7 +330,7 @@ extension SidebarController: ScreenshotLoader {
     }()
     
     func load(_ screenshot: Screenshot) throws {
-        guard let image = screenshot.image else { throw ScreenshotError.invalidImage }
+        guard let image = screenshot.image else { throw Screenshot.Error.invalidImage }
         self.screenshot = screenshot
         self.imageSource2 = nil
         updateInformationPanel()

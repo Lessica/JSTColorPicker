@@ -14,14 +14,9 @@ class AnnotatorOverlay: EditableOverlay {
     public static let fixedOverlaySize           = CGSize(width: 24.0, height: 24.0)
     public static let minimumBorderedOverlaySize = CGSize(width: 16.0, height: 16.0)
     
-    public var isFixedOverlay: Bool = true
-    public var label: String {
-        return internalLabel
-    }
-    
-    override var isBordered: Bool {
-        return !isFixedOverlay
-    }
+    public var isFixedOverlay  : Bool = true
+    public var label           : String { internalLabel   }
+    override var isBordered    : Bool   { !isFixedOverlay }
     
     override var outerInsets: NSEdgeInsets {
         if isFixedOverlay {
@@ -37,16 +32,26 @@ class AnnotatorOverlay: EditableOverlay {
         return super.innerInsets
     }
     
-    public var textColor: NSColor = .black
-    public var highlightedTextColor: NSColor = .white
-    public var focusedTextColor: NSColor = NSColor(srgbRed: 0.9098, green: 0.2549, blue: 0.0941, alpha: 1.0)
-    public var backgroundImage: NSImage = #imageLiteral(resourceName: "Annotator")
-    public var highlightedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRed")
-    public var focusedBackgroundImage: NSImage = #imageLiteral(resourceName: "AnnotatorRedFocused")
+    public var textColor                   : NSColor = .black
+    public var highlightedTextColor        : NSColor = .white
+    public var focusedTextColor            : NSColor = NSColor(srgbRed: 0.9098, green: 0.2549, blue: 0.0941, alpha: 1.0)
+    public var backgroundImage             : NSImage = #imageLiteral(resourceName: "Annotator")
+    public var highlightedBackgroundImage  : NSImage = #imageLiteral(resourceName: "AnnotatorRed")
+    public var focusedBackgroundImage      : NSImage = #imageLiteral(resourceName: "AnnotatorRedFocused")
     
-    private static let defaultBorderWidth: CGFloat = 0.0
-    private static let defaultOuterInsets = NSEdgeInsets(top: -defaultBorderWidth, left: -defaultBorderWidth, bottom: -defaultBorderWidth, right: -defaultBorderWidth)
-    private static let defaultInnerInsets = NSEdgeInsets(top: defaultBorderWidth, left: defaultBorderWidth, bottom: defaultBorderWidth, right: defaultBorderWidth)
+    private static let defaultBorderWidth  : CGFloat = 0.0
+    private static let defaultOuterInsets  = NSEdgeInsets(
+        top: -defaultBorderWidth,
+        left: -defaultBorderWidth,
+        bottom: -defaultBorderWidth,
+        right: -defaultBorderWidth
+    )
+    private static let defaultInnerInsets  = NSEdgeInsets(
+        top: defaultBorderWidth,
+        left: defaultBorderWidth,
+        bottom: defaultBorderWidth,
+        right: defaultBorderWidth
+    )
     
     private var internalLabel: String
     private lazy var internalAttributedLabel: NSAttributedString = {

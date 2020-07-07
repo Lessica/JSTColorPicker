@@ -8,6 +8,7 @@
 
 import Cocoa
 
+
 class EditViewController: NSViewController {
     
     public var isAdd: Bool { (view.window as? EditWindow)?.isAdd ?? true }
@@ -27,7 +28,5 @@ class EditViewController: NSViewController {
     
 }
 
-extension EditViewController: NSTextFieldDelegate {
-    
-}
+extension EditViewController: NSTextFieldDelegate { }
 

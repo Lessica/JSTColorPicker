@@ -8,65 +8,68 @@
 
 import Cocoa
 
-enum GridState: CaseIterable {
-    case none
-    case colorOccupied
-    case areaOccupied
-    case bothOccupied
-    case center
-    
-    static let gridLineWidth: CGFloat = 1.0
-    static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
-    static let gridCenterLineColor = NSColor(white: 0.0, alpha: 0.3)
-    static let gridColorOccupiedLineColor = NSColor.red
-    static let gridAreaOccupiedLineColor = NSColor.blue
-    static let gridBothOccupiedLineColor = NSColor.red
-    
-    func lines(for rect: CGRect) -> [[CGPoint]] {
-        switch self {
-        case .colorOccupied:
-            return [
-                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
-                [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
-                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ]
-            ]
-        case .areaOccupied:
-            return [
-                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
-                [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
-                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
-            ]
-        case .bothOccupied:
-            return [
-                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
-                [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
-                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ],
-                [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
-                [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
-                [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
-            ]
-        default:
-            return []
-        }
-    }
-    
-    var color: NSColor {
-        switch self {
-        case .colorOccupied:
-            return GridState.gridColorOccupiedLineColor
-        case .areaOccupied:
-            return GridState.gridAreaOccupiedLineColor
-        case .bothOccupied:
-            return GridState.gridBothOccupiedLineColor
-        case .center:
-            return GridState.gridCenterLineColor
-        default:
-            return GridState.gridLineColor
-        }
-    }
-}
 
 class GridView: NSView {
+    
+    private enum State: CaseIterable {
+        
+        case none
+        case colorOccupied
+        case areaOccupied
+        case bothOccupied
+        case center
+        
+        static let gridLineWidth: CGFloat = 1.0
+        static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
+        static let gridCenterLineColor = NSColor(white: 0.0, alpha: 0.3)
+        static let gridColorOccupiedLineColor = NSColor.red
+        static let gridAreaOccupiedLineColor = NSColor.blue
+        static let gridBothOccupiedLineColor = NSColor.red
+        
+        func lines(for rect: CGRect) -> [[CGPoint]] {
+            switch self {
+            case .colorOccupied:
+                return [
+                    [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
+                    [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
+                    [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ]
+                ]
+            case .areaOccupied:
+                return [
+                    [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                    [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
+                    [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
+                ]
+            case .bothOccupied:
+                return [
+                    [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.midY) ],
+                    [ CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY) ],
+                    [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                    [ CGPoint(x: rect.midX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.midY) ],
+                    [ CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.maxX, y: rect.minY) ],
+                    [ CGPoint(x: rect.midX, y: rect.minY), CGPoint(x: rect.minX, y: rect.midY) ]
+                ]
+            default:
+                return []
+            }
+        }
+        
+        var color: NSColor {
+            switch self {
+            case .colorOccupied:
+                return State.gridColorOccupiedLineColor
+            case .areaOccupied:
+                return State.gridAreaOccupiedLineColor
+            case .bothOccupied:
+                return State.gridBothOccupiedLineColor
+            case .center:
+                return State.gridCenterLineColor
+            default:
+                return State.gridLineColor
+            }
+        }
+        
+    }
     
     public weak var dataSource: ScreenshotLoader!
     public var shouldDrawAnnotators: Bool = false
@@ -131,7 +134,7 @@ class GridView: NSView {
         addSubview(centerOverlay)
     }
     
-    private func gridState(at coordinate: PixelCoordinate) -> GridState {
+    private func gridState(at coordinate: PixelCoordinate) -> State {
         guard let content = dataSource.screenshot?.content else { return .none }
         let isOccupiedByColor =
             shouldDrawAnnotators ? 
@@ -159,8 +162,8 @@ class GridView: NSView {
         guard let pixelImage = pixelImage else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        var points: [GridState: [(state: GridState, coordinate: PixelCoordinate, rect: CGRect)]] = [:]
-        GridState.allCases.forEach({ points[$0] = [] })
+        var points: [State: [(state: State, coordinate: PixelCoordinate, rect: CGRect)]] = [:]
+        State.allCases.forEach({ points[$0] = [] })
         
         let hNum = CGFloat(hPixelNum) / 2.0
         let vNum = CGFloat(vPixelNum) / 2.0
@@ -175,7 +178,7 @@ class GridView: NSView {
             }
         }
         
-        let drawClosure = { (state: GridState, coord: PixelCoordinate, rect: CGRect) -> Void in
+        let drawClosure = { (state: State, coord: PixelCoordinate, rect: CGRect) -> Void in
             let color: CGColor = pixelImage.rawColor(at: coord)?.toNSColor().cgColor ?? .clear
             ctx.setStrokeColor(state.color.cgColor)
             ctx.setFillColor(color)
@@ -194,8 +197,8 @@ class GridView: NSView {
         }
         
         // ctx.saveGState()
-        ctx.setLineWidth(GridState.gridLineWidth)
-        GridState.allCases.forEach({ points[$0]?.forEach(drawClosure) })
+        ctx.setLineWidth(State.gridLineWidth)
+        State.allCases.forEach({ points[$0]?.forEach(drawClosure) })
         // ctx.restoreGState()
         
     }

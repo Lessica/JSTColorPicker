@@ -14,12 +14,6 @@ extension NSUserInterfaceItemIdentifier {
     static let columnName       = NSUserInterfaceItemIdentifier("col-name")
 }
 
-enum TagListPreviewMode {
-    case multiple
-    case single
-    case none
-}
-
 @objc private class TagListControllerWrapper: NSObject {
     
     public weak var object: TagListController?
@@ -33,10 +27,16 @@ enum TagListPreviewMode {
 
 class TagListController: NSViewController {
     
+    private enum PreviewMode {
+        case multiple
+        case single
+        case none
+    }
+    
     public weak var editDelegate                  : TagListEditDelegate?
     public var isEditMode                         : Bool { editDelegate != nil }
     
-    private var previewMode                       : TagListPreviewMode = .none
+    private var previewMode                       : PreviewMode = .none
     private var previewContext                    : [String: Int]?
     
     public weak var contentDelegate               : ContentDelegate?
@@ -109,11 +109,11 @@ class TagListController: NSViewController {
         tableViewOverlay.dragDelegate = self
         tableViewOverlay.tableRowHeight = tableView.rowHeight
         
-        internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         
         if let context = TagListController.sharedContext {
             
+            self.internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
             self.internalController.managedObjectContext = context
             self.internalController.rearrangeObjects()
             self.reloadEmbeddedState()
@@ -178,6 +178,7 @@ class TagListController: NSViewController {
                     TagListController.sharedContext = context
                     NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: context)
                     
+                    self.internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
                     self.internalController.managedObjectContext = context
                     self.internalController.rearrangeObjects()
                     self.reloadEmbeddedState()
@@ -311,7 +312,7 @@ class TagListController: NSViewController {
         guard let context = TagListController.sharedContext,
             let tagNames = importItemSource?.importableTagNames else
         {
-            presentError(ContentError.noDocumentLoaded)
+            presentError(Content.Error.noDocumentLoaded)
             return
         }
         
@@ -393,7 +394,7 @@ class TagListController: NSViewController {
             if error.code == 133021,
                 let itemName = ((context.insertedObjects.first ?? context.updatedObjects.first) as? Tag)?.name
             {
-                presentError(ContentError.itemExists(item: itemName))
+                presentError(Content.Error.itemExists(item: itemName))
             } else {
                 presentError(error)
             }

@@ -8,7 +8,4 @@
 
 import Foundation
 
-protocol UndoProxy: NSResponder {
-    
-}
-
+protocol UndoProxy: NSResponder { }

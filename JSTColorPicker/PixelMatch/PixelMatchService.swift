@@ -8,27 +8,29 @@
 
 import Cocoa
 
-enum PixelMatchServiceError: LocalizedError {
-    case taskConflict
-    case fileDoesNotExist(url: URL)
-    case sizesDoNotMatch(size1: CGSize, size2: CGSize)
-    case noDifferenceDetected
-    
-    var failureReason: String? {
-        switch self {
-        case .taskConflict:
-            return NSLocalizedString("Another task is in process, abort.", comment: "PixelMatchServiceError")
-        case let .fileDoesNotExist(url):
-            return String(format: NSLocalizedString("File does not exist: %@", comment: "PixelMatchServiceError"), url.path)
-        case let .sizesDoNotMatch(size1, size2):
-            return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
-        case .noDifferenceDetected:
-            return NSLocalizedString("No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.", comment: "PixelMatchServiceError")
-        }
-    }
-}
-
 class PixelMatchService {
+    
+    enum Error: LocalizedError {
+        
+        case taskConflict
+        case fileDoesNotExist(url: URL)
+        case sizesDoNotMatch(size1: CGSize, size2: CGSize)
+        case noDifferenceDetected
+        
+        var failureReason: String? {
+            switch self {
+            case .taskConflict:
+                return NSLocalizedString("Another task is in process, abort.", comment: "PixelMatchServiceError")
+            case let .fileDoesNotExist(url):
+                return String(format: NSLocalizedString("File does not exist: %@", comment: "PixelMatchServiceError"), url.path)
+            case let .sizesDoNotMatch(size1, size2):
+                return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
+            case .noDifferenceDetected:
+                return NSLocalizedString("No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.", comment: "PixelMatchServiceError")
+            }
+        }
+        
+    }
     
     public private(set) var isProcessing: Bool = false
     
@@ -48,13 +50,13 @@ class PixelMatchService {
     }
     
     public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage, options: MatchOptions) throws -> JSTPixelImage {
-        guard !isProcessing else { throw PixelMatchServiceError.taskConflict }
+        guard !isProcessing else { throw PixelMatchService.Error.taskConflict }
         isProcessing = true
         
         let startTime = CFAbsoluteTimeGetCurrent()
         guard img2.size.width == img1.size.width && img2.size.height == img1.size.height else {
             isProcessing = false
-            throw PixelMatchServiceError.sizesDoNotMatch(size1: img1.size, size2: img2.size)
+            throw PixelMatchService.Error.sizesDoNotMatch(size1: img1.size, size2: img2.size)
         }
 
         let totalColumns = Int(img1.size.width)
@@ -140,7 +142,7 @@ class PixelMatchService {
         debugPrint(String(format: "approximate count: \(diffCount), difference: %.3f%%", Double(diffCount) / Double(totalCount) * 100.0))
         guard diffCount > 0 else {
             isProcessing = false
-            throw PixelMatchServiceError.noDifferenceDetected
+            throw PixelMatchService.Error.noDifferenceDetected
         }
         
         let img = UnsafeMutablePointer<JST_IMAGE>.allocate(capacity: 1)

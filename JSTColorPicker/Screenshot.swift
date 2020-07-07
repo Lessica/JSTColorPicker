@@ -8,37 +8,6 @@
 
 import Cocoa
 
-enum ScreenshotError: LocalizedError {
-    case invalidImage
-    case invalidImageSource
-    case invalidImageType
-    case invalidImageProperties
-    case invalidContent
-    case cannotSerializeContent
-    case cannotDeserializeContent
-    case notImplemented
-    
-    var failureReason: String? {
-        switch self {
-        case .invalidImage:
-            return NSLocalizedString("Invalid image.", comment: "ScreenshotError")
-        case .invalidImageSource:
-            return NSLocalizedString("Invalid image source.", comment: "ScreenshotError")
-        case .invalidContent:
-            return NSLocalizedString("Invalid content.", comment: "ScreenshotError")
-        case .invalidImageType:
-            return NSLocalizedString("Invalid image type.", comment: "ScreenshotError")
-        case .invalidImageProperties:
-            return NSLocalizedString("Invalid image properties.", comment: "ScreenshotError")
-        case .cannotSerializeContent:
-            return NSLocalizedString("Cannot serialize content.", comment: "ScreenshotError")
-        case .cannotDeserializeContent:
-            return NSLocalizedString("Cannot deserialize content.", comment: "ScreenshotError")
-        case .notImplemented:
-            return NSLocalizedString("This feature is not implemented.", comment: "ScreenshotError")
-        }
-    }
-}
 
 protocol ScreenshotLoader: class {
     var screenshot: Screenshot? { get }
@@ -46,6 +15,40 @@ protocol ScreenshotLoader: class {
 }
 
 class Screenshot: NSDocument {
+    
+    enum Error: LocalizedError {
+        
+        case invalidImage
+        case invalidImageSource
+        case invalidImageType
+        case invalidImageProperties
+        case invalidContent
+        case cannotSerializeContent
+        case cannotDeserializeContent
+        case notImplemented
+        
+        var failureReason: String? {
+            switch self {
+            case .invalidImage:
+                return NSLocalizedString("Invalid image.", comment: "ScreenshotError")
+            case .invalidImageSource:
+                return NSLocalizedString("Invalid image source.", comment: "ScreenshotError")
+            case .invalidContent:
+                return NSLocalizedString("Invalid content.", comment: "ScreenshotError")
+            case .invalidImageType:
+                return NSLocalizedString("Invalid image type.", comment: "ScreenshotError")
+            case .invalidImageProperties:
+                return NSLocalizedString("Invalid image properties.", comment: "ScreenshotError")
+            case .cannotSerializeContent:
+                return NSLocalizedString("Cannot serialize content.", comment: "ScreenshotError")
+            case .cannotDeserializeContent:
+                return NSLocalizedString("Cannot deserialize content.", comment: "ScreenshotError")
+            case .notImplemented:
+                return NSLocalizedString("This feature is not implemented.", comment: "ScreenshotError")
+            }
+        }
+        
+    }
     
     public var image: PixelImage?
     public var content: Content?
@@ -76,14 +79,14 @@ class Screenshot: NSDocument {
         
         let source = image.imageSource.cgSource
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
-            throw ScreenshotError.invalidImageProperties
+            throw Error.invalidImageProperties
         }
         
         guard let EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
         guard let archivedContentBase64EncodedString = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? String else { return }
         if let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
             guard let archivedContent = NSKeyedUnarchiver.unarchiveObject(with: archivedContentData) as? Content else {
-                throw ScreenshotError.cannotDeserializeContent
+                throw Error.cannotDeserializeContent
             }
             self.content = archivedContent
         }
@@ -91,19 +94,19 @@ class Screenshot: NSDocument {
     
     override func data(ofType typeName: String) throws -> Data {
         guard let source = image?.imageSource else {
-            throw ScreenshotError.invalidImageSource
+            throw Error.invalidImageSource
         }
         
         guard let uti = CGImageSourceGetType(source.cgSource) else {
-            throw ScreenshotError.invalidImageType
+            throw Error.invalidImageType
         }
         
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else {
-            throw ScreenshotError.invalidImageProperties
+            throw Error.invalidImageProperties
         }
         
         guard let content = content else {
-            throw ScreenshotError.invalidContent
+            throw Error.invalidContent
         }
         
         let archivedData = NSKeyedArchiver.archivedData(withRootObject: content)
@@ -117,7 +120,7 @@ class Screenshot: NSDocument {
         
         let destData = NSMutableData()
         guard let destination = CGImageDestinationCreateWithData(destData as CFMutableData, uti, 1, nil) else {
-            throw ScreenshotError.cannotSerializeContent
+            throw Error.cannotSerializeContent
         }
         
         // now it is allowed to unblock main thread from freezing
@@ -136,7 +139,7 @@ class Screenshot: NSDocument {
     
     // TODO: Revert to Saved
     override func revert(toContentsOf url: URL, ofType typeName: String) throws {
-        throw ScreenshotError.notImplemented
+        throw Error.notImplemented
     }
     
     // TODO: Auto Saves in Place

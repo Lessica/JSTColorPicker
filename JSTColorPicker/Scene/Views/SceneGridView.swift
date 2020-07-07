@@ -32,12 +32,12 @@ class SceneGridView: NSView {
     public var drawGridsInScene: Bool = false
     public var enableGPUAcceleration: Bool = true
     
-    private static let minimumScaleOfGridDrawing  : CGFloat = 32.0
-    private static let minimumScaleOfRasterization: CGFloat = 0.8
-    private static let maximumScaleOfRasterization: CGFloat = 1.25
-    private static let defaultGridLineWidth       : CGFloat = 1.0
-    private static let defaultGridLineColor       = CGColor(gray: 1.0, alpha: 1.0)
-    private static let defaultCachedSquareSize    = CGSize(width: 256.0, height: 256.0)
+    private static let minimumScaleOfGridDrawing    : CGFloat = 32.0
+    private static let minimumScaleOfRasterization  : CGFloat = 0.8
+    private static let maximumScaleOfRasterization  : CGFloat = 1.25
+    private static let defaultGridLineWidth         : CGFloat = 1.0
+    private static let defaultGridLineColor         = CGColor(gray: 1.0, alpha: 1.0)
+    private static let defaultCachedSquareSize      = CGSize(width: 256.0, height: 256.0)
     
     private var wrappedPixelRect: PixelRect = .null
     private var wrappedRenderingArea: CGRect = .null

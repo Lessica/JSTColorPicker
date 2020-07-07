@@ -10,26 +10,28 @@ import Foundation
 
 class Annotator {
     
-    public var contentItem: ContentItem
-    public var overlay: AnnotatorOverlay
-    public var rulerMarkers: [RulerMarker] = []
+    public var contentItem   : ContentItem
+    public var overlay       : AnnotatorOverlay
+    public var rulerMarkers  : [RulerMarker] = []
+    public var label         : String { overlay.label }
     
-    public var isEditable: Bool {
-        get { overlay.isEditable }
-        set { overlay.isEditable = newValue }
+    public var isEditing: Bool
+    {
+        get { overlay.isEditing                 }
+        set { overlay.isEditing = newValue      }
     }
     
-    public var isFixedAnnotator: Bool {
-        get { overlay.isFixedOverlay }
+    public var isFixedAnnotator: Bool
+    {
+        get { overlay.isFixedOverlay            }
         set { overlay.isFixedOverlay = newValue }
     }
     
-    public var isSelected: Bool {
-        get { overlay.isSelected }
-        set { overlay.isSelected = newValue }
+    public var isSelected: Bool
+    {
+        get { overlay.isSelected                }
+        set { overlay.isSelected = newValue     }
     }
-    
-    public var label: String { return overlay.label }
     
     init(_ item: ContentItem, _ overlay: AnnotatorOverlay) {
         self.contentItem = item
@@ -39,9 +41,5 @@ class Annotator {
 }
 
 extension Annotator: CustomStringConvertible {
-    
-    var description: String {
-        return "[Annotator \(contentItem), isSelected = \(isSelected)]"
-    }
-    
+    var description: String { "[Annotator \(contentItem), isSelected = \(isSelected)]" }
 }

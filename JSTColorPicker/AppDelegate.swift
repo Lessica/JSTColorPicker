@@ -12,6 +12,7 @@ import MASPreferences
 import ServiceManagement
 
 enum XPCError: LocalizedError {
+    
     case timeout
     
     var failureReason: String? {
@@ -20,6 +21,7 @@ enum XPCError: LocalizedError {
             return NSLocalizedString("Connection timeout.", comment: "XPCError")
         }
     }
+    
 }
 
 @NSApplicationMain

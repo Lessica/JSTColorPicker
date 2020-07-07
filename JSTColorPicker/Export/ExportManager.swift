@@ -9,25 +9,28 @@
 import OSLog
 import Foundation
 
+
 extension NSPasteboard.Name {
     static let jstColorPicker = NSPasteboard.Name("com.jst.JSTColorPicker.pasteboard")
 }
 
-enum ExportError: LocalizedError {
-    case noDocumentLoaded
-    case noTemplateSelected
-    
-    var failureReason: String? {
-        switch self {
-        case .noDocumentLoaded:
-            return NSLocalizedString("No document loaded.", comment: "ExportError")
-        case .noTemplateSelected:
-            return NSLocalizedString("No template selected.", comment: "ExportError")
-        }
-    }
-}
-
 class ExportManager {
+    
+    enum Error: LocalizedError {
+        
+        case noDocumentLoaded
+        case noTemplateSelected
+        
+        var failureReason: String? {
+            switch self {
+            case .noDocumentLoaded:
+                return NSLocalizedString("No document loaded.", comment: "ExportError")
+            case .noTemplateSelected:
+                return NSLocalizedString("No template selected.", comment: "ExportError")
+            }
+        }
+        
+    }
     
     public static var templateRootURL: URL {
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("templates")
@@ -85,7 +88,7 @@ class ExportManager {
     }
     
     public func reloadTemplates() throws {
-        var errors: [(URL, TemplateError)] = []
+        var errors: [(URL, Template.Error)] = []
         let contents = try FileManager.default.contentsOfDirectory(at: ExportManager.templateRootURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants])
         
         // purpose: filter the greatest version of each template
@@ -94,7 +97,7 @@ class ExportManager {
             .compactMap({ (url) -> Template? in
                 do {
                     return try Template(from: url)
-                } catch let error as TemplateError {
+                } catch let error as Template.Error {
                     errors.append((url, error))
                 }
                 catch {}
@@ -132,12 +135,12 @@ class ExportManager {
     }
     
     public func copyContentItems(_ items: [ContentItem]) throws {
-        guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
-        guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
+        guard let image = screenshot?.image else { throw Error.noDocumentLoaded }
+        guard let selectedTemplate = selectedTemplate else { throw Error.noTemplateSelected }
         do {
             exportToAdditionalPasteboard(items)
             exportToGeneralStringPasteboard(try selectedTemplate.generate(image, for: items))
-        } catch let error as TemplateError {
+        } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
         } catch {
@@ -146,13 +149,13 @@ class ExportManager {
     }
     
     public func exportItems(_ items: [ContentItem], to url: URL) throws {
-        guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
-        guard let selectedTemplate = selectedTemplate else { throw ExportError.noTemplateSelected }
+        guard let image = screenshot?.image else { throw Error.noDocumentLoaded }
+        guard let selectedTemplate = selectedTemplate else { throw Error.noTemplateSelected }
         do {
             if let data = (try selectedTemplate.generate(image, for: items)).data(using: .utf8) {
                 try data.write(to: url)
             }
-        } catch let error as TemplateError {
+        } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
             throw error
         } catch {
@@ -163,14 +166,14 @@ class ExportManager {
     public func exportAllItems(to url: URL) throws {
         guard let items = screenshot?.content?.items else
         {
-            throw ExportError.noDocumentLoaded
+            throw Error.noDocumentLoaded
         }
         try exportItems(items, to: url)
     }
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {
-        guard let image = screenshot?.image else { throw ExportError.noDocumentLoaded }
-        guard let exampleTemplateURL = ExportManager.exampleTemplateURL else { throw ExportError.noTemplateSelected }
+        guard let image = screenshot?.image else { throw Error.noDocumentLoaded }
+        guard let exampleTemplateURL = ExportManager.exampleTemplateURL else { throw Error.noTemplateSelected }
         let exampleTemplate = try Template(from: exampleTemplateURL)
         let generatedString = try exampleTemplate.generate(image, for: items)
         exportToGeneralStringPasteboard(generatedString)

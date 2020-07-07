@@ -136,7 +136,7 @@
 /* PixelImageError */
 "Load image source failed." = "加载映像源失败.";
 
-/* ContentError */
+/* Content.Error */
 "Maximum item count %d reached." = "已达到最大项数量 %d.";
 
 /* TemplateError */
@@ -163,7 +163,7 @@
 /* PixelMatchServiceError */
 "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异. 请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试.";
 
-/* ContentError
+/* Content.Error
    ExportError */
 "No document loaded." = "未加载任何文档.";
 
@@ -203,31 +203,31 @@
 /* Information Panel */
 "Snapshot At" = "内容创建时间";
 
-/* ContentError */
+/* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";
 
-/* ContentError */
+/* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
 
-/* ContentError */
+/* Content.Error */
 "The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现.";
 
-/* ContentError */
+/* Content.Error */
 "This item %@ already exists." = "此项 %@ 已存在.";
 
-/* ContentError */
+/* Content.Error */
 "This item %@ does not exist." = "此项 %@ 不存在.";
 
-/* ContentError */
+/* Content.Error */
 "This operation requires %d more spaces." = "此操作需要 %d 额外空间.";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效.";
 
-/* ContentError */
+/* Content.Error */
 "This requested item %@ is not valid." = "请求的项 %@ 是无效的.";
 
 /* TemplateError */
@@ -254,7 +254,7 @@
 /* internalUpdateContentItems(_:) */
 "Update Items" = "更新项";
 
-/* ContentError */
+/* Content.Error */
 "User aborted." = "用户已取消.";
 
 /* screenshotItemTapped(_:) */

@@ -136,7 +136,7 @@
 /* PixelImageError */
 "Load image source failed." = "Load image source failed.";
 
-/* ContentError */
+/* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
 
 /* TemplateError */
@@ -163,7 +163,7 @@
 /* PixelMatchServiceError */
 "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.";
 
-/* ContentError
+/* Content.Error
    ExportError */
 "No document loaded." = "No document loaded.";
 
@@ -203,31 +203,31 @@
 /* Information Panel */
 "Snapshot At" = "Snapshot At";
 
-/* ContentError */
+/* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
 
-/* ContentError */
+/* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
 
-/* ContentError */
+/* Content.Error */
 "The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "This feature is not implemented.";
 
-/* ContentError */
+/* Content.Error */
 "This item %@ already exists." = "This item %@ already exists.";
 
-/* ContentError */
+/* Content.Error */
 "This item %@ does not exist." = "This item %@ does not exist.";
 
-/* ContentError */
+/* Content.Error */
 "This operation requires %d more spaces." = "This operation requires %d more spaces.";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "This option requires application to restart to complete the modification.";
 
-/* ContentError */
+/* Content.Error */
 "This requested item %@ is not valid." = "This requested item %@ is not valid.";
 
 /* TemplateError */
@@ -254,7 +254,7 @@
 /* internalUpdateContentItems(_:) */
 "Update Items" = "Update Items";
 
-/* ContentError */
+/* Content.Error */
 "User aborted." = "User aborted.";
 
 /* screenshotItemTapped(_:) */

@@ -19,15 +19,20 @@ class SceneOverlayView: NSView, DragEndpoint {
         registerForDraggedTypes([TagListController.attachPasteboardType])
     }
     
-    override var isFlipped: Bool { true }
-    override var wantsDefaultClipping: Bool { false }
+    override var isFlipped             : Bool { true  }
+    override var wantsDefaultClipping  : Bool { false }
     
     override func hitTest(_ point: NSPoint) -> NSView? { nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
     private var trackingArea: NSTrackingArea?
     private func createTrackingArea() {
-        let trackingArea = NSTrackingArea.init(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea.init(
+            rect: bounds,
+            options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow],
+            owner: self,
+            userInfo: nil
+        )
         addTrackingArea(trackingArea)
         self.trackingArea = trackingArea
     }
@@ -40,15 +45,15 @@ class SceneOverlayView: NSView, DragEndpoint {
         super.updateTrackingAreas()
     }
     
-    public weak var contentDelegate: ContentDelegate!
-    public weak var sceneToolSource: SceneToolSource!
-    private var sceneTool: SceneTool { sceneToolSource.sceneTool }
-    public weak var sceneStateSource: SceneStateSource!
-    private var sceneState: SceneState { sceneStateSource.sceneState }
-    public weak var sceneTagsEffectViewSource: SceneEffectViewSource!
-    private var sceneTagsEffectView: SceneEffectView { sceneTagsEffectViewSource.sceneEffectView }
-    public weak var annotatorSource: AnnotatorSource!
-    private var annotators: [Annotator] { annotatorSource.annotators }
+    public weak var contentDelegate            : ContentDelegate!
+    public weak var sceneToolSource            : SceneToolSource!
+    private var sceneTool                      : SceneTool               { sceneToolSource.sceneTool }
+    public weak var sceneStateSource           : SceneStateSource!
+    private var sceneState                     : SceneState              { sceneStateSource.sceneState }
+    public weak var sceneTagsEffectViewSource  : SceneEffectViewSource!
+    private var sceneTagsEffectView            : SceneEffectView         { sceneTagsEffectViewSource.sceneEffectView }
+    public weak var annotatorSource            : AnnotatorSource!
+    private var annotators                     : [Annotator]             { annotatorSource.annotators }
     private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
         return annotators.first(where: { $0.overlay == overlay })?.contentItem
     }
@@ -56,8 +61,8 @@ class SceneOverlayView: NSView, DragEndpoint {
     public var overlays: [AnnotatorOverlay] { subviews as! [AnnotatorOverlay] }
     private weak var internalFocusedOverlay: AnnotatorOverlay?
     
-    public var editableDirection: EditableDirection { focusedOverlay != nil ? internalEditableDirection : .none }
-    private var internalEditableDirection: EditableDirection = .none
+    public var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
+    private var internalEditableDirection: EditableOverlay.Direction = .none
     
     public var isFocused: Bool { sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false }
     public var focusedOverlay: AnnotatorOverlay? { sceneTool == .selectionArrow ? internalFocusedOverlay : nil }
@@ -87,53 +92,18 @@ class SceneOverlayView: NSView, DragEndpoint {
         return false
     }
     
-    override func mouseEntered(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func mouseMoved(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func mouseExited(with event: NSEvent) {
-        resetAppearance()
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func rightMouseDown(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func rightMouseUp(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func rightMouseDragged(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func scrollWheel(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func magnify(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
-    
-    override func smartMagnify(with event: NSEvent) {
-        updateAppearance(with: event.locationInWindow)
-    }
+    override func mouseEntered(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
+    override func mouseMoved(with event: NSEvent)        { updateAppearance(with: event.locationInWindow) }
+    override func mouseExited(with event: NSEvent)       { resetAppearance()                              }
+    override func mouseDown(with event: NSEvent)         { updateAppearance(with: event.locationInWindow) }
+    override func rightMouseDown(with event: NSEvent)    { updateAppearance(with: event.locationInWindow) }
+    override func mouseUp(with event: NSEvent)           { updateAppearance(with: event.locationInWindow) }
+    override func rightMouseUp(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
+    override func mouseDragged(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
+    override func rightMouseDragged(with event: NSEvent) { updateAppearance(with: event.locationInWindow) }
+    override func scrollWheel(with event: NSEvent)       { updateAppearance(with: event.locationInWindow) }
+    override func magnify(with event: NSEvent)           { updateAppearance(with: event.locationInWindow) }
+    override func smartMagnify(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
     
     public func updateAppearance() {
         updateAppearance(with: nil)
@@ -183,7 +153,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     private func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
         if sceneToolSource.sceneToolEnabled {
             if sceneState.isManipulating {
-                if sceneState.type != .forbidden {
+                if sceneState.manipulatingType != .forbidden {
                     sceneTool.manipulatingCursor.set()
                 }
                 else {
@@ -217,6 +187,9 @@ class SceneOverlayView: NSView, DragEndpoint {
         SceneTool.arrowCursor.set()
     }
     
+}
+
+extension SceneOverlayView {
     
     // MARK: - Drag/Drop
     

@@ -179,7 +179,7 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            sceneState.type = .leftGeneric
+            sceneState.manipulatingType = .leftGeneric
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
             sceneState.manipulatingOverlay = nil
@@ -199,7 +199,7 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            sceneState.type = .rightGeneric
+            sceneState.manipulatingType = .rightGeneric
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
             sceneState.manipulatingOverlay = nil
@@ -263,13 +263,13 @@ class SceneScrollView: NSScrollView {
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneManipulatingType.leftDraggingType(for: sceneTool)
-            if type.level > sceneState.type.level {
+            let type = SceneState.ManipulatingType.leftDraggingType(for: sceneTool)
+            if type.level > sceneState.manipulatingType.level {
                 if type == .sceneDragging {
-                    sceneState.type = shouldBeginSceneDragging(for: event) ? .sceneDragging : .forbidden
+                    sceneState.manipulatingType = shouldBeginSceneDragging(for: event) ? .sceneDragging : .forbidden
                 }
                 else if type == .areaDragging {
-                    sceneState.type = shouldBeginAreaDragging(for: event) ? .areaDragging : .forbidden
+                    sceneState.manipulatingType = shouldBeginAreaDragging(for: event) ? .areaDragging : .forbidden
                 }
                 else if type == .annotatorDragging {
                     if shouldBeginAnnotatorDragging(for: event),
@@ -290,27 +290,27 @@ class SceneScrollView: NSScrollView {
                         if shouldBeginEditing {
                             if overlay.hidesDuringEditing { overlay.isHidden = true }
                             sceneState.manipulatingOverlay = overlay
-                            sceneState.type = .annotatorDragging
+                            sceneState.manipulatingType = .annotatorDragging
                         }
-                        else { sceneState.type = .forbidden }
+                        else { sceneState.manipulatingType = .forbidden }
                     }
-                    else { sceneState.type = .forbidden }
+                    else { sceneState.manipulatingType = .forbidden }
                 }
-                else { sceneState.type = type }
+                else { sceneState.manipulatingType = type }
             }
         }
         
         if sceneState.isDragging {
-            if sceneState.type == .sceneDragging {
+            if sceneState.manipulatingType == .sceneDragging {
                 let origin = contentView.bounds.origin
                 let delta = CGPoint(x: -event.deltaX / magnification, y: -event.deltaY / magnification)
                 contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
             }
-            else if sceneState.type == .areaDragging {
+            else if sceneState.manipulatingType == .areaDragging {
                 let rect = CGRect(point1: sceneState.beginLocation, point2: currentLocation).inset(by: areaDraggingOverlay.outerInsets)
                 areaDraggingOverlay.frame = convert(rect, to: sceneActionEffectView).intersection(sceneActionEffectView.bounds)
             }
-            else if sceneState.type == .annotatorDragging {
+            else if sceneState.manipulatingType == .annotatorDragging {
                 let locInAction = convert(currentLocation, to: sceneActionEffectView)
                 if sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
                     let origin = locInAction.offsetBy(-colorDraggingOverlay.bounds.center)
@@ -428,9 +428,9 @@ class SceneScrollView: NSScrollView {
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneManipulatingType.rightDraggingType(for: sceneTool)
-            if sceneState.type != type {
-                sceneState.type = type
+            let type = SceneState.ManipulatingType.rightDraggingType(for: sceneTool)
+            if sceneState.manipulatingType != type {
+                sceneState.manipulatingType = type
             }
         }
         trackMovingOrDragging(with: event)
@@ -539,7 +539,7 @@ class SceneScrollView: NSScrollView {
     }
     
     private func trackMovingOrDragging(with event: NSEvent) {
-        if sceneState.type != .sceneDragging {
+        if sceneState.manipulatingType != .sceneDragging {
             let loc = wrapper.convert(event.locationInWindow, from: nil)
             if wrapperBounds.contains(loc) {
                 let currentCoordinate = PixelCoordinate(loc)
@@ -549,13 +549,13 @@ class SceneScrollView: NSScrollView {
                 }
             }
         }
-        if sceneState.type == .areaDragging {
+        if sceneState.manipulatingType == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
             if !draggingRect.isEmpty {
                 trackingDelegate?.trackAreaChanged(self, to: draggingRect)
             }
         }
-        else if sceneState.type == .annotatorDragging {
+        else if sceneState.manipulatingType == .annotatorDragging {
             if let draggingRect = areaDraggingOverlay.contextRect, !draggingRect.isEmpty {
                 trackingDelegate?.trackAreaChanged(self, to: draggingRect)
             }
@@ -563,7 +563,7 @@ class SceneScrollView: NSScrollView {
     }
     
     private func trackDidEndDragging(with event: NSEvent) {
-        if sceneState.type == .areaDragging {
+        if sceneState.manipulatingType == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
             if draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
             {
@@ -575,7 +575,7 @@ class SceneScrollView: NSScrollView {
                 }
             }
         }
-        else if sceneState.type == .annotatorDragging {
+        else if sceneState.manipulatingType == .annotatorDragging {
             if sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
                 let draggingCoordinate = colorDraggingOverlayCoordinate
                 if !draggingCoordinate.isNull {
@@ -597,7 +597,7 @@ class SceneScrollView: NSScrollView {
     }
     
     private func updateDraggingAppearance(for event: NSEvent) {
-        if sceneState.type == .annotatorDragging && sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
+        if sceneState.manipulatingType == .annotatorDragging && sceneState.manipulatingOverlay is ColorAnnotatorOverlay {
             if colorDraggingOverlay.isHidden {
                 colorDraggingOverlay.bringToFront()
                 colorDraggingOverlay.isHidden = false
@@ -607,7 +607,7 @@ class SceneScrollView: NSScrollView {
             colorDraggingOverlay.isHidden = true
             colorDraggingOverlay.reset()
         }
-        if sceneState.type == .areaDragging || (sceneState.type == .annotatorDragging && sceneState.manipulatingOverlay is AreaAnnotatorOverlay) {
+        if sceneState.manipulatingType == .areaDragging || (sceneState.manipulatingType == .annotatorDragging && sceneState.manipulatingOverlay is AreaAnnotatorOverlay) {
             if areaDraggingOverlay.isHidden {
                 areaDraggingOverlay.bringToFront()
                 areaDraggingOverlay.isHidden = false

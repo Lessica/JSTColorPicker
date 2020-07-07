@@ -9,15 +9,18 @@
 import Cocoa
 
 public struct MatchOptions {
+    
     public var threshold: CGFloat = 0.1                          // matching threshold (0 to 1); smaller is more sensitive
     public var includeAA: Bool = false                           // whether to skip anti-aliasing detection
     public var alpha: CGFloat = 0.5                              // opacity of original image in diff ouput
     public var aaColor: (UInt8, UInt8, UInt8) = (255, 255, 0)    // color of anti-aliased pixels in diff output
     public var diffColor: (UInt8, UInt8, UInt8) = (255, 0, 0)    // color of different pixels in diff output
     public var diffMask: Bool = false                            // draw the diff over a transparent background (a mask)
+    
 }
 
 enum PixelMatchError: LocalizedError {
+    
     case sizesDoNotMatch
     
     var failureReason: String? {
@@ -26,6 +29,7 @@ enum PixelMatchError: LocalizedError {
             return NSLocalizedString("Image sizes do not match.", comment: "PixelMatchError")
         }
     }
+    
 }
 
 public func PixelMatch(a32: inout [JST_COLOR], b32: inout [JST_COLOR], output: inout [JST_COLOR], width: Int, height: Int, options: MatchOptions) throws -> Int {

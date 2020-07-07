@@ -9,33 +9,31 @@
 import Cocoa
 import LuaSwift
 
-enum PixelImageError: LocalizedError {
-    
-    case readFailed
-    case loadSourceFailed
-    case loadImageFailed
-    
-    var failureReason: String? {
-        switch self {
-        case .readFailed:
-            return NSLocalizedString("File read failed.", comment: "PixelImageError")
-        case .loadSourceFailed:
-            return NSLocalizedString("Load image source failed.", comment: "PixelImageError")
-        case .loadImageFailed:
-            return NSLocalizedString("Load image data failed.", comment: "PixelImageError")
-        }
-    }
-    
-}
-
 struct PixelImageSource {
-    
     let url: URL
     let cgSource: CGImageSource
-    
 }
 
 class PixelImage {
+    
+    enum Error: LocalizedError {
+        
+        case readFailed
+        case loadSourceFailed
+        case loadImageFailed
+        
+        var failureReason: String? {
+            switch self {
+            case .readFailed:
+                return NSLocalizedString("File read failed.", comment: "PixelImageError")
+            case .loadSourceFailed:
+                return NSLocalizedString("Load image source failed.", comment: "PixelImageError")
+            case .loadImageFailed:
+                return NSLocalizedString("Load image data failed.", comment: "PixelImageError")
+            }
+        }
+        
+    }
     
     var cgImage: CGImage
     var imageSource: PixelImageSource
@@ -43,14 +41,14 @@ class PixelImage {
     
     public init(contentsOf url: URL) throws {
         guard let dataProvider = CGDataProvider(filename: url.path) else {
-            throw PixelImageError.readFailed
+            throw PixelImage.Error.readFailed
         }
         let imageSourceOptions = [kCGImageSourceShouldCache: true] as CFDictionary
         guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, imageSourceOptions) else {
-            throw PixelImageError.loadSourceFailed
+            throw PixelImage.Error.loadSourceFailed
         }
         guard let cgimg = CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
-            throw PixelImageError.loadImageFailed
+            throw PixelImage.Error.loadImageFailed
         }
         
         self.cgImage                   = cgimg
@@ -127,7 +125,7 @@ extension PixelImage: LuaSwift.Value {
                 return .value(color)
             }
             else {
-                return .error(ContentError.itemOutOfRange(item: coordinate, range: self.size).failureReason!)
+                return .error(Content.Error.itemOutOfRange(item: coordinate, range: self.size).failureReason!)
             }
         })
         t["get_image"] = vm.createFunction([ Int64.arg, Int64.arg, Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
@@ -137,7 +135,7 @@ extension PixelImage: LuaSwift.Value {
                 return .value(data)
             }
             else {
-                return .error(ContentError.itemOutOfRange(item: area, range: self.size).failureReason!)
+                return .error(Content.Error.itemOutOfRange(item: area, range: self.size).failureReason!)
             }
         })
         t.push(vm)

@@ -10,13 +10,8 @@ import Foundation
 
 class AreaAnnotator: Annotator {
     
-    var pixelArea: PixelArea {
-        return contentItem as! PixelArea
-    }
-    
-    var pixelOverlay: AreaAnnotatorOverlay {
-        return overlay as! AreaAnnotatorOverlay
-    }
+    public var pixelArea     : PixelArea            { contentItem as! PixelArea        }
+    public var pixelOverlay  : AreaAnnotatorOverlay { overlay as! AreaAnnotatorOverlay }
     
     init(_ area: PixelArea) {
         let overlay = AreaAnnotatorOverlay(label: String(area.id), rect: area.rect)

@@ -8,12 +8,13 @@
 
 import Cocoa
 
-enum EditType {
-    case add
-    case edit
-}
 
 class EditWindow: NSWindow {
+    
+    enum EditType {
+        case add
+        case edit
+    }
     
     public static func newEditCoordinatePanel() -> EditWindow {
         return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditCoordinateWindowController") as! NSWindowController).window as! EditWindow
@@ -37,3 +38,4 @@ class EditWindow: NSWindow {
     public weak var contentItemSource: ContentItemSource?
 
 }
+

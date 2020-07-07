@@ -409,16 +409,16 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func requiredStageFor(_ tool: SceneTool, type: SceneManipulatingType) -> Int {
+    private func requiredStageFor(_ tool: SceneTool, type: SceneState.ManipulatingType) -> Int {
         return enableForceTouch ? 1 : 0
     }
     
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        if sceneState.type == .leftGeneric {
+        if sceneState.manipulatingType == .leftGeneric {
             let location = sceneView.convert(event.locationInWindow, from: nil)
             if isVisibleLocation(location) {
-                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
+                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.manipulatingType) {
                     if sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
@@ -447,10 +447,10 @@ class SceneController: NSViewController {
     
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
-        if sceneState.type == .rightGeneric {
+        if sceneState.manipulatingType == .rightGeneric {
             let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
             if isVisibleWrapperLocation(locInWrapper) {
-                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.type) {
+                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.manipulatingType) {
                     if sceneTool == .magicCursor || sceneTool == .selectionArrow {
                         handled = applyDeleteItem(at: locInWrapper)
                     }
@@ -667,11 +667,11 @@ extension SceneController: ScreenshotLoader {
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
         guard let image = screenshot.image else {
-            throw ScreenshotError.invalidImage
+            throw Screenshot.Error.invalidImage
         }
         renderImage(image)
         guard let content = screenshot.content else {
-            throw ScreenshotError.invalidContent
+            throw Screenshot.Error.invalidContent
         }
         try loadAnnotators(from: content)
     }
@@ -851,15 +851,15 @@ extension SceneController: AnnotatorSource {
     
     private func updateEditableStates(of annotator: Annotator) {
         let editable = internalSceneTool == .selectionArrow
-        if annotator.isEditable != editable { annotator.isEditable = editable }
+        if annotator.isEditing != editable { annotator.isEditing = editable }
         updateFrame(of: annotator)
     }
     
     private func updateAnnotatorEditableStates() {
         let editable = internalSceneTool == .selectionArrow
         for annotator in annotators {
-            if annotator.isEditable != editable {
-                annotator.isEditable = editable
+            if annotator.isEditing != editable {
+                annotator.isEditing = editable
             }
         }
         updateAnnotatorFrames()
