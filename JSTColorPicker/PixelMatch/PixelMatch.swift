@@ -19,22 +19,23 @@ public struct MatchOptions {
     
 }
 
-enum PixelMatchError: LocalizedError {
+public func PixelMatch(a32: inout [JST_COLOR], b32: inout [JST_COLOR], output: inout [JST_COLOR], width: Int, height: Int, options: MatchOptions) throws -> Int {
     
-    case sizesDoNotMatch
-    
-    var failureReason: String? {
-        switch self {
-        case .sizesDoNotMatch:
-            return NSLocalizedString("Image sizes do not match.", comment: "PixelMatchError")
+    enum Error: LocalizedError {
+        
+        case sizesDoNotMatch
+        
+        var failureReason: String? {
+            switch self {
+            case .sizesDoNotMatch:
+                return NSLocalizedString("Image sizes do not match.", comment: "PixelMatchError")
+            }
         }
+        
     }
     
-}
-
-public func PixelMatch(a32: inout [JST_COLOR], b32: inout [JST_COLOR], output: inout [JST_COLOR], width: Int, height: Int, options: MatchOptions) throws -> Int {
-    guard a32.count == b32.count else { throw PixelMatchError.sizesDoNotMatch }
-    guard a32.count == width * height else { throw PixelMatchError.sizesDoNotMatch }
+    guard a32.count == b32.count else { throw Error.sizesDoNotMatch }
+    guard a32.count == width * height else { throw Error.sizesDoNotMatch }
     
     // check if images are identical
     let len = width * height

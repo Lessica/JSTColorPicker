@@ -14,13 +14,13 @@ extension NSUserInterfaceItemIdentifier {
     static let togglePaneViewPreview = NSUserInterfaceItemIdentifier("toggle-preview")
 }
 
-enum PaneDividerIndex: Int {
-    case info = 0
-    case inspector
-    case preview
-}
-
 class SidebarController: NSViewController {
+    
+    private enum PaneDividerIndex: Int {
+        case info = 0
+        case inspector
+        case preview
+    }
     
     internal weak var screenshot: Screenshot?
     
@@ -36,10 +36,10 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewPreview      : NSView!
     @IBOutlet weak var paneViewPlaceholder  : NSView!
     
-    private var imageSource1: PixelImageSource? {
+    private var imageSource1: PixelImage.Source? {
         return screenshot?.image?.imageSource
     }
-    private var imageSource2: PixelImageSource?
+    private var imageSource2: PixelImage.Source?
     private var exitComparisonHandler: ((Bool) -> Void)?
     
     @IBOutlet weak var inspectorColorLabel: NSTextField!
@@ -376,7 +376,7 @@ extension SidebarController: ScreenshotLoader {
         
     }
     
-    private func attributedStringValue(for source: PixelImageSource) -> NSAttributedString? {
+    private func attributedStringValue(for source: PixelImage.Source) -> NSAttributedString? {
         
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }

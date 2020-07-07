@@ -9,12 +9,13 @@
 import Cocoa
 import LuaSwift
 
-struct PixelImageSource {
-    let url: URL
-    let cgSource: CGImageSource
-}
 
 class PixelImage {
+    
+    struct Source {
+        let url: URL
+        let cgSource: CGImageSource
+    }
     
     enum Error: LocalizedError {
         
@@ -36,7 +37,7 @@ class PixelImage {
     }
     
     var cgImage: CGImage
-    var imageSource: PixelImageSource
+    var imageSource: Source
     var pixelImageRepresentation: JSTPixelImage
     
     public init(contentsOf url: URL) throws {
@@ -52,7 +53,7 @@ class PixelImage {
         }
         
         self.cgImage                   = cgimg
-        self.imageSource               = PixelImageSource(url: url, cgSource: cgimgSource)
+        self.imageSource               = Source(url: url, cgSource: cgimgSource)
         self.pixelImageRepresentation  = JSTPixelImage(cgImage: cgimg)
     }
     
@@ -153,3 +154,4 @@ extension PixelImage: LuaSwift.Value {
     }
     
 }
+
