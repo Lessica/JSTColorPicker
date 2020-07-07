@@ -217,6 +217,8 @@ class Overlay: NSView {
             ctx.move(to: CGPoint(x: drawBounds.minX, y: min(dirtyRect.maxY, drawBounds.maxY)))
             ctx.addLine(to: CGPoint(x: drawBounds.minX, y: max(dirtyRect.minY, drawBounds.minY)))
         }
+        
+        ctx.setLineCap(.round)
         ctx.setLineWidth(Overlay.defaultBorderWidth)
         if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[1]) }
         else { ctx.setStrokeColor(internalLineDashColorsNormal[1]) }
@@ -328,7 +330,8 @@ class Overlay: NSView {
                 }
             }
             
-            // ctx.setLineWidth(Overlay.defaultBorderWidth)
+            ctx.setLineCap(.butt)
+            ctx.setLineWidth(Overlay.defaultBorderWidth)
             if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[0]) }
             else { ctx.setStrokeColor(internalLineDashColorsNormal[0]) }
             ctx.strokePath()
