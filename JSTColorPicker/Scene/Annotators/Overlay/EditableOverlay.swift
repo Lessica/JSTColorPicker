@@ -55,11 +55,33 @@ class EditableOverlay: Overlay {
         
     }
     
-    public var isEditing             : Bool = false
-    public var editingEdge           : Edge { return isEditing ? internalEditingEdge : .none }
-    private var internalEditingEdge  : Edge = .none
-    public var hidesDuringEditing    : Bool { false }
-    public func setEditing(at point: CGPoint) { internalEditingEdge = edge(at: point) }
+    
+    // MARK: - Inherited
+    
+    public var isEditable            : Bool     = false
+    public var isEditing             : Bool     { isEditable && isSelected                 }
+    public var editableEdge          : Edge     { isEditable ? internalEditingEdge : .none }
+    public var hidesDuringEditing    : Bool     { false                                    }
+    public func setEditing(at point: CGPoint)   { internalEditingEdge = edge(at: point)    }
+    private var internalEditingEdge  : Edge     = .none
+    override var borderStyle         : Overlay.BorderStyle { isEditable ? .dashed : .solid }
+    
+    override var outerInsets: NSEdgeInsets {
+        if borderStyle != .none && isEditable {
+            return EditableOverlay.defaultOuterInsets
+        }
+        return super.outerInsets
+    }
+    
+    override var innerInsets: NSEdgeInsets {
+        if borderStyle != .none && isEditable {
+            return EditableOverlay.defaultInnerInsets
+        }
+        return super.innerInsets
+    }
+    
+    
+    // MARK: - Appearance
     
     private static let defaultCircleRadius        : CGFloat = 4.67
     private static let defaultCircleBorderWidth   : CGFloat = 1.67
@@ -92,12 +114,12 @@ class EditableOverlay: Overlay {
     )
     
     public func direction(at point: CGPoint) -> Direction {
-        guard isBordered && isEditing else { return .none }
+        guard borderStyle != .none && isEditing else { return .none }
         return edge(at: point).direction
     }
     
     public func edge(at point: CGPoint) -> Edge {
-        guard isBordered && isEditing else { return .none }
+        guard borderStyle != .none && isEditing else { return .none }
         let edgeRadius = EditableOverlay.defaultCircleRadius + EditableOverlay.defaultCircleBorderWidth
         let drawBounds = bounds.inset(by: innerInsets)
              if CGRect(at: CGPoint(x: drawBounds.minX, y: drawBounds.minY), radius: edgeRadius).contains(point) { return .bottomLeft }
@@ -133,29 +155,13 @@ class EditableOverlay: Overlay {
         return rects
     }
     
-    override var borderStyle: Overlay.BorderStyle { isEditing ? .dashed : .solid }
-    
-    override var outerInsets: NSEdgeInsets {
-        if isBordered && isEditing {
-            return EditableOverlay.defaultOuterInsets
-        }
-        return super.outerInsets
-    }
-    
-    override var innerInsets: NSEdgeInsets {
-        if isBordered && isEditing {
-            return EditableOverlay.defaultInnerInsets
-        }
-        return super.innerInsets
-    }
-    
     
     // MARK: - Drawing
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        guard isBordered && isEditing else { return }
+        guard borderStyle != .none && isEditing else { return }
         let drawBounds = bounds.inset(by: innerInsets)
         guard !drawBounds.isEmpty else { return }
         

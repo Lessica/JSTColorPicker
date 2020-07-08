@@ -273,7 +273,7 @@ class SceneScrollView: NSScrollView {
                 }
                 else if type == .annotatorDragging {
                     if shouldBeginAnnotatorDragging(for: event),
-                        let overlay = editingAnnotatorOverlayForAnnotatorDragging(for: event) {
+                        let overlay = beginAnnotatorDragging(for: event) {
                         var shouldBeginEditing = false
                         if let colorAnnotatorOverlay = overlay as? ColorAnnotatorOverlay,
                             let capturedImage = colorAnnotatorOverlay.capturedImage
@@ -282,7 +282,7 @@ class SceneScrollView: NSScrollView {
                             shouldBeginEditing = true
                         }
                         else if let areaAnnotatorOverlay = overlay as? AreaAnnotatorOverlay,
-                            areaAnnotatorOverlay.editingEdge != .none
+                            areaAnnotatorOverlay.editableEdge != .none
                         {
                             areaDraggingOverlay.animationState = areaAnnotatorOverlay.animationState
                             shouldBeginEditing = true
@@ -325,7 +325,7 @@ class SceneScrollView: NSScrollView {
                     )
                 }
                 else if let areaAnnotatorOverlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
-                    let edge = areaAnnotatorOverlay.editingEdge
+                    let edge = areaAnnotatorOverlay.editableEdge
                     let annotatorFrame =
                         areaAnnotatorOverlay.frame
                             .inset(by: areaAnnotatorOverlay.innerInsets)
@@ -534,8 +534,8 @@ class SceneScrollView: NSScrollView {
         return sceneState.stage >= requiredEventStageFor(sceneTool)
     }
     
-    private func editingAnnotatorOverlayForAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
-        return sceneStateSource.editingAnnotatorOverlayAtBeginLocation
+    private func beginAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {
+        return sceneStateSource.beginEditing()
     }
     
     private func trackMovingOrDragging(with event: NSEvent) {

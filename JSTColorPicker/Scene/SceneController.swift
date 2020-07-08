@@ -753,22 +753,17 @@ extension SceneController: SceneToolSource {
 
 extension SceneController: SceneStateSource {
     
-    internal var sceneState: SceneState {
-        get {
-            return internalSceneState
-        }
-        set {
-            internalSceneState = newValue
-        }
+    var sceneState: SceneState
+    {
+        get { internalSceneState            }
+        set { internalSceneState = newValue }
     }
     
-    internal var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? {
-        get {
-            let locInMask = sceneOverlayView.convert(sceneState.beginLocation, from: sceneView)
-            guard let overlay = sceneOverlayView.frontmostOverlay(at: locInMask) else { return nil }
-            overlay.setEditing(at: sceneOverlayView.convert(locInMask, to: overlay))
-            return overlay
-        }
+    func beginEditing() -> EditableOverlay? {
+        let locInMask = sceneOverlayView.convert(sceneState.beginLocation, from: sceneView)
+        guard let overlay = sceneOverlayView.frontmostOverlay(at: locInMask) else { return nil }
+        overlay.setEditing(at: sceneOverlayView.convert(locInMask, to: overlay))
+        return overlay
     }
     
 }
@@ -812,7 +807,7 @@ extension SceneController: AnnotatorSource {
     
     private func updateFrame(of annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
-            annotator.isFixedAnnotator = true
+            annotator.isFixed = true
             let pointInMask =
                 sceneView
                     .convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
@@ -831,13 +826,13 @@ extension SceneController: AnnotatorSource {
             if  rectInMask.size.width  < AnnotatorOverlay.minimumBorderedOverlaySize.width  ||
                 rectInMask.size.height < AnnotatorOverlay.minimumBorderedOverlaySize.height
             {
-                annotator.isFixedAnnotator = true
+                annotator.isFixed = true
                 annotator.overlay.frame =
                     CGRect(origin: rectInMask.center, size: AnnotatorOverlay.fixedOverlaySize)
                         .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
                         .inset(by: annotator.overlay.outerInsets)
             } else {
-                annotator.isFixedAnnotator = false
+                annotator.isFixed = false
                 annotator.overlay.frame =
                     rectInMask
                         .inset(by: annotator.overlay.outerInsets)
@@ -851,15 +846,15 @@ extension SceneController: AnnotatorSource {
     
     private func updateEditableStates(of annotator: Annotator) {
         let editable = internalSceneTool == .selectionArrow
-        if annotator.isEditing != editable { annotator.isEditing = editable }
+        if annotator.isEditable != editable { annotator.isEditable = editable }
         updateFrame(of: annotator)
     }
     
     private func updateAnnotatorEditableStates() {
         let editable = internalSceneTool == .selectionArrow
         for annotator in annotators {
-            if annotator.isEditing != editable {
-                annotator.isEditing = editable
+            if annotator.isEditable != editable {
+                annotator.isEditable = editable
             }
         }
         updateAnnotatorFrames()

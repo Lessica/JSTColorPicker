@@ -8,29 +8,34 @@
 
 import Cocoa
 
+
 class AnnotatorOverlay: EditableOverlay {
     
-    public static let fixedOverlayOffset         = CGPoint(x: -12.0, y: -12.0)
-    public static let fixedOverlaySize           = CGSize(width: 24.0, height: 24.0)
-    public static let minimumBorderedOverlaySize = CGSize(width: 16.0, height: 16.0)
+    // MARK: - Inherited
     
-    public var isFixedOverlay  : Bool = true
-    public var label           : String { internalLabel   }
-    override var isBordered    : Bool   { !isFixedOverlay }
+    public var isFixed         : Bool         = true
+    override var borderStyle   : BorderStyle  { isFixed ? .none : super.borderStyle }
     
     override var outerInsets: NSEdgeInsets {
-        if isFixedOverlay {
+        if isFixed {
             return AnnotatorOverlay.defaultOuterInsets
         }
         return super.outerInsets
     }
     
     override var innerInsets: NSEdgeInsets {
-        if isFixedOverlay {
+        if isFixed {
             return AnnotatorOverlay.defaultInnerInsets
         }
         return super.innerInsets
     }
+    
+    
+    // MARK: - Appearance
+    
+    public static let fixedOverlayOffset             = CGPoint(x: -12.0, y: -12.0)
+    public static let fixedOverlaySize               = CGSize(width: 24.0, height: 24.0)
+    public static let minimumBorderedOverlaySize     = CGSize(width: 16.0, height: 16.0)
     
     public var textColor                   : NSColor = .black
     public var highlightedTextColor        : NSColor = .white
@@ -53,7 +58,11 @@ class AnnotatorOverlay: EditableOverlay {
         right: defaultBorderWidth
     )
     
-    private var internalLabel: String
+    
+    // MARK: - Label
+    
+    public var label           : String  { internalLabel }
+    private var internalLabel  : String
     private lazy var internalAttributedLabel: NSAttributedString = {
         return NSAttributedString(string: internalLabel, attributes: [
             NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
@@ -82,6 +91,9 @@ class AnnotatorOverlay: EditableOverlay {
         return internalFocusedAttributedLabel.size()
     }()
     
+    
+    // MARK: - Initializers
+    
     init(label: String) {
         self.internalLabel = label
         super.init(frame: .zero)
@@ -91,8 +103,11 @@ class AnnotatorOverlay: EditableOverlay {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Drawing
+    
     override func draw(_ dirtyRect: NSRect) {
-        guard isFixedOverlay else {
+        guard isFixed else {
             super.draw(dirtyRect)
             return
         }
@@ -142,3 +157,4 @@ class AnnotatorOverlay: EditableOverlay {
     }
     
 }
+

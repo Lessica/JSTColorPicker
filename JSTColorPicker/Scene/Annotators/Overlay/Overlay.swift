@@ -30,11 +30,11 @@ class Overlay: NSView {
     enum BorderStyle {
         case dashed
         case solid
+        case none
     }
     
+    public var borderStyle  : BorderStyle  { .none }
     public var isFocused    : Bool         = false
-    public var isBordered   : Bool         { false }
-    public var borderStyle  : BorderStyle  { .solid }
     public var isSelected   : Bool         = false
     {
         didSet {
@@ -176,7 +176,7 @@ class Overlay: NSView {
     }
     
     private var shouldPerformAnimatableDrawing: Bool {
-        return (!isHidden && isBordered) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
+        return (!isHidden && borderStyle != .none) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
     }
     
     private func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {
@@ -193,7 +193,7 @@ class Overlay: NSView {
     // black-white painted dashed lines, draw only inside dirtyRect to improve performance
     override func draw(_ dirtyRect: NSRect) {
         //guard !inLiveResize else { return }
-        guard isBordered else { return }
+        guard borderStyle != .none else { return }
         
         let drawBounds = bounds.inset(by: innerInsets)
         guard shouldPerformDrawing(dirtyRect, drawBounds) else { return }
@@ -342,3 +342,4 @@ class Overlay: NSView {
     }
     
 }
+

@@ -15,7 +15,7 @@ class ColorAnnotatorOverlay: AnnotatorOverlay {
     init(label: String, coordinate: PixelCoordinate) {
         self.coordinate = coordinate
         super.init(label: label)
-        isFixedOverlay = true
+        isFixed = true
     }
     
     required init?(coder: NSCoder) {

@@ -11,7 +11,7 @@ import Cocoa
 
 protocol SceneStateSource: class {
     var sceneState: SceneState { get }
-    var editingAnnotatorOverlayAtBeginLocation: EditableOverlay? { get }
+    func beginEditing() -> EditableOverlay?
 }
 
 class SceneState {
