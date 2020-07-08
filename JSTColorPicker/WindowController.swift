@@ -67,7 +67,7 @@ class WindowController: NSWindowController {
         touchBarUpdateButtonState()
         
         #if DEBUG
-        firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (window, change) in
+        firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (_, change) in
             guard let firstResponder = change.newValue as? NSResponder else { return }
             debugPrint("First Responder: \(firstResponder.className)")
         })
@@ -181,7 +181,7 @@ class WindowController: NSWindowController {
     }
     
     deinit {
-        debugPrint("- [WindowController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
 }
@@ -389,8 +389,8 @@ extension WindowController: ScreenshotLoader {
 
 extension WindowController: SceneTracking {
     
-    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        gridWindowController?.trackColorChanged(sender, at: coordinate)
+    func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
+        gridWindowController?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
 }

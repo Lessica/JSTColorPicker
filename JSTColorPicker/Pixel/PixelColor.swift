@@ -60,7 +60,7 @@ class PixelColor: ContentItem {
     }
     
     deinit {
-        // debugPrint("- [PixelColor deinit]")
+//        debugPrint("\(className):\(#function)")
     }
     
     public var rgbValue          : UInt32 { pixelColorRep.rgbValue           }

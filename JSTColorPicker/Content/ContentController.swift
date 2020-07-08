@@ -292,7 +292,7 @@ class ContentController: NSViewController {
     }
     
     deinit {
-        debugPrint("- [ContentController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
 }

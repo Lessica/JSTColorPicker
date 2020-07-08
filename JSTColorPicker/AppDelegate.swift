@@ -572,7 +572,7 @@ extension AppDelegate {
 extension AppDelegate {
     
     @objc private func applicationApplyPreferences(_ notification: Notification?) {
-        debugPrint("- [AppDelegate applicationApplyPreferences(_:)]")
+        debugPrint("\(className):\(#function)")
     }
     
 }

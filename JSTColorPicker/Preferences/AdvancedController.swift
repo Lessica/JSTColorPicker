@@ -23,6 +23,7 @@ class AdvancedController: NSViewController {
     
     @IBAction func resetAllAction(_ sender: NSButton) {
         NSUserDefaultsController.shared.revertToInitialValues(sender)
+        actionRequiresRestart(sender)
     }
     
     override func awakeFromNib() {

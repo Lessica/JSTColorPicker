@@ -295,7 +295,7 @@ class EditCoordinateController: EditViewController {
     }
     
     deinit {
-        debugPrint("- [EditCoordinateController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
 }

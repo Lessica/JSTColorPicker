@@ -136,6 +136,16 @@ class SceneScrollView: NSScrollView {
         }
     }
     
+    override func viewWillStartLiveResize() {
+        super.viewWillStartLiveResize()
+        trackingDelegate.sceneWillStartLiveResize(self)
+    }
+    
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        trackingDelegate.sceneDidEndLiveResize(self)
+    }
+    
     public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
         didSet { reloadSceneBackground() }
     }
@@ -297,6 +307,7 @@ class SceneScrollView: NSScrollView {
                     else { sceneState.manipulatingType = .forbidden }
                 }
                 else { sceneState.manipulatingType = type }
+                trackWillBeginDragging(with: event)
             }
         }
         
@@ -490,14 +501,14 @@ class SceneScrollView: NSScrollView {
             // FIX: weird behavior in AppKit
             guard Thread.callStackSymbols.first(where: { $0.contains("magnifyWithEvent:") || $0.contains("runAnimationGroup:") }) == nil else { return }
         }
-        trackingDelegate.trackVisibleRectChanged(self, to: rect, of: magnification)
+        trackingDelegate.sceneVisibleRectDidChange(self, to: rect, of: magnification)
         super.reflectScrolledClipView(clipView)
     }
     
     
     // MARK: - Event Tracking
     
-    public weak var trackingDelegate: SceneTracking!
+    public weak var trackingDelegate: SceneActionTracking!
     private var trackingArea: NSTrackingArea?
     private var trackingCoordinate = PixelCoordinate.null
     
@@ -545,33 +556,42 @@ class SceneScrollView: NSScrollView {
                 let currentCoordinate = PixelCoordinate(loc)
                 if currentCoordinate != trackingCoordinate {
                     trackingCoordinate = currentCoordinate
-                    trackingDelegate?.trackColorChanged(self, at: currentCoordinate)
+                    trackingDelegate.sceneRawColorDidChange(self, at: currentCoordinate)
                 }
             }
         }
         if sceneState.manipulatingType == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
             if !draggingRect.isEmpty {
-                trackingDelegate?.trackAreaChanged(self, to: draggingRect)
+                trackingDelegate.sceneRawAreaDidChange(self, to: draggingRect)
             }
         }
         else if sceneState.manipulatingType == .annotatorDragging {
             if let draggingRect = areaDraggingOverlay.contextRect, !draggingRect.isEmpty {
-                trackingDelegate?.trackAreaChanged(self, to: draggingRect)
+                trackingDelegate.sceneRawAreaDidChange(self, to: draggingRect)
             }
         }
     }
     
+    private func trackWillBeginDragging(with event: NSEvent) {
+        if sceneState.manipulatingType == .sceneDragging {
+            trackingDelegate.sceneMovingHandActionWillBegin(self)
+        }
+    }
+    
     private func trackDidEndDragging(with event: NSEvent) {
-        if sceneState.manipulatingType == .areaDragging {
+        if sceneState.manipulatingType == .sceneDragging {
+            trackingDelegate.sceneMovingHandActionDidEnd(self)
+        }
+        else if sceneState.manipulatingType == .areaDragging {
             let draggingRect = areaDraggingOverlayRect
             if draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
             {
                 if sceneTool == .magicCursor {
-                    trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
+                    trackingDelegate.sceneMagicCursorActionDidEnd(self, to: draggingRect)
                 }
                 else if sceneTool == .magnifyingGlass {
-                    trackingDelegate?.trackMagnifyingGlassDragged(self, to: draggingRect)
+                    trackingDelegate.sceneMagnifyingGlassActionDidEnd(self, to: draggingRect)
                 }
             }
         }
@@ -580,7 +600,7 @@ class SceneScrollView: NSScrollView {
                 let draggingCoordinate = colorDraggingOverlayCoordinate
                 if !draggingCoordinate.isNull {
                     if sceneTool == .selectionArrow {
-                        trackingDelegate?.trackMagicCursorDragged(self, to: draggingCoordinate)
+                        trackingDelegate.sceneMagicCursorActionDidEnd(self, to: draggingCoordinate)
                     }
                 }
             }
@@ -589,7 +609,7 @@ class SceneScrollView: NSScrollView {
                     draggingRect.hasStandardized && draggingRect.size > PixelSize(width: 1, height: 1)
                 {
                     if sceneTool == .selectionArrow {
-                        trackingDelegate?.trackMagicCursorDragged(self, to: draggingRect)
+                        trackingDelegate.sceneMagicCursorActionDidEnd(self, to: draggingRect)
                     }
                 }
             }

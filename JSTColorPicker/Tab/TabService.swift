@@ -68,7 +68,8 @@ class TabService: TabDelegate {
             windowActiveOrder: pendingActiveOrder,
             windowController: windowController,
             window: window,
-            closingSubscription: subscription)
+            closingSubscription: subscription
+        )
         internalManagedWindows.append(management)
         windowController.tabDelegate = self
         return management
@@ -83,10 +84,6 @@ class TabService: TabDelegate {
     
     func removeManagedWindow(forWindow window: NSWindow) {
         internalManagedWindows.removeAll(where: { $0.window === window })
-    }
-    
-    deinit {
-        debugPrint("- [TabService deinit]")
     }
     
 }

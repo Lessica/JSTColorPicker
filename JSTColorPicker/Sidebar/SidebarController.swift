@@ -59,6 +59,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var exportButton: NSButton!
     @IBOutlet weak var optionButton: NSButton!
     
+    private var fileURLObservation: NSKeyValueObservation?
     private var lastStoredRect: CGRect?
     private var lastStoredMagnification: CGFloat?
     
@@ -85,7 +86,7 @@ class SidebarController: NSViewController {
     }
     
     deinit {
-        debugPrint("- [SidebarController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -330,7 +331,9 @@ extension SidebarController: ScreenshotLoader {
     }()
     
     func load(_ screenshot: Screenshot) throws {
+        
         guard let image = screenshot.image else { throw Screenshot.Error.invalidImage }
+        
         self.screenshot = screenshot
         self.imageSource2 = nil
         updateInformationPanel()
@@ -338,6 +341,7 @@ extension SidebarController: ScreenshotLoader {
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
         let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
+        
         previewImageView.setImage(previewImage)
         previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
@@ -347,7 +351,6 @@ extension SidebarController: ScreenshotLoader {
         optionButton.isEnabled = true
         
         resetDividers()
-        
         copyExampleTemplatesIfNeeded()
     }
     
@@ -381,6 +384,7 @@ extension SidebarController: ScreenshotLoader {
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
         guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
+        // FIXME: attributes from NSDocument APIs
         
         var createdAtDesc: String?
         if let createdAt = attrs[.creationDate] as? Date {

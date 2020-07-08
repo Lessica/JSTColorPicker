@@ -108,7 +108,7 @@ class PixelImage {
     }
     
     deinit {
-        // debugPrint("- [PixelImage deinit]")
+//        debugPrint("\(className):\(#function)")
     }
     
 }

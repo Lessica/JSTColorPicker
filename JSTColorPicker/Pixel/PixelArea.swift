@@ -50,7 +50,7 @@ class PixelArea: ContentItem {
     }
     
     deinit {
-        // debugPrint("- [PixelArea deinit]")
+//        debugPrint("\(className):\(#function)")
     }
     
     override func isEqual(_ object: Any?) -> Bool {

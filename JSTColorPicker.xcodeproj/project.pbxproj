@@ -403,6 +403,8 @@
 		D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2455E23E186260012BE5F /* ColorAnnotator.swift */; };
 		D6E4252C24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */; };
 		D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */; };
+		D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */; };
+		D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */; };
 		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
 		D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6652823FAB9A600037D02 /* ExportManager.swift */; };
@@ -1207,6 +1209,7 @@
 		D6E2455C23E153340012BE5F /* AnnotatorSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorSource.swift; sourceTree = "<group>"; };
 		D6E2455E23E186260012BE5F /* ColorAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotator.swift; sourceTree = "<group>"; };
 		D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListPreviewDelegate.swift; sourceTree = "<group>"; };
+		D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActionTracking.swift; sourceTree = "<group>"; };
 		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
 		D6F6652823FAB9A600037D02 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
@@ -1400,6 +1403,7 @@
 			isa = PBXGroup;
 			children = (
 				D66460EA23D056440032727A /* SceneTracking.swift */,
+				D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3034,6 +3038,7 @@
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
+				D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				18D202C32496920C007A079F /* TagCellView.swift in Sources */,
 				D61047B724224A170002E990 /* ContentTableView.swift in Sources */,
@@ -3227,6 +3232,7 @@
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
+				D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,

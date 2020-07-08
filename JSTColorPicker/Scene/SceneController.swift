@@ -192,9 +192,12 @@ class SceneController: NSViewController {
             return event
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnifyNotification(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnifyNotification(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
-        windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] notification in
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnify(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnify(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveScroll(_:)), name: NSScrollView.willStartLiveScrollNotification, object: sceneView)
+        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveScroll(_:)), name: NSScrollView.didEndLiveScrollNotification, object: sceneView)
+        
+        windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] _ in
             self.useSelectedSceneTool()
         }
         useSelectedSceneTool()
@@ -324,20 +327,20 @@ class SceneController: NSViewController {
         }
         if let next = nextMagnificationFactor {
             if isVisibleWrapperLocation(locInWrapper) {
-                self.hideSceneOverlays()
-                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneWillStartLiveMagnify()
+                NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().setMagnification(next, centeredAt: locInWrapper)
                 }) { [unowned self] in
-                    self.showSceneOverlays()
                     self.notifyVisibleRectChanged()
+                    self.sceneDidEndLiveMagnify()
                 }
             } else {
-                self.hideSceneOverlays()
-                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneWillStartLiveMagnify()
+                NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().magnification = next
                 }) { [unowned self] in
-                    self.showSceneOverlays()
                     self.notifyVisibleRectChanged()
+                    self.sceneDidEndLiveMagnify()
                 }
             }
             return true
@@ -351,20 +354,20 @@ class SceneController: NSViewController {
         }
         if let prev = prevMagnificationFactor {
             if isVisibleWrapperLocation(locInWrapper) {
-                self.hideSceneOverlays()
-                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneWillStartLiveMagnify()
+                NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().setMagnification(prev, centeredAt: locInWrapper)
                 }) { [unowned self] in
-                    self.showSceneOverlays()
                     self.notifyVisibleRectChanged()
+                    self.sceneDidEndLiveMagnify()
                 }
             } else {
-                self.hideSceneOverlays()
-                NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+                self.sceneWillStartLiveMagnify()
+                NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().magnification = prev
                 }) { [unowned self] in
-                    self.showSceneOverlays()
                     self.notifyVisibleRectChanged()
+                    self.sceneDidEndLiveMagnify()
                 }
             }
             return true
@@ -550,6 +553,7 @@ class SceneController: NSViewController {
         guard wrapperBounds.contains(toWrapperPoint) else { return false }
         
         guard isVisibleWrapperLocation(toWrapperPoint) else {
+            
             let clipDelta = wrapper.convert(wrapperDelta, to: sceneClipView)  // force to positive
             
             var clipOrigin = sceneClipView.bounds.origin
@@ -564,7 +568,14 @@ class SceneController: NSViewController {
                 clipOrigin.y -= clipDelta.height
             }
             
-            sceneClipView.animator().setBoundsOrigin(clipOrigin)
+            self.sceneWillStartLiveScroll()
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneClipView.animator().setBoundsOrigin(clipOrigin)
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveScroll()
+            }
+            
             return true
         }
         
@@ -584,7 +595,7 @@ class SceneController: NSViewController {
         CGAssociateMouseAndMouseCursorPosition(1)
         CGDisplayShowCursor(kCGNullDirectDisplay)
         
-        trackColorChanged(sceneView, at: PixelCoordinate(toWrapperPoint))
+        sceneRawColorDidChange(sceneView, at: PixelCoordinate(toWrapperPoint))
         return true
     }
     
@@ -651,7 +662,7 @@ class SceneController: NSViewController {
     }
     
     deinit {
-        debugPrint("- [SceneController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
 }
@@ -678,29 +689,55 @@ extension SceneController: ScreenshotLoader {
     
 }
 
-extension SceneController: SceneTracking {
+extension SceneController: SceneTracking, SceneActionTracking {
     
-    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    @objc private func sceneWillStartLiveMagnify(_ notification: NSNotification? = nil) {
+        hideSceneOverlays()
+        debugPrint("\(className):\(#function)")
+    }
+    
+    @objc private func sceneDidEndLiveMagnify(_ notification: NSNotification? = nil) {
+        showSceneOverlays()
+        debugPrint("\(className):\(#function)")
+    }
+    
+    @objc private func sceneWillStartLiveScroll(_ notification: NSNotification? = nil) {
+        debugPrint("\(className):\(#function)")
+    }
+    
+    @objc private func sceneDidEndLiveScroll(_ notification: NSNotification? = nil) {
+        debugPrint("\(className):\(#function)")
+    }
+    
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if !sceneOverlayView.isHidden {
             updateAnnotatorFrames()
         }
-        sceneGridView.trackVisibleRectChanged(sender, to: rect, of: magnification)
-        trackingDelegate.trackVisibleRectChanged(sender, to: rect, of: magnification)
+        sceneGridView.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
+        trackingDelegate.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
     }
     
-    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        trackingDelegate.trackColorChanged(sender, at: coordinate)
+    func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
+        trackingDelegate.sceneRawColorDidChange(sender, at: coordinate)
     }
     
-    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
-        trackingDelegate.trackAreaChanged(sender, to: rect)
+    func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
+        trackingDelegate.sceneRawAreaDidChange(sender, to: rect)
     }
     
-    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
+    func sceneWillStartLiveResize(_ sender: SceneScrollView?) {
+        debugPrint("\(className):\(#function)")
+    }
+    
+    func sceneDidEndLiveResize(_ sender: SceneScrollView?) {
+        debugPrint("\(className):\(#function)")
+    }
+    
+    func sceneMagnifyingGlassActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
         sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
     }
     
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) {
+    func sceneMagicCursorActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
         if let overlay = sceneState.manipulatingOverlay as? AreaAnnotatorOverlay {
             guard let annotator = lazyAreaAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelArea.rect != rect else { return }
@@ -712,7 +749,7 @@ extension SceneController: SceneTracking {
         }
     }
     
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
+    func sceneMagicCursorActionDidEnd(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) {
         if let overlay = sceneState.manipulatingOverlay as? ColorAnnotatorOverlay {
             guard let annotator = lazyColorAnnotators.last(where: { $0.pixelOverlay === overlay }) else { return }
             guard annotator.pixelColor.coordinate != coordinate else { return }
@@ -721,8 +758,16 @@ extension SceneController: SceneTracking {
         }
     }
     
+    func sceneMovingHandActionWillBegin(_ sender: SceneScrollView?) {
+        sceneWillStartLiveScroll()
+    }
+    
+    func sceneMovingHandActionDidEnd(_ sender: SceneScrollView?) {
+        sceneDidEndLiveScroll()
+    }
+    
     private func notifyVisibleRectChanged() {
-        trackVisibleRectChanged(sceneView, to: wrapperRestrictedRect, of: wrapperRestrictedMagnification)
+        sceneVisibleRectDidChange(sceneView, to: wrapperRestrictedRect, of: wrapperRestrictedMagnification)
     }
     
 }
@@ -777,14 +822,6 @@ extension SceneController: SceneEffectViewSource {
 }
 
 extension SceneController: AnnotatorSource {
-    
-    @objc private func sceneWillStartLiveMagnifyNotification(_ notification: NSNotification) {
-        hideSceneOverlays()
-    }
-    
-    @objc private func sceneDidEndLiveMagnifyNotification(_ notification: NSNotification) {
-        showSceneOverlays()
-    }
     
     private func hideSceneOverlays() {
         if hideGridsWhenResize && !sceneGridView.isHidden {
@@ -1069,10 +1106,12 @@ extension SceneController: ToolbarResponder {
         guard !fitRect.isEmpty else {
             return
         }
-        NSAnimationContext.runAnimationGroup({ [unowned self] (context) in
+        self.sceneWillStartLiveMagnify()
+        NSAnimationContext.runAnimationGroup({ _ in
             self.sceneView.animator().magnify(toFit: fitRect)
         }) { [unowned self] in
             self.notifyVisibleRectChanged()
+            self.sceneDidEndLiveMagnify()
         }
     }
     
@@ -1136,9 +1175,9 @@ extension SceneController: ItemPreviewResponder {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
         if sceneOverlayView.isHidden != isChanging {
             if isChanging {
-                hideSceneOverlays()
+                sceneWillStartLiveMagnify()
             } else {
-                showSceneOverlays()
+                sceneDidEndLiveMagnify()
             }
         }
         sceneView.magnification = magnification
@@ -1151,7 +1190,14 @@ extension SceneController: ItemPreviewResponder {
             centeredPoint.x -= sceneView.bounds.width / 2.0
             centeredPoint.y -= sceneView.bounds.height / 2.0
             let clipCenteredPoint = sceneClipView.convert(centeredPoint, from: sceneView)
-            sceneClipView.animator().setBoundsOrigin(clipCenteredPoint)
+            
+            self.sceneWillStartLiveScroll()
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneClipView.animator().setBoundsOrigin(clipCenteredPoint)
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveScroll()
+            }
         }
     }
     

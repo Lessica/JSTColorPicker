@@ -40,8 +40,11 @@ class SplitController: NSSplitViewController {
     public weak var trackingObject: SceneTracking!
     internal weak var screenshot: Screenshot?
     
+    private var fileURLObservation: NSKeyValueObservation?
+    private var lastStoredMagnification: CGFloat?
+    
     deinit {
-        debugPrint("- [SplitController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
@@ -75,12 +78,8 @@ extension SplitController: DropViewDelegate {
     }
     
     private var windowTitle: String {
-        get {
-            return view.window?.title ?? ""
-        }
-        set {
-            view.window?.title = newValue
-        }
+        get { view.window?.title ?? ""      }
+        set { view.window?.title = newValue }
     }
     
     internal var allowsDrop: Bool {
@@ -106,27 +105,29 @@ extension SplitController: DropViewDelegate {
 
 extension SplitController: SceneTracking {
     
-    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
+    func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
         sidebarController.inspectItem(color, shouldSubmit: false)
-        trackingObject.trackColorChanged(sender, at: coordinate)
+        trackingObject.sceneRawColorDidChange(sender, at: coordinate)
     }
     
-    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) {
+    func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
         sidebarController.inspectItem(area, shouldSubmit: false)
     }
     
-    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
         
-        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
-        if let title = screenshot?.fileURL?.lastPathComponent {
-            windowTitle = "\(title) @ \(Int((restrictedMagnification * 100.0).rounded(.toNearestOrEven)))%"
+        lastStoredMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
+        if let restrictedMagnification = lastStoredMagnification {
+            if let url = screenshot?.fileURL {
+                updateWindowTitle(url, magnification: restrictedMagnification)
+            }
+            sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
         }
-        sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
     }
     
 }
@@ -166,6 +167,7 @@ extension SplitController: ToolbarResponder {
 extension SplitController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
+        
         self.screenshot = screenshot
         do {
             try contentController.load(screenshot)
@@ -176,6 +178,19 @@ extension SplitController: ScreenshotLoader {
                 presentError(error)
             }
         }
+        
+        fileURLObservation = screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
+            if let url = change.newValue as? URL,
+                let restrictedMagnification = self.lastStoredMagnification
+            {
+                self.updateWindowTitle(url, magnification: restrictedMagnification)
+            }
+        }
+        
+    }
+    
+    func updateWindowTitle(_ url: URL, magnification: CGFloat) {
+        windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
     }
     
 }
@@ -313,10 +328,10 @@ extension SplitController: ContentActionDelegate {
     
     private func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
-            trackingObject.trackColorChanged(nil, at: item.coordinate)
+            trackingObject.sceneRawColorDidChange(nil, at: item.coordinate)
         }
         else if let item = item as? PixelArea {
-            trackingObject.trackAreaChanged(nil, to: item.rect)
+            trackingObject.sceneRawAreaDidChange(nil, to: item.rect)
         }
     }
     

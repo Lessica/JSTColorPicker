@@ -322,7 +322,7 @@ class EditAreaController: EditViewController {
     }
     
     deinit {
-        debugPrint("- [EditAreaController deinit]")
+        debugPrint("\(className):\(#function)")
     }
     
 }

@@ -117,7 +117,7 @@ private class ConnectionView: NSView {
     }
 
     public override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        debugPrint("draggingEntered \(self) \(sender)")
+        debugPrint("\(#function) \(self) \(sender)")
         return []
     }
 

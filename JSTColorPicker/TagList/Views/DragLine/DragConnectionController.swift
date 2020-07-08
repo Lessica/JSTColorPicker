@@ -12,7 +12,7 @@ class DragConnectionController: NSObject, NSDraggingSource {
     }
 
     func connect(to target: DragEndpoint) {
-        debugPrint("Connect \(sourceEndpoint!) to \(target)")
+        debugPrint("connect \(sourceEndpoint!) to \(target)")
     }
 
     func trackDrag(forMouseDownEvent mouseDownEvent: NSEvent, in sourceEndpoint: DragEndpoint, with object: Any) {

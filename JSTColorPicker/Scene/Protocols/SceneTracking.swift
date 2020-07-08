@@ -8,20 +8,20 @@
 
 import Cocoa
 
+
 protocol SceneTracking: class {
-    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
-    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
-    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect)
-    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect)
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect)
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate)
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
+    func sceneRawColorDidChange   (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
+    func sceneRawAreaDidChange    (_ sender: SceneScrollView?, to rect: PixelRect)
+    func sceneWillStartLiveResize (_ sender: SceneScrollView?)
+    func sceneDidEndLiveResize    (_ sender: SceneScrollView?)
 }
 
 extension SceneTracking {
-    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
-    func trackColorChanged(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) { }
-    func trackAreaChanged(_ sender: SceneScrollView?, to rect: PixelRect) { }
-    func trackMagnifyingGlassDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to rect: PixelRect) { }
-    func trackMagicCursorDragged(_ sender: SceneScrollView?, to coordinate: PixelCoordinate) { }
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
+    func sceneRawColorDidChange   (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)             { }
+    func sceneRawAreaDidChange    (_ sender: SceneScrollView?, to rect: PixelRect)                         { }
+    func sceneWillStartLiveResize (_ sender: SceneScrollView?)                                             { }
+    func sceneDidEndLiveResize    (_ sender: SceneScrollView?)                                             { }
 }
+

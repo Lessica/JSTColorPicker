@@ -63,11 +63,11 @@ class SceneGridView: NSView {
             && !isHidden
             else
         {
-            debugPrint("cleared draw(_:)")
+            debugPrint("cleared \(#function)")
             return
         }
         
-        debugPrint("painted draw(_:)")
+        debugPrint("painted \(#function)")
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
@@ -125,7 +125,7 @@ class SceneGridView: NSView {
                 if  let rect = storedRect,
                     let magnification = storedMagnification
                 {
-                    trackVisibleRectChanged(storedSceneView, to: rect, of: magnification)
+                    sceneVisibleRectDidChange(storedSceneView, to: rect, of: magnification)
                 }
                 
             } else {
@@ -170,7 +170,7 @@ extension SceneGridView: SceneTracking {
     
     // MARK: - GPU Drawing
     
-    func trackVisibleRectChanged(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         
         guard let sceneView = sender else { return }
         
@@ -238,7 +238,7 @@ extension SceneGridView: SceneTracking {
                         width: wrappedPixelRect.width + max(Int(SceneGridView.defaultCachedSquareSize.width / gridSize.width), 1),
                         height: wrappedPixelRect.height + max(Int(SceneGridView.defaultCachedSquareSize.height / gridSize.height), 1)
                     )
-                    debugPrint("update cached square: \(pixelSize)")
+                    debugPrint("cached square: updated \(pixelSize)")
                     
                     let maxX = CGFloat(pixelSize.width) * gridSize.width
                     let maxY = CGFloat(pixelSize.height) * gridSize.height
@@ -281,7 +281,7 @@ extension SceneGridView: SceneTracking {
                 if backingLayer.path != nil {
                     backingLayer.path = nil
                     
-                    debugPrint("cleared cached square")
+                    debugPrint("cached square: cleared")
                 }
             }
             

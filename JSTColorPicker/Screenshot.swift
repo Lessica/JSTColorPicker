@@ -137,20 +137,16 @@ class Screenshot: NSDocument {
         return true
     }
     
-    // TODO: Revert to Saved
     override func revert(toContentsOf url: URL, ofType typeName: String) throws {
-        throw Error.notImplemented
+        try super.revert(toContentsOf: url, ofType: typeName)
+        try windowControllers
+            .compactMap({ $0 as? WindowController })
+            .forEach({ try $0.load(self) })
+        // FIXME: global read it again...
     }
     
-    // TODO: Auto Saves in Place
-    override class var autosavesInPlace: Bool {
-        return false
-    }
-    
-    // TODO: Preserves Versions
-    override class var preservesVersions: Bool {
-        return false
-    }
+    override class var autosavesInPlace   : Bool { true }
+    override class var preservesVersions  : Bool { true }
     
     override func makeWindowControllers() {
         do {
@@ -162,27 +158,23 @@ class Screenshot: NSDocument {
                 if let document = currentWindowController.document as? Screenshot, let _ = document.fileURL {
                     // load in new tab
                     let newWindowController = WindowController.newEmptyWindow()
-                    addWindowController(newWindowController)
-                    try newWindowController.load(self)  // I don't know a better way to trigger a document loading when it's ready...
+                    try newWindowController.load(self)
                     if let newWindow = tabService.addManagedWindow(windowController: newWindowController)?.window {
                         currentWindow.addTabbedWindow(newWindow, ordered: .above)
-                        // too bad...
-                        // it breaks "Preserves Versions" feature because macOS uses this method to generate document preview :-/
-                        newWindow.makeKeyAndOrderFront(self)
+                        addWindowController(newWindowController)
                     }
                 }
                 else {
                     // load in current tab
-                    addWindowController(currentWindowController)
                     try currentWindowController.load(self)
+                    addWindowController(currentWindowController)
                 }
             }
             else {
                 // initial window
                 let windowController = appDelegate.applicationReinitializeTabService()
-                addWindowController(windowController)
                 try windowController.load(self)
-                windowController.showWindow(self)
+                addWindowController(windowController)
             }
         } catch {
             debugPrint(error)
