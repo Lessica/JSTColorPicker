@@ -114,9 +114,9 @@ class ContentController: NSViewController {
         return selectedRowIndexes.map { collection[$0] }
     }
     
-    private var preparedSelectedItemCount: Int?
-    private var preparedMenuTags: OrderedSet<String>?
-    private var preparedMenuTagsAndCounts: [String: Int]?
+    private var preparedSelectedItemCount    : Int?
+    private var preparedMenuTags             : OrderedSet<String>?
+    private var preparedMenuTagsAndCounts    : [String: Int]?
 
     override func viewDidLoad() {
         super.viewDidLoad()

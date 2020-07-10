@@ -67,7 +67,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var exportButton              : NSButton!
     @IBOutlet weak var optionButton              : NSButton!
     
-    private var fileURLObservation               : NSKeyValueObservation?
+    private var documentObservations             : [NSKeyValueObservation]?
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
     
@@ -377,9 +377,11 @@ extension SidebarController: ScreenshotLoader {
         
         copyExampleTemplatesIfNeeded()
         
-        fileURLObservation = screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
-            self.updateInformationPanel()
-        }
+        documentObservations = [
+            screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
+                self.updateInformationPanel()
+            }
+        ]
         
     }
     

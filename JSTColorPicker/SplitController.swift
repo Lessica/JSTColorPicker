@@ -37,11 +37,11 @@ class SplitController: NSSplitViewController {
         }
     }
     
-    public weak var trackingObject: SceneTracking!
-    internal weak var screenshot: Screenshot?
+    public weak var trackingObject       : SceneTracking!
+    internal weak var screenshot         : Screenshot?
     
-    private var fileURLObservation: NSKeyValueObservation?
-    private var lastStoredMagnification: CGFloat?
+    private var documentObservations     : [NSKeyValueObservation]?
+    private var lastStoredMagnification  : CGFloat?
     
     deinit {
         debugPrint("\(className):\(#function)")
@@ -179,13 +179,15 @@ extension SplitController: ScreenshotLoader {
             }
         }
         
-        fileURLObservation = screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
-            if let url = change.newValue as? URL,
-                let restrictedMagnification = self.lastStoredMagnification
-            {
-                self.updateWindowTitle(url, magnification: restrictedMagnification)
+        documentObservations = [
+            screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
+                if let url = change.newValue as? URL,
+                    let restrictedMagnification = self.lastStoredMagnification
+                {
+                    self.updateWindowTitle(url, magnification: restrictedMagnification)
+                }
             }
-        }
+        ]
         
     }
     
