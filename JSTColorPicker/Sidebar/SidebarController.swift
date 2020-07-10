@@ -17,51 +17,59 @@ extension NSUserInterfaceItemIdentifier {
 class SidebarController: NSViewController {
     
     private enum PaneDividerIndex: Int {
+        
         case info = 0
         case inspector
         case preview
+        
+        static var all: IndexSet {
+            IndexSet([
+                PaneDividerIndex.info.rawValue,
+                PaneDividerIndex.inspector.rawValue,
+                PaneDividerIndex.preview.rawValue
+            ])
+        }
+        
     }
     
-    internal weak var screenshot: Screenshot?
+    internal weak var screenshot                 : Screenshot?
     
-    @IBOutlet weak var splitView: NSSplitView!
+    @IBOutlet weak var splitView                 : NSSplitView!
     
-    @IBOutlet weak var imageLabel1: NSTextField!
-    @IBOutlet weak var imageLabel2: NSTextField!
-    @IBOutlet weak var imageActionView: NSView!
-    @IBOutlet weak var exitComparisonModeButton: NSButton!
+    @IBOutlet weak var imageLabel1               : NSTextField!
+    @IBOutlet weak var imageLabel2               : NSTextField!
+    @IBOutlet weak var imageActionView           : NSView!
+    @IBOutlet weak var exitComparisonModeButton  : NSButton!
     
-    @IBOutlet weak var paneViewInfo         : NSView!
-    @IBOutlet weak var paneViewInspector    : NSView!
-    @IBOutlet weak var paneViewPreview      : NSView!
-    @IBOutlet weak var paneViewPlaceholder  : NSView!
+    @IBOutlet weak var paneViewInfo              : NSView!
+    @IBOutlet weak var paneViewInspector         : NSView!
+    @IBOutlet weak var paneViewPreview           : NSView!
+    @IBOutlet weak var paneViewPlaceholder       : NSView!
     
-    private var imageSource1: PixelImage.Source? {
-        return screenshot?.image?.imageSource
-    }
-    private var imageSource2: PixelImage.Source?
-    private var exitComparisonHandler: ((Bool) -> Void)?
+    private var imageSource                      : PixelImage.Source? { screenshot?.image?.imageSource }
+    private var altImageSource                   : PixelImage.Source?
+    private var exitComparisonHandler            : ((Bool) -> Void)?
     
-    @IBOutlet weak var inspectorColorLabel: NSTextField!
-    @IBOutlet weak var inspectorColorFlag : ColorIndicator!
-    @IBOutlet weak var inspectorAreaLabel : NSTextField!
+    @IBOutlet weak var inspectorColorLabel       : NSTextField!
+    @IBOutlet weak var inspectorColorFlag        : ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabel        : NSTextField!
     
-    @IBOutlet weak var inspectorColorLabel2: NSTextField!
-    @IBOutlet weak var inspectorColorFlag2 : ColorIndicator!
-    @IBOutlet weak var inspectorAreaLabel2 : NSTextField!
+    @IBOutlet weak var inspectorColorLabelAlt      : NSTextField!
+    @IBOutlet weak var inspectorColorFlagAlt       : ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabelAlt       : NSTextField!
     
-    public weak var previewOverlayDelegate : ItemPreviewResponder!
-    @IBOutlet weak var previewImageView    : PreviewImageView!
-    @IBOutlet weak var previewOverlayView  : PreviewOverlayView!
-    @IBOutlet weak var previewSlider       : NSSlider!
-    @IBOutlet weak var previewSliderLabel  : NSTextField!
+    public weak var previewOverlayDelegate       : ItemPreviewResponder!
+    @IBOutlet weak var previewImageView          : PreviewImageView!
+    @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
+    @IBOutlet weak var previewSlider             : NSSlider!
+    @IBOutlet weak var previewSliderLabel        : NSTextField!
     
-    @IBOutlet weak var exportButton: NSButton!
-    @IBOutlet weak var optionButton: NSButton!
+    @IBOutlet weak var exportButton              : NSButton!
+    @IBOutlet weak var optionButton              : NSButton!
     
-    private var fileURLObservation: NSKeyValueObservation?
-    private var lastStoredRect: CGRect?
-    private var lastStoredMagnification: CGFloat?
+    private var fileURLObservation               : NSKeyValueObservation?
+    private var lastStoredRect                   : CGRect?
+    private var lastStoredMagnification          : CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +77,9 @@ class SidebarController: NSViewController {
         _ = colorPanel
         previewSliderLabel.textColor = .white
         previewOverlayView.overlayDelegate = self
+        
+        lastStoredRect = nil
+        lastStoredMagnification = nil
         
         updateInformationPanel()
         resetInspector()
@@ -228,7 +239,7 @@ by \(template.author ?? "Unknown")
     @IBOutlet var paneMenu: NSMenu!
     
     @objc private func applyPreferences(_ notification: Notification?) {
-        updatePanes()
+        updatePanesIfNeeded()
     }
     
     @IBAction func resetPanes(_ sender: NSMenuItem) {
@@ -238,7 +249,7 @@ by \(template.author ?? "Unknown")
         UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
         UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
         
-        splitView.display()
+        splitView.displayIfNeeded()
     }
     
     @IBAction func togglePane(_ sender: NSMenuItem) {
@@ -257,11 +268,11 @@ by \(template.author ?? "Unknown")
             UserDefaults.standard[key] = !val
             sender.state = !val ? .on : .off
             
-            splitView.display()
+            splitView.displayIfNeeded()
         }
     }
     
-    private func updatePanes() {
+    private func updatePanesIfNeeded() {
         var paneChanged = false
         var hiddenValue: Bool!
         
@@ -291,7 +302,7 @@ by \(template.author ?? "Unknown")
         
         if paneChanged {
             splitView.adjustSubviews()
-            splitView.display()
+            splitView.displayIfNeeded()
         }
     }
     
@@ -299,15 +310,20 @@ by \(template.author ?? "Unknown")
     @IBOutlet weak var dividerConstraintInspector  : NSLayoutConstraint!
     @IBOutlet weak var dividerConstraintPreview    : NSLayoutConstraint!
     
-    private func resetDividers() {
-        if !paneViewInfo.isHidden {
-            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.info.rawValue), ofDividerAt: PaneDividerIndex.info.rawValue)
+    private func resetDividers(in set: IndexSet? = nil) {
+        var dividerIndexes = set ?? PaneDividerIndex.all
+        if paneViewInfo.isHidden {
+            dividerIndexes.remove(PaneDividerIndex.info.rawValue)
         }
-        if !paneViewInspector.isHidden {
-            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.inspector.rawValue), ofDividerAt: PaneDividerIndex.inspector.rawValue)
+        if paneViewInspector.isHidden {
+            dividerIndexes.remove(PaneDividerIndex.inspector.rawValue)
         }
-        if !paneViewPreview.isHidden {
-            splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: PaneDividerIndex.preview.rawValue), ofDividerAt: PaneDividerIndex.preview.rawValue)
+        if paneViewPreview.isHidden {
+            dividerIndexes.remove(PaneDividerIndex.preview.rawValue)
+        }
+        if !dividerIndexes.isEmpty {
+            splitView.adjustSubviews()
+            dividerIndexes.forEach({ splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: $0), ofDividerAt: $0) })
         }
     }
     
@@ -332,11 +348,19 @@ extension SidebarController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
         
-        guard let image = screenshot.image else { throw Screenshot.Error.invalidImage }
+        guard let image = screenshot.image else {
+            throw Screenshot.Error.invalidImage
+        }
         
         self.screenshot = screenshot
-        self.imageSource2 = nil
+        self.altImageSource = nil
+        
+        lastStoredRect = nil
+        lastStoredMagnification = nil
+        
         updateInformationPanel()
+        resetInspector()
+        resetPreview()
         
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
@@ -349,23 +373,27 @@ extension SidebarController: ScreenshotLoader {
         previewSlider.isEnabled = true
         exportButton.isEnabled = true
         optionButton.isEnabled = true
-        
         resetDividers()
+        
         copyExampleTemplatesIfNeeded()
+        
+        fileURLObservation = screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
+            self.updateInformationPanel()
+        }
+        
     }
     
     private func updateInformationPanel() {
         
         imageLabel1.isHidden = false
-        if let imageSource1 = imageSource1, let attributedText = attributedStringValue(for: imageSource1) {
+        if let imageSource1 = imageSource, let attributedText = attributedStringValue(for: imageSource1) {
             imageLabel1.attributedStringValue = attributedText
         }
         else {
             imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
         }
-        imageLabel1.displayIfNeeded()
         
-        if let imageSource2 = imageSource2, let attributedText = attributedStringValue(for: imageSource2) {
+        if let imageSource2 = altImageSource, let attributedText = attributedStringValue(for: imageSource2) {
             imageLabel2.attributedStringValue = attributedText
             imageLabel2.isHidden = false
             imageActionView.isHidden = false
@@ -375,7 +403,6 @@ extension SidebarController: ScreenshotLoader {
             imageLabel2.isHidden = true
             imageActionView.isHidden = true
         }
-        imageLabel2.displayIfNeeded()
         
     }
     
@@ -384,7 +411,6 @@ extension SidebarController: ScreenshotLoader {
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
         guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
-        // FIXME: attributes from NSDocument APIs
         
         var createdAtDesc: String?
         if let createdAt = attrs[.creationDate] as? Date {
@@ -490,16 +516,16 @@ CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 """
             }
             else {
-                inspectorColorLabel2.stringValue = """
+                inspectorColorLabelAlt.stringValue = """
 R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
 G:\(String(color.green).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.green).leftPadding(to: 6, with: " "))
 B:\(String(color.blue).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.blue).leftPadding(to: 6, with: " "))
 A:\(String(Int(Double(color.alpha) / 255.0 * 100)).leftPadding(to: 5, with: " "))%\(String(format: "0x%02X", color.alpha).leftPadding(to: 5, with: " "))
 """
                 let nsColor = color.toNSColor()
-                inspectorColorFlag2.color = nsColor
-                inspectorColorFlag2.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
-                inspectorAreaLabel2.stringValue = """
+                inspectorColorFlagAlt.color = nsColor
+                inspectorColorFlagAlt.setImage(NSImage.init(color: nsColor, size: inspectorColorFlag.bounds.size))
+                inspectorAreaLabelAlt.stringValue = """
 CSS:\(color.cssString.leftPadding(to: 9, with: " "))
 \(color.coordinate.description.leftPadding(to: 13, with: " "))
 """
@@ -518,7 +544,7 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 """
             }
             else {
-                inspectorAreaLabel2.stringValue = """
+                inspectorAreaLabelAlt.stringValue = """
 W:\(String(area.rect.width).leftPadding(to: 11, with: " "))
 H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 """
@@ -539,14 +565,14 @@ A:\("-".leftPadding(to: 11, with: " "))
 CSS:\("-".leftPadding(to: 9, with: " "))
 \("-".leftPadding(to: 13, with: " "))
 """
-        inspectorColorFlag2.setImage(NSImage(color: .clear, size: inspectorColorFlag2.bounds.size))
-        inspectorColorLabel2.stringValue = """
+        inspectorColorFlagAlt.setImage(NSImage(color: .clear, size: inspectorColorFlagAlt.bounds.size))
+        inspectorColorLabelAlt.stringValue = """
 R:\("-".leftPadding(to: 11, with: " "))
 G:\("-".leftPadding(to: 11, with: " "))
 B:\("-".leftPadding(to: 11, with: " "))
 A:\("-".leftPadding(to: 11, with: " "))
 """
-        inspectorAreaLabel2.stringValue = """
+        inspectorAreaLabelAlt.stringValue = """
 CSS:\("-".leftPadding(to: 9, with: " "))
 \("-".leftPadding(to: 13, with: " "))
 """
@@ -622,19 +648,21 @@ extension SidebarController: PixelMatchResponder {
     }
     
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
-        imageSource2 = image.imageSource
+        altImageSource = image.imageSource
         exitComparisonHandler = completionHandler
         updateInformationPanel()
+        resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
     }
     
     func endPixelMatchComparison() {
-        imageSource2 = nil
+        altImageSource = nil
         exitComparisonHandler = nil
         updateInformationPanel()
+        resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
     }
     
     private var isInComparisonMode: Bool {
-        return imageSource1 != nil && imageSource2 != nil
+        return imageSource != nil && altImageSource != nil
     }
     
 }
@@ -645,13 +673,13 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
-        guard screenshot != nil else { return false }
         if menuItem.action == #selector(togglePane(_:)) {
             return true
         }
         else if menuItem.action == #selector(resetPanes(_:)) {
             return true
         }
+        guard screenshot != nil else { return false }
         return true
     }
     

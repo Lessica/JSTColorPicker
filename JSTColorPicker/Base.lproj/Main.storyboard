@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="16002"/>
@@ -8,6 +8,24 @@
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <scenes>
+        <!--Window Controller-->
+        <scene sceneID="BpW-jE-SdO">
+            <objects>
+                <windowController storyboardIdentifier="Placeholder" showSeguePresentationStyle="single" id="DkE-tD-sge" sceneMemberID="viewController">
+                    <window key="window" title="Placeholder" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="none" frameAutosaveName="" tabbingMode="disallowed" titleVisibility="hidden" id="CkN-NN-Qj5">
+                        <windowStyleMask key="styleMask" fullSizeContentView="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES" stationary="YES" ignoresCycle="YES" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <connections>
+                            <outlet property="delegate" destination="DkE-tD-sge" id="bko-n6-Y6Z"/>
+                        </connections>
+                    </window>
+                </windowController>
+                <customObject id="vmA-Yf-7N1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1715" y="-435"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -364,7 +382,7 @@ CA
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
             </objects>
-            <point key="canvasLocation" x="-1691" y="-86"/>
+            <point key="canvasLocation" x="-1692" y="-143"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">

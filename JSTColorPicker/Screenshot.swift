@@ -50,26 +50,17 @@ class Screenshot: NSDocument {
         
     }
     
-    public var image: PixelImage?
-    public var content: Content?
+    public fileprivate(set) var image: PixelImage?
+    public fileprivate(set) var content: Content?
     public lazy var export: ExportManager = {
         return ExportManager(screenshot: self)
     }()
-    public var isLoaded: Bool {
-        return image != nil && content != nil
-    }
-    
-    private var appDelegate: AppDelegate! {
-        return NSApplication.shared.delegate as? AppDelegate
-    }
+    public var isLoaded: Bool { image != nil && content != nil }
+    private var appDelegate: AppDelegate! { NSApplication.shared.delegate as? AppDelegate }
     
     private var tabService: TabService? {
-        get {
-            return appDelegate.tabService
-        }
-        set {
-            appDelegate.tabService = newValue
-        }
+        get { appDelegate.tabService }
+        set { appDelegate.tabService = newValue }
     }
     
     override func read(from url: URL, ofType typeName: String) throws {
@@ -142,7 +133,13 @@ class Screenshot: NSDocument {
         try windowControllers
             .compactMap({ $0 as? WindowController })
             .forEach({ try $0.load(self) })
-        // FIXME: global read it again...
+    }
+    
+    override var fileURL: URL? {
+        willSet {
+            guard let image = image, let url = newValue else { return }
+            image.rename(to: url)
+        }
     }
     
     override class var autosavesInPlace   : Bool { true }
@@ -172,7 +169,7 @@ class Screenshot: NSDocument {
             }
             else {
                 // initial window
-                let windowController = appDelegate.applicationReinitializeTabService()
+                let windowController = appDelegate.reinitializeTabService()
                 try windowController.load(self)
                 addWindowController(windowController)
             }

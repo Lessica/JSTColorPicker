@@ -11,21 +11,28 @@ import PromiseKit
 import MASPreferences
 import ServiceManagement
 
-enum XPCError: LocalizedError {
-    
-    case timeout
-    
-    var failureReason: String? {
-        switch self {
-        case .timeout:
-            return NSLocalizedString("Connection timeout.", comment: "XPCError")
-        }
-    }
-    
-}
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    
+    // MARK: - Structs
+    
+    enum XPCError: LocalizedError {
+        
+        case timeout
+        
+        var failureReason: String? {
+            switch self {
+            case .timeout:
+                return NSLocalizedString("Connection timeout.", comment: "XPCError")
+            }
+        }
+        
+    }
+    
+    
+    // MARK: - Attributes
     
     public var tabService: TabService?
     public var helperConnection: NSXPCConnection?
@@ -82,24 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationXPCEstablish()
         applicationXPCSetup()
         
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
-        self.helperConnection?.invalidate()
-    }
-    
-    func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        return true
-    }
-    
-    func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        let windowController = applicationReinitializeTabService()
-        windowController.showWindow(self)
-        return true
-    }
-    
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return false
+        applicationOpenUntitledDocumentIfNeeded()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -108,6 +98,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if url.host == "activate" {
             applicationXPCEstablish()
         }
+    }
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
+        self.helperConnection?.invalidate()
+    }
+    
+    func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { return false }
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { return false }
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        applicationOpenUntitledDocumentIfNeeded()
+        return false
     }
     
     private func applicationXPCEstablish() {
@@ -130,7 +131,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.helperConnection = connectionToService
     }
     
-    public func applicationReinitializeTabService() -> WindowController {
+    @discardableResult
+    private func applicationOpenUntitledDocumentIfNeeded() -> Bool {
+        if NSDocumentController.shared.documents.count == 0 {
+            do {
+                try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
+                return true
+            } catch { debugPrint(error) }
+        }
+        return false
+    }
+    
+    public func reinitializeTabService() -> WindowController {
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
         return windowController
@@ -211,21 +223,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Device Actions
     
-    @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem: NSMenuItem!
-    @IBOutlet weak var devicesTakeScreenshotMenuItem: NSMenuItem!
-    @IBOutlet weak var devicesMenu: NSMenu!
-    @IBOutlet weak var devicesSubMenu: NSMenu!
-    
-    private static let deviceIdentifierPrefix = "device-"
-    private var selectedDeviceUDID: String? {
-        get {
-            return UserDefaults.standard[.lastSelectedDeviceUDID]
-        }
-        set {
-            UserDefaults.standard[.lastSelectedDeviceUDID] = newValue
-        }
+    private var isTakingScreenshot                            : Bool = false
+    @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
+    @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
+    @IBOutlet weak var devicesMenu                            : NSMenu!
+    @IBOutlet weak var devicesSubMenu                         : NSMenu!
+    private static let deviceIdentifierPrefix                 : String = "device-"
+    private var selectedDeviceUDID                            : String?
+    {
+        get { UserDefaults.standard[.lastSelectedDeviceUDID]            }
+        set { UserDefaults.standard[.lastSelectedDeviceUDID] = newValue }
     }
-    private static var screenshotDateFormatter: DateFormatter = {
+    private static var screenshotDateFormatter                : DateFormatter =
+    {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         return formatter
@@ -305,8 +315,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private var isTakingScreenshot: Bool = false
-    
     @IBAction func devicesTakeScreenshotMenuItemTapped(_ sender: Any?) {
         
         guard !self.isTakingScreenshot else { return }
@@ -374,6 +382,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Sparkle Hide
     @IBOutlet weak var checkForUpdatesItem: NSMenuItem!
+    
     
 }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +31,7 @@
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
                                                                     <rect key="frame" x="-2" y="127" width="155" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1g8-wL-HKB">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <string key="title">Open or drop an image here.
 
 
@@ -50,7 +49,7 @@
                                                                             <rect key="frame" x="34" y="-6" width="147" height="28"/>
                                                                             <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                                <font key="font" metaFont="controlContent" size="11"/>
                                                                                 <string key="keyEquivalent">D</string>
                                                                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                             </buttonCell>
@@ -68,7 +67,7 @@
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-Ek-NZa">
                                                                     <rect key="frame" x="-2" y="0.0" width="155" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1sd-w8-by3">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <string key="title">Open or drop an image here.
 
 
@@ -437,11 +436,11 @@
                         <outlet property="imageLabel1" destination="C0k-ET-ywh" id="eIt-tP-bcf"/>
                         <outlet property="imageLabel2" destination="lDq-Ek-NZa" id="tkx-a8-Kbh"/>
                         <outlet property="inspectorAreaLabel" destination="YNh-fB-wME" id="TOE-6U-Pfb"/>
-                        <outlet property="inspectorAreaLabel2" destination="ZHu-m7-cSJ" id="UGf-09-19Z"/>
+                        <outlet property="inspectorAreaLabelAlt" destination="ZHu-m7-cSJ" id="UGf-09-19Z"/>
                         <outlet property="inspectorColorFlag" destination="UID-HV-iAj" id="qpT-kg-5h0"/>
-                        <outlet property="inspectorColorFlag2" destination="G8B-c4-3S6" id="iYI-P0-veP"/>
+                        <outlet property="inspectorColorFlagAlt" destination="G8B-c4-3S6" id="iYI-P0-veP"/>
                         <outlet property="inspectorColorLabel" destination="0ur-o7-U6O" id="caK-tE-vSI"/>
-                        <outlet property="inspectorColorLabel2" destination="2Ab-Lv-Z6r" id="MdN-fe-Io1"/>
+                        <outlet property="inspectorColorLabelAlt" destination="2Ab-Lv-Z6r" id="MdN-fe-Io1"/>
                         <outlet property="optionButton" destination="Dbw-cW-F99" id="pF5-9A-j9q"/>
                         <outlet property="optionMenu" destination="4at-bQ-1Zt" id="cQA-Sj-Cnh"/>
                         <outlet property="paneMenu" destination="gSA-sg-Hh9" id="Pdy-eY-bNd"/>

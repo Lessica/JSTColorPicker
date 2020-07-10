@@ -1160,9 +1160,12 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
 extension ContentController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
-        guard let _ = screenshot.content else {
+        
+        guard let _ = screenshot.content else
+        {
             throw Screenshot.Error.invalidContent
         }
+        
         self.screenshot = screenshot
         addCoordinateButton.isEnabled = true
         addCoordinateField.isEnabled = true
@@ -1182,6 +1185,7 @@ extension ContentController: ScreenshotLoader {
         }
         
         tableView.reloadData()
+        
     }
     
 }

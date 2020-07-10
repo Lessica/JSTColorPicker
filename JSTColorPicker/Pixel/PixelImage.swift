@@ -13,8 +13,8 @@ import LuaSwift
 class PixelImage {
     
     struct Source {
-        let url: URL
-        let cgSource: CGImageSource
+        var url: URL
+        var cgSource: CGImageSource
     }
     
     enum Error: LocalizedError {
@@ -36,9 +36,10 @@ class PixelImage {
         
     }
     
-    var cgImage: CGImage
-    var imageSource: Source
-    var pixelImageRepresentation: JSTPixelImage
+    public fileprivate(set) var cgImage: CGImage
+    public fileprivate(set) var imageSource: Source
+    public fileprivate(set) var pixelImageRepresentation: JSTPixelImage
+    public func rename(to url: URL) { imageSource.url = url }
     
     public init(contentsOf url: URL) throws {
         guard let dataProvider = CGDataProvider(filename: url.path) else {

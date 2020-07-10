@@ -71,7 +71,7 @@ class GridView: NSView {
         
     }
     
-    public weak var dataSource: ScreenshotLoader!
+    public weak var dataSource: ScreenshotLoader?
     public var shouldDrawAnnotators: Bool = false
     public var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
@@ -101,9 +101,7 @@ class GridView: NSView {
         view.layer?.backgroundColor = .white
         return view
     }()
-    private var pixelImage: PixelImage? {
-        return dataSource.screenshot?.image
-    }
+    private var pixelImage: PixelImage? { dataSource?.screenshot?.image }
     
     private func shimAnimation(_ opaque: Bool) {
         if !animating { return }
@@ -135,7 +133,7 @@ class GridView: NSView {
     }
     
     private func gridState(at coordinate: PixelCoordinate) -> State {
-        guard let content = dataSource.screenshot?.content else { return .none }
+        guard let content = dataSource?.screenshot?.content else { return .none }
         let isOccupiedByColor =
             shouldDrawAnnotators ? 
                 (content.items.first(where: { ($0 as? PixelColor)?.coordinate == coordinate }) != nil) : false

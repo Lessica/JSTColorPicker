@@ -676,15 +676,21 @@ extension SceneController: ScreenshotLoader {
     }
     
     func load(_ screenshot: Screenshot) throws {
-        self.screenshot = screenshot
+        
         guard let image = screenshot.image else {
             throw Screenshot.Error.invalidImage
         }
-        renderImage(image)
+        
         guard let content = screenshot.content else {
             throw Screenshot.Error.invalidContent
         }
+        
+        self.screenshot = screenshot
+        renderImage(image)
+        
+        removeAllAnnotators()
         try loadAnnotators(from: content)
+        
     }
     
 }
@@ -1048,6 +1054,19 @@ extension SceneController: AnnotatorSource {
         annotators.remove(at: removeIndexSet)
         debugPrint("remove annotators \(items.debugDescription)")
         return states
+    }
+    
+    private func removeAllAnnotators() {
+        var removeIndexSet = IndexSet()
+        for (index, annotator) in annotators.enumerated() {
+            removeIndexSet.insert(index)
+            
+            annotatorHideRulerMarkers(annotator)
+            annotator.overlay.removeFromAnimationGroup()
+            annotator.overlay.removeFromSuperview()
+        }
+        annotators.remove(at: removeIndexSet)
+        debugPrint("remove all annotators")
     }
     
     func highlightAnnotators(for items: [ContentItem], scrollTo: Bool) {
