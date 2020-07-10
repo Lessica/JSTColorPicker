@@ -51,7 +51,7 @@ class ExportManager {
         set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
     
-    public weak var screenshot: Screenshot?
+    internal weak var screenshot: Screenshot?
     
     required init(screenshot: Screenshot) {
         self.screenshot = screenshot

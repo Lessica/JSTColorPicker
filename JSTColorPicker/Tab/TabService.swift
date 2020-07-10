@@ -15,10 +15,7 @@ class TabService: TabDelegate {
     }
     private var internalManagedWindows: [ManagedWindow] = []
     private weak var dropRespondingWindow: NSWindow?
-    
-    public var managedWindows: [ManagedWindow] {
-        return internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder })
-    }
+    public var managedWindows: [ManagedWindow] { internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder }) }
     
     /// Returns the main window of the managed window stack.
     /// Falls back the first element if no window is main. Note that this would
@@ -67,7 +64,6 @@ class TabService: TabDelegate {
         let management = ManagedWindow(
             windowActiveOrder: pendingActiveOrder,
             windowController: windowController,
-            window: window,
             closingSubscription: subscription
         )
         internalManagedWindows.append(management)

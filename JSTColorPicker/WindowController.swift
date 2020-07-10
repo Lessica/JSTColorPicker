@@ -377,9 +377,7 @@ extension WindowController: NSTouchBarDelegate {
 
 extension WindowController: ScreenshotLoader {
     
-    internal var screenshot: Screenshot? {
-        return document as? Screenshot
-    }
+    internal var screenshot: Screenshot? { document as? Screenshot }
     
     func load(_ screenshot: Screenshot) throws {
         try viewController.load(screenshot)
