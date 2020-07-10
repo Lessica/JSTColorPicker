@@ -17,17 +17,17 @@ class ContentCellView: NSTableCellView {
     }
     
     public var text: String? {
-        get { textField?.stringValue }
+        get { textField?.stringValue                  }
         set { textField?.stringValue = newValue ?? "" }
     }
     
     public var image: NSImage? {
-        get { imageView?.image }
+        get { imageView?.image            }
         set { imageView?.image = newValue }
     }
     
     public var allowsExpansionToolTips: Bool? {
-        get { textField?.allowsExpansionToolTips }
+        get { textField?.allowsExpansionToolTips                     }
         set { textField?.allowsExpansionToolTips = newValue ?? false }
     }
 

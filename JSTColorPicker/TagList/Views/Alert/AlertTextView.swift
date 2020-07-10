@@ -13,7 +13,7 @@ class AlertTextView: NSView {
     @IBOutlet public weak var textView: NSTextView!
     
     public var text: String {
-        get { textView.string }
+        get { textView.string            }
         set { textView.string = newValue }
     }
     

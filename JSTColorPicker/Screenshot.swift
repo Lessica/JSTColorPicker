@@ -50,16 +50,17 @@ class Screenshot: NSDocument {
         
     }
     
-    public fileprivate(set) var image: PixelImage?
-    public fileprivate(set) var content: Content?
-    public lazy var export: ExportManager = {
+    public fileprivate(set) var image    : PixelImage?
+    public fileprivate(set) var content  : Content?
+    public lazy var export               : ExportManager =
+    {
         return ExportManager(screenshot: self)
     }()
-    public var isLoaded: Bool { image != nil && content != nil }
-    private var appDelegate: AppDelegate! { NSApplication.shared.delegate as? AppDelegate }
+    public var isLoaded      : Bool         { image != nil && content != nil                }
+    private var appDelegate  : AppDelegate! { NSApplication.shared.delegate as? AppDelegate }
     
     private var tabService: TabService? {
-        get { appDelegate.tabService }
+        get { appDelegate.tabService            }
         set { appDelegate.tabService = newValue }
     }
     

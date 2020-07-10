@@ -15,13 +15,13 @@ class EditViewController: NSViewController {
     
     public var image: PixelImage? { (view.window as? EditWindow)?.loader?.screenshot?.image }
     public var contentItem: ContentItem? {
-        get { (view.window as? EditWindow)?.contentItem }
+        get { (view.window as? EditWindow)?.contentItem            }
         set { (view.window as? EditWindow)?.contentItem = newValue }
     }
     public var contentItems: [ContentItem]? { (view.window as? EditWindow)?.contentItems }
     
     public weak var contentItemSource: ContentItemSource? { (view.window as? EditWindow)?.contentItemSource }
-    public weak var contentDelegate: ContentDelegate? { (view.window as? EditWindow)?.contentDelegate }
+    public weak var contentDelegate: ContentDelegate?     { (view.window as? EditWindow)?.contentDelegate   }
     
     internal var undoToken: NotificationToken?
     internal var redoToken: NotificationToken?

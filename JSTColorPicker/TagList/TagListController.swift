@@ -86,20 +86,40 @@ class TagListController: NSViewController {
         return panel
     }
     
-    private func reloadEmbeddedState() {
-        tableView.isEmbeddedMode            = isEditMode
-        tableActionCustomView.isHidden      = isEditMode
-        tableColumnFlags.isHidden           = isEditMode
-        tableColumnChecked.isHidden         = !isEditMode
-        internalController.isEditable       = isContextLoaded ? !isEditMode : false
-        searchField.isEnabled               = isContextLoaded
+    private func setupEmbeddedState(with context: NSManagedObjectContext? = nil) {
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
         tableView.allowsMultipleSelection   = !isEditMode
         tableView.gridStyleMask             = isEditMode ? [] : [.solidVerticalGridLineMask]
+        tableView.isEmbeddedMode            = isEditMode
+        tableView.contextUndoManager        = TagListController.sharedUndoManager
+        
+        tableActionCustomView.isHidden      = isEditMode
+        tableColumnFlags.isHidden           = isEditMode
+        tableColumnChecked.isHidden         = !isEditMode
+        
+        searchField.isEnabled               = isContextLoaded
         loadingErrorLabel.isHidden          = isContextLoaded
         loadingErrorLabel.stringValue       = isContextLoaded ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
-        tableView.contextUndoManager        = TagListController.sharedUndoManager
+        
+        internalController.avoidsEmptySelection             = false
+        internalController.preservesSelection               = true
+        internalController.selectsInsertedObjects           = true
+        internalController.clearsFilterPredicateOnInsertion = true
+        internalController.automaticallyRearrangesObjects   = true
+        internalController.alwaysUsesMultipleValuesMarker   = false
+        internalController.entityName                       = "Tag"
+        internalController.usesLazyFetching                 = false
+        internalController.sortDescriptors                  = [NSSortDescriptor(key: "order", ascending: true)]
+        internalController.isEditable                       = isContextLoaded ? !isEditMode : false
+        internalController.managedObjectContext             = context
+        internalController.automaticallyPreparesContent     = context != nil
+        
+        if context != nil {
+            internalController.prepareContent()
+            internalController.rearrangeObjects()
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -113,10 +133,7 @@ class TagListController: NSViewController {
         
         if let context = TagListController.sharedContext {
             
-            self.internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
-            self.internalController.managedObjectContext = context
-            self.internalController.rearrangeObjects()
-            self.reloadEmbeddedState()
+            self.setupEmbeddedState(with: context)
             
             if let undoManager = tableView.contextUndoManager {
                 willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: undoManager, using: { [unowned self] _ in
@@ -178,10 +195,7 @@ class TagListController: NSViewController {
                     TagListController.sharedContext = context
                     NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: context)
                     
-                    self.internalController.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
-                    self.internalController.managedObjectContext = context
-                    self.internalController.rearrangeObjects()
-                    self.reloadEmbeddedState()
+                    self.setupEmbeddedState(with: context)
                     
                     self.willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: self.tableView.contextUndoManager, using: { [unowned self] _ in
                         self.setNeedsSaveManagedTags()
@@ -201,7 +215,7 @@ class TagListController: NSViewController {
                     
                 } else if let error = error {
                     
-                    self.reloadEmbeddedState()
+                    self.setupEmbeddedState()
                     self.presentError(error)
                     
                 }
