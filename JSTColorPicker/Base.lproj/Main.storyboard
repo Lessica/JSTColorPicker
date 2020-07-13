@@ -392,7 +392,7 @@ CA
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">

@@ -64,6 +64,9 @@
 /* Delete Confirm */
 "Do you want to remove selected item %@?" = "Do you want to remove selected item %@?";
 
+/* Content.Error */
+"Document locked." = "Document locked.";
+
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "Download screenshot from device \"%@\"...";
 

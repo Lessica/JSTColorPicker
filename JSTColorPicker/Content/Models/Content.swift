@@ -20,7 +20,8 @@ class Content: NSObject, Codable {
         case itemReachLimit(totalSpace: Int)
         case itemReachLimitBatch(moreSpace: Int)
         case itemConflict(item1: CustomStringConvertible, item2: CustomStringConvertible)
-        case noDocumentLoaded
+        case notLoaded
+        case notWritable
         case userAborted
         
         var failureReason: String? {
@@ -41,8 +42,10 @@ class Content: NSObject, Codable {
                 return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "Content.Error"), moreSpace)
             case let .itemConflict(item1, item2):
                 return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "Content.Error"), item1.description, item2.description)
-            case .noDocumentLoaded:
+            case .notLoaded:
                 return NSLocalizedString("No document loaded.", comment: "Content.Error")
+            case .notWritable:
+                return NSLocalizedString("Document locked.", comment: "Content.Error")
             case .userAborted:
                 return NSLocalizedString("User aborted.", comment: "Content.Error")
             }
@@ -50,9 +53,9 @@ class Content: NSObject, Codable {
         
     }
     
-    public var items: [ContentItem] = []  // ordered by id asc
-    public var lazyColors: [PixelColor] { items.lazy.compactMap({ $0 as? PixelColor }) }
-    public var lazyAreas : [PixelArea]  { items.lazy.compactMap({ $0 as? PixelArea })  }
+    public var items       : [ContentItem] = []  // ordered by id asc
+    public var lazyColors  : [PixelColor]    { items.lazy.compactMap({ $0 as? PixelColor }) }
+    public var lazyAreas   : [PixelArea]     { items.lazy.compactMap({ $0 as? PixelArea })  }
     
     override init() {
         super.init()

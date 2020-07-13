@@ -58,13 +58,13 @@ class EditableOverlay: Overlay {
     
     // MARK: - Inherited
     
-    public var isEditable            : Bool     = false
-    public var isEditing             : Bool     { isEditable && isSelected                 }
-    public var editableEdge          : Edge     { isEditable ? internalEditingEdge : .none }
-    public var hidesDuringEditing    : Bool     { false                                    }
-    public func setEditing(at point: CGPoint)   { internalEditingEdge = edge(at: point)    }
-    private var internalEditingEdge  : Edge     = .none
-    override var borderStyle         : Overlay.BorderStyle { isEditable ? .dashed : .solid }
+    public var isEditable            : Bool        = false
+    public var isEditing             : Bool        { isEditable && isSelected                 }
+    public var editableEdge          : Edge        { isEditable ? internalEditingEdge : .none }
+    public var hidesDuringEditing    : Bool        { false                                    }
+    public func setEditing(at point: CGPoint)      { internalEditingEdge = edge(at: point)    }
+    private var internalEditingEdge  : Edge        = .none
+    override var borderStyle         : BorderStyle { .dashed }
     
     override var outerInsets: NSEdgeInsets {
         if borderStyle != .none && isEditable {

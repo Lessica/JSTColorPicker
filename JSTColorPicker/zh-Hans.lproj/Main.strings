@@ -276,3 +276,6 @@
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "查找与替换...";
+
+/* Class = "NSWindow"; title = "Placeholder"; ObjectID = "CkN-NN-Qj5"; */
+"CkN-NN-Qj5.title" = "";

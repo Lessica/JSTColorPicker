@@ -50,28 +50,31 @@ extension NSViewController {
 
 class ContentController: NSViewController {
     
-    public weak var actionDelegate: ContentActionDelegate!
-    public weak var tagListSource: TagListSource!
+    public weak var actionDelegate  : ContentActionDelegate!
+    public weak var tagListSource   : TagListSource!
     
-    internal weak var screenshot: Screenshot?
-    private var content: Content? { screenshot?.content }
+    internal weak var screenshot    : Screenshot?
+    private var documentContent     : Content?         { screenshot?.content }
+    private var documentImage       : PixelImage?      { screenshot?.image   }
+    private var documentExport      : ExportManager?   { screenshot?.export  }
+    private var documentState       : Screenshot.State { screenshot?.state ?? .notLoaded }
     
     private var nextID: Int {
-        if let lastID = content?.items.last?.id {
+        if let lastID = documentContent?.items.last?.id {
             return lastID + 1
         }
         return 1
     }
     private var nextSimilarity: Double {
-        if let lastSimilarity = content?.items.last?.similarity {
+        if let lastSimilarity = documentContent?.items.last?.similarity {
             return lastSimilarity
         }
         return 1.0
     }
     
-    private var undoToken: NotificationToken?
-    private var redoToken: NotificationToken?
-    private var delayedRowIndexes: IndexSet?
+    private var undoToken                 : NotificationToken?
+    private var redoToken                 : NotificationToken?
+    private var delayedRowIndexes         : IndexSet?
     
     @IBOutlet var tableMenuDelegateProxy  : NSMenuDelegateProxy!
     
@@ -110,7 +113,7 @@ class ContentController: NSViewController {
     }
     
     private var selectedContentItems: [ContentItem]? {
-        guard let collection = content?.items else { return nil }
+        guard let collection = documentContent?.items else { return nil }
         return selectedRowIndexes.map { collection[$0] }
     }
     
@@ -174,7 +177,7 @@ class ContentController: NSViewController {
     }
     
     @IBAction func similarityFieldChanged(_ sender: NSTextField) {
-        guard let content = content else { return }
+        guard let content = documentContent else { return }
         
         let row = tableView.row(for: sender)
         assert(row >= 0 && row < content.items.count)
@@ -199,7 +202,7 @@ class ContentController: NSViewController {
     }
     
     @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
-        guard let image = screenshot?.image else { return }
+        guard let image = documentImage else { return }
         
         do {
             
@@ -301,7 +304,7 @@ extension ContentController {
     
     @discardableResult
     private func internalAddContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
-        guard let content = content else { return IndexSet() }
+        guard let content = documentContent else { return IndexSet() }
         undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items, isRegistered: true) })
         if !registered {
             undoManager?.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
@@ -318,7 +321,7 @@ extension ContentController {
     
     @discardableResult
     private func internalDeleteContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
-        guard let content = content else { return IndexSet() }
+        guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
         undoManager?.registerUndo(withTarget: self, handler: { (target) in
@@ -338,7 +341,7 @@ extension ContentController {
     
     @discardableResult
     private func internalUpdateContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
-        guard let content = content else { return IndexSet() }
+        guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
         undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove, isRegistered: true) })
@@ -382,15 +385,15 @@ extension ContentController {
 extension ContentController: ContentItemSource {
     
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem {
-        guard let image = screenshot?.image              else { throw Content.Error.noDocumentLoaded }
-        guard let color = image.color(at: coordinate)    else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
+        guard let image = documentImage else { throw Content.Error.notLoaded }
+        guard let color = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
         return color
     }
     
     func contentItem(of rect: PixelRect) throws -> ContentItem {
-        guard let image = screenshot?.image                                      else { throw Content.Error.noDocumentLoaded }
+        guard let image = documentImage else { throw Content.Error.notLoaded }
         guard rect.hasStandardized && rect.size > PixelSize(width: 1, height: 1) else { throw Content.Error.itemNotValid(item: rect) }
-        guard let area = image.area(at: rect)                                    else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
+        guard let area = image.area(at: rect) else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
         return area
     }
     
@@ -409,7 +412,8 @@ extension ContentController: ContentDelegate {
     @discardableResult
     private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
         
-        guard let content = content else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent  else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
         
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
@@ -432,7 +436,10 @@ extension ContentController: ContentDelegate {
     @discardableResult
     private func importContentItems(_ items: [ContentItem]) throws -> [ContentItem] {
         
-        guard let content = content, let image = screenshot?.image else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent,
+            let image = documentImage    else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
             let maximumItemCount: Int = UserDefaults.standard[.maximumItemCount]
@@ -479,27 +486,27 @@ extension ContentController: ContentDelegate {
     
     @discardableResult
     private func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let image = screenshot?.image else { throw Content.Error.noDocumentLoaded }
+        guard let image = documentImage else { throw Content.Error.notLoaded }
         guard let color = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
         return try selectContentItem(color, byExtendingSelection: false)
     }
     
     @discardableResult
     private func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = screenshot?.image   else { throw Content.Error.noDocumentLoaded }
+        guard let image = documentImage else { throw Content.Error.notLoaded }
         guard let area = image.area(at: rect) else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
         return try selectContentItem(area, byExtendingSelection: false)
     }
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        guard let content = content                              else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent                              else { throw Content.Error.notLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw Content.Error.itemDoesNotExist(item: item) }
         internalSelectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
         return item
     }
     
     func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
-        guard let content = content else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent else { throw Content.Error.notLoaded }
         let itemIndexes = IndexSet(
             items.compactMap({ content.items.firstIndex(of: $0) })
         )
@@ -509,7 +516,7 @@ extension ContentController: ContentDelegate {
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = content                              else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent                              else { throw Content.Error.notLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw Content.Error.itemDoesNotExist(item: item) }
         tableView.deselectRow(itemIndex)
         makeFirstResponder(tableView)
@@ -521,11 +528,15 @@ extension ContentController: ContentDelegate {
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let content = content else { throw Content.Error.noDocumentLoaded }
+        
+        guard let content = documentContent  else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable      else { throw Content.Error.notWritable }
+        
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
             else { throw Content.Error.itemDoesNotExist(item: coordinate) }
         return try deleteContentItem(item, bySkipingValidation: true)
+        
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
@@ -535,7 +546,8 @@ extension ContentController: ContentDelegate {
     private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool) throws -> ContentItem? {
         
         if !skip {
-            guard let content = content else { throw Content.Error.noDocumentLoaded }
+            guard let content = documentContent  else { throw Content.Error.notLoaded }
+            guard documentState.isWriteable      else { throw Content.Error.notWritable   }
             guard content.items.firstIndex(of: item) != nil else { throw Content.Error.itemDoesNotExist(item: item) }
         }
         guard deleteConfirmForItems([item]) else { throw Content.Error.userAborted }
@@ -548,7 +560,10 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         
-        guard let content = content, let image = screenshot?.image                              else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent,
+            let image = documentImage    else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        
         guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw Content.Error.itemDoesNotExist(item: item) }
         if let conflictItem = content.lazyColors.first(where: { $0.coordinate == coordinate })       { throw Content.Error.itemConflict(item1: coordinate, item2: conflictItem) }
         guard let replItem = image.color(at: coordinate)                                        else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
@@ -566,7 +581,10 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         
-        guard let content = content, let image = screenshot?.image                              else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent,
+            let image = documentImage    else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        
         guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw Content.Error.itemDoesNotExist(item: item) }
         if let conflictItem = content.lazyAreas.first(where: { $0.rect == rect })                    { throw Content.Error.itemConflict(item1: rect, item2: conflictItem) }
         guard let replItem = image.area(at: rect)                                               else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
@@ -584,7 +602,9 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         
-        guard let content = content                                                   else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent  else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+        
         guard content.items.first(where: { $0.id == item.id }) != nil                 else { throw Content.Error.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
@@ -598,7 +618,9 @@ extension ContentController: ContentDelegate {
     
     func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
         
-        guard let content = content else { throw Content.Error.noDocumentLoaded }
+        guard let content = documentContent  else { throw Content.Error.notLoaded }
+        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+        
         let itemIndexes = IndexSet(
             items.compactMap({ content.items.firstIndex(of: $0) })
         )
@@ -639,7 +661,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         // menu item without action
         if menu == tableMenu {
-            if content != nil {
+            if documentState.isLoaded {
                 tableRemoveTagsMenuItem.isEnabled = tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
             } else {
                 tableRemoveTagsMenuItem.isEnabled = false
@@ -648,25 +670,50 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        
         guard !hasAttachedSheet else { return false }
+        
         // menu item with action
-        if menuItem.action == #selector(delete(_:))
-            || menuItem.action == #selector(copy(_:))
+        if menuItem.action == #selector(copy(_:))
             || menuItem.action == #selector(exportAs(_:))
             || menuItem.action == #selector(tags(_:))
+            || menuItem.action == #selector(delete(_:))
         {  // contents available / multiple targets / from both menu
-            guard content != nil else { return false }
+            
+            if menuItem.action == #selector(tags(_:))
+                || menuItem.action == #selector(delete(_:))
+            {
+                guard documentState.isWriteable else { return false }
+            }
+            
+            guard documentState.isLoaded else { return false }
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+            
         }
-        else if menuItem.action == #selector(locate(_:)) || menuItem.action == #selector(relocate(_:))
+            
+        else if menuItem.action == #selector(locate(_:))
+            || menuItem.action == #selector(relocate(_:))
         {  // contents available / single target / from right click menu
-            guard content != nil            else { return false }
+            
+            if menuItem.action == #selector(relocate(_:)) {
+                guard documentState.isWriteable else { return false }
+            }
+            
+            guard documentState.isLoaded  else { return false }
             guard tableView.clickedRow >= 0 else { return false }
             return !(tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow))
+            
         }
+            
         else if menuItem.action == #selector(smartTrim(_:)) || menuItem.action == #selector(saveAs(_:))
         {  // contents available / single target / from both menu / must be an area
-            guard let content = content else { return false }
+            
+            if menuItem.action == #selector(smartTrim(_:)) {
+                guard documentState.isWriteable else { return false }
+            }
+            
+            guard let content = documentContent else { return false }
+            
             if tableView.clickedRow >= 0 {
                 if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) {
                     return false
@@ -679,38 +726,45 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 }
                 return false
             }
+            
             return false
+            
         }
+            
         else if menuItem.action == #selector(paste(_:))
         {  // contents available / paste manager
-            guard content != nil else { return false }
-            return screenshot?.export.canImportFromAdditionalPasteboard ?? false
+            guard documentState.isWriteable else { return false }
+            return documentExport?.canImportFromAdditionalPasteboard ?? false
         }
+            
         else if menuItem.action == #selector(toggleHeader(_:))
         {
-            if menuItem.identifier == .toggleTableColumnIdentifier {
-                return false
-            }
-            return true
+            return menuItem.identifier != .toggleTableColumnIdentifier
         }
+            
+        else if menuItem.action == #selector(toggleItemRepr(_:))
+        {  // contents loaded
+            return documentState.isLoaded
+        }
+            
         else if menuItem.action == #selector(create(_:))
-            || menuItem.action == #selector(toggleItemRepr(_:))
             || menuItem.action == #selector(removeTag(_:))
-        {  // contents available
-            guard content != nil else { return false }
-            return true
+        {  // contents writeable
+            return documentState.isWriteable
         }
+            
         else if menuItem.action == #selector(resetColumns(_:))
         {
             return true
         }
+        
         return false
     }
     
     func numberOfItems(in menu: NSMenu) -> Int {
         if menu == tableRemoveTagsMenu
         {
-            guard let collection = content?.items else { return 0 }
+            guard let collection = documentContent?.items else { return 0 }
             let selectedIndexes = selectedRowIndexes
             preparedSelectedItemCount = selectedIndexes.count
             let allTags = selectedIndexes
@@ -812,7 +866,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func locate(_ sender: Any) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         
         let targetItem = collection[targetIndex]
@@ -820,7 +874,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func relocate(_ sender: Any) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         
         var panel: EditWindow?
@@ -851,7 +905,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func tags(_ sender: NSMenuItem?) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         let rows = selectedRowIndexes
         let itemsToEdit = rows.map({ collection[$0] })
         
@@ -870,7 +924,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func create(_ sender: NSMenuItem?) {
-        guard content?.items != nil else { return }
+        guard documentContent?.items != nil else { return }
         
         var panel: EditWindow?
         if sender == itemNewColorMenuItem {
@@ -898,7 +952,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func delete(_ sender: Any) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         let rows = selectedRowIndexes
         let itemsToRemove = rows.map({ collection[$0] })
         guard deleteConfirmForItems(itemsToRemove) else { return }
@@ -910,9 +964,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let selectedItems = selectedContentItems else { return }
         do {
             if (selectedItems.count == 1) {
-                try screenshot?.export.copyContentItem(selectedItems.first!)
+                try documentExport?.copyContentItem(selectedItems.first!)
             } else {
-                try screenshot?.export.copyContentItems(selectedItems)
+                try documentExport?.copyContentItems(selectedItems)
             }
         }
         catch {
@@ -921,7 +975,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func paste(_ sender: Any) {
-        guard let items = screenshot?.export.importFromAdditionalPasteboard() else { return }
+        guard let items = documentExport?.importFromAdditionalPasteboard() else { return }
         do {
             try importContentItems(items)
         } catch {
@@ -930,7 +984,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func saveAs(_ sender: Any) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
         let panel = NSSavePanel()
@@ -945,7 +999,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     private func saveCroppedImage(of area: PixelArea, to url: URL) {
-        guard let data = screenshot?.image?.pngRepresentation(of: area) else { return }
+        guard let data = documentImage?.pngRepresentation(of: area) else { return }
         do {
             try data.write(to: url)
         }
@@ -957,7 +1011,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     @IBAction func exportAs(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
         do {
-            guard let template = screenshot?.export.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
+            guard let template = documentExport?.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
             let panel = NSSavePanel()
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { (resp) in
@@ -975,7 +1029,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     private func exportItems(_ items: [ContentItem], to url: URL) {
         do {
-            try screenshot?.export.exportItems(items, to: url)
+            try documentExport?.exportItems(items, to: url)
         }
         catch {
             presentError(error)
@@ -1017,7 +1071,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     private func smartTrimPixelArea(_ item: PixelArea) throws -> ContentItem? {
-        guard let croppedNSImage = screenshot?.image?.toNSImage(of: item) else { return nil }
+        guard let croppedNSImage = documentImage?.toNSImage(of: item) else { return nil }
         
         let bestChildRect = OpenCVWrapper.bestChildRectangle(of: croppedNSImage)
         guard !bestChildRect.isEmpty else { return nil }
@@ -1029,7 +1083,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func smartTrim(_ sender: NSMenuItem) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
         do {
@@ -1068,13 +1122,13 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     private func internalTableViewSelectionDidChange(_ notification: Notification?) {
-        guard let collection = content?.items else { return }
+        guard let collection = documentContent?.items else { return }
         let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
         actionDelegate.contentActionSelected(realSelectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return content?.items.count ?? 0
+        return documentContent?.items.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -1082,7 +1136,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let content = content else { return nil }
+        guard let content = documentContent else { return nil }
         guard let tableColumn = tableColumn else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? ContentCellView {
             let col = tableColumn.identifier
@@ -1208,7 +1262,7 @@ extension ContentController: NSMenuDelegateAlternate {
 extension ContentController: TagImportSource {
     
     var importableTagNames: [String]? {
-        guard let content = content else { return nil }
+        guard let content = documentContent else { return nil }
         return OrderedSet<String>(content.items.flatMap({ $0.tags })).contents
     }
     

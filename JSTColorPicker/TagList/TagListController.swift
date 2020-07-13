@@ -326,7 +326,7 @@ class TagListController: NSViewController {
         guard let context = TagListController.sharedContext,
             let tagNames = importItemSource?.importableTagNames else
         {
-            presentError(Content.Error.noDocumentLoaded)
+            presentError(Content.Error.notLoaded)
             return
         }
         

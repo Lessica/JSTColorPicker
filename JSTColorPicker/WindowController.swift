@@ -186,37 +186,70 @@ class WindowController: NSWindowController {
     
 }
 
-enum SceneToolIndex: Int {
-    case magicCursor = 0
-    case selectionArrow
-    case magnifyingGlass
-    case minifyingGlass
-    case movingHand
-}
-
-enum SceneActionIndex: Int {
-    case fitWindow = 0
-    case fillWindow
+extension WindowController: NSToolbarItemValidation {
+    
+    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+        
+        if item.action == #selector(useAnnotateItemAction(_:))
+            || item.action == #selector(useSelectItemAction(_:))
+            || item.action == #selector(useMagnifyItemAction(_:))
+            || item.action == #selector(useMinifyItemAction(_:))
+            || item.action == #selector(useMoveItemAction(_:))
+            || item.action == #selector(fitWindowAction(_:))
+            || item.action == #selector(fillWindowAction(_:))
+            || item.action == #selector(touchBarOpenAction(_:))
+            || item.action == #selector(touchBarOpenAction(_:))
+            || item.action == #selector(touchBarSceneToolControlAction(_:))
+            || item.action == #selector(touchBarSceneActionControlAction(_:))
+        {  // when loaded
+            return documentState.isLoaded
+        }
+        
+        else if item.action == #selector(openAction(_:))
+            || item.action == #selector(touchBarOpenAction(_:))
+            || item.action == #selector(screenshotAction(_:))
+            || item.action == #selector(touchBarScreenshotAction(_:))
+        {  // not loaded or not restricted
+            return documentState.isReadable || !documentState.isLoaded
+        }
+        
+        return false
+        
+    }
+    
 }
 
 extension WindowController {
     
+    enum ToolIndex: Int {
+        case magicCursor = 0
+        case selectionArrow
+        case magnifyingGlass
+        case minifyingGlass
+        case movingHand
+    }
+
+    enum ActionIndex: Int {
+        case fitWindow = 0
+        case fillWindow
+    }
+    
     private func touchBarUpdateButtonState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
         if identifier == SceneTool.magicCursor.rawValue {
-            touchBarSceneToolControl.selectedSegment = SceneToolIndex.magicCursor.rawValue
+            touchBarSceneToolControl.selectedSegment = ToolIndex.magicCursor.rawValue
         }
         else if identifier == SceneTool.selectionArrow.rawValue {
-            touchBarSceneToolControl.selectedSegment = SceneToolIndex.selectionArrow.rawValue
+            touchBarSceneToolControl.selectedSegment = ToolIndex.selectionArrow.rawValue
         }
         else if identifier == SceneTool.magnifyingGlass.rawValue {
-            touchBarSceneToolControl.selectedSegment = SceneToolIndex.magnifyingGlass.rawValue
+            touchBarSceneToolControl.selectedSegment = ToolIndex.magnifyingGlass.rawValue
         }
         else if identifier == SceneTool.minifyingGlass.rawValue {
-            touchBarSceneToolControl.selectedSegment = SceneToolIndex.minifyingGlass.rawValue
+            touchBarSceneToolControl.selectedSegment = ToolIndex.minifyingGlass.rawValue
         }
         else if identifier == SceneTool.movingHand.rawValue {
-            touchBarSceneToolControl.selectedSegment = SceneToolIndex.movingHand.rawValue
+            touchBarSceneToolControl.selectedSegment = ToolIndex.movingHand.rawValue
         }
     }
     
@@ -250,19 +283,23 @@ extension WindowController {
     }
     
     @IBAction func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
-        if sender.selectedSegment == SceneToolIndex.magicCursor.rawValue {
+        guard documentState.isLoaded else {
+            touchBarUpdateButtonState()
+            return
+        }
+        if sender.selectedSegment == ToolIndex.magicCursor.rawValue {
             touchBarUseAnnotateItemAction(sender)
         }
-        else if sender.selectedSegment == SceneToolIndex.selectionArrow.rawValue {
+        else if sender.selectedSegment == ToolIndex.selectionArrow.rawValue {
             touchBarUseSelectItemAction(sender)
         }
-        else if sender.selectedSegment == SceneToolIndex.magnifyingGlass.rawValue {
+        else if sender.selectedSegment == ToolIndex.magnifyingGlass.rawValue {
             touchBarUseMagnifyItemAction(sender)
         }
-        else if sender.selectedSegment == SceneToolIndex.minifyingGlass.rawValue {
+        else if sender.selectedSegment == ToolIndex.minifyingGlass.rawValue {
             touchBarUseMinifyItemAction(sender)
         }
-        else if sender.selectedSegment == SceneToolIndex.movingHand.rawValue {
+        else if sender.selectedSegment == ToolIndex.movingHand.rawValue {
             touchBarUseMoveItemAction(sender)
         }
     }
@@ -276,10 +313,11 @@ extension WindowController {
     }
     
     @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
-        if sender.selectedSegment == SceneActionIndex.fitWindow.rawValue {
+        guard documentState.isLoaded else { return }
+        if sender.selectedSegment == ActionIndex.fitWindow.rawValue {
             touchBarFitWindowAction(sender)
         }
-        else if sender.selectedSegment == SceneActionIndex.fillWindow.rawValue {
+        else if sender.selectedSegment == ActionIndex.fillWindow.rawValue {
             touchBarFillWindowAction(sender)
         }
     }
@@ -293,6 +331,7 @@ extension WindowController {
 extension WindowController: ToolbarResponder {
     
     @IBAction func openAction(_ sender: Any?) {
+        guard documentState.isReadable || !documentState.isLoaded else { return }
         NSDocumentController.shared.openDocument(sender)
     }
     
@@ -322,17 +361,18 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction func fitWindowAction(_ sender: Any?) {
-        guard (document?.fileURL) != nil else { return }
+        guard documentState.isLoaded else { return }
         viewController.fitWindowAction(sender)
     }
     
     @IBAction func fillWindowAction(_ sender: Any?) {
-        guard (document?.fileURL) != nil else { return }
+        guard documentState.isLoaded else { return }
         viewController.fillWindowAction(sender)
     }
     
     @IBAction func screenshotAction(_ sender: Any?) {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
+        guard documentState.isReadable || !documentState.isLoaded else { return }
         delegate.devicesTakeScreenshotMenuItemTapped(sender)
     }
     
@@ -377,7 +417,8 @@ extension WindowController: NSTouchBarDelegate {
 
 extension WindowController: ScreenshotLoader {
     
-    internal var screenshot: Screenshot? { document as? Screenshot }
+    internal var screenshot    : Screenshot? { document as? Screenshot }
+    private var documentState  : Screenshot.State { screenshot?.state ?? .notLoaded }
     
     func load(_ screenshot: Screenshot) throws {
         try viewController.load(screenshot)

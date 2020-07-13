@@ -175,7 +175,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
         guard let managedWindows = tabService?.managedWindows else { return nil }
-        let preparedManagedWindows = managedWindows.filter({ ($0.windowController.screenshot?.isLoaded ?? false ) })
+        let preparedManagedWindows = managedWindows.filter({ ($0.windowController.screenshot?.state.isLoaded ?? false ) })
         guard preparedManagedWindows.count >= 2,
             let firstWindowController = managedWindows.first?.windowController,
             let firstPreparedWindowController = preparedManagedWindows.first?.windowController,
