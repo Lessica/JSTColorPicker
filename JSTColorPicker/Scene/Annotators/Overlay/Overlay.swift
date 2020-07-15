@@ -131,7 +131,7 @@ class Overlay: NSView {
     public func removeFromAnimationGroup() {
         let proxies = Overlay.sharedAnimationProxies
             .filter({ $0.overlay == nil || $0.overlay == self })
-        Overlay.sharedAnimationProxies.subtract(proxies)
+        Overlay.sharedAnimationProxies.subtract(proxies)  // mutating
         if Overlay.sharedAnimationTimer != nil && Overlay.sharedAnimationProxies.isEmpty {
             Overlay.invalidateSharedAnimationTimer()
         }

@@ -14,7 +14,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="W7m-Sv-4Wm" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="0.0" verticalPageScroll="0.0" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="allowed" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="W7m-Sv-4Wm" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                                 <clipView key="contentView" focusRingType="none" id="sQJ-yc-X1x" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>

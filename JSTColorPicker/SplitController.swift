@@ -121,12 +121,14 @@ extension SplitController: SceneTracking {
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
         
-        lastStoredMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
-        if let restrictedMagnification = lastStoredMagnification {
+        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
+        sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
+        
+        if restrictedMagnification != lastStoredMagnification {
+            lastStoredMagnification = restrictedMagnification
             if let url = screenshot?.fileURL {
                 updateWindowTitle(url, magnification: restrictedMagnification)
             }
-            sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
         }
     }
     
@@ -179,20 +181,29 @@ extension SplitController: ScreenshotLoader {
             }
         }
         
+        if let fileURL = screenshot.fileURL {
+            self.updateWindowTitle(fileURL)
+        }
         documentObservations = [
             screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
-                if let url = change.newValue as? URL,
-                    let restrictedMagnification = self.lastStoredMagnification
-                {
-                    self.updateWindowTitle(url, magnification: restrictedMagnification)
+                if let url = change.newValue as? URL {
+                    if let restrictedMagnification = self.lastStoredMagnification {
+                        self.updateWindowTitle(url, magnification: restrictedMagnification)
+                    } else {
+                        self.updateWindowTitle(url)
+                    }
                 }
             }
         ]
         
     }
     
-    func updateWindowTitle(_ url: URL, magnification: CGFloat) {
-        windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+    func updateWindowTitle(_ url: URL, magnification: CGFloat? = 1.0) {
+        if let magnification = magnification {
+            windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        } else {
+            windowTitle = url.lastPathComponent
+        }
     }
     
 }
