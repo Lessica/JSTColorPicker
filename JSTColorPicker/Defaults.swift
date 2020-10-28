@@ -24,6 +24,7 @@ public extension UserDefaults.Key {
     static let togglePaneViewInformation            : UserDefaults.Key     = "defaults.paneView.toggle-info"                   // Bool
     static let togglePaneViewInspector              : UserDefaults.Key     = "defaults.paneView.toggle-inspector"              // Bool
     static let togglePaneViewPreview                : UserDefaults.Key     = "defaults.paneView.toggle-preview"                // Bool
+    static let togglePaneViewTagList                : UserDefaults.Key     = "defaults.paneView.toggle-taglist"                // Bool
     
     static let togglePreviewArea                    : UserDefaults.Key     = "defaults.preview.toggle-area"                    // Bool
     static let togglePreviewColor                   : UserDefaults.Key     = "defaults.preview.toggle-color"                   // Bool
@@ -58,6 +59,8 @@ public extension UserDefaults.Key {
     
     static let enableGPUAcceleration                : UserDefaults.Key     = "defaults.enableGPUAcceleration"                  // Bool
     static let checkUpdatesAutomatically            : UserDefaults.Key     = "SUEnableAutomaticChecks"                         // Bool
+    
+    static let initialSimilarity                    : UserDefaults.Key     = "defaults.initialSimilarity"                      // Double
     
 }
 

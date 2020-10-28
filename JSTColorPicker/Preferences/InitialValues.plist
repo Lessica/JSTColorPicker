@@ -28,6 +28,8 @@
 	<true/>
 	<key>defaults.hideGridsWhenResize</key>
 	<true/>
+	<key>defaults.initialSimilarity</key>
+	<real>0.9</real>
 	<key>defaults.maximumItemCount</key>
 	<integer>99</integer>
 	<key>defaults.maximumItemCountEnabled</key>
@@ -35,9 +37,11 @@
 	<key>defaults.paneView.toggle-info</key>
 	<true/>
 	<key>defaults.paneView.toggle-inspector</key>
-	<false/>
+	<true/>
 	<key>defaults.paneView.toggle-preview</key>
 	<true/>
+	<key>defaults.paneView.toggle-taglist</key>
+	<false/>
 	<key>defaults.pixelMatchAlpha</key>
 	<real>0.5</real>
 	<key>defaults.pixelMatchBackgroundMode</key>
@@ -59,7 +63,7 @@
 	<key>defaults.tableColumn.toggle-similarity</key>
 	<true/>
 	<key>defaults.tableColumn.toggle-tag</key>
-	<true/>
+	<false/>
 	<key>defaults.usesAlternativeAreaRepresentation</key>
 	<false/>
 	<key>defaults.usesDetailedToolTips</key>

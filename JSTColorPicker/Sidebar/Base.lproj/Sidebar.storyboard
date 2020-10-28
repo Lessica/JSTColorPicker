@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,28 +11,28 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="424" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="42" width="240" height="758"/>
+                                <rect key="frame" x="0.0" y="42" width="424" height="758"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="237"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="424" height="237"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlX-Nk-OkF">
-                                                <rect key="frame" x="-3" y="-4" width="246" height="243"/>
+                                                <rect key="frame" x="-3" y="-4" width="430" height="243"/>
                                                 <view key="contentView" id="dLI-77-rkV">
-                                                    <rect key="frame" x="8" y="0.0" width="230" height="243"/>
+                                                    <rect key="frame" x="8" y="0.0" width="414" height="243"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-iH-KBU">
-                                                            <rect key="frame" x="8" y="16" width="214" height="211"/>
+                                                            <rect key="frame" x="8" y="16" width="398" height="211"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
                                                                     <rect key="frame" x="-2" y="127" width="155" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1g8-wL-HKB">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                         <string key="title">Open or drop an image here.
 
 
@@ -44,13 +44,13 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="5ER-JY-eJ2">
-                                                                    <rect key="frame" x="0.0" y="96" width="214" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="96" width="398" height="19"/>
                                                                     <subviews>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pFl-IO-QPP">
-                                                                            <rect key="frame" x="34" y="-6" width="147" height="28"/>
+                                                                            <rect key="frame" x="126" y="-6" width="147" height="28"/>
                                                                             <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                                <font key="font" metaFont="menu" size="11"/>
                                                                                 <string key="keyEquivalent">D</string>
                                                                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                             </buttonCell>
@@ -68,7 +68,7 @@
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-Ek-NZa">
                                                                     <rect key="frame" x="-2" y="0.0" width="155" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1sd-w8-by3">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                         <string key="title">Open or drop an image here.
 
 
@@ -115,22 +115,22 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
-                                        <rect key="frame" x="0.0" y="246" width="240" height="53"/>
+                                        <rect key="frame" x="0.0" y="246" width="424" height="53"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPz-OZ-Hua">
-                                                <rect key="frame" x="-3" y="-4" width="246" height="59"/>
+                                                <rect key="frame" x="-3" y="-4" width="430" height="59"/>
                                                 <view key="contentView" id="mzD-mX-KZ8">
-                                                    <rect key="frame" x="8" y="0.0" width="230" height="59"/>
+                                                    <rect key="frame" x="8" y="0.0" width="414" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-ma-a5Q">
-                                                            <rect key="frame" x="0.0" y="4" width="230" height="51"/>
+                                                            <rect key="frame" x="0.0" y="4" width="414" height="51"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="PKs-GF-oI7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="51"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="205" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="CIm-qT-p2S">
-                                                                            <rect key="frame" x="38" y="0.0" width="36" height="51"/>
+                                                                            <rect key="frame" x="85" y="0.0" width="36" height="51"/>
                                                                             <subviews>
                                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UID-HV-iAj" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>
@@ -180,10 +180,10 @@
                                                                     </constraints>
                                                                 </customView>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="zY2-vb-2Mh">
-                                                                    <rect key="frame" x="121" y="0.0" width="109" height="51"/>
+                                                                    <rect key="frame" x="214" y="0.0" width="200" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="gvP-3V-m3U">
-                                                                            <rect key="frame" x="37" y="0.0" width="36" height="51"/>
+                                                                            <rect key="frame" x="82" y="0.0" width="36" height="51"/>
                                                                             <subviews>
                                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G8B-c4-3S6" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>
@@ -258,10 +258,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
-                                        <rect key="frame" x="0.0" y="308" width="240" height="256"/>
+                                        <rect key="frame" x="0.0" y="308" width="424" height="256"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-zE-Ub5">
-                                                <rect key="frame" x="-5" y="-4" width="250" height="262"/>
+                                                <rect key="frame" x="87" y="-4" width="250" height="262"/>
                                                 <view key="contentView" id="kW4-LL-dQv">
                                                     <rect key="frame" x="8" y="0.0" width="234" height="262"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -324,10 +324,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
-                                        <rect key="frame" x="0.0" y="573" width="240" height="185"/>
+                                        <rect key="frame" x="0.0" y="573" width="424" height="115"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="185"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="424" height="115"/>
                                                 <connections>
                                                     <segue destination="JDK-dI-n6a" kind="embed" identifier="TagListContainer" id="hb4-4p-dHm"/>
                                                 </connections>
@@ -340,8 +340,13 @@
                                             <constraint firstAttribute="bottom" secondItem="Jvh-22-aJT" secondAttribute="bottom" id="jUs-Oo-6PA"/>
                                         </constraints>
                                     </customView>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
+                                        <rect key="frame" x="0.0" y="697" width="424" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </customView>
                                 </subviews>
                                 <holdingPriorities>
+                                    <real value="270"/>
                                     <real value="265"/>
                                     <real value="260"/>
                                     <real value="255"/>
@@ -353,31 +358,47 @@
                                 </connections>
                             </splitView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-gN-yLQ">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="42"/>
+                                <rect key="frame" x="0.0" y="0.0" width="424" height="42"/>
                                 <subviews>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="KZa-vT-7c9">
-                                        <rect key="frame" x="0.0" y="39" width="240" height="5"/>
+                                        <rect key="frame" x="0.0" y="39" width="424" height="5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="B3V-o5-DgE"/>
                                         </constraints>
                                     </box>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmm-f0-UlU">
-                                        <rect key="frame" x="8" y="12" width="224" height="18"/>
+                                        <rect key="frame" x="100" y="12" width="224" height="18"/>
                                         <subviews>
-                                            <button toolTip="Export All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-6j-3gj">
+                                            <button toolTip="Copy All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-6j-3gj">
                                                 <rect key="frame" x="-5" y="-6" width="186" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="176" id="VP4-Zv-NJN"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j00-Um-3Fu">
+                                                <buttonCell key="cell" type="push" title="Copy All..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j00-Um-3Fu">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="message" size="11"/>
                                                     <string key="keyEquivalent">e</string>
                                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="exportButtonTapped:" target="IfO-80-1iw" id="yTw-Em-k5M"/>
+                                                    <action selector="copyButtonTapped:" target="IfO-80-1iw" id="fTS-Q0-HKZ"/>
                                                     <outlet property="nextKeyView" destination="Dbw-cW-F99" id="XwT-K7-ZUM"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" toolTip="Export All... (⇧⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="In9-qO-324">
+                                                <rect key="frame" x="-5" y="-6" width="186" height="27"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="176" id="chu-mh-UGm"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PVX-A0-Mr6">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="keyEquivalent">E</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="exportButtonTapped:" target="IfO-80-1iw" id="I8a-j3-Sca"/>
+                                                    <outlet property="nextKeyView" destination="Dbw-cW-F99" id="5Yd-rd-gto"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="Export Options (⌥⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
@@ -399,8 +420,10 @@
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
@@ -428,11 +451,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="copyButton" destination="bwz-6j-3gj" id="bWQ-l8-vPP"/>
                         <outlet property="dividerConstraintInfo" destination="kU6-eP-TYB" id="bid-FB-OKQ"/>
                         <outlet property="dividerConstraintInspector" destination="cuh-0g-db9" id="BBh-Tv-iei"/>
                         <outlet property="dividerConstraintPreview" destination="kIP-3a-9lP" id="PY6-Zp-Ngt"/>
                         <outlet property="exitComparisonModeButton" destination="pFl-IO-QPP" id="m6Y-Up-lAA"/>
-                        <outlet property="exportButton" destination="bwz-6j-3gj" id="c1I-kD-qQB"/>
+                        <outlet property="exportButton" destination="In9-qO-324" id="gkB-Q9-4S2"/>
                         <outlet property="imageActionView" destination="5ER-JY-eJ2" id="Mj3-5k-u15"/>
                         <outlet property="imageLabel1" destination="C0k-ET-ywh" id="eIt-tP-bcf"/>
                         <outlet property="imageLabel2" destination="lDq-Ek-NZa" id="tkx-a8-Kbh"/>
@@ -447,8 +471,9 @@
                         <outlet property="paneMenu" destination="gSA-sg-Hh9" id="Pdy-eY-bNd"/>
                         <outlet property="paneViewInfo" destination="s0i-Tq-xqT" id="eY6-Jy-L0o"/>
                         <outlet property="paneViewInspector" destination="E8g-qZ-f5e" id="8gC-c1-U0q"/>
-                        <outlet property="paneViewPlaceholder" destination="H61-xT-7a0" id="Pav-H6-iFc"/>
+                        <outlet property="paneViewPlaceholder" destination="I42-7I-fJN" id="mWh-46-NdN"/>
                         <outlet property="paneViewPreview" destination="XPn-It-24S" id="tTk-jQ-E4t"/>
+                        <outlet property="paneViewTagList" destination="H61-xT-7a0" id="Pav-H6-iFc"/>
                         <outlet property="previewImageView" destination="fAw-7i-wdv" id="mQx-HY-Pxq"/>
                         <outlet property="previewOverlayView" destination="W1Q-HV-wY8" id="EXG-dk-Hm8"/>
                         <outlet property="previewSlider" destination="8AH-8J-GW3" id="Q2A-Ek-Pq1"/>
@@ -501,6 +526,12 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="aIT-dF-gXO"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Tag List" state="on" identifier="toggle-taglist" id="F5A-Fc-CMr">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="togglePane:" target="IfO-80-1iw" id="cgL-GN-nS6"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="WQc-zf-fnz"/>

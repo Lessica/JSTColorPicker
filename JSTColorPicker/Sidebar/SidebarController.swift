@@ -12,6 +12,7 @@ extension NSUserInterfaceItemIdentifier {
     static let togglePaneViewInformation = NSUserInterfaceItemIdentifier("toggle-info")
     static let togglePaneViewInspector = NSUserInterfaceItemIdentifier("toggle-inspector")
     static let togglePaneViewPreview = NSUserInterfaceItemIdentifier("toggle-preview")
+    static let togglePaneViewTagList = NSUserInterfaceItemIdentifier("toggle-taglist")
 }
 
 class SidebarController: NSViewController {
@@ -21,12 +22,14 @@ class SidebarController: NSViewController {
         case info = 0
         case inspector
         case preview
-        
+        case taglist
+         
         static var all: IndexSet {
             IndexSet([
                 PaneDividerIndex.info.rawValue,
                 PaneDividerIndex.inspector.rawValue,
-                PaneDividerIndex.preview.rawValue
+                PaneDividerIndex.preview.rawValue,
+                PaneDividerIndex.taglist.rawValue,
             ])
         }
         
@@ -44,6 +47,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewInfo              : NSView!
     @IBOutlet weak var paneViewInspector         : NSView!
     @IBOutlet weak var paneViewPreview           : NSView!
+    @IBOutlet weak var paneViewTagList           : NSView!
     @IBOutlet weak var paneViewPlaceholder       : NSView!
     
     private var imageSource                      : PixelImage.Source? { screenshot?.image?.imageSource }
@@ -64,6 +68,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var previewSlider             : NSSlider!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
     
+    @IBOutlet weak var copyButton                : NSButton!
     @IBOutlet weak var exportButton              : NSButton!
     @IBOutlet weak var optionButton              : NSButton!
     
@@ -86,11 +91,18 @@ class SidebarController: NSViewController {
         resetPreview()
         
         previewSlider.isEnabled = false
+        copyButton.isEnabled = false
         exportButton.isEnabled = false
         optionButton.isEnabled = false
         
         reservedOptionMenuItems.removeAll()
         reservedOptionMenuItems.append(contentsOf: optionMenu.items)
+        
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
+            self.monitorWindowFlagsChanged(with: event)
+            return event
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         applyPreferences(nil)
@@ -113,17 +125,22 @@ class SidebarController: NSViewController {
     private var reservedOptionMenuItems: [NSMenuItem] = []
     private let templateIdentifierPrefix = "template-"
     
+    @IBAction func copyButtonTapped(_ sender: NSButton) {
+        self.copyAllContentItems()
+    }
+    
     @IBAction func exportButtonTapped(_ sender: NSButton) {
         do {
             guard let template = screenshot?.export.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
             let panel = NSSavePanel()
             panel.allowedFileTypes = template.allowedExtensions
-            panel.beginSheetModal(for: view.window!) { (resp) in
+            panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
                 if resp == .OK {
                     if let url = panel.url {
-                        self.exportAllItems(to: url)
+                        self?.exportAllContentItems(to: url)
                     }
                 }
+                self?.monitorWindowFlagsChanged(with: nil, forceReset: true)
             }
         }
         catch {
@@ -131,9 +148,18 @@ class SidebarController: NSViewController {
         }
     }
     
-    private func exportAllItems(to url: URL) {
+    private func copyAllContentItems() {
         do {
-            try screenshot?.export.exportAllItems(to: url)
+            try screenshot?.export.copyAllContentItems()
+        }
+        catch {
+            presentError(error)
+        }
+    }
+    
+    private func exportAllContentItems(to url: URL) {
+        do {
+            try screenshot?.export.exportAllContentItems(to: url)
         }
         catch {
             presentError(error)
@@ -234,6 +260,40 @@ by \(template.author ?? "Unknown")
     }
     
     
+    // MARK: - Shortcut Replacement
+    
+    @discardableResult
+    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
+        if !forceReset {
+            guard let window = view.window, window.isKeyWindow else { return false }  // important
+        }
+        var handled = false
+        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
+        switch modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .subtracting([.command, .option, .control])
+        {
+        case [.shift]:
+            handled = switchExportButtonToExportMode()
+        default:
+            handled = switchExportButtonToCopyMode()
+        }
+        return handled
+    }
+    
+    private func switchExportButtonToCopyMode() -> Bool {
+        copyButton.isHidden = false
+        exportButton.isHidden = true
+        return true
+    }
+    
+    private func switchExportButtonToExportMode() -> Bool {
+        copyButton.isHidden = true
+        exportButton.isHidden = false
+        return true
+    }
+    
+    
     // MARK: - Panes
     
     @IBOutlet var paneMenu: NSMenu!
@@ -248,6 +308,7 @@ by \(template.author ?? "Unknown")
         UserDefaults.standard.removeObject(forKey: .togglePaneViewInformation)
         UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
         UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewTagList)
         
         splitView.displayIfNeeded()
     }
@@ -262,6 +323,9 @@ by \(template.author ?? "Unknown")
         }
         else if sender.identifier == .togglePaneViewPreview {
             defaultKey = .togglePaneViewPreview
+        }
+        else if sender.identifier == .togglePaneViewTagList {
+            defaultKey = .togglePaneViewTagList
         }
         if let key = defaultKey {
             let val: Bool = UserDefaults.standard[key]
@@ -300,6 +364,12 @@ by \(template.author ?? "Unknown")
             paneChanged = true
         }
         
+        hiddenValue = !UserDefaults.standard[.togglePaneViewTagList]
+        if paneViewTagList.isHidden != hiddenValue {
+            paneViewTagList.isHidden = hiddenValue
+            paneChanged = true
+        }
+        
         if paneChanged {
             splitView.adjustSubviews()
             splitView.displayIfNeeded()
@@ -320,6 +390,9 @@ by \(template.author ?? "Unknown")
         }
         if paneViewPreview.isHidden {
             dividerIndexes.remove(PaneDividerIndex.preview.rawValue)
+        }
+        if paneViewTagList.isHidden {
+            dividerIndexes.remove(PaneDividerIndex.taglist.rawValue)
         }
         if !dividerIndexes.isEmpty {
             splitView.adjustSubviews()
@@ -371,6 +444,7 @@ extension SidebarController: ScreenshotLoader {
         previewOverlayView.highlightArea = previewRect
         
         previewSlider.isEnabled = true
+        copyButton.isEnabled = true
         exportButton.isEnabled = true
         optionButton.isEnabled = true
         resetDividers()
@@ -696,6 +770,9 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
                 }
                 else if menuItem.identifier == .togglePaneViewPreview {
                     menuItem.state = UserDefaults.standard[.togglePaneViewPreview] ? .on : .off
+                }
+                else if menuItem.identifier == .togglePaneViewTagList {
+                    menuItem.state = UserDefaults.standard[.togglePaneViewTagList] ? .on : .off
                 }
             }
         }

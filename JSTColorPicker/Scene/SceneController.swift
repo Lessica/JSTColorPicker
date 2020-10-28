@@ -178,17 +178,13 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            if self.monitorWindowFlagsChanged(with: event) {
-                return nil
-            }
+            self.monitorWindowFlagsChanged(with: event)
             return event
         }
         
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            if self.monitorWindowKeyDown(with: event) {
-                return nil
-            }
+            self.monitorWindowKeyDown(with: event)
             return event
         }
         

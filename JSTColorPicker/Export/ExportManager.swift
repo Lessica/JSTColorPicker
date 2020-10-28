@@ -148,7 +148,15 @@ class ExportManager {
         }
     }
     
-    public func exportItems(_ items: [ContentItem], to url: URL) throws {
+    public func copyAllContentItems() throws {
+        guard let items = screenshot?.content?.items else
+        {
+            throw Error.noDocumentLoaded
+        }
+        try copyContentItems(items)
+    }
+    
+    public func exportContentItems(_ items: [ContentItem], to url: URL) throws {
         guard let image = screenshot?.image else { throw Error.noDocumentLoaded }
         guard let selectedTemplate = selectedTemplate else { throw Error.noTemplateSelected }
         do {
@@ -163,12 +171,12 @@ class ExportManager {
         }
     }
     
-    public func exportAllItems(to url: URL) throws {
+    public func exportAllContentItems(to url: URL) throws {
         guard let items = screenshot?.content?.items else
         {
             throw Error.noDocumentLoaded
         }
-        try exportItems(items, to: url)
+        try exportContentItems(items, to: url)
     }
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {

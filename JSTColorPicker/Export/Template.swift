@@ -51,6 +51,7 @@ class Template {
     public var author: String?
     public var description: String?
     public var allowedExtensions: [String] = []
+    public var items: [[String: Any]] = []
     
     public static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var generator: LuaSwift.Function

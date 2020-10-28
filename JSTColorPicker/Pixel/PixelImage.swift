@@ -118,8 +118,12 @@ extension PixelImage: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
+        t["path"] = imageSource.url.path
+        t["name"] = imageSource.url.lastPathComponent
         t["w"] = size.width
         t["h"] = size.height
+        t["width"] = size.width
+        t["height"] = size.height
         t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
             let (x, y) = (args.integer, args.integer)
             let coordinate = PixelCoordinate(x: Int(x), y: Int(y))

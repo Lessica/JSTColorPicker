@@ -69,7 +69,7 @@ class ContentController: NSViewController {
         if let lastSimilarity = documentContent?.items.last?.similarity {
             return lastSimilarity
         }
-        return 1.0
+        return UserDefaults.standard[.initialSimilarity]
     }
     
     private var undoToken                 : NotificationToken?
@@ -186,8 +186,10 @@ class ContentController: NSViewController {
         let value = sender.doubleValue, origValue = origItem.similarity * 100.0
         if value >= 1 && value <= 100 && abs(value - origValue) >= 0.99 {
             
+            let targetSimilarity = min(max(value / 100.0, 0.01), 1.0)
             let replItem = origItem.copy() as! ContentItem
-            replItem.similarity = min(max(value / 100.0, 0.01), 1.0)
+            replItem.similarity = targetSimilarity
+            UserDefaults.standard[.initialSimilarity] = targetSimilarity
             
             let itemIndexes = internalUpdateContentItems([replItem])
             let col = tableView.column(withIdentifier: .columnSimilarity)
@@ -1029,7 +1031,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     private func exportItems(_ items: [ContentItem], to url: URL) {
         do {
-            try documentExport?.exportItems(items, to: url)
+            try documentExport?.exportContentItems(items, to: url)
         }
         catch {
             presentError(error)

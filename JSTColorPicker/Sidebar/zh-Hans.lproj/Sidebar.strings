@@ -7,14 +7,17 @@
 /* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
 "8AH-8J-GW3.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⌘E)"; ObjectID = "bwz-6j-3gj"; */
-"bwz-6j-3gj.ibShadowedToolTip" = "导出全部项... (⌘E)";
+/* Class = "NSButton"; ibShadowedToolTip = "Copy All... (⌘E)"; ObjectID = "bwz-6j-3gj"; */
+"bwz-6j-3gj.ibShadowedToolTip" = "复制全部项... (⌘E)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "Dbw-cW-F99"; */
 "Dbw-cW-F99.ibShadowedToolTip" = "导出首选项 (⌥⌘E)";
 
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "dml-TB-Eg1"; */
 "dml-TB-Eg1.title" = "图像预览";
+
+/* Class = "NSMenuItem"; title = "Tag List"; ObjectID = "F5A-Fc-CMr"; */
+"F5A-Fc-CMr.title" = "标签列表";
 
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "G8B-c4-3S6"; */
 "G8B-c4-3S6.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
@@ -25,14 +28,20 @@
 /* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
 "Imo-Rx-LeR.title" = "100%";
 
-/* Class = "NSButtonCell"; title = "Export All..."; ObjectID = "j00-Um-3Fu"; */
-"j00-Um-3Fu.title" = "导出全部项...";
+/* Class = "NSButton"; ibShadowedToolTip = "Export All... (⇧⌘E)"; ObjectID = "In9-qO-324"; */
+"In9-qO-324.ibShadowedToolTip" = "导出全部项... (⇧⌘E)";
+
+/* Class = "NSButtonCell"; title = "Copy All..."; ObjectID = "j00-Um-3Fu"; */
+"j00-Um-3Fu.title" = "复制全部项...";
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "lLo-u9-UXv"; */
 "lLo-u9-UXv.title" = "显示日志...";
 
 /* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "ocQ-Zc-yHF"; */
 "ocQ-Zc-yHF.title" = "退出比较模式";
+
+/* Class = "NSButtonCell"; title = "Export All..."; ObjectID = "PVX-A0-Mr6"; */
+"PVX-A0-Mr6.title" = "导出全部项...";
 
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
 "UID-HV-iAj.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";

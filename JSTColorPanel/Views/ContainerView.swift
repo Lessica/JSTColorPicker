@@ -20,11 +20,11 @@ class ContainerView: NSView {
         
         super.awakeFromNib()
         
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event: NSEvent) -> NSEvent? in
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { (event: NSEvent) -> NSEvent? in
             self.keyDown(with: event)
             return event
         }
-        NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) { (event: NSEvent) -> NSEvent? in
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { (event: NSEvent) -> NSEvent? in
             self.flagsChanged(with: event)
             return event
         }
