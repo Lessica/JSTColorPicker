@@ -96,8 +96,8 @@ class ShortcutGuideWindowController: NSWindowController {
     }
     
     func hide() {
-//        removeCloseOnOutsideClick()
-//        window?.orderOut(nil)
+        removeCloseOnOutsideClick()
+        window?.orderOut(nil)
     }
     
 }

@@ -82,13 +82,6 @@ class ShortcutGuideViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateDisplayWithItems([])
-        updateDisplayWithItems([
-            ShortcutItem(name: "Copy", keyString: "C", modifierFlags: [.command])
-        ])
-        updateDisplayWithItems([
-            ShortcutItem(name: "Copy", keyString: "C", modifierFlags: [.command]),
-            ShortcutItem(name: "Save As...", keyString: "S", modifierFlags: [.shift, .command])
-        ])
     }
     
     public func updateDisplayWithItems(_ items: [ShortcutItem]) {
