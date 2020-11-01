@@ -178,13 +178,17 @@ class SceneController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            self.monitorWindowFlagsChanged(with: event)
+            if self.monitorWindowFlagsChanged(with: event) {
+                return nil
+            }
             return event
         }
         
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            self.monitorWindowKeyDown(with: event)
+            if self.monitorWindowKeyDown(with: event) {
+                return nil
+            }
             return event
         }
         
@@ -464,6 +468,7 @@ class SceneController: NSViewController {
     @discardableResult
     private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
+        var needsUpdate = false
         var handled = false
         let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
         switch modifierFlags
@@ -471,13 +476,16 @@ class SceneController: NSViewController {
             .subtracting([.shift, .command])
         {
         case [.option]:
-            handled = useOptionModifiedSceneTool(forceReset)
+            needsUpdate = useOptionModifiedSceneTool(forceReset)
+            handled = true
         case [.control]:
-            handled = useCommandModifiedSceneTool(forceReset)
+            needsUpdate = useCommandModifiedSceneTool(forceReset)
+            handled = true
         default:
-            handled = useSelectedSceneTool(forceReset)
+            needsUpdate = useSelectedSceneTool(forceReset)
+            handled = false
         }
-        if handled && sceneView.isMouseInside {
+        if needsUpdate && sceneView.isMouseInside {
             sceneOverlayView.updateAppearance()
         }
         return handled

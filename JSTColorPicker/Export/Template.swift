@@ -51,7 +51,7 @@ class Template {
     public var author: String?
     public var description: String?
     public var allowedExtensions: [String] = []
-    public var items: [[String: Any]] = []
+    public var items: LuaSwift.Table?
     
     public static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var generator: LuaSwift.Function
@@ -78,9 +78,9 @@ class Template {
             if let ext = dict["extension"] {
                 self.allowedExtensions.append(ext)
             }
+            self.items = tab["items"] as? LuaSwift.Table
             
-            let generatorDict = tab.asDictionary({ $0 as String }, { $0 as LuaSwift.Function })
-            guard let generator = generatorDict["generator"] else { throw Error.missingRequiredField(field: "generator") }
+            guard let generator = tab["generator"] as? LuaSwift.Function else { throw Error.missingRequiredField(field: "generator") }
             
             self.generator = generator
         case let .error(e):
@@ -98,6 +98,142 @@ class Template {
             throw Error.luaError(reason: e)
         }
         throw Error.missingReturnedString
+    }
+    
+}
+
+protocol TemplateItem {
+    var type: TemplateItemType { get }
+    var label: String { get }
+    var key: String { get }
+}
+
+enum TemplateItemType: String {
+    case option, toggle, integer, number, text
+}
+
+extension Template {
+    
+    // MARK: - Items
+    
+    struct OptionItem: TemplateItem {
+        let type: TemplateItemType = .option
+        let label: String
+        let key: String
+        let value: String
+        let options: [String]
+    }
+    
+    struct ToggleItem: TemplateItem {
+        let type: TemplateItemType = .toggle
+        let label: String
+        let key: String
+        let value: Bool
+    }
+    
+    struct IntegerItem: TemplateItem {
+        let type: TemplateItemType = .integer
+        let label: String
+        let key: String
+        let value: Int64
+    }
+    
+    struct NumberItem: TemplateItem {
+        let type: TemplateItemType = .number
+        let label: String
+        let key: String
+        let value: Double
+    }
+    
+    struct TextItem: TemplateItem {
+        let type: TemplateItemType = .text
+        let label: String
+        let key: String
+        let value: String
+    }
+    
+    public func parseItems() throws -> [TemplateItem]? {
+        
+        guard let items = items else { return nil }
+        
+        var retItems = [TemplateItem]()
+        var itemIdx = 1
+        let itemTabArr: [LuaSwift.Table] = items.asSequence()
+        
+        for itemTab in itemTabArr {
+            
+            guard let itemTypeStr = itemTab["type"] as? String else {
+                throw Error.missingRequiredField(field: "items[\(itemIdx)].type")
+            }
+            
+            guard let itemType = TemplateItemType(rawValue: itemTypeStr) else {
+                throw Error.invalidField(field: "items[\(itemIdx)].type")
+            }
+            
+            guard let itemLabelStr = itemTab["label"] as? String else {
+                throw Error.missingRequiredField(field: "items[\(itemIdx)].label")
+            }
+            
+            guard let itemKeyStr = itemTab["key"] as? String else {
+                throw Error.missingRequiredField(field: "items[\(itemIdx)].key")
+            }
+            
+            var retItem: TemplateItem
+            switch itemType {
+            case .option:
+                
+                guard let itemValue = itemTab["value"] as? String else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].value")
+                }
+                
+                guard let itemOptionTab = itemTab["options"] as? LuaSwift.Table else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].options")
+                }
+                
+                let itemOptions: [String] = itemOptionTab.asSequence()
+                retItem = OptionItem(label: itemLabelStr, key: itemKeyStr, value: itemValue, options: itemOptions)
+                
+            case .toggle:
+                
+                guard let itemValue = itemTab["value"] as? Bool else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].value")
+                }
+                
+                retItem = ToggleItem(label: itemLabelStr, key: itemKeyStr, value: itemValue)
+                
+            case .integer:
+                
+                guard let itemValue = itemTab["value"] as? Int64 else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].value")
+                }
+                
+                retItem = IntegerItem(label: itemLabelStr, key: itemKeyStr, value: itemValue)
+                
+            case .number:
+                
+                guard let itemValue = itemTab["value"] as? Double else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].value")
+                }
+                
+                retItem = NumberItem(label: itemLabelStr, key: itemKeyStr, value: itemValue)
+                
+            case .text:
+                
+                guard let itemValue = itemTab["value"] as? String else {
+                    throw Error.invalidField(field: "items[\(itemIdx)].value")
+                }
+                
+                retItem = TextItem(label: itemLabelStr, key: itemKeyStr, value: itemValue)
+                
+            }
+            
+            retItems.append(retItem)
+            itemIdx += 1
+            
+        }
+        
+        return retItems
+        
     }
     
 }

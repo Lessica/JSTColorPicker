@@ -100,7 +100,9 @@ class SidebarController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self else { return event }
-            self.monitorWindowFlagsChanged(with: event)
+            if self.monitorWindowFlagsChanged(with: event) {
+                return nil
+            }
             return event
         }
         
@@ -284,13 +286,13 @@ by \(template.author ?? "Unknown")
     private func switchExportButtonToCopyMode() -> Bool {
         copyButton.isHidden = false
         exportButton.isHidden = true
-        return true
+        return false
     }
     
     private func switchExportButtonToExportMode() -> Bool {
         copyButton.isHidden = true
         exportButton.isHidden = false
-        return true
+        return false
     }
     
     
@@ -785,6 +787,11 @@ extension SidebarController: NSSplitViewDelegate {
     func splitView(_ splitView: NSSplitView, effectiveRect proposedEffectiveRect: NSRect, forDrawnRect drawnRect: NSRect, ofDividerAt dividerIndex: Int) -> NSRect {
         guard dividerIndex < splitView.arrangedSubviews.count else { return proposedEffectiveRect }
         return splitView.arrangedSubviews[dividerIndex].isHidden ? .zero : proposedEffectiveRect
+    }
+    
+    func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
+        guard dividerIndex < splitView.arrangedSubviews.count else { return false }
+        return splitView.arrangedSubviews[dividerIndex].isHidden
     }
     
 }
