@@ -392,6 +392,16 @@
 		D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
+		D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
+		D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
+		D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
+		D6D2F953254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
+		D6D2F955254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
+		D6D2F956254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
+		D6D2F958254EA232000A13CD /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
+		D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
+		D6D2F95B254EA69E000A13CD /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
+		D6D2F95C254EA69E000A13CD /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
 		D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */; };
 		D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */; };
 		D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */; };
@@ -1199,6 +1209,11 @@
 		D6CB454E248784EF00F5C7A1 /* InitialValues.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InitialValues.plist; sourceTree = "<group>"; };
 		D6CD28A7247BD4670051BE18 /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
+		D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
+		D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
+		D6D2F957254EA232000A13CD /* ShortcutItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItemView.swift; sourceTree = "<group>"; };
+		D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditableTextField.swift; sourceTree = "<group>"; };
 		D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEditableTextField.swift; sourceTree = "<group>"; };
 		D6DF0F9124292B27001E30F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1829,6 +1844,7 @@
 				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
+				D6D2F94D254E6929000A13CD /* ShortcutGuide */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
@@ -2355,6 +2371,18 @@
 			path = Sidebar;
 			sourceTree = "<group>";
 		};
+		D6D2F94D254E6929000A13CD /* ShortcutGuide */ = {
+			isa = PBXGroup;
+			children = (
+				D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */,
+				D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */,
+				D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */,
+				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
+				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
+			);
+			path = ShortcutGuide;
+			sourceTree = "<group>";
+		};
 		D6E1669B248A0B4200D8D1C5 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2785,6 +2813,7 @@
 				D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
+				D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
@@ -2819,6 +2848,7 @@
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
+				D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
@@ -2977,6 +3007,7 @@
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
+				D6D2F95B254EA69E000A13CD /* ShortcutItem.swift in Sources */,
 				D610478C24224A170002E990 /* PreferencesController.swift in Sources */,
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
@@ -2991,6 +3022,7 @@
 				D610479524224A170002E990 /* GridView.swift in Sources */,
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
+				D6D2F958254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D610479724224A170002E990 /* SidebarController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
@@ -3030,6 +3062,7 @@
 				D61047B124224A170002E990 /* TabService.swift in Sources */,
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
+				D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
@@ -3039,6 +3072,7 @@
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
+				D6D2F955254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */,
 				D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				18D202C32496920C007A079F /* TagCellView.swift in Sources */,
@@ -3179,6 +3213,7 @@
 				185D7EEF248A80C4001C283B /* EditWindow.swift in Sources */,
 				D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
+				D6D2F956254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
@@ -3212,6 +3247,7 @@
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
+				D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
@@ -3224,12 +3260,14 @@
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
+				D6D2F95C254EA69E000A13CD /* ShortcutItem.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
+				D6D2F953254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,

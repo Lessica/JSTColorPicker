@@ -380,16 +380,23 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    private var gridWindowController: GridWindowController? {
+    private var gridController: GridWindowController? {
         guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
-        let grid = delegate.gridController
-        return grid
+        let ctrl = delegate.gridController
+        return ctrl
+    }
+    
+    private var shortcutGuideController: ShortcutGuideWindowController? {
+        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
+        let ctrl = delegate.shortcutGuideController
+        return ctrl
     }
     
     func windowDidBecomeMain(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else { return }
         if window == self.window {
-            gridWindowController?.activeWindowController = self
+            gridController?.activeWindowController = self
+            shortcutGuideController?.showForWindow(window)
             tabDelegate.activeManagedWindow(windowController: self)
         }
     }
@@ -429,7 +436,7 @@ extension WindowController: ScreenshotLoader {
 extension WindowController: SceneTracking {
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        gridWindowController?.sceneRawColorDidChange(sender, at: coordinate)
+        gridController?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
 }

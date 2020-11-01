@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var mainMenu: NSMenu!
     
     public let gridController = GridWindowController.newGridController()
+    public let shortcutGuideController = ShortcutGuideWindowController.newShortcutGuideController()
     private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
         let folderController = FolderController()
