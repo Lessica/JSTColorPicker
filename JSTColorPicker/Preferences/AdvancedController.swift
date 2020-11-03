@@ -39,7 +39,9 @@ class AdvancedController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        #if !SANDBOXED
         UserDefaults.standard[.checkUpdatesAutomatically] = (NSApp.delegate as? AppDelegate)?.sparkUpdater.automaticallyChecksForUpdates ?? false
+        #endif
     }
     
     @IBAction func actionRequiresRestart(_ sender: NSButton) {
