@@ -33,10 +33,10 @@ class PreviewOverlayView: NSView {
     }
     
     private static let defaultOverlayColor      : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
-    private static let defaultOverlayBorderColor: CGColor = NSColor(white: 0.0, alpha: 0.7).cgColor
+    private static let defaultOverlayBorderColor: CGColor = NSColor(white: 1.0, alpha: 0.3).cgColor
     private static let defaultOverlayBorderWidth: CGFloat = 1.0
     private static let minimumOverlayRadius     : CGFloat = 3.0
-    private static let minimumOverlayDiameter   : CGFloat = minimumOverlayRadius * 2
+    private static let minimumOverlayDiameter   : CGFloat = minimumOverlayRadius * 3
     private var trackingArea: NSTrackingArea?
     
     override var isFlipped: Bool { true }
@@ -85,7 +85,7 @@ class PreviewOverlayView: NSView {
         // fill background
         ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
         if !isSmallArea {
-            ctx.addRect(highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth))
+            ctx.addPath(CGPath(roundedRect: highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth), cornerWidth: PreviewOverlayView.minimumOverlayRadius, cornerHeight: PreviewOverlayView.minimumOverlayRadius, transform: nil))
         } else {
             ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
         }
@@ -96,7 +96,7 @@ class PreviewOverlayView: NSView {
         ctx.setLineWidth(PreviewOverlayView.defaultOverlayBorderWidth)
         ctx.setStrokeColor(PreviewOverlayView.defaultOverlayBorderColor)
         if !isSmallArea {
-            ctx.addRect(highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth))
+            ctx.addPath(CGPath(roundedRect: highlightArea.insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth, dy: PreviewOverlayView.defaultOverlayBorderWidth), cornerWidth: PreviewOverlayView.minimumOverlayRadius, cornerHeight: PreviewOverlayView.minimumOverlayRadius, transform: nil))
         } else {
             ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
         }
