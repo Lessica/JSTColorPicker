@@ -10,7 +10,9 @@ import Cocoa
 
 class ShortcutGuideWindowController: NSWindowController {
     
-    public static func newShortcutGuideController() -> ShortcutGuideWindowController {
+    public static let shared = newShortcutGuideController()
+    
+    private static func newShortcutGuideController() -> ShortcutGuideWindowController {
         let windowStoryboard = NSStoryboard(name: "ShortcutGuide", bundle: nil)
         let sgWindowController = windowStoryboard.instantiateInitialController() as! ShortcutGuideWindowController
         return sgWindowController
@@ -89,15 +91,48 @@ class ShortcutGuideWindowController: NSWindowController {
         }
     }
     
-    func showForWindow(_ window: NSWindow?) {
+    
+    // MARK: - Toggle
+    
+    public var isVisible: Bool { window?.isVisible ?? false }
+    public fileprivate(set) var attachedWindow: NSWindow?
+    
+    public func showForWindow(_ extWindow: NSWindow?) {
+        rootViewController.updateDisplayWithItems(items ?? [])
         showWindow(nil)
-        centerInScreenForWindow(window)
+        centerInScreenForWindow(extWindow)
         addCloseOnOutsideClick()
+        attachedWindow = extWindow
     }
     
-    func hide() {
+    public func hide() {
         removeCloseOnOutsideClick()
         window?.orderOut(nil)
+    }
+    
+    public func toggleForWindow(_ extWindow: NSWindow?) {
+        guard let window = window else { return }
+        if !window.isVisible {
+            showForWindow(extWindow)
+        } else {
+            hide()
+        }
+    }
+    
+    
+    // MARK: - Shortcut Items
+    
+    public var items: [ShortcutItem]?
+    private var rootViewController: ShortcutGuideViewController {
+        contentViewController as! ShortcutGuideViewController
+    }
+    
+}
+
+extension ShortcutGuideWindowController: NSWindowDelegate {
+    
+    func windowDidResignKey(_ notification: Notification) {
+        self.hide()
     }
     
 }

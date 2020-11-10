@@ -46,8 +46,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
     
-    public let gridController = GridWindowController.newGridController()
-    public let shortcutGuideController = ShortcutGuideWindowController.newShortcutGuideController()
     private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
         let folderController = FolderController()
@@ -208,15 +206,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var gridSwitchMenuItem: NSMenuItem!
     
     private var isGridVisible: Bool {
-        guard let visible = gridController.window?.isVisible else { return false }
+        guard let visible = GridWindowController.shared.window?.isVisible else { return false }
         return visible
     }
     
     @IBAction func gridSwitchMenuItemTapped(_ sender: Any?) {
         if isGridVisible {
-            gridController.close()
+            GridWindowController.shared.close()
         } else {
-            gridController.showWindow(sender)
+            GridWindowController.shared.showWindow(sender)
         }
     }
     

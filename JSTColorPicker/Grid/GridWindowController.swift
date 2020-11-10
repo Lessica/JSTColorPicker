@@ -9,8 +9,10 @@
 import Cocoa
 
 class GridWindowController: NSWindowController {
+    
+    public static let shared = newGridController()
 
-    static func newGridController() -> GridWindowController {
+    private static func newGridController() -> GridWindowController {
         let windowStoryboard = NSStoryboard(name: "Grid", bundle: nil)
         let gridWindowController = windowStoryboard.instantiateInitialController() as! GridWindowController
         return gridWindowController

@@ -72,6 +72,14 @@ class WindowController: NSWindowController {
             debugPrint("First Responder: \(firstResponder.className)")
         })
         #endif
+        
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
+            if self.monitorWindowFlagsChanged(with: event) {
+                return nil
+            }
+            return event
+        }
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -118,6 +126,38 @@ class WindowController: NSWindowController {
         } else {
             super.keyDown(with: event)
         }
+    }
+    
+    private var lastCommandPressedAt: TimeInterval = 0.0
+    private func commandPressed(with event: NSEvent?) -> Bool {
+        guard let window = window else { return false }  // important
+        let now = event?.timestamp ?? Date().timeIntervalSinceReferenceDate
+        if now - lastCommandPressedAt < 0.6 {
+            debugPrint("command double pressed")
+            ShortcutGuideWindowController.shared.toggleForWindow(window)
+            lastCommandPressedAt = 0.0
+            return true
+        } else {
+            lastCommandPressedAt = now
+        }
+        return false
+    }
+    
+    @discardableResult
+    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
+        guard let window = window, window.isKeyWindow else { return false }  // important
+        var handled = false
+        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
+        switch modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .subtracting([.shift, .control, .option])
+        {
+        case [.command]:
+            handled = commandPressed(with: event)
+        default:
+            handled = false
+        }
+        return handled
     }
     
     private func inspectWindowHierarchy() {
@@ -380,24 +420,18 @@ extension WindowController: ToolbarResponder {
 
 extension WindowController: NSWindowDelegate {
     
-    private var gridController: GridWindowController? {
-        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
-        let ctrl = delegate.gridController
-        return ctrl
-    }
-    
-    private var shortcutGuideController: ShortcutGuideWindowController? {
-        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return nil }
-        let ctrl = delegate.shortcutGuideController
-        return ctrl
-    }
-    
     func windowDidBecomeMain(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else { return }
         if window == self.window {
-            gridController?.activeWindowController = self
-            shortcutGuideController?.showForWindow(window)
+            GridWindowController.shared.activeWindowController = self
             tabDelegate.activeManagedWindow(windowController: self)
+        }
+    }
+    
+    func windowDidResignKey(_ notification: Notification) {
+        guard let window = notification.object as? NSWindow else { return }
+        if window == self.window && ShortcutGuideWindowController.shared.attachedWindow == window {
+            ShortcutGuideWindowController.shared.hide()
         }
     }
     
@@ -436,7 +470,7 @@ extension WindowController: ScreenshotLoader {
 extension WindowController: SceneTracking {
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        gridController?.sceneRawColorDidChange(sender, at: coordinate)
+        GridWindowController.shared.sceneRawColorDidChange(sender, at: coordinate)
     }
     
 }
