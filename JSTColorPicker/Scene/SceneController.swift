@@ -702,12 +702,16 @@ extension SceneController: ScreenshotLoader {
 extension SceneController: SceneTracking, SceneActionTracking {
     
     @objc private func sceneWillStartLiveMagnify(_ notification: NSNotification? = nil) {
-        hideSceneOverlays()
+        if !sceneOverlayView.isHidden {
+            hideSceneOverlays()
+        }
         debugPrint("\(className):\(#function)")
     }
     
     @objc private func sceneDidEndLiveMagnify(_ notification: NSNotification? = nil) {
-        showSceneOverlays()
+        if sceneOverlayView.isHidden {
+            showSceneOverlays()
+        }
         debugPrint("\(className):\(#function)")
     }
     
@@ -1099,8 +1103,8 @@ extension SceneController: AnnotatorSource {
         
         if scrollTo {  // scroll without changing magnification
             if let item = annotators.last(where: { items.contains($0.contentItem) })?.contentItem {
-                if item is PixelColor { previewAction(self, centeredAt: (item as! PixelColor).coordinate) }
-                else if item is PixelArea { previewAction(self, toFit: (item as! PixelArea).rect) }
+                if item is PixelColor { previewAction(nil, atCoordinate: (item as! PixelColor).coordinate, animated: true) }
+                else if item is PixelArea { previewAction(nil, toFit: (item as! PixelArea).rect) }
             }
         }
         
@@ -1194,26 +1198,29 @@ extension SceneController: ContentDelegate {
 
 extension SceneController: ItemPreviewResponder {
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
         guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
-        if sceneOverlayView.isHidden != isChanging {
-            if isChanging {
+        if let sender = sender {
+            if sender.previewStage == .begin {
                 sceneWillStartLiveMagnify()
-            } else {
+            }
+            sceneView.magnification = magnification
+            if sender.previewStage == .end {
                 sceneDidEndLiveMagnify()
             }
+        } else {
+            sceneWillStartLiveMagnify()
+            sceneView.magnification = magnification
+            sceneDidEndLiveMagnify()
         }
-        sceneView.magnification = magnification
     }
     
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        let centeredPointInWrapper = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !isVisibleWrapperLocation(centeredPointInWrapper) {
-            var centeredPoint = sceneView.convert(centeredPointInWrapper, from: wrapper)
-            centeredPoint.x -= sceneView.bounds.width / 2.0
-            centeredPoint.y -= sceneView.bounds.height / 2.0
-            let clipCenteredPoint = sceneClipView.convert(centeredPoint, from: sceneView)
-            
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
+        var centeredPoint = sceneView.convert(point, from: wrapper)
+        centeredPoint.x -= sceneView.bounds.width / 2.0
+        centeredPoint.y -= sceneView.bounds.height / 2.0
+        let clipCenteredPoint = sceneClipView.convert(centeredPoint, from: sceneView)
+        if animated {
             self.sceneWillStartLiveScroll()
             NSAnimationContext.runAnimationGroup({ _ in
                 self.sceneClipView.animator().setBoundsOrigin(clipCenteredPoint)
@@ -1221,10 +1228,37 @@ extension SceneController: ItemPreviewResponder {
                 self.notifyVisibleRectChanged()
                 self.sceneDidEndLiveScroll()
             }
+        } else {
+            if let sender = sender {
+                if sender.previewStage == .begin {
+                    sceneWillStartLiveScroll()
+                }
+                sceneClipView.setBoundsOrigin(clipCenteredPoint)
+                notifyVisibleRectChanged()
+                if sender.previewStage == .end {
+                    sceneDidEndLiveScroll()
+                }
+            } else {
+                sceneWillStartLiveScroll()
+                sceneClipView.setBoundsOrigin(clipCenteredPoint)
+                notifyVisibleRectChanged()
+                sceneDidEndLiveScroll()
+            }
         }
     }
     
-    func previewAction(_ sender: Any?, toFit rect: PixelRect) {
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
+        
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
+        let centeredPointInWrapper = coordinate.toCGPoint().toPixelCenterCGPoint()
+        if !isVisibleWrapperLocation(centeredPointInWrapper) {
+            previewAction(sender, atAbsolutePoint: centeredPointInWrapper, animated: animated)
+        }
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, toFit rect: PixelRect) {
         sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
     }
     

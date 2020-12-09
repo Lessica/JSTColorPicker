@@ -390,12 +390,20 @@ extension SplitController: ContentActionDelegate {
 
 extension SplitController: ItemPreviewResponder {
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        sceneController.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
+        sceneController.previewAction(sender, toMagnification: magnification)
     }
     
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        sceneController.previewAction(sender, centeredAt: coordinate)
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
+        sceneController.previewAction(sender, atAbsolutePoint: point, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
+        sceneController.previewAction(sender, atRelativePosition: position, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
+        sceneController.previewAction(sender, atCoordinate: coordinate, animated: animated)
     }
     
 }

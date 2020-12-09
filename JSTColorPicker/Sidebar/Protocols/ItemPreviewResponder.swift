@@ -8,7 +8,20 @@
 
 import Cocoa
 
+enum ItemPreviewStage {
+    case none
+    case begin
+    case inProgress
+    case end
+}
+
+protocol ItemPreviewSender {
+    var previewStage: ItemPreviewStage { get }
+}
+
 protocol ItemPreviewResponder: class {
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate)
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool)
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool)
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool)
+    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool)
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat)
 }

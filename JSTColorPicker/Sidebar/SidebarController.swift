@@ -58,14 +58,16 @@ class SidebarController: NSViewController {
     @IBOutlet weak var inspectorColorFlag        : ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel        : NSTextField!
     
-    @IBOutlet weak var inspectorColorLabelAlt      : NSTextField!
-    @IBOutlet weak var inspectorColorFlagAlt       : ColorIndicator!
-    @IBOutlet weak var inspectorAreaLabelAlt       : NSTextField!
+    @IBOutlet weak var inspectorColorLabelAlt    : NSTextField!
+    @IBOutlet weak var inspectorColorFlagAlt     : ColorIndicator!
+    @IBOutlet weak var inspectorAreaLabelAlt     : NSTextField!
     
+    internal var previewStage                    : ItemPreviewStage = .none
     public weak var previewOverlayDelegate       : ItemPreviewResponder!
     @IBOutlet weak var previewImageView          : PreviewImageView!
     @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
     @IBOutlet weak var previewSlider             : NSSlider!
+    @IBOutlet weak var previewSliderBgView       : NSView!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
     
     @IBOutlet weak var copyButton                : NSButton!
@@ -679,6 +681,8 @@ extension SidebarController: ItemPreviewDelegate {
             
             previewOverlayView.highlightArea = highlightRect
             
+        } else {
+            previewOverlayView.highlightArea = .null
         }
         
         previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
@@ -699,20 +703,42 @@ extension SidebarController: ItemPreviewDelegate {
     
 }
 
-extension SidebarController: ItemPreviewResponder {
+extension SidebarController: ItemPreviewSender, ItemPreviewResponder {
     
     @IBAction func previewSliderChanged(_ sender: NSSlider) {
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
-        previewAction(sender, toMagnification: CGFloat(pow(2, sender.doubleValue)), isChanging: isPressed)
+        if isPressed {
+            if previewStage == .none || previewStage == .end {
+                previewStage = .begin
+            } else if previewStage == .begin {
+                previewStage = .inProgress
+            }
+        } else {
+            if previewStage == .begin || previewStage == .inProgress {
+                previewStage = .end
+            } else if previewStage == .end {
+                previewStage = .none
+            }
+        }
+        previewAction(self, toMagnification: CGFloat(pow(2, sender.doubleValue)))
         previewSliderLabel.isHidden = !isPressed
+        previewSliderBgView.isHidden = !isPressed
     }
     
-    func previewAction(_ sender: Any?, centeredAt coordinate: PixelCoordinate) {
-        previewOverlayDelegate.previewAction(sender, centeredAt: coordinate)
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
+        previewOverlayDelegate.previewAction(sender, atAbsolutePoint: point, animated: animated)
     }
     
-    func previewAction(_ sender: Any?, toMagnification magnification: CGFloat, isChanging: Bool) {
-        previewOverlayDelegate.previewAction(sender, toMagnification: magnification, isChanging: isChanging)
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
+        previewOverlayDelegate.previewAction(sender, atRelativePosition: position, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
+        previewOverlayDelegate.previewAction(sender, atCoordinate: coordinate, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
+        previewOverlayDelegate.previewAction(sender, toMagnification: magnification)
     }
     
 }

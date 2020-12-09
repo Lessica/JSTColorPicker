@@ -30,35 +30,35 @@ class ColorIndicator: NSControl {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
-        layer?.isOpaque = true
+        layer!.isOpaque = true
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         wantsLayer = true
-        layer?.isOpaque = true
+        layer!.isOpaque = true
     }
     
     func setImage(_ image: CGImage) {
-        layer?.contents = image
+        layer!.contents = image
     }
     
     func setImage(_ image: NSImage) {
-        layer?.contents = image
+        layer!.contents = image
     }
     
     func setImage(_ image: CGImage, size: CGSize) {
         setFrameSize(size)
-        layer?.contents = image
+        layer!.contents = image
     }
     
     func setImage(_ image: NSImage, size: CGSize) {
         setFrameSize(size)
-        layer?.contents = image
+        layer!.contents = image
     }
     
     func reset() {
-        layer?.contents = nil
+        layer!.contents = nil
     }
     
 }

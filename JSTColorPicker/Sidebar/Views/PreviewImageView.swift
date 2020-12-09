@@ -10,45 +10,70 @@ import Cocoa
 
 class PreviewImageView: NSView {
     
+    private static let defaultContentsBorderColor  : CGColor = NSColor(white: 1.0, alpha: 1.0).cgColor
+    private static let defaultContentsBorderWidth  : CGFloat = 0.5
+    
     override var isOpaque: Bool { true }
     override var wantsDefaultClipping: Bool { false }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
-        layer?.isOpaque = true
-        layer?.contentsGravity = .resizeAspect
+        layer!.isOpaque = true
+        layer!.contentsGravity = .resizeAspect
+        layer!.addSublayer(borderLayer)
         layerContentsRedrawPolicy = .never
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         wantsLayer = true
-        layer?.isOpaque = true
-        layer?.contentsGravity = .resizeAspect
+        layer!.isOpaque = true
+        layer!.contentsGravity = .resizeAspect
+        layer!.addSublayer(borderLayer)
         layerContentsRedrawPolicy = .never
     }
     
+    private func setupBorder(with size: CGSize) {
+        borderLayer.frame =
+            CGRect(origin: .zero, size: size)
+            .aspectFit(in: layer!.bounds)
+            .insetBy(dx: -PreviewImageView.defaultContentsBorderWidth * 0.5, dy: -PreviewImageView.defaultContentsBorderWidth * 0.5)
+            .offsetBy(dx: -PreviewImageView.defaultContentsBorderWidth * 0.25, dy: -PreviewImageView.defaultContentsBorderWidth * 0.25)
+    }
+    
     public func setImage(_ image: CGImage) {
-        layer?.contents = image
+        layer!.contents = image
+        setupBorder(with: CGSize(width: image.width, height: image.height))
     }
     
     public func setImage(_ image: NSImage) {
-        layer?.contents = image
+        layer!.contents = image
+        setupBorder(with: image.size)
     }
     
     public func setImage(_ image: CGImage, size: CGSize) {
         setFrameSize(size)
-        layer?.contents = image
+        layer!.contents = image
+        setupBorder(with: CGSize(width: image.width, height: image.height))
     }
     
     public func setImage(_ image: NSImage, size: CGSize) {
         setFrameSize(size)
-        layer?.contents = image
+        layer!.contents = image
+        setupBorder(with: image.size)
     }
     
     public func reset() {
-        layer?.contents = nil
+        layer!.contents = nil
+        borderLayer.frame = .zero
     }
+    
+    private lazy var borderLayer: CALayer = {
+        let layer = CALayer()
+        layer.borderColor = PreviewImageView.defaultContentsBorderColor
+        layer.borderWidth = PreviewImageView.defaultContentsBorderWidth
+        return layer
+    }()
     
 }

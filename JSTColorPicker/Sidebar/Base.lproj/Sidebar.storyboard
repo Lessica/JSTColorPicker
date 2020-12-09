@@ -272,6 +272,9 @@
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="W1Q-HV-wY8" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
                                                             <rect key="frame" x="4" y="32" width="226" height="226"/>
                                                             <subviews>
+                                                                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vie-6X-iBJ" customClass="LabelBgView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                    <rect key="frame" x="94" y="7" width="39" height="19"/>
+                                                                </customView>
                                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rhi-Yn-OJy">
                                                                     <rect key="frame" x="96" y="12" width="35" height="13"/>
                                                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="100%" drawsBackground="YES" usesSingleLineMode="YES" id="Imo-Rx-LeR">
@@ -284,7 +287,11 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="226" id="ATJ-wZ-oJs"/>
                                                                 <constraint firstItem="Rhi-Yn-OJy" firstAttribute="centerX" secondItem="W1Q-HV-wY8" secondAttribute="centerX" id="B3Z-GG-5Pw"/>
+                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="height" secondItem="Rhi-Yn-OJy" secondAttribute="height" constant="6" id="UMd-Jg-c9M"/>
+                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="centerY" secondItem="Rhi-Yn-OJy" secondAttribute="centerY" constant="2" id="Y3g-e8-bb0"/>
+                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="leading" secondItem="Rhi-Yn-OJy" secondAttribute="leading" constant="-2" id="Yir-AD-vfF"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Rhi-Yn-OJy" secondAttribute="bottom" constant="12" id="nD3-MZ-SOG"/>
+                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="trailing" secondItem="Rhi-Yn-OJy" secondAttribute="trailing" constant="2" id="wZ6-ng-31o"/>
                                                                 <constraint firstAttribute="height" constant="226" id="yMU-SM-8Cb"/>
                                                             </constraints>
                                                         </customView>
@@ -480,6 +487,7 @@
                         <outlet property="previewImageView" destination="fAw-7i-wdv" id="mQx-HY-Pxq"/>
                         <outlet property="previewOverlayView" destination="W1Q-HV-wY8" id="EXG-dk-Hm8"/>
                         <outlet property="previewSlider" destination="8AH-8J-GW3" id="Q2A-Ek-Pq1"/>
+                        <outlet property="previewSliderBgView" destination="vie-6X-iBJ" id="cX9-sd-6pt"/>
                         <outlet property="previewSliderLabel" destination="Rhi-Yn-OJy" id="IQT-Ey-gRV"/>
                         <outlet property="splitView" destination="RZA-N1-cn7" id="Z43-4U-xQf"/>
                     </connections>

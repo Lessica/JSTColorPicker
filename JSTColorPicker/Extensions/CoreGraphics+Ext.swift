@@ -95,4 +95,16 @@ extension CGRect {
     func inset(by insets: NSEdgeInsets) -> CGRect {
         return CGRect(x: origin.x + insets.left, y: origin.y + insets.bottom, width: size.width - insets.left - insets.right, height: size.height - insets.top - insets.bottom)
     }
+    func closestPoint(to point: CGPoint) -> CGPoint {
+        if contains(point) { return point }
+        if point.x < minX && point.y < minY { return CGPoint(x: minX, y: minY) }
+        else if point.x > maxX && point.x < minY { return CGPoint(x: maxX, y: minY) }
+        else if point.x < minX && point.y > maxY { return CGPoint(x: minX, y: maxY) }
+        else if point.x > maxX && point.y > maxY { return CGPoint(x: maxX, y: maxY) }
+        else if point.x < minX { return CGPoint(x: minX, y: point.y) }
+        else if point.x > maxX { return CGPoint(x: maxX, y: point.y) }
+        else if point.y < minY { return CGPoint(x: point.x, y: minY) }
+        else if point.y > maxY { return CGPoint(x: point.x, y: maxY) }
+        return .null
+    }
 }

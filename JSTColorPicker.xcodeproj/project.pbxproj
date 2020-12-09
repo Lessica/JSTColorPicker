@@ -55,6 +55,8 @@
 		18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
+		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCF679C6255AC66C00061A51 /* libimobiledevice in Resources */ = {isa = PBXBuildFile; fileRef = CCF679BC255AC66B00061A51 /* libimobiledevice */; };
 		CCF679C9255AC66C00061A51 /* plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF679C0255AC66B00061A51 /* plist */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
@@ -679,6 +681,7 @@
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
 		A5F9A691000B575F7C7BAD87 /* Pods-JSTColorPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.release.xcconfig"; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
+		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCF679BC255AC66B00061A51 /* libimobiledevice */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libimobiledevice; sourceTree = "<group>"; };
 		CCF679C0255AC66B00061A51 /* plist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plist; sourceTree = "<group>"; };
 		CCF679C4255AC66C00061A51 /* usbmuxd-proto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "usbmuxd-proto.h"; sourceTree = "<group>"; };
@@ -1638,6 +1641,7 @@
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
 				D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */,
+				CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2684,6 +2688,7 @@
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
+				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
@@ -2919,6 +2924,7 @@
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
+				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
