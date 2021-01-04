@@ -10,6 +10,8 @@
 	<false/>
 	<key>defaults.drawBackgroundInGridView</key>
 	<false/>
+	<key>defaults.drawBordersInScene</key>
+	<true/>
 	<key>defaults.drawGridsInScene</key>
 	<true/>
 	<key>defaults.drawTagsInScene</key>
@@ -25,6 +27,8 @@
 	<key>defaults.enableNetworkDiscovery</key>
 	<false/>
 	<key>defaults.hideAnnotatorsWhenResize</key>
+	<true/>
+	<key>defaults.hideBordersWhenResize</key>
 	<true/>
 	<key>defaults.hideGridsWhenResize</key>
 	<true/>

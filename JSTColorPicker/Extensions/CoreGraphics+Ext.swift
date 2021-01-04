@@ -53,6 +53,18 @@ extension CGRect {
     var center: CGPoint {
         return CGPoint(x: midX, y: midY)
     }
+    var pointMinXMinY: CGPoint {
+        return CGPoint(x: minX, y: minY)
+    }
+    var pointMinXMaxY: CGPoint {
+        return CGPoint(x: minX, y: maxY)
+    }
+    var pointMaxXMinY: CGPoint {
+        return CGPoint(x: maxX, y: minY)
+    }
+    var pointMaxXMaxY: CGPoint {
+        return CGPoint(x: maxX, y: maxY)
+    }
     var smallestWrappingPixelRect: PixelRect {
         return PixelRect(point1: CGPoint(x: floor(minX), y: floor(minY)), point2: CGPoint(x: ceil(maxX), y: ceil(maxY)))
     }

@@ -51,7 +51,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     public weak var sceneStateSource           : SceneStateSource!
     private var sceneState                     : SceneState              { sceneStateSource.sceneState }
     public weak var sceneTagsEffectViewSource  : SceneEffectViewSource!
-    private var sceneTagsEffectView            : SceneEffectView         { sceneTagsEffectViewSource.sceneEffectView }
+    private var sceneTagsEffectView            : SceneEffectView         { sceneTagsEffectViewSource.sourceSceneEffectView }
     public weak var annotatorSource            : AnnotatorSource!
     private var annotators                     : [Annotator]             { annotatorSource.annotators }
     private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {

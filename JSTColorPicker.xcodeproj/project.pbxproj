@@ -55,6 +55,13 @@
 		18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */; };
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
+		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
+		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
+		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
+		CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
+		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
+		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCF679C6255AC66C00061A51 /* libimobiledevice in Resources */ = {isa = PBXBuildFile; fileRef = CCF679BC255AC66B00061A51 /* libimobiledevice */; };
@@ -680,6 +687,7 @@
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
 		A5F9A691000B575F7C7BAD87 /* Pods-JSTColorPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.release.xcconfig"; sourceTree = "<group>"; };
+		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCF679BC255AC66B00061A51 /* libimobiledevice */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libimobiledevice; sourceTree = "<group>"; };
@@ -1140,7 +1148,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
+				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
+				CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */,
+				CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */,
+				CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1627,6 +1640,7 @@
 				D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */,
 				D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */,
 				D649231823CC647D0067C04A /* SceneScrollView.swift */,
+				CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */,
 				D699E0C2240836280011A4CB /* SceneGridView.swift */,
 				D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */,
 				D69974CA24140A9000223B31 /* SceneEffectView.swift */,
@@ -2665,6 +2679,7 @@
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
+				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
@@ -2876,6 +2891,7 @@
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
+				CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				D64790F92490E79C003159FD /* OrderedSet.swift in Sources */,
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
@@ -3511,6 +3527,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
+					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = RLFKHCA862.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3540,6 +3557,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
+					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = RLFKHCA862.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";

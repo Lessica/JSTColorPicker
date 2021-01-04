@@ -12,8 +12,8 @@ class SceneGridView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         wantsLayer = true
+        
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
         if let compositingFilter = CIFilter(name: "CIOverlayBlendMode") {
@@ -44,9 +44,9 @@ class SceneGridView: NSView {
     private var scaleSatisfiedGridDrawing: Bool = false
     private var positionSatisfiedGridDrawing: Bool {
         !wrappedPixelRect.isEmpty
-            && !wrappedRenderingArea.isEmpty
-            && wrappedRenderingArea.width > 0
-            && wrappedRenderingArea.height > 0
+        && !wrappedRenderingArea.isEmpty
+        && wrappedRenderingArea.width > 0.01
+        && wrappedRenderingArea.height > 0.01
     }
     
     
@@ -63,11 +63,11 @@ class SceneGridView: NSView {
             && !isHidden
             else
         {
-            debugPrint("cleared \(#function)")
+            debugPrint("cleared \(className):\(#function)")
             return
         }
         
-        debugPrint("painted \(#function)")
+        debugPrint("painted \(className):\(#function)")
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
@@ -101,6 +101,9 @@ class SceneGridView: NSView {
         // ctx.restoreGState()
         
     }
+    
+    
+    // MARK: - Live Resize
     
     override func viewDidEndLiveResize() {
         super.viewDidEndLiveResize()

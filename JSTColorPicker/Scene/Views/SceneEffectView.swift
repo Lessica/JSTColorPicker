@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol SceneEffectViewSource: class {
-    var sceneEffectView: SceneEffectView { get }
+    var sourceSceneEffectView: SceneEffectView { get }
 }
 
 class SceneEffectView: NSView {
@@ -21,13 +21,7 @@ class SceneEffectView: NSView {
     
     override var isFlipped: Bool { true }
     override var wantsDefaultClipping: Bool { false }
-    
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        return nil
-    }  // disable user interactions
-    
-    override func cursorUpdate(with event: NSEvent) {
-        // do not perform default behavior
-    }
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }  // disable user interactions
+    override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
 }

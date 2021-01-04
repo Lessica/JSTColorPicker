@@ -31,9 +31,12 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
     private static let defaultOverlayColor        : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
     private static let defaultOverlayBorderColor  : CGColor = NSColor(white: 1.0, alpha: 0.5).cgColor
     private static let defaultOverlayBorderWidth  : CGFloat = 1.0
+    
     private static let minimumOverlayRadius       : CGFloat = 3.0
     private static let minimumOverlayDiameter     : CGFloat = minimumOverlayRadius * 3
     private static let minimumDraggingDistance    : CGFloat = 3.0
+    private var isSmallArea: Bool { highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter }
+    
     private var trackingArea: NSTrackingArea?
     
     override var isFlipped: Bool { true }
@@ -86,7 +89,6 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
             return
         }
         
-        let isSmallArea = highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter
         let highlightPath = CGPath(
             roundedRect: highlightArea
                 .insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth * 0.5, dy: PreviewOverlayView.defaultOverlayBorderWidth * 0.5)
@@ -123,6 +125,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
     }
     
     private func isMouseInsideHighlightArea(with event: NSEvent) -> Bool {
+        guard !isSmallArea else { return false }
         let loc = convert(event.locationInWindow, from: nil)
         return highlightArea.contains(loc)
     }

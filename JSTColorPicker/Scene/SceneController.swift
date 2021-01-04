@@ -28,6 +28,14 @@ class SceneController: NSViewController {
             sceneView.enableForceTouch = newValue
         }
     }
+    private var drawBordersInScene: Bool {
+        get {
+            return sceneBorderView.drawBordersInScene
+        }
+        set {
+            sceneBorderView.drawBordersInScene = newValue
+        }
+    }
     private var drawGridsInScene: Bool {
         get {
             return sceneGridView.drawGridsInScene
@@ -60,8 +68,9 @@ class SceneController: NSViewController {
             sceneView.usesPredominantAxisScrolling = newValue
         }
     }
-    private var hideGridsWhenResize       : Bool = false
     private var hideAnnotatorsWhenResize  : Bool = true
+    private var hideBordersWhenResize     : Bool = false
+    private var hideGridsWhenResize       : Bool = false
     
     private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -75,11 +84,12 @@ class SceneController: NSViewController {
     
     @IBOutlet private weak var sceneClipView               : SceneClipView!
     @IBOutlet private weak var sceneView                   : SceneScrollView!
+    @IBOutlet private weak var sceneBorderView             : SceneBorderView!
     @IBOutlet private weak var sceneGridView               : SceneGridView!
     @IBOutlet private weak var sceneOverlayView            : SceneOverlayView!
-    @IBOutlet private weak var internalSceneEffectView     : SceneEffectView!
-    @IBOutlet private weak var sceneGridTopConstraint      : NSLayoutConstraint!
-    @IBOutlet private weak var sceneGridLeadingConstraint  : NSLayoutConstraint!
+    @IBOutlet private weak var sceneEffectView             : SceneEffectView!
+    @IBOutlet private weak var sceneTopConstraint          : NSLayoutConstraint!
+    @IBOutlet private weak var sceneLeadingConstraint      : NSLayoutConstraint!
     
     private var horizontalRulerView            : RulerView         { sceneView.horizontalRulerView as! RulerView    }
     private var verticalRulerView              : RulerView         { sceneView.verticalRulerView as! RulerView      }
@@ -211,8 +221,9 @@ class SceneController: NSViewController {
     @objc private func applyPreferences(_ notification: Notification?) {
         
         enableForceTouch = UserDefaults.standard[.enableForceTouch]
-        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        hideBordersWhenResize = UserDefaults.standard[.hideBordersWhenResize]
+        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
         usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
         
         let drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground]
@@ -221,6 +232,17 @@ class SceneController: NSViewController {
         }
         
         var shouldNotifySceneBoundsChanged = false
+        
+        let drawBordersInScene: Bool = UserDefaults.standard[.drawBordersInScene]
+        if self.drawBordersInScene != drawBordersInScene {
+            self.drawBordersInScene = drawBordersInScene
+            shouldNotifySceneBoundsChanged = true
+        }
+        
+        let hideBordersInScene = !drawBordersInScene
+        if sceneBorderView.isHidden != hideBordersInScene {
+            sceneBorderView.isHidden = hideBordersInScene
+        }
         
         let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
         if self.drawGridsInScene != drawGridsInScene {
@@ -674,8 +696,8 @@ class SceneController: NSViewController {
 extension SceneController: ScreenshotLoader {
     
     private func reloadSceneRulerConstraints() {
-        sceneGridTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
-        sceneGridLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
+        sceneTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
+        sceneLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
         updateAnnotatorFrames()
     }
     
@@ -727,6 +749,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
         if !sceneOverlayView.isHidden {
             updateAnnotatorFrames()
         }
+        sceneBorderView.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
         sceneGridView.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
         trackingDelegate.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
     }
@@ -829,8 +852,8 @@ extension SceneController: SceneStateSource {
 
 extension SceneController: SceneEffectViewSource {
     
-    var sceneEffectView: SceneEffectView {
-        return internalSceneEffectView
+    var sourceSceneEffectView: SceneEffectView {
+        return sceneEffectView
     }
     
 }
@@ -838,20 +861,26 @@ extension SceneController: SceneEffectViewSource {
 extension SceneController: AnnotatorSource {
     
     private func hideSceneOverlays() {
-        if hideGridsWhenResize && !sceneGridView.isHidden {
-            sceneGridView.isHidden = true
-        }
         if hideAnnotatorsWhenResize && !sceneOverlayView.isHidden {
             sceneOverlayView.isHidden = true
+        }
+        if hideBordersWhenResize && !sceneBorderView.isHidden {
+            sceneBorderView.isHidden = true
+        }
+        if hideGridsWhenResize && !sceneGridView.isHidden {
+            sceneGridView.isHidden = true
         }
     }
     
     private func showSceneOverlays() {
-        if drawGridsInScene && sceneGridView.isHidden {
-            sceneGridView.isHidden = false
-        }
         if sceneOverlayView.isHidden {
             sceneOverlayView.isHidden = false
+        }
+        if drawBordersInScene && sceneBorderView.isHidden {
+            sceneBorderView.isHidden = false
+        }
+        if drawGridsInScene && sceneGridView.isHidden {
+            sceneGridView.isHidden = false
         }
         updateAnnotatorFrames()
     }

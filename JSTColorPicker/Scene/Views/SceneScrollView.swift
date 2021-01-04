@@ -60,7 +60,7 @@ class SceneScrollView: NSScrollView {
     public weak var sceneStateSource: SceneStateSource!
     private var sceneState: SceneState { sceneStateSource.sceneState }
     public weak var sceneActionEffectViewSource: SceneEffectViewSource!
-    private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sceneEffectView }
+    private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sourceSceneEffectView }
     
     
     // MARK: - Dragging Shortcuts
@@ -95,6 +95,7 @@ class SceneScrollView: NSScrollView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        wantsLayer = false
         
         SceneScrollView.rulerViewClass = RulerView.self
         contentInsets = NSEdgeInsetsZero

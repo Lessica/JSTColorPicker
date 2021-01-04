@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,6 +37,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="LWT-QD-3FC" customClass="SceneBorderView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                            </customView>
                             <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="k96-rq-b85" customClass="SceneGridView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                             </customView>
@@ -47,31 +51,36 @@
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="trailing" secondItem="k96-rq-b85" secondAttribute="trailing" id="1Ya-JM-fxU"/>
-                            <constraint firstItem="k96-rq-b85" firstAttribute="leading" secondItem="W7m-Sv-4Wm" secondAttribute="leading" id="3g2-kF-XNz"/>
-                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="top" secondItem="k96-rq-b85" secondAttribute="top" id="8uv-cH-aOc"/>
-                            <constraint firstItem="k96-rq-b85" firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="HwD-Rg-fmM"/>
-                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="leading" secondItem="k96-rq-b85" secondAttribute="leading" id="Ju9-cx-KIu"/>
-                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="leading" secondItem="k96-rq-b85" secondAttribute="leading" id="Liw-V2-Ia6"/>
-                            <constraint firstItem="k96-rq-b85" firstAttribute="top" secondItem="W7m-Sv-4Wm" secondAttribute="top" id="PrM-2q-5NA"/>
-                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="top" secondItem="k96-rq-b85" secondAttribute="top" id="Qc5-Zv-lBl"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="4wB-3u-qQr"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="AdZ-ta-A0z"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="top" secondItem="LWT-QD-3FC" secondAttribute="top" id="FyI-bc-5JX"/>
+                            <constraint firstItem="LWT-QD-3FC" firstAttribute="leading" secondItem="W7m-Sv-4Wm" secondAttribute="leading" id="Gl8-j0-zLg"/>
+                            <constraint firstItem="LWT-QD-3FC" firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="HcK-UY-ppE"/>
+                            <constraint firstItem="LWT-QD-3FC" firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="MMD-2i-UHh"/>
+                            <constraint firstItem="LWT-QD-3FC" firstAttribute="top" secondItem="W7m-Sv-4Wm" secondAttribute="top" id="MfV-gd-Dzt"/>
+                            <constraint firstItem="k96-rq-b85" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="Okw-4p-hrt"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="QVR-wt-he3"/>
                             <constraint firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="SA0-FP-amj"/>
                             <constraint firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="TeC-i8-Deo"/>
                             <constraint firstItem="W7m-Sv-4Wm" firstAttribute="leading" secondItem="LSe-l3-GPX" secondAttribute="leading" id="Ttr-TX-L5H"/>
-                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="trailing" secondItem="k96-rq-b85" secondAttribute="trailing" id="Zgm-Lt-zIG"/>
-                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="bottom" secondItem="k96-rq-b85" secondAttribute="bottom" id="efi-cf-ZRU"/>
-                            <constraint firstItem="k96-rq-b85" firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="idK-Va-glX"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="XWQ-vp-JI5"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="ZbE-JD-8bJ"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="Zzj-ej-eFS"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="top" secondItem="LWT-QD-3FC" secondAttribute="top" id="aIZ-kc-KeZ"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="top" secondItem="LWT-QD-3FC" secondAttribute="top" id="auf-gU-T5a"/>
+                            <constraint firstItem="Gm2-nK-LVB" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="e2K-Oy-6MV"/>
+                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="eCd-bx-d3c"/>
                             <constraint firstItem="W7m-Sv-4Wm" firstAttribute="top" secondItem="LSe-l3-GPX" secondAttribute="top" id="ntz-rt-KTI"/>
-                            <constraint firstItem="p5F-Ek-hEY" firstAttribute="bottom" secondItem="k96-rq-b85" secondAttribute="bottom" id="wpX-XE-dj4"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="internalSceneEffectView" destination="p5F-Ek-hEY" id="5P4-Cu-8Q3"/>
+                        <outlet property="sceneBorderView" destination="LWT-QD-3FC" id="9Fn-nR-AAe"/>
                         <outlet property="sceneClipView" destination="sQJ-yc-X1x" id="Vqt-wf-8ut"/>
-                        <outlet property="sceneGridLeadingConstraint" destination="3g2-kF-XNz" id="t8O-6R-cDO"/>
-                        <outlet property="sceneGridTopConstraint" destination="PrM-2q-5NA" id="mWI-77-uWV"/>
+                        <outlet property="sceneEffectView" destination="p5F-Ek-hEY" id="5P4-Cu-8Q3"/>
                         <outlet property="sceneGridView" destination="k96-rq-b85" id="AJp-Yk-LEU"/>
+                        <outlet property="sceneLeadingConstraint" destination="Gl8-j0-zLg" id="qUx-t6-ZDy"/>
                         <outlet property="sceneOverlayView" destination="Gm2-nK-LVB" id="nWh-VT-7h5"/>
+                        <outlet property="sceneTopConstraint" destination="MfV-gd-Dzt" id="WSE-UY-ffH"/>
                         <outlet property="sceneView" destination="W7m-Sv-4Wm" id="nWj-kh-ab7"/>
                     </connections>
                 </viewController>

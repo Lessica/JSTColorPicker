@@ -7,6 +7,9 @@
 /* Class = "NSTextFieldCell"; title = "99"; ObjectID = "2cV-9r-guE"; */
 "2cV-9r-guE.title" = "99";
 
+/* Class = "NSButtonCell"; title = "Draw Borders in Scene"; ObjectID = "2st-bp-3gG"; */
+"2st-bp-3gG.title" = "Draw Borders in Scene";
+
 /* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
 "3vS-gW-0fD.ibShadowedToolTip" = "Common Difference Color";
 
@@ -27,6 +30,9 @@
 
 /* Class = "NSButtonCell"; title = "Draw Tags in Scene"; ObjectID = "GZk-gf-6Oz"; */
 "GZk-gf-6Oz.title" = "Draw Tags in Scene";
+
+/* Class = "NSButtonCell"; title = "Hide Borders When Resize"; ObjectID = "h0A-m9-W9L"; */
+"h0A-m9-W9L.title" = "Hide Borders When Resize";
 
 /* Class = "NSButtonCell"; title = "Draw Scene Background"; ObjectID = "j40-58-CMN"; */
 "j40-58-CMN.title" = "Draw Scene Background";
