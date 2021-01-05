@@ -390,6 +390,14 @@
 		D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD28A7247BD4670051BE18 /* TagController.swift */; };
 		D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDC00C23CF3473004AA431 /* WindowController.swift */; };
+		D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; };
+		D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; };
+		D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; };
+		D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; };
+		D6D1CEF625A4DBA100B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D6D1CEF725A4DBA100B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D6D1CEF825A4DBA800B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D6D1CEF925A4DBA800B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
 		D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
 		D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
@@ -626,6 +634,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D6D1CEF825A4DBA800B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */,
+				D6D1CEF925A4DBA800B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */,
 			);
 			name = "Embed Dynamic Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,6 +646,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D6D1CEF625A4DBA100B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */,
+				D6D1CEF725A4DBA100B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */,
 			);
 			name = "Embed Dynamic Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -935,6 +947,8 @@
 		D6CB454E248784EF00F5C7A1 /* InitialValues.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InitialValues.plist; sourceTree = "<group>"; };
 		D6CD28A7247BD4670051BE18 /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.4.5.dylib; sourceTree = "<group>"; };
+		D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
 		D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
 		D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
 		D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -985,8 +999,10 @@
 				D61047CB24224A170002E990 /* Automator.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
+				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
+				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1025,8 +1041,10 @@
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
+				D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
+				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1108,8 @@
 		CC2318D025A4BA8400331BF6 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */,
+				D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */,
 			);
 			path = lib;
 			sourceTree = "<group>";
