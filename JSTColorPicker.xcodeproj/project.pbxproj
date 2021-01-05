@@ -65,8 +65,6 @@
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
-		CCF679C6255AC66C00061A51 /* libimobiledevice in Resources */ = {isa = PBXBuildFile; fileRef = CCF679BC255AC66B00061A51 /* libimobiledevice */; };
-		CCF679C9255AC66C00061A51 /* plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF679C0255AC66B00061A51 /* plist */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -398,6 +396,7 @@
 		D6D1CEF725A4DBA100B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D6D1CEF825A4DBA800B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D6D1CEF925A4DBA800B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D6D1CF0925A4ED7100B7FFF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = D6D1CF0825A4ED7100B7FFF5 /* include */; };
 		D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
 		D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
 		D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
@@ -695,10 +694,6 @@
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
-		CCF679BC255AC66B00061A51 /* libimobiledevice */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libimobiledevice; sourceTree = "<group>"; };
-		CCF679C0255AC66B00061A51 /* plist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plist; sourceTree = "<group>"; };
-		CCF679C4255AC66C00061A51 /* usbmuxd-proto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "usbmuxd-proto.h"; sourceTree = "<group>"; };
-		CCF679C5255AC66C00061A51 /* usbmuxd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usbmuxd.h; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
@@ -949,6 +944,7 @@
 		D6CDC00C23CF3473004AA431 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.4.5.dylib; sourceTree = "<group>"; };
 		D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
+		D6D1CF0825A4ED7100B7FFF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
 		D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
 		D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -1117,7 +1113,7 @@
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXGroup;
 			children = (
-				D647B07023D1A2C300D76CB5 /* include */,
+				D6D1CF0825A4ED7100B7FFF5 /* include */,
 				D647B06423D198CB00D76CB5 /* lib */,
 				D60B0F4424286AA30034F21C /* Info.plist */,
 				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
@@ -1329,17 +1325,6 @@
 				CCF679D3255AC6AC00061A51 /* libssl.a */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		D647B07023D1A2C300D76CB5 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				CCF679BC255AC66B00061A51 /* libimobiledevice */,
-				CCF679C0255AC66B00061A51 /* plist */,
-				CCF679C4255AC66C00061A51 /* usbmuxd-proto.h */,
-				CCF679C5255AC66C00061A51 /* usbmuxd.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		D649231623CC64490067C04A /* Scene */ = {
@@ -2128,9 +2113,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF679C9255AC66C00061A51 /* plist in Resources */,
+				D6D1CF0925A4ED7100B7FFF5 /* include in Resources */,
 				CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */,
-				CCF679C6255AC66C00061A51 /* libimobiledevice in Resources */,
 				D6DF0F9024292B27001E30F0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
