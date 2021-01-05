@@ -71,6 +71,8 @@
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
+		CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
+		CCF7E84825A4779000A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
 		D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
@@ -381,7 +383,6 @@
 		D69FD9DD24776F8F00ACBF74 /* libopencv_core.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94824776EB400ACBF74 /* libopencv_core.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9DE24776F8F00ACBF74 /* libopencv_imgproc.4.3.0.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D69FD94924776EB400ACBF74 /* libopencv_imgproc.4.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */; };
-		D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9E724778DBF00ACBF74 /* AppIcon.icns */; };
 		D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
 		D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */; };
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
@@ -699,6 +700,7 @@
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
 		CCF67A06255AC7B300061A51 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		CCF7E83F25A4776E00A99E4C /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
 		D60A691123F2CDBA00ED9748 /* RulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerMarker.swift; sourceTree = "<group>"; };
 		D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = JSTScreenshotHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1060,7 +1062,6 @@
 		D69FD9D924776EC600ACBF74 /* opencv_modules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencv_modules.hpp; sourceTree = "<group>"; };
 		D69FD9DA24776EC600ACBF74 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
 		D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.jst.JSTColorPicker.ScreenshotHelper.plist; sourceTree = "<group>"; };
-		D69FD9E724778DBF00ACBF74 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = DerivedData/JSTColorPicker/Build/Products/Debug/JSTColorPicker.app/Contents/Resources/AppIcon.icns; sourceTree = SOURCE_ROOT; };
 		D69FD9EF2477D0DA00ACBF74 /* Scene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Scene.storyboard; sourceTree = "<group>"; };
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
@@ -1237,7 +1238,7 @@
 				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
 				D6DF0F9224292B27001E30F0 /* Localizable.strings */,
 				D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */,
-				D69FD9E724778DBF00ACBF74 /* AppIcon.icns */,
+				CCF7E83F25A4776E00A99E4C /* AppIcon.icns */,
 				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
 				D647B10723D1FDB000D76CB5 /* JSTConnectedDevice.h */,
 				D647B10823D1FDB000D76CB5 /* JSTConnectedDevice.m */,
@@ -2489,6 +2490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCF679C9255AC66C00061A51 /* plist in Resources */,
+				CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */,
 				CCF679C6255AC66C00061A51 /* libimobiledevice in Resources */,
 				D6DF0F9024292B27001E30F0 /* Localizable.strings in Resources */,
 			);
@@ -2525,7 +2527,7 @@
 			files = (
 				D629E59E242BC80A00AF333F /* Localizable.strings in Resources */,
 				D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */,
-				D69FD9E824778DBF00ACBF74 /* AppIcon.icns in Resources */,
+				CCF7E84825A4779000A99E4C /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
