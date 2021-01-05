@@ -4,9 +4,11 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
+	<key>com.apple.security.cs.disable-library-validation</key>
+	<true/>
 	<key>com.apple.security.temporary-exception.sbpl</key>
 	<array>
-		<string>(allow network-outbound (literal &quot;/private/var/run/usbmuxd&quot;))</string>
+		<string>(allow network-outbound (literal "/private/var/run/usbmuxd"))</string>
 	</array>
 </dict>
 </plist>
