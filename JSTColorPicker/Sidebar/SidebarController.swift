@@ -419,7 +419,8 @@ extension SidebarController: ScreenshotLoader {
     }()
     private static var defaultDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
         return formatter
     }()
     

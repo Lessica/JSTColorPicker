@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -127,7 +127,7 @@
                                                             <rect key="frame" x="0.0" y="4" width="290" height="51"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="PKs-GF-oI7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="146" height="51"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="145" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="CIm-qT-p2S">
                                                                             <rect key="frame" x="55" y="0.0" width="36" height="51"/>
@@ -180,7 +180,7 @@
                                                                     </constraints>
                                                                 </customView>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="zY2-vb-2Mh">
-                                                                    <rect key="frame" x="147" y="0.0" width="143" height="51"/>
+                                                                    <rect key="frame" x="146" y="0.0" width="144" height="51"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="gvP-3V-m3U">
                                                                             <rect key="frame" x="54" y="0.0" width="36" height="51"/>

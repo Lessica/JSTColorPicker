@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneOverlayView: NSView, DragEndpoint {
+class SceneOverlayView: NSView {
     
     var state: DragEndpointState = .idle
     
@@ -189,7 +189,7 @@ class SceneOverlayView: NSView, DragEndpoint {
     
 }
 
-extension SceneOverlayView {
+extension SceneOverlayView: DragEndpoint {
     
     // MARK: - Drag/Drop
     
@@ -261,6 +261,14 @@ extension SceneOverlayView {
         }
         
         return false
+    }
+    
+}
+
+extension SceneOverlayView: SceneTracking {
+    
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+        
     }
     
 }

@@ -28,20 +28,20 @@ class SceneBorderView: NSView {
     
     public var drawBordersInScene: Bool = false
     
-    private static let defaultBorderLineWidth         : CGFloat = 1.0
+    private static let defaultBorderLineWidth         : CGFloat = 2.0
     private static let defaultBorderLineColor         = CGColor(gray: 1.0, alpha: 1.0)
     
     private var wrappedRenderingArea: CGRect = .null
     private var positionSatisfiedGridDrawing: Bool {
         !wrappedRenderingArea.isEmpty
-        && wrappedRenderingArea.width > 0.01
-        && wrappedRenderingArea.height > 0.01
+        && wrappedRenderingArea.width > 1e-3
+        && wrappedRenderingArea.height > 1e-3
         &&
         (
-            wrappedRenderingArea.minX > 0.01
-            || wrappedRenderingArea.minY > 0.01
-            || abs(wrappedRenderingArea.maxX - bounds.maxX) > 0.01
-            || abs(wrappedRenderingArea.maxY - bounds.maxY) > 0.01
+            abs(wrappedRenderingArea.minX.distance(to: bounds.minX)) > 1e-3
+            || abs(wrappedRenderingArea.minY.distance(to: bounds.minY)) > 1e-3
+            || abs(wrappedRenderingArea.maxX.distance(to: bounds.maxX)) > 1e-3
+            || abs(wrappedRenderingArea.maxY.distance(to: bounds.maxY)) > 1e-3
         )
     }
     
@@ -55,11 +55,11 @@ class SceneBorderView: NSView {
             && !isHidden
             else
         {
-            debugPrint("cleared \(className):\(#function)")
+            //debugPrint("cleared \(className):\(#function)")
             return
         }
         
-        debugPrint("painted \(className):\(#function)")
+        //debugPrint("painted \(className):\(#function)")
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
@@ -67,8 +67,25 @@ class SceneBorderView: NSView {
         ctx.setLineWidth(SceneBorderView.defaultBorderLineWidth)
         ctx.setStrokeColor(SceneBorderView.defaultBorderLineColor)
         
-        // TODO: Draw Border Flawlessly
-        debugPrint(wrappedRenderingArea)
+        // draw border flawlessly
+        if abs(wrappedRenderingArea.minX.distance(to: bounds.minX)) > 1e-3 {
+            ctx.move(to: wrappedRenderingArea.pointMinXMinY)
+            ctx.addLine(to: wrappedRenderingArea.pointMinXMaxY)
+        }
+        if abs(wrappedRenderingArea.minY.distance(to: bounds.minY)) > 1e-3 {
+            ctx.move(to: wrappedRenderingArea.pointMinXMinY)
+            ctx.addLine(to: wrappedRenderingArea.pointMaxXMinY)
+        }
+        if abs(wrappedRenderingArea.maxX.distance(to: bounds.maxX)) > 1e-3 {
+            ctx.move(to: wrappedRenderingArea.pointMaxXMinY)
+            ctx.addLine(to: wrappedRenderingArea.pointMaxXMaxY)
+        }
+        if abs(wrappedRenderingArea.maxY.distance(to: bounds.maxY)) > 1e-3 {
+            ctx.move(to: wrappedRenderingArea.pointMinXMaxY)
+            ctx.addLine(to: wrappedRenderingArea.pointMaxXMaxY)
+        }
+        
+        ctx.strokePath()
         
     }
     

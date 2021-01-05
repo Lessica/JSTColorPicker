@@ -45,8 +45,8 @@ class SceneGridView: NSView {
     private var positionSatisfiedGridDrawing: Bool {
         !wrappedPixelRect.isEmpty
         && !wrappedRenderingArea.isEmpty
-        && wrappedRenderingArea.width > 0.01
-        && wrappedRenderingArea.height > 0.01
+        && wrappedRenderingArea.width > 1e-3
+        && wrappedRenderingArea.height > 1e-3
     }
     
     
@@ -63,11 +63,11 @@ class SceneGridView: NSView {
             && !isHidden
             else
         {
-            debugPrint("cleared \(className):\(#function)")
+            //debugPrint("cleared \(className):\(#function)")
             return
         }
         
-        debugPrint("painted \(className):\(#function)")
+        //debugPrint("painted \(className):\(#function)")
         
         // got context
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }

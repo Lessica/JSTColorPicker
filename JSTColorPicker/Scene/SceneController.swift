@@ -749,9 +749,13 @@ extension SceneController: SceneTracking, SceneActionTracking {
         if !sceneOverlayView.isHidden {
             updateAnnotatorFrames()
         }
-        sceneBorderView.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
-        sceneGridView.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
-        trackingDelegate.sceneVisibleRectDidChange(sender, to: rect, of: magnification)
+        let sceneTrackings: [SceneTracking] = [
+            sceneBorderView,
+            sceneGridView,
+            sceneOverlayView,
+            trackingDelegate
+        ]
+        sceneTrackings.forEach({ $0.sceneVisibleRectDidChange(sender, to: rect, of: magnification) })
     }
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
