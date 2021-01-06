@@ -65,6 +65,7 @@ class WindowController: NSWindowController {
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         touchBarUpdateButtonState()
+        updateShortcutGuide()
         
         #if DEBUG
         firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (_, change) in
@@ -143,19 +144,30 @@ class WindowController: NSWindowController {
         return false
     }
     
+    private func commandCancelled() -> Bool {
+        lastCommandPressedAt = 0.0
+        return false
+    }
+    
     @discardableResult
     private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = window, window.isKeyWindow else { return false }  // important
         var handled = false
         let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
-        switch modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-            .subtracting([.shift, .control, .option])
+        if modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty
         {
-        case [.command]:
-            handled = commandPressed(with: event)
-        default:
             handled = false
+        }
+        else
+        {
+            if modifierFlags.intersection(.deviceIndependentFlagsMask)
+                .subtracting(.command)
+                .isEmpty
+            {
+                handled = commandPressed(with: event)
+            } else {
+                handled = commandCancelled()
+            }
         }
         return handled
     }
@@ -378,26 +390,31 @@ extension WindowController: ToolbarResponder {
     @IBAction func useAnnotateItemAction(_ sender: Any?) {
         viewController.useAnnotateItemAction(sender)
         touchBarUpdateButtonState()
+        updateShortcutGuide()
     }
     
     @IBAction func useMagnifyItemAction(_ sender: Any?) {
         viewController.useMagnifyItemAction(sender)
         touchBarUpdateButtonState()
+        updateShortcutGuide()
     }
     
     @IBAction func useMinifyItemAction(_ sender: Any?) {
         viewController.useMinifyItemAction(sender)
         touchBarUpdateButtonState()
+        updateShortcutGuide()
     }
     
     @IBAction func useSelectItemAction(_ sender: Any?) {
         viewController.useSelectItemAction(sender)
         touchBarUpdateButtonState()
+        updateShortcutGuide()
     }
     
     @IBAction func useMoveItemAction(_ sender: Any?) {
         viewController.useMoveItemAction(sender)
         touchBarUpdateButtonState()
+        updateShortcutGuide()
     }
     
     @IBAction func fitWindowAction(_ sender: Any?) {
@@ -471,6 +488,14 @@ extension WindowController: SceneTracking {
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         GridWindowController.shared.sceneRawColorDidChange(sender, at: coordinate)
+    }
+    
+}
+
+extension WindowController {
+    
+    private func updateShortcutGuide() {
+        selectItem
     }
     
 }

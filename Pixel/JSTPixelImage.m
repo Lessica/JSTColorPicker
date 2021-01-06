@@ -261,7 +261,7 @@ static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg) {
                                                  8,
                                                  imgSize.width * sizeof(JST_COLOR),
                                                  colorSpace,
-                                                 kCGImageAlphaNoneSkipLast /* kCGImageAlphaPremultipliedLast */
+                                                 kCGImageAlphaPremultipliedLast /* kCGImageAlphaNoneSkipLast */
                                                  );
     CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
     CGContextRelease(context);
