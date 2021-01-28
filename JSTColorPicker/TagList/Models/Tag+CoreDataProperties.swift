@@ -20,11 +20,11 @@ extension Tag {
     @NSManaged public var name: String
     @NSManaged public var order: Int64
     
-    @objc public var color: NSColor { NSColor(css: colorHex, alpha: 1.0) }
+    @objc public var color: NSColor { NSColor(hex: colorHex) }
     @objc public var toolTip: String { name + " (" + colorHex + ")" }
     
     @objc public func colorWithAlphaComponent(_ alpha: CGFloat) -> NSColor {
-        return NSColor(css: colorHex, alpha: alpha)
+        return NSColor(hex: colorHex, alpha: alpha)
     }
 
 }

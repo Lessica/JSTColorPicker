@@ -495,7 +495,7 @@ extension WindowController: SceneTracking {
 extension WindowController {
     
     private func updateShortcutGuide() {
-        selectItem
+        
     }
     
 }

@@ -448,7 +448,7 @@ class TagListController: NSViewController {
         
         colorPanel.strongTarget = nil
         colorPanel.setAction(nil)
-        colorPanel.color = NSColor(css: arrangedTags[targetIndex].colorHex, alpha: 1.0)
+        colorPanel.color = NSColor(hex: arrangedTags[targetIndex].colorHex, alpha: 1.0)
         
         let wrapper = TagListControllerWrapper(self)
         colorPanel.strongTarget = wrapper
