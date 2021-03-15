@@ -389,11 +389,11 @@ CA
             <objects>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="MainWindow" id="B8D-0N-5wS" customClass="WindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
+                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" toolbarStyle="preference" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="small" id="H2W-dY-ULw">
+                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="128" height="128"/>
@@ -473,7 +473,6 @@ CA
                                 <toolbarItem reference="lQd-Bs-mbf"/>
                                 <toolbarItem reference="yYx-1s-yPE"/>
                                 <toolbarItem reference="BOP-NL-21X"/>
-                                <toolbarItem reference="GLl-T1-jgb"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -667,14 +666,14 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="JSTArrow" width="128" height="128"/>
-        <image name="JSTCamera" width="128" height="128"/>
-        <image name="JSTCursor" width="128" height="128"/>
-        <image name="JSTMagnify" width="128" height="128"/>
-        <image name="JSTMinify" width="128" height="128"/>
-        <image name="JSTMove" width="128" height="128"/>
-        <image name="JSTOpen" width="128" height="128"/>
-        <image name="JSTScaleToFill" width="128" height="128"/>
-        <image name="JSTScaleToFit" width="128" height="128"/>
+        <image name="JSTArrow" width="22" height="22"/>
+        <image name="JSTCamera" width="22" height="22"/>
+        <image name="JSTCursor" width="22" height="22"/>
+        <image name="JSTMagnify" width="22" height="22"/>
+        <image name="JSTMinify" width="22" height="22"/>
+        <image name="JSTMove" width="22" height="22"/>
+        <image name="JSTOpen" width="22" height="22"/>
+        <image name="JSTScaleToFill" width="22" height="22"/>
+        <image name="JSTScaleToFit" width="22" height="22"/>
     </resources>
 </document>
