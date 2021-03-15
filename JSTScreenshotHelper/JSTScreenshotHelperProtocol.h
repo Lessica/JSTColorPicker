@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const kJSTColorPickerGroupIdentifier = @"RLFKHCA862.com.jst.JSTColorPicker";
+static NSString * const kJSTColorPickerGroupIdentifier = @"GXZ23M5TP2.com.jst.JSTColorPicker";
 static NSString * const kJSTColorPickerBundleIdentifier = @"com.jst.JSTColorPicker";
-static NSString * const kJSTColorPickerHelperBundleIdentifier = @"RLFKHCA862.com.jst.JSTColorPicker.ScreenshotHelper";
+static NSString * const kJSTColorPickerHelperBundleIdentifier = @"GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper";
 static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
 static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
 static NSString * const kJSTColorPickerHelperErrorDomain = @"com.jst.JSTScreenshotHelper.error";
