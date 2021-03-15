@@ -11,11 +11,11 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="1228"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="42" width="300" height="758"/>
+                                <rect key="frame" x="0.0" y="42" width="300" height="1186"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
@@ -334,16 +334,17 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
-                                        <rect key="frame" x="0.0" y="576" width="300" height="115"/>
+                                        <rect key="frame" x="0.0" y="576" width="300" height="600"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
                                                 <connections>
                                                     <segue destination="JDK-dI-n6a" kind="embed" identifier="TagListContainer" id="hb4-4p-dHm"/>
                                                 </connections>
                                             </containerView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="600" placeholder="YES" id="GTF-ki-UM3"/>
                                             <constraint firstItem="Jvh-22-aJT" firstAttribute="leading" secondItem="H61-xT-7a0" secondAttribute="leading" id="KxV-5n-VCf"/>
                                             <constraint firstItem="Jvh-22-aJT" firstAttribute="top" secondItem="H61-xT-7a0" secondAttribute="top" id="NJE-cZ-JZ0"/>
                                             <constraint firstAttribute="trailing" secondItem="Jvh-22-aJT" secondAttribute="trailing" id="PCp-lM-7nV"/>
@@ -351,7 +352,7 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
-                                        <rect key="frame" x="0.0" y="701" width="300" height="57"/>
+                                        <rect key="frame" x="0.0" y="1186" width="300" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="255" id="De9-Ns-Fzb"/>
                                         </constraints>
@@ -571,7 +572,7 @@
                 <controllerPlaceholder storyboardName="TagList" id="JDK-dI-n6a" sceneMemberID="viewController"/>
                 <customObject id="NzO-7j-9Gx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2343" y="836"/>
+            <point key="canvasLocation" x="2646" y="246"/>
         </scene>
     </scenes>
     <resources>
