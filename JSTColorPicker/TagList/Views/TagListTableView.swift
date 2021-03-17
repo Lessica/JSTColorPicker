@@ -29,6 +29,11 @@ class TagListTableView: NSTableView, UndoProxy {
         }
         super.rightMouseDown(with: event)
     }
+
+    override var gridColor: NSColor {
+        get { NSColor.separatorColor }
+        set { }
+    }
     
 }
 

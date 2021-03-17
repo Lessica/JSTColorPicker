@@ -14,9 +14,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="248" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7">
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="30" width="248" height="770"/>
-                                <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2">
+                                <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="770"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -261,6 +261,7 @@
                     <connections>
                         <outlet property="addCoordinateButton" destination="Lyu-4U-FxO" id="dBa-gf-pKO"/>
                         <outlet property="addCoordinateField" destination="GsN-Fd-s2i" id="Nc2-Aj-jjE"/>
+                        <outlet property="clipView" destination="Gfa-UH-GB2" id="ohl-Jp-JyW"/>
                         <outlet property="columnDescription" destination="Sv2-uF-rau" id="ufr-2G-o7i"/>
                         <outlet property="columnIdentifier" destination="71D-st-arP" id="bLD-ac-vcN"/>
                         <outlet property="columnSimilarity" destination="pnx-EH-SzG" id="c6k-Ci-tgF"/>
@@ -272,6 +273,7 @@
                         <outlet property="itemReprAreaMenuItem" destination="sVk-oR-IHz" id="GwM-dB-mQn"/>
                         <outlet property="itemReprColorMenuItem" destination="jKH-wp-n6X" id="uW6-i9-xZj"/>
                         <outlet property="itemReprMenu" destination="1HL-Zx-eDR" id="myl-lI-9cs"/>
+                        <outlet property="scrollView" destination="W8X-3b-Td7" id="JdE-bg-adb"/>
                         <outlet property="tableHeaderMenu" destination="a29-Fd-YbH" id="xcF-yj-1HS"/>
                         <outlet property="tableMenu" destination="ziX-dt-DMr" id="VPq-xk-rVu"/>
                         <outlet property="tableMenuDelegateProxy" destination="jpi-jj-flh" id="A8R-be-QAX"/>

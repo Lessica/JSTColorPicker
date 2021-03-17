@@ -124,7 +124,7 @@
                                                     <rect key="frame" x="8" y="0.0" width="290" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-ma-a5Q">
+                                                        <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-ma-a5Q" customClass="ExpandableSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="4" width="290" height="51"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="PKs-GF-oI7">

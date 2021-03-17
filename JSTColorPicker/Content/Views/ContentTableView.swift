@@ -14,6 +14,8 @@ protocol ContentTableViewResponder: class {
 }
 
 class ContentTableView: NSTableView, UndoProxy {
+
+    override var isFlipped: Bool { true }
     
     public weak var tableViewResponder: ContentTableViewResponder!
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
@@ -47,6 +49,11 @@ class ContentTableView: NSTableView, UndoProxy {
             deselectAll(nil)
         }
         super.rightMouseDown(with: event)
+    }
+
+    override var gridColor: NSColor {
+        get { NSColor.separatorColor }
+        set { }
     }
     
 }

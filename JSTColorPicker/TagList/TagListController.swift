@@ -732,6 +732,13 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
 }
 
 extension TagListController: TagListPreviewDelegate {
+
+    private func scrollToFirstCheckedRow() {
+        if let row = arrangedTags.firstIndex(where: { previewContext?.keys.contains($0.name) ?? false }) {
+            let rowRect = tableView.rect(ofRow: row)
+            tableView.scroll(rowRect.origin)
+        }
+    }
     
     func previewTags(for items: [ContentItem]) {
         if items.count > 0 {
@@ -747,6 +754,7 @@ extension TagListController: TagListPreviewDelegate {
             forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
             columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet()
         )
+        scrollToFirstCheckedRow()
     }
     
 }

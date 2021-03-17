@@ -93,6 +93,8 @@ class ContentController: NSViewController {
     @IBOutlet var itemReprAreaAltMenuItem : NSMenuItem!
     
     @IBOutlet weak var tableView          : ContentTableView!
+    @IBOutlet weak var clipView           : ContentClipView!
+    @IBOutlet weak var scrollView         : ContentScrollView!
     @IBOutlet weak var columnIdentifier   : NSTableColumn!
     @IBOutlet weak var columnSimilarity   : NSTableColumn!
     @IBOutlet weak var columnTag          : NSTableColumn!
@@ -135,6 +137,13 @@ class ContentController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
         applyPreferences(nil)
+    }
+
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.scroll(.zero)
+        }
     }
     
     @objc private func applyPreferences(_ notification: Notification?) {

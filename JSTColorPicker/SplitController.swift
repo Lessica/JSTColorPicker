@@ -81,6 +81,12 @@ extension SplitController: DropViewDelegate {
         get { view.window?.title ?? ""      }
         set { view.window?.title = newValue }
     }
+
+    @available(OSX 11.0, *)
+    private var windowSubtitle: String {
+        get { view.window?.subtitle ?? ""      }
+        set { view.window?.subtitle = newValue }
+    }
     
     internal var allowsDrop: Bool {
         return true
@@ -199,10 +205,19 @@ extension SplitController: ScreenshotLoader {
     }
     
     func updateWindowTitle(_ url: URL, magnification: CGFloat? = 1.0) {
-        if let magnification = magnification {
-            windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-        } else {
+        if #available(macOS 11.0, *) {
             windowTitle = url.lastPathComponent
+            if let magnification = magnification {
+                windowSubtitle = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+            } else {
+                windowSubtitle = ""
+            }
+        } else {
+            if let magnification = magnification {
+                windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+            } else {
+                windowTitle = url.lastPathComponent
+            }
         }
     }
     

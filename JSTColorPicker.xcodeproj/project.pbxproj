@@ -63,6 +63,12 @@
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
+		CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
+		CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
+		CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
+		CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
+		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
@@ -693,6 +699,9 @@
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
+		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
+		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
+		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
@@ -1525,6 +1534,7 @@
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
+				CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */,
 				D656CD4E245E6EA8009EC41A /* SidebarSplitView.swift */,
 				CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */,
 			);
@@ -1762,8 +1772,10 @@
 			children = (
 				18D202C52496951B007A079F /* ContentCellView.swift */,
 				D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */,
-				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
 				1885CF4024B105A00067D02F /* ContentSearchField.swift */,
+				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
+				CCC0DC202601F0F200019146 /* ContentClipView.swift */,
+				CCC0DC162601F0C100019146 /* ContentScrollView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2305,6 +2317,7 @@
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
+				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
@@ -2331,6 +2344,7 @@
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
+				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
@@ -2413,6 +2427,7 @@
 				D6E4252C24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D61047C224224A170002E990 /* CoreGraphics+Ext.swift in Sources */,
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
+				CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2514,6 +2529,7 @@
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
+				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
@@ -2557,6 +2573,7 @@
 				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
+				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
@@ -2570,6 +2587,7 @@
 				D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
+				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
 				D659168B24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				18D202C72496951B007A079F /* ContentCellView.swift in Sources */,

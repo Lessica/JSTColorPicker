@@ -17,13 +17,14 @@ class SidebarSplitView: NSSplitView {
     }
 
     override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
         if event.clickCount == 2 {
             let locationInView = convert(event.locationInWindow, from: nil)
-            if let dividerIndex = arrangedSubviews.firstIndex(where: { $0.frame.contains(locationInView) }) {
+            if let dividerIndex = arrangedSubviews.firstIndex(where: { $0.frame.contains(locationInView) }), dividerIndex < arrangedSubviews.count {
                 setPosition(maxPossiblePositionOfDivider(at: dividerIndex), ofDividerAt: dividerIndex)
+                return
             }
         }
+        super.mouseUp(with: event)
     }
-    
+
 }
