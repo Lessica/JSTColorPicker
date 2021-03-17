@@ -354,7 +354,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
                                         <rect key="frame" x="0.0" y="1186" width="300" height="0.0"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="255" id="De9-Ns-Fzb"/>
+                                            <constraint firstAttribute="height" id="De9-Ns-Fzb"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -490,6 +490,7 @@
                         <outlet property="paneViewPlaceholder" destination="I42-7I-fJN" id="mWh-46-NdN"/>
                         <outlet property="paneViewPreview" destination="XPn-It-24S" id="tTk-jQ-E4t"/>
                         <outlet property="paneViewTagList" destination="H61-xT-7a0" id="Pav-H6-iFc"/>
+                        <outlet property="placeholderConstraint" destination="De9-Ns-Fzb" id="5of-j3-Fy4"/>
                         <outlet property="previewImageView" destination="fAw-7i-wdv" id="mQx-HY-Pxq"/>
                         <outlet property="previewOverlayView" destination="W1Q-HV-wY8" id="EXG-dk-Hm8"/>
                         <outlet property="previewSlider" destination="8AH-8J-GW3" id="Q2A-Ek-Pq1"/>

@@ -1,13 +1,13 @@
 /*
     Copyright (C) 2016 Apple Inc. All Rights Reserved.
     See LICENSE.txt for this sample’s licensing information
-    
+
     Abstract:
     Contains the definition for `SceneClipView` which is a specialized clip view subclass to center its document.
 */
- 
+
 import Cocoa
- 
+
 /**
     `SceneClipView` is a clip view subclass that centers smaller documents views
     within its inset clip bounds (as described by the set `contentInsets`).
@@ -15,21 +15,21 @@ import Cocoa
 class SceneClipView: NSClipView {
     
     override var isFlipped: Bool { true }
-    
+
     override func constrainBoundsRect(_ proposedBounds: NSRect) -> NSRect {
         guard let documentView = documentView else { return super.constrainBoundsRect(proposedBounds) }
- 
+
         var newClipBoundsRect = super.constrainBoundsRect(proposedBounds)
- 
+
         // Get the `contentInsets` scaled to the future bounds size.
         let insets = convertedContentInsetsToProposedBoundsSize(newClipBoundsRect.size)
- 
+
         // Get the insets in terms of the view geometry edges, accounting for flippedness.
         let minYInset = isFlipped ? insets.top : insets.bottom
         let maxYInset = isFlipped ? insets.bottom : insets.top
         let minXInset = insets.left
         let maxXInset = insets.right
- 
+
         /*
             Get and outset the `documentView`'s frame by the scaled contentInsets.
             The outset frame is used to align and constrain the `newClipBoundsRect`.
@@ -39,7 +39,7 @@ class SceneClipView: NSClipView {
                                          y: documentFrame.minY - minYInset,
                                      width: documentFrame.width  + (minXInset + maxXInset),
                                     height: documentFrame.height + (minYInset + maxYInset))
- 
+
         if newClipBoundsRect.width > outsetDocumentFrame.width {
             /*
                 If the clip bounds width is larger than the document, center the
@@ -61,7 +61,7 @@ class SceneClipView: NSClipView {
                 newClipBoundsRect.origin.x = outsetDocumentFrame.minX
             }
         }
- 
+
         if newClipBoundsRect.height > outsetDocumentFrame.height {
             /*
                 If the clip bounds height is larger than the document, center the
@@ -83,10 +83,10 @@ class SceneClipView: NSClipView {
                 newClipBoundsRect.origin.y = outsetDocumentFrame.minY
             }
         }
- 
+
         return backingAlignedRect(newClipBoundsRect, options: .alignAllEdgesNearest)
     }
- 
+
     /**
         The `contentInsets` scaled to the scale factor of a new potential bounds
         rect. Used by `constrainBoundsRect(NSRect)`.
@@ -94,14 +94,14 @@ class SceneClipView: NSClipView {
     private func convertedContentInsetsToProposedBoundsSize(_ proposedBoundsSize: NSSize) -> NSEdgeInsets {
         // Base the scale factor on the width scale factor to the new proposedBounds.
         let fromBoundsToProposedBoundsFactor = bounds.width > 0 ? (proposedBoundsSize.width / bounds.width) : 1.0
- 
+
         // Scale the set `contentInsets` by the width scale factor.
         var newContentInsets = contentInsets
         newContentInsets.top *= fromBoundsToProposedBoundsFactor
         newContentInsets.left *= fromBoundsToProposedBoundsFactor
         newContentInsets.bottom *= fromBoundsToProposedBoundsFactor
         newContentInsets.right *= fromBoundsToProposedBoundsFactor
- 
+
         return newContentInsets
     }
     

@@ -293,35 +293,74 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func applySelectItem(at location: CGPoint, byThroughoutHit throughout: Bool, byExtendingSelection extend: Bool) -> Bool {
+    private func applySelectItem(
+        at location: CGPoint,
+        byChangingSelection change: Bool,  // double click
+        byThroughoutHit throughout: Bool,  // shift pressed
+        byExtendingSelection extend: Bool  // command pressed
+    ) -> Bool
+    {
         let locInMask = sceneOverlayView.convert(location, from: sceneView)
-        if throughout {  // shift pressed
+        if change {
             let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
-            if annotatorOverlays.count > 0 {
-                let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
-                let contentItems = annotators
-                    .filter({ annotatorOverlaysSet.contains($0.overlay) })
-                    .compactMap({ $0.contentItem })
-                if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
-                    return true
+            let selectedOverlays = annotatorOverlays.filter({ $0.isSelected })
+            if selectedOverlays.count == 1, let selectedOverlay = selectedOverlays.first {
+                // change single selection
+                let sortedOverlays = annotatorOverlays
+                    .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
+                if let selectedOverlayIndex = sortedOverlays.firstIndex(of: selectedOverlay) {
+                    var nextOverlayIndex: Int
+                    if selectedOverlayIndex < sortedOverlays.count - 1 {
+                        nextOverlayIndex = selectedOverlayIndex + 1
+                    } else {
+                        nextOverlayIndex = 0
+                    }
+                    let overlayToFocus = sortedOverlays[nextOverlayIndex]
+                    guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
+                    if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                        return true
+                    }
                 }
-            } else {
-                deselectAllContentItems()
+            } else if throughout {
+                // focus to single selection
+                let sortedSelectedOverlays = selectedOverlays
+                    .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
+                if let overlayToFocus = sortedSelectedOverlays.first {
+                    guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
+                    if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                        return true
+                    }
+                }
             }
         } else {
-            if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locInMask) {
-                guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
-                if annotatorOverlay.isSelected && extend {
-                    if let _ = try? deselectContentItem(annotator.contentItem) {
+            if throughout {
+                let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
+                if !annotatorOverlays.isEmpty {
+                    let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
+                    let contentItems = annotators
+                        .filter({ annotatorOverlaysSet.contains($0.overlay) })
+                        .compactMap({ $0.contentItem })
+                    if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
                         return true
                     }
                 } else {
-                    if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
-                        return true
-                    }
+                    deselectAllContentItems()
                 }
             } else {
-                deselectAllContentItems()
+                if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locInMask) {
+                    guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
+                    if annotatorOverlay.isSelected && extend {
+                        if let _ = try? deselectContentItem(annotator.contentItem) {
+                            return true
+                        }
+                    } else {
+                        if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
+                            return true
+                        }
+                    }
+                } else {
+                    deselectAllContentItems()
+                }
             }
         }
         return false
@@ -449,7 +488,13 @@ class SceneController: NSViewController {
                             .intersection(.deviceIndependentFlagsMask)
                         let commandPressed = modifierFlags.contains(.command)
                         let shiftPressed   = modifierFlags.contains(.shift)
-                        handled = applySelectItem(at: location, byThroughoutHit: shiftPressed, byExtendingSelection: commandPressed)
+                        let isDoubleClick  = event.clickCount == 2
+                        handled = applySelectItem(
+                            at: location,
+                            byChangingSelection: isDoubleClick,
+                            byThroughoutHit: shiftPressed,
+                            byExtendingSelection: commandPressed
+                        )
                     } else {
                         let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
                         if sceneTool == .magicCursor {

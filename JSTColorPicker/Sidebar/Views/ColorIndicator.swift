@@ -29,14 +29,18 @@ class ColorIndicator: NSControl {
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        wantsLayer = true
-        layer!.isOpaque = true
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
         wantsLayer = true
         layer!.isOpaque = true
+        layer!.borderWidth = 0.5
     }
     
     func setImage(_ image: CGImage) {
@@ -59,6 +63,11 @@ class ColorIndicator: NSControl {
     
     func reset() {
         layer!.contents = nil
+    }
+
+    override func updateLayer() {
+        super.updateLayer()
+        layer!.borderColor = NSColor.labelColor.cgColor
     }
     
 }

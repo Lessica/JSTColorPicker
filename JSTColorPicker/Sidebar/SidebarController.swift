@@ -49,6 +49,7 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewPreview           : NSView!
     @IBOutlet weak var paneViewTagList           : NSView!
     @IBOutlet weak var paneViewPlaceholder       : NSView!
+    @IBOutlet weak var placeholderConstraint     : NSLayoutConstraint!
     
     private var imageSource                      : PixelImage.Source? { screenshot?.image?.imageSource }
     private var altImageSource                   : PixelImage.Source?
@@ -375,6 +376,8 @@ by \(template.author ?? "Unknown")
         }
         
         if paneChanged {
+            placeholderConstraint.priority = hiddenValue ? .defaultLow : .defaultHigh
+
             splitView.adjustSubviews()
             splitView.displayIfNeeded()
         }
