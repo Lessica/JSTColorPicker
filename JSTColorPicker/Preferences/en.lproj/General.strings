@@ -19,6 +19,9 @@
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "Annotation";
 
+/* Class = "NSButtonCell"; title = "zIndex by Size"; ObjectID = "BE1-Lr-IA1"; */
+"BE1-Lr-IA1.title" = "zIndex by Size";
+
 /* Class = "NSTextFieldCell"; title = "Original Image Alpha: "; ObjectID = "Bu1-Ny-gMT"; */
 "Bu1-Ny-gMT.title" = "Original Image Alpha: ";
 

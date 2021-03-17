@@ -497,20 +497,20 @@ extension ContentController: ContentDelegate {
     
     @discardableResult
     private func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let image = documentImage else { throw Content.Error.notLoaded }
+        guard let image = documentImage               else { throw Content.Error.notLoaded }
         guard let color = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
         return try selectContentItem(color, byExtendingSelection: false)
     }
     
     @discardableResult
     private func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
-        guard let image = documentImage else { throw Content.Error.notLoaded }
+        guard let image = documentImage       else { throw Content.Error.notLoaded }
         guard let area = image.area(at: rect) else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
         return try selectContentItem(area, byExtendingSelection: false)
     }
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        guard let content = documentContent                              else { throw Content.Error.notLoaded }
+        guard let content = documentContent                      else { throw Content.Error.notLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw Content.Error.itemDoesNotExist(item: item) }
         internalSelectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
         return item
@@ -527,7 +527,7 @@ extension ContentController: ContentDelegate {
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        guard let content = documentContent                              else { throw Content.Error.notLoaded }
+        guard let content = documentContent                      else { throw Content.Error.notLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw Content.Error.itemDoesNotExist(item: item) }
         tableView.deselectRow(itemIndex)
         makeFirstResponder(tableView)

@@ -74,6 +74,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deletionMenu" destination="u9q-jA-WiX" id="VpU-Q2-Eon"/>
                         <outlet property="sceneBorderView" destination="LWT-QD-3FC" id="9Fn-nR-AAe"/>
                         <outlet property="sceneClipView" destination="sQJ-yc-X1x" id="Vqt-wf-8ut"/>
                         <outlet property="sceneEffectView" destination="p5F-Ek-hEY" id="5P4-Cu-8Q3"/>
@@ -82,9 +83,20 @@
                         <outlet property="sceneOverlayView" destination="Gm2-nK-LVB" id="nWh-VT-7h5"/>
                         <outlet property="sceneTopConstraint" destination="MfV-gd-Dzt" id="WSE-UY-ffH"/>
                         <outlet property="sceneView" destination="W7m-Sv-4Wm" id="nWj-kh-ab7"/>
+                        <outlet property="selectionMenu" destination="mTt-xF-cgu" id="Y4D-43-FAH"/>
                     </connections>
                 </viewController>
                 <customObject id="PDh-lv-bLW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="mTt-xF-cgu">
+                    <connections>
+                        <outlet property="delegate" destination="jsz-Ju-e0d" id="FxG-f2-FkF"/>
+                    </connections>
+                </menu>
+                <menu id="u9q-jA-WiX">
+                    <connections>
+                        <outlet property="delegate" destination="jsz-Ju-e0d" id="4L4-XU-z4m"/>
+                    </connections>
+                </menu>
             </objects>
             <point key="canvasLocation" x="1343" y="127"/>
         </scene>

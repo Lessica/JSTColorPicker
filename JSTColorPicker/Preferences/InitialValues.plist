@@ -21,9 +21,9 @@
 	<key>defaults.drawSceneBackground</key>
 	<true/>
 	<key>defaults.enableForceTouch</key>
-	<true/>
-	<key>defaults.enableGPUAcceleration</key>
 	<false/>
+	<key>defaults.enableGPUAcceleration</key>
+	<true/>
 	<key>defaults.enableNetworkDiscovery</key>
 	<false/>
 	<key>defaults.hideAnnotatorsWhenResize</key>
@@ -32,6 +32,8 @@
 	<true/>
 	<key>defaults.hideGridsWhenResize</key>
 	<true/>
+	<key>defaults.zIndexBySize</key>
+	<false/>
 	<key>defaults.initialSimilarity</key>
 	<real>0.9</real>
 	<key>defaults.maximumItemCount</key>

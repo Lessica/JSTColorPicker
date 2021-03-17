@@ -102,7 +102,8 @@ class WindowController: NSWindowController {
         // for external keyboards
         if event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
-            .subtracting(.function) == []
+            .subtracting(.function)
+            .isEmpty
         {
             switch event.specialKey {
             case NSEvent.SpecialKey.f1:
@@ -153,16 +154,16 @@ class WindowController: NSWindowController {
     private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = window, window.isKeyWindow else { return false }  // important
         var handled = false
-        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
-        if modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty
+        let modifierFlags = (event?.modifierFlags ?? NSEvent.modifierFlags)
+            .intersection(.deviceIndependentFlagsMask)
+        if modifierFlags.isEmpty
         {
             handled = false
         }
         else
         {
-            if modifierFlags.intersection(.deviceIndependentFlagsMask)
-                .subtracting(.command)
-                .isEmpty
+            if modifierFlags.contains(.command) &&
+                modifierFlags.subtracting(.command).isEmpty
             {
                 handled = commandPressed(with: event)
             } else {

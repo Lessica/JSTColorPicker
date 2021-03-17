@@ -133,6 +133,9 @@
 /* ScreenshotError */
 "Invalid image." = "Invalid image.";
 
+/* Item #%@: %@ */
+"Item #%ld: %@" = "Item #%ld: %@";
+
 /* PixelImageError */
 "Load image data failed." = "Load image data failed.";
 

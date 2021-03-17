@@ -90,6 +90,9 @@ class SceneController: NSViewController {
     @IBOutlet private weak var sceneEffectView             : SceneEffectView!
     @IBOutlet private weak var sceneTopConstraint          : NSLayoutConstraint!
     @IBOutlet private weak var sceneLeadingConstraint      : NSLayoutConstraint!
+
+    @IBOutlet private      var selectionMenu               : NSMenu!
+    @IBOutlet private      var deletionMenu                : NSMenu!
     
     private var horizontalRulerView            : RulerView         { sceneView.horizontalRulerView as! RulerView    }
     private var verticalRulerView              : RulerView         { sceneView.verticalRulerView as! RulerView      }
@@ -295,89 +298,120 @@ class SceneController: NSViewController {
     
     private func applySelectItem(
         at location: CGPoint,
-        byChangingSelection change: Bool,  // double click
-        byThroughoutHit throughout: Bool,  // shift pressed
-        byExtendingSelection extend: Bool  // command pressed
+        byShowingOptions menu: Bool,           // option pressed
+        byChangingSelection change: Bool,      // double click
+        byThroughoutHitting throughout: Bool,  // shift pressed
+        byExtendingSelection extend: Bool,     // command pressed
+        withEvent event: NSEvent? = NSApp.currentEvent
     ) -> Bool
     {
         let locInMask = sceneOverlayView.convert(location, from: sceneView)
-        if change {
-            let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
-            let selectedOverlays = annotatorOverlays.filter({ $0.isSelected })
-            if selectedOverlays.count == 1, let selectedOverlay = selectedOverlays.first {
-                // change single selection
-                let sortedOverlays = annotatorOverlays
-                    .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
-                if let selectedOverlayIndex = sortedOverlays.firstIndex(of: selectedOverlay) {
-                    var nextOverlayIndex: Int
-                    if selectedOverlayIndex < sortedOverlays.count - 1 {
-                        nextOverlayIndex = selectedOverlayIndex + 1
-                    } else {
-                        nextOverlayIndex = 0
-                    }
-                    let overlayToFocus = sortedOverlays[nextOverlayIndex]
-                    guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
-                    if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
-                        return true
-                    }
-                }
-            } else if throughout {
-                // focus to single selection
-                let sortedSelectedOverlays = selectedOverlays
-                    .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
-                if let overlayToFocus = sortedSelectedOverlays.first {
-                    guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
-                    if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
-                        return true
-                    }
-                }
-            }
+        if let event = event, menu {
+            NSMenu.popUpContextMenu(selectionMenu, with: event, for: sceneView)
         } else {
-            if throughout {
+            if change {
                 let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
-                if !annotatorOverlays.isEmpty {
-                    let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
-                    let contentItems = annotators
-                        .filter({ annotatorOverlaysSet.contains($0.overlay) })
-                        .compactMap({ $0.contentItem })
-                    if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
-                        return true
+                let selectedOverlays = annotatorOverlays.filter({ $0.isSelected })
+                if annotatorOverlays.count > 1 && selectedOverlays.count == 1, let selectedOverlay = selectedOverlays.first {
+                    // change single selection
+                    let zIndexBySize: Bool = UserDefaults.standard[.zIndexBySize]
+                    if zIndexBySize {
+                        let sortedOverlays = annotatorOverlays
+                            .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
+                        if let selectedOverlayIndex = sortedOverlays.firstIndex(of: selectedOverlay) {
+                            var nextOverlayIndex: Int
+                            if selectedOverlayIndex == 0 {
+                                nextOverlayIndex = sortedOverlays.count - 1
+                            } else {
+                                nextOverlayIndex = selectedOverlayIndex - 1
+                            }
+                            let overlayToFocus = sortedOverlays[nextOverlayIndex]
+                            guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
+                            if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                                return true
+                            }
+                        }
+                    } else {
+                        if let selectedAnnotatorIndex = annotators.lastIndex(where: { $0.overlay === selectedOverlay }) {
+                            var nextAnnotatorIndex: Int
+                            if selectedAnnotatorIndex < annotators.count - 1 {
+                                nextAnnotatorIndex = selectedAnnotatorIndex + 1
+                            } else {
+                                nextAnnotatorIndex = 0
+                            }
+                            let annotatorToFocus = annotators[nextAnnotatorIndex]
+                            if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                                return true
+                            }
+                        }
                     }
-                } else {
-                    deselectAllContentItems()
+                } else if throughout {
+                    // focus to single selection
+                    let sortedSelectedOverlays = selectedOverlays
+                        .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
+                    if let overlayToFocus = sortedSelectedOverlays.first {
+                        guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
+                        if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                            return true
+                        }
+                    }
                 }
             } else {
-                if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locInMask) {
-                    guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
-                    if annotatorOverlay.isSelected && extend {
-                        if let _ = try? deselectContentItem(annotator.contentItem) {
+                if throughout {
+                    let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
+                    if !annotatorOverlays.isEmpty {
+                        let annotatorOverlaysSet = Set(annotatorOverlays.filter({ !$0.isSelected }))  // is it safe to identify a view by its hash?
+                        let contentItems = annotators
+                            .filter({ annotatorOverlaysSet.contains($0.overlay) })
+                            .compactMap({ $0.contentItem })
+                        if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
                             return true
                         }
                     } else {
-                        if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
-                            return true
-                        }
+                        deselectAllContentItems()
                     }
                 } else {
-                    deselectAllContentItems()
+                    if let annotatorOverlay = sceneOverlayView.frontmostOverlay(at: locInMask) {
+                        guard let annotator = annotators.last(where: { $0.overlay === annotatorOverlay }) else { return false }
+                        if annotatorOverlay.isSelected && extend {
+                            if let _ = try? deselectContentItem(annotator.contentItem) {
+                                return true
+                            }
+                        } else {
+                            if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
+                                return true
+                            }
+                        }
+                    } else {
+                        deselectAllContentItems()
+                    }
                 }
             }
         }
         return false
     }
     
-    private func applyDeleteItem(at locInWrapper: CGPoint) -> Bool {
-        let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
-        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
-            if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
-                if let _ = try? deleteContentItem(annotator.contentItem) {
-                    return true
+    private func applyDeleteItem(
+        at locInWrapper: CGPoint,
+        byShowingOptions menu: Bool,     // option pressed
+        withEvent event: NSEvent? = nil
+    ) -> Bool
+    {
+        if let event = event, menu {
+            NSMenu.popUpContextMenu(deletionMenu, with: event, for: sceneView)
+        } else {
+            let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
+            if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
+                if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
+                    if let _ = try? deleteContentItem(annotator.contentItem) {
+                        return true
+                    }
                 }
+                return false
             }
-            return false
-        }
-        if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper)) {
-            return true
+            if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper)) {
+                return true
+            }
         }
         return false
     }
@@ -486,14 +520,17 @@ class SceneController: NSViewController {
                     if sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
-                        let commandPressed = modifierFlags.contains(.command)
-                        let shiftPressed   = modifierFlags.contains(.shift)
+                        let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
+                        let commandPressed = modifierFlags.contains(.command) && modifierFlags.subtracting(.command).isEmpty
+                        let shiftPressed   = modifierFlags.contains(.shift) && modifierFlags.subtracting(.shift).isEmpty
                         let isDoubleClick  = event.clickCount == 2
                         handled = applySelectItem(
                             at: location,
+                            byShowingOptions: optionPressed,
                             byChangingSelection: isDoubleClick,
-                            byThroughoutHit: shiftPressed,
-                            byExtendingSelection: commandPressed
+                            byThroughoutHitting: shiftPressed,
+                            byExtendingSelection: commandPressed,
+                            withEvent: event
                         )
                     } else {
                         let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
@@ -522,7 +559,14 @@ class SceneController: NSViewController {
             if isVisibleWrapperLocation(locInWrapper) {
                 if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.manipulatingType) {
                     if sceneTool == .magicCursor || sceneTool == .selectionArrow {
-                        handled = applyDeleteItem(at: locInWrapper)
+                        let modifierFlags = event.modifierFlags
+                            .intersection(.deviceIndependentFlagsMask)
+                        let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
+                        handled = applyDeleteItem(
+                            at: locInWrapper,
+                            byShowingOptions: optionPressed,
+                            withEvent: event
+                        )
                     }
                 }
             }
@@ -705,7 +749,8 @@ class SceneController: NSViewController {
                         return applyAnnotateItem(at: locInWrapper)
                     }
                     else if specialKey == .delete {
-                        return applyDeleteItem(at: locInWrapper)
+                        let optionPressed = flags.contains(.option)
+                        return applyDeleteItem(at: locInWrapper, byShowingOptions: optionPressed)
                     }
                 }
             }
@@ -1453,5 +1498,73 @@ extension SceneController {
         annotators.forEach({ annotatorColorize($0) })
     }
     
+}
+
+extension SceneController: NSMenuItemValidation, NSMenuDelegate {
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        return true
+    }
+
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        guard let event = view.window?.currentEvent else { return }
+
+        let locInMask = sceneOverlayView.convert(event.locationInWindow, from: nil)
+        let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
+        let selectedOverlays = annotatorOverlays.filter({ $0.isSelected })
+        let contentItems: [ContentItem]
+        let zIndexBySize: Bool = UserDefaults.standard[.zIndexBySize]
+        if zIndexBySize {
+            contentItems = annotators
+                .filter({ annotatorOverlays.contains($0.overlay) })
+                .sorted(by: {
+                    $0.overlay.bounds.size == $1.overlay.bounds.size
+                        ? $0.overlay.hash > $1.overlay.hash
+                        : $0.overlay.bounds.size > $1.overlay.bounds.size
+
+                })
+                .map({ $0.contentItem })
+        } else {
+            contentItems = annotators
+                .filter({ annotatorOverlays.contains($0.overlay) })
+                .map({ $0.contentItem })
+        }
+
+        let selectedContentItems = annotators
+            .filter({ selectedOverlays.contains($0.overlay) })
+            .map({ $0.contentItem })
+
+        let menuItems = contentItems.map { (contentItem) -> NSMenuItem in
+            let menuItem = NSMenuItem(title: String(format: NSLocalizedString("Item #%ld: %@", comment: "Item #%@: %@"), contentItem.id, contentItem.description), action: nil, keyEquivalent: "")
+            menuItem.target = self
+            menuItem.state = selectedContentItems.contains(contentItem) ? .on : .off
+            menuItem.representedObject = contentItem
+            return menuItem
+        }
+
+        if menu == selectionMenu {
+            menuItems.forEach({ $0.action = #selector(selectContentItemFromMenuItem(_:)) })
+            menu.items = menuItems
+        }
+        else if menu == deletionMenu {
+            menuItems.forEach({ $0.action = #selector(deleteContentItemFromMenuItem(_:)) })
+            menu.items = menuItems
+        }
+    }
+
+    @objc private func selectContentItemFromMenuItem(_ menuItem: NSMenuItem) {
+        guard let contentItem = menuItem.representedObject as? ContentItem else { return }
+        if menuItem.state != .on {
+            _ = try? selectContentItem(contentItem, byExtendingSelection: true)
+        } else {
+            _ = try? deselectContentItem(contentItem)
+        }
+    }
+
+    @objc private func deleteContentItemFromMenuItem(_ menuItem: NSMenuItem) {
+        guard let contentItem = menuItem.representedObject as? ContentItem else { return }
+        _ = try? deleteContentItem(contentItem)
+    }
+
 }
 
