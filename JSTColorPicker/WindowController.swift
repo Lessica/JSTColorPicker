@@ -99,10 +99,10 @@ class WindowController: NSWindowController {
     }
     
     override func keyDown(with event: NSEvent) {
-        // for windows keyboards
+        // for external keyboards
         if event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
-            .subtracting(.function) == [.control]
+            .subtracting(.function) == []
         {
             switch event.specialKey {
             case NSEvent.SpecialKey.f1:

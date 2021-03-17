@@ -389,62 +389,62 @@ CA
             <objects>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="MainWindow" id="B8D-0N-5wS" customClass="WindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" id="IQv-IB-iLA">
+                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" toolbarStyle="unified" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="regular" id="H2W-dY-ULw">
+                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (⌃F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
+                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (⌃F2)" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
+                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2)" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (⌃F2)" tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
+                                <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F2)" tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (⌃F3)" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
+                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F3)" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (⌃F4)" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
+                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F4)" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (⌃F5)" tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
+                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (F5)" tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (⌃F6)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
+                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F6)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (⌃F7)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
+                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F7)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>

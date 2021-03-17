@@ -43,8 +43,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.paletteLabel" = "Minify";
 
-/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (⌃F4)"; ObjectID = "Ajm-ph-nQm"; */
-"Ajm-ph-nQm.toolTip" = "Minifying Glass (⌃F4)";
+/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F4)"; ObjectID = "Ajm-ph-nQm"; */
+"Ajm-ph-nQm.toolTip" = "Minifying Glass (F4)";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Window";
@@ -58,8 +58,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.paletteLabel" = "Fit Window";
 
-/* Class = "NSToolbarItem"; toolTip = "Fit Window (⌃F6)"; ObjectID = "b9N-8Y-kQX"; */
-"b9N-8Y-kQX.toolTip" = "Fit Window (⌃F6)";
+/* Class = "NSToolbarItem"; toolTip = "Fit Window (F6)"; ObjectID = "b9N-8Y-kQX"; */
+"b9N-8Y-kQX.toolTip" = "Fit Window (F6)";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "File";
@@ -154,8 +154,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Select"; ObjectID = "ljO-9K-PCE"; */
 "ljO-9K-PCE.paletteLabel" = "Select";
 
-/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (⌃F2)"; ObjectID = "ljO-9K-PCE"; */
-"ljO-9K-PCE.toolTip" = "Selection Arrow (⌃F2)";
+/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F2)"; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.toolTip" = "Selection Arrow (F2)";
 
 /* Class = "NSToolbarItem"; label = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.label" = "Fill Window";
@@ -163,8 +163,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.paletteLabel" = "Fill Window";
 
-/* Class = "NSToolbarItem"; toolTip = "Fill Window (⌃F7)"; ObjectID = "lQd-Bs-mbf"; */
-"lQd-Bs-mbf.toolTip" = "Fill Window (⌃F7)";
+/* Class = "NSToolbarItem"; toolTip = "Fill Window (F7)"; ObjectID = "lQd-Bs-mbf"; */
+"lQd-Bs-mbf.toolTip" = "Fill Window (F7)";
 
 /* Class = "NSToolbarItem"; label = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.label" = "Move";
@@ -172,8 +172,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "Move";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (⌃F5)"; ObjectID = "mDy-EG-ccW"; */
-"mDy-EG-ccW.toolTip" = "Move (⌃F5)";
+/* Class = "NSToolbarItem"; toolTip = "Move (F5)"; ObjectID = "mDy-EG-ccW"; */
+"mDy-EG-ccW.toolTip" = "Move (F5)";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "Services";
@@ -199,8 +199,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Annotate"; ObjectID = "P19-sN-vdr"; */
 "P19-sN-vdr.paletteLabel" = "Annotate";
 
-/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (⌃F2)"; ObjectID = "P19-sN-vdr"; */
-"P19-sN-vdr.toolTip" = "Magic Cursor (⌃F2)";
+/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (F2)"; ObjectID = "P19-sN-vdr"; */
+"P19-sN-vdr.toolTip" = "Magic Cursor (F2)";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "Delete";
@@ -229,8 +229,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Magnify"; ObjectID = "TA2-eZ-zBd"; */
 "TA2-eZ-zBd.paletteLabel" = "Magnify";
 
-/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (⌃F3)"; ObjectID = "TA2-eZ-zBd"; */
-"TA2-eZ-zBd.toolTip" = "Magnifying Glass (⌃F3)";
+/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F3)"; ObjectID = "TA2-eZ-zBd"; */
+"TA2-eZ-zBd.toolTip" = "Magnifying Glass (F3)";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Window";
@@ -259,8 +259,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Open"; ObjectID = "w6N-7T-9Nd"; */
 "w6N-7T-9Nd.paletteLabel" = "Open";
 
-/* Class = "NSToolbarItem"; toolTip = "Open (⌃F1)"; ObjectID = "w6N-7T-9Nd"; */
-"w6N-7T-9Nd.toolTip" = "Open (⌃F1)";
+/* Class = "NSToolbarItem"; toolTip = "Open (F1)"; ObjectID = "w6N-7T-9Nd"; */
+"w6N-7T-9Nd.toolTip" = "Open (F1)";
 
 /* Class = "NSMenuItem"; title = "Enable Network Discovery"; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.title" = "Enable Network Discovery";

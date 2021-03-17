@@ -118,14 +118,14 @@ There's no need to explain.
 
 
 ## Toolbar Key Equivalents
-- `⌃F1` Open...
-- `⌃F2` *Magic Cursor*
-- `⌃F3` *Magnifying Glass*
-- `⌃F4` *Minifying Glass*
-- `⌃F5` *Selection Arrow*
-- `⌃F6` *Move*
-- `⌃F7` Fit Window
-- `⌃F8` Fill Window
+- `F1` Open...
+- `F2` *Magic Cursor*
+- `F3` *Magnifying Glass*
+- `F4` *Minifying Glass*
+- `F5` *Selection Arrow*
+- `F6` *Move*
+- `F7` Fit Window
+- `F8` Fill Window
 
 
 ## Customizable Templates
