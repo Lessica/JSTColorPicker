@@ -20,6 +20,10 @@
     _isNetworkDiscoveryEnabled = enabled;
 }
 
+- (void)discoverDevices {
+    [self didReceiveiDeviceEvent:self.deviceService];
+}
+
 - (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.deviceService.activeDevices.count];
     for (JSTConnectedDevice *connectedDevice in self.deviceService.activeDevices.allValues) {

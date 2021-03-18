@@ -456,10 +456,11 @@ extension AppDelegate {
             debugPrint(error)
         }) as? JSTScreenshotHelperProtocol {
             proxy.setNetworkDiscoveryEnabled(enabled)
+            proxy.discoverDevices()
         }
     }
     
-    private func applicationXPCResetUI() {
+    private func applicationXPCResetUI(with additionalItems: [NSMenuItem] = []) {
         #if SANDBOXED
         if !applicationHasScreenshotHelper() {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
@@ -476,7 +477,7 @@ extension AppDelegate {
         emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
         emptyItem.isEnabled = false
         emptyItem.state = .off
-        devicesSubMenu.items = [ emptyItem ]
+        devicesSubMenu.items = [ emptyItem ] + additionalItems
     }
     
     private func updateFileMenuItems() {
@@ -512,6 +513,13 @@ extension AppDelegate {
         }
         reloadDevicesSubMenuItems()
     }
+
+    @objc private func notifyXPCDiscoverDevices(_ sender: Any?) {
+        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol else { return }
+        proxy.discoverDevices()
+    }
     
     private func reloadDevicesSubMenuItems() {
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
@@ -520,17 +528,13 @@ extension AppDelegate {
         
         let selectedDeviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(self.selectedDeviceUDID ?? "")"
         DispatchQueue.global(qos: .default).async { [weak self] in
-            
             proxy.discoveredDevices { (data, error) in
-                
                 guard let data = data else { return }
                 guard let devices = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [[String: String]] else { return }
                 
                 DispatchQueue.main.async { [weak self] in
-                    
                     var items: [NSMenuItem] = []
                     for device in devices {
-                        
                         guard let udid = device["udid"], let name = device["name"] else { continue }
                         // if self?.selectedDeviceUDID == nil { self?.selectedDeviceUDID = udid }
                         
@@ -540,22 +544,23 @@ extension AppDelegate {
                         item.isEnabled = true
                         item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
                         items.append(item)
-                        
                     }
+
+                    let separatorItem = NSMenuItem.separator()
+                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems"), action: #selector(self?.notifyXPCDiscoverDevices(_:)), keyEquivalent: "I")
+                    manuallyDiscoverItem.keyEquivalentModifierMask = [.shift, .command]
                     
                     if items.count > 0 {
+                        items += [separatorItem, manuallyDiscoverItem]
                         self?.devicesSubMenu.items = items
                     }
                     else {
-                        self?.applicationXPCResetUI()
+                        self?.applicationXPCResetUI(with: [separatorItem, manuallyDiscoverItem])
                     }
                     
                     self?.devicesSubMenu.update()
-                    
                 }
-                
             }
-            
         }
     }
     

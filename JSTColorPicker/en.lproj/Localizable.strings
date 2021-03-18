@@ -55,6 +55,9 @@
 /* Information Panel */
 "Dimensions" = "Dimensions";
 
+/* reloadDevicesSubMenuItems */
+"Discover Devices" = "Discover Devices";
+
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "Do you want to import following %d tags from current document?";
 

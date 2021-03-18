@@ -55,6 +55,9 @@
 /* Information Panel */
 "Dimensions" = "尺寸";
 
+/* reloadDevicesSubMenuItems */
+"Discover Devices" = "立即寻找设备";
+
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗?";
 

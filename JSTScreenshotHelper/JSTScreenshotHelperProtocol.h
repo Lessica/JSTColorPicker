@@ -25,6 +25,7 @@ static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScre
 @protocol JSTScreenshotHelperProtocol
 
 - (void)setNetworkDiscoveryEnabled:(BOOL)enabled;
+- (void)discoverDevices;
 - (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
 - (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
 - (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply;
