@@ -16,9 +16,9 @@ class SceneGridView: NSView {
         
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
-        if let compositingFilter = CIFilter(name: "CIOverlayBlendMode") {
-            layer?.compositingFilter = compositingFilter
-        }
+
+        layerUsesCoreImageFilters = true
+        compositingFilter = CIFilter(name: "CIOverlayBlendMode")
         
         enableGPUAcceleration = UserDefaults.standard[.enableGPUAcceleration]
         if enableGPUAcceleration { layer?.addSublayer(backingLayer) }
@@ -151,9 +151,10 @@ class SceneGridView: NSView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.shouldRasterize = true
         shapeLayer.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
-        shapeLayer.allowsEdgeAntialiasing = true
+        shapeLayer.allowsEdgeAntialiasing = false
+        shapeLayer.contentsFormat = .RGBA8Uint
         shapeLayer.minificationFilter = .linear
-        shapeLayer.magnificationFilter = .trilinear
+        shapeLayer.magnificationFilter = .linear
         shapeLayer.lineWidth = SceneGridView.defaultGridLineWidth
         shapeLayer.strokeColor = SceneGridView.defaultGridLineColor
         shapeLayer.fillColor = nil

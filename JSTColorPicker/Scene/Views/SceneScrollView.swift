@@ -104,6 +104,7 @@ class SceneScrollView: NSScrollView {
         horizontalScrollElasticity = .automatic
         scrollerStyle = .overlay
         scrollerKnobStyle = .default
+        autohidesScrollers = false
         borderType = .noBorder
         usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
         

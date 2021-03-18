@@ -59,7 +59,6 @@ class TagListOverlayView: NSView, DragEndpoint {
         let locInOverlay = convert(event.locationInWindow, from: nil)
         let rowIndexes = dragDelegate.selectedRowIndexes(at: locInOverlay, shouldHighlight: true)
         guard rowIndexes.count > 0 else {
-            //super.rightMouseDown(with: event)
             return
         }
         
@@ -71,11 +70,17 @@ class TagListOverlayView: NSView, DragEndpoint {
             .visibleRects(of: rowIndexes)
         
         let selectedTagNames = rowIndexes.compactMap({ dataSource.arrangedTags[$0].name })
-        
+
         let controller = DragConnectionController(type: TagListController.attachPasteboardType)
         controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)
         
         setNeedsDisplay(bounds)
+    }
+
+    override func scrollWheel(with event: NSEvent) {
+        if state == .idle {
+            super.scrollWheel(with: event)
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {

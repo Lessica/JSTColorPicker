@@ -58,6 +58,7 @@ class ContentController: NSViewController {
     private var documentImage       : PixelImage?      { screenshot?.image   }
     private var documentExport      : ExportManager?   { screenshot?.export  }
     private var documentState       : Screenshot.State { screenshot?.state ?? .notLoaded }
+    override var undoManager        : UndoManager?     { screenshot?.undoManager }
     
     private var nextID: Int {
         if let lastID = documentContent?.items.last?.id {
