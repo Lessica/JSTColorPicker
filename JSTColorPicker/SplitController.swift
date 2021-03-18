@@ -37,9 +37,9 @@ class SplitController: NSSplitViewController {
         }
     }
     
-    public weak var trackingObject       : SceneTracking!
-    internal weak var screenshot         : Screenshot?
-    
+    public weak var trackingObject              : SceneTracking!
+    @objc dynamic internal weak var screenshot  : Screenshot?
+
     private var documentObservations     : [NSKeyValueObservation]?
     private var lastStoredMagnification  : CGFloat?
     
@@ -190,34 +190,24 @@ extension SplitController: ScreenshotLoader {
         if let fileURL = screenshot.fileURL {
             self.updateWindowTitle(fileURL)
         }
+
         documentObservations = [
-            screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
+            observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
                 if let url = change.newValue as? URL {
-                    if let restrictedMagnification = self.lastStoredMagnification {
-                        self.updateWindowTitle(url, magnification: restrictedMagnification)
-                    } else {
-                        self.updateWindowTitle(url)
-                    }
+                    self.updateWindowTitle(url)
                 }
             }
         ]
         
     }
     
-    func updateWindowTitle(_ url: URL, magnification: CGFloat? = 1.0) {
+    func updateWindowTitle(_ url: URL, magnification: CGFloat? = nil) {
+        let magnification = magnification ?? lastStoredMagnification ?? 1.0
         if #available(macOS 11.0, *) {
             windowTitle = url.lastPathComponent
-            if let magnification = magnification {
-                windowSubtitle = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-            } else {
-                windowSubtitle = ""
-            }
+            windowSubtitle = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         } else {
-            if let magnification = magnification {
-                windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-            } else {
-                windowTitle = url.lastPathComponent
-            }
+            windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
     }
     

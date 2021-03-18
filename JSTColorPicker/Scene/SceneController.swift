@@ -1037,15 +1037,15 @@ extension SceneController: AnnotatorSource {
     private func annotatorLoadRulerMarkers(_ annotator: Annotator) {
         if let annotator = annotator as? ColorAnnotator {
             let coordinate = annotator.pixelColor.coordinate
-            
-            let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage(with: annotator.pixelColor.toNSColor()), imageOrigin: RulerMarker.horizontalOrigin)
+
+            let markerCoordinateH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(coordinate.x), image: RulerMarker.horizontalImage(), imageOrigin: RulerMarker.horizontalOrigin)
             markerCoordinateH.type = .horizontal
             markerCoordinateH.position = .origin
             markerCoordinateH.coordinate = coordinate
             markerCoordinateH.annotator = annotator
             annotator.rulerMarkers.append(markerCoordinateH)
             
-            let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage(with: annotator.pixelColor.toNSColor()), imageOrigin: RulerMarker.verticalOrigin)
+            let markerCoordinateV = RulerMarker(rulerView: verticalRulerView, markerLocation: CGFloat(coordinate.y), image: RulerMarker.verticalImage(), imageOrigin: RulerMarker.verticalOrigin)
             markerCoordinateV.type = .vertical
             markerCoordinateV.position = .origin
             markerCoordinateV.coordinate = coordinate
@@ -1056,7 +1056,7 @@ extension SceneController: AnnotatorSource {
             let rect = annotator.pixelArea.rect
             let origin = rect.origin
             let opposite = rect.opposite
-            
+
             let markerOriginH = RulerMarker(rulerView: horizontalRulerView, markerLocation: CGFloat(origin.x), image: RulerMarker.horizontalImage(), imageOrigin: RulerMarker.horizontalOrigin)
             markerOriginH.type = .horizontal
             markerOriginH.position = .origin
@@ -1127,8 +1127,8 @@ extension SceneController: AnnotatorSource {
     private func addAnnotator(for color: PixelColor, with overlayAnimationState: OverlayAnimationState? = nil) -> ColorAnnotator {
         let copiedColor = color.copy() as! PixelColor
         let annotator = ColorAnnotator(copiedColor)
-        annotatorColorize(annotator)
         annotatorLoadRulerMarkers(annotator)
+        annotatorColorize(annotator)
         if let state = overlayAnimationState {
             annotator.overlay.animationState = state
         }
@@ -1142,8 +1142,8 @@ extension SceneController: AnnotatorSource {
     private func addAnnotator(for area: PixelArea, with overlayAnimationState: OverlayAnimationState? = nil) -> AreaAnnotator {
         let copiedArea = area.copy() as! PixelArea
         let annotator = AreaAnnotator(copiedArea)
-        annotatorColorize(annotator)
         annotatorLoadRulerMarkers(annotator)
+        annotatorColorize(annotator)
         if let state = overlayAnimationState {
             annotator.overlay.animationState = state
         }
@@ -1486,12 +1486,26 @@ extension SceneController {
         {
             annotator.overlay.lineDashColorsHighlighted  = nil
             annotator.overlay.circleFillColorHighlighted = nil
+            annotator.rulerMarkers.forEach { (marker) in
+                if marker.type == .horizontal {
+                    marker.image = RulerMarker.horizontalImage()
+                } else if marker.type == .vertical {
+                    marker.image = RulerMarker.verticalImage()
+                }
+            }
             return
         }
         annotator.overlay
             .lineDashColorsHighlighted  = [NSColor.white.cgColor, tag.color.cgColor]
         annotator.overlay
             .circleFillColorHighlighted = tag.color.cgColor
+        annotator.rulerMarkers.forEach { (marker) in
+            if marker.type == .horizontal {
+                marker.image = RulerMarker.horizontalImage(fillColor: tag.color, strokeColor: nil)
+            } else if marker.type == .vertical {
+                marker.image = RulerMarker.verticalImage(fillColor: tag.color, strokeColor: nil)
+            }
+        }
     }
     
     private func annotatorColorizeAll() {

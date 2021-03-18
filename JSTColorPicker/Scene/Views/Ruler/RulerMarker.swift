@@ -25,7 +25,7 @@ class RulerMarker: NSRulerMarker {
     static let horizontalOrigin = CGPoint(x: RulerMarker.markerSize.width / 2.0, y: 0.0)
     static let verticalOrigin   = CGPoint(x: RulerMarker.markerSize.width, y: RulerMarker.markerSize.height / 2.0)
     
-    static func horizontalImage(with fillColor: NSColor? = nil) -> NSImage {
+    static func horizontalImage(fillColor: NSColor? = nil, strokeColor: NSColor? = NSColor.labelColor) -> NSImage {
         let size = RulerMarker.markerSize
         return NSImage(size: size, flipped: false) { (rect) -> Bool in
             let fixedRect = rect.insetBy(dx: 0.5, dy: 0.5)
@@ -38,12 +38,15 @@ class RulerMarker: NSRulerMarker {
                 fillColor.setFill()
                 path.fill()
             }
-            NSColor.labelColor.setStroke()
-            path.stroke()
+            if let strokeColor = strokeColor {
+                strokeColor.setStroke()
+                path.stroke()
+            }
             return true
         }
     }
-    static func verticalImage(with fillColor: NSColor? = nil) -> NSImage {
+
+    static func verticalImage(fillColor: NSColor? = nil, strokeColor: NSColor? = nil) -> NSImage {
         let size = RulerMarker.markerSize
         return NSImage(size: size, flipped: false) { (rect) -> Bool in
             let fixedRect = rect.insetBy(dx: 0.5, dy: 0.5)
@@ -56,8 +59,10 @@ class RulerMarker: NSRulerMarker {
                 fillColor.setFill()
                 path.fill()
             }
-            NSColor.labelColor.setStroke()
-            path.stroke()
+            if let strokeColor = strokeColor {
+                strokeColor.setStroke()
+                path.stroke()
+            }
             return true
         }
     }

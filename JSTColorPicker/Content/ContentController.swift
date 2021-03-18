@@ -354,8 +354,8 @@ extension ContentController {
     private func internalUpdateContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
-        let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToRemove, isRegistered: true) })
+        let itemsToUpdate = content.items.filter({ itemIDs.contains($0.id) })
+        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToUpdate, isRegistered: true) })
         if !registered {
             undoManager?.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
         }
@@ -596,9 +596,9 @@ extension ContentController: ContentDelegate {
             let image = documentImage    else { throw Content.Error.notLoaded }
         guard documentState.isWriteable  else { throw Content.Error.notWritable   }
         
-        guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw Content.Error.itemDoesNotExist(item: item) }
-        if let conflictItem = content.lazyAreas.first(where: { $0.rect == rect })                    { throw Content.Error.itemConflict(item1: rect, item2: conflictItem) }
-        guard let replItem = image.area(at: rect)                                               else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
+        guard content.items.first(where: { $0.id == item.id }) != nil             else { throw Content.Error.itemDoesNotExist(item: item) }
+        if let conflictItem = content.lazyAreas.first(where: { $0.rect == rect })      { throw Content.Error.itemConflict(item1: rect, item2: conflictItem) }
+        guard let replItem = image.area(at: rect)                                 else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
         
         replItem.copyFrom(item)
         
@@ -616,7 +616,7 @@ extension ContentController: ContentDelegate {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWriteable      else { throw Content.Error.notWritable   }
         
-        guard content.items.first(where: { $0.id == item.id }) != nil                 else { throw Content.Error.itemDoesNotExist(item: item) }
+        guard content.items.first(where: { $0.id == item.id }) != nil              else { throw Content.Error.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
         let replItemIndexes = internalUpdateContentItems([replItem])

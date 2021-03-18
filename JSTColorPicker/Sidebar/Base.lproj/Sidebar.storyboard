@@ -27,10 +27,10 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-iH-KBU">
-                                                            <rect key="frame" x="8" y="16" width="274" height="211"/>
+                                                            <rect key="frame" x="8" y="15" width="274" height="212"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
-                                                                    <rect key="frame" x="-2" y="127" width="154" height="84"/>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
+                                                                    <rect key="frame" x="-2" y="128" width="154" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1g8-wL-HKB">
                                                                         <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Open or drop an image here.
@@ -43,14 +43,14 @@
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ER-JY-eJ2">
-                                                                    <rect key="frame" x="0.0" y="96" width="274" height="19"/>
+                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="5ER-JY-eJ2">
+                                                                    <rect key="frame" x="0.0" y="96" width="274" height="20"/>
                                                                     <subviews>
-                                                                        <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFl-IO-QPP">
-                                                                            <rect key="frame" x="63" y="-7" width="149" height="30"/>
-                                                                            <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
+                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pFl-IO-QPP">
+                                                                            <rect key="frame" x="50" y="-7" width="174" height="32"/>
+                                                                            <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                                <font key="font" metaFont="system"/>
                                                                                 <string key="keyEquivalent">D</string>
                                                                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                             </buttonCell>
@@ -65,7 +65,7 @@
                                                                         <constraint firstItem="pFl-IO-QPP" firstAttribute="centerX" secondItem="5ER-JY-eJ2" secondAttribute="centerX" id="zji-Zo-i1b"/>
                                                                     </constraints>
                                                                 </customView>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-Ek-NZa">
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-Ek-NZa">
                                                                     <rect key="frame" x="-2" y="0.0" width="154" height="84"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1sd-w8-by3">
                                                                         <font key="font" metaFont="message" size="11"/>

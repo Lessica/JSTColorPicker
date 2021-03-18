@@ -57,14 +57,14 @@ class Overlay: NSView {
     public var animationBeginPhase                      : CGFloat { CGFloat(animationState.lineDashCount % 9) }
     
     private static let defaultBorderWidth               :  CGFloat  = 1.67
-    private static let defaultLineDashLengths           : [CGFloat] = [5.0, 4.0]  // (performance) only two items allowed
+    private static let defaultLineDashLengths           : [CGFloat] = [5.0, 4.0]  // (performance) only two items are allowed
     
     public var lineDashColorsNormal                     : [CGColor]?
     public var lineDashColorsHighlighted                : [CGColor]?
     private var internalLineDashColorsNormal            : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
     private var internalLineDashColorsHighlighted       : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
-    private static let defaultLineDashColorsNormal      : [CGColor] = [NSColor.white.cgColor, NSColor.black.cgColor]
-    private static let defaultLineDashColorsHighlighted : [CGColor] = [NSColor.white.cgColor, NSColor.systemBlue.cgColor]
+    private static var defaultLineDashColorsNormal      : [CGColor] { [NSColor.white.cgColor, NSColor.black.cgColor] }
+    private static var defaultLineDashColorsHighlighted : [CGColor] { [NSColor.white.cgColor, NSColor.controlAccentColor.cgColor] }
     
     public var capturedImage: NSImage? {
         guard let rep = bitmapImageRepForCachingDisplay(in: bounds) else { return nil }

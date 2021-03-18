@@ -96,9 +96,9 @@ class EditableOverlay: Overlay {
     private var internalCircleFillColorNormal            : CGColor { circleFillColorNormal      ?? EditableOverlay.defaultCircleFillColorNormal      }
     private var internalCircleFillColorHighlighted       : CGColor { circleFillColorHighlighted ?? EditableOverlay.defaultCircleFillColorHighlighted }
     private var internalCircleStrokeColor                : CGColor { circleStrokeColor          ?? EditableOverlay.defaultCircleStrokeColor          }
-    private static let defaultCircleFillColorNormal      : CGColor = NSColor.systemGray.cgColor
-    private static let defaultCircleFillColorHighlighted : CGColor = NSColor.systemBlue.cgColor
-    private static let defaultCircleStrokeColor          : CGColor = CGColor.white
+    private static var defaultCircleFillColorNormal      : CGColor { NSColor.systemGray.cgColor }
+    private static var defaultCircleFillColorHighlighted : CGColor { NSColor.controlAccentColor.cgColor }
+    private static var defaultCircleStrokeColor          : CGColor { CGColor.white }
     
     private static let defaultOuterInsets = NSEdgeInsets(
         top:    -defaultCircleRadius - defaultCircleBorderWidth,

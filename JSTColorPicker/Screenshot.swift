@@ -94,7 +94,7 @@ class Screenshot: NSDocument {
         guard let EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
         guard let archivedContentBase64EncodedString = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? String else { return }
         if let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
-            guard let archivedContent = NSKeyedUnarchiver.unarchiveObject(with: archivedContentData) as? Content else {
+            guard let archivedContent = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archivedContentData) as? Content else {
                 throw Error.cannotDeserializeContent
             }
             self.content = archivedContent
@@ -118,7 +118,7 @@ class Screenshot: NSDocument {
             throw Error.invalidContent
         }
         
-        let archivedData = NSKeyedArchiver.archivedData(withRootObject: content)
+        let archivedData = try NSKeyedArchiver.archivedData(withRootObject: content, requiringSecureCoding: true)
         var metadataAsMutable = metadata
         var EXIFDictionary = (metadataAsMutable[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any]
         if !(EXIFDictionary != nil) {
@@ -153,7 +153,7 @@ class Screenshot: NSDocument {
             .forEach({ try $0.load(self) })
     }
     
-    override var fileURL: URL? {
+    @objc dynamic override var fileURL: URL? {
         willSet {
             guard let image = image, let url = newValue else { return }
             image.rename(to: url)

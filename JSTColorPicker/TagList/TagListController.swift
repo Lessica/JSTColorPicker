@@ -735,8 +735,7 @@ extension TagListController: TagListPreviewDelegate {
 
     private func scrollToFirstCheckedRow() {
         if let row = arrangedTags.firstIndex(where: { previewContext?.keys.contains($0.name) ?? false }) {
-            let rowRect = tableView.rect(ofRow: row)
-            tableView.scroll(rowRect.origin)
+            tableView.scrollRowToVisible(row)
         }
     }
     

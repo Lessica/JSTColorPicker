@@ -53,26 +53,42 @@ class Content: NSObject, Codable {
         
     }
     
-    public var items       : [ContentItem] = []  // ordered by id asc
+    public var items       : [ContentItem]
     public var lazyColors  : [PixelColor]    { items.lazy.compactMap({ $0 as? PixelColor }) }
     public var lazyAreas   : [PixelArea]     { items.lazy.compactMap({ $0 as? PixelArea })  }
     
     override init() {
+        items = [ContentItem]()
         super.init()
-        // default empty init
     }
     
     required init?(coder: NSCoder) {
         guard let items = coder.decodeObject(forKey: "items") as? [ContentItem] else { return nil }
         self.items = items
     }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        items = try container.decode([ContentItem].self, forKey: .items)
+    }
     
 }
 
-extension Content: NSCoding {
+extension Content: NSSecureCoding {
+
+    class var supportsSecureCoding: Bool { true }
+
+    enum CodingKeys: String, CodingKey {
+        case items
+    }
     
     func encode(with coder: NSCoder) {
         coder.encode(items, forKey: "items")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(items, forKey: .items)
     }
     
 }
