@@ -199,6 +199,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+
+
+    // MARK: - Sidebar Actions
+
+    @IBOutlet weak var paneMenu: NSMenu!
+
+    @IBAction func resetPanes(_ sender: NSMenuItem) {
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewInformation)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
+        UserDefaults.standard.removeObject(forKey: .togglePaneViewTagList)
+        UserDefaults.standard[.resetPaneView] = true
+    }
+
+    @IBAction func togglePane(_ sender: NSMenuItem) {
+        var defaultKey: UserDefaults.Key?
+        if sender.identifier == .togglePaneViewInformation {
+            defaultKey = .togglePaneViewInformation
+        }
+        else if sender.identifier == .togglePaneViewInspector {
+            defaultKey = .togglePaneViewInspector
+        }
+        else if sender.identifier == .togglePaneViewPreview {
+            defaultKey = .togglePaneViewPreview
+        }
+        else if sender.identifier == .togglePaneViewTagList {
+            defaultKey = .togglePaneViewTagList
+        }
+        if let key = defaultKey {
+            let val: Bool = UserDefaults.standard[key]
+            UserDefaults.standard[key] = !val
+            sender.state = !val ? .on : .off
+        }
+    }
     
     
     // MARK: - Color Grid Actions
@@ -410,8 +444,9 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             else {
                 return false
             }
-        }
-        else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
+        } else if menuItem.action == #selector(togglePane(_:)) || menuItem.action == #selector(resetPanes(_:)) {
+            return true
+        } else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
             #if SANDBOXED
             return applicationHasScreenshotHelper()
             #else
@@ -424,6 +459,9 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == self.fileMenu {
             updateFileMenuItems()
+        }
+        else if menu == self.paneMenu {
+            updatePaneMenuItems()
         }
         else if menu == self.devicesMenu {
             updateDevicesMenuItems()
@@ -494,6 +532,23 @@ extension AppDelegate {
         else {
             compareMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")
             compareMenuItem.isEnabled = false
+        }
+    }
+
+    private func updatePaneMenuItems() {
+        paneMenu.items.forEach { (menuItem) in
+            if menuItem.identifier == .togglePaneViewInformation {
+                menuItem.state = UserDefaults.standard[.togglePaneViewInformation] ? .on : .off
+            }
+            else if menuItem.identifier == .togglePaneViewInspector {
+                menuItem.state = UserDefaults.standard[.togglePaneViewInspector] ? .on : .off
+            }
+            else if menuItem.identifier == .togglePaneViewPreview {
+                menuItem.state = UserDefaults.standard[.togglePaneViewPreview] ? .on : .off
+            }
+            else if menuItem.identifier == .togglePaneViewTagList {
+                menuItem.state = UserDefaults.standard[.togglePaneViewTagList] ? .on : .off
+            }
         }
     }
     

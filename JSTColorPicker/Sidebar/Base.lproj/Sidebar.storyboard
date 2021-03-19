@@ -534,7 +534,7 @@
                                 <action selector="togglePane:" target="IfO-80-1iw" id="1TD-fJ-iqr"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Color Inspector" keyEquivalent="2" identifier="toggle-inspector" id="xfl-dO-INl">
+                        <menuItem title="Color Inspector" state="on" keyEquivalent="2" identifier="toggle-inspector" id="xfl-dO-INl">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="BYA-N8-uq1"/>
@@ -546,7 +546,7 @@
                                 <action selector="togglePane:" target="IfO-80-1iw" id="aIT-dF-gXO"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Tag List" state="on" keyEquivalent="4" identifier="toggle-taglist" id="F5A-Fc-CMr">
+                        <menuItem title="Tag List" keyEquivalent="4" identifier="toggle-taglist" id="F5A-Fc-CMr">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="cgL-GN-nS6"/>

@@ -267,6 +267,47 @@ CA
                                                 <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Sidebar Panes" id="XoB-WB-yEe">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="W5Q-zL-aIc">
+                                                <items>
+                                                    <menuItem title="Information" state="on" keyEquivalent="1" identifier="toggle-info" id="sfq-FQ-6TF">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="Jvr-AM-jOQ"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Color Inspector" state="on" keyEquivalent="2" identifier="toggle-inspector" id="mhD-IK-J6V">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="SNb-eP-6ci"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Image Preview" state="on" keyEquivalent="3" identifier="toggle-preview" id="YU0-Xz-P6g">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="OhG-mZ-Jyy"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Tag List" keyEquivalent="4" identifier="toggle-taglist" id="Cj1-n3-eHr">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="2T7-DV-XEu"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="G1A-2y-VsK"/>
+                                                    <menuItem title="Reset Panes..." keyEquivalent="0" id="CVA-d9-Lwm">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="resetPanes:" target="Voe-Tx-rLC" id="V95-TC-S25"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="wWA-Kh-ib7"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
@@ -376,6 +417,7 @@ CA
                         <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
+                        <outlet property="paneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
                         <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
                     </connections>
                 </customObject>

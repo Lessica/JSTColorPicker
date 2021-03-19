@@ -85,6 +85,15 @@
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.title" = "导出为...";
 
+/* Class = "NSMenuItem"; title = "Tag List"; ObjectID = "Cj1-n3-eHr"; */
+"Cj1-n3-eHr.title" = "标签列表";
+
+/* Class = "NSWindow"; title = "Placeholder"; ObjectID = "CkN-NN-Qj5"; */
+"CkN-NN-Qj5.title" = "Placeholder";
+
+/* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "CVA-d9-Lwm"; */
+"CVA-d9-Lwm.title" = "重置面板...";
+
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "比较已打开的文档";
 
@@ -175,6 +184,9 @@
 /* Class = "NSToolbarItem"; toolTip = "Move (F5)"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.toolTip" = "移动 (F5)";
 
+/* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
+"mhD-IK-J6V.title" = "颜色指示器";
+
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "服务";
 
@@ -219,6 +231,9 @@
 
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "跳到所选内容";
+
+/* Class = "NSMenuItem"; title = "Information"; ObjectID = "sfq-FQ-6TF"; */
+"sfq-FQ-6TF.title" = "信息";
 
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "snW-S8-Cw5"; */
 "snW-S8-Cw5.title" = "显示工具栏";
@@ -271,11 +286,14 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";
 
+/* Class = "NSMenuItem"; title = "Sidebar Panes"; ObjectID = "XoB-WB-yEe"; */
+"XoB-WB-yEe.title" = "边栏面板";
+
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "查找...";
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "查找与替换...";
 
-/* Class = "NSWindow"; title = "Placeholder"; ObjectID = "CkN-NN-Qj5"; */
-"CkN-NN-Qj5.title" = "";
+/* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "YU0-Xz-P6g"; */
+"YU0-Xz-P6g.title" = "图像预览";

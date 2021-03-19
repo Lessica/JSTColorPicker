@@ -308,37 +308,11 @@ by \(template.author ?? "Unknown")
     }
     
     @IBAction func resetPanes(_ sender: NSMenuItem) {
-        resetDividers()
-        
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewInformation)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewTagList)
-        
-        splitView.displayIfNeeded()
+        (NSApp.delegate as? AppDelegate)?.resetPanes(sender)
     }
     
     @IBAction func togglePane(_ sender: NSMenuItem) {
-        var defaultKey: UserDefaults.Key?
-        if sender.identifier == .togglePaneViewInformation {
-            defaultKey = .togglePaneViewInformation
-        }
-        else if sender.identifier == .togglePaneViewInspector {
-            defaultKey = .togglePaneViewInspector
-        }
-        else if sender.identifier == .togglePaneViewPreview {
-            defaultKey = .togglePaneViewPreview
-        }
-        else if sender.identifier == .togglePaneViewTagList {
-            defaultKey = .togglePaneViewTagList
-        }
-        if let key = defaultKey {
-            let val: Bool = UserDefaults.standard[key]
-            UserDefaults.standard[key] = !val
-            sender.state = !val ? .on : .off
-            
-            splitView.displayIfNeeded()
-        }
+        (NSApp.delegate as? AppDelegate)?.togglePane(sender)
     }
     
     private func updatePanesIfNeeded() {
@@ -369,16 +343,21 @@ by \(template.author ?? "Unknown")
             paneChanged = true
         }
 
-        let lastValue = !UserDefaults.standard[.togglePaneViewTagList]
-        hiddenValue = lastValue
+        hiddenValue = !UserDefaults.standard[.togglePaneViewTagList]
         if paneViewTagList.isHidden != hiddenValue {
             paneViewTagList.isHidden = hiddenValue
             paneChanged = true
         }
 
+        let resetValue: Bool = UserDefaults.standard[.resetPaneView]
+        if resetValue {
+            UserDefaults.standard[.resetPaneView] = false
+            resetDividers()
+        }
+
         if paneChanged {
-            placeholderConstraint.priority = lastValue ? .defaultLow : .defaultHigh
-            
+            placeholderConstraint.priority = hiddenValue ? .defaultLow : .defaultHigh
+
             splitView.adjustSubviews()
             splitView.displayIfNeeded()
         }
@@ -782,10 +761,7 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
-        if menuItem.action == #selector(togglePane(_:)) {
-            return true
-        }
-        else if menuItem.action == #selector(resetPanes(_:)) {
+        if menuItem.action == #selector(togglePane(_:)) || menuItem.action == #selector(resetPanes(_:)) {
             return true
         }
         guard screenshot != nil else { return false }
