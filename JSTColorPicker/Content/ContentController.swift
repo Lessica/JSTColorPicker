@@ -868,8 +868,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         if itemsToRemove.count > 1 {
             alert.informativeText = String(format: NSLocalizedString("Do you want to remove selected %d items?", comment: "Delete Confirm"), itemsToRemove.count)
         }
-        else {
-            alert.informativeText = String(format: NSLocalizedString("Do you want to remove selected item %@?", comment: "Delete Confirm"), itemsToRemove.first?.description ?? "(null)")
+        else if let itemToRemove = itemsToRemove.first {
+            alert.informativeText = String(format: NSLocalizedString("Do you want to remove selected item #%ld: %@?", comment: "Delete Confirm"), itemToRemove.id, itemToRemove.description)
         }
         alert.alertStyle = .warning
         alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "Delete Confirm"))

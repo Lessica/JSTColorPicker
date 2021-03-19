@@ -78,7 +78,7 @@ class SceneOverlayView: NSView {
         } else {
             return overlays
                 .filter({ $0.frame.contains(point) })
-                .sorted(by: { $0.frame.size.width * $0.frame.size.height < $1.frame.size.width * $1.frame.size.height })
+                .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
         }
     }
     

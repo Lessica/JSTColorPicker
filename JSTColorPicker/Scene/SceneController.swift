@@ -310,20 +310,18 @@ class SceneController: NSViewController {
             NSMenu.popUpContextMenu(selectionMenu, with: event, for: sceneView)
         } else {
             if change {
-                let annotatorOverlays = sceneOverlayView.overlays(at: locInMask)
-                let selectedOverlays = annotatorOverlays.filter({ $0.isSelected })
-                if annotatorOverlays.count > 1 && selectedOverlays.count == 1, let selectedOverlay = selectedOverlays.first {
+                let sortedOverlays = sceneOverlayView.overlays(at: locInMask, bySizeReordering: true)
+                let selectedOverlays = sortedOverlays.filter({ $0.isSelected })
+                if sortedOverlays.count > 1 && selectedOverlays.count == 1, let selectedOverlay = selectedOverlays.first {
                     // change single selection
                     let zIndexBySize: Bool = UserDefaults.standard[.zIndexBySize]
                     if zIndexBySize {
-                        let sortedOverlays = annotatorOverlays
-                            .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
                         if let selectedOverlayIndex = sortedOverlays.firstIndex(of: selectedOverlay) {
                             var nextOverlayIndex: Int
-                            if selectedOverlayIndex == 0 {
-                                nextOverlayIndex = sortedOverlays.count - 1
+                            if selectedOverlayIndex < sortedOverlays.count - 1 {
+                                nextOverlayIndex = selectedOverlayIndex + 1
                             } else {
-                                nextOverlayIndex = selectedOverlayIndex - 1
+                                nextOverlayIndex = 0
                             }
                             let overlayToFocus = sortedOverlays[nextOverlayIndex]
                             guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
@@ -332,14 +330,15 @@ class SceneController: NSViewController {
                             }
                         }
                     } else {
-                        if let selectedAnnotatorIndex = annotators.lastIndex(where: { $0.overlay === selectedOverlay }) {
+                        let filteredAnnotators = annotators.filter({ sortedOverlays.contains($0.overlay) })
+                        if let selectedAnnotatorIndex = filteredAnnotators.lastIndex(where: { $0.overlay === selectedOverlay }) {
                             var nextAnnotatorIndex: Int
-                            if selectedAnnotatorIndex < annotators.count - 1 {
+                            if selectedAnnotatorIndex < filteredAnnotators.count - 1 {
                                 nextAnnotatorIndex = selectedAnnotatorIndex + 1
                             } else {
                                 nextAnnotatorIndex = 0
                             }
-                            let annotatorToFocus = annotators[nextAnnotatorIndex]
+                            let annotatorToFocus = filteredAnnotators[nextAnnotatorIndex]
                             if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
                                 return true
                             }
@@ -472,38 +471,63 @@ class SceneController: NSViewController {
     
     private func shortcutAnnotatorSwitching(at locInWrapper: CGPoint, byForwardingSelection forward: Bool) -> Bool {
         let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
-        let annotatorOverlays = sceneOverlayView.overlays(at: locInMask, bySizeReordering: true)
-        guard annotatorOverlays.count > 1 else { return false }
-        
-        var selectedOverlayIndex: Int?
-        for (overlayIndex, annotatorOverlay) in annotatorOverlays.enumerated() {
-            if annotatorOverlay.isSelected {
-                if selectedOverlayIndex == nil {
-                    selectedOverlayIndex = overlayIndex
-                } else {
-                    // only one selected overlay accepted
-                    return false
+        let sortedOverlays = sceneOverlayView.overlays(at: locInMask, bySizeReordering: true)
+        guard sortedOverlays.count > 1 else { return false }
+
+        guard let selectedOverlayIndex = ({ () -> Int? in
+            var idx: Int?
+            for (overlayIndex, annotatorOverlay) in sortedOverlays.enumerated() {
+                if annotatorOverlay.isSelected {
+                    if idx == nil {
+                        idx = overlayIndex
+                    } else {
+                        // only one selected overlay accepted
+                        return nil
+                    }
                 }
             }
-        }
-        
-        guard let firstIndex = selectedOverlayIndex else         { return false }
-        
-        var nextIndex: Int!
-        if firstIndex == 0 && forward {
-            nextIndex = annotatorOverlays.count - 1
-        } else if firstIndex == annotatorOverlays.count - 1 && !forward {
-            nextIndex = 0
+            return idx
+        })() else { return false }
+
+        let zIndexBySize: Bool = UserDefaults.standard[.zIndexBySize]
+        if zIndexBySize {
+            var nextIndex: Int!
+            if selectedOverlayIndex == 0 && forward {
+                nextIndex = sortedOverlays.count - 1
+            } else if selectedOverlayIndex == sortedOverlays.count - 1 && !forward {
+                nextIndex = 0
+            } else {
+                nextIndex = forward ? selectedOverlayIndex - 1 : selectedOverlayIndex + 1
+            }
+
+            if let nextAnnotator = annotators.first(where: { $0.overlay == sortedOverlays[nextIndex] }) {
+                if let _ = try? selectContentItems([nextAnnotator.contentItem], byExtendingSelection: false) {
+                    return true
+                }
+            }
         } else {
-            nextIndex = forward ? firstIndex - 1 : firstIndex + 1
-        }
-        
-        if let nextAnnotator = annotators.first(where: { $0.overlay == annotatorOverlays[nextIndex] }) {
+            let filteredAnnotators = annotators.filter({ sortedOverlays.contains($0.overlay) })
+
+            let selectedOverlay = sortedOverlays[selectedOverlayIndex]
+            guard let selectedAnnotatorIndex = filteredAnnotators.firstIndex(where: { $0.overlay == selectedOverlay }) else {
+                return false
+            }
+
+            var nextIndex: Int!
+            if selectedAnnotatorIndex == 0 && forward {
+                nextIndex = filteredAnnotators.count - 1
+            } else if selectedAnnotatorIndex == filteredAnnotators.count - 1 && !forward {
+                nextIndex = 0
+            } else {
+                nextIndex = forward ? selectedAnnotatorIndex - 1 : selectedAnnotatorIndex + 1
+            }
+
+            let nextAnnotator = filteredAnnotators[nextIndex]
             if let _ = try? selectContentItems([nextAnnotator.contentItem], byExtendingSelection: false) {
                 return true
             }
         }
-        
+
         return false
     }
     
