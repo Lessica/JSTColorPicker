@@ -50,15 +50,15 @@ extension NSViewController {
 
 class ContentController: NSViewController {
     
-    public weak var actionDelegate  : ContentActionDelegate!
-    public weak var tagListSource   : TagListSource!
+    public weak var actionManager   : ContentActionDelegate!
+    public weak var tagManager      : TagListSource!
     
     internal weak var screenshot    : Screenshot?
     private var documentContent     : Content?         { screenshot?.content }
     private var documentImage       : PixelImage?      { screenshot?.image   }
     private var documentExport      : ExportManager?   { screenshot?.export  }
     private var documentState       : Screenshot.State { screenshot?.state ?? .notLoaded }
-    override var undoManager        : UndoManager?     { screenshot?.undoManager }
+    override var undoManager        : UndoManager!     { screenshot?.undoManager }
     
     private var nextID: Int {
         if let lastID = documentContent?.items.last?.id {
@@ -317,11 +317,11 @@ extension ContentController {
     @discardableResult
     private func internalAddContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = documentContent else { return IndexSet() }
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items, isRegistered: true) })
+        undoManager.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items, isRegistered: true) })
         if !registered {
-            undoManager?.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
+            undoManager.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
         }
-        actionDelegate.contentActionAdded(items)
+        actionManager.contentActionAdded(items)
         var indexes = IndexSet()
         items.sorted(by: { $0.id < $1.id }).forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
@@ -336,13 +336,13 @@ extension ContentController {
         guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager?.registerUndo(withTarget: self, handler: { (target) in
+        undoManager.registerUndo(withTarget: self, handler: { (target) in
             target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove, isRegistered: true)
         })
         if !registered {
-            undoManager?.setActionName(NSLocalizedString("Delete Items", comment: "internalDeleteContentItems(_:)"))
+            undoManager.setActionName(NSLocalizedString("Delete Items", comment: "internalDeleteContentItems(_:)"))
         }
-        actionDelegate.contentActionDeleted(items)
+        actionManager.contentActionDeleted(items)
         let indexes = content.items
             .enumerated()
             .filter({ itemIDs.contains($1.id) })
@@ -356,11 +356,11 @@ extension ContentController {
         guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToUpdate = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager?.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToUpdate, isRegistered: true) })
+        undoManager.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToUpdate, isRegistered: true) })
         if !registered {
-            undoManager?.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
+            undoManager.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
         }
-        actionDelegate.contentActionUpdated(items)
+        actionManager.contentActionUpdated(items)
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         var indexes = IndexSet()
         items.sorted(by: { $0.id < $1.id }).forEach { (item) in
@@ -882,7 +882,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let targetIndex = selectedRowIndex else { return }
         
         let targetItem = collection[targetIndex]
-        actionDelegate.contentActionConfirmed([targetItem])
+        actionManager.contentActionConfirmed([targetItem])
     }
     
     @IBAction func relocate(_ sender: Any) {
@@ -1136,7 +1136,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     private func internalTableViewSelectionDidChange(_ notification: Notification?) {
         guard let collection = documentContent?.items else { return }
         let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
-        actionDelegate.contentActionSelected(realSelectedItems)
+        actionManager.contentActionSelected(realSelectedItems)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -1167,7 +1167,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     let allTags = item.tags.contents
                     
                     if let firstTag = allTags.first {
-                        cell.normalTextColor = tagListSource
+                        cell.normalTextColor = tagManager
                             .managedTag(of: firstTag)?
                             .color
                     }
@@ -1176,7 +1176,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     
                     if usesDetailedToolTips {
                         
-                        let attachedTags = tagListSource
+                        let attachedTags = tagManager
                             .managedTags(of: allTags)
                             .map({ $0.name })
                         

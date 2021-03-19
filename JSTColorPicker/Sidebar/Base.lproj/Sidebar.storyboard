@@ -11,11 +11,11 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="1228"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="1196"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="42" width="300" height="1186"/>
+                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="42" width="300" height="1154"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
@@ -116,7 +116,7 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
-                                        <rect key="frame" x="0.0" y="247" width="300" height="53"/>
+                                        <rect key="frame" x="0.0" y="238" width="300" height="53"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPz-OZ-Hua">
                                                 <rect key="frame" x="-3" y="-4" width="306" height="59"/>
@@ -260,12 +260,12 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
-                                        <rect key="frame" x="0.0" y="310" width="300" height="256"/>
+                                        <rect key="frame" x="0.0" y="292" width="300" height="260"/>
                                         <subviews>
                                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-zE-Ub5">
-                                                <rect key="frame" x="25" y="-4" width="250" height="262"/>
+                                                <rect key="frame" x="25" y="-4" width="250" height="266"/>
                                                 <view key="contentView" id="kW4-LL-dQv">
-                                                    <rect key="frame" x="8" y="0.0" width="234" height="262"/>
+                                                    <rect key="frame" x="8" y="0.0" width="234" height="266"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <view horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7i-wdv" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
@@ -314,7 +314,7 @@
                                                         <constraint firstItem="fAw-7i-wdv" firstAttribute="bottom" secondItem="W1Q-HV-wY8" secondAttribute="bottom" id="8GD-kG-oph"/>
                                                         <constraint firstItem="W1Q-HV-wY8" firstAttribute="leading" secondItem="kW4-LL-dQv" secondAttribute="leading" constant="4" id="EYF-Ei-G30"/>
                                                         <constraint firstItem="W1Q-HV-wY8" firstAttribute="centerX" secondItem="kW4-LL-dQv" secondAttribute="centerX" id="J2H-gN-c42"/>
-                                                        <constraint firstItem="W1Q-HV-wY8" firstAttribute="top" secondItem="kW4-LL-dQv" secondAttribute="top" constant="4" id="Vvu-jH-i0m"/>
+                                                        <constraint firstItem="W1Q-HV-wY8" firstAttribute="top" secondItem="kW4-LL-dQv" secondAttribute="top" constant="8" id="Vvu-jH-i0m"/>
                                                         <constraint firstItem="8AH-8J-GW3" firstAttribute="leading" secondItem="kW4-LL-dQv" secondAttribute="leading" constant="4" id="X0d-v6-rOO"/>
                                                         <constraint firstAttribute="trailing" secondItem="8AH-8J-GW3" secondAttribute="trailing" constant="4" id="XWr-hJ-npw"/>
                                                         <constraint firstItem="8AH-8J-GW3" firstAttribute="top" secondItem="W1Q-HV-wY8" secondAttribute="bottom" constant="8" id="aOa-tn-i96"/>
@@ -329,12 +329,12 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="UFe-zE-Ub5" secondAttribute="bottom" id="LCa-dI-02H"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="centerX" secondItem="XPn-It-24S" secondAttribute="centerX" id="lM0-VH-r73"/>
-                                            <constraint firstAttribute="height" constant="256" placeholder="YES" id="w0l-sE-ZDG"/>
+                                            <constraint firstAttribute="height" constant="260" placeholder="YES" id="w0l-sE-ZDG"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="xEc-bj-Jcd"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
-                                        <rect key="frame" x="0.0" y="576" width="300" height="600"/>
+                                        <rect key="frame" x="0.0" y="553" width="300" height="600"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
@@ -352,7 +352,7 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
-                                        <rect key="frame" x="0.0" y="1186" width="300" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="1154" width="300" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="De9-Ns-Fzb"/>
                                         </constraints>
@@ -417,7 +417,7 @@
                                                     <outlet property="nextKeyView" destination="Dbw-cW-F99" id="5Yd-rd-gto"/>
                                                 </connections>
                                             </button>
-                                            <button toolTip="Export Options (⌥⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
+                                            <button toolTip="Export Options (⌃⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
                                                 <rect key="frame" x="177" y="-7" width="54" height="32"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="zoN-9M-igl"/>
@@ -426,7 +426,7 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                     <string key="keyEquivalent">e</string>
-                                                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="optionButtonTapped:" target="IfO-80-1iw" id="5Jz-lV-8qS"/>
@@ -503,20 +503,20 @@
                 <menu autoenablesItems="NO" id="4at-bQ-1Zt">
                     <items>
                         <menuItem isSeparatorItem="YES" id="oDR-XD-LAZ"/>
-                        <menuItem title="Reload All Templates" keyEquivalent="r" id="wn5-aj-tl9">
-                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        <menuItem title="Reload All Templates" keyEquivalent="0" id="wn5-aj-tl9">
+                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                             <connections>
                                 <action selector="reloadAllTemplatesMenuTapped:" target="IfO-80-1iw" id="ayM-65-or0"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Show Templates..." keyEquivalent="f" id="UNR-ux-raK">
-                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        <menuItem title="Show Templates..." keyEquivalent="t" id="UNR-ux-raK">
+                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                             <connections>
                                 <action selector="showTemplatesMenuTapped:" target="IfO-80-1iw" id="I6V-1j-KpF"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Show Logs..." keyEquivalent="l" id="lLo-u9-UXv">
-                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                             <connections>
                                 <action selector="showLogsMenuTapped:" target="IfO-80-1iw" id="r6V-g6-vaq"/>
                             </connections>
@@ -528,32 +528,32 @@
                 </menu>
                 <menu id="gSA-sg-Hh9">
                     <items>
-                        <menuItem title="Information" state="on" identifier="toggle-info" id="heo-bx-vn7">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Information" state="on" keyEquivalent="1" identifier="toggle-info" id="heo-bx-vn7">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="1TD-fJ-iqr"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Color Inspector" identifier="toggle-inspector" id="xfl-dO-INl">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Color Inspector" keyEquivalent="2" identifier="toggle-inspector" id="xfl-dO-INl">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="BYA-N8-uq1"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Image Preview" state="on" identifier="toggle-preview" id="dml-TB-Eg1">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Image Preview" state="on" keyEquivalent="3" identifier="toggle-preview" id="dml-TB-Eg1">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="aIT-dF-gXO"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Tag List" state="on" identifier="toggle-taglist" id="F5A-Fc-CMr">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="Tag List" state="on" keyEquivalent="4" identifier="toggle-taglist" id="F5A-Fc-CMr">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="togglePane:" target="IfO-80-1iw" id="cgL-GN-nS6"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="WQc-zf-fnz"/>
-                        <menuItem title="Reset Panes..." keyEquivalent="r" id="VSv-f4-iqr">
+                        <menuItem title="Reset Panes..." keyEquivalent="0" id="VSv-f4-iqr">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="resetPanes:" target="IfO-80-1iw" id="UzC-b1-V1V"/>

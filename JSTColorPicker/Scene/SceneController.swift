@@ -10,9 +10,9 @@ import Cocoa
 
 class SceneController: NSViewController {
     
-    public weak var contentDelegate   : ContentDelegate!
-    public weak var trackingDelegate  : SceneTracking!
-    public weak var tagListSource     : TagListSource!
+    public weak var contentManager    : ContentDelegate!
+    public weak var parentTracking    : SceneTracking!
+    public weak var tagManager        : TagListSource!
     
     internal weak var screenshot: Screenshot?
     internal var annotators: [Annotator] = []
@@ -843,17 +843,17 @@ extension SceneController: SceneTracking, SceneActionTracking {
             sceneBorderView,
             sceneGridView,
             sceneOverlayView,
-            trackingDelegate
+            parentTracking
         ]
         sceneTrackings.forEach({ $0.sceneVisibleRectDidChange(sender, to: rect, of: magnification) })
     }
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        trackingDelegate.sceneRawColorDidChange(sender, at: coordinate)
+        parentTracking.sceneRawColorDidChange(sender, at: coordinate)
     }
     
     func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
-        trackingDelegate.sceneRawAreaDidChange(sender, to: rect)
+        parentTracking.sceneRawAreaDidChange(sender, to: rect)
     }
     
     func sceneWillStartLiveResize(_ sender: SceneScrollView?) {
@@ -1270,51 +1270,51 @@ extension SceneController: ToolbarResponder {
 extension SceneController: ContentDelegate {
     
     func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentDelegate.addContentItem(of: coordinate)
+        return try contentManager.addContentItem(of: coordinate)
     }
     
     func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        return try contentDelegate.addContentItem(of: rect)
+        return try contentManager.addContentItem(of: rect)
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentDelegate.updateContentItem(item, to: coordinate)
+        return try contentManager.updateContentItem(item, to: coordinate)
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        return try contentDelegate.updateContentItem(item, to: rect)
+        return try contentManager.updateContentItem(item, to: rect)
     }
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentDelegate.updateContentItem(item)
+        return try contentManager.updateContentItem(item)
     }
     
     func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
-        return try contentDelegate.updateContentItems(items)
+        return try contentManager.updateContentItems(items)
     }
     
     func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        return try contentDelegate.selectContentItem(item, byExtendingSelection: extend)
+        return try contentManager.selectContentItem(item, byExtendingSelection: extend)
     }
     
     func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
-        return try contentDelegate.selectContentItems(items, byExtendingSelection: extend)
+        return try contentManager.selectContentItems(items, byExtendingSelection: extend)
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentDelegate.deselectContentItem(item)
+        return try contentManager.deselectContentItem(item)
     }
     
     func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentDelegate.deleteContentItem(of: coordinate)
+        return try contentManager.deleteContentItem(of: coordinate)
     }
     
     func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentDelegate.deleteContentItem(item)
+        return try contentManager.deleteContentItem(item)
     }
     
     func deselectAllContentItems() {
-        contentDelegate.deselectAllContentItems()
+        contentManager.deselectAllContentItems()
     }
     
 }
@@ -1482,7 +1482,7 @@ extension SceneController {
     
     private func annotatorColorize(_ annotator: Annotator) {
         guard let tagName = annotator.contentItem.tags.first,
-            let tag = tagListSource.managedTag(of: tagName) else
+            let tag = tagManager.managedTag(of: tagName) else
         {
             annotator.overlay.lineDashColorsHighlighted  = nil
             annotator.overlay.circleFillColorHighlighted = nil

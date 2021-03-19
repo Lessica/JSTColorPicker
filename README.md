@@ -54,7 +54,8 @@ There's no need to explain.
 - `0123456789`: Enter item `ID` to select existing item quickly.
 
 ### Export
-- `⌘E`: Export all items using selected template.
+- `⌘E`: Copy all items using selected template.
+- `⇧⌘E`: Export all items using selected template.
 
 ### Others
 - <code>⌘`</code>: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
@@ -90,7 +91,8 @@ There's no need to explain.
 - `⌃⌘C` **Toggle Color Panel**
 
 ### Devices
-- `⌥⌘S` **Screenshot**
+- `⇧⌘S` **Screenshot**
+- `⇧⌘I` **Discovery Devices**
 
 ### Window
 - `⌘M` Minimize

@@ -308,8 +308,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
-                                        <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        <menuItem title="Take Screenshot" keyEquivalent="S" id="k2M-xo-Glg">
                                             <connections>
                                                 <action selector="devicesTakeScreenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
                                             </connections>

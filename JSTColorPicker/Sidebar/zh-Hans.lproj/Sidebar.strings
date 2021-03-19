@@ -10,8 +10,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Copy All... (⌘E)"; ObjectID = "bwz-6j-3gj"; */
 "bwz-6j-3gj.ibShadowedToolTip" = "复制全部项... (⌘E)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌥⌘E)"; ObjectID = "Dbw-cW-F99"; */
-"Dbw-cW-F99.ibShadowedToolTip" = "导出首选项 (⌥⌘E)";
+/* Class = "NSButton"; ibShadowedToolTip = "Export Options (⌃⌘E)"; ObjectID = "Dbw-cW-F99"; */
+"Dbw-cW-F99.ibShadowedToolTip" = "导出首选项 (⌃⌘E)";
 
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "dml-TB-Eg1"; */
 "dml-TB-Eg1.title" = "图像预览";

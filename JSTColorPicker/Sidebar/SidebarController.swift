@@ -182,14 +182,14 @@ class SidebarController: NSViewController {
                 
                 itemIdx += 1
                 var keyEqu = ""
-                if itemIdx <= 10 {
+                if itemIdx < 10 {
                     keyEqu = String(format: "%d", itemIdx % 10)
                 }
                 
                 let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: keyEqu)
                 item.target = self
                 item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(templateIdentifierPrefix)\(template.uuid.uuidString)")
-                item.keyEquivalentModifierMask = [.option, .command]
+                item.keyEquivalentModifierMask = [.control, .command]
                 
                 let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
                 item.isEnabled = enabled

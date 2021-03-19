@@ -39,8 +39,8 @@ class TagListController: NSViewController {
     private var previewMode                       : PreviewMode = .none
     private var previewContext                    : [String: Int]?
     
-    public weak var contentDelegate               : ContentDelegate?
-    public weak var importItemSource              : TagImportSource?
+    public weak var contentManager                : ContentDelegate?
+    public weak var importSource                  : TagImportSource?
     public weak var sceneToolSource               : SceneToolSource!
     {
         get { tableViewOverlay.sceneToolSource            }
@@ -324,7 +324,7 @@ class TagListController: NSViewController {
     @IBAction private func importTagBtnTapped(_ sender: Any) {
         
         guard let context = TagListController.sharedContext,
-            let tagNames = importItemSource?.importableTagNames else
+            let tagNames = importSource?.importableTagNames else
         {
             presentError(Content.Error.notLoaded)
             return
@@ -559,7 +559,7 @@ extension TagListController: TagListDragDelegate {
     var shouldPerformDragging: Bool { !isEditMode && internalController.isEditable }
     
     func willPerformDragging(_ sender: Any?) -> Bool {
-        contentDelegate?.deselectAllContentItems()
+        contentManager?.deselectAllContentItems()
         return internalController.isEditable
     }
     

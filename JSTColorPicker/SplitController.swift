@@ -16,18 +16,18 @@ class SplitController: NSSplitViewController {
     
     override func viewDidLoad() {
         
-        contentController.actionDelegate         = self
-        sceneController.trackingDelegate         = self
-        sceneController.contentDelegate          = self
+        contentController.actionManager          = self
+        sceneController.parentTracking           = self
+        sceneController.contentManager           = self
         sidebarController.previewOverlayDelegate = self
         
         super.viewDidLoad()
         
-        contentController.tagListSource    = tagListController
-        sceneController.tagListSource      = tagListController
+        contentController.tagManager       = tagListController
+        sceneController.tagManager         = tagListController
         tagListController.sceneToolSource  = sceneController
-        tagListController.importItemSource = contentController
-        tagListController.contentDelegate  = self
+        tagListController.importSource     = contentController
+        tagListController.contentManager   = self
         
     }
     
