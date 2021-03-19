@@ -368,16 +368,17 @@ by \(template.author ?? "Unknown")
             }
             paneChanged = true
         }
-        
-        hiddenValue = !UserDefaults.standard[.togglePaneViewTagList]
+
+        let lastValue = !UserDefaults.standard[.togglePaneViewTagList]
+        hiddenValue = lastValue
         if paneViewTagList.isHidden != hiddenValue {
             paneViewTagList.isHidden = hiddenValue
             paneChanged = true
         }
-        
-        if paneChanged {
-            placeholderConstraint.priority = hiddenValue ? .defaultLow : .defaultHigh
 
+        if paneChanged {
+            placeholderConstraint.priority = lastValue ? .defaultLow : .defaultHigh
+            
             splitView.adjustSubviews()
             splitView.displayIfNeeded()
         }

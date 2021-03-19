@@ -354,7 +354,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
                                         <rect key="frame" x="0.0" y="1154" width="300" height="0.0"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" id="De9-Ns-Fzb"/>
+                                            <constraint firstAttribute="height" priority="250" id="De9-Ns-Fzb"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
