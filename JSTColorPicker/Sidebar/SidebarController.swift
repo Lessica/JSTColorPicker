@@ -71,10 +71,6 @@ class SidebarController: NSViewController {
     @IBOutlet weak var previewSliderBgView       : NSView!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
     
-    @IBOutlet weak var copyButton                : NSButton!
-    @IBOutlet weak var exportButton              : NSButton!
-    @IBOutlet weak var optionButton              : NSButton!
-    
     private var documentObservations             : [NSKeyValueObservation]?
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
@@ -94,20 +90,6 @@ class SidebarController: NSViewController {
         resetPreview()
         
         previewSlider.isEnabled = false
-        copyButton.isEnabled = false
-        exportButton.isEnabled = false
-        optionButton.isEnabled = false
-        
-        reservedOptionMenuItems.removeAll()
-        reservedOptionMenuItems.append(contentsOf: optionMenu.items)
-        
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
-            guard let self = self else { return event }
-            if self.monitorWindowFlagsChanged(with: event) {
-                return nil
-            }
-            return event
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         applyPreferences(nil)
@@ -121,181 +103,6 @@ class SidebarController: NSViewController {
         let error = super.willPresentError(error)
         debugPrint(error.localizedDescription)
         return error
-    }
-    
-    
-    // MARK: - Templates
-    
-    @IBOutlet var optionMenu: NSMenu!
-    private var reservedOptionMenuItems: [NSMenuItem] = []
-    private let templateIdentifierPrefix = "template-"
-    
-    @IBAction func copyButtonTapped(_ sender: NSButton) {
-        self.copyAllContentItems()
-    }
-    
-    @IBAction func exportButtonTapped(_ sender: NSButton) {
-        do {
-            guard let template = screenshot?.export.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
-            let panel = NSSavePanel()
-            panel.allowedFileTypes = template.allowedExtensions
-            panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
-                if resp == .OK {
-                    if let url = panel.url {
-                        self?.exportAllContentItems(to: url)
-                    }
-                }
-                self?.monitorWindowFlagsChanged(with: nil, forceReset: true)
-            }
-        }
-        catch {
-            presentError(error)
-        }
-    }
-    
-    private func copyAllContentItems() {
-        do {
-            try screenshot?.export.copyAllContentItems()
-        }
-        catch {
-            presentError(error)
-        }
-    }
-    
-    private func exportAllContentItems(to url: URL) {
-        do {
-            try screenshot?.export.exportAllContentItems(to: url)
-        }
-        catch {
-            presentError(error)
-        }
-    }
-    
-    @IBAction func optionButtonTapped(_ sender: NSButton) {
-        
-        guard let event = view.window?.currentEvent else { return }
-        guard let exportManager = screenshot?.export else { return }
-        
-        var itemIdx: Int = 0
-        let items = exportManager.templates
-            .compactMap({ [weak self] (template) -> NSMenuItem in
-                
-                itemIdx += 1
-                var keyEqu = ""
-                if itemIdx < 10 {
-                    keyEqu = String(format: "%d", itemIdx % 10)
-                }
-                
-                let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(templateItemTapped(_:)), keyEquivalent: keyEqu)
-                item.target = self
-                item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(templateIdentifierPrefix)\(template.uuid.uuidString)")
-                item.keyEquivalentModifierMask = [.control, .command]
-                
-                let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
-                item.isEnabled = enabled
-                item.state = template.uuid.uuidString == exportManager.selectedTemplate?.uuid.uuidString ? .on : .off
-                
-                if enabled {
-                    item.toolTip = """
-\(template.name) (\(template.version))
-by \(template.author ?? "Unknown")
-------
-\(template.description ?? "")
-"""
-                }
-                else {
-                    item.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
-                }
-                
-                return item
-            })
-            .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
-        
-        optionMenu.items = items + reservedOptionMenuItems
-        NSMenu.popUpContextMenu(optionMenu, with: event, for: sender)
-        
-    }
-    
-    @IBAction func reloadAllTemplatesMenuTapped(_ sender: NSMenuItem) {
-        do {
-            try screenshot?.export.reloadTemplates()
-        }
-        catch {
-            presentError(error)
-        }
-    }
-    
-    @IBAction func showTemplatesMenuTapped(_ sender: NSMenuItem) {
-        copyExampleTemplatesIfNeeded()
-        NSWorkspace.shared.open(ExportManager.templateRootURL)
-    }
-    
-    @IBAction func showLogsMenuTapped(_ sender: NSMenuItem) {
-        let paths = [
-            "/Applications/Utilities/Console.app",
-            "/System/Applications/Utilities/Console.app"
-        ]
-        if let path = paths.first(where: { FileManager.default.fileExists(atPath: $0) }) {
-            NSWorkspace.shared.open(URL(fileURLWithPath: path, isDirectory: true))
-        }
-    }
-    
-    @objc private func templateItemTapped(_ sender: NSMenuItem) {
-        selectTemplateItem(sender)
-    }
-    
-    private func selectTemplateItem(_ sender: NSMenuItem) {
-        guard let identifier = sender.identifier?.rawValue else { return }
-        guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
-        let beginIdx = identifier.index(identifier.startIndex, offsetBy: templateIdentifierPrefix.lengthOfBytes(using: .utf8))
-        let udidString = String(identifier[beginIdx...])
-        screenshot?.export.selectedTemplateUUID = UUID(uuidString: udidString)
-    }
-    
-    private func copyExampleTemplatesIfNeeded() {
-        guard let exportManager = screenshot?.export else { return }
-        if exportManager.templates.count == 0 {
-            if let exampleTemplateURL = ExportManager.exampleTemplateURL {
-                let exampleTemplateName = exampleTemplateURL.lastPathComponent
-                let newExampleTemplateURL = ExportManager.templateRootURL.appendingPathComponent(exampleTemplateName)
-                try? FileManager.default.copyItem(at: exampleTemplateURL, to: newExampleTemplateURL)
-            }
-            try? exportManager.reloadTemplates()
-        }
-    }
-    
-    
-    // MARK: - Shortcut Replacement
-    
-    @discardableResult
-    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
-        if !forceReset {
-            guard let window = view.window, window.isKeyWindow else { return false }  // important
-        }
-        var handled = false
-        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
-        switch modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-            .subtracting([.command, .option, .control])
-        {
-        case [.shift]:
-            handled = switchExportButtonToExportMode()
-        default:
-            handled = switchExportButtonToCopyMode()
-        }
-        return handled
-    }
-    
-    private func switchExportButtonToCopyMode() -> Bool {
-        copyButton.isHidden = false
-        exportButton.isHidden = true
-        return false
-    }
-    
-    private func switchExportButtonToExportMode() -> Bool {
-        copyButton.isHidden = true
-        exportButton.isHidden = false
-        return false
     }
     
     
@@ -354,10 +161,10 @@ by \(template.author ?? "Unknown")
             UserDefaults.standard[.resetPaneView] = false
             resetDividers()
         }
+        
+        placeholderConstraint.priority = hiddenValue ? .defaultLow : .defaultHigh
 
         if paneChanged {
-            placeholderConstraint.priority = hiddenValue ? .defaultLow : .defaultHigh
-
             splitView.adjustSubviews()
             splitView.displayIfNeeded()
         }
@@ -432,12 +239,7 @@ extension SidebarController: ScreenshotLoader {
         previewOverlayView.highlightArea = previewRect
         
         previewSlider.isEnabled = true
-        copyButton.isEnabled = true
-        exportButton.isEnabled = true
-        optionButton.isEnabled = true
         resetDividers()
-        
-        copyExampleTemplatesIfNeeded()
         
         documentObservations = [
             screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in

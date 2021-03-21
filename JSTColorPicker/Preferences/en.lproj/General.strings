@@ -16,6 +16,9 @@
 /* Class = "NSColorWell"; ibShadowedToolTip = "Anti-Alias Difference Color"; ObjectID = "5HO-8W-nvd"; */
 "5HO-8W-nvd.ibShadowedToolTip" = "Anti-Alias Difference Color";
 
+/* Class = "NSButtonCell"; title = "Ignore Invalid Deletion"; ObjectID = "5JF-OO-Avm"; */
+"5JF-OO-Avm.title" = "Ignore Invalid Deletion";
+
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "Annotation";
 

@@ -17,7 +17,6 @@ protocol ScreenshotLoader: class {
 class Screenshot: NSDocument {
     
     enum Error: LocalizedError {
-        
         case invalidImage
         case invalidImageSource
         case invalidImageType
@@ -47,11 +46,9 @@ class Screenshot: NSDocument {
                 return NSLocalizedString("This feature is not implemented.", comment: "ScreenshotError")
             }
         }
-        
     }
     
     enum State {
-        
         case notLoaded
         case restricted
         case readable
@@ -60,7 +57,6 @@ class Screenshot: NSDocument {
         var isLoaded   : Bool { self != .notLoaded                      }
         var isReadable : Bool { self == .readable || self == .writeable }
         var isWriteable: Bool { self == .writeable                      }
-        
     }
     
     public fileprivate(set) var image    : PixelImage?
@@ -193,6 +189,52 @@ class Screenshot: NSDocument {
             }
         } catch {
             debugPrint(error)
+        }
+    }
+    
+}
+
+extension Screenshot {
+    
+    private var associatedWindowController: WindowController? { windowControllers.first as? WindowController }
+    
+    @IBAction func copyAll(_ sender: Any) {
+        copyAllContentItems()
+    }
+    
+    @IBAction func exportAll(_ sender: Any) {
+        guard let window = associatedWindowController?.window else { return }
+        do {
+            guard let template = ExportManager.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
+            let panel = NSSavePanel()
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: window) { [weak self] (resp) in
+                if resp == .OK {
+                    if let url = panel.url {
+                        self?.exportAllContentItems(to: url)
+                    }
+                }
+            }
+        } catch {
+            presentError(error)
+        }
+    }
+    
+    private func copyAllContentItems() {
+        do {
+            try export.copyAllContentItems()
+        }
+        catch {
+            presentError(error)
+        }
+    }
+    
+    private func exportAllContentItems(to url: URL) {
+        do {
+            try export.exportAllContentItems(to: url)
+        }
+        catch {
+            presentError(error)
         }
     }
     

@@ -46,6 +46,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
     
+    private var firstManagedWindowController: WindowController? {
+        return tabService?.firstManagedWindow?.windowController
+    }
+    
+    private var firstRespondingWindowController: WindowController? {
+        tabService?.firstRespondingWindow?.windowController as? WindowController
+    }
+    
     private lazy var preferencesController: NSWindowController = {
         let generalController = GeneralController()
         let folderController = FolderController()
@@ -58,7 +66,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Application Events
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
         if objc_getClass("SUAppcast") != nil {
             checkForUpdatesItem.isHidden = false
         }
@@ -89,6 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationXPCSetup()
         
         applicationOpenUntitledDocumentIfNeeded()
+        applicationCopyExampleTemplatesIfNeeded()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -181,10 +189,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             firstWindowController === firstPreparedWindowController
             else { return nil }
         return (firstWindowController, preparedManagedWindows.compactMap({ $0.windowController.screenshot?.image }))
-    }
-    
-    private var firstManagedWindowController: WindowController? {
-        return tabService?.firstManagedWindow?.windowController
     }
     
     @IBAction func compareMenuItemTapped(_ sender: Any?) {
@@ -366,7 +370,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.isTakingScreenshot = true
         
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
-        guard let windowController = tabService?.firstRespondingWindow?.windowController as? WindowController else { return }
+        guard let windowController = firstRespondingWindowController else { return }
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
             debugPrint(error)
         }) as? JSTScreenshotHelperProtocol else { return }
@@ -416,6 +420,54 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    // MARK: - Template Actions
+    
+    @IBOutlet weak var templateMenu: NSMenu!
+    @IBOutlet weak var templateSubMenu: NSMenu!
+    
+    @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
+        applicationCopyExampleTemplatesIfNeeded()
+        NSWorkspace.shared.open(ExportManager.templateRootURL)
+    }
+    
+    @IBAction func showLogsMenuItemTapped(_ sender: NSMenuItem) {
+        let paths = [
+            "/Applications/Utilities/Console.app",
+            "/System/Applications/Utilities/Console.app"
+        ]
+        if let path = paths.first(where: { FileManager.default.fileExists(atPath: $0) }) {
+            NSWorkspace.shared.open(URL(fileURLWithPath: path, isDirectory: true))
+        }
+    }
+    
+    @objc private func selectTemplateItemTapped(_ sender: NSMenuItem) {
+        guard let identifier = sender.identifier?.rawValue else { return }
+        guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
+        let beginIdx = identifier.index(identifier.startIndex, offsetBy: ExportManager.templateIdentifierPrefix.lengthOfBytes(using: .utf8))
+        let udidString = String(identifier[beginIdx...])
+        ExportManager.selectedTemplateUUID = UUID(uuidString: udidString)
+    }
+    
+    @objc private func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
+        do {
+            try ExportManager.reloadTemplates()
+        } catch {
+            firstRespondingWindowController?.presentError(error)
+        }
+    }
+    
+    private func applicationCopyExampleTemplatesIfNeeded() {
+        if ExportManager.templates.count == 0 {
+            if let exampleTemplateURL = ExportManager.exampleTemplateURL {
+                let exampleTemplateName = exampleTemplateURL.lastPathComponent
+                let newExampleTemplateURL = ExportManager.templateRootURL.appendingPathComponent(exampleTemplateName)
+                try? FileManager.default.copyItem(at: exampleTemplateURL, to: newExampleTemplateURL)
+            }
+            try? ExportManager.reloadTemplates()
+        }
+    }
+    
+    
     // MARK: - Help Actions
     
     @IBAction func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
@@ -430,6 +482,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
 }
+
+
+// MARK: -
 
 extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
@@ -469,53 +524,9 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
         else if menu == self.devicesSubMenu {
             updateDevicesSubMenuItems()
         }
-    }
-    
-}
-
-
-// MARK: -
-
-extension AppDelegate {
-    
-    
-    // MARK: - Device List
-    
-    #if SANDBOXED
-    private func applicationHasScreenshotHelper() -> Bool {
-        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
-        return FileManager.default.fileExists(atPath: launchAgentPath)
-    }
-    #endif
-    
-    private func applicationXPCSetup() {
-        let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
-        if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
-            debugPrint(error)
-        }) as? JSTScreenshotHelperProtocol {
-            proxy.setNetworkDiscoveryEnabled(enabled)
-            proxy.discoverDevices()
+        else if menu == self.templateSubMenu {
+            updateTemplatesSubMenuItems()
         }
-    }
-    
-    private func applicationXPCResetUI(with additionalItems: [NSMenuItem] = []) {
-        #if SANDBOXED
-        if !applicationHasScreenshotHelper() {
-            let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
-            downloadItem.target = self
-            downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
-            downloadItem.isEnabled = true
-            downloadItem.state = .off
-            devicesSubMenu.items = [ downloadItem ]
-            return
-        }
-        #endif
-        
-        let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
-        emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
-        emptyItem.isEnabled = false
-        emptyItem.state = .off
-        devicesSubMenu.items = [ emptyItem ] + additionalItems
     }
     
     private func updateFileMenuItems() {
@@ -568,13 +579,6 @@ extension AppDelegate {
         }
         reloadDevicesSubMenuItems()
     }
-
-    @objc private func notifyXPCDiscoverDevices(_ sender: Any?) {
-        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
-            debugPrint(error)
-        }) as? JSTScreenshotHelperProtocol else { return }
-        proxy.discoverDevices()
-    }
     
     private func reloadDevicesSubMenuItems() {
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
@@ -602,8 +606,8 @@ extension AppDelegate {
                     }
 
                     let separatorItem = NSMenuItem.separator()
-                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems"), action: #selector(self?.notifyXPCDiscoverDevices(_:)), keyEquivalent: "I")
-                    manuallyDiscoverItem.keyEquivalentModifierMask = [.shift, .command]
+                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems"), action: #selector(self?.notifyXPCDiscoverDevices(_:)), keyEquivalent: "i")
+                    manuallyDiscoverItem.keyEquivalentModifierMask = [.control]
                     
                     if items.count > 0 {
                         items += [separatorItem, manuallyDiscoverItem]
@@ -617,6 +621,103 @@ extension AppDelegate {
                 }
             }
         }
+    }
+    
+    private func updateTemplatesSubMenuItems() {
+        var itemIdx: Int = 0
+        let items = ExportManager.templates
+            .compactMap({ [weak self] (template) -> NSMenuItem in
+                
+                itemIdx += 1
+                var keyEqu = ""
+                if itemIdx < 10 {
+                    keyEqu = String(format: "%d", itemIdx % 10)
+                }
+                
+                let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(selectTemplateItemTapped(_:)), keyEquivalent: keyEqu)
+                item.target = self
+                item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(ExportManager.templateIdentifierPrefix)\(template.uuid.uuidString)")
+                item.keyEquivalentModifierMask = [.control, .command]
+                
+                let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
+                item.isEnabled = enabled
+                item.state = template.uuid.uuidString == ExportManager.selectedTemplate?.uuid.uuidString ? .on : .off
+                
+                if enabled {
+                    item.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.description ?? "")
+"""
+                }
+                else {
+                    item.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+                }
+                
+                return item
+            })
+            .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
+        
+        let separatorItem = NSMenuItem.separator()
+        let reloadTemplatesItem = NSMenuItem(title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems"), action: #selector(reloadTemplatesItemTapped(_:)), keyEquivalent: "0")
+        
+        reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
+        templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
+    }
+    
+}
+
+
+// MARK: -
+
+extension AppDelegate {
+    
+    
+    // MARK: - Device List
+    
+    #if SANDBOXED
+    private func applicationHasScreenshotHelper() -> Bool {
+        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
+        return FileManager.default.fileExists(atPath: launchAgentPath)
+    }
+    #endif
+    
+    private func applicationXPCSetup() {
+        let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
+        if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol {
+            proxy.setNetworkDiscoveryEnabled(enabled)
+            proxy.discoverDevices()
+        }
+    }
+    
+    private func applicationXPCResetUI(with additionalItems: [NSMenuItem] = []) {
+        #if SANDBOXED
+        if !applicationHasScreenshotHelper() {
+            let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
+            downloadItem.target = self
+            downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+            downloadItem.isEnabled = true
+            downloadItem.state = .off
+            devicesSubMenu.items = [ downloadItem ]
+            return
+        }
+        #endif
+        
+        let emptyItem = NSMenuItem(title: NSLocalizedString("Connect to your iOS device via USB or network.", comment: "resetDevicesMenu"), action: nil, keyEquivalent: "")
+        emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+        emptyItem.isEnabled = false
+        emptyItem.state = .off
+        devicesSubMenu.items = [ emptyItem ] + additionalItems
+    }
+
+    @objc private func notifyXPCDiscoverDevices(_ sender: Any?) {
+        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ (error) in
+            debugPrint(error)
+        }) as? JSTScreenshotHelperProtocol else { return }
+        proxy.discoverDevices()
     }
     
     
@@ -648,6 +749,9 @@ extension AppDelegate {
     
     
 }
+
+
+// MARK: -
 
 extension AppDelegate {
     

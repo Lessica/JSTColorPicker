@@ -539,24 +539,21 @@ extension ContentController: ContentDelegate {
         tableView.deselectAll(nil)
     }
     
-    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        
+    func deleteContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWriteable      else { throw Content.Error.notWritable }
         
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
             else { throw Content.Error.itemDoesNotExist(item: coordinate) }
-        return try deleteContentItem(item, bySkipingValidation: true)
-        
+        return try deleteContentItem(item, bySkipingValidation: true, byIgnoringPopups: ignore)
     }
     
-    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try deleteContentItem(item, bySkipingValidation: false)
+    func deleteContentItem(_ item: ContentItem, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        return try deleteContentItem(item, bySkipingValidation: false, byIgnoringPopups: ignore)
     }
     
-    private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool) throws -> ContentItem? {
-        
+    private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         if !skip {
             guard let content = documentContent  else { throw Content.Error.notLoaded }
             guard documentState.isWriteable      else { throw Content.Error.notWritable   }
@@ -567,11 +564,9 @@ extension ContentController: ContentDelegate {
         let itemIndexes = internalDeleteContentItems([item])
         tableView.removeRows(at: itemIndexes, withAnimation: .effectFade)
         return item
-        
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
-        
         guard let content = documentContent,
             let image = documentImage    else { throw Content.Error.notLoaded }
         guard documentState.isWriteable  else { throw Content.Error.notWritable   }
@@ -588,11 +583,9 @@ extension ContentController: ContentDelegate {
         
         internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
         return replItem
-        
     }
     
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
-        
         guard let content = documentContent,
             let image = documentImage    else { throw Content.Error.notLoaded }
         guard documentState.isWriteable  else { throw Content.Error.notWritable   }
@@ -609,11 +602,9 @@ extension ContentController: ContentDelegate {
         
         internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
         return replItem
-        
     }
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
-        
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWriteable      else { throw Content.Error.notWritable   }
         
@@ -625,11 +616,9 @@ extension ContentController: ContentDelegate {
         
         internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
         return replItem
-        
     }
     
     func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
-        
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWriteable      else { throw Content.Error.notWritable   }
         
@@ -644,13 +633,11 @@ extension ContentController: ContentDelegate {
         
         internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
         return replItems
-        
     }
     
 }
 
 extension ContentController: ContentTableViewResponder {
-    
     @IBAction func tableViewAction(_ sender: ContentTableView) {
         // replaced by -tableViewSelectionDidChange(_:)
     }
@@ -663,7 +650,6 @@ extension ContentController: ContentTableViewResponder {
             relocate(sender)
         }
     }
-    
 }
 
 extension ContentController: NSMenuItemValidation, NSMenuDelegate {
@@ -717,7 +703,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
         }
             
-        else if menuItem.action == #selector(smartTrim(_:)) || menuItem.action == #selector(saveAs(_:))
+        else if menuItem.action == #selector(smartTrim(_:)) || menuItem.action == #selector(resample(_:))
         {  // contents available / single target / from both menu / must be an area
             
             if menuItem.action == #selector(smartTrim(_:)) {
@@ -995,7 +981,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func saveAs(_ sender: Any) {
+    @IBAction func resample(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
@@ -1023,7 +1009,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     @IBAction func exportAs(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
         do {
-            guard let template = documentExport?.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
+            guard let template = ExportManager.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
             let panel = NSSavePanel()
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { (resp) in

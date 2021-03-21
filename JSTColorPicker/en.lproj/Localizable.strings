@@ -200,6 +200,9 @@
 /* PreferencesController */
 "Preferences" = "Preferences";
 
+/* updateTemplatesSubMenuItems */
+"Reload All Templates" = "Reload All Templates";
+
 /* actionRequiresRestart(_:) */
 "Restart" = "Restart";
 

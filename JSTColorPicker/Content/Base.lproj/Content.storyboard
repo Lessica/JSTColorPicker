@@ -319,6 +319,11 @@ DQ
                             </menu>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="h55-l6-TzM"/>
+                        <menuItem title="Cut" keyEquivalent="x" id="WQj-mW-NTJ">
+                            <connections>
+                                <action selector="cut:" target="YIx-oB-8lo" id="KYR-De-hb9"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="FUc-jS-0Vm">
                             <connections>
                                 <action selector="copy:" target="YIx-oB-8lo" id="k5U-EW-4W2"/>
@@ -334,14 +339,17 @@ DQ
                                 <action selector="smartTrim:" target="YIx-oB-8lo" id="Yec-2h-809"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Save As..." keyEquivalent="S" toolTip="Save this area to a PNG file" id="qZ8-We-LFE">
-                            <connections>
-                                <action selector="saveAs:" target="YIx-oB-8lo" id="IRG-l1-fNf"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Export As..." keyEquivalent="E" toolTip="Export these items with current template" id="qQO-Qw-Wgz">
+                        <menuItem isSeparatorItem="YES" id="P2s-yP-Ife"/>
+                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these items with current template" id="qQO-Qw-Wgz">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="exportAs:" target="YIx-oB-8lo" id="ZzB-b5-lfB"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file" id="qZ8-We-LFE">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <connections>
+                                <action selector="resample:" target="YIx-oB-8lo" id="IRG-l1-fNf"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="WOl-dJ-AqS"/>

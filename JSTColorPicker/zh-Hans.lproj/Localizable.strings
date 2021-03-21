@@ -200,6 +200,9 @@
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
+/* updateTemplatesSubMenuItems */
+"Reload All Templates" = "重新加载所有模版";
+
 /* actionRequiresRestart(_:) */
 "Restart" = "重启";
 

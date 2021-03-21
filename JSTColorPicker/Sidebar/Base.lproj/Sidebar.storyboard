@@ -11,11 +11,11 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="1196"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="42" width="300" height="1154"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
@@ -100,7 +100,6 @@
                                                         <constraint firstItem="bKB-iH-KBU" firstAttribute="top" secondItem="dLI-77-rkV" secondAttribute="top" constant="16" id="05I-ib-Y4O"/>
                                                         <constraint firstItem="bKB-iH-KBU" firstAttribute="centerX" secondItem="dLI-77-rkV" secondAttribute="centerX" id="4o8-wW-APR"/>
                                                         <constraint firstItem="bKB-iH-KBU" firstAttribute="leading" secondItem="dLI-77-rkV" secondAttribute="leading" constant="8" id="O89-lZ-uHl"/>
-                                                        <constraint firstAttribute="bottom" secondItem="bKB-iH-KBU" secondAttribute="bottom" priority="250" constant="16" id="kU6-eP-TYB"/>
                                                         <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="bKB-iH-KBU" secondAttribute="bottom" constant="16" id="kpn-b7-3tw"/>
                                                     </constraints>
                                                 </view>
@@ -244,7 +243,6 @@
                                                         <constraint firstItem="o0R-ma-a5Q" firstAttribute="leading" secondItem="mzD-mX-KZ8" secondAttribute="leading" id="RMP-Sd-cxE"/>
                                                         <constraint firstItem="o0R-ma-a5Q" firstAttribute="top" secondItem="mzD-mX-KZ8" secondAttribute="top" constant="4" id="Rsj-bE-MHc"/>
                                                         <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="o0R-ma-a5Q" secondAttribute="bottom" constant="4" id="Whv-Lh-ZuF"/>
-                                                        <constraint firstAttribute="bottom" secondItem="o0R-ma-a5Q" secondAttribute="bottom" priority="250" constant="4" id="cuh-0g-db9"/>
                                                         <constraint firstAttribute="trailing" secondItem="o0R-ma-a5Q" secondAttribute="trailing" id="tWc-N1-vtQ"/>
                                                     </constraints>
                                                 </view>
@@ -287,6 +285,7 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" secondItem="W1Q-HV-wY8" secondAttribute="height" multiplier="1:1" id="8Gx-G3-WKX"/>
                                                                 <constraint firstAttribute="width" constant="226" id="ATJ-wZ-oJs"/>
                                                                 <constraint firstItem="Rhi-Yn-OJy" firstAttribute="centerX" secondItem="W1Q-HV-wY8" secondAttribute="centerX" id="B3Z-GG-5Pw"/>
                                                                 <constraint firstItem="vie-6X-iBJ" firstAttribute="height" secondItem="Rhi-Yn-OJy" secondAttribute="height" constant="6" id="UMd-Jg-c9M"/>
@@ -294,7 +293,6 @@
                                                                 <constraint firstItem="vie-6X-iBJ" firstAttribute="leading" secondItem="Rhi-Yn-OJy" secondAttribute="leading" constant="-2" id="Yir-AD-vfF"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Rhi-Yn-OJy" secondAttribute="bottom" constant="12" id="nD3-MZ-SOG"/>
                                                                 <constraint firstItem="vie-6X-iBJ" firstAttribute="trailing" secondItem="Rhi-Yn-OJy" secondAttribute="trailing" constant="2" id="wZ6-ng-31o"/>
-                                                                <constraint firstAttribute="height" constant="226" id="yMU-SM-8Cb"/>
                                                             </constraints>
                                                         </customView>
                                                         <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8AH-8J-GW3">
@@ -319,7 +317,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="8AH-8J-GW3" secondAttribute="trailing" constant="4" id="XWr-hJ-npw"/>
                                                         <constraint firstItem="8AH-8J-GW3" firstAttribute="top" secondItem="W1Q-HV-wY8" secondAttribute="bottom" constant="8" id="aOa-tn-i96"/>
                                                         <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="8AH-8J-GW3" secondAttribute="bottom" constant="8" id="eVf-Vk-PF3"/>
-                                                        <constraint firstAttribute="bottom" secondItem="8AH-8J-GW3" secondAttribute="bottom" priority="250" constant="8" id="kIP-3a-9lP"/>
                                                         <constraint firstItem="fAw-7i-wdv" firstAttribute="trailing" secondItem="W1Q-HV-wY8" secondAttribute="trailing" id="yEz-QD-Aqm"/>
                                                     </constraints>
                                                 </view>
@@ -362,117 +359,27 @@
                                     <constraint firstAttribute="width" constant="300" placeholder="YES" id="XSq-dR-hCd"/>
                                 </constraints>
                                 <holdingPriorities>
-                                    <real value="270"/>
-                                    <real value="265"/>
-                                    <real value="260"/>
-                                    <real value="255"/>
-                                    <real value="250"/>
+                                    <real value="300"/>
+                                    <real value="295"/>
+                                    <real value="290"/>
+                                    <real value="285"/>
+                                    <real value="1"/>
                                 </holdingPriorities>
                                 <connections>
                                     <outlet property="delegate" destination="IfO-80-1iw" id="a3A-Tf-w05"/>
                                     <outlet property="menu" destination="gSA-sg-Hh9" id="fVe-FD-ABY"/>
                                 </connections>
                             </splitView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-gN-yLQ">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="42"/>
-                                <subviews>
-                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="KZa-vT-7c9">
-                                        <rect key="frame" x="0.0" y="39" width="300" height="5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="B3V-o5-DgE"/>
-                                        </constraints>
-                                    </box>
-                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmm-f0-UlU">
-                                        <rect key="frame" x="38" y="11" width="224" height="20"/>
-                                        <subviews>
-                                            <button toolTip="Copy All... (⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-6j-3gj">
-                                                <rect key="frame" x="-7" y="-7" width="190" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="176" id="VP4-Zv-NJN"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="push" title="Copy All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j00-Um-3Fu">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <string key="keyEquivalent">e</string>
-                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="copyButtonTapped:" target="IfO-80-1iw" id="fTS-Q0-HKZ"/>
-                                                    <outlet property="nextKeyView" destination="Dbw-cW-F99" id="XwT-K7-ZUM"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" toolTip="Export All... (⇧⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="In9-qO-324">
-                                                <rect key="frame" x="-7" y="-7" width="190" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="176" id="chu-mh-UGm"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="push" title="Export All..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PVX-A0-Mr6">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <string key="keyEquivalent">E</string>
-                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="exportButtonTapped:" target="IfO-80-1iw" id="I8a-j3-Sca"/>
-                                                    <outlet property="nextKeyView" destination="Dbw-cW-F99" id="5Yd-rd-gto"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Export Options (⌃⌘E)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-cW-F99">
-                                                <rect key="frame" x="177" y="-7" width="54" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="zoN-9M-igl"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSListViewTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b77-A5-RZE">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <string key="keyEquivalent">e</string>
-                                                    <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="optionButtonTapped:" target="IfO-80-1iw" id="5Jz-lV-8qS"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e8Z-gN-yLQ" secondAttribute="leading" constant="6" id="6X6-fB-oJt"/>
-                                    <constraint firstAttribute="trailing" secondItem="KZa-vT-7c9" secondAttribute="trailing" id="JmS-0G-RYk"/>
-                                    <constraint firstItem="KZa-vT-7c9" firstAttribute="leading" secondItem="e8Z-gN-yLQ" secondAttribute="leading" id="MvF-iQ-AaR"/>
-                                    <constraint firstItem="KZa-vT-7c9" firstAttribute="top" secondItem="e8Z-gN-yLQ" secondAttribute="top" id="QtP-ar-zEH"/>
-                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="centerX" secondItem="e8Z-gN-yLQ" secondAttribute="centerX" id="Zi8-8A-wqs"/>
-                                    <constraint firstItem="dmm-f0-UlU" firstAttribute="centerY" secondItem="e8Z-gN-yLQ" secondAttribute="centerY" id="ffD-sf-WKs"/>
-                                    <constraint firstAttribute="height" constant="42" id="ztU-4S-w6m"/>
-                                </constraints>
-                            </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="e8Z-gN-yLQ" secondAttribute="trailing" id="18P-bM-isU"/>
-                            <constraint firstAttribute="bottom" secondItem="RZA-N1-cn7" secondAttribute="bottom" constant="42" id="3Ht-cK-KmU"/>
+                            <constraint firstAttribute="bottom" secondItem="RZA-N1-cn7" secondAttribute="bottom" id="3Ht-cK-KmU"/>
                             <constraint firstItem="RZA-N1-cn7" firstAttribute="leading" secondItem="H7w-bX-aPp" secondAttribute="leading" id="KTG-Uo-yjR"/>
-                            <constraint firstAttribute="bottom" secondItem="e8Z-gN-yLQ" secondAttribute="bottom" id="MXG-I5-5Zj"/>
                             <constraint firstItem="RZA-N1-cn7" firstAttribute="top" secondItem="H7w-bX-aPp" secondAttribute="top" id="aBV-Lm-WJA"/>
-                            <constraint firstItem="e8Z-gN-yLQ" firstAttribute="leading" secondItem="H7w-bX-aPp" secondAttribute="leading" id="cqR-AE-kWH"/>
                             <constraint firstAttribute="trailing" secondItem="RZA-N1-cn7" secondAttribute="trailing" id="hak-Mu-rl2"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="copyButton" destination="bwz-6j-3gj" id="bWQ-l8-vPP"/>
-                        <outlet property="dividerConstraintInfo" destination="kU6-eP-TYB" id="bid-FB-OKQ"/>
-                        <outlet property="dividerConstraintInspector" destination="cuh-0g-db9" id="BBh-Tv-iei"/>
-                        <outlet property="dividerConstraintPreview" destination="kIP-3a-9lP" id="PY6-Zp-Ngt"/>
                         <outlet property="exitComparisonModeButton" destination="pFl-IO-QPP" id="m6Y-Up-lAA"/>
-                        <outlet property="exportButton" destination="In9-qO-324" id="gkB-Q9-4S2"/>
                         <outlet property="imageActionView" destination="5ER-JY-eJ2" id="Mj3-5k-u15"/>
                         <outlet property="imageLabel1" destination="C0k-ET-ywh" id="eIt-tP-bcf"/>
                         <outlet property="imageLabel2" destination="lDq-Ek-NZa" id="tkx-a8-Kbh"/>
@@ -482,8 +389,6 @@
                         <outlet property="inspectorColorFlagAlt" destination="G8B-c4-3S6" id="iYI-P0-veP"/>
                         <outlet property="inspectorColorLabel" destination="0ur-o7-U6O" id="caK-tE-vSI"/>
                         <outlet property="inspectorColorLabelAlt" destination="2Ab-Lv-Z6r" id="MdN-fe-Io1"/>
-                        <outlet property="optionButton" destination="Dbw-cW-F99" id="pF5-9A-j9q"/>
-                        <outlet property="optionMenu" destination="4at-bQ-1Zt" id="cQA-Sj-Cnh"/>
                         <outlet property="paneMenu" destination="gSA-sg-Hh9" id="Pdy-eY-bNd"/>
                         <outlet property="paneViewInfo" destination="s0i-Tq-xqT" id="eY6-Jy-L0o"/>
                         <outlet property="paneViewInspector" destination="E8g-qZ-f5e" id="8gC-c1-U0q"/>
@@ -500,32 +405,6 @@
                     </connections>
                 </viewController>
                 <customObject id="0zo-ug-lpx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <menu autoenablesItems="NO" id="4at-bQ-1Zt">
-                    <items>
-                        <menuItem isSeparatorItem="YES" id="oDR-XD-LAZ"/>
-                        <menuItem title="Reload All Templates" keyEquivalent="0" id="wn5-aj-tl9">
-                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                            <connections>
-                                <action selector="reloadAllTemplatesMenuTapped:" target="IfO-80-1iw" id="ayM-65-or0"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Show Templates..." keyEquivalent="t" id="UNR-ux-raK">
-                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                            <connections>
-                                <action selector="showTemplatesMenuTapped:" target="IfO-80-1iw" id="I6V-1j-KpF"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Show Logs..." keyEquivalent="l" id="lLo-u9-UXv">
-                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                            <connections>
-                                <action selector="showLogsMenuTapped:" target="IfO-80-1iw" id="r6V-g6-vaq"/>
-                            </connections>
-                        </menuItem>
-                    </items>
-                    <connections>
-                        <outlet property="delegate" destination="IfO-80-1iw" id="vhJ-ja-vRI"/>
-                    </connections>
-                </menu>
                 <menu id="gSA-sg-Hh9">
                     <items>
                         <menuItem title="Information" state="on" keyEquivalent="1" identifier="toggle-info" id="heo-bx-vn7">
@@ -576,7 +455,4 @@
             <point key="canvasLocation" x="2646" y="246"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="NSListViewTemplate" width="16" height="12"/>
-    </resources>
 </document>

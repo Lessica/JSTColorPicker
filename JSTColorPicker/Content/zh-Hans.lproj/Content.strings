@@ -94,8 +94,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.ibShadowedToolTip" = "将选中区域另存为 PNG 文件";
 
-/* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "qZ8-We-LFE"; */
-"qZ8-We-LFE.title" = "另存为...";
+/* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.title" = "重新采样...";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll and scale scene to fit this item"; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.ibShadowedToolTip" = "滚动并缩放场景, 使选中项处于合适位置";
@@ -120,6 +120,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "wfg-Vz-ZiE"; */
 "wfg-Vz-ZiE.title" = "文本单元格";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "WQj-mW-NTJ"; */
+"WQj-mW-NTJ.title" = "剪切";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
 "wys-cG-VKM.title" = "全选";

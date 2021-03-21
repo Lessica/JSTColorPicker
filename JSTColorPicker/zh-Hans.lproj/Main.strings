@@ -1,3 +1,6 @@
+/* Class = "NSMenu"; title = "Templates"; ObjectID = "0GS-5F-2Eu"; */
+"0GS-5F-2Eu.title" = "模版";
+
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "查找";
 
@@ -34,8 +37,17 @@
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "切换颜色面板";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "9HA-IH-LiH"; */
+"9HA-IH-LiH.ibShadowedToolTip" = "将选中区域另存为 PNG 文件";
+
+/* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "9HA-IH-LiH"; */
+"9HA-IH-LiH.title" = "重新采样...";
+
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "设备";
+
+/* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
+"af9-zN-lJB.title" = "选择模版";
 
 /* Class = "NSToolbarItem"; label = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.label" = "缩小";
@@ -82,8 +94,8 @@
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "另存为...";
 
-/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "cIT-qf-fbP"; */
-"cIT-qf-fbP.title" = "导出为...";
+/* Class = "NSMenuItem"; title = "Copy All..."; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.title" = "复制全部项...";
 
 /* Class = "NSMenuItem"; title = "Tag List"; ObjectID = "Cj1-n3-eHr"; */
 "Cj1-n3-eHr.title" = "标签列表";
@@ -115,11 +127,20 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "帮助";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "fAq-vA-bJd"; */
+"fAq-vA-bJd.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
+
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
 "fAq-vA-bJd.title" = "智能裁切";
 
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker 帮助";
+
+/* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
+"fQl-Hs-576.title" = "模版";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "粘贴";
@@ -129,6 +150,9 @@
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "视图";
+
+/* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "hye-bj-eGL"; */
+"hye-bj-eGL.title" = "显示日志...";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
 "HyV-fh-RgO.title" = "视图";
@@ -141,6 +165,9 @@
 
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "颜色选取器";
+
+/* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
+"jqq-oO-M2a.title" = "选择模版";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "截图";
@@ -187,6 +214,9 @@
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
 "mhD-IK-J6V.title" = "颜色指示器";
 
+/* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "mod-X3-fdk"; */
+"mod-X3-fdk.title" = "显示模版...";
+
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "服务";
 
@@ -226,6 +256,9 @@
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "缩放";
 
+/* Class = "NSMenuItem"; title = "Export All..."; ObjectID = "Rl3-28-Fqh"; */
+"Rl3-28-Fqh.title" = "导出全部项...";
+
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "全选";
 
@@ -262,6 +295,12 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "vLS-fs-Vb8"; */
+"vLS-fs-Vb8.ibShadowedToolTip" = "以当前模版导出选中项";
+
+/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "vLS-fs-Vb8"; */
+"vLS-fs-Vb8.title" = "导出为...";
+
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "清除菜单";
 
@@ -282,6 +321,9 @@
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "帮助";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.ibShadowedToolTip" = "以当前模版拷贝选中项";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";

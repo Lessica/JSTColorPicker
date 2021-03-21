@@ -121,6 +121,17 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vCe-vl-D8R"/>
+                                        <menuItem title="Copy All..." keyEquivalent="C" id="cIT-qf-fbP">
+                                            <connections>
+                                                <action selector="copyAll:" target="Ady-hI-5gd" id="0p1-r2-P4F"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Export All..." keyEquivalent="E" id="Rl3-28-Fqh">
+                                            <connections>
+                                                <action selector="exportAll:" target="Ady-hI-5gd" id="4Dh-Js-WF9"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="6ci-DI-Nx6"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
@@ -134,11 +145,6 @@
                                         <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Export As..." keyEquivalent="E" id="cIT-qf-fbP">
-                                            <connections>
-                                                <action selector="exportAs:" target="Ady-hI-5gd" id="t1n-Ot-zUv"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Revert to Saved" keyEquivalent="r" id="kt2-f5-ySm">
@@ -172,19 +178,32 @@
                                                 <action selector="cut:" target="Ady-hI-5gd" id="YJe-68-I9s"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU">
+                                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="x3v-GG-iWU">
                                             <connections>
                                                 <action selector="copy:" target="Ady-hI-5gd" id="G1f-GL-Joy"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL">
+                                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste items from another document" id="gVA-U4-sdL">
                                             <connections>
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Smart Trim" keyEquivalent="t" id="fAq-vA-bJd">
+                                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm" id="fAq-vA-bJd">
                                             <connections>
                                                 <action selector="smartTrim:" target="Ady-hI-5gd" id="KdY-BK-fAm"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="57O-CH-ZUW"/>
+                                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these items with current template" id="vLS-fs-Vb8">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="exportAs:" target="Ady-hI-5gd" id="xoo-cB-FrF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file" id="9HA-IH-LiH">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="resample:" target="Ady-hI-5gd" id="lI3-9x-kgL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qIG-UE-DdE"/>
@@ -349,7 +368,8 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
-                                        <menuItem title="Take Screenshot" keyEquivalent="S" id="k2M-xo-Glg">
+                                        <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="devicesTakeScreenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
                                             </connections>
@@ -357,6 +377,37 @@ CA
                                     </items>
                                     <connections>
                                         <outlet property="delegate" destination="Voe-Tx-rLC" id="HbL-q9-Rcq"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Templates" id="fQl-Hs-576">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Templates" id="0GS-5F-2Eu">
+                                    <items>
+                                        <menuItem title="Select Template" id="jqq-oO-M2a">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Select Template" id="af9-zN-lJB">
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="GYb-kH-iHe"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="CmS-6m-S5k"/>
+                                        <menuItem title="Show Templates..." keyEquivalent="t" id="mod-X3-fdk">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="showTemplatesMenuItemTapped:" target="Voe-Tx-rLC" id="50w-lJ-GZ6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Logs..." keyEquivalent="l" id="hye-bj-eGL">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="showLogsMenuItemTapped:" target="Voe-Tx-rLC" id="vu0-Xw-Xra"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Zy8-B5-zg5"/>
                                     </connections>
                                 </menu>
                             </menuItem>
@@ -419,6 +470,8 @@ CA
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
                         <outlet property="paneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
                         <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
+                        <outlet property="templateMenu" destination="0GS-5F-2Eu" id="KgQ-uV-vT1"/>
+                        <outlet property="templateSubMenu" destination="af9-zN-lJB" id="bF6-pZ-izo"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

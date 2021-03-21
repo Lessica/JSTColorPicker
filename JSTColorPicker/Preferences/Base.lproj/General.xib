@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="358"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="219"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
-                    <rect key="frame" x="13" y="10" width="454" height="342"/>
+                    <rect key="frame" x="13" y="10" width="454" height="203"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Scene" identifier="" id="DBw-sv-D6x">
@@ -183,14 +183,14 @@
                         </tabViewItem>
                         <tabViewItem label="Color Grid" identifier="" id="Qrb-RZ-ezf">
                             <view key="view" id="8yU-rV-VCd">
-                                <rect key="frame" x="10" y="33" width="434" height="76"/>
+                                <rect key="frame" x="10" y="33" width="434" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaZ-jx-mTk">
-                                        <rect key="frame" x="20" y="20" width="394" height="36"/>
+                                        <rect key="frame" x="20" y="20" width="394" height="40"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
-                                                <rect key="frame" x="-2" y="20" width="203" height="18"/>
+                                                <rect key="frame" x="-2" y="23" width="207" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1xD-ZG-hUt">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -200,7 +200,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-XV-TOP">
-                                                <rect key="frame" x="-2" y="-2" width="209" height="18"/>
+                                                <rect key="frame" x="-2" y="-1" width="213" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Draw Background in Color Grid" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QKj-aX-mro">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -233,14 +233,14 @@
                         </tabViewItem>
                         <tabViewItem label="Annotation" identifier="" id="AZY-Lx-ojw">
                             <view key="view" id="ibT-Qp-igG">
-                                <rect key="frame" x="10" y="33" width="434" height="133"/>
+                                <rect key="frame" x="10" y="33" width="434" height="157"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMr-ya-cMx">
-                                        <rect key="frame" x="20" y="20" width="394" height="93"/>
+                                        <rect key="frame" x="20" y="20" width="394" height="117"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVN-0E-XuN">
-                                                <rect key="frame" x="-2" y="76" width="169" height="18"/>
+                                                <rect key="frame" x="-2" y="100" width="169" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Uses Detailed Tool Tips" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="spB-al-HtT">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -250,13 +250,23 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6b1-O7-Cvg">
-                                                <rect key="frame" x="-2" y="52" width="161" height="18"/>
+                                                <rect key="frame" x="-2" y="76" width="161" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Confirm Before Delete" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1Y6-DK-gNW">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.confirmBeforeDelete" id="j5I-EY-5fT"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Jz-ZnC">
+                                                <rect key="frame" x="-2" y="52" width="161" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Ignore Invalid Deletion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5JF-OO-Avm">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.ignoreInvalidDeletion" id="Ccc-fz-AUl"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HAS-6c-zRj">
@@ -327,8 +337,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>

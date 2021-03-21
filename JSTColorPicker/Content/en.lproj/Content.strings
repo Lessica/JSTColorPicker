@@ -94,8 +94,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.ibShadowedToolTip" = "Save this area to a PNG file";
 
-/* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "qZ8-We-LFE"; */
-"qZ8-We-LFE.title" = "Save As...";
+/* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.title" = "Resample...";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll and scale scene to fit this item"; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.ibShadowedToolTip" = "Scroll and scale scene to fit this item";
@@ -120,6 +120,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "wfg-Vz-ZiE"; */
 "wfg-Vz-ZiE.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "WQj-mW-NTJ"; */
+"WQj-mW-NTJ.title" = "Cut";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "wys-cG-VKM"; */
 "wys-cG-VKM.title" = "Select All";

@@ -314,24 +314,28 @@ extension SplitController: ContentDelegate {
         return nil
     }
     
-    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+    func deleteContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         do {
-            return try contentController.deleteContentItem(of: coordinate)
+            return try contentController.deleteContentItem(of: coordinate, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
         } catch {
-            presentError(error)
+            if !ignore {
+                presentError(error)
+            }
         }
         return nil
     }
     
-    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
+    func deleteContentItem(_ item: ContentItem, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         do {
-            return try contentController.deleteContentItem(item)
+            return try contentController.deleteContentItem(item, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
         } catch {
-            presentError(error)
+            if !ignore {
+                presentError(error)
+            }
         }
         return nil
     }

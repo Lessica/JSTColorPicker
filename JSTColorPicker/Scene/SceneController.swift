@@ -393,6 +393,7 @@ class SceneController: NSViewController {
     private func applyDeleteItem(
         at locInWrapper: CGPoint,
         byShowingOptions menu: Bool,     // option pressed
+        byIgnoringPopups ignore: Bool,   // user defaults
         withEvent event: NSEvent? = nil
     ) -> Bool
     {
@@ -402,13 +403,13 @@ class SceneController: NSViewController {
             let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
             if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
                 if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
-                    if let _ = try? deleteContentItem(annotator.contentItem) {
+                    if let _ = try? deleteContentItem(annotator.contentItem, byIgnoringPopups: ignore) {
                         return true
                     }
                 }
                 return false
             }
-            if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper)) {
+            if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper), byIgnoringPopups: ignore) {
                 return true
             }
         }
@@ -586,9 +587,11 @@ class SceneController: NSViewController {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
                         let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
+                        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
                         handled = applyDeleteItem(
                             at: locInWrapper,
                             byShowingOptions: optionPressed,
+                            byIgnoringPopups: ignoreInvalidDeletion,
                             withEvent: event
                         )
                     }
@@ -774,7 +777,8 @@ class SceneController: NSViewController {
                     }
                     else if specialKey == .delete {
                         let optionPressed = flags.contains(.option)
-                        return applyDeleteItem(at: locInWrapper, byShowingOptions: optionPressed)
+                        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
+                        return applyDeleteItem(at: locInWrapper, byShowingOptions: optionPressed, byIgnoringPopups: ignoreInvalidDeletion)
                     }
                 }
             }
@@ -1329,12 +1333,12 @@ extension SceneController: ContentDelegate {
         return try contentManager.deselectContentItem(item)
     }
     
-    func deleteContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentManager.deleteContentItem(of: coordinate)
+    func deleteContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        return try contentManager.deleteContentItem(of: coordinate, byIgnoringPopups: ignore)
     }
     
-    func deleteContentItem(_ item: ContentItem) throws -> ContentItem? {
-        return try contentManager.deleteContentItem(item)
+    func deleteContentItem(_ item: ContentItem, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        return try contentManager.deleteContentItem(item, byIgnoringPopups: ignore)
     }
     
     func deselectAllContentItems() {
@@ -1601,7 +1605,7 @@ extension SceneController: NSMenuItemValidation, NSMenuDelegate {
 
     @objc private func deleteContentItemFromMenuItem(_ menuItem: NSMenuItem) {
         guard let contentItem = menuItem.representedObject as? ContentItem else { return }
-        _ = try? deleteContentItem(contentItem)
+        _ = try? deleteContentItem(contentItem, byIgnoringPopups: false)
     }
 
 }
