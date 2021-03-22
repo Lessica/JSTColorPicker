@@ -95,14 +95,15 @@ class AnnotatorOverlay: EditableOverlay {
         right: defaultBorderWidth
     )
 
-    /* Revealed Appearance */
-    public var associatedLabelColor                  : NSColor = .black
-    public var selectedAssociatedLabelColor          : NSColor = .white
-    public var focusedAssociatedLabelColor           : NSColor = .clear
+    /* Revealed Appearance (.centered) */
+    public lazy var associatedLabelColor             : NSColor? = {
+        guard let associatedBackgroundColor = associatedBackgroundColor else { return nil }
+        return NSColor(cgColor: associatedBackgroundColor)
+    }()
 
     private var associatedBackgroundColor            : CGColor? { lineDashColorsHighlighted?[1] }
     private static let associatedBackgroundAlpha     : CGFloat = 0.2
-    private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .regular)
+    private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .semibold)
     
     
     // MARK: - Label
@@ -145,7 +146,9 @@ class AnnotatorOverlay: EditableOverlay {
 
     /* Associated Label */
     private lazy var internalAttributedAssociatedLabel: NSAttributedString? = {
-        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
+        guard let _internalAssociatedLabel = _internalAssociatedLabel,
+              let associatedLabelColor = associatedLabelColor
+        else { return nil }
         return NSAttributedString(string: _internalAssociatedLabel, attributes: [
             NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
             NSAttributedString.Key.foregroundColor: associatedLabelColor
@@ -154,30 +157,6 @@ class AnnotatorOverlay: EditableOverlay {
     private lazy var internalAttributedAssociatedLabelSize: CGSize? = {
         guard let internalAttributedAssociatedLabel = internalAttributedAssociatedLabel else { return nil }
         return internalAttributedAssociatedLabel.size()
-    }()
-
-    private lazy var internalSelectedAttributedAssociatedLabel: NSAttributedString? = {
-        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
-        return NSAttributedString(string: _internalAssociatedLabel, attributes: [
-            NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
-            NSAttributedString.Key.foregroundColor: selectedAssociatedLabelColor
-        ])
-    }()
-    private lazy var internalSelectedAttributedAssociatedLabelSize: CGSize? = {
-        guard let internalSelectedAttributedAssociatedLabel = internalSelectedAttributedAssociatedLabel else { return nil }
-        return internalSelectedAttributedAssociatedLabel.size()
-    }()
-
-    private lazy var internalFocusedAttributedAssociatedLabel: NSAttributedString? = {
-        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
-        return NSAttributedString(string: _internalAssociatedLabel, attributes: [
-            NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
-            NSAttributedString.Key.foregroundColor: focusedAssociatedLabelColor
-        ])
-    }()
-    private lazy var internalFocusedAttributedAssociatedLabelSize: CGSize? = {
-        guard let internalFocusedAttributedAssociatedLabel = internalFocusedAttributedAssociatedLabel else { return nil }
-        return internalFocusedAttributedAssociatedLabel.size()
     }()
     
     
@@ -265,18 +244,9 @@ class AnnotatorOverlay: EditableOverlay {
             // draws text
             var usedText: NSAttributedString?
             var usedTextSize: CGSize?
-            if isSelected
+            if isFocused || isSelected
             {
-                usedText = internalSelectedAttributedAssociatedLabel
-                usedTextSize = internalSelectedAttributedAssociatedLabelSize
-            }
-            else if isFocused
-            {
-                usedText = internalFocusedAttributedAssociatedLabel
-                usedTextSize = internalFocusedAttributedAssociatedLabelSize
-            }
-            else
-            {
+                // draws only when selected for this style
                 usedText = internalAttributedAssociatedLabel
                 usedTextSize = internalAttributedAssociatedLabelSize
             }

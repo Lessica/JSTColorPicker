@@ -100,7 +100,7 @@ class Overlay: NSView {
     
     
     // MARK: - Animation
-    
+
     private static var sharedAnimationTimer: Timer?
     private static func installSharedAnimationTimer() {
         if let oldTimer = sharedAnimationTimer {
@@ -187,7 +187,7 @@ class Overlay: NSView {
     }
     
     private var shouldPerformAnimatableDrawing: Bool {
-        return (!isHidden && borderStyle != .none) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
+        return (!isHidden && borderStyle == .dashed) ? shouldPerformDrawing(visibleRect, bounds.inset(by: innerInsets)) : false
     }
     
     private func shouldPerformDrawing(_ dirtyRect: CGRect, _ drawBounds: CGRect) -> Bool {

@@ -68,9 +68,15 @@ class SceneController: NSViewController {
             sceneView.usesPredominantAxisScrolling = newValue
         }
     }
-    private var hideAnnotatorsWhenResize  : Bool = true
-    private var hideBordersWhenResize     : Bool = false
-    private var hideGridsWhenResize       : Bool = false
+    private var drawTagsInScene                 : Bool = false
+    private var hideAnnotatorsWhenResize        : Bool = true
+    private var hideBordersWhenResize           : Bool = false
+    private var hideGridsWhenResize             : Bool = false
+
+    private var _shouldRedrawAnnotatorContents  : Bool = false
+    private func setNeedsRedrawAnnotatorContents() {
+        _shouldRedrawAnnotatorContents = true
+    }
     
     private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
@@ -262,6 +268,13 @@ class SceneController: NSViewController {
         if self.drawRulersInScene != drawRulersInScene {
             self.drawRulersInScene = drawRulersInScene
             reloadSceneRulerConstraints()
+            shouldNotifySceneBoundsChanged = true
+        }
+
+        let drawTagsInScene: Bool = UserDefaults.standard[.drawTagsInScene]
+        if self.drawTagsInScene != drawTagsInScene {
+            self.drawTagsInScene = drawTagsInScene
+            setNeedsRedrawAnnotatorContents()
             shouldNotifySceneBoundsChanged = true
         }
         
@@ -1043,7 +1056,8 @@ extension SceneController: AnnotatorSource {
                         .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
                         .inset(by: annotator.overlay.outerInsets)
             } else {
-                let revealStyle: AnnotatorOverlay.RevealStyle = isRevealable ? .centered : .none
+                let revealStyle: AnnotatorOverlay.RevealStyle =
+                    drawTagsInScene ? (isRevealable ? .centered : .none) : .none
                 if annotator.revealStyle != revealStyle {
                     annotator.revealStyle = revealStyle
                 }
@@ -1058,7 +1072,12 @@ extension SceneController: AnnotatorSource {
     }
     
     private func updateAnnotatorStates(byRedrawingContents redraw: Bool = false) {
-        annotators.forEach({ updateStates(of: $0, byRedrawingContents: redraw) })
+        var shouldRedraw = redraw
+        if _shouldRedrawAnnotatorContents {
+            _shouldRedrawAnnotatorContents = false
+            shouldRedraw = true
+        }
+        annotators.forEach({ updateStates(of: $0, byRedrawingContents: shouldRedraw) })
     }
     
     private func annotatorLoadRulerMarkers(_ annotator: Annotator) {
