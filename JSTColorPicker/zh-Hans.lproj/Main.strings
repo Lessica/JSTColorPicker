@@ -94,8 +94,8 @@
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "另存为...";
 
-/* Class = "NSMenuItem"; title = "Copy All..."; ObjectID = "cIT-qf-fbP"; */
-"cIT-qf-fbP.title" = "复制全部项...";
+/* Class = "NSMenuItem"; title = "Copy All"; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.title" = "复制全部项";
 
 /* Class = "NSMenuItem"; title = "Tag List"; ObjectID = "Cj1-n3-eHr"; */
 "Cj1-n3-eHr.title" = "标签列表";

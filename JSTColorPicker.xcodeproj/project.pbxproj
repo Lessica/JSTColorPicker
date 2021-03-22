@@ -1412,8 +1412,6 @@
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
 				D6D2F94D254E6929000A13CD /* ShortcutGuide */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
-				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
-				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
@@ -1647,6 +1645,8 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
+				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				D64AF09D240D05BB003A5B17 /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,

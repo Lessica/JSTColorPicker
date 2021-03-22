@@ -11,15 +11,13 @@ import PromiseKit
 import MASPreferences
 import ServiceManagement
 
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
+
     
     // MARK: - Structs
     
     enum XPCError: LocalizedError {
-        
         case timeout
         
         var failureReason: String? {
@@ -28,9 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return NSLocalizedString("Connection timeout.", comment: "XPCError")
             }
         }
-        
     }
-    
+
     
     // MARK: - Attributes
     
@@ -96,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationXPCSetup()
         
         applicationOpenUntitledDocumentIfNeeded()
-        applicationCopyExampleTemplatesIfNeeded()
+        applicationLoadTemplatesIfNeeded()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -426,7 +423,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var templateSubMenu: NSMenu!
     
     @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
-        applicationCopyExampleTemplatesIfNeeded()
+        applicationLoadTemplatesIfNeeded()
         NSWorkspace.shared.open(ExportManager.templateRootURL)
     }
     
@@ -456,7 +453,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private func applicationCopyExampleTemplatesIfNeeded() {
+    private func applicationLoadTemplatesIfNeeded() {
         if ExportManager.templates.count == 0 {
             if let exampleTemplateURL = ExportManager.exampleTemplateURL {
                 let exampleTemplateName = exampleTemplateURL.lastPathComponent

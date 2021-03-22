@@ -4,9 +4,9 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 
 ## Features
 - Pick colors & areas from PNG screenshots
-- Read/Write annotator data from/into EXIF dictionary of PNG files
+- Read/Write annotation data from/into EXIF dictionary of PNG files
 - Take screenshots directly from iOS devices (based on [`libimobiledevice`](https://github.com/libimobiledevice/libimobiledevice))
-- Copy/Export annotator data using custom templates
+- Copy/Export annotation data using custom templates
 - Show the difference between screenshots
 
 
@@ -17,45 +17,74 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ## Usage
 
 ### Magic Cursor
-- `⌘↵` / **Tap** (or **Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
+- `⌘↵` / **Click / Tap** (or **Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
-- `⌘⌫`: Delete *coordinate & color* at current position or *area* contains current position.
-- **Hold** `⌘`: Switch to *Selection Arrow* temporarily.
+- `⌘⌫`: Delete *coordinate & color* at current position or the top most *area* contains current position.
+- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *coordinate & color* at current position or the top most *area* contains current position.
+- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to delete the annotation.
+- **Hold** `⌃`: Switch to *Selection Arrow* temporarily.
+
+### Selection Arrow
+- **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or the top most *area* contains current position.
+- `⌘` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or the top most *area* contains current position, while keeping the previous selections.
+- `⇧` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or all *areas* contains current position, while keeping the previous selections.
+- `⌥` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to select the annotation, while keeping the previous selections.
+- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *coordinate & color* at current position or the top most *area* contains current position.
+- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to delete the annotation.
+- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *coordinate & color* to a new position, or modify *area* to a new dimension.
+- **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 
 ### Magnifying Glass
 - **Click**: Magnify to next level from current position.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
-- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
+- **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
 ### Minifying Glass
 - **Click**: Minify to previous level from current position.
-- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
+- **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Magnifying Glass* temporarily.
-
-### Selection Arrow
-- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
 
 ### Move
 - **Drag**: A simple drag-to-move operation for common mouse device.
-- **Hold** `⌘`: Switch to *Magic Cursor* temporarily.
-- **Move with two fingers**: Standard drag operation for Magic Mouse / Trackpad.
-- **Pinch with two fingers**: Zoom in or out.
+- **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
+
+### General Shortcuts
+- **Move with one finger**: Standard move operation (Magic Mouse).
+- **Move with two fingers**: Standard move operation (Magic Trackpad).
+- **Pinch with two fingers**: Zoom in or out (Magic Trackpad).
+- **Double Tap with one fingers**: Smart Zoom in or out (Magic Mouse).
+- **Double Tap with two fingers**: Smart Zoom in or out (Magic Trackpad).
 - `⌘` + `↑ ↓ ← →`: Move cursor by 1 pixel.
 - `⇧⌘` + `↑ ↓ ← →`: Move cursor by 10 pixels.
 - `⌃⌘` + `↑ ↓ ← →`: Move cursor by 100 pixels.
+- `⌘-`: **Zoom in** with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).
+- `⌘=`: **Zoom out** with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).
+- `⌘[`: If the selected *annotation* is the only selected *annotation* in all levels under the current cursor position, the selected state is switched to the previous *annotation* in the cascade under the current cursor position.
+- `⌘]`: If the selected *annotation* is the only selected *annotation* in all levels under the current cursor position, the selected state is switched to the next *annotation* in the cascade under the current cursor position.
+
+### Ruler
+- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *coordinate & color* to a new position, or modify *area* to a new dimension.
 
 ### Fit Window / Fill Window
 There's no need to explain.
 
-### Annotator Management
+### Annotation Management
 - Select one or more item(s) from left content list.
-- Right click to show menu for selected item(s).
+- Right click to show menu for selected item(s):
+  * `↵`: Scroll the scene to the selected annotation, and adjust the scale to fit its size.
+  * `⌘C`: Copy: Copy these annotations with current template.
+  * `⌘V`: Paste: Paste annotations from another document.
+  * `⌘T`: Smart Trim: Trim this area with Canny edge detection algorithm.
+  * `⌥⌘E`: Export As: Export these annotations with current template.
+  * `⌥⌘R`: Resample: Save this area to a PNG file.
+  * `⌘A`: Select All
+  * `⌫`: Delete
 - `0123456789`: Enter item `ID` to select existing item quickly.
-
-### Export
-- `⌘E`: Copy all items using selected template.
-- `⇧⌘E`: Export all items using selected template.
+- Type a string in the following format into the input box in the bottom left corner and type **Enter** to add or locate an item. Right-click `+` to toggle the data entry format.
+  * *coordinate & color*: `(x, y)`
+  * *area*: `(x1, y1, x2, y2)`
+  * *area*: `(x, y, w, h)`
 
 ### Others
 - <code>⌘`</code>: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
@@ -73,15 +102,22 @@ There's no need to explain.
 - `⌘N` New
 - `⌘O` Open...
 - `⌘W` Close
-- `⌘S` Save...
+- `⌘S` Save
 - `⇧⌘S` Save As...
 - `⇧⌘D` Compare Opened Documents
+- `⇧⌘C`: Copy all annotations using selected template.
+- `⇧⌘E`: Export all annotations using selected template.
 
 ### Edit
 - `⌘Z` Undo
 - `⇧⌘Z` Redo
-- `⌫` Delete
+- `⌘C` Copy: Copy these annotations with current template.
+- `⌘V` Paste: Paste annotations from another document.
+- `⌘T` Smart Trim: Trim this area with Canny edge detection algorithm.
+- `⌥⌘E` Export As: Export these annotations with current template.
+- `⌥⌘R` Resample: Save this area to a PNG file.
 - `⌘A` Select All
+- `⌫` Delete
 
 ### View
 - `⌥⌘T` Show/Hide Toolbar
@@ -91,8 +127,14 @@ There's no need to explain.
 - `⌃⌘C` **Toggle Color Panel**
 
 ### Devices
-- `⇧⌘S` **Screenshot**
-- `⇧⌘I` **Discovery Devices**
+- `⌃S` **Screenshot**
+- `⌃I` **Discovery Devices**
+
+### Templates
+- `⌃⌘` + `123456789`: Switch between templates.
+- `⌃⌘0` *Reload All Templates*
+- `⌃⌘F` *Show Templates...*: Show all templates in Finder.
+- `⌃⌘L` *Show Logs...*: Open *Console.app* to watch all exceptions and warnings thrown from templates loading.
 
 ### Window
 - `⌘M` Minimize
@@ -105,14 +147,14 @@ There's no need to explain.
 
 
 ## Toolbar Key Equivalents
-- `F1` Open...
-- `F2` *Magic Cursor*
-- `F3` *Magnifying Glass*
-- `F4` *Minifying Glass*
-- `F5` *Selection Arrow*
-- `F6` *Move*
-- `F7` Fit Window
-- `F8` Fill Window
+- `[Fn]F1` Open...
+- `[Fn]F2` *Magic Cursor*
+- `[Fn]F3` *Magnifying Glass*
+- `[Fn]F4` *Minifying Glass*
+- `[Fn]F5` *Selection Arrow*
+- `[Fn]F6` *Move*
+- `[Fn]F7` Fit Window
+- `[Fn]F8` Fill Window
 
 
 ## Customizable Templates

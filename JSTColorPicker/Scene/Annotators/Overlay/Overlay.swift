@@ -28,14 +28,14 @@ class Overlay: NSView {
     // MARK: - Attributes
 
     enum BorderStyle {
-        case dashed
-        case solid
         case none
+        case solid
+        case dashed
     }
     
-    public var borderStyle  : BorderStyle  { .none }
-    public var isFocused    : Bool         = false
-    public var isSelected   : Bool         = false
+    public  var borderStyle      : BorderStyle  { .none }
+    public  var isFocused        : Bool         = false
+    public  var isSelected       : Bool         = false
     {
         didSet {
             if isSelected {
@@ -47,8 +47,19 @@ class Overlay: NSView {
         }
     }
     
-    public var outerInsets  : NSEdgeInsets { Overlay.defaultOuterInsets }
-    public var innerInsets  : NSEdgeInsets { Overlay.defaultInnerInsets }
+    private var _isHighlighted   : Bool         = false
+    public  var isHighlighted    : Bool
+    {
+        get {
+            isFocused ? true : _isHighlighted
+        }
+        set {
+            _isHighlighted = newValue
+        }
+    }
+    
+    public  var outerInsets      : NSEdgeInsets { Overlay.defaultOuterInsets }
+    public  var innerInsets      : NSEdgeInsets { Overlay.defaultInnerInsets }
     
     
     // MARK: - Styles
@@ -220,7 +231,7 @@ class Overlay: NSView {
         
         ctx.setLineCap(.round)
         ctx.setLineWidth(Overlay.defaultBorderWidth)
-        if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[1]) }
+        if isFocused || isHighlighted || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[1]) }
         else { ctx.setStrokeColor(internalLineDashColorsNormal[1]) }
         ctx.strokePath()
         
@@ -332,7 +343,7 @@ class Overlay: NSView {
             
             ctx.setLineCap(.butt)
             ctx.setLineWidth(Overlay.defaultBorderWidth)
-            if isFocused || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[0]) }
+            if isFocused || isHighlighted || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[0]) }
             else { ctx.setStrokeColor(internalLineDashColorsNormal[0]) }
             ctx.strokePath()
             

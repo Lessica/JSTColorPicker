@@ -111,5 +111,7 @@ enum SceneTool: String {
             return NSCursor.current
         }
     }
+
+    public var canFocus: Bool { self == .selectionArrow || self == .movingHand }
     
 }

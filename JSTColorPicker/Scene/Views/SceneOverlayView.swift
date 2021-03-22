@@ -64,8 +64,8 @@ class SceneOverlayView: NSView {
     public var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
     private var internalEditableDirection: EditableOverlay.Direction = .none
     
-    public var isFocused: Bool { sceneTool == .selectionArrow ? internalFocusedOverlay != nil : false }
-    public var focusedOverlay: AnnotatorOverlay? { sceneTool == .selectionArrow ? internalFocusedOverlay : nil }
+    public var isFocused: Bool { sceneTool.canFocus ? internalFocusedOverlay != nil : false }
+    public var focusedOverlay: AnnotatorOverlay? { sceneTool.canFocus ? internalFocusedOverlay : nil }
     
     public func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
         overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
@@ -121,7 +121,7 @@ class SceneOverlayView: NSView {
     }
     
     private func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
-        guard sceneTool == .selectionArrow else {
+        guard sceneTool.canFocus else {
             internalResetFocusAppearance()
             return
         }

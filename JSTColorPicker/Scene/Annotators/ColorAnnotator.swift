@@ -9,14 +9,12 @@
 import Foundation
 
 class ColorAnnotator: Annotator {
-    
     public var pixelColor    : PixelColor            { contentItem as! PixelColor        }
     public var pixelOverlay  : ColorAnnotatorOverlay { overlay as! ColorAnnotatorOverlay }
     
     init(_ color: PixelColor) {
-        let overlay = ColorAnnotatorOverlay(label: String(color.id), coordinate: color.coordinate)
+        let overlay = ColorAnnotatorOverlay(coordinate: color.coordinate, label: String(color.id))
         super.init(color, overlay)
     }
-    
 }
 

@@ -10,21 +10,55 @@ import Cocoa
 
 
 class AnnotatorOverlay: EditableOverlay {
+
+    
+    // MARK: - Attributes
+
+    enum RevealStyle {
+        case none
+        case fixed
+        case centered
+        case floating
+    }
+
+    public   var revealStyle         : RevealStyle = .none
+
+    /* controlled by revealStyle */
+    override var borderStyle         : BorderStyle
+    {
+        switch revealStyle {
+        case .fixed:
+            return .none
+        case .centered, .floating:
+            return .solid
+        default:
+            return super.borderStyle
+        }
+    }
+
+    /* controlled by revealStyle */
+    override var isHighlighted       : Bool
+    {
+        get {
+            revealStyle != .none ? true : super.isHighlighted
+        }
+        set {
+            super.isHighlighted = newValue
+        }
+    }
+
     
     // MARK: - Inherited
     
-    public var isFixed         : Bool         = true
-    override var borderStyle   : BorderStyle  { isFixed ? .none : super.borderStyle }
-    
     override var outerInsets: NSEdgeInsets {
-        if isFixed {
+        if revealStyle == .fixed {
             return AnnotatorOverlay.defaultOuterInsets
         }
         return super.outerInsets
     }
     
     override var innerInsets: NSEdgeInsets {
-        if isFixed {
+        if revealStyle == .fixed {
             return AnnotatorOverlay.defaultInnerInsets
         }
         return super.innerInsets
@@ -32,70 +66,126 @@ class AnnotatorOverlay: EditableOverlay {
     
     
     // MARK: - Appearance
-    
+
+    /* Fixed Appearance */
     public static let fixedOverlayOffset             = CGPoint(x: -12.0, y: -12.0)
     public static let fixedOverlaySize               = CGSize(width: 24.0, height: 24.0)
     public static let minimumBorderedOverlaySize     = CGSize(width: 16.0, height: 16.0)
     
-    public var textColor                   : NSColor = .black
-    public var highlightedTextColor        : NSColor = .white
-    public var focusedTextColor            : NSColor = NSColor(srgbRed: 0.9098, green: 0.2549, blue: 0.0941, alpha: 1.0)
-    public var backgroundImage             : NSImage = #imageLiteral(resourceName: "Annotator")
-    public var highlightedBackgroundImage  : NSImage = #imageLiteral(resourceName: "AnnotatorRed")
-    public var focusedBackgroundImage      : NSImage = #imageLiteral(resourceName: "AnnotatorRedFocused")
-    
-    private static let defaultBorderWidth  : CGFloat = 0.0
-    private static let defaultOuterInsets  = NSEdgeInsets(
+    public var labelColor                            : NSColor = .black
+    public var selectedLabelColor                    : NSColor = .white
+    public var focusedLabelColor                     : NSColor = .clear
+
+    public var backgroundImage                       : NSImage = NSImage(size: .zero)
+    public var selectedBackgroundImage               : NSImage = NSImage(size: .zero)
+    public var focusedBackgroundImage                : NSImage = NSImage(size: .zero)
+
+    private static let labelFont                     = NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular)
+    private static let defaultBorderWidth            : CGFloat = 0.0
+    private static let defaultOuterInsets            = NSEdgeInsets(
         top: -defaultBorderWidth,
         left: -defaultBorderWidth,
         bottom: -defaultBorderWidth,
         right: -defaultBorderWidth
     )
-    private static let defaultInnerInsets  = NSEdgeInsets(
+    private static let defaultInnerInsets            = NSEdgeInsets(
         top: defaultBorderWidth,
         left: defaultBorderWidth,
         bottom: defaultBorderWidth,
         right: defaultBorderWidth
     )
+
+    /* Revealed Appearance */
+    public var associatedLabelColor                  : NSColor = .black
+    public var selectedAssociatedLabelColor          : NSColor = .white
+    public var focusedAssociatedLabelColor           : NSColor = .clear
+
+    private var associatedBackgroundColor            : CGColor? { lineDashColorsHighlighted?[1] }
+    private static let associatedBackgroundAlpha     : CGFloat = 0.2
+    private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .regular)
     
     
     // MARK: - Label
     
-    public var label           : String  { internalLabel }
-    private var internalLabel  : String
+    public var label                      : String   { _internalLabel           }
+    public var associatedLabel            : String?  { _internalAssociatedLabel }
+    private var _internalLabel            : String
+    private var _internalAssociatedLabel  : String?
+
+    /* Label */
     private lazy var internalAttributedLabel: NSAttributedString = {
-        return NSAttributedString(string: internalLabel, attributes: [
-            NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
-            NSAttributedString.Key.foregroundColor: textColor
+        return NSAttributedString(string: _internalLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.labelFont,
+            NSAttributedString.Key.foregroundColor: labelColor
         ])
     }()
     private lazy var internalAttributedLabelSize: CGSize = {
         return internalAttributedLabel.size()
     }()
-    private lazy var internalHighlightedAttributedLabel: NSAttributedString = {
-        return NSAttributedString(string: internalLabel, attributes: [
-            NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
-            NSAttributedString.Key.foregroundColor: highlightedTextColor
+
+    private lazy var internalSelectedAttributedLabel: NSAttributedString = {
+        return NSAttributedString(string: _internalLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.labelFont,
+            NSAttributedString.Key.foregroundColor: selectedLabelColor
         ])
     }()
-    private lazy var internalHighlightedAttributedLabelSize: CGSize = {
-        return internalHighlightedAttributedLabel.size()
+    private lazy var internalSelectedAttributedLabelSize: CGSize = {
+        return internalSelectedAttributedLabel.size()
     }()
+
     private lazy var internalFocusedAttributedLabel: NSAttributedString = {
-        return NSAttributedString(string: internalLabel, attributes: [
-            NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular),
-            NSAttributedString.Key.foregroundColor: focusedTextColor
+        return NSAttributedString(string: _internalLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.labelFont,
+            NSAttributedString.Key.foregroundColor: focusedLabelColor
         ])
     }()
     private lazy var internalFocusedAttributedLabelSize: CGSize = {
         return internalFocusedAttributedLabel.size()
     }()
+
+    /* Associated Label */
+    private lazy var internalAttributedAssociatedLabel: NSAttributedString? = {
+        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
+        return NSAttributedString(string: _internalAssociatedLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
+            NSAttributedString.Key.foregroundColor: associatedLabelColor
+        ])
+    }()
+    private lazy var internalAttributedAssociatedLabelSize: CGSize? = {
+        guard let internalAttributedAssociatedLabel = internalAttributedAssociatedLabel else { return nil }
+        return internalAttributedAssociatedLabel.size()
+    }()
+
+    private lazy var internalSelectedAttributedAssociatedLabel: NSAttributedString? = {
+        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
+        return NSAttributedString(string: _internalAssociatedLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
+            NSAttributedString.Key.foregroundColor: selectedAssociatedLabelColor
+        ])
+    }()
+    private lazy var internalSelectedAttributedAssociatedLabelSize: CGSize? = {
+        guard let internalSelectedAttributedAssociatedLabel = internalSelectedAttributedAssociatedLabel else { return nil }
+        return internalSelectedAttributedAssociatedLabel.size()
+    }()
+
+    private lazy var internalFocusedAttributedAssociatedLabel: NSAttributedString? = {
+        guard let _internalAssociatedLabel = _internalAssociatedLabel else { return nil }
+        return NSAttributedString(string: _internalAssociatedLabel, attributes: [
+            NSAttributedString.Key.font: AnnotatorOverlay.associatedLabelFont,
+            NSAttributedString.Key.foregroundColor: focusedAssociatedLabelColor
+        ])
+    }()
+    private lazy var internalFocusedAttributedAssociatedLabelSize: CGSize? = {
+        guard let internalFocusedAttributedAssociatedLabel = internalFocusedAttributedAssociatedLabel else { return nil }
+        return internalFocusedAttributedAssociatedLabel.size()
+    }()
     
     
     // MARK: - Initializers
     
-    init(label: String) {
-        self.internalLabel = label
+    init(label: String, associatedLabel: String? = nil) {
+        self._internalLabel = label
+        self._internalAssociatedLabel = associatedLabel
         super.init(frame: .zero)
     }
     
@@ -107,52 +197,101 @@ class AnnotatorOverlay: EditableOverlay {
     // MARK: - Drawing
     
     override func draw(_ dirtyRect: NSRect) {
-        guard isFixed else {
+        if revealStyle == .none {
             super.draw(dirtyRect)
-            return
         }
-        
-        let drawBounds = bounds.inset(by: innerInsets)
-        guard !drawBounds.isEmpty else { return }
-        
-        if isSelected {
-            highlightedBackgroundImage.draw(in: drawBounds)
-            internalHighlightedAttributedLabel.draw(
-                with: CGRect(
-                    origin: CGPoint(
-                        x: drawBounds.center.x - internalHighlightedAttributedLabelSize.width / 2.0,
-                        y: drawBounds.center.y - internalHighlightedAttributedLabelSize.height / 2.0
+        else if revealStyle == .fixed {
+            let drawBounds = bounds.inset(by: innerInsets)
+            guard !drawBounds.isEmpty else { return }
+
+            if isSelected {
+                selectedBackgroundImage.draw(in: drawBounds)
+                internalSelectedAttributedLabel.draw(
+                    with: CGRect(
+                        origin: CGPoint(
+                            x: drawBounds.center.x - internalSelectedAttributedLabelSize.width / 2.0,
+                            y: drawBounds.center.y - internalSelectedAttributedLabelSize.height / 2.0
+                        ),
+                        size: internalSelectedAttributedLabelSize
                     ),
-                    size: internalHighlightedAttributedLabelSize
-                ),
-                options: [.usesLineFragmentOrigin]
-            )
+                    options: [.usesLineFragmentOrigin]
+                )
+            }
+            else if isFocused {
+                focusedBackgroundImage.draw(in: drawBounds)
+                internalFocusedAttributedLabel.draw(
+                    with: CGRect(
+                        origin: CGPoint(
+                            x: drawBounds.center.x - internalFocusedAttributedLabelSize.width / 2.0,
+                            y: drawBounds.center.y - internalFocusedAttributedLabelSize.height / 2.0
+                        ),
+                        size: internalFocusedAttributedLabelSize
+                    ),
+                    options: [.usesLineFragmentOrigin]
+                )
+            }
+            else {
+                backgroundImage.draw(in: drawBounds)
+                internalAttributedLabel.draw(
+                    with: CGRect(
+                        origin: CGPoint(
+                            x: drawBounds.center.x - internalAttributedLabelSize.width / 2.0,
+                            y: drawBounds.center.y - internalAttributedLabelSize.height / 2.0
+                        ),
+                        size: internalAttributedLabelSize
+                    ),
+                    options: [.usesLineFragmentOrigin]
+                )
+            }
         }
-        else if isFocused {
-            focusedBackgroundImage.draw(in: drawBounds)
-            internalFocusedAttributedLabel.draw(
-                with: CGRect(
-                    origin: CGPoint(
-                        x: drawBounds.center.x - internalFocusedAttributedLabelSize.width / 2.0,
-                        y: drawBounds.center.y - internalFocusedAttributedLabelSize.height / 2.0
-                    ),
-                    size: internalFocusedAttributedLabelSize
-                ),
-                options: [.usesLineFragmentOrigin]
-            )
-        }
-        else {
-            backgroundImage.draw(in: drawBounds)
-            internalAttributedLabel.draw(
-                with: CGRect(
-                    origin: CGPoint(
-                        x: drawBounds.center.x - internalAttributedLabelSize.width / 2.0,
-                        y: drawBounds.center.y - internalAttributedLabelSize.height / 2.0
-                    ),
-                    size: internalAttributedLabelSize
-                ),
-                options: [.usesLineFragmentOrigin]
-            )
+        else if revealStyle == .centered {
+            guard let ctx = NSGraphicsContext.current?.cgContext else { return }
+
+            // draws background
+            if isFocused || isSelected {
+                guard let associatedColor = associatedBackgroundColor,
+                      let backgroundColor = associatedColor.copy(alpha: AnnotatorOverlay.associatedBackgroundAlpha)
+                else { return }
+
+                let drawBounds = bounds.inset(by: innerInsets)
+                guard !drawBounds.isEmpty else { return }
+
+                let backgroundBounds = drawBounds.intersection(dirtyRect)
+
+                ctx.setFillColor(backgroundColor)
+                ctx.fill(backgroundBounds)
+            }
+
+            // draws text
+            var usedText: NSAttributedString?
+            var usedTextSize: CGSize?
+            if isSelected
+            {
+                usedText = internalSelectedAttributedAssociatedLabel
+                usedTextSize = internalSelectedAttributedAssociatedLabelSize
+            }
+            else if isFocused
+            {
+                usedText = internalFocusedAttributedAssociatedLabel
+                usedTextSize = internalFocusedAttributedAssociatedLabelSize
+            }
+            else
+            {
+                usedText = internalAttributedAssociatedLabel
+                usedTextSize = internalAttributedAssociatedLabelSize
+            }
+
+            if let text = usedText, let textSize = usedTextSize {
+                let textRect = CGRect(
+                    origin: bounds.center.offsetBy(dx: -textSize.width / 2.0, dy: -textSize.height / 2.0),
+                    size: textSize
+                )
+                if dirtyRect.intersects(textRect) && dirtyRect.contains(textRect) {
+                    text.draw(with: textRect, options: [.usesLineFragmentOrigin])
+                }
+            }
+
+            super.draw(dirtyRect)
         }
     }
     

@@ -1,7 +1,7 @@
 PODS:
   - MASPreferences (1.3)
   - PromiseKit/CorePromise (6.13.1)
-  - Sparkle (1.24.0)
+  - Sparkle (1.26.0)
 
 DEPENDENCIES:
   - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
@@ -19,14 +19,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MASPreferences:
-    :commit: 8766b3e1cb2a66b13cd6ffefdbbe395d7d2c7901
+    :commit: da96951f1a6cea8d66c69d236fd43348d7de9102
     :git: "git@github.com:Lessica/MASPreferences.git"
 
 SPEC CHECKSUMS:
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  Sparkle: 270cd27377bf04e9c128af06e3a22d0f572d6ee3
+  Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
 
 PODFILE CHECKSUM: 6109d72c694e2256d615a03f678698af027aa43b
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0

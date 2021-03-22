@@ -47,10 +47,10 @@ class TagListOverlayView: NSView, DragEndpoint {
     
     override func rightMouseDown(with event: NSEvent) {
         guard !hasAttachedSheet
-            && dragDelegate.shouldPerformDragging
-            && sceneTool == .selectionArrow
-            && sceneToolSource.sceneToolEnabled
-            else
+                && dragDelegate.shouldPerformDragging
+                && sceneTool.canFocus
+                && sceneToolSource.sceneToolEnabled
+        else
         {
             super.rightMouseDown(with: event)
             return

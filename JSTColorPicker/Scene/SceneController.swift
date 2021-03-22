@@ -94,15 +94,15 @@ class SceneController: NSViewController {
     @IBOutlet private      var selectionMenu               : NSMenu!
     @IBOutlet private      var deletionMenu                : NSMenu!
     
-    private var horizontalRulerView            : RulerView         { sceneView.horizontalRulerView as! RulerView    }
-    private var verticalRulerView              : RulerView         { sceneView.verticalRulerView as! RulerView      }
+    private var horizontalRulerView                        : RulerView            { sceneView.horizontalRulerView as! RulerView    }
+    private var verticalRulerView                          : RulerView            { sceneView.verticalRulerView as! RulerView      }
     
-    private var wrapper                        : SceneImageWrapper { sceneView.documentView as! SceneImageWrapper   }
-    public var wrapperBounds                   : CGRect            { wrapper.bounds                                 }
-    public var wrapperVisibleRect              : CGRect            { wrapper.visibleRect                            }
-    public var wrapperMangnification           : CGFloat           { sceneView.magnification                        }
-    public var wrapperRestrictedRect           : CGRect            { wrapperVisibleRect.intersection(wrapperBounds) }
-    public var wrapperRestrictedMagnification  : CGFloat           { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    private var wrapper                                    : SceneImageWrapper    { sceneView.documentView as! SceneImageWrapper   }
+    public  var wrapperBounds                              : CGRect               { wrapper.bounds                                 }
+    public  var wrapperVisibleRect                         : CGRect               { wrapper.visibleRect                            }
+    public  var wrapperMangnification                      : CGFloat              { sceneView.magnification                        }
+    public  var wrapperRestrictedRect                      : CGRect               { wrapperVisibleRect.intersection(wrapperBounds) }
+    public  var wrapperRestrictedMagnification             : CGFloat              { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
     
     private func isVisibleLocation(_ location: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(location)
@@ -114,7 +114,7 @@ class SceneController: NSViewController {
     
     private var internalSceneTool: SceneTool = .arrow {
         didSet {
-            updateAnnotatorEditableStates()
+            updateAnnotatorStates(byRedrawingContents: true)
             sceneOverlayView.updateAppearance()
         }
     }
@@ -816,7 +816,7 @@ extension SceneController: ScreenshotLoader {
     private func reloadSceneRulerConstraints() {
         sceneTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
         sceneLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
-        updateAnnotatorFrames()
+        updateAnnotatorStates()
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -865,7 +865,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
     
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         if !sceneOverlayView.isHidden {
-            updateAnnotatorFrames()
+            updateAnnotatorStates()
         }
         let sceneTrackings: [SceneTracking] = [
             sceneBorderView,
@@ -1004,12 +1004,19 @@ extension SceneController: AnnotatorSource {
         if drawGridsInScene && sceneGridView.isHidden {
             sceneGridView.isHidden = false
         }
-        updateAnnotatorFrames()
+        updateAnnotatorStates()
     }
     
-    private func updateFrame(of annotator: Annotator) {
+    private func updateStates(of annotator: Annotator, byRedrawingContents redraw: Bool = false) {
+        let isEditable = internalSceneTool == .selectionArrow
+        let isRevealable = internalSceneTool == .movingHand
+        if annotator.isEditable != isEditable {
+            annotator.isEditable = isEditable
+        }
         if let annotator = annotator as? ColorAnnotator {
-            annotator.isFixed = true
+            if annotator.revealStyle != .fixed {
+                annotator.revealStyle = .fixed
+            }
             let pointInMask =
                 sceneView
                     .convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
@@ -1028,38 +1035,30 @@ extension SceneController: AnnotatorSource {
             if  rectInMask.size.width  < AnnotatorOverlay.minimumBorderedOverlaySize.width  ||
                 rectInMask.size.height < AnnotatorOverlay.minimumBorderedOverlaySize.height
             {
-                annotator.isFixed = true
+                if annotator.revealStyle != .fixed {
+                    annotator.revealStyle = .fixed
+                }
                 annotator.overlay.frame =
                     CGRect(origin: rectInMask.center, size: AnnotatorOverlay.fixedOverlaySize)
                         .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
                         .inset(by: annotator.overlay.outerInsets)
             } else {
-                annotator.isFixed = false
+                let revealStyle: AnnotatorOverlay.RevealStyle = isRevealable ? .centered : .none
+                if annotator.revealStyle != revealStyle {
+                    annotator.revealStyle = revealStyle
+                }
                 annotator.overlay.frame =
                     rectInMask
                         .inset(by: annotator.overlay.outerInsets)
             }
         }
-    }
-    
-    private func updateAnnotatorFrames() {
-        annotators.forEach({ updateFrame(of: $0) })
-    }
-    
-    private func updateEditableStates(of annotator: Annotator) {
-        let editable = internalSceneTool == .selectionArrow
-        if annotator.isEditable != editable { annotator.isEditable = editable }
-        updateFrame(of: annotator)
-    }
-    
-    private func updateAnnotatorEditableStates() {
-        let editable = internalSceneTool == .selectionArrow
-        for annotator in annotators {
-            if annotator.isEditable != editable {
-                annotator.isEditable = editable
-            }
+        if redraw {
+            annotator.overlay.needsDisplay = true
         }
-        updateAnnotatorFrames()
+    }
+    
+    private func updateAnnotatorStates(byRedrawingContents redraw: Bool = false) {
+        annotators.forEach({ updateStates(of: $0, byRedrawingContents: redraw) })
     }
     
     private func annotatorLoadRulerMarkers(_ annotator: Annotator) {
@@ -1162,7 +1161,7 @@ extension SceneController: AnnotatorSource {
         }
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelOverlay)
-        updateEditableStates(of: annotator)
+        updateStates(of: annotator)
         return annotator
     }
     
@@ -1177,7 +1176,7 @@ extension SceneController: AnnotatorSource {
         }
         annotators.append(annotator)
         sceneOverlayView.addSubview(annotator.pixelOverlay)
-        updateEditableStates(of: annotator)
+        updateStates(of: annotator)
         return annotator
     }
     

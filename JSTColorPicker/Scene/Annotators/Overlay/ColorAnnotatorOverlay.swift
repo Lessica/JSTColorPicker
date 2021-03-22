@@ -12,10 +12,15 @@ class ColorAnnotatorOverlay: AnnotatorOverlay {
     
     public private(set) var coordinate: PixelCoordinate
     
-    init(label: String, coordinate: PixelCoordinate) {
+    init(coordinate: PixelCoordinate, label: String) {
         self.coordinate = coordinate
         super.init(label: label)
-        isFixed = true
+
+        backgroundImage            = NSImage(named: "Annotator")!
+        selectedBackgroundImage = NSImage(named: "AnnotatorRed")!
+        focusedBackgroundImage     = NSImage(named: "AnnotatorRedFocused")!
+        focusedLabelColor           = NSColor(srgbRed: 0.9098, green: 0.2549, blue: 0.0941, alpha: 1.0)
+        revealStyle                = .fixed
     }
     
     required init?(coder: NSCoder) {

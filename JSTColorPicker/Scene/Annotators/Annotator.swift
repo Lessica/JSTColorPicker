@@ -14,23 +14,23 @@ class Annotator {
     public var overlay       : AnnotatorOverlay
     public var rulerMarkers  : [RulerMarker] = []
     public var label         : String { overlay.label }
-    
-    public var isEditable: Bool
+
+    public var isEditable    : Bool
     {
         get { overlay.isEditable                 }
         set { overlay.isEditable = newValue      }
     }
     
-    public var isFixed: Bool
-    {
-        get { overlay.isFixed                    }
-        set { overlay.isFixed = newValue         }
-    }
-    
-    public var isSelected: Bool
+    public var isSelected    : Bool
     {
         get { overlay.isSelected                 }
         set { overlay.isSelected = newValue      }
+    }
+
+    public var revealStyle   : AnnotatorOverlay.RevealStyle
+    {
+        get { overlay.revealStyle                }
+        set { overlay.revealStyle = newValue     }
     }
     
     init(_ item: ContentItem, _ overlay: AnnotatorOverlay) {

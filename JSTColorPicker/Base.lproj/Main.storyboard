@@ -121,7 +121,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vCe-vl-D8R"/>
-                                        <menuItem title="Copy All..." keyEquivalent="C" id="cIT-qf-fbP">
+                                        <menuItem title="Copy All" keyEquivalent="C" id="cIT-qf-fbP">
                                             <connections>
                                                 <action selector="copyAll:" target="Ady-hI-5gd" id="0p1-r2-P4F"/>
                                             </connections>
