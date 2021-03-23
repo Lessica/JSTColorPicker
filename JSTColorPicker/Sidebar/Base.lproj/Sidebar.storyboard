@@ -325,6 +325,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="UFe-zE-Ub5" secondAttribute="bottom" id="LCa-dI-02H"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UFe-zE-Ub5" secondAttribute="trailing" constant="4" id="iOg-9D-8qS"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="centerX" secondItem="XPn-It-24S" secondAttribute="centerX" id="lM0-VH-r73"/>
                                             <constraint firstAttribute="height" constant="260" placeholder="YES" id="w0l-sE-ZDG"/>
                                             <constraint firstItem="UFe-zE-Ub5" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="xEc-bj-Jcd"/>
