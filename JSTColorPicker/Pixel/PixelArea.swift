@@ -81,30 +81,36 @@ class PixelArea: ContentItem {
     
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["id"]         = id
-        t["tags"]       = vm.createTable(withSequence: tags.contents)
-        t["similarity"] = similarity
-        t["x"]          = rect.x
-        t["y"]          = rect.y
-        t["w"]          = rect.width
-        t["h"]          = rect.height
+        t["id"]              = id
+        t["name"]            = tags.first ?? ""
+        t["tags"]            = vm.createTable(withSequence: tags.contents)
+        t["similarity"]      = similarity
+        t["minX"]            = rect.minX
+        t["minY"]            = rect.minY
+        t["maxX"]            = rect.maxX
+        t["maxY"]            = rect.maxY
+        t["width"]           = rect.width
+        t["height"]          = rect.height
         t.push(vm)
     }
     
     override func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel area (table with keys [id,tags,similarity,x,y,w,h])"
+    private static let typeName: String = "pixel area (table with keys [id,tags,similarity,minX,minY,maxX,maxY,width,height])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]   is  Number)      ||
-            !(t["tags"] is  Table)       ||
-            !(t["similarity"] is Number) ||
-            !(t["x"]    is  Number)      ||
-            !(t["y"]    is  Number)      ||
-            !(t["w"]    is  Number)      ||
-            !(t["h"]    is  Number)
+        if  !(t["id"]         is  Number)        ||
+            !(t["name"]       is  String)        ||
+            !(t["tags"]       is  Table )        ||
+            !(t["similarity"] is  Number)        ||
+            !(t["minX"]       is  Number)        ||
+            !(t["minY"]       is  Number)        ||
+            !(t["maxX"]       is  Number)        ||
+            !(t["maxY"]       is  Number)        ||
+            !(t["width"]      is  Number)        ||
+            !(t["height"]     is  Number)
         {
             return typeName
         }

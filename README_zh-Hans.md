@@ -189,25 +189,35 @@ end
 ```
 
 上述 `image` 是一个 Lua 表, 它代表当前窗口中打开的图像文档:
-  - `image.w`: 以像素为单位的图像宽度
-  - `image.h`: 以像素为单位的图像高度
-  - `image.get_color(x, y)`: 返回该位置颜色的 **argb** 整数值
+  - `image.path`: 图像文档路径
+  - `image.filename`: 图像文件名称
+  - `image.width`: 以像素为单位的图像宽度
+  - `image.height`: 以像素为单位的图像高度
+  - `image.get_color(x, y)`: 返回该位置颜色的 **argb** 32位整数值
   - `image.get_image(x, y, w, h)`: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式
 
 上述 `args` 是一个包含若干表的 Lua 序列, 它包含了所有的*坐标和颜色标注*及*区域标注*信息:
-* 如果是*坐标和颜色标注*, 则表中应包含如下字段:
-  - `color.id`
-  - `color.similarity`
-  - `color.x`
-  - `color.y`
-  - `color.color`: 颜色的 **argb** 整数值
-* 如果是*区域标注*, 则表中应包含如下字段:
-  - `area.id`
-  - `area.similarity`
-  - `area.x`
-  - `area.y`
-  - `area.w`: 以像素为单位的区域宽度
-  - `area.h`: 以像素为单位的区域高度
 
-通过检查 `item.w` 字段是否存在即可判断当前表是一个*坐标和颜色标注*还是*区域标注*.
+* 如果是*坐标和颜色标注*, 则表中应包含如下字段:
+  - `color.id`: 标注序号
+  - `color.name`: 标注的第一个标签
+  - `color.tags`: 标注的标签集合
+  - `color.similarity`: 标注的相似度
+  - `color.x`: 标注的 x 坐标
+  - `color.y`: 标注的 y 坐标
+  - `color.color`: 颜色的 **argb** 32位整数值
+
+* 如果是*区域标注*, 则表中应包含如下字段:
+  - `area.id`: 标注序号
+  - `area.name`: 标注的第一个标签
+  - `area.tags`: 标注的标签集合
+  - `area.similarity`: 标注的相似度
+  - `area.minX`: 标注的左上角 x 坐标
+  - `area.minY`: 标注的左上角 y 坐标
+  - `area.maxX`: 标注的右下角 x 坐标
+  - `area.maxY`: 标注的右下角 y 坐标
+  - `area.width`: 以像素为单位的区域宽度
+  - `area.height`: 以像素为单位的区域高度
+
+通过检查 `item.width` 字段是否存在即可判断当前表是一个*坐标和颜色标注*还是*区域标注*.
 

@@ -63,6 +63,23 @@
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
+		CCB76982260A0B350029693B /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
+		CCB76983260A0B350029693B /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
+		CCB76984260A0B350029693B /* lpvm.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697F260A0B350029693B /* lpvm.c */; };
+		CCB76985260A0B350029693B /* lpprint.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB76980260A0B350029693B /* lpprint.c */; };
+		CCB76994260A0B5A0029693B /* lpprint.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698E260A0B5A0029693B /* lpprint.h */; };
+		CCB76995260A0B5A0029693B /* lpcode.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698F260A0B5A0029693B /* lpcode.h */; };
+		CCB76996260A0B5A0029693B /* lpvm.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76990260A0B5A0029693B /* lpvm.h */; };
+		CCB76997260A0B5A0029693B /* lptypes.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76991260A0B5A0029693B /* lptypes.h */; };
+		CCB76998260A0B5A0029693B /* lptree.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76992260A0B5A0029693B /* lptree.h */; };
+		CCB76999260A0B5A0029693B /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
+		CCB769C6260A0EC20029693B /* lupa.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769C4260A0EC10029693B /* lupa.lua */; };
+		CCB769C7260A0EC20029693B /* lupa.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769C4260A0EC10029693B /* lupa.lua */; };
+		CCB769C8260A0EC20029693B /* re.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769C5260A0EC20029693B /* re.lua */; };
+		CCB769C9260A0EC20029693B /* re.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769C5260A0EC20029693B /* re.lua */; };
+		CCB769EC260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
+		CCB769ED260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
 		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
@@ -699,6 +716,20 @@
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
+		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
+		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
+		CCB7697E260A0B350029693B /* lptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lptree.c; sourceTree = "<group>"; };
+		CCB7697F260A0B350029693B /* lpvm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpvm.c; sourceTree = "<group>"; };
+		CCB76980260A0B350029693B /* lpprint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpprint.c; sourceTree = "<group>"; };
+		CCB7698E260A0B5A0029693B /* lpprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpprint.h; sourceTree = "<group>"; };
+		CCB7698F260A0B5A0029693B /* lpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcode.h; sourceTree = "<group>"; };
+		CCB76990260A0B5A0029693B /* lpvm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpvm.h; sourceTree = "<group>"; };
+		CCB76991260A0B5A0029693B /* lptypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptypes.h; sourceTree = "<group>"; };
+		CCB76992260A0B5A0029693B /* lptree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptree.h; sourceTree = "<group>"; };
+		CCB76993260A0B5A0029693B /* lpcap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcap.h; sourceTree = "<group>"; };
+		CCB769C4260A0EC10029693B /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
+		CCB769C5260A0EC20029693B /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
+		CCB769EB260A220F0029693B /* pascal.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pascal.lua; sourceTree = "<group>"; };
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
@@ -1119,6 +1150,29 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		CCB7698D260A0B390029693B /* lpeg */ = {
+			isa = PBXGroup;
+			children = (
+				CCB7697D260A0B340029693B /* lpcap.c */,
+				CCB7697C260A0B340029693B /* lpcode.c */,
+				CCB76980260A0B350029693B /* lpprint.c */,
+				CCB7697E260A0B350029693B /* lptree.c */,
+				CCB7697F260A0B350029693B /* lpvm.c */,
+			);
+			path = lpeg;
+			sourceTree = "<group>";
+		};
+		CCB769F5260A22170029693B /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				CCB769C4260A0EC10029693B /* lupa.lua */,
+				CCB769C5260A0EC20029693B /* re.lua */,
+				D693741024039F66007AF7AF /* example.lua */,
+				CCB769EB260A220F0029693B /* pascal.lua */,
+			);
+			path = templates;
+			sourceTree = "<group>";
+		};
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1252,7 @@
 		D62834A923F8E6E60016573B /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CCB7698D260A0B390029693B /* lpeg */,
 				D628353F23F8EDAD0016573B /* lapi.c */,
 				D628353D23F8EDAD0016573B /* lauxlib.c */,
 				D628354C23F8EDAE0016573B /* lbaselib.c */,
@@ -1264,6 +1319,12 @@
 				D628347223F8DC290016573B /* lvm.h */,
 				D628346A23F8DC290016573B /* lzio.h */,
 				D628357923F8EDEE0016573B /* lua.hpp */,
+				CCB76993260A0B5A0029693B /* lpcap.h */,
+				CCB7698F260A0B5A0029693B /* lpcode.h */,
+				CCB7698E260A0B5A0029693B /* lpprint.h */,
+				CCB76992260A0B5A0029693B /* lptree.h */,
+				CCB76991260A0B5A0029693B /* lptypes.h */,
+				CCB76990260A0B5A0029693B /* lpvm.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -1283,7 +1344,7 @@
 		D631E2C823F7FAC300652B17 /* Export */ = {
 			isa = PBXGroup;
 			children = (
-				D693741024039F66007AF7AF /* example.lua */,
+				CCB769F5260A22170029693B /* templates */,
 				D69374122403A92E007AF7AF /* Template.swift */,
 				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
 			);
@@ -1824,6 +1885,7 @@
 			files = (
 				D628353623F8EB5C0016573B /* lzio.h in Headers */,
 				D628352523F8EB5C0016573B /* lgc.h in Headers */,
+				CCB76998260A0B5A0029693B /* lptree.h in Headers */,
 				D628352123F8EB5C0016573B /* lctype.h in Headers */,
 				D628352023F8EB5C0016573B /* lcode.h in Headers */,
 				D628351E23F8EB5B0016573B /* lapi.h in Headers */,
@@ -1832,9 +1894,12 @@
 				D628352E23F8EB5C0016573B /* lstring.h in Headers */,
 				D628352B23F8EB5C0016573B /* lparser.h in Headers */,
 				D628351123F8EAAA0016573B /* LuaC.h in Headers */,
+				CCB76996260A0B5A0029693B /* lpvm.h in Headers */,
 				D628352623F8EB5C0016573B /* llex.h in Headers */,
+				CCB76999260A0B5A0029693B /* lpcap.h in Headers */,
 				D628352923F8EB5C0016573B /* lobject.h in Headers */,
 				D628353323F8EB5C0016573B /* lualib.h in Headers */,
+				CCB76994260A0B5A0029693B /* lpprint.h in Headers */,
 				D628352D23F8EB5C0016573B /* lstate.h in Headers */,
 				D628351F23F8EB5C0016573B /* lauxlib.h in Headers */,
 				D628353123F8EB5C0016573B /* lua.h in Headers */,
@@ -1842,10 +1907,12 @@
 				D628352423F8EB5C0016573B /* lfunc.h in Headers */,
 				D628353523F8EB5C0016573B /* lvm.h in Headers */,
 				D628352223F8EB5C0016573B /* ldebug.h in Headers */,
+				CCB76997260A0B5A0029693B /* lptypes.h in Headers */,
 				D628352723F8EB5C0016573B /* llimits.h in Headers */,
 				D628352323F8EB5C0016573B /* ldo.h in Headers */,
 				D628352823F8EB5C0016573B /* lmem.h in Headers */,
 				D628352A23F8EB5C0016573B /* lopcodes.h in Headers */,
+				CCB76995260A0B5A0029693B /* lpcode.h in Headers */,
 				D628352F23F8EB5C0016573B /* ltable.h in Headers */,
 				D628353223F8EB5C0016573B /* luaconf.h in Headers */,
 			);
@@ -2059,7 +2126,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
 					D60B0F3B24286AA30034F21C = {
@@ -2140,8 +2207,10 @@
 				D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
+				CCB769C8260A0EC20029693B /* re.lua in Resources */,
 				D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
+				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
@@ -2150,6 +2219,7 @@
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
+				CCB769C6260A0EC20029693B /* lupa.lua in Resources */,
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
@@ -2174,14 +2244,17 @@
 				1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
+				CCB769ED260A220F0029693B /* pascal.lua in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
 				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
+				CCB769C7260A0EC20029693B /* lupa.lua in Resources */,
 				CC2318BC25A4BA5A00331BF6 /* include in Resources */,
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
+				CCB769C9260A0EC20029693B /* re.lua in Resources */,
 				180C6A8B249F92AB00B42656 /* AlertTextView.xib in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				1842C4652479832C008ECD6F /* Content.storyboard in Resources */,
@@ -2461,10 +2534,12 @@
 				D628355C23F8EDAE0016573B /* lutf8lib.c in Sources */,
 				D628356323F8EDAE0016573B /* lstrlib.c in Sources */,
 				D628355923F8EDAE0016573B /* loadlib.c in Sources */,
+				CCB76984260A0B350029693B /* lpvm.c in Sources */,
 				D628355E23F8EDAE0016573B /* lauxlib.c in Sources */,
 				D628356423F8EDAF0016573B /* llex.c in Sources */,
 				D628357323F8EDAF0016573B /* lstring.c in Sources */,
 				D628356523F8EDAF0016573B /* ltablib.c in Sources */,
+				CCB76982260A0B350029693B /* lpcap.c in Sources */,
 				D628357023F8EDAF0016573B /* ltm.c in Sources */,
 				D628355F23F8EDAE0016573B /* lparser.c in Sources */,
 				D628356023F8EDAE0016573B /* lapi.c in Sources */,
@@ -2473,14 +2548,17 @@
 				D628355D23F8EDAE0016573B /* liolib.c in Sources */,
 				D628351923F8EAB90016573B /* LuaC.m in Sources */,
 				D628356923F8EDAF0016573B /* lcorolib.c in Sources */,
+				CCB76983260A0B350029693B /* lptree.c in Sources */,
 				D628357523F8EDAF0016573B /* lgc.c in Sources */,
 				D628357423F8EDAF0016573B /* linit.c in Sources */,
+				CCB76985260A0B350029693B /* lpprint.c in Sources */,
 				D628357723F8EDAF0016573B /* ldump.c in Sources */,
 				D628355A23F8EDAE0016573B /* lundump.c in Sources */,
 				D628356F23F8EDAF0016573B /* ltable.c in Sources */,
 				D628356D23F8EDAF0016573B /* lbaselib.c in Sources */,
 				D628356623F8EDAF0016573B /* lobject.c in Sources */,
 				D628356E23F8EDAF0016573B /* ldblib.c in Sources */,
+				CCB76981260A0B350029693B /* lpcode.c in Sources */,
 				D628356223F8EDAE0016573B /* lctype.c in Sources */,
 				D628356823F8EDAF0016573B /* ldo.c in Sources */,
 				D628356723F8EDAF0016573B /* lstate.c in Sources */,
@@ -3017,7 +3095,7 @@
 		D62834F823F8E9DB0016573B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3045,7 +3123,7 @@
 		D62834F923F8E9DB0016573B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3073,7 +3151,7 @@
 		D628351723F8EAAA0016573B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3086,6 +3164,7 @@
 					"$(inherited)",
 					"LUA_NOCVTN2S=1",
 					"LUA_NOCVTS2N=1",
+					"LPEG_DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3113,7 +3192,7 @@
 		D628351823F8EAAA0016573B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3238,6 +3317,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3262,7 +3342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3298,6 +3378,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3316,7 +3397,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

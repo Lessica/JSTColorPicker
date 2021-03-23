@@ -37,9 +37,12 @@ class ExportManager {
         }
         return url
     }
-    public static var exampleTemplateURL: URL? {
-        return Bundle.main.url(forResource: "example", withExtension: "lua")
-    }
+    public static var exampleTemplateURLs: [URL] = {
+        return [
+            Bundle.main.url(forResource: "example", withExtension: "lua")!,
+            Bundle.main.url(forResource: "pascal", withExtension: "lua")!
+        ]
+    }()
     public static private(set) var templates: [Template] = []
     public static var selectedTemplate: Template? {
         ExportManager.templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
@@ -179,7 +182,7 @@ class ExportManager {
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
-        guard let exampleTemplateURL = ExportManager.exampleTemplateURL else { throw Error.noTemplateSelected }
+        guard let exampleTemplateURL = ExportManager.exampleTemplateURLs.first else { throw Error.noTemplateSelected }
         let exampleTemplate = try Template(from: exampleTemplateURL)
         let generatedString = try exampleTemplate.generate(image, for: items)
         exportToGeneralStringPasteboard(generatedString)

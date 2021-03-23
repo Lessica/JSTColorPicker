@@ -118,10 +118,10 @@ extension PixelImage: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["path"] = imageSource.url.path
-        t["name"] = imageSource.url.lastPathComponent
-        t["w"] = size.width
-        t["h"] = size.height
+        let imageURL = imageSource.url
+        t["path"] = imageURL.path
+        t["folder"] = imageURL.deletingLastPathComponent().lastPathComponent
+        t["filename"] = imageURL.lastPathComponent
         t["width"] = size.width
         t["height"] = size.height
         t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
@@ -149,12 +149,21 @@ extension PixelImage: LuaSwift.Value {
     
     func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel image (table with keys [w,h,get_color,get_image])"
+    private static let typeName: String = "pixel image (table with keys [path,folder,filename,width,height,get_color,get_image])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["w"] is Number) || !(t["h"] is Number) || !(t["get_color"] is Function) || !(t["get_image"] is Function) { return typeName }
+        if  !(t["path"] is String)          ||
+            !(t["folder"] is String)        ||
+            !(t["filename"] is String)      ||
+            !(t["width"] is Number)         ||
+            !(t["height"] is Number)        ||
+            !(t["get_color"] is Function)   ||
+            !(t["get_image"] is Function)
+        {
+            return typeName
+        }
         return nil
     }
     

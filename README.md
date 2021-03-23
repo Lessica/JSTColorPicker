@@ -189,27 +189,37 @@ end
 ```
 
 `image` is a lua table which represents the opened image document in current window:
-  - `image.w`: image width in pixels
-  - `image.h`: image height in pixels
-  - `image.get_color(x, y)`: returns **argb** integer value of color
+  - `image.path`: document file path
+  - `image.filename`: document file name
+  - `image.width`: image width in pixels
+  - `image.height`: image height in pixels
+  - `image.get_color(x, y)`: returns **argb** 32-bit integer value of color
   - `image.get_image(x, y, w, h)`: returns cropped image's PNG data representation
 
 `args` is a lua sequence of *coordinate & color* and *area*:
+
 * *coordinate & color*:
   - `color.id`
+  - `color.name`
+  - `color.tags`
   - `color.similarity`
   - `color.x`
   - `color.y`
-  - `color.color`: **argb** integer value of color
+  - `color.color`: **argb** 32-bit integer value of color
+
 * *area*:
   - `area.id`
+  - `area.name`
+  - `area.tags`
   - `area.similarity`
-  - `area.x`
-  - `area.y`
-  - `area.w`: area width in pixels
-  - `area.h`: area height in pixels
+  - `area.minX`
+  - `area.minY`
+  - `area.maxX`
+  - `area.maxY`
+  - `area.width`: area width in pixels
+  - `area.height`: area height in pixels
 
-Test the existence of `item.w` to check if the item is a *coordinate & color* or an *area*.
+Test the existence of `item.width` to check if the item is a *coordinate & color* or an *area*.
 
 ## LICENSE
 - [JSTColorPicker](https://github.com/Lessica/JSTColorPicker/blob/master/LICENSE)

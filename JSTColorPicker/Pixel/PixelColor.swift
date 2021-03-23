@@ -110,6 +110,7 @@ class PixelColor: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
+        t["name"]       = tags.first ?? ""
         t["tags"]       = vm.createTable(withSequence: tags.contents)
         t["similarity"] = similarity
         t["x"]          = coordinate.x
@@ -120,17 +121,18 @@ class PixelColor: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel color (table with keys [id,tags,similarity,x,y,color])"
+    private static let typeName: String = "pixel color (table with keys [id,name,tags,similarity,x,y,color])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]    is Number)      ||
-            !(t["tags"]  is Table)       ||
-            !(t["similarity"] is Number) ||
-            !(t["x"]     is Number)      ||
-            !(t["y"]     is Number)      ||
-            !(t["color"] is Number)
+        if  !(t["id"]         is Number)       ||
+            !(t["name"]       is String)       ||
+            !(t["tags"]       is Table )       ||
+            !(t["similarity"] is Number)       ||
+            !(t["x"]          is Number)       ||
+            !(t["y"]          is Number)       ||
+            !(t["color"]      is Number)
         {
             return typeName
         }

@@ -67,19 +67,23 @@ extension PixelSize: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["w"] = width
-        t["h"] = height
+        t["width"] = width
+        t["height"] = height
         t.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel size (table with keys [w,h])"
+    private static let typeName: String = "pixel size (table with keys [width,height])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["w"] is Number) || !(t["h"] is Number) { return typeName }
+        if  !(t["width"] is Number) ||
+            !(t["height"] is Number)
+        {
+            return typeName
+        }
         return nil
     }
     

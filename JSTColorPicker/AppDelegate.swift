@@ -454,8 +454,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func applicationLoadTemplatesIfNeeded() {
+        setenv("LUA_PATH", "\(Bundle.main.resourcePath!)/?.lua", 1)
+        setenv("LUA_CPATH", "\(Bundle.main.resourcePath!)/?.so", 1)
         if ExportManager.templates.count == 0 {
-            if let exampleTemplateURL = ExportManager.exampleTemplateURL {
+            ExportManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
                 let exampleTemplateName = exampleTemplateURL.lastPathComponent
                 let newExampleTemplateURL = ExportManager.templateRootURL.appendingPathComponent(exampleTemplateName)
                 try? FileManager.default.copyItem(at: exampleTemplateURL, to: newExampleTemplateURL)

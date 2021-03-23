@@ -340,42 +340,52 @@
 <p><code>image</code> is a lua table which represents the opened image document in current window:</p>
 <ul>
 <li>
-<code>image.w</code>: image width in pixels</li>
+<code>image.path</code>: document file path</li>
 <li>
-<code>image.h</code>: image height in pixels</li>
+<code>image.filename</code>: document file name</li>
 <li>
-<code>image.get_color(x, y)</code>: returns <strong>argb</strong> integer value of color</li>
+<code>image.width</code>: image width in pixels</li>
+<li>
+<code>image.height</code>: image height in pixels</li>
+<li>
+<code>image.get_color(x, y)</code>: returns <strong>argb</strong> 32-bit integer value of color</li>
 <li>
 <code>image.get_image(x, y, w, h)</code>: returns cropped image's PNG data representation</li>
 </ul>
 <p><code>args</code> is a lua sequence of <em>coordinate &amp; color</em> and <em>area</em>:</p>
 <ul>
 <li>
-<em>coordinate &amp; color</em>:
+<p><em>coordinate &amp; color</em>:</p>
 <ul>
 <li><code>color.id</code></li>
+<li><code>color.name</code></li>
+<li><code>color.tags</code></li>
 <li><code>color.similarity</code></li>
 <li><code>color.x</code></li>
 <li><code>color.y</code></li>
 <li>
-<code>color.color</code>: <strong>argb</strong> integer value of color</li>
+<code>color.color</code>: <strong>argb</strong> 32-bit integer value of color</li>
 </ul>
 </li>
 <li>
-<em>area</em>:
+<p><em>area</em>:</p>
 <ul>
 <li><code>area.id</code></li>
+<li><code>area.name</code></li>
+<li><code>area.tags</code></li>
 <li><code>area.similarity</code></li>
-<li><code>area.x</code></li>
-<li><code>area.y</code></li>
+<li><code>area.minX</code></li>
+<li><code>area.minY</code></li>
+<li><code>area.maxX</code></li>
+<li><code>area.maxY</code></li>
 <li>
-<code>area.w</code>: area width in pixels</li>
+<code>area.width</code>: area width in pixels</li>
 <li>
-<code>area.h</code>: area height in pixels</li>
+<code>area.height</code>: area height in pixels</li>
 </ul>
 </li>
 </ul>
-<p>Test the existence of <code>item.w</code> to check if the item is a <em>coordinate &amp; color</em> or an <em>area</em>.</p>
+<p>Test the existence of <code>item.width</code> to check if the item is a <em>coordinate &amp; color</em> or an <em>area</em>.</p>
 <h2>
 <a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LICENSE</h2>
 <ul>

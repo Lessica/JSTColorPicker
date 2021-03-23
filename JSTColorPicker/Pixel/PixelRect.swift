@@ -161,21 +161,29 @@ extension PixelRect: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["x"] = x
-        t["y"] = y
-        t["w"] = width
-        t["h"] = height
+        t["minX"] = minX
+        t["minY"] = minY
+        t["maxX"] = maxX
+        t["maxY"] = maxY
+        t["width"] = width
+        t["height"] = height
         t.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel rect (table with keys [x,y,w,h])"
+    private static let typeName: String = "pixel rect (table with keys [minX,minY,maxX,maxY,width,height])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["x"] is Number) || !(t["y"] is Number) || !(t["w"] is Number) || !(t["h"] is Number) { return typeName }
+        if  !(t["minX"]   is Number)  ||
+            !(t["minY"]   is Number)  ||
+            !(t["maxX"]   is Number)  ||
+            !(t["maxY"]   is Number)  ||
+            !(t["width"]  is Number)  ||
+            !(t["height"] is Number)
+        { return typeName }
         return nil
     }
     
