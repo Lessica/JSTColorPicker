@@ -486,10 +486,10 @@ CA
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" toolbarStyle="unified" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" label="Open" paletteLabel="Open" toolTip="Open (F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
+                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
@@ -531,14 +531,14 @@ CA
                                         <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F6)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
+                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="FitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F6)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F7)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
+                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="FillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F7)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
@@ -546,7 +546,7 @@ CA
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌥⌘S)" tag="-1" image="JSTCamera" id="BOP-NL-21X">
+                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌃S)" tag="-1" image="JSTCamera" id="BOP-NL-21X">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
@@ -579,7 +579,6 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpen" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -596,8 +595,7 @@ CA
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -623,8 +621,7 @@ CA
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -646,7 +643,6 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>

@@ -85,8 +85,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Screenshot"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.paletteLabel" = "Screenshot";
 
-/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌥⌘S)"; ObjectID = "BOP-NL-21X"; */
-"BOP-NL-21X.toolTip" = "Snapshot (⌥⌘S)";
+/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S)"; ObjectID = "BOP-NL-21X"; */
+"BOP-NL-21X.toolTip" = "Snapshot (⌃S)";
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "Use Selection for Find";

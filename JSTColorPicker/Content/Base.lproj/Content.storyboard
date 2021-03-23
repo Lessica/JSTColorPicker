@@ -9,7 +9,7 @@
         <!--Content Controller-->
         <scene sceneID="HJn-ov-7tW">
             <objects>
-                <viewController id="oDF-UT-bv5" customClass="ContentController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="ContentController" id="oDF-UT-bv5" customClass="ContentController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9GN-DY-133">
                         <rect key="frame" x="0.0" y="0.0" width="248" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>

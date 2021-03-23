@@ -63,9 +63,9 @@ class WindowController: NSWindowController {
         viewController.trackingObject = self
         
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
+        window!.toolbar?.delegate = self
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        syncToolbarState()
         
         #if DEBUG
         firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (_, change) in
@@ -107,21 +107,21 @@ class WindowController: NSWindowController {
         {
             switch event.specialKey {
             case NSEvent.SpecialKey.f1:
-                touchBarOpenAction(event)
+                openAction(event)
             case NSEvent.SpecialKey.f2:
-                touchBarUseAnnotateItemAction(event)
+                useAnnotateItemAction(event)
             case NSEvent.SpecialKey.f3:
-                touchBarUseSelectItemAction(event)
+                useSelectItemAction(event)
             case NSEvent.SpecialKey.f4:
-                touchBarUseMagnifyItemAction(event)
+                useMagnifyItemAction(event)
             case NSEvent.SpecialKey.f5:
-                touchBarUseMinifyItemAction(event)
+                useMinifyItemAction(event)
             case NSEvent.SpecialKey.f6:
-                touchBarUseMoveItemAction(event)
+                useMoveItemAction(event)
             case NSEvent.SpecialKey.f7:
-                touchBarFitWindowAction(event)
+                fitWindowAction(event)
             case NSEvent.SpecialKey.f8:
-                touchBarFillWindowAction(event)
+                fillWindowAction(event)
             default:
                 super.keyDown(with: event)
             }
@@ -287,91 +287,68 @@ extension WindowController {
         case fillWindow
     }
     
-    private func touchBarUpdateButtonState() {
+    private func syncToolbarState() {
         guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
+
         if identifier == SceneTool.magicCursor.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magicCursor.rawValue
+            viewController.useAnnotateItemAction(self)
         }
         else if identifier == SceneTool.selectionArrow.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.selectionArrow.rawValue
+            viewController.useSelectItemAction(self)
         }
         else if identifier == SceneTool.magnifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magnifyingGlass.rawValue
+            viewController.useMagnifyItemAction(self)
         }
         else if identifier == SceneTool.minifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.minifyingGlass.rawValue
+            viewController.useMinifyItemAction(self)
         }
         else if identifier == SceneTool.movingHand.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.movingHand.rawValue
+            viewController.useMoveItemAction(self)
         }
+
+        invalidateShortcutGuideState()
+        invalidateRestorableState()
     }
     
     @IBAction func touchBarOpenAction(_ sender: Any?) {
         openAction(sender)
     }
     
-    private func touchBarUseAnnotateItemAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
-        useAnnotateItemAction(sender)
-    }
-    
-    private func touchBarUseMagnifyItemAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
-        useMagnifyItemAction(sender)
-    }
-    
-    private func touchBarUseMinifyItemAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
-        useMinifyItemAction(sender)
-    }
-    
-    private func touchBarUseSelectItemAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
-        useSelectItemAction(sender)
-    }
-    
-    private func touchBarUseMoveItemAction(_ sender: Any?) {
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
-        useMoveItemAction(sender)
-    }
-    
     @IBAction func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
         guard documentState.isLoaded else {
-            touchBarUpdateButtonState()
+            syncToolbarState()
             return
         }
         if sender.selectedSegment == ToolIndex.magicCursor.rawValue {
-            touchBarUseAnnotateItemAction(sender)
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.selectionArrow.rawValue {
-            touchBarUseSelectItemAction(sender)
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.magnifyingGlass.rawValue {
-            touchBarUseMagnifyItemAction(sender)
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.minifyingGlass.rawValue {
-            touchBarUseMinifyItemAction(sender)
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.movingHand.rawValue {
-            touchBarUseMoveItemAction(sender)
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         }
-    }
-    
-    private func touchBarFitWindowAction(_ sender: Any?) {
-        fitWindowAction(sender)
-    }
-    
-    private func touchBarFillWindowAction(_ sender: Any?) {
-        fillWindowAction(sender)
+        syncToolbarState()
     }
     
     @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
         guard documentState.isLoaded else { return }
         if sender.selectedSegment == ActionIndex.fitWindow.rawValue {
-            touchBarFitWindowAction(sender)
+            viewController.fitWindowAction(sender)
         }
         else if sender.selectedSegment == ActionIndex.fillWindow.rawValue {
-            touchBarFillWindowAction(sender)
+            viewController.fillWindowAction(sender)
         }
     }
     
@@ -389,33 +366,28 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction func useAnnotateItemAction(_ sender: Any?) {
-        viewController.useAnnotateItemAction(sender)
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
+        syncToolbarState()
     }
     
     @IBAction func useMagnifyItemAction(_ sender: Any?) {
-        viewController.useMagnifyItemAction(sender)
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
+        syncToolbarState()
     }
     
     @IBAction func useMinifyItemAction(_ sender: Any?) {
-        viewController.useMinifyItemAction(sender)
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
+        syncToolbarState()
     }
     
     @IBAction func useSelectItemAction(_ sender: Any?) {
-        viewController.useSelectItemAction(sender)
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
+        syncToolbarState()
     }
     
     @IBAction func useMoveItemAction(_ sender: Any?) {
-        viewController.useMoveItemAction(sender)
-        touchBarUpdateButtonState()
-        updateShortcutGuide()
+        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
+        syncToolbarState()
     }
     
     @IBAction func fitWindowAction(_ sender: Any?) {
@@ -470,9 +442,7 @@ extension WindowController: NSWindowDelegate {
     
 }
 
-extension WindowController: NSTouchBarDelegate {
-    
-}
+extension WindowController: NSToolbarDelegate, NSTouchBarDelegate { }
 
 extension WindowController: ScreenshotLoader {
     
@@ -494,10 +464,32 @@ extension WindowController: SceneTracking {
 }
 
 extension WindowController {
-    
-    private func updateShortcutGuide() {
-        
+
+    private static let restorableToolbarSelectedState = "window.toolbar.selectedItemIdentifier"
+
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        if let toolbar = window?.toolbar {
+            coder.encode(toolbar.selectedItemIdentifier, forKey: WindowController.restorableToolbarSelectedState)
+        }
+    }
+
+    override func restoreState(with coder: NSCoder) {
+        super.restoreState(with: coder)
+        if let selectedItemIdentifier = coder.decodeObject(of: NSString.self, forKey: WindowController.restorableToolbarSelectedState)
+        {
+            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(rawValue: NSToolbarItem.Identifier.RawValue(selectedItemIdentifier))
+            syncToolbarState()
+        }
     }
     
+}
+
+extension WindowController {
+
+    private func invalidateShortcutGuideState() {
+
+    }
+
 }
 

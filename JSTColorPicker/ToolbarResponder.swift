@@ -8,7 +8,8 @@
 
 import Cocoa
 
-protocol ToolbarResponder {
+@objc protocol ToolbarResponder {
+    @objc optional func openAction(_ sender: Any?)
     func useAnnotateItemAction(_ sender: Any?)
     func useMagnifyItemAction(_ sender: Any?)
     func useMinifyItemAction(_ sender: Any?)

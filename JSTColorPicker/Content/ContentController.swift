@@ -138,6 +138,7 @@ class ContentController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
         
         applyPreferences(nil)
+        invalidateRestorableState()
     }
 
     override func viewWillAppear() {
@@ -371,15 +372,21 @@ extension ContentController {
         return indexes
     }
     
-    private func internalSelectContentItems(in set: IndexSet?, byExtendingSelection extend: Bool) {
+    private func internalSelectContentItems(
+        in set: IndexSet?,
+        byExtendingSelection extend: Bool,
+        byFocusingSelection focus: Bool = true
+    ) {
         if let set = set, !set.isEmpty, let lastIndex = set.last {
             if tableView.selectedRowIndexes != set {
                 tableView.selectRowIndexes(set, byExtendingSelection: extend)
             } else {
                 internalTableViewSelectionDidChange(nil)
             }
-            tableView.scrollRowToVisible(lastIndex)
-            makeFirstResponder(tableView)
+            if focus {
+                tableView.scrollRowToVisible(lastIndex)
+                makeFirstResponder(tableView)
+            }
         }
         else {
             if !extend {
@@ -650,6 +657,30 @@ extension ContentController: ContentTableViewResponder {
             relocate(sender)
         }
     }
+}
+
+extension ContentController {
+
+    private static let restorableTableViewSelectedState = "tableView.selectedRowIndexes"
+
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        coder.encode(NSIndexSet(indexSet: tableView.selectedRowIndexes), forKey: ContentController.restorableTableViewSelectedState)
+    }
+
+    override func restoreState(with coder: NSCoder) {
+        super.restoreState(with: coder)
+        if let indexSet = coder.decodeObject(of: NSIndexSet.self, forKey: ContentController.restorableTableViewSelectedState)?
+            .indexes(passingTest: { _,_ in true })
+        {
+            internalSelectContentItems(
+                in: indexSet,
+                byExtendingSelection: false,
+                byFocusingSelection: false
+            )
+        }
+    }
+
 }
 
 extension ContentController: NSMenuItemValidation, NSMenuDelegate {
@@ -1123,6 +1154,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         guard let collection = documentContent?.items else { return }
         let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
         actionManager.contentActionSelected(realSelectedItems)
+        invalidateRestorableState()
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

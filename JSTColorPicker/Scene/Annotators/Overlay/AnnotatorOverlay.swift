@@ -18,7 +18,7 @@ class AnnotatorOverlay: EditableOverlay {
         case none
         case fixed
         case centered
-        case floating
+        case floating  // not implemented
     }
 
     public   var revealStyle         : RevealStyle = .none
@@ -96,14 +96,9 @@ class AnnotatorOverlay: EditableOverlay {
     )
 
     /* Revealed Appearance (.centered) */
-    public lazy var associatedLabelColor             : NSColor? = {
-        guard let associatedBackgroundColor = associatedBackgroundColor else { return nil }
-        return NSColor(cgColor: associatedBackgroundColor)
-    }()
-
-    private var associatedBackgroundColor            : CGColor? { lineDashColorsHighlighted?[1] }
-    private static let associatedBackgroundAlpha     : CGFloat = 0.2
-    private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .semibold)
+    public var associatedLabelColor                  : NSColor?
+    public var associatedBackgroundColor             : NSColor?
+    private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .regular)
     
     
     // MARK: - Label
@@ -228,8 +223,7 @@ class AnnotatorOverlay: EditableOverlay {
 
             // draws background
             if isFocused || isSelected {
-                guard let associatedColor = associatedBackgroundColor,
-                      let backgroundColor = associatedColor.copy(alpha: AnnotatorOverlay.associatedBackgroundAlpha)
+                guard let backgroundColor = associatedBackgroundColor
                 else { return }
 
                 let drawBounds = bounds.inset(by: innerInsets)
@@ -237,7 +231,7 @@ class AnnotatorOverlay: EditableOverlay {
 
                 let backgroundBounds = drawBounds.intersection(dirtyRect)
 
-                ctx.setFillColor(backgroundColor)
+                ctx.setFillColor(backgroundColor.cgColor)
                 ctx.fill(backgroundBounds)
             }
 

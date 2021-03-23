@@ -678,7 +678,9 @@ class SceneController: NSViewController {
     
     @discardableResult
     private func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
-        internalSceneTool = windowSelectedSceneTool
+        if internalSceneTool != windowSelectedSceneTool {
+            internalSceneTool = windowSelectedSceneTool
+        }
         return true
     }
     
@@ -829,7 +831,6 @@ extension SceneController: ScreenshotLoader {
     private func reloadSceneRulerConstraints() {
         sceneTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
         sceneLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
-        updateAnnotatorStates()
     }
     
     func load(_ screenshot: Screenshot) throws {
@@ -1285,11 +1286,11 @@ extension SceneController: AnnotatorSource {
 
 extension SceneController: ToolbarResponder {
     
-    func useAnnotateItemAction(_ sender: Any?) { internalSceneTool = .magicCursor }
-    func useMagnifyItemAction(_ sender: Any?)  { internalSceneTool = .magnifyingGlass }
-    func useMinifyItemAction(_ sender: Any?)   { internalSceneTool = .minifyingGlass }
-    func useSelectItemAction(_ sender: Any?)   { internalSceneTool = .selectionArrow }
-    func useMoveItemAction(_ sender: Any?)     { internalSceneTool = .movingHand }
+    func useAnnotateItemAction(_ sender: Any?) { if internalSceneTool != .magicCursor { internalSceneTool = .magicCursor } }
+    func useMagnifyItemAction(_ sender: Any?)  { if internalSceneTool != .magnifyingGlass { internalSceneTool = .magnifyingGlass } }
+    func useMinifyItemAction(_ sender: Any?)   { if internalSceneTool != .minifyingGlass { internalSceneTool = .minifyingGlass } }
+    func useSelectItemAction(_ sender: Any?)   { if internalSceneTool != .selectionArrow { internalSceneTool = .selectionArrow } }
+    func useMoveItemAction(_ sender: Any?)     { if internalSceneTool != .movingHand { internalSceneTool = .movingHand } }
     
     func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapperBounds) }
     func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds)) }
@@ -1517,21 +1518,28 @@ extension SceneController: PixelMatchResponder {
 extension SceneController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
-        annotatorColorizeAll()
+        annotatorColorizeAll(byRedrawingContents: true)
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
         DispatchQueue.main.async { [weak self] in
-            self?.annotatorColorizeAll()
+            self?.annotatorColorizeAll(byRedrawingContents: true)
         }
     }
     
-    private func annotatorColorize(_ annotator: Annotator) {
+    private func annotatorColorize(_ annotator: Annotator, byRedrawingContents redraw: Bool = false) {
         guard let tagName = annotator.contentItem.tags.first,
             let tag = tagManager.managedTag(of: tagName) else
         {
+            annotator.overlay.associatedLabelColor = nil
+            annotator.overlay.associatedBackgroundColor = nil
             annotator.overlay.lineDashColorsHighlighted  = nil
             annotator.overlay.circleFillColorHighlighted = nil
+
+            if redraw {
+                annotator.overlay.needsDisplay = true
+            }
+
             annotator.rulerMarkers.forEach { (marker) in
                 if marker.type == .horizontal {
                     marker.image = RulerMarker.horizontalImage()
@@ -1539,12 +1547,24 @@ extension SceneController {
                     marker.image = RulerMarker.verticalImage()
                 }
             }
+
+            if redraw {
+                verticalRulerView.needsDisplay = true
+                horizontalRulerView.needsDisplay = true
+            }
+
             return
         }
-        annotator.overlay
-            .lineDashColorsHighlighted  = [NSColor.white.cgColor, tag.color.cgColor]
-        annotator.overlay
-            .circleFillColorHighlighted = tag.color.cgColor
+
+        annotator.overlay.associatedLabelColor = tag.color
+        annotator.overlay.associatedBackgroundColor = tag.color.withAlphaComponent(0.2)
+        annotator.overlay.lineDashColorsHighlighted  = [NSColor.white.cgColor, tag.color.cgColor]
+        annotator.overlay.circleFillColorHighlighted = tag.color.cgColor
+
+        if redraw {
+            annotator.overlay.needsDisplay = true
+        }
+
         annotator.rulerMarkers.forEach { (marker) in
             if marker.type == .horizontal {
                 marker.image = RulerMarker.horizontalImage(fillColor: tag.color, strokeColor: nil)
@@ -1552,10 +1572,15 @@ extension SceneController {
                 marker.image = RulerMarker.verticalImage(fillColor: tag.color, strokeColor: nil)
             }
         }
+
+        if redraw {
+            verticalRulerView.needsDisplay = true
+            horizontalRulerView.needsDisplay = true
+        }
     }
     
-    private func annotatorColorizeAll() {
-        annotators.forEach({ annotatorColorize($0) })
+    private func annotatorColorizeAll(byRedrawingContents redraw: Bool = false) {
+        annotators.forEach({ annotatorColorize($0, byRedrawingContents: redraw) })
     }
     
 }

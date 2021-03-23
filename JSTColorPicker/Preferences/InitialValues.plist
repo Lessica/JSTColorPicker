@@ -9,13 +9,13 @@
 	<key>defaults.drawAnnotatorsInGridView</key>
 	<false/>
 	<key>defaults.drawBackgroundInGridView</key>
-	<false/>
+	<true/>
 	<key>defaults.drawBordersInScene</key>
 	<true/>
 	<key>defaults.drawGridsInScene</key>
 	<true/>
 	<key>defaults.drawTagsInScene</key>
-	<false/>
+	<true/>
 	<key>defaults.drawRulersInScene</key>
 	<true/>
 	<key>defaults.drawSceneBackground</key>
@@ -32,6 +32,8 @@
 	<true/>
 	<key>defaults.hideGridsWhenResize</key>
 	<true/>
+	<key>defaults.ignoreInvalidDeletion</key>
+	<false/>
 	<key>defaults.zIndexBySize</key>
 	<false/>
 	<key>defaults.initialSimilarity</key>
@@ -73,7 +75,7 @@
 	<key>defaults.usesAlternativeAreaRepresentation</key>
 	<false/>
 	<key>defaults.usesDetailedToolTips</key>
-	<false/>
+	<true/>
 	<key>defaults.usesPredominantAxisScrolling</key>
 	<false/>
 </dict>
