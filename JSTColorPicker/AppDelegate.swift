@@ -454,8 +454,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func applicationLoadTemplatesIfNeeded() {
-        setenv("LUA_PATH", "\(Bundle.main.resourcePath!)/?.lua", 1)
-        setenv("LUA_CPATH", "\(Bundle.main.resourcePath!)/?.so", 1)
+        let searchPaths = [
+            Bundle.main.resourcePath!,
+            Bundle(identifier: "com.jst.LuaC")!.resourcePath!,
+            ExportManager.templateRootURL.path
+        ]
+        setenv("LUA_PATH", searchPaths.reduce("") { $0 + $1 + "/?.lua;" }, 1)
+        setenv("LUA_CPATH", searchPaths.reduce("") { $0 + $1 + "/?.so;" }, 1)
         if ExportManager.templates.count == 0 {
             ExportManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
                 let exampleTemplateName = exampleTemplateURL.lastPathComponent

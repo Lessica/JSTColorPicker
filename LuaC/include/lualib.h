@@ -50,6 +50,12 @@ LUAMOD_API int (luaopen_package) (lua_State *L);
 #define LUA_LPEGLIBNAME "lpeg"
 LUAMOD_API int (luaopen_lpeg) (lua_State *L);
 
+#define LUA_CJSONLIBNAME "cjson"
+LUAMOD_API int (luaopen_cjson) (lua_State *L);
+
+#define LUA_CJSON_SAFELIBNAME "cjson_safe"
+LUAMOD_API int (luaopen_cjson_safe) (lua_State *L);
+
 
 /* open all previous libraries */
 LUALIB_API void (luaL_openlibs) (lua_State *L);
