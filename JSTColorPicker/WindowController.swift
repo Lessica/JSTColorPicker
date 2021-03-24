@@ -44,6 +44,7 @@ class WindowController: NSWindowController {
         return self.window!.contentViewController?.children.first as? SplitController
     }
     private var currentAlertSheet: NSAlert?
+    public var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     public func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
         if let currentAlertSheet = currentAlertSheet {

@@ -493,7 +493,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(compareMenuItemTapped(_:)) {
+        let hasAttachedSheet = firstManagedWindowController?.hasAttachedSheet ?? false
+        if menuItem.action == #selector(togglePane(_:)) ||
+           menuItem.action == #selector(resetPanes(_:))
+        {
+            guard !hasAttachedSheet else { return false }
+            return true
+        }
+        else if menuItem.action == #selector(compareMenuItemTapped(_:))
+        {
+            guard !hasAttachedSheet else { return false }
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
             }
@@ -503,14 +512,21 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             else {
                 return false
             }
-        } else if menuItem.action == #selector(togglePane(_:)) || menuItem.action == #selector(resetPanes(_:)) {
-            return true
-        } else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) {
+        }
+        else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) ||
+                menuItem.action == #selector(notifyXPCDiscoverDevices(_:))
+        {
+            guard !hasAttachedSheet else { return false }
             #if SANDBOXED
             return applicationHasScreenshotHelper()
             #else
             return true
             #endif
+        }
+        else if menuItem.action == #selector(reloadTemplatesItemTapped(_:)) ||
+                menuItem.action == #selector(selectTemplateItemTapped(_:))
+        {
+            guard !hasAttachedSheet else { return false }
         }
         return true
     }
