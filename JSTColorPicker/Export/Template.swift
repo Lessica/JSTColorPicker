@@ -43,15 +43,16 @@ class Template {
         
     }
     
-    public var url: URL
-    public var uuid: UUID
-    public var name: String
-    public var version: String
-    public var platformVersion: String
-    public var author: String?
-    public var description: String?
-    public var allowedExtensions: [String] = []
-    public var items: LuaSwift.Table?
+    public let url: URL
+    public let uuid: UUID
+    public let name: String
+    public let version: String
+    public let platformVersion: String
+    public let author: String?
+    public let description: String?
+    public let allowedExtensions: [String]
+    public let isAsync: Bool
+    public let items: LuaSwift.Table?
     
     public static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var generator: LuaSwift.Function
@@ -62,21 +63,29 @@ class Template {
         switch vm.eval(templateURL, args: []) {
         case let .values(vals):
             guard let tab = vals.first as? Table else { throw Error.missingRootEntry }
-            let dict = tab.asDictionary({ $0 as String }, { $0 as String })
+            let stringDict = tab.asDictionary({ $0 as String }, { $0 as String })
+            let boolDict = tab.asDictionary({ $0 as String }, { $0 as Bool })
             
-            guard let uuidString = dict["uuid"]           else { throw Error.missingRequiredField(field: "uuid")    }
+            guard let uuidString = stringDict["uuid"]           else { throw Error.missingRequiredField(field: "uuid")    }
             guard let uuid = UUID(uuidString: uuidString) else { throw Error.invalidField(field: "uuid")            }
-            guard let name = dict["name"]                 else { throw Error.missingRequiredField(field: "name")    }
-            guard let version = dict["version"]           else { throw Error.missingRequiredField(field: "version") }
+            guard let name = stringDict["name"]                 else { throw Error.missingRequiredField(field: "name")    }
+            guard let version = stringDict["version"]           else { throw Error.missingRequiredField(field: "version") }
             
             self.uuid = uuid
             self.name = name
             self.version = version
-            self.platformVersion = dict["platformVersion"] ?? Template.currentPlatformVersion
-            self.author = dict["author"]
-            self.description = dict["description"]
-            if let ext = dict["extension"] {
-                self.allowedExtensions.append(ext)
+            self.platformVersion = stringDict["platformVersion"] ?? Template.currentPlatformVersion
+            self.author = stringDict["author"]
+            self.description = stringDict["description"]
+            if let ext = stringDict["extension"] {
+                self.allowedExtensions = [ext]
+            } else {
+                self.allowedExtensions = []
+            }
+            if let async = boolDict["async"] {
+                self.isAsync = async
+            } else {
+                self.isAsync = false
             }
             self.items = tab["items"] as? LuaSwift.Table
             

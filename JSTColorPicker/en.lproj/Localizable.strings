@@ -91,6 +91,12 @@
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
 
+/* copy(_:) */
+"Extract code snippets from template \"%@\"..." = "Extract code snippets from template \"%@\"...";
+
+/* copy(_:) */
+"Extract Snippets" = "Extract Snippets";
+
 /* PixelMatchServiceError */
 "File does not exist: %@" = "File does not exist: %@";
 

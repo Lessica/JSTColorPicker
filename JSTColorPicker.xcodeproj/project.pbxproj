@@ -1229,13 +1229,13 @@
 			path = lpeg;
 			sourceTree = "<group>";
 		};
-		CCB769F5260A22170029693B /* templates */ = {
+		CCB769F5260A22170029693B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
 				D693741024039F66007AF7AF /* example.lua */,
 				CCB769EB260A220F0029693B /* pascal.lua */,
 			);
-			path = templates;
+			path = Templates;
 			sourceTree = "<group>";
 		};
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
@@ -1414,7 +1414,7 @@
 		D631E2C823F7FAC300652B17 /* Export */ = {
 			isa = PBXGroup;
 			children = (
-				CCB769F5260A22170029693B /* templates */,
+				CCB769F5260A22170029693B /* Templates */,
 				D69374122403A92E007AF7AF /* Template.swift */,
 				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
 			);

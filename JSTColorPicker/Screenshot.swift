@@ -199,28 +199,39 @@ extension Screenshot {
     private var associatedWindowController: WindowController? { windowControllers.first as? WindowController }
     
     @IBAction func copyAll(_ sender: Any) {
-        copyAllContentItems()
+        guard let template = ExportManager.selectedTemplate else {
+            presentError(ExportManager.Error.noTemplateSelected)
+            return
+        }
+        if template.isAsync {
+            copyAllContentItemsAsync(from: template)
+        } else {
+            copyAllContentItems(from: template)
+        }
     }
     
     @IBAction func exportAll(_ sender: Any) {
         guard let window = associatedWindowController?.window else { return }
-        do {
-            guard let template = ExportManager.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
-            let panel = NSSavePanel()
-            panel.allowedFileTypes = template.allowedExtensions
-            panel.beginSheetModal(for: window) { [weak self] (resp) in
-                if resp == .OK {
-                    if let url = panel.url {
-                        self?.exportAllContentItems(to: url)
+        guard let template = ExportManager.selectedTemplate else {
+            presentError(ExportManager.Error.noTemplateSelected)
+            return
+        }
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = template.allowedExtensions
+        panel.beginSheetModal(for: window) { [unowned self] (resp) in
+            if resp == .OK {
+                if let url = panel.url {
+                    if template.isAsync {
+                        self.exportAllContentItemsAsync(from: template, to: url)
+                    } else {
+                        self.exportAllContentItems(from: template, to: url)
                     }
                 }
             }
-        } catch {
-            presentError(error)
         }
     }
     
-    private func copyAllContentItems() {
+    private func copyAllContentItems(from template: Template) {
         do {
             try export.copyAllContentItems()
         }
@@ -228,13 +239,55 @@ extension Screenshot {
             presentError(error)
         }
     }
+
+    private func copyAllContentItemsAsync(from template: Template) {
+        extractAllContentItemsAsync(from: template) { [unowned self] in
+            try export.copyAllContentItems()
+        }
+    }
     
-    private func exportAllContentItems(to url: URL) {
+    private func exportAllContentItems(from template: Template, to url: URL) {
         do {
             try export.exportAllContentItems(to: url)
         }
         catch {
             presentError(error)
+        }
+    }
+
+    private func exportAllContentItemsAsync(from template: Template, to url: URL) {
+        extractAllContentItemsAsync(from: template) { [unowned self] in
+            try self.export.exportAllContentItems(to: url)
+        }
+    }
+
+    private func extractAllContentItemsAsync(from template: Template, completionHandler completion: @escaping () throws -> Void) {
+        guard let window = associatedWindowController?.window else { return }
+        let loadingAlert = NSAlert()
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
+        loadingAlert.beginSheetModal(for: window) { (resp) in }
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            do {
+                defer {
+                    DispatchQueue.main.async {
+                        loadingAlert.window.orderOut(self)
+                        window.endSheet(loadingAlert.window)
+                    }
+                }
+                try completion()
+            } catch {
+                DispatchQueue.main.async { [unowned self] in
+                    self.presentError(error)
+                }
+            }
         }
     }
     

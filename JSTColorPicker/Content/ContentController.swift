@@ -915,7 +915,6 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
         
         if let panel = panel {
-            
             internalSelectContentItems(in: IndexSet(integer: targetIndex), byExtendingSelection: false)
             
             panel.loader = self
@@ -923,13 +922,12 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             panel.contentItemSource = self
             panel.contentItem = targetItem
             panel.type = .edit
-            
+
             view.window!.beginSheet(panel) { (resp) in
                 if resp == .OK {
                     // do nothing
                 }
             }
-            
         }
     }
     
@@ -963,7 +961,6 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
         
         if let panel = panel {
-            
             panel.loader = self
             panel.contentDelegate = self
             panel.contentItemSource = self
@@ -976,7 +973,6 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                     // do nothing
                 }
             }
-            
         }
     }
     
@@ -991,15 +987,37 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func copy(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
+        guard let template = ExportManager.selectedTemplate else {
+            presentError(ExportManager.Error.noTemplateSelected)
+            return
+        }
+        if template.isAsync {
+            copyItemsAsync(selectedItems, from: template)
+        } else {
+            copyItems(selectedItems, from: template)
+        }
+    }
+
+    private func copyItems(_ items: [ContentItem], from template: Template) {
         do {
-            if (selectedItems.count == 1) {
-                try documentExport?.copyContentItem(selectedItems.first!)
+            if (items.count == 1) {
+                try self.documentExport?.copyContentItem(items.first!)
             } else {
-                try documentExport?.copyContentItems(selectedItems)
+                try self.documentExport?.copyContentItems(items)
             }
         }
         catch {
             presentError(error)
+        }
+    }
+
+    private func copyItemsAsync(_ items: [ContentItem], from template: Template) {
+        extractItemsAsync(items, from: template) { [unowned self] in
+            if (items.count == 1) {
+                try self.documentExport?.copyContentItem(items.first!)
+            } else {
+                try self.documentExport?.copyContentItems(items)
+            }
         }
     }
     
@@ -1039,29 +1057,67 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func exportAs(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
-        do {
-            guard let template = ExportManager.selectedTemplate else { throw ExportManager.Error.noTemplateSelected }
-            let panel = NSSavePanel()
-            panel.allowedFileTypes = template.allowedExtensions
-            panel.beginSheetModal(for: view.window!) { (resp) in
-                if resp == .OK {
-                    if let url = panel.url {
-                        self.exportItems(selectedItems, to: url)
+        guard let template = ExportManager.selectedTemplate else {
+            presentError(ExportManager.Error.noTemplateSelected)
+            return
+        }
+
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = template.allowedExtensions
+        panel.beginSheetModal(for: view.window!) { (resp) in
+            if resp == .OK {
+                if let url = panel.url {
+                    if template.isAsync {
+                        self.exportItemsAsync(selectedItems, from: template, to: url)
+                    } else {
+                        self.exportItems(selectedItems, from: template, to: url)
                     }
                 }
             }
         }
-        catch {
-            presentError(error)
-        }
     }
     
-    private func exportItems(_ items: [ContentItem], to url: URL) {
+    private func exportItems(_ items: [ContentItem], from template: Template, to url: URL) {
         do {
             try documentExport?.exportContentItems(items, to: url)
         }
         catch {
             presentError(error)
+        }
+    }
+
+    private func exportItemsAsync(_ items: [ContentItem], from template: Template, to url: URL) {
+        extractItemsAsync(items, from: template) { [unowned self] in
+            try self.documentExport?.exportContentItems(items, to: url)
+        }
+    }
+
+    private func extractItemsAsync(_ items: [ContentItem], from template: Template, completionHandler completion: @escaping () throws -> Void) {
+        let loadingAlert = NSAlert()
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
+        loadingAlert.beginSheetModal(for: view.window!) { (resp) in }
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            do {
+                defer {
+                    DispatchQueue.main.async {
+                        loadingAlert.window.orderOut(self)
+                        self.view.window?.endSheet(loadingAlert.window)
+                    }
+                }
+                try completion()
+            } catch {
+                DispatchQueue.main.async { [unowned self] in
+                    self.presentError(error)
+                }
+            }
         }
     }
     

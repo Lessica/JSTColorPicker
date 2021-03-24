@@ -52,5 +52,6 @@ return {
     author = "Lessica",
     description = "The XML format for PASCAL Visual Object Classes.",
     extension = "xml",
+    async = true,
     generator = generator,
 }

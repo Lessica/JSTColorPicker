@@ -91,6 +91,12 @@
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
 
+/* copy(_:) */
+"Extract code snippets from template \"%@\"..." = "正在从模版 \"%@\" 中解析代码片段...";
+
+/* copy(_:) */
+"Extract Snippets" = "解析片段";
+
 /* PixelMatchServiceError */
 "File does not exist: %@" = "文件不存在: %@";
 

@@ -58,11 +58,11 @@ local generator = function (image, ...)
         local extraEndings = ""
         str = str .. "[[\n"
         for _, a in ipairs(args) do
-            if a.w ~= nil then
-                str = str .. table.concat(chunk(image.get_image(a.x, a.y, a.w, a.h):gsub(".", function (c)
+            if a.width ~= nil then
+                str = str .. table.concat(chunk(image.get_image(a.minX, a.minY, a.width, a.height):gsub(".", function (c)
                     return string.format("\\x%02x", string.byte(c))
                 end), 64), "\n")
-                extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.x) .. ", " .. tostring(a.y) .. ", " .. tostring(a.x + a.w) .. ", " .. tostring(a.y + a.h)
+                extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.minX) .. ", " .. tostring(a.minY) .. ", " .. tostring(a.maxX) .. ", " .. tostring(a.maxY)
                 processed = true
             end
             break
@@ -80,7 +80,7 @@ local generator = function (image, ...)
         if a.color ~= nil then
             str = str .. "  { " .. string.format("%4d", a.x) .. ", " .. string.format("%4d", a.y) .. ", " .. string.format("0x%06x", a.color & 0xffffff) .. ", " .. string.format("%6.2f", a.similarity * 100.0) .. " },  -- " .. tostring(a.id) .. "\n"
         elseif #extraEndings == 0 then
-            extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.x) .. ", " .. tostring(a.y) .. ", " .. tostring(a.x + a.w) .. ", " .. tostring(a.y + a.h)
+            extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.minX) .. ", " .. tostring(a.minY) .. ", " .. tostring(a.maxX) .. ", " .. tostring(a.maxY)
         end
     end
     str = str .. "}" .. extraEndings .. ")"
