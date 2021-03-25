@@ -62,6 +62,8 @@
 		CC44304D260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
 		CC44306E260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
 		CC44306F260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
+		CC44307F260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
+		CC443080260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -751,6 +753,7 @@
 		CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageController.swift; sourceTree = "<group>"; };
 		CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItemGroup.swift; sourceTree = "<group>"; };
 		CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageControl.swift; sourceTree = "<group>"; };
+		CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCharacter.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -1845,6 +1848,7 @@
 				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
 				CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */,
 				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
+				CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */,
 			);
 			path = ShortcutGuide;
 			sourceTree = "<group>";
@@ -2568,6 +2572,7 @@
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				18D202C32496920C007A079F /* TagCellView.swift in Sources */,
 				D61047B724224A170002E990 /* ContentTableView.swift in Sources */,
+				CC44307F260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */,
 				1885CF4124B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D61047B824224A170002E990 /* ItemPreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
@@ -2715,6 +2720,7 @@
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				185D7EEF248A80C4001C283B /* EditWindow.swift in Sources */,
+				CC443080260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */,
 				D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
 				D6D2F956254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */,

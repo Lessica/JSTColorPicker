@@ -137,7 +137,7 @@ class WindowController: NSWindowController {
         let now = event?.timestamp ?? Date().timeIntervalSinceReferenceDate
         if now - lastCommandPressedAt < 0.6 {
             debugPrint("command double pressed")
-            ShortcutGuideWindowController.shared.toggleForWindow(window)
+            ShortcutGuideWindowController.shared.toggleForWindow(window, columnStyle: Bool.random() ? .single : .dual)
             lastCommandPressedAt = 0.0
             return true
         } else {
@@ -515,7 +515,7 @@ extension WindowController {
     }
 
     private func invalidateShortcutGuideState() {
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" + KeyboardCharacter.allCases.map({ $0.rawValue }).joined()
         let itemClosures: [() -> ShortcutItem] = [
             { [unowned self] in
                 return ShortcutItem(name: "Short Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
@@ -531,7 +531,7 @@ extension WindowController {
             }
         ]
         var items = [ShortcutItem]()
-        for _ in 0..<Int.random(in: 0...48) {
+        for _ in 0..<Int.random(in: 0...2) {
             items.append(itemClosures.randomElement()!())
         }
         ShortcutGuideWindowController.shared.items = items

@@ -10,8 +10,10 @@ import Cocoa
 
 internal class ShortcutGuidePageController: NSPageController, NSPageControllerDelegate {
 
-    @IBOutlet var visualEffectView: NSVisualEffectView!
-    @IBOutlet var pageControl: ShortcutGuidePageControl!
+    @IBOutlet weak var visualEffectView: NSVisualEffectView!
+    @IBOutlet weak var pageControl: ShortcutGuidePageControl!
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
     var items: [ShortcutItem]?
     var groups: [ShortcutItemGroup]? { arrangedObjects as? [ShortcutItemGroup] }
@@ -23,16 +25,21 @@ internal class ShortcutGuidePageController: NSPageController, NSPageControllerDe
     }
 
     private var pageConstraints: [NSLayoutConstraint]?
+    private var columnStyle: ShortcutGuideColumnStyle = .dual
+    private var isSinglePage: Bool { arrangedObjects.count <= 1 }
 
-    func prepareForPresentation() {
+    func prepareForPresentation(columnStyle style: ShortcutGuideColumnStyle) {
+        columnStyle = style
         if let items = items, items.count > 0 {
-            arrangedObjects = ShortcutItemGroup.splitItemsIntoGroups(items, maximumCount: 16)
+            let maximumCount = style == .dual ? 16 : 8
+            arrangedObjects = ShortcutItemGroup.splitItemsIntoGroups(items, maximumCount: maximumCount)
         } else {
             arrangedObjects = [ ShortcutItemGroup.empty ]
         }
         selectedIndex = 0
         pageControl.numberOfPages = arrangedObjects.count
         pageControl.currentPage = 0
+        view.needsUpdateConstraints = true
     }
 
     private func maskImage(cornerRadius: CGFloat) -> NSImage {
@@ -46,6 +53,16 @@ internal class ShortcutGuidePageController: NSPageController, NSPageControllerDe
         maskImage.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
         maskImage.resizingMode = .stretch
         return maskImage
+    }
+
+    weak var attachedWindow: NSWindow?
+
+    private func centerInScreenForWindow(_ parent: NSWindow?) {
+        if let window = view.window, let screen = parent?.screen ?? window.screen {
+            let xPos = screen.frame.minX + screen.frame.width / 2.0 - window.frame.width / 2.0
+            let yPos = screen.frame.minY + screen.frame.height / 2.0 - window.frame.height / 2.0
+            window.setFrame(NSRect(x: xPos, y: yPos, width: window.frame.width, height: window.frame.height), display: true)
+        }
     }
 
     override func awakeFromNib() {
@@ -67,6 +84,16 @@ internal class ShortcutGuidePageController: NSPageController, NSPageControllerDe
         transitionStyle = .horizontalStrip
     }
 
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        centerInScreenForWindow(attachedWindow)
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        centerInScreenForWindow(attachedWindow)
+    }
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         if let superview = view.superview {
@@ -83,17 +110,25 @@ internal class ShortcutGuidePageController: NSPageController, NSPageControllerDe
             NSLayoutConstraint.activate(constraints)
             pageConstraints = constraints
         }
+        if !isSinglePage && columnStyle == .single {
+            widthConstraint.priority = .defaultHigh
+            heightConstraint.priority = .defaultHigh
+        } else {
+            widthConstraint.priority = .defaultLow
+            heightConstraint.priority = .defaultLow
+        }
     }
 
     func pageController(_ pageController: NSPageController, prepare viewController: NSViewController, with object: Any?) {
         guard object != nil, let ctrl = viewController as? ShortcutGuideViewController else { return }
         ctrl.updateDisplayWithItems((object as! ShortcutItemGroup).items)
-        ctrl.isSinglePage = arrangedObjects.count == 1
         ctrl.view.needsUpdateConstraints = true
     }
 
     func pageController(_ pageController: NSPageController, viewControllerForIdentifier identifier: NSPageController.ObjectIdentifier) -> NSViewController {
-        return self.storyboard!.instantiateController(withIdentifier: "ShortcutGuideViewController") as! ShortcutGuideViewController
+        let ctrl = self.storyboard!.instantiateController(withIdentifier: "ShortcutGuideViewController") as! ShortcutGuideViewController
+        ctrl.isSinglePage = isSinglePage
+        return ctrl
     }
 
     func pageController(_ pageController: NSPageController, identifierFor object: Any) -> NSPageController.ObjectIdentifier {

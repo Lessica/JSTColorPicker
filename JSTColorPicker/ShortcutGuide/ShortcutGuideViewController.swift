@@ -62,6 +62,7 @@ internal class ShortcutGuideViewController: NSViewController {
     }()
 
     var isSinglePage: Bool = false
+    var isEmptyPage: Bool { !nothingLabel.isHidden }
     private var pageConstraints: [NSLayoutConstraint]?
 
     override func awakeFromNib() {
@@ -76,38 +77,50 @@ internal class ShortcutGuideViewController: NSViewController {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
+
+        var constraints = [NSLayoutConstraint]()
         if let superview = view.superview {
-            if let pageConstraints = pageConstraints {
-                NSLayoutConstraint.deactivate(pageConstraints)
-                self.pageConstraints = nil
-            }
-            var constraints = [
+            constraints += [
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
             ]
-            if isSinglePage {
-                constraints += [
-                    view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
-                    view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 20)
-                ]
-                
-                topConstraint.constant = 20
-                leadingConstraint.constant = 20
-                bottomConstraint.constant = 20
-                trailingConstraint.constant = 20
-            } else {
-                topConstraint.constant = 32
-                leadingConstraint.constant = 32
-                bottomConstraint.constant = 32
-                trailingConstraint.constant = 32
-            }
-            NSLayoutConstraint.activate(constraints)
-            pageConstraints = constraints
         }
+
+        if isEmptyPage {
+            constraints += [
+                view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+                view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 20)
+            ]
+        } else if isSinglePage {
+            constraints += [
+                view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 32),
+                view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 32)
+            ]
+        }
+
+        if isEmptyPage {
+            topConstraint.constant = 20
+            leadingConstraint.constant = 20
+            bottomConstraint.constant = 20
+            trailingConstraint.constant = 20
+        } else {
+            topConstraint.constant = 32
+            leadingConstraint.constant = 32
+            bottomConstraint.constant = 32
+            trailingConstraint.constant = 32
+        }
+
+        if let pageConstraints = pageConstraints {
+            NSLayoutConstraint.deactivate(pageConstraints)
+            self.pageConstraints = nil
+        }
+
+        NSLayoutConstraint.activate(constraints)
+        pageConstraints = constraints
     }
-    
+
     func updateDisplayWithItems(_ items: [ShortcutItem]) {
         nothingLabel.isHidden = items.count != 0
         pageStackView.isHidden = items.count == 0
@@ -125,5 +138,5 @@ internal class ShortcutGuideViewController: NSViewController {
             itemIdx += 1
         }
     }
-    
+
 }

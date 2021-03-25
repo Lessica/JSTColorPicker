@@ -41,16 +41,18 @@
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="width" constant="729" placeholder="YES" id="41Q-Jl-nuD"/>
+                            <constraint firstAttribute="width" priority="250" constant="384" id="41Q-Jl-nuD"/>
                             <constraint firstItem="VMS-4Z-sU7" firstAttribute="centerX" secondItem="vPl-IC-BrD" secondAttribute="centerX" id="G4j-kL-9Km"/>
                             <constraint firstAttribute="bottom" secondItem="VMS-4Z-sU7" secondAttribute="bottom" constant="12" id="Rv1-gs-ZAJ"/>
-                            <constraint firstAttribute="height" constant="288" placeholder="YES" id="bzv-Me-fOK"/>
+                            <constraint firstAttribute="height" priority="250" constant="312" id="bzv-Me-fOK"/>
                             <constraint firstItem="VMS-4Z-sU7" firstAttribute="leading" secondItem="vPl-IC-BrD" secondAttribute="leading" constant="20" symbolic="YES" id="uHg-0U-eQh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="heightConstraint" destination="bzv-Me-fOK" id="m6S-B2-n3y"/>
                         <outlet property="pageControl" destination="VMS-4Z-sU7" id="aML-Qd-GFk"/>
                         <outlet property="visualEffectView" destination="vPl-IC-BrD" id="DAz-cr-i6f"/>
+                        <outlet property="widthConstraint" destination="41Q-Jl-nuD" id="08j-D2-dJd"/>
                     </connections>
                 </pagecontroller>
                 <customObject id="1dt-XS-ClA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -61,11 +63,11 @@
         <scene sceneID="37p-48-Q1E">
             <objects>
                 <viewController storyboardIdentifier="ShortcutGuideViewController" id="tuv-4K-x5H" customClass="ShortcutGuideViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-x9-Ocp">
-                        <rect key="frame" x="0.0" y="0.0" width="729" height="288"/>
+                    <view key="view" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-x9-Ocp">
+                        <rect key="frame" x="0.0" y="0.0" width="753" height="300"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XAX-5F-0Uy">
-                                <rect key="frame" x="20" y="20" width="689" height="248"/>
+                                <rect key="frame" x="32" y="32" width="689" height="248"/>
                                 <subviews>
                                     <textField hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7e6-wK-wsY">
                                         <rect key="frame" x="-2" y="232" width="693" height="16"/>
@@ -2091,10 +2093,11 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="XAX-5F-0Uy" firstAttribute="top" secondItem="Lq0-x9-Ocp" secondAttribute="top" constant="20" symbolic="YES" id="JbX-ug-8G1"/>
-                            <constraint firstItem="XAX-5F-0Uy" firstAttribute="leading" secondItem="Lq0-x9-Ocp" secondAttribute="leading" constant="20" symbolic="YES" id="SIs-bD-b3S"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XAX-5F-0Uy" secondAttribute="bottom" constant="20" symbolic="YES" id="Zkf-I7-0pO"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XAX-5F-0Uy" secondAttribute="trailing" constant="20" symbolic="YES" id="jFp-sE-QzI"/>
+                            <constraint firstItem="XAX-5F-0Uy" firstAttribute="centerX" secondItem="Lq0-x9-Ocp" secondAttribute="centerX" id="318-Uo-hej"/>
+                            <constraint firstItem="XAX-5F-0Uy" firstAttribute="top" secondItem="Lq0-x9-Ocp" secondAttribute="top" constant="32" id="JbX-ug-8G1"/>
+                            <constraint firstItem="XAX-5F-0Uy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Lq0-x9-Ocp" secondAttribute="leading" constant="32" id="SIs-bD-b3S"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XAX-5F-0Uy" secondAttribute="bottom" constant="32" id="Zkf-I7-0pO"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XAX-5F-0Uy" secondAttribute="trailing" constant="32" id="jFp-sE-QzI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2128,7 +2131,7 @@
                 </viewController>
                 <customObject id="OXi-NQ-hGZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613" y="535"/>
+            <point key="canvasLocation" x="612.5" y="535"/>
         </scene>
     </scenes>
 </document>

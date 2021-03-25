@@ -8,6 +8,11 @@
 
 import Cocoa
 
+public enum ShortcutGuideColumnStyle {
+    case single
+    case dual
+}
+
 public class ShortcutGuideWindowController: NSWindowController {
     
     public static let shared = newShortcutGuideController()
@@ -21,14 +26,6 @@ public class ShortcutGuideWindowController: NSWindowController {
     public override func awakeFromNib() {
         super.awakeFromNib()
         window?.level = .statusBar
-    }
-    
-    private func centerInScreenForWindow(_ parent: NSWindow?) {
-        if let window = window, let screen = parent?.screen ?? window.screen {
-            let xPos = screen.frame.minX + screen.frame.width / 2.0 - window.frame.width / 2.0
-            let yPos = screen.frame.minY + screen.frame.height / 2.0 - window.frame.height / 2.0
-            window.setFrame(NSRect(x: xPos, y: yPos, width: window.frame.width, height: window.frame.height), display: true)
-        }
     }
     
     private var localMonitor: Any?
@@ -95,14 +92,20 @@ public class ShortcutGuideWindowController: NSWindowController {
     // MARK: - Toggle
     
     public var isVisible: Bool { window?.isVisible ?? false }
-    public fileprivate(set) var attachedWindow: NSWindow?
+    public private(set) var attachedWindow: NSWindow? {
+        get {
+            rootViewController.attachedWindow
+        }
+        set {
+            rootViewController.attachedWindow = newValue
+        }
+    }
     
-    public func showForWindow(_ extWindow: NSWindow?) {
-        prepareForPresentation()
-        showWindow(nil)
-        centerInScreenForWindow(extWindow)
-        addCloseOnOutsideClick()
+    public func showForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle = .dual) {
         attachedWindow = extWindow
+        prepareForPresentation(columnStyle: style)
+        showWindow(nil)
+        addCloseOnOutsideClick()
     }
     
     public func hide() {
@@ -110,10 +113,10 @@ public class ShortcutGuideWindowController: NSWindowController {
         window?.orderOut(nil)
     }
     
-    public func toggleForWindow(_ extWindow: NSWindow?) {
+    public func toggleForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle = .dual) {
         guard let window = window else { return }
         if !window.isVisible {
-            showForWindow(extWindow)
+            showForWindow(extWindow, columnStyle: style)
         } else {
             hide()
         }
@@ -135,8 +138,8 @@ public class ShortcutGuideWindowController: NSWindowController {
         contentViewController as! ShortcutGuidePageController
     }
 
-    private func prepareForPresentation() {
-        rootViewController.prepareForPresentation()
+    private func prepareForPresentation(columnStyle style: ShortcutGuideColumnStyle) {
+        rootViewController.prepareForPresentation(columnStyle: style)
     }
     
 }
