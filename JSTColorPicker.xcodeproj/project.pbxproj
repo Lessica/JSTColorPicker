@@ -56,6 +56,12 @@
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
+		CC44303B260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
+		CC44303C260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
+		CC44304C260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
+		CC44304D260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
+		CC44306E260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
+		CC44306F260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -221,7 +227,7 @@
 		D628350423F8EA050016573B /* Userdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628347F23F8DE4A0016573B /* Userdata.swift */; };
 		D628350523F8EA050016573B /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348823F8DE4A0016573B /* Value.swift */; };
 		D628350623F8EA050016573B /* VirtualMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348023F8DE4A0016573B /* VirtualMachine.swift */; };
-		D628351123F8EAAA0016573B /* LuaC.h in Headers */ = {isa = PBXBuildFile; fileRef = D628350F23F8EAAA0016573B /* LuaC.h */; };
+		D628351123F8EAAA0016573B /* LuaC.h in Headers */ = {isa = PBXBuildFile; fileRef = D628350F23F8EAAA0016573B /* LuaC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D628350D23F8EAAA0016573B /* LuaC.framework */; };
 		D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D628350D23F8EAAA0016573B /* LuaC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D628351923F8EAB90016573B /* LuaC.m in Sources */ = {isa = PBXBuildFile; fileRef = D628347B23F8DE2B0016573B /* LuaC.m */; };
@@ -246,7 +252,7 @@
 		D628352F23F8EB5C0016573B /* ltable.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346523F8DC290016573B /* ltable.h */; };
 		D628353023F8EB5C0016573B /* ltm.h in Headers */ = {isa = PBXBuildFile; fileRef = D628347723F8DC2A0016573B /* ltm.h */; };
 		D628353123F8EB5C0016573B /* lua.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346923F8DC290016573B /* lua.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D628353223F8EB5C0016573B /* luaconf.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346F23F8DC290016573B /* luaconf.h */; };
+		D628353223F8EB5C0016573B /* luaconf.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346F23F8DC290016573B /* luaconf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D628353323F8EB5C0016573B /* lualib.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346E23F8DC290016573B /* lualib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D628353423F8EB5C0016573B /* lundump.h in Headers */ = {isa = PBXBuildFile; fileRef = D628347023F8DC290016573B /* lundump.h */; };
 		D628353523F8EB5C0016573B /* lvm.h in Headers */ = {isa = PBXBuildFile; fileRef = D628347223F8DC290016573B /* lvm.h */; };
@@ -742,6 +748,9 @@
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageController.swift; sourceTree = "<group>"; };
+		CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItemGroup.swift; sourceTree = "<group>"; };
+		CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageControl.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -1830,8 +1839,11 @@
 			children = (
 				D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */,
 				D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */,
+				CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */,
 				D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */,
+				CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */,
 				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
+				CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */,
 				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
 			);
 			path = ShortcutGuide;
@@ -1953,9 +1965,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D628351123F8EAAA0016573B /* LuaC.h in Headers */,
 				D628353123F8EB5C0016573B /* lua.h in Headers */,
 				D628353323F8EB5C0016573B /* lualib.h in Headers */,
 				D628351F23F8EB5C0016573B /* lauxlib.h in Headers */,
+				D628353223F8EB5C0016573B /* luaconf.h in Headers */,
 				CCB76998260A0B5A0029693B /* lptree.h in Headers */,
 				CCA72A2B260B291800A934E2 /* strbuf.h in Headers */,
 				CCB76996260A0B5A0029693B /* lpvm.h in Headers */,
@@ -1971,7 +1985,6 @@
 				D628353023F8EB5C0016573B /* ltm.h in Headers */,
 				D628352E23F8EB5C0016573B /* lstring.h in Headers */,
 				D628352B23F8EB5C0016573B /* lparser.h in Headers */,
-				D628351123F8EAAA0016573B /* LuaC.h in Headers */,
 				D628352623F8EB5C0016573B /* llex.h in Headers */,
 				D628352923F8EB5C0016573B /* lobject.h in Headers */,
 				D628352D23F8EB5C0016573B /* lstate.h in Headers */,
@@ -1984,7 +1997,6 @@
 				D628352823F8EB5C0016573B /* lmem.h in Headers */,
 				D628352A23F8EB5C0016573B /* lopcodes.h in Headers */,
 				D628352F23F8EB5C0016573B /* ltable.h in Headers */,
-				D628353223F8EB5C0016573B /* luaconf.h in Headers */,
 				CCB76997260A0B5A0029693B /* lptypes.h in Headers */,
 				CCA72A2C260B291800A934E2 /* dtoa_config.h in Headers */,
 				CCB76995260A0B5A0029693B /* lpcode.h in Headers */,
@@ -2485,8 +2497,10 @@
 				D610478C24224A170002E990 /* PreferencesController.swift in Sources */,
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
+				CC44303B260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
+				CC44306E260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
@@ -2503,6 +2517,7 @@
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
+				CC44304C260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
@@ -2680,6 +2695,7 @@
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
+				CC44304D260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
@@ -2691,6 +2707,7 @@
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentDelegate.swift in Sources */,
+				CC44306F260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
@@ -2766,6 +2783,7 @@
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
+				CC44303C260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
@@ -3020,11 +3038,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3046,11 +3061,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3071,8 +3083,6 @@
 		D60B0F8E24288CF20034F21C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				EXECUTABLE_PREFIX = lib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3083,8 +3093,6 @@
 		D60B0F8F24288CF20034F21C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				EXECUTABLE_PREFIX = lib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3099,11 +3107,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = 15;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3136,11 +3141,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = 15;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3169,12 +3171,9 @@
 		D62834F823F8E9DB0016573B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3197,12 +3196,9 @@
 		D62834F923F8E9DB0016573B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3225,12 +3221,9 @@
 		D628351723F8EAAA0016573B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3266,12 +3259,9 @@
 		D628351823F8EAAA0016573B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3306,11 +3296,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3339,11 +3326,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
 				HEADER_SEARCH_PATHS = (
@@ -3398,8 +3382,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3459,8 +3445,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3487,11 +3476,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = 15;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3530,11 +3516,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = 15;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3570,11 +3553,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3596,11 +3576,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3620,9 +3597,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = relaunch/relaunch.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -3633,9 +3607,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = relaunch/relaunch.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3647,9 +3618,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PixelMatch/pixelmatch.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = pixelmatch;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -3661,9 +3629,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PixelMatch/pixelmatch.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = pixelmatch;
 				SKIP_INSTALL = YES;

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ShortcutGuideWindowController: NSWindowController {
+public class ShortcutGuideWindowController: NSWindowController {
     
     public static let shared = newShortcutGuideController()
     
@@ -18,7 +18,7 @@ class ShortcutGuideWindowController: NSWindowController {
         return sgWindowController
     }
     
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         window?.level = .statusBar
     }
@@ -98,7 +98,7 @@ class ShortcutGuideWindowController: NSWindowController {
     public fileprivate(set) var attachedWindow: NSWindow?
     
     public func showForWindow(_ extWindow: NSWindow?) {
-        rootViewController.updateDisplayWithItems(items ?? [])
+        prepareForPresentation()
         showWindow(nil)
         centerInScreenForWindow(extWindow)
         addCloseOnOutsideClick()
@@ -121,17 +121,29 @@ class ShortcutGuideWindowController: NSWindowController {
     
     
     // MARK: - Shortcut Items
-    
-    public var items: [ShortcutItem]?
-    private var rootViewController: ShortcutGuideViewController {
-        contentViewController as! ShortcutGuideViewController
+
+    public var items: [ShortcutItem]? {
+        get {
+            rootViewController.items
+        }
+        set {
+            rootViewController.items = newValue
+        }
+    }
+
+    private var rootViewController: ShortcutGuidePageController {
+        contentViewController as! ShortcutGuidePageController
+    }
+
+    private func prepareForPresentation() {
+        rootViewController.prepareForPresentation()
     }
     
 }
 
 extension ShortcutGuideWindowController: NSWindowDelegate {
     
-    func windowDidResignKey(_ notification: Notification) {
+    public func windowDidResignKey(_ notification: Notification) {
         self.hide()
     }
     

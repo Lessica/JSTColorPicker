@@ -8,8 +8,9 @@
 
 import Cocoa
 
-struct ShortcutItem {
+public struct ShortcutItem {
     let name: String
     let keyString: String
+    let toolTip: String
     let modifierFlags: NSEvent.ModifierFlags
 }

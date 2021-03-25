@@ -8,33 +8,37 @@
 
 import Cocoa
 
-class ShortcutGuideViewController: NSViewController {
+internal class ShortcutGuideViewController: NSViewController {
     
-    @IBOutlet var visualEffectView: NSVisualEffectView!
+    @IBOutlet weak var nothingLabel        : NSTextField!
+    @IBOutlet weak var stackView           : NSStackView!
+    @IBOutlet weak var pageStackView       : NSStackView!
+    @IBOutlet weak var columnStackView1    : NSStackView!
+    @IBOutlet weak var columnDivider       : NSBox!
+    @IBOutlet weak var columnStackView2    : NSStackView!
+
+    @IBOutlet weak var topConstraint       : NSLayoutConstraint!
+    @IBOutlet weak var leadingConstraint   : NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint    : NSLayoutConstraint!
+    @IBOutlet weak var trailingConstraint  : NSLayoutConstraint!
     
-    @IBOutlet weak var nothingLabel:      NSTextField!
-    @IBOutlet weak var pageStackView:     NSStackView!
-    @IBOutlet weak var columnStackView1:  NSStackView!
-    @IBOutlet weak var columnDivider:     NSBox!
-    @IBOutlet weak var columnStackView2:  NSStackView!
+    @IBOutlet weak var itemWrapperView1    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView2    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView3    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView4    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView5    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView6    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView7    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView8    : ShortcutItemView!
     
-    @IBOutlet weak var itemWrapperView1:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView2:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView3:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView4:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView5:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView6:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView7:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView8:  ShortcutItemView!
-    
-    @IBOutlet weak var itemWrapperView9:  ShortcutItemView!
-    @IBOutlet weak var itemWrapperView10: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView11: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView12: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView13: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView14: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView15: ShortcutItemView!
-    @IBOutlet weak var itemWrapperView16: ShortcutItemView!
+    @IBOutlet weak var itemWrapperView9    : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView10   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView11   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView12   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView13   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView14   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView15   : ShortcutItemView!
+    @IBOutlet weak var itemWrapperView16   : ShortcutItemView!
     
     private lazy var itemWrappers: [ShortcutItemView] = {
         [
@@ -56,35 +60,55 @@ class ShortcutGuideViewController: NSViewController {
             itemWrapperView16,
         ]
     }()
-    
-    private func maskImage(cornerRadius: CGFloat) -> NSImage {
-        let edgeLength = 2.0 * cornerRadius + 1.0
-        let maskImage = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
-            let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-            NSColor.black.set()
-            bezierPath.fill()
-            return true
-        }
-        maskImage.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-        maskImage.resizingMode = .stretch
-        return maskImage
-    }
-    
+
+    var isSinglePage: Bool = false
+    private var pageConstraints: [NSLayoutConstraint]?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        visualEffectView.blendingMode = .behindWindow
-        visualEffectView.material = .appearanceBased
-        visualEffectView.state = .active
-        visualEffectView.maskImage = maskImage(cornerRadius: 16.0)
-        view.window?.contentView = visualEffectView
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateDisplayWithItems([])
     }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        if let superview = view.superview {
+            if let pageConstraints = pageConstraints {
+                NSLayoutConstraint.deactivate(pageConstraints)
+                self.pageConstraints = nil
+            }
+            var constraints = [
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+            ]
+            if isSinglePage {
+                constraints += [
+                    view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+                    view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 20)
+                ]
+                
+                topConstraint.constant = 20
+                leadingConstraint.constant = 20
+                bottomConstraint.constant = 20
+                trailingConstraint.constant = 20
+            } else {
+                topConstraint.constant = 32
+                leadingConstraint.constant = 32
+                bottomConstraint.constant = 32
+                trailingConstraint.constant = 32
+            }
+            NSLayoutConstraint.activate(constraints)
+            pageConstraints = constraints
+        }
+    }
     
-    public func updateDisplayWithItems(_ items: [ShortcutItem]) {
+    func updateDisplayWithItems(_ items: [ShortcutItem]) {
         nothingLabel.isHidden = items.count != 0
         pageStackView.isHidden = items.count == 0
         columnStackView1.isHidden = items.count == 0
