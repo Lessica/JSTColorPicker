@@ -72,20 +72,9 @@
 		CCA72A76260B31EE00A934E2 /* lupa.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A40260B30FD00A934E2 /* lupa.lua */; };
 		CCA72A77260B31EE00A934E2 /* re.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A41260B30FD00A934E2 /* re.lua */; };
 		CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCA72A3E260B30FD00A934E2 /* util.lua */; };
-		CCABB6AE260F518A000AC582 /* ShortcutGuide.h in Headers */ = {isa = PBXBuildFile; fileRef = CCABB6AC260F518A000AC582 /* ShortcutGuide.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CCABB6B1260F518A000AC582 /* ShortcutGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; };
-		CCABB6B2260F518A000AC582 /* ShortcutGuide.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CCABB6C6260F51C9000AC582 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
-		CCABB6C7260F51C9000AC582 /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
-		CCABB6C8260F51C9000AC582 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
-		CCABB6C9260F51C9000AC582 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
-		CCABB6CA260F51C9000AC582 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
-		CCABB6CB260F51C9000AC582 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
-		CCABB6CC260F51C9000AC582 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
-		CCABB6CD260F51C9000AC582 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */; };
-		CCABB6CE260F51C9000AC582 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
-		CCABB6E7260F51F5000AC582 /* ShortcutGuide.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CCABB6FA260F52B1000AC582 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
+		CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72D260F5E83000AC582 /* ShortcutGuide */; };
+		CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72F260F5E8C000AC582 /* ShortcutGuide */; };
+		CCABB74F260F630C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB74E260F630C000AC582 /* ShortcutGuide */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
 		CCB76982260A0B350029693B /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
 		CCB76983260A0B350029693B /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
@@ -458,20 +447,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CCABB6AF260F518A000AC582 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CCABB6A9260F518A000AC582;
-			remoteInfo = ShortcutGuide;
-		};
-		CCABB6E8260F51FF000AC582 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CCABB6A9260F518A000AC582;
-			remoteInfo = ShortcutGuide;
-		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -616,7 +591,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CCABB6B2260F518A000AC582 /* ShortcutGuide.framework in Embed Frameworks */,
 				D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */,
 				D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */,
 			);
@@ -651,7 +625,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CCABB6E7260F51F5000AC582 /* ShortcutGuide.framework in Embed Frameworks */,
 				D62834F623F8E9DB0016573B /* LuaSwift.framework in Embed Frameworks */,
 				D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */,
 			);
@@ -762,10 +735,6 @@
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
-		CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageController.swift; sourceTree = "<group>"; };
-		CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItemGroup.swift; sourceTree = "<group>"; };
-		CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageControl.swift; sourceTree = "<group>"; };
-		CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCharacter.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -779,10 +748,6 @@
 		CCA72A3E260B30FD00A934E2 /* util.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = util.lua; sourceTree = "<group>"; };
 		CCA72A40260B30FD00A934E2 /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
 		CCA72A41260B30FD00A934E2 /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
-		CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
-		CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShortcutGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCABB6AC260F518A000AC582 /* ShortcutGuide.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortcutGuide.h; sourceTree = "<group>"; };
-		CCABB6AD260F518A000AC582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
 		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
 		CCB7697E260A0B350029693B /* lptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lptree.c; sourceTree = "<group>"; };
@@ -1050,11 +1015,6 @@
 		D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.4.5.dylib; sourceTree = "<group>"; };
 		D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
 		D6D1CF0825A4ED7100B7FFF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
-		D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
-		D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
-		D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
-		D6D2F957254EA232000A13CD /* ShortcutItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItemView.swift; sourceTree = "<group>"; };
-		D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditableTextField.swift; sourceTree = "<group>"; };
 		D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEditableTextField.swift; sourceTree = "<group>"; };
 		D6DF0F9124292B27001E30F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1073,13 +1033,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CCABB6A7260F518A000AC582 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F3924286AA30034F21C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1106,12 +1059,13 @@
 			files = (
 				D61047CB24224A170002E990 /* Automator.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
+				CCABB74F260F630C000AC582 /* ShortcutGuide in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
-				CCABB6B1260F518A000AC582 /* ShortcutGuide.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
+				CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1154,6 +1108,7 @@
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
+				CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1251,25 +1206,6 @@
 				CCA72A3E260B30FD00A934E2 /* util.lua */,
 			);
 			path = cjson;
-			sourceTree = "<group>";
-		};
-		CCABB6AB260F518A000AC582 /* ShortcutGuide */ = {
-			isa = PBXGroup;
-			children = (
-				CCABB6AC260F518A000AC582 /* ShortcutGuide.h */,
-				D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */,
-				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
-				CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */,
-				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
-				CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */,
-				CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */,
-				D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */,
-				CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */,
-				CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */,
-				D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */,
-				CCABB6AD260F518A000AC582 /* Info.plist */,
-			);
-			path = ShortcutGuide;
 			sourceTree = "<group>";
 		};
 		CCB7698D260A0B390029693B /* lpeg */ = {
@@ -1543,7 +1479,6 @@
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
 				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
-				CCABB6AB260F518A000AC582 /* ShortcutGuide */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
@@ -1568,7 +1503,6 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
-				CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1978,14 +1912,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		CCABB6A5260F518A000AC582 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCABB6AE260F518A000AC582 /* ShortcutGuide.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F8324288CF20034F21C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2046,24 +1972,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CCABB6A9260F518A000AC582 /* ShortcutGuide */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CCABB6B3260F518A000AC582 /* Build configuration list for PBXNativeTarget "ShortcutGuide" */;
-			buildPhases = (
-				CCABB6A5260F518A000AC582 /* Headers */,
-				CCABB6A6260F518A000AC582 /* Sources */,
-				CCABB6A7260F518A000AC582 /* Frameworks */,
-				CCABB6A8260F518A000AC582 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ShortcutGuide;
-			productName = ShortcutGuide;
-			productReference = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
@@ -2117,7 +2025,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CCABB6B0260F518A000AC582 /* PBXTargetDependency */,
 				D610477924224A170002E990 /* PBXTargetDependency */,
 				D60B0F4F2428874F0034F21C /* PBXTargetDependency */,
 				D62693672429F4D800463E36 /* PBXTargetDependency */,
@@ -2125,6 +2032,10 @@
 				D68A1FDB2498B225001E3FDA /* PBXTargetDependency */,
 			);
 			name = JSTColorPickerSparkle;
+			packageProductDependencies = (
+				CCABB72D260F5E83000AC582 /* ShortcutGuide */,
+				CCABB74E260F630C000AC582 /* ShortcutGuide */,
+			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
 			productType = "com.apple.product-type.application";
@@ -2201,13 +2112,15 @@
 			buildRules = (
 			);
 			dependencies = (
-				CCABB6E9260F51FF000AC582 /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 				D68A1FE02498B420001E3FDA /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
+			packageProductDependencies = (
+				CCABB72F260F5E8C000AC582 /* ShortcutGuide */,
+			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
 			productType = "com.apple.product-type.application";
@@ -2276,9 +2189,6 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
-					CCABB6A9260F518A000AC582 = {
-						CreatedOnToolsVersion = 12.4;
-					};
 					D60B0F3B24286AA30034F21C = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -2319,6 +2229,9 @@
 				"zh-Hans",
 			);
 			mainGroup = D658AF9123CB180C0098C567;
+			packageReferences = (
+				CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */,
+			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2328,7 +2241,6 @@
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
 				D658AF9923CB180C0098C567 /* JSTColorPicker */,
 				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
-				CCABB6A9260F518A000AC582 /* ShortcutGuide */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
@@ -2339,14 +2251,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CCABB6A8260F518A000AC582 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCABB6FA260F52B1000AC582 /* ShortcutGuide.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F3A24286AA30034F21C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2512,22 +2416,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CCABB6A6260F518A000AC582 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCABB6CB260F51C9000AC582 /* ShortcutGuideWindowController.swift in Sources */,
-				CCABB6CE260F51C9000AC582 /* ShortcutItem.swift in Sources */,
-				CCABB6CA260F51C9000AC582 /* ShortcutItemGroup.swift in Sources */,
-				CCABB6C6260F51C9000AC582 /* KeyboardCharacter.swift in Sources */,
-				CCABB6CC260F51C9000AC582 /* ShortcutGuidePageController.swift in Sources */,
-				CCABB6C9260F51C9000AC582 /* ShortcutGuidePageControl.swift in Sources */,
-				CCABB6CD260F51C9000AC582 /* ShortcutGuideDataSource.swift in Sources */,
-				CCABB6C8260F51C9000AC582 /* ShortcutItemView.swift in Sources */,
-				CCABB6C7260F51C9000AC582 /* ShortcutGuideViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F3824286AA30034F21C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2909,16 +2797,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CCABB6B0260F518A000AC582 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CCABB6A9260F518A000AC582 /* ShortcutGuide */;
-			targetProxy = CCABB6AF260F518A000AC582 /* PBXContainerItemProxy */;
-		};
-		CCABB6E9260F51FF000AC582 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CCABB6A9260F518A000AC582 /* ShortcutGuide */;
-			targetProxy = CCABB6E8260F51FF000AC582 /* PBXContainerItemProxy */;
-		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
@@ -3116,58 +2994,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		CCABB6B4260F518A000AC582 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShortcutGuide/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darwindev.ShortcutGuide;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		CCABB6B5260F518A000AC582 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShortcutGuide/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darwindev.ShortcutGuide;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		D60B0F4924286AA30034F21C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3774,15 +3600,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CCABB6B3260F518A000AC582 /* Build configuration list for PBXNativeTarget "ShortcutGuide" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CCABB6B4260F518A000AC582 /* Debug */,
-				CCABB6B5260F518A000AC582 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3883,6 +3700,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Lessica/ShortcutGuide.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CCABB72D260F5E83000AC582 /* ShortcutGuide */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ShortcutGuide;
+		};
+		CCABB72F260F5E8C000AC582 /* ShortcutGuide */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ShortcutGuide;
+		};
+		CCABB74E260F630C000AC582 /* ShortcutGuide */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */;
+			productName = ShortcutGuide;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */ = {

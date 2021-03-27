@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ShortcutGuide",
+        "repositoryURL": "https://github.com/Lessica/ShortcutGuide.git",
+        "state": {
+          "branch": "main",
+          "revision": "d458afee84c67987626cc962f3f5135f76c4cb3f",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
