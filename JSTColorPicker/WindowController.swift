@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ShortcutGuide
 
 private var windowCount = 0
 
@@ -75,13 +76,7 @@ class WindowController: NSWindowController {
         })
         #endif
         
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
-            guard let self = self else { return event }
-            if self.monitorWindowFlagsChanged(with: event) {
-                return nil
-            }
-            return event
-        }
+        ShortcutGuideWindowController.registerShortcutGuideForWindow(window!)
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -129,49 +124,6 @@ class WindowController: NSWindowController {
         } else {
             super.keyDown(with: event)
         }
-    }
-    
-    private var lastCommandPressedAt: TimeInterval = 0.0
-    private func commandPressed(with event: NSEvent?) -> Bool {
-        guard let window = window else { return false }  // important
-        let now = event?.timestamp ?? Date().timeIntervalSinceReferenceDate
-        if now - lastCommandPressedAt < 0.6 {
-            debugPrint("command double pressed")
-            ShortcutGuideWindowController.shared.toggleForWindow(window, columnStyle: Bool.random() ? .single : .dual)
-            lastCommandPressedAt = 0.0
-            return true
-        } else {
-            lastCommandPressedAt = now
-        }
-        return false
-    }
-    
-    private func commandCancelled() -> Bool {
-        lastCommandPressedAt = 0.0
-        return false
-    }
-    
-    @discardableResult
-    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
-        guard let window = window, window.isKeyWindow else { return false }  // important
-        var handled = false
-        let modifierFlags = (event?.modifierFlags ?? NSEvent.modifierFlags)
-            .intersection(.deviceIndependentFlagsMask)
-        if modifierFlags.isEmpty
-        {
-            handled = false
-        }
-        else
-        {
-            if modifierFlags.contains(.command) &&
-                modifierFlags.subtracting(.command).isEmpty
-            {
-                handled = commandPressed(with: event)
-            } else {
-                handled = commandCancelled()
-            }
-        }
-        return handled
     }
     
     private func inspectWindowHierarchy() {
@@ -312,7 +264,6 @@ extension WindowController {
             viewController.useMoveItemAction(self)
         }
 
-        invalidateShortcutGuideState()
         invalidateRestorableState()
     }
     
@@ -464,6 +415,14 @@ extension WindowController: SceneTracking {
     
 }
 
+extension WindowController: ShortcutGuideDataSource {
+
+    var shortcutItems: [ShortcutItem] {
+        return []
+    }
+
+}
+
 extension WindowController {
 
     private static let restorableToolbarSelectedState = "window.toolbar.selectedItemIdentifier"
@@ -484,58 +443,5 @@ extension WindowController {
         }
     }
     
-}
-
-extension WindowController {
-
-    private func randomModifierFlags() -> NSEvent.ModifierFlags {
-        let maxCnt = Int.random(in: 1...5)
-        let closures: [(NSEvent.ModifierFlags) -> NSEvent.ModifierFlags] = [
-            { input in
-                return input.union(.control)
-            },
-            { input in
-                return input.union(.command)
-            },
-            { input in
-                return input.union(.option)
-            },
-            { input in
-                return input.union(.shift)
-            },
-            { input in
-                return input.union(.function)
-            },
-        ]
-        var masks: NSEvent.ModifierFlags = []
-        for _ in 0..<maxCnt {
-            masks = closures[Int.random(in: 0..<closures.count)](masks)
-        }
-        return masks
-    }
-
-    private func invalidateShortcutGuideState() {
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" + KeyboardCharacter.allCases.map({ $0.rawValue }).joined()
-        let itemClosures: [() -> ShortcutItem] = [
-            { [unowned self] in
-                return ShortcutItem(name: "Short Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            { [unowned self] in
-                return ShortcutItem(name: "Medium Item Medium Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            { [unowned self] in
-                return ShortcutItem(name: "Long Item Long Item Long Item Long Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            {
-                return ShortcutItem(name: "Custom Item", keyString: "Whatever you want", toolTip: "Whatever you want", modifierFlags: [])
-            }
-        ]
-        var items = [ShortcutItem]()
-        for _ in 0..<Int.random(in: 0...2) {
-            items.append(itemClosures.randomElement()!())
-        }
-        ShortcutGuideWindowController.shared.items = items
-    }
-
 }
 

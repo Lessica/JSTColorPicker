@@ -44,7 +44,7 @@ extension NSColorPanel {
         static var strongTarget = "strongTarget"
     }
     
-    public var strongTarget: Any? {
+    var strongTarget: Any? {
         get {
             return getAssociatedObject(object: self, associativeKey: &AssociatedKey.strongTarget)
         }

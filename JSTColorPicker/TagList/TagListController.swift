@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ShortcutGuide
 
 extension NSUserInterfaceItemIdentifier {
     static let columnFlags      = NSUserInterfaceItemIdentifier("col-flags")
@@ -756,5 +757,13 @@ extension TagListController: TagListPreviewDelegate {
         scrollToFirstCheckedRow()
     }
     
+}
+
+extension TagListController: ShortcutGuideDataSource {
+    
+    var shortcutItems: [ShortcutItem] {
+        return []
+    }
+
 }
 

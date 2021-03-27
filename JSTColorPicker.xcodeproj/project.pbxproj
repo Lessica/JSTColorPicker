@@ -56,14 +56,6 @@
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
-		CC44303B260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
-		CC44303C260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
-		CC44304C260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
-		CC44304D260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
-		CC44306E260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
-		CC44306F260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
-		CC44307F260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
-		CC443080260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -80,6 +72,20 @@
 		CCA72A76260B31EE00A934E2 /* lupa.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A40260B30FD00A934E2 /* lupa.lua */; };
 		CCA72A77260B31EE00A934E2 /* re.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A41260B30FD00A934E2 /* re.lua */; };
 		CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCA72A3E260B30FD00A934E2 /* util.lua */; };
+		CCABB6AE260F518A000AC582 /* ShortcutGuide.h in Headers */ = {isa = PBXBuildFile; fileRef = CCABB6AC260F518A000AC582 /* ShortcutGuide.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CCABB6B1260F518A000AC582 /* ShortcutGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; };
+		CCABB6B2260F518A000AC582 /* ShortcutGuide.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCABB6C6260F51C9000AC582 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */; };
+		CCABB6C7260F51C9000AC582 /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
+		CCABB6C8260F51C9000AC582 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
+		CCABB6C9260F51C9000AC582 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */; };
+		CCABB6CA260F51C9000AC582 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */; };
+		CCABB6CB260F51C9000AC582 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
+		CCABB6CC260F51C9000AC582 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */; };
+		CCABB6CD260F51C9000AC582 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */; };
+		CCABB6CE260F51C9000AC582 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
+		CCABB6E7260F51F5000AC582 /* ShortcutGuide.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCABB6FA260F52B1000AC582 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
 		CCB76982260A0B350029693B /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
 		CCB76983260A0B350029693B /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
@@ -433,16 +439,6 @@
 		D6D1CEF825A4DBA800B7FFF5 /* libopencv_core.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF025A4DB9100B7FFF5 /* libopencv_core.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D6D1CEF925A4DBA800B7FFF5 /* libopencv_imgproc.4.5.dylib in Embed Dynamic Libraries */ = {isa = PBXBuildFile; fileRef = D6D1CEF125A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D6D1CF0925A4ED7100B7FFF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = D6D1CF0825A4ED7100B7FFF5 /* include */; };
-		D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
-		D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */; };
-		D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
-		D6D2F953254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */; };
-		D6D2F955254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
-		D6D2F956254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */; };
-		D6D2F958254EA232000A13CD /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
-		D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F957254EA232000A13CD /* ShortcutItemView.swift */; };
-		D6D2F95B254EA69E000A13CD /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
-		D6D2F95C254EA69E000A13CD /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */; };
 		D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */; };
 		D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */; };
 		D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */; };
@@ -462,6 +458,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CCABB6AF260F518A000AC582 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCABB6A9260F518A000AC582;
+			remoteInfo = ShortcutGuide;
+		};
+		CCABB6E8260F51FF000AC582 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCABB6A9260F518A000AC582;
+			remoteInfo = ShortcutGuide;
+		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -606,6 +616,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CCABB6B2260F518A000AC582 /* ShortcutGuide.framework in Embed Frameworks */,
 				D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */,
 				D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */,
 			);
@@ -640,6 +651,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CCABB6E7260F51F5000AC582 /* ShortcutGuide.framework in Embed Frameworks */,
 				D62834F623F8E9DB0016573B /* LuaSwift.framework in Embed Frameworks */,
 				D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */,
 			);
@@ -767,6 +779,10 @@
 		CCA72A3E260B30FD00A934E2 /* util.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = util.lua; sourceTree = "<group>"; };
 		CCA72A40260B30FD00A934E2 /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
 		CCA72A41260B30FD00A934E2 /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
+		CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
+		CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShortcutGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCABB6AC260F518A000AC582 /* ShortcutGuide.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortcutGuide.h; sourceTree = "<group>"; };
+		CCABB6AD260F518A000AC582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
 		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
 		CCB7697E260A0B350029693B /* lptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lptree.c; sourceTree = "<group>"; };
@@ -1057,6 +1073,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CCABB6A7260F518A000AC582 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3924286AA30034F21C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1086,6 +1109,7 @@
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
+				CCABB6B1260F518A000AC582 /* ShortcutGuide.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 			);
@@ -1227,6 +1251,25 @@
 				CCA72A3E260B30FD00A934E2 /* util.lua */,
 			);
 			path = cjson;
+			sourceTree = "<group>";
+		};
+		CCABB6AB260F518A000AC582 /* ShortcutGuide */ = {
+			isa = PBXGroup;
+			children = (
+				CCABB6AC260F518A000AC582 /* ShortcutGuide.h */,
+				D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */,
+				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
+				CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */,
+				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
+				CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */,
+				CCABB694260F5157000AC582 /* ShortcutGuideDataSource.swift */,
+				D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */,
+				CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */,
+				CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */,
+				D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */,
+				CCABB6AD260F518A000AC582 /* Info.plist */,
+			);
+			path = ShortcutGuide;
 			sourceTree = "<group>";
 		};
 		CCB7698D260A0B390029693B /* lpeg */ = {
@@ -1500,6 +1543,7 @@
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
 				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
+				CCABB6AB260F518A000AC582 /* ShortcutGuide */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
@@ -1524,6 +1568,7 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
+				CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1553,7 +1598,6 @@
 				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
-				D6D2F94D254E6929000A13CD /* ShortcutGuide */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
@@ -1837,22 +1881,6 @@
 			path = Sidebar;
 			sourceTree = "<group>";
 		};
-		D6D2F94D254E6929000A13CD /* ShortcutGuide */ = {
-			isa = PBXGroup;
-			children = (
-				D6D2F94E254E6962000A13CD /* ShortcutGuide.storyboard */,
-				D6D2F954254E6B4D000A13CD /* ShortcutGuideWindowController.swift */,
-				CC44303A260C79780097A4D9 /* ShortcutGuidePageController.swift */,
-				D6D2F951254E6AE9000A13CD /* ShortcutGuideViewController.swift */,
-				CC44306D260CB1950097A4D9 /* ShortcutGuidePageControl.swift */,
-				D6D2F957254EA232000A13CD /* ShortcutItemView.swift */,
-				CC44304B260C7B590097A4D9 /* ShortcutItemGroup.swift */,
-				D6D2F95A254EA69E000A13CD /* ShortcutItem.swift */,
-				CC44307E260CC9DC0097A4D9 /* KeyboardCharacter.swift */,
-			);
-			path = ShortcutGuide;
-			sourceTree = "<group>";
-		};
 		D6E1669B248A0B4200D8D1C5 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1950,6 +1978,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		CCABB6A5260F518A000AC582 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCABB6AE260F518A000AC582 /* ShortcutGuide.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F8324288CF20034F21C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2010,6 +2046,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		CCABB6A9260F518A000AC582 /* ShortcutGuide */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCABB6B3260F518A000AC582 /* Build configuration list for PBXNativeTarget "ShortcutGuide" */;
+			buildPhases = (
+				CCABB6A5260F518A000AC582 /* Headers */,
+				CCABB6A6260F518A000AC582 /* Sources */,
+				CCABB6A7260F518A000AC582 /* Frameworks */,
+				CCABB6A8260F518A000AC582 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShortcutGuide;
+			productName = ShortcutGuide;
+			productReference = CCABB6AA260F518A000AC582 /* ShortcutGuide.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
@@ -2063,6 +2117,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CCABB6B0260F518A000AC582 /* PBXTargetDependency */,
 				D610477924224A170002E990 /* PBXTargetDependency */,
 				D60B0F4F2428874F0034F21C /* PBXTargetDependency */,
 				D62693672429F4D800463E36 /* PBXTargetDependency */,
@@ -2146,6 +2201,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CCABB6E9260F51FF000AC582 /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
@@ -2220,6 +2276,9 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
+					CCABB6A9260F518A000AC582 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					D60B0F3B24286AA30034F21C = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -2269,6 +2328,7 @@
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
 				D658AF9923CB180C0098C567 /* JSTColorPicker */,
 				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
+				CCABB6A9260F518A000AC582 /* ShortcutGuide */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
@@ -2279,6 +2339,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CCABB6A8260F518A000AC582 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCABB6FA260F52B1000AC582 /* ShortcutGuide.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3A24286AA30034F21C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2298,7 +2366,6 @@
 				D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
-				D6D2F94F254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
@@ -2335,7 +2402,6 @@
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				CCB769ED260A220F0029693B /* pascal.lua in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
-				D6D2F950254E6962000A13CD /* ShortcutGuide.storyboard in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
@@ -2446,6 +2512,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CCABB6A6260F518A000AC582 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCABB6CB260F51C9000AC582 /* ShortcutGuideWindowController.swift in Sources */,
+				CCABB6CE260F51C9000AC582 /* ShortcutItem.swift in Sources */,
+				CCABB6CA260F51C9000AC582 /* ShortcutItemGroup.swift in Sources */,
+				CCABB6C6260F51C9000AC582 /* KeyboardCharacter.swift in Sources */,
+				CCABB6CC260F51C9000AC582 /* ShortcutGuidePageController.swift in Sources */,
+				CCABB6C9260F51C9000AC582 /* ShortcutGuidePageControl.swift in Sources */,
+				CCABB6CD260F51C9000AC582 /* ShortcutGuideDataSource.swift in Sources */,
+				CCABB6C8260F51C9000AC582 /* ShortcutItemView.swift in Sources */,
+				CCABB6C7260F51C9000AC582 /* ShortcutGuideViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3824286AA30034F21C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2497,14 +2579,11 @@
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
-				D6D2F95B254EA69E000A13CD /* ShortcutItem.swift in Sources */,
 				D610478C24224A170002E990 /* PreferencesController.swift in Sources */,
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
-				CC44303B260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
-				CC44306E260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
@@ -2516,12 +2595,10 @@
 				D610479524224A170002E990 /* GridView.swift in Sources */,
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
-				D6D2F958254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D610479724224A170002E990 /* SidebarController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
-				CC44304C260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
@@ -2557,7 +2634,6 @@
 				D61047B124224A170002E990 /* TabService.swift in Sources */,
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
-				D6D2F952254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
@@ -2567,12 +2643,10 @@
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
-				D6D2F955254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */,
 				D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				18D202C32496920C007A079F /* TagCellView.swift in Sources */,
 				D61047B724224A170002E990 /* ContentTableView.swift in Sources */,
-				CC44307F260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */,
 				1885CF4124B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D61047B824224A170002E990 /* ItemPreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
@@ -2700,7 +2774,6 @@
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
-				CC44304D260C7B590097A4D9 /* ShortcutItemGroup.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
@@ -2712,7 +2785,6 @@
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentDelegate.swift in Sources */,
-				CC44306F260CB1950097A4D9 /* ShortcutGuidePageControl.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
@@ -2720,10 +2792,8 @@
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
 				185D7EEF248A80C4001C283B /* EditWindow.swift in Sources */,
-				CC443080260CC9DC0097A4D9 /* KeyboardCharacter.swift in Sources */,
 				D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
-				D6D2F956254E6B4D000A13CD /* ShortcutGuideWindowController.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SidebarController.swift in Sources */,
@@ -2759,7 +2829,6 @@
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
-				D6D2F959254EA232000A13CD /* ShortcutItemView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
@@ -2773,14 +2842,12 @@
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
-				D6D2F95C254EA69E000A13CD /* ShortcutItem.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
-				D6D2F953254E6AE9000A13CD /* ShortcutGuideViewController.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
@@ -2789,7 +2856,6 @@
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
-				CC44303C260C79780097A4D9 /* ShortcutGuidePageController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
@@ -2843,6 +2909,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CCABB6B0260F518A000AC582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCABB6A9260F518A000AC582 /* ShortcutGuide */;
+			targetProxy = CCABB6AF260F518A000AC582 /* PBXContainerItemProxy */;
+		};
+		CCABB6E9260F51FF000AC582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCABB6A9260F518A000AC582 /* ShortcutGuide */;
+			targetProxy = CCABB6E8260F51FF000AC582 /* PBXContainerItemProxy */;
+		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
@@ -3040,6 +3116,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CCABB6B4260F518A000AC582 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ShortcutGuide/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.darwindev.ShortcutGuide;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CCABB6B5260F518A000AC582 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ShortcutGuide/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.darwindev.ShortcutGuide;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		D60B0F4924286AA30034F21C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3646,6 +3774,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CCABB6B3260F518A000AC582 /* Build configuration list for PBXNativeTarget "ShortcutGuide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCABB6B4260F518A000AC582 /* Debug */,
+				CCABB6B5260F518A000AC582 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

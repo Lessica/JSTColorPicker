@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension String {
+extension String {
     
     func leftPadding(to length: Int, with character: Character) -> String {
         if length <= self.count {
@@ -55,7 +55,7 @@ public extension String {
     
 }
 
-public extension String {
+extension String {
     func split(by length: Int) -> [String] {
         var startIndex = self.startIndex
         var results = [Substring]()
@@ -68,7 +68,18 @@ public extension String {
     }
 }
 
-public extension Array {
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        if count <= size {
+            return [Array(self)]
+        }
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
+    }
+}
+
+extension Array {
     func filterDuplicates(includeElement: (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element] {
         var results = [Element]()
         forEach { (element) in
@@ -103,7 +114,7 @@ public extension Array {
     }
 }
 
-public extension Dictionary where Value == Int {
+extension Dictionary where Value == Int {
     init<S: Sequence>(counted list: S) where S.Element == Key {
         let ones = repeatElement(1, count: Int.max)
         self.init(zip(list, ones), uniquingKeysWith: +)

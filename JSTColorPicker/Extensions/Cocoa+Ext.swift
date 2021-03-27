@@ -56,7 +56,7 @@ extension NSImage {
     }
 }
 
-public extension NSColor {
+extension NSColor {
     
     /**
      Creates an immuatble UIColor instance specified by a hex string, CSS color name, or nil.
@@ -330,7 +330,7 @@ public extension NSColor {
 }
 
 extension NSApplication {
-    public func relaunch(_ sender: AnyObject?) {
+    func relaunch(_ sender: AnyObject?) {
         let task = Process()
         // helper tool path
         task.launchPath = Bundle.main.path(forResource: "relaunch", ofType: nil)!
@@ -341,6 +341,6 @@ extension NSApplication {
 }
 
 extension NSLayoutConstraint.Priority {
-    public static let middle = NSLayoutConstraint.Priority(rawValue: 500.0)
+    static let middle = NSLayoutConstraint.Priority(rawValue: 500.0)
 }
 

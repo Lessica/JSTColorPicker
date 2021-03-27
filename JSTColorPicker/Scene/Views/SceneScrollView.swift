@@ -165,7 +165,7 @@ class SceneScrollView: NSScrollView {
             backgroundColor = NSColor.controlBackgroundColor
         }
     }
-    
+
     
     // MARK: - Events
     

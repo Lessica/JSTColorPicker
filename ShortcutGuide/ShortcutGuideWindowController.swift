@@ -18,7 +18,7 @@ public class ShortcutGuideWindowController: NSWindowController {
     public static let shared = newShortcutGuideController()
     
     private static func newShortcutGuideController() -> ShortcutGuideWindowController {
-        let windowStoryboard = NSStoryboard(name: "ShortcutGuide", bundle: nil)
+        let windowStoryboard = NSStoryboard(name: "ShortcutGuide", bundle: Bundle(for: ShortcutGuideWindowController.self))
         let sgWindowController = windowStoryboard.instantiateInitialController() as! ShortcutGuideWindowController
         return sgWindowController
     }
@@ -76,7 +76,6 @@ public class ShortcutGuideWindowController: NSWindowController {
         
     }
     
-    
     private func removeCloseOnOutsideClick() {
         if localMonitor != nil {
             NSEvent.removeMonitor(localMonitor!)
@@ -86,6 +85,79 @@ public class ShortcutGuideWindowController: NSWindowController {
             NSEvent.removeMonitor(globalMonitor!)
             globalMonitor = nil
         }
+    }
+
+
+    // MARK: - Events
+
+    public var preferredColumnStyle: ShortcutGuideColumnStyle = .dual
+
+    public static func registerShortcutGuideForWindow(_ extWindow: NSWindow) {
+        ShortcutGuideWindowController.shared.registerShortcutGuideForWindow(extWindow)
+    }
+
+    private func registerShortcutGuideForWindow(_ extWindow: NSWindow) {
+        attachedWindow = extWindow
+
+        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self else { return event }
+            if self.monitorWindowFlagsChanged(with: event) {
+                return nil
+            }
+            return event
+        }
+    }
+
+    private var lastCommandPressedAt: TimeInterval = 0.0
+    private func commandPressed(with event: NSEvent?) -> Bool {
+        guard let attachedWindow = attachedWindow else { return false }  // important
+        let now = event?.timestamp ?? Date().timeIntervalSinceReferenceDate
+        if now - lastCommandPressedAt < 0.6 {
+            var items = [ShortcutItem]()
+            var responder: NSResponder? = attachedWindow.firstResponder
+            while responder != nil {
+                if let thisResponder = responder as? ShortcutGuideDataSource {
+                    items.append(contentsOf: thisResponder.shortcutItems)
+                }
+                responder = responder?.nextResponder
+            }
+            ShortcutGuideWindowController.shared.items = items
+            ShortcutGuideWindowController.shared
+                .toggleForWindow(attachedWindow, columnStyle: preferredColumnStyle)
+            lastCommandPressedAt = 0.0
+            return true
+        } else {
+            lastCommandPressedAt = now
+        }
+        return false
+    }
+
+    private func commandCancelled() -> Bool {
+        lastCommandPressedAt = 0.0
+        return false
+    }
+
+    @discardableResult
+    private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
+        guard let attachedWindow = attachedWindow, attachedWindow.isKeyWindow else { return false }  // important
+        var handled = false
+        let modifierFlags = (event?.modifierFlags ?? NSEvent.modifierFlags)
+            .intersection(.deviceIndependentFlagsMask)
+        if modifierFlags.isEmpty
+        {
+            handled = false
+        }
+        else
+        {
+            if modifierFlags.contains(.command) &&
+                modifierFlags.subtracting(.command).isEmpty
+            {
+                handled = commandPressed(with: event)
+            } else {
+                handled = commandCancelled()
+            }
+        }
+        return handled
     }
     
     
@@ -101,9 +173,9 @@ public class ShortcutGuideWindowController: NSWindowController {
         }
     }
     
-    public func showForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle = .dual) {
+    public func showForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle?) {
         attachedWindow = extWindow
-        prepareForPresentation(columnStyle: style)
+        prepareForPresentation(columnStyle: style ?? preferredColumnStyle)
         showWindow(nil)
         addCloseOnOutsideClick()
     }
@@ -113,7 +185,7 @@ public class ShortcutGuideWindowController: NSWindowController {
         window?.orderOut(nil)
     }
     
-    public func toggleForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle = .dual) {
+    public func toggleForWindow(_ extWindow: NSWindow?, columnStyle style: ShortcutGuideColumnStyle?) {
         guard let window = window else { return }
         if !window.isVisible {
             showForWindow(extWindow, columnStyle: style)

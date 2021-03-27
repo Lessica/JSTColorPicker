@@ -7,8 +7,11 @@
 //
 
 import Cocoa
+import ShortcutGuide
 
 class SplitController: NSSplitViewController {
+
+    private weak var sceneToolSource: SceneToolSource!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +28,7 @@ class SplitController: NSSplitViewController {
         
         contentController.tagManager       = tagListController
         sceneController.tagManager         = tagListController
+        sceneToolSource                    = sceneController
         tagListController.sceneToolSource  = sceneController
         tagListController.importSource     = contentController
         tagListController.contentManager   = self
@@ -429,5 +433,13 @@ extension SplitController: PixelMatchResponder {
         sidebarController.endPixelMatchComparison()
     }
     
+}
+
+extension SplitController: ShortcutGuideDataSource {
+
+    var shortcutItems: [ShortcutItem] {
+        return []
+    }
+
 }
 

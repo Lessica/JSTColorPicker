@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-
+import ShortcutGuide
 
 extension NSUserInterfaceItemIdentifier {
     
@@ -1374,5 +1374,13 @@ extension ContentController {
         )
     }
     
+}
+
+extension ContentController: ShortcutGuideDataSource {
+
+    var shortcutItems: [ShortcutItem] {
+        return []
+    }
+
 }
 
