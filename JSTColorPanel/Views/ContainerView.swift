@@ -15,19 +15,21 @@ class ContainerView: NSView {
             return JSTColorPanel.shared
         }
     }
+    
+    private var eventMonitors = [Any]()
 
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { (event: NSEvent) -> NSEvent? in
+        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { (event: NSEvent) -> NSEvent? in
             self.keyDown(with: event)
             return event
-        }
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { (event: NSEvent) -> NSEvent? in
+        }!)
+        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { (event: NSEvent) -> NSEvent? in
             self.flagsChanged(with: event)
             return event
-        }
+        }!)
         
     }
     
@@ -77,6 +79,11 @@ class ContainerView: NSView {
     
     override func flagsChanged(with event: NSEvent) {
         super.flagsChanged(with: event)
+    }
+    
+    deinit {
+        eventMonitors.forEach({ NSEvent.removeMonitor($0) })
+        eventMonitors.removeAll()
     }
     
 }

@@ -161,6 +161,7 @@ class SceneController: NSViewController {
     }
     
     private var windowActiveNotificationToken: NotificationToken?
+    private var eventMonitors = [Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,21 +196,21 @@ class SceneController: NSViewController {
         sceneOverlayView.annotatorSource           = self
         sceneOverlayView.contentDelegate           = self
         
-        NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
-            guard let self = self else { return event }
+        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
+            guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowFlagsChanged(with: event) {
                 return nil
             }
             return event
-        }
+        }!)
         
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
-            guard let self = self else { return event }
+        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
+            guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowKeyDown(with: event) {
                 return nil
             }
             return event
-        }
+        }!)
         
         NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnify(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
         NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnify(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
@@ -821,6 +822,8 @@ class SceneController: NSViewController {
     }
     
     deinit {
+        eventMonitors.forEach({ NSEvent.removeMonitor($0) })
+        eventMonitors.removeAll()
         debugPrint("\(className):\(#function)")
     }
     

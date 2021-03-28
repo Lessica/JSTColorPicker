@@ -74,7 +74,6 @@
 		CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCA72A3E260B30FD00A934E2 /* util.lua */; };
 		CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72D260F5E83000AC582 /* ShortcutGuide */; };
 		CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72F260F5E8C000AC582 /* ShortcutGuide */; };
-		CCABB74F260F630C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB74E260F630C000AC582 /* ShortcutGuide */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
 		CCB76982260A0B350029693B /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
 		CCB76983260A0B350029693B /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
@@ -1059,7 +1058,6 @@
 			files = (
 				D61047CB24224A170002E990 /* Automator.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
-				CCABB74F260F630C000AC582 /* ShortcutGuide in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
@@ -2034,7 +2032,6 @@
 			name = JSTColorPickerSparkle;
 			packageProductDependencies = (
 				CCABB72D260F5E83000AC582 /* ShortcutGuide */,
-				CCABB74E260F630C000AC582 /* ShortcutGuide */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -2230,7 +2227,6 @@
 			);
 			mainGroup = D658AF9123CB180C0098C567;
 			packageReferences = (
-				CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3701,17 +3697,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Lessica/ShortcutGuide.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		CCABB72D260F5E83000AC582 /* ShortcutGuide */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3719,11 +3704,6 @@
 		};
 		CCABB72F260F5E8C000AC582 /* ShortcutGuide */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ShortcutGuide;
-		};
-		CCABB74E260F630C000AC582 /* ShortcutGuide */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCABB74D260F630C000AC582 /* XCRemoteSwiftPackageReference "ShortcutGuide" */;
 			productName = ShortcutGuide;
 		};
 /* End XCSwiftPackageProductDependency section */
