@@ -7,8 +7,8 @@
 /* Class = "NSTableColumn"; headerToolTip = "The primary key, a integer field of the item."; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerToolTip" = "The primary key, a integer field of the item.";
 
-/* Class = "NSMenuItem"; title = "Add Color & Coordinate..."; ObjectID = "7Qu-yW-xLS"; */
-"7Qu-yW-xLS.title" = "Add Color & Coordinate...";
+/* Class = "NSMenuItem"; title = "Add Color & Coordinates..."; ObjectID = "7Qu-yW-xLS"; */
+"7Qu-yW-xLS.title" = "Add Color & Coordinates...";
 
 /* Class = "NSMenuItem"; title = "Quick Add Patterns"; ObjectID = "as6-mp-8ga"; */
 "as6-mp-8ga.title" = "Quick Add Patterns";
@@ -49,8 +49,8 @@
 /* Class = "NSMenuItem"; title = "Relocate..."; ObjectID = "iSf-IL-2kW"; */
 "iSf-IL-2kW.title" = "Relocate...";
 
-/* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "jKH-wp-n6X"; */
-"jKH-wp-n6X.title" = "Color & Coordinate: (x, y)";
+/* Class = "NSMenuItem"; title = "Color & Coordinates: (x, y)"; ObjectID = "jKH-wp-n6X"; */
+"jKH-wp-n6X.title" = "Color & Coordinates: (x, y)";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "jqt-id-cp6"; */
 "jqt-id-cp6.placeholderString" = "Add/Locate Item...";

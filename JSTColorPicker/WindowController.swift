@@ -416,54 +416,58 @@ extension WindowController: SceneTracking {
 }
 
 extension WindowController: ShortcutGuideDataSource {
-    
-    private func randomModifierFlags() -> NSEvent.ModifierFlags {
-        let maxCnt = Int.random(in: 1...5)
-        let closures: [(NSEvent.ModifierFlags) -> NSEvent.ModifierFlags] = [
-            { input in
-                return input.union(.control)
-            },
-            { input in
-                return input.union(.command)
-            },
-            { input in
-                return input.union(.option)
-            },
-            { input in
-                return input.union(.shift)
-            },
-            { input in
-                return input.union(.function)
-            },
-        ]
-        var masks: NSEvent.ModifierFlags = []
-        for _ in 0..<maxCnt {
-            masks = closures[Int.random(in: 0..<closures.count)](masks)
-        }
-        return masks
-    }
 
     var shortcutItems: [ShortcutItem] {
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" + ShortcutItem.KeyboardCharacter.allCases.map({ $0.rawValue }).joined()
-        let itemClosures: [() -> ShortcutItem] = [
-            { [unowned self] in
-                return ShortcutItem(name: "Short Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            { [unowned self] in
-                return ShortcutItem(name: "Medium Item Medium Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            { [unowned self] in
-                return ShortcutItem(name: "Long Item Long Item Long Item Long Item", keyString: String(characters.randomElement()!), toolTip: "", modifierFlags: self.randomModifierFlags())
-            },
-            {
-                return ShortcutItem(name: "Custom Item", keyString: "Whatever you want", toolTip: "Whatever you want", modifierFlags: [])
-            }
+        return [
+            ShortcutItem(
+                name: NSLocalizedString("Open...", comment: "Shortcut Guide"),
+                keyString: "F1",
+                toolTip: NSLocalizedString("Open (F1)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Magic Cursor", comment: "Shortcut Guide"),
+                keyString: "F2",
+                toolTip: NSLocalizedString("Magic Cursor (F2)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Selection Arrow", comment: "Shortcut Guide"),
+                keyString: "F3",
+                toolTip: NSLocalizedString("Selection Arrow (F3)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Magnifying Glass", comment: "Shortcut Guide"),
+                keyString: "F4",
+                toolTip: NSLocalizedString("Magnifying Glass (F4)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Minifying Glass", comment: "Shortcut Guide"),
+                keyString: "F5",
+                toolTip: NSLocalizedString("Minifying Glass (F5)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Moving Hand", comment: "Shortcut Guide"),
+                keyString: "F6",
+                toolTip: NSLocalizedString("Moving Hand (F6)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Fit Window", comment: "Shortcut Guide"),
+                keyString: "F7",
+                toolTip: NSLocalizedString("Fit Window (F7)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
+            ShortcutItem(
+                name: NSLocalizedString("Fill Window", comment: "Shortcut Guide"),
+                keyString: "F8",
+                toolTip: NSLocalizedString("Fill Window (F8)", comment: "Shortcut Guide"),
+                modifierFlags: [.function]
+            ),
         ]
-        var items = [ShortcutItem]()
-        for _ in 0..<Int.random(in: 0...48) {
-            items.append(itemClosures.randomElement()!())
-        }
-        return items
     }
 
 }

@@ -31,7 +31,7 @@
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[错误信息]";
 
-/* Class = "NSViewController"; title = "Edit Color & Coordinate"; ObjectID = "ctg-Pv-CEh"; */
+/* Class = "NSViewController"; title = "Edit Color & Coordinates"; ObjectID = "ctg-Pv-CEh"; */
 "ctg-Pv-CEh.title" = "修改颜色与坐标";
 
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "d7Y-BF-gov"; */
@@ -100,7 +100,7 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "好";
 
-/* Class = "NSBox"; title = "Edit Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
+/* Class = "NSBox"; title = "Edit Color & Coordinates"; ObjectID = "WvB-Hs-BAB"; */
 "WvB-Hs-BAB.title" = "修改颜色与坐标";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */

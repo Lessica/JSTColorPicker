@@ -17,36 +17,36 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ## Usage
 
 ### Magic Cursor
-- `⌘↵` / **Click / Tap** (or **Click** if *Force Touch* is enabled): Add current *coordinate & color* to content list.
+- `⌘↵` / **Click / Tap** (or **Click** if *Force Touch* is enabled): Add current *color & coordinates* to content list.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
-- `⌘⌫`: Delete *coordinate & color* at current position or the top most *area* contains current position.
-- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *coordinate & color* at current position or the top most *area* contains current position.
-- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to delete the annotation.
+- `⌘⌫`: Delete *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
+- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
+- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.
 - **Hold** `⌃`: Switch to *Selection Arrow* temporarily.
 
 ### Selection Arrow
-- **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or the top most *area* contains current position.
-- `⌘` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or the top most *area* contains current position, while keeping the previous selections.
-- `⇧` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *coordinate & color* at current position or all *areas* contains current position, while keeping the previous selections.
-- `⌥` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to select the annotation, while keeping the previous selections.
-- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *coordinate & color* at current position or the top most *area* contains current position.
-- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current position, select one to delete the annotation.
-- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *coordinate & color* to a new position, or modify *area* to a new dimension.
+- **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
+- `⌘` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or the top most *area* contains current cursor position, while keeping the previous selections.
+- `⇧` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or all *areas* contains current cursor position, while keeping the previous selections.
+- `⌥` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections.
+- **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Delete *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
+- `⌥` + **Right Click / Tap with two fingers** (or **Click with two fingers** if *Force Touch* is enabled): Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.
+- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *color & coordinates* to a new position, or modify *area* to a new dimension.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 
 ### Magnifying Glass
-- **Click**: Magnify to next level from current position.
+- **Click**: Magnify to next level from current cursor position.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
 ### Minifying Glass
-- **Click**: Minify to previous level from current position.
+- **Click**: Minify to previous level from current cursor position.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Magnifying Glass* temporarily.
 
 ### Move
-- **Drag**: A simple drag-to-move operation for common mouse device.
+- **Drag**: A simple drag-to-move operation for common pointer devices.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 
 ### General Shortcuts
@@ -58,13 +58,13 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - `⌘` + `↑ ↓ ← →`: Move cursor by 1 pixel.
 - `⇧⌘` + `↑ ↓ ← →`: Move cursor by 10 pixels.
 - `⌃⌘` + `↑ ↓ ← →`: Move cursor by 100 pixels.
-- `⌘-`: **Zoom in** with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).
-- `⌘=`: **Zoom out** with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).
+- `⌘-`: **Zoom out** with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).
+- `⌘=`: **Zoom in** with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).
 - `⌘[`: If the selected *annotation* is the only selected *annotation* in all levels under the current cursor position, the selected state is switched to the previous *annotation* in the cascade under the current cursor position.
 - `⌘]`: If the selected *annotation* is the only selected *annotation* in all levels under the current cursor position, the selected state is switched to the next *annotation* in the cascade under the current cursor position.
 
 ### Ruler
-- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *coordinate & color* to a new position, or modify *area* to a new dimension.
+- **Drag** (or **Drag** if *Force Touch* is enabled): Modify *color & coordinates* to a new position, or modify *area* to a new dimension.
 
 ### Fit Window / Fill Window
 There's no need to explain.
@@ -82,12 +82,12 @@ There's no need to explain.
   * `⌫`: Delete
 - `0123456789`: Enter item `ID` to select existing item quickly.
 - Type a string in the following format into the input box in the bottom left corner and type **Enter** to add or locate an item. Right-click `+` to toggle the data entry format.
-  * *coordinate & color*: `(x, y)`
+  * *color & coordinates*: `(x, y)`
   * *area*: `(x1, y1, x2, y2)`
   * *area*: `(x, y, w, h)`
 
 ### Others
-- <code>⌘`</code>: Copy the *coordinate & color* at the cursor location directly to the general pasteboard.
+- <code>⌘`</code>: Copy the *color & coordinates* at the cursor location directly to the general pasteboard.
 
 
 ## Menu Key Equivalents
@@ -196,9 +196,9 @@ end
   - `image.get_color(x, y)`: returns **argb** 32-bit integer value of color
   - `image.get_image(x, y, w, h)`: returns cropped image's PNG data representation
 
-`args` is a lua sequence of *coordinate & color* and *area*:
+`args` is a lua sequence of *color & coordinates* and *area*:
 
-* *coordinate & color*:
+* *color & coordinates*:
   - `color.id`
   - `color.name`
   - `color.tags`
@@ -219,7 +219,7 @@ end
   - `area.width`: area width in pixels
   - `area.height`: area height in pixels
 
-Test the existence of `item.width` to check if the item is a *coordinate & color* or an *area*.
+Test the existence of `item.width` to check if the item is a *color & coordinates* or an *area*.
 
 ## LICENSE
 - [JSTColorPicker](https://github.com/Lessica/JSTColorPicker/blob/master/LICENSE)

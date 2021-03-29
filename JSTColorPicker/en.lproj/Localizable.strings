@@ -1,3 +1,30 @@
+/* Shortcut Guide */
+"[Magic Cursor]" = "[Magic Cursor]";
+
+/* Shortcut Guide */
+"[Magnifying Glass]" = "[Magnifying Glass]";
+
+/* Shortcut Guide */
+"[Minifying Glass]" = "[Minifying Glass]";
+
+/* Shortcut Guide */
+"[Selection Arrow]" = "[Selection Arrow]";
+
+/* Shortcut Guide */
+"A simple drag-to-move operation for pointer devices." = "A simple drag-to-move operation for pointer devices.";
+
+/* Shortcut Guide */
+"Add Area Annotation" = "Add Area Annotation";
+
+/* Shortcut Guide */
+"Add Area at current dragged rectangle to content list." = "Add Area at current dragged rectangle to content list.";
+
+/* Shortcut Guide */
+"Add Color & Coordinates Annotation" = "Add Color & Coordinates Annotation";
+
+/* Shortcut Guide */
+"Add Color & Coordinates at current cursor position to content list." = "Add Color & Coordinates at current cursor position to content list.";
+
 /* internalAddContentItems(_:) */
 "Add Items" = "Add Items";
 
@@ -18,6 +45,9 @@
 
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
+
+/* Shortcut Guide */
+"Click" = "Click";
 
 /* Information Panel */
 "Color Profile" = "Color Profile";
@@ -46,6 +76,12 @@
 /* Information Panel */
 "Created At" = "Created At";
 
+/* Shortcut Guide */
+"Delete Annotation" = "Delete Annotation";
+
+/* Shortcut Guide */
+"Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
+
 /* Delete Confirm */
 "Delete Confirm" = "Delete Confirm";
 
@@ -57,6 +93,12 @@
 
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "Discover Devices";
+
+/* Shortcut Guide */
+"Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.";
+
+/* Shortcut Guide */
+"Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections." = "Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections.";
 
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "Do you want to import following %d tags from current document?";
@@ -76,11 +118,17 @@
 /* resetDevicesMenu */
 "Download screenshot helper..." = "Download screenshot helper...";
 
+/* Shortcut Guide */
+"Drag" = "Drag";
+
+/* Shortcut Guide */
+"Drag Anchors" = "Drag Anchors";
+
 /* EditCoordinateController */
 "Edit Area" = "Edit Area";
 
 /* EditCoordinateController */
-"Edit Color & Coordinate" = "Edit Color & Coordinate";
+"Edit Color & Coordinates" = "Edit Color & Coordinates";
 
 /* updateDisplay(_:with:isRegistered:) */
 "Edit Coordinate" = "Edit Coordinate";
@@ -103,11 +151,29 @@
 /* PixelImageError */
 "File read failed." = "File read failed.";
 
+/* Shortcut Guide */
+"Fill Window" = "Fill Window";
+
+/* Shortcut Guide */
+"Fill Window (F8)" = "Fill Window (F8)";
+
+/* Shortcut Guide */
+"Fit Window" = "Fit Window";
+
+/* Shortcut Guide */
+"Fit Window (F7)" = "Fit Window (F7)";
+
 /* toolbarItemLabel */
 "Folder" = "Folder";
 
 /* toolbarItemLabel */
 "General" = "General";
+
+/* Shortcut Guide */
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.";
+
+/* Shortcut Guide */
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position." = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.";
 
 /* PixelMatchError */
 "Image sizes do not match." = "Image sizes do not match.";
@@ -145,14 +211,56 @@
 /* Item #%@: %@ */
 "Item #%ld: %@" = "Item #%ld: %@";
 
+/* Shortcut Guide */
+"List All Cascaded Annotations" = "List All Cascaded Annotations";
+
+/* Shortcut Guide */
+"List Deletable Annotations" = "List Deletable Annotations";
+
 /* PixelImageError */
 "Load image data failed." = "Load image data failed.";
 
 /* PixelImageError */
 "Load image source failed." = "Load image source failed.";
 
+/* Shortcut Guide */
+"Magic Cursor" = "Magic Cursor";
+
+/* Shortcut Guide */
+"Magic Cursor (F2)" = "Magic Cursor (F2)";
+
+/* Shortcut Guide */
+"Magnify" = "Magnify";
+
+/* Shortcut Guide */
+"Magnify To Fill Window" = "Magnify To Fill Window";
+
+/* Shortcut Guide */
+"Magnify to fill window with dragged area." = "Magnify to fill window with dragged area.";
+
+/* Shortcut Guide */
+"Magnify to next level from current cursor position." = "Magnify to next level from current cursor position.";
+
+/* Shortcut Guide */
+"Magnifying Glass" = "Magnifying Glass";
+
+/* Shortcut Guide */
+"Magnifying Glass (F4)" = "Magnifying Glass (F4)";
+
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
+
+/* Shortcut Guide */
+"Minify" = "Minify";
+
+/* Shortcut Guide */
+"Minify to previous level from current cursor position." = "Minify to previous level from current cursor position.";
+
+/* Shortcut Guide */
+"Minifying Glass" = "Minifying Glass";
+
+/* Shortcut Guide */
+"Minifying Glass (F5)" = "Minifying Glass (F5)";
 
 /* TemplateError */
 "Missing required field: %@." = "Missing required field: %@.";
@@ -166,11 +274,44 @@
 /* Information Panel */
 "Modified At" = "Modified At";
 
+/* Shortcut Guide */
+"Modify Annotation" = "Modify Annotation";
+
+/* Shortcut Guide */
+"Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "Modify Color & Coordinates to a new position, or modify Area to a new dimension.";
+
+/* Shortcut Guide */
+"Move" = "Move";
+
+/* Shortcut Guide */
+"Move Cursor (1 pixel)" = "Move Cursor (1 pixel)";
+
+/* Shortcut Guide */
+"Move Cursor (10 pixel)" = "Move Cursor (10 pixel)";
+
+/* Shortcut Guide */
+"Move Cursor (100 pixel)" = "Move Cursor (100 pixel)";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 1 pixel." = "Move cursor with keyboard by 1 pixel.";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 10 pixel." = "Move cursor with keyboard by 10 pixel.";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 100 pixel." = "Move cursor with keyboard by 100 pixel.";
+
+/* Shortcut Guide */
+"Moving Hand" = "Moving Hand";
+
+/* Shortcut Guide */
+"Moving Hand (F6)" = "Moving Hand (F6)";
+
 /* EditAreaController */
 "New Area" = "New Area";
 
 /* EditCoordinateController */
-"New Color & Coordinate" = "New Color & Coordinate";
+"New Color & Coordinates" = "New Color & Coordinates";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "No device selected";
@@ -197,8 +338,14 @@
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
 
+/* Shortcut Guide */
+"Open (F1)" = "Open (F1)";
+
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
+
+/* Shortcut Guide */
+"Open..." = "Open...";
 
 /* Information Panel */
 "PNG Image" = "PNG Image";
@@ -215,14 +362,59 @@
 /* actionRequiresRestart(_:) */
 "Restart required" = "Restart required";
 
+/* Shortcut Guide */
+"Right Click" = "Right Click";
+
+/* Shortcut Guide */
+"Select All Cascaded Annotations" = "Select All Cascaded Annotations";
+
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
+
+/* Shortcut Guide */
+"Select Annotation" = "Select Annotation";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections." = "Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections.";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections." = "Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections.";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Select Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
+
+/* Shortcut Guide */
+"Select More Annotations" = "Select More Annotations";
+
+/* Shortcut Guide */
+"Select Next Annotation" = "Select Next Annotation";
+
+/* Shortcut Guide */
+"Select Previous Annotation" = "Select Previous Annotation";
+
+/* Shortcut Guide */
+"Selection Arrow" = "Selection Arrow";
+
+/* Shortcut Guide */
+"Selection Arrow (F3)" = "Selection Arrow (F3)";
 
 /* Information Panel */
 "Snapshot At" = "Snapshot At";
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
+
+/* Shortcut Guide */
+"Switch to Magic Cursor temporarily." = "Switch to Magic Cursor temporarily.";
+
+/* Shortcut Guide */
+"Switch to Magnifying Glass temporarily." = "Switch to Magnifying Glass temporarily.";
+
+/* Shortcut Guide */
+"Switch to Minifying Glass temporarily." = "Switch to Minifying Glass temporarily.";
+
+/* Shortcut Guide */
+"Switch to Selection Arrow temporarily." = "Switch to Selection Arrow temporarily.";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
@@ -277,3 +469,15 @@
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";
+
+/* Shortcut Guide */
+"Zoom In" = "Zoom In";
+
+/* Shortcut Guide */
+"Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).";
+
+/* Shortcut Guide */
+"Zoom Out" = "Zoom Out";
+
+/* Shortcut Guide */
+"Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";

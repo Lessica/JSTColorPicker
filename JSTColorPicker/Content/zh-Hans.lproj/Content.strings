@@ -7,7 +7,7 @@
 /* Class = "NSTableColumn"; headerToolTip = "The primary key, a integer field of the item."; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerToolTip" = "ID";
 
-/* Class = "NSMenuItem"; title = "Add Color & Coordinate..."; ObjectID = "7Qu-yW-xLS"; */
+/* Class = "NSMenuItem"; title = "Add Color & Coordinates..."; ObjectID = "7Qu-yW-xLS"; */
 "7Qu-yW-xLS.title" = "添加颜色与坐标...";
 
 /* Class = "NSMenuItem"; title = "Quick Add Patterns"; ObjectID = "as6-mp-8ga"; */
@@ -49,7 +49,7 @@
 /* Class = "NSMenuItem"; title = "Relocate..."; ObjectID = "iSf-IL-2kW"; */
 "iSf-IL-2kW.title" = "调整位置...";
 
-/* Class = "NSMenuItem"; title = "Color & Coordinate: (x, y)"; ObjectID = "jKH-wp-n6X"; */
+/* Class = "NSMenuItem"; title = "Color & Coordinates: (x, y)"; ObjectID = "jKH-wp-n6X"; */
 "jKH-wp-n6X.title" = "颜色与坐标: (x, y)";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "jqt-id-cp6"; */

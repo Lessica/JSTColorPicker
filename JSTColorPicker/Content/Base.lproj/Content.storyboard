@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +17,7 @@
                                 <rect key="frame" x="0.0" y="30" width="248" height="770"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="770"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="745"/>
@@ -412,7 +411,7 @@ CA
                 </menu>
                 <menu id="Cqe-SJ-8Rv">
                     <items>
-                        <menuItem title="Add Color &amp; Coordinate..." id="7Qu-yW-xLS">
+                        <menuItem title="Add Color &amp; Coordinates..." id="7Qu-yW-xLS">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="create:" target="oDF-UT-bv5" id="CSg-vR-jDO"/>
@@ -429,7 +428,7 @@ CA
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Quick Add Patterns" id="1HL-Zx-eDR">
                                 <items>
-                                    <menuItem title="Color &amp; Coordinate: (x, y)" state="on" id="jKH-wp-n6X">
+                                    <menuItem title="Color &amp; Coordinates: (x, y)" state="on" id="jKH-wp-n6X">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="toggleItemRepr:" target="oDF-UT-bv5" id="E9A-gt-LTD"/>

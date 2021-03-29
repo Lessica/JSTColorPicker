@@ -241,7 +241,7 @@ class ContentController: NSViewController {
             
             var addedOrSelected = false
             
-            // color & coordinate
+            // color & coordinates
             if !scanned3 || !scanned4 {
                 
                 let coordinate = PixelCoordinate(x: x, y: y)
@@ -1291,6 +1291,17 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                 cell.text = item.description
             }
             return cell
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        guard let content = documentContent else { return nil }
+        guard let tableColumn = tableColumn else { return nil }
+        let col = tableColumn.identifier
+        if col == .columnIdentifier {
+            let item = content.items[row]
+            return String(item.id)
         }
         return nil
     }

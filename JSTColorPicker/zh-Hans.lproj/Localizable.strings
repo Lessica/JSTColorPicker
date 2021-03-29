@@ -1,3 +1,30 @@
+/* Shortcut Guide */
+"[Magic Cursor]" = "[魔术光标]";
+
+/* Shortcut Guide */
+"[Magnifying Glass]" = "[放大镜]";
+
+/* Shortcut Guide */
+"[Minifying Glass]" = "[缩小镜]";
+
+/* Shortcut Guide */
+"[Selection Arrow]" = "[选择箭头]";
+
+/* Shortcut Guide */
+"A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作.";
+
+/* Shortcut Guide */
+"Add Area Annotation" = "添加区域标注";
+
+/* Shortcut Guide */
+"Add Area at current dragged rectangle to content list." = "将当前拖拽的矩形区域作为区域标注添加到内容列表.";
+
+/* Shortcut Guide */
+"Add Color & Coordinates Annotation" = "添加坐标及颜色标注";
+
+/* Shortcut Guide */
+"Add Color & Coordinates at current cursor position to content list." = "将当前光标位置下的坐标及颜色标注添加到内容列表.";
+
 /* internalAddContentItems(_:) */
 "Add Items" = "添加项";
 
@@ -18,6 +45,9 @@
 
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容.";
+
+/* Shortcut Guide */
+"Click" = "单击";
 
 /* Information Panel */
 "Color Profile" = "颜色配置文件";
@@ -46,6 +76,12 @@
 /* Information Panel */
 "Created At" = "创建时间";
 
+/* Shortcut Guide */
+"Delete Annotation" = "删除标注";
+
+/* Shortcut Guide */
+"Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注.";
+
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
 
@@ -57,6 +93,12 @@
 
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "立即寻找设备";
+
+/* Shortcut Guide */
+"Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "显示菜单, 包含当前光标位置所有层级下层叠的区域标注, 选择一项以删除标注.";
+
+/* Shortcut Guide */
+"Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections." = "显示菜单, 包含当前光标位置所有层级下层叠的区域标注, 选择一项以选择标注, 同时保留之前的选择项.";
 
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗?";
@@ -76,11 +118,17 @@
 /* resetDevicesMenu */
 "Download screenshot helper..." = "下载设备截图组件...";
 
+/* Shortcut Guide */
+"Drag" = "拖拽";
+
+/* Shortcut Guide */
+"Drag Anchors" = "拖拽锚点";
+
 /* EditCoordinateController */
 "Edit Area" = "修改区域";
 
 /* EditCoordinateController */
-"Edit Color & Coordinate" = "修改颜色与坐标";
+"Edit Color & Coordinates" = "修改颜色与坐标";
 
 /* updateDisplay(_:with:isRegistered:) */
 "Edit Coordinate" = "修改坐标";
@@ -103,11 +151,29 @@
 /* PixelImageError */
 "File read failed." = "文件读取失败.";
 
+/* Shortcut Guide */
+"Fill Window" = "填充窗口";
+
+/* Shortcut Guide */
+"Fill Window (F8)" = "填充窗口 (F8)";
+
+/* Shortcut Guide */
+"Fit Window" = "适应窗口";
+
+/* Shortcut Guide */
+"Fit Window (F7)" = "适应窗口 (F7)";
+
 /* toolbarItemLabel */
 "Folder" = "目录";
 
 /* toolbarItemLabel */
 "General" = "通用";
+
+/* Shortcut Guide */
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注, 则切换选中状态到当前光标位置下层叠的后一个标注.";
+
+/* Shortcut Guide */
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注, 则切换选中状态到当前光标位置下层叠的前一个标注.";
 
 /* PixelMatchError */
 "Image sizes do not match." = "图像尺寸不一致.";
@@ -145,14 +211,56 @@
 /* Item #%@: %@ */
 "Item #%ld: %@" = "项 #%ld: %@";
 
+/* Shortcut Guide */
+"List All Cascaded Annotations" = "列出所有层叠标注";
+
+/* Shortcut Guide */
+"List Deletable Annotations" = "列出所有可删除标注";
+
 /* PixelImageError */
 "Load image data failed." = "加载图像数据失败.";
 
 /* PixelImageError */
 "Load image source failed." = "加载映像源失败.";
 
+/* Shortcut Guide */
+"Magic Cursor" = "魔术光标";
+
+/* Shortcut Guide */
+"Magic Cursor (F2)" = "魔术光标 (F2)";
+
+/* Shortcut Guide */
+"Magnify" = "放大";
+
+/* Shortcut Guide */
+"Magnify To Fill Window" = "放大以填充窗口";
+
+/* Shortcut Guide */
+"Magnify to fill window with dragged area." = "放大已拖拽区域, 使之填充整个窗口.";
+
+/* Shortcut Guide */
+"Magnify to next level from current cursor position." = "自当前光标位置放大到下一缩放级别.";
+
+/* Shortcut Guide */
+"Magnifying Glass" = "放大镜";
+
+/* Shortcut Guide */
+"Magnifying Glass (F4)" = "放大镜 (F4)";
+
 /* Content.Error */
 "Maximum item count %d reached." = "已达到最大项数量 %d.";
+
+/* Shortcut Guide */
+"Minify" = "缩小";
+
+/* Shortcut Guide */
+"Minify to previous level from current cursor position." = "自当前光标位置缩小到上一缩放级别.";
+
+/* Shortcut Guide */
+"Minifying Glass" = "缩小镜";
+
+/* Shortcut Guide */
+"Minifying Glass (F5)" = "缩小镜 (F5)";
 
 /* TemplateError */
 "Missing required field: %@." = "缺少必填字段: %@.";
@@ -166,11 +274,44 @@
 /* Information Panel */
 "Modified At" = "修改时间";
 
+/* Shortcut Guide */
+"Modify Annotation" = "修改标注";
+
+/* Shortcut Guide */
+"Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "修改坐标及颜色标注到新的位置, 修改区域标注的尺寸.";
+
+/* Shortcut Guide */
+"Move" = "移动";
+
+/* Shortcut Guide */
+"Move Cursor (1 pixel)" = "移动光标 (1 像素)";
+
+/* Shortcut Guide */
+"Move Cursor (10 pixel)" = "移动光标 (10 像素)";
+
+/* Shortcut Guide */
+"Move Cursor (100 pixel)" = "移动光标 (100 像素)";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 1 pixel." = "将光标向指定方向移动 1 个像素.";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 10 pixel." = "将光标向指定方向移动 10 个像素.";
+
+/* Shortcut Guide */
+"Move cursor with keyboard by 100 pixel." = "将光标向指定方向移动 100 个像素.";
+
+/* Shortcut Guide */
+"Moving Hand" = "移动工具";
+
+/* Shortcut Guide */
+"Moving Hand (F6)" = "移动工具 (F6)";
+
 /* EditAreaController */
 "New Area" = "新区域";
 
 /* EditCoordinateController */
-"New Color & Coordinate" = "新颜色与坐标";
+"New Color & Coordinates" = "新颜色与坐标";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "未选中设备";
@@ -197,8 +338,14 @@
 /* screenshotItemTapped(_:) */
 "OK" = "好";
 
+/* Shortcut Guide */
+"Open (F1)" = "打开 (F1)";
+
 /* updateInformationPanel */
 "Open or drop an image here." = "打开或拖拽文件到此处.";
+
+/* Shortcut Guide */
+"Open..." = "打开...";
 
 /* Information Panel */
 "PNG Image" = "PNG 图像";
@@ -215,14 +362,59 @@
 /* actionRequiresRestart(_:) */
 "Restart required" = "需要重启";
 
+/* Shortcut Guide */
+"Right Click" = "右键单击";
+
+/* Shortcut Guide */
+"Select All Cascaded Annotations" = "选择所有层叠标注";
+
 /* screenshotItemTapped(_:) */
 "Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
+
+/* Shortcut Guide */
+"Select Annotation" = "选择标注";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注, 或所有层级下层叠的区域标注, 同时保留之前的选择项.";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注, 同时保留之前的选择项.";
+
+/* Shortcut Guide */
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "选择当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注.";
+
+/* Shortcut Guide */
+"Select More Annotations" = "选择更多标注";
+
+/* Shortcut Guide */
+"Select Next Annotation" = "选择下一层标注";
+
+/* Shortcut Guide */
+"Select Previous Annotation" = "选择上一层标注";
+
+/* Shortcut Guide */
+"Selection Arrow" = "选择箭头";
+
+/* Shortcut Guide */
+"Selection Arrow (F3)" = "选择箭头 (F3)";
 
 /* Information Panel */
 "Snapshot At" = "内容创建时间";
 
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";
+
+/* Shortcut Guide */
+"Switch to Magic Cursor temporarily." = "临时切换到魔术光标.";
+
+/* Shortcut Guide */
+"Switch to Magnifying Glass temporarily." = "临时切换到放大镜.";
+
+/* Shortcut Guide */
+"Switch to Minifying Glass temporarily." = "临时切换到缩小镜.";
+
+/* Shortcut Guide */
+"Switch to Selection Arrow temporarily." = "临时切换到选择箭头.";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
@@ -277,3 +469,15 @@
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
+
+/* Shortcut Guide */
+"Zoom In" = "放大";
+
+/* Shortcut Guide */
+"Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "自当前光标位置放大视图 (如果光标位于视图外, 则以中心点位置放大视图).";
+
+/* Shortcut Guide */
+"Zoom Out" = "缩小";
+
+/* Shortcut Guide */
+"Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外, 则以中心点位置缩小视图).";

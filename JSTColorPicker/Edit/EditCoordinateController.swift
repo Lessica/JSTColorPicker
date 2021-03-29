@@ -44,9 +44,9 @@ class EditCoordinateController: EditViewController {
         setupPreviewIfNeeded()
         updateDisplay(nil, with: contentItem)
         if isAdd {
-            box.title = NSLocalizedString("New Color & Coordinate", comment: "EditCoordinateController")
+            box.title = NSLocalizedString("New Color & Coordinates", comment: "EditCoordinateController")
         } else {
-            box.title = NSLocalizedString("Edit Color & Coordinate", comment: "EditCoordinateController")
+            box.title = NSLocalizedString("Edit Color & Coordinates", comment: "EditCoordinateController")
             validateInputs(view)
         }
         undoManager?.enableUndoRegistration()

@@ -31,8 +31,8 @@
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[Error Message]";
 
-/* Class = "NSViewController"; title = "Edit Color & Coordinate"; ObjectID = "ctg-Pv-CEh"; */
-"ctg-Pv-CEh.title" = "Edit Color & Coordinate";
+/* Class = "NSViewController"; title = "Edit Color & Coordinates"; ObjectID = "ctg-Pv-CEh"; */
+"ctg-Pv-CEh.title" = "Edit Color & Coordinates";
 
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "d7Y-BF-gov"; */
 "d7Y-BF-gov.alternateTitle" = "Show Preview";
@@ -100,8 +100,8 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "OK";
 
-/* Class = "NSBox"; title = "Edit Color & Coordinate"; ObjectID = "WvB-Hs-BAB"; */
-"WvB-Hs-BAB.title" = "Edit Color & Coordinate";
+/* Class = "NSBox"; title = "Edit Color & Coordinates"; ObjectID = "WvB-Hs-BAB"; */
+"WvB-Hs-BAB.title" = "Edit Color & Coordinates";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[Error Message]";

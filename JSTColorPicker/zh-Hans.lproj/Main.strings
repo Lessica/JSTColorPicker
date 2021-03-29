@@ -55,8 +55,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.paletteLabel" = "缩小";
 
-/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F4)"; ObjectID = "Ajm-ph-nQm"; */
-"Ajm-ph-nQm.toolTip" = "放大镜 (F4)";
+/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F5)"; ObjectID = "Ajm-ph-nQm"; */
+"Ajm-ph-nQm.toolTip" = "放大镜 (F5)";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "窗口";
@@ -70,8 +70,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.paletteLabel" = "适应窗口";
 
-/* Class = "NSToolbarItem"; toolTip = "Fit Window (F6)"; ObjectID = "b9N-8Y-kQX"; */
-"b9N-8Y-kQX.toolTip" = "适应窗口 (F6)";
+/* Class = "NSToolbarItem"; toolTip = "Fit Window (F7)"; ObjectID = "b9N-8Y-kQX"; */
+"b9N-8Y-kQX.toolTip" = "适应窗口 (F7)";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "文件";
@@ -190,8 +190,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Select"; ObjectID = "ljO-9K-PCE"; */
 "ljO-9K-PCE.paletteLabel" = "选择";
 
-/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F2)"; ObjectID = "ljO-9K-PCE"; */
-"ljO-9K-PCE.toolTip" = "选择箭头 (F2)";
+/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F3)"; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.toolTip" = "选择箭头 (F3)";
 
 /* Class = "NSToolbarItem"; label = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.label" = "填充窗口";
@@ -199,8 +199,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.paletteLabel" = "填充窗口";
 
-/* Class = "NSToolbarItem"; toolTip = "Fill Window (F7)"; ObjectID = "lQd-Bs-mbf"; */
-"lQd-Bs-mbf.toolTip" = "填充窗口 (F7)";
+/* Class = "NSToolbarItem"; toolTip = "Fill Window (F8)"; ObjectID = "lQd-Bs-mbf"; */
+"lQd-Bs-mbf.toolTip" = "填充窗口 (F8)";
 
 /* Class = "NSToolbarItem"; label = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.label" = "移动";
@@ -208,8 +208,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "移动";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (F5)"; ObjectID = "mDy-EG-ccW"; */
-"mDy-EG-ccW.toolTip" = "移动 (F5)";
+/* Class = "NSToolbarItem"; toolTip = "Move (F6)"; ObjectID = "mDy-EG-ccW"; */
+"mDy-EG-ccW.toolTip" = "移动 (F6)";
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
 "mhD-IK-J6V.title" = "颜色指示器";
@@ -277,8 +277,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Magnify"; ObjectID = "TA2-eZ-zBd"; */
 "TA2-eZ-zBd.paletteLabel" = "放大";
 
-/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F3)"; ObjectID = "TA2-eZ-zBd"; */
-"TA2-eZ-zBd.toolTip" = "放大镜 (F3)";
+/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F4)"; ObjectID = "TA2-eZ-zBd"; */
+"TA2-eZ-zBd.toolTip" = "放大镜 (F4)";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";

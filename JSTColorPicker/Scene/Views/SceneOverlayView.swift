@@ -66,11 +66,15 @@ class SceneOverlayView: NSView {
     
     public var isFocused: Bool { sceneTool.canFocus ? internalFocusedOverlay != nil : false }
     public var focusedOverlay: AnnotatorOverlay? { sceneTool.canFocus ? internalFocusedOverlay : nil }
+
+    public var hasSelectedOverlay: Bool { overlays.firstIndex(where: { $0.isSelected }) != nil }
+    public var selectedOverlays: [AnnotatorOverlay] { overlays.filter({ $0.isSelected }) }
     
     public func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
         overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
             ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
+
     public func overlays(at point: CGPoint, bySizeReordering reorder: Bool = false) -> [AnnotatorOverlay] {
         if !reorder {
             return overlays

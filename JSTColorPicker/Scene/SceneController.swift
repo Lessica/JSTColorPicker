@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ShortcutGuide
 
 class SceneController: NSViewController {
     
@@ -86,6 +87,9 @@ class SceneController: NSViewController {
         7.000, 8.000, 12.00, 16.00, 32.00,
         64.00, 128.0, 256.0
     ]
+
+    public var isCursorMovableByKeyboard: Bool { wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification }
+    public var isOverlaySelectableByKeyboard: Bool { sceneOverlayView.hasSelectedOverlay }
     private static let minimumRecognizableMagnification: CGFloat = 16.0
     
     @IBOutlet private weak var sceneClipView               : SceneClipView!
@@ -702,7 +706,7 @@ class SceneController: NSViewController {
         default: break
         }
         
-        guard wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification else { return false }
+        guard isCursorMovableByKeyboard else { return false }
         
         var toWrapperPoint = locInWrapper.toPixelCenterCGPoint()
         toWrapperPoint.x += wrapperDelta.width
