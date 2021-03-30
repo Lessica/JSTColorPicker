@@ -85,7 +85,7 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Screenshot"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.paletteLabel" = "截图";
 
-/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S): Take screenshots directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
+/* Class = "NSToolbarItem"; toolTip = "Take Snapshot (⌃S): Take a screenshot directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.toolTip" = "截图 (⌃S): 直接从已选中的设备获取屏幕截图.";
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
@@ -105,6 +105,12 @@
 
 /* Class = "NSWindow"; title = "Placeholder"; ObjectID = "CkN-NN-Qj5"; */
 "CkN-NN-Qj5.title" = "Placeholder";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show a palette with available keyboard shortcuts."; ObjectID = "cRg-fp-z1t"; */
+"cRg-fp-z1t.ibShadowedToolTip" = "显示一个指令面板, 它包含了一些可用的键盘快捷键以供参考.";
+
+/* Class = "NSMenuItem"; title = "Command Palette..."; ObjectID = "cRg-fp-z1t"; */
+"cRg-fp-z1t.title" = "切换指令面板";
 
 /* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "CVA-d9-Lwm"; */
 "CVA-d9-Lwm.title" = "重置面板...";
@@ -217,7 +223,7 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "移动";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
+/* Class = "NSToolbarItem"; toolTip = "Moving Hand (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.toolTip" = "移动工具 (F6): 拖拽移动场景, 或是查看标注的首要标签.";
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */

@@ -444,6 +444,13 @@ CA
                                                 <action selector="showHelpPageMenuItemTapped:" target="Voe-Tx-rLC" id="pQc-Qt-yjl"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="CmU-Jb-CSD"/>
+                                        <menuItem title="Command Palette..." toolTip="Show a palette with available keyboard shortcuts." id="cRg-fp-z1t">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleCommandPalette:" target="Ady-hI-5gd" id="mG7-jU-Up9"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -523,7 +530,7 @@ CA
                                         <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
+                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
@@ -545,7 +552,7 @@ CA
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌃S): Take screenshots directly from the selected devices." tag="-1" image="JSTCamera" id="BOP-NL-21X">
+                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Take Snapshot (⌃S): Take a screenshot directly from the selected devices." tag="-1" image="JSTCamera" id="BOP-NL-21X">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>

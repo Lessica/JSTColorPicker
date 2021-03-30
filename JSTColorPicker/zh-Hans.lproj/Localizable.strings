@@ -101,6 +101,9 @@
 "Discover Devices" = "立即寻找设备";
 
 /* Shortcut Guide */
+"Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN." = "寻找设备 (⌃I): 立即广播寻找局域网内的可用设备.";
+
+/* Shortcut Guide */
 "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "显示菜单, 包含当前光标位置所有层级下层叠的区域标注, 选择一项以删除标注.";
 
 /* Shortcut Guide */
@@ -161,13 +164,13 @@
 "Fill Window" = "填充窗口";
 
 /* Shortcut Guide */
-"Fill Window (F8)" = "填充窗口 (F8)";
+"Fill Window (F8): Scale the view to fill the window size." = "填充窗口 (F8): 缩放场景到填充窗口的尺寸.";
 
 /* Shortcut Guide */
 "Fit Window" = "适应窗口";
 
 /* Shortcut Guide */
-"Fit Window (F7)" = "适应窗口 (F7)";
+"Fit Window (F7): Scale the view to fit the window size." = "适应窗口 (F7): 缩放场景到适合窗口的尺寸.";
 
 /* toolbarItemLabel */
 "Folder" = "目录";
@@ -246,7 +249,7 @@
 "Magic Cursor" = "魔术光标";
 
 /* Shortcut Guide */
-"Magic Cursor (F2)" = "魔术光标 (F2)";
+"Magic Cursor (F2): Add, or delete annotations." = "魔术光标 (F2): 添加, 或是删除标注, 目前支持坐标及颜色标注和区域标注两种.";
 
 /* Shortcut Guide */
 "Magnify" = "放大";
@@ -264,7 +267,7 @@
 "Magnifying Glass" = "放大镜";
 
 /* Shortcut Guide */
-"Magnifying Glass (F4)" = "放大镜 (F4)";
+"Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." = "放大镜 (F4): 按预设的梯度比例放大场景, 支持放大到指定区域.";
 
 /* Content.Error */
 "Maximum item count %d reached." = "已达到最大项数量 %d.";
@@ -279,7 +282,7 @@
 "Minifying Glass" = "缩小镜";
 
 /* Shortcut Guide */
-"Minifying Glass (F5)" = "缩小镜 (F5)";
+"Minifying Glass (F5): Zoom out at a preset scale." = "缩小镜 (F5): 按预设的梯度比例缩小场景.";
 
 /* TemplateError */
 "Missing required field: %@." = "缺少必填字段: %@.";
@@ -324,7 +327,7 @@
 "Moving Hand" = "移动工具";
 
 /* Shortcut Guide */
-"Moving Hand (F6)" = "移动工具 (F6)";
+"Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." = "移动工具 (F6): 拖拽移动场景, 或是查看标注的首要标签.";
 
 /* EditAreaController */
 "New Area" = "新区域";
@@ -358,7 +361,7 @@
 "OK" = "好";
 
 /* Shortcut Guide */
-"Open (F1)" = "打开 (F1)";
+"Open (F1): Load a PNG image file from file system." = "打开 (F1): 从文件系统载入指定 PNG 图像文件.";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "打开或拖拽文件到此处.";
@@ -424,7 +427,7 @@
 "Selection Arrow" = "选择箭头";
 
 /* Shortcut Guide */
-"Selection Arrow (F3)" = "选择箭头 (F3)";
+"Selection Arrow (F3): View, select, or modify annotations." = "选择箭头 (F3): 查看, 选择, 或是修改选中的标注.";
 
 /* Information Panel */
 "Snapshot At" = "内容创建时间";
@@ -445,10 +448,10 @@
 "Switch to Selection Arrow temporarily." = "临时切换到选择箭头.";
 
 /* Shortcut Guide */
-"Take a screenshot directly from the selected device." = "直接从选中的设备获取屏幕截图.";
+"Take Snapshot" = "截图";
 
 /* Shortcut Guide */
-"Take Snapshot" = "截图";
+"Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "截图 (⌃S): 直接从已选中的设备获取屏幕截图.";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";

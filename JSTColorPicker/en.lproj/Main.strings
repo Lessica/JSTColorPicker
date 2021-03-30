@@ -85,14 +85,17 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Screenshot"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.paletteLabel" = "Screenshot";
 
-/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S): Take screenshots directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
-"BOP-NL-21X.toolTip" = "Snapshot (⌃S): Take screenshots directly from the selected devices.";
+/* Class = "NSToolbarItem"; toolTip = "Take Snapshot (⌃S): Take a screenshot directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
+"BOP-NL-21X.toolTip" = "Take Snapshot (⌃S): Take screenshots directly from the selected devices.";
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "Use Selection for Find";
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "Save As…";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.ibShadowedToolTip" = "Copy all annotations using selected template.";
 
 /* Class = "NSMenuItem"; title = "Copy All"; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.title" = "Copy All";
@@ -102,6 +105,12 @@
 
 /* Class = "NSWindow"; title = "Placeholder"; ObjectID = "CkN-NN-Qj5"; */
 "CkN-NN-Qj5.title" = "Placeholder";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show a palette with available keyboard shortcuts."; ObjectID = "cRg-fp-z1t"; */
+"cRg-fp-z1t.ibShadowedToolTip" = "Show a palette with available keyboard shortcuts.";
+
+/* Class = "NSMenuItem"; title = "Command Palette..."; ObjectID = "cRg-fp-z1t"; */
+"cRg-fp-z1t.title" = "Command Palette...";
 
 /* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "CVA-d9-Lwm"; */
 "CVA-d9-Lwm.title" = "Reset Panes...";
@@ -214,8 +223,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "Move";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
-"mDy-EG-ccW.toolTip" = "Move (F6): Drag to move the scene, or view the major tag of annotations.";
+/* Class = "NSToolbarItem"; toolTip = "Moving Hand (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
+"mDy-EG-ccW.toolTip" = "Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.";
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
 "mhD-IK-J6V.title" = "Color Inspector";
@@ -264,6 +273,9 @@
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "Zoom";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export all annotations using selected template."; ObjectID = "Rl3-28-Fqh"; */
+"Rl3-28-Fqh.ibShadowedToolTip" = "Export all annotations using selected template.";
 
 /* Class = "NSMenuItem"; title = "Export All..."; ObjectID = "Rl3-28-Fqh"; */
 "Rl3-28-Fqh.title" = "Export All...";
@@ -351,9 +363,3 @@
 
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "YU0-Xz-P6g"; */
 "YU0-Xz-P6g.title" = "Image Preview";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
-"cIT-qf-fbP.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Export all annotations using selected template."; ObjectID = "Rl3-28-Fqh"; */
-"Rl3-28-Fqh.ibShadowedToolTip" = "";

@@ -434,6 +434,12 @@ extension WindowController: SceneTracking {
 
 extension WindowController: ShortcutGuideDataSource {
 
+    @IBAction func toggleCommandPalette(_ sender: Any?) {
+        let guideCtrl = ShortcutGuideWindowController.shared
+        guideCtrl.loadItemsForWindow(window!)
+        guideCtrl.toggleForWindow(window!, columnStyle: nil)
+    }
+
     var shortcutItems: [ShortcutItem] {
         var items = [ShortcutItem]()
         if documentState.isReadable || !documentState.isLoaded {
@@ -441,7 +447,7 @@ extension WindowController: ShortcutGuideDataSource {
                 ShortcutItem(
                     name: NSLocalizedString("Open...", comment: "Shortcut Guide"),
                     keyString: "F1",
-                    toolTip: NSLocalizedString("Open (F1)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Open (F1): Load a PNG image file from file system.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
             ]
@@ -451,43 +457,43 @@ extension WindowController: ShortcutGuideDataSource {
                 ShortcutItem(
                     name: NSLocalizedString("Magic Cursor", comment: "Shortcut Guide"),
                     keyString: "F2",
-                    toolTip: NSLocalizedString("Magic Cursor (F2)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Magic Cursor (F2): Add, or delete annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Selection Arrow", comment: "Shortcut Guide"),
                     keyString: "F3",
-                    toolTip: NSLocalizedString("Selection Arrow (F3)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Selection Arrow (F3): View, select, or modify annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Magnifying Glass", comment: "Shortcut Guide"),
                     keyString: "F4",
-                    toolTip: NSLocalizedString("Magnifying Glass (F4)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Minifying Glass", comment: "Shortcut Guide"),
                     keyString: "F5",
-                    toolTip: NSLocalizedString("Minifying Glass (F5)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Minifying Glass (F5): Zoom out at a preset scale.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Moving Hand", comment: "Shortcut Guide"),
                     keyString: "F6",
-                    toolTip: NSLocalizedString("Moving Hand (F6)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Fit Window", comment: "Shortcut Guide"),
                     keyString: "F7",
-                    toolTip: NSLocalizedString("Fit Window (F7)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Fit Window (F7): Scale the view to fit the window size.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Fill Window", comment: "Shortcut Guide"),
                     keyString: "F8",
-                    toolTip: NSLocalizedString("Fill Window (F8)", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Fill Window (F8): Scale the view to fill the window size.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
             ]
@@ -497,13 +503,13 @@ extension WindowController: ShortcutGuideDataSource {
                 ShortcutItem(
                     name: NSLocalizedString("Take Snapshot", comment: "Shortcut Guide"),
                     keyString: "S",
-                    toolTip: NSLocalizedString("Take a screenshot directly from the selected device.", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Take Snapshot (⌃S): Take a screenshot directly from the selected devices.", comment: "Shortcut Guide"),
                     modifierFlags: [.control]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Discover Devices", comment: "Shortcut Guide"),
                     keyString: "I",
-                    toolTip: NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN.", comment: "Shortcut Guide"),
                     modifierFlags: [.control]
                 ),
             ]

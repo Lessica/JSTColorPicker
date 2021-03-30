@@ -101,6 +101,9 @@
 "Discover Devices" = "Discover Devices";
 
 /* Shortcut Guide */
+"Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN." = "Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN.";
+
+/* Shortcut Guide */
 "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.";
 
 /* Shortcut Guide */
@@ -161,13 +164,13 @@
 "Fill Window" = "Fill Window";
 
 /* Shortcut Guide */
-"Fill Window (F8)" = "Fill Window (F8)";
+"Fill Window (F8): Scale the view to fill the window size." = "Fill Window (F8): Scale the view to fill the window size.";
 
 /* Shortcut Guide */
 "Fit Window" = "Fit Window";
 
 /* Shortcut Guide */
-"Fit Window (F7)" = "Fit Window (F7)";
+"Fit Window (F7): Scale the view to fit the window size." = "Fit Window (F7): Scale the view to fit the window size.";
 
 /* toolbarItemLabel */
 "Folder" = "Folder";
@@ -246,7 +249,7 @@
 "Magic Cursor" = "Magic Cursor";
 
 /* Shortcut Guide */
-"Magic Cursor (F2)" = "Magic Cursor (F2)";
+"Magic Cursor (F2): Add, or delete annotations." = "Magic Cursor (F2): Add, or delete annotations.";
 
 /* Shortcut Guide */
 "Magnify" = "Magnify";
@@ -264,7 +267,7 @@
 "Magnifying Glass" = "Magnifying Glass";
 
 /* Shortcut Guide */
-"Magnifying Glass (F4)" = "Magnifying Glass (F4)";
+"Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." = "Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.";
 
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
@@ -279,7 +282,7 @@
 "Minifying Glass" = "Minifying Glass";
 
 /* Shortcut Guide */
-"Minifying Glass (F5)" = "Minifying Glass (F5)";
+"Minifying Glass (F5): Zoom out at a preset scale." = "Minifying Glass (F5): Zoom out at a preset scale.";
 
 /* TemplateError */
 "Missing required field: %@." = "Missing required field: %@.";
@@ -324,7 +327,7 @@
 "Moving Hand" = "Moving Hand";
 
 /* Shortcut Guide */
-"Moving Hand (F6)" = "Moving Hand (F6)";
+"Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." = "Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.";
 
 /* EditAreaController */
 "New Area" = "New Area";
@@ -358,7 +361,7 @@
 "OK" = "OK";
 
 /* Shortcut Guide */
-"Open (F1)" = "Open (F1)";
+"Open (F1): Load a PNG image file from file system." = "Open (F1): Load a PNG image file from file system.";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
@@ -424,7 +427,7 @@
 "Selection Arrow" = "Selection Arrow";
 
 /* Shortcut Guide */
-"Selection Arrow (F3)" = "Selection Arrow (F3)";
+"Selection Arrow (F3): View, select, or modify annotations." = "Selection Arrow (F3): View, select, or modify annotations.";
 
 /* Information Panel */
 "Snapshot At" = "Snapshot At";
@@ -445,10 +448,10 @@
 "Switch to Selection Arrow temporarily." = "Switch to Selection Arrow temporarily.";
 
 /* Shortcut Guide */
-"Take a screenshot directly from the selected device." = "Take a screenshot directly from the selected device.";
+"Take Snapshot" = "Take Snapshot";
 
 /* Shortcut Guide */
-"Take Snapshot" = "Take Snapshot";
+"Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "Take Snapshot (⌃S): Take a screenshot directly from the selected devices.";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
