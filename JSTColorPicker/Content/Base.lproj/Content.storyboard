@@ -17,7 +17,7 @@
                                 <rect key="frame" x="0.0" y="30" width="248" height="770"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="770"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="745"/>
@@ -284,7 +284,7 @@
                 <customObject id="YIx-oB-8lo" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="ziX-dt-DMr">
                     <items>
-                        <menuItem title="Locate" toolTip="Scroll and scale scene to fit this item" id="Sbm-OL-z0k">
+                        <menuItem title="Locate" toolTip="Scroll the scene to the selected annotation, and adjust the scale to fit its size." id="Sbm-OL-z0k">
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -293,7 +293,7 @@ DQ
                                 <action selector="locate:" target="YIx-oB-8lo" id="sEq-cm-ZsQ"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Relocate..." id="iSf-IL-2kW">
+                        <menuItem title="Relocate..." toolTip="In the pop-up tab, precisely adjust the position of the selected annotation." id="iSf-IL-2kW">
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -323,29 +323,29 @@ DQ
                                 <action selector="cut:" target="YIx-oB-8lo" id="KYR-De-hb9"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="FUc-jS-0Vm">
+                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these annotations with current template." id="FUc-jS-0Vm">
                             <connections>
                                 <action selector="copy:" target="YIx-oB-8lo" id="k5U-EW-4W2"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste items from another document" id="COB-7T-s9l">
+                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste annotations from another document." id="COB-7T-s9l">
                             <connections>
                                 <action selector="paste:" target="YIx-oB-8lo" id="rh3-0q-hxU"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm" id="q07-T2-0Ey">
+                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm." id="q07-T2-0Ey">
                             <connections>
                                 <action selector="smartTrim:" target="YIx-oB-8lo" id="Yec-2h-809"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="P2s-yP-Ife"/>
-                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these items with current template" id="qQO-Qw-Wgz">
+                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these annotations with current template." id="qQO-Qw-Wgz">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="exportAs:" target="YIx-oB-8lo" id="ZzB-b5-lfB"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file" id="qZ8-We-LFE">
+                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file." id="qZ8-We-LFE">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="resample:" target="YIx-oB-8lo" id="IRG-l1-fNf"/>

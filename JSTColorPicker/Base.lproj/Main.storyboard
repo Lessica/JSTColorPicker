@@ -120,12 +120,12 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vCe-vl-D8R"/>
-                                        <menuItem title="Copy All" keyEquivalent="C" id="cIT-qf-fbP">
+                                        <menuItem title="Copy All" keyEquivalent="C" toolTip="Copy all annotations using selected template." id="cIT-qf-fbP">
                                             <connections>
                                                 <action selector="copyAll:" target="Ady-hI-5gd" id="0p1-r2-P4F"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Export All..." keyEquivalent="E" id="Rl3-28-Fqh">
+                                        <menuItem title="Export All..." keyEquivalent="E" toolTip="Export all annotations using selected template." id="Rl3-28-Fqh">
                                             <connections>
                                                 <action selector="exportAll:" target="Ady-hI-5gd" id="4Dh-Js-WF9"/>
                                             </connections>
@@ -177,29 +177,29 @@
                                                 <action selector="cut:" target="Ady-hI-5gd" id="YJe-68-I9s"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these items with current template" id="x3v-GG-iWU">
+                                        <menuItem title="Copy" keyEquivalent="c" toolTip="Copy these annotations with current template." id="x3v-GG-iWU">
                                             <connections>
                                                 <action selector="copy:" target="Ady-hI-5gd" id="G1f-GL-Joy"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste items from another document" id="gVA-U4-sdL">
+                                        <menuItem title="Paste" keyEquivalent="v" toolTip="Paste annotations from another document." id="gVA-U4-sdL">
                                             <connections>
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm" id="fAq-vA-bJd">
+                                        <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm." id="fAq-vA-bJd">
                                             <connections>
                                                 <action selector="smartTrim:" target="Ady-hI-5gd" id="KdY-BK-fAm"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="57O-CH-ZUW"/>
-                                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these items with current template" id="vLS-fs-Vb8">
+                                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these annotations with current template." id="vLS-fs-Vb8">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="exportAs:" target="Ady-hI-5gd" id="xoo-cB-FrF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file" id="9HA-IH-LiH">
+                                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file." id="9HA-IH-LiH">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="resample:" target="Ady-hI-5gd" id="lI3-9x-kgL"/>
@@ -360,14 +360,14 @@ CA
                                                 </connections>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Enable Network Discovery" state="on" id="wfH-DD-URU">
+                                        <menuItem title="Enable Network Discovery" state="on" toolTip="Allows device discovery via local network." id="wfH-DD-URU">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="enableNetworkDiscoveryMenuItemTapped:" target="Voe-Tx-rLC" id="Izc-7c-mq8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JAT-I3-p7h"/>
-                                        <menuItem title="Take Screenshot" keyEquivalent="s" id="k2M-xo-Glg">
+                                        <menuItem title="Take Screenshot" keyEquivalent="s" toolTip="Take screenshots directly from the selected devices." id="k2M-xo-Glg">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="devicesTakeScreenshotMenuItemTapped:" target="Voe-Tx-rLC" id="vUF-lr-AnW"/>
@@ -392,13 +392,13 @@ CA
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="CmS-6m-S5k"/>
-                                        <menuItem title="Show Templates..." keyEquivalent="t" id="mod-X3-fdk">
+                                        <menuItem title="Show Templates..." keyEquivalent="t" toolTip="Show template scripts in Finder." id="mod-X3-fdk">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
                                                 <action selector="showTemplatesMenuItemTapped:" target="Voe-Tx-rLC" id="50w-lJ-GZ6"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Logs..." keyEquivalent="l" id="hye-bj-eGL">
+                                        <menuItem title="Show Logs..." keyEquivalent="l" toolTip="Show template runtime logs in Console.app" id="hye-bj-eGL">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
                                                 <action selector="showLogsMenuItemTapped:" target="Voe-Tx-rLC" id="vu0-Xw-Xra"/>
@@ -488,56 +488,56 @@ CA
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1)" tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
+                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2)" tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
+                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2): Add, or delete annotations." tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3)" tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
+                                <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3): View, select, or modify annotations." tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4)" tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
+                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5)" tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
+                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5): Zoom out at a preset scale." tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (F6)" tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
+                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Move (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="FitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7)" tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
+                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="FitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7): Scale the view to fit the window size." tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
                                         <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="FillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8)" tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
+                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="FillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8): Scale the view to fill the window size." tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>
@@ -545,7 +545,7 @@ CA
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌃S)" tag="-1" image="JSTCamera" id="BOP-NL-21X">
+                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Snapshot (⌃S): Take screenshots directly from the selected devices." tag="-1" image="JSTCamera" id="BOP-NL-21X">
                                     <size key="minSize" width="64" height="64"/>
                                     <size key="maxSize" width="64" height="64"/>
                                     <connections>

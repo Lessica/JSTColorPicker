@@ -37,8 +37,8 @@
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "Toggle Color Panel";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "9HA-IH-LiH"; */
-"9HA-IH-LiH.ibShadowedToolTip" = "Save this area to a PNG file";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
+"9HA-IH-LiH.ibShadowedToolTip" = "Save this area to a PNG file.";
 
 /* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.title" = "Resample...";
@@ -55,8 +55,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.paletteLabel" = "Minify";
 
-/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F5)"; ObjectID = "Ajm-ph-nQm"; */
-"Ajm-ph-nQm.toolTip" = "Minifying Glass (F5)";
+/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F5): Zoom out at a preset scale."; ObjectID = "Ajm-ph-nQm"; */
+"Ajm-ph-nQm.toolTip" = "Minifying Glass (F5): Zoom out at a preset scale.";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Window";
@@ -70,8 +70,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.paletteLabel" = "Fit Window";
 
-/* Class = "NSToolbarItem"; toolTip = "Fit Window (F7)"; ObjectID = "b9N-8Y-kQX"; */
-"b9N-8Y-kQX.toolTip" = "Fit Window (F7)";
+/* Class = "NSToolbarItem"; toolTip = "Fit Window (F7): Scale the view to fit the window size."; ObjectID = "b9N-8Y-kQX"; */
+"b9N-8Y-kQX.toolTip" = "Fit Window (F7): Scale the view to fit the window size.";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "File";
@@ -85,8 +85,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Screenshot"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.paletteLabel" = "Screenshot";
 
-/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S)"; ObjectID = "BOP-NL-21X"; */
-"BOP-NL-21X.toolTip" = "Snapshot (⌃S)";
+/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S): Take screenshots directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
+"BOP-NL-21X.toolTip" = "Snapshot (⌃S): Take screenshots directly from the selected devices.";
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "Use Selection for Find";
@@ -127,8 +127,8 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "Help";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "fAq-vA-bJd"; */
-"fAq-vA-bJd.ibShadowedToolTip" = "Trim this area with Canny edge detection algorithm";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm."; ObjectID = "fAq-vA-bJd"; */
+"fAq-vA-bJd.ibShadowedToolTip" = "Trim this area with Canny edge detection algorithm.";
 
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
 "fAq-vA-bJd.title" = "Smart Trim";
@@ -139,8 +139,8 @@
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "Templates";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "gVA-U4-sdL"; */
-"gVA-U4-sdL.ibShadowedToolTip" = "Paste items from another document";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste annotations from another document."; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.ibShadowedToolTip" = "Paste annotations from another document.";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "Paste";
@@ -150,6 +150,9 @@
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "View";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show template runtime logs in Console.app"; ObjectID = "hye-bj-eGL"; */
+"hye-bj-eGL.ibShadowedToolTip" = "Show template runtime logs in Console.app";
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "hye-bj-eGL"; */
 "hye-bj-eGL.title" = "Show Logs...";
@@ -168,6 +171,9 @@
 
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "Select Template";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Take screenshots directly from the selected devices."; ObjectID = "k2M-xo-Glg"; */
+"k2M-xo-Glg.ibShadowedToolTip" = "Take screenshots directly from the selected devices.";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "Take Screenshot";
@@ -190,8 +196,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Select"; ObjectID = "ljO-9K-PCE"; */
 "ljO-9K-PCE.paletteLabel" = "Select";
 
-/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F3)"; ObjectID = "ljO-9K-PCE"; */
-"ljO-9K-PCE.toolTip" = "Selection Arrow (F3)";
+/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F3): View, select, or modify annotations."; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.toolTip" = "Selection Arrow (F3): View, select, or modify annotations.";
 
 /* Class = "NSToolbarItem"; label = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.label" = "Fill Window";
@@ -199,8 +205,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.paletteLabel" = "Fill Window";
 
-/* Class = "NSToolbarItem"; toolTip = "Fill Window (F8)"; ObjectID = "lQd-Bs-mbf"; */
-"lQd-Bs-mbf.toolTip" = "Fill Window (F8)";
+/* Class = "NSToolbarItem"; toolTip = "Fill Window (F8): Scale the view to fill the window size."; ObjectID = "lQd-Bs-mbf"; */
+"lQd-Bs-mbf.toolTip" = "Fill Window (F8): Scale the view to fill the window size.";
 
 /* Class = "NSToolbarItem"; label = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.label" = "Move";
@@ -208,11 +214,14 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "Move";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (F6)"; ObjectID = "mDy-EG-ccW"; */
-"mDy-EG-ccW.toolTip" = "Move (F6)";
+/* Class = "NSToolbarItem"; toolTip = "Move (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
+"mDy-EG-ccW.toolTip" = "Move (F6): Drag to move the scene, or view the major tag of annotations.";
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
 "mhD-IK-J6V.title" = "Color Inspector";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show template scripts in Finder."; ObjectID = "mod-X3-fdk"; */
+"mod-X3-fdk.ibShadowedToolTip" = "Show template scripts in Finder.";
 
 /* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.title" = "Show Templates...";
@@ -241,8 +250,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Annotate"; ObjectID = "P19-sN-vdr"; */
 "P19-sN-vdr.paletteLabel" = "Annotate";
 
-/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (F2)"; ObjectID = "P19-sN-vdr"; */
-"P19-sN-vdr.toolTip" = "Magic Cursor (F2)";
+/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (F2): Add, or delete annotations."; ObjectID = "P19-sN-vdr"; */
+"P19-sN-vdr.toolTip" = "Magic Cursor (F2): Add, or delete annotations.";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "Delete";
@@ -277,8 +286,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Magnify"; ObjectID = "TA2-eZ-zBd"; */
 "TA2-eZ-zBd.paletteLabel" = "Magnify";
 
-/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F4)"; ObjectID = "TA2-eZ-zBd"; */
-"TA2-eZ-zBd.toolTip" = "Magnifying Glass (F4)";
+/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "TA2-eZ-zBd"; */
+"TA2-eZ-zBd.toolTip" = "Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Window";
@@ -295,8 +304,8 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Hide Others";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "vLS-fs-Vb8"; */
-"vLS-fs-Vb8.ibShadowedToolTip" = "Export these items with current template";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "vLS-fs-Vb8"; */
+"vLS-fs-Vb8.ibShadowedToolTip" = "Export these annotations with current template.";
 
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "vLS-fs-Vb8"; */
 "vLS-fs-Vb8.title" = "Export As...";
@@ -313,8 +322,11 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Open"; ObjectID = "w6N-7T-9Nd"; */
 "w6N-7T-9Nd.paletteLabel" = "Open";
 
-/* Class = "NSToolbarItem"; toolTip = "Open (F1)"; ObjectID = "w6N-7T-9Nd"; */
-"w6N-7T-9Nd.toolTip" = "Open (F1)";
+/* Class = "NSToolbarItem"; toolTip = "Open (F1): Load a PNG image file from file system."; ObjectID = "w6N-7T-9Nd"; */
+"w6N-7T-9Nd.toolTip" = "Open (F1): Load a PNG image file from file system.";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Allows device discovery via local network."; ObjectID = "wfH-DD-URU"; */
+"wfH-DD-URU.ibShadowedToolTip" = "Allows device discovery via local network.";
 
 /* Class = "NSMenuItem"; title = "Enable Network Discovery"; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.title" = "Enable Network Discovery";
@@ -322,8 +334,8 @@
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "Help";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "x3v-GG-iWU"; */
-"x3v-GG-iWU.ibShadowedToolTip" = "Copy these items with current template";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these annotations with current template."; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.ibShadowedToolTip" = "Copy these annotations with current template.";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "Copy";
@@ -339,3 +351,9 @@
 
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "YU0-Xz-P6g"; */
 "YU0-Xz-P6g.title" = "Image Preview";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export all annotations using selected template."; ObjectID = "Rl3-28-Fqh"; */
+"Rl3-28-Fqh.ibShadowedToolTip" = "";

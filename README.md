@@ -17,6 +17,8 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 ## Usage
 
 ### Magic Cursor
+Add, or delete annotations.
+
 - `⌘↵` / **Click / Tap** (or **Click** if *Force Touch* is enabled): Add current *color & coordinates* to content list.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Add dragged *area* to content list.
 - `⌘⌫`: Delete *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
@@ -25,6 +27,8 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - **Hold** `⌃`: Switch to *Selection Arrow* temporarily.
 
 ### Selection Arrow
+View, select, or modify annotations.
+
 - **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or the top most *area* contains current cursor position.
 - `⌘` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or the top most *area* contains current cursor position, while keeping the previous selections.
 - `⇧` + **Click / Tap** (or **Click** if *Force Touch* is enabled): Select *color & coordinates* at current cursor position or all *areas* contains current cursor position, while keeping the previous selections.
@@ -35,17 +39,23 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 
 ### Magnifying Glass
+Zoom in at a preset scale, supports zooming into a specified area.
+
 - **Click**: Magnify to next level from current cursor position.
 - `⇧` + **Drag** (or **Drag** if *Force Touch* is enabled): Magnify to fill window with dragged area.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Minifying Glass* temporarily.
 
 ### Minifying Glass
+Zoom out at a preset scale.
+
 - **Click**: Minify to previous level from current cursor position.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Magnifying Glass* temporarily.
 
 ### Move
+Drag to move the scene, or view the major tag of annotations.
+
 - **Drag**: A simple drag-to-move operation for common pointer devices.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 
@@ -67,12 +77,13 @@ Pick color, location, and area from PNG screenshots (i.e. image annotation). Thi
 - **Drag** (or **Drag** if *Force Touch* is enabled): Modify *color & coordinates* to a new position, or modify *area* to a new dimension.
 
 ### Fit Window / Fill Window
-There's no need to explain.
+Scale the view to fit/fill the window size.
 
 ### Annotation Management
 - Select one or more item(s) from left content list.
 - Right click to show menu for selected item(s):
-  * `↵`: Scroll the scene to the selected annotation, and adjust the scale to fit its size.
+  * `↵`: Locate: Scroll the scene to the selected annotation, and adjust the scale to fit its size.
+  * `⌥↵`: Relocate: In the pop-up tab, precisely adjust the position of the selected annotation.
   * `⌘C`: Copy: Copy these annotations with current template.
   * `⌘V`: Paste: Paste annotations from another document.
   * `⌘T`: Smart Trim: Trim this area with Canny edge detection algorithm.
@@ -127,8 +138,8 @@ There's no need to explain.
 - `⌃⌘C` **Toggle Color Panel**
 
 ### Devices
-- `⌃S` **Screenshot**
-- `⌃I` **Discovery Devices**
+- `⌃S` **Take Screenshot**: Take screenshots directly from the selected devices.
+- `⌃I` **Discovery Devices**: Immediately broadcast a search for available devices on the LAN.
 
 ### Templates
 - `⌃⌘` + `123456789`: Switch between templates.

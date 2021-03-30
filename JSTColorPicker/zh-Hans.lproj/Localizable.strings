@@ -73,6 +73,12 @@
 /* XPCError */
 "Connection timeout." = "连接超时.";
 
+/* Shortcut Guide */
+"Copy Color & Coordinates" = "拷贝坐标及颜色标注";
+
+/* Shortcut Guide */
+"Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板.";
+
 /* Information Panel */
 "Created At" = "创建时间";
 
@@ -170,6 +176,9 @@
 "General" = "通用";
 
 /* Shortcut Guide */
+"Hold" = "按住";
+
+/* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注, 则切换选中状态到当前光标位置下层叠的后一个标注.";
 
 /* Shortcut Guide */
@@ -181,11 +190,18 @@
 /* PixelMatchServiceError */
 "Image sizes do not match: %dx%d vs %dx%d" = "图像尺寸不一致: %dx%d vs %dx%d";
 
+/* reloadDevicesSubMenuItems()
+   Shortcut Guide */
+"Immediately broadcast a search for available devices on the LAN." = "立即广播寻找局域网内的可用设备.";
+
 /* Import Confirm */
 "Import Confirm" = "关联确认";
 
 /* Import Confirm */
 "Import Failed" = "关联失败";
+
+/* Shortcut Guide */
+"In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中, 精确调整标注的位置.";
 
 /* TemplateError */
 "Internal error." = "内部错误.";
@@ -222,6 +238,9 @@
 
 /* PixelImageError */
 "Load image source failed." = "加载映像源失败.";
+
+/* Shortcut Guide */
+"Locate" = "定位";
 
 /* Shortcut Guide */
 "Magic Cursor" = "魔术光标";
@@ -356,6 +375,12 @@
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "重新加载所有模版";
 
+/* updateTemplatesSubMenuItems() */
+"Reload template scripts from file system." = "从文件系统中重新载入所有模版脚本.";
+
+/* Shortcut Guide */
+"Relocate..." = "调整位置...";
+
 /* actionRequiresRestart(_:) */
 "Restart" = "重启";
 
@@ -364,6 +389,9 @@
 
 /* Shortcut Guide */
 "Right Click" = "右键单击";
+
+/* Shortcut Guide */
+"Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "将场景滚动定位到所选项, 并调整缩放比例以适配其尺寸.";
 
 /* Shortcut Guide */
 "Select All Cascaded Annotations" = "选择所有层叠标注";
@@ -415,6 +443,12 @@
 
 /* Shortcut Guide */
 "Switch to Selection Arrow temporarily." = "临时切换到选择箭头.";
+
+/* Shortcut Guide */
+"Take a screenshot directly from the selected device." = "直接从选中的设备获取屏幕截图.";
+
+/* Shortcut Guide */
+"Take Snapshot" = "截图";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";

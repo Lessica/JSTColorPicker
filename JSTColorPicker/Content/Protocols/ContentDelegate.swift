@@ -24,5 +24,7 @@ protocol ContentDelegate: class {
     
     func deleteContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     func deleteContentItem(_ item: ContentItem, byIgnoringPopups ignore: Bool) throws -> ContentItem?
+
+    func copyContentItem(of coordinate: PixelCoordinate) throws -> ContentItem?
 }
 

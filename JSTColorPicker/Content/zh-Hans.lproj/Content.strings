@@ -16,8 +16,8 @@
 /* Class = "NSMenuItem"; title = "Choose Tags..."; ObjectID = "AXF-B1-mtL"; */
 "AXF-B1-mtL.title" = "选择标签...";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "COB-7T-s9l"; */
-"COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste annotations from another document."; ObjectID = "COB-7T-s9l"; */
+"COB-7T-s9l.ibShadowedToolTip" = "粘贴来自另一个文档中的项.";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.title" = "粘贴";
@@ -31,8 +31,8 @@
 /* Class = "NSMenuItem"; title = "Remove Tags"; ObjectID = "Flt-gl-Srj"; */
 "Flt-gl-Srj.title" = "移除标签";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "FUc-jS-0Vm"; */
-"FUc-jS-0Vm.ibShadowedToolTip" = "以当前模版拷贝选中项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these annotations with current template."; ObjectID = "FUc-jS-0Vm"; */
+"FUc-jS-0Vm.ibShadowedToolTip" = "套用当前模版拷贝选中项.";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "FUc-jS-0Vm"; */
 "FUc-jS-0Vm.title" = "复制";
@@ -45,6 +45,9 @@
 
 /* Class = "NSMenuItem"; title = "Add Area..."; ObjectID = "gSx-dD-DgQ"; */
 "gSx-dD-DgQ.title" = "添加区域...";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "iSf-IL-2kW"; */
+"iSf-IL-2kW.ibShadowedToolTip" = "在弹出的选项卡中, 精确调整标注的位置.";
 
 /* Class = "NSMenuItem"; title = "Relocate..."; ObjectID = "iSf-IL-2kW"; */
 "iSf-IL-2kW.title" = "调整位置...";
@@ -76,8 +79,8 @@
 /* Class = "NSTableColumn"; headerToolTip = "The value of confidence guessed and defined by user."; ObjectID = "pnx-EH-SzG"; */
 "pnx-EH-SzG.headerToolTip" = "相似度 (%)";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "q07-T2-0Ey"; */
-"q07-T2-0Ey.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm."; ObjectID = "q07-T2-0Ey"; */
+"q07-T2-0Ey.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域.";
 
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "q07-T2-0Ey"; */
 "q07-T2-0Ey.title" = "智能裁切";
@@ -85,20 +88,20 @@
 /* Class = "NSMenuItem"; title = "Similarity"; ObjectID = "QFI-7f-OXu"; */
 "QFI-7f-OXu.title" = "相似度";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "qQO-Qw-Wgz"; */
-"qQO-Qw-Wgz.ibShadowedToolTip" = "以当前模版导出选中项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "qQO-Qw-Wgz"; */
+"qQO-Qw-Wgz.ibShadowedToolTip" = "套用当前模版导出选中项.";
 
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "qQO-Qw-Wgz"; */
 "qQO-Qw-Wgz.title" = "导出为...";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "qZ8-We-LFE"; */
-"qZ8-We-LFE.ibShadowedToolTip" = "将选中区域另存为 PNG 文件";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.ibShadowedToolTip" = "将选中区域另存为 PNG 文件.";
 
 /* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.title" = "重新采样...";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll and scale scene to fit this item"; ObjectID = "Sbm-OL-z0k"; */
-"Sbm-OL-z0k.ibShadowedToolTip" = "滚动并缩放场景, 使选中项处于合适位置";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll the scene to the selected annotation, and adjust the scale to fit its size."; ObjectID = "Sbm-OL-z0k"; */
+"Sbm-OL-z0k.ibShadowedToolTip" = "滚动并缩放场景, 使选中项处于合适位置.";
 
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.title" = "定位";

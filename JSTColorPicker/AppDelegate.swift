@@ -14,6 +14,8 @@ import ServiceManagement
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    public static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
+
     
     // MARK: - Structs
     
@@ -626,8 +628,9 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
                     }
 
                     let separatorItem = NSMenuItem.separator()
-                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems"), action: #selector(self?.notifyXPCDiscoverDevices(_:)), keyEquivalent: "i")
+                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(self?.notifyXPCDiscoverDevices(_:)), keyEquivalent: "i")
                     manuallyDiscoverItem.keyEquivalentModifierMask = [.control]
+                    manuallyDiscoverItem.toolTip = NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "reloadDevicesSubMenuItems()")
                     
                     if items.count > 0 {
                         items += [separatorItem, manuallyDiscoverItem]
@@ -680,7 +683,8 @@ by \(template.author ?? "Unknown")
             .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
         
         let separatorItem = NSMenuItem.separator()
-        let reloadTemplatesItem = NSMenuItem(title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems"), action: #selector(reloadTemplatesItemTapped(_:)), keyEquivalent: "0")
+        let reloadTemplatesItem = NSMenuItem(title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems()"), action: #selector(reloadTemplatesItemTapped(_:)), keyEquivalent: "0")
+        reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems()")
         
         reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
         templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
@@ -697,7 +701,7 @@ extension AppDelegate {
     // MARK: - Device List
     
     #if SANDBOXED
-    private func applicationHasScreenshotHelper() -> Bool {
+    public func applicationHasScreenshotHelper() -> Bool {
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
         return FileManager.default.fileExists(atPath: launchAgentPath)
     }

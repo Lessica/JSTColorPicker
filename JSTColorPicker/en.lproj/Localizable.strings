@@ -73,6 +73,12 @@
 /* XPCError */
 "Connection timeout." = "Connection timeout.";
 
+/* Shortcut Guide */
+"Copy Color & Coordinates" = "Copy Color & Coordinates";
+
+/* Shortcut Guide */
+"Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "Copy the Color & Coordinates at the cursor location directly to the general pasteboard.";
+
 /* Information Panel */
 "Created At" = "Created At";
 
@@ -170,6 +176,9 @@
 "General" = "General";
 
 /* Shortcut Guide */
+"Hold" = "Hold";
+
+/* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.";
 
 /* Shortcut Guide */
@@ -181,11 +190,18 @@
 /* PixelMatchServiceError */
 "Image sizes do not match: %dx%d vs %dx%d" = "Image sizes do not match: %dx%d vs %dx%d";
 
+/* reloadDevicesSubMenuItems()
+   Shortcut Guide */
+"Immediately broadcast a search for available devices on the LAN." = "Immediately broadcast a search for available devices on the LAN.";
+
 /* Import Confirm */
 "Import Confirm" = "Import Confirm";
 
 /* Import Confirm */
 "Import Failed" = "Import Failed";
+
+/* Shortcut Guide */
+"In the pop-up tab, precisely adjust the position of the selected annotation." = "In the pop-up tab, precisely adjust the position of the selected annotation.";
 
 /* TemplateError */
 "Internal error." = "Internal error.";
@@ -222,6 +238,9 @@
 
 /* PixelImageError */
 "Load image source failed." = "Load image source failed.";
+
+/* Shortcut Guide */
+"Locate" = "Locate";
 
 /* Shortcut Guide */
 "Magic Cursor" = "Magic Cursor";
@@ -356,6 +375,12 @@
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "Reload All Templates";
 
+/* updateTemplatesSubMenuItems() */
+"Reload template scripts from file system." = "Reload template scripts from file system.";
+
+/* Shortcut Guide */
+"Relocate..." = "Relocate...";
+
 /* actionRequiresRestart(_:) */
 "Restart" = "Restart";
 
@@ -364,6 +389,9 @@
 
 /* Shortcut Guide */
 "Right Click" = "Right Click";
+
+/* Shortcut Guide */
+"Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "Scroll the scene to the selected annotation, and adjust the scale to fit its size.";
 
 /* Shortcut Guide */
 "Select All Cascaded Annotations" = "Select All Cascaded Annotations";
@@ -415,6 +443,12 @@
 
 /* Shortcut Guide */
 "Switch to Selection Arrow temporarily." = "Switch to Selection Arrow temporarily.";
+
+/* Shortcut Guide */
+"Take a screenshot directly from the selected device." = "Take a screenshot directly from the selected device.";
+
+/* Shortcut Guide */
+"Take Snapshot" = "Take Snapshot";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";

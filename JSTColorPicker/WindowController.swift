@@ -22,7 +22,15 @@ class WindowController: NSWindowController {
     public lazy var pixelMatchService: PixelMatchService = {
         return PixelMatchService()
     }()
+
     private var isInComparisonMode: Bool = false
+    private var isScreenshotActionAllowed: Bool {
+        #if SANDBOXED
+        return AppDelegate.shared.applicationHasScreenshotHelper() && (documentState.isReadable || !documentState.isLoaded)
+        #else
+        return documentState.isReadable || !documentState.isLoaded
+        #endif
+    }
     
     @IBOutlet weak var openItem                    : NSToolbarItem!
     @IBOutlet weak var annotateItem                : NSToolbarItem!
@@ -213,12 +221,16 @@ extension WindowController: NSToolbarItemValidation {
         
         else if item.action == #selector(openAction(_:))
             || item.action == #selector(touchBarOpenAction(_:))
-            || item.action == #selector(screenshotAction(_:))
-            || item.action == #selector(touchBarScreenshotAction(_:))
         {  // not loaded or not restricted
             return documentState.isReadable || !documentState.isLoaded
         }
-        
+
+        else if item.action == #selector(screenshotAction(_:))
+            || item.action == #selector(touchBarScreenshotAction(_:))
+        {
+            return isScreenshotActionAllowed
+        }
+
         return false
         
     }
@@ -318,26 +330,31 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction func useAnnotateItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMagnifyItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMinifyItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useSelectItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMoveItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
         window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         syncToolbarState()
     }
@@ -353,8 +370,8 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction func screenshotAction(_ sender: Any?) {
-        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
         guard documentState.isReadable || !documentState.isLoaded else { return }
+        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
         delegate.devicesTakeScreenshotMenuItemTapped(sender)
     }
     
@@ -418,56 +435,80 @@ extension WindowController: SceneTracking {
 extension WindowController: ShortcutGuideDataSource {
 
     var shortcutItems: [ShortcutItem] {
-        return [
-            ShortcutItem(
-                name: NSLocalizedString("Open...", comment: "Shortcut Guide"),
-                keyString: "F1",
-                toolTip: NSLocalizedString("Open (F1)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Magic Cursor", comment: "Shortcut Guide"),
-                keyString: "F2",
-                toolTip: NSLocalizedString("Magic Cursor (F2)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Selection Arrow", comment: "Shortcut Guide"),
-                keyString: "F3",
-                toolTip: NSLocalizedString("Selection Arrow (F3)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Magnifying Glass", comment: "Shortcut Guide"),
-                keyString: "F4",
-                toolTip: NSLocalizedString("Magnifying Glass (F4)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Minifying Glass", comment: "Shortcut Guide"),
-                keyString: "F5",
-                toolTip: NSLocalizedString("Minifying Glass (F5)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Moving Hand", comment: "Shortcut Guide"),
-                keyString: "F6",
-                toolTip: NSLocalizedString("Moving Hand (F6)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Fit Window", comment: "Shortcut Guide"),
-                keyString: "F7",
-                toolTip: NSLocalizedString("Fit Window (F7)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-            ShortcutItem(
-                name: NSLocalizedString("Fill Window", comment: "Shortcut Guide"),
-                keyString: "F8",
-                toolTip: NSLocalizedString("Fill Window (F8)", comment: "Shortcut Guide"),
-                modifierFlags: [.function]
-            ),
-        ]
+        var items = [ShortcutItem]()
+        if documentState.isReadable || !documentState.isLoaded {
+            items += [
+                ShortcutItem(
+                    name: NSLocalizedString("Open...", comment: "Shortcut Guide"),
+                    keyString: "F1",
+                    toolTip: NSLocalizedString("Open (F1)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+            ]
+        }
+        if documentState.isLoaded {
+            items += [
+                ShortcutItem(
+                    name: NSLocalizedString("Magic Cursor", comment: "Shortcut Guide"),
+                    keyString: "F2",
+                    toolTip: NSLocalizedString("Magic Cursor (F2)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Selection Arrow", comment: "Shortcut Guide"),
+                    keyString: "F3",
+                    toolTip: NSLocalizedString("Selection Arrow (F3)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Magnifying Glass", comment: "Shortcut Guide"),
+                    keyString: "F4",
+                    toolTip: NSLocalizedString("Magnifying Glass (F4)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Minifying Glass", comment: "Shortcut Guide"),
+                    keyString: "F5",
+                    toolTip: NSLocalizedString("Minifying Glass (F5)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Moving Hand", comment: "Shortcut Guide"),
+                    keyString: "F6",
+                    toolTip: NSLocalizedString("Moving Hand (F6)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Fit Window", comment: "Shortcut Guide"),
+                    keyString: "F7",
+                    toolTip: NSLocalizedString("Fit Window (F7)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Fill Window", comment: "Shortcut Guide"),
+                    keyString: "F8",
+                    toolTip: NSLocalizedString("Fill Window (F8)", comment: "Shortcut Guide"),
+                    modifierFlags: [.function]
+                ),
+            ]
+        }
+        if isScreenshotActionAllowed {
+            items += [
+                ShortcutItem(
+                    name: NSLocalizedString("Take Snapshot", comment: "Shortcut Guide"),
+                    keyString: "S",
+                    toolTip: NSLocalizedString("Take a screenshot directly from the selected device.", comment: "Shortcut Guide"),
+                    modifierFlags: [.control]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Discover Devices", comment: "Shortcut Guide"),
+                    keyString: "I",
+                    toolTip: NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "Shortcut Guide"),
+                    modifierFlags: [.control]
+                ),
+            ]
+        }
+        return items
     }
 
 }

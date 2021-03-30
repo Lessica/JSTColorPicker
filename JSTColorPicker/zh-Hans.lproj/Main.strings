@@ -37,8 +37,8 @@
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "切换颜色面板";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file"; ObjectID = "9HA-IH-LiH"; */
-"9HA-IH-LiH.ibShadowedToolTip" = "将选中区域另存为 PNG 文件";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
+"9HA-IH-LiH.ibShadowedToolTip" = "将选中区域另存为 PNG 文件.";
 
 /* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.title" = "重新采样...";
@@ -55,8 +55,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Minify"; ObjectID = "Ajm-ph-nQm"; */
 "Ajm-ph-nQm.paletteLabel" = "缩小";
 
-/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F5)"; ObjectID = "Ajm-ph-nQm"; */
-"Ajm-ph-nQm.toolTip" = "放大镜 (F5)";
+/* Class = "NSToolbarItem"; toolTip = "Minifying Glass (F5): Zoom out at a preset scale."; ObjectID = "Ajm-ph-nQm"; */
+"Ajm-ph-nQm.toolTip" = "缩小镜 (F5): 按预设的梯度比例缩小场景.";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "窗口";
@@ -70,8 +70,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fit Window"; ObjectID = "b9N-8Y-kQX"; */
 "b9N-8Y-kQX.paletteLabel" = "适应窗口";
 
-/* Class = "NSToolbarItem"; toolTip = "Fit Window (F7)"; ObjectID = "b9N-8Y-kQX"; */
-"b9N-8Y-kQX.toolTip" = "适应窗口 (F7)";
+/* Class = "NSToolbarItem"; toolTip = "Fit Window (F7): Scale the view to fit the window size."; ObjectID = "b9N-8Y-kQX"; */
+"b9N-8Y-kQX.toolTip" = "适应窗口 (F7): 缩放场景到适合窗口的尺寸.";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "文件";
@@ -85,14 +85,17 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Screenshot"; ObjectID = "BOP-NL-21X"; */
 "BOP-NL-21X.paletteLabel" = "截图";
 
-/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S)"; ObjectID = "BOP-NL-21X"; */
-"BOP-NL-21X.toolTip" = "截图 (⌃S)";
+/* Class = "NSToolbarItem"; toolTip = "Snapshot (⌃S): Take screenshots directly from the selected devices."; ObjectID = "BOP-NL-21X"; */
+"BOP-NL-21X.toolTip" = "截图 (⌃S): 直接从已选中的设备获取屏幕截图.";
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "查找所选内容";
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "另存为...";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
+"cIT-qf-fbP.ibShadowedToolTip" = "套用当前模板复制所有项.";
 
 /* Class = "NSMenuItem"; title = "Copy All"; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.title" = "复制全部项";
@@ -127,8 +130,8 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "帮助";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm"; ObjectID = "fAq-vA-bJd"; */
-"fAq-vA-bJd.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Trim this area with Canny edge detection algorithm."; ObjectID = "fAq-vA-bJd"; */
+"fAq-vA-bJd.ibShadowedToolTip" = "以 Canny 边缘检测算法裁切选中区域.";
 
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
 "fAq-vA-bJd.title" = "智能裁切";
@@ -139,8 +142,8 @@
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "模版";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste items from another document"; ObjectID = "gVA-U4-sdL"; */
-"gVA-U4-sdL.ibShadowedToolTip" = "粘贴来自另一个文档中的项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Paste annotations from another document."; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.ibShadowedToolTip" = "粘贴来自另一个文档中的项.";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "粘贴";
@@ -150,6 +153,9 @@
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "视图";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show template runtime logs in Console.app"; ObjectID = "hye-bj-eGL"; */
+"hye-bj-eGL.ibShadowedToolTip" = "在控制台中显示模版脚本的运行时日志.";
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "hye-bj-eGL"; */
 "hye-bj-eGL.title" = "显示日志...";
@@ -168,6 +174,9 @@
 
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "选择模版";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Take screenshots directly from the selected devices."; ObjectID = "k2M-xo-Glg"; */
+"k2M-xo-Glg.ibShadowedToolTip" = "直接从已选中的设备获取屏幕截图.";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "截图";
@@ -190,8 +199,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Select"; ObjectID = "ljO-9K-PCE"; */
 "ljO-9K-PCE.paletteLabel" = "选择";
 
-/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F3)"; ObjectID = "ljO-9K-PCE"; */
-"ljO-9K-PCE.toolTip" = "选择箭头 (F3)";
+/* Class = "NSToolbarItem"; toolTip = "Selection Arrow (F3): View, select, or modify annotations."; ObjectID = "ljO-9K-PCE"; */
+"ljO-9K-PCE.toolTip" = "选择箭头 (F3): 查看, 选择, 或是修改选中的标注.";
 
 /* Class = "NSToolbarItem"; label = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.label" = "填充窗口";
@@ -199,8 +208,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Fill Window"; ObjectID = "lQd-Bs-mbf"; */
 "lQd-Bs-mbf.paletteLabel" = "填充窗口";
 
-/* Class = "NSToolbarItem"; toolTip = "Fill Window (F8)"; ObjectID = "lQd-Bs-mbf"; */
-"lQd-Bs-mbf.toolTip" = "填充窗口 (F8)";
+/* Class = "NSToolbarItem"; toolTip = "Fill Window (F8): Scale the view to fill the window size."; ObjectID = "lQd-Bs-mbf"; */
+"lQd-Bs-mbf.toolTip" = "填充窗口 (F8): 缩放场景到填充窗口的尺寸.";
 
 /* Class = "NSToolbarItem"; label = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.label" = "移动";
@@ -208,11 +217,14 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Move"; ObjectID = "mDy-EG-ccW"; */
 "mDy-EG-ccW.paletteLabel" = "移动";
 
-/* Class = "NSToolbarItem"; toolTip = "Move (F6)"; ObjectID = "mDy-EG-ccW"; */
-"mDy-EG-ccW.toolTip" = "移动 (F6)";
+/* Class = "NSToolbarItem"; toolTip = "Move (F6): Drag to move the scene, or view the major tag of annotations."; ObjectID = "mDy-EG-ccW"; */
+"mDy-EG-ccW.toolTip" = "移动工具 (F6): 拖拽移动场景, 或是查看标注的首要标签.";
 
 /* Class = "NSMenuItem"; title = "Color Inspector"; ObjectID = "mhD-IK-J6V"; */
 "mhD-IK-J6V.title" = "颜色指示器";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show template scripts in Finder."; ObjectID = "mod-X3-fdk"; */
+"mod-X3-fdk.ibShadowedToolTip" = "在 Finder 中显示所有模版脚本.";
 
 /* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.title" = "显示模版...";
@@ -241,8 +253,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Annotate"; ObjectID = "P19-sN-vdr"; */
 "P19-sN-vdr.paletteLabel" = "光标";
 
-/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (F2)"; ObjectID = "P19-sN-vdr"; */
-"P19-sN-vdr.toolTip" = "魔法光标 (F2)";
+/* Class = "NSToolbarItem"; toolTip = "Magic Cursor (F2): Add, or delete annotations."; ObjectID = "P19-sN-vdr"; */
+"P19-sN-vdr.toolTip" = "魔术光标 (F2): 添加, 或是删除标注, 目前支持坐标及颜色标注和区域标注两种.";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "删除";
@@ -255,6 +267,9 @@
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "缩放";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export all annotations using selected template."; ObjectID = "Rl3-28-Fqh"; */
+"Rl3-28-Fqh.ibShadowedToolTip" = "套用当前模板导出所有项.";
 
 /* Class = "NSMenuItem"; title = "Export All..."; ObjectID = "Rl3-28-Fqh"; */
 "Rl3-28-Fqh.title" = "导出全部项...";
@@ -277,8 +292,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Magnify"; ObjectID = "TA2-eZ-zBd"; */
 "TA2-eZ-zBd.paletteLabel" = "放大";
 
-/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F4)"; ObjectID = "TA2-eZ-zBd"; */
-"TA2-eZ-zBd.toolTip" = "放大镜 (F4)";
+/* Class = "NSToolbarItem"; toolTip = "Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "TA2-eZ-zBd"; */
+"TA2-eZ-zBd.toolTip" = "放大镜 (F4): 按预设的梯度比例放大场景, 支持放大到指定区域.";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";
@@ -295,8 +310,8 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these items with current template"; ObjectID = "vLS-fs-Vb8"; */
-"vLS-fs-Vb8.ibShadowedToolTip" = "以当前模版导出选中项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "vLS-fs-Vb8"; */
+"vLS-fs-Vb8.ibShadowedToolTip" = "套用当前模版导出选中项.";
 
 /* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "vLS-fs-Vb8"; */
 "vLS-fs-Vb8.title" = "导出为...";
@@ -313,8 +328,11 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Open"; ObjectID = "w6N-7T-9Nd"; */
 "w6N-7T-9Nd.paletteLabel" = "打开";
 
-/* Class = "NSToolbarItem"; toolTip = "Open (F1)"; ObjectID = "w6N-7T-9Nd"; */
-"w6N-7T-9Nd.toolTip" = "打开 (F1)";
+/* Class = "NSToolbarItem"; toolTip = "Open (F1): Load a PNG image file from file system."; ObjectID = "w6N-7T-9Nd"; */
+"w6N-7T-9Nd.toolTip" = "打开 (F1): 从文件系统载入指定 PNG 图像文件.";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Allows device discovery via local network."; ObjectID = "wfH-DD-URU"; */
+"wfH-DD-URU.ibShadowedToolTip" = "允许基于本地网络的设备发现.";
 
 /* Class = "NSMenuItem"; title = "Enable Network Discovery"; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.title" = "启用网络发现";
@@ -322,8 +340,8 @@
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "帮助";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these items with current template"; ObjectID = "x3v-GG-iWU"; */
-"x3v-GG-iWU.ibShadowedToolTip" = "以当前模版拷贝选中项";
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy these annotations with current template."; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.ibShadowedToolTip" = "套用当前模版拷贝选中项.";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";

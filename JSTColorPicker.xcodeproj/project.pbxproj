@@ -102,6 +102,8 @@
 		CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
 		CCF7E84825A4779000A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
+		CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
+		CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
 		D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
@@ -769,6 +771,7 @@
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
 		CCF67A06255AC7B300061A51 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		CCF7E83F25A4776E00A99E4C /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShortcutGuide+Ext.swift"; sourceTree = "<group>"; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
 		D60A691123F2CDBA00ED9748 /* RulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerMarker.swift; sourceTree = "<group>"; };
 		D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = JSTScreenshotHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1626,6 +1629,7 @@
 				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
+				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2523,6 +2527,7 @@
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
+				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
@@ -2735,6 +2740,7 @@
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
+				CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,

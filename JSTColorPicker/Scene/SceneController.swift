@@ -763,10 +763,11 @@ class SceneController: NSViewController {
     
     @discardableResult
     private func shortcutCopyPixelColor(at locInWrapper: CGPoint) -> Bool {
-        guard let screenshot = screenshot else { return false }
         guard isVisibleWrapperLocation(locInWrapper) else { return false }
-        try? screenshot.export.copyPixelColor(at: PixelCoordinate(locInWrapper))
-        return true
+        if let _ = try? copyContentItem(of: PixelCoordinate(locInWrapper)) {
+            return true
+        }
+        return false
     }
     
     @discardableResult
@@ -795,7 +796,7 @@ class SceneController: NSViewController {
                     if specialKey == .enter || specialKey == .carriageReturn {
                         return applyAnnotateItem(at: locInWrapper)
                     }
-                    else if specialKey == .delete {
+                    else if specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace {
                         let optionPressed = flags.contains(.option)
                         let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
                         return applyDeleteItem(at: locInWrapper, byShowingOptions: optionPressed, byIgnoringPopups: ignoreInvalidDeletion)
@@ -1369,6 +1370,10 @@ extension SceneController: ContentDelegate {
     
     func deselectAllContentItems() {
         contentManager.deselectAllContentItems()
+    }
+
+    func copyContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        return try contentManager.copyContentItem(of: coordinate)
     }
     
 }

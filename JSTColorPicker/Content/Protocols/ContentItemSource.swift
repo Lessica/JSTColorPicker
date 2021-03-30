@@ -9,8 +9,6 @@
 import Foundation
 
 protocol ContentItemSource: class {
-    
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem
     func contentItem(of rect: PixelRect) throws -> ContentItem
-    
 }

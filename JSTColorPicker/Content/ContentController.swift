@@ -114,7 +114,8 @@ class ContentController: NSViewController {
             ? IndexSet(integer: tableView.clickedRow)
             : IndexSet(tableView.selectedRowIndexes)
     }
-    
+
+    private var hasSelectedContentItem: Bool { selectedRowIndexes.count > 0 }
     private var selectedContentItems: [ContentItem]? {
         guard let collection = documentContent?.items else { return nil }
         return selectedRowIndexes.map { collection[$0] }
@@ -641,6 +642,20 @@ extension ContentController: ContentDelegate {
         internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
         return replItems
     }
+
+    func copyContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+        guard let template = ExportManager.selectedTemplate else {
+            throw ExportManager.Error.noTemplateSelected
+        }
+        let item = try contentItem(of: coordinate)
+        let items = [ContentItem](arrayLiteral: item)
+        if template.isAsync {
+            copyContentItemsAsync(items, from: template)
+        } else {
+            copyContentItems(items, from: template)
+        }
+        return item
+    }
     
 }
 
@@ -992,13 +1007,13 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             return
         }
         if template.isAsync {
-            copyItemsAsync(selectedItems, from: template)
+            copyContentItemsAsync(selectedItems, from: template)
         } else {
-            copyItems(selectedItems, from: template)
+            copyContentItems(selectedItems, from: template)
         }
     }
 
-    private func copyItems(_ items: [ContentItem], from template: Template) {
+    private func copyContentItems(_ items: [ContentItem], from template: Template) {
         do {
             if (items.count == 1) {
                 try self.documentExport?.copyContentItem(items.first!)
@@ -1011,12 +1026,12 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    private func copyItemsAsync(_ items: [ContentItem], from template: Template) {
-        extractItemsAsync(items, from: template) { [unowned self] in
-            if (items.count == 1) {
-                try self.documentExport?.copyContentItem(items.first!)
+    private func copyContentItemsAsync(_ items: [ContentItem], from template: Template) {
+        extractContentItemsAsync(items, from: template) { [unowned self] (results) in
+            if (results.count == 1) {
+                try self.documentExport?.copyContentItem(results.first!)
             } else {
-                try self.documentExport?.copyContentItems(items)
+                try self.documentExport?.copyContentItems(results)
             }
         }
     }
@@ -1068,16 +1083,16 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             if resp == .OK {
                 if let url = panel.url {
                     if template.isAsync {
-                        self.exportItemsAsync(selectedItems, from: template, to: url)
+                        self.exportContentItemsAsync(selectedItems, from: template, to: url)
                     } else {
-                        self.exportItems(selectedItems, from: template, to: url)
+                        self.exportContentItems(selectedItems, from: template, to: url)
                     }
                 }
             }
         }
     }
     
-    private func exportItems(_ items: [ContentItem], from template: Template, to url: URL) {
+    private func exportContentItems(_ items: [ContentItem], from template: Template, to url: URL) {
         do {
             try documentExport?.exportContentItems(items, to: url)
         }
@@ -1086,23 +1101,23 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    private func exportItemsAsync(_ items: [ContentItem], from template: Template, to url: URL) {
-        extractItemsAsync(items, from: template) { [unowned self] in
-            try self.documentExport?.exportContentItems(items, to: url)
+    private func exportContentItemsAsync(_ items: [ContentItem], from template: Template, to url: URL) {
+        extractContentItemsAsync(items, from: template) { [unowned self] (results) in
+            try self.documentExport?.exportContentItems(results, to: url)
         }
     }
 
-    private func extractItemsAsync(_ items: [ContentItem], from template: Template, completionHandler completion: @escaping () throws -> Void) {
+    private func extractContentItemsAsync(_ items: [ContentItem], from template: Template, completionHandler completion: @escaping (_ items: [ContentItem]) throws -> Void) {
         let loadingAlert = NSAlert()
-        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "extractItemsAsync(_:from:completionHandler:)"))
         loadingAlert.alertStyle = .informational
         loadingAlert.buttons.first?.isHidden = true
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
-        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
-        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
+        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "extractItemsAsync(_:from:completionHandler:)")
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "extractItemsAsync(_:from:completionHandler:)"), template.name)
         loadingAlert.beginSheetModal(for: view.window!) { (resp) in }
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             do {
@@ -1112,7 +1127,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                         self.view.window?.endSheet(loadingAlert.window)
                     }
                 }
-                try completion()
+                try completion(items)
             } catch {
                 DispatchQueue.main.async { [unowned self] in
                     self.presentError(error)
@@ -1390,7 +1405,24 @@ extension ContentController {
 extension ContentController: ShortcutGuideDataSource {
 
     var shortcutItems: [ShortcutItem] {
-        return []
+        var items = [ShortcutItem]()
+        if hasSelectedContentItem {
+            items += [
+                ShortcutItem(
+                    name: NSLocalizedString("Locate", comment: "Shortcut Guide"),
+                    keyString: .return,
+                    toolTip: NSLocalizedString("Scroll the scene to the selected annotation, and adjust the scale to fit its size.", comment: "Shortcut Guide"),
+                    modifierFlags: []
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Relocate...", comment: "Shortcut Guide"),
+                    keyString: .return,
+                    toolTip: NSLocalizedString("In the pop-up tab, precisely adjust the position of the selected annotation.", comment: "Shortcut Guide"),
+                    modifierFlags: [.option]
+                ),
+            ]
+        }
+        return items
     }
 
 }
