@@ -18,7 +18,7 @@
 </li>
 <li>从 PNG 文件的 EXIF 字典中读/写标注器数据</li>
 <li>直接从 iOS 设备获取屏幕截图 (你需要额外下载并安装 <a href="https://82flex.github.io/JSTColorPicker/" rel="nofollow">设备截图组件</a> 以使用此功能.)</li>
-<li>使用自定义模板复制/导出标注器数据</li>
+<li>套用自定义模板复制/导出标注器数据</li>
 <li>比对并显示截图之间的差异</li>
 </ul>
 <h2>
@@ -30,45 +30,48 @@
 <a id="user-content-使用说明" class="anchor" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用说明</h2>
 <h3>
 <a id="user-content-魔术光标" class="anchor" href="#%E9%AD%94%E6%9C%AF%E5%85%89%E6%A0%87" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>魔术光标</h3>
+<p>添加, 或是删除标注, 目前支持<em>坐标及颜色标注</em>和<em>区域标注</em>两种.</p>
 <ul>
 <li>
 <code>⌘↵</code> / <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 将当前<em>坐标及颜色标注</em>添加到内容列表.</li>
 <li>
 <code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>): 将当前拖拽<em>区域标注</em>添加到内容列表.</li>
 <li>
-<code>⌘⌫</code>: 删除当前<em>坐标和颜色标注</em>或包含当前位置的<em>区域标注</em>.</li>
+<code>⌘⌫</code>: 删除当前<em>坐标及颜色标注</em>或包含当前光标位置的<em>区域标注</em>.</li>
 <li>
-<strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 删除当前位置下的<em>坐标和颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
+<strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 删除当前光标位置下的<em>坐标及颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
 <li>
-<code>⌥</code> + <strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 显示菜单, 包含当前位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以删除标注.</li>
+<code>⌥</code> + <strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 显示菜单, 包含当前光标位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以删除标注.</li>
 <li>
 <strong>按住</strong> <code>⌃</code>: 暂时切换到<em>选择箭头</em>.</li>
 </ul>
 <h3>
 <a id="user-content-选择箭头" class="anchor" href="#%E9%80%89%E6%8B%A9%E7%AE%AD%E5%A4%B4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>选择箭头</h3>
+<p>查看, 选择, 或是修改选中的标注.</p>
 <ul>
 <li>
-<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前位置下的<em>坐标和颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
+<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前光标位置下的<em>坐标及颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
 <li>
-<code>⌘</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前位置下的<em>坐标和颜色标注</em>, 或位于顶层的<em>区域标注</em>, 同时保留之前的选择项.</li>
+<code>⌘</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前光标位置下的<em>坐标及颜色标注</em>, 或位于顶层的<em>区域标注</em>, 同时保留之前的选择项.</li>
 <li>
-<code>⇧</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前位置下的<em>坐标和颜色标注</em>, 或<strong>所有层级下</strong>层叠的<em>区域标注</em>, 同时保留之前的选择项.</li>
+<code>⇧</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 选择当前光标位置下的<em>坐标及颜色标注</em>, 或<strong>所有层级下</strong>层叠的<em>区域标注</em>, 同时保留之前的选择项.</li>
 <li>
-<code>⌥</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 显示菜单, 包含当前位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以选择标注, 同时保留之前的选择项.</li>
+<code>⌥</code> + <strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>) 标注: 显示菜单, 包含当前光标位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以选择标注, 同时保留之前的选择项.</li>
 <li>
-<strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 删除当前位置下的<em>坐标和颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
+<strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 删除当前光标位置下的<em>坐标及颜色标注</em>, 或位于顶层的<em>区域标注</em>.</li>
 <li>
-<code>⌥</code> + <strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 显示菜单, 包含当前位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以删除标注.</li>
+<code>⌥</code> + <strong>右键轻按</strong> (<em>Force Touch</em>: <strong>双指单击</strong>) 标注: 显示菜单, 包含当前光标位置<strong>所有层级下</strong>层叠的<em>区域标注</em>, 选择一项以删除标注.</li>
 <li>
-<strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 标注: 修改<em>坐标和颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
+<strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 标注: 修改<em>坐标及颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
 <li>
 <strong>按住</strong> <code>⌃</code>: 暂时切换到 <em>魔术光标</em>.</li>
 </ul>
 <h3>
 <a id="user-content-放大镜" class="anchor" href="#%E6%94%BE%E5%A4%A7%E9%95%9C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>放大镜</h3>
+<p>按预设的梯度比例放大场景, 支持放大到指定区域.</p>
 <ul>
 <li>
-<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置放大到下一缩放级别.</li>
+<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前光标位置放大到下一缩放级别.</li>
 <li>
 <code>⇧</code> + <strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>): 放大已拖拽区域, 使之填充整个窗口.</li>
 <li>
@@ -78,9 +81,10 @@
 </ul>
 <h3>
 <a id="user-content-缩小镜" class="anchor" href="#%E7%BC%A9%E5%B0%8F%E9%95%9C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>缩小镜</h3>
+<p>按预设的梯度比例缩小场景.</p>
 <ul>
 <li>
-<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前位置缩小到上一缩放级别.</li>
+<strong>轻按</strong> (<em>Force Touch</em>: <strong>单击</strong>): 自当前光标位置缩小到上一缩放级别.</li>
 <li>
 <strong>按住</strong> <code>⌃</code>: 暂时切换到 <em>魔术光标</em>.</li>
 <li>
@@ -88,9 +92,10 @@
 </ul>
 <h3>
 <a id="user-content-移动工具" class="anchor" href="#%E7%A7%BB%E5%8A%A8%E5%B7%A5%E5%85%B7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>移动工具</h3>
+<p>拖拽移动场景, 或是查看标注的首要标签.</p>
 <ul>
 <li>
-<strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 视图: 常规鼠标设备的简单拖拽移动操作.</li>
+<strong>拖动</strong> (<em>Force Touch</em>: <strong>按下拖动</strong>) 视图: 常规指针设备的简单拖拽移动操作.</li>
 <li>
 <strong>按住</strong> <code>⌃</code>: 暂时切换到 <em>魔术光标</em>.</li>
 </ul>
@@ -108,15 +113,15 @@
 <li>
 <strong>双指双击</strong>: 妙控板智能缩放.</li>
 <li>
-<code>⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 1 个像素.</li>
+<code>⌘</code> + <code>↑ ↓ ← →</code>: 将光标向指定方向移动 1 个像素.</li>
 <li>
-<code>⇧⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 10 个像素.</li>
+<code>⇧⌘</code> + <code>↑ ↓ ← →</code>: 将光标向指定方向移动 10 个像素.</li>
 <li>
-<code>⌃⌘</code> + <code>↑ ↓ ← →</code>: 将光标移动 100 个像素.</li>
+<code>⌃⌘</code> + <code>↑ ↓ ← →</code>: 将光标向指定方向移动 100 个像素.</li>
 <li>
-<code>⌘-</code>: 以当前光标位置<strong>缩小</strong>视图 (如果光标位于视图外, 则以中心点位置缩小视图).</li>
+<code>⌘-</code>: 自当前光标位置<strong>缩小</strong>视图 (如果光标位于视图外, 则以中心点位置缩小视图).</li>
 <li>
-<code>⌘=</code>: 以当前光标位置<strong>放大</strong>视图 (如果光标位于视图外, 则以中心点位置放大视图).</li>
+<code>⌘=</code>: 自当前光标位置<strong>放大</strong>视图 (如果光标位于视图外, 则以中心点位置放大视图).</li>
 <li>
 <code>⌘[</code>: 如果已选中的<em>标注</em>是当前光标位置下所有层级中唯一选中的<em>标注</em>, 则切换选中状态到当前光标位置下层叠的前一个<em>标注</em>.</li>
 <li>
@@ -126,11 +131,11 @@
 <a id="user-content-标尺" class="anchor" href="#%E6%A0%87%E5%B0%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>标尺</h3>
 <ul>
 <li>
-<strong>拖动</strong>: 修改<em>坐标和颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
+<strong>拖动</strong>: 修改<em>坐标及颜色标注</em>到新的位置, 修改<em>区域标注</em>的尺寸.</li>
 </ul>
 <h3>
 <a id="user-content-适合窗口--填充窗口" class="anchor" href="#%E9%80%82%E5%90%88%E7%AA%97%E5%8F%A3--%E5%A1%AB%E5%85%85%E7%AA%97%E5%8F%A3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>适合窗口 / 填充窗口</h3>
-<p>缩放视图到适合/填充窗口的尺寸.</p>
+<p>缩放场景到适合/填充窗口的尺寸.</p>
 <h3>
 <a id="user-content-标注管理" class="anchor" href="#%E6%A0%87%E6%B3%A8%E7%AE%A1%E7%90%86" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>标注管理</h3>
 <ul>
@@ -138,21 +143,23 @@
 <li>右键单击以显示所选项的菜单:
 <ul>
 <li>
-<code>↵</code>: 将场景滚动定位到所选项, 并调整缩放比例以适配其尺寸.</li>
+<code>↵</code>: 定位: 将场景滚动定位到所选项, 并调整缩放比例以适配其尺寸.</li>
 <li>
-<code>⌘C</code>: 使用当前<em>模板</em>复制所选项.</li>
+<code>⌥↵</code>: 调整位置: 在弹出的选项卡中, 精确调整标注的位置.</li>
 <li>
-<code>⌘V</code>: 将来自其他文档的项粘贴到该文档中.</li>
+<code>⌘C</code>: 拷贝: 套用当前<em>模板</em>复制所选项.</li>
 <li>
-<code>⌘T</code>: 使用 Canny 边缘检测算法对选中区域进行智能裁切.</li>
+<code>⌘V</code>: 粘贴: 将来自其他文档的项粘贴到该文档中.</li>
 <li>
-<code>⌥⌘E</code>: 使用当前<em>模板</em>导出所选项.</li>
+<code>⌘T</code>: 智能裁切: 使用 Canny 边缘检测算法对选中区域进行裁切.</li>
+<li>
+<code>⌥⌘E</code>: 导出为: 套用当前<em>模板</em>导出所选项.</li>
 <li>
 <code>⌥⌘R</code>: 重新采样: 将所选<em>区域标注</em>另存为 PNG 文件.</li>
 <li>
-<code>⌘A</code>: 选中所有项.</li>
+<code>⌘A</code>: 全选: 选中所有项.</li>
 <li>
-<code>⌫</code>: 删除所选项.</li>
+<code>⌫</code>: 删除: 删除所选项.</li>
 </ul>
 </li>
 <li>
@@ -172,7 +179,7 @@
 <a id="user-content-其他" class="anchor" href="#%E5%85%B6%E4%BB%96" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>其他</h3>
 <ul>
 <li>
-<code>⌘`</code>: 使用当前<em>模板</em>拷贝当前位置下的<em>坐标和颜色</em>到系统剪贴板.</li>
+<code>⌘`</code>: 套用当前<em>模板</em>拷贝当前光标位置下的<em>坐标及颜色标注</em>到系统剪贴板.</li>
 </ul>
 <h2>
 <a id="user-content-菜单快捷键" class="anchor" href="#%E8%8F%9C%E5%8D%95%E5%BF%AB%E6%8D%B7%E9%94%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>菜单快捷键</h2>
@@ -204,9 +211,9 @@
 <li>
 <code>⇧⌘D</code> 比较打开的文档</li>
 <li>
-<code>⇧⌘C</code>: 使用当前<em>模板</em>复制所有项.</li>
+<code>⇧⌘C</code>: 套用当前<em>模板</em>复制所有项.</li>
 <li>
-<code>⇧⌘E</code>: 使用当前<em>模板</em>导出所有项.</li>
+<code>⇧⌘E</code>: 套用当前<em>模板</em>导出所有项.</li>
 </ul>
 <h3>
 <a id="user-content-编辑" class="anchor" href="#%E7%BC%96%E8%BE%91" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>编辑</h3>
@@ -216,19 +223,19 @@
 <li>
 <code>⇧⌘Z</code> 重做</li>
 <li>
-<code>⌘C</code> 拷贝: 以当前模版拷贝选中项.</li>
+<code>⌘C</code> 拷贝: 套用当前<em>模板</em>复制所选项.</li>
 <li>
-<code>⌘V</code> 粘贴: 粘贴来自另一个文档中的项.</li>
+<code>⌘V</code> 粘贴: 将来自其他文档的项粘贴到该文档中.</li>
 <li>
-<code>⌘T</code> 智能裁切: 以 Canny 边缘检测算法裁切选中区域.</li>
+<code>⌘T</code> 智能裁切: 使用 Canny 边缘检测算法对选中区域进行裁切.</li>
 <li>
-<code>⌥⌘E</code> 导出为: 以当前模版导出选中项.</li>
+<code>⌥⌘E</code> 导出为: 套用当前<em>模板</em>导出所选项.</li>
 <li>
-<code>⌥⌘R</code> 重新采样: 将选中区域另存为 PNG 文件.</li>
+<code>⌥⌘R</code> 重新采样: 将所选<em>区域标注</em>另存为 PNG 文件.</li>
 <li>
-<code>⌘A</code> 全选</li>
+<code>⌘A</code> 全选: 选中所有项.</li>
 <li>
-<code>⌫</code> 删除</li>
+<code>⌫</code> 删除: 删除所选项.</li>
 </ul>
 <h3>
 <a id="user-content-视图" class="anchor" href="#%E8%A7%86%E5%9B%BE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>视图</h3>
@@ -250,11 +257,9 @@
 <a id="user-content-设备" class="anchor" href="#%E8%AE%BE%E5%A4%87" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>设备</h3>
 <ul>
 <li>
-<code>⌃S</code> <strong>截图</strong>
-</li>
+<code>⌃S</code> <strong>截图</strong>: 直接从已选中的设备获取屏幕截图.</li>
 <li>
-<code>⌃I</code> <strong>立即寻找设备</strong>
-</li>
+<code>⌃I</code> <strong>立即寻找设备</strong>: 立即广播寻找局域网内的可用设备.</li>
 </ul>
 <h3>
 <a id="user-content-模版" class="anchor" href="#%E6%A8%A1%E7%89%88" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>模版</h3>
@@ -349,10 +354,10 @@
 <li>
 <code>image.get_image(x, y, w, h)</code>: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式</li>
 </ul>
-<p>上述 <code>args</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标和颜色标注</em>及<em>区域标注</em>信息:</p>
+<p>上述 <code>args</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标及颜色标注</em>及<em>区域标注</em>信息:</p>
 <ul>
 <li>
-<p>如果是<em>坐标和颜色标注</em>, 则表中应包含如下字段:</p>
+<p>如果是<em>坐标及颜色标注</em>, 则表中应包含如下字段:</p>
 <ul>
 <li>
 <code>color.id</code>: 标注序号</li>
@@ -396,7 +401,8 @@
 </ul>
 </li>
 </ul>
-<p>通过检查 <code>item.width</code> 字段是否存在即可判断当前表是一个<em>坐标和颜色标注</em>还是<em>区域标注</em>.</p>
+<p>通过检查 <code>item.width</code> 字段是否存在即可判断当前表是一个<em>坐标及颜色标注</em>还是<em>区域标注</em>.</p>
+
 </body>
 
 </html>
