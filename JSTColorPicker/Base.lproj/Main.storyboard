@@ -23,7 +23,7 @@
                 </windowController>
                 <customObject id="vmA-Yf-7N1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1715" y="-435"/>
+            <point key="canvasLocation" x="-2016" y="-421"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -482,7 +482,7 @@ CA
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
             </objects>
-            <point key="canvasLocation" x="-1692" y="-143"/>
+            <point key="canvasLocation" x="-1692" y="-417"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -642,8 +642,35 @@ CA
                                             </viewController>
                                         </touchBarItem>
                                     </touchBarItems>
+                                    <connections>
+                                        <outlet property="delegate" destination="B8D-0N-5wS" id="0PP-FP-Gv8"/>
+                                    </connections>
                                 </touchBar>
                             </touchBarGroupItem>
+                            <touchBarPopoverItem visibilityPriority="500" collapsedRepresentationImage="JSTZoomingTouch" collapsedRepresentationLabel="" id="sTz-de-0Ey">
+                                <touchBar key="popoverTouchBar" id="CHb-N8-viq">
+                                    <touchBarItems>
+                                        <sliderTouchBarItem label="" id="cVR-Hj-3Rf">
+                                            <sliderAccessory key="minimumValueAccessory" enabled="NO" id="fES-Mm-UWk">
+                                                <sliderAccessoryBehavior key="behavior" id="gfF-uT-6e8"/>
+                                            </sliderAccessory>
+                                            <sliderAccessory key="maximumValueAccessory" id="KdZ-Nz-Ii0">
+                                                <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
+                                            </sliderAccessory>
+                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                                <rect key="frame" x="17" y="0.0" width="663" height="30"/>
+                                                <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="above" sliderType="linear" id="J7Y-8q-Nhm"/>
+                                                <connections>
+                                                    <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>
+                                                </connections>
+                                            </slider>
+                                        </sliderTouchBarItem>
+                                    </touchBarItems>
+                                    <connections>
+                                        <outlet property="delegate" destination="B8D-0N-5wS" id="an4-mf-u3Y"/>
+                                    </connections>
+                                </touchBar>
+                            </touchBarPopoverItem>
                             <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Vva-yk-jRZ"/>
                             <touchBarItem visibilityPriority="1000" id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
@@ -668,16 +695,21 @@ CA
                         <outlet property="annotateItem" destination="P19-sN-vdr" id="2Ww-Mb-seU"/>
                         <outlet property="fillWindowItem" destination="lQd-Bs-mbf" id="YIR-oe-pfx"/>
                         <outlet property="fitWindowItem" destination="b9N-8Y-kQX" id="RXS-k1-QtN"/>
+                        <outlet property="groupedTouchBar" destination="TJk-1Z-9Wd" id="fp1-30-CV4"/>
                         <outlet property="magnifyItem" destination="TA2-eZ-zBd" id="SWC-jg-Nj0"/>
+                        <outlet property="mainTouchBar" destination="ZNC-mo-cGK" id="OHZ-fU-rhQ"/>
                         <outlet property="minifyItem" destination="Ajm-ph-nQm" id="fNb-4M-Jt7"/>
                         <outlet property="moveItem" destination="mDy-EG-ccW" id="56h-RB-dQ0"/>
                         <outlet property="openItem" destination="w6N-7T-9Nd" id="9xU-WJ-5mc"/>
                         <outlet property="screenshotItem" destination="BOP-NL-21X" id="4Bp-BR-3CI"/>
                         <outlet property="selectItem" destination="ljO-9K-PCE" id="fsn-uT-JRv"/>
-                        <outlet property="touchBarOpenItem" destination="L5M-nI-yVz" id="ZsP-bN-NVw"/>
+                        <outlet property="sliderTouchBar" destination="CHb-N8-viq" id="xeD-nB-F47"/>
+                        <outlet property="touchBarOpenButton" destination="L5M-nI-yVz" id="ZsP-bN-NVw"/>
+                        <outlet property="touchBarPreviewSlider" destination="tRW-3S-kE7" id="CkQ-ga-9eb"/>
+                        <outlet property="touchBarPreviewSliderItem" destination="cVR-Hj-3Rf" id="0PS-Ke-juP"/>
                         <outlet property="touchBarSceneActionControl" destination="E0k-qA-DRk" id="0M3-09-dSl"/>
                         <outlet property="touchBarSceneToolControl" destination="IfU-je-mpH" id="Kmu-Bf-kgA"/>
-                        <outlet property="touchBarScreenshotItem" destination="Tud-ma-aIR" id="dz1-AP-WmP"/>
+                        <outlet property="touchBarScreenshot" destination="Tud-ma-aIR" id="dz1-AP-WmP"/>
                         <segue destination="KqA-fc-gUf" kind="relationship" relationship="window.shadowedContentViewController" id="4US-Ff-ae8"/>
                     </connections>
                 </windowController>
@@ -780,5 +812,6 @@ CA
         <image name="JSTScaleToFillTouch" width="32" height="32"/>
         <image name="JSTScaleToFit" width="22" height="22"/>
         <image name="JSTScaleToFitTouch" width="32" height="32"/>
+        <image name="JSTZoomingTouch" width="32" height="32"/>
     </resources>
 </document>

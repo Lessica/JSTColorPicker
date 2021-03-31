@@ -447,7 +447,18 @@ CSS:\("-".leftPadding(to: 9, with: " "))
 
 extension SidebarController: ItemPreviewDelegate {
     
-    public func updatePreview(to rect: CGRect, magnification: CGFloat) {
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+        guard let sender = sender else { return }
+        updatePreview(to: rect, magnification: sender.wrapperRestrictedMagnification)
+    }
+    
+    func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
+        guard let rect = rect,
+            let magnification = magnification else { return }
+        updatePreview(to: rect, magnification: magnification)
+    }
+    
+    func updatePreview(to rect: CGRect, magnification: CGFloat) {
         guard !paneViewPreview.isHidden else {
             lastStoredRect = rect
             lastStoredMagnification = magnification
@@ -480,17 +491,11 @@ extension SidebarController: ItemPreviewDelegate {
         updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
     }
     
-    public func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
-        guard let rect = rect,
-            let magnification = magnification else { return }
-        updatePreview(to: rect, magnification: magnification)
-    }
-    
 }
 
 extension SidebarController: ItemPreviewSender, ItemPreviewResponder {
     
-    @IBAction func previewSliderChanged(_ sender: NSSlider) {
+    @IBAction func previewSliderValueChanged(_ sender: NSSlider) {
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
         if isPressed {
             if previewStage == .none || previewStage == .end {

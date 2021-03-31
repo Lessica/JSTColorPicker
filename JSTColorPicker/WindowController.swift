@@ -22,6 +22,10 @@ class WindowController: NSWindowController {
     public lazy var pixelMatchService: PixelMatchService = {
         return PixelMatchService()
     }()
+    
+    @objc dynamic internal weak var screenshot  : Screenshot?
+    internal var documentScreenshot             : Screenshot?      { document as? Screenshot }
+    private var documentState                   : Screenshot.State { screenshot?.state ?? .notLoaded }
 
     private var isInComparisonMode: Bool = false
     private var isScreenshotActionAllowed: Bool {
@@ -32,22 +36,32 @@ class WindowController: NSWindowController {
         #endif
     }
     
-    @IBOutlet weak var openItem                    : NSToolbarItem!
-    @IBOutlet weak var annotateItem                : NSToolbarItem!
-    @IBOutlet weak var magnifyItem                 : NSToolbarItem!
-    @IBOutlet weak var minifyItem                  : NSToolbarItem!
-    @IBOutlet weak var selectItem                  : NSToolbarItem!
-    @IBOutlet weak var moveItem                    : NSToolbarItem!
-    @IBOutlet weak var fitWindowItem               : NSToolbarItem!
-    @IBOutlet weak var fillWindowItem              : NSToolbarItem!
-    @IBOutlet weak var screenshotItem              : NSToolbarItem!
+    @IBOutlet weak var openItem                        : NSToolbarItem!
+    @IBOutlet weak var annotateItem                    : NSToolbarItem!
+    @IBOutlet weak var magnifyItem                     : NSToolbarItem!
+    @IBOutlet weak var minifyItem                      : NSToolbarItem!
+    @IBOutlet weak var selectItem                      : NSToolbarItem!
+    @IBOutlet weak var moveItem                        : NSToolbarItem!
+    @IBOutlet weak var fitWindowItem                   : NSToolbarItem!
+    @IBOutlet weak var fillWindowItem                  : NSToolbarItem!
+    @IBOutlet weak var screenshotItem                  : NSToolbarItem!
     
-    @IBOutlet weak var touchBarOpenItem            : NSButton!
-    @IBOutlet weak var touchBarSceneToolControl    : NSSegmentedControl!
-    @IBOutlet weak var touchBarSceneActionControl  : NSSegmentedControl!
-    @IBOutlet weak var touchBarScreenshotItem      : NSButton!
+    @IBOutlet weak var mainTouchBar                    : NSTouchBar!
+    @IBOutlet weak var groupedTouchBar                 : NSTouchBar!
+    @IBOutlet weak var sliderTouchBar                  : NSTouchBar!
     
-    private var firstResponderObservation          : NSKeyValueObservation?
+    @IBOutlet weak var touchBarOpenButton              : NSButton!
+    @IBOutlet weak var touchBarSceneToolControl        : NSSegmentedControl!
+    @IBOutlet weak var touchBarSceneActionControl      : NSSegmentedControl!
+    @IBOutlet weak var touchBarScreenshot              : NSButton!
+    
+    internal       var previewStage                    : ItemPreviewStage = .none
+    @IBOutlet weak var touchBarPreviewSliderItem       : NSSliderTouchBarItem!
+    @IBOutlet weak var touchBarPreviewSlider           : NSSlider!
+    
+    private var documentObservations                   : [NSKeyValueObservation]?
+    private var firstResponderObservation              : NSKeyValueObservation?
+    private var lastStoredMagnification                : CGFloat?
     
     private var viewController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
@@ -70,12 +84,14 @@ class WindowController: NSWindowController {
         windowCount += 1
         
         NSColorPanel.shared.delegate = self
-        viewController.trackingObject = self
+        viewController.parentTracking = self
         
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.delegate = self
         window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
         syncToolbarState()
+        
+        touchBarPreviewSlider.isEnabled = false
         
         #if DEBUG
         firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (_, change) in
@@ -375,6 +391,25 @@ extension WindowController: ToolbarResponder {
         delegate.devicesTakeScreenshotMenuItemTapped(sender)
     }
     
+    @IBAction func previewSliderValueChanged(_ sender: NSSlider?) {
+        guard let sender = sender else { return }
+        let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
+        if isPressed {
+            if previewStage == .none || previewStage == .end {
+                previewStage = .begin
+            } else if previewStage == .begin {
+                previewStage = .inProgress
+            }
+        } else {
+            if previewStage == .begin || previewStage == .inProgress {
+                previewStage = .end
+            } else if previewStage == .end {
+                previewStage = .none
+            }
+        }
+        previewAction(self, toMagnification: CGFloat(pow(2, sender.doubleValue)))
+    }
+    
 }
 
 extension WindowController: NSWindowDelegate {
@@ -415,19 +450,96 @@ extension WindowController: NSToolbarDelegate, NSTouchBarDelegate { }
 
 extension WindowController: ScreenshotLoader {
     
-    internal var screenshot    : Screenshot? { document as? Screenshot }
-    private var documentState  : Screenshot.State { screenshot?.state ?? .notLoaded }
-    
     func load(_ screenshot: Screenshot) throws {
+        self.screenshot = screenshot
+        
         try viewController.load(screenshot)
+        
+        if let fileURL = screenshot.fileURL {
+            self.updateWindowTitle(fileURL)
+        }
+        
+        touchBarPreviewSlider.isEnabled = true
+
+        documentObservations = [
+            observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
+                if let url = change.newValue as? URL {
+                    self.updateWindowTitle(url)
+                }
+            }
+        ]
     }
     
 }
 
-extension WindowController: SceneTracking {
+extension WindowController: ItemPreviewDelegate {
+    
+    private var windowTitle: String {
+        get { window?.title ?? ""      }
+        set { window?.title = newValue }
+    }
+
+    @available(OSX 11.0, *)
+    private var windowSubtitle: String {
+        get { window?.subtitle ?? ""      }
+        set { window?.subtitle = newValue }
+    }
+    
+    func updateWindowTitle(_ url: URL, magnification: CGFloat? = nil) {
+        let magnification = magnification ?? lastStoredMagnification ?? 1.0
+        if #available(macOS 11.0, *) {
+            windowTitle = url.lastPathComponent
+            windowSubtitle = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        } else {
+            windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        }
+    }
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         GridWindowController.shared.sceneRawColorDidChange(sender, at: coordinate)
+    }
+    
+    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
+        guard let sender = sender else { return }
+        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
+        if restrictedMagnification != lastStoredMagnification {
+            lastStoredMagnification = restrictedMagnification
+            if let url = screenshot?.fileURL {
+                updateWindowTitle(url, magnification: restrictedMagnification)
+            }
+        }
+        updatePreview(to: rect, magnification: sender.wrapperRestrictedMagnification)
+    }
+    
+    func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
+        guard let rect = rect,
+            let magnification = magnification else { return }
+        updatePreview(to: rect, magnification: magnification)
+    }
+    
+    func updatePreview(to rect: CGRect, magnification: CGFloat) {
+        // "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        touchBarPreviewSlider.doubleValue = Double(log2(magnification))
+    }
+    
+}
+
+extension WindowController: ItemPreviewSender, ItemPreviewResponder {
+    
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
+        viewController.previewAction(sender, atAbsolutePoint: point, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
+        viewController.previewAction(sender, atRelativePosition: position, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
+        viewController.previewAction(sender, atCoordinate: coordinate, animated: animated)
+    }
+    
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
+        viewController.previewAction(sender, toMagnification: magnification)
     }
     
 }

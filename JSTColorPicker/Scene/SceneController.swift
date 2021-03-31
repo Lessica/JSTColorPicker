@@ -11,8 +11,8 @@ import ShortcutGuide
 
 class SceneController: NSViewController {
     
+    public weak var parentTracking    : SceneTracking?
     public weak var contentManager    : ContentDelegate!
-    public weak var parentTracking    : SceneTracking!
     public weak var tagManager        : TagListSource!
     
     internal weak var screenshot: Screenshot?
@@ -889,21 +889,23 @@ extension SceneController: SceneTracking, SceneActionTracking {
         if !sceneOverlayView.isHidden {
             updateAnnotatorStates()
         }
-        let sceneTrackings: [SceneTracking] = [
+        var sceneTrackings: [SceneTracking] = [
             sceneBorderView,
             sceneGridView,
             sceneOverlayView,
-            parentTracking
         ]
+        if parentTracking != nil {
+            sceneTrackings.append(parentTracking!)
+        }
         sceneTrackings.forEach({ $0.sceneVisibleRectDidChange(sender, to: rect, of: magnification) })
     }
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
-        parentTracking.sceneRawColorDidChange(sender, at: coordinate)
+        parentTracking?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
     func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
-        parentTracking.sceneRawAreaDidChange(sender, to: rect)
+        parentTracking?.sceneRawAreaDidChange(sender, to: rect)
     }
     
     func sceneWillStartLiveResize(_ sender: SceneScrollView?) {

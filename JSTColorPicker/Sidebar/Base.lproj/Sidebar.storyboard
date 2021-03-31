@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -302,7 +301,7 @@
                                                             </constraints>
                                                             <sliderCell key="cell" continuous="YES" enabled="NO" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="vaR-Y4-kA5"/>
                                                             <connections>
-                                                                <action selector="previewSliderChanged:" target="IfO-80-1iw" id="b0g-Jp-4yC"/>
+                                                                <action selector="previewSliderValueChanged:" target="IfO-80-1iw" id="b0g-Jp-4yC"/>
                                                             </connections>
                                                         </slider>
                                                     </subviews>

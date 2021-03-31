@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol ItemPreviewDelegate: class {
-    func updatePreview(to rect: CGRect, magnification: CGFloat)
+protocol ItemPreviewDelegate: SceneTracking {
     func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?)
+    func updatePreview(to rect: CGRect, magnification: CGFloat)
 }

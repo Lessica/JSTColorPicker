@@ -11,11 +11,8 @@ import ShortcutGuide
 
 class SplitController: NSSplitViewController {
 
-    private weak var sceneToolSource: SceneToolSource!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    public weak var parentTracking              : SceneTracking?
+    private weak var sceneToolSource            : SceneToolSource!
     
     override func viewDidLoad() {
         
@@ -41,19 +38,21 @@ class SplitController: NSSplitViewController {
         }
     }
     
-    public weak var trackingObject              : SceneTracking!
-    @objc dynamic internal weak var screenshot  : Screenshot?
+    internal weak var screenshot                : Screenshot?
     private var documentState                   : Screenshot.State { screenshot?.state ?? .notLoaded }
-
-    private var documentObservations     : [NSKeyValueObservation]?
-    private var lastStoredMagnification  : CGFloat?
     
     deinit {
         debugPrint("\(className):\(#function)")
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
-        sidebarController.ensureOverlayBounds(to: sceneController.wrapperRestrictedRect, magnification: sceneController.wrapperRestrictedMagnification)
+        var previewDelegates: [ItemPreviewDelegate] = [
+            sidebarController,
+        ]
+        if let previewParent = parentTracking as? ItemPreviewDelegate {
+            previewDelegates.append(previewParent)
+        }
+        previewDelegates.forEach({ $0.ensureOverlayBounds(to: sceneController.wrapperRestrictedRect, magnification: sceneController.wrapperRestrictedMagnification) })
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -80,17 +79,6 @@ extension SplitController: DropViewDelegate {
     
     private var tagListController: TagListController! {
         return sidebarController.tagListController
-    }
-    
-    private var windowTitle: String {
-        get { view.window?.title ?? ""      }
-        set { view.window?.title = newValue }
-    }
-
-    @available(OSX 11.0, *)
-    private var windowSubtitle: String {
-        get { view.window?.subtitle ?? ""      }
-        set { view.window?.subtitle = newValue }
     }
     
     internal var allowsDrop: Bool {
@@ -120,27 +108,25 @@ extension SplitController: SceneTracking {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
         sidebarController.inspectItem(color, shouldSubmit: false)
-        trackingObject.sceneRawColorDidChange(sender, at: coordinate)
+        parentTracking?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
     func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
         sidebarController.inspectItem(area, shouldSubmit: false)
+        parentTracking?.sceneRawAreaDidChange(sender, to: rect)
     }
     
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
-        
-        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
-        sidebarController.updatePreview(to: rect, magnification: restrictedMagnification)
-        
-        if restrictedMagnification != lastStoredMagnification {
-            lastStoredMagnification = restrictedMagnification
-            if let url = screenshot?.fileURL {
-                updateWindowTitle(url, magnification: restrictedMagnification)
-            }
+        var sceneTrackings: [SceneTracking] = [
+            sidebarController,
+        ]
+        if parentTracking != nil {
+            sceneTrackings.append(parentTracking!)
         }
+        sceneTrackings.forEach({ $0.sceneVisibleRectDidChange(sender, to: rect, of: magnification) })
     }
     
 }
@@ -180,7 +166,6 @@ extension SplitController: ToolbarResponder {
 extension SplitController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
-        
         self.screenshot = screenshot
         do {
             try contentController.load(screenshot)
@@ -190,29 +175,6 @@ extension SplitController: ScreenshotLoader {
             if let _ = screenshot.fileURL {
                 presentError(error)
             }
-        }
-        
-        if let fileURL = screenshot.fileURL {
-            self.updateWindowTitle(fileURL)
-        }
-
-        documentObservations = [
-            observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
-                if let url = change.newValue as? URL {
-                    self.updateWindowTitle(url)
-                }
-            }
-        ]
-        
-    }
-    
-    func updateWindowTitle(_ url: URL, magnification: CGFloat? = nil) {
-        let magnification = magnification ?? lastStoredMagnification ?? 1.0
-        if #available(macOS 11.0, *) {
-            windowTitle = url.lastPathComponent
-            windowSubtitle = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-        } else {
-            windowTitle = "\(url.lastPathComponent) @ \(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         }
     }
     
@@ -366,10 +328,10 @@ extension SplitController: ContentActionDelegate {
     
     private func contentItemChanged(_ item: ContentItem) {
         if let item = item as? PixelColor {
-            trackingObject.sceneRawColorDidChange(nil, at: item.coordinate)
+            parentTracking?.sceneRawColorDidChange(nil, at: item.coordinate)
         }
         else if let item = item as? PixelArea {
-            trackingObject.sceneRawAreaDidChange(nil, to: item.rect)
+            parentTracking?.sceneRawAreaDidChange(nil, to: item.rect)
         }
     }
     
