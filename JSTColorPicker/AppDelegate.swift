@@ -258,13 +258,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Color Panel Actions
     
+    private var colorPanel: NSColorPanel {
+        let panel = NSColorPanel.shared
+        panel.showsAlpha = true
+        panel.isContinuous = true
+        panel.touchBar = nil
+        return panel
+    }
+    
     @IBOutlet weak var colorPanelSwitchMenuItem: NSMenuItem!
     
     @IBAction func colorPanelSwitchMenuItemTapped(_ sender: Any) {
-        if !NSColorPanel.shared.isVisible {
-            NSColorPanel.shared.orderFront(sender)
+        if !colorPanel.isVisible {
+            colorPanel.makeKeyAndOrderFront(sender)
         } else {
-            NSColorPanel.shared.close()
+            colorPanel.close()
         }
     }
     

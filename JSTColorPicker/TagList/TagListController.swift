@@ -80,10 +80,23 @@ class TagListController: NSViewController {
     static public var attachPasteboardType  = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
+    // MARK: - Touch Bar
+    
+    private lazy var colorPanelTouchBar: NSTouchBar = {
+        let touchBar = NSTouchBar()
+        touchBar.delegate = self
+        touchBar.customizationIdentifier = TagListController.colorPickerBar
+        touchBar.defaultItemIdentifiers = [TagListController.colorPickerItem]
+        touchBar.customizationAllowedItemIdentifiers = [TagListController.colorPickerItem]
+        touchBar.principalItemIdentifier = TagListController.colorPickerItem
+        return touchBar
+    }()
+    
     private var colorPanel: NSColorPanel {
         let panel = NSColorPanel.shared
         panel.showsAlpha = false
-        panel.isContinuous = false
+        panel.isContinuous = true
+        panel.touchBar = colorPanelTouchBar
         return panel
     }
     
@@ -454,7 +467,7 @@ class TagListController: NSViewController {
         let wrapper = TagListControllerWrapper(self)
         colorPanel.strongTarget = wrapper
         colorPanel.setAction(#selector(colorPanelValueChanged(_:)))
-        colorPanel.orderFront(sender)
+        colorPanel.makeKeyAndOrderFront(self)
         
         tableView.selectRowIndexes(
             IndexSet(integer: targetIndex),
@@ -477,6 +490,9 @@ class TagListController: NSViewController {
             columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns)
         )
         
+        if let colorPickerItem = colorPanelTouchBar.item(forIdentifier: TagListController.colorPickerItem) as? NSColorPickerTouchBarItem {
+            colorPickerItem.color = sender.color
+        }
     }
     
     
@@ -765,5 +781,35 @@ extension TagListController: ShortcutGuideDataSource {
         return []
     }
 
+}
+
+extension TagListController: NSTouchBarDelegate {
+    
+    private static let colorPickerBar = NSTouchBar.CustomizationIdentifier("com.jst.colorPickerBar")
+    private static let colorPickerItem = NSTouchBarItem.Identifier("com.jst.TouchBarItem.color")
+    
+    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
+        let colorPickerItem: NSColorPickerTouchBarItem
+        
+        switch identifier {
+        case TagListController.colorPickerItem:
+            colorPickerItem = NSColorPickerTouchBarItem.colorPicker(withIdentifier: identifier)
+        default:
+            return nil
+        }
+        
+        colorPickerItem.color = colorPanel.color
+        colorPickerItem.showsAlpha = false
+        colorPickerItem.customizationLabel = NSLocalizedString("Choose Color", comment: "NSColorPanel")
+        colorPickerItem.target = self
+        colorPickerItem.action = #selector(colorTouchBarValueChanged(_:))
+        
+        return colorPickerItem
+    }
+    
+    @objc func colorTouchBarValueChanged(_ sender: NSColorPickerTouchBarItem) {
+        colorPanel.color = sender.color
+    }
+    
 }
 

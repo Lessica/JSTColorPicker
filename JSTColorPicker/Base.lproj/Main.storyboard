@@ -492,7 +492,7 @@ CA
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" toolbarStyle="unified" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="382" y="560" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
@@ -585,8 +585,7 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpen" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpenTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -602,20 +601,19 @@ CA
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                                    <rect key="frame" x="4" y="-2" width="278" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
-                                                            <segment image="JSTCursor" width="54" selected="YES"/>
-                                                            <segment image="JSTArrow" width="54" tag="1"/>
-                                                            <segment image="JSTMagnify" width="54" tag="2">
+                                                            <segment image="JSTCursorTouch" width="54" selected="YES"/>
+                                                            <segment image="JSTArrowTouch" width="54" tag="1"/>
+                                                            <segment image="JSTMagnifyTouch" width="54" tag="2">
                                                                 <nil key="label"/>
                                                             </segment>
-                                                            <segment image="JSTMinify" width="54" tag="3">
+                                                            <segment image="JSTMinifyTouch" width="54" tag="3">
                                                                 <nil key="label"/>
                                                             </segment>
-                                                            <segment image="JSTMove" width="54" tag="4">
+                                                            <segment image="JSTMoveTouch" width="54" tag="4">
                                                                 <nil key="label"/>
                                                             </segment>
                                                         </segments>
@@ -629,13 +627,12 @@ CA
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                                    <rect key="frame" x="6" y="-4" width="110" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
-                                                            <segment image="JSTScaleToFit" width="54" tag="5"/>
-                                                            <segment image="JSTScaleToFill" width="54" tag="6"/>
+                                                            <segment image="JSTScaleToFitTouch" width="54" tag="5"/>
+                                                            <segment image="JSTScaleToFillTouch" width="54" tag="6"/>
                                                         </segments>
                                                     </segmentedCell>
                                                     <connections>
@@ -652,8 +649,7 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCamera" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCameraTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
@@ -767,13 +763,22 @@ CA
     </scenes>
     <resources>
         <image name="JSTArrow" width="22" height="22"/>
+        <image name="JSTArrowTouch" width="32" height="32"/>
         <image name="JSTCamera" width="22" height="22"/>
+        <image name="JSTCameraTouch" width="32" height="32"/>
         <image name="JSTCursor" width="22" height="22"/>
+        <image name="JSTCursorTouch" width="32" height="32"/>
         <image name="JSTMagnify" width="22" height="22"/>
+        <image name="JSTMagnifyTouch" width="32" height="32"/>
         <image name="JSTMinify" width="22" height="22"/>
+        <image name="JSTMinifyTouch" width="32" height="32"/>
         <image name="JSTMove" width="22" height="22"/>
+        <image name="JSTMoveTouch" width="32" height="32"/>
         <image name="JSTOpen" width="22" height="22"/>
+        <image name="JSTOpenTouch" width="32" height="32"/>
         <image name="JSTScaleToFill" width="22" height="22"/>
+        <image name="JSTScaleToFillTouch" width="32" height="32"/>
         <image name="JSTScaleToFit" width="22" height="22"/>
+        <image name="JSTScaleToFitTouch" width="32" height="32"/>
     </resources>
 </document>

@@ -331,12 +331,11 @@ extension SidebarController: ScreenshotLoader {
 extension SidebarController: ItemInspector {
     
     private var colorPanel: NSColorPanel {
-        get {
-            let panel = NSColorPanel.shared
-            panel.showsAlpha = true
-            panel.isContinuous = false
-            return panel
-        }
+        let panel = NSColorPanel.shared
+        panel.showsAlpha = true
+        panel.isContinuous = true
+        panel.touchBar = nil
+        return panel
     }
     
     @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
@@ -344,7 +343,7 @@ extension SidebarController: ItemInspector {
         colorPanel.setAction(nil)
         colorPanel.color = sender.color
         
-        colorPanel.orderFront(sender)
+        colorPanel.makeKeyAndOrderFront(self)
     }
     
     func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool) {

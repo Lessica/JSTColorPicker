@@ -308,10 +308,17 @@ extension NSColor {
     ]
     
     var sharpCSS: String {
-        guard colorSpace == NSColorSpace.sRGB || colorSpace == NSColorSpace.deviceRGB || colorSpace == NSColorSpace.genericRGB else {
-            return "#FFFFFF"
+        var rgbColor: NSColor?
+        if colorSpace == NSColorSpace.sRGB || colorSpace == NSColorSpace.deviceRGB || colorSpace == NSColorSpace.genericRGB {
+            rgbColor = self
+        } else {
+            rgbColor = usingColorSpace(.deviceRGB)
         }
-        return String(format: "#%02X%02X%02X", Int(redComponent * 0xFF), Int(greenComponent * 0xFF), Int(blueComponent * 0xFF))
+        if rgbColor != nil {
+            return String(format: "#%02X%02X%02X", Int(rgbColor!.redComponent * 0xFF), Int(rgbColor!.greenComponent * 0xFF), Int(rgbColor!.blueComponent * 0xFF))
+        } else {
+            return "#000000"
+        }
     }
     static var random: NSColor {
         return NSColor(calibratedRed: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
