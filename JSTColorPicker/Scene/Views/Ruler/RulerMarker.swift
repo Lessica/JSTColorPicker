@@ -46,7 +46,7 @@ class RulerMarker: NSRulerMarker {
         }
     }
 
-    static func verticalImage(fillColor: NSColor? = nil, strokeColor: NSColor? = nil) -> NSImage {
+    static func verticalImage(fillColor: NSColor? = nil, strokeColor: NSColor? = NSColor.labelColor) -> NSImage {
         let size = RulerMarker.markerSize
         return NSImage(size: size, flipped: false) { (rect) -> Bool in
             let fixedRect = rect.insetBy(dx: 0.5, dy: 0.5)

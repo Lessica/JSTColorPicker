@@ -1,5 +1,5 @@
 # JSTColorPicker
-Pick color, location, and area from PNG screenshots (i.e. image annotation). This tool uses [sRGB IEC61966-2.1](https://en.wikipedia.org/wiki/SRGB) as its color space.
+Tagging color, location, and area from PNG screenshots (i.e. image annotation). This tool uses [sRGB IEC61966-2.1](https://en.wikipedia.org/wiki/SRGB) as its color space.
 
 
 ## Features

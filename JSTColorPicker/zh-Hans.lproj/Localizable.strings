@@ -46,6 +46,9 @@
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容.";
 
+/* NSColorPanel */
+"Choose Color" = "选择颜色";
+
 /* Shortcut Guide */
 "Click" = "单击";
 

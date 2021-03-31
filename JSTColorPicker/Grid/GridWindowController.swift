@@ -26,6 +26,8 @@ class GridWindowController: NSWindowController {
         }
     }
     
+    public var isVisible: Bool { window?.isVisible ?? false }
+    
     private var gridView: GridView? {
         guard let viewController = window?.contentViewController as? GridViewController else { return nil }
         return viewController.gridView

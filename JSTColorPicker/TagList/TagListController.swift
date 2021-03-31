@@ -794,12 +794,13 @@ extension TagListController: NSTouchBarDelegate {
         switch identifier {
         case TagListController.colorPickerItem:
             colorPickerItem = NSColorPickerTouchBarItem.colorPicker(withIdentifier: identifier)
+            colorPickerItem.showsAlpha = false
+            colorPickerItem.color = colorPanel.color
+            colorPickerItem.allowedColorSpaces = [.sRGB]
         default:
             return nil
         }
         
-        colorPickerItem.color = colorPanel.color
-        colorPickerItem.showsAlpha = false
         colorPickerItem.customizationLabel = NSLocalizedString("Choose Color", comment: "NSColorPanel")
         colorPickerItem.target = self
         colorPickerItem.action = #selector(colorTouchBarValueChanged(_:))

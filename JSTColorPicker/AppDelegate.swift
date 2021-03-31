@@ -242,16 +242,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var gridSwitchMenuItem: NSMenuItem!
     
-    private var isGridVisible: Bool {
-        guard let visible = GridWindowController.shared.window?.isVisible else { return false }
-        return visible
+    private var isGridVisible: Bool { GridWindowController.shared.isVisible }
+    
+    private func toggleGridVisibleState(_ visible: Bool, sender: Any?) {
+        if visible {
+            GridWindowController.shared.showWindow(sender)
+        } else {
+            GridWindowController.shared.close()
+        }
+        NSApp.invalidateRestorableState()
     }
     
     @IBAction func gridSwitchMenuItemTapped(_ sender: Any?) {
         if isGridVisible {
-            GridWindowController.shared.close()
+            toggleGridVisibleState(false, sender: sender)
         } else {
-            GridWindowController.shared.showWindow(sender)
+            toggleGridVisibleState(true, sender: sender)
         }
     }
     
@@ -789,6 +795,23 @@ extension AppDelegate {
     
     @objc private func applicationApplyPreferences(_ notification: Notification?) {
         debugPrint("\(className):\(#function)")
+    }
+    
+}
+
+
+// MARK: -
+
+extension AppDelegate {
+    
+    private static let restorableGridWindowVisibleState = "GridWindowController.shared.window.isVisible"
+    
+    func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
+        coder.encode(GridWindowController.shared.isVisible, forKey: AppDelegate.restorableGridWindowVisibleState)
+    }
+    
+    func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
+        toggleGridVisibleState(coder.decodeBool(forKey: AppDelegate.restorableGridWindowVisibleState), sender: app)
     }
     
 }

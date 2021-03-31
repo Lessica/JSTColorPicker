@@ -1037,7 +1037,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction func paste(_ sender: Any) {
-        guard let items = documentExport?.importFromAdditionalPasteboard() else { return }
+        guard let items = documentExport?.importFromAdditionalPasteboard(), items.count > 0 else { return }
         do {
             try importContentItems(items)
         } catch {

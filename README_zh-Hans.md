@@ -1,5 +1,5 @@
 # JSTColorPicker
-从 PNG 屏幕截图 (即图像批注) 中选择颜色，位置和区域。该工具使用 [sRGB IEC61966-2.1](https://en.wikipedia.org/wiki/SRGB) 作为其色彩空间。
+从 PNG 屏幕截图中为颜色，位置和区域打标签 (即图像标注)。该工具使用 [sRGB IEC61966-2.1](https://en.wikipedia.org/wiki/SRGB) 作为其色彩空间。
 
 
 ## 功能特性

@@ -223,8 +223,7 @@ class AnnotatorOverlay: EditableOverlay {
 
             // draws background
             if isFocused || isSelected {
-                guard let backgroundColor = associatedBackgroundColor
-                else { return }
+                let backgroundColor = associatedBackgroundColor ?? NSColor.controlAccentColor.withAlphaComponent(0.2)
 
                 let drawBounds = bounds.inset(by: innerInsets)
                 guard !drawBounds.isEmpty else { return }

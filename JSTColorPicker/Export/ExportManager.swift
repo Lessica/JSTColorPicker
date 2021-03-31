@@ -75,17 +75,17 @@ class ExportManager {
     }
     
     public var canImportFromAdditionalPasteboard: Bool {
-        return (additionalPasteboard.canReadObject(
+        return additionalPasteboard.canReadObject(
             forClasses: [PixelColor.self, PixelArea.self],
             options: nil
-        ))
+        )
     }
     
     public func importFromAdditionalPasteboard() -> [ContentItem]? {
-        return (additionalPasteboard.readObjects(
+        return additionalPasteboard.readObjects(
             forClasses: [PixelColor.self, PixelArea.self],
             options: nil
-        )) as? [ContentItem]
+        ) as? [ContentItem]
     }
     
     public static func reloadTemplates() throws {
