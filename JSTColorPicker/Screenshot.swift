@@ -197,12 +197,26 @@ class Screenshot: NSDocument {
 extension Screenshot {
     
     private var associatedWindowController: WindowController? { windowControllers.first as? WindowController }
+
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(copyAll(_:))
+            || menuItem.action == #selector(exportAll(_:))
+        {
+            guard let template = ExportManager.selectedTemplate else { return false }
+
+            if menuItem.action == #selector(exportAll(_:)) {
+                guard template.allowedExtensions.count > 0          else { return false }
+            }
+        }
+        return super.validateMenuItem(menuItem)
+    }
     
     @IBAction func copyAll(_ sender: Any) {
         guard let template = ExportManager.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
+        
         if template.isAsync {
             copyAllContentItemsAsync(from: template)
         } else {
@@ -216,6 +230,11 @@ extension Screenshot {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
+        guard template.allowedExtensions.count > 0 else {
+            presentError(ExportManager.Error.noExtensionSpecified)
+            return
+        }
+
         let panel = NSSavePanel()
         panel.allowedFileTypes = template.allowedExtensions
         panel.beginSheetModal(for: window) { [unowned self] (resp) in

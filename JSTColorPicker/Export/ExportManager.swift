@@ -19,6 +19,7 @@ class ExportManager {
     enum Error: LocalizedError {
         case noDocumentLoaded
         case noTemplateSelected
+        case noExtensionSpecified
         
         var failureReason: String? {
             switch self {
@@ -26,6 +27,8 @@ class ExportManager {
                 return NSLocalizedString("No document loaded.", comment: "ExportError")
             case .noTemplateSelected:
                 return NSLocalizedString("No template selected.", comment: "ExportError")
+            case .noExtensionSpecified:
+                return NSLocalizedString("No output file extension specified.", comment: "ExportError")
             }
         }
     }

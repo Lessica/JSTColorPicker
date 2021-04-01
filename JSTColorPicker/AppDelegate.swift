@@ -521,11 +521,9 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             guard !hasAttachedSheet else { return false }
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
-            }
-            else if preparedPixelMatchTuple != nil {
+            } else if preparedPixelMatchTuple != nil {
                 return true
-            }
-            else {
+            } else {
                 return false
             }
         }

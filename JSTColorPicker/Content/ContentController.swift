@@ -723,7 +723,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             || menuItem.action == #selector(tags(_:))
             || menuItem.action == #selector(delete(_:))
         {  // contents available / multiple targets / from both menu
-            
+
             if menuItem.action == #selector(tags(_:))
                 || menuItem.action == #selector(delete(_:))
             {
@@ -731,7 +731,21 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             }
             
             guard documentState.isLoaded else { return false }
-            return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+            let allowed = tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
+
+            if allowed {
+                if menuItem.action == #selector(copy(_:))
+                    || menuItem.action == #selector(exportAs(_:))
+                {
+                    guard let template = ExportManager.selectedTemplate else { return false }
+
+                    if menuItem.action == #selector(exportAs(_:)) {
+                        guard template.allowedExtensions.count > 0          else { return false }
+                    }
+                }
+            }
+
+            return allowed
             
         }
             
@@ -1006,6 +1020,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
+
         if template.isAsync {
             copyContentItemsAsync(selectedItems, from: template)
         } else {
@@ -1049,6 +1064,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = selectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
+
         let panel = NSSavePanel()
         panel.allowedFileTypes = ["png"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
@@ -1074,6 +1090,10 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let selectedItems = selectedContentItems else { return }
         guard let template = ExportManager.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
+            return
+        }
+        guard template.allowedExtensions.count > 0 else {
+            presentError(ExportManager.Error.noExtensionSpecified)
             return
         }
 

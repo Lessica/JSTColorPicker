@@ -64,10 +64,10 @@ class Template {
         case let .values(vals):
             guard let tab = vals.first as? Table else { throw Error.missingRootEntry }
             let stringDict = tab.asDictionary({ $0 as String }, { $0 as String })
-            let boolDict = tab.asDictionary({ $0 as String }, { $0 as Bool })
+            let boolDict = tab.asDictionary  ({ $0 as String }, { $0 as Bool   })
             
             guard let uuidString = stringDict["uuid"]           else { throw Error.missingRequiredField(field: "uuid")    }
-            guard let uuid = UUID(uuidString: uuidString) else { throw Error.invalidField(field: "uuid")            }
+            guard let uuid = UUID(uuidString: uuidString)       else { throw Error.invalidField(field: "uuid")            }
             guard let name = stringDict["name"]                 else { throw Error.missingRequiredField(field: "name")    }
             guard let version = stringDict["version"]           else { throw Error.missingRequiredField(field: "version") }
             
