@@ -60,6 +60,14 @@
 		CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E1DA2615D25700F5F6AA /* Info.storyboard */; };
 		CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E1DA2615D25700F5F6AA /* Info.storyboard */; };
+		CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1FF2615D36B00F5F6AA /* InspectorController.swift */; };
+		CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1FF2615D36B00F5F6AA /* InspectorController.swift */; };
+		CC32E2092615D5B700F5F6AA /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E20C2615D5B700F5F6AA /* Inspector.storyboard */; };
+		CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E20C2615D5B700F5F6AA /* Inspector.storyboard */; };
+		CC32E2282615D69300F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E2272615D69300F5F6AA /* Preview.storyboard */; };
+		CC32E2292615D69300F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E2272615D69300F5F6AA /* Preview.storyboard */; };
+		CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
+		CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -744,6 +752,12 @@
 		CC32E1D92615D25700F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Info.storyboard; sourceTree = "<group>"; };
 		CC32E1E32615D25900F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Info.strings; sourceTree = "<group>"; };
 		CC32E1EC2615D25B00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Info.strings"; sourceTree = "<group>"; };
+		CC32E1FF2615D36B00F5F6AA /* InspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorController.swift; sourceTree = "<group>"; };
+		CC32E20B2615D5B700F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Inspector.storyboard; sourceTree = "<group>"; };
+		CC32E2152615D5B900F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Inspector.strings; sourceTree = "<group>"; };
+		CC32E21E2615D5BB00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Inspector.strings"; sourceTree = "<group>"; };
+		CC32E2272615D69300F5F6AA /* Preview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preview.storyboard; sourceTree = "<group>"; };
+		CC32E2312615D6A300F5F6AA /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -1199,8 +1213,19 @@
 		CC32E1F42615D32400F5F6AA /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				CC32E20C2615D5B700F5F6AA /* Inspector.storyboard */,
+				CC32E1FF2615D36B00F5F6AA /* InspectorController.swift */,
 			);
 			path = Inspector;
+			sourceTree = "<group>";
+		};
+		CC32E2262615D62D00F5F6AA /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				CC32E2272615D69300F5F6AA /* Preview.storyboard */,
+				CC32E2312615D6A300F5F6AA /* PreviewController.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		CCA72A15260B28F900A934E2 /* cjson */ = {
@@ -1554,6 +1579,7 @@
 				D6C1E1F123CEC2280027DE6F /* Sidebar */,
 				CC32E1C22615CC2300F5F6AA /* Info */,
 				CC32E1F42615D32400F5F6AA /* Inspector */,
+				CC32E2262615D62D00F5F6AA /* Preview */,
 				1842C47F24798E46008ECD6F /* TagList */,
 				D631E2C823F7FAC300652B17 /* Export */,
 				D684842023D40C9300BC5E34 /* Grid */,
@@ -2296,6 +2322,7 @@
 				D6CB454F248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
+				CC32E2282615D69300F5F6AA /* Preview.storyboard in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
@@ -2309,6 +2336,7 @@
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
+				CC32E2092615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2328,6 +2356,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
+				CC32E2292615D69300F5F6AA /* Preview.storyboard in Resources */,
+				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
@@ -2557,6 +2587,7 @@
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
+				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
@@ -2569,6 +2600,7 @@
 				D61047B824224A170002E990 /* ItemPreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
+				CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
 				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
@@ -2724,6 +2756,7 @@
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
+				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
@@ -2773,6 +2806,7 @@
 				CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
+				CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
@@ -2935,6 +2969,16 @@
 				CC32E1EC2615D25B00F5F6AA /* zh-Hans */,
 			);
 			name = Info.storyboard;
+			sourceTree = "<group>";
+		};
+		CC32E20C2615D5B700F5F6AA /* Inspector.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC32E20B2615D5B700F5F6AA /* Base */,
+				CC32E2152615D5B900F5F6AA /* en */,
+				CC32E21E2615D5BB00F5F6AA /* zh-Hans */,
+			);
+			name = Inspector.storyboard;
 			sourceTree = "<group>";
 		};
 		D64AF09D240D05BB003A5B17 /* General.xib */ = {

@@ -76,6 +76,14 @@ extension SplitController: DropViewDelegate {
     private var sidebarController: SidebarController! {
         return children[2] as? SidebarController
     }
+
+    private var infoController: InfoController! {
+        return sidebarController.infoController
+    }
+
+    private var inspectorController: InspectorController! {
+        return sidebarController.inspectorController
+    }
     
     private var tagListController: TagListController! {
         return sidebarController.tagListController
@@ -107,14 +115,14 @@ extension SplitController: SceneTracking {
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
-        sidebarController.inspectItem(color, shouldSubmit: false)
+        inspectorController.inspectItem(color, shouldSubmit: false)
         parentTracking?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
     func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
-        sidebarController.inspectItem(area, shouldSubmit: false)
+        inspectorController.inspectItem(area, shouldSubmit: false)
         parentTracking?.sceneRawAreaDidChange(sender, to: rect)
     }
     
@@ -339,7 +347,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.addAnnotators(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.inspectItem(item, shouldSubmit: true)
+            inspectorController.inspectItem(item, shouldSubmit: true)
         }
     }
     
@@ -347,7 +355,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.updateAnnotator(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.inspectItem(item, shouldSubmit: true)
+            inspectorController.inspectItem(item, shouldSubmit: true)
         }
     }
     
@@ -356,7 +364,7 @@ extension SplitController: ContentActionDelegate {
         tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.inspectItem(item, shouldSubmit: true)
+            inspectorController.inspectItem(item, shouldSubmit: true)
         }
     }
     
@@ -365,7 +373,7 @@ extension SplitController: ContentActionDelegate {
         tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            sidebarController.inspectItem(item, shouldSubmit: true)
+            inspectorController.inspectItem(item, shouldSubmit: true)
         }
     }
     

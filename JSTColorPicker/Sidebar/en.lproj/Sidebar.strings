@@ -7,17 +7,11 @@
 /* Class = "NSMenuItem"; title = "Tag List"; ObjectID = "F5A-Fc-CMr"; */
 "F5A-Fc-CMr.title" = "Tag List";
 
-/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "G8B-c4-3S6"; */
-"G8B-c4-3S6.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
-
 /* Class = "NSMenuItem"; title = "Information"; ObjectID = "heo-bx-vn7"; */
 "heo-bx-vn7.title" = "Information";
 
 /* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
 "Imo-Rx-LeR.title" = "100%";
-
-/* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
-"UID-HV-iAj.ibShadowedToolTip" = "Show Color Panel (⌃⌘C)";
 
 /* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "VSv-f4-iqr"; */
 "VSv-f4-iqr.title" = "Reset Panes...";
