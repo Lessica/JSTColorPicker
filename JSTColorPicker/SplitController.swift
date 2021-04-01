@@ -19,13 +19,13 @@ class SplitController: NSSplitViewController {
         contentController.actionManager          = self
         sceneController.parentTracking           = self
         sceneController.contentManager           = self
-        sidebarController.previewOverlayDelegate = self
         
         super.viewDidLoad()
         
         contentController.tagManager       = tagListController
         sceneController.tagManager         = tagListController
         sceneToolSource                    = sceneController
+        previewController.overlayDelegate  = self
         tagListController.sceneToolSource  = sceneController
         tagListController.importSource     = contentController
         tagListController.contentManager   = self
@@ -47,7 +47,7 @@ class SplitController: NSSplitViewController {
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
         var previewDelegates: [ItemPreviewDelegate] = [
-            sidebarController,
+            previewController,
         ]
         if let previewParent = parentTracking as? ItemPreviewDelegate {
             previewDelegates.append(previewParent)
@@ -83,6 +83,10 @@ extension SplitController: DropViewDelegate {
 
     private var inspectorController: InspectorController! {
         return sidebarController.inspectorController
+    }
+
+    private var previewController: PreviewController! {
+        return sidebarController.previewController
     }
     
     private var tagListController: TagListController! {
@@ -129,7 +133,7 @@ extension SplitController: SceneTracking {
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
         var sceneTrackings: [SceneTracking] = [
-            sidebarController,
+            previewController,
         ]
         if parentTracking != nil {
             sceneTrackings.append(parentTracking!)

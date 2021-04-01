@@ -46,37 +46,13 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewPlaceholder       : NSView!
     @IBOutlet weak var placeholderConstraint     : NSLayoutConstraint!
 
-    public var infoController                    : InfoController!       { children.first(where: { $0 is InfoController       }) as! InfoController       }
-    public var inspectorController               : InspectorController!  { children.first(where: { $0 is InspectorController  }) as! InspectorController  }
-    public var tagListController                 : TagListController!    { children.first(where: { $0 is TagListController    }) as! TagListController    }
-
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "TagListContainer" && segue.destinationController is TagListController else { return }
-    }
-    
-    internal var previewStage                    : ItemPreviewStage = .none
-    public weak var previewOverlayDelegate       : ItemPreviewResponder!
-    @IBOutlet weak var previewImageView          : PreviewImageView!
-    @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
-    @IBOutlet weak var previewSlider             : NSSlider!
-    @IBOutlet weak var previewSliderBgView       : NSView!
-    @IBOutlet weak var previewSliderLabel        : NSTextField!
-    
-    private var lastStoredRect                   : CGRect?
-    private var lastStoredMagnification          : CGFloat?
+    public var infoController                    : InfoController!       { children.first(where: { $0 is InfoController       }) as? InfoController       }
+    public var inspectorController               : InspectorController!  { children.first(where: { $0 is InspectorController  }) as? InspectorController  }
+    public var previewController                 : PreviewController!    { children.first(where: { $0 is PreviewController    }) as? PreviewController    }
+    public var tagListController                 : TagListController!    { children.first(where: { $0 is TagListController    }) as? TagListController    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        previewSliderLabel.textColor = .white
-        previewOverlayView.overlayDelegate = self
-        
-        lastStoredRect = nil
-        lastStoredMagnification = nil
-
-        resetPreview()
-        
-        previewSlider.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         applyPreferences(nil)
@@ -123,7 +99,7 @@ class SidebarController: NSViewController {
         if paneViewInspector.isHidden != hiddenValue {
             paneViewInspector.isHidden = hiddenValue
             if !hiddenValue {
-                inspectorController?.resetInspector()
+                inspectorController.resetInspector()
             }
             paneChanged = true
         }
@@ -132,7 +108,7 @@ class SidebarController: NSViewController {
         if paneViewPreview.isHidden != hiddenValue {
             paneViewPreview.isHidden = hiddenValue
             if !hiddenValue {
-                resetPreview()
+                previewController.resetPreview()
             }
             paneChanged = true
         }
@@ -184,141 +160,19 @@ class SidebarController: NSViewController {
 }
 
 extension SidebarController: ScreenshotLoader {
-    
-    private static var byteFormatter: ByteCountFormatter = {
-        let formatter = ByteCountFormatter.init()
-        return formatter
-    }()
-    private static var exifDateFormatter: DateFormatter = {
-        let formatter = DateFormatter.init()
-        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
-        return formatter
-    }()
-    private static var defaultDateFormatter: DateFormatter = {
-        let formatter = DateFormatter.init()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
-        return formatter
-    }()
-    
     func load(_ screenshot: Screenshot) throws {
-        guard let image = screenshot.image else {
-            throw Screenshot.Error.invalidImage
-        }
-        
         self.screenshot = screenshot
-        try infoController?.load(screenshot)
-        
-        lastStoredRect = nil
-        lastStoredMagnification = nil
+        try infoController.load(screenshot)
+        try previewController.load(screenshot)
 
-        inspectorController?.resetInspector()
-        resetPreview()
-        
-        let previewSize = image.size.toCGSize()
-        let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
-        let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
-        
-        previewImageView.setImage(previewImage)
-        previewOverlayView.imageSize = previewSize
-        previewOverlayView.highlightArea = previewRect
-        
-        previewSlider.isEnabled = true
+        inspectorController.resetInspector()
+        previewController.resetPreview()
+
         resetDividers()
     }
-    
-}
-
-extension SidebarController: ItemPreviewDelegate {
-    
-    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
-        guard let sender = sender else { return }
-        updatePreview(to: rect, magnification: sender.wrapperRestrictedMagnification)
-    }
-    
-    func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
-        guard let rect = rect,
-            let magnification = magnification else { return }
-        updatePreview(to: rect, magnification: magnification)
-    }
-    
-    func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard !paneViewPreview.isHidden else {
-            lastStoredRect = rect
-            lastStoredMagnification = magnification
-            return
-        }
-        
-        if let imageSize = screenshot?.image?.size, !rect.isEmpty {
-            
-            let imageBounds = CGRect(origin: .zero, size: imageSize.toCGSize())
-            let imageRestrictedRect = rect.intersection(imageBounds)
-            
-            let previewRect = imageBounds.aspectFit(in: previewImageView.bounds)
-            let previewScale = min(previewRect.width / CGFloat(imageSize.width), previewRect.height / CGFloat(imageSize.height))
-            
-            let highlightRect = CGRect(x: previewRect.minX + imageRestrictedRect.minX * previewScale, y: previewRect.minY + imageRestrictedRect.minY * previewScale, width: imageRestrictedRect.width * previewScale, height: imageRestrictedRect.height * previewScale)
-            
-            previewOverlayView.highlightArea = highlightRect
-            
-        } else {
-            previewOverlayView.highlightArea = .null
-        }
-        
-        previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
-        previewSlider.doubleValue = Double(log2(magnification))
-    }
-    
-    private func resetPreview() {
-        guard let lastStoredRect = lastStoredRect,
-            let lastStoredMagnification = lastStoredMagnification else { return }
-        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
-    }
-    
-}
-
-extension SidebarController: ItemPreviewSender, ItemPreviewResponder {
-    
-    @IBAction func previewSliderValueChanged(_ sender: NSSlider) {
-        let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
-        if isPressed {
-            if previewStage == .none || previewStage == .end {
-                previewStage = .begin
-            } else if previewStage == .begin {
-                previewStage = .inProgress
-            }
-        } else {
-            if previewStage == .begin || previewStage == .inProgress {
-                previewStage = .end
-            } else if previewStage == .end {
-                previewStage = .none
-            }
-        }
-        previewAction(self, toMagnification: CGFloat(pow(2, sender.doubleValue)))
-        previewSliderLabel.isHidden = !isPressed
-        previewSliderBgView.isHidden = !isPressed
-    }
-    
-    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
-        previewOverlayDelegate.previewAction(sender, atAbsolutePoint: point, animated: animated)
-    }
-    
-    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
-        previewOverlayDelegate.previewAction(sender, atRelativePosition: position, animated: animated)
-    }
-    
-    func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
-        previewOverlayDelegate.previewAction(sender, atCoordinate: coordinate, animated: animated)
-    }
-    
-    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
-        previewOverlayDelegate.previewAction(sender, toMagnification: magnification)
-    }
-    
 }
 
 extension SidebarController: PixelMatchResponder {
-    
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
         infoController?.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
         resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
@@ -328,11 +182,9 @@ extension SidebarController: PixelMatchResponder {
         infoController?.endPixelMatchComparison()
         resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
     }
-    
 }
 
 extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
-    
     private var hasAttachedSheet: Bool { view.window?.attachedSheet != nil }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -362,11 +214,9 @@ extension SidebarController: NSMenuItemValidation, NSMenuDelegate {
             }
         }
     }
-    
 }
 
 extension SidebarController: NSSplitViewDelegate {
-    
     func splitView(_ splitView: NSSplitView, effectiveRect proposedEffectiveRect: NSRect, forDrawnRect drawnRect: NSRect, ofDividerAt dividerIndex: Int) -> NSRect {
         guard dividerIndex < splitView.arrangedSubviews.count else { return proposedEffectiveRect }
         return splitView.arrangedSubviews[dividerIndex].isHidden ? .zero : proposedEffectiveRect
@@ -376,6 +226,5 @@ extension SidebarController: NSSplitViewDelegate {
         guard dividerIndex < splitView.arrangedSubviews.count else { return false }
         return splitView.arrangedSubviews[dividerIndex].isHidden
     }
-    
 }
 

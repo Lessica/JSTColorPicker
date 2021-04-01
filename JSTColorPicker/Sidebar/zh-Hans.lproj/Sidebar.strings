@@ -1,6 +1,3 @@
-/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
-"8AH-8J-GW3.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
-
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "dml-TB-Eg1"; */
 "dml-TB-Eg1.title" = "图像预览";
 
@@ -9,9 +6,6 @@
 
 /* Class = "NSMenuItem"; title = "Information"; ObjectID = "heo-bx-vn7"; */
 "heo-bx-vn7.title" = "信息";
-
-/* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
-"Imo-Rx-LeR.title" = "100%";
 
 /* Class = "NSMenuItem"; title = "Reset Panes..."; ObjectID = "VSv-f4-iqr"; */
 "VSv-f4-iqr.title" = "重置面板...";

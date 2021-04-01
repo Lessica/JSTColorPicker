@@ -35,6 +35,9 @@
                                                                         <constraint firstAttribute="height" constant="16" id="0z0-sh-uhL"/>
                                                                         <constraint firstAttribute="width" constant="16" id="A1w-B9-iti"/>
                                                                     </constraints>
+                                                                    <connections>
+                                                                        <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="KYP-yz-H6L"/>
+                                                                    </connections>
                                                                 </view>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwA-AO-bO0">
                                                                     <rect key="frame" x="26" y="8" width="4" height="11"/>
@@ -86,6 +89,9 @@
                                                                         <constraint firstAttribute="width" constant="16" id="j5P-L2-7d6"/>
                                                                         <constraint firstAttribute="height" constant="16" id="xyx-af-oYH"/>
                                                                     </constraints>
+                                                                    <connections>
+                                                                        <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="U2Q-KE-zLN"/>
+                                                                    </connections>
                                                                 </view>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ky9-JE-lp4">
                                                                     <rect key="frame" x="26" y="8" width="4" height="11"/>

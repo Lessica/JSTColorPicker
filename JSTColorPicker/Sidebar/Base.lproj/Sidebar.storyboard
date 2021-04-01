@@ -55,75 +55,19 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
                                         <rect key="frame" x="0.0" y="292" width="300" height="260"/>
                                         <subviews>
-                                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-zE-Ub5">
-                                                <rect key="frame" x="25" y="-4" width="250" height="266"/>
-                                                <view key="contentView" id="kW4-LL-dQv">
-                                                    <rect key="frame" x="8" y="0.0" width="234" height="266"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <view horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7i-wdv" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="4" y="32" width="226" height="226"/>
-                                                        </view>
-                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="W1Q-HV-wY8" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="4" y="32" width="226" height="226"/>
-                                                            <subviews>
-                                                                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vie-6X-iBJ" customClass="LabelBgView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="94" y="7" width="39" height="19"/>
-                                                                </customView>
-                                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rhi-Yn-OJy">
-                                                                    <rect key="frame" x="96" y="12" width="35" height="13"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="100%" drawsBackground="YES" usesSingleLineMode="YES" id="Imo-Rx-LeR">
-                                                                        <font key="font" metaFont="fixedUser" size="11"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="W1Q-HV-wY8" secondAttribute="height" multiplier="1:1" id="8Gx-G3-WKX"/>
-                                                                <constraint firstAttribute="width" constant="226" id="ATJ-wZ-oJs"/>
-                                                                <constraint firstItem="Rhi-Yn-OJy" firstAttribute="centerX" secondItem="W1Q-HV-wY8" secondAttribute="centerX" id="B3Z-GG-5Pw"/>
-                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="height" secondItem="Rhi-Yn-OJy" secondAttribute="height" constant="6" id="UMd-Jg-c9M"/>
-                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="centerY" secondItem="Rhi-Yn-OJy" secondAttribute="centerY" constant="2" id="Y3g-e8-bb0"/>
-                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="leading" secondItem="Rhi-Yn-OJy" secondAttribute="leading" constant="-2" id="Yir-AD-vfF"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Rhi-Yn-OJy" secondAttribute="bottom" constant="12" id="nD3-MZ-SOG"/>
-                                                                <constraint firstItem="vie-6X-iBJ" firstAttribute="trailing" secondItem="Rhi-Yn-OJy" secondAttribute="trailing" constant="2" id="wZ6-ng-31o"/>
-                                                            </constraints>
-                                                        </customView>
-                                                        <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8AH-8J-GW3">
-                                                            <rect key="frame" x="2" y="-6" width="230" height="32"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="24" id="u4c-19-v8O"/>
-                                                            </constraints>
-                                                            <sliderCell key="cell" continuous="YES" enabled="NO" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="vaR-Y4-kA5"/>
-                                                            <connections>
-                                                                <action selector="previewSliderValueChanged:" target="IfO-80-1iw" id="b0g-Jp-4yC"/>
-                                                            </connections>
-                                                        </slider>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="fAw-7i-wdv" firstAttribute="top" secondItem="W1Q-HV-wY8" secondAttribute="top" id="6mr-V6-U5N"/>
-                                                        <constraint firstItem="fAw-7i-wdv" firstAttribute="leading" secondItem="W1Q-HV-wY8" secondAttribute="leading" id="6qn-lS-VoY"/>
-                                                        <constraint firstItem="fAw-7i-wdv" firstAttribute="bottom" secondItem="W1Q-HV-wY8" secondAttribute="bottom" id="8GD-kG-oph"/>
-                                                        <constraint firstItem="W1Q-HV-wY8" firstAttribute="leading" secondItem="kW4-LL-dQv" secondAttribute="leading" constant="4" id="EYF-Ei-G30"/>
-                                                        <constraint firstItem="W1Q-HV-wY8" firstAttribute="centerX" secondItem="kW4-LL-dQv" secondAttribute="centerX" id="J2H-gN-c42"/>
-                                                        <constraint firstItem="W1Q-HV-wY8" firstAttribute="top" secondItem="kW4-LL-dQv" secondAttribute="top" constant="8" id="Vvu-jH-i0m"/>
-                                                        <constraint firstItem="8AH-8J-GW3" firstAttribute="leading" secondItem="kW4-LL-dQv" secondAttribute="leading" constant="4" id="X0d-v6-rOO"/>
-                                                        <constraint firstAttribute="trailing" secondItem="8AH-8J-GW3" secondAttribute="trailing" constant="4" id="XWr-hJ-npw"/>
-                                                        <constraint firstItem="8AH-8J-GW3" firstAttribute="top" secondItem="W1Q-HV-wY8" secondAttribute="bottom" constant="8" id="aOa-tn-i96"/>
-                                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="8AH-8J-GW3" secondAttribute="bottom" constant="8" id="eVf-Vk-PF3"/>
-                                                        <constraint firstItem="fAw-7i-wdv" firstAttribute="trailing" secondItem="W1Q-HV-wY8" secondAttribute="trailing" id="yEz-QD-Aqm"/>
-                                                    </constraints>
-                                                </view>
-                                                <size key="contentViewMargins" width="8" height="0.0"/>
-                                            </box>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="oag-ZH-lLl">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="260"/>
+                                                <connections>
+                                                    <segue destination="31P-dP-iCd" kind="embed" id="eDZ-Kf-r8U"/>
+                                                </connections>
+                                            </containerView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="UFe-zE-Ub5" secondAttribute="bottom" id="LCa-dI-02H"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UFe-zE-Ub5" secondAttribute="trailing" constant="4" id="iOg-9D-8qS"/>
-                                            <constraint firstItem="UFe-zE-Ub5" firstAttribute="centerX" secondItem="XPn-It-24S" secondAttribute="centerX" id="lM0-VH-r73"/>
+                                            <constraint firstItem="oag-ZH-lLl" firstAttribute="leading" secondItem="XPn-It-24S" secondAttribute="leading" id="158-4P-10H"/>
+                                            <constraint firstAttribute="bottom" secondItem="oag-ZH-lLl" secondAttribute="bottom" id="8Am-sj-6gM"/>
+                                            <constraint firstItem="oag-ZH-lLl" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="WtD-i9-2Ex"/>
                                             <constraint firstAttribute="height" constant="260" placeholder="YES" id="w0l-sE-ZDG"/>
-                                            <constraint firstItem="UFe-zE-Ub5" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="xEc-bj-Jcd"/>
+                                            <constraint firstAttribute="trailing" secondItem="oag-ZH-lLl" secondAttribute="trailing" id="zs4-y2-2Wm"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
@@ -182,11 +126,6 @@
                         <outlet property="paneViewPreview" destination="XPn-It-24S" id="tTk-jQ-E4t"/>
                         <outlet property="paneViewTagList" destination="H61-xT-7a0" id="Pav-H6-iFc"/>
                         <outlet property="placeholderConstraint" destination="De9-Ns-Fzb" id="5of-j3-Fy4"/>
-                        <outlet property="previewImageView" destination="fAw-7i-wdv" id="mQx-HY-Pxq"/>
-                        <outlet property="previewOverlayView" destination="W1Q-HV-wY8" id="EXG-dk-Hm8"/>
-                        <outlet property="previewSlider" destination="8AH-8J-GW3" id="Q2A-Ek-Pq1"/>
-                        <outlet property="previewSliderBgView" destination="vie-6X-iBJ" id="cX9-sd-6pt"/>
-                        <outlet property="previewSliderLabel" destination="Rhi-Yn-OJy" id="IQT-Ey-gRV"/>
                         <outlet property="splitView" destination="RZA-N1-cn7" id="Z43-4U-xQf"/>
                     </connections>
                 </viewController>
@@ -247,6 +186,14 @@
                 <customObject id="BTh-YY-oXj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2752" y="-65"/>
+        </scene>
+        <!--Preview-->
+        <scene sceneID="89b-Jw-jpS">
+            <objects>
+                <controllerPlaceholder storyboardName="Preview" id="31P-dP-iCd" sceneMemberID="viewController"/>
+                <customObject id="qIt-Ur-pJy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2757" y="101"/>
         </scene>
         <!--TagList-->
         <scene sceneID="nbR-bg-HNg">

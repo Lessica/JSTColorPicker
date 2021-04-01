@@ -1,0 +1,5 @@
+/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "7x2-C5-jRk"; */
+"7x2-C5-jRk.ibShadowedToolTip" = "Increase/Decrease Magnification (⌘=/⌘-)";
+
+/* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "FRO-AF-Qt1"; */
+"FRO-AF-Qt1.title" = "100%";
