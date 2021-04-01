@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <unistd.h>
+#import <sys/types.h>
+#import <pwd.h>
+#import <assert.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +20,16 @@ static NSString * const kJSTColorPickerHelperBundleIdentifier = @"GXZ23M5TP2.com
 static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
 static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
 static NSString * const kJSTColorPickerHelperErrorDomain = @"com.jst.JSTScreenshotHelper.error";
+NS_INLINE NSString *RealHomeDirectory() {
+    struct passwd *pw = getpwuid(getuid());
+    if (!pw) { return nil; }
+    return [NSString stringWithUTF8String:pw->pw_dir];
+}
 NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
+    NSString *homePath = RealHomeDirectory();
+    if (homePath != nil) {
+        return [homePath stringByAppendingPathComponent:@"Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist"];
+    }
     return [@"~/Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist" stringByExpandingTildeInPath];
 }
 

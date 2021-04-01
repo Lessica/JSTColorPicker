@@ -1,15 +1,18 @@
 PODS:
+  - LetsMove (1.25)
   - MASPreferences (1.3)
   - PromiseKit/CorePromise (6.13.1)
   - Sparkle (1.26.0)
 
 DEPENDENCIES:
+  - LetsMove
   - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
   - PromiseKit/CorePromise
   - Sparkle
 
 SPEC REPOS:
   trunk:
+    - LetsMove
     - PromiseKit
     - Sparkle
 
@@ -23,10 +26,11 @@ CHECKOUT OPTIONS:
     :git: "git@github.com:Lessica/MASPreferences.git"
 
 SPEC CHECKSUMS:
+  LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
 
-PODFILE CHECKSUM: 6109d72c694e2256d615a03f678698af027aa43b
+PODFILE CHECKSUM: fd4df26f5120b1904f3750dc5cee087fce8a08e9
 
 COCOAPODS: 1.10.1

@@ -9,6 +9,7 @@ end
 
 target :JSTColorPickerSparkle do
 	pod 'Sparkle'
+  pod 'LetsMove'
 	pod 'PromiseKit/CorePromise'
 	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
 end

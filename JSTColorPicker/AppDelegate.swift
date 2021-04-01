@@ -11,6 +11,10 @@ import PromiseKit
 import MASPreferences
 import ServiceManagement
 
+#if !SANDBOXED
+import LetsMove
+#endif
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -63,6 +67,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Application Events
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        #if !DEBUG && !SANDBOXED
+        PFMoveToApplicationsFolderIfNecessary()
+        #endif
+    }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if objc_getClass("SUAppcast") != nil {
