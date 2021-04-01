@@ -1,3 +1,6 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Quit Comparison Mode (⇧⌘D)"; ObjectID = "aqZ-u2-d9L"; */
+"aqZ-u2-d9L.ibShadowedToolTip" = "Quit Comparison Mode (⇧⌘D)";
+
 /* Class = "NSBox"; title = "Information"; ObjectID = "GEI-GX-uyj"; */
 "GEI-GX-uyj.title" = "Information";
 

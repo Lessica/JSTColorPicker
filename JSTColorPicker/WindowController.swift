@@ -56,6 +56,7 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarScreenshot              : NSButton!
     
     internal       var previewStage                    : ItemPreviewStage = .none
+    @IBOutlet weak var touchBarPopoverItem             : NSPopoverTouchBarItem!
     @IBOutlet weak var touchBarPreviewSliderItem       : NSSliderTouchBarItem!
     @IBOutlet weak var touchBarPreviewSlider           : NSSlider!
     
@@ -501,14 +502,14 @@ extension WindowController: ItemPreviewDelegate {
     
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
-        let restrictedMagnification = max(min(magnification, sender.maxMagnification), sender.minMagnification)
+        let restrictedMagnification = sender.wrapperRestrictedMagnification
         if restrictedMagnification != lastStoredMagnification {
             lastStoredMagnification = restrictedMagnification
             if let url = screenshot?.fileURL {
                 updateWindowTitle(url, magnification: restrictedMagnification)
             }
         }
-        updatePreview(to: rect, magnification: sender.wrapperRestrictedMagnification)
+        updatePreview(to: rect, magnification: restrictedMagnification)
     }
     
     func ensureOverlayBounds(to rect: CGRect?, magnification: CGFloat?) {
@@ -518,7 +519,7 @@ extension WindowController: ItemPreviewDelegate {
     }
     
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        // "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
+        // guard touchBarPopoverItem.popoverTouchBar.isVisible else { return }
         touchBarPreviewSlider.doubleValue = Double(log2(magnification))
     }
     
