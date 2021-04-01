@@ -205,7 +205,7 @@ extension Screenshot {
             guard let template = ExportManager.selectedTemplate else { return false }
 
             if menuItem.action == #selector(exportAll(_:)) {
-                guard template.allowedExtensions.count > 0          else { return false }
+                guard template.saveInPlace || template.allowedExtensions.count > 0 else { return false }
             }
         }
         return super.validateMenuItem(menuItem)
@@ -218,9 +218,9 @@ extension Screenshot {
         }
         
         if template.isAsync {
-            copyAllContentItemsAsync(from: template)
+            copyAllContentItemsAsync(with: template)
         } else {
-            copyAllContentItems(from: template)
+            copyAllContentItems(with: template)
         }
     }
     
@@ -230,57 +230,77 @@ extension Screenshot {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
-        guard template.allowedExtensions.count > 0 else {
+        guard template.saveInPlace || template.allowedExtensions.count > 0 else {
             presentError(ExportManager.Error.noExtensionSpecified)
             return
         }
 
-        let panel = NSSavePanel()
-        panel.allowedFileTypes = template.allowedExtensions
-        panel.beginSheetModal(for: window) { [unowned self] (resp) in
-            if resp == .OK {
-                if let url = panel.url {
-                    if template.isAsync {
-                        self.exportAllContentItemsAsync(from: template, to: url)
-                    } else {
-                        self.exportAllContentItems(from: template, to: url)
+        if !template.saveInPlace {
+            let panel = NSSavePanel()
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: window) { [unowned self] (resp) in
+                if resp == .OK {
+                    if let url = panel.url {
+                        if template.isAsync {
+                            self.exportAllContentItemsAsync(to: url, with: template)
+                        } else {
+                            self.exportAllContentItems(to: url, with: template)
+                        }
                     }
                 }
+            }
+        } else {
+            if template.isAsync {
+                self.exportAllContentItemsAsyncInPlace(with: template)
+            } else {
+                self.exportAllContentItemsInPlace(with: template)
             }
         }
     }
     
-    private func copyAllContentItems(from template: Template) {
+    private func copyAllContentItems(with template: Template) {
         do {
-            try export.copyAllContentItems()
-        }
-        catch {
+            try export.copyAllContentItems(with: template)
+        } catch {
             presentError(error)
         }
     }
 
-    private func copyAllContentItemsAsync(from template: Template) {
-        extractAllContentItemsAsync(from: template) { [unowned self] in
-            try export.copyAllContentItems()
+    private func copyAllContentItemsAsync(with template: Template) {
+        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
+            try export.copyAllContentItems(with: tmpl)
         }
     }
     
-    private func exportAllContentItems(from template: Template, to url: URL) {
+    private func exportAllContentItems(to url: URL, with template: Template) {
         do {
-            try export.exportAllContentItems(to: url)
-        }
-        catch {
+            try export.exportAllContentItems(to: url, with: template)
+        } catch {
             presentError(error)
         }
     }
 
-    private func exportAllContentItemsAsync(from template: Template, to url: URL) {
-        extractAllContentItemsAsync(from: template) { [unowned self] in
-            try self.export.exportAllContentItems(to: url)
+    private func exportAllContentItemsInPlace(with template: Template) {
+        do {
+            try export.exportAllContentItemsInPlace(with: template)
+        } catch {
+            presentError(error)
         }
     }
 
-    private func extractAllContentItemsAsync(from template: Template, completionHandler completion: @escaping () throws -> Void) {
+    private func exportAllContentItemsAsync(to url: URL, with template: Template) {
+        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
+            try self.export.exportAllContentItems(to: url, with: tmpl)
+        }
+    }
+
+    private func exportAllContentItemsAsyncInPlace(with template: Template) {
+        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
+            try self.export.exportAllContentItemsInPlace(with: tmpl)
+        }
+    }
+
+    private func extractAllContentItemsAsync(with template: Template, completionHandler completion: @escaping (Template) throws -> Void) {
         guard let window = associatedWindowController?.window else { return }
         let loadingAlert = NSAlert()
         loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
@@ -301,7 +321,7 @@ extension Screenshot {
                         window.endSheet(loadingAlert.window)
                     }
                 }
-                try completion()
+                try completion(template)
             } catch {
                 DispatchQueue.main.async { [unowned self] in
                     self.presentError(error)

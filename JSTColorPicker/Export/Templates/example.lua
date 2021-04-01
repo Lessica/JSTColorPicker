@@ -91,9 +91,9 @@ return {
     uuid = "0C2E7537-45A6-43AD-82A6-35D774414A09",  -- required, a unique UUID4 identifier
     name = "Example",                               -- required, name only for display
     version = "2.2",                                -- required, same template with earlier version will not be displayed
-    platformVersion = "2.2",                        -- minimum required software version
+    platformVersion = "2.2",                        -- optional, minimum required software version
     author = "Lessica",                             -- optional, the author of this template script
     description = "This is an example of JSTColorPicker export script.",
-    extension = "lua",                              -- file extension used for exporting
-    generator = generator,                          -- required
+    extension = "lua",                              -- required, file extension used for exporting
+    generator = generator,                          -- required, the content generator
 }

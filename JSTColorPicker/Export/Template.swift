@@ -52,6 +52,7 @@ class Template {
     public let description: String?
     public let allowedExtensions: [String]
     public let isAsync: Bool
+    public let saveInPlace: Bool
     public let items: LuaSwift.Table?
     
     public static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
@@ -86,6 +87,11 @@ class Template {
                 self.isAsync = async
             } else {
                 self.isAsync = false
+            }
+            if let saveInPlace = boolDict["saveInPlace"] {
+                self.saveInPlace = saveInPlace
+            } else {
+                self.saveInPlace = false
             }
             self.items = tab["items"] as? LuaSwift.Table
             

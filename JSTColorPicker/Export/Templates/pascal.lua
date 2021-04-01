@@ -28,6 +28,8 @@ local template = [[<annotation>
 {% endfor %}
 </annotation>]]
 
+local _saveInPlace = true
+
 local generator = function (image, ...)
     local objects = {...}
     local newObjects = {}
@@ -41,17 +43,25 @@ local generator = function (image, ...)
     image['database'] = 'Unknown'
     image['depth'] = 3
     image['segmented'] = 0
-    return lupa.expand(template, image)
+    local outputContent = lupa.expand(template, image)
+    if _saveInPlace then
+        local outputPath = image['path'] .. '.xml'
+        local outputFile = assert(io.open(outputPath, "w"))
+        outputFile:write(outputContent)
+        outputFile:close()
+    end
+    return outputContent
 end
 
 return {
-    uuid = "C4B5891D-1D60-43CC-A93F-71E3C42D735F",
-    name = "PASCAL VOC",
-    version = "1.0",
-    platformVersion = "2.2",
-    author = "Lessica",
+    uuid = "C4B5891D-1D60-43CC-A93F-71E3C42D735F",    -- required, a unique UUID4 identifier
+    name = "PASCAL VOC",                              -- required, name only for display
+    version = "1.0",                                  -- required, same template with earlier version will not be displayed
+    platformVersion = "2.2",                          -- optional, minimum required software version
+    author = "Lessica",                               -- optional, the author of this template script
     description = "The XML format for PASCAL Visual Object Classes.",
-    extension = "xml",
-    async = true,
-    generator = generator,
+    extension = "xml",                                -- optional, file extension used for exporting
+    async = true,                                     -- if it takes a long time to generate content, set this to `true` to avoid user interface blocking
+    saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`
+    generator = generator,                            -- required, the content generator
 }

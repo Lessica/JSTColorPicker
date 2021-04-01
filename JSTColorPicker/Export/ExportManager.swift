@@ -122,65 +122,74 @@ class ExportManager {
         }
     }
     
-    public func copyPixelColor(at coordinate: PixelCoordinate) throws {
+    public func copyPixelColor(at coordinate: PixelCoordinate, with template: Template) throws {
         if let color = screenshot.image?.color(at: coordinate) {
-            try copyContentItem(color)
+            try copyContentItem(color, with: template)
         }
     }
     
-    public func copyPixelArea(at rect: PixelRect) throws {
+    public func copyPixelArea(at rect: PixelRect, with template: Template) throws {
         if let area = screenshot.image?.area(at: rect) {
-            try copyContentItem(area)
+            try copyContentItem(area, with: template)
         }
     }
     
-    public func copyContentItem(_ item: ContentItem) throws {
-        try copyContentItems([item])
+    public func copyContentItem(_ item: ContentItem, with template: Template) throws {
+        try copyContentItems([item], with: template)
     }
     
-    public func copyContentItems(_ items: [ContentItem]) throws {
+    public func copyContentItems(_ items: [ContentItem], with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
-        guard let selectedTemplate = ExportManager.selectedTemplate else { throw Error.noTemplateSelected }
         do {
             exportToAdditionalPasteboard(items)
-            exportToGeneralStringPasteboard(try selectedTemplate.generate(image, for: items))
+            exportToGeneralStringPasteboard(try template.generate(image, for: items))
         } catch let error as Template.Error {
-            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
             throw error
         } catch {
             throw error
         }
     }
     
-    public func copyAllContentItems() throws {
-        guard let items = screenshot.content?.items else
-        {
-            throw Error.noDocumentLoaded
-        }
-        try copyContentItems(items)
+    public func copyAllContentItems(with template: Template) throws {
+        guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
+        try copyContentItems(items, with: template)
     }
-    
-    public func exportContentItems(_ items: [ContentItem], to url: URL) throws {
+
+    private func _exportContentItems(_ items: [ContentItem], to url: URL?, with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
-        guard let selectedTemplate = ExportManager.selectedTemplate else { throw Error.noTemplateSelected }
         do {
-            if let data = (try selectedTemplate.generate(image, for: items)).data(using: .utf8) {
-                try data.write(to: url)
+            if let url = url {
+                if let data = (try template.generate(image, for: items)).data(using: .utf8) {
+                    try data.write(to: url)
+                }
+            } else {
+                _ = try template.generate(image, for: items)
             }
         } catch let error as Template.Error {
-            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, selectedTemplate.url.path, error.failureReason ?? "")
+            os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
             throw error
         } catch {
             throw error
         }
     }
     
-    public func exportAllContentItems(to url: URL) throws {
-        guard let items = screenshot.content?.items else
-        {
-            throw Error.noDocumentLoaded
-        }
-        try exportContentItems(items, to: url)
+    public func exportContentItems(_ items: [ContentItem], to url: URL, with template: Template) throws {
+        try _exportContentItems(items, to: url, with: template)
+    }
+
+    public func exportContentItemsInPlace(_ items: [ContentItem], with template: Template) throws {
+        try _exportContentItems(items, to: nil, with: template)
+    }
+    
+    public func exportAllContentItems(to url: URL, with template: Template) throws {
+        guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
+        try _exportContentItems(items, to: url, with: template)
+    }
+
+    public func exportAllContentItemsInPlace(with template: Template) throws {
+        guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
+        try _exportContentItems(items, to: nil, with: template)
     }
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {

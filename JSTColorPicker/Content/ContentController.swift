@@ -650,9 +650,9 @@ extension ContentController: ContentDelegate {
         let item = try contentItem(of: coordinate)
         let items = [ContentItem](arrayLiteral: item)
         if template.isAsync {
-            copyContentItemsAsync(items, from: template)
+            copyContentItemsAsync(items, with: template)
         } else {
-            copyContentItems(items, from: template)
+            copyContentItems(items, with: template)
         }
         return item
     }
@@ -740,7 +740,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                     guard let template = ExportManager.selectedTemplate else { return false }
 
                     if menuItem.action == #selector(exportAs(_:)) {
-                        guard template.allowedExtensions.count > 0          else { return false }
+                        guard template.saveInPlace || template.allowedExtensions.count > 0 else { return false }
                     }
                 }
             }
@@ -1022,31 +1022,30 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
 
         if template.isAsync {
-            copyContentItemsAsync(selectedItems, from: template)
+            copyContentItemsAsync(selectedItems, with: template)
         } else {
-            copyContentItems(selectedItems, from: template)
+            copyContentItems(selectedItems, with: template)
         }
     }
 
-    private func copyContentItems(_ items: [ContentItem], from template: Template) {
+    private func copyContentItems(_ items: [ContentItem], with template: Template) {
         do {
             if (items.count == 1) {
-                try self.documentExport?.copyContentItem(items.first!)
+                try self.documentExport?.copyContentItem(items.first!, with: template)
             } else {
-                try self.documentExport?.copyContentItems(items)
+                try self.documentExport?.copyContentItems(items, with: template)
             }
-        }
-        catch {
+        } catch {
             presentError(error)
         }
     }
 
-    private func copyContentItemsAsync(_ items: [ContentItem], from template: Template) {
-        extractContentItemsAsync(items, from: template) { [unowned self] (results) in
+    private func copyContentItemsAsync(_ items: [ContentItem], with template: Template) {
+        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
             if (results.count == 1) {
-                try self.documentExport?.copyContentItem(results.first!)
+                try self.documentExport?.copyContentItem(results.first!, with: tmpl)
             } else {
-                try self.documentExport?.copyContentItems(results)
+                try self.documentExport?.copyContentItems(results, with: tmpl)
             }
         }
     }
@@ -1080,8 +1079,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let data = documentImage?.pngRepresentation(of: area) else { return }
         do {
             try data.write(to: url)
-        }
-        catch {
+        } catch {
             presentError(error)
         }
     }
@@ -1092,42 +1090,63 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
-        guard template.allowedExtensions.count > 0 else {
+        guard template.saveInPlace || template.allowedExtensions.count > 0 else {
             presentError(ExportManager.Error.noExtensionSpecified)
             return
         }
 
-        let panel = NSSavePanel()
-        panel.allowedFileTypes = template.allowedExtensions
-        panel.beginSheetModal(for: view.window!) { (resp) in
-            if resp == .OK {
-                if let url = panel.url {
-                    if template.isAsync {
-                        self.exportContentItemsAsync(selectedItems, from: template, to: url)
-                    } else {
-                        self.exportContentItems(selectedItems, from: template, to: url)
+        if !template.saveInPlace {
+            let panel = NSSavePanel()
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: view.window!) { (resp) in
+                if resp == .OK {
+                    if let url = panel.url {
+                        if template.isAsync {
+                            self.exportContentItemsAsync(selectedItems, to: url, with: template)
+                        } else {
+                            self.exportContentItems(selectedItems, to: url, with: template)
+                        }
                     }
                 }
+            }
+        } else {
+            if template.isAsync {
+                self.exportContentItemsAsyncInPlace(selectedItems, with: template)
+            } else {
+                self.exportContentItemsInPlace(selectedItems, with: template)
             }
         }
     }
     
-    private func exportContentItems(_ items: [ContentItem], from template: Template, to url: URL) {
+    private func exportContentItems(_ items: [ContentItem], to url: URL, with template: Template) {
         do {
-            try documentExport?.exportContentItems(items, to: url)
-        }
-        catch {
+            try documentExport?.exportContentItems(items, to: url, with: template)
+        } catch {
             presentError(error)
         }
     }
 
-    private func exportContentItemsAsync(_ items: [ContentItem], from template: Template, to url: URL) {
-        extractContentItemsAsync(items, from: template) { [unowned self] (results) in
-            try self.documentExport?.exportContentItems(results, to: url)
+    private func exportContentItemsInPlace(_ items: [ContentItem], with template: Template) {
+        do {
+            try documentExport?.exportContentItemsInPlace(items, with: template)
+        } catch {
+            presentError(error)
         }
     }
 
-    private func extractContentItemsAsync(_ items: [ContentItem], from template: Template, completionHandler completion: @escaping (_ items: [ContentItem]) throws -> Void) {
+    private func exportContentItemsAsync(_ items: [ContentItem], to url: URL, with template: Template) {
+        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
+            try self.documentExport?.exportContentItems(results, to: url, with: tmpl)
+        }
+    }
+
+    private func exportContentItemsAsyncInPlace(_ items: [ContentItem], with template: Template) {
+        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
+            try self.documentExport?.exportContentItemsInPlace(results, with: tmpl)
+        }
+    }
+
+    private func extractContentItemsAsync(_ items: [ContentItem], with template: Template, completionHandler completion: @escaping ([ContentItem], Template) throws -> Void) {
         let loadingAlert = NSAlert()
         loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "extractItemsAsync(_:from:completionHandler:)"))
         loadingAlert.alertStyle = .informational
@@ -1147,7 +1166,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                         self.view.window?.endSheet(loadingAlert.window)
                     }
                 }
-                try completion(items)
+                try completion(items, template)
             } catch {
                 DispatchQueue.main.async { [unowned self] in
                     self.presentError(error)

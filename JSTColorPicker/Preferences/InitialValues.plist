@@ -49,7 +49,7 @@
 	<key>defaults.paneView.toggle-preview</key>
 	<true/>
 	<key>defaults.paneView.toggle-taglist</key>
-	<false/>
+	<true/>
 	<key>defaults.pixelMatchAlpha</key>
 	<real>0.5</real>
 	<key>defaults.pixelMatchBackgroundMode</key>
@@ -69,9 +69,9 @@
 	<key>defaults.tableColumn.toggle-id</key>
 	<true/>
 	<key>defaults.tableColumn.toggle-similarity</key>
-	<true/>
-	<key>defaults.tableColumn.toggle-tag</key>
 	<false/>
+	<key>defaults.tableColumn.toggle-tag</key>
+	<true/>
 	<key>defaults.usesAlternativeAreaRepresentation</key>
 	<false/>
 	<key>defaults.usesDetailedToolTips</key>
