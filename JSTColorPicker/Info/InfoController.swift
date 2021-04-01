@@ -8,8 +8,7 @@
 
 import Cocoa
 
-class InfoController: NSViewController {
-
+class InfoController: NSViewController, PaneController {
     @objc dynamic internal weak var screenshot   : Screenshot?
     private var documentObservations             : [NSKeyValueObservation]?
 
@@ -32,20 +31,20 @@ class InfoController: NSViewController {
         debugPrint(error.localizedDescription)
         return error
     }
-
 }
 
 extension InfoController: ScreenshotLoader {
-
     private static var byteFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         return formatter
     }()
+
     private static var exifDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
     }()
+
     private static var defaultDateFormatter: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateStyle = .medium
@@ -53,27 +52,29 @@ extension InfoController: ScreenshotLoader {
         return formatter
     }()
 
+    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
         self.altImageSource = nil
 
-        updateInformationPanel()
-
+        reloadPane()
         documentObservations = [
             observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
                 self.updateInformationPanel()
             }
         ]
+    }
 
+    func reloadPane() {
+        updateInformationPanel()
     }
 
     private func updateInformationPanel() {
-
         imageLabel1.isHidden = false
         if let imageSource1 = imageSource, let attributedText = attributedStringValue(for: imageSource1) {
             imageLabel1.attributedStringValue = attributedText
-        }
-        else {
+        } else {
             imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
         }
 
@@ -81,17 +82,14 @@ extension InfoController: ScreenshotLoader {
             imageLabel2.attributedStringValue = attributedText
             imageLabel2.isHidden = false
             imageActionView.isHidden = false
-        }
-        else {
+        } else {
             imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
             imageLabel2.isHidden = true
             imageActionView.isHidden = true
         }
-
     }
 
     private func attributedStringValue(for source: PixelImage.Source) -> NSAttributedString? {
-
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
         guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
         guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
@@ -141,13 +139,10 @@ extension InfoController: ScreenshotLoader {
         ]))
 
         return attributedResult
-
     }
-
 }
 
 extension InfoController: PixelMatchResponder {
-
     @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
         if let exitComparisonHandler = exitComparisonHandler {
             exitComparisonHandler(true)
@@ -169,5 +164,4 @@ extension InfoController: PixelMatchResponder {
     private var isInComparisonMode: Bool {
         return imageSource != nil && altImageSource != nil
     }
-
 }

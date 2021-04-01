@@ -9,9 +9,8 @@
         <scene sceneID="cOc-d9-fGo">
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="3pQ-Yc-ruh">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
-                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
                                 <rect key="frame" x="-3" y="-4" width="306" height="59"/>
@@ -126,8 +125,8 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="gLR-5I-dcg" firstAttribute="top" secondItem="sCO-0N-7ve" secondAttribute="top" id="LUT-e8-FWt"/>
-                                                        <constraint firstAttribute="bottom" secondItem="gLR-5I-dcg" secondAttribute="bottom" id="Nwh-Mm-UWC"/>
                                                         <constraint firstItem="gLR-5I-dcg" firstAttribute="centerX" secondItem="sCO-0N-7ve" secondAttribute="centerX" id="v5H-fD-Col"/>
+                                                        <constraint firstAttribute="bottom" secondItem="gLR-5I-dcg" secondAttribute="bottom" id="wJ8-X6-KTU"/>
                                                     </constraints>
                                                 </customView>
                                             </subviews>
@@ -140,7 +139,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="cTi-gC-uTV" secondAttribute="trailing" id="JcL-Nb-Gty"/>
                                         <constraint firstItem="cTi-gC-uTV" firstAttribute="top" secondItem="BDQ-F6-YF7" secondAttribute="top" constant="4" id="LBX-jW-Hpd"/>
-                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="cTi-gC-uTV" secondAttribute="bottom" constant="4" id="VV3-Ky-o6B"/>
+                                        <constraint firstAttribute="bottom" secondItem="cTi-gC-uTV" secondAttribute="bottom" constant="4" id="VV3-Ky-o6B"/>
                                         <constraint firstItem="cTi-gC-uTV" firstAttribute="leading" secondItem="BDQ-F6-YF7" secondAttribute="leading" id="uJb-U1-R1e"/>
                                     </constraints>
                                 </view>
@@ -151,7 +150,7 @@
                             <constraint firstItem="dsS-KU-rgc" firstAttribute="leading" secondItem="3pQ-Yc-ruh" secondAttribute="leading" id="PZ0-Ix-fjj"/>
                             <constraint firstItem="dsS-KU-rgc" firstAttribute="top" secondItem="3pQ-Yc-ruh" secondAttribute="top" id="UfS-JB-PIT"/>
                             <constraint firstAttribute="trailing" secondItem="dsS-KU-rgc" secondAttribute="trailing" id="ciR-jl-Bak"/>
-                            <constraint firstAttribute="bottom" secondItem="dsS-KU-rgc" secondAttribute="bottom" id="qXP-hx-e4j"/>
+                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="dsS-KU-rgc" secondAttribute="bottom" id="qXP-hx-e4j"/>
                         </constraints>
                     </view>
                     <connections>

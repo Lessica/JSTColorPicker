@@ -75,6 +75,12 @@
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
+		CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
+		CC84217D26160AE300F1C007 /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC84217C26160AE300F1C007 /* Export.storyboard */; };
+		CC84217E26160AE300F1C007 /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC84217C26160AE300F1C007 /* Export.storyboard */; };
+		CC84218726160AEF00F1C007 /* ExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportController.swift */; };
+		CC84218826160AEF00F1C007 /* ExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportController.swift */; };
 		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
 		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
@@ -762,6 +768,9 @@
 		CC32E2502615F15F00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preview.strings"; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
+		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
+		CC84217C26160AE300F1C007 /* Export.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Export.storyboard; sourceTree = "<group>"; };
+		CC84218626160AEF00F1C007 /* ExportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportController.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
 		CCA72A18260B290600A934E2 /* dtoa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtoa.c; sourceTree = "<group>"; };
@@ -1270,6 +1279,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CC84216A2615F3A200F1C007 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CC84216B2615F3BA00F1C007 /* PaneController.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		CCA72A15260B28F900A934E2 /* cjson */ = {
 			isa = PBXGroup;
 			children = (
@@ -1500,6 +1517,8 @@
 				CCB769F5260A22170029693B /* Templates */,
 				D69374122403A92E007AF7AF /* Template.swift */,
 				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
+				CC84217C26160AE300F1C007 /* Export.storyboard */,
+				CC84218626160AEF00F1C007 /* ExportController.swift */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -1888,6 +1907,7 @@
 		D6C1E1F123CEC2280027DE6F /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				CC84216A2615F3A200F1C007 /* Protocols */,
 				D6729C10240FCBFC000339C2 /* Views */,
 				1842C472247987C9008ECD6F /* Sidebar.storyboard */,
 				D6C1E1F223CEC23F0027DE6F /* SidebarController.swift */,
@@ -2353,6 +2373,7 @@
 				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
+				CC84217D26160AE300F1C007 /* Export.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
@@ -2385,6 +2406,7 @@
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* Sidebar.storyboard in Resources */,
+				CC84217E26160AE300F1C007 /* Export.storyboard in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				CCB769ED260A220F0029693B /* pascal.lua in Resources */,
@@ -2531,6 +2553,7 @@
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
+				CC84218726160AEF00F1C007 /* ExportController.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
@@ -2545,6 +2568,7 @@
 				D610478324224A170002E990 /* AnnotatorOverlay.swift in Sources */,
 				CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D610478424224A170002E990 /* SceneClipView.swift in Sources */,
+				CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */,
 				D610478524224A170002E990 /* GridWindowController.swift in Sources */,
 				D610478624224A170002E990 /* TabDelegate.swift in Sources */,
 				D610478724224A170002E990 /* SplitController.swift in Sources */,
@@ -2826,6 +2850,7 @@
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
+				CC84218826160AEF00F1C007 /* ExportController.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
@@ -2846,6 +2871,7 @@
 				D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
+				CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

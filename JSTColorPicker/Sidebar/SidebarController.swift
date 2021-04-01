@@ -18,7 +18,6 @@ extension NSUserInterfaceItemIdentifier {
 class SidebarController: NSViewController {
     
     private enum PaneDividerIndex: Int {
-        
         case info = 0
         case inspector
         case preview
@@ -32,13 +31,11 @@ class SidebarController: NSViewController {
                 PaneDividerIndex.taglist.rawValue,
             ])
         }
-        
     }
     
     internal weak var screenshot                 : Screenshot?
     
     @IBOutlet weak var splitView                 : NSSplitView!
-    
     @IBOutlet weak var paneViewInfo              : NSView!
     @IBOutlet weak var paneViewInspector         : NSView!
     @IBOutlet weak var paneViewPreview           : NSView!
@@ -46,14 +43,33 @@ class SidebarController: NSViewController {
     @IBOutlet weak var paneViewPlaceholder       : NSView!
     @IBOutlet weak var placeholderConstraint     : NSLayoutConstraint!
 
+    private var paneViews                        : [NSView]              {
+        [
+            paneViewInfo,
+            paneViewInspector,
+            paneViewPreview,
+            paneViewTagList,
+            paneViewPlaceholder,
+        ]
+    }
+
     public var infoController                    : InfoController!       { children.first(where: { $0 is InfoController       }) as? InfoController       }
     public var inspectorController               : InspectorController!  { children.first(where: { $0 is InspectorController  }) as? InspectorController  }
     public var previewController                 : PreviewController!    { children.first(where: { $0 is PreviewController    }) as? PreviewController    }
     public var tagListController                 : TagListController!    { children.first(where: { $0 is TagListController    }) as? TagListController    }
+    public var paneControllers                   : [PaneController]      {
+        [
+            infoController,
+            inspectorController,
+            previewController,
+            tagListController,
+        ]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        paneViews.forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
+
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         applyPreferences(nil)
     }
@@ -92,6 +108,9 @@ class SidebarController: NSViewController {
         hiddenValue = !UserDefaults.standard[.togglePaneViewInformation]
         if paneViewInfo.isHidden != hiddenValue {
             paneViewInfo.isHidden = hiddenValue
+            if !hiddenValue {
+                infoController.reloadPane()
+            }
             paneChanged = true
         }
         
@@ -99,7 +118,7 @@ class SidebarController: NSViewController {
         if paneViewInspector.isHidden != hiddenValue {
             paneViewInspector.isHidden = hiddenValue
             if !hiddenValue {
-                inspectorController.resetInspector()
+                inspectorController.reloadPane()
             }
             paneChanged = true
         }
@@ -108,7 +127,7 @@ class SidebarController: NSViewController {
         if paneViewPreview.isHidden != hiddenValue {
             paneViewPreview.isHidden = hiddenValue
             if !hiddenValue {
-                previewController.resetPreview()
+                previewController.reloadPane()
             }
             paneChanged = true
         }
@@ -116,6 +135,9 @@ class SidebarController: NSViewController {
         hiddenValue = !UserDefaults.standard[.togglePaneViewTagList]
         if paneViewTagList.isHidden != hiddenValue {
             paneViewTagList.isHidden = hiddenValue
+            if !hiddenValue {
+                tagListController.reloadPane()
+            }
             paneChanged = true
         }
 
@@ -162,11 +184,8 @@ class SidebarController: NSViewController {
 extension SidebarController: ScreenshotLoader {
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
-        try infoController.load(screenshot)
-        try previewController.load(screenshot)
-
-        inspectorController.resetInspector()
-        previewController.resetPreview()
+        try paneControllers.forEach({ try $0.load(screenshot) })
+        paneControllers.forEach({ $0.reloadPane() })
 
         resetDividers()
     }

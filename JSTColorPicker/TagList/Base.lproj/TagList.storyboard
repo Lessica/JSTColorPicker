@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,9 +9,8 @@
         <scene sceneID="CSH-gG-8Jg">
             <objects>
                 <viewController id="ifY-36-Ao8" customClass="TagListController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="zip-Pl-41D">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="zip-Pl-41D">
                         <rect key="frame" x="0.0" y="0.0" width="248" height="613"/>
-                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box borderType="none" title="Tags" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUd-5h-qZT">
                                 <rect key="frame" x="-3" y="-4" width="254" height="619"/>

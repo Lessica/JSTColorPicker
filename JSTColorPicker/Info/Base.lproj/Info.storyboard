@@ -9,18 +9,17 @@
         <scene sceneID="Y6v-Bh-ngS">
             <objects>
                 <viewController id="QE8-38-fA1" customClass="InfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="TNs-V1-cem">
-                        <rect key="frame" x="0.0" y="0.0" width="306" height="237"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
+                        <rect key="frame" x="0.0" y="0.0" width="306" height="238"/>
                         <subviews>
                             <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
-                                <rect key="frame" x="-3" y="-4" width="312" height="243"/>
+                                <rect key="frame" x="-3" y="-4" width="312" height="244"/>
                                 <view key="contentView" id="JH3-cU-X8Y">
-                                    <rect key="frame" x="8" y="0.0" width="296" height="243"/>
+                                    <rect key="frame" x="8" y="0.0" width="296" height="244"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-pw-tzN">
-                                            <rect key="frame" x="8" y="15" width="280" height="212"/>
+                                            <rect key="frame" x="8" y="16" width="280" height="212"/>
                                             <subviews>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-PL-tcm">
                                                     <rect key="frame" x="-2" y="128" width="154" height="84"/>
@@ -54,6 +53,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="aqZ-u2-d9L" firstAttribute="centerX" secondItem="3hE-kr-9bI" secondAttribute="centerX" id="7BF-bU-lan"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aqZ-u2-d9L" secondAttribute="trailing" id="VkI-cJ-a1e"/>
                                                         <constraint firstAttribute="bottom" secondItem="aqZ-u2-d9L" secondAttribute="bottom" id="Y9Z-zm-4V8"/>
                                                         <constraint firstItem="aqZ-u2-d9L" firstAttribute="top" secondItem="3hE-kr-9bI" secondAttribute="top" id="cps-cH-ErQ"/>
                                                     </constraints>
@@ -73,10 +73,6 @@
                                                     </textFieldCell>
                                                 </textField>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="3hE-kr-9bI" firstAttribute="leading" secondItem="XqG-pw-tzN" secondAttribute="leading" id="Mmz-0V-hi6"/>
-                                                <constraint firstAttribute="trailing" secondItem="3hE-kr-9bI" secondAttribute="trailing" id="kFs-zH-YYz"/>
-                                            </constraints>
                                             <visibilityPriorities>
                                                 <integer value="1000"/>
                                                 <integer value="1000"/>
@@ -90,9 +86,9 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="XqG-pw-tzN" secondAttribute="trailing" constant="8" id="JL4-nm-7gm"/>
                                         <constraint firstItem="XqG-pw-tzN" firstAttribute="top" secondItem="JH3-cU-X8Y" secondAttribute="top" constant="16" id="OkC-E3-xgU"/>
-                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="16" id="u0L-kW-Dyi"/>
-                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="centerX" secondItem="JH3-cU-X8Y" secondAttribute="centerX" id="xsX-Mf-28T"/>
+                                        <constraint firstAttribute="bottom" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="16" id="u0L-kW-Dyi"/>
                                         <constraint firstItem="XqG-pw-tzN" firstAttribute="leading" secondItem="JH3-cU-X8Y" secondAttribute="leading" constant="8" id="zkm-sa-Qmi"/>
                                     </constraints>
                                 </view>
@@ -103,7 +99,7 @@
                             <constraint firstAttribute="trailing" secondItem="GEI-GX-uyj" secondAttribute="trailing" id="1Km-zX-atY"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" id="EI4-bp-v0Y"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="leading" secondItem="TNs-V1-cem" secondAttribute="leading" id="N9Y-Ab-6nT"/>
-                            <constraint firstAttribute="bottom" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
+                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
                         </constraints>
                     </view>
                     <connections>

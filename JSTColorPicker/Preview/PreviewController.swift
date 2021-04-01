@@ -8,8 +8,7 @@
 
 import Cocoa
 
-class PreviewController: NSViewController {
-
+class PreviewController: NSViewController, PaneController {
     internal weak var screenshot                 : Screenshot?
     internal var previewStage                    : ItemPreviewStage = .none
     public weak var overlayDelegate              : ItemPreviewResponder!
@@ -23,23 +22,27 @@ class PreviewController: NSViewController {
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        previewSliderLabel.textColor = .white
-        previewOverlayView.overlayDelegate = self
 
         lastStoredRect = nil
         lastStoredMagnification = nil
 
-        resetPreview()
-
+        previewOverlayView.overlayDelegate = self
+        previewSliderLabel.textColor = .white
         previewSlider.isEnabled = false
-    }
 
+        reloadPane()
+    }
 }
 
 extension PreviewController: ScreenshotLoader {
+    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
 
     func load(_ screenshot: Screenshot) throws {
         guard let image = screenshot.image else {
@@ -51,7 +54,7 @@ extension PreviewController: ScreenshotLoader {
         lastStoredRect = nil
         lastStoredMagnification = nil
 
-        resetPreview()
+        reloadPane()
 
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
@@ -64,11 +67,15 @@ extension PreviewController: ScreenshotLoader {
         previewSlider.isEnabled = true
     }
 
+    func reloadPane() {
+        guard let lastStoredRect = lastStoredRect,
+              let lastStoredMagnification = lastStoredMagnification else { return }
+        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
+    }
 }
 
 
 extension PreviewController: ItemPreviewDelegate {
-
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
         guard let sender = sender else { return }
         updatePreview(to: rect, magnification: sender.wrapperRestrictedMagnification)
@@ -81,7 +88,7 @@ extension PreviewController: ItemPreviewDelegate {
     }
 
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
-        guard !view.isHidden else {
+        guard !isPaneHidden else {
             lastStoredRect = rect
             lastStoredMagnification = magnification
             return
@@ -106,17 +113,9 @@ extension PreviewController: ItemPreviewDelegate {
         previewSliderLabel.stringValue = "\(Int((magnification * 100.0).rounded(.toNearestOrEven)))%"
         previewSlider.doubleValue = Double(log2(magnification))
     }
-
-    public func resetPreview() {
-        guard let lastStoredRect = lastStoredRect,
-              let lastStoredMagnification = lastStoredMagnification else { return }
-        updatePreview(to: lastStoredRect, magnification: lastStoredMagnification)
-    }
-
 }
 
 extension PreviewController: ItemPreviewSender, ItemPreviewResponder {
-
     @IBAction func previewSliderValueChanged(_ sender: NSSlider) {
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
         if isPressed {
@@ -152,5 +151,4 @@ extension PreviewController: ItemPreviewSender, ItemPreviewResponder {
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
         overlayDelegate.previewAction(sender, toMagnification: magnification)
     }
-
 }

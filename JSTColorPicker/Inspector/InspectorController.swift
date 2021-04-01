@@ -8,7 +8,8 @@
 
 import Cocoa
 
-class InspectorController: NSViewController {
+class InspectorController: NSViewController, PaneController {
+    internal weak var screenshot: Screenshot?
 
     @IBOutlet weak var inspectorColorLabel       : NSTextField!
     @IBOutlet weak var inspectorColorFlag        : ColorIndicator!
@@ -22,13 +23,19 @@ class InspectorController: NSViewController {
         super.viewDidLoad()
         
         _ = colorPanel
-        resetInspector()
+        reloadPane()
     }
-    
+}
+
+extension InspectorController: ScreenshotLoader {
+    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+
+    func load(_ screenshot: Screenshot) throws {
+        self.screenshot = screenshot
+    }
 }
 
 extension InspectorController: ItemInspector {
-
     private var colorPanel: NSColorPanel {
         let panel = NSColorPanel.shared
         panel.showsAlpha = true
@@ -46,8 +53,7 @@ extension InspectorController: ItemInspector {
     }
 
     func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool) {
-
-        guard !view.isHidden else {
+        guard !isPaneHidden else {
 
             if let color = item as? PixelColor,
                submit && colorPanel.isVisible
@@ -63,7 +69,6 @@ extension InspectorController: ItemInspector {
         }
 
         if let color = item as? PixelColor {
-
             if !submit {
                 inspectorColorLabel.stringValue = """
 R:\(String(color.red).leftPadding(to: 5, with: " "))\(String(format: "0x%02X", color.red).leftPadding(to: 6, with: " "))
@@ -114,10 +119,9 @@ H:\(String(area.rect.height).leftPadding(to: 11, with: " "))
 """
             }
         }
-
     }
 
-    public func resetInspector() {
+    func reloadPane() {
         inspectorColorFlag.setImage(NSImage(color: .clear, size: inspectorColorFlag.bounds.size))
         inspectorColorLabel.stringValue = """
 R:\("-".leftPadding(to: 11, with: " "))
@@ -141,5 +145,4 @@ CSS:\("-".leftPadding(to: 9, with: " "))
 \("-".leftPadding(to: 13, with: " "))
 """
     }
-
 }

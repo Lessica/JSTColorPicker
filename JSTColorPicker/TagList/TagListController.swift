@@ -16,17 +16,16 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 @objc private class TagListControllerWrapper: NSObject {
-    
     public weak var object: TagListController?
     init(_ obj: TagListController?) { object = obj }
     
     @objc internal func colorPanelValueChanged(_ sender: NSColorPanel) {
         object?.colorPanelValueChanged(sender)
     }
-    
 }
 
-class TagListController: NSViewController {
+class TagListController: NSViewController, PaneController {
+    internal weak var screenshot: Screenshot?
     
     private enum PreviewMode {
         case multiple
@@ -509,6 +508,18 @@ class TagListController: NSViewController {
         editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
     }
     
+}
+
+extension TagListController: ScreenshotLoader {
+    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+
+    func load(_ screenshot: Screenshot) throws {
+        self.screenshot = screenshot
+    }
+
+    func reloadPane() {
+        
+    }
 }
 
 extension TagListController: TagListSource {
