@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" autosaveName="SidebarSplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <splitView autosaveName="SidebarSplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
@@ -27,7 +27,7 @@
                                             </containerView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="237" placeholder="YES" id="3Sj-Fj-aJA"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="3Sj-Fj-aJA"/>
                                             <constraint firstAttribute="trailing" secondItem="8bq-T6-Uu9" secondAttribute="trailing" id="A7L-T4-Qte"/>
                                             <constraint firstAttribute="bottom" secondItem="8bq-T6-Uu9" secondAttribute="bottom" id="Ge0-EX-SF8"/>
                                             <constraint firstItem="8bq-T6-Uu9" firstAttribute="leading" secondItem="s0i-Tq-xqT" secondAttribute="leading" id="L3W-0p-hmz"/>
@@ -47,7 +47,7 @@
                                         <constraints>
                                             <constraint firstItem="sik-6V-3cb" firstAttribute="leading" secondItem="E8g-qZ-f5e" secondAttribute="leading" id="Dy0-Hb-B8v"/>
                                             <constraint firstItem="sik-6V-3cb" firstAttribute="top" secondItem="E8g-qZ-f5e" secondAttribute="top" id="Zqa-Sh-hv3"/>
-                                            <constraint firstAttribute="height" constant="53" placeholder="YES" id="b8F-ga-AaV"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="b8F-ga-AaV"/>
                                             <constraint firstAttribute="bottom" secondItem="sik-6V-3cb" secondAttribute="bottom" id="gEc-HN-CaJ"/>
                                             <constraint firstAttribute="trailing" secondItem="sik-6V-3cb" secondAttribute="trailing" id="i9w-uh-oVI"/>
                                         </constraints>
@@ -66,7 +66,7 @@
                                             <constraint firstItem="oag-ZH-lLl" firstAttribute="leading" secondItem="XPn-It-24S" secondAttribute="leading" id="158-4P-10H"/>
                                             <constraint firstAttribute="bottom" secondItem="oag-ZH-lLl" secondAttribute="bottom" id="8Am-sj-6gM"/>
                                             <constraint firstItem="oag-ZH-lLl" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="WtD-i9-2Ex"/>
-                                            <constraint firstAttribute="height" constant="260" placeholder="YES" id="w0l-sE-ZDG"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="w0l-sE-ZDG"/>
                                             <constraint firstAttribute="trailing" secondItem="oag-ZH-lLl" secondAttribute="trailing" id="zs4-y2-2Wm"/>
                                         </constraints>
                                     </customView>
@@ -81,7 +81,7 @@
                                             </containerView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="600" placeholder="YES" id="GTF-ki-UM3"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="GTF-ki-UM3"/>
                                             <constraint firstItem="Jvh-22-aJT" firstAttribute="leading" secondItem="H61-xT-7a0" secondAttribute="leading" id="KxV-5n-VCf"/>
                                             <constraint firstItem="Jvh-22-aJT" firstAttribute="top" secondItem="H61-xT-7a0" secondAttribute="top" id="NJE-cZ-JZ0"/>
                                             <constraint firstAttribute="trailing" secondItem="Jvh-22-aJT" secondAttribute="trailing" id="PCp-lM-7nV"/>

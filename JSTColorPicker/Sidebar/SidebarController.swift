@@ -175,7 +175,7 @@ class SidebarController: NSViewController {
         }
         if !dividerIndexes.isEmpty {
             splitView.adjustSubviews()
-            dividerIndexes.forEach({ splitView.setPosition(splitView.maxPossiblePositionOfDivider(at: $0), ofDividerAt: $0) })
+            dividerIndexes.forEach({ splitView.setPosition(CGFloat.greatestFiniteMagnitude, ofDividerAt: $0) })
         }
     }
     

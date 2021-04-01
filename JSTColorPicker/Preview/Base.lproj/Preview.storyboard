@@ -10,23 +10,23 @@
             <objects>
                 <viewController id="BXe-7q-Y49" customClass="PreviewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="BGG-md-vya">
-                        <rect key="frame" x="0.0" y="0.0" width="244" height="268"/>
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="284"/>
                         <subviews>
-                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd">
-                                <rect key="frame" x="-3" y="-4" width="250" height="274"/>
+                            <box borderType="line" title="Image Preview" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd">
+                                <rect key="frame" x="-3" y="-4" width="252" height="288"/>
                                 <view key="contentView" id="CPy-7x-2lg">
-                                    <rect key="frame" x="8" y="0.0" width="234" height="274"/>
+                                    <rect key="frame" x="11" y="3" width="230" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-oB-hCU" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="4" y="40" width="226" height="226"/>
+                                            <rect key="frame" x="2" y="36" width="226" height="226"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="226" id="Xwt-13-Ses"/>
                                                 <constraint firstAttribute="width" constant="226" id="tvQ-Fj-X0D"/>
                                             </constraints>
                                         </view>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="HYg-d3-2ex" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="4" y="40" width="226" height="226"/>
+                                            <rect key="frame" x="2" y="36" width="226" height="226"/>
                                             <subviews>
                                                 <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WDj-KY-q2N" customClass="LabelBgView" customModule="JSTColorPicker" customModuleProvider="target">
                                                     <rect key="frame" x="94" y="6" width="39" height="21"/>
@@ -50,7 +50,7 @@
                                             </constraints>
                                         </customView>
                                         <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7x2-C5-jRk">
-                                            <rect key="frame" x="2" y="2" width="230" height="28"/>
+                                            <rect key="frame" x="0.0" y="2" width="230" height="28"/>
                                             <sliderCell key="cell" continuous="YES" enabled="NO" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="pAE-QJ-VIC"/>
                                             <connections>
                                                 <action selector="previewSliderValueChanged:" target="BXe-7q-Y49" id="3UK-Ow-DAf"/>
@@ -58,29 +58,27 @@
                                         </slider>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="leading" secondItem="CPy-7x-2lg" secondAttribute="leading" constant="4" id="4OX-ob-kM7"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Ie-oB-hCU" secondAttribute="trailing" constant="2" id="AWK-j2-PLT"/>
                                         <constraint firstItem="HYg-d3-2ex" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="top" id="EPQ-ab-LFJ"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="bottom" constant="8" id="GHu-Ms-PEA"/>
                                         <constraint firstItem="4Ie-oB-hCU" firstAttribute="top" secondItem="CPy-7x-2lg" secondAttribute="top" constant="8" id="Hh1-Bo-pG8"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="centerX" secondItem="CPy-7x-2lg" secondAttribute="centerX" id="Hsd-qe-gos"/>
                                         <constraint firstItem="4Ie-oB-hCU" firstAttribute="centerX" secondItem="CPy-7x-2lg" secondAttribute="centerX" id="QJz-Zt-WfZ"/>
                                         <constraint firstAttribute="bottom" secondItem="7x2-C5-jRk" secondAttribute="bottom" constant="8" id="SIC-sA-Kc2"/>
                                         <constraint firstItem="HYg-d3-2ex" firstAttribute="bottom" secondItem="4Ie-oB-hCU" secondAttribute="bottom" id="VLs-lc-jyg"/>
                                         <constraint firstItem="HYg-d3-2ex" firstAttribute="trailing" secondItem="4Ie-oB-hCU" secondAttribute="trailing" id="grb-Dl-Sf3"/>
                                         <constraint firstItem="HYg-d3-2ex" firstAttribute="leading" secondItem="4Ie-oB-hCU" secondAttribute="leading" id="qIo-mp-Rhq"/>
-                                        <constraint firstAttribute="trailing" secondItem="7x2-C5-jRk" secondAttribute="trailing" constant="4" id="uwd-IY-qmD"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="leading" secondItem="4Ie-oB-hCU" secondAttribute="leading" id="x5C-Vo-5S6"/>
                                     </constraints>
                                 </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="268" id="4bo-wl-HE6"/>
-                                    <constraint firstAttribute="width" constant="244" id="qUi-U5-ymr"/>
-                                </constraints>
                                 <size key="contentViewMargins" width="8" height="0.0"/>
                             </box>
                         </subviews>
                         <constraints>
                             <constraint firstItem="mmK-Yn-gAd" firstAttribute="top" secondItem="BGG-md-vya" secondAttribute="top" id="1vu-7C-azE"/>
-                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="centerX" secondItem="BGG-md-vya" secondAttribute="centerX" id="RrU-uG-Hmz"/>
+                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="leading" secondItem="BGG-md-vya" secondAttribute="leading" id="ZrW-Xc-nJw"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="mmK-Yn-gAd" secondAttribute="bottom" id="axz-Su-VZT"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mmK-Yn-gAd" secondAttribute="trailing" id="pys-Qi-Uyh"/>
+                            <constraint firstAttribute="trailing" secondItem="mmK-Yn-gAd" secondAttribute="trailing" id="pys-Qi-Uyh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -93,7 +91,7 @@
                 </viewController>
                 <customObject id="paV-hx-oef" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-374" y="102"/>
+            <point key="canvasLocation" x="-374" y="128"/>
         </scene>
     </scenes>
 </document>

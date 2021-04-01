@@ -10,12 +10,12 @@
             <objects>
                 <viewController id="QE8-38-fA1" customClass="InfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
-                        <rect key="frame" x="0.0" y="0.0" width="306" height="238"/>
+                        <rect key="frame" x="0.0" y="0.0" width="312" height="258"/>
                         <subviews>
-                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
-                                <rect key="frame" x="-3" y="-4" width="312" height="244"/>
+                            <box borderType="line" title="Information" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
+                                <rect key="frame" x="-3" y="-4" width="318" height="262"/>
                                 <view key="contentView" id="JH3-cU-X8Y">
-                                    <rect key="frame" x="8" y="0.0" width="296" height="244"/>
+                                    <rect key="frame" x="11" y="3" width="296" height="244"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-pw-tzN">
@@ -93,6 +93,11 @@
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="0.0"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </box>
                         </subviews>
                         <constraints>

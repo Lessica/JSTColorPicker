@@ -49,5 +49,5 @@
 /* Class = "NSTableColumn"; headerCell.title = "Flags"; ObjectID = "XC9-Lg-cBA"; */
 "XC9-Lg-cBA.headerCell.title" = "标识位";
 
-/* Class = "NSBox"; title = "Tags"; ObjectID = "yUd-5h-qZT"; */
-"yUd-5h-qZT.title" = "标签";
+/* Class = "NSBox"; title = "Tag List"; ObjectID = "yUd-5h-qZT"; */
+"yUd-5h-qZT.title" = "标签列表";

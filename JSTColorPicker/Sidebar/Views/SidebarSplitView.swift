@@ -20,7 +20,7 @@ class SidebarSplitView: NSSplitView {
         if event.clickCount == 2 {
             let locationInView = convert(event.locationInWindow, from: nil)
             if let dividerIndex = arrangedSubviews.firstIndex(where: { $0.frame.contains(locationInView) }), dividerIndex < arrangedSubviews.count {
-                setPosition(maxPossiblePositionOfDivider(at: dividerIndex), ofDividerAt: dividerIndex)
+                setPosition(CGFloat.greatestFiniteMagnitude, ofDividerAt: dividerIndex)
                 return
             }
         }

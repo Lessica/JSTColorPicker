@@ -1,3 +1,6 @@
+/* Class = "NSBox"; title = "Color Inspector"; ObjectID = "dsS-KU-rgc"; */
+"dsS-KU-rgc.title" = "颜色指示器";
+
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "hVm-ry-2Rv"; */
 "hVm-ry-2Rv.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";
 

@@ -10,23 +10,23 @@
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="73"/>
                         <subviews>
-                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
-                                <rect key="frame" x="-3" y="-4" width="306" height="59"/>
+                            <box borderType="line" title="Color Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
+                                <rect key="frame" x="-3" y="-4" width="306" height="77"/>
                                 <view key="contentView" id="BDQ-F6-YF7">
-                                    <rect key="frame" x="8" y="0.0" width="290" height="59"/>
+                                    <rect key="frame" x="11" y="3" width="284" height="59"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTi-gC-uTV" customClass="ExpandableSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="4" width="290" height="51"/>
+                                            <rect key="frame" x="0.0" y="4" width="284" height="51"/>
                                             <subviews>
                                                 <customView id="VWR-mb-mb8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="145" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="142" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="huk-cJ-9Bl">
-                                                            <rect key="frame" x="55" y="0.0" width="36" height="51"/>
+                                                            <rect key="frame" x="53" y="0.0" width="36" height="51"/>
                                                             <subviews>
                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p5U-Xq-Z8A" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>
@@ -76,11 +76,11 @@
                                                     </constraints>
                                                 </customView>
                                                 <customView id="sCO-0N-7ve">
-                                                    <rect key="frame" x="146" y="0.0" width="144" height="51"/>
+                                                    <rect key="frame" x="143" y="0.0" width="141" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="gLR-5I-dcg">
-                                                            <rect key="frame" x="54" y="0.0" width="36" height="51"/>
+                                                            <rect key="frame" x="53" y="0.0" width="36" height="51"/>
                                                             <subviews>
                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVm-ry-2Rv" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
                                                                     <rect key="frame" x="4" y="27" width="16" height="16"/>

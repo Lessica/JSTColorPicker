@@ -3,3 +3,6 @@
 
 /* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "FRO-AF-Qt1"; */
 "FRO-AF-Qt1.title" = "100%";
+
+/* Class = "NSBox"; title = "Image Preview"; ObjectID = "mmK-Yn-gAd"; */
+"mmK-Yn-gAd.title" = "Image Preview";
