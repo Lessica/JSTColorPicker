@@ -348,6 +348,9 @@
    ExportError */
 "No document loaded." = "未加载任何文档.";
 
+/* ExportError */
+"No output file extension specified." = "未指定输出文件扩展名.";
+
 /* Content Tag Submenu */
 "No tag attached" = "未关联标签";
 

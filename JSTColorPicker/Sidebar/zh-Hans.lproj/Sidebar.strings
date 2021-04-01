@@ -1,9 +1,3 @@
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1g8-wL-HKB"; */
-"1g8-wL-HKB.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
-
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "1sd-w8-by3"; */
-"1sd-w8-by3.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
-
 /* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "8AH-8J-GW3"; */
 "8AH-8J-GW3.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
 
@@ -21,9 +15,6 @@
 
 /* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "Imo-Rx-LeR"; */
 "Imo-Rx-LeR.title" = "100%";
-
-/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "ocQ-Zc-yHF"; */
-"ocQ-Zc-yHF.title" = "退出比较模式";
 
 /* Class = "NSView"; ibShadowedToolTip = "Show Color Panel (⌃⌘C)"; ObjectID = "UID-HV-iAj"; */
 "UID-HV-iAj.ibShadowedToolTip" = "显示颜色面板 (⌃⌘C)";

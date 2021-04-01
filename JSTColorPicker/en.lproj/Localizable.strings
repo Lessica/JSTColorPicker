@@ -348,6 +348,9 @@
    ExportError */
 "No document loaded." = "No document loaded.";
 
+/* ExportError */
+"No output file extension specified." = "No output file extension specified.";
+
 /* Content Tag Submenu */
 "No tag attached" = "No tag attached";
 

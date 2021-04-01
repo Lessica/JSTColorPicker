@@ -39,21 +39,19 @@ class SidebarController: NSViewController {
     
     @IBOutlet weak var splitView                 : NSSplitView!
     
-    @IBOutlet weak var imageLabel1               : NSTextField!
-    @IBOutlet weak var imageLabel2               : NSTextField!
-    @IBOutlet weak var imageActionView           : NSView!
-    @IBOutlet weak var exitComparisonModeButton  : NSButton!
-    
     @IBOutlet weak var paneViewInfo              : NSView!
     @IBOutlet weak var paneViewInspector         : NSView!
     @IBOutlet weak var paneViewPreview           : NSView!
     @IBOutlet weak var paneViewTagList           : NSView!
     @IBOutlet weak var paneViewPlaceholder       : NSView!
     @IBOutlet weak var placeholderConstraint     : NSLayoutConstraint!
-    
-    private var imageSource                      : PixelImage.Source? { screenshot?.image?.imageSource }
-    private var altImageSource                   : PixelImage.Source?
-    private var exitComparisonHandler            : ((Bool) -> Void)?
+
+    public var infoController                   : InfoController?    { children.first(where: { $0 is InfoController    }) as? InfoController    }
+    public var tagListController                : TagListController? { children.first(where: { $0 is TagListController }) as? TagListController }
+
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "TagListContainer" && segue.destinationController is TagListController else { return }
+    }
     
     @IBOutlet weak var inspectorColorLabel       : NSTextField!
     @IBOutlet weak var inspectorColorFlag        : ColorIndicator!
@@ -71,7 +69,6 @@ class SidebarController: NSViewController {
     @IBOutlet weak var previewSliderBgView       : NSView!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
     
-    private var documentObservations             : [NSKeyValueObservation]?
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
     
@@ -84,8 +81,7 @@ class SidebarController: NSViewController {
         
         lastStoredRect = nil
         lastStoredMagnification = nil
-        
-        updateInformationPanel()
+
         resetInspector()
         resetPreview()
         
@@ -215,18 +211,16 @@ extension SidebarController: ScreenshotLoader {
     }()
     
     func load(_ screenshot: Screenshot) throws {
-        
         guard let image = screenshot.image else {
             throw Screenshot.Error.invalidImage
         }
         
         self.screenshot = screenshot
-        self.altImageSource = nil
+        try infoController?.load(screenshot)
         
         lastStoredRect = nil
         lastStoredMagnification = nil
-        
-        updateInformationPanel()
+
         resetInspector()
         resetPreview()
         
@@ -240,90 +234,6 @@ extension SidebarController: ScreenshotLoader {
         
         previewSlider.isEnabled = true
         resetDividers()
-        
-        documentObservations = [
-            screenshot.observe(\.fileURL, options: [.new]) { [unowned self] (_, change) in
-                self.updateInformationPanel()
-            }
-        ]
-        
-    }
-    
-    private func updateInformationPanel() {
-        
-        imageLabel1.isHidden = false
-        if let imageSource1 = imageSource, let attributedText = attributedStringValue(for: imageSource1) {
-            imageLabel1.attributedStringValue = attributedText
-        }
-        else {
-            imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
-        }
-        
-        if let imageSource2 = altImageSource, let attributedText = attributedStringValue(for: imageSource2) {
-            imageLabel2.attributedStringValue = attributedText
-            imageLabel2.isHidden = false
-            imageActionView.isHidden = false
-        }
-        else {
-            imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
-            imageLabel2.isHidden = true
-            imageActionView.isHidden = true
-        }
-        
-    }
-    
-    private func attributedStringValue(for source: PixelImage.Source) -> NSAttributedString? {
-        
-        guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
-        guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
-        guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
-        
-        var createdAtDesc: String?
-        if let createdAt = attrs[.creationDate] as? Date {
-            createdAtDesc = SidebarController.defaultDateFormatter.string(from: createdAt)
-        }
-        var modifiedAtDesc: String?
-        if let modifiedAt = attrs[.modificationDate] as? Date {
-            modifiedAtDesc = SidebarController.defaultDateFormatter.string(from: modifiedAt)
-        }
-        
-        let snapshotAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
-        var snapshotAtDesc: String?
-        if let snapshotAt = SidebarController.exifDateFormatter.date(from: snapshotAtStr) {
-            snapshotAtDesc = SidebarController.defaultDateFormatter.string(from: snapshotAt)
-        }
-        
-        let fileSize = SidebarController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
-        let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
-        let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byClipping
-        let attributedResult = NSMutableAttributedString(string: source.url.lastPathComponent, attributes: [
-            NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 11.0),
-            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ])
-        
-        var additionalString = "\n"
-        additionalString += String(format: "%@ - %@", NSLocalizedString("PNG Image", comment: "Information Panel"), fileSize) + "\n"
-        additionalString += "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Created At", comment: "Information Panel"), createdAtDesc ?? "Unknown") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Modified At", comment: "Information Panel"), modifiedAtDesc ?? "Unknown") + "\n"
-        if snapshotAtDesc != nil { additionalString += String(format: "%@: %@", NSLocalizedString("Snapshot At", comment: "Information Panel"), snapshotAtDesc ?? "Unknown") + "\n" }
-        additionalString += "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Dimensions", comment: "Information Panel"), "\(pixelXDimension)×\(pixelYDimension)") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Color Space", comment: "Information Panel"), (props[kCGImagePropertyColorModel] as? String) ?? "Unknown") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Color Profile", comment: "Information Panel"), (props[kCGImagePropertyProfileName] as? String) ?? "Unknown")
-        
-        attributedResult.append(NSAttributedString(string: additionalString, attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 11.0),
-            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ]))
-        
-        return attributedResult
-        
     }
     
 }
@@ -535,28 +445,14 @@ extension SidebarController: ItemPreviewSender, ItemPreviewResponder {
 
 extension SidebarController: PixelMatchResponder {
     
-    @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
-        if let exitComparisonHandler = exitComparisonHandler {
-            exitComparisonHandler(true)
-        }
-    }
-    
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
-        altImageSource = image.imageSource
-        exitComparisonHandler = completionHandler
-        updateInformationPanel()
+        infoController?.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
         resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
     }
     
     func endPixelMatchComparison() {
-        altImageSource = nil
-        exitComparisonHandler = nil
-        updateInformationPanel()
+        infoController?.endPixelMatchComparison()
         resetDividers(in: IndexSet(integer: PaneDividerIndex.info.rawValue))
-    }
-    
-    private var isInComparisonMode: Bool {
-        return imageSource != nil && altImageSource != nil
     }
     
 }
@@ -605,18 +501,6 @@ extension SidebarController: NSSplitViewDelegate {
     func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
         guard dividerIndex < splitView.arrangedSubviews.count else { return false }
         return splitView.arrangedSubviews[dividerIndex].isHidden
-    }
-    
-}
-
-extension SidebarController {
-    
-    public var tagListController: TagListController! {
-        return children.first as? TagListController
-    }
-    
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "TagListContainer" && segue.destinationController is TagListController else { return }
     }
     
 }

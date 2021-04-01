@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="QE8-38-fA1">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Info Controller-->
+        <scene sceneID="Y6v-Bh-ngS">
+            <objects>
+                <viewController id="QE8-38-fA1" customClass="InfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="TNs-V1-cem">
+                        <rect key="frame" x="0.0" y="0.0" width="306" height="237"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
+                                <rect key="frame" x="-3" y="-4" width="312" height="243"/>
+                                <view key="contentView" id="JH3-cU-X8Y">
+                                    <rect key="frame" x="8" y="0.0" width="296" height="243"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-pw-tzN">
+                                            <rect key="frame" x="8" y="15" width="280" height="212"/>
+                                            <subviews>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-PL-tcm">
+                                                    <rect key="frame" x="-2" y="128" width="154" height="84"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="UeP-pd-IhT">
+                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <string key="title">Open or drop an image here.
+
+
+
+
+</string>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="3hE-kr-9bI">
+                                                    <rect key="frame" x="0.0" y="96" width="280" height="20"/>
+                                                    <subviews>
+                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aqZ-u2-d9L">
+                                                            <rect key="frame" x="53" y="-7" width="174" height="32"/>
+                                                            <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kzg-6T-J5n">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <string key="keyEquivalent">D</string>
+                                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="exitComparisonModeButtonTapped:" target="QE8-38-fA1" id="8vB-Fd-S2U"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="aqZ-u2-d9L" firstAttribute="centerX" secondItem="3hE-kr-9bI" secondAttribute="centerX" id="7BF-bU-lan"/>
+                                                        <constraint firstAttribute="bottom" secondItem="aqZ-u2-d9L" secondAttribute="bottom" id="Y9Z-zm-4V8"/>
+                                                        <constraint firstItem="aqZ-u2-d9L" firstAttribute="top" secondItem="3hE-kr-9bI" secondAttribute="top" id="cps-cH-ErQ"/>
+                                                    </constraints>
+                                                </customView>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0i-mI-DaK">
+                                                    <rect key="frame" x="-2" y="0.0" width="154" height="84"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="q3y-IR-g7i">
+                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <string key="title">Open or drop an image here.
+
+
+
+
+</string>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3hE-kr-9bI" firstAttribute="leading" secondItem="XqG-pw-tzN" secondAttribute="leading" id="Mmz-0V-hi6"/>
+                                                <constraint firstAttribute="trailing" secondItem="3hE-kr-9bI" secondAttribute="trailing" id="kFs-zH-YYz"/>
+                                            </constraints>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="top" secondItem="JH3-cU-X8Y" secondAttribute="top" constant="16" id="OkC-E3-xgU"/>
+                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="16" id="u0L-kW-Dyi"/>
+                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="centerX" secondItem="JH3-cU-X8Y" secondAttribute="centerX" id="xsX-Mf-28T"/>
+                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="leading" secondItem="JH3-cU-X8Y" secondAttribute="leading" constant="8" id="zkm-sa-Qmi"/>
+                                    </constraints>
+                                </view>
+                                <size key="contentViewMargins" width="8" height="0.0"/>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GEI-GX-uyj" secondAttribute="trailing" id="1Km-zX-atY"/>
+                            <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" id="EI4-bp-v0Y"/>
+                            <constraint firstItem="GEI-GX-uyj" firstAttribute="leading" secondItem="TNs-V1-cem" secondAttribute="leading" id="N9Y-Ab-6nT"/>
+                            <constraint firstAttribute="bottom" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="exitComparisonModeButton" destination="aqZ-u2-d9L" id="hr3-8c-lbs"/>
+                        <outlet property="imageActionView" destination="3hE-kr-9bI" id="fds-L0-ZCO"/>
+                        <outlet property="imageLabel1" destination="bNu-PL-tcm" id="SqM-8n-UBn"/>
+                        <outlet property="imageLabel2" destination="Q0i-mI-DaK" id="vga-7F-Sya"/>
+                    </connections>
+                </viewController>
+                <customObject id="wsY-yA-qFb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-22" y="197"/>
+        </scene>
+    </scenes>
+</document>

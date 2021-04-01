@@ -19,98 +19,19 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
                                         <subviews>
-                                            <box borderType="none" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlX-Nk-OkF">
-                                                <rect key="frame" x="-3" y="-4" width="306" height="243"/>
-                                                <view key="contentView" id="dLI-77-rkV">
-                                                    <rect key="frame" x="8" y="0.0" width="290" height="243"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-iH-KBU">
-                                                            <rect key="frame" x="8" y="15" width="274" height="212"/>
-                                                            <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-ET-ywh">
-                                                                    <rect key="frame" x="-2" y="128" width="154" height="84"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1g8-wL-HKB">
-                                                                        <font key="font" metaFont="message" size="11"/>
-                                                                        <string key="title">Open or drop an image here.
-
-
-
-
-</string>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="5ER-JY-eJ2">
-                                                                    <rect key="frame" x="0.0" y="96" width="274" height="20"/>
-                                                                    <subviews>
-                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pFl-IO-QPP">
-                                                                            <rect key="frame" x="50" y="-7" width="174" height="32"/>
-                                                                            <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocQ-Zc-yHF">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <string key="keyEquivalent">D</string>
-                                                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="exitComparisonModeButtonTapped:" target="IfO-80-1iw" id="8ZZ-y7-rla"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="bottom" secondItem="pFl-IO-QPP" secondAttribute="bottom" id="O1H-j5-LXt"/>
-                                                                        <constraint firstItem="pFl-IO-QPP" firstAttribute="top" secondItem="5ER-JY-eJ2" secondAttribute="top" id="UFv-Vb-mWV"/>
-                                                                        <constraint firstItem="pFl-IO-QPP" firstAttribute="centerX" secondItem="5ER-JY-eJ2" secondAttribute="centerX" id="zji-Zo-i1b"/>
-                                                                    </constraints>
-                                                                </customView>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-Ek-NZa">
-                                                                    <rect key="frame" x="-2" y="0.0" width="154" height="84"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="1sd-w8-by3">
-                                                                        <font key="font" metaFont="message" size="11"/>
-                                                                        <string key="title">Open or drop an image here.
-
-
-
-
-</string>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="5ER-JY-eJ2" firstAttribute="leading" secondItem="bKB-iH-KBU" secondAttribute="leading" id="CbO-UK-5Js"/>
-                                                                <constraint firstAttribute="trailing" secondItem="5ER-JY-eJ2" secondAttribute="trailing" id="dly-Zi-Pw3"/>
-                                                            </constraints>
-                                                            <visibilityPriorities>
-                                                                <integer value="1000"/>
-                                                                <integer value="1000"/>
-                                                                <integer value="1000"/>
-                                                            </visibilityPriorities>
-                                                            <customSpacing>
-                                                                <real value="3.4028234663852886e+38"/>
-                                                                <real value="3.4028234663852886e+38"/>
-                                                                <real value="3.4028234663852886e+38"/>
-                                                            </customSpacing>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="bKB-iH-KBU" firstAttribute="top" secondItem="dLI-77-rkV" secondAttribute="top" constant="16" id="05I-ib-Y4O"/>
-                                                        <constraint firstItem="bKB-iH-KBU" firstAttribute="centerX" secondItem="dLI-77-rkV" secondAttribute="centerX" id="4o8-wW-APR"/>
-                                                        <constraint firstItem="bKB-iH-KBU" firstAttribute="leading" secondItem="dLI-77-rkV" secondAttribute="leading" constant="8" id="O89-lZ-uHl"/>
-                                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="bKB-iH-KBU" secondAttribute="bottom" constant="16" id="kpn-b7-3tw"/>
-                                                    </constraints>
-                                                </view>
-                                                <size key="contentViewMargins" width="8" height="0.0"/>
-                                            </box>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="8bq-T6-Uu9">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
+                                                <connections>
+                                                    <segue destination="tRa-KG-k0t" kind="embed" id="3VI-gZ-8Bh"/>
+                                                </connections>
+                                            </containerView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="237" placeholder="YES" id="3Sj-Fj-aJA"/>
-                                            <constraint firstAttribute="trailing" secondItem="SlX-Nk-OkF" secondAttribute="trailing" id="KlK-ry-Wla"/>
-                                            <constraint firstAttribute="bottom" secondItem="SlX-Nk-OkF" secondAttribute="bottom" id="SJA-Gj-sWb"/>
-                                            <constraint firstItem="SlX-Nk-OkF" firstAttribute="leading" secondItem="s0i-Tq-xqT" secondAttribute="leading" id="YpZ-Zd-RnC"/>
-                                            <constraint firstItem="SlX-Nk-OkF" firstAttribute="top" secondItem="s0i-Tq-xqT" secondAttribute="top" id="vja-YA-xzc"/>
+                                            <constraint firstAttribute="trailing" secondItem="8bq-T6-Uu9" secondAttribute="trailing" id="A7L-T4-Qte"/>
+                                            <constraint firstAttribute="bottom" secondItem="8bq-T6-Uu9" secondAttribute="bottom" id="Ge0-EX-SF8"/>
+                                            <constraint firstItem="8bq-T6-Uu9" firstAttribute="leading" secondItem="s0i-Tq-xqT" secondAttribute="leading" id="L3W-0p-hmz"/>
+                                            <constraint firstItem="8bq-T6-Uu9" firstAttribute="top" secondItem="s0i-Tq-xqT" secondAttribute="top" id="ZIG-zx-MXI"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
@@ -379,10 +300,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="exitComparisonModeButton" destination="pFl-IO-QPP" id="m6Y-Up-lAA"/>
-                        <outlet property="imageActionView" destination="5ER-JY-eJ2" id="Mj3-5k-u15"/>
-                        <outlet property="imageLabel1" destination="C0k-ET-ywh" id="eIt-tP-bcf"/>
-                        <outlet property="imageLabel2" destination="lDq-Ek-NZa" id="tkx-a8-Kbh"/>
                         <outlet property="inspectorAreaLabel" destination="YNh-fB-wME" id="TOE-6U-Pfb"/>
                         <outlet property="inspectorAreaLabelAlt" destination="ZHu-m7-cSJ" id="UGf-09-19Z"/>
                         <outlet property="inspectorColorFlag" destination="UID-HV-iAj" id="qpT-kg-5h0"/>
@@ -446,13 +363,21 @@
             </objects>
             <point key="canvasLocation" x="2342" y="246"/>
         </scene>
+        <!--Info-->
+        <scene sceneID="ep8-rB-jwy">
+            <objects>
+                <controllerPlaceholder storyboardName="Info" id="tRa-KG-k0t" sceneMemberID="viewController"/>
+                <customObject id="3ZD-Gc-bdW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2769" y="-214"/>
+        </scene>
         <!--TagList-->
         <scene sceneID="nbR-bg-HNg">
             <objects>
                 <controllerPlaceholder storyboardName="TagList" id="JDK-dI-n6a" sceneMemberID="viewController"/>
                 <customObject id="NzO-7j-9Gx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="246"/>
+            <point key="canvasLocation" x="2759" y="529"/>
         </scene>
     </scenes>
 </document>
