@@ -11,6 +11,8 @@ import Cocoa
 class InspectorController: NSViewController, PaneController {
     internal weak var screenshot: Screenshot?
 
+    @IBOutlet weak var paneBox                   : NSBox!
+    
     @IBOutlet weak var inspectorColorLabel       : NSTextField!
     @IBOutlet weak var inspectorColorFlag        : ColorIndicator!
     @IBOutlet weak var inspectorAreaLabel        : NSTextField!

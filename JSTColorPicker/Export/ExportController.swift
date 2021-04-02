@@ -13,6 +13,7 @@ class ExportController: NSViewController, PaneController {
     internal weak var screenshot: Screenshot?
 
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var paneBox: NSBox!
 
     func load(_ screenshot: Screenshot) throws {
 

@@ -20,14 +20,22 @@ extension NSView: SwizzlingInjection {
         }
     }
     
+    #if DEBUG
     @discardableResult func writeCGImage(_ image: CGImage, to destinationURL: URL) -> Bool {
         guard let destination = CGImageDestinationCreateWithURL(destinationURL as CFURL, kUTTypePNG, 1, nil) else { return false }
         CGImageDestinationAddImage(destination, image, nil)
         return CGImageDestinationFinalize(destination)
     }
+    #endif
     
-    private static var cornerMaskImage: CGImage = {
-        let image = NSImage(named: "CACornerMask")!
+    private static var cornerMaskImageAqua: CGImage = {
+        let image = NSImage(named: "CACornerMaskAqua")!
+        var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        return image.cgImage(forProposedRect: &rect, context: nil, hints: nil)!
+    }()
+    
+    private static var cornerMaskImageDarkAqua: CGImage = {
+        let image = NSImage(named: "CACornerMaskDarkAqua")!
         var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         return image.cgImage(forProposedRect: &rect, context: nil, hints: nil)!
     }()
@@ -49,7 +57,7 @@ extension NSView: SwizzlingInjection {
             
             self.widget_updateLayer()
             // Remove corner radius with the alternative mask image
-            layer?.contents = NSView.cornerMaskImage
+            layer?.contents = (NSAppearance.current.name == .vibrantLight || NSAppearance.current.name == .aqua) ? NSView.cornerMaskImageAqua : NSView.cornerMaskImageDarkAqua
         }
         
 //        else if NSStringFromClass(type(of: superview)) == "NSToolbarItemViewer" {

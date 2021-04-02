@@ -17,11 +17,11 @@
 	<key>defaults.drawTagsInScene</key>
 	<true/>
 	<key>defaults.drawRulersInScene</key>
-	<true/>
+	<false/>
 	<key>defaults.drawSceneBackground</key>
 	<true/>
 	<key>defaults.enableForceTouch</key>
-	<false/>
+	<true/>
 	<key>defaults.enableGPUAcceleration</key>
 	<true/>
 	<key>defaults.enableNetworkDiscovery</key>
@@ -33,7 +33,7 @@
 	<key>defaults.hideGridsWhenResize</key>
 	<true/>
 	<key>defaults.ignoreInvalidDeletion</key>
-	<false/>
+	<true/>
 	<key>defaults.zIndexBySize</key>
 	<false/>
 	<key>defaults.initialSimilarity</key>
@@ -45,7 +45,7 @@
 	<key>defaults.paneView.toggle-info</key>
 	<true/>
 	<key>defaults.paneView.toggle-inspector</key>
-	<true/>
+	<false/>
 	<key>defaults.paneView.toggle-preview</key>
 	<true/>
 	<key>defaults.paneView.toggle-taglist</key>
@@ -71,7 +71,7 @@
 	<key>defaults.tableColumn.toggle-similarity</key>
 	<false/>
 	<key>defaults.tableColumn.toggle-tag</key>
-	<true/>
+	<false/>
 	<key>defaults.usesAlternativeAreaRepresentation</key>
 	<false/>
 	<key>defaults.usesDetailedToolTips</key>

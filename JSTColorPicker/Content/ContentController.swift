@@ -1372,10 +1372,6 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
         return documentContent?.items.count ?? 0
     }
     
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 20
-    }
-    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let content = documentContent else { return nil }
         guard let tableColumn = tableColumn else { return nil }

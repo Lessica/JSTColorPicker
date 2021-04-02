@@ -58,7 +58,6 @@
                                         </slider>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Ie-oB-hCU" secondAttribute="trailing" constant="2" id="AWK-j2-PLT"/>
                                         <constraint firstItem="HYg-d3-2ex" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="top" id="EPQ-ab-LFJ"/>
                                         <constraint firstItem="7x2-C5-jRk" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="bottom" constant="8" id="GHu-Ms-PEA"/>
                                         <constraint firstItem="4Ie-oB-hCU" firstAttribute="top" secondItem="CPy-7x-2lg" secondAttribute="top" constant="8" id="Hh1-Bo-pG8"/>
@@ -82,6 +81,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="paneBox" destination="mmK-Yn-gAd" id="cYc-Hi-n6k"/>
                         <outlet property="previewImageView" destination="4Ie-oB-hCU" id="ISy-iG-QBi"/>
                         <outlet property="previewOverlayView" destination="HYg-d3-2ex" id="Rf2-U3-eFy"/>
                         <outlet property="previewSlider" destination="7x2-C5-jRk" id="cJT-SO-T0g"/>

@@ -13,6 +13,7 @@ class PreviewController: NSViewController, PaneController {
     internal var previewStage                    : ItemPreviewStage = .none
     public weak var overlayDelegate              : ItemPreviewResponder!
 
+    @IBOutlet weak var paneBox                   : NSBox!
     @IBOutlet weak var previewImageView          : PreviewImageView!
     @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
     @IBOutlet weak var previewSlider             : NSSlider!

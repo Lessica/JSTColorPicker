@@ -54,6 +54,10 @@ class TagListController: NSViewController, PaneController {
     @IBOutlet var internalController              : TagController!
     @IBOutlet var tagMenu                         : NSMenu!
     @IBOutlet var alertTextView                   : AlertTextView!
+    
+    @IBOutlet weak var paneBox                    : NSBox!
+    @IBOutlet weak var paneTopConstraint          : NSLayoutConstraint!
+    @IBOutlet weak var paneInnerTopConstraint     : NSLayoutConstraint!
     @IBOutlet weak var loadingErrorLabel          : NSTextField!
     @IBOutlet weak var buttonImport               : NSButton!
     @IBOutlet weak var buttonAdd                  : NSButton!
@@ -100,6 +104,11 @@ class TagListController: NSViewController, PaneController {
     }
     
     private func setupEmbeddedState(with context: NSManagedObjectContext? = nil) {
+        paneBox.titlePosition               = isEditMode ? .noTitle : .atTop
+        paneBox.isTransparent               = isEditMode
+        paneTopConstraint.constant          = isEditMode ? 0 : 4
+        paneInnerTopConstraint.constant     = isEditMode ? 0 : 8
+        
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
         tableView.allowsMultipleSelection   = !isEditMode

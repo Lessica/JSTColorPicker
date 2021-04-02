@@ -160,6 +160,7 @@
                         <outlet property="inspectorColorFlagAlt" destination="hVm-ry-2Rv" id="YFe-mU-ZxS"/>
                         <outlet property="inspectorColorLabel" destination="ors-bD-ZGR" id="Fte-ah-ELE"/>
                         <outlet property="inspectorColorLabelAlt" destination="SP1-a2-XBg" id="fek-1e-CPF"/>
+                        <outlet property="paneBox" destination="dsS-KU-rgc" id="5RD-iw-Egf"/>
                     </connections>
                 </viewController>
                 <customObject id="c0d-Mv-Lbi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

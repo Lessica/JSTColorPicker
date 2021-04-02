@@ -16,6 +16,7 @@ class InfoController: NSViewController, PaneController {
     private var altImageSource                   : PixelImage.Source?
     private var exitComparisonHandler            : ((Bool) -> Void)?
 
+    @IBOutlet weak var paneBox                   : NSBox!
     @IBOutlet weak var imageLabel1               : NSTextField!
     @IBOutlet weak var imageLabel2               : NSTextField!
     @IBOutlet weak var imageActionView           : NSView!

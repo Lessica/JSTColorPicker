@@ -10,17 +10,17 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SidebarController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView autosaveName="SidebarSplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SidebarSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="1154"/>
+                                <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="s0i-Tq-xqT">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="237"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="8bq-T6-Uu9">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="237"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="237"/>
                                                 <connections>
                                                     <segue destination="tRa-KG-k0t" kind="embed" id="3VI-gZ-8Bh"/>
                                                 </connections>
@@ -35,10 +35,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
-                                        <rect key="frame" x="0.0" y="238" width="300" height="53"/>
+                                        <rect key="frame" x="0.0" y="238" width="246" height="53"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="sik-6V-3cb">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="53"/>
                                                 <connections>
                                                     <segue destination="H3w-6e-dt5" kind="embed" id="nRe-FI-O9j"/>
                                                 </connections>
@@ -53,10 +53,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
-                                        <rect key="frame" x="0.0" y="292" width="300" height="260"/>
+                                        <rect key="frame" x="0.0" y="292" width="246" height="260"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="oag-ZH-lLl">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="260"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="260"/>
                                                 <connections>
                                                     <segue destination="31P-dP-iCd" kind="embed" id="eDZ-Kf-r8U"/>
                                                 </connections>
@@ -71,10 +71,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="H61-xT-7a0">
-                                        <rect key="frame" x="0.0" y="553" width="300" height="600"/>
+                                        <rect key="frame" x="0.0" y="553" width="246" height="246"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-22-aJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="246"/>
                                                 <connections>
                                                     <segue destination="JDK-dI-n6a" kind="embed" identifier="TagListContainer" id="hb4-4p-dHm"/>
                                                 </connections>
@@ -89,14 +89,14 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I42-7I-fJN">
-                                        <rect key="frame" x="0.0" y="1154" width="300" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="800" width="246" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="250" id="De9-Ns-Fzb"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" placeholder="YES" id="XSq-dR-hCd"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="246" id="XSq-dR-hCd"/>
                                 </constraints>
                                 <holdingPriorities>
                                     <real value="300"/>

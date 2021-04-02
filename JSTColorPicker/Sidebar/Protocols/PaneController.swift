@@ -9,6 +9,8 @@
 import Cocoa
 
 protocol PaneController: NSViewController, ScreenshotLoader {
-    func reloadPane()
+    var paneBox: NSBox! { get }
     var isPaneHidden: Bool { get }
+    
+    func reloadPane()
 }

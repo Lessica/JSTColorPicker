@@ -112,6 +112,7 @@
                         <outlet property="imageActionView" destination="3hE-kr-9bI" id="fds-L0-ZCO"/>
                         <outlet property="imageLabel1" destination="bNu-PL-tcm" id="SqM-8n-UBn"/>
                         <outlet property="imageLabel2" destination="Q0i-mI-DaK" id="vga-7F-Sya"/>
+                        <outlet property="paneBox" destination="GEI-GX-uyj" id="PJK-b4-e8j"/>
                     </connections>
                 </viewController>
                 <customObject id="wsY-yA-qFb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
