@@ -10,7 +10,6 @@ import Cocoa
 import ShortcutGuide
 
 extension NSUserInterfaceItemIdentifier {
-    
     static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
     static let toggleTableColumnSimilarity  = NSUserInterfaceItemIdentifier("toggle-similarity")
     static let toggleTableColumnTag         = NSUserInterfaceItemIdentifier("toggle-tag")
@@ -22,7 +21,6 @@ extension NSUserInterfaceItemIdentifier {
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
     
     static let removeTags        = NSUserInterfaceItemIdentifier("remove-tags")
-    
 }
 
 protocol ContentActionDelegate: class {
@@ -75,7 +73,9 @@ class ContentController: NSViewController {
     
     private var undoToken                 : NotificationToken?
     private var redoToken                 : NotificationToken?
-    private var delayedRowIndexes         : IndexSet?
+    
+    private var delayedRowIndexes         : IndexSet? { _delayedRowIndexes }
+    private var _delayedRowIndexes        : IndexSet?
     
     @IBOutlet var tableMenuDelegateProxy  : NSMenuDelegateProxy!
     
@@ -105,20 +105,20 @@ class ContentController: NSViewController {
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField : NSTextField!
     
-    private var selectedRowIndex: Int? {
+    private var actionSelectedRowIndex: Int? {
         (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first
     }
     
-    private var selectedRowIndexes: IndexSet {
+    private var actionSelectedRowIndexes: IndexSet {
         (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow))
             ? IndexSet(integer: tableView.clickedRow)
             : IndexSet(tableView.selectedRowIndexes)
     }
 
-    private var hasSelectedContentItem: Bool { selectedRowIndexes.count > 0 }
+    private var hasSelectedContentItem: Bool { actionSelectedRowIndexes.count > 0 }
     private var selectedContentItems: [ContentItem]? {
         guard let collection = documentContent?.items else { return nil }
-        return selectedRowIndexes.map { collection[$0] }
+        return actionSelectedRowIndexes.map { collection[$0] }
     }
     
     private var preparedSelectedItemCount    : Int?
@@ -319,7 +319,16 @@ extension ContentController {
     @discardableResult
     private func internalAddContentItems(_ items: [ContentItem], isRegistered registered: Bool = false) -> IndexSet {
         guard let content = documentContent else { return IndexSet() }
-        undoManager.registerUndo(withTarget: self, handler: { $0.internalDeleteContentItems(items, isRegistered: true) })
+        let selectedIndexSet = tableView.selectedRowIndexes
+        undoManager.registerUndo(withTarget: self, handler: { (target) in
+            target.internalSelectContentItems(
+                in: selectedIndexSet,
+                byExtendingSelection: false,
+                byFocusingSelection: false,
+                byDeferringSelection: true
+            )
+            target.internalDeleteContentItems(items, isRegistered: true)
+        })
         if !registered {
             undoManager.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
         }
@@ -338,8 +347,15 @@ extension ContentController {
         guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToRemove = content.items.filter({ itemIDs.contains($0.id) })
+        let selectedIndexSet = tableView.selectedRowIndexes
         undoManager.registerUndo(withTarget: self, handler: { (target) in
-            target.delayedRowIndexes = target.internalAddContentItems(itemsToRemove, isRegistered: true)
+            target.internalSelectContentItems(
+                in: selectedIndexSet,
+                byExtendingSelection: false,
+                byFocusingSelection: false,
+                byDeferringSelection: true
+            )
+            target.internalAddContentItems(itemsToRemove, isRegistered: true)
         })
         if !registered {
             undoManager.setActionName(NSLocalizedString("Delete Items", comment: "internalDeleteContentItems(_:)"))
@@ -358,7 +374,16 @@ extension ContentController {
         guard let content = documentContent else { return IndexSet() }
         let itemIDs = Set(items.compactMap({ $0.id }))
         let itemsToUpdate = content.items.filter({ itemIDs.contains($0.id) })
-        undoManager.registerUndo(withTarget: self, handler: { $0.internalUpdateContentItems(itemsToUpdate, isRegistered: true) })
+        let selectedIndexSet = tableView.selectedRowIndexes
+        undoManager.registerUndo(withTarget: self, handler: { (target) in
+            target.internalSelectContentItems(
+                in: selectedIndexSet,
+                byExtendingSelection: false,
+                byFocusingSelection: false,
+                byDeferringSelection: true
+            )
+            target.internalUpdateContentItems(itemsToUpdate, isRegistered: true)
+        })
         if !registered {
             undoManager.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
         }
@@ -373,31 +398,57 @@ extension ContentController {
         return indexes
     }
     
+    @discardableResult
     private func internalSelectContentItems(
         in set: IndexSet?,
         byExtendingSelection extend: Bool,
-        byFocusingSelection focus: Bool = true
-    ) {
-        if let set = set, !set.isEmpty, let lastIndex = set.last {
-            if tableView.selectedRowIndexes != set {
-                tableView.selectRowIndexes(set, byExtendingSelection: extend)
-            } else {
-                internalTableViewSelectionDidChange(nil)
-            }
-            if focus {
-                tableView.scrollRowToVisible(lastIndex)
-                makeFirstResponder(tableView)
-            }
-        }
-        else {
-            if !extend {
-                if !tableView.selectedRowIndexes.isEmpty {
-                    tableView.deselectAll(nil)
+        byFocusingSelection focus: Bool,
+        byDeferringSelection delay: Bool = false
+    ) -> IndexSet? {
+        if delay {
+            _delayedRowIndexes = set
+        } else {
+            if let set = set, !set.isEmpty, let lastIndex = set.last {
+                if tableView.selectedRowIndexes != set {
+                    tableView.selectRowIndexes(set, byExtendingSelection: extend)
                 } else {
                     internalTableViewSelectionDidChange(nil)
                 }
+                if focus {
+                    tableView.scrollRowToVisible(lastIndex)
+                    makeFirstResponder(tableView)
+                }
+            }
+            else {
+                if !extend {
+                    if !tableView.selectedRowIndexes.isEmpty {
+                        tableView.deselectAll(nil)
+                    } else {
+                        internalTableViewSelectionDidChange(nil)
+                    }
+                }
             }
         }
+        return set
+    }
+    
+    @discardableResult
+    private func internalApplyDeferredSelection() -> IndexSet? {
+        let set = internalSelectContentItems(
+            in: delayedRowIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: false,
+            byDeferringSelection: false
+        )
+        internalCancelDeferredSelection()
+        return set
+    }
+    
+    @discardableResult
+    private func internalCancelDeferredSelection() -> IndexSet? {
+        let originalSet = _delayedRowIndexes
+        _delayedRowIndexes = nil
+        return originalSet
     }
     
 }
@@ -448,7 +499,11 @@ extension ContentController: ContentDelegate {
         let itemIndexes = internalAddContentItems([item])
         tableView.reloadData()
         
-        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: itemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return item
         
     }
@@ -499,7 +554,11 @@ extension ContentController: ContentDelegate {
         internalAddContentItems(relatedItems)
         tableView.reloadData()
         
-        internalSelectContentItems(in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count), byExtendingSelection: false)
+        internalSelectContentItems(
+            in: IndexSet(integersIn: beginRows..<beginRows + relatedItems.count),
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return relatedItems
         
     }
@@ -508,30 +567,38 @@ extension ContentController: ContentDelegate {
     private func selectContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let image = documentImage               else { throw Content.Error.notLoaded }
         guard let color = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
-        return try selectContentItem(color, byExtendingSelection: false)
+        return try selectContentItem(color, byExtendingSelection: false, byFocusingSelection: true)
     }
     
     @discardableResult
     private func selectContentItem(of rect: PixelRect) throws -> ContentItem? {
         guard let image = documentImage       else { throw Content.Error.notLoaded }
         guard let area = image.area(at: rect) else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
-        return try selectContentItem(area, byExtendingSelection: false)
+        return try selectContentItem(area, byExtendingSelection: false, byFocusingSelection: true)
     }
     
-    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> ContentItem? {
         guard let content = documentContent                      else { throw Content.Error.notLoaded }
         guard let itemIndex = content.items.firstIndex(of: item) else { throw Content.Error.itemDoesNotExist(item: item) }
-        internalSelectContentItems(in: IndexSet(integer: itemIndex), byExtendingSelection: extend)
+        internalSelectContentItems(
+            in: IndexSet(integer: itemIndex),
+            byExtendingSelection: extend,
+            byFocusingSelection: focus
+        )
         return item
     }
     
-    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> [ContentItem]? {
         guard let content = documentContent else { throw Content.Error.notLoaded }
         let itemIndexes = IndexSet(
             items.compactMap({ content.items.firstIndex(of: $0) })
         )
         guard itemIndexes.count == items.count else { throw Content.Error.itemDoesNotExistPartial  }
-        internalSelectContentItems(in: itemIndexes, byExtendingSelection: extend)
+        internalSelectContentItems(
+            in: itemIndexes,
+            byExtendingSelection: extend,
+            byFocusingSelection: focus
+        )
         return items
     }
     
@@ -589,7 +656,11 @@ extension ContentController: ContentDelegate {
         let col = tableView.column(withIdentifier: .columnDescription)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
-        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: itemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return replItem
     }
     
@@ -608,7 +679,11 @@ extension ContentController: ContentDelegate {
         let col = tableView.column(withIdentifier: .columnDescription)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
-        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: itemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return replItem
     }
     
@@ -622,7 +697,11 @@ extension ContentController: ContentDelegate {
         let replItemIndexes = internalUpdateContentItems([replItem])
         tableView.reloadData(forRowIndexes: replItemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
         
-        internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: replItemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return replItem
     }
     
@@ -639,7 +718,11 @@ extension ContentController: ContentDelegate {
         let replItemIndexes = internalUpdateContentItems(replItems)
         tableView.reloadData(forRowIndexes: replItemIndexes, columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns))
         
-        internalSelectContentItems(in: replItemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: replItemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         return replItems
     }
 
@@ -823,7 +906,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         if menu == tableRemoveTagsMenu
         {
             guard let collection = documentContent?.items else { return 0 }
-            let selectedIndexes = selectedRowIndexes
+            let selectedIndexes = actionSelectedRowIndexes
             preparedSelectedItemCount = selectedIndexes.count
             let allTags = selectedIndexes
                 .flatMap({ collection[$0].tags })
@@ -925,7 +1008,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func locate(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
-        guard let targetIndex = selectedRowIndex else { return }
+        guard let targetIndex = actionSelectedRowIndex else { return }
         
         let targetItem = collection[targetIndex]
         actionManager.contentActionConfirmed([targetItem])
@@ -933,7 +1016,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func relocate(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
-        guard let targetIndex = selectedRowIndex else { return }
+        guard let targetIndex = actionSelectedRowIndex else { return }
         
         var panel: EditWindow?
         let targetItem = collection[targetIndex]
@@ -944,7 +1027,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
         
         if let panel = panel {
-            internalSelectContentItems(in: IndexSet(integer: targetIndex), byExtendingSelection: false)
+            internalSelectContentItems(
+                in: IndexSet(integer: targetIndex),
+                byExtendingSelection: false,
+                byFocusingSelection: true
+            )
             
             panel.loader = self
             panel.contentDelegate = self
@@ -962,11 +1049,15 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func tags(_ sender: NSMenuItem?) {
         guard let collection = documentContent?.items else { return }
-        let rows = selectedRowIndexes
+        let rows = actionSelectedRowIndexes
         let itemsToEdit = rows.map({ collection[$0] })
         
         let panel = EditWindow.newEditTagsPanel()
-        internalSelectContentItems(in: rows, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: rows,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         
         panel.contentDelegate = self
         panel.contentItems = itemsToEdit
@@ -1007,7 +1098,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func delete(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
-        let rows = selectedRowIndexes
+        let rows = actionSelectedRowIndexes
         let itemsToRemove = rows.map({ collection[$0] })
         guard deleteConfirmForItems(itemsToRemove) else { return }
         internalDeleteContentItems(itemsToRemove)
@@ -1061,10 +1152,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func resample(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
-        guard let targetIndex = selectedRowIndex else { return }
+        guard let targetIndex = actionSelectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
 
         let panel = NSSavePanel()
+        panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedArea.id)
         panel.allowedFileTypes = ["png"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
@@ -1097,6 +1189,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
+            if selectedItems.count > 1 {
+                panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAs(_:)"), screenshot?.displayName ?? "", selectedItems.count)
+            } else if !selectedItems.isEmpty {
+                panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported Item #%ld", comment: "exportAs(_:)"), screenshot?.displayName ?? "", selectedItems.first!.id)
+            }
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { (resp) in
                 if resp == .OK {
@@ -1223,7 +1320,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func smartTrim(_ sender: NSMenuItem) {
         guard let collection = documentContent?.items else { return }
-        guard let targetIndex = selectedRowIndex else { return }
+        guard let targetIndex = actionSelectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
         do {
             guard let _ = try smartTrimPixelArea(selectedArea) else {
@@ -1249,7 +1346,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         let col = tableView.column(withIdentifier: .columnTag)
         tableView.reloadData(forRowIndexes: itemIndexes, columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet())
         
-        internalSelectContentItems(in: itemIndexes, byExtendingSelection: false)
+        internalSelectContentItems(
+            in: itemIndexes,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
     }
     
 }
@@ -1366,8 +1467,7 @@ extension ContentController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
         
-        guard let _ = screenshot.content else
-        {
+        guard let _ = screenshot.content else {
             throw Screenshot.Error.invalidContent
         }
         
@@ -1379,13 +1479,11 @@ extension ContentController: ScreenshotLoader {
             tableView.contextUndoManager = undoManager
             undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
                 self.tableView.reloadData()
-                self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
-                self.delayedRowIndexes = nil
+                self.internalApplyDeferredSelection()
             }
             redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] _ in
                 self.tableView.reloadData()
-                self.internalSelectContentItems(in: self.delayedRowIndexes, byExtendingSelection: false)
-                self.delayedRowIndexes = nil
+                self.internalApplyDeferredSelection()
             }
         }
         

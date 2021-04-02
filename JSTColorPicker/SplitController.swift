@@ -260,9 +260,9 @@ extension SplitController: ContentDelegate {
         return nil
     }
     
-    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> ContentItem? {
         do {
-            return try contentController.selectContentItem(item, byExtendingSelection: extend)
+            return try contentController.selectContentItem(item, byExtendingSelection: extend, byFocusingSelection: focus)
         } catch Content.Error.userAborted {
             return nil
         } catch {
@@ -271,9 +271,9 @@ extension SplitController: ContentDelegate {
         return nil
     }
     
-    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> [ContentItem]? {
         do {
-            return try contentController.selectContentItems(items, byExtendingSelection: extend)
+            return try contentController.selectContentItems(items, byExtendingSelection: extend, byFocusingSelection: focus)
         } catch Content.Error.userAborted {
             return nil
         } catch {

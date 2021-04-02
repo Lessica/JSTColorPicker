@@ -1,3 +1,13 @@
+/* exportAll(_:)
+   exportAs(_:) */
+"%@ Exported %ld Items" = "%@ Exported %ld Items";
+
+/* exportAs(_:) */
+"%@ Exported Item #%ld" = "%@ Exported Item #%ld";
+
+/* resample(_:) */
+"%@ Resample Item #%ld" = "%@ Resample Item #%ld";
+
 /* Shortcut Guide */
 "[Magic Cursor]" = "[Magic Cursor]";
 

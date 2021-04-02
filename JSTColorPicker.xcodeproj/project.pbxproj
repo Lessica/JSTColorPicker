@@ -91,6 +91,12 @@
 		CCA72A76260B31EE00A934E2 /* lupa.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A40260B30FD00A934E2 /* lupa.lua */; };
 		CCA72A77260B31EE00A934E2 /* re.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A41260B30FD00A934E2 /* re.lua */; };
 		CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCA72A3E260B30FD00A934E2 /* util.lua */; };
+		CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
+		CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
+		CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
+		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
+		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
+		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72D260F5E83000AC582 /* ShortcutGuide */; };
 		CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72F260F5E8C000AC582 /* ShortcutGuide */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
@@ -784,6 +790,9 @@
 		CCA72A3E260B30FD00A934E2 /* util.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = util.lua; sourceTree = "<group>"; };
 		CCA72A40260B30FD00A934E2 /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
 		CCA72A41260B30FD00A934E2 /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
+		CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingInjection.swift; sourceTree = "<group>"; };
+		CCA73435261704B400808E02 /* SwizzlingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingHelper.swift; sourceTree = "<group>"; };
+		CCA73440261705E700808E02 /* NSView+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Swizzling.swift"; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
 		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
 		CCB7697E260A0B350029693B /* lptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lptree.c; sourceTree = "<group>"; };
@@ -1320,6 +1329,16 @@
 			path = cjson;
 			sourceTree = "<group>";
 		};
+		CCA7343F2617059600808E02 /* Swizzling */ = {
+			isa = PBXGroup;
+			children = (
+				CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */,
+				CCA73435261704B400808E02 /* SwizzlingHelper.swift */,
+				CCA73440261705E700808E02 /* NSView+Swizzling.swift */,
+			);
+			path = Swizzling;
+			sourceTree = "<group>";
+		};
 		CCB7698D260A0B390029693B /* lpeg */ = {
 			isa = PBXGroup;
 			children = (
@@ -1634,6 +1653,7 @@
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
 				D6729C07240FC7FC000339C2 /* Extensions */,
+				CCA7343F2617059600808E02 /* Swizzling */,
 				1885CF3C24B0FE750067D02F /* Protocols */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
@@ -2585,6 +2605,7 @@
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
+				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
@@ -2606,6 +2627,7 @@
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
 				D61047A024224A170002E990 /* EditableOverlay.swift in Sources */,
 				D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
+				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
@@ -2616,6 +2638,7 @@
 				D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D61047A524224A170002E990 /* GeneralController.swift in Sources */,
 				D61047A724224A170002E990 /* SceneEvent.swift in Sources */,
+				CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
@@ -2780,6 +2803,7 @@
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
+				CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
@@ -2830,6 +2854,7 @@
 				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
+				CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
@@ -2866,6 +2891,7 @@
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
+				CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,

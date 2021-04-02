@@ -343,7 +343,11 @@ class SceneController: NSViewController {
                             }
                             let overlayToFocus = sortedOverlays[nextOverlayIndex]
                             guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
-                            if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                            if let _ = try? selectContentItem(
+                                annotatorToFocus.contentItem,
+                                byExtendingSelection: false,
+                                byFocusingSelection: true
+                            ) {
                                 return true
                             }
                         }
@@ -357,7 +361,11 @@ class SceneController: NSViewController {
                                 nextAnnotatorIndex = 0
                             }
                             let annotatorToFocus = filteredAnnotators[nextAnnotatorIndex]
-                            if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                            if let _ = try? selectContentItem(
+                                annotatorToFocus.contentItem,
+                                byExtendingSelection: false,
+                                byFocusingSelection: true
+                            ) {
                                 return true
                             }
                         }
@@ -368,7 +376,11 @@ class SceneController: NSViewController {
                         .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
                     if let overlayToFocus = sortedSelectedOverlays.first {
                         guard let annotatorToFocus = annotators.last(where: { $0.overlay === overlayToFocus }) else { return false }
-                        if let _ = try? selectContentItem(annotatorToFocus.contentItem, byExtendingSelection: false) {
+                        if let _ = try? selectContentItem(
+                            annotatorToFocus.contentItem,
+                            byExtendingSelection: false,
+                            byFocusingSelection: true
+                        ) {
                             return true
                         }
                     }
@@ -381,7 +393,11 @@ class SceneController: NSViewController {
                         let contentItems = annotators
                             .filter({ annotatorOverlaysSet.contains($0.overlay) })
                             .compactMap({ $0.contentItem })
-                        if let _ = try? selectContentItems(contentItems, byExtendingSelection: true) {
+                        if let _ = try? selectContentItems(
+                            contentItems,
+                            byExtendingSelection: true,
+                            byFocusingSelection: true
+                        ) {
                             return true
                         }
                     } else {
@@ -395,7 +411,11 @@ class SceneController: NSViewController {
                                 return true
                             }
                         } else {
-                            if let _ = try? selectContentItem(annotator.contentItem, byExtendingSelection: extend) {
+                            if let _ = try? selectContentItem(
+                                annotator.contentItem,
+                                byExtendingSelection: extend,
+                                byFocusingSelection: true
+                            ) {
                                 return true
                             }
                         }
@@ -520,7 +540,11 @@ class SceneController: NSViewController {
             }
 
             if let nextAnnotator = annotators.first(where: { $0.overlay == sortedOverlays[nextIndex] }) {
-                if let _ = try? selectContentItems([nextAnnotator.contentItem], byExtendingSelection: false) {
+                if let _ = try? selectContentItems(
+                    [nextAnnotator.contentItem],
+                    byExtendingSelection: false,
+                    byFocusingSelection: true
+                ) {
                     return true
                 }
             }
@@ -542,7 +566,11 @@ class SceneController: NSViewController {
             }
 
             let nextAnnotator = filteredAnnotators[nextIndex]
-            if let _ = try? selectContentItems([nextAnnotator.contentItem], byExtendingSelection: false) {
+            if let _ = try? selectContentItems(
+                [nextAnnotator.contentItem],
+                byExtendingSelection: false,
+                byFocusingSelection: true
+            ) {
                 return true
             }
         }
@@ -1350,12 +1378,12 @@ extension SceneController: ContentDelegate {
         return try contentManager.updateContentItems(items)
     }
     
-    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool) throws -> ContentItem? {
-        return try contentManager.selectContentItem(item, byExtendingSelection: extend)
+    func selectContentItem(_ item: ContentItem, byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> ContentItem? {
+        return try contentManager.selectContentItem(item, byExtendingSelection: extend, byFocusingSelection: focus)
     }
     
-    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool) throws -> [ContentItem]? {
-        return try contentManager.selectContentItems(items, byExtendingSelection: extend)
+    func selectContentItems(_ items: [ContentItem], byExtendingSelection extend: Bool, byFocusingSelection focus: Bool) throws -> [ContentItem]? {
+        return try contentManager.selectContentItems(items, byExtendingSelection: extend, byFocusingSelection: focus)
     }
     
     func deselectContentItem(_ item: ContentItem) throws -> ContentItem? {
@@ -1654,7 +1682,11 @@ extension SceneController: NSMenuItemValidation, NSMenuDelegate {
     @objc private func selectContentItemFromMenuItem(_ menuItem: NSMenuItem) {
         guard let contentItem = menuItem.representedObject as? ContentItem else { return }
         if menuItem.state != .on {
-            _ = try? selectContentItem(contentItem, byExtendingSelection: true)
+            _ = try? selectContentItem(
+                contentItem,
+                byExtendingSelection: true,
+                byFocusingSelection: true
+            )
         } else {
             _ = try? deselectContentItem(contentItem)
         }

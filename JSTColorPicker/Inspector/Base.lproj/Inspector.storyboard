@@ -10,46 +10,46 @@
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="73"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="85"/>
                         <subviews>
                             <box borderType="line" title="Color Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
-                                <rect key="frame" x="-3" y="-4" width="306" height="77"/>
+                                <rect key="frame" x="-3" y="-4" width="306" height="85"/>
                                 <view key="contentView" id="BDQ-F6-YF7">
-                                    <rect key="frame" x="11" y="3" width="284" height="59"/>
+                                    <rect key="frame" x="11" y="3" width="284" height="67"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <splitView arrangesAllSubviews="NO" autosaveName="IndicatorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTi-gC-uTV" customClass="ExpandableSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="4" width="284" height="51"/>
+                                            <rect key="frame" x="0.0" y="4" width="284" height="59"/>
                                             <subviews>
                                                 <customView id="VWR-mb-mb8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="142" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="142" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="huk-cJ-9Bl">
-                                                            <rect key="frame" x="53" y="0.0" width="36" height="51"/>
+                                                            <rect key="frame" x="48" y="0.0" width="46" height="59"/>
                                                             <subviews>
                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p5U-Xq-Z8A" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="4" y="27" width="16" height="16"/>
+                                                                    <rect key="frame" x="4" y="29" width="22" height="22"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="16" id="0z0-sh-uhL"/>
-                                                                        <constraint firstAttribute="width" constant="16" id="A1w-B9-iti"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="0z0-sh-uhL"/>
+                                                                        <constraint firstAttribute="width" constant="22" id="A1w-B9-iti"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="KYP-yz-H6L"/>
                                                                     </connections>
                                                                 </view>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwA-AO-bO0">
-                                                                    <rect key="frame" x="26" y="8" width="4" height="11"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="TOQ-lp-GTx">
-                                                                        <font key="font" size="10" name="Menlo-Regular"/>
+                                                                    <rect key="frame" x="36" y="8" width="4" height="13"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="TOQ-lp-GTx">
+                                                                        <font key="font" size="11" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ors-bD-ZGR">
-                                                                    <rect key="frame" x="26" y="27" width="4" height="16"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="5bm-g8-tWL">
-                                                                        <font key="font" size="10" name="Menlo-Regular"/>
+                                                                    <rect key="frame" x="36" y="29" width="4" height="22"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="5bm-g8-tWL">
+                                                                        <font key="font" size="11" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -59,7 +59,7 @@
                                                                 <constraint firstItem="HwA-AO-bO0" firstAttribute="leading" secondItem="ors-bD-ZGR" secondAttribute="leading" id="77Y-wC-RgV"/>
                                                                 <constraint firstItem="HwA-AO-bO0" firstAttribute="trailing" secondItem="ors-bD-ZGR" secondAttribute="trailing" id="8vt-f3-dOe"/>
                                                                 <constraint firstAttribute="bottom" secondItem="HwA-AO-bO0" secondAttribute="bottom" constant="8" id="GFr-ou-NqK"/>
-                                                                <constraint firstItem="ors-bD-ZGR" firstAttribute="leading" secondItem="p5U-Xq-Z8A" secondAttribute="trailing" constant="8" id="Ma1-yG-Nox"/>
+                                                                <constraint firstItem="ors-bD-ZGR" firstAttribute="leading" secondItem="p5U-Xq-Z8A" secondAttribute="trailing" constant="12" id="Ma1-yG-Nox"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ors-bD-ZGR" secondAttribute="trailing" constant="8" id="WKG-Z1-zCt"/>
                                                                 <constraint firstItem="ors-bD-ZGR" firstAttribute="top" secondItem="huk-cJ-9Bl" secondAttribute="top" constant="8" id="Z0w-Kh-Yvx"/>
                                                                 <constraint firstItem="HwA-AO-bO0" firstAttribute="top" secondItem="ors-bD-ZGR" secondAttribute="bottom" constant="8" id="dMC-G0-moY"/>
@@ -76,34 +76,34 @@
                                                     </constraints>
                                                 </customView>
                                                 <customView id="sCO-0N-7ve">
-                                                    <rect key="frame" x="143" y="0.0" width="141" height="51"/>
+                                                    <rect key="frame" x="143" y="0.0" width="141" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="gLR-5I-dcg">
-                                                            <rect key="frame" x="53" y="0.0" width="36" height="51"/>
+                                                            <rect key="frame" x="48" y="0.0" width="46" height="59"/>
                                                             <subviews>
                                                                 <view toolTip="Show Color Panel (⌃⌘C)" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVm-ry-2Rv" customClass="ColorIndicator" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="4" y="27" width="16" height="16"/>
+                                                                    <rect key="frame" x="4" y="29" width="22" height="22"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="16" id="j5P-L2-7d6"/>
-                                                                        <constraint firstAttribute="height" constant="16" id="xyx-af-oYH"/>
+                                                                        <constraint firstAttribute="width" constant="22" id="j5P-L2-7d6"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="xyx-af-oYH"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="U2Q-KE-zLN"/>
                                                                     </connections>
                                                                 </view>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ky9-JE-lp4">
-                                                                    <rect key="frame" x="26" y="8" width="4" height="11"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="Oof-B6-uv1">
-                                                                        <font key="font" size="10" name="Menlo-Regular"/>
+                                                                    <rect key="frame" x="36" y="8" width="4" height="13"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="Oof-B6-uv1">
+                                                                        <font key="font" size="11" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP1-a2-XBg">
-                                                                    <rect key="frame" x="26" y="27" width="4" height="16"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="fBd-g0-H7U">
-                                                                        <font key="font" size="10" name="Menlo-Regular"/>
+                                                                    <rect key="frame" x="36" y="29" width="4" height="22"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="left" id="fBd-g0-H7U">
+                                                                        <font key="font" size="11" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </textFieldCell>
@@ -118,7 +118,7 @@
                                                                 <constraint firstItem="Ky9-JE-lp4" firstAttribute="trailing" secondItem="SP1-a2-XBg" secondAttribute="trailing" id="YMP-F8-V0L"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Ky9-JE-lp4" secondAttribute="bottom" constant="8" id="di8-Yi-xQj"/>
                                                                 <constraint firstItem="SP1-a2-XBg" firstAttribute="height" relation="greaterThanOrEqual" secondItem="hVm-ry-2Rv" secondAttribute="height" id="fmd-TR-Gda"/>
-                                                                <constraint firstItem="SP1-a2-XBg" firstAttribute="leading" secondItem="hVm-ry-2Rv" secondAttribute="trailing" constant="8" id="sz6-FE-391"/>
+                                                                <constraint firstItem="SP1-a2-XBg" firstAttribute="leading" secondItem="hVm-ry-2Rv" secondAttribute="trailing" constant="12" id="sz6-FE-391"/>
                                                                 <constraint firstItem="SP1-a2-XBg" firstAttribute="centerY" secondItem="hVm-ry-2Rv" secondAttribute="centerY" id="zbm-OA-lG4"/>
                                                             </constraints>
                                                         </customView>
@@ -148,7 +148,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="dsS-KU-rgc" firstAttribute="leading" secondItem="3pQ-Yc-ruh" secondAttribute="leading" id="PZ0-Ix-fjj"/>
-                            <constraint firstItem="dsS-KU-rgc" firstAttribute="top" secondItem="3pQ-Yc-ruh" secondAttribute="top" id="UfS-JB-PIT"/>
+                            <constraint firstItem="dsS-KU-rgc" firstAttribute="top" secondItem="3pQ-Yc-ruh" secondAttribute="top" constant="4" id="UfS-JB-PIT"/>
                             <constraint firstAttribute="trailing" secondItem="dsS-KU-rgc" secondAttribute="trailing" id="ciR-jl-Bak"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="dsS-KU-rgc" secondAttribute="bottom" id="qXP-hx-e4j"/>
                         </constraints>

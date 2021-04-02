@@ -89,14 +89,14 @@ class EditCoordinateController: EditViewController {
         
         if let lastDisplayedColor = lastDisplayedColor, lastDisplayedColor.coordinate != pixelColor.coordinate, sender != nil
         {
-            undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-                if let field = sender as? NSTextField, targetSelf.firstResponder != field
+            undoManager?.registerUndo(withTarget: self, handler: { (target) in
+                if let field = sender as? NSTextField, target.firstResponder != field
                 {
-                    targetSelf.makeFirstResponder(field)
+                    target.makeFirstResponder(field)
                 } else {
-                    targetSelf.makeFirstResponder(nil)
+                    target.makeFirstResponder(nil)
                 }
-                targetSelf.updateDisplay(sender, with: lastDisplayedColor, isRegistered: true)
+                target.updateDisplay(sender, with: lastDisplayedColor, isRegistered: true)
             })
             if !registered {
                 undoManager?.setActionName(NSLocalizedString("Edit Coordinate", comment: "updateDisplay(_:with:isRegistered:)"))

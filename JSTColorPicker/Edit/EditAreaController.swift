@@ -93,14 +93,14 @@ class EditAreaController: EditViewController {
         
         if let lastDisplayedArea = lastDisplayedArea, lastDisplayedArea.rect != pixelArea.rect, sender != nil
         {
-            undoManager?.registerUndo(withTarget: self, handler: { (targetSelf) in
-                if let field = sender as? NSTextField, targetSelf.firstResponder != field
+            undoManager?.registerUndo(withTarget: self, handler: { (target) in
+                if let field = sender as? NSTextField, target.firstResponder != field
                 {
-                    targetSelf.makeFirstResponder(field)
+                    target.makeFirstResponder(field)
                 } else {
-                    targetSelf.makeFirstResponder(nil)
+                    target.makeFirstResponder(nil)
                 }
-                targetSelf.updateDisplay(sender, with: lastDisplayedArea, isRegistered: true)
+                target.updateDisplay(sender, with: lastDisplayedArea, isRegistered: true)
             })
             if !registered {
                 undoManager?.setActionName(NSLocalizedString("Edit Area", comment: "updateDisplay(_:with:isRegistered:)"))

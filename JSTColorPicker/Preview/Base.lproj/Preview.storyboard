@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="246" height="284"/>
                         <subviews>
                             <box borderType="line" title="Image Preview" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd">
-                                <rect key="frame" x="-3" y="-4" width="252" height="288"/>
+                                <rect key="frame" x="-3" y="-8" width="252" height="288"/>
                                 <view key="contentView" id="CPy-7x-2lg">
                                     <rect key="frame" x="11" y="3" width="230" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,7 +75,7 @@
                             </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="top" secondItem="BGG-md-vya" secondAttribute="top" id="1vu-7C-azE"/>
+                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="top" secondItem="BGG-md-vya" secondAttribute="top" constant="4" id="1vu-7C-azE"/>
                             <constraint firstItem="mmK-Yn-gAd" firstAttribute="leading" secondItem="BGG-md-vya" secondAttribute="leading" id="ZrW-Xc-nJw"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="mmK-Yn-gAd" secondAttribute="bottom" id="axz-Su-VZT"/>
                             <constraint firstAttribute="trailing" secondItem="mmK-Yn-gAd" secondAttribute="trailing" id="pys-Qi-Uyh"/>

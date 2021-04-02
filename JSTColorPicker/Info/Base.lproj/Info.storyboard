@@ -9,20 +9,20 @@
         <scene sceneID="Y6v-Bh-ngS">
             <objects>
                 <viewController id="QE8-38-fA1" customClass="InfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
                         <rect key="frame" x="0.0" y="0.0" width="312" height="258"/>
                         <subviews>
                             <box borderType="line" title="Information" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
-                                <rect key="frame" x="-3" y="-4" width="318" height="262"/>
+                                <rect key="frame" x="-3" y="-4" width="318" height="258"/>
                                 <view key="contentView" id="JH3-cU-X8Y">
-                                    <rect key="frame" x="11" y="11" width="296" height="236"/>
+                                    <rect key="frame" x="11" y="11" width="296" height="232"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-pw-tzN">
-                                            <rect key="frame" x="8" y="8" width="280" height="216"/>
+                                            <rect key="frame" x="8" y="8" width="280" height="212"/>
                                             <subviews>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-PL-tcm">
-                                                    <rect key="frame" x="-2" y="132" width="154" height="84"/>
+                                                    <rect key="frame" x="-2" y="128" width="154" height="84"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" allowsEditingTextAttributes="YES" id="UeP-pd-IhT">
                                                         <font key="font" metaFont="message" size="11"/>
                                                         <string key="title">Open or drop an image here.
@@ -36,10 +36,10 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="3hE-kr-9bI">
-                                                    <rect key="frame" x="0.0" y="96" width="280" height="24"/>
+                                                    <rect key="frame" x="0.0" y="96" width="280" height="20"/>
                                                     <subviews>
                                                         <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aqZ-u2-d9L">
-                                                            <rect key="frame" x="53" y="-7" width="174" height="36"/>
+                                                            <rect key="frame" x="53" y="-7" width="174" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kzg-6T-J5n">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -102,7 +102,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GEI-GX-uyj" secondAttribute="trailing" id="1Km-zX-atY"/>
-                            <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" id="EI4-bp-v0Y"/>
+                            <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" constant="4" id="EI4-bp-v0Y"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="leading" secondItem="TNs-V1-cem" secondAttribute="leading" id="N9Y-Ab-6nT"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
                         </constraints>

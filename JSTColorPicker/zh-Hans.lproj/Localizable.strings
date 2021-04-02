@@ -1,3 +1,13 @@
+/* exportAll(_:)
+   exportAs(_:) */
+"%@ Exported %ld Items" = "%@ 导出的 %ld 个项";
+
+/* exportAs(_:) */
+"%@ Exported Item #%ld" = "%@ 导出的项 #%ld";
+
+/* resample(_:) */
+"%@ Resample Item #%ld" = "%@ 重新采样的项 #%ld";
+
 /* Shortcut Guide */
 "[Magic Cursor]" = "[魔术光标]";
 

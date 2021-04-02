@@ -237,6 +237,7 @@ extension Screenshot {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
+            panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), displayName ?? "", content?.items.count ?? 0)
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: window) { [unowned self] (resp) in
                 if resp == .OK {

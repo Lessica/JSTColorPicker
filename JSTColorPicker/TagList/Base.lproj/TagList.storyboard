@@ -10,7 +10,7 @@
             <objects>
                 <viewController id="ifY-36-Ao8" customClass="TagListController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="zip-Pl-41D">
-                        <rect key="frame" x="0.0" y="0.0" width="258" height="662"/>
+                        <rect key="frame" x="0.0" y="0.0" width="258" height="666"/>
                         <subviews>
                             <box borderType="line" title="Tag List" translatesAutoresizingMaskIntoConstraints="NO" id="yUd-5h-qZT">
                                 <rect key="frame" x="-3" y="-4" width="264" height="666"/>
@@ -24,7 +24,7 @@
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
                                                     <rect key="frame" x="0.0" y="602" width="242" height="30"/>
                                                     <subviews>
-                                                        <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="dhe-6e-fIJ"/>
@@ -345,7 +345,7 @@
                             </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="yUd-5h-qZT" firstAttribute="top" secondItem="zip-Pl-41D" secondAttribute="top" id="LzX-kL-8fE"/>
+                            <constraint firstItem="yUd-5h-qZT" firstAttribute="top" secondItem="zip-Pl-41D" secondAttribute="top" constant="4" id="LzX-kL-8fE"/>
                             <constraint firstItem="yUd-5h-qZT" firstAttribute="leading" secondItem="zip-Pl-41D" secondAttribute="leading" id="QgW-zJ-UnT"/>
                             <constraint firstAttribute="bottom" secondItem="yUd-5h-qZT" secondAttribute="bottom" id="SBC-3E-gMW"/>
                             <constraint firstAttribute="trailing" secondItem="yUd-5h-qZT" secondAttribute="trailing" id="jQL-X6-y9f"/>
