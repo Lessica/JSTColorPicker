@@ -1,0 +1,53 @@
+/* Class = "NSTextFieldCell"; title = "DIMENSION"; ObjectID = "73a-Nc-d3h"; */
+"73a-Nc-d3h.title" = "DIMENSION";
+
+/* Class = "NSTextFieldCell"; title = "CREATED_AT"; ObjectID = "a8q-KU-IQY"; */
+"a8q-KU-IQY.title" = "CREATED_AT";
+
+/* Class = "NSTextFieldCell"; title = "Color Profile"; ObjectID = "CiD-kN-Vih"; */
+"CiD-kN-Vih.title" = "颜色配置文件";
+
+/* Class = "NSTextFieldCell"; title = "File Name"; ObjectID = "G4u-Ip-zGX"; */
+"G4u-Ip-zGX.title" = "文件名";
+
+/* Class = "NSTextFieldCell"; title = "Snapshot At"; ObjectID = "G8I-Yc-WUb"; */
+"G8I-Yc-WUb.title" = "内容创建于";
+
+/* Class = "NSTextFieldCell"; title = "COLOR_SPACE"; ObjectID = "Hcf-8a-mI5"; */
+"Hcf-8a-mI5.title" = "COLOR_SPACE";
+
+/* Class = "NSTextFieldCell"; title = "Created At"; ObjectID = "hQO-Od-iZ0"; */
+"hQO-Od-iZ0.title" = "创建于";
+
+/* Class = "NSTextFieldCell"; title = "FILE_NAME"; ObjectID = "hU0-fV-0iM"; */
+"hU0-fV-0iM.title" = "FILE_NAME";
+
+/* Class = "NSTextFieldCell"; title = "Modified At"; ObjectID = "i9E-bi-99g"; */
+"i9E-bi-99g.title" = "最后编辑";
+
+/* Class = "NSTextFieldCell"; title = "Color Space"; ObjectID = "jjR-CP-FVX"; */
+"jjR-CP-FVX.title" = "色彩空间";
+
+/* Class = "NSTextFieldCell"; title = "MODIFIED_AT"; ObjectID = "ju0-hR-GTp"; */
+"ju0-hR-GTp.title" = "MODIFIED_AT";
+
+/* Class = "NSTextFieldCell"; title = "FULL_PATH"; ObjectID = "k1u-TA-2hU"; */
+"k1u-TA-2hU.title" = "FULL_PATH";
+
+/* Class = "NSTextFieldCell"; title = "COLOR_PROFILE"; ObjectID = "kl1-hT-v5K"; */
+"kl1-hT-v5K.title" = "COLOR_PROFILE";
+
+/* Class = "NSTextFieldCell"; title = "File Size"; ObjectID = "u4A-iQ-Fc2"; */
+"u4A-iQ-Fc2.title" = "文件尺寸";
+
+/* Class = "NSTextFieldCell"; title = "Dimension"; ObjectID = "uJs-JV-rgT"; */
+"uJs-JV-rgT.title" = "图像尺寸";
+
+/* Class = "NSTextFieldCell"; title = "FILE_SIZE"; ObjectID = "viU-Zp-DCb"; */
+"viU-Zp-DCb.title" = "FILE_SIZE";
+
+/* Class = "NSTextFieldCell"; title = "SNAPSHOT_AT"; ObjectID = "x1D-f6-qpi"; */
+"x1D-f6-qpi.title" = "SNAPSHOT_AT";
+
+/* Class = "NSTextFieldCell"; title = "Full Path"; ObjectID = "Zvf-gV-rxj"; */
+"Zvf-gV-rxj.title" = "完整路径";

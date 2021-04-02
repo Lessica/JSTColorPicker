@@ -68,6 +68,10 @@
 		CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
 		CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
 		CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
+		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
+		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
+		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
+		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -773,6 +777,10 @@
 		CC32E23D2615F15A00F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preview.storyboard; sourceTree = "<group>"; };
 		CC32E2472615F15D00F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preview.strings; sourceTree = "<group>"; };
 		CC32E2502615F15F00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preview.strings"; sourceTree = "<group>"; };
+		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
+		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
+		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
+		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
@@ -1227,6 +1235,7 @@
 		CC32E1C22615CC2300F5F6AA /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				CC608BDA261787CA00F5B861 /* Views */,
 				CC32E1DA2615D25700F5F6AA /* Info.storyboard */,
 				CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */,
 			);
@@ -1253,6 +1262,15 @@
 				CC32E2312615D6A300F5F6AA /* PreviewController.swift */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		CC608BDA261787CA00F5B861 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC436B0E26179D7800E46D3A /* InfoView.xib */,
+				CC608BE5261787E800F5B861 /* InfoView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CC84215F2615F2C500F1C007 /* Protocols */ = {
@@ -2404,6 +2422,7 @@
 				180C6A8A249F92AB00B42656 /* AlertTextView.xib in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
+				CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				D61047D724224A170002E990 /* Grid.storyboard in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
@@ -2438,6 +2457,7 @@
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
+				CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */,
 				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
 				CC2318BC25A4BA5A00331BF6 /* include in Resources */,
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
@@ -2574,6 +2594,7 @@
 				D610477D24224A170002E990 /* Foundation+Ext.swift in Sources */,
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
+				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SidebarSplitView.swift in Sources */,
@@ -2901,6 +2922,7 @@
 				D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
+				CC608BE7261787E800F5B861 /* InfoView.swift in Sources */,
 				CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3071,6 +3093,16 @@
 				CC32E2502615F15F00F5F6AA /* zh-Hans */,
 			);
 			name = Preview.storyboard;
+			sourceTree = "<group>";
+		};
+		CC436B0E26179D7800E46D3A /* InfoView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC436B0D26179D7800E46D3A /* Base */,
+				CC436B1726179D7F00E46D3A /* en */,
+				CC436B1926179D8100E46D3A /* zh-Hans */,
+			);
+			name = InfoView.xib;
 			sourceTree = "<group>";
 		};
 		D64AF09D240D05BB003A5B17 /* General.xib */ = {

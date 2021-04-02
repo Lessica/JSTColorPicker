@@ -1,14 +1,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Quit Comparison Mode (⇧⌘D)"; ObjectID = "aqZ-u2-d9L"; */
 "aqZ-u2-d9L.ibShadowedToolTip" = "退出比较模式 (⇧⌘D)";
 
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "bit-B0-S57"; */
+"bit-B0-S57.title" = "打开或拖拽文件到此处.";
+
 /* Class = "NSBox"; title = "Information"; ObjectID = "GEI-GX-uyj"; */
 "GEI-GX-uyj.title" = "信息";
 
+/* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "Gs9-gD-Eqd"; */
+"Gs9-gD-Eqd.title" = "打开或拖拽文件到此处.";
+
 /* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "Kzg-6T-J5n"; */
 "Kzg-6T-J5n.title" = "退出比较模式";
-
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "q3y-IR-g7i"; */
-"q3y-IR-g7i.title" = "打开或拖拽文件到此处.\n\n\n\n\n";
-
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here.\n\n\n\n\n"; ObjectID = "UeP-pd-IhT"; */
-"UeP-pd-IhT.title" = "打开或拖拽文件到此处.\n\n\n\n\n";

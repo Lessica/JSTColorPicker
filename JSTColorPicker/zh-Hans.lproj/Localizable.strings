@@ -62,12 +62,6 @@
 /* Shortcut Guide */
 "Click" = "单击";
 
-/* Information Panel */
-"Color Profile" = "颜色配置文件";
-
-/* Information Panel */
-"Color Space" = "色彩空间";
-
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
 
@@ -92,9 +86,6 @@
 /* Shortcut Guide */
 "Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板.";
 
-/* Information Panel */
-"Created At" = "创建时间";
-
 /* Shortcut Guide */
 "Delete Annotation" = "删除标注";
 
@@ -106,9 +97,6 @@
 
 /* internalDeleteContentItems(_:) */
 "Delete Items" = "删除项";
-
-/* Information Panel */
-"Dimensions" = "尺寸";
 
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "立即寻找设备";
@@ -306,9 +294,6 @@
 /* TemplateError */
 "Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
 
-/* Information Panel */
-"Modified At" = "修改时间";
-
 /* Shortcut Guide */
 "Modify Annotation" = "修改标注";
 
@@ -385,9 +370,6 @@
 /* Shortcut Guide */
 "Open..." = "打开...";
 
-/* Information Panel */
-"PNG Image" = "PNG 图像";
-
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
@@ -444,9 +426,6 @@
 
 /* Shortcut Guide */
 "Selection Arrow (F3): View, select, or modify annotations." = "选择箭头 (F3): 查看, 选择, 或是修改选中的标注.";
-
-/* Information Panel */
-"Snapshot At" = "内容创建时间";
 
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";

@@ -17,8 +17,10 @@ class InfoController: NSViewController, PaneController {
     private var exitComparisonHandler            : ((Bool) -> Void)?
 
     @IBOutlet weak var paneBox                   : NSBox!
-    @IBOutlet weak var imageLabel1               : NSTextField!
-    @IBOutlet weak var imageLabel2               : NSTextField!
+    @IBOutlet weak var infoView1                 : InfoView!
+    @IBOutlet weak var errorLabel1               : NSTextField!
+    @IBOutlet weak var infoView2                 : InfoView!
+    @IBOutlet weak var errorLabel2               : NSTextField!
     @IBOutlet weak var imageActionView           : NSView!
     @IBOutlet weak var exitComparisonModeButton  : NSButton!
 
@@ -72,74 +74,84 @@ extension InfoController: ScreenshotLoader {
     }
 
     private func updateInformationPanel() {
-        imageLabel1.isHidden = false
-        if let imageSource1 = imageSource, let attributedText = attributedStringValue(for: imageSource1) {
-            imageLabel1.attributedStringValue = attributedText
+        
+        if let imageSource = imageSource {
+            do {
+                try renderInfoView(infoView1, with: imageSource)
+                infoView1.isHidden = false
+                errorLabel1.isHidden = true
+            } catch {
+                errorLabel1.stringValue = error.localizedDescription
+                infoView1.isHidden = true
+                errorLabel1.isHidden = false
+            }
         } else {
-            imageLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
+            errorLabel1.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel()")
+            infoView1.isHidden = true
+            errorLabel1.isHidden = false
         }
-
-        if let imageSource2 = altImageSource, let attributedText = attributedStringValue(for: imageSource2) {
-            imageLabel2.attributedStringValue = attributedText
-            imageLabel2.isHidden = false
+        
+        if let imageSource = altImageSource {
+            do {
+                try renderInfoView(infoView2, with: imageSource)
+                infoView2.isHidden = false
+                errorLabel2.isHidden = true
+            } catch {
+                errorLabel2.stringValue = error.localizedDescription
+                infoView2.isHidden = true
+                errorLabel2.isHidden = false
+            }
             imageActionView.isHidden = false
         } else {
-            imageLabel2.stringValue = NSLocalizedString("Open or drop an image here.", comment: "updateInformationPanel")
-            imageLabel2.isHidden = true
+            infoView2.isHidden = true
+            errorLabel2.isHidden = true
             imageActionView.isHidden = true
         }
     }
-
-    private func attributedStringValue(for source: PixelImage.Source) -> NSAttributedString? {
-        guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any] else { return nil }
-        guard let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any] else { return nil }
-        guard let attrs = try? FileManager.default.attributesOfItem(atPath: source.url.path) else { return nil }
-
+    
+    private func renderInfoView(_ view: InfoView, with source: PixelImage.Source) throws {
+        let attrs = try FileManager.default.attributesOfItem(atPath: source.url.path)
+        guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any],
+              let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any]
+        else { throw Screenshot.Error.invalidImageProperties }
+        
         var createdAtDesc: String?
         if let createdAt = attrs[.creationDate] as? Date {
             createdAtDesc = InfoController.defaultDateFormatter.string(from: createdAt)
         }
+        
         var modifiedAtDesc: String?
         if let modifiedAt = attrs[.modificationDate] as? Date {
             modifiedAtDesc = InfoController.defaultDateFormatter.string(from: modifiedAt)
         }
-
-        let snapshotAtStr = (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "Unknown"
+        
         var snapshotAtDesc: String?
-        if let snapshotAt = InfoController.exifDateFormatter.date(from: snapshotAtStr) {
+        if let snapshotAt = InfoController.exifDateFormatter.date(from: (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "")
+        {
             snapshotAtDesc = InfoController.defaultDateFormatter.string(from: snapshotAt)
         }
 
         let fileSize = InfoController.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
         let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
         let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
-
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byClipping
-        let attributedResult = NSMutableAttributedString(string: source.url.lastPathComponent, attributes: [
-            NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 11.0),
-            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ])
-
-        var additionalString = "\n"
-        additionalString += String(format: "%@ - %@", NSLocalizedString("PNG Image", comment: "Information Panel"), fileSize) + "\n"
-        additionalString += "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Created At", comment: "Information Panel"), createdAtDesc ?? "Unknown") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Modified At", comment: "Information Panel"), modifiedAtDesc ?? "Unknown") + "\n"
-        if snapshotAtDesc != nil { additionalString += String(format: "%@: %@", NSLocalizedString("Snapshot At", comment: "Information Panel"), snapshotAtDesc ?? "Unknown") + "\n" }
-        additionalString += "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Dimensions", comment: "Information Panel"), "\(pixelXDimension)×\(pixelYDimension)") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Color Space", comment: "Information Panel"), (props[kCGImagePropertyColorModel] as? String) ?? "Unknown") + "\n"
-        additionalString += String(format: "%@: %@", NSLocalizedString("Color Profile", comment: "Information Panel"), (props[kCGImagePropertyProfileName] as? String) ?? "Unknown")
-
-        attributedResult.append(NSAttributedString(string: additionalString, attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 11.0),
-            NSAttributedString.Key.foregroundColor: NSColor.labelColor,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ]))
-
-        return attributedResult
+        
+        let colorSpaceStr = props[kCGImagePropertyColorModel] as? String
+        let colorProfileStr = props[kCGImagePropertyProfileName] as? String
+        
+        view.fileNameLabel.stringValue = source.url.lastPathComponent
+        view.fileSizeLabel.stringValue = fileSize
+        view.createdAtStack.isHidden = createdAtDesc == nil
+        view.createdAtLabel.stringValue = createdAtDesc ?? ""
+        view.modifiedAtStack.isHidden = modifiedAtDesc == nil
+        view.modifiedAtLabel.stringValue = modifiedAtDesc ?? ""
+        view.snapshotAtStack.isHidden = snapshotAtDesc == nil
+        view.snapshotAtLabel.stringValue = snapshotAtDesc ?? ""
+        view.dimensionLabel.stringValue = "\(pixelXDimension)×\(pixelYDimension)"
+        view.colorSpaceStack.isHidden = colorSpaceStr == nil
+        view.colorSpaceLabel.stringValue = colorSpaceStr ?? ""
+        view.colorProfileStack.isHidden = colorProfileStr == nil
+        view.colorProfileLabel.stringValue = colorProfileStr ?? ""
+        view.fullPathLabel.stringValue = source.url.path
     }
 }
 

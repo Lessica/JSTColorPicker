@@ -62,12 +62,6 @@
 /* Shortcut Guide */
 "Click" = "Click";
 
-/* Information Panel */
-"Color Profile" = "Color Profile";
-
-/* Information Panel */
-"Color Space" = "Color Space";
-
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
 
@@ -92,9 +86,6 @@
 /* Shortcut Guide */
 "Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "Copy the Color & Coordinates at the cursor location directly to the general pasteboard.";
 
-/* Information Panel */
-"Created At" = "Created At";
-
 /* Shortcut Guide */
 "Delete Annotation" = "Delete Annotation";
 
@@ -106,9 +97,6 @@
 
 /* internalDeleteContentItems(_:) */
 "Delete Items" = "Delete Items";
-
-/* Information Panel */
-"Dimensions" = "Dimensions";
 
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "Discover Devices";
@@ -306,9 +294,6 @@
 /* TemplateError */
 "Missing root entry: template must return a table." = "Missing root entry: template must return a table.";
 
-/* Information Panel */
-"Modified At" = "Modified At";
-
 /* Shortcut Guide */
 "Modify Annotation" = "Modify Annotation";
 
@@ -385,9 +370,6 @@
 /* Shortcut Guide */
 "Open..." = "Open...";
 
-/* Information Panel */
-"PNG Image" = "PNG Image";
-
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -444,9 +426,6 @@
 
 /* Shortcut Guide */
 "Selection Arrow (F3): View, select, or modify annotations." = "Selection Arrow (F3): View, select, or modify annotations.";
-
-/* Information Panel */
-"Snapshot At" = "Snapshot At";
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
