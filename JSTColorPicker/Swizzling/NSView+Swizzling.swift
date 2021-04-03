@@ -57,18 +57,10 @@ extension NSView: SwizzlingInjection {
             
             self.widget_updateLayer()
             // Remove corner radius with the alternative mask image
-            layer?.contents = (NSAppearance.current.name == .vibrantLight || NSAppearance.current.name == .aqua) ? NSView.cornerMaskImageAqua : NSView.cornerMaskImageDarkAqua
+            layer?.contents = NSAppearance.current.isLight
+                ? NSView.cornerMaskImageAqua
+                : NSView.cornerMaskImageDarkAqua
         }
-        
-//        else if NSStringFromClass(type(of: superview)) == "NSToolbarItemViewer" {
-//            guard let toolbarItem = superview.value(forKeyPath: "_item") as? NSToolbarItem, !toolbarItem.itemIdentifier.rawValue.hasPrefix("com.apple.")
-//            else {
-//                self.widget_updateLayer()
-//                return
-//            }
-//            
-//            // Remove background
-//        }
         
         else {
             self.widget_updateLayer()

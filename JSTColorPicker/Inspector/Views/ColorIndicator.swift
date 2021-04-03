@@ -10,7 +10,11 @@ import Cocoa
 
 class ColorIndicator: NSControl {
     
-    var color: NSColor = .clear
+    var color: NSColor = .clear {
+        didSet {
+            setImage(NSImage(color: color, size: bounds.size), size: bounds.size)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +44,8 @@ class ColorIndicator: NSControl {
     private func setup() {
         wantsLayer = true
         layer!.isOpaque = true
-        layer!.borderWidth = 0.5
+        layer!.borderWidth = 0.6
+        layer!.cornerRadius = 5
     }
     
     func setImage(_ image: CGImage) {
@@ -67,7 +72,7 @@ class ColorIndicator: NSControl {
 
     override func updateLayer() {
         super.updateLayer()
-        layer!.borderColor = NSColor.labelColor.cgColor
+        layer!.borderColor = NSColor.gray.cgColor
     }
     
 }

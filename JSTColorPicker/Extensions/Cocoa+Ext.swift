@@ -8,6 +8,12 @@
 
 import Foundation
 
+extension NSAppearance {
+    var isLight: Bool {
+        return name == .aqua || name == .vibrantLight || name == .accessibilityHighContrastAqua || name == .accessibilityHighContrastVibrantLight
+    }
+}
+
 extension NSScreen {
     var displayID: CGDirectDisplayID? {
         // this method is mentioned by: https://developer.apple.com/documentation/appkit/nsscreen/1388360-devicedescription

@@ -9,37 +9,37 @@
         <scene sceneID="Y6v-Bh-ngS">
             <objects>
                 <viewController id="QE8-38-fA1" customClass="InfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
-                        <rect key="frame" x="0.0" y="0.0" width="312" height="310"/>
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-V1-cem">
+                        <rect key="frame" x="0.0" y="0.0" width="312" height="276"/>
                         <subviews>
                             <box borderType="line" title="Information" translatesAutoresizingMaskIntoConstraints="NO" id="GEI-GX-uyj">
-                                <rect key="frame" x="-3" y="-4" width="318" height="310"/>
+                                <rect key="frame" x="-3" y="-4" width="318" height="276"/>
                                 <view key="contentView" id="JH3-cU-X8Y">
-                                    <rect key="frame" x="11" y="11" width="296" height="284"/>
+                                    <rect key="frame" x="11" y="11" width="296" height="250"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-pw-tzN">
-                                            <rect key="frame" x="8" y="8" width="280" height="264"/>
+                                            <rect key="frame" x="0.0" y="2" width="296" height="240"/>
                                             <subviews>
                                                 <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6K-uU-XQe">
-                                                    <rect key="frame" x="-2" y="250" width="154" height="14"/>
+                                                    <rect key="frame" x="-2" y="226" width="154" height="14"/>
                                                     <textFieldCell key="cell" allowsUndo="NO" title="Open or drop an image here." id="bit-B0-S57">
-                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="JDi-If-cWZ" customClass="InfoView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="168" width="280" height="96"/>
+                                                    <rect key="frame" x="0.0" y="144" width="296" height="96"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="96" placeholder="YES" id="cjg-iu-0Nf"/>
                                                     </constraints>
                                                 </customView>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="3hE-kr-9bI">
-                                                    <rect key="frame" x="0.0" y="108" width="280" height="48"/>
+                                                    <rect key="frame" x="0.0" y="108" width="296" height="24"/>
                                                     <subviews>
                                                         <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aqZ-u2-d9L">
-                                                            <rect key="frame" x="53" y="-7" width="174" height="60"/>
+                                                            <rect key="frame" x="61" y="-7" width="174" height="36"/>
                                                             <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kzg-6T-J5n">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -53,21 +53,22 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="aqZ-u2-d9L" firstAttribute="centerX" secondItem="3hE-kr-9bI" secondAttribute="centerX" id="7BF-bU-lan"/>
+                                                        <constraint firstAttribute="height" constant="24" placeholder="YES" id="7rR-hT-JqJ"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aqZ-u2-d9L" secondAttribute="trailing" id="VkI-cJ-a1e"/>
                                                         <constraint firstAttribute="bottom" secondItem="aqZ-u2-d9L" secondAttribute="bottom" id="Y9Z-zm-4V8"/>
                                                         <constraint firstItem="aqZ-u2-d9L" firstAttribute="top" secondItem="3hE-kr-9bI" secondAttribute="top" id="cps-cH-ErQ"/>
                                                     </constraints>
                                                 </customView>
                                                 <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9g-uD-eMH">
-                                                    <rect key="frame" x="-2" y="250" width="154" height="14"/>
+                                                    <rect key="frame" x="-2" y="226" width="154" height="14"/>
                                                     <textFieldCell key="cell" allowsUndo="NO" title="Open or drop an image here." id="Gs9-gD-Eqd">
-                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="oIh-vP-xIE" customClass="InfoView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="96"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="296" height="96"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="96" placeholder="YES" id="HKv-Im-bez"/>
                                                     </constraints>
@@ -95,10 +96,10 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="XqG-pw-tzN" secondAttribute="trailing" constant="8" id="JL4-nm-7gm"/>
-                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="top" secondItem="JH3-cU-X8Y" secondAttribute="top" constant="12" id="OkC-E3-xgU"/>
-                                        <constraint firstAttribute="bottom" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="8" id="u0L-kW-Dyi"/>
-                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="leading" secondItem="JH3-cU-X8Y" secondAttribute="leading" constant="8" id="zkm-sa-Qmi"/>
+                                        <constraint firstAttribute="trailing" secondItem="XqG-pw-tzN" secondAttribute="trailing" id="JL4-nm-7gm"/>
+                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="top" secondItem="JH3-cU-X8Y" secondAttribute="top" constant="8" id="OkC-E3-xgU"/>
+                                        <constraint firstAttribute="bottom" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="2" id="u0L-kW-Dyi"/>
+                                        <constraint firstItem="XqG-pw-tzN" firstAttribute="leading" secondItem="JH3-cU-X8Y" secondAttribute="leading" id="zkm-sa-Qmi"/>
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>

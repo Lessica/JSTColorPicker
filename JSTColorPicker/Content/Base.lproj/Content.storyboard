@@ -13,13 +13,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="36" width="220" height="764"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="220" height="764"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="24" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="739"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
@@ -39,11 +39,11 @@
                                                     </textFieldCell>
                                                     <prototypeCellViews>
                                                         <tableCellView id="5z2-yi-9PI" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="2" y="1" width="34" height="24"/>
+                                                            <rect key="frame" x="2" y="1" width="34" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCW-yY-fH2">
-                                                                    <rect key="frame" x="0.0" y="4" width="34" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="2" width="34" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="3v1-QE-BeJ">
                                                                         <font key="font" metaFont="system"/>
@@ -70,11 +70,11 @@
                                                     </textFieldCell>
                                                     <prototypeCellViews>
                                                         <tableCellView id="vmH-ZF-EVa" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="40" y="1" width="60" height="24"/>
+                                                            <rect key="frame" x="40" y="1" width="60" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8q-QU-5Er" customClass="ContentEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="4" width="60" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="2" width="60" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="NO9-ED-jed">
                                                                         <font key="font" metaFont="system"/>
@@ -105,11 +105,11 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="6Ma-uU-S3m" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="104" y="1" width="60" height="24"/>
+                                                            <rect key="frame" x="104" y="1" width="60" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caP-k1-UiG">
-                                                                    <rect key="frame" x="0.0" y="4" width="60" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="2" width="60" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="pmg-zN-1kk">
                                                                         <font key="font" metaFont="system"/>
@@ -137,16 +137,16 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="ROt-Ae-AXF" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="168" y="1" width="154" height="24"/>
+                                                            <rect key="frame" x="168" y="1" width="154" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44X-Vu-x9l">
-                                                                    <rect key="frame" x="3" y="5" width="17" height="15"/>
+                                                                    <rect key="frame" x="3" y="3" width="17" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="amW-wa-Evw"/>
                                                                 </imageView>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve9-tP-B9R">
-                                                                    <rect key="frame" x="25" y="5" width="129" height="15"/>
+                                                                    <rect key="frame" x="25" y="3" width="129" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="ndM-Rr-NDX">
                                                                         <font key="font" size="13" name="Menlo-Regular"/>
@@ -178,7 +178,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="ep1-B6-8yg"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="0.019230769230769232" horizontal="YES" id="NM7-Vt-IF5">
+                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="0.96153846153846156" horizontal="YES" id="NM7-Vt-IF5">
                                     <rect key="frame" x="0.0" y="748" width="220" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

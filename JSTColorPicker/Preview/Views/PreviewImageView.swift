@@ -10,26 +10,28 @@ import Cocoa
 
 class PreviewImageView: NSView {
     
-    private static let defaultContentsBorderColor  : CGColor = NSColor(white: 1.0, alpha: 1.0).cgColor
-    private static let defaultContentsBorderWidth  : CGFloat = 0.5
+    private static let defaultContentsBorderColor  : CGColor = NSColor(white: 0.914, alpha: 0.44).cgColor
+    private static let defaultContentsBorderWidth  : CGFloat = 1.0
     
     override var isOpaque: Bool { true }
     override var wantsDefaultClipping: Bool { false }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        wantsLayer = true
-        layer!.isOpaque = true
-        layer!.contentsGravity = .resizeAspect
-        layer!.addSublayer(borderLayer)
-        layerContentsRedrawPolicy = .never
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setup()
+    }
+    
+    private func setup() {
         wantsLayer = true
         layer!.isOpaque = true
+        layer!.masksToBounds = false
         layer!.contentsGravity = .resizeAspect
+        layer!.compositingFilter = CIFilter(name: "CIMultiplyBlendMode")
         layer!.addSublayer(borderLayer)
         layerContentsRedrawPolicy = .never
     }

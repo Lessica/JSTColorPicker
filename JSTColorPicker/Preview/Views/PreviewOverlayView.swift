@@ -28,7 +28,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         didSet { setNeedsDisplay(bounds) }
     }
     
-    private static let defaultOverlayColor        : CGColor = NSColor(white: 0.0, alpha: 0.5).cgColor
+    private static let defaultOverlayColor        : CGColor = NSColor(white: 0.914, alpha: 0.44).cgColor
     private static let defaultOverlayBorderColor  : CGColor = NSColor(white: 1.0, alpha: 0.5).cgColor
     private static let defaultOverlayBorderWidth  : CGFloat = 1.0
     
@@ -84,7 +84,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
             && !highlightArea.isEmpty else
         {
             ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
-            ctx.addRect(bounds)
+            ctx.addRect(imageArea)
             ctx.fillPath()
             return
         }
@@ -105,12 +105,14 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         } else {
             ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
         }
-        ctx.addRect(bounds)
+        ctx.addRect(imageArea)
         ctx.fillPath(using: .evenOdd)
         
         // stroke border
         ctx.setLineWidth(PreviewOverlayView.defaultOverlayBorderWidth)
         ctx.setStrokeColor(PreviewOverlayView.defaultOverlayBorderColor)
+        ctx.setShadow(offset: .zero, blur: 6.0, color: NSColor.black.cgColor)
+        ctx.setBlendMode(.multiply)
         if !isSmallArea {
             ctx.addPath(highlightPath)
         } else {
