@@ -19,6 +19,7 @@ class PreviewController: NSViewController, PaneController {
     @IBOutlet weak var previewSlider             : NSSlider!
     @IBOutlet weak var previewSliderBgView       : NSView!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
+    @IBOutlet weak var noImageHintLabel          : NSTextField!
 
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
@@ -37,6 +38,7 @@ class PreviewController: NSViewController, PaneController {
         previewOverlayView.overlayDelegate = self
         previewSliderLabel.textColor = .white
         previewSlider.isEnabled = false
+        noImageHintLabel.isHidden = false
 
         reloadPane()
     }
@@ -66,6 +68,7 @@ extension PreviewController: ScreenshotLoader {
         previewOverlayView.highlightArea = previewRect
 
         previewSlider.isEnabled = true
+        noImageHintLabel.isHidden = true
     }
 
     func reloadPane() {

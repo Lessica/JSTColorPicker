@@ -8,41 +8,37 @@
 
 import Cocoa
 
+private extension CGContext {
+    func drawInGState(_ callback: (CGContext) -> Void) {
+        saveGState()
+        callback(self)
+        restoreGState()
+    }
+}
+
 class PreviewOverlayView: NSView, ItemPreviewSender {
     
-    public weak var overlayDelegate: ItemPreviewResponder?
+    weak     var overlayDelegate                  : ItemPreviewResponder?
+    private  var trackingArea                     : NSTrackingArea?
+    private  var isSmallArea                      : Bool { highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter }
+    override var isFlipped                        : Bool { true }
+    override var isOpaque                         : Bool { false }
+    override var wantsDefaultClipping             : Bool { false }
     
-    public var imageSize: CGSize = CGSize.zero {
-        didSet { setNeedsDisplay(bounds) }
-    }
-    
-    public var imageArea: CGRect {
-        return CGRect(origin: .zero, size: imageSize).aspectFit(in: bounds).intersection(visibleRect)
-    }
-    
-    public var imageScale: CGFloat {
-        return CGRect(origin: .zero, size: imageSize).scaleToAspectFit(in: bounds)
-    }
-    
-    public var highlightArea: CGRect = CGRect.zero {
-        didSet { setNeedsDisplay(bounds) }
-    }
+    var imageSize                                 : CGSize = CGSize.zero { didSet { setNeedsDisplay(bounds) } }
+    var imageArea                                 : CGRect               { CGRect(origin: .zero, size: imageSize).aspectFit(in: bounds).intersection(visibleRect) }
+    var imageScale                                : CGFloat              { CGRect(origin: .zero, size: imageSize).scaleToAspectFit(in: bounds) }
+    var highlightArea                             : CGRect = CGRect.zero { didSet { setNeedsDisplay(bounds) } }
     
     private static let defaultOverlayColor        : CGColor = NSColor(white: 0.914, alpha: 0.44).cgColor
     private static let defaultOverlayBorderColor  : CGColor = NSColor(white: 1.0, alpha: 0.5).cgColor
     private static let defaultOverlayBorderWidth  : CGFloat = 1.0
+    private static let defaultOverlayShadowColor  : CGColor = .black
     
     private static let minimumOverlayRadius       : CGFloat = 3.0
     private static let minimumOverlayDiameter     : CGFloat = minimumOverlayRadius * 3
     private static let minimumDraggingDistance    : CGFloat = 3.0
-    private var isSmallArea: Bool { highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter }
-    
-    private var trackingArea: NSTrackingArea?
-    
-    override var isFlipped: Bool { true }
-    override var isOpaque: Bool { false }
-    override var wantsDefaultClipping: Bool { false }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -83,42 +79,50 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         guard !inLiveResize
             && !highlightArea.isEmpty else
         {
-            ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
-            ctx.addRect(imageArea)
-            ctx.fillPath()
+            if imageSize != .zero {
+                ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
+                ctx.addRect(imageArea)
+                ctx.fillPath()
+            }
             return
         }
-        
-        let highlightPath = CGPath(
-            roundedRect: highlightArea
-                .insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth * 0.5, dy: PreviewOverlayView.defaultOverlayBorderWidth * 0.5)
-                .offsetBy(dx: -PreviewOverlayView.defaultOverlayBorderWidth * 0.25, dy: -PreviewOverlayView.defaultOverlayBorderWidth * 0.25),
-            cornerWidth: PreviewOverlayView.minimumOverlayRadius,
-            cornerHeight: PreviewOverlayView.minimumOverlayRadius,
-            transform: nil
-        )
-        
-        // fill background
-        ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
-        if !isSmallArea {
-            ctx.addPath(highlightPath)
-        } else {
-            ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
+
+        let addHighlightPath: (CGContext) -> Void = { [unowned self] (innerCtx) in
+            let highlightArea = self.highlightArea
+            let highlightPath = CGPath(
+                roundedRect: highlightArea
+                    .insetBy(dx: PreviewOverlayView.defaultOverlayBorderWidth * 0.5, dy: PreviewOverlayView.defaultOverlayBorderWidth * 0.5)
+                    .offsetBy(dx: -PreviewOverlayView.defaultOverlayBorderWidth * 0.25, dy: -PreviewOverlayView.defaultOverlayBorderWidth * 0.25),
+                cornerWidth: PreviewOverlayView.minimumOverlayRadius,
+                cornerHeight: PreviewOverlayView.minimumOverlayRadius,
+                transform: nil
+            )
+            if !self.isSmallArea {
+                innerCtx.addPath(highlightPath)
+            } else {
+                innerCtx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
+            }
         }
-        ctx.addRect(imageArea)
-        ctx.fillPath(using: .evenOdd)
-        
-        // stroke border
+
+        ctx.setBlendMode(.multiply)
         ctx.setLineWidth(PreviewOverlayView.defaultOverlayBorderWidth)
         ctx.setStrokeColor(PreviewOverlayView.defaultOverlayBorderColor)
-        ctx.setShadow(offset: .zero, blur: 6.0, color: NSColor.black.cgColor)
-        ctx.setBlendMode(.multiply)
-        if !isSmallArea {
-            ctx.addPath(highlightPath)
-        } else {
-            ctx.addEllipse(in: CGRect(at: highlightArea.center, radius: PreviewOverlayView.minimumOverlayRadius))
+        ctx.setFillColor(PreviewOverlayView.defaultOverlayColor)
+
+        ctx.drawInGState { innerCtx in
+            innerCtx.setShadow(offset: .zero, blur: 6.0, color: PreviewOverlayView.defaultOverlayShadowColor)
+
+            addHighlightPath(innerCtx)
+            innerCtx.addRect(imageArea)
+            innerCtx.clip(using: .evenOdd)
+
+            addHighlightPath(innerCtx)
+            innerCtx.strokePath()
         }
-        ctx.strokePath()
+
+        addHighlightPath(ctx)
+        ctx.addRect(imageArea)
+        ctx.drawPath(using: .eoFillStroke)
     }
     
     private func isMouseInsideImage(with event: NSEvent) -> Bool {

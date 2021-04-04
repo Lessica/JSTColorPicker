@@ -31,7 +31,6 @@ class PreviewImageView: NSView {
         layer!.isOpaque = true
         layer!.masksToBounds = false
         layer!.contentsGravity = .resizeAspect
-        layer!.compositingFilter = CIFilter(name: "CIMultiplyBlendMode")
         layer!.addSublayer(borderLayer)
         layerContentsRedrawPolicy = .never
     }
