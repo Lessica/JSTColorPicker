@@ -10,8 +10,8 @@ import Cocoa
 
 @IBDesignable
 class InfoView: NSView {
-    let nibName = "InfoView"
-    var contentView: NSView?
+    private let nibName = "InfoView"
+    private var contentView: NSView?
     
     @IBOutlet weak var fileNameStack: NSStackView!
     @IBOutlet weak var fileSizeStack: NSStackView!

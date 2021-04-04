@@ -10,8 +10,8 @@ import Cocoa
 
 @IBDesignable
 class InspectorView: NSControl {
-    let nibName = "InspectorView"
-    var contentView: NSView?
+    private let nibName = "InspectorView"
+    private var contentView: NSView?
     
     @IBOutlet weak var colorView: ColorIndicator!
     @IBOutlet weak var hexLabel: NSTextField!
