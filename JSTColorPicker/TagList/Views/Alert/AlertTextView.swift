@@ -10,9 +10,9 @@ import Cocoa
 
 class AlertTextView: NSView {
 
-    @IBOutlet public weak var textView: NSTextView!
+    @IBOutlet weak var textView: NSTextView!
     
-    public var text: String {
+    var text: String {
         get { textView.string            }
         set { textView.string = newValue }
     }

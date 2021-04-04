@@ -10,7 +10,7 @@ import Cocoa
 
 class AreaAnnotatorOverlay: AnnotatorOverlay {
 
-    public private(set) var rect: PixelRect
+    internal private(set) var rect: PixelRect
     override var hidesDuringEditing: Bool { true }
 
     init(rect: PixelRect, label: String, associatedLabel: String? = nil) {

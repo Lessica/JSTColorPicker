@@ -21,7 +21,7 @@ class AnnotatorOverlay: EditableOverlay {
         case floating  // not implemented
     }
 
-    public   var revealStyle         : RevealStyle = .none
+    var revealStyle         : RevealStyle = .none
 
     /* controlled by revealStyle */
     override var borderStyle         : BorderStyle
@@ -68,17 +68,17 @@ class AnnotatorOverlay: EditableOverlay {
     // MARK: - Appearance
 
     /* Fixed Appearance */
-    public static let fixedOverlayOffset             = CGPoint(x: -12.0, y: -12.0)
-    public static let fixedOverlaySize               = CGSize(width: 24.0, height: 24.0)
-    public static let minimumBorderedOverlaySize     = CGSize(width: 16.0, height: 16.0)
+    static let fixedOverlayOffset             = CGPoint(x: -12.0, y: -12.0)
+    static let fixedOverlaySize               = CGSize(width: 24.0, height: 24.0)
+    static let minimumBorderedOverlaySize     = CGSize(width: 16.0, height: 16.0)
     
-    public var labelColor                            : NSColor = .black
-    public var selectedLabelColor                    : NSColor = .white
-    public var focusedLabelColor                     : NSColor = .clear
+    var labelColor                            : NSColor = .black
+    var selectedLabelColor                    : NSColor = .white
+    var focusedLabelColor                     : NSColor = .clear
 
-    public var backgroundImage                       : NSImage = NSImage(size: .zero)
-    public var selectedBackgroundImage               : NSImage = NSImage(size: .zero)
-    public var focusedBackgroundImage                : NSImage = NSImage(size: .zero)
+    var backgroundImage                       : NSImage = NSImage(size: .zero)
+    var selectedBackgroundImage               : NSImage = NSImage(size: .zero)
+    var focusedBackgroundImage                : NSImage = NSImage(size: .zero)
 
     private static let labelFont                     = NSFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular)
     private static let defaultBorderWidth            : CGFloat = 0.0
@@ -96,15 +96,15 @@ class AnnotatorOverlay: EditableOverlay {
     )
 
     /* Revealed Appearance (.centered) */
-    public var associatedLabelColor                  : NSColor?
-    public var associatedBackgroundColor             : NSColor?
+    var associatedLabelColor                  : NSColor?
+    var associatedBackgroundColor             : NSColor?
     private static let associatedLabelFont           = NSFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .regular)
     
     
     // MARK: - Label
     
-    public var label                      : String   { _internalLabel           }
-    public var associatedLabel            : String?  { _internalAssociatedLabel }
+    var label                      : String   { _internalLabel           }
+    var associatedLabel            : String?  { _internalAssociatedLabel }
     private var _internalLabel            : String
     private var _internalAssociatedLabel  : String?
 

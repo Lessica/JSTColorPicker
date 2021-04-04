@@ -24,13 +24,13 @@ class TagListOverlayView: NSView, DragEndpoint {
     override var isOpaque: Bool { false }
     override var wantsDefaultClipping: Bool { false }
     
-    public weak var dataSource: TagListSource!
-    public weak var dragDelegate: TagListDragDelegate!
+    weak var dataSource: TagListSource!
+    weak var dragDelegate: TagListDragDelegate!
     
-    public weak var sceneToolSource: SceneToolSource!
+    weak var sceneToolSource: SceneToolSource!
     private var sceneTool: SceneTool { return sceneToolSource!.sceneTool }
     
-    public var tableRowHeight: CGFloat = 16.0
+    var tableRowHeight: CGFloat = 16.0
     private var highlightedRects: [CGRect]?
     
     private static let focusLineWidth: CGFloat = 2.0

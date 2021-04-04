@@ -45,37 +45,37 @@ class SceneOverlayView: NSView {
         super.updateTrackingAreas()
     }
     
-    public weak var contentDelegate            : ContentDelegate!
-    public weak var sceneToolSource            : SceneToolSource!
+    weak var contentDelegate                   : ContentDelegate!
+    weak var sceneToolSource                   : SceneToolSource!
     private var sceneTool                      : SceneTool               { sceneToolSource.sceneTool }
-    public weak var sceneStateSource           : SceneStateSource!
+    weak var sceneStateSource                  : SceneStateSource!
     private var sceneState                     : SceneState              { sceneStateSource.sceneState }
-    public weak var sceneTagsEffectViewSource  : SceneEffectViewSource!
+    weak var sceneTagsEffectViewSource         : SceneEffectViewSource!
     private var sceneTagsEffectView            : SceneEffectView         { sceneTagsEffectViewSource.sourceSceneEffectView }
-    public weak var annotatorSource            : AnnotatorSource!
+    weak var annotatorSource                   : AnnotatorSource!
     private var annotators                     : [Annotator]             { annotatorSource.annotators }
     private func contentItem(of overlay: AnnotatorOverlay) -> ContentItem? {
         return annotators.first(where: { $0.overlay == overlay })?.contentItem
     }
     
-    public var overlays: [AnnotatorOverlay] { subviews as! [AnnotatorOverlay] }
+    var overlays: [AnnotatorOverlay] { subviews as! [AnnotatorOverlay] }
     private weak var internalFocusedOverlay: AnnotatorOverlay?
     
-    public var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
+    var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
     private var internalEditableDirection: EditableOverlay.Direction = .none
     
-    public var isFocused: Bool { sceneTool.canFocus ? internalFocusedOverlay != nil : false }
-    public var focusedOverlay: AnnotatorOverlay? { sceneTool.canFocus ? internalFocusedOverlay : nil }
+    var isFocused: Bool { sceneTool.canFocus ? internalFocusedOverlay != nil : false }
+    var focusedOverlay: AnnotatorOverlay? { sceneTool.canFocus ? internalFocusedOverlay : nil }
 
-    public var hasSelectedOverlay: Bool { overlays.firstIndex(where: { $0.isSelected }) != nil }
-    public var selectedOverlays: [AnnotatorOverlay] { overlays.filter({ $0.isSelected }) }
+    var hasSelectedOverlay: Bool { overlays.firstIndex(where: { $0.isSelected }) != nil }
+    var selectedOverlays: [AnnotatorOverlay] { overlays.filter({ $0.isSelected }) }
     
-    public func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
+    func frontmostOverlay(at point: CGPoint) -> AnnotatorOverlay? {
         overlays.lazy.compactMap({ $0 as? ColorAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
             ?? overlays.lazy.compactMap({ $0 as? AreaAnnotatorOverlay }).last(where: { $0.frame.contains(point) })
     }
 
-    public func overlays(at point: CGPoint, bySizeReordering reorder: Bool = false) -> [AnnotatorOverlay] {
+    func overlays(at point: CGPoint, bySizeReordering reorder: Bool = false) -> [AnnotatorOverlay] {
         if !reorder {
             return overlays
                 .filter({ $0.frame.contains(point) })
@@ -86,7 +86,7 @@ class SceneOverlayView: NSView {
         }
     }
     
-    public var isMouseInside: Bool {
+    var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
             if bounds.contains(loc) {
@@ -109,7 +109,7 @@ class SceneOverlayView: NSView {
     override func magnify(with event: NSEvent)           { updateAppearance(with: event.locationInWindow) }
     override func smartMagnify(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
     
-    public func updateAppearance() {
+    func updateAppearance() {
         updateAppearance(with: nil)
     }
     

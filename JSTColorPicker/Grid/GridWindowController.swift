@@ -10,7 +10,7 @@ import Cocoa
 
 class GridWindowController: NSWindowController {
     
-    public static let shared = newGridController()
+    static let shared = newGridController()
 
     private static func newGridController() -> GridWindowController {
         let windowStoryboard = NSStoryboard(name: "Grid", bundle: nil)
@@ -18,7 +18,7 @@ class GridWindowController: NSWindowController {
         return gridWindowController
     }
     
-    public var activeWindowController: WindowController? {
+    var activeWindowController: WindowController? {
         didSet {
             guard let windowController = activeWindowController else { return }
             guard let gridView = gridView else { return }
@@ -26,7 +26,7 @@ class GridWindowController: NSWindowController {
         }
     }
     
-    public var isVisible: Bool { window?.isVisible ?? false }
+    var isVisible: Bool { window?.isVisible ?? false }
     
     private var gridView: GridView? {
         guard let viewController = window?.contentViewController as? GridViewController else { return nil }

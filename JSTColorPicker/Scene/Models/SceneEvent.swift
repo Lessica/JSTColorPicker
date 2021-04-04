@@ -40,9 +40,9 @@ class SceneEventObserver: NSResponder {
         static let all: EventOrder = [.before, .after]
     }
     
-    public var types = EventType()
-    public var order = EventOrder()
-    public weak var target: NSResponder?
+    var types = EventType()
+    var order = EventOrder()
+    weak var target: NSResponder?
     
     init(_ target: NSResponder, types: EventType, order: EventOrder) {
         self.target = target

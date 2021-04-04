@@ -9,7 +9,7 @@
 import Cocoa
 
 class InspectorController: NSViewController, PaneController {
-    internal weak var screenshot: Screenshot?
+    weak var screenshot                          : Screenshot?
 
     @IBOutlet weak var paneBox                   : NSBox!
     

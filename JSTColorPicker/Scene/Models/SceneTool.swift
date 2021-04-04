@@ -56,7 +56,7 @@ enum SceneTool: String {
         return NSCursor.init(image: NSImage(named: "resizeeastwest")!, hotSpot: NSPoint(x: 17, y: 17))
     }()
     
-    public var normalCursor: NSCursor {
+    var normalCursor: NSCursor {
         switch self {
         case .magicCursor:
             return NSCursor.crosshair
@@ -73,7 +73,7 @@ enum SceneTool: String {
         }
     }
     
-    public var disabledCursor: NSCursor {
+    var disabledCursor: NSCursor {
         switch self {
         case .magnifyingGlass:
             return SceneTool.noZoomingCursor
@@ -84,7 +84,7 @@ enum SceneTool: String {
         }
     }
     
-    public var manipulatingCursor: NSCursor {
+    var manipulatingCursor: NSCursor {
         switch self {
         case .movingHand:
             return NSCursor.closedHand
@@ -93,7 +93,7 @@ enum SceneTool: String {
         }
     }
     
-    public func focusingCursorForEditableDirection(_ direction: EditableOverlay.Direction) -> NSCursor {
+    func focusingCursorForEditableDirection(_ direction: EditableOverlay.Direction) -> NSCursor {
         switch self {
         case .selectionArrow:
             switch direction {
@@ -113,6 +113,6 @@ enum SceneTool: String {
         }
     }
 
-    public var canFocus: Bool { self == .selectionArrow || self == .movingHand }
+    var canFocus: Bool { self == .selectionArrow || self == .movingHand }
     
 }

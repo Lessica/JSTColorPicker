@@ -11,7 +11,7 @@ import ShortcutGuide
 
 extension ShortcutItem {
 
-    public init?(menuItem: NSMenuItem) {
+    init?(menuItem: NSMenuItem) {
         guard !menuItem.isSeparatorItem && !menuItem.keyEquivalent.isEmpty
         else { return nil }
         let keyString = menuItem.keyEquivalent

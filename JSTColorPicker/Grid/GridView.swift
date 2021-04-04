@@ -71,21 +71,21 @@ class GridView: NSView {
         
     }
     
-    public weak var dataSource: ScreenshotLoader?
-    public var shouldDrawAnnotators: Bool = false
-    public var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
+    weak var dataSource: ScreenshotLoader?
+    var shouldDrawAnnotators: Bool = false
+    var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
         didSet {
             updateDisplayIfNeeded()
         }
     }
-    public func updateDisplayIfNeeded() {
+    func updateDisplayIfNeeded() {
         guard window?.isVisible ?? false else { return }
         setNeedsDisplayAll()
     }
-    public func setNeedsDisplayAll() {
+    func setNeedsDisplayAll() {
         setNeedsDisplay(bounds)
     }
-    public var animating: Bool = false {
+    var animating: Bool = false {
         didSet {
             if animating {
                 shimAnimation(false)

@@ -10,24 +10,24 @@ import Foundation
 
 class Annotator {
     
-    public var contentItem   : ContentItem
-    public var overlay       : AnnotatorOverlay
-    public var rulerMarkers  : [RulerMarker] = []
-    public var label         : String { overlay.label }
+    var contentItem   : ContentItem
+    var overlay       : AnnotatorOverlay
+    var rulerMarkers  : [RulerMarker] = []
+    var label         : String { overlay.label }
 
-    public var isEditable    : Bool
+    var isEditable    : Bool
     {
         get { overlay.isEditable                 }
         set { overlay.isEditable = newValue      }
     }
     
-    public var isSelected    : Bool
+    var isSelected    : Bool
     {
         get { overlay.isSelected                 }
         set { overlay.isSelected = newValue      }
     }
 
-    public var revealStyle   : AnnotatorOverlay.RevealStyle
+    var revealStyle   : AnnotatorOverlay.RevealStyle
     {
         get { overlay.revealStyle                }
         set { overlay.revealStyle = newValue     }

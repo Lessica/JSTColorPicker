@@ -10,19 +10,22 @@ import Cocoa
 
 class SceneImageWrapper: NSView {
     
-    public weak var rulerViewClient: RulerViewClient?
-    public var pixelBounds: PixelRect
-    public lazy var imageView: SceneImageView = {
+    weak var rulerViewClient: RulerViewClient?
+    var pixelBounds: PixelRect
+    
+    lazy var imageView: SceneImageView = {
         let view = SceneImageView()
         view.isHidden = true
         return view
     }()
-    public lazy var maskImageView: SceneImageView = {
+    
+    lazy var maskImageView: SceneImageView = {
         let mask = SceneImageView()
         mask.isHidden = true
         return mask
     }()
-    public var isInComparisonMode: Bool {
+    
+    var isInComparisonMode: Bool {
         return !maskImageView.isHidden
     }
     
@@ -33,7 +36,7 @@ class SceneImageWrapper: NSView {
         addSubview(maskImageView)
     }
     
-    public func setImage(_ image: PixelImage?) {
+    func setImage(_ image: PixelImage?) {
         if let image = image {
             imageView.setImage(image.cgImage, size: image.size.toCGSize())
             imageView.isHidden = false
@@ -45,7 +48,7 @@ class SceneImageWrapper: NSView {
         }
     }
     
-    public func setMaskImage(_ image: JSTPixelImage?) {
+    func setMaskImage(_ image: JSTPixelImage?) {
         if let image = image {
             maskImageView.setImage(image.toNSImage(), size: image.size)
             maskImageView.isHidden = false

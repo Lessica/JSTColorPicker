@@ -18,9 +18,9 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
         case id, tags, similarity
     }
     
-    public var id: Int
-    public var tags = OrderedSet<String>()
-    public var similarity: Double = 1.0
+    var id: Int
+    var tags = OrderedSet<String>()
+    var similarity: Double = 1.0
     
     init(id: Int) {
         self.id = id

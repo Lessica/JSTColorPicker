@@ -10,14 +10,14 @@ import Cocoa
 
 class ManagedWindow {
     /// Record the history access order
-    public var windowActiveOrder: Int
+    var windowActiveOrder: Int
     
     /// Keep the controller around to store a strong reference to it
-    public let windowController: WindowController
-    public var window: NSWindow { windowController.window! }
+    let windowController: WindowController
+    var window: NSWindow { windowController.window! }
     
     /// React to window closing, auto-unsubscribing on dealloc
-    public let closingSubscription: NotificationToken
+    let closingSubscription: NotificationToken
     
     init(windowActiveOrder: Int, windowController: WindowController, closingSubscription: NotificationToken) {
         self.windowActiveOrder = windowActiveOrder

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public protocol SwizzlingInjection: class {
+protocol SwizzlingInjection: class {
     static func inject()
 }
 

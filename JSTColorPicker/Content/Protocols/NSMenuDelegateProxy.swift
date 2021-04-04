@@ -14,7 +14,7 @@ protocol NSMenuDelegateAlternate {
 }
 
 class NSMenuDelegateProxy: NSObject {
-    @IBOutlet public weak var delegate: NSMenuDelegateAlternate?
+    @IBOutlet weak var delegate: NSMenuDelegateAlternate?
 }
 
 extension NSMenuDelegateProxy: NSMenuDelegate {

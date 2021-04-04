@@ -43,19 +43,19 @@ class Template {
         
     }
     
-    public let url: URL
-    public let uuid: UUID
-    public let name: String
-    public let version: String
-    public let platformVersion: String
-    public let author: String?
-    public let description: String?
-    public let allowedExtensions: [String]
-    public let isAsync: Bool
-    public let saveInPlace: Bool
-    public let items: LuaSwift.Table?
+    let url: URL
+    let uuid: UUID
+    let name: String
+    let version: String
+    let platformVersion: String
+    let author: String?
+    let description: String?
+    let allowedExtensions: [String]
+    let isAsync: Bool
+    let saveInPlace: Bool
+    let items: LuaSwift.Table?
     
-    public static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var generator: LuaSwift.Function
     private var vm = VirtualMachine(openLibs: true)
     
@@ -103,7 +103,7 @@ class Template {
         }
     }
     
-    public func generate(_ image: PixelImage, for items: [ContentItem]) throws -> String {
+    func generate(_ image: PixelImage, for items: [ContentItem]) throws -> String {
         switch generator.call([image] + items) {
         case let .values(vals):
             if let string = vals.first as? String {
@@ -167,7 +167,7 @@ extension Template {
         let value: String
     }
     
-    public func parseItems() throws -> [TemplateItem]? {
+    func parseItems() throws -> [TemplateItem]? {
         
         guard let items = items else { return nil }
         

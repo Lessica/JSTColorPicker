@@ -90,9 +90,9 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cN6-ed-r1p">
-                                                            <rect key="frame" x="14" y="3" width="100" height="14"/>
-                                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="F7F7F7" usesSingleLineMode="YES" id="K0H-5p-gM1">
-                                                                <font key="font" metaFont="smallSystem"/>
+                                                            <rect key="frame" x="14" y="4" width="100" height="13"/>
+                                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" title="F7F7F7" usesSingleLineMode="YES" id="K0H-5p-gM1">
+                                                                <font key="font" metaFont="fixedUser" size="11"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -165,9 +165,9 @@
                                             <rect key="frame" x="0.0" y="13" width="50" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egY-fv-6R0">
-                                                    <rect key="frame" x="-2" y="3" width="54" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="t9p-4R-zNm">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="t9p-4R-zNm">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -208,9 +208,9 @@
                                             <rect key="frame" x="0.0" y="13" width="50" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luj-iJ-Afk">
-                                                    <rect key="frame" x="-2" y="3" width="54" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="T86-LC-rIK">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="T86-LC-rIK">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -251,9 +251,9 @@
                                             <rect key="frame" x="0.0" y="13" width="50" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUy-Ss-Ptf">
-                                                    <rect key="frame" x="-2" y="3" width="54" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="HJ6-2a-iha">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="HJ6-2a-iha">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -294,9 +294,9 @@
                                             <rect key="frame" x="0.0" y="13" width="50" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCy-rW-teT">
-                                                    <rect key="frame" x="-2" y="3" width="54" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="0xf-Ws-dys">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="0xf-Ws-dys">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -337,9 +337,9 @@
                                             <rect key="frame" x="0.0" y="13" width="78" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLh-8G-M5r">
-                                                    <rect key="frame" x="-2" y="3" width="82" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="O6W-Hr-Sp3">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="82" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="O6W-Hr-Sp3">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -380,9 +380,9 @@
                                             <rect key="frame" x="0.0" y="13" width="78" height="20"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUq-zw-VOD">
-                                                    <rect key="frame" x="-2" y="3" width="82" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="Jyo-Fh-SP1">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                    <rect key="frame" x="-2" y="4" width="82" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="100" usesSingleLineMode="YES" id="Jyo-Fh-SP1">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>

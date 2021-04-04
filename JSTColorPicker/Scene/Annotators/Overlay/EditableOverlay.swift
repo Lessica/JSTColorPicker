@@ -35,7 +35,7 @@ class EditableOverlay: Overlay {
         case bottomMiddle
         case bottomRight
         
-        public var direction: Direction {
+        var direction: Direction {
             switch self {
             case .none:
                 return .none
@@ -50,19 +50,19 @@ class EditableOverlay: Overlay {
             }
         }
         
-        public var isCorner: Bool { self == .topLeft   || self == .topRight   || self == .bottomLeft  || self == .bottomRight  }
-        public var isMiddle: Bool { self == .topMiddle || self == .middleLeft || self == .middleRight || self == .bottomMiddle }
+        var isCorner: Bool { self == .topLeft   || self == .topRight   || self == .bottomLeft  || self == .bottomRight  }
+        var isMiddle: Bool { self == .topMiddle || self == .middleLeft || self == .middleRight || self == .bottomMiddle }
         
     }
     
     
     // MARK: - Inherited
     
-    public var isEditable            : Bool        = false
-    public var isEditing             : Bool        { isEditable && isSelected                 }
-    public var editableEdge          : Edge        { isEditable ? internalEditingEdge : .none }
-    public var hidesDuringEditing    : Bool        { false                                    }
-    public func setEditing(at point: CGPoint)      { internalEditingEdge = edge(at: point)    }
+    var isEditable                   : Bool        = false
+    var isEditing                    : Bool        { isEditable && isSelected                 }
+    var editableEdge                 : Edge        { isEditable ? internalEditingEdge : .none }
+    var hidesDuringEditing           : Bool        { false                                    }
+    func setEditing(at point: CGPoint)             { internalEditingEdge = edge(at: point)    }
     private var internalEditingEdge  : Edge        = .none
     override var borderStyle         : BorderStyle { .dashed }
     
@@ -90,9 +90,9 @@ class EditableOverlay: Overlay {
         height: (defaultCircleRadius + defaultCircleBorderWidth) * 6.0
     )
     
-    public var circleFillColorNormal                     : CGColor?
-    public var circleFillColorHighlighted                : CGColor?
-    public var circleStrokeColor                         : CGColor?
+    var circleFillColorNormal                            : CGColor?
+    var circleFillColorHighlighted                       : CGColor?
+    var circleStrokeColor                                : CGColor?
     private var internalCircleFillColorNormal            : CGColor { circleFillColorNormal      ?? EditableOverlay.defaultCircleFillColorNormal      }
     private var internalCircleFillColorHighlighted       : CGColor { circleFillColorHighlighted ?? EditableOverlay.defaultCircleFillColorHighlighted }
     private var internalCircleStrokeColor                : CGColor { circleStrokeColor          ?? EditableOverlay.defaultCircleStrokeColor          }
@@ -113,12 +113,12 @@ class EditableOverlay: Overlay {
         right:  defaultCircleRadius + defaultCircleBorderWidth
     )
     
-    public func direction(at point: CGPoint) -> Direction {
+    func direction(at point: CGPoint) -> Direction {
         guard borderStyle != .none && isEditing else { return .none }
         return edge(at: point).direction
     }
     
-    public func edge(at point: CGPoint) -> Edge {
+    func edge(at point: CGPoint) -> Edge {
         guard borderStyle != .none && isEditing else { return .none }
         let edgeRadius = EditableOverlay.defaultCircleRadius + EditableOverlay.defaultCircleBorderWidth
         let drawBounds = bounds.inset(by: innerInsets)

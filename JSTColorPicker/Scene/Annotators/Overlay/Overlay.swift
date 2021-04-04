@@ -12,11 +12,11 @@ import Cocoa
 // MARK: - Structs
 
 struct OverlayAnimationState {
-    public var lineDashCount: Int = 0
+    var lineDashCount: Int = 0
 }
 
 struct OverlayAnimationProxy: Hashable {
-    public weak var overlay: Overlay?
+    weak var overlay: Overlay?
 }
 
 
@@ -33,9 +33,9 @@ class Overlay: NSView {
         case dashed
     }
     
-    public  var borderStyle      : BorderStyle  { .none }
-    public  var isFocused        : Bool         = false
-    public  var isSelected       : Bool         = false
+    var borderStyle      : BorderStyle  { .none }
+    var isFocused        : Bool         = false
+    var isSelected       : Bool         = false
     {
         didSet {
             if isSelected {
@@ -47,8 +47,8 @@ class Overlay: NSView {
         }
     }
     
-    private var _isHighlighted   : Bool         = false
-    public  var isHighlighted    : Bool
+    private var _isHighlighted: Bool         = false
+    var isHighlighted: Bool
     {
         get {
             isFocused ? true : _isHighlighted
@@ -58,26 +58,26 @@ class Overlay: NSView {
         }
     }
     
-    public  var outerInsets      : NSEdgeInsets { Overlay.defaultOuterInsets }
-    public  var innerInsets      : NSEdgeInsets { Overlay.defaultInnerInsets }
+    var outerInsets: NSEdgeInsets { Overlay.defaultOuterInsets }
+    var innerInsets: NSEdgeInsets { Overlay.defaultInnerInsets }
     
     
     // MARK: - Styles
     
-    public var animationState                           = OverlayAnimationState()
-    public var animationBeginPhase                      : CGFloat { CGFloat(animationState.lineDashCount % 9) }
+    var animationState                                  = OverlayAnimationState()
+    var animationBeginPhase                             : CGFloat { CGFloat(animationState.lineDashCount % 9) }
     
     private static let defaultBorderWidth               :  CGFloat  = 1.67
     private static let defaultLineDashLengths           : [CGFloat] = [5.0, 4.0]  // (performance) only two items are allowed
     
-    public var lineDashColorsNormal                     : [CGColor]?
-    public var lineDashColorsHighlighted                : [CGColor]?
+    var lineDashColorsNormal                            : [CGColor]?
+    var lineDashColorsHighlighted                       : [CGColor]?
     private var internalLineDashColorsNormal            : [CGColor] { lineDashColorsNormal ?? Overlay.defaultLineDashColorsNormal }
     private var internalLineDashColorsHighlighted       : [CGColor] { lineDashColorsHighlighted ?? Overlay.defaultLineDashColorsHighlighted }
     private static var defaultLineDashColorsNormal      : [CGColor] { [NSColor.white.cgColor, NSColor.black.cgColor] }
     private static var defaultLineDashColorsHighlighted : [CGColor] { [NSColor.white.cgColor, NSColor.controlAccentColor.cgColor] }
     
-    public var capturedImage: NSImage? {
+    var capturedImage: NSImage? {
         guard let rep = bitmapImageRepForCachingDisplay(in: bounds) else { return nil }
         cacheDisplay(in: bounds, to: rep)
         let img = NSImage(size: bounds.size)
@@ -91,6 +91,7 @@ class Overlay: NSView {
         bottom: -defaultBorderWidth,
         right: -defaultBorderWidth
     )
+    
     private static let defaultInnerInsets = NSEdgeInsets(
         top: defaultBorderWidth,
         left: defaultBorderWidth,
@@ -118,7 +119,7 @@ class Overlay: NSView {
         debugPrint("\(className()):\(#function)")
     }
     private static var sharedAnimationProxies = Set<OverlayAnimationProxy>()
-    @objc internal static func sharedAnimateAction(_ timer: Timer) {
+    @objc static func sharedAnimateAction(_ timer: Timer) {
         sharedAnimationProxies
             .compactMap({ $0.overlay })
             .forEach({ $0.animateAction(timer) })
@@ -132,14 +133,14 @@ class Overlay: NSView {
         }
     }
     
-    public func addToAnimationGroup() {
+    func addToAnimationGroup() {
         Overlay.sharedAnimationProxies.insert(OverlayAnimationProxy(overlay: self))
         if Overlay.sharedAnimationTimer == nil && !Overlay.sharedAnimationProxies.isEmpty {
             Overlay.installSharedAnimationTimer()
         }
     }
     
-    public func removeFromAnimationGroup() {
+    func removeFromAnimationGroup() {
         let proxies = Overlay.sharedAnimationProxies
             .filter({ $0.overlay == nil || $0.overlay == self })
         Overlay.sharedAnimationProxies.subtract(proxies)  // mutating
@@ -178,7 +179,7 @@ class Overlay: NSView {
     
     override var wantsDefaultClipping: Bool { false }
     
-    public func setNeedsDisplay(visibleOnly: Bool) {
+    func setNeedsDisplay(visibleOnly: Bool) {
         if visibleOnly {
             super.setNeedsDisplay(visibleRect)
         } else {

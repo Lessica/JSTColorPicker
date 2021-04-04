@@ -33,7 +33,7 @@ class SidebarController: NSViewController {
         }
     }
     
-    internal weak var screenshot                 : Screenshot?
+    weak var screenshot                          : Screenshot?
     
     @IBOutlet weak var splitView                 : NSSplitView!
     @IBOutlet weak var paneViewInfo              : NSView!
@@ -53,11 +53,11 @@ class SidebarController: NSViewController {
         ]
     }
 
-    public var infoController                    : InfoController!       { children.first(where: { $0 is InfoController       }) as? InfoController       }
-    public var inspectorController               : InspectorController!  { children.first(where: { $0 is InspectorController  }) as? InspectorController  }
-    public var previewController                 : PreviewController!    { children.first(where: { $0 is PreviewController    }) as? PreviewController    }
-    public var tagListController                 : TagListController!    { children.first(where: { $0 is TagListController    }) as? TagListController    }
-    public var paneControllers                   : [PaneController]      {
+    var infoController                    : InfoController!       { children.first(where: { $0 is InfoController       }) as? InfoController       }
+    var inspectorController               : InspectorController!  { children.first(where: { $0 is InspectorController  }) as? InspectorController  }
+    var previewController                 : PreviewController!    { children.first(where: { $0 is PreviewController    }) as? PreviewController    }
+    var tagListController                 : TagListController!    { children.first(where: { $0 is TagListController    }) as? TagListController    }
+    var paneControllers                   : [PaneController]      {
         [
             infoController,
             inspectorController,

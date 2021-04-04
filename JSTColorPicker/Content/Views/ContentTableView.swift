@@ -17,10 +17,10 @@ class ContentTableView: NSTableView, UndoProxy {
 
     override var isFlipped: Bool { true }
     
-    public weak var tableViewResponder: ContentTableViewResponder!
+    weak var tableViewResponder: ContentTableViewResponder!
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     
-    public var contextUndoManager: UndoManager?
+    var contextUndoManager: UndoManager?
     override var undoManager: UndoManager? { contextUndoManager }
     
     override func menu(for event: NSEvent) -> NSMenu? {

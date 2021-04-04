@@ -9,7 +9,7 @@
 import Cocoa
 
 extension NSNotification.Name {
-    public static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")
+    static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")
 }
 
 protocol TagListSource: class {

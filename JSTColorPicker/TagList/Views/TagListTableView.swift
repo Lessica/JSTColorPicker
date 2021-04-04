@@ -10,10 +10,10 @@ import Cocoa
 
 class TagListTableView: NSTableView, UndoProxy {
     
-    public var isEmbeddedMode: Bool = false
+    var isEmbeddedMode: Bool = false
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     
-    public var contextUndoManager: UndoManager?
+    var contextUndoManager: UndoManager?
     override var undoManager: UndoManager? { contextUndoManager }
     
     override func menu(for event: NSEvent) -> NSMenu? {

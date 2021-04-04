@@ -26,7 +26,7 @@ class SceneBorderView: NSView {
     override func hitTest(_ point: NSPoint) -> NSView? { nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
-    public var drawBordersInScene: Bool = false
+    var drawBordersInScene: Bool = false
     
     private static let defaultBorderLineWidth         : CGFloat = 2.0
     private static let defaultBorderLineColor         = CGColor(gray: 1.0, alpha: 1.0)

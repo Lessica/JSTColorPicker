@@ -15,11 +15,11 @@ class SceneScrollView: NSScrollView {
     // MARK: - Wrapper Shortcuts
     
     private var wrapper: SceneImageWrapper { return documentView as! SceneImageWrapper }
-    public var wrapperBounds: CGRect { wrapper.bounds }
-    public var wrapperVisibleRect: CGRect { wrapper.visibleRect }
-    public var wrapperMangnification: CGFloat { magnification }
-    public var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
-    public var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, maxMagnification), minMagnification) }
+    var wrapperBounds: CGRect { wrapper.bounds }
+    var wrapperVisibleRect: CGRect { wrapper.visibleRect }
+    var wrapperMangnification: CGFloat { magnification }
+    var wrapperRestrictedRect: CGRect { wrapperVisibleRect.intersection(wrapperBounds) }
+    var wrapperRestrictedMagnification: CGFloat { max(min(wrapperMangnification, maxMagnification), minMagnification) }
     
     
     // MARK: - Rulers Shortcuts
@@ -27,11 +27,11 @@ class SceneScrollView: NSScrollView {
     private static let rulerThickness: CGFloat = 16.0
     private static let reservedThicknessForMarkers: CGFloat = 15.0
     private static let reservedThicknessForAccessoryView: CGFloat = 0.0
-    public var visibleRectExcludingRulers: CGRect {
+    var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
         return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
     }
-    public var alternativeBoundsOrigin: CGPoint {
+    var alternativeBoundsOrigin: CGPoint {
         if drawRulersInScene {
             return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
         }
@@ -41,7 +41,7 @@ class SceneScrollView: NSScrollView {
     
     // MARK: - Location Shortcuts
     
-    public var isMouseInside: Bool {
+    var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
             let loc = convert(locationInWindow, from: nil)
             if visibleRectExcludingRulers.contains(loc) {
@@ -54,12 +54,12 @@ class SceneScrollView: NSScrollView {
     
     // MARK: - Scene Shortcuts
     
-    public var sceneEventObservers = Set<SceneEventObserver>()
-    public weak var sceneToolSource: SceneToolSource!
+    var sceneEventObservers = Set<SceneEventObserver>()
+    weak var sceneToolSource: SceneToolSource!
     private var sceneTool: SceneTool { sceneToolSource.sceneTool }
-    public weak var sceneStateSource: SceneStateSource!
+    weak var sceneStateSource: SceneStateSource!
     private var sceneState: SceneState { sceneStateSource.sceneState }
-    public weak var sceneActionEffectViewSource: SceneEffectViewSource!
+    weak var sceneActionEffectViewSource: SceneEffectViewSource!
     private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sourceSceneEffectView }
     
     
@@ -149,10 +149,10 @@ class SceneScrollView: NSScrollView {
         trackingDelegate.sceneDidEndLiveResize(self)
     }
     
-    public var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
+    var drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground] {
         didSet { reloadSceneBackground() }
     }
-    public var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
+    var drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene] {
         didSet { reloadSceneRulers() }
     }
     
@@ -169,7 +169,7 @@ class SceneScrollView: NSScrollView {
     
     // MARK: - Events
     
-    public var enableForceTouch: Bool = false
+    var enableForceTouch: Bool = false
     private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
     private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
     
@@ -511,7 +511,7 @@ class SceneScrollView: NSScrollView {
     
     // MARK: - Event Tracking
     
-    public weak var trackingDelegate: SceneActionTracking!
+    weak var trackingDelegate: SceneActionTracking!
     private var trackingArea: NSTrackingArea?
     private var trackingCoordinate = PixelCoordinate.null
     

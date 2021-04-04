@@ -169,7 +169,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
     private var beginDraggingLocation     : CGPoint = .null
     private var beginDraggingMiddlePoint  : CGPoint = .null
     
-    internal var previewStage             : ItemPreviewStage = .none
+    var previewStage                      : ItemPreviewStage = .none
     private func preview(with event: NSEvent) {
         if isDirectMode {
             previewStage = .end

@@ -67,10 +67,10 @@ class RulerMarker: NSRulerMarker {
         }
     }
     
-    public var type: RulerMarkerType = .horizontal
-    public var position: RulerMarkerPosition = .origin
-    public var coordinate: PixelCoordinate = .null
-    public weak var annotator: Annotator?
+    var type: RulerMarkerType = .horizontal
+    var position: RulerMarkerPosition = .origin
+    var coordinate: PixelCoordinate = .null
+    weak var annotator: Annotator?
     
     override init(rulerView ruler: NSRulerView, markerLocation location: CGFloat, image: NSImage, imageOrigin: NSPoint) {
         super.init(rulerView: ruler, markerLocation: location, image: image, imageOrigin: imageOrigin)

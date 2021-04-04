@@ -9,8 +9,8 @@
 import Cocoa
 
 class PreviewController: NSViewController, PaneController {
-    internal weak var screenshot                 : Screenshot?
-    internal var previewStage                    : ItemPreviewStage = .none
+    weak var screenshot                          : Screenshot?
+    var previewStage                             : ItemPreviewStage = .none
     public weak var overlayDelegate              : ItemPreviewResponder!
 
     @IBOutlet weak var paneBox                   : NSBox!

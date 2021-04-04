@@ -11,12 +11,12 @@ import ShortcutGuide
 
 class SceneController: NSViewController {
     
-    public weak var parentTracking    : SceneTracking?
-    public weak var contentManager    : ContentDelegate!
-    public weak var tagManager        : TagListSource!
+    weak var parentTracking    : SceneTracking?
+    weak var contentManager    : ContentDelegate!
+    weak var tagManager        : TagListSource!
     
-    internal weak var screenshot: Screenshot?
-    internal var annotators: [Annotator] = []
+    weak var screenshot: Screenshot?
+    var annotators: [Annotator] = []
     
     private var lazyColorAnnotators  : [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
     private var lazyAreaAnnotators   : [AreaAnnotator]  { annotators.lazy.compactMap({ $0 as? AreaAnnotator })  }
@@ -88,9 +88,9 @@ class SceneController: NSViewController {
         64.00, 128.0, 256.0
     ]
 
-    public var isCursorMovableByKeyboard: Bool { wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification }
-    public var isOverlaySelectableByKeyboard: Bool { sceneOverlayView.hasSelectedOverlay }
-    private static let minimumRecognizableMagnification: CGFloat = 16.0
+    var isCursorMovableByKeyboard                          : Bool                 { wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification }
+    var isOverlaySelectableByKeyboard                      : Bool                 { sceneOverlayView.hasSelectedOverlay }
+    private static let minimumRecognizableMagnification    : CGFloat = 16.0
     
     @IBOutlet private weak var sceneClipView               : SceneClipView!
     @IBOutlet private weak var sceneView                   : SceneScrollView!
@@ -108,11 +108,11 @@ class SceneController: NSViewController {
     private var verticalRulerView                          : RulerView            { sceneView.verticalRulerView as! RulerView      }
     
     private var wrapper                                    : SceneImageWrapper    { sceneView.documentView as! SceneImageWrapper   }
-    public  var wrapperBounds                              : CGRect               { wrapper.bounds                                 }
-    public  var wrapperVisibleRect                         : CGRect               { wrapper.visibleRect                            }
-    public  var wrapperMangnification                      : CGFloat              { sceneView.magnification                        }
-    public  var wrapperRestrictedRect                      : CGRect               { wrapperVisibleRect.intersection(wrapperBounds) }
-    public  var wrapperRestrictedMagnification             : CGFloat              { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    var wrapperBounds                                      : CGRect               { wrapper.bounds                                 }
+    var wrapperVisibleRect                                 : CGRect               { wrapper.visibleRect                            }
+    var wrapperMangnification                              : CGFloat              { sceneView.magnification                        }
+    var wrapperRestrictedRect                              : CGRect               { wrapperVisibleRect.intersection(wrapperBounds) }
+    var wrapperRestrictedMagnification                     : CGFloat              { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
     
     private func isVisibleLocation(_ location: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(location)
@@ -985,7 +985,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
 
 extension SceneController: SceneToolSource {
     
-    internal var sceneTool: SceneTool {
+    var sceneTool: SceneTool {
         get {
             return internalSceneTool
         }

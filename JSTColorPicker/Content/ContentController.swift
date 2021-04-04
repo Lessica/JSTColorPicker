@@ -48,10 +48,10 @@ extension NSViewController {
 
 class ContentController: NSViewController {
     
-    public weak var actionManager   : ContentActionDelegate!
-    public weak var tagManager      : TagListSource!
+    weak var actionManager          : ContentActionDelegate!
+    weak var tagManager             : TagListSource!
+    weak var screenshot             : Screenshot?
     
-    internal weak var screenshot    : Screenshot?
     private var documentContent     : Content?         { screenshot?.content }
     private var documentImage       : PixelImage?      { screenshot?.image   }
     private var documentExport      : ExportManager?   { screenshot?.export  }

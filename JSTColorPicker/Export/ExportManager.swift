@@ -33,30 +33,32 @@ class ExportManager {
         }
     }
     
-    public static var templateRootURL: URL {
+    static var templateRootURL: URL {
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("templates")
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         return url
     }
-    public static var exampleTemplateURLs: [URL] = {
+    
+    static var exampleTemplateURLs: [URL] = {
         return [
             Bundle.main.url(forResource: "example", withExtension: "lua")!,
             Bundle.main.url(forResource: "pascal", withExtension: "lua")!
         ]
     }()
-    public static private(set) var templates: [Template] = []
-    public static var selectedTemplate: Template? {
+    
+    static private(set) var templates: [Template] = []
+    static var selectedTemplate: Template? {
         ExportManager.templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
     }
-    public static var selectedTemplateUUID: UUID? {
+    static var selectedTemplateUUID: UUID? {
         get { UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
         set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
-    public static let templateIdentifierPrefix = "template-"
+    static let templateIdentifierPrefix = "template-"
     
-    @objc dynamic internal weak var screenshot: Screenshot!
+    @objc dynamic weak var screenshot: Screenshot!
     
     required init(screenshot: Screenshot) {
         self.screenshot = screenshot
@@ -77,21 +79,21 @@ class ExportManager {
         additionalPasteboard.writeObjects(items)
     }
     
-    public var canImportFromAdditionalPasteboard: Bool {
+    var canImportFromAdditionalPasteboard: Bool {
         return additionalPasteboard.canReadObject(
             forClasses: [PixelColor.self, PixelArea.self],
             options: nil
         )
     }
     
-    public func importFromAdditionalPasteboard() -> [ContentItem]? {
+    func importFromAdditionalPasteboard() -> [ContentItem]? {
         return additionalPasteboard.readObjects(
             forClasses: [PixelColor.self, PixelArea.self],
             options: nil
         ) as? [ContentItem]
     }
     
-    public static func reloadTemplates() throws {
+    static func reloadTemplates() throws {
         var errors: [(URL, Template.Error)] = []
         let contents = try FileManager.default.contentsOfDirectory(at: ExportManager.templateRootURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants])
         
@@ -122,23 +124,23 @@ class ExportManager {
         }
     }
     
-    public func copyPixelColor(at coordinate: PixelCoordinate, with template: Template) throws {
+    func copyPixelColor(at coordinate: PixelCoordinate, with template: Template) throws {
         if let color = screenshot.image?.color(at: coordinate) {
             try copyContentItem(color, with: template)
         }
     }
     
-    public func copyPixelArea(at rect: PixelRect, with template: Template) throws {
+    func copyPixelArea(at rect: PixelRect, with template: Template) throws {
         if let area = screenshot.image?.area(at: rect) {
             try copyContentItem(area, with: template)
         }
     }
     
-    public func copyContentItem(_ item: ContentItem, with template: Template) throws {
+    func copyContentItem(_ item: ContentItem, with template: Template) throws {
         try copyContentItems([item], with: template)
     }
     
-    public func copyContentItems(_ items: [ContentItem], with template: Template) throws {
+    func copyContentItems(_ items: [ContentItem], with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
         do {
             exportToAdditionalPasteboard(items)
@@ -151,7 +153,7 @@ class ExportManager {
         }
     }
     
-    public func copyAllContentItems(with template: Template) throws {
+    func copyAllContentItems(with template: Template) throws {
         guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
         try copyContentItems(items, with: template)
     }
@@ -174,20 +176,20 @@ class ExportManager {
         }
     }
     
-    public func exportContentItems(_ items: [ContentItem], to url: URL, with template: Template) throws {
+    func exportContentItems(_ items: [ContentItem], to url: URL, with template: Template) throws {
         try _exportContentItems(items, to: url, with: template)
     }
 
-    public func exportContentItemsInPlace(_ items: [ContentItem], with template: Template) throws {
+    func exportContentItemsInPlace(_ items: [ContentItem], with template: Template) throws {
         try _exportContentItems(items, to: nil, with: template)
     }
     
-    public func exportAllContentItems(to url: URL, with template: Template) throws {
+    func exportAllContentItems(to url: URL, with template: Template) throws {
         guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
         try _exportContentItems(items, to: url, with: template)
     }
 
-    public func exportAllContentItemsInPlace(with template: Template) throws {
+    func exportAllContentItemsInPlace(with template: Template) throws {
         guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
         try _exportContentItems(items, to: nil, with: template)
     }

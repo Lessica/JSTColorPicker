@@ -8,21 +8,21 @@
 
 /// An ordered set is an ordered collection of instances of `Element` in which
 /// uniqueness of the objects is guaranteed.
-public struct OrderedSet<E: Hashable>: Equatable, Collection {
-    public typealias Element = E
-    public typealias Index = Int
+struct OrderedSet<E: Hashable>: Equatable, Collection {
+    typealias Element = E
+    typealias Index = Int
     
     #if swift(>=4.1.50)
-    public typealias Indices = Range<Int>
+    typealias Indices = Range<Int>
     #else
-    public typealias Indices = CountableRange<Int>
+    typealias Indices = CountableRange<Int>
     #endif
     
     private var array: [Element]
     private var set: Set<Element>
     
     /// Creates an empty ordered set.
-    public init() {
+    init() {
         self.array = []
         self.set = Set()
     }
@@ -31,7 +31,7 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     ///
     /// If an element occurs more than once in `element`, only the first one
     /// will be included.
-    public init(_ array: [Element]) {
+    init(_ array: [Element]) {
         self.init()
         for element in array {
             append(element)
@@ -40,16 +40,16 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     
     // MARK: Working with an ordered set
     /// The number of elements the ordered set stores.
-    public var count: Int { return array.count }
+    var count: Int { return array.count }
     
     /// Returns `true` if the set is empty.
-    public var isEmpty: Bool { return array.isEmpty }
+    var isEmpty: Bool { return array.isEmpty }
     
     /// Returns the contents of the set as an array.
-    public var contents: [Element] { return array }
+    var contents: [Element] { return array }
     
     /// Returns `true` if the ordered set contains `member`.
-    public func contains(_ member: Element) -> Bool {
+    func contains(_ member: Element) -> Bool {
         return set.contains(member)
     }
     
@@ -59,7 +59,7 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     ///
     /// - returns: True if the item was inserted.
     @discardableResult
-    public mutating func append(_ newElement: Element) -> Bool {
+    mutating func append(_ newElement: Element) -> Bool {
         let inserted = set.insert(newElement).inserted
         if inserted {
             array.append(newElement)
@@ -68,13 +68,13 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     }
     
     /// Adds elements to the ordered set.
-    public mutating func append<S>(contentsOf newElements: S) where Element == S.Element, S : Sequence {
+    mutating func append<S>(contentsOf newElements: S) where Element == S.Element, S : Sequence {
         newElements.forEach({ append($0) })
     }
     
     /// Remove and return the element at a position of the ordered set.
     @discardableResult
-    public mutating func remove(at index: Int) -> Element {
+    mutating func remove(at index: Int) -> Element {
         let removedElement = array.remove(at: index)
         set.remove(removedElement)
         return removedElement
@@ -82,7 +82,7 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     
     /// Remove specific element from the ordered set.
     @discardableResult
-    public mutating func remove(_ member: Element) -> Element? {
+    mutating func remove(_ member: Element) -> Element? {
         guard let memberIndex = array.firstIndex(of: member) else { return nil }
         let removedElement = array.remove(at: memberIndex)
         set.remove(removedElement)
@@ -90,21 +90,21 @@ public struct OrderedSet<E: Hashable>: Equatable, Collection {
     }
     
     /// Remove and return the element at the beginning of the ordered set.
-    public mutating func removeFirst() -> Element {
+    mutating func removeFirst() -> Element {
         let firstElement = array.removeFirst()
         set.remove(firstElement)
         return firstElement
     }
     
     /// Remove and return the element at the end of the ordered set.
-    public mutating func removeLast() -> Element {
+    mutating func removeLast() -> Element {
         let lastElement = array.removeLast()
         set.remove(lastElement)
         return lastElement
     }
     
     /// Remove all elements.
-    public mutating func removeAll(keepingCapacity keepCapacity: Bool) {
+    mutating func removeAll(keepingCapacity keepCapacity: Bool) {
         array.removeAll(keepingCapacity: keepCapacity)
         set.removeAll(keepingCapacity: keepCapacity)
     }
@@ -115,20 +115,20 @@ extension OrderedSet: ExpressibleByArrayLiteral {
     ///
     /// If an element occurs more than once in `element`, only the first one
     /// will be included.
-    public init(arrayLiteral elements: Element...) {
+    init(arrayLiteral elements: Element...) {
         self.init(elements)
     }
 }
 
 extension OrderedSet: RandomAccessCollection {
-    public var startIndex: Int { return contents.startIndex }
-    public var endIndex: Int { return contents.endIndex }
-    public subscript(index: Int) -> Element {
+    var startIndex: Int { return contents.startIndex }
+    var endIndex: Int { return contents.endIndex }
+    subscript(index: Int) -> Element {
         return contents[index]
     }
 }
 
-public func == <T>(lhs: OrderedSet<T>, rhs: OrderedSet<T>) -> Bool {
+func == <T>(lhs: OrderedSet<T>, rhs: OrderedSet<T>) -> Bool {
     return lhs.contents == rhs.contents
 }
 

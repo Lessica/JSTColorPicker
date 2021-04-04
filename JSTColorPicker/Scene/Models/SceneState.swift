@@ -26,7 +26,7 @@ class SceneState {
         case annotatorDragging
         case forbidden
         
-        public var level: Int {
+        var level: Int {
             switch self {
             case .none:
                 return 0
@@ -41,7 +41,7 @@ class SceneState {
             }
         }
         
-        public static func leftDraggingType(for tool: SceneTool) -> ManipulatingType {
+        static func leftDraggingType(for tool: SceneTool) -> ManipulatingType {
             switch tool {
             case .magicCursor, .magnifyingGlass:
                 return .areaDragging
@@ -54,13 +54,13 @@ class SceneState {
             }
         }
         
-        public static func rightDraggingType(for tool: SceneTool) -> ManipulatingType {
+        static func rightDraggingType(for tool: SceneTool) -> ManipulatingType {
             return .forbidden
         }
         
-        public var isManipulating: Bool { self != .none }
+        var isManipulating: Bool { self != .none }
         
-        public var isDragging: Bool {
+        var isDragging: Bool {
             if self == .sceneDragging || self == .areaDragging || self == .annotatorDragging {
                 return true
             }
@@ -69,33 +69,33 @@ class SceneState {
         
     }
     
-    public var manipulatingType                   = ManipulatingType.none
+    var manipulatingType                   = ManipulatingType.none
     private var internalStage                     : Int = 0
     private var internalBeginLocation             : CGPoint = .null
     private weak var internalManipulatingOverlay  : EditableOverlay?
     
-    public var stage: Int
+    var stage: Int
     {
         get { manipulatingType != .none ? internalStage : 0 }
         set { internalStage = newValue                      }
     }
     
-    public var beginLocation: CGPoint
+    var beginLocation: CGPoint
     {
         get { manipulatingType != .none ? internalBeginLocation : .null }
         set { internalBeginLocation = newValue                          }
     }
     
-    public var manipulatingOverlay: EditableOverlay?
+    var manipulatingOverlay: EditableOverlay?
     {
         get { manipulatingType != .none ? internalManipulatingOverlay : nil }
         set { internalManipulatingOverlay = newValue                        }
     }
     
-    public var isManipulating  : Bool { manipulatingType.isManipulating }
-    public var isDragging      : Bool { manipulatingType.isDragging     }
+    var isManipulating  : Bool { manipulatingType.isManipulating }
+    var isDragging      : Bool { manipulatingType.isDragging     }
     
-    public func reset() {
+    func reset() {
         manipulatingType = .none
         internalStage = 0
         internalBeginLocation = .null

@@ -10,7 +10,7 @@ import Cocoa
 
 extension NSView: SwizzlingInjection {
     
-    public static func inject() {
+    static func inject() {
         let original = #selector(updateLayer)
         let swizzle = #selector(widget_updateLayer)
         if let widgetClass = NSClassFromString("NSWidgetView"),

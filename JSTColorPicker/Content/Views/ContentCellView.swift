@@ -10,23 +10,23 @@ import Cocoa
 
 class ContentCellView: NSTableCellView {
     
-    public var normalTextColor: NSColor? {
+    var normalTextColor: NSColor? {
         didSet {
             updateTextColor()
         }
     }
     
-    public var text: String? {
+    var text: String? {
         get { textField?.stringValue                  }
         set { textField?.stringValue = newValue ?? "" }
     }
     
-    public var image: NSImage? {
+    var image: NSImage? {
         get { imageView?.image            }
         set { imageView?.image = newValue }
     }
     
-    public var allowsExpansionToolTips: Bool? {
+    var allowsExpansionToolTips: Bool? {
         get { textField?.allowsExpansionToolTips                     }
         set { textField?.allowsExpansionToolTips = newValue ?? false }
     }

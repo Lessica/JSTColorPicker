@@ -55,4 +55,98 @@ class InfoView: NSView {
         else { return nil }
         return views?.compactMap({ $0 as? NSView }).first
     }
+    
+    private static var byteFormatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter.init()
+        return formatter
+    }()
+
+    private static var exifDateFormatter: DateFormatter = {
+        let formatter = DateFormatter.init()
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        return formatter
+    }()
+
+    private static var defaultDateFormatter: DateFormatter = {
+        let formatter = DateFormatter.init()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        return formatter
+    }()
+    
+    func setSource(_ source: PixelImage.Source) throws {
+        let attrs = try FileManager.default.attributesOfItem(atPath: source.url.path)
+        guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any],
+              let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any]
+        else { throw Screenshot.Error.invalidImageProperties }
+        
+        var createdAtDesc: String?
+        if let createdAt = attrs[.creationDate] as? Date {
+            createdAtDesc = InfoView.defaultDateFormatter.string(from: createdAt)
+        }
+        
+        var modifiedAtDesc: String?
+        if let modifiedAt = attrs[.modificationDate] as? Date {
+            modifiedAtDesc = InfoView.defaultDateFormatter.string(from: modifiedAt)
+        }
+        
+        var snapshotAtDesc: String?
+        if let snapshotAt = InfoView.exifDateFormatter.date(from: (props[kCGImagePropertyExifDictionary] as? [AnyHashable: Any] ?? [:])[kCGImagePropertyExifDateTimeOriginal] as? String ?? "")
+        {
+            snapshotAtDesc = InfoView.defaultDateFormatter.string(from: snapshotAt)
+        }
+
+        let fileSize = InfoView.byteFormatter.string(fromByteCount: fileProps[kCGImagePropertyFileSize] as? Int64 ?? 0)
+        let pixelXDimension = props[kCGImagePropertyPixelWidth] as? Int64 ?? 0
+        let pixelYDimension = props[kCGImagePropertyPixelHeight] as? Int64 ?? 0
+        
+        let colorSpaceStr = props[kCGImagePropertyColorModel] as? String
+        let colorProfileStr = props[kCGImagePropertyProfileName] as? String
+        
+        fileNameLabel.stringValue = source.url.lastPathComponent
+        fileNameStack.isHidden = false
+        fileSizeLabel.stringValue = fileSize
+        fileSizeStack.isHidden = false
+        createdAtLabel.stringValue = createdAtDesc ?? ""
+        createdAtStack.isHidden = createdAtDesc == nil
+        modifiedAtLabel.stringValue = modifiedAtDesc ?? ""
+        modifiedAtStack.isHidden = modifiedAtDesc == nil
+        snapshotAtLabel.stringValue = snapshotAtDesc ?? ""
+        snapshotAtStack.isHidden = snapshotAtDesc == nil
+        dimensionLabel.stringValue = "\(pixelXDimension)×\(pixelYDimension)"
+        dimensionStack.isHidden = false
+        colorSpaceLabel.stringValue = colorSpaceStr ?? ""
+        colorSpaceStack.isHidden = colorSpaceStr == nil
+        colorProfileLabel.stringValue = colorProfileStr ?? ""
+        colorProfileStack.isHidden = colorProfileStr == nil
+        fullPathLabel.stringValue = source.url.path
+        fullPathStack.isHidden = false
+    }
+    
+    func reset() {
+        [
+            fileNameLabel,
+            fileSizeLabel,
+            createdAtLabel,
+            modifiedAtLabel,
+            snapshotAtLabel,
+            dimensionLabel,
+            colorSpaceLabel,
+            colorProfileLabel,
+            fullPathLabel,
+        ]
+        .forEach({ $0?.stringValue = "" })
+        [
+            fileNameStack,
+            fileSizeStack,
+            createdAtStack,
+            modifiedAtStack,
+            snapshotAtStack,
+            dimensionStack,
+            colorSpaceStack,
+            colorProfileStack,
+            fullPathStack,
+        ]
+        .forEach({ $0?.isHidden = true })
+    }
 }

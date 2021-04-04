@@ -12,7 +12,7 @@ class GridViewController: NSViewController {
     
     @IBOutlet weak var gridView: GridView!
     
-    public var drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView] {
+    var drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView] {
         didSet {
             reloadGridBackground()
         }

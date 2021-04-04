@@ -10,17 +10,17 @@ import Cocoa
 
 class TagCellView: NSTableCellView {
     
-    public var text: String? {
+    var text: String? {
         get { textField?.stringValue                  }
         set { textField?.stringValue = newValue ?? "" }
     }
     
-    public var image: NSImage? {
+    var image: NSImage? {
         get { imageView?.image            }
         set { imageView?.image = newValue }
     }
     
-    public var isEnabled: Bool {
+    var isEnabled: Bool {
         get {
             if checkbox != nil {
                 return checkbox?.isEnabled ?? false
@@ -40,7 +40,7 @@ class TagCellView: NSTableCellView {
         }
     }
     
-    public var isEditable: Bool {
+    var isEditable: Bool {
         get {
             if checkbox != nil {
                 return checkbox?.isEnabled ?? false
@@ -60,7 +60,7 @@ class TagCellView: NSTableCellView {
         }
     }
     
-    public var state: NSControl.StateValue {
+    var state: NSControl.StateValue {
         get {
             if checkbox != nil {
                 return checkbox?.state ?? .off

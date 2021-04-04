@@ -16,16 +16,16 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 @objc private class TagListControllerWrapper: NSObject {
-    public weak var object: TagListController?
+    weak var object: TagListController?
     init(_ obj: TagListController?) { object = obj }
     
-    @objc internal func colorPanelValueChanged(_ sender: NSColorPanel) {
+    @objc func colorPanelValueChanged(_ sender: NSColorPanel) {
         object?.colorPanelValueChanged(sender)
     }
 }
 
 class TagListController: NSViewController, PaneController {
-    internal weak var screenshot: Screenshot?
+    weak var screenshot: Screenshot?
     
     private enum PreviewMode {
         case multiple
@@ -33,15 +33,15 @@ class TagListController: NSViewController, PaneController {
         case none
     }
     
-    public weak var editDelegate                  : TagListEditDelegate?
-    public var isEditMode                         : Bool { editDelegate != nil }
+    weak var editDelegate                         : TagListEditDelegate?
+    var isEditMode                                : Bool { editDelegate != nil }
     
     private var previewMode                       : PreviewMode = .none
     private var previewContext                    : [String: Int]?
     
-    public weak var contentManager                : ContentDelegate?
-    public weak var importSource                  : TagImportSource?
-    public weak var sceneToolSource               : SceneToolSource!
+    weak var contentManager                       : ContentDelegate?
+    weak var importSource                         : TagImportSource?
+    weak var sceneToolSource                      : SceneToolSource!
     {
         get { tableViewOverlay.sceneToolSource            }
         set { tableViewOverlay.sceneToolSource = newValue }
@@ -80,7 +80,7 @@ class TagListController: NSViewController, PaneController {
     private var didUndoToken                      : NotificationToken?
     private var didRedoToken                      : NotificationToken?
     
-    static public var attachPasteboardType  = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
+    static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
     // MARK: - Touch Bar
@@ -483,7 +483,7 @@ class TagListController: NSViewController, PaneController {
         )
     }
     
-    @objc internal func colorPanelValueChanged(_ sender: NSColorPanel) {
+    @objc func colorPanelValueChanged(_ sender: NSColorPanel) {
         
         guard let index = menuTargetIndex,
             let tag = menuTargetObject,

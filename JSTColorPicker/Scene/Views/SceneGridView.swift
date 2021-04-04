@@ -29,8 +29,8 @@ class SceneGridView: NSView {
     override func hitTest(_ point: NSPoint) -> NSView? { nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
-    public var drawGridsInScene: Bool = false
-    public var enableGPUAcceleration: Bool = true
+    var drawGridsInScene: Bool = false
+    var enableGPUAcceleration: Bool = true
     
     private static let minimumScaleOfGridDrawing    : CGFloat = 32.0
     private static let minimumScaleOfRasterization  : CGFloat = 0.8

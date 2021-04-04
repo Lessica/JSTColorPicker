@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension UserDefaults.Key {
+extension UserDefaults.Key {
     
     static let AppleMomentumScrollSupported         : UserDefaults.Key     = "AppleMomentumScrollSupported"                    // Bool
     
@@ -71,13 +71,13 @@ public extension UserDefaults.Key {
 
 #if os(iOS)
 import UIKit
-public typealias SystemColor = UIColor
+typealias SystemColor = UIColor
 #else
 import Cocoa
-public typealias SystemColor = NSColor
+typealias SystemColor = NSColor
 #endif
 
-public extension UserDefaults {
+extension UserDefaults {
 
     func set<T>(_ value: T?, forKey key: Key) {
         set(value, forKey: key.rawValue)
@@ -108,7 +108,7 @@ public extension UserDefaults {
 
 }
 
-public extension UserDefaults {
+extension UserDefaults {
 
     subscript<T>(key: Key) -> T? {
         get { value(forKey: key)         }
@@ -152,7 +152,7 @@ public extension UserDefaults {
 
 }
 
-public extension UserDefaults {
+extension UserDefaults {
 
     func bool(forKey key: Key) -> Bool {
         return bool(forKey: key.rawValue)
@@ -207,20 +207,14 @@ public extension UserDefaults {
 
 }
 
-public extension UserDefaults {
-
+extension UserDefaults {
     struct Key: Codable, Hashable, RawRepresentable, ExpressibleByStringLiteral {
-
-        public var rawValue: String
-
-        public init(rawValue: String) {
+        var rawValue: String
+        init(rawValue: String) {
             self.rawValue = rawValue
         }
-
-        public init(stringLiteral value: String) {
+        init(stringLiteral value: String) {
             self.rawValue = value
         }
-
     }
-
 }

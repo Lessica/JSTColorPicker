@@ -64,7 +64,7 @@ class InspectorView: NSControl {
         redLabel.stringValue = String(color.red)
         greenLabel.stringValue = String(color.green)
         blueLabel.stringValue = String(color.blue)
-        alphaLabel.stringValue = String(color.alpha)
+        alphaLabel.stringValue = String(Int(Double(color.alpha) / 0xFF * 100))
         redStack.isHidden = false
         greenStack.isHidden = false
         blueStack.isHidden = false

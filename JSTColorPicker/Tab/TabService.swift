@@ -15,12 +15,12 @@ class TabService: TabDelegate {
     }
     private var internalManagedWindows: [ManagedWindow] = []
     private weak var dropRespondingWindow: NSWindow?
-    public var managedWindows: [ManagedWindow] { internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder }) }
+    var managedWindows: [ManagedWindow] { internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder }) }
     
     /// Returns the main window of the managed window stack.
     /// Falls back the first element if no window is main. Note that this would
     /// likely be an internal inconsistency we gracefully handle here.
-    public var firstRespondingWindow: NSWindow? {
+    var firstRespondingWindow: NSWindow? {
         
         // FIXME: this is a workaround for drag'n'drop feature that
         //        new document could be opened in the window where user drops ther image in
@@ -32,7 +32,7 @@ class TabService: TabDelegate {
         return firstManagedWindow.map({ $0.window })
     }
     
-    public var firstManagedWindow: ManagedWindow? {
+    var firstManagedWindow: ManagedWindow? {
         let mainManagedWindow = internalManagedWindows
             .first { $0.window.isMainWindow }
         

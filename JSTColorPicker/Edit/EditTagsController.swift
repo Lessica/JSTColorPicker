@@ -18,7 +18,7 @@ class EditTagsController: EditViewController {
     @IBOutlet weak var touchBarCancelBtn    : NSButton!
     @IBOutlet weak var touchBarOkBtn        : NSButton!
     
-    public var tagListController: TagListController! {
+    var tagListController: TagListController! {
         return children.first as? TagListController
     }
     

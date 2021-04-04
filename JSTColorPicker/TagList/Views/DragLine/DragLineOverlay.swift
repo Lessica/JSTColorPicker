@@ -116,7 +116,7 @@ private class ConnectionView: NSView {
         shapeLayer.shadowPath = CGPath.barbell(from: parameters.startPoint, to: parameters.endPoint, barThickness: parameters.barThickness + shapeLayer.lineWidth / 2, bellRadius: parameters.ballRadius + shapeLayer.lineWidth / 2)
     }
 
-    public override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         debugPrint("\(#function) \(self) \(sender)")
         return []
     }
