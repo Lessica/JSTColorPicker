@@ -646,7 +646,7 @@ class SceneScrollView: NSScrollView {
 }
 
 extension SceneScrollView {
-    private static var checkerboardImage: NSImage = {
+    public static var checkerboardImage: NSImage = {
         let filter = CIFilter(name: "CICheckerboardGenerator")!
         
         let ciCount: Int    = 8

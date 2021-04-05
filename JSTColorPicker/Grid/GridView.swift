@@ -122,7 +122,7 @@ class GridView: NSView {
         super.awakeFromNib()
         wantsLayer = true
         
-        layer?.isOpaque = true
+        layer!.isOpaque = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
         
