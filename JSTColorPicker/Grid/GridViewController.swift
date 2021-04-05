@@ -20,18 +20,22 @@ class GridViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadGridBackground()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
         applyPreferences(nil)
     }
     
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        reloadGridBackground()
+    }
+    
     private func reloadGridBackground() {
+        guard let layer = view.layer else { return }
         if drawBackgroundInGridView {
-            view.layer?.backgroundColor = NSColor(patternImage: NSImage(named: "JSTBackgroundPattern")!).cgColor
-        }
-        else {
-            view.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+            layer.backgroundColor = NSColor(patternImage: SceneScrollView.checkerboardImage).cgColor
+        } else {
+            layer.backgroundColor = NSColor.controlBackgroundColor.cgColor
         }
     }
     
