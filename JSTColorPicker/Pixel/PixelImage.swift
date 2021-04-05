@@ -9,7 +9,6 @@
 import Cocoa
 import LuaSwift
 
-
 class PixelImage {
     
     struct Source {

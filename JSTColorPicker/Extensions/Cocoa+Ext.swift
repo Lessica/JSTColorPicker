@@ -60,6 +60,16 @@ extension NSImage {
         }
         cacheMode = .never
     }
+    
+    var pngData: Data? { tiffRepresentation?.bitmap?.pngData }
+}
+
+extension NSBitmapImageRep {
+    var pngData: Data? { representation(using: .png, properties: [:]) }
+}
+
+extension Data {
+    var bitmap: NSBitmapImageRep? { NSBitmapImageRep(data: self) }
 }
 
 extension NSColor {

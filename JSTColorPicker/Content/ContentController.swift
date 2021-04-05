@@ -860,10 +860,18 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                     return false
                 }
                 let targetIndex = tableView.clickedRow
-                if content.items[targetIndex] is PixelArea { return true }
+                if content.items[targetIndex] is PixelColor
+                    || content.items[targetIndex] is PixelArea
+                {
+                    return true
+                }
             } else if tableView.selectedRowIndexes.count == 1 {
                 if let targetIndex = tableView.selectedRowIndexes.first {
-                    if content.items[targetIndex] is PixelArea { return true }
+                    if content.items[targetIndex] is PixelColor
+                        || content.items[targetIndex] is PixelArea
+                    {
+                        return true
+                    }
                 }
                 return false
             }
@@ -1153,17 +1161,33 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     @IBAction func resample(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
-        guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
-
+        let selectedItem = collection[targetIndex]
         let panel = NSSavePanel()
-        panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedArea.id)
+        panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedItem.id)
         panel.allowedFileTypes = ["png"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
                 if let url = panel.url {
-                    self?.saveCroppedImage(of: selectedArea, to: url)
+                    if let selectedColor = selectedItem as? PixelColor {
+                        self?.saveSample(of: selectedColor, to: url)
+                    } else if let selectedArea = selectedItem as? PixelArea {
+                        self?.saveCroppedImage(of: selectedArea, to: url)
+                    }
                 }
             }
+        }
+    }
+    
+    private func saveSample(of color: PixelColor, to url: URL) {
+        guard let coloredData = NSImage(
+                color: color.toNSColor(),
+                size: CGSize(width: 74.0, height: 74.0)
+        ).pngData
+        else { return }
+        do {
+            try coloredData.write(to: url)
+        } catch {
+            presentError(error)
         }
     }
     
