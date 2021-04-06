@@ -9,6 +9,8 @@
 import Cocoa
 
 class InfoController: NSViewController, PaneController {
+    var menuIdentifier = NSUserInterfaceItemIdentifier("show-information")
+    
     @objc dynamic weak var screenshot            : Screenshot?
     private var documentObservations             : [NSKeyValueObservation]?
 
@@ -38,6 +40,7 @@ class InfoController: NSViewController, PaneController {
 
 extension InfoController: ScreenshotLoader {
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneStacked: Bool { false }
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot

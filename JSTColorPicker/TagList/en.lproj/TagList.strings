@@ -49,5 +49,5 @@
 /* Class = "NSTableColumn"; headerCell.title = "Flags"; ObjectID = "XC9-Lg-cBA"; */
 "XC9-Lg-cBA.headerCell.title" = "Flags";
 
-/* Class = "NSBox"; title = "Tag List"; ObjectID = "yUd-5h-qZT"; */
-"yUd-5h-qZT.title" = "Tag List";
+/* Class = "NSBox"; title = "Tag Manager"; ObjectID = "yUd-5h-qZT"; */
+"yUd-5h-qZT.title" = "Tag Manager";

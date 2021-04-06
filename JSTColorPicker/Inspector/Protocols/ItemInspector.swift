@@ -9,5 +9,5 @@
 import Cocoa
 
 protocol ItemInspector: class {
-    func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool)
+    func inspectItem(_ item: ContentItem)
 }

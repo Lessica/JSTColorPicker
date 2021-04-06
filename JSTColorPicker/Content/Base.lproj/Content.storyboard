@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,13 +15,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="36" width="220" height="764"/>
+                                <rect key="frame" x="0.0" y="36" width="220" height="712"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="764"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="712"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="324" height="739"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="324" height="687"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -178,8 +179,8 @@
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="ep1-B6-8yg"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="0.96153846153846156" horizontal="YES" id="NM7-Vt-IF5">
-                                    <rect key="frame" x="0.0" y="748" width="220" height="16"/>
+                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="NM7-Vt-IF5">
+                                    <rect key="frame" x="0.0" y="696" width="220" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="NO" id="o7Y-Vl-G5o">
@@ -252,10 +253,12 @@
                             <constraint firstAttribute="bottom" secondItem="W8X-3b-Td7" secondAttribute="bottom" constant="36" id="27p-MG-kaj"/>
                             <constraint firstAttribute="bottom" secondItem="zMj-9c-qFb" secondAttribute="bottom" id="3Ws-Lb-BNi"/>
                             <constraint firstAttribute="trailing" secondItem="zMj-9c-qFb" secondAttribute="trailing" id="C35-lK-Ba8"/>
-                            <constraint firstItem="W8X-3b-Td7" firstAttribute="top" secondItem="9GN-DY-133" secondAttribute="top" id="bpo-r4-fh8"/>
+                            <constraint firstItem="W8X-3b-Td7" firstAttribute="top" secondItem="lRJ-BT-Ues" secondAttribute="top" id="bpo-r4-fh8"/>
                             <constraint firstItem="zMj-9c-qFb" firstAttribute="leading" secondItem="9GN-DY-133" secondAttribute="leading" id="cBj-mb-06f"/>
                             <constraint firstItem="W8X-3b-Td7" firstAttribute="leading" secondItem="9GN-DY-133" secondAttribute="leading" id="l7o-g0-SEw"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="lRJ-BT-Ues"/>
+                        <viewLayoutGuide key="layoutMargins" id="b3i-J9-Zbw"/>
                     </view>
                     <connections>
                         <outlet property="addCoordinateButton" destination="Lyu-4U-FxO" id="dBa-gf-pKO"/>

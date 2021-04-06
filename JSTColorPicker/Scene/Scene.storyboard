@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,13 +15,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="0.0" verticalPageScroll="0.0" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7m-Sv-4Wm" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                                 <clipView key="contentView" focusRingType="none" id="sQJ-yc-X1x" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view focusRingType="none" id="V2d-Mg-fgu">
-                                            <rect key="frame" x="0.0" y="0.0" width="985" height="785"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="985" height="733"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                     </subviews>
@@ -28,25 +29,25 @@
                                 </clipView>
                                 <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                 <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="LfN-XO-MdU">
-                                    <rect key="frame" x="0.0" y="784" width="1000" height="16"/>
+                                    <rect key="frame" x="0.0" y="732" width="1000" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OKd-TY-Jrf">
-                                    <rect key="frame" x="984" y="0.0" width="16" height="800"/>
+                                    <rect key="frame" x="984" y="0.0" width="16" height="748"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="LWT-QD-3FC" customClass="SceneBorderView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                             </customView>
                             <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="k96-rq-b85" customClass="SceneGridView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                             </customView>
                             <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gm2-nK-LVB" customClass="SceneOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                             </customView>
                             <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="p5F-Ek-hEY" customClass="SceneEffectView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                             </customView>
                         </subviews>
                         <constraints>
@@ -69,8 +70,10 @@
                             <constraint firstItem="Gm2-nK-LVB" firstAttribute="top" secondItem="LWT-QD-3FC" secondAttribute="top" id="auf-gU-T5a"/>
                             <constraint firstItem="Gm2-nK-LVB" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="e2K-Oy-6MV"/>
                             <constraint firstItem="p5F-Ek-hEY" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="eCd-bx-d3c"/>
-                            <constraint firstItem="W7m-Sv-4Wm" firstAttribute="top" secondItem="LSe-l3-GPX" secondAttribute="top" id="ntz-rt-KTI"/>
+                            <constraint firstItem="W7m-Sv-4Wm" firstAttribute="top" secondItem="WRf-xZ-PrK" secondAttribute="top" id="ntz-rt-KTI"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="WRf-xZ-PrK"/>
+                        <viewLayoutGuide key="layoutMargins" id="dOn-aT-h9C"/>
                     </view>
                     <connections>
                         <outlet property="deletionMenu" destination="u9q-jA-WiX" id="VpU-Q2-Eon"/>

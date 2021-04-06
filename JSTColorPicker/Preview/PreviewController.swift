@@ -9,6 +9,8 @@
 import Cocoa
 
 class PreviewController: NSViewController, PaneController {
+    var menuIdentifier = NSUserInterfaceItemIdentifier("show-image-preview")
+    
     weak var screenshot                          : Screenshot?
     var previewStage                             : ItemPreviewStage = .none
     public weak var overlayDelegate              : ItemPreviewResponder!
@@ -46,6 +48,7 @@ class PreviewController: NSViewController, PaneController {
 
 extension PreviewController: ScreenshotLoader {
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {
         guard let image = screenshot.image else {

@@ -9,14 +9,15 @@
 import Cocoa
 
 class ExportController: NSViewController, PaneController {
-
+    var menuIdentifier = NSUserInterfaceItemIdentifier("show-export-manager")
     weak var screenshot: Screenshot?
 
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
-    var paneBox: NSBox!
+    var isPaneStacked: Bool { false }
+    @IBOutlet weak var paneBox: NSBox!
 
     func load(_ screenshot: Screenshot) throws {
-
+        self.screenshot = screenshot
     }
 
     func reloadPane() {

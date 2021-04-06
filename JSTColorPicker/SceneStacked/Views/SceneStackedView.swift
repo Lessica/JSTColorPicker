@@ -1,5 +1,5 @@
 //
-//  SidebarSplitView.swift
+//  SceneStackedView.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 5/3/20.
@@ -8,8 +8,7 @@
 
 import Cocoa
 
-class SidebarSplitView: NSSplitView {
-    
+class SceneStackedView: NSSplitView {
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     override func menu(for event: NSEvent) -> NSMenu? {
         guard !hasAttachedSheet else { return nil }
@@ -26,5 +25,4 @@ class SidebarSplitView: NSSplitView {
         }
         super.mouseUp(with: event)
     }
-
 }

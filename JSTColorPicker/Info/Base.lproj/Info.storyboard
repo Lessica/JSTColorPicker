@@ -98,7 +98,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="XqG-pw-tzN" secondAttribute="trailing" id="JL4-nm-7gm"/>
                                         <constraint firstItem="XqG-pw-tzN" firstAttribute="top" secondItem="JH3-cU-X8Y" secondAttribute="top" constant="8" id="OkC-E3-xgU"/>
-                                        <constraint firstAttribute="bottom" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="2" id="u0L-kW-Dyi"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XqG-pw-tzN" secondAttribute="bottom" constant="2" id="u0L-kW-Dyi"/>
                                         <constraint firstItem="XqG-pw-tzN" firstAttribute="leading" secondItem="JH3-cU-X8Y" secondAttribute="leading" id="zkm-sa-Qmi"/>
                                     </constraints>
                                 </view>
@@ -114,7 +114,6 @@
                             <constraint firstAttribute="trailing" secondItem="GEI-GX-uyj" secondAttribute="trailing" id="1Km-zX-atY"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" constant="4" id="EI4-bp-v0Y"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="leading" secondItem="TNs-V1-cem" secondAttribute="leading" id="N9Y-Ab-6nT"/>
-                            <constraint firstAttribute="bottom" secondItem="GEI-GX-uyj" secondAttribute="bottom" placeholder="YES" id="YBq-aY-TQ2"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
                         </constraints>
                     </view>

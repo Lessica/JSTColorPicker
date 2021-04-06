@@ -25,7 +25,7 @@ class SceneScrollView: NSScrollView {
     // MARK: - Rulers Shortcuts
     
     private static let rulerThickness: CGFloat = 16.0
-    private static let reservedThicknessForMarkers: CGFloat = 15.0
+    private static let reservedThicknessForMarkers: CGFloat = 12.0
     private static let reservedThicknessForAccessoryView: CGFloat = 0.0
     var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect

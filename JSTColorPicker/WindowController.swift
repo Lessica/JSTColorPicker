@@ -64,7 +64,7 @@ class WindowController: NSWindowController {
     private var firstResponderObservation              : NSKeyValueObservation?
     private var lastStoredMagnification                : CGFloat?
     
-    private var viewController: SplitController! {
+    private var splitController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
     }
     private var currentAlertSheet: NSAlert?
@@ -85,7 +85,7 @@ class WindowController: NSWindowController {
         windowCount += 1
         
         NSColorPanel.shared.delegate = self
-        viewController.parentTracking = self
+        splitController.parentTracking = self
         
         window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
         window!.toolbar?.delegate = self
@@ -181,7 +181,7 @@ class WindowController: NSWindowController {
             do {
                 let maskImage = try self.pixelMatchService.performConcurrentPixelMatch(currentPixelImage.pixelImageRepresentation, image.pixelImageRepresentation)
                 DispatchQueue.main.sync { [weak self] in
-                    self?.viewController.beginPixelMatchComparison(to: image, with: maskImage) { [weak self] (shouldExit) in
+                    self?.splitController.beginPixelMatchComparison(to: image, with: maskImage) { [weak self] (shouldExit) in
                         if shouldExit {
                             self?.endPixelMatchComparison()
                         }
@@ -205,7 +205,7 @@ class WindowController: NSWindowController {
     
     public func endPixelMatchComparison() {
         if shouldEndPixelMatchComparison {
-            viewController.endPixelMatchComparison()
+            splitController.endPixelMatchComparison()
             showSheet(nil, completionHandler: nil)
             isInComparisonMode = false
         }
@@ -274,23 +274,23 @@ extension WindowController {
 
         if identifier == SceneTool.magicCursor.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magicCursor.rawValue
-            viewController.useAnnotateItemAction(self)
+            splitController.useAnnotateItemAction(self)
         }
         else if identifier == SceneTool.selectionArrow.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.selectionArrow.rawValue
-            viewController.useSelectItemAction(self)
+            splitController.useSelectItemAction(self)
         }
         else if identifier == SceneTool.magnifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magnifyingGlass.rawValue
-            viewController.useMagnifyItemAction(self)
+            splitController.useMagnifyItemAction(self)
         }
         else if identifier == SceneTool.minifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.minifyingGlass.rawValue
-            viewController.useMinifyItemAction(self)
+            splitController.useMinifyItemAction(self)
         }
         else if identifier == SceneTool.movingHand.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.movingHand.rawValue
-            viewController.useMoveItemAction(self)
+            splitController.useMoveItemAction(self)
         }
 
         invalidateRestorableState()
@@ -326,10 +326,10 @@ extension WindowController {
     @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
         guard documentState.isLoaded else { return }
         if sender.selectedSegment == ActionIndex.fitWindow.rawValue {
-            viewController.fitWindowAction(sender)
+            splitController.fitWindowAction(sender)
         }
         else if sender.selectedSegment == ActionIndex.fillWindow.rawValue {
-            viewController.fillWindowAction(sender)
+            splitController.fillWindowAction(sender)
         }
     }
     
@@ -378,12 +378,12 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func fitWindowAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        viewController.fitWindowAction(sender)
+        splitController.fitWindowAction(sender)
     }
     
     @IBAction func fillWindowAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        viewController.fillWindowAction(sender)
+        splitController.fillWindowAction(sender)
     }
     
     @IBAction func screenshotAction(_ sender: Any?) {
@@ -453,13 +453,11 @@ extension WindowController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
-        
-        try viewController.load(screenshot)
+        try splitController.load(screenshot)
         
         if let fileURL = screenshot.fileURL {
             self.updateWindowTitle(fileURL)
         }
-        
         touchBarPreviewSlider.isEnabled = true
 
         documentObservations = [
@@ -528,19 +526,19 @@ extension WindowController: ItemPreviewDelegate {
 extension WindowController: ItemPreviewSender, ItemPreviewResponder {
     
     func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
-        viewController.previewAction(sender, atAbsolutePoint: point, animated: animated)
+        splitController.previewAction(sender, atAbsolutePoint: point, animated: animated)
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
-        viewController.previewAction(sender, atRelativePosition: position, animated: animated)
+        splitController.previewAction(sender, atRelativePosition: position, animated: animated)
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
-        viewController.previewAction(sender, atCoordinate: coordinate, animated: animated)
+        splitController.previewAction(sender, atCoordinate: coordinate, animated: animated)
     }
     
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
-        viewController.previewAction(sender, toMagnification: magnification)
+        splitController.previewAction(sender, toMagnification: magnification)
     }
     
 }

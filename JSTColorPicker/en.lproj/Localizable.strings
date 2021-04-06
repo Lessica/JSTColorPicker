@@ -207,6 +207,12 @@
 /* Shortcut Guide */
 "In the pop-up tab, precisely adjust the position of the selected annotation." = "In the pop-up tab, precisely adjust the position of the selected annotation.";
 
+/* reloadPane() */
+"Inspector (Primary)" = "Inspector (Primary)";
+
+/* reloadPane() */
+"Inspector (Secondary)" = "Inspector (Secondary)";
+
 /* TemplateError */
 "Internal error." = "Internal error.";
 

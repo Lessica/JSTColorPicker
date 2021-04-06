@@ -207,6 +207,12 @@
 /* Shortcut Guide */
 "In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中, 精确调整标注的位置.";
 
+/* reloadPane() */
+"Inspector (Primary)" = "检视器 (主要)";
+
+/* reloadPane() */
+"Inspector (Secondary)" = "检视器 (次要)";
+
 /* TemplateError */
 "Internal error." = "内部错误.";
 

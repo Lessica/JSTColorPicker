@@ -1486,7 +1486,6 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
 extension ContentController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
-        
         guard let _ = screenshot.content else {
             throw Screenshot.Error.invalidContent
         }
@@ -1508,7 +1507,6 @@ extension ContentController: ScreenshotLoader {
         }
         
         tableView.reloadData()
-        
     }
     
 }

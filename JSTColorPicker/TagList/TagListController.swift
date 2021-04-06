@@ -25,6 +25,7 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 class TagListController: NSViewController, PaneController {
+    var menuIdentifier = NSUserInterfaceItemIdentifier("show-tag-manager")
     weak var screenshot: Screenshot?
     
     private enum PreviewMode {
@@ -521,6 +522,7 @@ class TagListController: NSViewController, PaneController {
 
 extension TagListController: ScreenshotLoader {
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneStacked: Bool { false }
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot

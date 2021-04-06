@@ -11,11 +11,10 @@ import ShortcutGuide
 
 class SplitController: NSSplitViewController {
 
-    public weak var parentTracking              : SceneTracking?
+    public  weak var parentTracking             : SceneTracking?
     private weak var sceneToolSource            : SceneToolSource!
     
     override func viewDidLoad() {
-        
         contentController.actionManager          = self
         sceneController.parentTracking           = self
         sceneController.contentManager           = self
@@ -29,7 +28,6 @@ class SplitController: NSSplitViewController {
         tagListController.sceneToolSource  = sceneController
         tagListController.importSource     = contentController
         tagListController.contentManager   = self
-        
     }
     
     override var representedObject: Any? {
@@ -52,7 +50,9 @@ class SplitController: NSSplitViewController {
         if let previewParent = parentTracking as? ItemPreviewDelegate {
             previewDelegates.append(previewParent)
         }
-        previewDelegates.forEach({ $0.ensureOverlayBounds(to: sceneController.wrapperRestrictedRect, magnification: sceneController.wrapperRestrictedMagnification) })
+        previewDelegates.forEach(
+            { $0.ensureOverlayBounds(to: sceneController.wrapperRestrictedRect, magnification: sceneController.wrapperRestrictedMagnification) }
+        )
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -63,41 +63,31 @@ class SplitController: NSSplitViewController {
     
 }
 
+extension SplitController: PaneContainer {
+    var contentController        : ContentController!       { children.first(where: { $0 is ContentController }) as? ContentController }
+    var sceneController          : SceneController!         { children.first(where: { $0 is SceneController   }) as? SceneController   }
+    var segmentController        : SegmentController!       { children.first(where: { $0 is SegmentController }) as? SegmentController }
+    var paneContainers           : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
+    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) + paneContainers.flatMap({ $0.paneControllers }) }
+    var infoController           : InfoController!          { paneControllers.compactMap({ $0 as? InfoController      }).first! }
+    var previewController        : PreviewController!       { paneControllers.compactMap({ $0 as? PreviewController   }).first! }
+    var tagListController        : TagListController!       { paneControllers.compactMap({ $0 as? TagListController   }).first! }
+    var exportController         : ExportController!        { paneControllers.compactMap({ $0 as? ExportController    }).first! }
+    func inspectorController(_ style: InspectorController.Style) -> InspectorController {
+        return paneControllers
+            .compactMap({ $0 as? InspectorController })
+            .filter({ $0.style == style })
+            .first!
+    }
+}
+
 extension SplitController: DropViewDelegate {
-    
-    private var contentController: ContentController! {
-        return children[0] as? ContentController
-    }
-    
-    private var sceneController: SceneController! {
-        return children[1] as? SceneController
-    }
-    
-    private var sidebarController: SidebarController! {
-        return children[2] as? SidebarController
-    }
 
-    private var infoController: InfoController! {
-        return sidebarController.infoController
-    }
-
-    private var inspectorController: InspectorController! {
-        return sidebarController.inspectorController
-    }
-
-    private var previewController: PreviewController! {
-        return sidebarController.previewController
-    }
-    
-    private var tagListController: TagListController! {
-        return sidebarController.tagListController
-    }
-    
-    internal var allowsDrop: Bool {
+    var allowsDrop: Bool {
         return true
     }
     
-    internal var acceptedFileExtensions: [String] {
+    var acceptedFileExtensions: [String] {
         return ["png"]
     }
     
@@ -119,14 +109,14 @@ extension SplitController: SceneTracking {
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
         guard let image = screenshot?.image else { return }
         guard let color = image.color(at: coordinate) else { return }
-        inspectorController.inspectItem(color, shouldSubmit: false)
+        inspectorController(.primary).inspectItem(color)
         parentTracking?.sceneRawColorDidChange(sender, at: coordinate)
     }
     
     func sceneRawAreaDidChange(_ sender: SceneScrollView?, to rect: PixelRect) {
         guard let image = screenshot?.image else { return }
         guard let area = image.area(at: rect) else { return }
-        inspectorController.inspectItem(area, shouldSubmit: false)
+        inspectorController(.primary).inspectItem(area)
         parentTracking?.sceneRawAreaDidChange(sender, to: rect)
     }
     
@@ -144,45 +134,30 @@ extension SplitController: SceneTracking {
 }
 
 extension SplitController: ToolbarResponder {
-    
-    func useAnnotateItemAction(_ sender: Any?) {
-        sceneController.useAnnotateItemAction(sender)
-    }
-    
-    func useMagnifyItemAction(_ sender: Any?) {
-        sceneController.useMagnifyItemAction(sender)
-    }
-    
-    func useMinifyItemAction(_ sender: Any?) {
-        sceneController.useMinifyItemAction(sender)
-    }
-    
-    func useSelectItemAction(_ sender: Any?) {
-        sceneController.useSelectItemAction(sender)
-    }
-    
-    func useMoveItemAction(_ sender: Any?) {
-        sceneController.useMoveItemAction(sender)
-    }
-    
-    func fitWindowAction(_ sender: Any?) {
-        sceneController.fitWindowAction(sender)
-    }
-    
-    func fillWindowAction(_ sender: Any?) {
-        sceneController.fillWindowAction(sender)
-    }
-    
+    func useAnnotateItemAction(_ sender: Any?) { sceneController.useAnnotateItemAction(sender) }
+    func useMagnifyItemAction(_ sender: Any?)  { sceneController.useMagnifyItemAction(sender)  }
+    func useMinifyItemAction(_ sender: Any?)   { sceneController.useMinifyItemAction(sender)   }
+    func useSelectItemAction(_ sender: Any?)   { sceneController.useSelectItemAction(sender)   }
+    func useMoveItemAction(_ sender: Any?)     { sceneController.useMoveItemAction(sender)     }
+    func fitWindowAction(_ sender: Any?)       { sceneController.fitWindowAction(sender)       }
+    func fillWindowAction(_ sender: Any?)      { sceneController.fillWindowAction(sender)      }
 }
 
 extension SplitController: ScreenshotLoader {
+
+    private var childScreenshotLoaders: [ScreenshotLoader] {
+        var loaders: [ScreenshotLoader] = [
+            contentController,
+            sceneController,
+        ]
+        loaders += paneControllers
+        return loaders
+    }
     
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
         do {
-            try contentController.load(screenshot)
-            try sceneController.load(screenshot)
-            try sidebarController.load(screenshot)
+            try childScreenshotLoaders.forEach({ try $0.load(screenshot) })
         } catch {
             if let _ = screenshot.fileURL {
                 presentError(error)
@@ -351,7 +326,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.addAnnotators(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            inspectorController.inspectItem(item, shouldSubmit: true)
+            inspectorController(.secondary).inspectItem(item)
         }
     }
     
@@ -359,7 +334,7 @@ extension SplitController: ContentActionDelegate {
         sceneController.updateAnnotator(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            inspectorController.inspectItem(item, shouldSubmit: true)
+            inspectorController(.secondary).inspectItem(item)
         }
     }
     
@@ -368,7 +343,7 @@ extension SplitController: ContentActionDelegate {
         tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            inspectorController.inspectItem(item, shouldSubmit: true)
+            inspectorController(.secondary).inspectItem(item)
         }
     }
     
@@ -377,7 +352,7 @@ extension SplitController: ContentActionDelegate {
         tagListController.previewTags(for: items)
         if let item = items.first {
             contentItemChanged(item)
-            inspectorController.inspectItem(item, shouldSubmit: true)
+            inspectorController(.secondary).inspectItem(item)
         }
     }
     
@@ -408,15 +383,17 @@ extension SplitController: ItemPreviewResponder {
 }
 
 extension SplitController: PixelMatchResponder {
+
+    var childPixelMatchResponders: [PixelMatchResponder] {
+        [sceneController, infoController]
+    }
     
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
-        sceneController.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
-        sidebarController.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler)
+        childPixelMatchResponders.forEach({ $0.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler) })
     }
     
     func endPixelMatchComparison() {
-        sceneController.endPixelMatchComparison()
-        sidebarController.endPixelMatchComparison()
+        childPixelMatchResponders.forEach({ $0.endPixelMatchComparison() })
     }
     
 }

@@ -21,12 +21,6 @@ extension UserDefaults.Key {
     static let toggleTableColumnTag                 : UserDefaults.Key     = "defaults.tableColumn.toggle-tag"                 // Bool
     static let toggleTableColumnDescription         : UserDefaults.Key     = "defaults.tableColumn.toggle-desc"                // Bool
     
-    static let togglePaneViewInformation            : UserDefaults.Key     = "defaults.paneView.toggle-info"                   // Bool
-    static let togglePaneViewInspector              : UserDefaults.Key     = "defaults.paneView.toggle-inspector"              // Bool
-    static let togglePaneViewPreview                : UserDefaults.Key     = "defaults.paneView.toggle-preview"                // Bool
-    static let togglePaneViewTagList                : UserDefaults.Key     = "defaults.paneView.toggle-taglist"                // Bool
-    static let resetPaneView                        : UserDefaults.Key     = "defaults.paneView.reset"                         // Bool
-    
     static let togglePreviewArea                    : UserDefaults.Key     = "defaults.preview.toggle-area"                    // Bool
     static let togglePreviewColor                   : UserDefaults.Key     = "defaults.preview.toggle-color"                   // Bool
     

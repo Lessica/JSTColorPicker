@@ -10,74 +10,29 @@
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
-                        <rect key="frame" x="0.0" y="0.0" width="369" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="192" height="116"/>
                         <subviews>
-                            <box borderType="line" title="Color Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
-                                <rect key="frame" x="-3" y="-4" width="375" height="120"/>
+                            <box borderType="line" title="Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
+                                <rect key="frame" x="-3" y="-4" width="198" height="116"/>
                                 <view key="contentView" id="BDQ-F6-YF7">
-                                    <rect key="frame" x="11" y="3" width="353" height="102"/>
+                                    <rect key="frame" x="11" y="3" width="176" height="98"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <splitView autosaveName="IndicatorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTi-gC-uTV" customClass="ExpandableSplitView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="102"/>
-                                            <subviews>
-                                                <customView id="wjY-FE-M1i">
-                                                    <rect key="frame" x="0.0" y="0.0" width="176" height="102"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <subviews>
-                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fjf-by-V7h" customClass="InspectorView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="10" width="176" height="82"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="176" placeholder="YES" id="9xA-68-df9"/>
-                                                                <constraint firstAttribute="height" constant="82" placeholder="YES" id="OKf-dj-P8Y"/>
-                                                            </constraints>
-                                                            <connections>
-                                                                <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="7aq-Ep-GsR"/>
-                                                            </connections>
-                                                        </customView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Fjf-by-V7h" firstAttribute="centerX" secondItem="wjY-FE-M1i" secondAttribute="centerX" id="03a-eC-hDY"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Fjf-by-V7h" secondAttribute="bottom" constant="10" id="4Tr-Bs-X8k"/>
-                                                        <constraint firstItem="Fjf-by-V7h" firstAttribute="leading" secondItem="wjY-FE-M1i" secondAttribute="leading" placeholder="YES" id="IA8-Y9-OCj"/>
-                                                        <constraint firstItem="Fjf-by-V7h" firstAttribute="top" secondItem="wjY-FE-M1i" secondAttribute="top" constant="10" id="XrQ-UF-GHO"/>
-                                                    </constraints>
-                                                </customView>
-                                                <customView id="oPL-Ve-0N0">
-                                                    <rect key="frame" x="177" y="0.0" width="176" height="102"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <subviews>
-                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="kzx-GW-wWA" customClass="InspectorView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="10" width="176" height="82"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="176" placeholder="YES" id="7NH-hR-B6p"/>
-                                                                <constraint firstAttribute="height" constant="82" placeholder="YES" id="Hsn-jH-kL4"/>
-                                                            </constraints>
-                                                            <connections>
-                                                                <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="HiL-ky-XZK"/>
-                                                            </connections>
-                                                        </customView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="kzx-GW-wWA" secondAttribute="trailing" placeholder="YES" id="GEH-R1-BGi"/>
-                                                        <constraint firstItem="kzx-GW-wWA" firstAttribute="centerX" secondItem="oPL-Ve-0N0" secondAttribute="centerX" id="myC-Y3-6f1"/>
-                                                    </constraints>
-                                                </customView>
-                                            </subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fjf-by-V7h" customClass="InspectorView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="8" width="176" height="82"/>
                                             <constraints>
-                                                <constraint firstItem="kzx-GW-wWA" firstAttribute="centerY" secondItem="Fjf-by-V7h" secondAttribute="centerY" id="gXh-1G-P8r"/>
+                                                <constraint firstAttribute="width" constant="176" placeholder="YES" id="9xA-68-df9"/>
+                                                <constraint firstAttribute="height" constant="82" placeholder="YES" id="OKf-dj-P8Y"/>
                                             </constraints>
-                                            <holdingPriorities>
-                                                <real value="250"/>
-                                                <real value="250"/>
-                                            </holdingPriorities>
-                                        </splitView>
+                                            <connections>
+                                                <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="7aq-Ep-GsR"/>
+                                            </connections>
+                                        </customView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="cTi-gC-uTV" secondAttribute="trailing" id="JcL-Nb-Gty"/>
-                                        <constraint firstItem="cTi-gC-uTV" firstAttribute="top" secondItem="BDQ-F6-YF7" secondAttribute="top" id="LBX-jW-Hpd"/>
-                                        <constraint firstAttribute="bottom" secondItem="cTi-gC-uTV" secondAttribute="bottom" id="VV3-Ky-o6B"/>
-                                        <constraint firstItem="cTi-gC-uTV" firstAttribute="leading" secondItem="BDQ-F6-YF7" secondAttribute="leading" id="uJb-U1-R1e"/>
+                                        <constraint firstItem="Fjf-by-V7h" firstAttribute="top" secondItem="BDQ-F6-YF7" secondAttribute="top" constant="8" id="4gi-VZ-UMX"/>
+                                        <constraint firstAttribute="bottom" secondItem="Fjf-by-V7h" secondAttribute="bottom" constant="8" id="Caq-IV-3BQ"/>
+                                        <constraint firstItem="Fjf-by-V7h" firstAttribute="centerX" secondItem="BDQ-F6-YF7" secondAttribute="centerX" id="lwh-Gg-P3U"/>
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="0.0"/>
@@ -92,8 +47,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="inspectorView1" destination="Fjf-by-V7h" id="Bj7-lo-ycO"/>
-                        <outlet property="inspectorView2" destination="kzx-GW-wWA" id="X0q-b4-qA5"/>
+                        <outlet property="inspectorView" destination="Fjf-by-V7h" id="sUh-Ng-Lgv"/>
                         <outlet property="paneBox" destination="dsS-KU-rgc" id="5RD-iw-Egf"/>
                     </connections>
                 </viewController>

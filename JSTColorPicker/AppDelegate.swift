@@ -214,38 +214,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
 
-    // MARK: - Sidebar Actions
+    // MARK: - Pane Actions
 
     @IBOutlet weak var paneMenu: NSMenu!
-
-    @IBAction func resetPanes(_ sender: NSMenuItem) {
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewInformation)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewInspector)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewPreview)
-        UserDefaults.standard.removeObject(forKey: .togglePaneViewTagList)
-        UserDefaults.standard[.resetPaneView] = true
-    }
-
-    @IBAction func togglePane(_ sender: NSMenuItem) {
-        var defaultKey: UserDefaults.Key?
-        if sender.identifier == .togglePaneViewInformation {
-            defaultKey = .togglePaneViewInformation
-        }
-        else if sender.identifier == .togglePaneViewInspector {
-            defaultKey = .togglePaneViewInspector
-        }
-        else if sender.identifier == .togglePaneViewPreview {
-            defaultKey = .togglePaneViewPreview
-        }
-        else if sender.identifier == .togglePaneViewTagList {
-            defaultKey = .togglePaneViewTagList
-        }
-        if let key = defaultKey {
-            let val: Bool = UserDefaults.standard[key]
-            UserDefaults.standard[key] = !val
-            sender.state = !val ? .on : .off
-        }
-    }
     
     
     // MARK: - Color Grid Actions
@@ -520,13 +491,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         let hasAttachedSheet = firstManagedWindowController?.hasAttachedSheet ?? false
-        if menuItem.action == #selector(togglePane(_:)) ||
-           menuItem.action == #selector(resetPanes(_:))
-        {
-            guard !hasAttachedSheet else { return false }
-            return true
-        }
-        else if menuItem.action == #selector(compareMenuItemTapped(_:))
+        if menuItem.action == #selector(compareMenuItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
@@ -559,9 +524,6 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
         if menu == self.fileMenu {
             updateFileMenuItems()
         }
-        else if menu == self.paneMenu {
-            updatePaneMenuItems()
-        }
         else if menu == self.devicesMenu {
             updateDevicesMenuItems()
         }
@@ -587,23 +549,6 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
         else {
             compareMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")
             compareMenuItem.isEnabled = false
-        }
-    }
-
-    private func updatePaneMenuItems() {
-        paneMenu.items.forEach { (menuItem) in
-            if menuItem.identifier == .togglePaneViewInformation {
-                menuItem.state = UserDefaults.standard[.togglePaneViewInformation] ? .on : .off
-            }
-            else if menuItem.identifier == .togglePaneViewInspector {
-                menuItem.state = UserDefaults.standard[.togglePaneViewInspector] ? .on : .off
-            }
-            else if menuItem.identifier == .togglePaneViewPreview {
-                menuItem.state = UserDefaults.standard[.togglePaneViewPreview] ? .on : .off
-            }
-            else if menuItem.identifier == .togglePaneViewTagList {
-                menuItem.state = UserDefaults.standard[.togglePaneViewTagList] ? .on : .off
-            }
         }
     }
     

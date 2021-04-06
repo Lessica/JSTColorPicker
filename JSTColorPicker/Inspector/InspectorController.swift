@@ -9,12 +9,18 @@
 import Cocoa
 
 class InspectorController: NSViewController, PaneController {
-    weak var screenshot                          : Screenshot?
+    enum Style {
+        case primary
+        case secondary
+    }
 
-    @IBOutlet weak var paneBox                   : NSBox!
+    var menuIdentifier = NSUserInterfaceItemIdentifier("show-color-inspector")
     
-    @IBOutlet weak var inspectorView1            : InspectorView!
-    @IBOutlet weak var inspectorView2            : InspectorView!
+    weak var screenshot  : Screenshot?
+    var style            : Style = .primary
+
+    @IBOutlet weak var paneBox        : NSBox!
+    @IBOutlet weak var inspectorView  : InspectorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,7 @@ class InspectorController: NSViewController, PaneController {
 
 extension InspectorController: ScreenshotLoader {
     var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
@@ -41,6 +48,15 @@ extension InspectorController: ItemInspector {
         return panel
     }
 
+    private func colorPanelSetColor(_ color: PixelColor) {
+        if colorPanel.isVisible {
+            let nsColor = color.toNSColor()
+            colorPanel.setTarget(nil)
+            colorPanel.setAction(nil)
+            colorPanel.color = nsColor
+        }
+    }
+
     @IBAction func colorIndicatorTapped(_ sender: InspectorView) {
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
@@ -49,43 +65,28 @@ extension InspectorController: ItemInspector {
         colorPanel.makeKeyAndOrderFront(self)
     }
 
-    func inspectItem(_ item: ContentItem, shouldSubmit submit: Bool) {
+    func inspectItem(_ item: ContentItem) {
         guard !isPaneHidden else {
-            if let color = item as? PixelColor,
-               submit && colorPanel.isVisible
-            {
-                let nsColor = color.toNSColor()
-                colorPanel.setTarget(nil)
-                colorPanel.setAction(nil)
-                colorPanel.color = nsColor
+            if let color = item as? PixelColor {
+                colorPanelSetColor(color)
             }
             return
         }
 
         if let color = item as? PixelColor {
-            if !submit {
-                inspectorView1.setColor(color)
-            } else {
-                inspectorView2.setColor(color)
-                if colorPanel.isVisible {
-                    let nsColor = color.toNSColor()
-                    colorPanel.setTarget(nil)
-                    colorPanel.setAction(nil)
-                    colorPanel.color = nsColor
-                }
+            inspectorView.setColor(color)
+            if style == .secondary {
+                colorPanelSetColor(color)
             }
-        }
-        else if let area = item as? PixelArea {
-            if !submit {
-                inspectorView1.setArea(area)
-            } else {
-                inspectorView2.setArea(area)
-            }
+        } else if let area = item as? PixelArea {
+            inspectorView.setArea(area)
         }
     }
 
     func reloadPane() {
-        inspectorView1.reset()
-        inspectorView2.reset()
+        inspectorView.reset()
+        paneBox.title = style == .primary
+            ? NSLocalizedString("Inspector (Primary)", comment: "reloadPane()")
+            : NSLocalizedString("Inspector (Secondary)", comment: "reloadPane()")
     }
 }

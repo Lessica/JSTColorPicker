@@ -287,38 +287,22 @@ CA
                                         </menuItem>
                                         <menuItem title="Sidebar Panes" id="XoB-WB-yEe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" id="W5Q-zL-aIc">
+                                            <menu key="submenu" showsStateColumn="NO" id="W5Q-zL-aIc">
                                                 <items>
-                                                    <menuItem title="Information" state="on" keyEquivalent="1" identifier="toggle-info" id="sfq-FQ-6TF">
+                                                    <menuItem title="Information" keyEquivalent="1" identifier="show-information" id="Co5-Y3-Rnn">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                        <connections>
-                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="Jvr-AM-jOQ"/>
-                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Color Inspector" state="on" keyEquivalent="2" identifier="toggle-inspector" id="mhD-IK-J6V">
+                                                    <menuItem title="Inspector" keyEquivalent="2" identifier="show-color-inspector" id="dYY-Yn-vNs">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                        <connections>
-                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="SNb-eP-6ci"/>
-                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Image Preview" state="on" keyEquivalent="3" identifier="toggle-preview" id="YU0-Xz-P6g">
+                                                    <menuItem title="Image Preview" keyEquivalent="3" identifier="show-image-preview" id="6U2-X2-jP4">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                        <connections>
-                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="OhG-mZ-Jyy"/>
-                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Tag List" keyEquivalent="4" identifier="toggle-taglist" id="Cj1-n3-eHr">
+                                                    <menuItem title="Tag Manager" keyEquivalent="4" identifier="show-tag-manager" id="vp7-Rk-jMg">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                        <connections>
-                                                            <action selector="togglePane:" target="Voe-Tx-rLC" id="2T7-DV-XEu"/>
-                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem isSeparatorItem="YES" id="G1A-2y-VsK"/>
-                                                    <menuItem title="Reset Panes..." keyEquivalent="0" id="CVA-d9-Lwm">
+                                                    <menuItem title="Export Manager" keyEquivalent="5" identifier="show-export-manager" id="Vjs-4U-6rL">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                        <connections>
-                                                            <action selector="resetPanes:" target="Voe-Tx-rLC" id="V95-TC-S25"/>
-                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                                 <connections>
@@ -490,72 +474,72 @@ CA
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="MainWindow" id="B8D-0N-5wS" customClass="WindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" toolbarStyle="unified" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="382" y="560" width="1280" height="800"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <value key="minSize" type="size" width="550" height="488"/>
-                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
+                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="H2W-dY-ULw">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2): Add, or delete annotations." tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3): View, select, or modify annotations." tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5): Zoom out at a preset scale." tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="FitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7): Scale the view to fit the window size." tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="FillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8): Scale the view to fill the window size." tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="fillWindowAction:" target="B8D-0N-5wS" id="hZL-qD-Wzq"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
                                 <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Take Snapshot (⌃S): Take a screenshot directly from the selected devices." tag="-1" image="JSTCamera" id="BOP-NL-21X">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
                                     <connections>
                                         <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
                                     </connections>
@@ -585,6 +569,7 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpenTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -602,6 +587,7 @@ CA
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -628,6 +614,7 @@ CA
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -659,6 +646,7 @@ CA
                                             </sliderAccessory>
                                             <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
                                                 <rect key="frame" x="17" y="0.0" width="663" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="above" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>
@@ -676,6 +664,7 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCameraTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -777,13 +766,13 @@ CA
             </objects>
             <point key="canvasLocation" x="2149" y="246"/>
         </scene>
-        <!--Sidebar-->
+        <!--Segment-->
         <scene sceneID="N51-Ui-gow">
             <objects>
-                <controllerPlaceholder storyboardName="Sidebar" id="PKx-PF-hXg" sceneMemberID="viewController"/>
+                <controllerPlaceholder storyboardName="Segment" id="PKx-PF-hXg" sceneMemberID="viewController"/>
                 <customObject id="5Bj-CS-03O" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2154" y="339"/>
+            <point key="canvasLocation" x="2157" y="341"/>
         </scene>
         <!--TagList-->
         <scene sceneID="iYT-og-j3p">

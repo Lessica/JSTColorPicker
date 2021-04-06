@@ -1,0 +1,23 @@
+/* Class = "NSTabViewItem"; label = "Document"; ObjectID = "Aoo-Tx-RmG"; */
+"Aoo-Tx-RmG.label" = "文档";
+
+/* Class = "NSSegmentedCell"; ieM-sO-O0T.ibShadowedToolTips[0] = "Document"; ObjectID = "ieM-sO-O0T"; */
+"ieM-sO-O0T.ibShadowedToolTips[0]" = "文档";
+
+/* Class = "NSSegmentedCell"; ieM-sO-O0T.ibShadowedToolTips[1] = "Scene"; ObjectID = "ieM-sO-O0T"; */
+"ieM-sO-O0T.ibShadowedToolTips[1]" = "标签管理器";
+
+/* Class = "NSSegmentedCell"; ieM-sO-O0T.ibShadowedToolTips[2] = "Tag Manager"; ObjectID = "ieM-sO-O0T"; */
+"ieM-sO-O0T.ibShadowedToolTips[2]" = "导出管理器";
+
+/* Class = "NSTabViewItem"; label = "Export Manager"; ObjectID = "pl5-52-9aj"; */
+"pl5-52-9aj.label" = "导出管理器";
+
+/* Class = "NSTabViewItem"; label = "Tag Manager"; ObjectID = "YMg-Qa-BUu"; */
+"YMg-Qa-BUu.label" = "标签管理器";
+
+/* Class = "NSSegmentedCell"; ieM-sO-O0T.ibShadowedToolTips[3] = "Export Manager"; ObjectID = "ieM-sO-O0T"; */
+"ieM-sO-O0T.ibShadowedToolTips[3]" = "";
+
+/* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "WbV-i7-oVw"; */
+"WbV-i7-oVw.label" = "";

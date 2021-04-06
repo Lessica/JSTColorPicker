@@ -6,3 +6,6 @@
 
 /* Class = "NSBox"; title = "Image Preview"; ObjectID = "mmK-Yn-gAd"; */
 "mmK-Yn-gAd.title" = "Image Preview";
+
+/* Class = "NSTextFieldCell"; title = "No image."; ObjectID = "MN5-Ix-Wcd"; */
+"MN5-Ix-Wcd.title" = "";
