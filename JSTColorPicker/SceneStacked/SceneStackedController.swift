@@ -14,11 +14,10 @@ private extension NSStoryboardSegue.Identifier {
     static let preview = "Preview"
 }
 
-class SceneStackedController: NSViewController, PaneContainer {
+class SceneStackedController: NSViewController {
+    weak var screenshot: Screenshot?
 
     @IBOutlet weak var splitView  : NSSplitView!
-    var paneControllers           : [PaneController] { children.compactMap({ $0 as? PaneController }) }
-    var paneContainers            : [PaneContainer]  = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +46,12 @@ class SceneStackedController: NSViewController, PaneContainer {
             inspectorCtrl.style = segue.identifier == .primaryInspector ? .primary : .secondary
         }
     }
+}
 
+extension SceneStackedController: PaneContainer {
+    var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
+    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) }
+    
     func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
         let targetViews = paneControllers
             .filter({ $0.menuIdentifier == identifier })
@@ -65,6 +69,15 @@ class SceneStackedController: NSViewController, PaneContainer {
         DispatchQueue.main.async { [unowned self] in
             completion(self)
             self.resetDividers(in: targetIndexSet)
+        }
+    }
+}
+
+extension SceneStackedController: ScreenshotLoader {
+    func load(_ screenshot: Screenshot) throws {
+        self.screenshot = screenshot
+        DispatchQueue.main.async { [unowned self] in
+            self.resetDividers()
         }
     }
 }

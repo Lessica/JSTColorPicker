@@ -8,12 +8,11 @@
 
 import Cocoa
 
-class SegmentController: NSViewController, PaneContainer {
+class SegmentController: NSViewController {
+    weak var screenshot: Screenshot?
+    
     @IBOutlet weak var segmentedControl  : NSSegmentedControl!
     @IBOutlet weak var tabView           : NSTabView!
-    
-    var paneContainers                   : [PaneContainer]   { children.compactMap({ $0 as? PaneContainer  }) }
-    var paneControllers                  : [PaneController]  { children.compactMap({ $0 as? PaneController }) + paneContainers.flatMap({ $0.paneControllers }) }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +43,37 @@ class SegmentController: NSViewController, PaneContainer {
         tabView.selectTabViewItem(withIdentifier: identifier)
         syncSelectedStateForSegmentedControl()
     }
+}
 
+extension SegmentController: NSTabViewDelegate {
+    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
+        invalidateRestorableState()
+    }
+}
+
+extension SegmentController: PaneContainer {
+    var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
+    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) }
+    
+    private var descendantPaneContainers   : [PaneContainer]
+    {
+        var childContainers = [NSViewController]()
+        var allContainers = [NSViewController](arrayLiteral: self)
+        while let lastContainer = allContainers.popLast() {
+            childContainers.append(lastContainer)
+            allContainers.insert(contentsOf: lastContainer.children.compactMap({ $0 as? PaneContainer }) as! [NSViewController], at: 0)
+        }
+        return Array(childContainers.dropFirst()) as! [PaneContainer]
+    }
+    
+    private var descendantPaneControllers  : [PaneController]
+    {
+        paneControllers + descendantPaneContainers.flatMap({ $0.paneControllers })
+    }
+    
     func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
         let handler = { [unowned self] (sender: PaneContainer) in
-            if let targetView = self.paneControllers.first(where: { $0.menuIdentifier == identifier })?.view {
+            if let targetView = self.descendantPaneControllers.first(where: { $0.menuIdentifier == identifier })?.view {
                 if let targetItem = self.tabView.tabViewItems
                     .filter({ $0.view != nil })
                     .first(where: { targetView.isDescendant(of: $0.view!) })
@@ -57,13 +83,15 @@ class SegmentController: NSViewController, PaneContainer {
             }
             completion(sender)
         }
-        paneContainers.forEach({ $0.focusPane(menuIdentifier: identifier, completionHandler: handler) })
+        childPaneContainers.forEach(
+            { $0.focusPane(menuIdentifier: identifier, completionHandler: handler) }
+        )
     }
 }
 
-extension SegmentController: NSTabViewDelegate {
-    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        invalidateRestorableState()
+extension SegmentController: ScreenshotLoader {
+    func load(_ screenshot: Screenshot) throws {
+        self.screenshot = screenshot
     }
 }
 

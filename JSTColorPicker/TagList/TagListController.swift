@@ -528,9 +528,7 @@ extension TagListController: ScreenshotLoader {
         self.screenshot = screenshot
     }
 
-    func reloadPane() {
-        
-    }
+    func reloadPane() { }
 }
 
 extension TagListController: TagListSource {

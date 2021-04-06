@@ -78,24 +78,46 @@ class SplitController: NSSplitViewController {
 }
 
 extension SplitController: PaneContainer {
+    
     var contentController        : ContentController!       { children.first(where: { $0 is ContentController }) as? ContentController }
     var sceneController          : SceneController!         { children.first(where: { $0 is SceneController   }) as? SceneController   }
     var segmentController        : SegmentController!       { children.first(where: { $0 is SegmentController }) as? SegmentController }
-    var paneContainers           : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
-    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) + paneContainers.flatMap({ $0.paneControllers }) }
-    var infoController           : InfoController!          { paneControllers.compactMap({ $0 as? InfoController      }).first! }
-    var previewController        : PreviewController!       { paneControllers.compactMap({ $0 as? PreviewController   }).first! }
-    var tagListController        : TagListController!       { paneControllers.compactMap({ $0 as? TagListController   }).first! }
-    var exportController         : ExportController!        { paneControllers.compactMap({ $0 as? ExportController    }).first! }
+    
+    var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
+    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) }
+    
+    private var descendantPaneContainers   : [PaneContainer]
+    {
+        var childContainers = [NSViewController]()
+        var allContainers = [NSViewController](arrayLiteral: self)
+        while let lastContainer = allContainers.popLast() {
+            childContainers.append(lastContainer)
+            allContainers.insert(contentsOf: lastContainer.children.compactMap({ $0 as? PaneContainer }) as! [NSViewController], at: 0)
+        }
+        return Array(childContainers.dropFirst()) as! [PaneContainer]
+    }
+    
+    private var descendantPaneControllers  : [PaneController]
+    {
+        paneControllers + descendantPaneContainers.flatMap({ $0.paneControllers })
+    }
+    
+    var infoController           : InfoController!          { descendantPaneControllers.compactMap({ $0 as? InfoController      }).first! }
+    var previewController        : PreviewController!       { descendantPaneControllers.compactMap({ $0 as? PreviewController   }).first! }
+    var tagListController        : TagListController!       { descendantPaneControllers.compactMap({ $0 as? TagListController   }).first! }
+    var exportController         : ExportController!        { descendantPaneControllers.compactMap({ $0 as? ExportController    }).first! }
+    
     func inspectorController(_ style: InspectorController.Style) -> InspectorController {
-        return paneControllers
+        return descendantPaneControllers
             .compactMap({ $0 as? InspectorController })
             .filter({ $0.style == style })
             .first!
     }
 
     func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
-        paneContainers.forEach({ $0.focusPane(menuIdentifier: identifier, completionHandler: completion) })
+        childPaneContainers.forEach(
+            { $0.focusPane(menuIdentifier: identifier, completionHandler: completion) }
+        )
     }
 
     @IBAction func focusPane(_ sender: NSMenuItem) {
@@ -176,7 +198,8 @@ extension SplitController: ScreenshotLoader {
             contentController,
             sceneController,
         ]
-        loaders += paneControllers
+        loaders += descendantPaneContainers
+        loaders += descendantPaneControllers
         return loaders
     }
     

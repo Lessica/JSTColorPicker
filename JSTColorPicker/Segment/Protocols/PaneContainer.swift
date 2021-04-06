@@ -8,9 +8,9 @@
 
 import Cocoa
 
-protocol PaneContainer {
+protocol PaneContainer: ScreenshotLoader {
     var paneControllers: [PaneController] { get }
-    var paneContainers: [PaneContainer] { get }
+    var childPaneContainers: [PaneContainer] { get }
 
     func focusPane(
         menuIdentifier identifier: NSUserInterfaceItemIdentifier,

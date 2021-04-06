@@ -10,11 +10,11 @@
             <objects>
                 <viewController id="IfO-80-1iw" customClass="SceneStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="H7w-bX-aPp">
-                        <rect key="frame" x="0.0" y="0.0" width="246" height="410"/>
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView autosaveName="SceneStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SceneStackedView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="246" height="410"/>
+                                <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
                                         <rect key="frame" x="0.0" y="0.0" width="246" height="120"/>
@@ -34,9 +34,8 @@
                                             <constraint firstAttribute="trailing" secondItem="sik-6V-3cb" secondAttribute="trailing" id="i9w-uh-oVI"/>
                                         </constraints>
                                     </customView>
-                                    <customView id="CTm-8a-6sx">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="CTm-8a-6sx">
                                         <rect key="frame" x="0.0" y="121" width="246" height="120"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="YsK-oK-lpW">
                                                 <rect key="frame" x="0.0" y="0.0" width="246" height="120"/>
@@ -54,10 +53,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
-                                        <rect key="frame" x="0.0" y="242" width="246" height="167"/>
+                                        <rect key="frame" x="0.0" y="242" width="246" height="557"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="oag-ZH-lLl">
-                                                <rect key="frame" x="0.0" y="0.0" width="246" height="167"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="557"/>
                                                 <connections>
                                                     <segue destination="31P-dP-iCd" kind="embed" identifier="Preview" id="eDZ-Kf-r8U"/>
                                                 </connections>
@@ -71,19 +70,18 @@
                                             <constraint firstAttribute="trailing" secondItem="oag-ZH-lLl" secondAttribute="trailing" id="zs4-y2-2Wm"/>
                                         </constraints>
                                     </customView>
-                                    <customView id="wpw-pH-ETI">
-                                        <rect key="frame" x="0.0" y="410" width="246" height="0.0"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wpw-pH-ETI">
+                                        <rect key="frame" x="0.0" y="800" width="246" height="0.0"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" placeholder="YES" id="v1o-EC-cRX"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="v1o-EC-cRX"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>
-                                    <real value="300"/>
-                                    <real value="295"/>
-                                    <real value="290"/>
-                                    <real value="250"/>
+                                    <real value="275"/>
+                                    <real value="270"/>
+                                    <real value="265"/>
+                                    <real value="200"/>
                                 </holdingPriorities>
                                 <connections>
                                     <outlet property="delegate" destination="IfO-80-1iw" id="a3A-Tf-w05"/>
