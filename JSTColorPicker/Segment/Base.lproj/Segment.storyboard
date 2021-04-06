@@ -58,7 +58,7 @@
                                                 <containerView translatesAutoresizingMaskIntoConstraints="NO" id="h0c-rN-Bd0">
                                                     <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                                     <connections>
-                                                        <segue destination="n94-20-8E4" kind="embed" id="Rex-bH-mij"/>
+                                                        <segue destination="n94-20-8E4" kind="embed" identifier="SegueDocument" id="Rex-bH-mij"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>
@@ -78,7 +78,7 @@
                                                 <containerView translatesAutoresizingMaskIntoConstraints="NO" id="1uO-Av-ujb">
                                                     <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                                     <connections>
-                                                        <segue destination="ywX-e3-ag6" kind="embed" id="FsN-yr-iX9"/>
+                                                        <segue destination="ywX-e3-ag6" kind="embed" identifier="SegueScene" id="FsN-yr-iX9"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>
@@ -98,7 +98,7 @@
                                                 <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bJB-8Q-Q13">
                                                     <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                                     <connections>
-                                                        <segue destination="4Qg-lL-zX8" kind="embed" id="tTD-dT-gcx"/>
+                                                        <segue destination="4Qg-lL-zX8" kind="embed" identifier="SegueTagManager" id="tTD-dT-gcx"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>
@@ -118,7 +118,7 @@
                                                 <containerView translatesAutoresizingMaskIntoConstraints="NO" id="72f-er-Dyb">
                                                     <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                                     <connections>
-                                                        <segue destination="HFB-eW-2JF" kind="embed" id="mgD-EF-m1G"/>
+                                                        <segue destination="HFB-eW-2JF" kind="embed" identifier="SegueExportManager" id="mgD-EF-m1G"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>

@@ -71,9 +71,12 @@
                                             <constraint firstAttribute="trailing" secondItem="oag-ZH-lLl" secondAttribute="trailing" id="zs4-y2-2Wm"/>
                                         </constraints>
                                     </customView>
-                                    <customView fixedFrame="YES" id="wpw-pH-ETI">
+                                    <customView id="wpw-pH-ETI">
                                         <rect key="frame" x="0.0" y="410" width="246" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" placeholder="YES" id="v1o-EC-cRX"/>
+                                        </constraints>
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>

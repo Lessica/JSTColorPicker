@@ -159,7 +159,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     public func reinitializeTabService() -> WindowController {
-        debugPrint("\(#function)")
+        //debugPrint("\(#function)")
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
         return windowController

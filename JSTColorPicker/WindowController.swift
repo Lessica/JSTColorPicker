@@ -61,7 +61,6 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarPreviewSlider           : NSSlider!
     
     private var documentObservations                   : [NSKeyValueObservation]?
-    private var firstResponderObservation              : NSKeyValueObservation?
     private var lastStoredMagnification                : CGFloat?
     
     private var splitController: SplitController! {
@@ -93,14 +92,6 @@ class WindowController: NSWindowController {
         syncToolbarState()
         
         touchBarPreviewSlider.isEnabled = false
-        
-        #if DEBUG
-        firstResponderObservation = window?.observe(\.firstResponder, options: [.new], changeHandler: { (_, change) in
-            guard let firstResponder = change.newValue as? NSResponder else { return }
-            debugPrint("First Responder: \(firstResponder.className)")
-        })
-        #endif
-        
         ShortcutGuideWindowController.registerShortcutGuideForWindow(window!)
     }
     
@@ -461,9 +452,9 @@ extension WindowController: ScreenshotLoader {
         touchBarPreviewSlider.isEnabled = true
 
         documentObservations = [
-            observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
+            observe(\.screenshot?.fileURL, options: [.new]) { (target, change) in
                 if let url = change.newValue as? URL {
-                    self.updateWindowTitle(url)
+                    target.updateWindowTitle(url)
                 }
             }
         ]

@@ -22,7 +22,8 @@ class SceneStackedController: NSViewController, PaneContainer {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        splitView.arrangedSubviews.forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
+        splitView.arrangedSubviews
+            .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
     }
     
     override func willPresentError(_ error: Error) -> Error {
@@ -44,6 +45,26 @@ class SceneStackedController: NSViewController, PaneContainer {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let inspectorCtrl = segue.destinationController as? InspectorController {
             inspectorCtrl.style = segue.identifier == .primaryInspector ? .primary : .secondary
+        }
+    }
+
+    func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
+        let targetViews = paneControllers
+            .filter({ $0.menuIdentifier == identifier })
+            .map({ $0.view })
+
+        let targetIndexSet = splitView
+            .arrangedSubviews
+            .enumerated()
+            .filter({ obj in
+                targetViews.firstIndex(where: { $0.isDescendant(of: obj.element) }) != nil
+            })
+            .map({ $0.offset })
+            .reduce(into: IndexSet()) { $0.insert($1) }
+
+        DispatchQueue.main.async { [unowned self] in
+            completion(self)
+            self.resetDividers(in: targetIndexSet)
         }
     }
 }

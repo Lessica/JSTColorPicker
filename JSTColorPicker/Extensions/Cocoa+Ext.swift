@@ -21,6 +21,24 @@ extension NSScreen {
     }
 }
 
+extension NSViewController {
+    var initialFirstResponder: NSView? {
+        get { view.window?.initialFirstResponder }
+        set { view.window?.initialFirstResponder = newValue }
+    }
+
+    var firstResponder: NSResponder? {
+        guard let window = view.window else { return nil }
+        return window.firstResponder
+    }
+
+    @discardableResult
+    func makeFirstResponder(_ responder: NSResponder?) -> Bool {
+        guard let window = view.window else { return false }
+        return window.makeFirstResponder(responder)
+    }
+}
+
 extension NSView {
     func bringToFront() {
         guard let sView = superview else {

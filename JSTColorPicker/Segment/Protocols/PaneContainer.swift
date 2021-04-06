@@ -11,4 +11,9 @@ import Cocoa
 protocol PaneContainer {
     var paneControllers: [PaneController] { get }
     var paneContainers: [PaneContainer] { get }
+
+    func focusPane(
+        menuIdentifier identifier: NSUserInterfaceItemIdentifier,
+        completionHandler completion: @escaping (PaneContainer) -> Void
+    )
 }

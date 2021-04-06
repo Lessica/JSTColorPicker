@@ -48,8 +48,8 @@ extension InfoController: ScreenshotLoader {
 
         reloadPane()
         documentObservations = [
-            observe(\.screenshot?.fileURL, options: [.new]) { [unowned self] (_, change) in
-                self.updateInformationPanel()
+            observe(\.screenshot?.fileURL, options: [.new]) { (target, change) in
+                target.updateInformationPanel()
             }
         ]
     }

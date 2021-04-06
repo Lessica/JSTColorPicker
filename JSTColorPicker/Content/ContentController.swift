@@ -31,21 +31,6 @@ protocol ContentActionDelegate: class {
     func contentActionDeleted(_ items: [ContentItem])
 }
 
-extension NSViewController {
-    
-    var firstResponder: NSResponder? {
-        guard let window = view.window else { return nil }
-        return window.firstResponder
-    }
-    
-    @discardableResult
-    func makeFirstResponder(_ responder: NSResponder?) -> Bool {
-        guard let window = view.window else { return false }
-        return window.makeFirstResponder(responder)
-    }
-    
-}
-
 class ContentController: NSViewController {
     
     weak var actionManager          : ContentActionDelegate!
@@ -64,6 +49,7 @@ class ContentController: NSViewController {
         }
         return 1
     }
+
     private var nextSimilarity: Double {
         if let lastSimilarity = documentContent?.items.last?.similarity {
             return lastSimilarity
@@ -142,10 +128,16 @@ class ContentController: NSViewController {
         invalidateRestorableState()
     }
 
+    private lazy var setupInitialFirstResponder: Void = {
+        tableView.scroll(.zero)
+        makeFirstResponder(tableView)
+        initialFirstResponder = tableView
+    }()
+
     override func viewWillAppear() {
         super.viewWillAppear()
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.scroll(.zero)
+        DispatchQueue.main.async { [unowned self] in
+            _ = self.setupInitialFirstResponder
         }
     }
     

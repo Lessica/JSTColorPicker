@@ -130,6 +130,8 @@
 		CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */; };
 		CCCD8209261C5DBA00BFDD6E /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* Export.storyboard */; };
 		CCCD820A261C5DBA00BFDD6E /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* Export.storyboard */; };
+		CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
+		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
@@ -838,6 +840,7 @@
 		CCCD820B261C5DBA00BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Export.storyboard; sourceTree = "<group>"; };
 		CCCD8215261C5DBD00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Export.strings; sourceTree = "<group>"; };
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Export.strings"; sourceTree = "<group>"; };
+		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
@@ -1752,6 +1755,7 @@
 				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
+				CCCD822F261C81C800BFDD6E /* MainWindow.swift */,
 			);
 			path = JSTColorPicker;
 			sourceTree = "<group>";
@@ -2679,6 +2683,7 @@
 				D610478D24224A170002E990 /* PixelCoordinate.swift in Sources */,
 				D610478E24224A170002E990 /* PixelMatchService.swift in Sources */,
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
+				CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
@@ -2877,6 +2882,7 @@
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
+				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,

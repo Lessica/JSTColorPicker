@@ -34,6 +34,31 @@ class SegmentController: NSViewController, PaneContainer {
         let selectedIndex = tabView.indexOfTabViewItem(selectedItem)
         segmentedControl.selectedSegment = selectedIndex
     }
+
+    private func selectTabViewItem(_ tabViewItem: NSTabViewItem?) {
+        tabView.selectTabViewItem(tabViewItem)
+        syncSelectedStateForSegmentedControl()
+    }
+
+    private func selectTabViewItem(withIdentifier identifier: NSUserInterfaceItemIdentifier) {
+        tabView.selectTabViewItem(withIdentifier: identifier)
+        syncSelectedStateForSegmentedControl()
+    }
+
+    func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
+        let handler = { [unowned self] (sender: PaneContainer) in
+            if let targetView = self.paneControllers.first(where: { $0.menuIdentifier == identifier })?.view {
+                if let targetItem = self.tabView.tabViewItems
+                    .filter({ $0.view != nil })
+                    .first(where: { targetView.isDescendant(of: $0.view!) })
+                {
+                    self.selectTabViewItem(targetItem)
+                }
+            }
+            completion(sender)
+        }
+        paneContainers.forEach({ $0.focusPane(menuIdentifier: identifier, completionHandler: handler) })
+    }
 }
 
 extension SegmentController: NSTabViewDelegate {
@@ -56,9 +81,9 @@ extension SegmentController {
 
     override func restoreState(with coder: NSCoder) {
         super.restoreState(with: coder)
-        if let identifier = coder.decodeObject(of: NSString.self, forKey: SegmentController.restorableTabViewSelectedState) as String? {
-            tabView.selectTabViewItem(withIdentifier: NSUserInterfaceItemIdentifier(identifier))
-            syncSelectedStateForSegmentedControl()
+        if let identifier = coder.decodeObject(of: NSString.self, forKey: SegmentController.restorableTabViewSelectedState) as String?
+        {
+            selectTabViewItem(withIdentifier: NSUserInterfaceItemIdentifier(identifier))
         }
     }
 }

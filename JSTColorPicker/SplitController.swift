@@ -11,6 +11,20 @@ import ShortcutGuide
 
 class SplitController: NSSplitViewController {
 
+    enum ArrangedIndex: Int {
+        case content = 0
+        case scene
+        case sidebar
+    }
+
+    private func arrangedSubview(at index: ArrangedIndex) -> NSView {
+        return splitView.arrangedSubviews[index.rawValue]
+    }
+
+    func isSubviewCollapsed(at index: ArrangedIndex) -> Bool {
+        return splitView.isSubviewCollapsed(arrangedSubview(at: index))
+    }
+
     public  weak var parentTracking             : SceneTracking?
     private weak var sceneToolSource            : SceneToolSource!
     
@@ -78,6 +92,18 @@ extension SplitController: PaneContainer {
             .compactMap({ $0 as? InspectorController })
             .filter({ $0.style == style })
             .first!
+    }
+
+    func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
+        paneContainers.forEach({ $0.focusPane(menuIdentifier: identifier, completionHandler: completion) })
+    }
+
+    @IBAction func focusPane(_ sender: NSMenuItem) {
+        focusPane(menuIdentifier: sender.identifier!) { [unowned self] (sender) in
+            if self.isSubviewCollapsed(at: .sidebar) {
+                self.toggleSidebar(sender)
+            }
+        }
     }
 }
 
