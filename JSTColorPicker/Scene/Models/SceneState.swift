@@ -17,7 +17,6 @@ protocol SceneStateSource: class {
 class SceneState {
     
     enum ManipulatingType {
-        
         case none
         case leftGeneric
         case rightGeneric
@@ -66,10 +65,18 @@ class SceneState {
             }
             return false
         }
-        
     }
     
-    var manipulatingType                   = ManipulatingType.none
+    struct ManipulatingOptions: OptionSet {
+        let rawValue: Int
+        
+        static let proportionalScaling  /* Shift Pressed  */ = ManipulatingOptions(rawValue: 1 << 0)
+        static let centeredScaling      /* Option Pressed */ = ManipulatingOptions(rawValue: 1 << 1)
+    }
+    
+    var manipulatingType                          = ManipulatingType.none
+    var manipulatingOptions                       : ManipulatingOptions = []
+    
     private var internalStage                     : Int = 0
     private var internalBeginLocation             : CGPoint = .null
     private weak var internalManipulatingOverlay  : EditableOverlay?
@@ -97,6 +104,7 @@ class SceneState {
     
     func reset() {
         manipulatingType = .none
+        isProportionalScaling = false
         internalStage = 0
         internalBeginLocation = .null
         internalManipulatingOverlay = nil

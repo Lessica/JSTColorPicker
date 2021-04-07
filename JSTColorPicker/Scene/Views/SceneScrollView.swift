@@ -192,7 +192,15 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
+            let masks = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
             sceneState.manipulatingType = .leftGeneric
+            var opts: SceneState.ManipulatingOptions = []
+            if masks.contains(.shift) {
+                opts.formIntersection(.proportionalScaling)
+            }
+            if masks.contains(.option) {
+                opts.formIntersection(.centeredScaling)
+            }
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
             sceneState.manipulatingOverlay = nil
@@ -321,8 +329,34 @@ class SceneScrollView: NSScrollView {
                 contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
             }
             else if sceneState.manipulatingType == .areaDragging {
-                let rect = CGRect(point1: sceneState.beginLocation, point2: currentLocation).inset(by: areaDraggingOverlay.outerInsets)
-                areaDraggingOverlay.frame = convert(rect, to: sceneActionEffectView).intersection(sceneActionEffectView.bounds)
+                var targetRect: CGRect
+                if sceneState.manipulatingOptions.contains(.proportionalScaling) &&
+                    sceneState.manipulatingOptions.contains(.centeredScaling)
+                {
+                    // centered squares
+                    
+                }
+                else if sceneState.manipulatingOptions.contains(.proportionalScaling)
+                {
+                    // squares only
+                    
+                }
+                else if sceneState.manipulatingOptions.contains(.centeredScaling)
+                {
+                    // centered rectangles
+                    
+                }
+                else {
+                    // rectangles
+                    targetRect = CGRect(
+                        point1: sceneState.beginLocation,
+                        point2: currentLocation
+                    )
+                }
+                areaDraggingOverlay.frame = convert(
+                    targetRect.inset(by: areaDraggingOverlay.outerInsets),
+                    to: sceneActionEffectView
+                ).intersection(sceneActionEffectView.bounds)
             }
             else if sceneState.manipulatingType == .annotatorDragging {
                 let locInAction = convert(currentLocation, to: sceneActionEffectView)

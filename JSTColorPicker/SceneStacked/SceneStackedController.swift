@@ -17,7 +17,7 @@ private extension NSStoryboardSegue.Identifier {
 class SceneStackedController: NSViewController {
     weak var screenshot: Screenshot?
 
-    @IBOutlet weak var splitView  : NSSplitView!
+    @IBOutlet weak var splitView: NSSplitView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,28 @@ class SceneStackedController: NSViewController {
             .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        resetDividersIfNeeded()
+    }
+    
     override func willPresentError(_ error: Error) -> Error {
         let error = super.willPresentError(error)
         debugPrint(error.localizedDescription)
         return error
+    }
+    
+    private var _shouldResetDividers: Bool = false
+    
+    private func setNeedsResetDividers() {
+        _shouldResetDividers = true
+    }
+    
+    private func resetDividersIfNeeded() {
+        if _shouldResetDividers {
+            _shouldResetDividers = false
+            resetDividers()
+        }
     }
 
     private func resetDividers(in set: IndexSet? = nil) {
@@ -76,6 +94,7 @@ extension SceneStackedController: PaneContainer {
 extension SceneStackedController: ScreenshotLoader {
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
+        setNeedsResetDividers()
         DispatchQueue.main.async { [unowned self] in
             self.resetDividers()
         }
