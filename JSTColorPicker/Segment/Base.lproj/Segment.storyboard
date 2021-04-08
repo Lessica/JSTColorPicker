@@ -30,7 +30,7 @@
                                             <nil key="label"/>
                                             <imageReference key="image" image="tag" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
-                                        <segment toolTip="Export Manager" width="32">
+                                        <segment toolTip="Export Manager" width="32" enabled="NO">
                                             <nil key="label"/>
                                             <imageReference key="image" image="tray" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
