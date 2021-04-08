@@ -104,7 +104,7 @@ class SceneState {
     
     func reset() {
         manipulatingType = .none
-        isProportionalScaling = false
+        manipulatingOptions = []
         internalStage = 0
         internalBeginLocation = .null
         internalManipulatingOverlay = nil

@@ -71,9 +71,23 @@ class SceneScrollView: NSScrollView {
         return view
     }()
     private var areaDraggingOverlayRect: PixelRect {
-        let rect = sceneActionEffectView.convert(areaDraggingOverlay.frame, to: wrapper).intersection(wrapperBounds)
+        let rect = sceneActionEffectView.convert(
+            areaDraggingOverlay.frame,
+            to: wrapper
+        ).intersection(wrapperBounds)
         guard !rect.isEmpty else { return .null }
-        return PixelRect(CGRect(origin: rect.origin, size: CGSize(width: ceil(ceil(rect.maxX) - floor(rect.minX)), height: ceil(ceil(rect.maxY) - floor(rect.minY)))))
+        if sceneState.manipulatingOptions.contains(.proportionalScaling) {
+
+        }
+        return PixelRect(
+            CGRect(
+                origin: rect.origin,
+                size: CGSize(
+                    width: ceil(ceil(rect.maxX) - floor(rect.minX)),
+                    height: ceil(ceil(rect.maxY) - floor(rect.minY))
+                )
+            )
+        )
     }
     
     private lazy var colorDraggingOverlay: ImageOverlay = {
@@ -192,15 +206,16 @@ class SceneScrollView: NSScrollView {
         
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
-            let masks = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
             sceneState.manipulatingType = .leftGeneric
+            let masks = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
             var opts: SceneState.ManipulatingOptions = []
             if masks.contains(.shift) {
-                opts.formIntersection(.proportionalScaling)
+                opts.formUnion(.proportionalScaling)
             }
             if masks.contains(.option) {
-                opts.formIntersection(.centeredScaling)
+                opts.formUnion(.centeredScaling)
             }
+            sceneState.manipulatingOptions = opts
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
             sceneState.manipulatingOverlay = nil
@@ -275,6 +290,117 @@ class SceneScrollView: NSScrollView {
             .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseUp(with: event) })
     }
+
+    private func calculateRect(
+        beginLocation begin: CGPoint,
+        currentLocation end: CGPoint,
+        byProportionalScaling proportional: Bool,
+        byCenteredScaling centered: Bool
+    ) -> CGRect
+    {
+        let offsetX = abs(end.x - begin.x)
+        let offsetY = abs(end.y - begin.y)
+        var targetRect: CGRect
+        if proportional && centered
+        {
+            // centered squares
+            let halfWidth = max(offsetX, offsetY)
+            let squareWidth = halfWidth * 2
+            targetRect = CGRect(
+                x: begin.x - halfWidth,
+                y: begin.y - halfWidth,
+                width: squareWidth,
+                height: squareWidth
+            )
+        }
+        else if proportional
+        {
+            // squares only
+            let squareWidth = max(offsetX, offsetY)
+            if end.x > begin.x && end.y <= begin.y {
+                targetRect = CGRect(
+                    x: begin.x,
+                    y: begin.y - squareWidth,
+                    width: squareWidth,
+                    height: squareWidth
+                )
+            }
+            else if end.x >= begin.x && end.y > begin.y {
+                targetRect = CGRect(
+                    x: begin.x,
+                    y: begin.y,
+                    width: squareWidth,
+                    height: squareWidth
+                )
+            }
+            else if end.x < begin.x && end.y >= begin.y {
+                targetRect = CGRect(
+                    x: begin.x - squareWidth,
+                    y: begin.y,
+                    width: squareWidth,
+                    height: squareWidth
+                )
+            }
+            else if end.x <= begin.x && end.y < begin.y {
+                targetRect = CGRect(
+                    x: begin.x - squareWidth,
+                    y: begin.y - squareWidth,
+                    width: squareWidth,
+                    height: squareWidth
+                )
+            }
+            else {
+                targetRect = .zero
+            }
+        }
+        else if centered
+        {
+            // centered rectangles
+            if end.x > begin.x && end.y <= begin.y {
+                targetRect = CGRect(
+                    x: end.x - offsetX * 2,
+                    y: end.y,
+                    width: offsetX * 2,
+                    height: offsetY * 2
+                )
+            }
+            else if end.x >= begin.x && end.y > begin.y {
+                targetRect = CGRect(
+                    x: end.x - offsetX * 2,
+                    y: end.y - offsetY * 2,
+                    width: offsetX * 2,
+                    height: offsetY * 2
+                )
+            }
+            else if end.x < begin.x && end.y >= begin.y {
+                targetRect = CGRect(
+                    x: end.x,
+                    y: end.y - offsetY * 2,
+                    width: offsetX * 2,
+                    height: offsetY * 2
+                )
+            }
+            else if end.x <= begin.x && end.y < begin.y {
+                targetRect = CGRect(
+                    x: end.x,
+                    y: end.y,
+                    width: offsetX * 2,
+                    height: offsetY * 2
+                )
+            }
+            else {
+                targetRect = .zero
+            }
+        }
+        else {
+            // rectangles
+            targetRect = CGRect(
+                point1: begin,
+                point2: end
+            )
+        }
+        return targetRect
+    }
     
     override func mouseDragged(with event: NSEvent) {
         sceneEventObservers
@@ -329,30 +455,12 @@ class SceneScrollView: NSScrollView {
                 contentView.setBoundsOrigin(NSPoint(x: origin.x + delta.x, y: origin.y + delta.y))
             }
             else if sceneState.manipulatingType == .areaDragging {
-                var targetRect: CGRect
-                if sceneState.manipulatingOptions.contains(.proportionalScaling) &&
-                    sceneState.manipulatingOptions.contains(.centeredScaling)
-                {
-                    // centered squares
-                    
-                }
-                else if sceneState.manipulatingOptions.contains(.proportionalScaling)
-                {
-                    // squares only
-                    
-                }
-                else if sceneState.manipulatingOptions.contains(.centeredScaling)
-                {
-                    // centered rectangles
-                    
-                }
-                else {
-                    // rectangles
-                    targetRect = CGRect(
-                        point1: sceneState.beginLocation,
-                        point2: currentLocation
-                    )
-                }
+                let targetRect = calculateRect(
+                    beginLocation: sceneState.beginLocation,
+                    currentLocation: currentLocation,
+                    byProportionalScaling: sceneState.manipulatingOptions.contains(.proportionalScaling),
+                    byCenteredScaling: sceneState.manipulatingOptions.contains(.centeredScaling)
+                )
                 areaDraggingOverlay.frame = convert(
                     targetRect.inset(by: areaDraggingOverlay.outerInsets),
                     to: sceneActionEffectView
