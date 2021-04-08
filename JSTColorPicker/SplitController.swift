@@ -469,11 +469,38 @@ extension SplitController: ShortcutGuideDataSource {
                             toolTip: NSLocalizedString("Add Color & Coordinates at current cursor position to content list.", comment: "Shortcut Guide"),
                             modifierFlags: [.command]
                         ),
+                    ]
+                    if sceneController.enableForceTouch {
+                        items += [
+                            ShortcutItem(
+                                name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
+                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
+                                toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
+                                modifierFlags: []
+                            ),
+                            ShortcutItem(
+                                name: NSLocalizedString("Add Area Annotation (Square)", comment: "Shortcut Guide"),
+                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
+                                toolTip: NSLocalizedString("Add Area at current dragged square to content list.", comment: "Shortcut Guide"),
+                                modifierFlags: [.shift]
+                            ),
+                        ]
+                    } else {
+                        items += [
+                            ShortcutItem(
+                                name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
+                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
+                                toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
+                                modifierFlags: [.shift]
+                            ),
+                        ]
+                    }
+                    items += [
                         ShortcutItem(
-                            name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
+                            name: NSLocalizedString("Add Area Annotation (Centered)", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
-                            toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: [.shift]
+                            toolTip: NSLocalizedString("Add Area using the starting point as the midpoint of current dragged rectangle, to content list.", comment: "Shortcut Guide"),
+                            modifierFlags: [.option]
                         ),
                         ShortcutItem(
                             name: NSLocalizedString("Delete Annotation", comment: "Shortcut Guide"),
@@ -549,6 +576,14 @@ extension SplitController: ShortcutGuideDataSource {
                             keyString: NSLocalizedString("Drag Anchors", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Modify Color & Coordinates to a new position, or modify Area to a new dimension.", comment: "Shortcut Guide"),
                             modifierFlags: []
+                        ),
+                    ]
+                    items += [
+                        ShortcutItem(
+                            name: NSLocalizedString("Modify Annotation (Fixed Ratio)", comment: "Shortcut Guide"),
+                            keyString: NSLocalizedString("Drag Anchors in Corner", comment: "Shortcut Guide"),
+                            toolTip: NSLocalizedString("Modify Area to a new dimension with its original ratio.", comment: "Shortcut Guide"),
+                            modifierFlags: [.shift]
                         ),
                     ]
                 }

@@ -614,6 +614,12 @@ extension WindowController: ShortcutGuideDataSource {
                     toolTip: NSLocalizedString("Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN.", comment: "Shortcut Guide"),
                     modifierFlags: [.control]
                 ),
+                ShortcutItem(
+                    name: NSLocalizedString("Command Palette...", comment: "Shortcut Guide"),
+                    keyString: NSLocalizedString("Double Press", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Show a palette with available keyboard shortcuts.", comment: "Shortcut Guide"),
+                    modifierFlags: [.command]
+                ),
             ]
         }
         return items

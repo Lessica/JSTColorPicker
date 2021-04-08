@@ -21,7 +21,7 @@ class SceneController: NSViewController {
     private var lazyColorAnnotators  : [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
     private var lazyAreaAnnotators   : [AreaAnnotator]  { annotators.lazy.compactMap({ $0 as? AreaAnnotator })  }
     
-    private var enableForceTouch: Bool {
+    private(set) var enableForceTouch: Bool {
         get {
             return sceneView.enableForceTouch
         }
@@ -29,7 +29,7 @@ class SceneController: NSViewController {
             sceneView.enableForceTouch = newValue
         }
     }
-    private var drawBordersInScene: Bool {
+    private(set) var drawBordersInScene: Bool {
         get {
             return sceneBorderView.drawBordersInScene
         }
@@ -37,7 +37,7 @@ class SceneController: NSViewController {
             sceneBorderView.drawBordersInScene = newValue
         }
     }
-    private var drawGridsInScene: Bool {
+    private(set) var drawGridsInScene: Bool {
         get {
             return sceneGridView.drawGridsInScene
         }
@@ -45,7 +45,7 @@ class SceneController: NSViewController {
             sceneGridView.drawGridsInScene = newValue
         }
     }
-    private var drawRulersInScene: Bool {
+    private(set) var drawRulersInScene: Bool {
         get {
             return sceneView.drawRulersInScene
         }
@@ -53,7 +53,7 @@ class SceneController: NSViewController {
             sceneView.drawRulersInScene = newValue
         }
     }
-    private var drawSceneBackground: Bool {
+    private(set) var drawSceneBackground: Bool {
         get {
             return sceneView.drawSceneBackground
         }
@@ -61,7 +61,7 @@ class SceneController: NSViewController {
             sceneView.drawSceneBackground = newValue
         }
     }
-    private var usesPredominantAxisScrolling: Bool {
+    private(set) var usesPredominantAxisScrolling: Bool {
         get {
             return sceneView.usesPredominantAxisScrolling
         }
@@ -69,10 +69,11 @@ class SceneController: NSViewController {
             sceneView.usesPredominantAxisScrolling = newValue
         }
     }
-    private var drawTagsInScene                 : Bool = false
-    private var hideAnnotatorsWhenResize        : Bool = true
-    private var hideBordersWhenResize           : Bool = false
-    private var hideGridsWhenResize             : Bool = false
+    
+    private(set) var drawTagsInScene                 : Bool = false
+    private(set) var hideAnnotatorsWhenResize        : Bool = true
+    private(set) var hideBordersWhenResize           : Bool = false
+    private(set) var hideGridsWhenResize             : Bool = false
 
     private var _shouldRedrawAnnotatorContents  : Bool = false
     private func setNeedsRedrawAnnotatorContents() {

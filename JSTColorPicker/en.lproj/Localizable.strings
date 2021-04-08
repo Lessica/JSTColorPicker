@@ -27,7 +27,19 @@
 "Add Area Annotation" = "Add Area Annotation";
 
 /* Shortcut Guide */
+"Add Area Annotation (Centered)" = "Add Area Annotation (Centered)";
+
+/* Shortcut Guide */
+"Add Area Annotation (Square)" = "Add Area Annotation (Square)";
+
+/* Shortcut Guide */
 "Add Area at current dragged rectangle to content list." = "Add Area at current dragged rectangle to content list.";
+
+/* Shortcut Guide */
+"Add Area at current dragged square to content list." = "Add Area at current dragged square to content list.";
+
+/* Shortcut Guide */
+"Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "Add Area using the starting point as the midpoint of current dragged rectangle, to content list.";
 
 /* Shortcut Guide */
 "Add Color & Coordinates Annotation" = "Add Color & Coordinates Annotation";
@@ -61,6 +73,9 @@
 
 /* Shortcut Guide */
 "Click" = "Click";
+
+/* Shortcut Guide */
+"Command Palette..." = "Command Palette...";
 
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
@@ -122,6 +137,9 @@
 /* Content.Error */
 "Document locked." = "Document locked.";
 
+/* Shortcut Guide */
+"Double Press" = "Double Press";
+
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "Download screenshot from device \"%@\"...";
 
@@ -133,6 +151,9 @@
 
 /* Shortcut Guide */
 "Drag Anchors" = "Drag Anchors";
+
+/* Shortcut Guide */
+"Drag Anchors in Corner" = "Drag Anchors in Corner";
 
 /* EditCoordinateController */
 "Edit Area" = "Edit Area";
@@ -304,6 +325,12 @@
 "Modify Annotation" = "Modify Annotation";
 
 /* Shortcut Guide */
+"Modify Annotation (Fixed Ratio)" = "Modify Annotation (Fixed Ratio)";
+
+/* Shortcut Guide */
+"Modify Area to a new dimension with its original ratio." = "Modify Area to a new dimension with its original ratio.";
+
+/* Shortcut Guide */
 "Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "Modify Color & Coordinates to a new position, or modify Area to a new dimension.";
 
 /* Shortcut Guide */
@@ -432,6 +459,9 @@
 
 /* Shortcut Guide */
 "Selection Arrow (F3): View, select, or modify annotations." = "Selection Arrow (F3): View, select, or modify annotations.";
+
+/* Shortcut Guide */
+"Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";

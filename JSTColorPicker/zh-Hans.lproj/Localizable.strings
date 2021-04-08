@@ -27,7 +27,19 @@
 "Add Area Annotation" = "添加区域标注";
 
 /* Shortcut Guide */
+"Add Area Annotation (Centered)" = "添加区域标注 (中点)";
+
+/* Shortcut Guide */
+"Add Area Annotation (Square)" = "添加区域标注 (正方形)";
+
+/* Shortcut Guide */
 "Add Area at current dragged rectangle to content list." = "将当前拖拽的矩形区域作为区域标注添加到内容列表.";
+
+/* Shortcut Guide */
+"Add Area at current dragged square to content list." = "将当前拖拽的正方形区域作为区域标注添加到内容列表.";
+
+/* Shortcut Guide */
+"Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "将当前拖拽的, 以起始点作为中点的矩形区域作为区域标注添加到内容列表.";
 
 /* Shortcut Guide */
 "Add Color & Coordinates Annotation" = "添加坐标及颜色标注";
@@ -61,6 +73,9 @@
 
 /* Shortcut Guide */
 "Click" = "单击";
+
+/* Shortcut Guide */
+"Command Palette..." = "切换指令面板";
 
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
@@ -122,6 +137,9 @@
 /* Content.Error */
 "Document locked." = "文档已锁定.";
 
+/* Shortcut Guide */
+"Double Press" = "连按两次";
+
 /* screenshotItemTapped(_:) */
 "Download screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
 
@@ -133,6 +151,9 @@
 
 /* Shortcut Guide */
 "Drag Anchors" = "拖拽锚点";
+
+/* Shortcut Guide */
+"Drag Anchors in Corner" = "拖拽角锚点";
 
 /* EditCoordinateController */
 "Edit Area" = "修改区域";
@@ -304,6 +325,12 @@
 "Modify Annotation" = "修改标注";
 
 /* Shortcut Guide */
+"Modify Annotation (Fixed Ratio)" = "修改标注 (固定比例)";
+
+/* Shortcut Guide */
+"Modify Area to a new dimension with its original ratio." = "修改区域标注到新的尺寸, 保持其原始比例.";
+
+/* Shortcut Guide */
 "Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "修改坐标及颜色标注到新的位置, 修改区域标注的尺寸.";
 
 /* Shortcut Guide */
@@ -432,6 +459,9 @@
 
 /* Shortcut Guide */
 "Selection Arrow (F3): View, select, or modify annotations." = "选择箭头 (F3): 查看, 选择, 或是修改选中的标注.";
+
+/* Shortcut Guide */
+"Show a palette with available keyboard shortcuts." = "显示一个指令面板, 它包含了一些可用的键盘快捷键以供参考.";
 
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";

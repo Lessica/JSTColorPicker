@@ -21,7 +21,7 @@
 	<key>defaults.drawSceneBackground</key>
 	<true/>
 	<key>defaults.enableForceTouch</key>
-	<true/>
+	<false/>
 	<key>defaults.enableGPUAcceleration</key>
 	<true/>
 	<key>defaults.enableNetworkDiscovery</key>
