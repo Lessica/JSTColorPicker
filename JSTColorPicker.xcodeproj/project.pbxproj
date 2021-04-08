@@ -3315,7 +3315,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3327,6 +3327,7 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3338,7 +3339,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3350,6 +3351,7 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3384,7 +3386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3401,7 +3403,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -3418,7 +3420,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3435,7 +3437,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -3573,7 +3575,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3593,6 +3595,7 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3603,7 +3606,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
 				HEADER_SEARCH_PATHS = (
@@ -3620,6 +3623,7 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3753,7 +3757,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3775,7 +3779,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D SANDBOXED";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -3793,7 +3797,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3815,7 +3819,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D SANDBOXED";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -3830,7 +3834,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3838,6 +3842,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPanel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3853,7 +3858,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3861,6 +3866,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPanel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
