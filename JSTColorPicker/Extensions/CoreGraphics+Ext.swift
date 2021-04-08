@@ -65,6 +65,9 @@ extension CGRect {
     var pointMaxXMaxY: CGPoint {
         return CGPoint(x: maxX, y: maxY)
     }
+    var ratio: CGFloat {
+        return width / height
+    }
     var smallestWrappingPixelRect: PixelRect {
         return PixelRect(point1: CGPoint(x: floor(minX), y: floor(minY)), point2: CGPoint(x: ceil(maxX), y: ceil(maxY)))
     }

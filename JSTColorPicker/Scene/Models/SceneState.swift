@@ -72,6 +72,8 @@ class SceneState {
         
         static let proportionalScaling  /* Shift Pressed  */ = ManipulatingOptions(rawValue: 1 << 0)
         static let centeredScaling      /* Option Pressed */ = ManipulatingOptions(rawValue: 1 << 1)
+
+        var shouldClip: Bool { self.isEmpty }
     }
     
     var manipulatingType                          = ManipulatingType.none

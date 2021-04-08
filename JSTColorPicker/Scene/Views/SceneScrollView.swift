@@ -70,24 +70,49 @@ class SceneScrollView: NSScrollView {
         view.isHidden = true
         return view
     }()
+
     private var areaDraggingOverlayRect: PixelRect {
-        let rect = sceneActionEffectView.convert(
+        let overlayFrame = sceneActionEffectView.convert(
             areaDraggingOverlay.frame,
             to: wrapper
-        ).intersection(wrapperBounds)
-        guard !rect.isEmpty else { return .null }
-        if sceneState.manipulatingOptions.contains(.proportionalScaling) {
-
+        )
+        guard !overlayFrame.isEmpty else {
+            return .null
         }
-        return PixelRect(
-            CGRect(
-                origin: rect.origin,
-                size: CGSize(
-                    width: ceil(ceil(rect.maxX) - floor(rect.minX)),
-                    height: ceil(ceil(rect.maxY) - floor(rect.minY))
+
+        var pRect: PixelRect
+        if sceneState.manipulatingOptions.contains(.proportionalScaling) {
+            let maxWidth = max(
+                ceil(ceil(overlayFrame.maxX) - floor(overlayFrame.minX)),
+                ceil(ceil(overlayFrame.maxY) - floor(overlayFrame.minY))
+            )
+            pRect = PixelRect(
+                CGRect(
+                    origin: overlayFrame.origin,
+                    size: CGSize(
+                        width: maxWidth,
+                        height: maxWidth
+                    )
                 )
             )
-        )
+        } else {
+            let fixedFrame = overlayFrame.intersection(wrapperBounds)
+            guard !fixedFrame.isEmpty else {
+                return .null
+            }
+
+            pRect = PixelRect(
+                CGRect(
+                    origin: fixedFrame.origin,
+                    size: CGSize(
+                        width: ceil(ceil(fixedFrame.maxX) - floor(fixedFrame.minX)),
+                        height: ceil(ceil(fixedFrame.maxY) - floor(fixedFrame.minY))
+                    )
+                )
+            )
+        }
+
+        return pRect.intersection(wrapper.pixelBounds)
     }
     
     private lazy var colorDraggingOverlay: ImageOverlay = {
@@ -291,106 +316,89 @@ class SceneScrollView: NSScrollView {
             .forEach({ $0.target?.rightMouseUp(with: event) })
     }
 
-    private func calculateRect(
-        beginLocation begin: CGPoint,
-        currentLocation end: CGPoint,
+    private func calculatePixelRect(
+        beginLocation begin: PixelCoordinate,
+        currentLocation end: PixelCoordinate,
+        withRatio ratio: CGFloat,
         byProportionalScaling proportional: Bool,
         byCenteredScaling centered: Bool
-    ) -> CGRect
+    ) -> PixelRect
     {
-        let offsetX = abs(end.x - begin.x)
-        let offsetY = abs(end.y - begin.y)
-        var targetRect: CGRect
-        if proportional && centered
+        var targetRect: PixelRect
+        if centered && !proportional
         {
-            // centered squares
-            let halfWidth = max(offsetX, offsetY)
-            let squareWidth = halfWidth * 2
-            targetRect = CGRect(
-                x: begin.x - halfWidth,
-                y: begin.y - halfWidth,
-                width: squareWidth,
-                height: squareWidth
+            // centered rectangles
+            let absOffsetX = abs(end.x - begin.x)
+            let absOffsetY = abs(end.y - begin.y)
+            targetRect = PixelRect(
+                x: end.x >= begin.x ? end.x - absOffsetX * 2 : end.x,
+                y: end.y >= begin.y ? end.y - absOffsetY * 2 : end.y,
+                width: absOffsetX * 2,
+                height: absOffsetY * 2
             )
         }
         else if proportional
         {
-            // squares only
-            let squareWidth = max(offsetX, offsetY)
-            if end.x > begin.x && end.y <= begin.y {
-                targetRect = CGRect(
-                    x: begin.x,
-                    y: begin.y - squareWidth,
-                    width: squareWidth,
-                    height: squareWidth
+            let endOffsetX = end.x - begin.x
+            let endOffsetY = end.y - begin.y
+            let fixedOffsetY = Int(round(CGFloat(endOffsetX) / ratio))
+            targetRect = PixelRect(
+                coordinate1: centered ? PixelCoordinate(
+                    x: begin.x - endOffsetX,
+                    y: begin.y - (endOffsetX * endOffsetY > 0 ? fixedOffsetY : -fixedOffsetY)
+                ) : begin,
+                coordinate2: PixelCoordinate(
+                    x: begin.x + endOffsetX,
+                    y: begin.y + (endOffsetX * endOffsetY > 0 ? fixedOffsetY : -fixedOffsetY)
                 )
-            }
-            else if end.x >= begin.x && end.y > begin.y {
-                targetRect = CGRect(
-                    x: begin.x,
-                    y: begin.y,
-                    width: squareWidth,
-                    height: squareWidth
-                )
-            }
-            else if end.x < begin.x && end.y >= begin.y {
-                targetRect = CGRect(
-                    x: begin.x - squareWidth,
-                    y: begin.y,
-                    width: squareWidth,
-                    height: squareWidth
-                )
-            }
-            else if end.x <= begin.x && end.y < begin.y {
-                targetRect = CGRect(
-                    x: begin.x - squareWidth,
-                    y: begin.y - squareWidth,
-                    width: squareWidth,
-                    height: squareWidth
-                )
-            }
-            else {
-                targetRect = .zero
-            }
+            )
         }
-        else if centered
+        else {
+            // rectangles
+            targetRect = PixelRect(
+                coordinate1: begin,
+                coordinate2: end
+            )
+        }
+        return targetRect
+    }
+
+    private func calculateRect(
+        beginLocation begin: CGPoint,
+        currentLocation end: CGPoint,
+        withRatio ratio: CGFloat,
+        byProportionalScaling proportional: Bool,
+        byCenteredScaling centered: Bool
+    ) -> CGRect
+    {
+        var targetRect: CGRect
+        if centered && !proportional
         {
             // centered rectangles
-            if end.x > begin.x && end.y <= begin.y {
-                targetRect = CGRect(
-                    x: end.x - offsetX * 2,
-                    y: end.y,
-                    width: offsetX * 2,
-                    height: offsetY * 2
+            let absOffsetX = abs(end.x - begin.x)
+            let absOffsetY = abs(end.y - begin.y)
+            targetRect = CGRect(
+                x: end.x >= begin.x ? end.x - absOffsetX * 2 : end.x,
+                y: end.y >= begin.y ? end.y - absOffsetY * 2 : end.y,
+                width: absOffsetX * 2,
+                height: absOffsetY * 2
+            )
+        }
+        else if proportional
+        {
+            let endOffsetX = end.x - begin.x
+            let endOffsetY = end.y - begin.y
+            let fixedOffsetY = endOffsetX / ratio
+            targetRect = CGRect(
+                point1: centered ? CGPoint(
+                    x: begin.x - endOffsetX,
+                    y: begin.y - (endOffsetX * endOffsetY > 0 ? fixedOffsetY : -fixedOffsetY)
+                ) : begin,
+                point2: CGPoint(
+                    x: begin.x + endOffsetX,
+                    y: begin.y + (endOffsetX * endOffsetY > 0 ? fixedOffsetY : -fixedOffsetY)
                 )
-            }
-            else if end.x >= begin.x && end.y > begin.y {
-                targetRect = CGRect(
-                    x: end.x - offsetX * 2,
-                    y: end.y - offsetY * 2,
-                    width: offsetX * 2,
-                    height: offsetY * 2
-                )
-            }
-            else if end.x < begin.x && end.y >= begin.y {
-                targetRect = CGRect(
-                    x: end.x,
-                    y: end.y - offsetY * 2,
-                    width: offsetX * 2,
-                    height: offsetY * 2
-                )
-            }
-            else if end.x <= begin.x && end.y < begin.y {
-                targetRect = CGRect(
-                    x: end.x,
-                    y: end.y,
-                    width: offsetX * 2,
-                    height: offsetY * 2
-                )
-            }
-            else {
-                targetRect = .zero
-            }
+            )
         }
         else {
             // rectangles
@@ -458,13 +466,20 @@ class SceneScrollView: NSScrollView {
                 let targetRect = calculateRect(
                     beginLocation: sceneState.beginLocation,
                     currentLocation: currentLocation,
+                    withRatio: 1.0,
                     byProportionalScaling: sceneState.manipulatingOptions.contains(.proportionalScaling),
                     byCenteredScaling: sceneState.manipulatingOptions.contains(.centeredScaling)
                 )
-                areaDraggingOverlay.frame = convert(
+                let convertedRect = convert(
                     targetRect.inset(by: areaDraggingOverlay.outerInsets),
                     to: sceneActionEffectView
-                ).intersection(sceneActionEffectView.bounds)
+                )
+                if sceneState.manipulatingOptions.shouldClip {
+                    areaDraggingOverlay.frame = convertedRect
+                        .intersection(sceneActionEffectView.bounds)
+                } else {
+                    areaDraggingOverlay.frame = convertedRect
+                }
             }
             else if sceneState.manipulatingType == .annotatorDragging {
                 let locInAction = convert(currentLocation, to: sceneActionEffectView)
@@ -507,15 +522,28 @@ class SceneScrollView: NSScrollView {
                         if let fixedOpposite = fixedOpposite,
                             let fixedOppositeCoord = fixedOppositeCoord
                         {
-                            let newFrame = CGRect(point1: fixedOpposite, point2: locInAction)
+                            let oldRatio = annotatorPixelRect.ratio
+                            let proportional = sceneState.manipulatingOptions.contains(.proportionalScaling)
+
+                            let newFrame = calculateRect(
+                                beginLocation: fixedOpposite,
+                                currentLocation: locInAction,
+                                withRatio: oldRatio,
+                                byProportionalScaling: proportional,
+                                byCenteredScaling: false
+                            )
                             areaDraggingOverlay.frame =
                                 newFrame.inset(by: areaDraggingOverlay.outerInsets)
-                            let newPixelRect = PixelRect(
-                                coordinate1: fixedOppositeCoord,
-                                coordinate2: PixelCoordinate(
+
+                            let newPixelRect = calculatePixelRect(
+                                beginLocation: fixedOppositeCoord,
+                                currentLocation: PixelCoordinate(
                                     x: Int(round(locInWrapper.x)),
                                     y: Int(round(locInWrapper.y))
-                                )
+                                ),
+                                withRatio: oldRatio,
+                                byProportionalScaling: proportional,
+                                byCenteredScaling: false
                             )
                             areaDraggingOverlay.contextRect = newPixelRect.intersection(wrapper.pixelBounds)
                         }

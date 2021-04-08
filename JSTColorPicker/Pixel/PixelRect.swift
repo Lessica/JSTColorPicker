@@ -22,17 +22,18 @@ struct PixelRect: Codable {
     public var origin: PixelCoordinate = PixelCoordinate()
     public var size:   PixelSize       = PixelSize()
     
-    public var x: Int      { origin.x    }
-    public var y: Int      { origin.y    }
+    public var x: Int         { origin.x    }
+    public var y: Int         { origin.y    }
     
-    public var minX: Int   { origin.x    }
-    public var minY: Int   { origin.y    }
+    public var minX: Int      { origin.x    }
+    public var minY: Int      { origin.y    }
     
-    public var maxX: Int   { origin.x + size.width  }
-    public var maxY: Int   { origin.y + size.height }
+    public var maxX: Int      { origin.x + size.width  }
+    public var maxY: Int      { origin.y + size.height }
     
-    public var width: Int  { size.width  }
-    public var height: Int { size.height }
+    public var width: Int     { size.width  }
+    public var height: Int    { size.height }
+    public var ratio: CGFloat { CGFloat(width) / CGFloat(height) }
     
     public var opposite: PixelCoordinate { PixelCoordinate(x: x + width, y: y + height) }
     
