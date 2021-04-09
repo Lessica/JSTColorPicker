@@ -68,6 +68,12 @@
 		CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
 		CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
 		CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
+		CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */; };
+		CC3C4A94261FF9E700794806 /* DocumentStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */; };
+		CC3C4A9E261FFA1B00794806 /* DocumentStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */; };
+		CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */; };
+		CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */; };
+		CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
@@ -791,6 +797,11 @@
 		CC32E23D2615F15A00F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preview.storyboard; sourceTree = "<group>"; };
 		CC32E2472615F15D00F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preview.strings; sourceTree = "<group>"; };
 		CC32E2502615F15F00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preview.strings"; sourceTree = "<group>"; };
+		CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStackedController.swift; sourceTree = "<group>"; };
+		CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStackedView.swift; sourceTree = "<group>"; };
+		CC3C4AB0262013AF00794806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DocumentStacked.storyboard; sourceTree = "<group>"; };
+		CC3C4AC1262013B300794806 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DocumentStacked.strings; sourceTree = "<group>"; };
+		CC3C4AC3262013B400794806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DocumentStacked.strings"; sourceTree = "<group>"; };
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
 		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
@@ -1293,6 +1304,24 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
+		CC3C4A80261FF9AC00794806 /* DocumentStacked */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C4A9C261FFA0B00794806 /* Views */,
+				CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */,
+				CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */,
+			);
+			path = DocumentStacked;
+			sourceTree = "<group>";
+		};
+		CC3C4A9C261FFA0B00794806 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CC608BDA261787CA00F5B861 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1740,6 +1769,7 @@
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D649231623CC64490067C04A /* Scene */,
 				CCCD8154261C16D300BFDD6E /* Segment */,
+				CC3C4A80261FF9AC00794806 /* DocumentStacked */,
 				CC32E1C22615CC2300F5F6AA /* Info */,
 				CCCD81DD261C5BD700BFDD6E /* SceneStacked */,
 				CC32E1F42615D32400F5F6AA /* Inspector */,
@@ -2468,6 +2498,7 @@
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
 				CCCD8209261C5DBA00BFDD6E /* Export.storyboard in Resources */,
+				CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
@@ -2525,6 +2556,7 @@
 				D693741124039F66007AF7AF /* example.lua in Resources */,
 				CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
+				CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2708,6 +2740,7 @@
 				D61047A024224A170002E990 /* EditableOverlay.swift in Sources */,
 				D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
+				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
@@ -2731,6 +2764,7 @@
 				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				185D7EE8248A8019001C283B /* EditCoordinateController.swift in Sources */,
 				1842C48124798E63008ECD6F /* TagListController.swift in Sources */,
+				CC3C4A9E261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
@@ -2873,6 +2907,7 @@
 				1885CF3F24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				D6E2455D23E153340012BE5F /* AnnotatorSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
+				CC3C4A94261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
@@ -2936,6 +2971,7 @@
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
+				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
 				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
@@ -3159,6 +3195,16 @@
 				CC32E2502615F15F00F5F6AA /* zh-Hans */,
 			);
 			name = Preview.storyboard;
+			sourceTree = "<group>";
+		};
+		CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC3C4AB0262013AF00794806 /* Base */,
+				CC3C4AC1262013B300794806 /* en */,
+				CC3C4AC3262013B400794806 /* zh-Hans */,
+			);
+			name = DocumentStacked.storyboard;
 			sourceTree = "<group>";
 		};
 		CC436B0E26179D7800E46D3A /* InfoView.xib */ = {

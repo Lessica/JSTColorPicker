@@ -1,14 +1,5 @@
-/* Class = "NSButton"; ibShadowedToolTip = "Quit Comparison Mode (⇧⌘D)"; ObjectID = "aqZ-u2-d9L"; */
-"aqZ-u2-d9L.ibShadowedToolTip" = "Quit Comparison Mode (⇧⌘D)";
-
 /* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "bit-B0-S57"; */
 "bit-B0-S57.title" = "Open or drop an image here.";
 
 /* Class = "NSBox"; title = "Information"; ObjectID = "GEI-GX-uyj"; */
 "GEI-GX-uyj.title" = "Information";
-
-/* Class = "NSTextFieldCell"; title = "Open or drop an image here."; ObjectID = "Gs9-gD-Eqd"; */
-"Gs9-gD-Eqd.title" = "Open or drop an image here.";
-
-/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "Kzg-6T-J5n"; */
-"Kzg-6T-J5n.title" = "Quit Comparison Mode";

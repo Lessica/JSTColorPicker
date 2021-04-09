@@ -248,6 +248,10 @@ class TagListController: NSViewController, PaneController {
         }
         
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     private class func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
     {

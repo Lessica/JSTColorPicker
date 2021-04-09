@@ -23,14 +23,14 @@
                                         <segment toolTip="Document" width="32" selected="YES">
                                             <imageReference key="image" image="doc" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
-                                        <segment toolTip="Scene" width="32">
+                                        <segment toolTip="Scene Manager" width="32">
                                             <imageReference key="image" image="pencil.tip" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
                                         <segment toolTip="Tag Manager" width="32">
                                             <nil key="label"/>
                                             <imageReference key="image" image="tag" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
-                                        <segment toolTip="Export Manager" width="32" enabled="NO">
+                                        <segment toolTip="Export Manager" width="32">
                                             <nil key="label"/>
                                             <imageReference key="image" image="tray" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
@@ -70,7 +70,7 @@
                                             </constraints>
                                         </view>
                                     </tabViewItem>
-                                    <tabViewItem label="Scene" identifier="TabScene" id="WbV-i7-oVw">
+                                    <tabViewItem label="Scene Manager" identifier="TabScene" id="WbV-i7-oVw">
                                         <view key="view" id="4sV-xQ-N4g">
                                             <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,13 +160,13 @@
             </objects>
             <point key="canvasLocation" x="-586" y="209"/>
         </scene>
-        <!--Info-->
+        <!--DocumentStacked-->
         <scene sceneID="cce-Pi-Ssk">
             <objects>
-                <controllerPlaceholder storyboardName="Info" id="n94-20-8E4" sceneMemberID="viewController"/>
+                <controllerPlaceholder storyboardName="DocumentStacked" id="n94-20-8E4" sceneMemberID="viewController"/>
                 <customObject id="1Se-my-ZVa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-109" y="132"/>
+            <point key="canvasLocation" x="-67" y="121"/>
         </scene>
         <!--SceneStacked-->
         <scene sceneID="k0U-pq-7so">
@@ -174,7 +174,7 @@
                 <controllerPlaceholder storyboardName="SceneStacked" id="ywX-e3-ag6" sceneMemberID="viewController"/>
                 <customObject id="5T7-Hu-xFG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-84" y="209"/>
+            <point key="canvasLocation" x="-80" y="209"/>
         </scene>
         <!--TagList-->
         <scene sceneID="Dxa-ma-bfi">
@@ -182,7 +182,7 @@
                 <controllerPlaceholder storyboardName="TagList" id="4Qg-lL-zX8" sceneMemberID="viewController"/>
                 <customObject id="hil-3v-740" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-99" y="300"/>
+            <point key="canvasLocation" x="-101" y="301"/>
         </scene>
         <!--Export-->
         <scene sceneID="31T-WR-34c">
@@ -190,7 +190,7 @@
                 <controllerPlaceholder storyboardName="Export" id="HFB-eW-2JF" sceneMemberID="viewController"/>
                 <customObject id="H7t-6H-qAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-101" y="393"/>
+            <point key="canvasLocation" x="-103" y="392"/>
         </scene>
     </scenes>
     <resources>

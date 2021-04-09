@@ -29,6 +29,10 @@ class GridViewController: NSViewController {
         super.viewDidLayout()
         reloadGridBackground()
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     private func reloadGridBackground() {
         guard let layer = view.layer else { return }

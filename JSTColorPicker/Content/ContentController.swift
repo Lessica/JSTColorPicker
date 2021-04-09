@@ -301,6 +301,7 @@ class ContentController: NSViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         debugPrint("\(className):\(#function)")
     }
     

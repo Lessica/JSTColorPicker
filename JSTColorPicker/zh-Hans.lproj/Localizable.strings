@@ -229,6 +229,12 @@
 "In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中, 精确调整标注的位置.";
 
 /* reloadPane() */
+"Info (Primary)" = "信息 (主要)";
+
+/* reloadPane() */
+"Info (Secondary)" = "信息 (次要)";
+
+/* reloadPane() */
 "Inspector (Primary)" = "检视器 (主要)";
 
 /* reloadPane() */
@@ -396,6 +402,9 @@
 
 /* Shortcut Guide */
 "Open (F1): Load a PNG image file from file system." = "打开 (F1): 从文件系统载入指定 PNG 图像文件.";
+
+/* reloadPane() */
+"Open an image of the same size for image comparison." = "打开尺寸相同的图像文件, 以进行差异比对.";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "打开或拖拽文件到此处.";

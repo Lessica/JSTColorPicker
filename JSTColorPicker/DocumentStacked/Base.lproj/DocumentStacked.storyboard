@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="hUV-WW-2BP">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Document Stacked Controller-->
+        <scene sceneID="ttB-Cm-8yI">
+            <objects>
+                <viewController id="hUV-WW-2BP" customClass="DocumentStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Ef7-Qc-5Vf">
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="920"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3zL-mb-fdg">
+                                <rect key="frame" x="0.0" y="0.0" width="246" height="920"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="jgj-Lo-KID">
+                                        <rect key="frame" x="0.0" y="872" width="246" height="48"/>
+                                        <subviews>
+                                            <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pJK-Cb-vz3">
+                                                <rect key="frame" x="36" y="7" width="174" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fET-1C-9qM">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="exitComparisonModeButtonTapped:" target="hUV-WW-2BP" id="6Dk-jN-IIU"/>
+                                                </connections>
+                                            </button>
+                                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kCb-uf-6Pg">
+                                                <rect key="frame" x="0.0" y="-2" width="246" height="5"/>
+                                            </box>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pJK-Cb-vz3" secondAttribute="trailing" constant="8" id="2Fu-xz-5tW"/>
+                                            <constraint firstAttribute="height" constant="48" id="Esq-23-myr"/>
+                                            <constraint firstItem="pJK-Cb-vz3" firstAttribute="centerX" secondItem="jgj-Lo-KID" secondAttribute="centerX" id="Ybb-DP-s28"/>
+                                            <constraint firstItem="kCb-uf-6Pg" firstAttribute="leading" secondItem="jgj-Lo-KID" secondAttribute="leading" id="fCz-ND-6cp"/>
+                                            <constraint firstAttribute="bottom" secondItem="kCb-uf-6Pg" secondAttribute="bottom" id="h9w-fK-aVf"/>
+                                            <constraint firstAttribute="trailing" secondItem="kCb-uf-6Pg" secondAttribute="trailing" id="jn6-Kx-Pay"/>
+                                            <constraint firstItem="pJK-Cb-vz3" firstAttribute="centerY" secondItem="jgj-Lo-KID" secondAttribute="centerY" id="tuJ-fl-Q18"/>
+                                        </constraints>
+                                    </customView>
+                                    <splitView autosaveName="DocumentStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="73r-jc-Mef">
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="872"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="odd-er-9Vd">
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="378"/>
+                                                <subviews>
+                                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="hgg-y8-VYf">
+                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="378"/>
+                                                        <connections>
+                                                            <segue destination="6as-5p-r0r" kind="embed" identifier="PrimaryInfo" id="fDd-bM-gwY"/>
+                                                        </connections>
+                                                    </containerView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="hgg-y8-VYf" secondAttribute="trailing" id="0lR-Md-kXc"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="JWQ-9L-6xY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hgg-y8-VYf" secondAttribute="bottom" id="X1K-sv-yGt"/>
+                                                    <constraint firstItem="hgg-y8-VYf" firstAttribute="top" secondItem="odd-er-9Vd" secondAttribute="top" id="mci-LT-7JN"/>
+                                                    <constraint firstItem="hgg-y8-VYf" firstAttribute="leading" secondItem="odd-er-9Vd" secondAttribute="leading" id="wfP-tR-dmP"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="SE0-tg-JhZ">
+                                                <rect key="frame" x="0.0" y="379" width="246" height="398"/>
+                                                <subviews>
+                                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="O9g-IM-SdB">
+                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="398"/>
+                                                        <connections>
+                                                            <segue destination="XyC-4o-Cvk" kind="embed" identifier="SecondaryInfo" id="22d-JZ-cdn"/>
+                                                        </connections>
+                                                    </containerView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="O9g-IM-SdB" secondAttribute="trailing" id="0nj-ba-8oh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="O9g-IM-SdB" secondAttribute="bottom" id="Tf6-D0-YnG"/>
+                                                    <constraint firstItem="O9g-IM-SdB" firstAttribute="top" secondItem="SE0-tg-JhZ" secondAttribute="top" id="eDM-x8-DTP"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="qzS-0W-uZe"/>
+                                                    <constraint firstItem="O9g-IM-SdB" firstAttribute="leading" secondItem="SE0-tg-JhZ" secondAttribute="leading" id="w1B-8U-c09"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4P2-kY-ucw">
+                                                <rect key="frame" x="0.0" y="778" width="246" height="94"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="276-Fy-gfS"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <holdingPriorities>
+                                            <real value="275"/>
+                                            <real value="270"/>
+                                            <real value="200"/>
+                                        </holdingPriorities>
+                                    </splitView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="jgj-Lo-KID" firstAttribute="width" secondItem="3zL-mb-fdg" secondAttribute="width" id="e03-ZR-M60"/>
+                                    <constraint firstItem="73r-jc-Mef" firstAttribute="width" secondItem="3zL-mb-fdg" secondAttribute="width" id="xgO-zt-wRj"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3zL-mb-fdg" secondAttribute="trailing" id="7tJ-L8-PHW"/>
+                            <constraint firstAttribute="bottom" secondItem="3zL-mb-fdg" secondAttribute="bottom" id="FKV-qT-2aN"/>
+                            <constraint firstItem="3zL-mb-fdg" firstAttribute="top" secondItem="Ef7-Qc-5Vf" secondAttribute="top" id="mxt-Yy-8bW"/>
+                            <constraint firstItem="3zL-mb-fdg" firstAttribute="leading" secondItem="Ef7-Qc-5Vf" secondAttribute="leading" id="xLK-rY-yyi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionView" destination="jgj-Lo-KID" id="ak0-1v-Tmu"/>
+                        <outlet property="splitView" destination="73r-jc-Mef" id="4pk-8b-mjH"/>
+                    </connections>
+                </viewController>
+                <customObject id="BY9-6O-sjr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-118" y="-81"/>
+        </scene>
+        <!--Info-->
+        <scene sceneID="MEq-Qd-hVZ">
+            <objects>
+                <controllerPlaceholder storyboardName="Info" id="6as-5p-r0r" sceneMemberID="viewController"/>
+                <customObject id="EGB-rn-nWb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="166" y="-81"/>
+        </scene>
+        <!--Info-->
+        <scene sceneID="mKS-am-Ldv">
+            <objects>
+                <controllerPlaceholder storyboardName="Info" id="XyC-4o-Cvk" sceneMemberID="viewController"/>
+                <customObject id="QGm-BK-acb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="166" y="11"/>
+        </scene>
+    </scenes>
+</document>

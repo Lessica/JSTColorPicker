@@ -102,10 +102,10 @@ extension SplitController: PaneContainer {
         paneControllers + descendantPaneContainers.flatMap({ $0.paneControllers })
     }
     
-    var infoController           : InfoController!          { descendantPaneControllers.compactMap({ $0 as? InfoController      }).first! }
-    var previewController        : PreviewController!       { descendantPaneControllers.compactMap({ $0 as? PreviewController   }).first! }
-    var tagListController        : TagListController!       { descendantPaneControllers.compactMap({ $0 as? TagListController   }).first! }
-    var exportController         : ExportController!        { descendantPaneControllers.compactMap({ $0 as? ExportController    }).first! }
+    var documentStackedController  : DocumentStackedController!  { descendantPaneContainers .compactMap({ $0 as? DocumentStackedController  }).first! }
+    var previewController          : PreviewController!          { descendantPaneControllers.compactMap({ $0 as? PreviewController          }).first! }
+    var tagListController          : TagListController!          { descendantPaneControllers.compactMap({ $0 as? TagListController          }).first! }
+    var exportController           : ExportController!           { descendantPaneControllers.compactMap({ $0 as? ExportController           }).first! }
     
     func inspectorController(_ style: InspectorController.Style) -> InspectorController {
         return descendantPaneControllers
@@ -433,9 +433,10 @@ extension SplitController: ItemPreviewResponder {
 
 extension SplitController: PixelMatchResponder {
 
-    var childPixelMatchResponders: [PixelMatchResponder] {
-        [sceneController, infoController]
-    }
+    var childPixelMatchResponders: [PixelMatchResponder] { [
+        sceneController,
+        documentStackedController,
+    ] }
     
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (Bool) -> Void) {
         childPixelMatchResponders.forEach({ $0.beginPixelMatchComparison(to: image, with: maskImage, completionHandler: completionHandler) })

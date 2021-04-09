@@ -856,6 +856,7 @@ class SceneController: NSViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         eventMonitors.forEach({ NSEvent.removeMonitor($0) })
         eventMonitors.removeAll()
         debugPrint("\(className):\(#function)")

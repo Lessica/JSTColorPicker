@@ -229,6 +229,12 @@
 "In the pop-up tab, precisely adjust the position of the selected annotation." = "In the pop-up tab, precisely adjust the position of the selected annotation.";
 
 /* reloadPane() */
+"Info (Primary)" = "Info (Primary)";
+
+/* reloadPane() */
+"Info (Secondary)" = "Info (Secondary)";
+
+/* reloadPane() */
 "Inspector (Primary)" = "Inspector (Primary)";
 
 /* reloadPane() */
@@ -396,6 +402,9 @@
 
 /* Shortcut Guide */
 "Open (F1): Load a PNG image file from file system." = "Open (F1): Load a PNG image file from file system.";
+
+/* reloadPane() */
+"Open an image of the same size for image comparison." = "Open an image of the same size for image comparison.";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
