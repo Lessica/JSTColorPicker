@@ -43,8 +43,8 @@ class InfoController: NSViewController, PaneController {
 }
 
 extension InfoController: ScreenshotLoader {
-    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
-    var isPaneStacked: Bool { false }
+    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot

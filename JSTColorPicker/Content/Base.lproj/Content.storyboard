@@ -21,7 +21,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="Ned-6Z-koa" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="324" height="687"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="394" height="687"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -125,7 +125,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="col-desc" editable="NO" width="150" minWidth="150" maxWidth="600" headerToolTip="The detailed description of the item." id="Sv2-uF-rau">
+                                                <tableColumn identifier="col-desc" editable="NO" width="220" minWidth="200" maxWidth="600" headerToolTip="The detailed description of the item." id="Sv2-uF-rau">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -138,7 +138,7 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="ROt-Ae-AXF" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="168" y="1" width="154" height="20"/>
+                                                            <rect key="frame" x="168" y="1" width="224" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44X-Vu-x9l">
@@ -147,7 +147,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="amW-wa-Evw"/>
                                                                 </imageView>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve9-tP-B9R">
-                                                                    <rect key="frame" x="25" y="3" width="129" height="15"/>
+                                                                    <rect key="frame" x="25" y="3" width="199" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="ndM-Rr-NDX">
                                                                         <font key="font" size="13" name="Menlo-Regular"/>
@@ -188,7 +188,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" wantsLayer="YES" focusRingType="none" id="Ned-6Z-koa">
-                                    <rect key="frame" x="0.0" y="0.0" width="324" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="394" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <connections>
                                         <outlet property="menu" destination="a29-Fd-YbH" id="AjW-kC-wi2"/>

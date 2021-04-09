@@ -31,7 +31,7 @@ class InspectorController: NSViewController, PaneController {
 }
 
 extension InspectorController: ScreenshotLoader {
-    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor }
     var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {

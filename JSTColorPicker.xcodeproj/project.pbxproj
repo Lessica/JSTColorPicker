@@ -74,6 +74,12 @@
 		CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */; };
 		CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */; };
 		CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */; };
+		CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4AE52620254000794806 /* TemplateInfoController.swift */; };
+		CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4AE52620254000794806 /* TemplateInfoController.swift */; };
+		CC3C4AEF262025E000794806 /* TemplateInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */; };
+		CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */; };
+		CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
+		CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
@@ -87,8 +93,8 @@
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
 		CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
-		CC84218726160AEF00F1C007 /* ExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportController.swift */; };
-		CC84218826160AEF00F1C007 /* ExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportController.swift */; };
+		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
+		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84219E26160CD200F1C007 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84219D26160CD200F1C007 /* Security.framework */; };
 		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
@@ -134,8 +140,8 @@
 		CCCD81C0261C481C00BFDD6E /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */; };
 		CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */; };
 		CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */; };
-		CCCD8209261C5DBA00BFDD6E /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* Export.storyboard */; };
-		CCCD820A261C5DBA00BFDD6E /* Export.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* Export.storyboard */; };
+		CCCD8209261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */; };
+		CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */; };
 		CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
@@ -802,6 +808,11 @@
 		CC3C4AB0262013AF00794806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DocumentStacked.storyboard; sourceTree = "<group>"; };
 		CC3C4AC1262013B300794806 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DocumentStacked.strings; sourceTree = "<group>"; };
 		CC3C4AC3262013B400794806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DocumentStacked.strings"; sourceTree = "<group>"; };
+		CC3C4AE52620254000794806 /* TemplateInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateInfoController.swift; sourceTree = "<group>"; };
+		CC3C4AF1262025E000794806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TemplateInfo.storyboard; sourceTree = "<group>"; };
+		CC3C4AFB262025E300794806 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplateInfo.strings; sourceTree = "<group>"; };
+		CC3C4B04262025E400794806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplateInfo.strings"; sourceTree = "<group>"; };
+		CC3C4B0D26202E4200794806 /* ExportStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedView.swift; sourceTree = "<group>"; };
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
 		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
@@ -809,7 +820,7 @@
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
-		CC84218626160AEF00F1C007 /* ExportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportController.swift; sourceTree = "<group>"; };
+		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
@@ -848,9 +859,9 @@
 		CCCD81EE261C5C1A00BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Grid.storyboard; sourceTree = "<group>"; };
 		CCCD81F8261C5C1D00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Grid.strings; sourceTree = "<group>"; };
 		CCCD8201261C5C1F00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Grid.strings"; sourceTree = "<group>"; };
-		CCCD820B261C5DBA00BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Export.storyboard; sourceTree = "<group>"; };
-		CCCD8215261C5DBD00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Export.strings; sourceTree = "<group>"; };
-		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Export.strings"; sourceTree = "<group>"; };
+		CCCD820B261C5DBA00BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ExportStacked.storyboard; sourceTree = "<group>"; };
+		CCCD8215261C5DBD00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExportStacked.strings; sourceTree = "<group>"; };
+		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
@@ -1322,6 +1333,35 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CC3C4ACB2620209B00794806 /* ExportStacked */ = {
+			isa = PBXGroup;
+			children = (
+				CCB769F5260A22170029693B /* Templates */,
+				CCCD821F261C5FE200BFDD6E /* Models */,
+				CC3C4B0C26202E3400794806 /* Views */,
+				CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */,
+				CC84218626160AEF00F1C007 /* ExportStackedController.swift */,
+			);
+			path = ExportStacked;
+			sourceTree = "<group>";
+		};
+		CC3C4AD32620241800794806 /* TemplateInfo */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */,
+				CC3C4AE52620254000794806 /* TemplateInfoController.swift */,
+			);
+			path = TemplateInfo;
+			sourceTree = "<group>";
+		};
+		CC3C4B0C26202E3400794806 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C4B0D26202E4200794806 /* ExportStackedView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CC608BDA261787CA00F5B861 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1642,17 +1682,6 @@
 			path = LuaC;
 			sourceTree = "<group>";
 		};
-		D631E2C823F7FAC300652B17 /* Export */ = {
-			isa = PBXGroup;
-			children = (
-				CCB769F5260A22170029693B /* Templates */,
-				CCCD821F261C5FE200BFDD6E /* Models */,
-				CCCD820C261C5DBA00BFDD6E /* Export.storyboard */,
-				CC84218626160AEF00F1C007 /* ExportController.swift */,
-			);
-			path = Export;
-			sourceTree = "<group>";
-		};
 		D635BE9A23CD861100FD62B8 /* Pixel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1775,7 +1804,8 @@
 				CC32E1F42615D32400F5F6AA /* Inspector */,
 				CC32E2262615D62D00F5F6AA /* Preview */,
 				1842C47F24798E46008ECD6F /* TagList */,
-				D631E2C823F7FAC300652B17 /* Export */,
+				CC3C4ACB2620209B00794806 /* ExportStacked */,
+				CC3C4AD32620241800794806 /* TemplateInfo */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
@@ -2497,8 +2527,9 @@
 				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
-				CCCD8209261C5DBA00BFDD6E /* Export.storyboard in Resources */,
+				CCCD8209261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */,
+				CC3C4AEF262025E000794806 /* TemplateInfo.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
@@ -2534,12 +2565,13 @@
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
-				CCCD820A261C5DBA00BFDD6E /* Export.storyboard in Resources */,
+				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				CCB769ED260A220F0029693B /* pascal.lua in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
+				CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
 				CCCD8178261C2DD000BFDD6E /* Segment.storyboard in Resources */,
@@ -2681,12 +2713,13 @@
 				185D7EF4248A936A001C283B /* ContentItemSource.swift in Sources */,
 				D610477D24224A170002E990 /* Foundation+Ext.swift in Sources */,
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
+				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
-				CC84218726160AEF00F1C007 /* ExportController.swift in Sources */,
+				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
@@ -2717,6 +2750,7 @@
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
+				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
@@ -2953,6 +2987,7 @@
 				CCCD81C0261C481C00BFDD6E /* PaneContainer.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
+				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
@@ -2993,6 +3028,7 @@
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
+				CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
@@ -3000,7 +3036,7 @@
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
-				CC84218826160AEF00F1C007 /* ExportController.swift in Sources */,
+				CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCF7F1372618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */,
@@ -3207,6 +3243,16 @@
 			name = DocumentStacked.storyboard;
 			sourceTree = "<group>";
 		};
+		CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC3C4AF1262025E000794806 /* Base */,
+				CC3C4AFB262025E300794806 /* en */,
+				CC3C4B04262025E400794806 /* zh-Hans */,
+			);
+			name = TemplateInfo.storyboard;
+			sourceTree = "<group>";
+		};
 		CC436B0E26179D7800E46D3A /* InfoView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3237,14 +3283,14 @@
 			name = Grid.storyboard;
 			sourceTree = "<group>";
 		};
-		CCCD820C261C5DBA00BFDD6E /* Export.storyboard */ = {
+		CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CCCD820B261C5DBA00BFDD6E /* Base */,
 				CCCD8215261C5DBD00BFDD6E /* en */,
 				CCCD8217261C5DBF00BFDD6E /* zh-Hans */,
 			);
-			name = Export.storyboard;
+			name = ExportStacked.storyboard;
 			sourceTree = "<group>";
 		};
 		CCF7F1532618D38100ED16B7 /* InspectorView.xib */ = {

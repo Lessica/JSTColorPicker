@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="bdK-r7-7zT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Template Info Controller-->
+        <scene sceneID="Oj7-81-Oyt">
+            <objects>
+                <viewController id="bdK-r7-7zT" customClass="TemplateInfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="dRV-BK-U20">
+                        <rect key="frame" x="0.0" y="0.0" width="312" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S">
+                                <rect key="frame" x="-3" y="-4" width="318" height="300"/>
+                                <view key="contentView" id="OPo-mo-uT7">
+                                    <rect key="frame" x="11" y="11" width="296" height="274"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <size key="contentViewMargins" width="8" height="8"/>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Zdn-NU-N0S" secondAttribute="trailing" id="9lX-Og-HaT"/>
+                            <constraint firstItem="Zdn-NU-N0S" firstAttribute="top" secondItem="dRV-BK-U20" secondAttribute="top" constant="4" id="FF3-EQ-VvU"/>
+                            <constraint firstItem="Zdn-NU-N0S" firstAttribute="leading" secondItem="dRV-BK-U20" secondAttribute="leading" id="UU0-30-SRV"/>
+                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Zdn-NU-N0S" secondAttribute="bottom" id="c83-Xh-Mqd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="F7s-Ue-Ip2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-374" y="97"/>
+        </scene>
+    </scenes>
+</document>

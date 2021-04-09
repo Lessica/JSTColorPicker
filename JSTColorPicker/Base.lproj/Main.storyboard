@@ -313,7 +313,7 @@ CA
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="yNh-S1-B1h"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Export Manager" keyEquivalent="5" identifier="show-export-manager" id="Vjs-4U-6rL">
+                                                    <menuItem title="Template Information" keyEquivalent="5" identifier="show-template-information" id="Vjs-4U-6rL">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="kj9-VG-L83"/>

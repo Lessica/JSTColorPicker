@@ -313,8 +313,8 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
 
-/* Class = "NSMenuItem"; title = "Export Manager"; ObjectID = "Vjs-4U-6rL"; */
-"Vjs-4U-6rL.title" = "导出管理器";
+/* Class = "NSMenuItem"; title = "Template Information"; ObjectID = "Vjs-4U-6rL"; */
+"Vjs-4U-6rL.title" = "模版信息";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "vLS-fs-Vb8"; */
 "vLS-fs-Vb8.ibShadowedToolTip" = "套用当前模版导出选中项.";

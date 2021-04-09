@@ -105,7 +105,6 @@ extension SplitController: PaneContainer {
     var documentStackedController  : DocumentStackedController!  { descendantPaneContainers .compactMap({ $0 as? DocumentStackedController  }).first! }
     var previewController          : PreviewController!          { descendantPaneControllers.compactMap({ $0 as? PreviewController          }).first! }
     var tagListController          : TagListController!          { descendantPaneControllers.compactMap({ $0 as? TagListController          }).first! }
-    var exportController           : ExportController!           { descendantPaneControllers.compactMap({ $0 as? ExportController           }).first! }
     
     func inspectorController(_ style: InspectorController.Style) -> InspectorController {
         return descendantPaneControllers

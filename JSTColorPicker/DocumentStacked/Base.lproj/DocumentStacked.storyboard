@@ -31,6 +31,9 @@
                                             </button>
                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kCb-uf-6Pg">
                                                 <rect key="frame" x="0.0" y="-2" width="246" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="zaP-Ep-OXL"/>
+                                                </constraints>
                                             </box>
                                         </subviews>
                                         <constraints>
@@ -43,7 +46,7 @@
                                             <constraint firstItem="pJK-Cb-vz3" firstAttribute="centerY" secondItem="jgj-Lo-KID" secondAttribute="centerY" id="tuJ-fl-Q18"/>
                                         </constraints>
                                     </customView>
-                                    <splitView autosaveName="DocumentStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="73r-jc-Mef">
+                                    <splitView autosaveName="DocumentStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="73r-jc-Mef" customClass="DocumentStackedView" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="246" height="872"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="odd-er-9Vd">

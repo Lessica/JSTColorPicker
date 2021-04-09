@@ -313,8 +313,8 @@
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Hide Others";
 
-/* Class = "NSMenuItem"; title = "Export Manager"; ObjectID = "Vjs-4U-6rL"; */
-"Vjs-4U-6rL.title" = "Export Manager";
+/* Class = "NSMenuItem"; title = "Template Information"; ObjectID = "Vjs-4U-6rL"; */
+"Vjs-4U-6rL.title" = "Template Information";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "vLS-fs-Vb8"; */
 "vLS-fs-Vb8.ibShadowedToolTip" = "Export these annotations with current template.";
