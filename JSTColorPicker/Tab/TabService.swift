@@ -42,15 +42,24 @@ class TabService: TabDelegate {
         
         return (mainManagedWindow ?? managedWindows.first)
     }
+
+    var dropRespondingObserver: NSObjectProtocol?
     
     init(initialWindowController: WindowController) {
         precondition(addManagedWindow(windowController: initialWindowController) != nil)
-        NotificationCenter.default.addObserver(forName: .dropRespondingWindowChanged, object: nil, queue: nil) { [unowned self] notification in
+        dropRespondingObserver = NotificationCenter.default.addObserver(forName: .dropRespondingWindowChanged, object: nil, queue: nil) { [weak self] notification in
             guard let window = notification.object as? NSWindow else {
-                self.dropRespondingWindow = nil
+                self?.dropRespondingWindow = nil
                 return
             }
-            self.dropRespondingWindow = window
+            self?.dropRespondingWindow = window
+        }
+    }
+
+    deinit {
+        if dropRespondingObserver != nil {
+            NotificationCenter.default.removeObserver(dropRespondingObserver!)
+            dropRespondingObserver = nil
         }
     }
     

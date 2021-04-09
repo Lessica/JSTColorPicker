@@ -70,7 +70,7 @@ class Screenshot: NSDocument {
         return .writeable
     }
     
-    private var appDelegate  : AppDelegate! { NSApplication.shared.delegate as? AppDelegate }
+    private var appDelegate  : AppDelegate! { AppDelegate.shared }
     private var tabService   : TabService?
     {
         get { appDelegate.tabService            }
