@@ -96,6 +96,12 @@
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84219E26160CD200F1C007 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84219D26160CD200F1C007 /* Security.framework */; };
+		CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */; };
+		CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */; };
+		CC8F8CA026207CE700F60F78 /* TemplateInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */; };
+		CC8F8CA826207CE700F60F78 /* TemplateInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */; };
+		CC8F8CB126209BB700F60F78 /* PaddedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CB026209BB700F60F78 /* PaddedButton.swift */; };
+		CC8F8CB226209BB700F60F78 /* PaddedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CB026209BB700F60F78 /* PaddedButton.swift */; };
 		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
 		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
@@ -822,6 +828,11 @@
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
 		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateInfoView.swift; sourceTree = "<group>"; };
+		CC8F8C8D26207C9E00F60F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TemplateInfoView.xib; sourceTree = "<group>"; };
+		CC8F8C8E26207C9E00F60F78 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplateInfoView.strings; sourceTree = "<group>"; };
+		CC8F8C8F26207C9E00F60F78 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplateInfoView.strings"; sourceTree = "<group>"; };
+		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
 		CCA72A18260B290600A934E2 /* dtoa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtoa.c; sourceTree = "<group>"; };
@@ -1329,6 +1340,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */,
+				CC8F8CB026209BB700F60F78 /* PaddedButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1348,6 +1360,7 @@
 		CC3C4AD32620241800794806 /* TemplateInfo */ = {
 			isa = PBXGroup;
 			children = (
+				CC8F8C8A26207C9E00F60F78 /* Views */,
 				CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */,
 				CC3C4AE52620254000794806 /* TemplateInfoController.swift */,
 			);
@@ -1417,6 +1430,15 @@
 				CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CC8F8C8A26207C9E00F60F78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */,
+				CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CCA72A15260B28F900A934E2 /* cjson */ = {
@@ -2541,6 +2563,7 @@
 				CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
+				CC8F8CA026207CE700F60F78 /* TemplateInfoView.xib in Resources */,
 				D61047D824224A170002E990 /* example.lua in Resources */,
 				CC32E2092615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
@@ -2582,6 +2605,7 @@
 				180C6A8B249F92AB00B42656 /* AlertTextView.xib in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */,
+				CC8F8CA826207CE700F60F78 /* TemplateInfoView.xib in Resources */,
 				1842C4652479832C008ECD6F /* Content.storyboard in Resources */,
 				D6E166A6248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
@@ -2717,6 +2741,7 @@
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
+				CC8F8CB126209BB700F60F78 /* PaddedButton.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
@@ -2814,6 +2839,7 @@
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
+				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
@@ -2971,6 +2997,7 @@
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
+				CC8F8CB226209BB700F60F78 /* PaddedButton.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				185D7EEF248A80C4001C283B /* EditWindow.swift in Sources */,
 				D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
@@ -3016,6 +3043,7 @@
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
+				CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
@@ -3261,6 +3289,16 @@
 				CC436B1926179D8100E46D3A /* zh-Hans */,
 			);
 			name = InfoView.xib;
+			sourceTree = "<group>";
+		};
+		CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC8F8C8D26207C9E00F60F78 /* Base */,
+				CC8F8C8E26207C9E00F60F78 /* en */,
+				CC8F8C8F26207C9E00F60F78 /* zh-Hans */,
+			);
+			name = TemplateInfoView.xib;
 			sourceTree = "<group>";
 		};
 		CCCD817A261C2DD000BFDD6E /* Segment.storyboard */ = {

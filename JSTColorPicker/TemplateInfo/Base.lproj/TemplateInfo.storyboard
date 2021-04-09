@@ -10,14 +10,29 @@
             <objects>
                 <viewController id="bdK-r7-7zT" customClass="TemplateInfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dRV-BK-U20">
-                        <rect key="frame" x="0.0" y="0.0" width="312" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="264" height="176"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S">
-                                <rect key="frame" x="-3" y="-4" width="318" height="300"/>
+                                <rect key="frame" x="-3" y="-4" width="270" height="176"/>
                                 <view key="contentView" id="OPo-mo-uT7">
-                                    <rect key="frame" x="11" y="11" width="296" height="274"/>
+                                    <rect key="frame" x="11" y="11" width="248" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHc-l4-1hs" customClass="TemplateInfoView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="2" width="248" height="140"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="248" placeholder="YES" id="9rg-NG-UiT"/>
+                                                <constraint firstAttribute="height" constant="140" placeholder="YES" id="hfb-Tm-Ptr"/>
+                                            </constraints>
+                                        </customView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nHc-l4-1hs" firstAttribute="leading" secondItem="OPo-mo-uT7" secondAttribute="leading" id="9EO-w3-xPp"/>
+                                        <constraint firstItem="nHc-l4-1hs" firstAttribute="top" secondItem="OPo-mo-uT7" secondAttribute="top" constant="8" id="kV2-su-4R1"/>
+                                        <constraint firstAttribute="trailing" secondItem="nHc-l4-1hs" secondAttribute="trailing" id="l1K-zs-nDU"/>
+                                        <constraint firstAttribute="bottom" secondItem="nHc-l4-1hs" secondAttribute="bottom" constant="2" id="mi0-XM-Mf0"/>
+                                    </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>
                             </box>

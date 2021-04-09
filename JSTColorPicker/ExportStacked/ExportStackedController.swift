@@ -107,3 +107,9 @@ extension ExportStackedController: NSSplitViewDelegate {
         return splitView.arrangedSubviews[dividerIndex].isHidden
     }
 }
+
+extension ExportStackedController {
+    @IBAction func templatePopUpButtonValueChanged(_ sender: NSPopUpButton) {
+        
+    }
+}

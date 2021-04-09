@@ -19,12 +19,20 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="jgj-Lo-KID">
                                         <rect key="frame" x="0.0" y="872" width="246" height="48"/>
                                         <subviews>
-                                            <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pJK-Cb-vz3">
-                                                <rect key="frame" x="36" y="7" width="174" height="32"/>
-                                                <buttonCell key="cell" type="push" title="Quit Comparison Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fET-1C-9qM">
+                                            <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pJK-Cb-vz3" customClass="PaddedButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                <rect key="frame" x="56" y="12" width="135" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="jAD-z0-c29"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="inline" title="Quit Comparison Mode" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fET-1C-9qM">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
                                                 </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="horizontalPadding">
+                                                        <real key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="exitComparisonModeButtonTapped:" target="hUV-WW-2BP" id="6Dk-jN-IIU"/>
                                                 </connections>
