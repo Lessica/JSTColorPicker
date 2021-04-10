@@ -110,7 +110,7 @@ class PixelColor: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
-        t["name"]       = tags.first ?? ""
+        t["name"]       = firstTag ?? ""
         t["tags"]       = vm.createTable(withSequence: tags.contents)
         t["similarity"] = similarity
         t["x"]          = coordinate.x

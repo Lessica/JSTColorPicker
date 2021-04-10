@@ -128,6 +128,9 @@
 /* Import Confirm */
 "Do you want to import following %d tags from current document?" = "Do you want to import following %d tags from current document?";
 
+/* resetTagDatabaseAction(_:) */
+"Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone." = "Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.";
+
 /* Delete Confirm */
 "Do you want to remove selected %d items?" = "Do you want to remove selected %d items?";
 
@@ -423,6 +426,9 @@
 
 /* Shortcut Guide */
 "Relocate..." = "Relocate...";
+
+/* resetTagDatabaseAction(_:) */
+"Reset Confirm" = "Reset Confirm";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "Restart";

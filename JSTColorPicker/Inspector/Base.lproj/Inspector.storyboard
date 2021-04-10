@@ -10,19 +10,19 @@
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
-                        <rect key="frame" x="0.0" y="0.0" width="192" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="192" height="108"/>
                         <subviews>
                             <box borderType="line" title="Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc">
-                                <rect key="frame" x="-3" y="-4" width="198" height="116"/>
+                                <rect key="frame" x="-3" y="-4" width="198" height="108"/>
                                 <view key="contentView" id="BDQ-F6-YF7">
-                                    <rect key="frame" x="11" y="3" width="176" height="98"/>
+                                    <rect key="frame" x="11" y="3" width="176" height="90"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fjf-by-V7h" customClass="InspectorView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="8" width="176" height="82"/>
+                                            <rect key="frame" x="6" y="8" width="164" height="74"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="176" placeholder="YES" id="9xA-68-df9"/>
-                                                <constraint firstAttribute="height" constant="82" placeholder="YES" id="OKf-dj-P8Y"/>
+                                                <constraint firstAttribute="width" constant="164" placeholder="YES" id="9xA-68-df9"/>
+                                                <constraint firstAttribute="height" constant="74" placeholder="YES" id="OKf-dj-P8Y"/>
                                             </constraints>
                                             <connections>
                                                 <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="7aq-Ep-GsR"/>

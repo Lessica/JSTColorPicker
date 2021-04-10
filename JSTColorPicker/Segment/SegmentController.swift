@@ -16,6 +16,9 @@ class SegmentController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if segmentedControl.selectedSegment < 0 {
+            segmentedControl.selectedSegment = 0
+        }
         syncSelectedStateForTabView()
     }
 
@@ -54,6 +57,11 @@ extension SegmentController: NSTabViewDelegate {
 extension SegmentController: PaneContainer {
     var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
     var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) }
+    
+    private var stackedChildPaneContainers : [StackedPaneContainer]
+    {
+        childPaneContainers.compactMap({ $0 as? StackedPaneContainer })
+    }
     
     private var descendantPaneContainers   : [PaneContainer]
     {
@@ -111,6 +119,7 @@ extension SegmentController {
         super.restoreState(with: coder)
         if let identifier = coder.decodeObject(of: NSString.self, forKey: SegmentController.restorableTabViewSelectedState) as String?
         {
+            stackedChildPaneContainers.forEach({ $0.setNeedsResetDividers() })
             selectTabViewItem(withIdentifier: NSUserInterfaceItemIdentifier(identifier))
         }
     }

@@ -19,6 +19,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     }
     
     var id: Int
+    var firstTag: String? { tags.first }
     var tags = OrderedSet<String>()
     var similarity: Double = 1.0
     

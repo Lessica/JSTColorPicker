@@ -21,6 +21,8 @@ class InspectorController: NSViewController, PaneController {
 
     @IBOutlet weak var paneBox        : NSBox!
     @IBOutlet weak var inspectorView  : InspectorView!
+    
+    private var lastStoredItem        : ContentItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +30,23 @@ class InspectorController: NSViewController, PaneController {
         _ = colorPanel
         reloadPane()
     }
+    
+    private var isViewHidden: Bool = true
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        isViewHidden = false
+        ensurePreviewedItem(lastStoredItem)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        isViewHidden = true
+    }
 }
 
 extension InspectorController: ScreenshotLoader {
-    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
     var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {
@@ -64,10 +79,17 @@ extension InspectorController: ItemInspector {
 
         colorPanel.makeKeyAndOrderFront(self)
     }
+    
+    func ensurePreviewedItem(_ item: ContentItem?) {
+        guard let item = item else { return }
+        inspectItem(item)
+    }
 
     func inspectItem(_ item: ContentItem) {
+        lastStoredItem = item
+        
         guard !isPaneHidden else {
-            if let color = item as? PixelColor {
+            if let color = item as? PixelColor, style == .secondary {
                 colorPanelSetColor(color)
             }
             return

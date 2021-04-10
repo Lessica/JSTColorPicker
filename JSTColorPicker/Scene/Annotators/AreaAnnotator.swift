@@ -13,7 +13,7 @@ class AreaAnnotator: Annotator {
     var pixelOverlay  : AreaAnnotatorOverlay { overlay as! AreaAnnotatorOverlay }
     
     init(_ area: PixelArea) {
-        let overlay = AreaAnnotatorOverlay(rect: area.rect, label: String(area.id), associatedLabel: area.tags.first)
+        let overlay = AreaAnnotatorOverlay(rect: area.rect, label: String(area.id), associatedLabel: area.firstTag)
         super.init(area, overlay)
     }
 }

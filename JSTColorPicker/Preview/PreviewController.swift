@@ -44,10 +44,23 @@ class PreviewController: NSViewController, PaneController {
 
         reloadPane()
     }
+    
+    private var isViewHidden: Bool = true
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        isViewHidden = false
+        ensureOverlayBounds(to: lastStoredRect, magnification: lastStoredMagnification)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        isViewHidden = true
+    }
 }
 
 extension PreviewController: ScreenshotLoader {
-    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneHidden: Bool  { view.isHiddenOrHasHiddenAncestor || isViewHidden }
     var isPaneStacked: Bool { true }
 
     func load(_ screenshot: Screenshot) throws {

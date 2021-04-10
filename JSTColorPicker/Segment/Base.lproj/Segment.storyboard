@@ -20,7 +20,7 @@
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="capsule" trackingMode="selectOne" id="ieM-sO-O0T">
                                     <font key="font" metaFont="system"/>
                                     <segments>
-                                        <segment toolTip="Document" width="32" selected="YES">
+                                        <segment toolTip="Document" width="32">
                                             <imageReference key="image" image="doc" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
                                         <segment toolTip="Scene Manager" width="32">
@@ -43,7 +43,7 @@
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Gtg-RA-sIS">
                                 <rect key="frame" x="0.0" y="718" width="246" height="5"/>
                             </box>
-                            <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="G3h-02-UWp">
+                            <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="9X9-hT-Xm5" translatesAutoresizingMaskIntoConstraints="NO" id="G3h-02-UWp">
                                 <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="246" id="fhv-Hy-x9U"/>
@@ -128,6 +128,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="72f-er-Dyb" secondAttribute="trailing" id="l0c-Jw-fNb"/>
                                                 <constraint firstAttribute="bottom" secondItem="72f-er-Dyb" secondAttribute="bottom" id="x3X-v2-U79"/>
                                             </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Empty" identifier="" id="9X9-hT-Xm5">
+                                        <view key="view" id="m0A-c8-w1l">
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                     </tabViewItem>
                                 </tabViewItems>

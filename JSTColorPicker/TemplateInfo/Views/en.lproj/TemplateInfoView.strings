@@ -1,3 +1,6 @@
+/* Class = "NSTextFieldCell"; title = "Modified At"; ObjectID = "30p-tF-97T"; */
+"30p-tF-97T.title" = "Modified At";
+
 /* Class = "NSTextFieldCell"; title = "SHOULD_SAVE_IN_PLACE"; ObjectID = "73a-Nc-d3h"; */
 "73a-Nc-d3h.title" = "SHOULD_SAVE_IN_PLACE";
 
@@ -6,6 +9,15 @@
 
 /* Class = "NSTextFieldCell"; title = "Description"; ObjectID = "CiD-kN-Vih"; */
 "CiD-kN-Vih.title" = "Description";
+
+/* Class = "NSTextFieldCell"; title = "FILE_SIZE"; ObjectID = "DAc-Kr-AjE"; */
+"DAc-Kr-AjE.title" = "FILE_SIZE";
+
+/* Class = "NSTextFieldCell"; title = "File Name"; ObjectID = "e36-GK-uAL"; */
+"e36-GK-uAL.title" = "File Name";
+
+/* Class = "NSTextFieldCell"; title = "MODIFIED_AT"; ObjectID = "EmX-bV-oiE"; */
+"EmX-bV-oiE.title" = "MODIFIED_AT";
 
 /* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "G4u-Ip-zGX"; */
 "G4u-Ip-zGX.title" = "Name";
@@ -25,6 +37,9 @@
 /* Class = "NSTextFieldCell"; title = "Author"; ObjectID = "i9E-bi-99g"; */
 "i9E-bi-99g.title" = "Author";
 
+/* Class = "NSTextFieldCell"; title = "Created At"; ObjectID = "ipt-lc-ghv"; */
+"ipt-lc-ghv.title" = "Created At";
+
 /* Class = "NSTextFieldCell"; title = "UUID"; ObjectID = "jjR-CP-FVX"; */
 "jjR-CP-FVX.title" = "UUID";
 
@@ -33,6 +48,15 @@
 
 /* Class = "NSTextFieldCell"; title = "TEMPLATE_DESCRIPTION"; ObjectID = "kl1-hT-v5K"; */
 "kl1-hT-v5K.title" = "TEMPLATE_DESCRIPTION";
+
+/* Class = "NSTextFieldCell"; title = "FILE_NAME"; ObjectID = "nay-Ti-YCk"; */
+"nay-Ti-YCk.title" = "FILE_NAME";
+
+/* Class = "NSTextFieldCell"; title = "Full Path"; ObjectID = "NZE-Yi-01d"; */
+"NZE-Yi-01d.title" = "Full Path";
+
+/* Class = "NSTextFieldCell"; title = "CREATED_AT"; ObjectID = "qHv-gJ-e0u"; */
+"qHv-gJ-e0u.title" = "CREATED_AT";
 
 /* Class = "NSTextFieldCell"; title = "Version"; ObjectID = "u4A-iQ-Fc2"; */
 "u4A-iQ-Fc2.title" = "Version";
@@ -45,3 +69,9 @@
 
 /* Class = "NSTextFieldCell"; title = "IS_ASYNCHRONOUS"; ObjectID = "x1D-f6-qpi"; */
 "x1D-f6-qpi.title" = "IS_ASYNCHRONOUS";
+
+/* Class = "NSTextFieldCell"; title = "FULL_PATH"; ObjectID = "Yl4-Bd-IJb"; */
+"Yl4-Bd-IJb.title" = "FULL_PATH";
+
+/* Class = "NSTextFieldCell"; title = "File Size"; ObjectID = "ZRd-we-Yzu"; */
+"ZRd-we-Yzu.title" = "File Size";

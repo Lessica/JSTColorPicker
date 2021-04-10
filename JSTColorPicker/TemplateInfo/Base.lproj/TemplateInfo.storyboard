@@ -10,21 +10,24 @@
             <objects>
                 <viewController id="bdK-r7-7zT" customClass="TemplateInfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dRV-BK-U20">
-                        <rect key="frame" x="0.0" y="0.0" width="264" height="176"/>
+                        <rect key="frame" x="0.0" y="0.0" width="264" height="266"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S">
-                                <rect key="frame" x="-3" y="-4" width="270" height="176"/>
+                                <rect key="frame" x="-3" y="-4" width="270" height="266"/>
                                 <view key="contentView" id="OPo-mo-uT7">
-                                    <rect key="frame" x="11" y="11" width="248" height="150"/>
+                                    <rect key="frame" x="11" y="11" width="248" height="240"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHc-l4-1hs" customClass="TemplateInfoView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="2" width="248" height="140"/>
+                                            <rect key="frame" x="0.0" y="2" width="248" height="230"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="248" placeholder="YES" id="9rg-NG-UiT"/>
-                                                <constraint firstAttribute="height" constant="140" placeholder="YES" id="hfb-Tm-Ptr"/>
+                                                <constraint firstAttribute="height" constant="230" placeholder="YES" id="hfb-Tm-Ptr"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAdvanced" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </customView>
                                     </subviews>
                                     <constraints>

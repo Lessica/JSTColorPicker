@@ -1566,15 +1566,58 @@ extension SceneController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.annotatorColorizeAll(byRedrawingContents: true)
+        DispatchQueue.main.async { [unowned self] in
+            self.annotatorColorizeWithNotification(noti, byRedrawingContents: true)
         }
     }
     
+    private func annotatorColorizeWithNotification(_ noti: NSNotification, byRedrawingContents redraw: Bool = false)
+    {
+        guard let userInfo = noti.userInfo else { return }
+        if userInfo.keys.contains(NSManagedObjectContext.NotificationKey.invalidatedAllObjects)
+        {
+            annotatorColorizeAll(byRedrawingContents: redraw)
+            return
+        }
+        
+        let insertedTags = userInfo[NSManagedObjectContext.NotificationKey.insertedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let updatedTags = userInfo[NSManagedObjectContext.NotificationKey.updatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let refreshedTags = userInfo[NSManagedObjectContext.NotificationKey.refreshedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let tagsToReload = Dictionary(uniqueKeysWithValues: (insertedTags.union(updatedTags).union(refreshedTags)).map({ ($0.name, $0) }))
+        
+        let deletedTags = userInfo[NSManagedObjectContext.NotificationKey.deletedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let invalidatedTags = userInfo[NSManagedObjectContext.NotificationKey.invalidatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let tagsToRemove = Dictionary(uniqueKeysWithValues: (deletedTags.union(invalidatedTags)).map({ ($0.name, $0) }))
+        
+        for annotator in annotators
+        {
+            guard let firstTagName = annotator.contentItem.firstTag else { continue }
+            if tagsToReload[firstTagName] != nil {
+                annotatorColorize(annotator, with: tagsToReload[firstTagName], byRedrawingContents: redraw)
+            }
+            else if tagsToRemove[firstTagName] != nil {
+                annotatorColorize(annotator, with: nil, byRedrawingContents: redraw)
+            }
+        }
+    }
+    
+    private func annotatorColorizeAll(byRedrawingContents redraw: Bool = false) {
+        annotators.forEach({ annotatorColorize($0, byRedrawingContents: redraw) })
+    }
+    
     private func annotatorColorize(_ annotator: Annotator, byRedrawingContents redraw: Bool = false) {
-        guard let tagName = annotator.contentItem.tags.first,
+        guard let tagName = annotator.contentItem.firstTag,
             let tag = tagManager.managedTag(of: tagName) else
         {
+            annotatorColorize(annotator, with: nil, byRedrawingContents: redraw)
+            return
+        }
+        annotatorColorize(annotator, with: tag, byRedrawingContents: redraw)
+    }
+    
+    private func annotatorColorize(_ annotator: Annotator, with tag: Tag?, byRedrawingContents redraw: Bool = false)
+    {
+        guard let tag = tag else {
             annotator.overlay.associatedLabelColor = nil
             annotator.overlay.associatedBackgroundColor = nil
             annotator.overlay.lineDashColorsHighlighted  = nil
@@ -1596,10 +1639,9 @@ extension SceneController {
                 verticalRulerView.needsDisplay = true
                 horizontalRulerView.needsDisplay = true
             }
-
             return
         }
-
+        
         annotator.overlay.associatedLabelColor = tag.color
         annotator.overlay.associatedBackgroundColor = tag.color.withAlphaComponent(0.2)
         annotator.overlay.lineDashColorsHighlighted  = [NSColor.white.cgColor, tag.color.cgColor]
@@ -1621,10 +1663,6 @@ extension SceneController {
             verticalRulerView.needsDisplay = true
             horizontalRulerView.needsDisplay = true
         }
-    }
-    
-    private func annotatorColorizeAll(byRedrawingContents redraw: Bool = false) {
-        annotators.forEach({ annotatorColorize($0, byRedrawingContents: redraw) })
     }
     
 }

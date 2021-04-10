@@ -76,6 +76,8 @@ class TagListController: NSViewController, PaneController {
     @IBOutlet weak var tableColumnChecked         : NSTableColumn!
     @IBOutlet weak var tableColumnName            : NSTableColumn!
     
+    private var lastStoredContentItems            : [ContentItem]?
+    
     private var willUndoToken                     : NotificationToken?
     private var willRedoToken                     : NotificationToken?
     private var didUndoToken                      : NotificationToken?
@@ -153,7 +155,10 @@ class TagListController: NSViewController, PaneController {
         tableViewOverlay.tableRowHeight = tableView.rowHeight
         
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
-        
+        setupPersistentStore()
+    }
+    
+    private func setupPersistentStore() {
         if let context = TagListController.sharedContext {
             
             self.setupEmbeddedState(with: context)
@@ -173,7 +178,12 @@ class TagListController: NSViewController, PaneController {
                 }
             }
             
-            NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(managedTagsDidChangeNotification(_:)),
+                name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                object: nil
+            )
             
         } else {
             
@@ -234,7 +244,12 @@ class TagListController: NSViewController, PaneController {
                         self.internalController.rearrangeObjects()
                     }
                     
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(self.managedTagsDidChangeNotification(_:)),
+                        name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                        object: nil
+                    )
                     
                 } else if let error = error {
                     
@@ -246,7 +261,20 @@ class TagListController: NSViewController, PaneController {
             }
             
         }
-        
+    }
+    
+    private var isViewHidden: Bool = true
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        isViewHidden = false
+        performReorderAndSave(isAsync: false)
+        ensurePreviewedTagsForItems(lastStoredContentItems)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        isViewHidden = true
     }
 
     deinit {
@@ -407,11 +435,28 @@ class TagListController: NSViewController, PaneController {
         setNeedsSaveManagedTags()
     }
     
-    @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.reorderManagedTagsIfNeeded()
-            self?.saveManagedTagsIfNeeded()
+    private func performReorderAndSave(isAsync async: Bool) {
+        guard !isViewHidden else {
+            setNeedsReorderManagedTags()
+            setNeedsSaveManagedTags()
+            return
         }
+        if async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.reorderManagedTagsIfNeeded()
+                self.saveManagedTagsIfNeeded()
+                self.ensurePreviewedTagsForItems(self.lastStoredContentItems)
+            }
+        } else {
+            reorderManagedTagsIfNeeded()
+            saveManagedTagsIfNeeded()
+            ensurePreviewedTagsForItems(lastStoredContentItems)
+        }
+    }
+    
+    @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
+        performReorderAndSave(isAsync: true)
     }
     
     private var shouldRearrangeManagedTags: Bool = false
@@ -490,6 +535,12 @@ class TagListController: NSViewController, PaneController {
     
     @objc func colorPanelValueChanged(_ sender: NSColorPanel) {
         
+        guard !isPaneHidden else {
+            menuTargetIndex = nil
+            menuTargetObject = nil
+            return
+        }
+        
         guard let index = menuTargetIndex,
             let tag = menuTargetObject,
             tag.managedObjectContext != nil else
@@ -525,7 +576,7 @@ class TagListController: NSViewController, PaneController {
 }
 
 extension TagListController: ScreenshotLoader {
-    var isPaneHidden: Bool { view.isHiddenOrHasHiddenAncestor }
+    var isPaneHidden: Bool  { view.isHiddenOrHasHiddenAncestor || isViewHidden }
     var isPaneStacked: Bool { false }
 
     func load(_ screenshot: Screenshot) throws {
@@ -780,7 +831,16 @@ extension TagListController: TagListPreviewDelegate {
         }
     }
     
+    func ensurePreviewedTagsForItems(_ items: [ContentItem]?) {
+        guard let items = items else { return }
+        previewTags(for: items)
+    }
+    
     func previewTags(for items: [ContentItem]) {
+        lastStoredContentItems = items
+        guard !isPaneHidden else {
+            return
+        }
         if items.count > 0 {
             previewMode = items.count == 1 ? .single : .multiple
             previewContext = Dictionary(counted: items.flatMap({ $0.tags }))

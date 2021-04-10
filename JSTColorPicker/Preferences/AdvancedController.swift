@@ -21,9 +21,27 @@ class AdvancedController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func resetAllAction(_ sender: NSButton) {
+    @IBAction func resetUserDefaultsAction(_ sender: NSButton) {
         NSUserDefaultsController.shared.revertToInitialValues(sender)
+        // clear restorable state
+        AppDelegate.shared.tabService?
+            .managedWindows.map({ $0.window })
+            .forEach({ $0.isRestorable = false })
         actionRequiresRestart(sender)
+    }
+    
+    @IBAction func resetTagDatabaseAction(_ sender: NSButton) {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Reset Confirm", comment: "resetTagDatabaseAction(_:)")
+        alert.informativeText = NSLocalizedString("Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.", comment: "resetTagDatabaseAction(_:)")
+        alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "resetTagDatabaseAction(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
+        alert.beginSheetModal(for: view.window!) { resp in
+            if resp == .alertFirstButtonReturn {
+                
+            }
+        }
     }
     
     override func awakeFromNib() {

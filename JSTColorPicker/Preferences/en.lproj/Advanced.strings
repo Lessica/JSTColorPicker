@@ -1,11 +1,11 @@
 /* Class = "NSButtonCell"; title = "Enable GPU Acceleration (Requires Restart)"; ObjectID = "17f-lU-3gg"; */
 "17f-lU-3gg.title" = "Enable GPU Acceleration (Requires Restart)";
 
-/* Class = "NSButtonCell"; title = "Reset All..."; ObjectID = "77F-vw-gCA"; */
-"77F-vw-gCA.title" = "Reset All...";
+/* Class = "NSButtonCell"; title = "Reset User Defaults"; ObjectID = "77F-vw-gCA"; */
+"77F-vw-gCA.title" = "Reset User Defaults";
 
-/* Class = "NSTextFieldCell"; title = "Reset to Factory Defaults: "; ObjectID = "Mkj-za-2eM"; */
-"Mkj-za-2eM.title" = "Reset to Factory Defaults: ";
+/* Class = "NSButtonCell"; title = "Reset Tag Database"; ObjectID = "uem-Ft-uvd"; */
+"uem-Ft-uvd.title" = "Reset Tag Database";
 
 /* Class = "NSButtonCell"; title = "Check Updates Automatically"; ObjectID = "Zt3-E3-OhA"; */
 "Zt3-E3-OhA.title" = "Check Updates Automatically";

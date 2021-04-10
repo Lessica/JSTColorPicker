@@ -1531,16 +1531,55 @@ extension ContentController: TagImportSource {
 extension ContentController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
-        contentItemColorize()
+        contentItemColorizeAll()
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.contentItemColorize()
+        DispatchQueue.main.async { [unowned self] in
+            self.contentItemColorizeWithNotification(noti)
         }
     }
     
-    private func contentItemColorize() {
+    private func contentItemColorizeWithNotification(_ noti: NSNotification) {
+        guard let content = documentContent else { return }
+        
+        guard let userInfo = noti.userInfo else { return }
+        if userInfo.keys.contains(NSManagedObjectContext.NotificationKey.invalidatedAllObjects)
+        {
+            contentItemColorizeAll()
+            return
+        }
+        
+        let insertedTags = userInfo[NSManagedObjectContext.NotificationKey.insertedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let updatedTags = userInfo[NSManagedObjectContext.NotificationKey.updatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let refreshedTags = userInfo[NSManagedObjectContext.NotificationKey.refreshedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let deletedTags = userInfo[NSManagedObjectContext.NotificationKey.deletedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        let invalidatedTags = userInfo[NSManagedObjectContext.NotificationKey.invalidatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
+        
+        let tagNamesToReload = insertedTags
+            .union(updatedTags)
+            .union(refreshedTags)
+            .union(deletedTags)
+            .union(invalidatedTags)
+            .map({ $0.name })
+        
+        var indexesToReload = IndexSet()
+        let col = tableView.column(withIdentifier: .columnTag)
+        for itemTuple in content.items.enumerated() {
+            guard let firstTagName = itemTuple.element.firstTag else { continue }
+            if tagNamesToReload.contains(firstTagName) {
+                indexesToReload.insert(itemTuple.offset)
+            }
+        }
+        
+        tableView.reloadData(
+            forRowIndexes: indexesToReload,
+            columnIndexes: col >= 0 ? IndexSet(integer: col) : IndexSet()
+        )
+    }
+    
+    private func contentItemColorizeAll() {
+        guard documentContent != nil else { return }
         let col = tableView.column(withIdentifier: .columnTag)
         tableView.reloadData(
             forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),

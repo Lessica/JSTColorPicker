@@ -19,11 +19,21 @@ class ExportStackedController: NSViewController {
         super.viewDidLoad()
         splitView.arrangedSubviews
             .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
+        
+        setNeedsResetDividers()
     }
+    
+    private var isViewHidden: Bool = true
 
     override func viewWillAppear() {
         super.viewWillAppear()
+        isViewHidden = false
         resetDividersIfNeeded()
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        isViewHidden = true
     }
 
     override func willPresentError(_ error: Error) -> Error {
@@ -34,35 +44,41 @@ class ExportStackedController: NSViewController {
 
     private var _shouldResetDividers: Bool = false
 
-    private func setNeedsResetDividers() {
+    deinit { debugPrint("\(className):\(#function)") }
+
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) { }
+}
+
+extension ExportStackedController: StackedPaneContainer {
+    
+    var shouldResetDividers: Bool { _shouldResetDividers }
+    
+    func setNeedsResetDividers() {
         _shouldResetDividers = true
     }
 
-    private func resetDividersIfNeeded() {
+    func resetDividersIfNeeded() {
         if _shouldResetDividers {
             _shouldResetDividers = false
             resetDividers()
         }
     }
 
-    private func resetDividers(in set: IndexSet? = nil) {
+    func resetDividers(in set: IndexSet? = nil) {
         let dividerIndexes = set ?? IndexSet(integersIn: 0..<splitView.arrangedSubviews.count)
         if !dividerIndexes.isEmpty {
             splitView.adjustSubviews()
             dividerIndexes.forEach({ splitView.setPosition(CGFloat.greatestFiniteMagnitude, ofDividerAt: $0) })
         }
     }
-
-    deinit { debugPrint("\(className):\(#function)") }
-
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        
-    }
+    
 }
 
 extension ExportStackedController: PaneContainer {
-    var childPaneContainers      : [PaneContainer]   { children.compactMap(  { $0 as? PaneContainer  }  ) }
-    var paneControllers          : [PaneController]  { children.compactMap(  { $0 as? PaneController }  ) }
+    var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
+    var paneControllers          : [PaneController]         { children.compactMap(  { $0 as? PaneController }  ) }
+    
+    var templateInfoController   : TemplateInfoController?  { paneControllers.compactMap( { $0 as? TemplateInfoController } ).first }
 
     func focusPane(menuIdentifier identifier: NSUserInterfaceItemIdentifier, completionHandler completion: @escaping (PaneContainer) -> Void) {
         let targetViews = paneControllers
@@ -88,11 +104,7 @@ extension ExportStackedController: PaneContainer {
 extension ExportStackedController: ScreenshotLoader {
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
-
-        setNeedsResetDividers()
-        DispatchQueue.main.async { [unowned self] in
-            self.resetDividers()
-        }
+        updateStackedChildren(isAsync: true)
     }
 }
 
@@ -109,6 +121,21 @@ extension ExportStackedController: NSSplitViewDelegate {
 }
 
 extension ExportStackedController {
+    private func updateStackedChildren(isAsync async: Bool) {
+        // TODO: update
+        guard !isViewHidden else {
+            setNeedsResetDividers()
+            return
+        }
+        if async {
+            DispatchQueue.main.async { [unowned self] in
+                self.resetDividers()
+            }
+        } else {
+            self.resetDividers()
+        }
+    }
+    
     @IBAction func templatePopUpButtonValueChanged(_ sender: NSPopUpButton) {
         
     }
