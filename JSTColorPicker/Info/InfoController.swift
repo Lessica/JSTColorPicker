@@ -21,7 +21,7 @@ class InfoController: NSViewController, PaneController {
     var imageSource                    : PixelImage.Source?
     {
         didSet {
-            updateInformationPanel()
+            updateInformationPane()
         }
     }
     private var documentObservations   : [NSKeyValueObservation]?
@@ -33,12 +33,6 @@ class InfoController: NSViewController, PaneController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadPane()
-    }
-
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
     }
 }
 
@@ -53,7 +47,7 @@ extension InfoController: ScreenshotLoader {
 
             documentObservations = [
                 observe(\.screenshot?.fileURL, options: [.new]) { (target, change) in
-                    target.updateInformationPanel()
+                    target.updateInformationPane()
                 }
             ]
         } else {
@@ -64,13 +58,13 @@ extension InfoController: ScreenshotLoader {
 
     func reloadPane() {
         imageSource = nil
-        updateInformationPanel()
+        updateInformationPane()
         paneBox.title = style == .primary
             ? NSLocalizedString("Info (Primary)", comment: "reloadPane()")
             : NSLocalizedString("Info (Secondary)", comment: "reloadPane()")
     }
 
-    private func updateInformationPanel() {
+    private func updateInformationPane() {
         if let imageSource = imageSource {
             do {
                 try infoView.setSource(imageSource)

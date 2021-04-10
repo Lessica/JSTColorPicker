@@ -394,6 +394,9 @@
 /* Import Confirm */
 "No tag to import" = "当前文档中的所有标签业已关联到数据库, 无标签可供关联.";
 
+/* updateTemplatesSubMenuItems() */
+"No template available." = "无可用模版.";
+
 /* ExportError */
 "No template selected." = "未选择模板.";
 

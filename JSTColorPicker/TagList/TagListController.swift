@@ -831,7 +831,7 @@ extension TagListController: TagListPreviewDelegate {
         }
     }
     
-    func ensurePreviewedTagsForItems(_ items: [ContentItem]?) {
+    private func ensurePreviewedTagsForItems(_ items: [ContentItem]?) {
         guard let items = items else { return }
         previewTags(for: items)
     }

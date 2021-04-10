@@ -51,6 +51,8 @@ extension InspectorController: ScreenshotLoader {
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
+        
+        lastStoredItem = nil
     }
 }
 
@@ -80,7 +82,7 @@ extension InspectorController: ItemInspector {
         colorPanel.makeKeyAndOrderFront(self)
     }
     
-    func ensurePreviewedItem(_ item: ContentItem?) {
+    private func ensurePreviewedItem(_ item: ContentItem?) {
         guard let item = item else { return }
         inspectItem(item)
     }

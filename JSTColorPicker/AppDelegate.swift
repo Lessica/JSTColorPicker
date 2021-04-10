@@ -435,11 +435,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc private func selectTemplateItemTapped(_ sender: NSMenuItem) {
-        guard let identifier = sender.identifier?.rawValue else { return }
-        guard identifier.lengthOfBytes(using: .utf8) > 0 else { return }
-        let beginIdx = identifier.index(identifier.startIndex, offsetBy: ExportManager.templateIdentifierPrefix.lengthOfBytes(using: .utf8))
-        let udidString = String(identifier[beginIdx...])
-        ExportManager.selectedTemplateUUID = UUID(uuidString: udidString)
+        guard let template = sender.representedObject as? Template else { return }
+        ExportManager.selectedTemplate = template
     }
     
     @objc private func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
@@ -512,11 +509,32 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             return true
             #endif
         }
-        else if menuItem.action == #selector(reloadTemplatesItemTapped(_:)) ||
-                menuItem.action == #selector(selectTemplateItemTapped(_:))
+        else if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
         }
+        else if menuItem.action == #selector(selectTemplateItemTapped(_:))
+        {
+            guard !hasAttachedSheet else { return false }
+            guard let template = menuItem.representedObject as? Template else { return false }
+            
+            let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
+            
+            if enabled {
+                menuItem.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.description ?? "")
+"""
+            }
+            else {
+                menuItem.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+            }
+            
+            return enabled
+        }
+        
         return true
     }
     
@@ -616,45 +634,50 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     private func updateTemplatesSubMenuItems() {
         var itemIdx: Int = 0
         let items = ExportManager.templates
+            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
             .compactMap({ [weak self] (template) -> NSMenuItem in
-                
                 itemIdx += 1
-                var keyEqu = ""
-                if itemIdx < 10 {
-                    keyEqu = String(format: "%d", itemIdx % 10)
-                }
                 
-                let item = NSMenuItem(title: "\(template.name) (\(template.version))", action: #selector(selectTemplateItemTapped(_:)), keyEquivalent: keyEqu)
+                var keyEqu: String?
+                if itemIdx < 10 { keyEqu = String(format: "%d", itemIdx % 10) }
+                
+                let item = NSMenuItem(
+                    title: "\(template.name) (\(template.version))",
+                    action: #selector(selectTemplateItemTapped(_:)),
+                    keyEquivalent: keyEqu ?? ""
+                )
+                
                 item.target = self
-                item.identifier = NSUserInterfaceItemIdentifier(rawValue: "\(ExportManager.templateIdentifierPrefix)\(template.uuid.uuidString)")
+                item.representedObject = template
                 item.keyEquivalentModifierMask = [.control, .command]
-                
-                let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
-                item.isEnabled = enabled
-                item.state = template.uuid.uuidString == ExportManager.selectedTemplate?.uuid.uuidString ? .on : .off
-                
-                if enabled {
-                    item.toolTip = """
-\(template.name) (\(template.version))
-by \(template.author ?? "Unknown")
-------
-\(template.description ?? "")
-"""
-                }
-                else {
-                    item.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
-                }
+                item.state = template.uuid == ExportManager.selectedTemplate?.uuid ? .on : .off
                 
                 return item
             })
-            .sorted(by: { $0.title.compare($1.title) == .orderedAscending })
         
         let separatorItem = NSMenuItem.separator()
-        let reloadTemplatesItem = NSMenuItem(title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems()"), action: #selector(reloadTemplatesItemTapped(_:)), keyEquivalent: "0")
+        let reloadTemplatesItem = NSMenuItem(
+            title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems()"),
+            action: #selector(reloadTemplatesItemTapped(_:)),
+            keyEquivalent: "0"
+        )
+        
+        reloadTemplatesItem.target = self
+        reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
+        reloadTemplatesItem.isEnabled = true
         reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems()")
         
-        reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
-        templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
+        if items.count > 0 {
+            templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
+        } else {
+            let emptyItem = NSMenuItem(
+                title: NSLocalizedString("No template available.", comment: "updateTemplatesSubMenuItems()"),
+                action: nil,
+                keyEquivalent: ""
+            )
+            emptyItem.isEnabled = false
+            templateSubMenu.items = [ emptyItem, separatorItem, reloadTemplatesItem ]
+        }
     }
     
 }

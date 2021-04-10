@@ -24,7 +24,7 @@ class SceneStackedController: NSViewController {
         splitView.arrangedSubviews
             .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
         
-        setNeedsResetDividers()
+        updateStackedChildren(isAsync: false)
     }
     
     private var isViewHidden: Bool = true
@@ -38,12 +38,6 @@ class SceneStackedController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         isViewHidden = true
-    }
-    
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
     }
     
     private var _shouldResetDividers: Bool = false

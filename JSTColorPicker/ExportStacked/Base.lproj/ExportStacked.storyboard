@@ -19,17 +19,17 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pJo-Ho-nsP">
                                         <rect key="frame" x="0.0" y="856" width="258" height="48"/>
                                         <subviews>
-                                            <popUpButton horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY">
+                                            <popUpButton horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="12" width="226" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
                                                 </constraints>
-                                                <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="SCj-y8-egk" id="in1-QA-low">
+                                                <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="systemBold" size="11"/>
-                                                    <menu key="menu" id="bbF-UO-lY8">
+                                                    <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
                                                         <items>
-                                                            <menuItem title="Select Template..." state="on" id="SCj-y8-egk"/>
+                                                            <menuItem title="Select Template..." id="SCj-y8-egk"/>
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>

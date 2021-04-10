@@ -73,8 +73,6 @@ extension PreviewController: ScreenshotLoader {
         lastStoredRect = nil
         lastStoredMagnification = nil
 
-        reloadPane()
-
         let previewSize = image.size.toCGSize()
         let previewRect = CGRect(origin: .zero, size: previewSize).aspectFit(in: previewImageView.bounds)
         let previewImage = image.downsample(to: previewRect.size, scale: NSScreen.main?.backingScaleFactor ?? 1.0)
@@ -108,14 +106,14 @@ extension PreviewController: ItemPreviewDelegate {
     }
 
     func updatePreview(to rect: CGRect, magnification: CGFloat) {
+        lastStoredRect = rect
+        lastStoredMagnification = magnification
+        
         guard !isPaneHidden else {
-            lastStoredRect = rect
-            lastStoredMagnification = magnification
             return
         }
 
         if let imageSize = screenshot?.image?.size, !rect.isEmpty {
-
             let imageBounds = CGRect(origin: .zero, size: imageSize.toCGSize())
             let imageRestrictedRect = rect.intersection(imageBounds)
 
@@ -125,7 +123,6 @@ extension PreviewController: ItemPreviewDelegate {
             let highlightRect = CGRect(x: previewRect.minX + imageRestrictedRect.minX * previewScale, y: previewRect.minY + imageRestrictedRect.minY * previewScale, width: imageRestrictedRect.width * previewScale, height: imageRestrictedRect.height * previewScale)
 
             previewOverlayView.highlightArea = highlightRect
-
         } else {
             previewOverlayView.highlightArea = .null
         }

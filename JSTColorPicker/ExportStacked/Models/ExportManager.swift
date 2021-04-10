@@ -9,12 +9,22 @@
 import OSLog
 import Foundation
 
-
 extension NSPasteboard.Name {
     static let jstColorPicker = NSPasteboard.Name("com.jst.JSTColorPicker.pasteboard")
 }
 
 class ExportManager {
+    
+    struct NotificationType {
+        struct Name {
+            static let templatesDidLoadNotification = NSNotification.Name(rawValue: "ExportManagerTemplatesDidLoadNotification")
+            static let selectedTemplateDidChangeNotification = NSNotification.Name(rawValue: "ExportManagerSelectedTemplateDidChangeNotification")
+        }
+        struct Key {
+            static let template = "template"
+            static let templateUUID = "uuid"
+        }
+    }
     
     enum Error: LocalizedError {
         case noDocumentLoaded
@@ -48,15 +58,32 @@ class ExportManager {
         ]
     }()
     
-    static private(set) var templates: [Template] = []
+    private(set) static var templates: [Template] = []
     static var selectedTemplate: Template? {
-        ExportManager.templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString })
+        get { ExportManager.templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString }) }
+        set {
+            selectedTemplateUUID = newValue?.uuid
+            if let template = newValue {
+                NotificationCenter.default.post(
+                    name: NotificationType.Name.selectedTemplateDidChangeNotification,
+                    object: nil,
+                    userInfo: [
+                        NotificationType.Key.template: template,
+                        NotificationType.Key.templateUUID: template.uuid,
+                    ]
+                )
+            } else {
+                NotificationCenter.default.post(
+                    name: NotificationType.Name.selectedTemplateDidChangeNotification,
+                    object: nil
+                )
+            }
+        }
     }
-    static var selectedTemplateUUID: UUID? {
+    private(set) static var selectedTemplateUUID: UUID? {
         get { UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
         set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
-    static let templateIdentifierPrefix = "template-"
     
     @objc dynamic weak var screenshot: Screenshot!
     
@@ -118,10 +145,13 @@ class ExportManager {
         errors.forEach({ os_log("Cannot load template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
         
         if !(selectedTemplate != nil) {
-            if let uuid = ExportManager.templates.first?.uuid {
-                selectedTemplateUUID = uuid
-            }
+            selectedTemplate = ExportManager.templates.first
         }
+        
+        NotificationCenter.default.post(
+            name: NotificationType.Name.templatesDidLoadNotification,
+            object: nil
+        )
     }
     
     func copyPixelColor(at coordinate: PixelCoordinate, with template: Template) throws {

@@ -104,6 +104,8 @@
 		CC8F8CB226209BB700F60F78 /* PaddedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CB026209BB700F60F78 /* PaddedButton.swift */; };
 		CC8F8CBB2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
+		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
+		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
 		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
@@ -836,6 +838,7 @@
 		CC8F8C8F26207C9E00F60F78 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplateInfoView.strings"; sourceTree = "<group>"; };
 		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneContainer.swift; sourceTree = "<group>"; };
+		CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePopUpButton.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
 		CCA72A18260B290600A934E2 /* dtoa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtoa.c; sourceTree = "<group>"; };
@@ -1374,6 +1377,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3C4B0D26202E4200794806 /* ExportStackedView.swift */,
+				CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2826,6 +2830,7 @@
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
 				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
+				CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
 				185D7EE8248A8019001C283B /* EditCoordinateController.swift in Sources */,
 				1842C48124798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9E261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
@@ -2973,6 +2978,7 @@
 				D6E2455D23E153340012BE5F /* AnnotatorSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				CC3C4A94261FF9E700794806 /* DocumentStackedController.swift in Sources */,
+				CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,

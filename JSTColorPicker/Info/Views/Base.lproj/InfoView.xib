@@ -40,7 +40,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVB-29-0Gg">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="File Name" usesSingleLineMode="YES" id="G4u-Ip-zGX">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="File Name" usesSingleLineMode="YES" id="G4u-Ip-zGX">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -48,7 +48,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrR-8M-Ooo">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="FILE_NAME" id="hU0-fV-0iM">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FILE_NAME" id="hU0-fV-0iM">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -57,7 +57,7 @@
                             </subviews>
                             <visibilityPriorities>
                                 <integer value="1000"/>
-                                <real value="1000"/>
+                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
@@ -69,7 +69,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rte-Mb-ITf">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="File Size" usesSingleLineMode="YES" id="u4A-iQ-Fc2">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="File Size" usesSingleLineMode="YES" id="u4A-iQ-Fc2">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -77,7 +77,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyn-b3-3Xf">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="FILE_SIZE" id="viU-Zp-DCb">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FILE_SIZE" id="viU-Zp-DCb">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -98,7 +98,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIg-lQ-wlx">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Created At" usesSingleLineMode="YES" id="hQO-Od-iZ0">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Created At" usesSingleLineMode="YES" id="hQO-Od-iZ0">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -106,7 +106,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uq-fG-dLh">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="CREATED_AT" id="a8q-KU-IQY">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="CREATED_AT" id="a8q-KU-IQY">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -127,7 +127,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHO-02-PKJ">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Modified At" usesSingleLineMode="YES" id="i9E-bi-99g">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Modified At" usesSingleLineMode="YES" id="i9E-bi-99g">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -135,7 +135,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19o-f0-kLP">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="MODIFIED_AT" id="ju0-hR-GTp">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="MODIFIED_AT" id="ju0-hR-GTp">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -156,7 +156,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyU-SO-gz8">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Snapshot At" usesSingleLineMode="YES" id="G8I-Yc-WUb">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Snapshot At" usesSingleLineMode="YES" id="G8I-Yc-WUb">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -164,7 +164,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RP-gM-Kgc">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="SNAPSHOT_AT" id="x1D-f6-qpi">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="SNAPSHOT_AT" id="x1D-f6-qpi">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -185,7 +185,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2U-bB-33e">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Dimension" usesSingleLineMode="YES" id="uJs-JV-rgT">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Dimension" usesSingleLineMode="YES" id="uJs-JV-rgT">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -193,7 +193,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IX8-9E-4Nh">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="DIMENSION" id="73a-Nc-d3h">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="DIMENSION" id="73a-Nc-d3h">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -214,7 +214,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOx-k8-ha0">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Color Space" usesSingleLineMode="YES" id="jjR-CP-FVX">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Color Space" usesSingleLineMode="YES" id="jjR-CP-FVX">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -222,7 +222,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMF-HQ-wJ7">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="COLOR_SPACE" id="Hcf-8a-mI5">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="COLOR_SPACE" id="Hcf-8a-mI5">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -243,7 +243,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNi-k8-1SA">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Color Profile" usesSingleLineMode="YES" id="CiD-kN-Vih">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Color Profile" usesSingleLineMode="YES" id="CiD-kN-Vih">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -251,7 +251,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqi-bP-YhS">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="COLOR_PROFILE" id="kl1-hT-v5K">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="COLOR_PROFILE" id="kl1-hT-v5K">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -272,7 +272,7 @@
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-kz-jZI">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="right" title="Full Path" usesSingleLineMode="YES" id="Zvf-gV-rxj">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Full Path" usesSingleLineMode="YES" id="Zvf-gV-rxj">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -280,7 +280,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-c2-qM5">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
-                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" title="FULL_PATH" id="k1u-TA-2hU">
+                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FULL_PATH" id="k1u-TA-2hU">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -289,7 +289,7 @@
                             </subviews>
                             <visibilityPriorities>
                                 <integer value="1000"/>
-                                <real value="1000"/>
+                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
                                 <real value="3.4028234663852886e+38"/>

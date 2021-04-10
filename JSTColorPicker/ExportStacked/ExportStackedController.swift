@@ -8,6 +8,10 @@
 
 import Cocoa
 
+private extension NSUserInterfaceItemIdentifier {
+    static let templatesSubMenu = NSUserInterfaceItemIdentifier("TemplatesSubMenu")
+}
+
 class ExportStackedController: NSViewController {
     weak var screenshot: Screenshot?
     
@@ -20,7 +24,29 @@ class ExportStackedController: NSViewController {
         splitView.arrangedSubviews
             .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
         
-        setNeedsResetDividers()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatePopUpButtonWillPopUp(_:)),
+            name: NSPopUpButton.willPopUpNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatesDidLoad(_:)),
+            name: ExportManager.NotificationType.Name.templatesDidLoadNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(selectedTemplateChanged(_:)),
+            name: ExportManager.NotificationType.Name.selectedTemplateDidChangeNotification,
+            object: nil
+        )
+        
+        setNeedsReloadTemplates()
+        updateStackedChildren(isAsync: false)
     }
     
     private var isViewHidden: Bool = true
@@ -28,6 +54,7 @@ class ExportStackedController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         isViewHidden = false
+        reloadTemplatesIfNeeded()
         resetDividersIfNeeded()
     }
     
@@ -43,15 +70,19 @@ class ExportStackedController: NSViewController {
     }
 
     private var _shouldResetDividers: Bool = false
+    private var _shouldReloadTemplates: Bool = false
 
-    deinit { debugPrint("\(className):\(#function)") }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        debugPrint("\(className):\(#function)")
+    }
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) { }
 }
 
 extension ExportStackedController: StackedPaneContainer {
     
-    var shouldResetDividers: Bool { _shouldResetDividers }
+    var shouldResetDividers    : Bool { _shouldResetDividers   }
     
     func setNeedsResetDividers() {
         _shouldResetDividers = true
@@ -61,6 +92,19 @@ extension ExportStackedController: StackedPaneContainer {
         if _shouldResetDividers {
             _shouldResetDividers = false
             resetDividers()
+        }
+    }
+    
+    var shouldReloadTemplates  : Bool { _shouldReloadTemplates }
+    
+    func setNeedsReloadTemplates() {
+        _shouldReloadTemplates = true
+    }
+
+    func reloadTemplatesIfNeeded() {
+        if _shouldReloadTemplates {
+            _shouldReloadTemplates = false
+            reloadTemplates()
         }
     }
 
@@ -104,7 +148,21 @@ extension ExportStackedController: PaneContainer {
 extension ExportStackedController: ScreenshotLoader {
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
-        updateStackedChildren(isAsync: true)
+        // DO NOT MODIFY THIS METHOD
+    }
+    
+    private func updateStackedChildren(isAsync async: Bool) {
+        guard !isViewHidden else {
+            setNeedsResetDividers()
+            return
+        }
+        if async {
+            DispatchQueue.main.async { [unowned self] in
+                self.resetDividers()
+            }
+        } else {
+            self.resetDividers()
+        }
     }
 }
 
@@ -120,23 +178,109 @@ extension ExportStackedController: NSSplitViewDelegate {
     }
 }
 
-extension ExportStackedController {
-    private func updateStackedChildren(isAsync async: Bool) {
-        // TODO: update
-        guard !isViewHidden else {
-            setNeedsResetDividers()
-            return
+extension ExportStackedController: NSMenuItemValidation {
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard let template = menuItem.representedObject as? Template else { return false }
+        
+        let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
+        
+        if enabled {
+            menuItem.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.description ?? "")
+"""
         }
-        if async {
-            DispatchQueue.main.async { [unowned self] in
-                self.resetDividers()
-            }
-        } else {
-            self.resetDividers()
+        else {
+            menuItem.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
         }
+        
+        return enabled
     }
     
     @IBAction func templatePopUpButtonValueChanged(_ sender: NSPopUpButton) {
-        
+        guard let selectedItem = sender.selectedItem else {
+            synchronizeTitleAndSelectedItem()
+            templateInfoController?.template = nil
+            return
+        }
+        guard let template = selectedItem.representedObject as? Template else {
+            return
+        }
+        ExportManager.selectedTemplate = template
+    }
+    
+    @IBAction func reloadTemplatesItemTapped(_ sender: NSButton) {
+        do {
+            try ExportManager.reloadTemplates()
+        } catch {
+            presentError(error)
+        }
+    }
+    
+    private func generateTemplatesSubMenuItems(for menu: NSMenu) -> [NSMenuItem] {
+        return ExportManager.templates
+            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
+            .compactMap({ template -> NSMenuItem in
+                
+                let item = NSMenuItem(
+                    title: "\(template.name) (\(template.version))",
+                    action: nil,
+                    keyEquivalent: ""
+                )
+                
+                item.representedObject = template
+                item.keyEquivalentModifierMask = [.control, .command]
+                item.state = ExportManager.selectedTemplateUUID == template.uuid ? .on : .off
+                
+                return item
+            })
+    }
+    
+    private func synchronizeTitleAndSelectedItem() {
+        guard let menu = templatePopUpButton.menu else { return }
+        let availableItems = generateTemplatesSubMenuItems(for: menu)
+        if let selectedItem = availableItems.first(where: { $0.state == .on }) {
+            menu.items = availableItems
+            templatePopUpButton.isEnabled = true
+            templatePopUpButton.select(selectedItem)
+        } else {
+            templatePopUpButton.isEnabled = false
+            templatePopUpButton.setTitle(NSLocalizedString("No template available.", comment: "synchronizeTitleAndSelectedItem(_:)"))
+        }
+    }
+    
+    private func reloadTemplates() {
+        synchronizeTitleAndSelectedItem()
+        templateInfoController?.template = ExportManager.selectedTemplate
+    }
+    
+    private func reloadTemplatesWithNotification(_ noti: Notification) {
+        synchronizeTitleAndSelectedItem()
+        if let selectedTemplate = noti.userInfo?[ExportManager.NotificationType.Key.template] as? Template
+        {
+            templateInfoController?.template = selectedTemplate
+        }
+    }
+}
+
+extension ExportStackedController {
+    @objc private func templatesDidLoad(_ noti: Notification) {
+        if !isViewHidden {
+            reloadTemplates()
+        } else {
+            setNeedsReloadTemplates()
+        }
+        updateStackedChildren(isAsync: true)
+    }
+    
+    @objc private func selectedTemplateChanged(_ noti: Notification) {
+        reloadTemplatesWithNotification(noti)
+    }
+    
+    @objc private func templatePopUpButtonWillPopUp(_ noti: Notification) {
+        synchronizeTitleAndSelectedItem()
     }
 }

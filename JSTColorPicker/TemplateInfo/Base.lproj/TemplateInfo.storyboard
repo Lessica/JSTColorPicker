@@ -19,22 +19,47 @@
                                     <rect key="frame" x="11" y="11" width="248" height="240"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHc-l4-1hs" customClass="TemplateInfoView" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ig2-kj-bwb">
                                             <rect key="frame" x="0.0" y="2" width="248" height="230"/>
+                                            <subviews>
+                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSU-O8-r1z">
+                                                    <rect key="frame" x="-2" y="216" width="236" height="14"/>
+                                                    <textFieldCell key="cell" allowsUndo="NO" title="ERROR_MESSAGE" id="J6y-R5-xQb">
+                                                        <font key="font" metaFont="system" size="11"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHc-l4-1hs" customClass="TemplateInfoView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="248" height="230"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="248" placeholder="YES" id="9rg-NG-UiT"/>
+                                                        <constraint firstAttribute="height" constant="230" placeholder="YES" id="hfb-Tm-Ptr"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isAdvanced" value="NO"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </customView>
+                                            </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="248" placeholder="YES" id="9rg-NG-UiT"/>
-                                                <constraint firstAttribute="height" constant="230" placeholder="YES" id="hfb-Tm-Ptr"/>
+                                                <constraint firstItem="nHc-l4-1hs" firstAttribute="width" secondItem="Ig2-kj-bwb" secondAttribute="width" id="Iyg-Eb-QhZ"/>
+                                                <constraint firstItem="rSU-O8-r1z" firstAttribute="width" secondItem="Ig2-kj-bwb" secondAttribute="width" constant="-16" id="nAR-hO-unr"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAdvanced" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </customView>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="nHc-l4-1hs" firstAttribute="leading" secondItem="OPo-mo-uT7" secondAttribute="leading" id="9EO-w3-xPp"/>
-                                        <constraint firstItem="nHc-l4-1hs" firstAttribute="top" secondItem="OPo-mo-uT7" secondAttribute="top" constant="8" id="kV2-su-4R1"/>
-                                        <constraint firstAttribute="trailing" secondItem="nHc-l4-1hs" secondAttribute="trailing" id="l1K-zs-nDU"/>
-                                        <constraint firstAttribute="bottom" secondItem="nHc-l4-1hs" secondAttribute="bottom" constant="2" id="mi0-XM-Mf0"/>
+                                        <constraint firstItem="Ig2-kj-bwb" firstAttribute="leading" secondItem="OPo-mo-uT7" secondAttribute="leading" id="WxX-Ns-Kss"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ig2-kj-bwb" secondAttribute="bottom" constant="2" id="Ya4-46-lQM"/>
+                                        <constraint firstItem="Ig2-kj-bwb" firstAttribute="top" secondItem="OPo-mo-uT7" secondAttribute="top" constant="8" id="drS-jZ-arG"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ig2-kj-bwb" secondAttribute="trailing" id="tRe-e6-sV5"/>
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>
@@ -47,6 +72,11 @@
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Zdn-NU-N0S" secondAttribute="bottom" id="c83-Xh-Mqd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="errorLabel" destination="rSU-O8-r1z" id="GDn-aG-IyW"/>
+                        <outlet property="paneBox" destination="Zdn-NU-N0S" id="5PL-ed-9vB"/>
+                        <outlet property="templateInfoView" destination="nHc-l4-1hs" id="HgN-hw-ZTg"/>
+                    </connections>
                 </viewController>
                 <customObject id="F7s-Ue-Ip2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

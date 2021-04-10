@@ -394,6 +394,9 @@
 /* Import Confirm */
 "No tag to import" = "No tag to import";
 
+/* updateTemplatesSubMenuItems() */
+"No template available." = "No template available.";
+
 /* ExportError */
 "No template selected." = "No template selected.";
 

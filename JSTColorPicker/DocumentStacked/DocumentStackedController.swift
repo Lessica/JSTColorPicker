@@ -45,12 +45,6 @@ class DocumentStackedController: NSViewController {
         super.viewDidLayout()
     }
 
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
-    }
-
     private var _shouldResetDividers: Bool = false
 
     deinit { debugPrint("\(className):\(#function)") }

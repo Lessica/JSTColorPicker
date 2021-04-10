@@ -22,7 +22,7 @@
                                             <rect key="frame" x="0.0" y="2" width="248" height="158"/>
                                             <subviews>
                                                 <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6K-uU-XQe">
-                                                    <rect key="frame" x="-2" y="144" width="154" height="14"/>
+                                                    <rect key="frame" x="-2" y="144" width="236" height="14"/>
                                                     <textFieldCell key="cell" allowsUndo="NO" title="Open or drop an image here." id="bit-B0-S57">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -38,6 +38,7 @@
                                                 </customView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="p6K-uU-XQe" firstAttribute="width" secondItem="XqG-pw-tzN" secondAttribute="width" constant="-16" id="Weh-Q5-prZ"/>
                                                 <constraint firstItem="JDi-If-cWZ" firstAttribute="width" secondItem="XqG-pw-tzN" secondAttribute="width" id="fOb-N0-Yro"/>
                                             </constraints>
                                             <visibilityPriorities>
