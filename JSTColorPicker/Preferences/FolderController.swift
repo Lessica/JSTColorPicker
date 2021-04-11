@@ -44,7 +44,7 @@ extension FolderController: MASPreferencesViewController {
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(named: NSImage.folderName)
+        return NSImage(systemSymbolName: "folder", accessibilityDescription: "Folder")
     }
     
 }

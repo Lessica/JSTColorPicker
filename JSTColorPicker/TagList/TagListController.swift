@@ -25,6 +25,12 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 class TagListController: NSViewController, PaneController {
+    struct NotificationType {
+        struct Name {
+            static let tagPersistentStoreRequiresReloadNotification = NSNotification.Name(rawValue: "TagPersistentStoreRequiresReloadNotification")
+        }
+    }
+    
     var menuIdentifier = NSUserInterfaceItemIdentifier("show-tag-manager")
     weak var screenshot: Screenshot?
     
@@ -155,12 +161,24 @@ class TagListController: NSViewController, PaneController {
         tableViewOverlay.tableRowHeight = tableView.rowHeight
         
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
-        setupPersistentStore()
+        setupPersistentStore(byIgnoringError: false)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(tagPersistentStoreRequiresReload(_:)),
+            name: NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+            object: nil
+        )
     }
     
-    private func setupPersistentStore() {
+    @objc private func tagPersistentStoreRequiresReload(_ noti: Notification) {
+        setupPersistentStore(byIgnoringError: true)
+    }
+    
+    private func setupPersistentStore(
+        byIgnoringError ignore: Bool
+    ) {
         if let context = TagListController.sharedContext {
-            
             self.setupEmbeddedState(with: context)
             
             if let undoManager = tableView.contextUndoManager {
@@ -178,15 +196,19 @@ class TagListController: NSViewController, PaneController {
                 }
             }
             
+            NotificationCenter.default.removeObserver(
+                self,
+                name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                object: nil
+            )
+            
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(managedTagsDidChangeNotification(_:)),
                 name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
                 object: nil
             )
-            
         } else {
-            
             TagListController.setupPersistentStore(withInitialTags: { () -> ([(String, String)]) in
                 return [
                     
@@ -225,9 +247,6 @@ class TagListController: NSViewController, PaneController {
                 if let context = context {
                     
                     context.undoManager = TagListController.sharedUndoManager
-                    TagListController.sharedContext = context
-                    NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidLoad, object: context)
-                    
                     self.setupEmbeddedState(with: context)
                     
                     self.willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: self.tableView.contextUndoManager, using: { [unowned self] _ in
@@ -244,6 +263,12 @@ class TagListController: NSViewController, PaneController {
                         self.internalController.rearrangeObjects()
                     }
                     
+                    NotificationCenter.default.removeObserver(
+                        self,
+                        name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                        object: nil
+                    )
+                    
                     NotificationCenter.default.addObserver(
                         self,
                         selector: #selector(self.managedTagsDidChangeNotification(_:)),
@@ -252,14 +277,12 @@ class TagListController: NSViewController, PaneController {
                     )
                     
                 } else if let error = error {
-                    
                     self.setupEmbeddedState()
-                    self.presentError(error)
-                    
+                    if !ignore {
+                        self.presentError(error)
+                    }
                 }
-                
             }
-            
         }
     }
     
@@ -281,7 +304,29 @@ class TagListController: NSViewController, PaneController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private class func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
+    static var persistentStoreURL: URL {
+        guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+            fatalError("unable to resolve library directory")
+        }
+        return docURL.appendingPathComponent("JSTColorPicker/TagList.sqlite")
+    }
+    
+    static var persistentStoreDirectoryURL: URL {
+        return persistentStoreURL.deletingLastPathComponent()
+    }
+    
+    class func destoryPersistentStore() throws
+    {
+        TagListController.sharedContext = nil
+        let itemsToRemove = [
+            persistentStoreURL,
+            persistentStoreURL.deletingPathExtension().appendingPathExtension("sqlite-wal"),
+            persistentStoreURL.deletingPathExtension().appendingPathExtension("sqlite-shm"),
+        ]
+        try itemsToRemove.forEach({ try FileManager.default.removeItem(at: $0) })
+    }
+    
+    class func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
     {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
@@ -295,24 +340,28 @@ class TagListController: NSViewController, PaneController {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
         context.persistentStoreCoordinator = coordinator
         
-        guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
-            fatalError("unable to resolve library directory")
-        }
-        
         let queue = DispatchQueue.global(qos: .background)
         queue.async {
-            
             do {
-                
-                let storeURL = docURL.appendingPathComponent("JSTColorPicker/TagList.sqlite")
-                if FileManager.default.fileExists(atPath: storeURL.path) {
-                    
-                    try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
-                    
+                if FileManager.default.fileExists(atPath: persistentStoreURL.path) {
+                    try coordinator.addPersistentStore(
+                        ofType: NSSQLiteStoreType,
+                        configurationName: nil,
+                        at: persistentStoreURL,
+                        options: nil
+                    )
                 } else {
-                    
-                    try FileManager.default.createDirectory(at: storeURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
-                    try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+                    try FileManager.default.createDirectory(
+                        at: persistentStoreDirectoryURL,
+                        withIntermediateDirectories: true,
+                        attributes: nil
+                    )
+                    try coordinator.addPersistentStore(
+                        ofType: NSSQLiteStoreType,
+                        configurationName: nil,
+                        at: persistentStoreURL,
+                        options: nil
+                    )
                     
                     var idx = 1
                     withInitialTags().forEach { (tag) in
@@ -324,21 +373,23 @@ class TagListController: NSViewController, PaneController {
                     }
                     
                     try context.save()
-                    
                 }
+                
+                TagListController.sharedContext = context
                 
                 DispatchQueue.main.sync {
                     completionClosure(context, nil)
                 }
                 
+                NotificationCenter.default.post(
+                    name: NSNotification.Name.NSManagedObjectContextDidLoad,
+                    object: context
+                )
             } catch {
-                
                 DispatchQueue.main.sync {
                     completionClosure(nil, error)
                 }
-                
             }
-            
         }
     }
     
@@ -404,11 +455,9 @@ class TagListController: NSViewController, PaneController {
                 idx += 1
             }
             
-            let addedRowIndexes = IndexSet(integersIn: (lastRowIndex + 1)...(lastRowIndex + idx - lastOrder))
-            tableView.insertRows(at: addedRowIndexes)  // make sure that these stubs are inserted
-            
             try context.save()
             
+            let addedRowIndexes = IndexSet(integersIn: (lastRowIndex + 1)...(lastRowIndex + idx - lastOrder))
             if let lastAddedRowIndex = addedRowIndexes.last {
                 tableView.selectRowIndexes(addedRowIndexes, byExtendingSelection: false)
                 tableView.scrollRowToVisible(lastAddedRowIndex)
@@ -760,6 +809,10 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         
         setNeedsSaveManagedTags()
         return true
+    }
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return arrangedTags.count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {

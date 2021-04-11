@@ -58,7 +58,7 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(named: NSImage.preferencesGeneralName)
+        return NSImage(systemSymbolName: "cursorarrow.click.2", accessibilityDescription: "General")
     }
     
 }

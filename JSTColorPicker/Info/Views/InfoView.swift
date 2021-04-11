@@ -13,25 +13,28 @@ class InfoView: NSView {
     private let nibName = String(describing: InfoView.self)
     private var contentView: NSView?
     
-    @IBOutlet weak var fileNameStack: NSStackView!
-    @IBOutlet weak var fileSizeStack: NSStackView!
-    @IBOutlet weak var createdAtStack: NSStackView!
-    @IBOutlet weak var modifiedAtStack: NSStackView!
-    @IBOutlet weak var snapshotAtStack: NSStackView!
-    @IBOutlet weak var dimensionStack: NSStackView!
-    @IBOutlet weak var colorSpaceStack: NSStackView!
-    @IBOutlet weak var colorProfileStack: NSStackView!
-    @IBOutlet weak var fullPathStack: NSStackView!
+    @IBOutlet weak var fileNameStack      : NSStackView!
+    @IBOutlet weak var fileSizeStack      : NSStackView!
+    @IBOutlet weak var createdAtStack     : NSStackView!
+    @IBOutlet weak var modifiedAtStack    : NSStackView!
+    @IBOutlet weak var snapshotAtStack    : NSStackView!
+    @IBOutlet weak var dimensionStack     : NSStackView!
+    @IBOutlet weak var colorSpaceStack    : NSStackView!
+    @IBOutlet weak var colorProfileStack  : NSStackView!
+    @IBOutlet weak var fullPathStack      : NSStackView!
     
-    @IBOutlet weak var fileNameLabel: NSTextField!
-    @IBOutlet weak var fileSizeLabel: NSTextField!
-    @IBOutlet weak var createdAtLabel: NSTextField!
-    @IBOutlet weak var modifiedAtLabel: NSTextField!
-    @IBOutlet weak var snapshotAtLabel: NSTextField!
-    @IBOutlet weak var dimensionLabel: NSTextField!
-    @IBOutlet weak var colorSpaceLabel: NSTextField!
-    @IBOutlet weak var colorProfileLabel: NSTextField!
-    @IBOutlet weak var fullPathLabel: NSTextField!
+    @IBOutlet weak var fileNameLabel      : NSTextField!
+    @IBOutlet weak var fileSizeLabel      : NSTextField!
+    @IBOutlet weak var createdAtLabel     : NSTextField!
+    @IBOutlet weak var modifiedAtLabel    : NSTextField!
+    @IBOutlet weak var snapshotAtLabel    : NSTextField!
+    @IBOutlet weak var dimensionLabel     : NSTextField!
+    @IBOutlet weak var colorSpaceLabel    : NSTextField!
+    @IBOutlet weak var colorProfileLabel  : NSTextField!
+    @IBOutlet weak var fullPathLabel      : NSTextField!
+    
+    private var lastStoredImageSource     : PixelImage.Source?
+    private var lastStoredFileURL         : URL?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -74,8 +77,13 @@ class InfoView: NSView {
         return formatter
     }()
     
-    func setSource(_ source: PixelImage.Source) throws {
-        let attrs = try FileManager.default.attributesOfItem(atPath: source.url.path)
+    func setSource(_ source: PixelImage.Source, alternativeURL url: URL? = nil) throws {
+        let fileURL = url ?? source.url
+        
+        lastStoredImageSource = source
+        lastStoredFileURL = fileURL
+        
+        let attrs = try FileManager.default.attributesOfItem(atPath: fileURL.path)
         guard let fileProps = CGImageSourceCopyProperties(source.cgSource, nil) as? [AnyHashable: Any],
               let props = CGImageSourceCopyPropertiesAtIndex(source.cgSource, 0, nil) as? [AnyHashable: Any]
         else { throw Screenshot.Error.invalidImageProperties }
@@ -103,7 +111,7 @@ class InfoView: NSView {
         let colorSpaceStr = props[kCGImagePropertyColorModel] as? String
         let colorProfileStr = props[kCGImagePropertyProfileName] as? String
         
-        fileNameLabel.stringValue = source.url.lastPathComponent
+        fileNameLabel.stringValue = fileURL.lastPathComponent
         fileNameStack.isHidden = false
         fileSizeLabel.stringValue = fileSize
         fileSizeStack.isHidden = false
@@ -119,7 +127,7 @@ class InfoView: NSView {
         colorSpaceStack.isHidden = colorSpaceStr == nil
         colorProfileLabel.stringValue = colorProfileStr ?? ""
         colorProfileStack.isHidden = colorProfileStr == nil
-        fullPathLabel.stringValue = source.url.path
+        fullPathLabel.stringValue = fileURL.path
         fullPathStack.isHidden = false
     }
     
@@ -149,4 +157,14 @@ class InfoView: NSView {
         ]
         .forEach({ $0?.isHidden = true })
     }
+    
+    @IBOutlet weak var locateButton: NSButton!
+    
+    @IBAction func locateButtonTapped(_ sender: NSButton) {
+        guard let url = lastStoredFileURL else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([
+            url
+        ])
+    }
+    
 }

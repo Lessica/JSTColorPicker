@@ -19,24 +19,51 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pJo-Ho-nsP">
                                         <rect key="frame" x="0.0" y="856" width="258" height="48"/>
                                         <subviews>
-                                            <popUpButton horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="12" width="226" height="24"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
-                                                </constraints>
-                                                <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="systemBold" size="11"/>
-                                                    <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
-                                                        <items>
-                                                            <menuItem title="Select Template..." id="SCj-y8-egk"/>
-                                                        </items>
-                                                    </menu>
-                                                </popUpButtonCell>
-                                                <connections>
-                                                    <action selector="templatePopUpButtonValueChanged:" target="XMo-3Q-MYU" id="9BB-xm-kfA"/>
-                                                </connections>
-                                            </popUpButton>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPO-dN-zBF">
+                                                <rect key="frame" x="16" y="1" width="226" height="47"/>
+                                                <subviews>
+                                                    <popUpButton horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="12" width="198" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="systemBold" size="11"/>
+                                                            <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
+                                                                <items>
+                                                                    <menuItem title="Select Template..." id="SCj-y8-egk"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="templatePopUpButtonValueChanged:" target="XMo-3Q-MYU" id="9BB-xm-kfA"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                    <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BUZ-kX-Fqi">
+                                                        <rect key="frame" x="202" y="9.5" width="24.5" height="31"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="BUZ-kX-Fqi" secondAttribute="height" multiplier="1:1" id="kKU-EE-bLo"/>
+                                                            <constraint firstAttribute="width" constant="24" id="oUY-1F-gdx"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.clockwise" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="ltO-vB-w8p">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="reloadTemplatesItemTapped:" target="XMo-3Q-MYU" id="Rsm-ff-ZTK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="1FP-sb-GaH">
                                                 <rect key="frame" x="0.0" y="-2" width="258" height="5"/>
                                                 <constraints>
@@ -45,12 +72,13 @@
                                             </box>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="b92-oQ-XGY" firstAttribute="centerY" secondItem="pJo-Ho-nsP" secondAttribute="centerY" id="6BV-cU-uVA"/>
                                             <constraint firstAttribute="trailing" secondItem="1FP-sb-GaH" secondAttribute="trailing" id="Aac-V5-DkV"/>
                                             <constraint firstAttribute="height" constant="48" id="AmU-Ix-k5Y"/>
-                                            <constraint firstAttribute="trailing" secondItem="b92-oQ-XGY" secondAttribute="trailing" constant="16" id="X1P-re-n6l"/>
+                                            <constraint firstItem="tPO-dN-zBF" firstAttribute="top" secondItem="pJo-Ho-nsP" secondAttribute="top" id="CPz-sX-MYR"/>
+                                            <constraint firstItem="tPO-dN-zBF" firstAttribute="leading" secondItem="pJo-Ho-nsP" secondAttribute="leading" constant="16" id="bRo-iL-gGh"/>
                                             <constraint firstItem="1FP-sb-GaH" firstAttribute="leading" secondItem="pJo-Ho-nsP" secondAttribute="leading" id="gyI-or-s44"/>
-                                            <constraint firstItem="b92-oQ-XGY" firstAttribute="centerX" secondItem="pJo-Ho-nsP" secondAttribute="centerX" id="sM0-oS-dC7"/>
+                                            <constraint firstItem="1FP-sb-GaH" firstAttribute="top" secondItem="tPO-dN-zBF" secondAttribute="bottom" id="iq1-mB-ugV"/>
+                                            <constraint firstAttribute="trailing" secondItem="tPO-dN-zBF" secondAttribute="trailing" constant="16" id="j7a-0Q-yAS"/>
                                             <constraint firstAttribute="bottom" secondItem="1FP-sb-GaH" secondAttribute="bottom" id="x55-4H-gB5"/>
                                         </constraints>
                                     </customView>
@@ -113,6 +141,7 @@
                         <outlet property="actionView" destination="pJo-Ho-nsP" id="VMa-GL-2an"/>
                         <outlet property="splitView" destination="JYh-v0-Vy7" id="eQl-jZ-RjC"/>
                         <outlet property="templatePopUpButton" destination="b92-oQ-XGY" id="uVl-SL-n5G"/>
+                        <outlet property="templateReloadButton" destination="BUZ-kX-Fqi" id="e7R-yN-BAs"/>
                     </connections>
                 </viewController>
                 <customObject id="ggQ-8n-Xq5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -128,4 +157,7 @@
             <point key="canvasLocation" x="-69" y="98"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+    </resources>
 </document>

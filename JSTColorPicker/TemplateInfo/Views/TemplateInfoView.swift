@@ -13,33 +13,33 @@ class TemplateInfoView: NSView {
     private let nibName = String(describing: TemplateInfoView.self)
     private var contentView: NSView?
     
-    @IBOutlet weak var templateNameStack: NSStackView!
-    @IBOutlet weak var templateVersionStack: NSStackView!
-    @IBOutlet weak var platformVersionStack: NSStackView!
-    @IBOutlet weak var authorNameStack: NSStackView!
-    @IBOutlet weak var isAsynchronousStack: NSStackView!
-    @IBOutlet weak var shouldSaveInPlaceStack: NSStackView!
-    @IBOutlet weak var templateUUIDStack: NSStackView!
-    @IBOutlet weak var templateDescriptionStack: NSStackView!
-    @IBOutlet weak var fileNameStack: NSStackView!
-    @IBOutlet weak var fileSizeStack: NSStackView!
-    @IBOutlet weak var createdAtStack: NSStackView!
-    @IBOutlet weak var modifiedAtStack: NSStackView!
-    @IBOutlet weak var fullPathStack: NSStackView!
+    @IBOutlet weak var templateNameStack         : NSStackView!
+    @IBOutlet weak var templateVersionStack      : NSStackView!
+    @IBOutlet weak var platformVersionStack      : NSStackView!
+    @IBOutlet weak var authorNameStack           : NSStackView!
+    @IBOutlet weak var isAsynchronousStack       : NSStackView!
+    @IBOutlet weak var shouldSaveInPlaceStack    : NSStackView!
+    @IBOutlet weak var templateUUIDStack         : NSStackView!
+    @IBOutlet weak var templateDescriptionStack  : NSStackView!
+    @IBOutlet weak var fileNameStack             : NSStackView!
+    @IBOutlet weak var fileSizeStack             : NSStackView!
+    @IBOutlet weak var createdAtStack            : NSStackView!
+    @IBOutlet weak var modifiedAtStack           : NSStackView!
+    @IBOutlet weak var fullPathStack             : NSStackView!
     
-    @IBOutlet weak var templateNameLabel: NSTextField!
-    @IBOutlet weak var templateVersionLabel: NSTextField!
-    @IBOutlet weak var platformVersionLabel: NSTextField!
-    @IBOutlet weak var authorNameLabel: NSTextField!
-    @IBOutlet weak var isAsynchronousLabel: NSTextField!
-    @IBOutlet weak var shouldSaveInPlaceLabel: NSTextField!
-    @IBOutlet weak var templateUUIDLabel: NSTextField!
-    @IBOutlet weak var templateDescriptionLabel: NSTextField!
-    @IBOutlet weak var fileNameLabel: NSTextField!
-    @IBOutlet weak var fileSizeLabel: NSTextField!
-    @IBOutlet weak var createdAtLabel: NSTextField!
-    @IBOutlet weak var modifiedAtLabel: NSTextField!
-    @IBOutlet weak var fullPathLabel: NSTextField!
+    @IBOutlet weak var templateNameLabel         : NSTextField!
+    @IBOutlet weak var templateVersionLabel      : NSTextField!
+    @IBOutlet weak var platformVersionLabel      : NSTextField!
+    @IBOutlet weak var authorNameLabel           : NSTextField!
+    @IBOutlet weak var isAsynchronousLabel       : NSTextField!
+    @IBOutlet weak var shouldSaveInPlaceLabel    : NSTextField!
+    @IBOutlet weak var templateUUIDLabel         : NSTextField!
+    @IBOutlet weak var templateDescriptionLabel  : NSTextField!
+    @IBOutlet weak var fileNameLabel             : NSTextField!
+    @IBOutlet weak var fileSizeLabel             : NSTextField!
+    @IBOutlet weak var createdAtLabel            : NSTextField!
+    @IBOutlet weak var modifiedAtLabel           : NSTextField!
+    @IBOutlet weak var fullPathLabel             : NSTextField!
     
     @IBInspectable var isAdvanced: Bool = false {
         didSet {

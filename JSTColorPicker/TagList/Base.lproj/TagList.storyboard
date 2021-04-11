@@ -236,7 +236,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="qlz-JH-5Ho"/>
                                                                     </constraints>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="link.badge.plus" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -262,7 +262,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="LrM-Gs-1yS"/>
                                                                     </constraints>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cqv-pr-Ki0">
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="plus" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cqv-pr-Ki0">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -277,7 +277,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="T9K-NS-z2T"/>
                                                                     </constraints>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yEd-Uj-rgg">
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="minus" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yEd-Uj-rgg">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -408,8 +408,8 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSIconViewTemplate" width="15" height="14"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="link.badge.plus" catalog="system" width="17" height="17"/>
+        <image name="minus" catalog="system" width="14" height="4"/>
+        <image name="plus" catalog="system" width="14" height="13"/>
     </resources>
 </document>

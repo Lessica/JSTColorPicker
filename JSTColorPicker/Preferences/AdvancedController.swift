@@ -30,6 +30,18 @@ class AdvancedController: NSViewController {
         actionRequiresRestart(sender)
     }
     
+    private func resetTagDatabase() {
+        do {
+            try TagListController.destoryPersistentStore()
+            NotificationCenter.default.post(
+                name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+                object: nil
+            )
+        } catch {
+            presentError(error)
+        }
+    }
+    
     @IBAction func resetTagDatabaseAction(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
@@ -37,9 +49,9 @@ class AdvancedController: NSViewController {
         alert.informativeText = NSLocalizedString("Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.", comment: "resetTagDatabaseAction(_:)")
         alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "resetTagDatabaseAction(_:)"))
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
-        alert.beginSheetModal(for: view.window!) { resp in
+        alert.beginSheetModal(for: view.window!) { [unowned self] resp in
             if resp == .alertFirstButtonReturn {
-                
+                self.resetTagDatabase()
             }
         }
     }
@@ -49,8 +61,10 @@ class AdvancedController: NSViewController {
         
         #if SANDBOXED
         checkUpdatesCheckbox.isEnabled = false
+        checkUpdatesCheckbox.alphaValue = 0
         #else
         checkUpdatesCheckbox.isEnabled = true
+        checkUpdatesCheckbox.alphaValue = 1
         #endif
     }
     
@@ -97,7 +111,7 @@ extension AdvancedController: MASPreferencesViewController {
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(named: NSImage.advancedName)
+        return NSImage(systemSymbolName: "gear", accessibilityDescription: "General")
     }
     
 }

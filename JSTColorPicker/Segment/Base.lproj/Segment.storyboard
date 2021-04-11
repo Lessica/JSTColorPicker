@@ -21,10 +21,10 @@
                                     <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment toolTip="Document" width="32">
-                                            <imageReference key="image" image="doc" catalog="system" symbolScale="default" renderingMode="template"/>
+                                            <imageReference key="image" image="info.circle" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
                                         <segment toolTip="Scene Manager" width="32">
-                                            <imageReference key="image" image="pencil.tip" catalog="system" symbolScale="default" renderingMode="template"/>
+                                            <imageReference key="image" image="doc" catalog="system" symbolScale="default" renderingMode="template"/>
                                         </segment>
                                         <segment toolTip="Tag Manager" width="32">
                                             <nil key="label"/>
@@ -201,7 +201,7 @@
     </scenes>
     <resources>
         <image name="doc" catalog="system" width="14" height="16"/>
-        <image name="pencil.tip" catalog="system" width="11" height="14"/>
+        <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="tag" catalog="system" width="17" height="17"/>
         <image name="tray" catalog="system" width="18" height="13"/>
     </resources>

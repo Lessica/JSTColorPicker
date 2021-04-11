@@ -47,7 +47,11 @@ extension InfoController: ScreenshotLoader {
 
             documentObservations = [
                 observe(\.screenshot?.fileURL, options: [.new]) { (target, change) in
-                    target.updateInformationPane()
+                    if let newURL = change.newValue, let url = newURL {
+                        target.updateInformationPane(alternativeURL: url)
+                    } else {
+                        target.updateInformationPane()
+                    }
                 }
             ]
         } else {
@@ -64,10 +68,10 @@ extension InfoController: ScreenshotLoader {
             : NSLocalizedString("Info (Secondary)", comment: "reloadPane()")
     }
 
-    private func updateInformationPane() {
+    private func updateInformationPane(alternativeURL url: URL? = nil) {
         if let imageSource = imageSource {
             do {
-                try infoView.setSource(imageSource)
+                try infoView.setSource(imageSource, alternativeURL: url)
                 errorLabel.stringValue = ""
                 infoView.isHidden = false
                 errorLabel.isHidden = true

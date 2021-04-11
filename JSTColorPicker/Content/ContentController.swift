@@ -1531,7 +1531,9 @@ extension ContentController: TagImportSource {
 extension ContentController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
-        contentItemColorizeAll()
+        DispatchQueue.main.async { [unowned self] in
+            self.contentItemColorizeAll()
+        }
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {

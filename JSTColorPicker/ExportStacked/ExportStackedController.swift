@@ -17,6 +17,7 @@ class ExportStackedController: NSViewController {
     
     @IBOutlet weak var actionView: NSView!
     @IBOutlet weak var templatePopUpButton: NSPopUpButton!
+    @IBOutlet weak var templateReloadButton: NSButton!
     @IBOutlet weak var splitView: NSSplitView!
 
     override func viewDidLoad() {

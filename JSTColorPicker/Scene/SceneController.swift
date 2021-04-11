@@ -1562,7 +1562,9 @@ extension SceneController: PixelMatchResponder {
 extension SceneController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
-        annotatorColorizeAll(byRedrawingContents: true)
+        DispatchQueue.main.async { [unowned self] in
+            self.annotatorColorizeAll(byRedrawingContents: true)
+        }
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
