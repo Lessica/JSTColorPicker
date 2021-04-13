@@ -69,7 +69,7 @@
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://storage.googleapis.com/appcast/com.jst.JSTColorPicker/appcast.xml</string>
+	<string>https://82flex.com/jstcpweb/appcast.xml</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

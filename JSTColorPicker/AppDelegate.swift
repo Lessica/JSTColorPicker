@@ -756,7 +756,7 @@ extension AppDelegate {
     // MARK: - Device Action: Download Redirect
     
     @objc private func actionRedirectToDownloadPage() {
-        if let url = URL(string: "https://82flex.github.io/JSTColorPicker/") {
+        if let url = URL(string: "https://82flex.com/jstcpweb/helper.html") {
             NSWorkspace.shared.open(url)
         }
     }
