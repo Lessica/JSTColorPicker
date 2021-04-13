@@ -11,14 +11,20 @@
                 <outlet property="alphaStack" destination="0VY-Qk-Lhh" id="EQo-wU-ywo"/>
                 <outlet property="blueLabel" destination="gUy-Ss-Ptf" id="5d6-Dq-RSD"/>
                 <outlet property="blueStack" destination="Quw-DT-rWn" id="uXi-z9-eh8"/>
+                <outlet property="brightnessLabel" destination="6ph-OB-eew" id="mpL-NZ-sSt"/>
+                <outlet property="brightnessStack" destination="hGF-Iy-7ER" id="GAt-vz-qHp"/>
                 <outlet property="colorView" destination="Sar-ho-z0c" id="mtD-Md-DoS"/>
                 <outlet property="greenLabel" destination="Luj-iJ-Afk" id="HVN-Bk-txz"/>
                 <outlet property="greenStack" destination="c5G-H5-kUO" id="GK3-mO-k9F"/>
                 <outlet property="heightLabel" destination="CUq-zw-VOD" id="Lyh-7r-Wbm"/>
                 <outlet property="heightStack" destination="av7-C2-yGm" id="7xj-ph-4ys"/>
                 <outlet property="hexLabel" destination="cN6-ed-r1p" id="kaI-uJ-oGm"/>
+                <outlet property="hueLabel" destination="3Ba-Yi-f59" id="nXg-7s-zzt"/>
+                <outlet property="hueStack" destination="5yd-vA-Dxz" id="pPK-dd-Xxe"/>
                 <outlet property="redLabel" destination="egY-fv-6R0" id="Ggz-PB-zao"/>
                 <outlet property="redStack" destination="Qaf-3S-95T" id="iyf-wB-hT8"/>
+                <outlet property="saturationLabel" destination="bxG-Ny-bvn" id="AjK-jg-zLQ"/>
+                <outlet property="saturationStack" destination="YJh-GM-JQX" id="yiH-F8-biu"/>
                 <outlet property="widthLabel" destination="CLh-8G-M5r" id="Xeh-Z9-bgc"/>
                 <outlet property="widthStack" destination="11b-a8-qCa" id="jJI-9i-94A"/>
             </connections>
@@ -180,7 +186,7 @@
                                                 <constraint firstItem="egY-fv-6R0" firstAttribute="centerY" secondItem="p5I-nY-RWU" secondAttribute="centerY" id="sWq-Zh-ZBb"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMW-Py-tX5">
+                                        <textField toolTip="Red" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMW-Py-tX5">
                                             <rect key="frame" x="15" y="0.0" width="21" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Red" usesSingleLineMode="YES" id="KmM-K6-Di7">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -191,6 +197,49 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="p5I-nY-RWU" firstAttribute="width" secondItem="Qaf-3S-95T" secondAttribute="width" id="chM-Oc-Qfx"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView hidden="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-vA-Dxz">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="G2e-Ro-z2d" customClass="RoundedField" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="13" width="50" height="20"/>
+                                            <subviews>
+                                                <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ba-Yi-f59">
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="hvC-DI-JtS">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3Ba-Yi-f59" firstAttribute="centerY" secondItem="G2e-Ro-z2d" secondAttribute="centerY" id="Kw4-nE-pff"/>
+                                                <constraint firstItem="3Ba-Yi-f59" firstAttribute="width" secondItem="G2e-Ro-z2d" secondAttribute="width" id="MN1-Jf-ZwV"/>
+                                                <constraint firstAttribute="height" constant="20" id="iD3-TS-IQU"/>
+                                                <constraint firstItem="3Ba-Yi-f59" firstAttribute="centerX" secondItem="G2e-Ro-z2d" secondAttribute="centerX" id="oPI-Yi-Va9"/>
+                                            </constraints>
+                                        </customView>
+                                        <textField toolTip="Hue" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1y-yl-Mju">
+                                            <rect key="frame" x="14" y="0.0" width="22" height="11"/>
+                                            <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Hue" usesSingleLineMode="YES" id="lfp-8k-1L4">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="G2e-Ro-z2d" firstAttribute="width" secondItem="5yd-vA-Dxz" secondAttribute="width" id="rQw-BN-pRw"/>
                                     </constraints>
                                     <visibilityPriorities>
                                         <integer value="1000"/>
@@ -223,7 +272,7 @@
                                                 <constraint firstItem="Luj-iJ-Afk" firstAttribute="centerX" secondItem="w29-Ia-2Du" secondAttribute="centerX" id="a7H-P3-ks0"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1h-Xz-BD7">
+                                        <textField toolTip="Green" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1h-Xz-BD7">
                                             <rect key="frame" x="10" y="0.0" width="31" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Green" usesSingleLineMode="YES" id="X95-Fb-bbn">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -234,6 +283,49 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="w29-Ia-2Du" firstAttribute="width" secondItem="c5G-H5-kUO" secondAttribute="width" id="8ae-CR-pub"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView hidden="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YJh-GM-JQX">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="fBq-tq-G1s" customClass="RoundedField" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="13" width="50" height="20"/>
+                                            <subviews>
+                                                <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxG-Ny-bvn">
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="WNe-zh-d1I">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bxG-Ny-bvn" firstAttribute="centerY" secondItem="fBq-tq-G1s" secondAttribute="centerY" id="MkL-qY-KHH"/>
+                                                <constraint firstItem="bxG-Ny-bvn" firstAttribute="width" secondItem="fBq-tq-G1s" secondAttribute="width" id="U5N-V3-xx8"/>
+                                                <constraint firstAttribute="height" constant="20" id="Uw1-vu-syO"/>
+                                                <constraint firstItem="bxG-Ny-bvn" firstAttribute="centerX" secondItem="fBq-tq-G1s" secondAttribute="centerX" id="zjp-pu-CRx"/>
+                                            </constraints>
+                                        </customView>
+                                        <textField toolTip="Saturation" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMS-e3-EHO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="11"/>
+                                            <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Saturation" usesSingleLineMode="YES" id="Vj0-5y-pL5">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fBq-tq-G1s" firstAttribute="width" secondItem="YJh-GM-JQX" secondAttribute="width" id="Hjn-zS-MQz"/>
                                     </constraints>
                                     <visibilityPriorities>
                                         <integer value="1000"/>
@@ -266,7 +358,7 @@
                                                 <constraint firstItem="gUy-Ss-Ptf" firstAttribute="width" secondItem="ydr-d4-L9n" secondAttribute="width" id="gjD-Hm-7Rw"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-E4-reK">
+                                        <textField toolTip="Blue" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-E4-reK">
                                             <rect key="frame" x="13" y="0.0" width="24" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Blue" usesSingleLineMode="YES" id="dP5-tj-2ff">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -277,6 +369,49 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ydr-d4-L9n" firstAttribute="width" secondItem="Quw-DT-rWn" secondAttribute="width" id="SXA-nE-fbK"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView hidden="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGF-Iy-7ER">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="EJs-V9-Xek" customClass="RoundedField" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="13" width="50" height="20"/>
+                                            <subviews>
+                                                <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ph-OB-eew">
+                                                    <rect key="frame" x="-2" y="4" width="54" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="247" usesSingleLineMode="YES" id="LnM-6h-jII">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6ph-OB-eew" firstAttribute="width" secondItem="EJs-V9-Xek" secondAttribute="width" id="f11-Bi-pi4"/>
+                                                <constraint firstItem="6ph-OB-eew" firstAttribute="centerX" secondItem="EJs-V9-Xek" secondAttribute="centerX" id="iq3-ch-zUx"/>
+                                                <constraint firstAttribute="height" constant="20" id="vGx-n8-wzA"/>
+                                                <constraint firstItem="6ph-OB-eew" firstAttribute="centerY" secondItem="EJs-V9-Xek" secondAttribute="centerY" id="vIM-UP-LAX"/>
+                                            </constraints>
+                                        </customView>
+                                        <textField toolTip="Brightness" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEA-55-h5U">
+                                            <rect key="frame" x="-1" y="0.0" width="52" height="11"/>
+                                            <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Brightness" usesSingleLineMode="YES" id="oje-Up-ajU">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="EJs-V9-Xek" firstAttribute="width" secondItem="hGF-Iy-7ER" secondAttribute="width" id="KMp-2e-bA6"/>
                                     </constraints>
                                     <visibilityPriorities>
                                         <integer value="1000"/>
@@ -309,7 +444,7 @@
                                                 <constraint firstItem="UCy-rW-teT" firstAttribute="centerY" secondItem="61r-TA-Ny3" secondAttribute="centerY" id="T3y-zV-ydt"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sA-bc-6r8">
+                                        <textField toolTip="Alpha" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sA-bc-6r8">
                                             <rect key="frame" x="11" y="0.0" width="29" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Alpha" usesSingleLineMode="YES" id="hXq-8F-fab">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -352,7 +487,7 @@
                                                 <constraint firstItem="CLh-8G-M5r" firstAttribute="centerY" secondItem="kQ2-Tl-ihi" secondAttribute="centerY" id="gq4-YF-jm3"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omV-if-trL">
+                                        <textField toolTip="Width" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omV-if-trL">
                                             <rect key="frame" x="24" y="0.0" width="30" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Width" usesSingleLineMode="YES" id="E2d-rM-tQQ">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -395,7 +530,7 @@
                                                 <constraint firstItem="CUq-zw-VOD" firstAttribute="centerX" secondItem="Ew0-7t-lgQ" secondAttribute="centerX" id="pnN-JZ-cQE"/>
                                             </constraints>
                                         </customView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTx-UT-38E">
+                                        <textField toolTip="Height" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTx-UT-38E">
                                             <rect key="frame" x="22" y="0.0" width="34" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Height" usesSingleLineMode="YES" id="qdE-Ea-bib">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -419,13 +554,16 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="UCy-rW-teT" firstAttribute="width" secondItem="Luj-iJ-Afk" secondAttribute="width" id="1pa-wz-d9s"/>
+                                <constraint firstItem="5yd-vA-Dxz" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="5Sx-Nq-KXG"/>
                                 <constraint firstItem="UCy-rW-teT" firstAttribute="width" secondItem="egY-fv-6R0" secondAttribute="width" id="AHZ-Ug-zaZ"/>
                                 <constraint firstItem="0VY-Qk-Lhh" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="ETs-c1-xHA"/>
                                 <constraint firstItem="CUq-zw-VOD" firstAttribute="width" secondItem="CLh-8G-M5r" secondAttribute="width" id="GN7-4y-gkr"/>
+                                <constraint firstItem="hGF-Iy-7ER" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="Phq-Rr-h4N"/>
                                 <constraint firstItem="Quw-DT-rWn" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="Xix-6d-oiJ"/>
                                 <constraint firstItem="Qaf-3S-95T" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="a8V-QZ-XG5"/>
                                 <constraint firstItem="c5G-H5-kUO" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="b0F-gi-Dkc"/>
                                 <constraint firstItem="UCy-rW-teT" firstAttribute="width" secondItem="gUy-Ss-Ptf" secondAttribute="width" id="dtY-xu-yYf"/>
+                                <constraint firstItem="YJh-GM-JQX" firstAttribute="height" secondItem="xbQ-Mo-2WD" secondAttribute="height" id="eHD-jU-ra3"/>
                             </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
@@ -434,8 +572,14 @@
                                 <integer value="1000"/>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>

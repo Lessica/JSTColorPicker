@@ -18,6 +18,11 @@ class TemplateInfoController: NSViewController, PaneController {
             updateTemplatePane()
         }
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+    }
     
     private var isViewHidden: Bool = true
     
@@ -32,12 +37,14 @@ class TemplateInfoController: NSViewController, PaneController {
         isViewHidden = true
     }
 
-    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
-    var isPaneStacked: Bool { true }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
-    @IBOutlet weak var paneBox: NSBox!
-    @IBOutlet weak var errorLabel: NSTextField!
-    @IBOutlet weak var templateInfoView: TemplateInfoView!
+    @IBOutlet weak var paneBox           : NSBox!
+    @IBOutlet weak var errorLabel        : NSTextField!
+    @IBOutlet weak var templateInfoView  : TemplateInfoView!
+    @IBOutlet weak var detailButton      : NSButton!
     
     private var _shouldDisplayTemplate: Bool = false
     var shouldDisplayTemplate: Bool { _shouldDisplayTemplate }
@@ -53,6 +60,27 @@ class TemplateInfoController: NSViewController, PaneController {
         }
     }
 
+    @objc private func applyPreferences(_ notification: Notification?) {
+        let advancedVal: Bool = UserDefaults.standard[.toggleTemplateDetailedInformation]
+        let advancedValState: NSControl.StateValue = advancedVal ? .on : .off
+        if detailButton.state != advancedValState {
+            detailButton.state = advancedValState
+        }
+        if templateInfoView.isAdvanced != advancedVal {
+            templateInfoView.isAdvanced = advancedVal
+        }
+    }
+
+    @IBAction func detailButtonTapped(_ sender: NSButton) {
+        templateInfoView.isAdvanced = sender.state == .on
+        UserDefaults.standard[.toggleTemplateDetailedInformation] = sender.state == .on
+    }
+}
+
+extension TemplateInfoController: ScreenshotLoader {
+    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
+    var isPaneStacked: Bool { true }
+
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot
         // DO NOT MODIFY THIS METHOD
@@ -62,7 +90,7 @@ class TemplateInfoController: NSViewController, PaneController {
         template = nil
         updateTemplatePane()
     }
-    
+
     private func updateTemplatePane() {
         guard !isPaneHidden else {
             setNeedsDisplayTemplate()

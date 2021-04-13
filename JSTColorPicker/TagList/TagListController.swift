@@ -419,7 +419,7 @@ class TagListController: NSViewController, PaneController {
             return alert.runModal() == .alertFirstButtonReturn
         } else {
             alert.messageText = NSLocalizedString("Import Failed", comment: "Import Confirm")
-            alert.informativeText = NSLocalizedString("No tag to import", comment: "Import Confirm")
+            alert.informativeText = NSLocalizedString("No tag to import.", comment: "Import Confirm")
             alert.accessoryView = nil
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "Import Confirm"))
             alert.runModal()

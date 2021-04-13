@@ -136,6 +136,8 @@
 		CCB76999260A0B5A0029693B /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
 		CCB769EC260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
 		CCB769ED260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
+		CCB7847D26257B9200FC4216 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* HSV.swift */; };
+		CCB7847E26257B9200FC4216 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* HSV.swift */; };
 		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
@@ -865,6 +867,7 @@
 		CCB76992260A0B5A0029693B /* lptree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptree.h; sourceTree = "<group>"; };
 		CCB76993260A0B5A0029693B /* lpcap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcap.h; sourceTree = "<group>"; };
 		CCB769EB260A220F0029693B /* pascal.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pascal.lua; sourceTree = "<group>"; };
+		CCB7847C26257B9200FC4216 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
@@ -1927,6 +1930,7 @@
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
 				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
+				CCB7847C26257B9200FC4216 /* HSV.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2865,6 +2869,7 @@
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
+				CCB7847D26257B9200FC4216 /* HSV.swift in Sources */,
 				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
@@ -2991,6 +2996,7 @@
 				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
+				CCB7847E26257B9200FC4216 /* HSV.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */,

@@ -23,7 +23,10 @@ extension UserDefaults.Key {
     
     static let togglePreviewArea                    : UserDefaults.Key     = "defaults.preview.toggle-area"                    // Bool
     static let togglePreviewColor                   : UserDefaults.Key     = "defaults.preview.toggle-color"                   // Bool
-    
+
+    static let toggleTemplateDetailedInformation    : UserDefaults.Key     = "defaults.toggleTemplateDetailedInformation"      // Bool
+    static let togglePrimaryInspectorHSBFormat      : UserDefaults.Key     = "defaults.togglePrimaryInspectorHSBFormat"        // Bool
+    static let toggleSecondaryInspectorHSBFormat    : UserDefaults.Key     = "defaults.toggleSecondaryInspectorHSBFormat"      // Bool
     static let usesAlternativeAreaRepresentation    : UserDefaults.Key     = "defaults.usesAlternativeAreaRepresentation"      // Bool
     
     static let enableForceTouch                     : UserDefaults.Key     = "defaults.enableForceTouch"                       // Bool

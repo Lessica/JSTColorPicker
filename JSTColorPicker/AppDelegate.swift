@@ -754,12 +754,14 @@ extension AppDelegate {
     
     
     // MARK: - Device Action: Download Redirect
-    
+
+    #if SANDBOXED
     @objc private func actionRedirectToDownloadPage() {
         if let url = URL(string: "https://82flex.com/jstcpweb/helper.html") {
             NSWorkspace.shared.open(url)
         }
     }
+    #endif
     
     
 }

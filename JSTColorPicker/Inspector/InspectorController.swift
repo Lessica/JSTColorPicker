@@ -21,6 +21,7 @@ class InspectorController: NSViewController, PaneController {
 
     @IBOutlet weak var paneBox        : NSBox!
     @IBOutlet weak var inspectorView  : InspectorView!
+    @IBOutlet weak var detailButton   : NSButton!
     
     private var lastStoredItem        : ContentItem?
 
@@ -29,6 +30,12 @@ class InspectorController: NSViewController, PaneController {
         
         _ = colorPanel
         reloadPane()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private var isViewHidden: Bool = true
@@ -108,9 +115,30 @@ extension InspectorController: ItemInspector {
     }
 
     func reloadPane() {
-        inspectorView.reset()
         paneBox.title = style == .primary
             ? NSLocalizedString("Inspector (Primary)", comment: "reloadPane()")
             : NSLocalizedString("Inspector (Secondary)", comment: "reloadPane()")
+        applyPreferences(nil)
+        inspectorView.reset()
+    }
+
+    @objc private func applyPreferences(_ notification: Notification?) {
+        let configVal: Bool = style == .primary ? UserDefaults.standard[.togglePrimaryInspectorHSBFormat] : UserDefaults.standard[.toggleSecondaryInspectorHSBFormat]
+        let configState: NSControl.StateValue = configVal ? .on : .off
+        if detailButton.state != configState {
+            detailButton.state = configState
+        }
+        if inspectorView.isHSBFormat != configVal {
+            inspectorView.isHSBFormat = configVal
+        }
+    }
+
+    @IBAction func detailButtonTapped(_ sender: NSButton) {
+        inspectorView.isHSBFormat = sender.state == .on
+        if style == .primary {
+            UserDefaults.standard[.togglePrimaryInspectorHSBFormat] = sender.state == .on
+        } else {
+            UserDefaults.standard[.toggleSecondaryInspectorHSBFormat] = sender.state == .on
+        }
     }
 }

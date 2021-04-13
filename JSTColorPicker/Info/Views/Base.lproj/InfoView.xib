@@ -296,7 +296,7 @@
                                                 <action selector="locateButtonTapped:" target="-2" id="7Nm-M1-oVe"/>
                                             </connections>
                                         </button>
-                                        <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="50" verticalCompressionResistancePriority="50" translatesAutoresizingMaskIntoConstraints="NO" id="Mr1-AC-pxD">
+                                        <customView horizontalHuggingPriority="50" verticalHuggingPriority="50" horizontalCompressionResistancePriority="50" verticalCompressionResistancePriority="50" translatesAutoresizingMaskIntoConstraints="NO" id="Mr1-AC-pxD">
                                             <rect key="frame" x="66" y="0.0" width="0.0" height="0.0"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="kO8-ds-mEo"/>
@@ -315,7 +315,7 @@
                                         <real value="3.4028234663852886e+38"/>
                                     </customSpacing>
                                 </stackView>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-c2-qM5">
+                                <textField verticalHuggingPriority="700" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-c2-qM5">
                                     <rect key="frame" x="72" y="0.0" width="178" height="35"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FULL_PATH" id="k1u-TA-2hU">
                                         <font key="font" metaFont="smallSystem"/>

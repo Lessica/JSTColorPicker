@@ -72,6 +72,12 @@
 	<false/>
 	<key>defaults.tableColumn.toggle-tag</key>
 	<false/>
+	<key>defaults.togglePrimaryInspectorHSBFormat</key>
+	<false/>
+	<key>defaults.toggleSecondaryInspectorHSBFormat</key>
+	<false/>
+	<key>defaults.toggleTemplateDetailedInformation</key>
+	<false/>
 	<key>defaults.usesAlternativeAreaRepresentation</key>
 	<false/>
 	<key>defaults.usesDetailedToolTips</key>

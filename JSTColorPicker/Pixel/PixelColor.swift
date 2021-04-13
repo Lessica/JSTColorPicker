@@ -63,12 +63,27 @@ class PixelColor: ContentItem {
 //        debugPrint("\(className):\(#function)")
     }
     
-    public var rgbValue          : UInt32 { pixelColorRep.rgbValue           }
-    public var rgbaValue         : UInt32 { pixelColorRep.rgbaValue          }
-    public var red               : UInt8  { pixelColorRep.red                }
-    public var green             : UInt8  { pixelColorRep.green              }
-    public var blue              : UInt8  { pixelColorRep.blue               }
-    public var alpha             : UInt8  { pixelColorRep.alpha              }
+    public var rgbValue          : UInt32 { pixelColorRep.rgbValue           }  // [0x0,0xffffff]
+    public var red               : UInt8  { pixelColorRep.red                }  // [0x0,0xff]
+    public var green             : UInt8  { pixelColorRep.green              }  // [0x0,0xff]
+    public var blue              : UInt8  { pixelColorRep.blue               }  // [0x0,0xff]
+    public lazy var rgbStruct    : RGB =
+        {
+            RGB(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF)
+        }()
+    public var rgbaValue         : UInt32 { pixelColorRep.rgbaValue          }  // [0x0,0xffffffff]
+    public lazy var rgbaStruct   : RGBA =
+        {
+            RGBA(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF, a: Float(alpha) / 0xFF)
+        }()
+    public lazy var hsvStruct    : HSV =
+        {
+            rgbStruct.hsv
+        }()
+    public var hue               : Float  { hsvStruct.h                      }  // Angle in degrees [0,360] or -1 as Undefined
+    public var saturation        : Float  { hsvStruct.s                      }  // [0,1]
+    public var brightness        : Float  { hsvStruct.v                      }  // [0,1]
+    public var alpha             : UInt8  { pixelColorRep.alpha              }  // [0x0,0xff]
     public var hexString         : String { pixelColorRep.hexString          }
     public var hexStringWithAlpha: String { pixelColorRep.hexStringWithAlpha }
     public var cssString         : String { pixelColorRep.cssString          }

@@ -26,6 +26,8 @@ class TemplateInfoView: NSView {
     @IBOutlet weak var createdAtStack            : NSStackView!
     @IBOutlet weak var modifiedAtStack           : NSStackView!
     @IBOutlet weak var fullPathStack             : NSStackView!
+
+    @IBOutlet weak var advancedSeparator         : NSView!
     
     @IBOutlet weak var templateNameLabel         : NSTextField!
     @IBOutlet weak var templateVersionLabel      : NSTextField!
@@ -40,8 +42,9 @@ class TemplateInfoView: NSView {
     @IBOutlet weak var createdAtLabel            : NSTextField!
     @IBOutlet weak var modifiedAtLabel           : NSTextField!
     @IBOutlet weak var fullPathLabel             : NSTextField!
-    
-    @IBInspectable var isAdvanced: Bool = false {
+
+    @IBInspectable var isAdvanced                : Bool = false
+    {
         didSet {
             guard let template = template else { return }
             try? setTemplate(template)
@@ -116,16 +119,19 @@ class TemplateInfoView: NSView {
             
             let fileSize = TemplateInfoView.byteFormatter.string(fromByteCount: attrs[.size] as? Int64 ?? 0)
             fileSizeLabel.stringValue = fileSize
-            fileSizeLabel.isHidden = false
+            fileSizeStack.isHidden = false
             
             fullPathLabel.stringValue = template.url.path
-            fullPathLabel.isHidden = false
+            fullPathStack.isHidden = false
+
+            advancedSeparator.isHidden = false
         } else {
             fileNameStack.isHidden = true
             fileSizeStack.isHidden = true
             createdAtStack.isHidden = true
             modifiedAtStack.isHidden = true
             fullPathStack.isHidden = true
+            advancedSeparator.isHidden = true
         }
         
         templateNameLabel.stringValue = template.name
@@ -186,5 +192,14 @@ class TemplateInfoView: NSView {
             fullPathStack,
         ]
         .forEach({ $0?.isHidden = true })
+    }
+
+    @IBOutlet weak var locateButton: NSButton!
+
+    @IBAction func locateButtonTapped(_ sender: NSButton) {
+        guard let template = template else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([
+            template.url
+        ])
     }
 }
