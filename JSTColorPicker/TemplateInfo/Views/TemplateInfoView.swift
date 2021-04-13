@@ -155,8 +155,8 @@ class TemplateInfoView: NSView {
         
         templateUUIDLabel.stringValue = template.uuid.uuidString
         templateUUIDStack.isHidden = false
-        templateDescriptionLabel.stringValue = template.description ?? ""
-        templateDescriptionStack.isHidden = (template.description ?? "").isEmpty
+        templateDescriptionLabel.stringValue = template.userDescription ?? ""
+        templateDescriptionStack.isHidden = (template.userDescription ?? "").isEmpty
     }
     
     func reset() {

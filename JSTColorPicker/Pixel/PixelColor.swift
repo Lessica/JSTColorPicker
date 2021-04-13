@@ -59,10 +59,6 @@ class PixelColor: ContentItem {
         try super.init(from: decoder)
     }
     
-    deinit {
-//        debugPrint("\(className):\(#function)")
-    }
-    
     public var rgbValue          : UInt32 { pixelColorRep.rgbValue           }  // [0x0,0xffffff]
     public var red               : UInt8  { pixelColorRep.red                }  // [0x0,0xff]
     public var green             : UInt8  { pixelColorRep.green              }  // [0x0,0xff]

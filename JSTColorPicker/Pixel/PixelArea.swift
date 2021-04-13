@@ -49,10 +49,6 @@ class PixelArea: ContentItem {
         try super.init(from: decoder)
     }
     
-    deinit {
-//        debugPrint("\(className):\(#function)")
-    }
-    
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? PixelArea else { return false }
         return self == object

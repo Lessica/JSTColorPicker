@@ -107,10 +107,6 @@ class PixelImage {
         return NSImage(cgImage: downsampledImage, size: pointSize)
     }
     
-    deinit {
-//        debugPrint("\(className):\(#function)")
-    }
-    
 }
 
 extension PixelImage: LuaSwift.Value {

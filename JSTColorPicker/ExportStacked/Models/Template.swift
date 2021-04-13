@@ -9,11 +9,50 @@
 import Foundation
 import LuaSwift
 
+extension URL {
+    /// The time at which the resource was created.
+    /// This key corresponds to an Date value, or nil if the volume doesn't support creation dates.
+    /// A resource’s creationDateKey value should be less than or equal to the resource’s contentModificationDateKey and contentAccessDateKey values. Otherwise, the file system may change the creationDateKey to the lesser of those values.
+    var creation: Date? {
+        get {
+            return (try? resourceValues(forKeys: [.creationDateKey]))?.creationDate
+        }
+        set {
+            var resourceValues = URLResourceValues()
+            resourceValues.creationDate = newValue
+            try? setResourceValues(resourceValues)
+        }
+    }
+    /// The time at which the resource was most recently modified.
+    /// This key corresponds to an Date value, or nil if the volume doesn't support modification dates.
+    var contentModification: Date? {
+        get {
+            return (try? resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate
+        }
+        set {
+            var resourceValues = URLResourceValues()
+            resourceValues.contentModificationDate = newValue
+            try? setResourceValues(resourceValues)
+        }
+    }
+    /// The time at which the resource was most recently accessed.
+    /// This key corresponds to an Date value, or nil if the volume doesn't support access dates.
+    ///  When you set the contentAccessDateKey for a resource, also set contentModificationDateKey in the same call to the setResourceValues(_:) method. Otherwise, the file system may set the contentAccessDateKey value to the current contentModificationDateKey value.
+    var contentAccess: Date? {
+        get {
+            return (try? resourceValues(forKeys: [.contentAccessDateKey]))?.contentAccessDate
+        }
+        // Beginning in macOS 10.13, iOS 11, watchOS 4, tvOS 11, and later, contentAccessDateKey is read-write. Attempts to set a value for this file resource property on earlier systems are ignored.
+        set {
+            var resourceValues = URLResourceValues()
+            resourceValues.contentAccessDate = newValue
+            try? setResourceValues(resourceValues)
+        }
+    }
+}
 
-class Template {
-    
+class Template: NSObject, NSFilePresenter {
     enum Error: LocalizedError {
-        
         case unknown
         case unsatisfiedPlatformVersion(version: String)
         case luaError(reason: String)
@@ -40,44 +79,112 @@ class Template {
                 return String(format: NSLocalizedString("Invalid field: %@.", comment: "TemplateError"), field)
             }
         }
-        
+    }
+
+    var presentedItemURL: URL? { url }
+    var presentedItemOperationQueue: OperationQueue = .main
+
+    func presentedItemDidChange() {
+        guard let oldModification = contentModification,
+              let newModification = url.contentModification
+        else { return }
+
+        guard oldModification.distance(to: newModification) > 0 else {
+            return
+        }
+        debugPrint("<\(debugDescription) changed>")
+
+        do {
+            switch self.vm.eval(url, args: []) {
+            case let .values(vals):
+                guard let tab = vals.first as? Table else { throw Error.missingRootEntry }
+                let stringDict = tab.asDictionary({ $0 as String }, { $0 as String })
+                let boolDict = tab.asDictionary  ({ $0 as String }, { $0 as Bool   })
+
+                guard let uuidString = stringDict["uuid"]           else { throw Error.missingRequiredField(field: "uuid")    }
+                guard let uuid = UUID(uuidString: uuidString)       else { throw Error.invalidField        (field: "uuid")    }
+                guard let name = stringDict["name"]                 else { throw Error.missingRequiredField(field: "name")    }
+                guard let version = stringDict["version"]           else { throw Error.missingRequiredField(field: "version") }
+
+                self.uuid = uuid
+                self.name = name
+                self.version = version
+                self.platformVersion = stringDict["platformVersion"] ?? Template.currentPlatformVersion
+                self.author = stringDict["author"]
+                self.userDescription = stringDict["description"]
+                if let ext = stringDict["extension"] {
+                    self.allowedExtensions = [ext]
+                } else {
+                    self.allowedExtensions = []
+                }
+                if let async = boolDict["async"] {
+                    self.isAsync = async
+                } else {
+                    self.isAsync = false
+                }
+                if let saveInPlace = boolDict["saveInPlace"] {
+                    self.saveInPlace = saveInPlace
+                } else {
+                    self.saveInPlace = false
+                }
+                self.items = tab["items"] as? LuaSwift.Table
+
+                guard let generator = tab["generator"] as? LuaSwift.Function else { throw Error.missingRequiredField(field: "generator") }
+
+                self.generator = generator
+                
+                self.contentModification = newModification
+            case let .error(e):
+                throw Error.luaError(reason: e)
+            }
+        } catch let error as LocalizedError {
+            manager?.redirectTemplateError(error, templateURL: url)
+        } catch { }
     }
     
-    let url: URL
-    let uuid: UUID
-    let name: String
-    let version: String
-    let platformVersion: String
-    let author: String?
-    let description: String?
-    let allowedExtensions: [String]
-    let isAsync: Bool
-    let saveInPlace: Bool
-    let items: LuaSwift.Table?
+                 let url                  : URL
+    private(set) var uuid                 : UUID
+    private(set) var name                 : String
+    private(set) var version              : String
+    private(set) var platformVersion      : String
+    private(set) var author               : String?
+    private(set) var userDescription      : String?
+    private(set) var allowedExtensions    : [String]
+    private(set) var isAsync              : Bool
+    private(set) var saveInPlace          : Bool
+    private(set) var items                : LuaSwift.Table?
+    private      var generator            : LuaSwift.Function
+    private      var contentModification  : Date?
+
+    private      let vm                   : VirtualMachine
+    weak         var manager              : TemplateManager?
     
-    static let currentPlatformVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    private var generator: LuaSwift.Function
-    private var vm = VirtualMachine(openLibs: true)
+    static let currentPlatformVersion     = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     
-    init(from templateURL: URL) throws {
-        self.url = templateURL
-        switch vm.eval(templateURL, args: []) {
+    init(templateURL url: URL, templateManager manager: TemplateManager?) throws {
+        self.url = url
+        self.manager = manager
+
+        self.contentModification = url.contentModification
+        self.vm = VirtualMachine(openLibs: true)
+
+        switch self.vm.eval(url, args: []) {
         case let .values(vals):
             guard let tab = vals.first as? Table else { throw Error.missingRootEntry }
             let stringDict = tab.asDictionary({ $0 as String }, { $0 as String })
             let boolDict = tab.asDictionary  ({ $0 as String }, { $0 as Bool   })
             
-            guard let uuidString = stringDict["uuid"]           else { throw Error.missingRequiredField(field: "uuid")    }
-            guard let uuid = UUID(uuidString: uuidString)       else { throw Error.invalidField(field: "uuid")            }
-            guard let name = stringDict["name"]                 else { throw Error.missingRequiredField(field: "name")    }
-            guard let version = stringDict["version"]           else { throw Error.missingRequiredField(field: "version") }
+            guard let uuidString = stringDict["uuid"]      else { throw Error.missingRequiredField(field: "uuid")    }
+            guard let uuid = UUID(uuidString: uuidString)  else { throw Error.invalidField        (field: "uuid")    }
+            guard let name = stringDict["name"]            else { throw Error.missingRequiredField(field: "name")    }
+            guard let version = stringDict["version"]      else { throw Error.missingRequiredField(field: "version") }
             
             self.uuid = uuid
             self.name = name
             self.version = version
             self.platformVersion = stringDict["platformVersion"] ?? Template.currentPlatformVersion
             self.author = stringDict["author"]
-            self.description = stringDict["description"]
+            self.userDescription = stringDict["description"]
             if let ext = stringDict["extension"] {
                 self.allowedExtensions = [ext]
             } else {
@@ -101,6 +208,12 @@ class Template {
         case let .error(e):
             throw Error.luaError(reason: e)
         }
+
+        super.init()
+    }
+
+    deinit {
+        debugPrint("<\(debugDescription) deinit>")
     }
     
     func generate(_ image: PixelImage, for items: [ContentItem]) throws -> String {
@@ -114,7 +227,6 @@ class Template {
         }
         throw Error.missingReturnedString
     }
-    
 }
 
 protocol TemplateItem {

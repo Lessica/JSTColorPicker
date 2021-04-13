@@ -35,14 +35,14 @@ class ExportStackedController: NSViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(templatesDidLoad(_:)),
-            name: ExportManager.NotificationType.Name.templatesDidLoadNotification,
+            name: TemplateManager.NotificationType.Name.templatesDidLoadNotification,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(selectedTemplateChanged(_:)),
-            name: ExportManager.NotificationType.Name.selectedTemplateDidChangeNotification,
+            name: TemplateManager.NotificationType.Name.selectedTemplateDidChangeNotification,
             object: nil
         )
         
@@ -191,7 +191,7 @@ extension ExportStackedController: NSMenuItemValidation {
 \(template.name) (\(template.version))
 by \(template.author ?? "Unknown")
 ------
-\(template.description ?? "")
+\(template.userDescription ?? "")
 """
         }
         else {
@@ -210,19 +210,19 @@ by \(template.author ?? "Unknown")
         guard let template = selectedItem.representedObject as? Template else {
             return
         }
-        ExportManager.selectedTemplate = template
+        TemplateManager.shared.selectedTemplate = template
     }
     
     @IBAction func reloadTemplatesItemTapped(_ sender: NSButton) {
         do {
-            try ExportManager.reloadTemplates()
+            try TemplateManager.shared.reloadTemplates()
         } catch {
             presentError(error)
         }
     }
     
     private func generateTemplatesSubMenuItems(for menu: NSMenu) -> [NSMenuItem] {
-        return ExportManager.templates
+        return TemplateManager.shared.templates
             .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
             .compactMap({ template -> NSMenuItem in
                 
@@ -234,7 +234,7 @@ by \(template.author ?? "Unknown")
                 
                 item.representedObject = template
                 item.keyEquivalentModifierMask = [.control, .command]
-                item.state = ExportManager.selectedTemplateUUID == template.uuid ? .on : .off
+                item.state = TemplateManager.shared.selectedTemplateUUID == template.uuid ? .on : .off
                 
                 return item
             })
@@ -255,12 +255,12 @@ by \(template.author ?? "Unknown")
     
     private func reloadTemplates() {
         synchronizeTitleAndSelectedItem()
-        templateInfoController?.template = ExportManager.selectedTemplate
+        templateInfoController?.template = TemplateManager.shared.selectedTemplate
     }
     
     private func reloadTemplatesWithNotification(_ noti: Notification) {
         synchronizeTitleAndSelectedItem()
-        if let selectedTemplate = noti.userInfo?[ExportManager.NotificationType.Key.template] as? Template
+        if let selectedTemplate = noti.userInfo?[TemplateManager.NotificationType.Key.template] as? Template
         {
             templateInfoController?.template = selectedTemplate
         }

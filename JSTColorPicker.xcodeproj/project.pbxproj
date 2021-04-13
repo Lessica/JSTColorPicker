@@ -80,6 +80,8 @@
 		CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */; };
 		CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
 		CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
+		CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
+		CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
@@ -825,6 +827,7 @@
 		CC3C4AFB262025E300794806 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplateInfo.strings; sourceTree = "<group>"; };
 		CC3C4B04262025E400794806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplateInfo.strings"; sourceTree = "<group>"; };
 		CC3C4B0D26202E4200794806 /* ExportStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedView.swift; sourceTree = "<group>"; };
+		CC4102022625C33E00AC8129 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
 		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
@@ -1537,7 +1540,7 @@
 			isa = PBXGroup;
 			children = (
 				D69374122403A92E007AF7AF /* Template.swift */,
-				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
+				CC4102022625C33E00AC8129 /* TemplateManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2183,6 +2186,7 @@
 				D64790F72490E79C003159FD /* OrderedSet.swift */,
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
+				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2833,6 +2837,7 @@
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
+				CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */,
 				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
 				185D7EE8248A8019001C283B /* EditCoordinateController.swift in Sources */,
@@ -3024,6 +3029,7 @@
 				D6C1E1F323CEC23F0027DE6F /* SceneStackedController.swift in Sources */,
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,
 				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
+				CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,

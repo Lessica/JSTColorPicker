@@ -720,7 +720,7 @@ extension ContentController: ContentDelegate {
     }
 
     func copyContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        guard let template = ExportManager.selectedTemplate else {
+        guard let template = TemplateManager.shared.selectedTemplate else {
             throw ExportManager.Error.noTemplateSelected
         }
         let item = try contentItem(of: coordinate)
@@ -813,7 +813,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 if menuItem.action == #selector(copy(_:))
                     || menuItem.action == #selector(exportAs(_:))
                 {
-                    guard let template = ExportManager.selectedTemplate else { return false }
+                    guard let template = TemplateManager.shared.selectedTemplate else { return false }
 
                     if menuItem.action == #selector(exportAs(_:)) {
                         guard template.saveInPlace || template.allowedExtensions.count > 0 else { return false }
@@ -1108,7 +1108,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func copy(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
-        guard let template = ExportManager.selectedTemplate else {
+        guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
@@ -1195,7 +1195,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     
     @IBAction func exportAs(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
-        guard let template = ExportManager.selectedTemplate else {
+        guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }

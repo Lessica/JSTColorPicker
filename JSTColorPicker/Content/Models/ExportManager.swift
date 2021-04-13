@@ -6,25 +6,14 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import OSLog
 import Foundation
+import OSLog
 
 extension NSPasteboard.Name {
     static let jstColorPicker = NSPasteboard.Name("com.jst.JSTColorPicker.pasteboard")
 }
 
 class ExportManager {
-    
-    struct NotificationType {
-        struct Name {
-            static let templatesDidLoadNotification = NSNotification.Name(rawValue: "ExportManagerTemplatesDidLoadNotification")
-            static let selectedTemplateDidChangeNotification = NSNotification.Name(rawValue: "ExportManagerSelectedTemplateDidChangeNotification")
-        }
-        struct Key {
-            static let template = "template"
-            static let templateUUID = "uuid"
-        }
-    }
     
     enum Error: LocalizedError {
         case noDocumentLoaded
@@ -41,48 +30,6 @@ class ExportManager {
                 return NSLocalizedString("No output file extension specified.", comment: "ExportError")
             }
         }
-    }
-    
-    static var templateRootURL: URL {
-        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("templates")
-        if !FileManager.default.fileExists(atPath: url.path) {
-            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-        }
-        return url
-    }
-    
-    static var exampleTemplateURLs: [URL] = {
-        return [
-            Bundle.main.url(forResource: "example", withExtension: "lua")!,
-            Bundle.main.url(forResource: "pascal", withExtension: "lua")!
-        ]
-    }()
-    
-    private(set) static var templates: [Template] = []
-    static var selectedTemplate: Template? {
-        get { ExportManager.templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString }) }
-        set {
-            selectedTemplateUUID = newValue?.uuid
-            if let template = newValue {
-                NotificationCenter.default.post(
-                    name: NotificationType.Name.selectedTemplateDidChangeNotification,
-                    object: nil,
-                    userInfo: [
-                        NotificationType.Key.template: template,
-                        NotificationType.Key.templateUUID: template.uuid,
-                    ]
-                )
-            } else {
-                NotificationCenter.default.post(
-                    name: NotificationType.Name.selectedTemplateDidChangeNotification,
-                    object: nil
-                )
-            }
-        }
-    }
-    private(set) static var selectedTemplateUUID: UUID? {
-        get { UUID(uuidString: UserDefaults.standard[.lastSelectedTemplateUUID] ?? "") }
-        set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
     
     @objc dynamic weak var screenshot: Screenshot!
@@ -118,40 +65,6 @@ class ExportManager {
             forClasses: [PixelColor.self, PixelArea.self],
             options: nil
         ) as? [ContentItem]
-    }
-    
-    static func reloadTemplates() throws {
-        var errors: [(URL, Template.Error)] = []
-        let contents = try FileManager.default.contentsOfDirectory(at: ExportManager.templateRootURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants])
-        
-        // purpose: filter the greatest version of each template
-        let templates = Dictionary(grouping: contents
-            .filter({ $0.pathExtension == "lua" })
-            .compactMap({ (url) -> Template? in
-                do {
-                    return try Template(from: url)
-                } catch let error as Template.Error {
-                    errors.append((url, error))
-                }
-                catch {}
-                return nil
-            })
-            .sorted(by: { $0.version.isVersion(greaterThan: $1.version) }), by: { $0.uuid })
-            .compactMap({ $0.1.first })
-        
-        // ExportManager.templates.forEach({ dump($0) })
-        ExportManager.templates.removeAll()
-        ExportManager.templates.append(contentsOf: templates)
-        errors.forEach({ os_log("Cannot load template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, $0.0.path, $0.1.failureReason ?? "") })
-        
-        if !(selectedTemplate != nil) {
-            selectedTemplate = ExportManager.templates.first
-        }
-        
-        NotificationCenter.default.post(
-            name: NotificationType.Name.templatesDidLoadNotification,
-            object: nil
-        )
     }
     
     func copyPixelColor(at coordinate: PixelCoordinate, with template: Template) throws {
@@ -226,8 +139,8 @@ class ExportManager {
     
     private func hardcodedCopyContentItemsLua(_ items: [ContentItem]) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
-        guard let exampleTemplateURL = ExportManager.exampleTemplateURLs.first else { throw Error.noTemplateSelected }
-        let exampleTemplate = try Template(from: exampleTemplateURL)
+        guard let exampleTemplateURL = TemplateManager.exampleTemplateURLs.first else { throw Error.noTemplateSelected }
+        let exampleTemplate = try Template(templateURL: exampleTemplateURL, templateManager: TemplateManager.shared)
         let generatedString = try exampleTemplate.generate(image, for: items)
         exportToGeneralStringPasteboard(generatedString)
     }

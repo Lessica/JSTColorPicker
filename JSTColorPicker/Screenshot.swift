@@ -202,7 +202,7 @@ extension Screenshot {
         if menuItem.action == #selector(copyAll(_:))
             || menuItem.action == #selector(exportAll(_:))
         {
-            guard let template = ExportManager.selectedTemplate else { return false }
+            guard let template = TemplateManager.shared.selectedTemplate else { return false }
 
             if menuItem.action == #selector(exportAll(_:)) {
                 guard template.saveInPlace || template.allowedExtensions.count > 0 else { return false }
@@ -212,7 +212,7 @@ extension Screenshot {
     }
     
     @IBAction func copyAll(_ sender: Any) {
-        guard let template = ExportManager.selectedTemplate else {
+        guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }
@@ -226,7 +226,7 @@ extension Screenshot {
     
     @IBAction func exportAll(_ sender: Any) {
         guard let window = associatedWindowController?.window else { return }
-        guard let template = ExportManager.selectedTemplate else {
+        guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
         }

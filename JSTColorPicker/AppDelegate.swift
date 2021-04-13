@@ -421,7 +421,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
         applicationLoadTemplatesIfNeeded()
-        NSWorkspace.shared.open(ExportManager.templateRootURL)
+        NSWorkspace.shared.open(TemplateManager.templateRootURL)
     }
     
     @IBAction func showLogsMenuItemTapped(_ sender: NSMenuItem) {
@@ -436,12 +436,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc private func selectTemplateItemTapped(_ sender: NSMenuItem) {
         guard let template = sender.representedObject as? Template else { return }
-        ExportManager.selectedTemplate = template
+        TemplateManager.shared.selectedTemplate = template
     }
     
     @objc private func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
         do {
-            try ExportManager.reloadTemplates()
+            try TemplateManager.shared.reloadTemplates()
         } catch {
             firstRespondingWindowController?.presentError(error)
         }
@@ -451,17 +451,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let searchPaths = [
             Bundle.main.resourcePath!,
             Bundle(identifier: "com.jst.LuaC")!.resourcePath!,
-            ExportManager.templateRootURL.path
+            TemplateManager.templateRootURL.path
         ]
         setenv("LUA_PATH", searchPaths.reduce("") { $0 + $1 + "/?.lua;" }, 1)
         setenv("LUA_CPATH", searchPaths.reduce("") { $0 + $1 + "/?.so;" }, 1)
-        if ExportManager.templates.count == 0 {
-            ExportManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
+        if TemplateManager.shared.templates.count == 0 {
+            TemplateManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
                 let exampleTemplateName = exampleTemplateURL.lastPathComponent
-                let newExampleTemplateURL = ExportManager.templateRootURL.appendingPathComponent(exampleTemplateName)
+                let newExampleTemplateURL = TemplateManager.templateRootURL.appendingPathComponent(exampleTemplateName)
                 try? FileManager.default.copyItem(at: exampleTemplateURL, to: newExampleTemplateURL)
             }
-            try? ExportManager.reloadTemplates()
+            try? TemplateManager.shared.reloadTemplates()
         }
     }
     
@@ -525,7 +525,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
 \(template.name) (\(template.version))
 by \(template.author ?? "Unknown")
 ------
-\(template.description ?? "")
+\(template.userDescription ?? "")
 """
             }
             else {
@@ -633,7 +633,7 @@ by \(template.author ?? "Unknown")
     
     private func updateTemplatesSubMenuItems() {
         var itemIdx: Int = 0
-        let items = ExportManager.templates
+        let items = TemplateManager.shared.templates
             .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
             .compactMap({ [weak self] (template) -> NSMenuItem in
                 itemIdx += 1
@@ -650,7 +650,7 @@ by \(template.author ?? "Unknown")
                 item.target = self
                 item.representedObject = template
                 item.keyEquivalentModifierMask = [.control, .command]
-                item.state = template.uuid == ExportManager.selectedTemplate?.uuid ? .on : .off
+                item.state = template.uuid == TemplateManager.shared.selectedTemplate?.uuid ? .on : .off
                 
                 return item
             })
