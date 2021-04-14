@@ -22,20 +22,43 @@ class InspectorController: NSViewController, PaneController {
     @IBOutlet weak var paneBox        : NSBox!
     @IBOutlet weak var inspectorView  : InspectorView!
     @IBOutlet weak var detailButton   : NSButton!
-    
+
+    private var observableKeys        : [UserDefaults.Key] = [.togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat]
+    private var observables           : [Observable]?
     private var lastStoredItem        : ContentItem?
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         _ = colorPanel
         reloadPane()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    private func prepareDefaults() {
+        let configVal: Bool = style == .primary
+            ? UserDefaults.standard[.togglePrimaryInspectorHSBFormat]
+            : UserDefaults.standard[.toggleSecondaryInspectorHSBFormat]
+        let configState: NSControl.StateValue = configVal ? .on : .off
+        detailButton.state = configState
+        inspectorView.isHSBFormat = configVal
+    }
+
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if (style == .primary && defaultKey == .togglePrimaryInspectorHSBFormat) || (style == .secondary && defaultKey == .toggleSecondaryInspectorHSBFormat), let toValue = defaultValue as? Bool
+        {
+            let configState: NSControl.StateValue = toValue ? .on : .off
+            if detailButton.state != configState {
+                detailButton.state = configState
+            }
+            if inspectorView.isHSBFormat != toValue {
+                inspectorView.isHSBFormat = toValue
+            }
+        }
     }
     
     private var isViewHidden: Bool = true
@@ -118,19 +141,8 @@ extension InspectorController: ItemInspector {
         paneBox.title = style == .primary
             ? NSLocalizedString("Inspector (Primary)", comment: "reloadPane()")
             : NSLocalizedString("Inspector (Secondary)", comment: "reloadPane()")
-        applyPreferences(nil)
+        prepareDefaults()
         inspectorView.reset()
-    }
-
-    @objc private func applyPreferences(_ notification: Notification?) {
-        let configVal: Bool = style == .primary ? UserDefaults.standard[.togglePrimaryInspectorHSBFormat] : UserDefaults.standard[.toggleSecondaryInspectorHSBFormat]
-        let configState: NSControl.StateValue = configVal ? .on : .off
-        if detailButton.state != configState {
-            detailButton.state = configState
-        }
-        if inspectorView.isHSBFormat != configVal {
-            inspectorView.isHSBFormat = configVal
-        }
     }
 
     @IBAction func detailButtonTapped(_ sender: NSButton) {

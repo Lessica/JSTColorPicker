@@ -10,25 +10,47 @@ import Cocoa
 
 class TemplateInfoController: NSViewController, PaneController {
     var menuIdentifier = NSUserInterfaceItemIdentifier("show-template-information")
-    
-    weak var screenshot  : Screenshot?
-    weak var template    : Template?
+
+    private var observableKeys        : [UserDefaults.Key] = [.toggleTemplateDetailedInformation]
+    private var observables           : [Observable]?
+
+    weak    var screenshot            : Screenshot?
+    weak    var template              : Template?
     {
         didSet {
             updateTemplatePane()
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applyPreferences(_:)),
-            name: UserDefaults.didChangeNotification,
-            object: nil
-        )
+        prepareDefaults()
     }
-    
+
+    private func prepareDefaults() {
+        let advancedVal: Bool = UserDefaults.standard[.toggleTemplateDetailedInformation]
+        let advancedValState: NSControl.StateValue = advancedVal ? .on : .off
+        detailButton.state = advancedValState
+        templateInfoView.isAdvanced = advancedVal
+    }
+
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if defaultKey == .toggleTemplateDetailedInformation, let toValue = defaultValue as? Bool {
+            let advancedValState: NSControl.StateValue = toValue ? .on : .off
+            if detailButton.state != advancedValState {
+                detailButton.state = advancedValState
+            }
+            if templateInfoView.isAdvanced != toValue {
+                templateInfoView.isAdvanced = toValue
+            }
+        }
+    }
+
     private var isViewHidden: Bool = true
     
     override func viewWillAppear() {
@@ -40,10 +62,6 @@ class TemplateInfoController: NSViewController, PaneController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         isViewHidden = true
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     @IBOutlet weak var paneBox           : NSBox!
@@ -62,17 +80,6 @@ class TemplateInfoController: NSViewController, PaneController {
         if _shouldDisplayTemplate {
             _shouldDisplayTemplate = false
             updateTemplatePane()
-        }
-    }
-
-    @objc private func applyPreferences(_ notification: Notification?) {
-        let advancedVal: Bool = UserDefaults.standard[.toggleTemplateDetailedInformation]
-        let advancedValState: NSControl.StateValue = advancedVal ? .on : .off
-        if detailButton.state != advancedValState {
-            detailButton.state = advancedValState
-        }
-        if templateInfoView.isAdvanced != advancedVal {
-            templateInfoView.isAdvanced = advancedVal
         }
     }
 
