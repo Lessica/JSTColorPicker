@@ -8,18 +8,18 @@
 
 import Foundation
 
-final class KeyValueObserver<ValueType: Any>: NSObject, Observable {
+public final class KeyValueObserver<ValueType: Any>: NSObject, Observable {
 
-    typealias ChangeCallback = (KeyValueObserverResult<ValueType>) -> Void
+    public typealias ChangeCallback = (KeyValueObserverResult<ValueType>) -> Void
 
-    private var context = 0 // Value don't reaaly matter. Only address is important.
+    private var context = 0  // Value don't reaaly matter. Only address is important.
     private var object: NSObject
     private var keyPath: String
     private var callback: ChangeCallback
 
-    var isSuspended = false
+    public var isSuspended = false
 
-    init(object: NSObject, keyPath: String, options: NSKeyValueObservingOptions = .new,
+    public init(object: NSObject, keyPath: String, options: NSKeyValueObservingOptions = .new,
                 callback: @escaping ChangeCallback) {
         self.object = object
         self.keyPath = keyPath
@@ -32,11 +32,11 @@ final class KeyValueObserver<ValueType: Any>: NSObject, Observable {
         dispose()
     }
 
-    func dispose() {
+    public func dispose() {
         object.removeObserver(self, forKeyPath: keyPath, context: &context)
     }
 
-    static func observeNew<T>(object: NSObject, keyPath: String,
+    public static func observeNew<T>(object: NSObject, keyPath: String,
                                      callback: @escaping (T) -> Void) -> Observable {
         let observer = KeyValueObserver<T>(object: object, keyPath: keyPath, options: .new) { result in
             if let value = result.valueNew {
@@ -46,7 +46,7 @@ final class KeyValueObserver<ValueType: Any>: NSObject, Observable {
         return observer
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?,
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?,
                                       change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &self.context && keyPath == self.keyPath {
             if !isSuspended, let change = change, let result = KeyValueObserverResult<ValueType>(change: change) {

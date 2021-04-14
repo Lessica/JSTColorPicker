@@ -59,6 +59,9 @@ class ContentController: NSViewController {
     
     private var undoToken                 : NotificationToken?
     private var redoToken                 : NotificationToken?
+
+    private var observableKeys            : [UserDefaults.Key] = [.usesDetailedToolTips]
+    private var observables               : [Observable]?
     
     private var delayedRowIndexes         : IndexSet? { _delayedRowIndexes }
     private var _delayedRowIndexes        : IndexSet?
@@ -111,16 +114,9 @@ class ContentController: NSViewController {
     private var preparedMenuTags             : OrderedSet<String>?
     private var preparedMenuTagsAndCounts    : [String: Int]?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addCoordinateButton.isEnabled = false
-        addCoordinateField.isEnabled = false
-        
-        tableView.tableViewResponder = self
-        tableView.registerForDraggedTypes([.color, .area])
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
 
         NotificationCenter.default.addObserver(
             self,
@@ -135,8 +131,18 @@ class ContentController: NSViewController {
             name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
             object: nil
         )
+    }
 
-        applyPreferences(nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addCoordinateButton.isEnabled = false
+        addCoordinateField.isEnabled = false
+        
+        tableView.tableViewResponder = self
+        tableView.registerForDraggedTypes([.color, .area])
+
+        prepareDefaults()
         invalidateRestorableState()
     }
 
@@ -152,14 +158,17 @@ class ContentController: NSViewController {
             _ = self.setupInitialFirstResponder
         }
     }
-    
-    @objc private func applyPreferences(_ notification: Notification?) {
+
+    private func prepareDefaults() {
         updateColumns()
-        
-        if notification == nil {
-            usesDetailedToolTips = UserDefaults.standard[.usesDetailedToolTips]
-        } else {
-            let toValue: Bool = UserDefaults.standard[.usesDetailedToolTips]
+        usesDetailedToolTips = UserDefaults.standard[.usesDetailedToolTips]
+        tableView.reloadData()
+    }
+    
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if defaultKey == .usesDetailedToolTips, let toValue = defaultValue as? Bool {
+            updateColumns()
+
             if usesDetailedToolTips != toValue {
                 usesDetailedToolTips = toValue
                 tableView.reloadData()

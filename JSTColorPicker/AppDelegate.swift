@@ -96,9 +96,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             as? [String : Any?])?.forEach({ initialValues[UserDefaults.Key(rawValue: $0.key)] = $0.value })
         
         UserDefaults.standard.register(defaults: initialValues)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationApplyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+
+        #if DEBUG
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationApplyPreferences(_:)),
+            name: UserDefaults.didChangeNotification,
+            object: nil
+        )
         applicationApplyPreferences(nil)
+        #endif
         
         applicationXPCResetUI()
         applicationXPCEstablish()
@@ -769,13 +776,13 @@ extension AppDelegate {
 
 // MARK: -
 
+#if DEBUG
 extension AppDelegate {
-    
     @objc private func applicationApplyPreferences(_ notification: Notification?) {
         debugPrint("\(className):\(#function)")
     }
-    
 }
+#endif
 
 
 // MARK: -

@@ -164,9 +164,63 @@ class SceneController: NSViewController {
             return true
         }
     }
-    
-    private var windowActiveNotificationToken: NotificationToken?
-    private var eventMonitors = [Any]()
+
+    private var observableKeys                 : [UserDefaults.Key] = [
+        .enableForceTouch, .hideAnnotatorsWhenResize, .hideBordersWhenResize,
+        .hideGridsWhenResize, .usesPredominantAxisScrolling,
+        .drawSceneBackground, .drawBordersInScene, .drawGridsInScene,
+        .drawRulersInScene, .drawTagsInScene
+    ]
+    private var observables                    : [Observable]?
+    private var windowActiveNotificationToken  : NotificationToken?
+    private var eventMonitors                  = [Any]()
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveMagnify(_:)),
+            name: NSScrollView.willStartLiveMagnifyNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveMagnify(_:)),
+            name: NSScrollView.didEndLiveMagnifyNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveScroll(_:)),
+            name: NSScrollView.willStartLiveScrollNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveScroll(_:)),
+            name: NSScrollView.didEndLiveScrollNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidLoadNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextDidLoad,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidChangeNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,7 +254,8 @@ class SceneController: NSViewController {
         sceneOverlayView.sceneTagsEffectViewSource = self
         sceneOverlayView.annotatorSource           = self
         sceneOverlayView.contentDelegate           = self
-        
+        prepareDefaults()
+
         eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowFlagsChanged(with: event) {
@@ -208,7 +263,7 @@ class SceneController: NSViewController {
             }
             return event
         }!)
-        
+
         eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
             guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowKeyDown(with: event) {
@@ -225,114 +280,81 @@ class SceneController: NSViewController {
         }
 
         useSelectedSceneTool()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneWillStartLiveMagnify(_:)),
-            name: NSScrollView.willStartLiveMagnifyNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneDidEndLiveMagnify(_:)),
-            name: NSScrollView.didEndLiveMagnifyNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneWillStartLiveScroll(_:)),
-            name: NSScrollView.willStartLiveScrollNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneDidEndLiveScroll(_:)),
-            name: NSScrollView.didEndLiveScrollNotification,
-            object: sceneView
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applyPreferences(_:)),
-            name: UserDefaults.didChangeNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(managedTagsDidLoadNotification(_:)),
-            name: NSNotification.Name.NSManagedObjectContextDidLoad,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(managedTagsDidChangeNotification(_:)),
-            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-            object: nil
-        )
-
-        applyPreferences(nil)
     }
-    
-    @objc private func applyPreferences(_ notification: Notification?) {
-        
-        enableForceTouch = UserDefaults.standard[.enableForceTouch]
-        hideAnnotatorsWhenResize = UserDefaults.standard[.hideAnnotatorsWhenResize]
-        hideBordersWhenResize = UserDefaults.standard[.hideBordersWhenResize]
-        hideGridsWhenResize = UserDefaults.standard[.hideGridsWhenResize]
-        usesPredominantAxisScrolling = UserDefaults.standard[.usesPredominantAxisScrolling]
-        
-        let drawSceneBackground: Bool = UserDefaults.standard[.drawSceneBackground]
-        if self.drawSceneBackground != drawSceneBackground {
-            self.drawSceneBackground = drawSceneBackground
-        }
-        
-        var shouldNotifySceneBoundsChanged = false
-        
-        let drawBordersInScene: Bool = UserDefaults.standard[.drawBordersInScene]
-        if self.drawBordersInScene != drawBordersInScene {
-            self.drawBordersInScene = drawBordersInScene
-            shouldNotifySceneBoundsChanged = true
-        }
-        
-        let hideBordersInScene = !drawBordersInScene
-        if sceneBorderView.isHidden != hideBordersInScene {
-            sceneBorderView.isHidden = hideBordersInScene
-        }
-        
-        let drawGridsInScene: Bool = UserDefaults.standard[.drawGridsInScene]
-        if self.drawGridsInScene != drawGridsInScene {
-            self.drawGridsInScene = drawGridsInScene
-            shouldNotifySceneBoundsChanged = true
-        }
-        
-        let hideGridsInScene = !drawGridsInScene
-        if sceneGridView.isHidden != hideGridsInScene {
-            sceneGridView.isHidden = hideGridsInScene
-        }
-        
-        let drawRulersInScene: Bool = UserDefaults.standard[.drawRulersInScene]
-        if self.drawRulersInScene != drawRulersInScene {
-            self.drawRulersInScene = drawRulersInScene
-            reloadSceneRulerConstraints()
-            shouldNotifySceneBoundsChanged = true
-        }
 
-        let drawTagsInScene: Bool = UserDefaults.standard[.drawTagsInScene]
-        if self.drawTagsInScene != drawTagsInScene {
-            self.drawTagsInScene = drawTagsInScene
-            setNeedsRedrawAnnotatorContents()
-            shouldNotifySceneBoundsChanged = true
+    private func prepareDefaults() {
+        enableForceTouch               = UserDefaults.standard[.enableForceTouch]
+        hideAnnotatorsWhenResize       = UserDefaults.standard[.hideAnnotatorsWhenResize]
+        hideBordersWhenResize          = UserDefaults.standard[.hideBordersWhenResize]
+        hideGridsWhenResize            = UserDefaults.standard[.hideGridsWhenResize]
+        usesPredominantAxisScrolling   = UserDefaults.standard[.usesPredominantAxisScrolling]
+        drawSceneBackground            = UserDefaults.standard[.drawSceneBackground]
+        drawBordersInScene             = UserDefaults.standard[.drawBordersInScene]
+        drawGridsInScene               = UserDefaults.standard[.drawGridsInScene]
+        drawRulersInScene              = UserDefaults.standard[.drawRulersInScene]
+        drawTagsInScene                = UserDefaults.standard[.drawTagsInScene]
+
+        sceneBorderView.isHidden       = !drawBordersInScene
+        sceneGridView.isHidden         = !drawGridsInScene
+        reloadSceneRulerConstraints()
+        setNeedsRedrawAnnotatorContents()
+    }
+
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if let toValue = defaultValue as? Bool {
+            var shouldNotifySceneBoundsChanged = false
+            if defaultKey == .enableForceTouch && enableForceTouch != toValue {
+                enableForceTouch = toValue
+            }
+            else if defaultKey == .hideAnnotatorsWhenResize && hideAnnotatorsWhenResize != toValue {
+                hideAnnotatorsWhenResize = toValue
+            }
+            else if defaultKey == .hideBordersWhenResize && hideBordersWhenResize != toValue {
+                hideBordersWhenResize = toValue
+            }
+            else if defaultKey == .hideGridsWhenResize && hideGridsWhenResize != toValue {
+                hideGridsWhenResize = toValue
+            }
+            else if defaultKey == .usesPredominantAxisScrolling && usesPredominantAxisScrolling != toValue {
+                usesPredominantAxisScrolling = toValue
+            }
+            else if defaultKey == .drawSceneBackground && drawSceneBackground != toValue {
+                drawSceneBackground = toValue
+            }
+            else if defaultKey == .drawBordersInScene {
+                if drawBordersInScene != toValue {
+                    drawBordersInScene = toValue
+                    shouldNotifySceneBoundsChanged = true
+                }
+                let hideBordersInScene = !toValue
+                if sceneBorderView.isHidden != hideBordersInScene {
+                    sceneBorderView.isHidden = hideBordersInScene
+                }
+            }
+            else if defaultKey == .drawGridsInScene {
+                if drawGridsInScene != toValue {
+                    drawGridsInScene = toValue
+                    shouldNotifySceneBoundsChanged = true
+                }
+                let hideGridsInScene = !toValue
+                if sceneGridView.isHidden != hideGridsInScene {
+                    sceneGridView.isHidden = hideGridsInScene
+                }
+            }
+            else if defaultKey == .drawRulersInScene && drawRulersInScene != toValue {
+                drawRulersInScene = toValue
+                reloadSceneRulerConstraints()
+                shouldNotifySceneBoundsChanged = true
+            }
+            else if defaultKey == .drawTagsInScene && drawTagsInScene != toValue {
+                drawTagsInScene = toValue
+                setNeedsRedrawAnnotatorContents()
+                shouldNotifySceneBoundsChanged = true
+            }
+            if shouldNotifySceneBoundsChanged {
+                notifyVisibleRectChanged()
+            }
         }
-        
-        if notification != nil && shouldNotifySceneBoundsChanged {
-            notifyVisibleRectChanged()
-        }
-        
     }
     
     private func renderImage(_ image: PixelImage) {

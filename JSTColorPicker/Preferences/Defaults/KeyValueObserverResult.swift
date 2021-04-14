@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct KeyValueObserverResult<T: Any> {
+public struct KeyValueObserverResult<T: Any> {
 
-    private(set) var change: [NSKeyValueChangeKey: Any]
+    public private(set) var change: [NSKeyValueChangeKey: Any]
 
-    private(set) var kind: NSKeyValueChange
+    public private(set) var kind: NSKeyValueChange
 
     init?(change: [NSKeyValueChangeKey: Any]) {
         self.change = change
@@ -26,11 +26,11 @@ struct KeyValueObserverResult<T: Any> {
 
     // MARK: -
 
-    var valueNew: T? {
+    public var valueNew: T? {
         return change[.newKey] as? T
     }
 
-    var valueOld: T? {
+    public var valueOld: T? {
         return change[.oldKey] as? T
     }
 

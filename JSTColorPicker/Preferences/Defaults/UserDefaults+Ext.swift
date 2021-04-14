@@ -10,13 +10,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-typealias SystemColor = UIColor
+public typealias SystemColor = UIColor
 #else
 import Cocoa
-typealias SystemColor = NSColor
+public typealias SystemColor = NSColor
 #endif
 
-extension UserDefaults {
+public extension UserDefaults {
 
     func set<T>(_ value: T?, forKey key: Key) {
         set(value, forKey: key.rawValue)
@@ -33,7 +33,7 @@ extension UserDefaults {
     func register(defaults: [Key: Any?]) {
         let mapped = Dictionary(uniqueKeysWithValues: defaults.map { (key, value) -> (String, Any?) in
             if let color = value as? SystemColor {
-                return (key.rawValue, NSKeyedArchiver.archivedData(withRootObject: color))
+                return (key.rawValue, try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: true))
             } else if let url = value as? URL {
                 return (key.rawValue, url.absoluteString)
             } else {
@@ -47,7 +47,7 @@ extension UserDefaults {
 
 }
 
-extension UserDefaults {
+public extension UserDefaults {
 
     subscript<T>(key: Key) -> T? {
         get { value(forKey: key)         }
@@ -91,7 +91,7 @@ extension UserDefaults {
 
 }
 
-extension UserDefaults {
+public extension UserDefaults {
 
     func bool(forKey key: Key) -> Bool {
         return bool(forKey: key.rawValue)
@@ -135,36 +135,55 @@ extension UserDefaults {
             return
         }
 
-        let data = NSKeyedArchiver.archivedData(withRootObject: color)
+        let data = try! NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: true)
         set(data, forKey: key.rawValue)
     }
 
     func color(forKey key: Key) -> SystemColor? {
         return data(forKey: key.rawValue)
-            .flatMap { NSKeyedUnarchiver.unarchiveObject(with: $0) as? SystemColor }
+            .flatMap { try? NSKeyedUnarchiver.unarchivedObject(ofClass: SystemColor.self, from: $0) }
     }
 
 }
 
-extension UserDefaults {
+public extension UserDefaults {
     struct Key: Codable, Hashable, RawRepresentable, ExpressibleByStringLiteral {
-        var rawValue: String
-        init(rawValue: String) {
+        public var rawValue: String
+        public init(rawValue: String) {
             self.rawValue = rawValue
         }
-        init(stringLiteral value: String) {
+        public init(stringLiteral value: String) {
             self.rawValue = value
         }
     }
 
-    func observe<T: Any>(key: String, callback: @escaping (T) -> Void) -> Observable {
-        let result = KeyValueObserver<T>.observeNew(object: self, keyPath: key) {
-            callback($0)
+    func observe<T: Any>(
+        key: UserDefaults.Key,
+        callback: @escaping (_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: T) -> Void
+    ) -> Observable
+    {
+        return KeyValueObserver<T>.observeNew(
+            object: self,
+            keyPath: key.rawValue
+        ) {
+            callback(self, key, $0)
         }
-        return result
     }
 
-    func observeString(key: String, callback: @escaping (String) -> Void) -> Observable {
-        return observe(key: key, callback: callback)
+    func observe<T: Any>(
+        keys: [UserDefaults.Key],
+        callback: @escaping (_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: T) -> Void
+    ) -> [Observable]
+    {
+        return keys.compactMap(
+            { key in
+                KeyValueObserver<T>.observeNew(
+                    object: self,
+                    keyPath: key.rawValue
+                ) { value in
+                    callback(self, key, value)
+                }
+            }
+        )
     }
 }
