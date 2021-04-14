@@ -182,6 +182,26 @@ extension ExportStackedController: NSSplitViewDelegate {
         guard dividerIndex < splitView.arrangedSubviews.count else { return false }
         return splitView.arrangedSubviews[dividerIndex].isHidden
     }
+    
+    func splitView(_ splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
+        return false
+    }
+    
+    func splitView(_ splitView: NSSplitView, constrainMinCoordinate proposedMinimumPosition: CGFloat, ofSubviewAt dividerIndex: Int) -> CGFloat {
+        if dividerIndex == 0 {
+            return 19
+        }
+        return proposedMinimumPosition
+    }
+    
+    func splitView(_ splitView: NSSplitView, constrainMaxCoordinate proposedMaximumPosition: CGFloat, ofSubviewAt dividerIndex: Int) -> CGFloat {
+        if dividerIndex < paneControllers.count {
+            let paneCtrl = paneControllers[dividerIndex]
+            let convertedFrame = splitView.convert(paneCtrl.paneBox.frame, from: paneCtrl.view)
+            return convertedFrame.maxY - 1
+        }
+        return proposedMaximumPosition
+    }
 }
 
 extension ExportStackedController: NSMenuItemValidation {

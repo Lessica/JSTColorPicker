@@ -78,9 +78,9 @@
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>
-                                    <real value="275"/>
+                                    <real value="290"/>
+                                    <real value="280"/>
                                     <real value="270"/>
-                                    <real value="265"/>
                                     <real value="200"/>
                                 </holdingPriorities>
                                 <connections>

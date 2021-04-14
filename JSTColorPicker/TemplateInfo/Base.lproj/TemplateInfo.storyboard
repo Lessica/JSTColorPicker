@@ -83,8 +83,8 @@
                             <constraint firstItem="2ef-2N-c4N" firstAttribute="top" secondItem="dRV-BK-U20" secondAttribute="top" constant="2" id="8gR-5h-V9z"/>
                             <constraint firstAttribute="trailing" secondItem="Zdn-NU-N0S" secondAttribute="trailing" id="9lX-Og-HaT"/>
                             <constraint firstItem="Zdn-NU-N0S" firstAttribute="top" secondItem="dRV-BK-U20" secondAttribute="top" constant="4" id="FF3-EQ-VvU"/>
+                            <constraint firstAttribute="bottom" secondItem="Zdn-NU-N0S" secondAttribute="bottom" placeholder="YES" id="I8u-tC-hsr"/>
                             <constraint firstItem="Zdn-NU-N0S" firstAttribute="leading" secondItem="dRV-BK-U20" secondAttribute="leading" id="UU0-30-SRV"/>
-                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Zdn-NU-N0S" secondAttribute="bottom" id="c83-Xh-Mqd"/>
                         </constraints>
                     </view>
                     <connections>

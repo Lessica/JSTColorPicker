@@ -86,10 +86,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="258" height="856"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="3ca-bl-3MA">
-                                                <rect key="frame" x="0.0" y="0.0" width="258" height="417"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
                                                 <subviews>
                                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="0kM-ou-kCG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="417"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
                                                         <connections>
                                                             <segue destination="Bee-g5-GWE" kind="embed" id="VJL-sA-3aV"/>
                                                         </connections>
@@ -103,15 +103,13 @@
                                                     <constraint firstItem="0kM-ou-kCG" firstAttribute="top" secondItem="3ca-bl-3MA" secondAttribute="top" id="dO3-3O-muz"/>
                                                 </constraints>
                                             </customView>
-                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="AvW-3b-26q">
-                                                <rect key="frame" x="0.0" y="418" width="258" height="438"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="9wW-sc-AXe"/>
-                                                </constraints>
+                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" fixedFrame="YES" id="AvW-3b-26q">
+                                                <rect key="frame" x="0.0" y="856" width="258" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
-                                            <real value="275"/>
+                                            <real value="290"/>
                                             <real value="200"/>
                                         </holdingPriorities>
                                         <connections>
