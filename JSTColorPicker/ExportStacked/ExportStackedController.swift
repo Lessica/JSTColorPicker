@@ -143,7 +143,8 @@ extension ExportStackedController: PaneContainer {
             .map({ $0.offset })
             .reduce(into: IndexSet()) { $0.insert($1) }
 
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             completion(self)
             self.resetDividers(in: targetIndexSet)
         }
@@ -162,8 +163,8 @@ extension ExportStackedController: ScreenshotLoader {
             return
         }
         if async {
-            DispatchQueue.main.async { [unowned self] in
-                self.resetDividers()
+            DispatchQueue.main.async { [weak self] in
+                self?.resetDividers()
             }
         } else {
             self.resetDividers()

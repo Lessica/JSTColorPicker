@@ -25,4 +25,6 @@ class SceneStackedView: NSSplitView {
         }
         super.mouseUp(with: event)
     }
+
+    override var dividerColor: NSColor { NSColor.secondaryLabelColor.withAlphaComponent(0.24) }
 }

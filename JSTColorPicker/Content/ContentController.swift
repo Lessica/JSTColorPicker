@@ -154,8 +154,8 @@ class ContentController: NSViewController {
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        DispatchQueue.main.async { [unowned self] in
-            _ = self.setupInitialFirstResponder
+        DispatchQueue.main.async { [weak self] in
+            _ = self?.setupInitialFirstResponder
         }
     }
 
@@ -1303,8 +1303,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 }
                 try completion(items, template)
             } catch {
-                DispatchQueue.main.async { [unowned self] in
-                    self.presentError(error)
+                DispatchQueue.main.async { [weak self] in
+                    self?.presentError(error)
                 }
             }
         }
@@ -1558,14 +1558,14 @@ extension ContentController: TagImportSource {
 extension ContentController {
     
     @objc private func managedTagsDidLoadNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [unowned self] in
-            self.contentItemColorizeAll()
+        DispatchQueue.main.async { [weak self] in
+            self?.contentItemColorizeAll()
         }
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [unowned self] in
-            self.contentItemColorizeWithNotification(noti)
+        DispatchQueue.main.async { [weak self] in
+            self?.contentItemColorizeWithNotification(noti)
         }
     }
     

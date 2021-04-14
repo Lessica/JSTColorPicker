@@ -324,8 +324,8 @@ extension Screenshot {
                 }
                 try completion(template)
             } catch {
-                DispatchQueue.main.async { [unowned self] in
-                    self.presentError(error)
+                DispatchQueue.main.async { [weak self] in
+                    self?.presentError(error)
                 }
             }
         }
