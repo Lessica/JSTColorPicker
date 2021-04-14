@@ -105,6 +105,9 @@
                                             <real value="270"/>
                                             <real value="200"/>
                                         </holdingPriorities>
+                                        <connections>
+                                            <outlet property="delegate" destination="hUV-WW-2BP" id="jKv-gZ-2YZ"/>
+                                        </connections>
                                     </splitView>
                                 </subviews>
                                 <constraints>

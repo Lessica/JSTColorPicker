@@ -24,7 +24,7 @@ class DocumentStackedController: NSViewController {
         super.viewDidLoad()
         splitView.arrangedSubviews
             .forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
-        
+
         updateStackedChildren(isAsync: false)
     }
 

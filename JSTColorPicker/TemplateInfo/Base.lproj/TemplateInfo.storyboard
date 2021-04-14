@@ -9,21 +9,20 @@
         <scene sceneID="Oj7-81-Oyt">
             <objects>
                 <viewController id="bdK-r7-7zT" customClass="TemplateInfoController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="dRV-BK-U20">
-                        <rect key="frame" x="0.0" y="0.0" width="264" height="283"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="dRV-BK-U20">
+                        <rect key="frame" x="0.0" y="0.0" width="264" height="326"/>
                         <subviews>
                             <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S">
-                                <rect key="frame" x="-3" y="-4" width="270" height="283"/>
+                                <rect key="frame" x="-3" y="-4" width="270" height="326"/>
                                 <view key="contentView" id="OPo-mo-uT7">
-                                    <rect key="frame" x="11" y="11" width="248" height="257"/>
+                                    <rect key="frame" x="11" y="11" width="248" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ig2-kj-bwb">
-                                            <rect key="frame" x="0.0" y="2" width="248" height="247"/>
+                                            <rect key="frame" x="0.0" y="2" width="248" height="290"/>
                                             <subviews>
-                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSU-O8-r1z">
-                                                    <rect key="frame" x="-2" y="233" width="236" height="14"/>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSU-O8-r1z">
+                                                    <rect key="frame" x="6" y="276" width="236" height="14"/>
                                                     <textFieldCell key="cell" allowsUndo="NO" title="ERROR_MESSAGE" id="J6y-R5-xQb">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -31,10 +30,10 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHc-l4-1hs" customClass="TemplateInfoView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="248" height="247"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="248" height="268"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="248" placeholder="YES" id="9rg-NG-UiT"/>
-                                                        <constraint firstAttribute="height" constant="247" placeholder="YES" id="hfb-Tm-Ptr"/>
+                                                        <constraint firstAttribute="height" constant="268" placeholder="YES" id="hfb-Tm-Ptr"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isAdvanced" value="NO"/>
@@ -65,7 +64,7 @@
                                 <size key="contentViewMargins" width="8" height="8"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ef-2N-c4N">
-                                <rect key="frame" x="240" y="262.5" width="16" height="21"/>
+                                <rect key="frame" x="240" y="305.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="E1w-tp-ojT"/>
                                     <constraint firstAttribute="height" constant="16" id="gNB-xk-fPc"/>
