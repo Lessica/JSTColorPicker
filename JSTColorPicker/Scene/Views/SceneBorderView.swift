@@ -33,16 +33,18 @@ class SceneBorderView: NSView {
     
     private var wrappedRenderingArea: CGRect = .null
     private var positionSatisfiedGridDrawing: Bool {
-        !wrappedRenderingArea.isEmpty
-        && wrappedRenderingArea.width > 1e-3
-        && wrappedRenderingArea.height > 1e-3
-        &&
-        (
-            abs(wrappedRenderingArea.minX.distance(to: bounds.minX)) > 1e-3
-            || abs(wrappedRenderingArea.minY.distance(to: bounds.minY)) > 1e-3
-            || abs(wrappedRenderingArea.maxX.distance(to: bounds.maxX)) > 1e-3
-            || abs(wrappedRenderingArea.maxY.distance(to: bounds.maxY)) > 1e-3
-        )
+        let intersectsArea = wrappedRenderingArea.intersection(bounds)
+        return
+            !intersectsArea.isEmpty
+            && intersectsArea.width > 1e-3
+            && intersectsArea.height > 1e-3
+            &&
+            (
+                abs(intersectsArea.minX.distance(to: bounds.minX)) > 1e-3
+                    || abs(intersectsArea.minY.distance(to: bounds.minY)) > 1e-3
+                    || abs(intersectsArea.maxX.distance(to: bounds.maxX)) > 1e-3
+                    || abs(intersectsArea.maxY.distance(to: bounds.maxY)) > 1e-3
+            )
     }
     
     // MARK: - CPU Drawing
@@ -68,19 +70,20 @@ class SceneBorderView: NSView {
         ctx.setStrokeColor(SceneBorderView.defaultBorderLineColor)
         
         // draw border flawlessly
-        if abs(wrappedRenderingArea.minX.distance(to: bounds.minX)) > 1e-3 {
+        let intersectsArea = wrappedRenderingArea.intersection(bounds)
+        if abs(intersectsArea.minX.distance(to: bounds.minX)) > 1e-3 {
             ctx.move(to: wrappedRenderingArea.pointMinXMinY)
             ctx.addLine(to: wrappedRenderingArea.pointMinXMaxY)
         }
-        if abs(wrappedRenderingArea.minY.distance(to: bounds.minY)) > 1e-3 {
+        if abs(intersectsArea.minY.distance(to: bounds.minY)) > 1e-3 {
             ctx.move(to: wrappedRenderingArea.pointMinXMinY)
             ctx.addLine(to: wrappedRenderingArea.pointMaxXMinY)
         }
-        if abs(wrappedRenderingArea.maxX.distance(to: bounds.maxX)) > 1e-3 {
+        if abs(intersectsArea.maxX.distance(to: bounds.maxX)) > 1e-3 {
             ctx.move(to: wrappedRenderingArea.pointMaxXMinY)
             ctx.addLine(to: wrappedRenderingArea.pointMaxXMaxY)
         }
-        if abs(wrappedRenderingArea.maxY.distance(to: bounds.maxY)) > 1e-3 {
+        if abs(intersectsArea.maxY.distance(to: bounds.maxY)) > 1e-3 {
             ctx.move(to: wrappedRenderingArea.pointMinXMaxY)
             ctx.addLine(to: wrappedRenderingArea.pointMaxXMaxY)
         }
@@ -108,19 +111,15 @@ class SceneBorderView: NSView {
     override var isHidden: Bool {
         didSet {
             if !isHidden {
-                
                 if  let rect = storedRect,
                     let magnification = storedMagnification
                 {
                     sceneVisibleRectDidChange(storedSceneView, to: rect, of: magnification)
                 }
-                
             } else {
-                
                 storedSceneView = nil
                 storedRect = nil
                 storedMagnification = nil
-                
             }
         }
     }
@@ -142,7 +141,6 @@ extension SceneBorderView: SceneTracking {
                 wrappedRenderingArea = sceneView
                     .convertFromDocumentView(wrappedRestrictedRect)
                     .offsetBy(-sceneView.alternativeBoundsOrigin)
-                    .intersection(bounds)
                 drawable = positionSatisfiedGridDrawing
             } else {
                 wrappedRenderingArea = .null
