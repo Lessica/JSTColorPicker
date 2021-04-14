@@ -20,6 +20,24 @@ class ExportStackedController: NSViewController {
     @IBOutlet weak var templateReloadButton: NSButton!
     @IBOutlet weak var splitView: NSSplitView!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatesDidLoad(_:)),
+            name: TemplateManager.NotificationType.Name.templatesDidLoadNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(selectedTemplateChanged(_:)),
+            name: TemplateManager.NotificationType.Name.selectedTemplateDidChangeNotification,
+            object: nil
+        )
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         splitView.arrangedSubviews
@@ -29,23 +47,9 @@ class ExportStackedController: NSViewController {
             self,
             selector: #selector(templatePopUpButtonWillPopUp(_:)),
             name: NSPopUpButton.willPopUpNotification,
-            object: nil
+            object: templatePopUpButton!
         )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(templatesDidLoad(_:)),
-            name: TemplateManager.NotificationType.Name.templatesDidLoadNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(selectedTemplateChanged(_:)),
-            name: TemplateManager.NotificationType.Name.selectedTemplateDidChangeNotification,
-            object: nil
-        )
-        
+
         setNeedsReloadTemplates()
         updateStackedChildren(isAsync: false)
     }

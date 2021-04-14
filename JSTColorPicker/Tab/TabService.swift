@@ -50,8 +50,8 @@ class TabService: TabDelegate {
         dropRespondingObserver = NotificationCenter.default.addObserver(
             forName: .dropRespondingWindowChanged,
             object: nil,
-            queue: nil)
-        { [weak self] notification in
+            queue: nil
+        ) { [weak self] notification in
             guard let window = notification.object as? NSWindow else {
                 self?.dropRespondingWindow = nil
                 return

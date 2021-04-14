@@ -8,7 +8,12 @@ class DragLineOverlay {
         self.startScreenPoint = startScreenPoint
         self.endScreenPoint = endScreenPoint
 
-        NotificationCenter.default.addObserver(self, selector: #selector(DragLineOverlay.screenLayoutDidChange(_:)), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(DragLineOverlay.screenLayoutDidChange(_:)),
+            name: NSApplication.didChangeScreenParametersNotification,
+            object: nil
+        )
         synchronizeWindowsToScreens()
     }
 

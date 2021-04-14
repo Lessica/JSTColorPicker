@@ -181,34 +181,6 @@ class SceneController: NSViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(sceneWillStartLiveMagnify(_:)),
-            name: NSScrollView.willStartLiveMagnifyNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneDidEndLiveMagnify(_:)),
-            name: NSScrollView.didEndLiveMagnifyNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneWillStartLiveScroll(_:)),
-            name: NSScrollView.willStartLiveScrollNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(sceneDidEndLiveScroll(_:)),
-            name: NSScrollView.didEndLiveScrollNotification,
-            object: sceneView
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(managedTagsDidLoadNotification(_:)),
             name: NSNotification.Name.NSManagedObjectContextDidLoad,
             object: nil
@@ -278,6 +250,34 @@ class SceneController: NSViewController {
         ) { [unowned self] _ in
             self.useSelectedSceneTool()
         }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveMagnify(_:)),
+            name: NSScrollView.willStartLiveMagnifyNotification,
+            object: sceneView!
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveMagnify(_:)),
+            name: NSScrollView.didEndLiveMagnifyNotification,
+            object: sceneView!
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveScroll(_:)),
+            name: NSScrollView.willStartLiveScrollNotification,
+            object: sceneView!
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveScroll(_:)),
+            name: NSScrollView.didEndLiveScrollNotification,
+            object: sceneView!
+        )
 
         useSelectedSceneTool()
     }
