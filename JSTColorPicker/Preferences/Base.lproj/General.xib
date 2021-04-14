@@ -37,7 +37,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.enableForceTouch" id="RYu-hc-QCL"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:enableForceTouch" id="RYu-hc-QCL"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u6d-5Z-Ov4">
@@ -47,7 +47,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.usesPredominantAxisScrolling" id="uZg-ig-Kgp"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:usesPredominantAxisScrolling" id="uZg-ig-Kgp"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4yf-9x-RYw">
@@ -68,7 +68,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawSceneBackground" id="lK9-lg-ibN"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawSceneBackground" id="lK9-lg-ibN"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ApU-AG-fox">
@@ -78,7 +78,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawTagsInScene" id="idm-Zf-dBG"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawTagsInScene" id="idm-Zf-dBG"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HZh-Y2-1MM">
@@ -88,7 +88,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawBordersInScene" id="Wq8-7Y-PYs"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawBordersInScene" id="Wq8-7Y-PYs"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6U2-WS-Ug8">
@@ -98,7 +98,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawGridsInScene" id="YzW-VZ-9xT"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawGridsInScene" id="YzW-VZ-9xT"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BPh-cF-26c">
@@ -108,7 +108,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawRulersInScene" id="C8Y-zT-wNh"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawRulersInScene" id="C8Y-zT-wNh"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="18n-MI-BA4">
@@ -118,7 +118,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.hideAnnotatorsWhenResize" id="tfv-I3-9rc"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:hideAnnotatorsWhenResize" id="tfv-I3-9rc"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GwF-mH-5Xo">
@@ -128,7 +128,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.hideBordersWhenResize" id="vUK-po-Gpd"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:hideBordersWhenResize" id="vUK-po-Gpd"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PrW-3M-Nou">
@@ -138,7 +138,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.hideGridsWhenResize" id="3UW-6m-eWf"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:hideGridsWhenResize" id="3UW-6m-eWf"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -196,7 +196,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawAnnotatorsInGridView" id="xKk-ZO-heV"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawAnnotatorsInGridView" id="xKk-ZO-heV"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-XV-TOP">
@@ -206,7 +206,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.drawBackgroundInGridView" id="geJ-B9-nS6"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawBackgroundInGridView" id="geJ-B9-nS6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -246,7 +246,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.usesDetailedToolTips" id="lOJ-8f-nlS"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:usesDetailedToolTips" id="lOJ-8f-nlS"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6b1-O7-Cvg">
@@ -256,7 +256,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.confirmBeforeDelete" id="j5I-EY-5fT"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:confirmBeforeDelete" id="j5I-EY-5fT"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Jz-ZnC">
@@ -266,7 +266,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.ignoreInvalidDeletion" id="Ccc-fz-AUl"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:ignoreInvalidDeletion" id="Ccc-fz-AUl"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HAS-6c-zRj">
@@ -276,7 +276,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.zIndexBySize" id="MvF-zZ-WUf"/>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:zIndexBySize" id="MvF-zZ-WUf"/>
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fnr-8z-7NY">
@@ -289,7 +289,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.maximumItemCountEnabled" id="J2v-k9-38j"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:maximumItemCountEnabled" id="J2v-k9-38j"/>
                                                         </connections>
                                                     </button>
                                                     <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnt-R1-3wY">
@@ -309,8 +309,8 @@
                                                         <connections>
                                                             <binding destination="-2" name="maxValue" keyPath="maximumCount" id="K3L-KO-sFa"/>
                                                             <binding destination="-2" name="minValue" keyPath="minimumCount" previousBinding="K3L-KO-sFa" id="YaY-tL-mIq"/>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.maximumItemCount" previousBinding="YaY-tL-mIq" id="O29-nm-fFj"/>
-                                                            <binding destination="c61-nB-UBl" name="enabled" keyPath="values.defaults.maximumItemCountEnabled" id="Mfb-at-D2s"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:maximumItemCount" previousBinding="YaY-tL-mIq" id="O29-nm-fFj"/>
+                                                            <binding destination="c61-nB-UBl" name="enabled" keyPath="values.defaults:maximumItemCountEnabled" id="Mfb-at-D2s"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
@@ -374,7 +374,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchDiffMask" id="avJ-pZ-6iz">
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchDiffMask" id="avJ-pZ-6iz">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
@@ -388,7 +388,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchIncludeAA" id="ftV-2J-ivf"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchIncludeAA" id="ftV-2J-ivf"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eLu-hi-uzo">
@@ -398,7 +398,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchBackgroundMode" id="e3k-yF-aR1"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchBackgroundMode" id="e3k-yF-aR1"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -432,7 +432,7 @@
                                                         </constraints>
                                                         <color key="color" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchDiffColor" id="ElR-lu-smb">
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchDiffColor" id="ElR-lu-smb">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
                                                                 </dictionary>
@@ -447,7 +447,7 @@
                                                         </constraints>
                                                         <color key="color" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchAAColor" id="3Q1-QM-w4a">
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchAAColor" id="3Q1-QM-w4a">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
                                                                 </dictionary>
@@ -489,7 +489,7 @@
                                                         </constraints>
                                                         <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" numberOfTickMarks="11" sliderType="linear" id="51g-Hj-gvb"/>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchAlpha" id="Nax-0e-Uf4"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchAlpha" id="Nax-0e-Uf4"/>
                                                         </connections>
                                                     </slider>
                                                 </subviews>
@@ -525,7 +525,7 @@
                                                         </constraints>
                                                         <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="1" doubleValue="0.10000000000000001" tickMarkPosition="above" numberOfTickMarks="11" sliderType="linear" id="CiQ-uQ-6bp"/>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults.pixelMatchThreshold" id="F8l-Qv-7X3"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:pixelMatchThreshold" id="F8l-Qv-7X3"/>
                                                         </connections>
                                                     </slider>
                                                 </subviews>

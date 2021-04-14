@@ -47,7 +47,11 @@ class TabService: TabDelegate {
     
     init(initialWindowController: WindowController) {
         precondition(addManagedWindow(windowController: initialWindowController) != nil)
-        dropRespondingObserver = NotificationCenter.default.addObserver(forName: .dropRespondingWindowChanged, object: nil, queue: nil) { [weak self] notification in
+        dropRespondingObserver = NotificationCenter.default.addObserver(
+            forName: .dropRespondingWindowChanged,
+            object: nil,
+            queue: nil)
+        { [weak self] notification in
             guard let window = notification.object as? NSWindow else {
                 self?.dropRespondingWindow = nil
                 return
@@ -66,7 +70,10 @@ class TabService: TabDelegate {
     @discardableResult
     func addManagedWindow(windowController: WindowController) -> ManagedWindow? {
         guard let window = windowController.window else { return nil }
-        let subscription = NotificationCenter.default.observe(name: NSWindow.willCloseNotification, object: window) { [unowned self] notification in
+        let subscription = NotificationCenter.default.observe(
+            name: NSWindow.willCloseNotification,
+            object: window
+        ) { [unowned self] notification in
             guard let window = notification.object as? NSWindow else { return }
             self.removeManagedWindow(forWindow: window)
         }
@@ -75,6 +82,7 @@ class TabService: TabDelegate {
             windowController: windowController,
             closingSubscription: subscription
         )
+
         internalManagedWindows.append(management)
         windowController.tabDelegate = self
         return management

@@ -138,8 +138,8 @@
 		CCB76999260A0B5A0029693B /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
 		CCB769EC260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
 		CCB769ED260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
-		CCB7847D26257B9200FC4216 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* HSV.swift */; };
-		CCB7847E26257B9200FC4216 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* HSV.swift */; };
+		CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
+		CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
 		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
@@ -160,6 +160,16 @@
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
+		CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
+		CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
+		CCE901672626BAE400C84904 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
+		CCE901702626BAF700C84904 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9016F2626BAF700C84904 /* Observable.swift */; };
+		CCE901712626BAF700C84904 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9016F2626BAF700C84904 /* Observable.swift */; };
+		CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
+		CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
+		CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
+		CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -870,7 +880,7 @@
 		CCB76992260A0B5A0029693B /* lptree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptree.h; sourceTree = "<group>"; };
 		CCB76993260A0B5A0029693B /* lpcap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcap.h; sourceTree = "<group>"; };
 		CCB769EB260A220F0029693B /* pascal.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pascal.lua; sourceTree = "<group>"; };
-		CCB7847C26257B9200FC4216 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
+		CCB7847C26257B9200FC4216 /* Color+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HSV.swift"; sourceTree = "<group>"; };
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
@@ -887,6 +897,11 @@
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
+		CCE901542626BAC400C84904 /* KeyValueObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
+		CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserverResult.swift; sourceTree = "<group>"; };
+		CCE9016F2626BAF700C84904 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		CCE901832626BFBF00C84904 /* ObjC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjC+Ext.swift"; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
@@ -1545,6 +1560,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CCE901532626BAB200C84904 /* Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
+				D631E2C623F7B38B00652B17 /* Defaults.swift */,
+				CCE901542626BAC400C84904 /* KeyValueObserver.swift */,
+				CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */,
+				CCE9016F2626BAF700C84904 /* Observable.swift */,
+				CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */,
+			);
+			path = Defaults;
+			sourceTree = "<group>";
+		};
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1928,12 +1956,13 @@
 		D6729C07240FC7FC000339C2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
 				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
+				CCB7847C26257B9200FC4216 /* Color+HSV.swift */,
+				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
+				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
 				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
-				CCB7847C26257B9200FC4216 /* HSV.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2068,8 +2097,7 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
-				D631E2C623F7B38B00652B17 /* Defaults.swift */,
+				CCE901532626BAB200C84904 /* Defaults */,
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				D64AF09D240D05BB003A5B17 /* General.xib */,
 				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
@@ -2769,6 +2797,7 @@
 				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
 				D610478124224A170002E990 /* Screenshot.swift in Sources */,
+				CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */,
 				D610478224224A170002E990 /* AnnotatorSource.swift in Sources */,
 				CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
@@ -2791,6 +2820,7 @@
 				D610478F24224A170002E990 /* ColorIndicator.swift in Sources */,
 				CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
+				CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
@@ -2831,6 +2861,7 @@
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
+				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
@@ -2852,6 +2883,7 @@
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
+				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
@@ -2874,12 +2906,13 @@
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
-				CCB7847D26257B9200FC4216 /* HSV.swift in Sources */,
+				CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
+				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
@@ -2974,6 +3007,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -3001,7 +3035,7 @@
 				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
-				CCB7847E26257B9200FC4216 /* HSV.swift in Sources */,
+				CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */,
@@ -3026,6 +3060,7 @@
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
+				CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SceneStackedController.swift in Sources */,
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,
 				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
@@ -3041,6 +3076,7 @@
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
+				CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
 				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
@@ -3052,6 +3088,7 @@
 				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
+				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
@@ -3077,6 +3114,7 @@
 				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
+				CCE901672626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
 				CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */,

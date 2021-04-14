@@ -121,9 +121,21 @@ class ContentController: NSViewController {
         tableView.registerForDraggedTypes([.color, .area])
         
         NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
-        
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidLoadNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextDidLoad,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidChangeNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+
         applyPreferences(nil)
         invalidateRestorableState()
     }
@@ -154,7 +166,7 @@ class ContentController: NSViewController {
             }
         }
     }
-    
+
     override func willPresentError(_ error: Error) -> Error {
         let error = super.willPresentError(error)
         debugPrint(error.localizedDescription)
@@ -1489,11 +1501,17 @@ extension ContentController: ScreenshotLoader {
         
         if let undoManager = screenshot.undoManager {
             tableView.contextUndoManager = undoManager
-            undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
+            undoToken = NotificationCenter.default.observe(
+                name: NSNotification.Name.NSUndoManagerDidUndoChange,
+                object: undoManager
+            ) { [unowned self] _ in
                 self.tableView.reloadData()
                 self.internalApplyDeferredSelection()
             }
-            redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] _ in
+            redoToken = NotificationCenter.default.observe(
+                name: NSNotification.Name.NSUndoManagerDidRedoChange,
+                object: undoManager
+            ) { [unowned self] _ in
                 self.tableView.reloadData()
                 self.internalApplyDeferredSelection()
             }

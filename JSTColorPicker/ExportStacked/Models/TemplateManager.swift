@@ -81,8 +81,6 @@ class TemplateManager {
 
     func clearTeamplates() {
         templates
-            .forEach({ NSFileCoordinator.removeFilePresenter($0) })
-        templates
             .removeAll()
 
         selectedTemplate = nil
@@ -119,13 +117,9 @@ class TemplateManager {
         .compactMap({ $0.1.first })
 
         self.templates
-            .forEach({ NSFileCoordinator.removeFilePresenter($0) })
-        self.templates
             .removeAll()
         self.templates
             .append(contentsOf: newTemplates)
-        self.templates
-            .forEach({ NSFileCoordinator.addFilePresenter($0) })
 
         errors.forEach({
             redirectTemplateError($0.1, templateURL: $0.0)

@@ -216,20 +216,65 @@ class SceneController: NSViewController {
             }
             return event
         }!)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveMagnify(_:)), name: NSScrollView.willStartLiveMagnifyNotification, object: sceneView)
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveMagnify(_:)), name: NSScrollView.didEndLiveMagnifyNotification, object: sceneView)
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneWillStartLiveScroll(_:)), name: NSScrollView.willStartLiveScrollNotification, object: sceneView)
-        NotificationCenter.default.addObserver(self, selector: #selector(sceneDidEndLiveScroll(_:)), name: NSScrollView.didEndLiveScrollNotification, object: sceneView)
-        
-        windowActiveNotificationToken = NotificationCenter.default.observe(name: NSWindow.didResignKeyNotification, object: view.window) { [unowned self] _ in
+
+        windowActiveNotificationToken = NotificationCenter.default.observe(
+            name: NSWindow.didResignKeyNotification,
+            object: view.window
+        ) { [unowned self] _ in
             self.useSelectedSceneTool()
         }
+
         useSelectedSceneTool()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidLoadNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidLoad, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(managedTagsDidChangeNotification(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveMagnify(_:)),
+            name: NSScrollView.willStartLiveMagnifyNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveMagnify(_:)),
+            name: NSScrollView.didEndLiveMagnifyNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartLiveScroll(_:)),
+            name: NSScrollView.willStartLiveScrollNotification,
+            object: sceneView
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndLiveScroll(_:)),
+            name: NSScrollView.didEndLiveScrollNotification,
+            object: sceneView
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applyPreferences(_:)),
+            name: UserDefaults.didChangeNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidLoadNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextDidLoad,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidChangeNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+
         applyPreferences(nil)
     }
     

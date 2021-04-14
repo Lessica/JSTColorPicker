@@ -21,7 +21,12 @@ class TemplateInfoController: NSViewController, PaneController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(applyPreferences(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applyPreferences(_:)),
+            name: UserDefaults.didChangeNotification,
+            object: nil
+        )
     }
     
     private var isViewHidden: Bool = true

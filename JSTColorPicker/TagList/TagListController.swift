@@ -182,16 +182,28 @@ class TagListController: NSViewController, PaneController {
             self.setupEmbeddedState(with: context)
             
             if let undoManager = tableView.contextUndoManager {
-                willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: undoManager, using: { [unowned self] _ in
-                    self.setNeedsSaveManagedTags()
-                })
-                willRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillRedoChange, object: undoManager, using: { [unowned self] _ in
-                    self.setNeedsSaveManagedTags()
-                })
-                didUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager) { [unowned self] _ in
+                willUndoToken = NotificationCenter.default.observe(
+                    name: NSNotification.Name.NSUndoManagerWillUndoChange,
+                    object: undoManager,
+                    using: { [unowned self] _ in
+                        self.setNeedsSaveManagedTags()
+                    })
+                willRedoToken = NotificationCenter.default.observe(
+                    name: NSNotification.Name.NSUndoManagerWillRedoChange,
+                    object: undoManager,
+                    using: { [unowned self] _ in
+                        self.setNeedsSaveManagedTags()
+                    })
+                didUndoToken = NotificationCenter.default.observe(
+                    name: NSNotification.Name.NSUndoManagerDidUndoChange,
+                    object: undoManager
+                ) { [unowned self] _ in
                     self.internalController.rearrangeObjects()
                 }
-                didRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager) { [unowned self] _ in
+                didRedoToken = NotificationCenter.default.observe(
+                    name: NSNotification.Name.NSUndoManagerDidRedoChange,
+                    object: undoManager
+                ) { [unowned self] _ in
                     self.internalController.rearrangeObjects()
                 }
             }
@@ -249,17 +261,29 @@ class TagListController: NSViewController, PaneController {
                     context.undoManager = TagListController.sharedUndoManager
                     self.setupEmbeddedState(with: context)
                     
-                    self.willUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: self.tableView.contextUndoManager, using: { [unowned self] _ in
-                        self.setNeedsSaveManagedTags()
-                    })
-                    self.willRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerWillRedoChange, object: self.tableView.contextUndoManager, using: { [unowned self] _ in
-                        self.setNeedsSaveManagedTags()
-                    })
+                    self.willUndoToken = NotificationCenter.default.observe(
+                        name: NSNotification.Name.NSUndoManagerWillUndoChange,
+                        object: self.tableView.contextUndoManager,
+                        using: { [unowned self] _ in
+                            self.setNeedsSaveManagedTags()
+                        })
+                    self.willRedoToken = NotificationCenter.default.observe(
+                        name: NSNotification.Name.NSUndoManagerWillRedoChange,
+                        object: self.tableView.contextUndoManager,
+                        using: { [unowned self] _ in
+                            self.setNeedsSaveManagedTags()
+                        })
                     
-                    self.didUndoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: self.tableView.contextUndoManager) { [unowned self] _ in
+                    self.didUndoToken = NotificationCenter.default.observe(
+                        name: NSNotification.Name.NSUndoManagerDidUndoChange,
+                        object: self.tableView.contextUndoManager
+                    ) { [unowned self] _ in
                         self.internalController.rearrangeObjects()
                     }
-                    self.didRedoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: self.tableView.contextUndoManager) { [unowned self] _ in
+                    self.didRedoToken = NotificationCenter.default.observe(
+                        name: NSNotification.Name.NSUndoManagerDidRedoChange,
+                        object: self.tableView.contextUndoManager
+                    ) { [unowned self] _ in
                         self.internalController.rearrangeObjects()
                     }
                     

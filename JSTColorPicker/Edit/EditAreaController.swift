@@ -55,11 +55,17 @@ class EditAreaController: EditViewController {
         undoManager?.enableUndoRegistration()
         
         if let undoManager = undoManager, undoToken == nil && redoToken == nil {
-            undoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidUndoChange, object: undoManager)
+            undoToken = NotificationCenter.default.observe(
+                name: NSNotification.Name.NSUndoManagerDidUndoChange,
+                object: undoManager
+            )
             { [unowned self] (notification) in
                 self.validateInputs(nil)
             }
-            redoToken = NotificationCenter.default.observe(name: NSNotification.Name.NSUndoManagerDidRedoChange, object: undoManager)
+            redoToken = NotificationCenter.default.observe(
+                name: NSNotification.Name.NSUndoManagerDidRedoChange,
+                object: undoManager
+            )
             { [unowned self] (notification) in
                 self.validateInputs(nil)
             }

@@ -43,7 +43,7 @@
                                         <menu key="menu" title="OtherViews" id="eGM-Kd-UMD"/>
                                     </amVariablePopUpButtonCell>
                                     <connections>
-                                        <binding destination="q1G-oB-mqO" name="path" keyPath="values.defaults.screenshotSavingPath" id="Qjz-Do-75i"/>
+                                        <binding destination="q1G-oB-mqO" name="path" keyPath="values.defaults:screenshotSavingPath" id="Qjz-Do-75i"/>
                                     </connections>
                                 </amPathPopUpButton>
                             </subviews>
