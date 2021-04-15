@@ -60,6 +60,8 @@
 		CC300F0D262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
 		CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC300F1F26284536002FD866 /* TemplatePreview.storyboard */; };
 		CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC300F1F26284536002FD866 /* TemplatePreview.storyboard */; };
+		CC300F4A26285E27002FD866 /* TemplateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F4926285E27002FD866 /* TemplateCellView.swift */; };
+		CC300F4B26285E27002FD866 /* TemplateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F4926285E27002FD866 /* TemplateCellView.swift */; };
 		CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E1DA2615D25700F5F6AA /* Info.storyboard */; };
@@ -827,6 +829,7 @@
 		CC300F1E26284536002FD866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TemplatePreview.storyboard; sourceTree = "<group>"; };
 		CC300F2826284539002FD866 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplatePreview.strings; sourceTree = "<group>"; };
 		CC300F312628453B002FD866 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplatePreview.strings"; sourceTree = "<group>"; };
+		CC300F4926285E27002FD866 /* TemplateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCellView.swift; sourceTree = "<group>"; };
 		CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		CC32E1D92615D25700F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Info.storyboard; sourceTree = "<group>"; };
 		CC32E1E32615D25900F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Info.strings; sourceTree = "<group>"; };
@@ -1339,10 +1342,19 @@
 		CC300EFF262843A3002FD866 /* TemplatePreview */ = {
 			isa = PBXGroup;
 			children = (
+				CC300F4826285E13002FD866 /* Views */,
 				CC300F1F26284536002FD866 /* TemplatePreview.storyboard */,
 				CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */,
 			);
 			path = TemplatePreview;
+			sourceTree = "<group>";
+		};
+		CC300F4826285E13002FD866 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC300F4926285E27002FD866 /* TemplateCellView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CC32E1C22615CC2300F5F6AA /* Info */ = {
@@ -2925,6 +2937,7 @@
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
 				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
+				CC300F4A26285E27002FD866 /* TemplateCellView.swift in Sources */,
 				D610479324224A170002E990 /* Cocoa+Ext.swift in Sources */,
 				D610479424224A170002E990 /* ImageOverlay.swift in Sources */,
 				D610479524224A170002E990 /* GridView.swift in Sources */,
@@ -3194,6 +3207,7 @@
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
+				CC300F4B26285E27002FD866 /* TemplateCellView.swift in Sources */,
 				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,

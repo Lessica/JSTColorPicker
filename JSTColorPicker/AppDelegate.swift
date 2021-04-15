@@ -111,8 +111,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationXPCEstablish()
         applicationXPCSetup()
         
-        applicationOpenUntitledDocumentIfNeeded()
         applicationLoadTemplatesIfNeeded()
+        applicationOpenUntitledDocumentIfNeeded()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -462,7 +462,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
         setenv("LUA_PATH", searchPaths.reduce("") { $0 + $1 + "/?.lua;" }, 1)
         setenv("LUA_CPATH", searchPaths.reduce("") { $0 + $1 + "/?.so;" }, 1)
-        if TemplateManager.shared.templates.count == 0 {
+        if TemplateManager.shared.numberOfTemplates == 0 {
             TemplateManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
                 let exampleTemplateName = exampleTemplateURL.lastPathComponent
                 let newExampleTemplateURL = TemplateManager.templateRootURL.appendingPathComponent(exampleTemplateName)
@@ -640,8 +640,7 @@ by \(template.author ?? "Unknown")
     
     private func updateTemplatesSubMenuItems() {
         var itemIdx: Int = 0
-        let items = TemplateManager.shared.templates
-            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
+        let items = TemplateManager.shared.enabledTemplates
             .compactMap({ [weak self] (template) -> NSMenuItem in
                 itemIdx += 1
                 

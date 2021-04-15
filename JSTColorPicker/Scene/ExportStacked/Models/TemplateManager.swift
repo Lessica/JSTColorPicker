@@ -51,6 +51,12 @@ class TemplateManager {
     }()
 
     private(set) var templates: [Template] = []
+    private(set) var enabledTemplates: [Template] = []
+    private(set) var previewableTemplates: [Template] = []
+
+    var numberOfTemplates: Int { templates.count }
+    var numberOfEnabledTemplates: Int { enabledTemplates.count }
+    var numberOfPreviewableTemplates: Int { previewableTemplates.count }
 
     var selectedTemplate: Template? {
         get { templates.first(where: { $0.uuid.uuidString == selectedTemplateUUID?.uuidString }) }
@@ -80,10 +86,14 @@ class TemplateManager {
     }
 
     func clearTeamplates() {
-        templates
+        self.templates
+            .removeAll()
+        self.enabledTemplates
+            .removeAll()
+        self.previewableTemplates
             .removeAll()
 
-        selectedTemplate = nil
+        self.selectedTemplate = nil
         NotificationCenter.default.post(
             name: NotificationType.Name.templatesDidLoadNotification,
             object: nil
@@ -115,12 +125,21 @@ class TemplateManager {
             by: { $0.uuid }
         )
         .compactMap({ $0.1.first })
-        .filter({ $0.isEnabled })
+        .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
 
         self.templates
             .removeAll()
+        self.enabledTemplates
+            .removeAll()
+        self.previewableTemplates
+            .removeAll()
+
         self.templates
             .append(contentsOf: newTemplates)
+        self.enabledTemplates
+            .append(contentsOf: newTemplates.filter({ $0.isEnabled }))
+        self.previewableTemplates
+            .append(contentsOf: newTemplates.filter({ $0.isEnabled && $0.isPreviewable }))
 
         errors.forEach({
             redirectTemplateError($0.1, templateURL: $0.0)

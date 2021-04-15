@@ -10,14 +10,14 @@
             <objects>
                 <viewController id="XMo-3Q-MYU" customClass="ExportStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="yJ4-PV-hPU">
-                        <rect key="frame" x="0.0" y="0.0" width="258" height="904"/>
+                        <rect key="frame" x="0.0" y="0.0" width="258" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14F-mi-G43">
-                                <rect key="frame" x="0.0" y="0.0" width="258" height="904"/>
+                                <rect key="frame" x="0.0" y="0.0" width="258" height="800"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pJo-Ho-nsP">
-                                        <rect key="frame" x="0.0" y="856" width="258" height="48"/>
+                                        <rect key="frame" x="0.0" y="752" width="258" height="48"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPO-dN-zBF">
                                                 <rect key="frame" x="16" y="1" width="226" height="47"/>
@@ -83,13 +83,13 @@
                                         </constraints>
                                     </customView>
                                     <splitView autosaveName="ExportStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="JYh-v0-Vy7" customClass="ExportStackedView" customModule="JSTColorPicker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="258" height="856"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="258" height="752"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="3ca-bl-3MA">
-                                                <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="258" height="751"/>
                                                 <subviews>
                                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="0kM-ou-kCG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="732"/>
                                                         <connections>
                                                             <segue destination="Bee-g5-GWE" kind="embed" id="VJL-sA-3aV"/>
                                                         </connections>
@@ -103,12 +103,11 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="dvY-Pc-14P"/>
                                                 </constraints>
                                             </customView>
-                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="AvW-3b-26q">
-                                                <rect key="frame" x="0.0" y="856" width="258" height="0.0"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="AvW-3b-26q">
+                                                <rect key="frame" x="0.0" y="752" width="258" height="0.0"/>
                                                 <subviews>
                                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="zea-p8-lEa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="-19" width="258" height="19"/>
                                                         <connections>
                                                             <segue destination="lYp-K1-6wR" kind="embed" id="YQO-Ux-m5X"/>
                                                         </connections>
@@ -133,6 +132,7 @@
                                     </splitView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="800" placeholder="YES" id="id4-tT-Jfe"/>
                                     <constraint firstItem="pJo-Ho-nsP" firstAttribute="width" secondItem="14F-mi-G43" secondAttribute="width" id="lo7-cS-JDG"/>
                                     <constraint firstItem="JYh-v0-Vy7" firstAttribute="width" secondItem="14F-mi-G43" secondAttribute="width" id="rKU-Zz-ZEe"/>
                                 </constraints>

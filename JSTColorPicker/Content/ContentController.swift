@@ -9,17 +9,21 @@
 import Cocoa
 import ShortcutGuide
 
-extension NSUserInterfaceItemIdentifier {
+private extension NSUserInterfaceItemIdentifier {
     static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
     static let toggleTableColumnSimilarity  = NSUserInterfaceItemIdentifier("toggle-similarity")
     static let toggleTableColumnTag         = NSUserInterfaceItemIdentifier("toggle-tag")
     static let toggleTableColumnDescription = NSUserInterfaceItemIdentifier("toggle-desc")
-    
+}
+
+private extension NSUserInterfaceItemIdentifier {
     static let columnIdentifier  = NSUserInterfaceItemIdentifier("col-id")
     static let columnSimilarity  = NSUserInterfaceItemIdentifier("col-similarity")
     static let columnTag         = NSUserInterfaceItemIdentifier("col-tag")
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
-    
+}
+
+private extension NSUserInterfaceItemIdentifier {
     static let removeTags        = NSUserInterfaceItemIdentifier("remove-tags")
 }
 

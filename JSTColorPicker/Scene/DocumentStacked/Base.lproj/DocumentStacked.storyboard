@@ -10,14 +10,14 @@
             <objects>
                 <viewController id="hUV-WW-2BP" customClass="DocumentStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Ef7-Qc-5Vf">
-                        <rect key="frame" x="0.0" y="0.0" width="246" height="920"/>
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3zL-mb-fdg">
-                                <rect key="frame" x="0.0" y="0.0" width="246" height="920"/>
+                                <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="jgj-Lo-KID">
-                                        <rect key="frame" x="0.0" y="872" width="246" height="48"/>
+                                        <rect key="frame" x="0.0" y="752" width="246" height="48"/>
                                         <subviews>
                                             <button toolTip="Quit Comparison Mode (⇧⌘D)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pJK-Cb-vz3" customClass="PaddedButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                 <rect key="frame" x="56" y="12" width="135" height="24"/>
@@ -55,7 +55,7 @@
                                         </constraints>
                                     </customView>
                                     <splitView autosaveName="DocumentStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="73r-jc-Mef" customClass="DocumentStackedView" customModule="JSTColorPicker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="246" height="872"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="752"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="odd-er-9Vd">
                                                 <rect key="frame" x="0.0" y="0.0" width="246" height="378"/>
@@ -76,10 +76,10 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="SE0-tg-JhZ">
-                                                <rect key="frame" x="0.0" y="379" width="246" height="398"/>
+                                                <rect key="frame" x="0.0" y="379" width="246" height="372"/>
                                                 <subviews>
                                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="O9g-IM-SdB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="398"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="372"/>
                                                         <connections>
                                                             <segue destination="XyC-4o-Cvk" kind="embed" identifier="SecondaryInfo" id="22d-JZ-cdn"/>
                                                         </connections>
@@ -94,7 +94,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4P2-kY-ucw">
-                                                <rect key="frame" x="0.0" y="778" width="246" height="94"/>
+                                                <rect key="frame" x="0.0" y="752" width="246" height="0.0"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="276-Fy-gfS"/>
                                                 </constraints>
@@ -111,6 +111,7 @@
                                     </splitView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="800" placeholder="YES" id="UzA-OR-AVi"/>
                                     <constraint firstItem="jgj-Lo-KID" firstAttribute="width" secondItem="3zL-mb-fdg" secondAttribute="width" id="e03-ZR-M60"/>
                                     <constraint firstItem="73r-jc-Mef" firstAttribute="width" secondItem="3zL-mb-fdg" secondAttribute="width" id="xgO-zt-wRj"/>
                                 </constraints>

@@ -9,7 +9,7 @@
 import Cocoa
 import ShortcutGuide
 
-extension NSUserInterfaceItemIdentifier {
+private extension NSUserInterfaceItemIdentifier {
     static let columnFlags      = NSUserInterfaceItemIdentifier("col-flags")
     static let columnChecked    = NSUserInterfaceItemIdentifier("col-checked")
     static let columnName       = NSUserInterfaceItemIdentifier("col-name")

@@ -166,8 +166,7 @@ by \(template.author ?? "Unknown")
     }
     
     private func generateTemplatesSubMenuItems(for menu: NSMenu) -> [NSMenuItem] {
-        return TemplateManager.shared.templates
-            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
+        return TemplateManager.shared.enabledTemplates
             .compactMap({ template -> NSMenuItem in
                 
                 let item = NSMenuItem(
