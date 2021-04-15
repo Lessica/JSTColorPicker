@@ -1474,13 +1474,15 @@
 			children = (
 				CC8E5D482627F1180030B2FC /* StackedView.swift */,
 			);
-			path = Views;
+			name = Views;
+			path = ../Segment/Views;
 			sourceTree = "<group>";
 		};
 		CC8E5D71262817AA0030B2FC /* Panes */ = {
 			isa = PBXGroup;
 			children = (
 				CC84216A2615F3A200F1C007 /* Protocols */,
+				CC8E5D472627F1080030B2FC /* Views */,
 				CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */,
 				CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */,
 				CC3C4A80261FF9AC00794806 /* DocumentStacked */,
@@ -1615,7 +1617,6 @@
 		CCCD8154261C16D300BFDD6E /* Segment */ = {
 			isa = PBXGroup;
 			children = (
-				CC8E5D472627F1080030B2FC /* Views */,
 				CCCD817A261C2DD000BFDD6E /* Segment.storyboard */,
 				CCCD815F261C16F100BFDD6E /* SegmentController.swift */,
 			);
