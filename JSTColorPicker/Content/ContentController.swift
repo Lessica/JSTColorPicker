@@ -1296,9 +1296,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             do {
                 defer {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         loadingAlert.window.orderOut(self)
-                        self.view.window?.endSheet(loadingAlert.window)
+                        self?.view.window?.endSheet(loadingAlert.window)
                     }
                 }
                 try completion(items, template)

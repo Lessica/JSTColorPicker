@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IfO-80-1iw">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Scene Stacked Controller-->
+        <scene sceneID="zlq-Yg-TTB">
+            <objects>
+                <viewController id="IfO-80-1iw" customClass="SceneStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="H7w-bX-aPp">
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <splitView autosaveName="SceneStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-N1-cn7" customClass="SceneStackedView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="246" height="800"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="E8g-qZ-f5e">
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="120"/>
+                                        <subviews>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="sik-6V-3cb">
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="120"/>
+                                                <connections>
+                                                    <segue destination="H3w-6e-dt5" kind="embed" identifier="PrimaryInspector" id="nRe-FI-O9j"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="sik-6V-3cb" firstAttribute="leading" secondItem="E8g-qZ-f5e" secondAttribute="leading" id="Dy0-Hb-B8v"/>
+                                            <constraint firstItem="sik-6V-3cb" firstAttribute="top" secondItem="E8g-qZ-f5e" secondAttribute="top" id="Zqa-Sh-hv3"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="b8F-ga-AaV"/>
+                                            <constraint firstAttribute="bottom" secondItem="sik-6V-3cb" secondAttribute="bottom" id="gEc-HN-CaJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="sik-6V-3cb" secondAttribute="trailing" id="i9w-uh-oVI"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="CTm-8a-6sx">
+                                        <rect key="frame" x="0.0" y="121" width="246" height="120"/>
+                                        <subviews>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="YsK-oK-lpW">
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="120"/>
+                                                <connections>
+                                                    <segue destination="Haw-Nc-3O9" kind="embed" identifier="SecondaryInspector" id="xNU-bc-pcV"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="YsK-oK-lpW" secondAttribute="bottom" id="Dmm-cg-jJV"/>
+                                            <constraint firstItem="YsK-oK-lpW" firstAttribute="leading" secondItem="CTm-8a-6sx" secondAttribute="leading" id="NSH-mB-xQF"/>
+                                            <constraint firstItem="YsK-oK-lpW" firstAttribute="top" secondItem="CTm-8a-6sx" secondAttribute="top" id="dqp-i6-LSI"/>
+                                            <constraint firstAttribute="trailing" secondItem="YsK-oK-lpW" secondAttribute="trailing" id="lV5-ra-dnw"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="oC6-YM-ZXz"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="XPn-It-24S">
+                                        <rect key="frame" x="0.0" y="242" width="246" height="557"/>
+                                        <subviews>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="oag-ZH-lLl">
+                                                <rect key="frame" x="0.0" y="0.0" width="246" height="557"/>
+                                                <connections>
+                                                    <segue destination="31P-dP-iCd" kind="embed" identifier="Preview" id="eDZ-Kf-r8U"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="oag-ZH-lLl" firstAttribute="leading" secondItem="XPn-It-24S" secondAttribute="leading" id="158-4P-10H"/>
+                                            <constraint firstAttribute="bottom" secondItem="oag-ZH-lLl" secondAttribute="bottom" id="8Am-sj-6gM"/>
+                                            <constraint firstItem="oag-ZH-lLl" firstAttribute="top" secondItem="XPn-It-24S" secondAttribute="top" id="WtD-i9-2Ex"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="ehm-QW-xxJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="oag-ZH-lLl" secondAttribute="trailing" id="zs4-y2-2Wm"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wpw-pH-ETI">
+                                        <rect key="frame" x="0.0" y="800" width="246" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="v1o-EC-cRX"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <holdingPriorities>
+                                    <real value="290"/>
+                                    <real value="280"/>
+                                    <real value="270"/>
+                                    <real value="200"/>
+                                </holdingPriorities>
+                                <connections>
+                                    <outlet property="delegate" destination="IfO-80-1iw" id="a3A-Tf-w05"/>
+                                </connections>
+                            </splitView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RZA-N1-cn7" secondAttribute="bottom" id="3Ht-cK-KmU"/>
+                            <constraint firstItem="RZA-N1-cn7" firstAttribute="leading" secondItem="H7w-bX-aPp" secondAttribute="leading" id="KTG-Uo-yjR"/>
+                            <constraint firstItem="RZA-N1-cn7" firstAttribute="top" secondItem="H7w-bX-aPp" secondAttribute="top" id="aBV-Lm-WJA"/>
+                            <constraint firstAttribute="trailing" secondItem="RZA-N1-cn7" secondAttribute="trailing" id="hak-Mu-rl2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="splitView" destination="RZA-N1-cn7" id="Z43-4U-xQf"/>
+                    </connections>
+                </viewController>
+                <customObject id="0zo-ug-lpx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2342" y="246"/>
+        </scene>
+        <!--Inspector-->
+        <scene sceneID="PRv-P5-jUf">
+            <objects>
+                <controllerPlaceholder storyboardName="Inspector" id="H3w-6e-dt5" sceneMemberID="viewController"/>
+                <customObject id="BTh-YY-oXj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2737" y="55"/>
+        </scene>
+        <!--Inspector-->
+        <scene sceneID="S1s-Ud-7Fj">
+            <objects>
+                <controllerPlaceholder storyboardName="Inspector" id="Haw-Nc-3O9" sceneMemberID="viewController"/>
+                <customObject id="hBM-v4-BVd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2737" y="182"/>
+        </scene>
+        <!--Preview-->
+        <scene sceneID="89b-Jw-jpS">
+            <objects>
+                <controllerPlaceholder storyboardName="Preview" id="31P-dP-iCd" sceneMemberID="viewController"/>
+                <customObject id="qIt-Ur-pJy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2732" y="317"/>
+        </scene>
+    </scenes>
+</document>

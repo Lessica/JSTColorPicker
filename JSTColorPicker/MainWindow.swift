@@ -9,7 +9,14 @@
 import Cocoa
 
 class MainWindow: NSWindow {
-    private var firstResponderObservation: NSKeyValueObservation?
+
+    static let VisibilityDidChangedNotification = NSNotification.Name("MainWindow.VisibilityDidChangedNotification")
+
+    private var firstResponderObservation  : NSKeyValueObservation?
+    private var windowVisibleObservation   : NSKeyValueObservation?
+
+    @objc dynamic var isTabbingVisible = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
         firstResponderObservation = observe(\.firstResponder, options: [.new], changeHandler: { (target, change) in
@@ -20,5 +27,33 @@ class MainWindow: NSWindow {
                 target.selectNextKeyView(target)
             }
         })
+        windowVisibleObservation = observe(\.isVisible, changeHandler: { [weak self] (target, change) in
+            self?.stateChanged()
+        })
+    }
+
+    override func becomeKey() {
+        super.becomeKey()
+        stateChanged()
+    }
+
+    override func becomeMain() {
+        super.becomeMain()
+        stateChanged()
+    }
+
+    override func resignKey() {
+        super.resignKey()
+        stateChanged()
+    }
+
+    override func resignMain() {
+        super.resignMain()
+        stateChanged()
+    }
+
+    private func stateChanged() {
+        isTabbingVisible = isKeyWindow || isMainWindow || (isVisible && tabGroup?.selectedWindow == self)
+        NotificationCenter.default.post(name: MainWindow.VisibilityDidChangedNotification, object: self)
     }
 }

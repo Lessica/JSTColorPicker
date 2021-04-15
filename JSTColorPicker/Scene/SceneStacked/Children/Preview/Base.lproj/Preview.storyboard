@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="BXe-7q-Y49">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Preview Controller-->
+        <scene sceneID="4m2-G8-cl3">
+            <objects>
+                <viewController id="BXe-7q-Y49" customClass="PreviewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="BGG-md-vya">
+                        <rect key="frame" x="0.0" y="0.0" width="246" height="288"/>
+                        <subviews>
+                            <box borderType="line" title="Image Preview" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd">
+                                <rect key="frame" x="-3" y="-4" width="252" height="288"/>
+                                <view key="contentView" id="CPy-7x-2lg">
+                                    <rect key="frame" x="11" y="3" width="230" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-oB-hCU" customClass="PreviewImageView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="2" y="36" width="226" height="226"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="226" id="Xwt-13-Ses"/>
+                                                <constraint firstAttribute="width" constant="226" id="tvQ-Fj-X0D"/>
+                                            </constraints>
+                                        </view>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="HYg-d3-2ex" customClass="PreviewOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="2" y="36" width="226" height="226"/>
+                                            <subviews>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcW-7M-iq2">
+                                                    <rect key="frame" x="85" y="106" width="57" height="14"/>
+                                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" title="No image." usesSingleLineMode="YES" id="MN5-Ix-Wcd">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WDj-KY-q2N" customClass="LabelBgView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <rect key="frame" x="94" y="8" width="39" height="21"/>
+                                                </customView>
+                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Rg-8u-MhX">
+                                                    <rect key="frame" x="96" y="12" width="35" height="13"/>
+                                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" alignment="center" title="100%" drawsBackground="YES" usesSingleLineMode="YES" id="FRO-AF-Qt1">
+                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WDj-KY-q2N" firstAttribute="trailing" secondItem="5Rg-8u-MhX" secondAttribute="trailing" constant="2" id="1ge-CL-ge3"/>
+                                                <constraint firstItem="WDj-KY-q2N" firstAttribute="top" secondItem="5Rg-8u-MhX" secondAttribute="top" constant="-4" id="5Vz-Et-928"/>
+                                                <constraint firstItem="WDj-KY-q2N" firstAttribute="bottom" secondItem="5Rg-8u-MhX" secondAttribute="bottom" constant="4" id="8Bq-TN-mMa"/>
+                                                <constraint firstItem="5Rg-8u-MhX" firstAttribute="centerX" secondItem="HYg-d3-2ex" secondAttribute="centerX" id="KwS-H7-846"/>
+                                                <constraint firstItem="kcW-7M-iq2" firstAttribute="centerY" secondItem="HYg-d3-2ex" secondAttribute="centerY" id="Ms3-ke-2ej"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WDj-KY-q2N" secondAttribute="trailing" constant="8" id="Qvd-IG-oEH"/>
+                                                <constraint firstItem="kcW-7M-iq2" firstAttribute="centerX" secondItem="HYg-d3-2ex" secondAttribute="centerX" id="WHS-7Q-tJh"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kcW-7M-iq2" secondAttribute="trailing" constant="8" id="cft-Ry-qHH"/>
+                                                <constraint firstAttribute="bottom" secondItem="5Rg-8u-MhX" secondAttribute="bottom" constant="12" id="hpV-xx-GCe"/>
+                                                <constraint firstItem="WDj-KY-q2N" firstAttribute="leading" secondItem="5Rg-8u-MhX" secondAttribute="leading" constant="-2" id="r1k-qb-ZfE"/>
+                                            </constraints>
+                                        </customView>
+                                        <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7x2-C5-jRk">
+                                            <rect key="frame" x="0.0" y="2" width="230" height="28"/>
+                                            <sliderCell key="cell" continuous="YES" enabled="NO" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="pAE-QJ-VIC"/>
+                                            <connections>
+                                                <action selector="previewSliderValueChanged:" target="BXe-7q-Y49" id="3UK-Ow-DAf"/>
+                                            </connections>
+                                        </slider>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="HYg-d3-2ex" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="top" id="EPQ-ab-LFJ"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="top" secondItem="4Ie-oB-hCU" secondAttribute="bottom" constant="8" id="GHu-Ms-PEA"/>
+                                        <constraint firstItem="4Ie-oB-hCU" firstAttribute="top" secondItem="CPy-7x-2lg" secondAttribute="top" constant="8" id="Hh1-Bo-pG8"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="centerX" secondItem="CPy-7x-2lg" secondAttribute="centerX" id="Hsd-qe-gos"/>
+                                        <constraint firstItem="4Ie-oB-hCU" firstAttribute="centerX" secondItem="CPy-7x-2lg" secondAttribute="centerX" id="QJz-Zt-WfZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="7x2-C5-jRk" secondAttribute="bottom" constant="8" id="SIC-sA-Kc2"/>
+                                        <constraint firstItem="HYg-d3-2ex" firstAttribute="bottom" secondItem="4Ie-oB-hCU" secondAttribute="bottom" id="VLs-lc-jyg"/>
+                                        <constraint firstItem="HYg-d3-2ex" firstAttribute="trailing" secondItem="4Ie-oB-hCU" secondAttribute="trailing" id="grb-Dl-Sf3"/>
+                                        <constraint firstItem="HYg-d3-2ex" firstAttribute="leading" secondItem="4Ie-oB-hCU" secondAttribute="leading" id="qIo-mp-Rhq"/>
+                                        <constraint firstItem="7x2-C5-jRk" firstAttribute="leading" secondItem="4Ie-oB-hCU" secondAttribute="leading" id="x5C-Vo-5S6"/>
+                                    </constraints>
+                                </view>
+                                <size key="contentViewMargins" width="8" height="0.0"/>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="top" secondItem="BGG-md-vya" secondAttribute="top" constant="4" id="1vu-7C-azE"/>
+                            <constraint firstAttribute="bottom" secondItem="mmK-Yn-gAd" secondAttribute="bottom" placeholder="YES" id="Jnq-KM-gTb"/>
+                            <constraint firstItem="mmK-Yn-gAd" firstAttribute="leading" secondItem="BGG-md-vya" secondAttribute="leading" id="ZrW-Xc-nJw"/>
+                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="mmK-Yn-gAd" secondAttribute="bottom" id="axz-Su-VZT"/>
+                            <constraint firstAttribute="trailing" secondItem="mmK-Yn-gAd" secondAttribute="trailing" id="pys-Qi-Uyh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="noImageHintLabel" destination="kcW-7M-iq2" id="By4-Oh-Bzn"/>
+                        <outlet property="paneBox" destination="mmK-Yn-gAd" id="cYc-Hi-n6k"/>
+                        <outlet property="previewImageView" destination="4Ie-oB-hCU" id="ISy-iG-QBi"/>
+                        <outlet property="previewOverlayView" destination="HYg-d3-2ex" id="Rf2-U3-eFy"/>
+                        <outlet property="previewSlider" destination="7x2-C5-jRk" id="cJT-SO-T0g"/>
+                        <outlet property="previewSliderBgView" destination="WDj-KY-q2N" id="iV8-Ca-iB2"/>
+                        <outlet property="previewSliderLabel" destination="5Rg-8u-MhX" id="yAA-9C-fyc"/>
+                    </connections>
+                </viewController>
+                <customObject id="paV-hx-oef" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-374" y="128"/>
+        </scene>
+    </scenes>
+</document>

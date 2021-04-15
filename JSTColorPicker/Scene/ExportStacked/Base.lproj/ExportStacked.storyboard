@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="XMo-3Q-MYU">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Export Stacked Controller-->
+        <scene sceneID="Kkm-hV-Hp2">
+            <objects>
+                <viewController id="XMo-3Q-MYU" customClass="ExportStackedController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="yJ4-PV-hPU">
+                        <rect key="frame" x="0.0" y="0.0" width="258" height="904"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14F-mi-G43">
+                                <rect key="frame" x="0.0" y="0.0" width="258" height="904"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="pJo-Ho-nsP">
+                                        <rect key="frame" x="0.0" y="856" width="258" height="48"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPO-dN-zBF">
+                                                <rect key="frame" x="16" y="1" width="226" height="47"/>
+                                                <subviews>
+                                                    <popUpButton horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="12" width="198" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="smallSystemBold"/>
+                                                            <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
+                                                                <items>
+                                                                    <menuItem title="Select Template..." id="SCj-y8-egk"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="templatePopUpButtonValueChanged:" target="XMo-3Q-MYU" id="9BB-xm-kfA"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                    <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BUZ-kX-Fqi">
+                                                        <rect key="frame" x="202" y="9.5" width="24.5" height="31"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="BUZ-kX-Fqi" secondAttribute="height" multiplier="1:1" id="kKU-EE-bLo"/>
+                                                            <constraint firstAttribute="width" constant="24" id="oUY-1F-gdx"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.clockwise" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="ltO-vB-w8p">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="reloadTemplatesItemTapped:" target="XMo-3Q-MYU" id="Rsm-ff-ZTK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="1FP-sb-GaH">
+                                                <rect key="frame" x="0.0" y="-2" width="258" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="HqC-8H-3ZP"/>
+                                                </constraints>
+                                            </box>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1FP-sb-GaH" secondAttribute="trailing" id="Aac-V5-DkV"/>
+                                            <constraint firstAttribute="height" constant="48" id="AmU-Ix-k5Y"/>
+                                            <constraint firstItem="tPO-dN-zBF" firstAttribute="top" secondItem="pJo-Ho-nsP" secondAttribute="top" id="CPz-sX-MYR"/>
+                                            <constraint firstItem="tPO-dN-zBF" firstAttribute="leading" secondItem="pJo-Ho-nsP" secondAttribute="leading" constant="16" id="bRo-iL-gGh"/>
+                                            <constraint firstItem="1FP-sb-GaH" firstAttribute="leading" secondItem="pJo-Ho-nsP" secondAttribute="leading" id="gyI-or-s44"/>
+                                            <constraint firstItem="1FP-sb-GaH" firstAttribute="top" secondItem="tPO-dN-zBF" secondAttribute="bottom" id="iq1-mB-ugV"/>
+                                            <constraint firstAttribute="trailing" secondItem="tPO-dN-zBF" secondAttribute="trailing" constant="16" id="j7a-0Q-yAS"/>
+                                            <constraint firstAttribute="bottom" secondItem="1FP-sb-GaH" secondAttribute="bottom" id="x55-4H-gB5"/>
+                                        </constraints>
+                                    </customView>
+                                    <splitView autosaveName="ExportStackedView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="JYh-v0-Vy7" customClass="ExportStackedView" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="258" height="856"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="3ca-bl-3MA">
+                                                <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
+                                                <subviews>
+                                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="0kM-ou-kCG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="855"/>
+                                                        <connections>
+                                                            <segue destination="Bee-g5-GWE" kind="embed" id="VJL-sA-3aV"/>
+                                                        </connections>
+                                                    </containerView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="0kM-ou-kCG" firstAttribute="leading" secondItem="3ca-bl-3MA" secondAttribute="leading" id="V4q-JT-nfu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="0kM-ou-kCG" secondAttribute="bottom" id="VhK-LJ-XRw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0kM-ou-kCG" secondAttribute="trailing" id="dLz-M1-ih5"/>
+                                                    <constraint firstItem="0kM-ou-kCG" firstAttribute="top" secondItem="3ca-bl-3MA" secondAttribute="top" id="dO3-3O-muz"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" fixedFrame="YES" id="AvW-3b-26q">
+                                                <rect key="frame" x="0.0" y="856" width="258" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </customView>
+                                        </subviews>
+                                        <holdingPriorities>
+                                            <real value="290"/>
+                                            <real value="200"/>
+                                        </holdingPriorities>
+                                        <connections>
+                                            <outlet property="delegate" destination="XMo-3Q-MYU" id="l5s-HY-V9v"/>
+                                        </connections>
+                                    </splitView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pJo-Ho-nsP" firstAttribute="width" secondItem="14F-mi-G43" secondAttribute="width" id="lo7-cS-JDG"/>
+                                    <constraint firstItem="JYh-v0-Vy7" firstAttribute="width" secondItem="14F-mi-G43" secondAttribute="width" id="rKU-Zz-ZEe"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="14F-mi-G43" secondAttribute="bottom" id="KKN-yh-iss"/>
+                            <constraint firstItem="14F-mi-G43" firstAttribute="leading" secondItem="yJ4-PV-hPU" secondAttribute="leading" id="N6n-dU-fvi"/>
+                            <constraint firstAttribute="trailing" secondItem="14F-mi-G43" secondAttribute="trailing" id="Wfs-ea-Rgy"/>
+                            <constraint firstItem="14F-mi-G43" firstAttribute="top" secondItem="yJ4-PV-hPU" secondAttribute="top" id="cf2-7i-LCP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionView" destination="pJo-Ho-nsP" id="VMa-GL-2an"/>
+                        <outlet property="splitView" destination="JYh-v0-Vy7" id="eQl-jZ-RjC"/>
+                        <outlet property="templatePopUpButton" destination="b92-oQ-XGY" id="uVl-SL-n5G"/>
+                        <outlet property="templateReloadButton" destination="BUZ-kX-Fqi" id="e7R-yN-BAs"/>
+                    </connections>
+                </viewController>
+                <customObject id="ggQ-8n-Xq5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-366" y="98"/>
+        </scene>
+        <!--TemplateInfo-->
+        <scene sceneID="EmN-gJ-vpH">
+            <objects>
+                <controllerPlaceholder storyboardName="TemplateInfo" id="Bee-g5-GWE" sceneMemberID="viewController"/>
+                <customObject id="sxh-gY-cnB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-69" y="98"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+    </resources>
+</document>

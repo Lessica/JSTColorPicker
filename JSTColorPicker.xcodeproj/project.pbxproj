@@ -98,6 +98,12 @@
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84219E26160CD200F1C007 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84219D26160CD200F1C007 /* Security.framework */; };
+		CC8E5D492627F1180030B2FC /* StackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5D482627F1180030B2FC /* StackedView.swift */; };
+		CC8E5D4A2627F1180030B2FC /* StackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5D482627F1180030B2FC /* StackedView.swift */; };
+		CC8E5D68262817860030B2FC /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5D67262817860030B2FC /* PaneContainer.swift */; };
+		CC8E5D69262817860030B2FC /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5D67262817860030B2FC /* PaneContainer.swift */; };
+		CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */; };
+		CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */; };
 		CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */; };
 		CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */; };
 		CC8F8CA026207CE700F60F78 /* TemplateInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */; };
@@ -150,8 +156,6 @@
 		CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD815F261C16F100BFDD6E /* SegmentController.swift */; };
 		CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD817A261C2DD000BFDD6E /* Segment.storyboard */; };
 		CCCD8178261C2DD000BFDD6E /* Segment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD817A261C2DD000BFDD6E /* Segment.storyboard */; };
-		CCCD81BF261C481C00BFDD6E /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */; };
-		CCCD81C0261C481C00BFDD6E /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */; };
 		CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */; };
 		CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */; };
 		CCCD8209261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */; };
@@ -847,6 +851,9 @@
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
 		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CC8E5D482627F1180030B2FC /* StackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedView.swift; sourceTree = "<group>"; };
+		CC8E5D67262817860030B2FC /* PaneContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaneContainer.swift; sourceTree = "<group>"; };
+		CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneController.swift; sourceTree = "<group>"; };
 		CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateInfoView.swift; sourceTree = "<group>"; };
 		CC8F8C8D26207C9E00F60F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TemplateInfoView.xib; sourceTree = "<group>"; };
 		CC8F8C8E26207C9E00F60F78 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplateInfoView.strings; sourceTree = "<group>"; };
@@ -888,7 +895,6 @@
 		CCCD8179261C2DD000BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Segment.storyboard; sourceTree = "<group>"; };
 		CCCD8183261C2DD300BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Segment.strings; sourceTree = "<group>"; };
 		CCCD818C261C2DD600BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Segment.strings"; sourceTree = "<group>"; };
-		CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneContainer.swift; sourceTree = "<group>"; };
 		CCCD81EE261C5C1A00BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Grid.storyboard; sourceTree = "<group>"; };
 		CCCD81F8261C5C1D00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Grid.strings; sourceTree = "<group>"; };
 		CCCD8201261C5C1F00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Grid.strings"; sourceTree = "<group>"; };
@@ -1356,6 +1362,7 @@
 		CC3C4A80261FF9AC00794806 /* DocumentStacked */ = {
 			isa = PBXGroup;
 			children = (
+				CC8E5D72262818320030B2FC /* Children */,
 				CC3C4A9C261FFA0B00794806 /* Views */,
 				CC3C4AB1262013AF00794806 /* DocumentStacked.storyboard */,
 				CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */,
@@ -1375,7 +1382,8 @@
 		CC3C4ACB2620209B00794806 /* ExportStacked */ = {
 			isa = PBXGroup;
 			children = (
-				CCB769F5260A22170029693B /* Templates */,
+				CC8E5D74262818480030B2FC /* Children */,
+				CCB769F5260A22170029693B /* Resources */,
 				CCCD821F261C5FE200BFDD6E /* Models */,
 				CC3C4B0C26202E3400794806 /* Views */,
 				CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */,
@@ -1454,11 +1462,84 @@
 		CC84216A2615F3A200F1C007 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				CC8E5D67262817860030B2FC /* PaneContainer.swift */,
 				CC84216B2615F3BA00F1C007 /* PaneController.swift */,
-				CCCD81BE261C481C00BFDD6E /* PaneContainer.swift */,
-				CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */,
 			);
-			path = Protocols;
+			name = Protocols;
+			path = ../Segment/Protocols;
+			sourceTree = "<group>";
+		};
+		CC8E5D472627F1080030B2FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC8E5D482627F1180030B2FC /* StackedView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CC8E5D71262817AA0030B2FC /* Panes */ = {
+			isa = PBXGroup;
+			children = (
+				CC84216A2615F3A200F1C007 /* Protocols */,
+				CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */,
+				CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */,
+				CC3C4A80261FF9AC00794806 /* DocumentStacked */,
+				CCCD81DD261C5BD700BFDD6E /* SceneStacked */,
+				1842C47F24798E46008ECD6F /* TagList */,
+				CC3C4ACB2620209B00794806 /* ExportStacked */,
+			);
+			name = Panes;
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		CC8E5D72262818320030B2FC /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				CC32E1C22615CC2300F5F6AA /* Info */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		CC8E5D732628183E0030B2FC /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				CC32E1F42615D32400F5F6AA /* Inspector */,
+				CC32E2262615D62D00F5F6AA /* Preview */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		CC8E5D74262818480030B2FC /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C4AD32620241800794806 /* TemplateInfo */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		CC8E5D83262818940030B2FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
+				CCB7847C26257B9200FC4216 /* Color+HSV.swift */,
+				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
+				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
+				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
+				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
+				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CC8E5D8B262818A70030B2FC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D635BE9A23CD861100FD62B8 /* Pixel */,
+				D690C96A241BBE6B00BB1652 /* PixelMatch */,
+				D6F4A38623CF645800BE3DCF /* Tab */,
+				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CC8F8C8A26207C9E00F60F78 /* Views */ = {
@@ -1522,19 +1603,19 @@
 			path = lpeg;
 			sourceTree = "<group>";
 		};
-		CCB769F5260A22170029693B /* Templates */ = {
+		CCB769F5260A22170029693B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				D693741024039F66007AF7AF /* example.lua */,
 				CCB769EB260A220F0029693B /* pascal.lua */,
 			);
-			path = Templates;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		CCCD8154261C16D300BFDD6E /* Segment */ = {
 			isa = PBXGroup;
 			children = (
-				CC84216A2615F3A200F1C007 /* Protocols */,
+				CC8E5D472627F1080030B2FC /* Views */,
 				CCCD817A261C2DD000BFDD6E /* Segment.storyboard */,
 				CCCD815F261C16F100BFDD6E /* SegmentController.swift */,
 			);
@@ -1544,6 +1625,7 @@
 		CCCD81DD261C5BD700BFDD6E /* SceneStacked */ = {
 			isa = PBXGroup;
 			children = (
+				CC8E5D732628183E0030B2FC /* Children */,
 				D6729C10240FCBFC000339C2 /* Views */,
 				1842C472247987C9008ECD6F /* SceneStacked.storyboard */,
 				D6C1E1F223CEC23F0027DE6F /* SceneStackedController.swift */,
@@ -1844,32 +1926,17 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				D658AFA623CB180D0098C567 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
-				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
-				D69974E22416574D00223B31 /* Help */,
-				D635BE9A23CD861100FD62B8 /* Pixel */,
-				D690C96A241BBE6B00BB1652 /* PixelMatch */,
-				D69FD8882473DBA000ACBF74 /* OpenCV */,
-				D6729C07240FC7FC000339C2 /* Extensions */,
-				CCA7343F2617059600808E02 /* Swizzling */,
-				1885CF3C24B0FE750067D02F /* Protocols */,
-				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
-				D6F4A38623CF645800BE3DCF /* Tab */,
+				D69974E22416574D00223B31 /* Resources */,
+				CC8E5D8B262818A70030B2FC /* Models */,
+				D6729C07240FC7FC000339C2 /* Helpers */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D649231623CC64490067C04A /* Scene */,
 				CCCD8154261C16D300BFDD6E /* Segment */,
-				CC3C4A80261FF9AC00794806 /* DocumentStacked */,
-				CC32E1C22615CC2300F5F6AA /* Info */,
-				CCCD81DD261C5BD700BFDD6E /* SceneStacked */,
-				CC32E1F42615D32400F5F6AA /* Inspector */,
-				CC32E2262615D62D00F5F6AA /* Preview */,
-				1842C47F24798E46008ECD6F /* TagList */,
-				CC3C4ACB2620209B00794806 /* ExportStacked */,
-				CC3C4AD32620241800794806 /* TemplateInfo */,
+				CC8E5D71262817AA0030B2FC /* Panes */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
@@ -1953,18 +2020,15 @@
 			path = Overlay;
 			sourceTree = "<group>";
 		};
-		D6729C07240FC7FC000339C2 /* Extensions */ = {
+		D6729C07240FC7FC000339C2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
-				CCB7847C26257B9200FC4216 /* Color+HSV.swift */,
-				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
-				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
-				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
-				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
-				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
+				D69FD8882473DBA000ACBF74 /* OpenCV */,
+				CC8E5D83262818940030B2FC /* Extensions */,
+				1885CF3C24B0FE750067D02F /* Protocols */,
+				CCA7343F2617059600808E02 /* Swizzling */,
 			);
-			path = Extensions;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D6729C0F240FCBE3000339C2 /* Views */ = {
@@ -2085,13 +2149,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D69974E22416574D00223B31 /* Help */ = {
+		D69974E22416574D00223B31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D658AFA123CB180D0098C567 /* Assets.xcassets */,
+				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D69974E72416595500223B31 /* JSTColorPicker.html */,
 				D690C95624192C2A00BB1652 /* github-markdown.css */,
 			);
-			path = Help;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D699E0C42408E4960011A4CB /* Preferences */ = {
@@ -2791,6 +2857,7 @@
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
+				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
@@ -2802,11 +2869,11 @@
 				CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				185D7EF1248A8518001C283B /* EditViewController.swift in Sources */,
-				CCCD81BF261C481C00BFDD6E /* PaneContainer.swift in Sources */,
 				D610478324224A170002E990 /* AnnotatorOverlay.swift in Sources */,
 				CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D610478424224A170002E990 /* SceneClipView.swift in Sources */,
 				CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */,
+				CC8E5D492627F1180030B2FC /* StackedView.swift in Sources */,
 				D610478524224A170002E990 /* GridWindowController.swift in Sources */,
 				D610478624224A170002E990 /* TabDelegate.swift in Sources */,
 				D610478724224A170002E990 /* SplitController.swift in Sources */,
@@ -2908,6 +2975,7 @@
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
 				CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
+				CC8E5D68262817860030B2FC /* PaneContainer.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
@@ -3008,6 +3076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
+				CC8E5D69262817860030B2FC /* PaneContainer.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -3069,7 +3138,6 @@
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,
 				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
-				CCCD81C0261C481C00BFDD6E /* PaneContainer.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
@@ -3089,8 +3157,10 @@
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
+				CC8E5D4A2627F1180030B2FC /* StackedView.swift in Sources */,
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
+				CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
@@ -3584,7 +3654,7 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/OpenCV/include\"",
+					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3593,7 +3663,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
+					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -3618,7 +3688,7 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/OpenCV/include\"",
+					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3627,7 +3697,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
+					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -3960,7 +4030,7 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/OpenCV/include\"",
+					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3969,7 +4039,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
+					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.3;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D SANDBOXED";
@@ -4000,7 +4070,7 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/OpenCV/include\"",
+					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4009,7 +4079,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/OpenCV/lib",
+					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.3;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D SANDBOXED";

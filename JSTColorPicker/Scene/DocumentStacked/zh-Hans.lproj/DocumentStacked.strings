@@ -1,0 +1,5 @@
+/* Class = "NSButtonCell"; title = "Quit Comparison Mode"; ObjectID = "fET-1C-9qM"; */
+"fET-1C-9qM.title" = "退出比较模式";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Quit Comparison Mode (⇧⌘D)"; ObjectID = "pJK-Cb-vz3"; */
+"pJK-Cb-vz3.ibShadowedToolTip" = "退出比较模式 (⇧⌘D)";
