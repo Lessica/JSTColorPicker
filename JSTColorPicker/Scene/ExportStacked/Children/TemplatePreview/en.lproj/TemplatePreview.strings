@@ -1,0 +1,11 @@
+/* Class = "NSBox"; title = "Template Preview"; ObjectID = "6E7-dV-CCY"; */
+"6E7-dV-CCY.title" = "Template Preview";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "azV-5Z-3ic"; */
+"azV-5Z-3ic.title" = "Table View Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "hmw-xR-jUh"; */
+"hmw-xR-jUh.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "iRO-Kn-oLV"; */
+"iRO-Kn-oLV.headerCell.title" = "Name";

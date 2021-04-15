@@ -667,7 +667,7 @@ extension TagListController: TagListSource {
     
     func managedTag(of name: String) -> Tag? {
         
-        if arrangedTags.count > 0 {
+        if arrangedTags.count > 0 && internalController.filterPredicate == nil {
             return arrangedTags.first(where: { $0.name == name })
         }
         
@@ -691,7 +691,7 @@ extension TagListController: TagListSource {
     }
     func managedTags(of names: [String]) -> [Tag] {
         
-        if arrangedTags.count > 0 {
+        if arrangedTags.count > 0 && internalController.filterPredicate == nil {
             return arrangedTags.filter({ names.contains($0.name) })
         }
         
@@ -840,7 +840,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let tableColumn = tableColumn else { return nil }
+        guard let tableColumn = tableColumn, row < arrangedTags.count else { return nil }
         if let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: nil) as? TagCellView {
             let col = tableColumn.identifier
             if col == .columnFlags {
@@ -871,6 +871,15 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
                 cell.isEditable = !isEditMode
             }
             return cell
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        guard let tableColumn = tableColumn, row < arrangedTags.count else { return nil }
+        let col = tableColumn.identifier
+        if col == .columnName {
+            return arrangedTags[row].name
         }
         return nil
     }

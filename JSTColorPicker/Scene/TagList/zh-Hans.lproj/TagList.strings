@@ -1,9 +1,6 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "36l-Jz-ijV"; */
 "36l-Jz-ijV.title" = "表格单元格";
 
-/* Class = "NSTableColumn"; headerCell.title = "Checked"; ObjectID = "3f6-yQ-zUB"; */
-"3f6-yQ-zUB.headerCell.title" = "已选中";
-
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "7mA-Qd-o8i"; */
 "7mA-Qd-o8i.headerCell.title" = "名称";
 
@@ -45,9 +42,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "rLA-oc-Whe"; */
 "rLA-oc-Whe.title" = "文本单元格";
-
-/* Class = "NSTableColumn"; headerCell.title = "Flags"; ObjectID = "XC9-Lg-cBA"; */
-"XC9-Lg-cBA.headerCell.title" = "标识位";
 
 /* Class = "NSBox"; title = "Tag Manager"; ObjectID = "yUd-5h-qZT"; */
 "yUd-5h-qZT.title" = "标签管理器";

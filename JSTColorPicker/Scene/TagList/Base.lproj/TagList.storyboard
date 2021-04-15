@@ -61,8 +61,8 @@
                                                                 <rect key="frame" x="1" y="1" width="240" height="726"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="20" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="726"/>
+                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="20" headerView="ZJN-ac-bw2" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="698"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <size key="intercellSpacing" width="4" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -70,7 +70,7 @@
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableColumns>
                                                                             <tableColumn identifier="col-flags" editable="NO" width="30" minWidth="30" maxWidth="30" id="XC9-Lg-cBA">
-                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Flags">
+                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left">
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </tableHeaderCell>
@@ -101,7 +101,7 @@
                                                                                 </prototypeCellViews>
                                                                             </tableColumn>
                                                                             <tableColumn identifier="col-checked" editable="NO" width="30" minWidth="30" maxWidth="30" id="3f6-yQ-zUB">
-                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Checked">
+                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left">
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </tableHeaderCell>
@@ -174,7 +174,12 @@
                                                                                     </tableCellView>
                                                                                 </prototypeCellViews>
                                                                                 <connections>
-                                                                                    <binding destination="lSV-Dz-huJ" name="value" keyPath="arrangedObjects" id="9EB-Op-XBc"/>
+                                                                                    <binding destination="lSV-Dz-huJ" name="value" keyPath="arrangedObjects" id="9vp-6z-gbX">
+                                                                                        <dictionary key="options">
+                                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                            <bool key="NSCreatesSortDescriptor" value="NO"/>
+                                                                                        </dictionary>
+                                                                                    </binding>
                                                                                 </connections>
                                                                             </tableColumn>
                                                                         </tableColumns>
@@ -198,6 +203,10 @@
                                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
+                                                            <tableHeaderView key="headerView" wantsLayer="YES" id="ZJN-ac-bw2">
+                                                                <rect key="frame" x="0.0" y="0.0" width="240" height="28"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                            </tableHeaderView>
                                                         </scrollView>
                                                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
                                                             <rect key="frame" x="55" y="357" width="132" height="14"/>

@@ -100,11 +100,27 @@
                                                     <constraint firstAttribute="bottom" secondItem="0kM-ou-kCG" secondAttribute="bottom" id="VhK-LJ-XRw"/>
                                                     <constraint firstAttribute="trailing" secondItem="0kM-ou-kCG" secondAttribute="trailing" id="dLz-M1-ih5"/>
                                                     <constraint firstItem="0kM-ou-kCG" firstAttribute="top" secondItem="3ca-bl-3MA" secondAttribute="top" id="dO3-3O-muz"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="dvY-Pc-14P"/>
                                                 </constraints>
                                             </customView>
-                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" fixedFrame="YES" id="AvW-3b-26q">
+                                            <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="AvW-3b-26q">
                                                 <rect key="frame" x="0.0" y="856" width="258" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <subviews>
+                                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="zea-p8-lEa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="0.0"/>
+                                                        <connections>
+                                                            <segue destination="lYp-K1-6wR" kind="embed" id="YQO-Ux-m5X"/>
+                                                        </connections>
+                                                    </containerView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="zea-p8-lEa" firstAttribute="leading" secondItem="AvW-3b-26q" secondAttribute="leading" id="70e-W8-z7Z"/>
+                                                    <constraint firstItem="zea-p8-lEa" firstAttribute="top" secondItem="AvW-3b-26q" secondAttribute="top" id="VDl-oU-Adt"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zea-p8-lEa" secondAttribute="trailing" id="Zf6-GB-SWp"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zea-p8-lEa" secondAttribute="bottom" id="abE-hE-UBU"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="lza-h0-RbS"/>
+                                                </constraints>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
@@ -155,6 +171,14 @@
                 <customObject id="sxh-gY-cnB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-69" y="98"/>
+        </scene>
+        <!--TemplatePreview-->
+        <scene sceneID="yD2-DO-Xpf">
+            <objects>
+                <controllerPlaceholder storyboardName="TemplatePreview" id="lYp-K1-6wR" sceneMemberID="viewController"/>
+                <customObject id="s4X-fm-5Dj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-57" y="206"/>
         </scene>
     </scenes>
     <resources>

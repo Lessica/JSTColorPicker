@@ -56,6 +56,10 @@
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
+		CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
+		CC300F0D262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
+		CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC300F1F26284536002FD866 /* TemplatePreview.storyboard */; };
+		CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC300F1F26284536002FD866 /* TemplatePreview.storyboard */; };
 		CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E1DA2615D25700F5F6AA /* Info.storyboard */; };
@@ -819,6 +823,10 @@
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewController.swift; sourceTree = "<group>"; };
+		CC300F1E26284536002FD866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TemplatePreview.storyboard; sourceTree = "<group>"; };
+		CC300F2826284539002FD866 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplatePreview.strings; sourceTree = "<group>"; };
+		CC300F312628453B002FD866 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplatePreview.strings"; sourceTree = "<group>"; };
 		CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		CC32E1D92615D25700F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Info.storyboard; sourceTree = "<group>"; };
 		CC32E1E32615D25900F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Info.strings; sourceTree = "<group>"; };
@@ -1328,6 +1336,15 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		CC300EFF262843A3002FD866 /* TemplatePreview */ = {
+			isa = PBXGroup;
+			children = (
+				CC300F1F26284536002FD866 /* TemplatePreview.storyboard */,
+				CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */,
+			);
+			path = TemplatePreview;
+			sourceTree = "<group>";
+		};
 		CC32E1C22615CC2300F5F6AA /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1516,6 +1533,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3C4AD32620241800794806 /* TemplateInfo */,
+				CC300EFF262843A3002FD866 /* TemplatePreview */,
 			);
 			path = Children;
 			sourceTree = "<group>";
@@ -2678,6 +2696,7 @@
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				180C6A8A249F92AB00B42656 /* AlertTextView.xib in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
+				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
 				CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
@@ -2730,6 +2749,7 @@
 				CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
 				D693741124039F66007AF7AF /* example.lua in Resources */,
 				CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */,
+				CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
 				CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 			);
@@ -2990,6 +3010,7 @@
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
+				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
@@ -3196,6 +3217,7 @@
 				CCE901672626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				D699E0D22409224E0011A4CB /* AdvancedController.swift in Sources */,
+				CC300F0D262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */,
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */,
@@ -3370,6 +3392,16 @@
 				1842C47E247988F0008ECD6F /* zh-Hans */,
 			);
 			name = TagList.storyboard;
+			sourceTree = "<group>";
+		};
+		CC300F1F26284536002FD866 /* TemplatePreview.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC300F1E26284536002FD866 /* Base */,
+				CC300F2826284539002FD866 /* en */,
+				CC300F312628453B002FD866 /* zh-Hans */,
+			);
+			name = TemplatePreview.storyboard;
 			sourceTree = "<group>";
 		};
 		CC32E1DA2615D25700F5F6AA /* Info.storyboard */ = {
