@@ -33,47 +33,4 @@ class StackedView: NSSplitView {
             return NSColor.secondaryLabelColor.withAlphaComponent(0.24)
         }
     }
-
-    var numberOfArrangedSubviews: Int { arrangedSubviews.count }
-
-    var dividerIndices: IndexSet { IndexSet(integersIn: 0..<arrangedSubviews.count) }
-
-    func positionOfDivider(at dividerIndex: Int) -> CGFloat {
-        return isVertical
-            ? arrangedSubviews[dividerIndex].frame.maxX
-            : arrangedSubviews[dividerIndex].frame.maxY
-    }
-
-    var adjustingDividersAutomatically: Bool { false }
-
-    private var _shouldAdjustDividers = false
-
-    func setNeedsAdjustDividers() {
-        _shouldAdjustDividers = true
-    }
-
-    func adjustDividersIfNeeded() {
-        if _shouldAdjustDividers {
-            _shouldAdjustDividers = false
-            dividerIndices.forEach(
-                { setPosition(positionOfDivider(at: $0), ofDividerAt: $0) }
-            )
-        }
-    }
-
-    override func viewDidEndLiveResize() {
-        super.viewDidEndLiveResize()
-        if adjustingDividersAutomatically {
-            adjustDividersIfNeeded()
-        }
-    }
-
-    override func viewDidMoveToWindow() {
-        super.viewDidMoveToWindow()
-        if adjustingDividersAutomatically, let window = window as? MainWindow, window.isTabbingVisible {
-            DispatchQueue.main.async { [weak self] in
-                self?.adjustDividersIfNeeded()
-            }
-        }
-    }
 }

@@ -44,7 +44,7 @@ class StackedPaneContainer: NSViewController, PaneContainer {
     var shouldResetDividers    : Bool { _shouldResetDividerIndices != nil }
 
     func setNeedsResetDividers() {
-        _shouldResetDividerIndices = IndexSet(integersIn: 0..<splitView.numberOfArrangedSubviews)
+        _shouldResetDividerIndices = IndexSet(integersIn: 0..<splitView.arrangedSubviews.count)
     }
 
     func setNeedsResetDividers(in set: IndexSet) {
