@@ -1303,6 +1303,7 @@
 			isa = PBXGroup;
 			children = (
 				1885CF3D24B0FEA30067D02F /* UndoProxy.swift */,
+				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1542,6 +1543,14 @@
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CC8E5DC726281CF10030B2FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D649230B23CC56E20067C04A /* DropSplitView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CC8F8C8A26207C9E00F60F78 /* Views */ = {
@@ -1942,9 +1951,7 @@
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
-				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
-				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
 				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
 				CCCD822F261C81C800BFDD6E /* MainWindow.swift */,
@@ -2028,6 +2035,7 @@
 				CC8E5D83262818940030B2FC /* Extensions */,
 				1885CF3C24B0FE750067D02F /* Protocols */,
 				CCA7343F2617059600808E02 /* Swizzling */,
+				CC8E5DC726281CF10030B2FC /* Views */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
