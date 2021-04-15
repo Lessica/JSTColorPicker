@@ -91,17 +91,34 @@
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>
                             </box>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SSM-Hr-J7n">
+                                <rect key="frame" x="240" y="579" width="16" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Uox-Te-6Le"/>
+                                    <constraint firstAttribute="width" constant="16" id="iSk-Q9-B4E"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="timer" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="FZn-Ab-fD4">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="timerButtonTapped:" target="Epo-YF-uKm" id="4lD-ic-82j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="SSM-Hr-J7n" firstAttribute="top" secondItem="odZ-f4-fX0" secondAttribute="top" constant="2" id="46U-1y-7y7"/>
                             <constraint firstItem="6E7-dV-CCY" firstAttribute="leading" secondItem="odZ-f4-fX0" secondAttribute="leading" id="P9G-tK-ykx"/>
                             <constraint firstAttribute="trailing" secondItem="6E7-dV-CCY" secondAttribute="trailing" id="Yg1-IC-4GP"/>
                             <constraint firstItem="6E7-dV-CCY" firstAttribute="top" secondItem="odZ-f4-fX0" secondAttribute="top" constant="4" id="ZNx-ci-jmq"/>
+                            <constraint firstAttribute="trailing" secondItem="SSM-Hr-J7n" secondAttribute="trailing" constant="8" id="hMe-y8-NdP"/>
                             <constraint firstAttribute="bottom" secondItem="6E7-dV-CCY" secondAttribute="bottom" id="y5n-br-DUU"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="outlineView" destination="GMz-mc-eIC" id="Fzf-M6-rH0"/>
                         <outlet property="paneBox" destination="6E7-dV-CCY" id="fE9-Pa-f4J"/>
+                        <outlet property="timerButton" destination="SSM-Hr-J7n" id="44U-BZ-Nqe"/>
                     </connections>
                 </viewController>
                 <customObject id="UOg-SM-VP6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -109,4 +126,7 @@
             <point key="canvasLocation" x="-113" y="8"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="timer" catalog="system" width="15" height="15"/>
+    </resources>
 </document>

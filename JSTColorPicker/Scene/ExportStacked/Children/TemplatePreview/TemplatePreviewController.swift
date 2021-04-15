@@ -10,6 +10,11 @@ import Cocoa
 
 class TemplatePreviewController: StackedPaneController {
 
+    @IBOutlet weak var timerButton: NSButton!
     @IBOutlet weak var outlineView: NSOutlineView!
+
+    @IBAction func timerButtonTapped(_ sender: NSButton) {
+        
+    }
 
 }
