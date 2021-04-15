@@ -265,7 +265,7 @@ class ContentController: NSViewController {
                 }
                 
                 do {
-                    _ = try addContentItem(of: coordinate)
+                    _ = try addContentItem(of: coordinate, byIgnoringPopups: false)
                 } catch Content.Error.itemExists {
                     try selectContentItem(of: coordinate)
                 }
@@ -291,7 +291,7 @@ class ContentController: NSViewController {
                 }
                 
                 do {
-                    _ = try addContentItem(of: rect)
+                    _ = try addContentItem(of: rect, byIgnoringPopups: false)
                 } catch Content.Error.itemExists {
                     try selectContentItem(of: rect)
                 }
@@ -486,11 +486,11 @@ extension ContentController: ContentItemSource {
 
 extension ContentController: ContentDelegate {
     
-    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+    func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         return try addContentItem(contentItem(of: coordinate))
     }
     
-    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
+    func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         return try addContentItem(contentItem(of: rect))
     }
     
@@ -635,14 +635,14 @@ extension ContentController: ContentDelegate {
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
             else { throw Content.Error.itemDoesNotExist(item: coordinate) }
-        return try deleteContentItem(item, bySkipingValidation: true, byIgnoringPopups: ignore)
+        return try deleteContentItem(item, bySkipingValidation: true)
     }
     
     func deleteContentItem(_ item: ContentItem, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
-        return try deleteContentItem(item, bySkipingValidation: false, byIgnoringPopups: ignore)
+        return try deleteContentItem(item, bySkipingValidation: false)
     }
     
-    private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+    private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool) throws -> ContentItem? {
         if !skip {
             guard let content = documentContent  else { throw Content.Error.notLoaded }
             guard documentState.isWriteable      else { throw Content.Error.notWritable   }

@@ -164,7 +164,7 @@ class EditCoordinateController: EditViewController {
             if let replItem = try testContentItem(with: origItem) as? PixelColor
             {
                 if isAdd {
-                    if let _ = try delegate.addContentItem(of: replItem.coordinate) {
+                    if let _ = try delegate.addContentItem(of: replItem.coordinate, byIgnoringPopups: false) {
                         parent.endSheet(window, returnCode: .OK)
                     }
                 } else {

@@ -115,6 +115,7 @@ class TemplateManager {
             by: { $0.uuid }
         )
         .compactMap({ $0.1.first })
+        .filter({ $0.isEnabled })
 
         self.templates
             .removeAll()

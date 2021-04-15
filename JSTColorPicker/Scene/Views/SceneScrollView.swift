@@ -59,6 +59,8 @@ class SceneScrollView: NSScrollView {
     private var sceneTool: SceneTool { sceneToolSource.sceneTool }
     weak var sceneStateSource: SceneStateSource!
     private var sceneState: SceneState { sceneStateSource.sceneState }
+    private var isProportionalScaling: Bool { sceneState.manipulatingOptions.contains(.proportionalScaling) && enableForceTouch }
+    private var isCenteredScaling: Bool { sceneState.manipulatingOptions.contains(.centeredScaling) && enableForceTouch }
     weak var sceneActionEffectViewSource: SceneEffectViewSource!
     private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sourceSceneEffectView }
     
@@ -81,7 +83,7 @@ class SceneScrollView: NSScrollView {
         }
 
         var pRect: PixelRect
-        if sceneState.manipulatingOptions.contains(.proportionalScaling) {
+        if isProportionalScaling {
             let maxWidth = max(
                 ceil(ceil(overlayFrame.maxX) - floor(overlayFrame.minX)),
                 ceil(ceil(overlayFrame.maxY) - floor(overlayFrame.minY))
@@ -467,8 +469,8 @@ class SceneScrollView: NSScrollView {
                     beginLocation: sceneState.beginLocation,
                     currentLocation: currentLocation,
                     withRatio: 1.0,
-                    byProportionalScaling: sceneState.manipulatingOptions.contains(.proportionalScaling),
-                    byCenteredScaling: sceneState.manipulatingOptions.contains(.centeredScaling)
+                    byProportionalScaling: isProportionalScaling,
+                    byCenteredScaling: isCenteredScaling
                 )
                 let convertedRect = convert(
                     targetRect.inset(by: areaDraggingOverlay.outerInsets),
@@ -523,7 +525,7 @@ class SceneScrollView: NSScrollView {
                             let fixedOppositeCoord = fixedOppositeCoord
                         {
                             let oldRatio = annotatorPixelRect.ratio
-                            let proportional = sceneState.manipulatingOptions.contains(.proportionalScaling)
+                            let proportional = isProportionalScaling
 
                             let newFrame = calculateRect(
                                 beginLocation: fixedOpposite,

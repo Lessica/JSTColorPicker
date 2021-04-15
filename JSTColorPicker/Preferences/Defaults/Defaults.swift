@@ -44,6 +44,7 @@ extension UserDefaults.Key {
     
     static let usesDetailedToolTips                 : UserDefaults.Key     = "defaults:usesDetailedToolTips"                   // Bool
     static let confirmBeforeDelete                  : UserDefaults.Key     = "defaults:confirmBeforeDelete"                    // Bool
+    static let ignoreRepeatedInsertion              : UserDefaults.Key     = "defaults:ignoreRepeatedInsertion"                // Bool
     static let ignoreInvalidDeletion                : UserDefaults.Key     = "defaults:ignoreInvalidDeletion"                  // Bool
     static let zIndexBySize                         : UserDefaults.Key     = "defaults:zIndexBySize"                           // Bool
     static let maximumItemCountEnabled              : UserDefaults.Key     = "defaults:maximumItemCountEnabled"                // Bool

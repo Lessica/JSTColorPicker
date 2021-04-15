@@ -374,9 +374,12 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
     }
     
-    private func applyAnnotateItem(at locInWrapper: CGPoint) -> Bool {
+    private func applyAnnotateItem(
+        at locInWrapper: CGPoint,
+        byIgnoringPopups ignore: Bool   // user defaults
+    ) -> Bool {
         guard isVisibleWrapperLocation(locInWrapper) else { return false }
-        if let _ = try? addContentItem(of: PixelCoordinate(locInWrapper)) {
+        if let _ = try? addContentItem(of: PixelCoordinate(locInWrapper), byIgnoringPopups: ignore) {
             return true
         }
         return false
@@ -674,7 +677,11 @@ class SceneController: NSViewController {
                     } else {
                         let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
                         if sceneTool == .magicCursor {
-                            handled = applyAnnotateItem(at: locInWrapper)
+                            let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+                            handled = applyAnnotateItem(
+                                at: locInWrapper,
+                                byIgnoringPopups: ignoreRepeatedInsertion
+                            )
                         }
                         else if sceneTool == .magnifyingGlass {
                             handled = applyMagnifyItem(at: locInWrapper)
@@ -890,12 +897,20 @@ class SceneController: NSViewController {
                 }
                 else if isVisibleWrapperLocation(locInWrapper) {
                     if specialKey == .enter || specialKey == .carriageReturn {
-                        return applyAnnotateItem(at: locInWrapper)
+                        let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+                        return applyAnnotateItem(
+                            at: locInWrapper,
+                            byIgnoringPopups: ignoreRepeatedInsertion
+                        )
                     }
                     else if specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace {
                         let optionPressed = flags.contains(.option)
                         let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
-                        return applyDeleteItem(at: locInWrapper, byShowingOptions: optionPressed, byIgnoringPopups: ignoreInvalidDeletion)
+                        return applyDeleteItem(
+                            at: locInWrapper,
+                            byShowingOptions: optionPressed,
+                            byIgnoringPopups: ignoreInvalidDeletion
+                        )
                     }
                 }
             }
@@ -1025,7 +1040,8 @@ extension SceneController: SceneTracking, SceneActionTracking {
             _ = try? updateContentItem(item, to: rect)
         }
         else {
-            _ = try? addContentItem(of: rect)
+            let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+            _ = try? addContentItem(of: rect, byIgnoringPopups: ignoreRepeatedInsertion)
         }
     }
     
@@ -1423,12 +1439,12 @@ extension SceneController: ToolbarResponder {
 
 extension SceneController: ContentDelegate {
     
-    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
-        return try contentManager.addContentItem(of: coordinate)
+    func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        return try contentManager.addContentItem(of: coordinate, byIgnoringPopups: ignore)
     }
     
-    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
-        return try contentManager.addContentItem(of: rect)
+    func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        return try contentManager.addContentItem(of: rect, byIgnoringPopups: ignore)
     }
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {

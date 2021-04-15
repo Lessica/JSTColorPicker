@@ -148,13 +148,14 @@ class TemplateInfoView: NSView {
             isAsynchronousStack.isHidden = false
             shouldSaveInPlaceLabel.stringValue = template.saveInPlace ? "Yes" : "No"
             shouldSaveInPlaceStack.isHidden = false
+            templateUUIDLabel.stringValue = template.uuid.uuidString
+            templateUUIDStack.isHidden = false
         } else {
             isAsynchronousStack.isHidden = true
             shouldSaveInPlaceStack.isHidden = true
+            templateUUIDStack.isHidden = true
         }
-        
-        templateUUIDLabel.stringValue = template.uuid.uuidString
-        templateUUIDStack.isHidden = false
+
         templateDescriptionLabel.stringValue = template.userDescription ?? ""
         templateDescriptionStack.isHidden = (template.userDescription ?? "").isEmpty
     }
@@ -175,23 +176,45 @@ class TemplateInfoView: NSView {
             modifiedAtLabel,
             fullPathLabel,
         ]
-        .forEach({ $0?.stringValue = "" })
-        [
-            templateNameStack,
-            templateVersionStack,
-            platformVersionStack,
-            authorNameStack,
-            isAsynchronousStack,
-            shouldSaveInPlaceStack,
-            templateUUIDStack,
-            templateDescriptionStack,
-            fileNameStack,
-            fileSizeStack,
-            createdAtStack,
-            modifiedAtStack,
-            fullPathStack,
-        ]
-        .forEach({ $0?.isHidden = true })
+        .forEach({ $0?.stringValue = "-" })
+        if isAdvanced {
+            [
+                templateNameStack,
+                templateVersionStack,
+                platformVersionStack,
+                authorNameStack,
+                isAsynchronousStack,
+                shouldSaveInPlaceStack,
+                templateUUIDStack,
+                templateDescriptionStack,
+                fileNameStack,
+                fileSizeStack,
+                createdAtStack,
+                modifiedAtStack,
+                fullPathStack,
+            ]
+            .forEach({ $0?.isHidden = false })
+        } else {
+            [
+                templateNameStack,
+                templateVersionStack,
+                platformVersionStack,
+                authorNameStack,
+                templateDescriptionStack,
+            ]
+            .forEach({ $0?.isHidden = false })
+            [
+                isAsynchronousStack,
+                shouldSaveInPlaceStack,
+                templateUUIDStack,
+                fileNameStack,
+                fileSizeStack,
+                createdAtStack,
+                modifiedAtStack,
+                fullPathStack,
+            ]
+            .forEach({ $0?.isHidden = true })
+        }
     }
 
     @IBOutlet weak var locateButton: NSButton!

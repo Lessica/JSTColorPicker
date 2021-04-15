@@ -9,8 +9,8 @@
 import Foundation
 
 protocol ContentDelegate: class {
-    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem?
-    func addContentItem(of rect: PixelRect) throws -> ContentItem?
+    func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem?
+    func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem?
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem?

@@ -47,8 +47,12 @@ class Template {
     private(set) var author               : String?
     private(set) var userDescription      : String?
     private(set) var allowedExtensions    : [String]
+
     private(set) var isAsync              : Bool
+    private(set) var isEnabled            : Bool
+    private(set) var isPreviewable        : Bool
     private(set) var saveInPlace          : Bool
+
     private(set) var items                : LuaSwift.Table?
     private      var generator            : LuaSwift.Function
     private      var contentModification  : Date?
@@ -82,21 +86,37 @@ class Template {
             self.platformVersion = stringDict["platformVersion"] ?? Template.currentPlatformVersion
             self.author = stringDict["author"]
             self.userDescription = stringDict["description"]
+            
             if let ext = stringDict["extension"] {
                 self.allowedExtensions = [ext]
             } else {
                 self.allowedExtensions = []
             }
+
             if let async = boolDict["async"] {
                 self.isAsync = async
             } else {
                 self.isAsync = false
             }
+
+            if let enabled = boolDict["enabled"] {
+                self.isEnabled = enabled
+            } else {
+                self.isEnabled = true
+            }
+
+            if let previewable = boolDict["previewable"] {
+                self.isPreviewable = previewable
+            } else {
+                self.isPreviewable = false
+            }
+
             if let saveInPlace = boolDict["saveInPlace"] {
                 self.saveInPlace = saveInPlace
             } else {
                 self.saveInPlace = false
             }
+
             self.items = tab["items"] as? LuaSwift.Table
             
             guard let generator = tab["generator"] as? LuaSwift.Function else { throw Error.missingRequiredField(field: "generator") }

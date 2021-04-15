@@ -79,6 +79,9 @@
 /* Class = "NSButtonCell"; title = "Use Opaque Difference Mask"; ObjectID = "uCs-ys-FPM"; */
 "uCs-ys-FPM.title" = "使用不透明的差异遮罩";
 
+/* Class = "NSButtonCell"; title = "Ignore Repeated Insertion"; ObjectID = "UjQ-Tx-ycu"; */
+"UjQ-Tx-ycu.title" = "忽略重复的添加请求";
+
 /* Class = "NSButtonCell"; title = "Draw Grids in Scene"; ObjectID = "UPj-0j-JbO"; */
 "UPj-0j-JbO.title" = "在场景中绘制网格";
 

@@ -192,7 +192,7 @@ class EditAreaController: EditViewController {
             if let replArea = try testContentItem(fromOpposite: false, with: origItem) as? PixelArea
             {
                 if isAdd {
-                    if let _ = try delegate.addContentItem(of: replArea.rect) {
+                    if let _ = try delegate.addContentItem(of: replArea.rect, byIgnoringPopups: false) {
                         parent.endSheet(window, returnCode: .OK)
                     }
                 } else {

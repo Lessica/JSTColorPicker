@@ -232,14 +232,14 @@
                         </tabViewItem>
                         <tabViewItem label="Annotation" identifier="" id="AZY-Lx-ojw">
                             <view key="view" id="ibT-Qp-igG">
-                                <rect key="frame" x="10" y="33" width="434" height="157"/>
+                                <rect key="frame" x="10" y="33" width="434" height="181"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMr-ya-cMx">
-                                        <rect key="frame" x="20" y="20" width="394" height="117"/>
+                                        <rect key="frame" x="20" y="20" width="394" height="141"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVN-0E-XuN">
-                                                <rect key="frame" x="-2" y="100" width="169" height="18"/>
+                                                <rect key="frame" x="-2" y="124" width="169" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Uses Detailed Tool Tips" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="spB-al-HtT">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -249,13 +249,23 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6b1-O7-Cvg">
-                                                <rect key="frame" x="-2" y="76" width="161" height="18"/>
+                                                <rect key="frame" x="-2" y="100" width="161" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Confirm Before Delete" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1Y6-DK-gNW">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:confirmBeforeDelete" id="j5I-EY-5fT"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qhO-NY-W2a">
+                                                <rect key="frame" x="-2" y="76" width="183" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Ignore Repeated Insertion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UjQ-Tx-ycu">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:ignoreRepeatedInsertion" id="KWf-fJ-GQj"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Jz-ZnC">
@@ -337,8 +347,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>

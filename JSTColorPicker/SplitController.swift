@@ -217,24 +217,28 @@ extension SplitController: ScreenshotLoader {
 
 extension SplitController: ContentDelegate {
     
-    func addContentItem(of coordinate: PixelCoordinate) throws -> ContentItem? {
+    func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         do {
-            return try contentController.addContentItem(of: coordinate)
+            return try contentController.addContentItem(of: coordinate, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
         } catch {
-            presentError(error)
+            if !ignore {
+                presentError(error)
+            }
         }
         return nil
     }
     
-    func addContentItem(of rect: PixelRect) throws -> ContentItem? {
+    func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         do {
-            return try contentController.addContentItem(of: rect)
+            return try contentController.addContentItem(of: rect, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
         } catch {
-            presentError(error)
+            if !ignore {
+                presentError(error)
+            }
         }
         return nil
     }
