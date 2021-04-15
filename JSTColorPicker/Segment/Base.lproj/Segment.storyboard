@@ -47,6 +47,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="246" height="720"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="246" id="fhv-Hy-x9U"/>
+                                    <constraint firstAttribute="height" constant="720" placeholder="YES" id="vi0-FB-lb8"/>
                                 </constraints>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>

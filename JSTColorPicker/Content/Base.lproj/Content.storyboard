@@ -10,11 +10,11 @@
         <scene sceneID="HJn-ov-7tW">
             <objects>
                 <viewController identifier="ContentController" id="oDF-UT-bv5" customClass="ContentController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="9GN-DY-133">
+                    <view key="view" id="9GN-DY-133">
                         <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="36" width="220" height="712"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="220" height="712"/>
@@ -197,6 +197,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="712" placeholder="YES" id="3bE-sK-7M9"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="ep1-B6-8yg"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="NM7-Vt-IF5">

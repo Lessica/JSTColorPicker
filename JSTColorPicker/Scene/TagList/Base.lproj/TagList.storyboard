@@ -329,6 +329,7 @@
                                             <constraints>
                                                 <constraint firstItem="K6j-Zr-Q1x" firstAttribute="width" secondItem="HcP-1N-BCe" secondAttribute="width" id="CC7-r2-FJ3"/>
                                                 <constraint firstItem="QuS-we-HDF" firstAttribute="width" secondItem="HcP-1N-BCe" secondAttribute="width" id="Wtq-Od-6Xj"/>
+                                                <constraint firstAttribute="height" constant="766" placeholder="YES" id="aho-IM-hJd"/>
                                                 <constraint firstItem="qAb-om-glU" firstAttribute="width" secondItem="HcP-1N-BCe" secondAttribute="width" id="yPi-uF-dma"/>
                                             </constraints>
                                             <visibilityPriorities>
