@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "azV-5Z-3ic"; */
 "azV-5Z-3ic.title" = "Table View Cell";
 
+/* Class = "NSTextFieldCell"; title = "No template to preview."; ObjectID = "fKC-Av-UEo"; */
+"fKC-Av-UEo.title" = "No template to preview.";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "hmw-xR-jUh"; */
 "hmw-xR-jUh.title" = "Text Cell";
 

@@ -90,6 +90,8 @@
 		CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
+		CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
+		CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
@@ -856,6 +858,7 @@
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
 		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
+		CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateContentCellView.swift; sourceTree = "<group>"; };
 		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1353,6 +1356,7 @@
 			isa = PBXGroup;
 			children = (
 				CC300F4926285E27002FD866 /* TemplateCellView.swift */,
+				CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3032,6 +3036,7 @@
 				D6E4252C24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D61047C224224A170002E990 /* CoreGraphics+Ext.swift in Sources */,
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
+				CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3236,6 +3241,7 @@
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
+				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,

@@ -97,6 +97,9 @@
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "Save As…";
 
+/* Class = "NSMenuItem"; title = "Template Preview"; ObjectID = "cC4-8w-iNy"; */
+"cC4-8w-iNy.title" = "Template Preview";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.ibShadowedToolTip" = "Copy all annotations using selected template.";
 
