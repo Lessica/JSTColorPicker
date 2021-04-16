@@ -118,8 +118,18 @@ class ContentController: NSViewController {
     private var preparedMenuTags             : OrderedSet<String>?
     private var preparedMenuTagsAndCounts    : [String: Int]?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addCoordinateButton.isEnabled = false
+        addCoordinateField.isEnabled = false
+        
+        tableView.tableViewResponder = self
+        tableView.registerForDraggedTypes([.color, .area])
+
+        prepareDefaults()
+        invalidateRestorableState()
+
         observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
 
         NotificationCenter.default.addObserver(
@@ -135,19 +145,6 @@ class ContentController: NSViewController {
             name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
             object: nil
         )
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addCoordinateButton.isEnabled = false
-        addCoordinateField.isEnabled = false
-        
-        tableView.tableViewResponder = self
-        tableView.registerForDraggedTypes([.color, .area])
-
-        prepareDefaults()
-        invalidateRestorableState()
     }
 
     private lazy var setupInitialFirstResponder: Void = {

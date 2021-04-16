@@ -22,8 +22,19 @@ class ExportStackedController: StackedPaneContainer {
     private var observables             : [Observable]?
             var templateInfoController  : TemplateInfoController?  { paneControllers.compactMap( { $0 as? TemplateInfoController } ).first }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatePopUpButtonWillPopUp(_:)),
+            name: NSPopUpButton.willPopUpNotification,
+            object: templatePopUpButton!
+        )
+
+        prepareDefaults()
+        setNeedsReloadTemplates()
+
         observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
 
         NotificationCenter.default.addObserver(
@@ -39,20 +50,6 @@ class ExportStackedController: StackedPaneContainer {
             name: TemplateManager.NotificationType.Name.selectedTemplateDidChangeNotification,
             object: nil
         )
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(templatePopUpButtonWillPopUp(_:)),
-            name: NSPopUpButton.willPopUpNotification,
-            object: templatePopUpButton!
-        )
-
-        prepareDefaults()
-        setNeedsReloadTemplates()
     }
 
     private func prepareDefaults() { }

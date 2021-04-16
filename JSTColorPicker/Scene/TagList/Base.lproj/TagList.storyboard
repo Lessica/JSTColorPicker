@@ -57,7 +57,7 @@
                                                     <subviews>
                                                         <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
-                                                            <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="Q9a-31-8kW">
+                                                            <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="Q9a-31-8kW">
                                                                 <rect key="frame" x="1" y="1" width="240" height="726"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>

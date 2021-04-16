@@ -174,25 +174,6 @@ class SceneController: NSViewController {
     private var observables                    : [Observable]?
     private var windowActiveNotificationToken  : NotificationToken?
     private var eventMonitors                  = [Any]()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(managedTagsDidLoadNotification(_:)),
-            name: NSNotification.Name.NSManagedObjectContextDidLoad,
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(managedTagsDidChangeNotification(_:)),
-            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-            object: nil
-        )
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,6 +231,22 @@ class SceneController: NSViewController {
         ) { [unowned self] _ in
             self.useSelectedSceneTool()
         }
+
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidLoadNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextDidLoad,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidChangeNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
 
         NotificationCenter.default.addObserver(
             self,

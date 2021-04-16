@@ -17,6 +17,30 @@ private extension NSUserInterfaceItemIdentifier {
     static let cellTemplateContent  = NSUserInterfaceItemIdentifier("cell-template-content")
 }
 
+final class ReadWriteLock {
+    private var rwlock: pthread_rwlock_t = {
+        var rwlock = pthread_rwlock_t()
+        pthread_rwlock_init(&rwlock, nil)
+        return rwlock
+    }()
+
+    func writeLock() {
+        pthread_rwlock_wrlock(&rwlock)
+    }
+
+    func readLock() {
+        pthread_rwlock_rdlock(&rwlock)
+    }
+
+    func unlock() {
+        pthread_rwlock_unlock(&rwlock)
+    }
+
+    deinit {
+        pthread_rwlock_destroy(&rwlock)
+    }
+}
+
 class TemplatePreviewController: StackedPaneController {
     
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-preview") }
@@ -24,28 +48,27 @@ class TemplatePreviewController: StackedPaneController {
     @IBOutlet weak var timerButton        : NSButton!
     @IBOutlet weak var outlineView        : NSOutlineView!
     @IBOutlet weak var emptyOutlineLabel  : NSTextField!
+    @IBOutlet      var outlineMenu        : NSMenu!
 
     @IBAction func timerButtonTapped(_ sender: NSButton) {
-        
+        // TODO: preview selected items only
     }
 
     override func load(_ screenshot: Screenshot) throws {
         try super.load(screenshot)
+        prepareAll()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViewState()
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(templatesDidLoad(_:)),
             name: TemplateManager.NotificationType.Name.templatesDidLoadNotification,
             object: nil
         )
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateViewState()
     }
     
     private func updateViewState() {
@@ -58,49 +81,101 @@ class TemplatePreviewController: StackedPaneController {
         }
     }
 
+
+    // MARK: - Templates
+
+    private var previewableTemplates: [Template] { TemplateManager.shared.previewableTemplates }
+
+    private func templateWithUUIDString(_ uuidString: String) -> Template? {
+        let template = TemplateManager.shared.templateWithUUIDString(uuidString)
+        guard template?.isPreviewable ?? false else { return nil }
+        return template
+    }
+
+
+    // MARK: - Contents
+
+    private var cachedPreviewContents: [String: String] = [:]
+    private let cachingQueue = DispatchQueue(label: "CachedPreviewContents.Queue", attributes: .concurrent)
+    private let cachingLock = ReadWriteLock()
+    private var isCaching: Bool = false
+
+    private func prepareAllContentItemsForTemplate(_ template: Template, in group: DispatchGroup) {
+        guard let exportManager = screenshot?.export else { return }
+        group.enter()
+        self.cachingQueue.async { [weak self] in
+            guard let self = self else {
+                group.leave()
+                return
+            }
+            var displayString: String
+            do {
+                displayString = try exportManager.generateAllContentItems(with: template)
+            } catch {
+                displayString = error.localizedDescription
+            }
+            self.cachingLock.writeLock()
+            self.cachedPreviewContents[template.uuid.uuidString] = displayString
+            self.cachingLock.unlock()
+            group.leave()
+        }
+    }
+
+    private func prepareAll() /* prepareAllContentItemsForAllPreviewableTemplates */ {
+        guard !isCaching else { return }
+        self.isCaching = true
+        // TODO: store expanded item states, reload these items only, expand original items again.
+        let group = DispatchGroup()
+        self.previewableTemplates.forEach { template in
+            self.prepareAllContentItemsForTemplate(template, in: group)
+        }
+        group.notify(queue: .main) { [weak self] in
+            self?.outlineView.reloadData()
+            self?.isCaching = false
+        }
+    }
+
+}
+
+extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        return true
+    }
+
+    // TODO: implementation
 }
 
 extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDelegate {
 
-    private var previewableTemplates: [Template] { TemplateManager.shared.previewableTemplates }
-
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        if item == nil {
-            return previewableTemplates.count
-        } else {
-            return 1
-        }
+        return item == nil ? previewableTemplates.count : 1
     }
 
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if item is Template {
-            return true
-        }
-        return false
+        return item is Template
     }
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if item == nil {
             return previewableTemplates[index]
-        } else {
-            return """
-x, y = screen.find_color({
-  {  252,  317, 0x52a0fb,  90.00 },  -- 1
-})
-"""
+        } else if let template = item as? Template
+        {
+            var displayString: String
+            cachingLock.readLock()
+            displayString = self.cachedPreviewContents[template.uuid.uuidString] ?? NSLocalizedString("Generating...", comment: "Outline Generation")
+            cachingLock.unlock()
+            return displayString
         }
+        return NSLocalizedString("Document not loaded.", comment: "Outline Generation")
     }
 
     func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
-        if let template = item as? Template {
-            return template.uuid.uuidString
-        }
-        return nil
+        return (item as? Template)?.uuid.uuidString ?? nil
     }
 
     func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
         if let templateUUID = object as? String {
-            return previewableTemplates.first(where: { $0.uuid.uuidString == templateUUID })
+            return templateWithUUIDString(templateUUID)
         }
         return nil
     }
@@ -120,14 +195,6 @@ x, y = screen.find_color({
         }
         return nil
     }
-    
-    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        if item is Template {
-            return 16
-        } else {
-            return 80
-        }
-    }
 
 }
 
@@ -135,7 +202,7 @@ extension TemplatePreviewController {
     
     @objc private func templatesDidLoad(_ noti: Notification) {
         updateViewState()
-        outlineView.reloadData()
+        prepareAll()
     }
     
 }

@@ -101,6 +101,18 @@ class ExportManager {
         try copyContentItems(items, with: template)
     }
 
+    func generateContentItems(_ items: [ContentItem], with template: Template) throws -> String {
+        guard let image = screenshot.image else { throw Error.noDocumentLoaded }
+        return try template.generate(image, for: items)
+    }
+
+    func generateAllContentItems(with template: Template) throws -> String {
+        guard let image = screenshot.image,
+              let items = screenshot.content?.items
+        else { throw Error.noDocumentLoaded }
+        return try template.generate(image, for: items)
+    }
+
     private func _exportContentItems(_ items: [ContentItem], to url: URL?, with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
         do {

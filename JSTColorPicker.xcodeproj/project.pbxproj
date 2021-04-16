@@ -56,6 +56,8 @@
 		2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2752A15307AE7EC099636128 /* Pods_JSTColorPicker.framework */; };
 		872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
+		CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
+		CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
 		CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
 		CC300F0D262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
 		CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC300F1F26284536002FD866 /* TemplatePreview.storyboard */; };
@@ -827,6 +829,7 @@
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOutlineView.swift; sourceTree = "<group>"; };
 		CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewController.swift; sourceTree = "<group>"; };
 		CC300F1E26284536002FD866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TemplatePreview.storyboard; sourceTree = "<group>"; };
 		CC300F2826284539002FD866 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplatePreview.strings; sourceTree = "<group>"; };
@@ -1357,6 +1360,7 @@
 			children = (
 				CC300F4926285E27002FD866 /* TemplateCellView.swift */,
 				CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */,
+				CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2938,6 +2942,7 @@
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
+				CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
 				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
@@ -3177,6 +3182,7 @@
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
+				CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SceneStackedController.swift in Sources */,
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,

@@ -19,15 +19,11 @@ class GridViewController: NSViewController {
             reloadGridBackground()
         }
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareDefaults()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
     }
 
     private func prepareDefaults() {

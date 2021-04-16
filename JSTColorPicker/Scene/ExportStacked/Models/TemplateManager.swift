@@ -53,6 +53,12 @@ class TemplateManager {
     private(set) var templates: [Template] = []
     private(set) var enabledTemplates: [Template] = []
     private(set) var previewableTemplates: [Template] = []
+    private      var templateMappings: [String: Template]?
+
+    func templateWithUUIDString(_ uuidString: String) -> Template? {
+        guard let mappings = templateMappings else { return nil }
+        return mappings[uuidString]
+    }
 
     var numberOfTemplates: Int { templates.count }
     var numberOfEnabledTemplates: Int { enabledTemplates.count }
@@ -92,6 +98,7 @@ class TemplateManager {
             .removeAll()
         self.previewableTemplates
             .removeAll()
+        self.templateMappings = nil
 
         self.selectedTemplate = nil
         NotificationCenter.default.post(
@@ -140,6 +147,7 @@ class TemplateManager {
             .append(contentsOf: newTemplates.filter({ $0.isEnabled }))
         self.previewableTemplates
             .append(contentsOf: newTemplates.filter({ $0.isEnabled && $0.isPreviewable }))
+        self.templateMappings = Dictionary(uniqueKeysWithValues: newTemplates.map({ ($0.uuid.uuidString, $0) }))
 
         errors.forEach({
             redirectTemplateError($0.1, templateURL: $0.0)

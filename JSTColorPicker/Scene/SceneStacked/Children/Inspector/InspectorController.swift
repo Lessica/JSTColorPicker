@@ -23,14 +23,10 @@ class InspectorController: StackedPaneController {
     private var observables            : [Observable]?
     private var lastStoredItem         : ContentItem?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
-    }
-
     override func viewDidLoad() {
         _ = colorPanel
         super.viewDidLoad()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
     }
 
     private func prepareDefaults() {
