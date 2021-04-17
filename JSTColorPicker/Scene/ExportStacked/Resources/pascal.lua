@@ -64,4 +64,6 @@ return {
     async = true,                                     -- if it takes a long time to generate content, set this to `true` to avoid user interface blocking
     saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`
     generator = generator,                            -- required, the content generator
+    enabled = true,                                   -- optional
+    previewable = true,                               -- optional
 }

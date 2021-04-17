@@ -25,8 +25,8 @@
                                                 <rect key="frame" x="1" y="1" width="234" height="556"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="234" height="556"/>
+                                                    <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="234" height="528"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="4" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -113,6 +113,10 @@
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
+                                            <tableHeaderView key="headerView" wantsLayer="YES" id="Bv2-TZ-Ea5">
+                                                <rect key="frame" x="0.0" y="0.0" width="234" height="28"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </tableHeaderView>
                                         </scrollView>
                                         <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0m-Tt-wJ3">
                                             <rect key="frame" x="52" y="272" width="133" height="14"/>

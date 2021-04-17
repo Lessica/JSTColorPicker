@@ -94,6 +94,10 @@
 		CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
 		CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
 		CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
+		CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */; };
+		CC470A11262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */; };
+		CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A19262B1CAB0013A3B7 /* MutexLock.swift */; };
+		CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A19262B1CAB0013A3B7 /* MutexLock.swift */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
@@ -862,6 +866,8 @@
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
 		CC436B1926179D8100E46D3A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoView.strings"; sourceTree = "<group>"; };
 		CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateContentCellView.swift; sourceTree = "<group>"; };
+		CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteLock.swift; sourceTree = "<group>"; };
+		CC470A19262B1CAB0013A3B7 /* MutexLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutexLock.swift; sourceTree = "<group>"; };
 		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2328,6 +2334,8 @@
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
 				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
+				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
+				CC470A19262B1CAB0013A3B7 /* MutexLock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2939,6 +2947,7 @@
 				CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
+				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentDelegate.swift in Sources */,
@@ -3007,6 +3016,7 @@
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
+				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
@@ -3188,6 +3198,7 @@
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,
 				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */,
+				CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,
@@ -3230,6 +3241,7 @@
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				D6DD4B0C24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
+				CC470A11262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
 				D659168B24A36E2500DB67A6 /* ItemInspector.swift in Sources */,

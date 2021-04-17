@@ -13,13 +13,13 @@ private var windowCount = 0
 
 class WindowController: NSWindowController {
     
-    public static func newEmptyWindow() -> WindowController {
+    static func newEmptyWindow() -> WindowController {
         let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
         return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
     }
     
-    public weak var tabDelegate: TabDelegate!
-    public lazy var pixelMatchService: PixelMatchService = {
+    weak var tabDelegate: TabDelegate!
+    lazy var pixelMatchService: PixelMatchService = {
         return PixelMatchService()
     }()
     
@@ -63,12 +63,12 @@ class WindowController: NSWindowController {
     private var documentObservations                   : [NSKeyValueObservation]?
     private var lastStoredMagnification                : CGFloat?
     
-    private var splitController: SplitController! {
+    var splitController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
     }
     private var currentAlertSheet: NSAlert?
-    public var hasAttachedSheet: Bool { window?.attachedSheet != nil }
-    public func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
+    var hasAttachedSheet: Bool { window?.attachedSheet != nil }
+    func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
         guard let window = window else { return }
         if let currentAlertSheet = currentAlertSheet {
             currentAlertSheet.window.orderOut(self)
@@ -150,7 +150,7 @@ class WindowController: NSWindowController {
         }
     }
     
-    public func beginPixelMatchComparison(to image: PixelImage) {
+    func beginPixelMatchComparison(to image: PixelImage) {
         guard let currentPixelImage = screenshot?.image else { return }
         
         isInComparisonMode = true
@@ -190,11 +190,11 @@ class WindowController: NSWindowController {
         }
     }
     
-    public var shouldEndPixelMatchComparison: Bool {
+    var shouldEndPixelMatchComparison: Bool {
         return !pixelMatchService.isProcessing && isInComparisonMode
     }
     
-    public func endPixelMatchComparison() {
+    func endPixelMatchComparison() {
         if shouldEndPixelMatchComparison {
             splitController.endPixelMatchComparison()
             showSheet(nil, completionHandler: nil)

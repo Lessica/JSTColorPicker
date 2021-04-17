@@ -96,4 +96,6 @@ return {
     description = "This is an example of JSTColorPicker export script.",
     extension = "lua",                              -- required, file extension used for exporting
     generator = generator,                          -- required, the content generator
+    enabled = true,                                 -- optional
+    previewable = false,                            -- optional, default is false
 }

@@ -31,8 +31,9 @@ class StackedPaneController: NSViewController, PaneController {
         isViewHidden = true
     }
 
-    var isPaneHidden : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
-    var isPaneStacked: Bool { false }
+    var isWindowHidden  : Bool { !((view.window as? MainWindow)?.isTabbingVisible ?? false) }
+    var isPaneHidden    : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
+    var isPaneStacked   : Bool { false }
 
     func load(_ screenshot: Screenshot) throws {
         self.screenshot = screenshot

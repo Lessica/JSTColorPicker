@@ -24,15 +24,14 @@ private extension NSUserInterfaceItemIdentifier {
     }
 }
 
-class TagListController: NSViewController, PaneController {
+class TagListController: StackedPaneController {
     struct NotificationType {
         struct Name {
             static let tagPersistentStoreRequiresReloadNotification = NSNotification.Name(rawValue: "TagPersistentStoreRequiresReloadNotification")
         }
     }
     
-    var menuIdentifier = NSUserInterfaceItemIdentifier("show-tag-manager")
-    weak var screenshot: Screenshot?
+    override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-tag-manager") }
     
     private enum PreviewMode {
         case multiple
@@ -62,7 +61,6 @@ class TagListController: NSViewController, PaneController {
     @IBOutlet var tagMenu                         : NSMenu!
     @IBOutlet var alertTextView                   : AlertTextView!
     
-    @IBOutlet weak var paneBox                    : NSBox!
     @IBOutlet weak var paneTopConstraint          : NSLayoutConstraint!
     @IBOutlet weak var paneInnerTopConstraint     : NSLayoutConstraint!
     @IBOutlet weak var loadingErrorLabel          : NSTextField!
@@ -310,18 +308,10 @@ class TagListController: NSViewController, PaneController {
         }
     }
     
-    private var isViewHidden: Bool = true
-    
     override func viewWillAppear() {
         super.viewWillAppear()
-        isViewHidden = false
         performReorderAndSave(isAsync: false)
         ensurePreviewedTagsForItems(lastStoredContentItems)
-    }
-    
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        isViewHidden = true
     }
 
     deinit {
@@ -509,7 +499,7 @@ class TagListController: NSViewController, PaneController {
     }
     
     private func performReorderAndSave(isAsync async: Bool) {
-        guard !isViewHidden else {
+        guard !isPaneHidden else {
             setNeedsReorderManagedTags()
             setNeedsSaveManagedTags()
             return
@@ -646,17 +636,6 @@ class TagListController: NSViewController, PaneController {
         editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
     }
     
-}
-
-extension TagListController: ScreenshotLoader {
-    var isPaneHidden: Bool  { view.isHiddenOrHasHiddenAncestor || isViewHidden }
-    var isPaneStacked: Bool { false }
-
-    func load(_ screenshot: Screenshot) throws {
-        self.screenshot = screenshot
-    }
-
-    func reloadPane() { }
 }
 
 extension TagListController: TagListSource {

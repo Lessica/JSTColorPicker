@@ -33,4 +33,24 @@ class StackedView: NSSplitView {
             return NSColor.secondaryLabelColor.withAlphaComponent(0.24)
         }
     }
+    
+    override func responds(to aSelector: Selector!) -> Bool {
+        if aSelector == #selector(NSSplitViewController.toggleSidebar(_:)) {
+            return false
+        }
+        return super.responds(to: aSelector)
+    }
+    
+    override func supplementalTarget(forAction action: Selector, sender: Any?) -> Any? {
+        if action == #selector(NSSplitViewController.toggleSidebar(_:)) {
+            var responder = nextResponder
+            while responder != nil && !(responder is NSSplitView) {
+                responder = responder?.nextResponder
+            }
+            if let splitView = responder as? NSSplitView {
+                return splitView
+            }
+        }
+        return super.supplementalTarget(forAction: action, sender: sender)
+    }
 }

@@ -10,7 +10,7 @@ import Cocoa
 
 class MainWindow: NSWindow {
 
-    static let VisibilityDidChangedNotification = NSNotification.Name("MainWindow.VisibilityDidChangedNotification")
+    static let VisibilityDidChangeNotification = NSNotification.Name("MainWindow.VisibilityDidChangeNotification")
 
     private var firstResponderObservation  : NSKeyValueObservation?
     private var windowVisibleObservation   : NSKeyValueObservation?
@@ -54,6 +54,6 @@ class MainWindow: NSWindow {
 
     private func stateChanged() {
         isTabbingVisible = isKeyWindow || isMainWindow || (isVisible && tabGroup?.selectedWindow == self)
-        NotificationCenter.default.post(name: MainWindow.VisibilityDidChangedNotification, object: self)
+        NotificationCenter.default.post(name: MainWindow.VisibilityDidChangeNotification, object: self)
     }
 }

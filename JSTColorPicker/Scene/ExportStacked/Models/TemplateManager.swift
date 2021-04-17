@@ -15,6 +15,7 @@ class TemplateManager {
 
     struct NotificationType {
         struct Name {
+            static let templatesWillLoadNotification = NSNotification.Name(rawValue: "TemplateManager.templatesWillLoadNotification")
             static let templatesDidLoadNotification = NSNotification.Name(rawValue: "TemplateManager.templatesDidLoadNotification")
             static let selectedTemplateDidChangeNotification = NSNotification.Name(rawValue: "TemplateManager.selectedTemplateDidChangeNotification")
         }
@@ -114,6 +115,11 @@ class TemplateManager {
             includingPropertiesForKeys: nil,
             options: [.skipsHiddenFiles, .skipsPackageDescendants]
         )
+        
+        NotificationCenter.default.post(
+            name: NotificationType.Name.templatesWillLoadNotification,
+            object: self
+        )
 
         // purpose: filter the greatest version of each template
         let newTemplates = Dictionary(
@@ -159,7 +165,7 @@ class TemplateManager {
 
         NotificationCenter.default.post(
             name: NotificationType.Name.templatesDidLoadNotification,
-            object: nil
+            object: self
         )
     }
 

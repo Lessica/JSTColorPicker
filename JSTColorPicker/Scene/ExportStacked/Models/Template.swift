@@ -17,6 +17,7 @@ class Template {
         case missingRootEntry
         case missingRequiredField(field: String)
         case missingReturnedString
+        case resourceBusy
         case invalidField(field: String)
         
         var failureReason: String? {
@@ -33,6 +34,8 @@ class Template {
                 return String(format: NSLocalizedString("Missing required field: %@.", comment: "TemplateError"), field)
             case .missingReturnedString:
                 return NSLocalizedString("Missing returned string.", comment: "TemplateError")
+            case .resourceBusy:
+                return NSLocalizedString("Resource busy.", comment: "TemplateError")
             case let .invalidField(field):
                 return String(format: NSLocalizedString("Invalid field: %@.", comment: "TemplateError"), field)
             }
@@ -55,6 +58,7 @@ class Template {
 
     private(set) var items                : LuaSwift.Table?
     private      var generator            : LuaSwift.Function
+    private      var mutexLock            = NSLock()
     private      var contentModification  : Date?
 
     private      let vm                   : VirtualMachine
@@ -132,7 +136,12 @@ class Template {
     }
     
     func generate(_ image: PixelImage, for items: [ContentItem]) throws -> String {
-        switch generator.call([image] + items) {
+        guard mutexLock.try() else {
+            throw Error.resourceBusy
+        }
+        let results = generator.call([image] + items)
+        mutexLock.unlock()
+        switch results {
         case let .values(vals):
             if let string = vals.first as? String {
                 return string
