@@ -1179,7 +1179,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         let selectedItem = collection[targetIndex]
         let panel = NSSavePanel()
         panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedItem.id)
-        panel.allowedFileTypes = ["png"]
+        panel.allowedFileTypes = ["png", "jpg", "jpeg"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
                 if let url = panel.url {

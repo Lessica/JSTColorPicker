@@ -48,7 +48,19 @@ class PixelImage {
         guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, imageSourceOptions) else {
             throw PixelImage.Error.loadSourceFailed
         }
-        guard let cgimg = CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
+        
+        var imageLoader: CGImage? = nil
+        if let cgimg = CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) {
+            imageLoader = cgimg
+        }
+        if imageLoader == nil,
+           let data = dataProvider.data as Data?,
+           let image = NSImage(data: data), let cgimg = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        {
+            imageLoader = cgimg
+        }
+        
+        guard let cgimg = imageLoader else {
             throw PixelImage.Error.loadImageFailed
         }
         

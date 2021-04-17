@@ -135,7 +135,7 @@ extension SplitController: DropViewDelegate {
     }
     
     var acceptedFileExtensions: [String] {
-        return ["png"]
+        return ["png", "jpg", "jpeg"]
     }
     
     func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
