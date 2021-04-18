@@ -464,7 +464,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setenv("LUA_CPATH", searchPaths.reduce("") { $0 + $1 + "/?.so;" }, 1)
         if TemplateManager.shared.numberOfTemplates == 0 {
             TemplateManager.exampleTemplateURLs.forEach { (exampleTemplateURL) in
-                let exampleTemplateName = exampleTemplateURL.lastPathComponent
+                let exampleTemplateName: String
+                if exampleTemplateURL.pathExtension == "bundle" {
+                    exampleTemplateName = exampleTemplateURL.deletingPathExtension().lastPathComponent
+                } else {
+                    exampleTemplateName = exampleTemplateURL.lastPathComponent
+                }
                 let newExampleTemplateURL = TemplateManager.templateRootURL.appendingPathComponent(exampleTemplateName)
                 try? FileManager.default.copyItem(at: exampleTemplateURL, to: newExampleTemplateURL)
             }
@@ -519,11 +524,12 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
         else if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
+            return !TemplateManager.shared.isLocked
         }
         else if menuItem.action == #selector(selectTemplateItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
-            guard let template = menuItem.representedObject as? Template else { return false }
+            guard let template = menuItem.representedObject as? Template, template.isEnabled else { return false }
             
             let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
             
@@ -640,7 +646,7 @@ by \(template.author ?? "Unknown")
     
     private func updateTemplatesSubMenuItems() {
         var itemIdx: Int = 0
-        let items = TemplateManager.shared.enabledTemplates
+        let items = TemplateManager.shared.templates
             .compactMap({ [weak self] (template) -> NSMenuItem in
                 itemIdx += 1
                 

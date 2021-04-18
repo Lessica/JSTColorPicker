@@ -165,7 +165,7 @@ class SceneController: NSViewController {
         }
     }
 
-    private var observableKeys                 : [UserDefaults.Key] = [
+    private let observableKeys                 : [UserDefaults.Key] = [
         .enableForceTouch, .hideAnnotatorsWhenResize, .hideBordersWhenResize,
         .hideGridsWhenResize, .usesPredominantAxisScrolling,
         .drawSceneBackground, .drawBordersInScene, .drawGridsInScene,
@@ -232,7 +232,7 @@ class SceneController: NSViewController {
             self.useSelectedSceneTool()
         }
 
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
 
         NotificationCenter.default.addObserver(
             self,

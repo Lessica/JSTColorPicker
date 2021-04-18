@@ -34,10 +34,12 @@ local generator = function (image, ...)
     local objects = {...}
     local newObjects = {}
     for k, v in ipairs(objects) do
-        v['pose'] = 'Unspecified'
-        v['truncated'] = 0
-        v['difficult'] = 0
-        newObjects[k] = v
+        if v.width ~= nil then
+            v['pose'] = 'Unspecified'
+            v['truncated'] = 0
+            v['difficult'] = 0
+            newObjects[k] = v
+        end
     end
     image['objects'] = newObjects
     image['database'] = 'Unknown'
@@ -65,5 +67,5 @@ return {
     saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`
     generator = generator,                            -- required, the content generator
     enabled = true,                                   -- optional
-    previewable = true,                               -- optional
+    previewable = true,                              -- optional
 }

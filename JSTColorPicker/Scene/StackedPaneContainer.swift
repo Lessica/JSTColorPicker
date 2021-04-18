@@ -21,6 +21,10 @@ class StackedPaneContainer: NSViewController, PaneContainer {
         expandStackedDividers(isAsync: false)
     }
 
+    deinit {
+        debugPrint("\(className):\(#function)")
+    }
+
     override func viewWillAppear() {
         super.viewWillAppear()
         isViewHidden = false

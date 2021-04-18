@@ -22,5 +22,10 @@ class TemplateContentCellView: NSTableCellView {
         get { imageView?.image            }
         set { imageView?.image = newValue }
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        textField?.maximumNumberOfLines = 20
+    }
     
 }

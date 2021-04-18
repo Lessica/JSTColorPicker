@@ -161,4 +161,8 @@ extension URL {
             try? setResourceValues(resourceValues)
         }
     }
+
+    var isRegularFile: Bool {
+        return (try? resourceValues(forKeys: [.isRegularFileKey]))?.isRegularFile ?? false
+    }
 }

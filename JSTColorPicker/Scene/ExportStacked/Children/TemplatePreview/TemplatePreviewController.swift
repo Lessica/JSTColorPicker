@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PromiseKit
 
 private extension NSUserInterfaceItemIdentifier {
     static let columnName = NSUserInterfaceItemIdentifier("col-name")
@@ -18,26 +19,59 @@ private extension NSUserInterfaceItemIdentifier {
 }
 
 struct TemplatePreviewObject {
-    let content: String?
+    let uuidString: String
+    let contents: String?
     let error: String?
     var hasError: Bool { error != nil }
+    static let empty = TemplatePreviewObject(uuidString: "", contents: nil, error: nil)
 }
 
 class TemplatePreviewController: StackedPaneController {
-    
+
+    enum Error: LocalizedError {
+        case documentNotLoaded
+        case noTemplateSelected
+        case cannotWriteToPasteboard
+        case resourceBusy
+
+        var failureReason: String? {
+            switch self {
+            case .documentNotLoaded:
+                return NSLocalizedString("Document not loaded.", comment: "TemplatePreviewController.Error")
+            case .noTemplateSelected:
+                return NSLocalizedString("No template selected.", comment: "TemplatePreviewController.Error")
+            case .cannotWriteToPasteboard:
+                return NSLocalizedString("Ownership of the pasteboard has changed.", comment: "TemplatePreviewController.Error")
+            case .resourceBusy:
+                return NSLocalizedString("Resource busy.", comment: "TemplatePreviewController.Error")
+            }
+        }
+    }
+
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-preview") }
 
     @IBOutlet weak var timerButton        : NSButton!
     @IBOutlet weak var outlineView        : NSOutlineView!
     @IBOutlet weak var emptyOutlineLabel  : NSTextField!
     @IBOutlet      var outlineMenu        : NSMenu!
+    @IBOutlet      var outlineHeaderMenu  : NSMenu!
 
-    @IBAction func timerButtonTapped(_ sender: NSButton) {
-        // TODO: preview selected items only
+    private var documentContent           : Content?         { screenshot?.content }
+    private var documentExport            : ExportManager?   { screenshot?.export  }
+    private var documentState             : Screenshot.State { screenshot?.state ?? .notLoaded }
+
+    private var actionSelectedRowIndex: Int? {
+        (outlineView.clickedRow >= 0 && !outlineView.selectedRowIndexes.contains(outlineView.clickedRow)) ? outlineView.clickedRow : outlineView.selectedRowIndexes.first
     }
 
+    @IBAction func timerButtonTapped(_ sender: NSButton) {
+        // TODO
+    }
+
+    private var documentContentObservarion: NSKeyValueObservation?
+
     override func load(_ screenshot: Screenshot) throws {
-        backupExpandedState()
+        saveExpandedState()
         try super.load(screenshot)
         processPreviewContext()
         
@@ -53,6 +87,14 @@ class TemplatePreviewController: StackedPaneController {
             name: MainWindow.VisibilityDidChangeNotification,
             object: view.window
         )
+
+        documentContentObservarion = documentContent?
+            .observe(
+                \.items,
+                options: [.new],
+                changeHandler:
+                    { [weak self] in self?.documentContentChanged($0, $1) }
+            )
     }
     
     override func viewDidLoad() {
@@ -89,8 +131,9 @@ class TemplatePreviewController: StackedPaneController {
     
     
     // MARK: - Context
-    
-    private var _shouldProcessContext : Bool = false
+
+    private static let sharedContextQueue  : DispatchQueue = DispatchQueue(label: "TemplateSharedContext.Queue", qos: .background)
+    private var _shouldProcessContext      : Bool = false
     
     private func setNeedsProcessContext() {
         _shouldProcessContext = true
@@ -102,6 +145,11 @@ class TemplatePreviewController: StackedPaneController {
             processPreviewContext()
         }
     }
+
+    private func documentContentChanged(_ content: Content, _ change: NSKeyValueObservedChange<[ContentItem]>) {
+        saveExpandedState()
+        processPreviewContext()
+    }
     
     private func processPreviewContext() {
         guard !isPaneHidden && !isWindowHidden else {
@@ -110,37 +158,45 @@ class TemplatePreviewController: StackedPaneController {
         }
         guard !isProcessing else { return }
         
-        updateViewState()
-        clearContentsForAllTemplates()
+        self.updateViewState()
+        self.clearContentsForAsyncTemplates()
         
-        isExpanding = true
-        outlineView.reloadData()
+        self.isExpanding = true
+        self.outlineView.reloadData()
         let templatesToReload = previewableTemplates
             .filter({ cachedExpandedState?.contains($0.uuid.uuidString) ?? false })
         DispatchQueue.main.async { [weak self] in
             self?.restoreExpandedState()
-            self?.clearExpandedState()
             //isExpanding = false
         }
-        
-        isReloading = true
-        prepareContentsForTemplates(
-            templatesToReload,
-            in: .main
-        ) { [weak self] (template) in
-            self?.outlineView.reloadItem(template, reloadChildren: true)
-        } completionHandler: { [weak self] (finished) in
-            self?.updateViewState()
-            self?.isReloading = false
+
+        let isKeyOrMain = (view.window?.isKeyWindow ?? false) || (view.window?.isMainWindow ?? false)
+
+        self.isReloading = true
+        self.updateViewState()
+        TemplatePreviewController.sharedContextQueue.asyncAfter(
+            deadline: .now() + (isKeyOrMain ? 0.1 : 0.5),
+            qos: isKeyOrMain ? .utility : .background,
+            flags: [.enforceQoS]
+        ) { [weak self] in
+            let sema = DispatchSemaphore(value: 0)
+            self?.prepareContentsForTemplates(templatesToReload)
+            { [weak self] (template) in
+                self?.outlineView.reloadItem(template, reloadChildren: true)
+            } completionHandler: { [weak self] (finished) in
+                self?.isReloading = false
+                self?.updateViewState()
+                sema.signal()
+            }
+            sema.wait()
         }
     }
 
 
     // MARK: - Templates
     
-    private var isProcessing           : Bool { isCaching || isReloading || isExpanding }
-
-    private var previewableTemplates: [Template] { TemplateManager.shared.previewableTemplates }
+    private var isProcessing           : Bool { isReloading || isExpanding }
+    private var previewableTemplates   : [Template] { TemplateManager.shared.previewableTemplates }
 
     private func templateWithUUIDString(_ uuidString: String) -> Template? {
         let template = TemplateManager.shared.templateWithUUIDString(uuidString)
@@ -150,15 +206,27 @@ class TemplatePreviewController: StackedPaneController {
     
     
     // MARK: - View States
-    
-    private var isReloading            : Bool = false
+
+    private var isReloading            : Bool = false {
+        willSet {
+            assert(Thread.isMainThread)
+        }
+        didSet {
+            if isReloading {
+                TemplateManager.shared.lock()
+            } else {
+                TemplateManager.shared.unlock()
+            }
+        }
+    }
     
     private func updateViewState() {
+        assert(Thread.isMainThread)
         if previewableTemplates.isEmpty {
             outlineView.isEnabled = false
             emptyOutlineLabel.isHidden = false
         } else {
-            outlineView.isEnabled = true
+            outlineView.isEnabled = !isReloading
             emptyOutlineLabel.isHidden = true
         }
     }
@@ -179,8 +247,16 @@ class TemplatePreviewController: StackedPaneController {
     // MARK: - Expanded States
 
     private var cachedExpandedState    : [String]?
-    private var isExpanding            : Bool = false
-    private var isCollapsing           : Bool = false
+    private var isExpanding            : Bool = false {
+        willSet {
+            assert(Thread.isMainThread)
+        }
+    }
+    private var isCollapsing           : Bool = false {
+        willSet {
+            assert(Thread.isMainThread)
+        }
+    }
     
     private var currentExpandedState   : [String]
     {
@@ -189,8 +265,10 @@ class TemplatePreviewController: StackedPaneController {
             .map({ $0.uuid.uuidString })
     }
     
-    private func backupExpandedState() {
-        cachedExpandedState = currentExpandedState
+    private func saveExpandedState() {
+        if cachedExpandedState == nil {
+            cachedExpandedState = currentExpandedState
+        }
     }
     
     private func restoreExpandedState() {
@@ -199,25 +277,16 @@ class TemplatePreviewController: StackedPaneController {
             .compactMap({ templateWithUUIDString($0) })
             .filter({ outlineView.isExpandable($0) && !outlineView.isItemExpanded($0) })
             .forEach({ outlineView.expandItem($0) })
-        isExpanding = false
-    }
-    
-    private func clearExpandedState() {
         cachedExpandedState = nil
+        isExpanding = false
     }
     
     
     // MARK: - Preview Contents
     
     private var cachedPreviewContents  : [String: TemplatePreviewObject] = [:]
-    private let cachingQueue           : DispatchQueue = DispatchQueue(label: "CachedPreviewContents.Queue", attributes: .concurrent)
+    private let cachingQueue           : DispatchQueue = DispatchQueue(label: "CachedPreviewContents.Queue", qos: .background, attributes: .concurrent)
     private let cachingLock            : ReadWriteLock = ReadWriteLock()
-    private var isCaching              : Bool = false
-    {
-        didSet {
-            outlineView.isEnabled = !isCaching
-        }
-    }
     
     private func clearContentsForTemplate(_ template: Template) {
         cachingLock.writeLock()
@@ -236,6 +305,12 @@ class TemplatePreviewController: StackedPaneController {
         cachedPreviewContents.removeAll()
         cachingLock.unlock()
     }
+
+    private func clearContentsForAsyncTemplates() {
+        cachingLock.writeLock()
+        cachedPreviewContents = cachedPreviewContents.filter({ !(templateWithUUIDString($0.key)?.isAsync ?? false) })
+        cachingLock.unlock()
+    }
     
     private func clearContentsWithError() {
         cachingLock.writeLock()
@@ -243,8 +318,8 @@ class TemplatePreviewController: StackedPaneController {
         cachingLock.unlock()
     }
     
-    private func prepareContentsForTemplate(_ template: Template, in group: DispatchGroup, completionHandler completion: @escaping (Template) -> Void) {
-        guard let exportManager = screenshot?.export else { return }
+    private func prepareContentsForTemplate(_ template: Template, group: DispatchGroup, completionHandler completion: @escaping (Template) -> Void) {
+        guard let exportManager = documentExport else { return }
         group.enter()
         cachingQueue.async { [weak self] in
             guard let self = self else {
@@ -255,12 +330,14 @@ class TemplatePreviewController: StackedPaneController {
             var previewObj: TemplatePreviewObject
             do {
                 previewObj = TemplatePreviewObject(
-                    content: try exportManager.generateAllContentItems(with: template),
+                    uuidString: template.uuid.uuidString,
+                    contents: try exportManager.generateAllContentItems(with: template),
                     error: nil
                 )
             } catch {
                 previewObj = TemplatePreviewObject(
-                    content: nil,
+                    uuidString: template.uuid.uuidString,
+                    contents: nil,
                     error: error.localizedDescription
                 )
             }
@@ -279,33 +356,25 @@ class TemplatePreviewController: StackedPaneController {
         callback: @escaping (Template) -> Void,
         completionHandler completion: @escaping (Bool) -> Void
     ) {
-        prepareContentsForTemplates(previewableTemplates, in: queue, callback: callback, completionHandler: completion)
+        prepareContentsForTemplates(previewableTemplates, queue: queue, callback: callback, completionHandler: completion)
     }
 
     private func prepareContentsForTemplates(
         _ templates: [Template],
-        in queue: DispatchQueue,
+        queue: DispatchQueue = .main,
         callback: @escaping (Template) -> Void,
         completionHandler completion: @escaping (Bool) -> Void
     ) {
-        guard !isCaching else {
-            completion(false)
-            return
-        }
-        
-        isCaching = true
-        
         let group = DispatchGroup()
         templates.forEach({ template in
-            prepareContentsForTemplate(template, in: group) { (innerTemplate) in
+            prepareContentsForTemplate(template, group: group) { (innerTemplate) in
                 queue.async {
                     callback(innerTemplate)
                 }
             }
         })
         
-        group.notify(queue: queue) { [weak self] in
-            self?.isCaching = false
+        group.notify(queue: queue) {
             completion(true)
         }
     }
@@ -314,10 +383,253 @@ class TemplatePreviewController: StackedPaneController {
 
 extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        return true
+        if menuItem.action == #selector(regenerate(_:)) || menuItem.action == #selector(setAsSelected(_:)) {
+            return hasActionAvailability(
+                promiseCheckSelectedTemplate()
+            )
+        }
+        else if menuItem.action == #selector(copy(_:)) || menuItem.action == #selector(exportAs(_:)) {
+            return hasActionAvailability(
+                promiseCheckSelectedTemplate(),
+                promiseCheckAllContentItems()
+            )
+        }
+        else if menuItem.action == #selector(resetColumns(_:)) {
+            return true
+        }
+        return false
     }
 
-    // TODO: implementation
+    @IBAction func copy(_ sender: Any?) {
+        when(
+            fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
+        ).then {
+            self.promiseExtractContentItems($0.0, template: $0.1)
+        }.then {
+            self.promiseFetchContentItems($0.0, template: $0.1)
+        }.then {
+            self.promiseWriteCachedContents($0.0, template: $0.1)
+        }.then {
+            self.promiseCopyContentsToGeneralPasteboard($0.0).asVoid()
+        }.catch {
+            self.presentError($0)
+        }.finally {
+            debugPrint("done copy(_:)")
+        }
+    }
+
+    @IBAction func exportAs(_ sender:  Any?) {
+        var targetURL: URL?
+        when(
+            fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
+        ).then {
+            self.promiseTargetURLForContentItems($0.0, template: $0.1)
+        }.then { (items, tmpl, url) -> Promise<([ContentItem], Template)> in
+            targetURL = url
+            return self.promiseExtractContentItems(items, template: tmpl)
+        }.then {
+            self.promiseFetchContentItems($0.0, template: $0.1)
+        }.then {
+            self.promiseWriteCachedContents($0.0, template: $0.1)
+        }.then {
+            self.promiseWriteContentsToURL(contents: $0.0, url: targetURL!).asVoid()
+        }.catch {
+            self.presentError($0)
+        }.finally {
+            debugPrint("done exportAs(_:)")
+        }
+    }
+
+    @IBAction func regenerate(_ sender: NSMenuItem) {
+        // TODO
+    }
+
+    @IBAction func setAsSelected(_ sender: NSMenuItem) {
+        // TODO
+    }
+
+    @IBAction func outlineViewAction(_ sender: TemplateOutlineView) {
+        // do nothing
+    }
+
+    @IBAction func outlineViewDoubleAction(_ sender: TemplateOutlineView) {
+        copy(sender)
+    }
+
+    @IBAction func resetColumns(_ sender: NSMenuItem) {
+        outlineView.tableColumns.forEach({ $0.width = 320 })
+    }
+
+    private func hasActionAvailability<U: Thenable>(_ condition: U) -> Bool {
+        do {
+            try condition.asVoid().wait()
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    private func hasActionAvailability<U: Thenable, V: Thenable>(_ conditionU: U, _ conditionV: V) -> Bool {
+        do {
+            try conditionU.asVoid().wait()
+            try conditionV.asVoid().wait()
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    private func promiseCheckSelectedTemplate() -> Promise<Template>
+    {
+        Promise { seal in
+            guard let selectedIndex = actionSelectedRowIndex,
+                  let selectedItem = outlineView.item(atRow: selectedIndex)
+            else {
+                seal.reject(Error.noTemplateSelected)
+                return
+            }
+
+            var selectedTemplate: Template?
+            if selectedItem is Template {
+                selectedTemplate = selectedItem as? Template
+            } else if let selectedUUIDString = (selectedItem as? TemplatePreviewObject)?.uuidString {
+                selectedTemplate = templateWithUUIDString(selectedUUIDString)
+            }
+
+            guard let template = selectedTemplate else {
+                seal.reject(Error.noTemplateSelected)
+                return
+            }
+
+            seal.fulfill(template)
+        }
+    }
+
+    private func promiseCheckAllContentItems() -> Promise<[ContentItem]>
+    {
+        Promise { seal in
+            guard let content = screenshot?.content
+            else {
+                seal.reject(Error.documentNotLoaded)
+                return
+            }
+
+            seal.fulfill(content.items)
+        }
+    }
+
+    private func promiseExtractContentItems(_ items: [ContentItem], template: Template) -> Promise<([ContentItem], Template)>
+    {
+        Promise { seal in
+            if template.isAsync {
+                guard let screenshot = screenshot
+                else {
+                    seal.reject(Error.documentNotLoaded)
+                    return
+                }
+
+                screenshot.extractContentItems(
+                    in: view.window!,
+                    with: template
+                ) { (tmpl) in
+                    seal.fulfill((items, tmpl))
+                }
+            } else {
+                seal.fulfill((items, template))
+            }
+        }
+    }
+
+    private func promiseFetchContentItems(_ items: [ContentItem], template: Template) -> Promise<(String, Template)>
+    {
+        Promise { seal in
+            guard let exportManager = documentExport else {
+                seal.reject(Error.documentNotLoaded)
+                return
+            }
+
+            do {
+                seal.fulfill((try exportManager.generateContentItems(items, with: template), template))
+            } catch {
+                seal.reject(error)
+            }
+        }
+    }
+
+    private func promiseWriteCachedContents(_ contents: String, template: Template) -> Promise<(String, Template)>
+    {
+        Promise { seal in
+            guard cachingLock.tryWriteLock() else {
+                seal.reject(Error.resourceBusy)
+                return
+            }
+
+            cachedPreviewContents[template.uuid.uuidString] = TemplatePreviewObject(
+                uuidString: template.uuid.uuidString,
+                contents: contents,
+                error: nil
+            )
+
+            cachingLock.unlock()
+            seal.fulfill((contents, template))
+        }
+    }
+
+    private func promiseCopyContentsToGeneralPasteboard(_ contents: String) -> Promise<Bool>
+    {
+        Promise { seal in
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([.string], owner: nil)
+
+            guard pasteboard.setString(contents, forType: .string) else {
+                seal.reject(Error.cannotWriteToPasteboard)
+                return
+            }
+
+            seal.fulfill(true)
+        }
+    }
+
+    private func promiseTargetURLForContentItems(_ items: [ContentItem], template: Template) -> Promise<([ContentItem], Template, URL)>
+    {
+        Promise { seal in
+            guard let screenshot = screenshot
+            else {
+                seal.reject(Error.documentNotLoaded)
+                return
+            }
+
+            let panel = NSSavePanel()
+            panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), screenshot.displayName ?? "", items.count)
+            panel.allowedFileTypes = template.allowedExtensions
+            panel.beginSheetModal(for: view.window!) { resp in
+                if resp == .OK {
+                    if let url = panel.url {
+                        seal.fulfill((items, template, url))
+                        return
+                    }
+                }
+
+                seal.reject(PMKError.cancelled)
+            }
+        }
+    }
+
+    private func promiseWriteContentsToURL(contents: String, url: URL) -> Promise<Bool>
+    {
+        Promise { seal in
+            if let data = contents.data(using: .utf8) {
+                do {
+                    try data.write(to: url)
+                    seal.fulfill(true)
+                } catch {
+                    seal.reject(error)
+                }
+            } else {
+                seal.fulfill(false)
+            }
+        }
+    }
 }
 
 extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDelegate {
@@ -336,16 +648,13 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
         } else if let template = item as? Template,
                   screenshot != nil
         {
-            var displayString: String
+            var obj: TemplatePreviewObject
             cachingLock.readLock()
-            displayString =
-                self.cachedPreviewContents[template.uuid.uuidString]?.content
-                ?? self.cachedPreviewContents[template.uuid.uuidString]?.error
-                ?? NSLocalizedString("Generating...", comment: "Outline Generation")
+            obj = self.cachedPreviewContents[template.uuid.uuidString] ?? .empty
             cachingLock.unlock()
-            return displayString
+            return obj
         }
-        return NSLocalizedString("Document not loaded.", comment: "Outline Generation")
+        return TemplatePreviewObject.empty
     }
 
     func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
@@ -363,12 +672,18 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
         guard let tableColumn = tableColumn else { return nil }
         let col = tableColumn.identifier
         if col == .columnName {
-            if let template = item as? Template, let cell = outlineView.makeView(withIdentifier: .cellTemplate, owner: nil) as? TemplateCellView {
+            if let template = item as? Template,
+               let cell = outlineView.makeView(withIdentifier: .cellTemplate, owner: nil) as? TemplateCellView
+            {
                 cell.text = template.name
                 return cell
             }
-            else if let templateContent = item as? String, let cell = outlineView.makeView(withIdentifier: .cellTemplateContent, owner: nil) as? TemplateContentCellView {
-                cell.text = templateContent
+            else if let templateObj = item as? TemplatePreviewObject,
+                    let cell = outlineView.makeView(withIdentifier: .cellTemplateContent, owner: nil) as? TemplateContentCellView
+            {
+                cell.text = documentState.isLoaded
+                    ? (templateObj.contents ?? templateObj.error ?? NSLocalizedString("Generating...", comment: "Outline Generation"))
+                    : Error.documentNotLoaded.localizedDescription
                 return cell
             }
         }
@@ -420,12 +735,22 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
         
         return !isProcessing
     }
+
+    func outlineViewItemWillExpand(_ notification: Notification) {
+        guard notification.object as? NSObject == outlineView,
+              !isProcessing
+        else { return }
+    }
     
     func outlineViewItemDidExpand(_ notification: Notification) {
-        guard notification.object as? NSObject == outlineView else { return }
-        guard !isProcessing else { return }
-        guard let expandedTemplates = notification.userInfo?.values.compactMap({ $0 as? Template }), expandedTemplates.count > 0 else { return }
-        guard cachingLock.tryReadLock() else { return }
+        guard notification.object as? NSObject == outlineView,
+              !isProcessing,
+              let expandedTemplates = notification.userInfo?.values.compactMap({ $0 as? Template }),
+              expandedTemplates.count > 0,
+              cachingLock.tryReadLock()
+        else {
+            return
+        }
         
         let cachedKeys = cachedPreviewContents
             .filter({ !$0.value.hasError })
@@ -434,18 +759,20 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
         cachingLock.unlock()
         
         let templatesToLoad = expandedTemplates.filter({ !cachedKeys.contains($0.uuid.uuidString) })
-        guard templatesToLoad.count > 0 else { return }
+        guard templatesToLoad.count > 0 else {
+            return
+        }
+
+        self.clearContentsForTemplates(templatesToLoad)
+        self.reloadContentsForTemplates(templatesToLoad)
         
-        updateViewState()
-        clearContentsForTemplates(templatesToLoad)
-        reloadContentsForTemplates(templatesToLoad)
-        
-        isReloading = true
-        prepareContentsForTemplates(expandedTemplates, in: .main) { [weak self] (template) in
+        self.isReloading = true
+        self.updateViewState()
+        self.prepareContentsForTemplates(expandedTemplates) { [weak self] (template) in
             self?.outlineView.reloadItem(template, reloadChildren: true)
         } completionHandler: { [weak self] (finished) in
-            self?.updateViewState()
             self?.isReloading = false
+            self?.updateViewState()
         }
     }
 
@@ -454,7 +781,8 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
 extension TemplatePreviewController {
     
     @objc private func templatesWillLoad(_ noti: Notification) {
-        backupExpandedState()
+        guard !isProcessing else { return }
+        saveExpandedState()
         updateViewState()
     }
     

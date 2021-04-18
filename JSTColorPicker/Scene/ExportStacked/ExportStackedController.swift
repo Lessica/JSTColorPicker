@@ -18,7 +18,7 @@ class ExportStackedController: StackedPaneContainer {
     @IBOutlet weak var templatePopUpButton: NSPopUpButton!
     @IBOutlet weak var templateReloadButton: NSButton!
 
-    private var observableKeys          : [UserDefaults.Key] = [.toggleTemplateDetailedInformation]
+    private let observableKeys          : [UserDefaults.Key] = [.toggleTemplateDetailedInformation]
     private var observables             : [Observable]?
             var templateInfoController  : TemplateInfoController?  { paneControllers.compactMap( { $0 as? TemplateInfoController } ).first }
 
@@ -35,7 +35,21 @@ class ExportStackedController: StackedPaneContainer {
         prepareDefaults()
         setNeedsReloadTemplates()
 
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templateManagerDidLock(_:)),
+            name: TemplateManager.NotificationType.Name.templateManagerDidLockNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templateManagerDidUnlock(_:)),
+            name: TemplateManager.NotificationType.Name.templateManagerDidUnlockNotification,
+            object: nil
+        )
 
         NotificationCenter.default.addObserver(
             self,
@@ -123,7 +137,7 @@ extension ExportStackedController: NSSplitViewDelegate {
 extension ExportStackedController: NSMenuItemValidation {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        guard let template = menuItem.representedObject as? Template else { return false }
+        guard let template = menuItem.representedObject as? Template, template.isEnabled else { return false }
         
         let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
         
@@ -163,7 +177,7 @@ by \(template.author ?? "Unknown")
     }
     
     private func generateTemplatesSubMenuItems(for menu: NSMenu) -> [NSMenuItem] {
-        return TemplateManager.shared.enabledTemplates
+        return TemplateManager.shared.templates
             .compactMap({ template -> NSMenuItem in
                 
                 let item = NSMenuItem(
@@ -182,6 +196,14 @@ by \(template.author ?? "Unknown")
 }
 
 extension ExportStackedController {
+    @objc private func templateManagerDidLock(_ noti: Notification) {
+        templateReloadButton.isEnabled = false
+    }
+
+    @objc private func templateManagerDidUnlock(_ noti: Notification) {
+        templateReloadButton.isEnabled = true
+    }
+
     @objc private func templatesDidLoad(_ noti: Notification) {
         if !isViewHidden {
             reloadTemplates()

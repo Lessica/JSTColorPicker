@@ -10,13 +10,28 @@ import Foundation
 import OSLog
 
 class TemplateManager {
+    enum Error: LocalizedError {
+        case unknown
+        case resourceBusy
+
+        var failureReason: String? {
+            switch self {
+            case .unknown:
+                return NSLocalizedString("Internal error.", comment: "TemplateManager.Error")
+            case .resourceBusy:
+                return NSLocalizedString("Resource busy.", comment: "TemplateManager.Error")
+            }
+        }
+    }
 
     static var shared = TemplateManager()
 
     struct NotificationType {
         struct Name {
-            static let templatesWillLoadNotification = NSNotification.Name(rawValue: "TemplateManager.templatesWillLoadNotification")
-            static let templatesDidLoadNotification = NSNotification.Name(rawValue: "TemplateManager.templatesDidLoadNotification")
+            static let templatesWillLoadNotification         = NSNotification.Name(rawValue: "TemplateManager.templatesWillLoadNotification")
+            static let templatesDidLoadNotification          = NSNotification.Name(rawValue: "TemplateManager.templatesDidLoadNotification")
+            static let templateManagerDidLockNotification    = NSNotification.Name(rawValue: "TemplateManager.templateManagerDidLockNotification")
+            static let templateManagerDidUnlockNotification  = NSNotification.Name(rawValue: "TemplateManager.templateManagerDidUnlockNotification")
             static let selectedTemplateDidChangeNotification = NSNotification.Name(rawValue: "TemplateManager.selectedTemplateDidChangeNotification")
         }
         struct Key {
@@ -46,15 +61,31 @@ class TemplateManager {
 
     static var exampleTemplateURLs: [URL] = {
         return [
-            Bundle.main.url(forResource: "example", withExtension: "lua")!,
-            Bundle.main.url(forResource: "pascal", withExtension: "lua")!
+            Bundle.main.url(forResource: "ExampleTemplates", withExtension: "bundle")!,
         ]
     }()
 
-    private(set) var templates: [Template] = []
-    private(set) var enabledTemplates: [Template] = []
-    private(set) var previewableTemplates: [Template] = []
-    private      var templateMappings: [String: Template]?
+    private      var _lockedCount          : Int = 0
+    private      var lockedCount           : Int {
+        get {
+            _lockedCount
+        }
+        set {
+            let origVal = _lockedCount
+            _lockedCount = newValue
+            if origVal == 0 && newValue > 0 {
+                NotificationCenter.default.post(name: NotificationType.Name.templateManagerDidLockNotification, object: self)
+            } else if origVal > 0 && newValue == 0 {
+                NotificationCenter.default.post(name: NotificationType.Name.templateManagerDidUnlockNotification, object: self)
+            }
+        }
+    }
+
+                 var isLocked              : Bool { _lockedCount > 0 }
+    private(set) var templates             : [Template] = []
+    private(set) var enabledTemplates      : [Template] = []
+    private(set) var previewableTemplates  : [Template] = []
+    private      var templateMappings      : [String: Template]?
 
     func templateWithUUIDString(_ uuidString: String) -> Template? {
         guard let mappings = templateMappings else { return nil }
@@ -92,7 +123,22 @@ class TemplateManager {
         set { UserDefaults.standard[.lastSelectedTemplateUUID] = newValue?.uuidString }
     }
 
-    func clearTeamplates() {
+    func lock() {
+        assert(Thread.isMainThread)
+        lockedCount += 1
+    }
+
+    func unlock() {
+        assert(Thread.isMainThread)
+        lockedCount -= 1
+    }
+
+    func clearTeamplates() throws {
+        assert(Thread.isMainThread)
+        guard lockedCount == 0 else {
+            throw Error.resourceBusy
+        }
+
         self.templates
             .removeAll()
         self.enabledTemplates
@@ -109,12 +155,18 @@ class TemplateManager {
     }
 
     func reloadTemplates() throws {
+        assert(Thread.isMainThread)
+        guard lockedCount == 0 else {
+            throw Error.resourceBusy
+        }
+        lockedCount += 1
+
         var errors: [(URL, Template.Error)] = []
-        let contents = try FileManager.default.contentsOfDirectory(
+        let enumerator = FileManager.default.enumerator(
             at: TemplateManager.templateRootURL,
-            includingPropertiesForKeys: nil,
+            includingPropertiesForKeys: [.isRegularFileKey],
             options: [.skipsHiddenFiles, .skipsPackageDescendants]
-        )
+        )!
         
         NotificationCenter.default.post(
             name: NotificationType.Name.templatesWillLoadNotification,
@@ -123,8 +175,9 @@ class TemplateManager {
 
         // purpose: filter the greatest version of each template
         let newTemplates = Dictionary(
-            grouping: contents
-                .filter({ $0.pathExtension == "lua" })
+            grouping: enumerator
+                .compactMap({ $0 as? URL })
+                .filter({ $0.isRegularFile && $0.pathExtension == "lua" })
                 .compactMap({ (url) -> Template? in
                     do {
                         return try Template(templateURL: url, templateManager: self)
@@ -163,6 +216,7 @@ class TemplateManager {
             self.selectedTemplate = newTemplates.first
         }
 
+        lockedCount -= 1
         NotificationCenter.default.post(
             name: NotificationType.Name.templatesDidLoadNotification,
             object: self

@@ -22,6 +22,10 @@ class SegmentController: NSViewController {
         syncSelectedStateForTabView()
     }
 
+    deinit {
+        debugPrint("\(className):\(#function)")
+    }
+
     @IBAction func segmentedControlValueChanged(_ sender: NSSegmentedControl) {
         syncSelectedStateForTabView()
     }

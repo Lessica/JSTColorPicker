@@ -211,6 +211,9 @@
                                 <tableHeaderView key="headerView" wantsLayer="YES" id="7Jl-wJ-daV">
                                     <rect key="frame" x="0.0" y="0.0" width="394" height="28"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <connections>
+                                        <outlet property="menu" destination="a29-Fd-YbH" id="A0k-Vb-flV"/>
+                                    </connections>
                                 </tableHeaderView>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zMj-9c-qFb">

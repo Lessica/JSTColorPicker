@@ -23,21 +23,21 @@ class Template {
         var failureReason: String? {
             switch self {
             case .unknown:
-                return NSLocalizedString("Internal error.", comment: "TemplateError")
+                return NSLocalizedString("Internal error.", comment: "Template.Error")
             case let .unsatisfiedPlatformVersion(version):
-                return String(format: NSLocalizedString("This template requires JSTColorPicker (%@) or later.", comment: "TemplateError"), version)
+                return String(format: NSLocalizedString("This template requires JSTColorPicker (%@) or later.", comment: "Template.Error"), version)
             case let .luaError(reason):
                 return "\(reason)"
             case .missingRootEntry:
-                return NSLocalizedString("Missing root entry: template must return a table.", comment: "TemplateError")
+                return NSLocalizedString("Missing root entry: template must return a table.", comment: "Template.Error")
             case let .missingRequiredField(field):
-                return String(format: NSLocalizedString("Missing required field: %@.", comment: "TemplateError"), field)
+                return String(format: NSLocalizedString("Missing required field: %@.", comment: "Template.Error"), field)
             case .missingReturnedString:
-                return NSLocalizedString("Missing returned string.", comment: "TemplateError")
+                return NSLocalizedString("Missing returned string.", comment: "Template.Error")
             case .resourceBusy:
-                return NSLocalizedString("Resource busy.", comment: "TemplateError")
+                return NSLocalizedString("Resource busy.", comment: "Template.Error")
             case let .invalidField(field):
-                return String(format: NSLocalizedString("Invalid field: %@.", comment: "TemplateError"), field)
+                return String(format: NSLocalizedString("Invalid field: %@.", comment: "Template.Error"), field)
             }
         }
     }

@@ -140,6 +140,9 @@
 /* Content.Error */
 "Document locked." = "文档已锁定.";
 
+/* Outline Generation */
+"Document not loaded." = "文档未加载.";
+
 /* Shortcut Guide */
 "Double Press" = "连按两次";
 
@@ -202,6 +205,9 @@
 
 /* toolbarItemLabel */
 "General" = "通用";
+
+/* Outline Generation */
+"Generating..." = "生成中...";
 
 /* Shortcut Guide */
 "Hold" = "按住";
@@ -432,6 +438,9 @@
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "重置确认";
+
+/* TemplateError */
+"Resource busy." = "资源忙, 请在另一个导出或预览任务结束后重试.";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "重启";

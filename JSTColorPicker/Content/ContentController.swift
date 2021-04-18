@@ -64,7 +64,7 @@ class ContentController: NSViewController {
     private var undoToken                 : NotificationToken?
     private var redoToken                 : NotificationToken?
 
-    private var observableKeys            : [UserDefaults.Key] = [.usesDetailedToolTips]
+    private let observableKeys            : [UserDefaults.Key] = [.usesDetailedToolTips]
     private var observables               : [Observable]?
     
     private var delayedRowIndexes         : IndexSet? { _delayedRowIndexes }
@@ -130,7 +130,7 @@ class ContentController: NSViewController {
         prepareDefaults()
         invalidateRestorableState()
 
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
 
         NotificationCenter.default.addObserver(
             self,
@@ -1155,11 +1155,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     private func copyContentItemsAsync(_ items: [ContentItem], with template: Template) {
-        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
-            if (results.count == 1) {
-                try self.documentExport?.copyContentItem(results.first!, with: tmpl)
+        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+            if (items.count == 1) {
+                try self?.documentExport?.copyContentItem(items.first!, with: tmpl)
             } else {
-                try self.documentExport?.copyContentItems(results, with: tmpl)
+                try self?.documentExport?.copyContentItems(items, with: tmpl)
             }
         }
     }
@@ -1271,43 +1271,14 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     private func exportContentItemsAsync(_ items: [ContentItem], to url: URL, with template: Template) {
-        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
-            try self.documentExport?.exportContentItems(results, to: url, with: tmpl)
+        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+            try self?.documentExport?.exportContentItems(items, to: url, with: tmpl)
         }
     }
 
     private func exportContentItemsAsyncInPlace(_ items: [ContentItem], with template: Template) {
-        extractContentItemsAsync(items, with: template) { [unowned self] (results, tmpl) in
-            try self.documentExport?.exportContentItemsInPlace(results, with: tmpl)
-        }
-    }
-
-    private func extractContentItemsAsync(_ items: [ContentItem], with template: Template, completionHandler completion: @escaping ([ContentItem], Template) throws -> Void) {
-        let loadingAlert = NSAlert()
-        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "extractItemsAsync(_:from:completionHandler:)"))
-        loadingAlert.alertStyle = .informational
-        loadingAlert.buttons.first?.isHidden = true
-        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
-        loadingIndicator.style = .spinning
-        loadingIndicator.startAnimation(nil)
-        loadingAlert.accessoryView = loadingIndicator
-        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "extractItemsAsync(_:from:completionHandler:)")
-        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "extractItemsAsync(_:from:completionHandler:)"), template.name)
-        loadingAlert.beginSheetModal(for: view.window!) { (resp) in }
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-            do {
-                defer {
-                    DispatchQueue.main.async { [weak self] in
-                        loadingAlert.window.orderOut(self)
-                        self?.view.window?.endSheet(loadingAlert.window)
-                    }
-                }
-                try completion(items, template)
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.presentError(error)
-                }
-            }
+        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+            try self?.documentExport?.exportContentItemsInPlace(items, with: tmpl)
         }
     }
     

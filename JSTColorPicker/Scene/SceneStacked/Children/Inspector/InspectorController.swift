@@ -16,17 +16,17 @@ class InspectorController: StackedPaneController {
 
     @IBOutlet weak var inspectorView   : InspectorView!
     @IBOutlet weak var detailButton    : NSButton!
-    override var menuIdentifier  : NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-color-inspector") }
-    var style           : Style = .primary
+    override var menuIdentifier        : NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-color-inspector") }
+             var style                 : Style = .primary
 
-    private var observableKeys         : [UserDefaults.Key] = [.togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat]
+    private let observableKeys         : [UserDefaults.Key] = [.togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat]
     private var observables            : [Observable]?
     private var lastStoredItem         : ContentItem?
 
     override func viewDidLoad() {
         _ = colorPanel
         super.viewDidLoad()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
     }
 
     private func prepareDefaults() {
@@ -96,7 +96,7 @@ extension InspectorController: ItemInspector {
         colorPanel.setAction(nil)
         colorPanel.color = sender.colorView.color
 
-        colorPanel.makeKeyAndOrderFront(self)
+        colorPanel.makeKeyAndOrderFront(sender)
     }
     
     private func ensurePreviewedItem(_ item: ContentItem?) {

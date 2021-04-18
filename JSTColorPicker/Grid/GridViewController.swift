@@ -11,7 +11,7 @@ import Cocoa
 class GridViewController: NSViewController {
     
     @IBOutlet weak var gridView        : GridView!
-    private        var observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView]
+    private        let observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView]
     private        var observables     : [Observable]?
     
     var drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView] {
@@ -23,7 +23,7 @@ class GridViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareDefaults()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: applyDefaults(_:_:_:))
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
     }
 
     private func prepareDefaults() {

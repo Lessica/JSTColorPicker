@@ -107,6 +107,8 @@
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
+		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
 		CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
@@ -156,8 +158,6 @@
 		CCB76997260A0B5A0029693B /* lptypes.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76991260A0B5A0029693B /* lptypes.h */; };
 		CCB76998260A0B5A0029693B /* lptree.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76992260A0B5A0029693B /* lptree.h */; };
 		CCB76999260A0B5A0029693B /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
-		CCB769EC260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
-		CCB769ED260A220F0029693B /* pascal.lua in Resources */ = {isa = PBXBuildFile; fileRef = CCB769EB260A220F0029693B /* pascal.lua */; };
 		CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
 		CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
 		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
@@ -295,7 +295,6 @@
 		D61047D424224A170002E990 /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A0240D05E0003A5B17 /* Folder.xib */; };
 		D61047D524224A170002E990 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D61047D624224A170002E990 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0AC240D069A003A5B17 /* Localizable.strings */; };
-		D61047D824224A170002E990 /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D61047D924224A170002E990 /* JSTColorPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = D69974E72416595500223B31 /* JSTColorPicker.html */; };
 		D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62834EE23F8E9DB0016573B /* LuaSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D628350D23F8EAAA0016573B /* LuaC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -488,7 +487,6 @@
 		D690C968241A612700BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
 		D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C96B241BBEA000BB1652 /* PixelMatchService.swift */; };
 		D690C96D241BC07100BB1652 /* PixelMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C96B241BBEA000BB1652 /* PixelMatchService.swift */; };
-		D693741124039F66007AF7AF /* example.lua in Resources */ = {isa = PBXBuildFile; fileRef = D693741024039F66007AF7AF /* example.lua */; };
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
 		D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974CA24140A9000223B31 /* SceneEffectView.swift */; };
@@ -871,6 +869,7 @@
 		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
+		CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ExampleTemplates.bundle; sourceTree = "<group>"; };
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
 		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -909,7 +908,6 @@
 		CCB76991260A0B5A0029693B /* lptypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptypes.h; sourceTree = "<group>"; };
 		CCB76992260A0B5A0029693B /* lptree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptree.h; sourceTree = "<group>"; };
 		CCB76993260A0B5A0029693B /* lpcap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcap.h; sourceTree = "<group>"; };
-		CCB769EB260A220F0029693B /* pascal.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pascal.lua; sourceTree = "<group>"; };
 		CCB7847C26257B9200FC4216 /* Color+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HSV.swift"; sourceTree = "<group>"; };
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
@@ -1157,7 +1155,6 @@
 		D690C961241A60DC00BB1652 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPicker-Bridging-Header.h"; sourceTree = "<group>"; };
 		D690C96B241BBEA000BB1652 /* PixelMatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatchService.swift; sourceTree = "<group>"; };
-		D693741024039F66007AF7AF /* example.lua */ = {isa = PBXFileReference; explicitFileType = text; path = example.lua; sourceTree = "<group>"; };
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
 		D69974CA24140A9000223B31 /* SceneEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEffectView.swift; sourceTree = "<group>"; };
@@ -1661,8 +1658,7 @@
 		CCB769F5260A22170029693B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D693741024039F66007AF7AF /* example.lua */,
-				CCB769EB260A220F0029693B /* pascal.lua */,
+				CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2129,8 +2125,8 @@
 		D682FC8F23D6DB1800DA1750 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				D6E4252724A368E700FAB4B5 /* Protocols */,
 				D6E4252924A3690000FAB4B5 /* Models */,
+				D6E4252724A368E700FAB4B5 /* Protocols */,
 				D6E4252824A368F100FAB4B5 /* Views */,
 				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D682FC9023D6DB3400DA1750 /* ContentController.swift */,
@@ -2711,7 +2707,6 @@
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
-				CCB769EC260A220F0029693B /* pascal.lua in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
 				CCCD8209261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
@@ -2730,8 +2725,8 @@
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
 				CC8F8CA026207CE700F60F78 /* TemplateInfoView.xib in Resources */,
-				D61047D824224A170002E990 /* example.lua in Resources */,
 				CC32E2092615D5B700F5F6AA /* Inspector.storyboard in Resources */,
+				CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */,
 				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2757,7 +2752,6 @@
 				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
-				CCB769ED260A220F0029693B /* pascal.lua in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */,
@@ -2770,12 +2764,12 @@
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
 				180C6A8B249F92AB00B42656 /* AlertTextView.xib in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
+				CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */,
 				CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */,
 				CC8F8CA826207CE700F60F78 /* TemplateInfoView.xib in Resources */,
 				1842C4652479832C008ECD6F /* Content.storyboard in Resources */,
 				D6E166A6248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
-				D693741124039F66007AF7AF /* example.lua in Resources */,
 				CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */,
 				CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,

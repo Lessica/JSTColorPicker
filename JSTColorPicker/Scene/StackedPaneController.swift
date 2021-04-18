@@ -19,6 +19,10 @@ class StackedPaneController: NSViewController, PaneController {
         reloadPane()
     }
 
+    deinit {
+        debugPrint("\(className):\(#function)")
+    }
+
     private var isViewHidden: Bool = true
 
     override func viewWillAppear() {
@@ -29,6 +33,12 @@ class StackedPaneController: NSViewController, PaneController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         isViewHidden = true
+    }
+
+    override func willPresentError(_ error: Error) -> Error {
+        let error = super.willPresentError(error)
+        debugPrint(error.localizedDescription)
+        return error
     }
 
     var isWindowHidden  : Bool { !((view.window as? MainWindow)?.isTabbingVisible ?? false) }

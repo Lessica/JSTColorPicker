@@ -53,9 +53,9 @@ class Content: NSObject, Codable {
         
     }
     
-    var items       : [ContentItem]
-    var lazyColors  : [PixelColor]    { items.lazy.compactMap({ $0 as? PixelColor }) }
-    var lazyAreas   : [PixelArea]     { items.lazy.compactMap({ $0 as? PixelArea })  }
+    @objc dynamic var items       : [ContentItem]
+                  var lazyColors  : [PixelColor]    { items.lazy.compactMap({ $0 as? PixelColor }) }
+                  var lazyAreas   : [PixelArea]     { items.lazy.compactMap({ $0 as? PixelArea })  }
     
     override init() {
         items = [ContentItem]()

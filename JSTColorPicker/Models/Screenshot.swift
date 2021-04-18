@@ -29,21 +29,21 @@ class Screenshot: NSDocument {
         var failureReason: String? {
             switch self {
             case .invalidImage:
-                return NSLocalizedString("Invalid image.", comment: "ScreenshotError")
+                return NSLocalizedString("Invalid image.", comment: "Screenshot.Error")
             case .invalidImageSource:
-                return NSLocalizedString("Invalid image source.", comment: "ScreenshotError")
+                return NSLocalizedString("Invalid image source.", comment: "Screenshot.Error")
             case .invalidContent:
-                return NSLocalizedString("Invalid content.", comment: "ScreenshotError")
+                return NSLocalizedString("Invalid content.", comment: "Screenshot.Error")
             case .invalidImageType:
-                return NSLocalizedString("Invalid image type.", comment: "ScreenshotError")
+                return NSLocalizedString("Invalid image type.", comment: "Screenshot.Error")
             case .invalidImageProperties:
-                return NSLocalizedString("Invalid image properties.", comment: "ScreenshotError")
+                return NSLocalizedString("Invalid image properties.", comment: "Screenshot.Error")
             case .cannotSerializeContent:
-                return NSLocalizedString("Cannot serialize content.", comment: "ScreenshotError")
+                return NSLocalizedString("Cannot serialize content.", comment: "Screenshot.Error")
             case .cannotDeserializeContent:
-                return NSLocalizedString("Cannot deserialize content.", comment: "ScreenshotError")
+                return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
             case .notImplemented:
-                return NSLocalizedString("This feature is not implemented.", comment: "ScreenshotError")
+                return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
             }
         }
     }
@@ -191,6 +191,46 @@ class Screenshot: NSDocument {
             debugPrint(error)
         }
     }
+
+    // MARK: - Content Extraction
+
+    private(set) var isExtractingContentItems: Bool = false
+
+    func extractContentItems(in window: NSWindow, with template: Template, asyncTask task: @escaping (Template) throws -> Void)
+    {
+        guard !isExtractingContentItems else {
+            fatalError("now extracting content items")
+        }
+        self.isExtractingContentItems = true
+        let loadingAlert = NSAlert()
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
+        loadingAlert.beginSheetModal(for: window) { (resp) in }
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            do {
+                defer {
+                    DispatchQueue.main.async { [weak self] in
+                        loadingAlert.window.orderOut(self)
+                        window.endSheet(loadingAlert.window)
+                        self?.isExtractingContentItems = false
+                    }
+                }
+                try task(template)
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    self?.presentError(error)
+                    self?.isExtractingContentItems = false
+                }
+            }
+        }
+    }
     
 }
 
@@ -268,7 +308,8 @@ extension Screenshot {
     }
 
     private func copyAllContentItemsAsync(with template: Template) {
-        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
+        guard let window = associatedWindowController?.window else { return }
+        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
             try export.copyAllContentItems(with: tmpl)
         }
     }
@@ -290,44 +331,16 @@ extension Screenshot {
     }
 
     private func exportAllContentItemsAsync(to url: URL, with template: Template) {
-        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
+        guard let window = associatedWindowController?.window else { return }
+        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
             try self.export.exportAllContentItems(to: url, with: tmpl)
         }
     }
 
     private func exportAllContentItemsAsyncInPlace(with template: Template) {
-        extractAllContentItemsAsync(with: template) { [unowned self] (tmpl) in
-            try self.export.exportAllContentItemsInPlace(with: tmpl)
-        }
-    }
-
-    private func extractAllContentItemsAsync(with template: Template, completionHandler completion: @escaping (Template) throws -> Void) {
         guard let window = associatedWindowController?.window else { return }
-        let loadingAlert = NSAlert()
-        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
-        loadingAlert.alertStyle = .informational
-        loadingAlert.buttons.first?.isHidden = true
-        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
-        loadingIndicator.style = .spinning
-        loadingIndicator.startAnimation(nil)
-        loadingAlert.accessoryView = loadingIndicator
-        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
-        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
-        loadingAlert.beginSheetModal(for: window) { (resp) in }
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-            do {
-                defer {
-                    DispatchQueue.main.async { [weak self] in
-                        loadingAlert.window.orderOut(self)
-                        window.endSheet(loadingAlert.window)
-                    }
-                }
-                try completion(template)
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.presentError(error)
-                }
-            }
+        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
+            try self.export.exportAllContentItemsInPlace(with: tmpl)
         }
     }
     

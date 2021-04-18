@@ -140,6 +140,9 @@
 /* Content.Error */
 "Document locked." = "Document locked.";
 
+/* Outline Generation */
+"Document not loaded." = "Document not loaded.";
+
 /* Shortcut Guide */
 "Double Press" = "Double Press";
 
@@ -202,6 +205,9 @@
 
 /* toolbarItemLabel */
 "General" = "General";
+
+/* Outline Generation */
+"Generating..." = "Generating...";
 
 /* Shortcut Guide */
 "Hold" = "Hold";
@@ -432,6 +438,9 @@
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "Reset Confirm";
+
+/* TemplateError */
+"Resource busy." = "Resource busy.";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "Restart";
