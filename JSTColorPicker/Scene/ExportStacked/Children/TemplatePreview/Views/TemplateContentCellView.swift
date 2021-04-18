@@ -25,7 +25,7 @@ class TemplateContentCellView: NSTableCellView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        textField?.maximumNumberOfLines = 20
+        textField?.maximumNumberOfLines = min(max(UserDefaults.standard[.maximumPreviewLineCount], 10), 100)
     }
     
 }

@@ -44,6 +44,8 @@
 	<integer>99</integer>
 	<key>defaults:maximumItemCountEnabled</key>
 	<true/>
+	<key>defaults:maximumPreviewLineCount</key>
+	<integer>20</integer>
 	<key>defaults:paneView.toggle-info</key>
 	<true/>
 	<key>defaults:paneView.toggle-inspector</key>
