@@ -10,19 +10,19 @@
             <objects>
                 <viewController id="Epo-YF-uKm" customClass="TemplatePreviewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="odZ-f4-fX0">
-                        <rect key="frame" x="0.0" y="0.0" width="152" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="258" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box borderType="line" title="Template Preview" translatesAutoresizingMaskIntoConstraints="NO" id="6E7-dV-CCY">
-                                <rect key="frame" x="-3" y="-4" width="158" height="600"/>
+                                <rect key="frame" x="-3" y="-4" width="264" height="600"/>
                                 <view key="contentView" id="i0A-F5-afR">
-                                    <rect key="frame" x="11" y="19" width="136" height="566"/>
+                                    <rect key="frame" x="11" y="19" width="242" height="566"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5Z-Op-qlc">
-                                            <rect key="frame" x="0.0" y="0.0" width="136" height="558"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="242" height="558"/>
                                             <clipView key="contentView" id="UEa-vn-0yR">
-                                                <rect key="frame" x="1" y="1" width="134" height="556"/>
+                                                <rect key="frame" x="1" y="1" width="240" height="556"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
@@ -106,6 +106,7 @@
                                             </clipView>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="558" placeholder="YES" id="XrH-hE-WqW"/>
+                                                <constraint firstAttribute="width" constant="242" placeholder="YES" id="f2Y-Pn-oei"/>
                                             </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="lnL-1c-6u6">
                                                 <rect key="frame" x="-100" y="-100" width="246" height="16"/>
@@ -124,7 +125,7 @@
                                             </tableHeaderView>
                                         </scrollView>
                                         <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0m-Tt-wJ3">
-                                            <rect key="frame" x="8" y="265" width="120" height="28"/>
+                                            <rect key="frame" x="55" y="272" width="133" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="center" title="No template to preview." drawsBackground="YES" id="fKC-Av-UEo">
                                                 <font key="font" metaFont="menu" size="11"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -144,13 +145,13 @@
                                 </view>
                                 <size key="contentViewMargins" width="8" height="16"/>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SSM-Hr-J7n">
-                                <rect key="frame" x="128" y="579" width="16" height="22"/>
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SSM-Hr-J7n">
+                                <rect key="frame" x="234" y="579" width="16" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Uox-Te-6Le"/>
                                     <constraint firstAttribute="width" constant="16" id="iSk-Q9-B4E"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="timer" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="FZn-Ab-fD4">
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="timer" catalog="system" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="FZn-Ab-fD4">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -175,11 +176,26 @@
                         <outlet property="outlineView" destination="GMz-mc-eIC" id="Fzf-M6-rH0"/>
                         <outlet property="paneBox" destination="6E7-dV-CCY" id="fE9-Pa-f4J"/>
                         <outlet property="timerButton" destination="SSM-Hr-J7n" id="44U-BZ-Nqe"/>
+                        <outlet property="toggleAllMenuItem" destination="Bix-sf-pXq" id="ika-jJ-Qpa"/>
+                        <outlet property="togglePreviewMenuItem" destination="Htl-dB-9fJ" id="y7i-sa-Xru"/>
                     </connections>
                 </viewController>
                 <customObject id="UOg-SM-VP6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="06z-Oa-lyK">
                     <items>
+                        <menuItem title="Toggle Preview" id="Htl-dB-9fJ">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="togglePreview:" target="Epo-YF-uKm" id="mtQ-oC-pjl"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Toggle All" id="Bix-sf-pXq">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleAll:" target="Epo-YF-uKm" id="MVe-00-qJU"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="TOp-jg-dGe"/>
                         <menuItem title="Copy" keyEquivalent="c" id="zlx-xF-3LP">
                             <connections>
                                 <action selector="copy:" target="UOg-SM-VP6" id="amt-jl-j4w"/>
@@ -192,16 +208,16 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="GiA-uV-fGA"/>
-                        <menuItem title="Regenerate" id="do1-tV-RB6">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="regenerate:" target="Epo-YF-uKm" id="LRn-b7-VmC"/>
-                            </connections>
-                        </menuItem>
                         <menuItem title="Set As Selected" id="t3u-gb-wJr">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="setAsSelected:" target="Epo-YF-uKm" id="cKt-LO-SZy"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Regenerate" id="do1-tV-RB6">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="regenerate:" target="Epo-YF-uKm" id="LRn-b7-VmC"/>
                             </connections>
                         </menuItem>
                     </items>

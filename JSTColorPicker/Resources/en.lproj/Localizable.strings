@@ -74,6 +74,12 @@
 /* Shortcut Guide */
 "Click" = "Click";
 
+/* menuNeedsUpdate(_:) */
+"Collapse All Previews" = "Collapse All Previews";
+
+/* menuNeedsUpdate(_:) */
+"Collapse Preview" = "Collapse Preview";
+
 /* Shortcut Guide */
 "Command Palette..." = "Command Palette...";
 
@@ -175,6 +181,15 @@
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
+
+/* menuNeedsUpdate(_:) */
+"Expand All Previews" = "Expand All Previews";
+
+/* menuNeedsUpdate(_:) */
+"Expand Preview" = "Expand Preview";
+
+/* menuNeedsUpdate(_:) */
+"Expand/Collapse Preview" = "Expand/Collapse Preview";
 
 /* copy(_:) */
 "Extract code snippets from template \"%@\"..." = "Extract code snippets from template \"%@\"...";
@@ -424,6 +439,9 @@
 /* Shortcut Guide */
 "Open..." = "Open...";
 
+/* TemplatePreviewController.Error */
+"Ownership of the pasteboard has changed." = "Ownership of the pasteboard has changed.";
+
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -441,6 +459,9 @@
 
 /* TemplateError */
 "Resource busy." = "Resource busy.";
+
+/* TemplatePreviewController.Error */
+"Resource not found." = "Resource not found.";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "Restart";

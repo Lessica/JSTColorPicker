@@ -18,7 +18,7 @@ private extension NSUserInterfaceItemIdentifier {
     static let cellTemplateContent  = NSUserInterfaceItemIdentifier("cell-template-content")
 }
 
-struct TemplatePreviewObject {
+struct TemplatePreviewObject: Equatable {
     let uuidString: String
     let contents: String?
     let error: String?
@@ -32,6 +32,7 @@ class TemplatePreviewController: StackedPaneController {
         case documentNotLoaded
         case noTemplateSelected
         case cannotWriteToPasteboard
+        case resourceNotFound
         case resourceBusy
 
         var failureReason: String? {
@@ -42,6 +43,8 @@ class TemplatePreviewController: StackedPaneController {
                 return NSLocalizedString("No template selected.", comment: "TemplatePreviewController.Error")
             case .cannotWriteToPasteboard:
                 return NSLocalizedString("Ownership of the pasteboard has changed.", comment: "TemplatePreviewController.Error")
+            case .resourceNotFound:
+                return NSLocalizedString("Resource not found.", comment: "TemplatePreviewController.Error")
             case .resourceBusy:
                 return NSLocalizedString("Resource busy.", comment: "TemplatePreviewController.Error")
             }
@@ -50,15 +53,17 @@ class TemplatePreviewController: StackedPaneController {
 
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-preview") }
 
-    @IBOutlet weak var timerButton        : NSButton!
-    @IBOutlet weak var outlineView        : NSOutlineView!
-    @IBOutlet weak var emptyOutlineLabel  : NSTextField!
-    @IBOutlet      var outlineMenu        : NSMenu!
-    @IBOutlet      var outlineHeaderMenu  : NSMenu!
+    @IBOutlet weak var timerButton            : NSButton!
+    @IBOutlet weak var outlineView            : NSOutlineView!
+    @IBOutlet weak var emptyOutlineLabel      : NSTextField!
+    @IBOutlet      var outlineMenu            : NSMenu!
+    @IBOutlet      var outlineHeaderMenu      : NSMenu!
+    @IBOutlet weak var togglePreviewMenuItem  : NSMenuItem!
+    @IBOutlet weak var toggleAllMenuItem      : NSMenuItem!
 
-    private var documentContent           : Content?         { screenshot?.content }
-    private var documentExport            : ExportManager?   { screenshot?.export  }
-    private var documentState             : Screenshot.State { screenshot?.state ?? .notLoaded }
+    private        var documentContent        : Content?         { screenshot?.content }
+    private        var documentExport         : ExportManager?   { screenshot?.export  }
+    private        var documentState          : Screenshot.State { screenshot?.state ?? .notLoaded }
 
     private var actionSelectedRowIndex: Int? {
         (outlineView.clickedRow >= 0 && !outlineView.selectedRowIndexes.contains(outlineView.clickedRow)) ? outlineView.clickedRow : outlineView.selectedRowIndexes.first
@@ -191,11 +196,48 @@ class TemplatePreviewController: StackedPaneController {
             sema.wait()
         }
     }
+    
+    private func partialProcessPreviewContextForTemplates(_ templates: [Template], force: Bool) {
+        var templatesToLoad: [Template]
+        if !force {
+            guard !isProcessing,
+                  cachingLock.tryReadLock()
+            else {
+                return
+            }
+            
+            let cachedKeys = cachedPreviewContents
+                .filter({ !$0.value.hasError })
+                .keys
+                .compactMap({ $0 })
+            cachingLock.unlock()
+            
+            templatesToLoad = templates.filter({ !cachedKeys.contains($0.uuid.uuidString) })
+            guard templatesToLoad.count > 0 else {
+                return
+            }
+        } else {
+            guard !isProcessing else { return }
+            templatesToLoad = templates
+        }
+        
+        self.clearContentsForTemplates(templatesToLoad)
+        self.reloadContentsForTemplates(templatesToLoad)
+        
+        self.isReloading = true
+        self.updateViewState()
+        self.prepareContentsForTemplates(templatesToLoad) { [weak self] (template) in
+            self?.outlineView.reloadItem(template, reloadChildren: true)
+        } completionHandler: { [weak self] (finished) in
+            self?.isReloading = false
+            self?.updateViewState()
+        }
+    }
 
 
     // MARK: - Templates
     
-    private var isProcessing           : Bool { isReloading || isExpanding }
+    private var isProcessing           : Bool { isReloading || isExpanding || isCollapsing }
     private var previewableTemplates   : [Template] { TemplateManager.shared.previewableTemplates }
 
     private func templateWithUUIDString(_ uuidString: String) -> Template? {
@@ -381,23 +423,83 @@ class TemplatePreviewController: StackedPaneController {
 
 }
 
+// MARK: - Promised Actions
 extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(regenerate(_:)) || menuItem.action == #selector(setAsSelected(_:)) {
-            return hasActionAvailability(
-                promiseCheckSelectedTemplate()
-            )
+        guard !isProcessing else {
+            return false
         }
-        else if menuItem.action == #selector(copy(_:)) || menuItem.action == #selector(exportAs(_:)) {
+        if menuItem.action == #selector(togglePreview(_:))
+            || menuItem.action == #selector(setAsSelected(_:))
+        {
+            guard let template = try? promiseCheckSelectedTemplate().wait()
+            else { return false }
+            
+            if menuItem.action == #selector(setAsSelected(_:)) {
+                guard template.uuid != TemplateManager.shared.selectedTemplateUUID
+                else { return false }
+            }
+            
+            return true
+        }
+        else if menuItem.action == #selector(regenerate(_:)) || menuItem.action == #selector(copy(_:)) || menuItem.action == #selector(exportAs(_:)) {
             return hasActionAvailability(
                 promiseCheckSelectedTemplate(),
                 promiseCheckAllContentItems()
             )
         }
-        else if menuItem.action == #selector(resetColumns(_:)) {
+        else if menuItem.action == #selector(toggleAll(_:)) || menuItem.action == #selector(resetColumns(_:)) {
             return true
         }
         return false
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menu == outlineMenu {
+            if let template = try? promiseCheckSelectedTemplate().wait() {
+                togglePreviewMenuItem.title = outlineView.isItemExpanded(template)
+                    ? NSLocalizedString("Collapse Preview", comment: "menuNeedsUpdate(_:)")
+                    : NSLocalizedString("Expand Preview", comment: "menuNeedsUpdate(_:)")
+            } else {
+                togglePreviewMenuItem.title = NSLocalizedString("Expand/Collapse Preview", comment: "menuNeedsUpdate(_:)")
+            }
+            
+            toggleAllMenuItem.title = !hasCollapsedItem
+                ? NSLocalizedString("Collapse All Previews", comment: "menuNeedsUpdate(_:)")
+                : NSLocalizedString("Expand All Previews", comment: "menuNeedsUpdate(_:)")
+        }
+    }
+    
+    @IBAction func togglePreview(_ sender: Any?) {
+        guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
+        
+        if !outlineView.isItemExpanded(template) && outlineView.isExpandable(template) {
+            isExpanding = true
+            outlineView.expandItem(template)
+            isExpanding = false
+            
+            partialProcessPreviewContextForTemplates([template], force: false)
+        } else {
+            isCollapsing = true
+            outlineView.collapseItem(template)
+            isCollapsing = false
+        }
+    }
+    
+    var hasCollapsedItem: Bool { previewableTemplates.firstIndex(where: { !outlineView.isItemExpanded($0) }) != nil }
+    
+    @IBAction func toggleAll(_ sender: Any?) {
+        if hasCollapsedItem {
+            isExpanding = true
+            outlineView.expandItem(nil, expandChildren: true)
+            isExpanding = false
+            
+            partialProcessPreviewContextForTemplates(previewableTemplates, force: false)
+        } else {
+            isCollapsing = true
+            outlineView.collapseItem(nil, collapseChildren: true)
+            isCollapsing = false
+        }
     }
 
     @IBAction func copy(_ sender: Any?) {
@@ -441,11 +543,13 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     @IBAction func regenerate(_ sender: NSMenuItem) {
-        // TODO
+        guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
+        partialProcessPreviewContextForTemplates([template], force: true)
     }
 
     @IBAction func setAsSelected(_ sender: NSMenuItem) {
-        // TODO
+        guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
+        TemplateManager.shared.selectedTemplate = template
     }
 
     @IBAction func outlineViewAction(_ sender: TemplateOutlineView) {
@@ -453,6 +557,9 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     @IBAction func outlineViewDoubleAction(_ sender: TemplateOutlineView) {
+        guard let event = NSApp.currentEvent else { return }
+        let locationInView = sender.convert(event.locationInWindow, from: nil)
+        guard sender.bounds.contains(locationInView) else { return }
         copy(sender)
     }
 
@@ -478,6 +585,10 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             return false
         }
     }
+}
+
+// MARK: - Promises
+extension TemplatePreviewController {
 
     private func promiseCheckSelectedTemplate() -> Promise<Template>
     {
@@ -492,8 +603,12 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             var selectedTemplate: Template?
             if selectedItem is Template {
                 selectedTemplate = selectedItem as? Template
-            } else if let selectedUUIDString = (selectedItem as? TemplatePreviewObject)?.uuidString {
-                selectedTemplate = templateWithUUIDString(selectedUUIDString)
+            } else if let selectedObject = selectedItem as? TemplatePreviewObject {
+                guard selectedObject != .empty else {
+                    seal.reject(Error.resourceNotFound)
+                    return
+                }
+                selectedTemplate = templateWithUUIDString(selectedObject.uuidString)
             }
 
             guard let template = selectedTemplate else {
@@ -744,36 +859,13 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
     
     func outlineViewItemDidExpand(_ notification: Notification) {
         guard notification.object as? NSObject == outlineView,
-              !isProcessing,
               let expandedTemplates = notification.userInfo?.values.compactMap({ $0 as? Template }),
-              expandedTemplates.count > 0,
-              cachingLock.tryReadLock()
+              expandedTemplates.count > 0
         else {
             return
         }
         
-        let cachedKeys = cachedPreviewContents
-            .filter({ !$0.value.hasError })
-            .keys
-            .compactMap({ $0 })
-        cachingLock.unlock()
-        
-        let templatesToLoad = expandedTemplates.filter({ !cachedKeys.contains($0.uuid.uuidString) })
-        guard templatesToLoad.count > 0 else {
-            return
-        }
-
-        self.clearContentsForTemplates(templatesToLoad)
-        self.reloadContentsForTemplates(templatesToLoad)
-        
-        self.isReloading = true
-        self.updateViewState()
-        self.prepareContentsForTemplates(expandedTemplates) { [weak self] (template) in
-            self?.outlineView.reloadItem(template, reloadChildren: true)
-        } completionHandler: { [weak self] (finished) in
-            self?.isReloading = false
-            self?.updateViewState()
-        }
+        partialProcessPreviewContextForTemplates(expandedTemplates, force: false)
     }
 
 }

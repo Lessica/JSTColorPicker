@@ -22,6 +22,9 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "hmw-xR-jUh"; */
 "hmw-xR-jUh.title" = "Text Cell";
 
+/* Class = "NSMenuItem"; title = "Toggle Preview"; ObjectID = "Htl-dB-9fJ"; */
+"Htl-dB-9fJ.title" = "Toggle Preview";
+
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "iRO-Kn-oLV"; */
 "iRO-Kn-oLV.headerCell.title" = "Name";
 
@@ -30,3 +33,6 @@
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "zlx-xF-3LP"; */
 "zlx-xF-3LP.title" = "Copy";
+
+/* Class = "NSMenuItem"; title = "Toggle All"; ObjectID = "Bix-sf-pXq"; */
+"Bix-sf-pXq.title" = "";

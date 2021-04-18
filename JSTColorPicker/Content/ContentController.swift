@@ -763,6 +763,9 @@ extension ContentController: ContentTableViewResponder {
     }
     
     @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
+        guard let event = NSApp.currentEvent else { return }
+        let locationInView = sender.convert(event.locationInWindow, from: nil)
+        guard sender.bounds.contains(locationInView) else { return }
         let optionPressed = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.option)
         if !optionPressed {
             locate(sender)

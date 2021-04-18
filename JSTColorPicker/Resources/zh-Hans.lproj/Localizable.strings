@@ -74,6 +74,12 @@
 /* Shortcut Guide */
 "Click" = "单击";
 
+/* menuNeedsUpdate(_:) */
+"Collapse All Previews" = "收起所有预览";
+
+/* menuNeedsUpdate(_:) */
+"Collapse Preview" = "收起预览";
+
 /* Shortcut Guide */
 "Command Palette..." = "切换指令面板";
 
@@ -175,6 +181,15 @@
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
+
+/* menuNeedsUpdate(_:) */
+"Expand All Previews" = "展开所有预览";
+
+/* menuNeedsUpdate(_:) */
+"Expand Preview" = "展开预览";
+
+/* menuNeedsUpdate(_:) */
+"Expand/Collapse Preview" = "展开/收起预览";
 
 /* copy(_:) */
 "Extract code snippets from template \"%@\"..." = "正在从模版 \"%@\" 中解析代码片段...";
@@ -424,6 +439,9 @@
 /* Shortcut Guide */
 "Open..." = "打开...";
 
+/* TemplatePreviewController.Error */
+"Ownership of the pasteboard has changed." = "剪贴板所有者已变更.";
+
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
@@ -441,6 +459,9 @@
 
 /* TemplateError */
 "Resource busy." = "资源忙, 请在另一个导出或预览任务结束后重试.";
+
+/* TemplatePreviewController.Error */
+"Resource not found." = "找不到资源.";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "重启";
