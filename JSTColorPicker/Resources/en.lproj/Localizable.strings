@@ -454,6 +454,9 @@
 /* PreferencesController */
 "Preferences" = "Preferences";
 
+/* openConsole() */
+"process:JSTColorPicker" = "process:JSTColorPicker";
+
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "Reload All Templates";
 
@@ -522,6 +525,9 @@
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
+
+/* toolbarItemLabel */
+"Subscription" = "Subscription";
 
 /* Shortcut Guide */
 "Switch to Magic Cursor temporarily." = "Switch to Magic Cursor temporarily.";

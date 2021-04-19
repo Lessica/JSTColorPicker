@@ -454,6 +454,9 @@
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
+/* openConsole() */
+"process:JSTColorPicker" = "进程:JSTColorPicker";
+
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "重新加载所有模版";
 
@@ -522,6 +525,9 @@
 
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";
+
+/* toolbarItemLabel */
+"Subscription" = "订阅";
 
 /* Shortcut Guide */
 "Switch to Magic Cursor temporarily." = "临时切换到魔术光标.";
@@ -607,6 +613,9 @@
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
 
+/* ScriptError */
+"XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯.";
+
 /* Shortcut Guide */
 "Zoom In" = "放大";
 
@@ -618,6 +627,3 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外, 则以中心点位置缩小视图).";
-
-/* ScriptError */
-"XPC connection to helper service is not established." = "";

@@ -113,7 +113,7 @@
         }
 
         // setup parameters
-        NSAppleEventDescriptor *message = [NSAppleEventDescriptor descriptorWithString:@"process:JSTColorPicker"];
+        NSAppleEventDescriptor *message = [NSAppleEventDescriptor descriptorWithString:NSLocalizedString(@"process:JSTColorPicker", @"tellConsoleToStartStreamingWithReply:")];
         NSAppleEventDescriptor *parameters = [NSAppleEventDescriptor listDescriptor];
         [parameters insertDescriptor:message atIndex:1];
 

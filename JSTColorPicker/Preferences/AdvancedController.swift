@@ -111,7 +111,7 @@ extension AdvancedController: MASPreferencesViewController {
     }
     
     var toolbarItemImage: NSImage? {
-        return NSImage(systemSymbolName: "gear", accessibilityDescription: "General")
+        return NSImage(systemSymbolName: "cursorarrow.click.2", accessibilityDescription: "Advanced")
     }
     
 }

@@ -61,11 +61,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private lazy var preferencesController: NSWindowController = {
-        let generalController = GeneralController()
-        let folderController = FolderController()
-        let advancedController = AdvancedController()
-        let controller = PreferencesController(viewControllers: [generalController, folderController, advancedController], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
+        #if SANDBOXED
+        let controller = PreferencesController(viewControllers: [GeneralController(), FolderController(), AdvancedController(), SubscriptionController()], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
         return controller
+        #else
+        let controller = PreferencesController(viewControllers: [GeneralController(), FolderController(), AdvancedController()], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
+        return controller
+        #endif
     }()
     
     
@@ -845,6 +847,7 @@ extension AppDelegate {
 // MARK: -
 
 extension AppDelegate {
+    
     #if SANDBOXED
     enum ScriptError: LocalizedError {
         case applicationNotFound(identifier: String)
@@ -867,6 +870,8 @@ extension AppDelegate {
         case unknown
         case custom(reason: String, code: Int)
         case system(dictionary: [String: Any?])
+        case applicationNotFound(identifier: String)
+        case cannotOpenApplicationAtURL(url: URL)
         case procNotFound(identifier: String)
         case requireUserConsentInAccessibility
         case requireUserConsentInAutomation(identifier: String)
@@ -880,6 +885,10 @@ extension AppDelegate {
                 return "\(reason) (\(code))."
             case let .system(dictionary):
                 return "\(dictionary["NSAppleScriptErrorMessage"] as! String) (\(dictionary["NSAppleScriptErrorNumber"] as! Int))."
+            case let .applicationNotFound(identifier):
+                return String(format: NSLocalizedString("Application \"%@\" not found.", comment: "ScriptError"), identifier)
+            case let .cannotOpenApplicationAtURL(url):
+                return String(format: NSLocalizedString("Cannot open application at: \"%@\".", comment: "ScriptError"), url.path)
             case let .procNotFound(identifier):
                 return String(format: NSLocalizedString("Not running application with identifier \"%@\".", comment: "ScriptError"), identifier)
             case .requireUserConsentInAccessibility:
@@ -892,8 +901,7 @@ extension AppDelegate {
         }
     }
     #endif
-
-    #if SANDBOXED
+    
     private func promiseOpenConsole() -> Promise<URL> {
         return Promise { seal in
             let paths = [
@@ -912,6 +920,7 @@ extension AppDelegate {
         }
     }
 
+    #if SANDBOXED
     private func promiseConnectXPCService() -> Promise<JSTScreenshotHelperProtocol> {
         return Promise { seal in
             guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
@@ -927,7 +936,9 @@ extension AppDelegate {
             seal.fulfill(proxy)
         }
     }
+    #endif
 
+    #if SANDBOXED
     private func promiseTellConsoleToStartStreaming(_ proxy: JSTScreenshotHelperProtocol) -> Promise<Bool> {
         return Promise { seal in
             proxy.tellConsoleToStartStreaming { (data, error) in
@@ -939,7 +950,9 @@ extension AppDelegate {
             }
         }
     }
+    #endif
 
+    #if SANDBOXED
     @discardableResult
     private func openConsole() throws -> Bool {
         firstly {
@@ -958,6 +971,9 @@ extension AppDelegate {
     #else
     @discardableResult
     private func openConsole() throws -> Bool {
+        
+        // open console
+        try promiseOpenConsole().asVoid().wait()
 
         // load script
         guard let scptURL = Bundle.main.url(forResource: "open_console", withExtension: "scpt") else {
@@ -970,7 +986,7 @@ extension AppDelegate {
         }
 
         // setup parameters
-        let message = NSAppleEventDescriptor(string: "process:JSTColorPicker")
+        let message = NSAppleEventDescriptor(string: NSLocalizedString("process:JSTColorPicker", comment: "openConsole()"))
         let parameters = NSAppleEventDescriptor.list()
         parameters.insert(message, at: 1)
 

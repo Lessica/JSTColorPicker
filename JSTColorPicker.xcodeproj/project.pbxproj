@@ -98,6 +98,11 @@
 		CC470A11262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */; };
 		CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A19262B1CAB0013A3B7 /* MutexLock.swift */; };
 		CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A19262B1CAB0013A3B7 /* MutexLock.swift */; };
+		CC470A79262DE5020013A3B7 /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A77262DE5020013A3B7 /* SubscriptionController.swift */; };
+		CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC470A92262DE90B0013A3B7 /* Subscription.xib */; };
+		CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */; };
+		CC470AC0262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
+		CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
@@ -877,6 +882,14 @@
 		CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateContentCellView.swift; sourceTree = "<group>"; };
 		CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteLock.swift; sourceTree = "<group>"; };
 		CC470A19262B1CAB0013A3B7 /* MutexLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutexLock.swift; sourceTree = "<group>"; };
+		CC470A77262DE5020013A3B7 /* SubscriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionController.swift; sourceTree = "<group>"; };
+		CC470A91262DE90B0013A3B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Subscription.xib; sourceTree = "<group>"; };
+		CC470A94262DE90C0013A3B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Subscription.strings; sourceTree = "<group>"; };
+		CC470A96262DE90D0013A3B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Subscription.strings"; sourceTree = "<group>"; };
+		CC470AAB262DEBD70013A3B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Purchase.storyboard; sourceTree = "<group>"; };
+		CC470AAE262DEBDA0013A3B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Purchase.strings; sourceTree = "<group>"; };
+		CC470AB0262DEBDB0013A3B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Purchase.strings"; sourceTree = "<group>"; };
+		CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1473,6 +1486,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CC470A9E262DEBC00013A3B7 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */,
+				CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */,
+			);
+			path = Purchase;
+			sourceTree = "<group>";
+		};
 		CC608BDA261787CA00F5B861 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2012,6 +2034,7 @@
 				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
+				CC470A9E262DEBC00013A3B7 /* Purchase */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
 				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
@@ -2245,6 +2268,8 @@
 				D699E0CB240908F90011A4CB /* FolderController.swift */,
 				D64AF0A3240D05E5003A5B17 /* Advanced.xib */,
 				D699E0D12409224E0011A4CB /* AdvancedController.swift */,
+				CC470A92262DE90B0013A3B7 /* Subscription.xib */,
+				CC470A77262DE5020013A3B7 /* SubscriptionController.swift */,
 				D61047E424224B9C0002E990 /* SUUpdater.h */,
 				D61047E524224B9C0002E990 /* SUUpdater.m */,
 			);
@@ -2778,9 +2803,11 @@
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
 				CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
+				CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
 				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
+				CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
@@ -2988,6 +3015,7 @@
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
+				CC470AC0262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
@@ -3166,6 +3194,7 @@
 			files = (
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
 				CC8E5D69262817860030B2FC /* PaneContainer.swift in Sources */,
+				CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -3270,6 +3299,7 @@
 				CC470A11262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
+				CC470A79262DE5020013A3B7 /* SubscriptionController.swift in Sources */,
 				D659168B24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				18D202C72496951B007A079F /* ContentCellView.swift in Sources */,
 				185D7EF5248A936A001C283B /* ContentItemSource.swift in Sources */,
@@ -3526,6 +3556,26 @@
 				CC436B1926179D8100E46D3A /* zh-Hans */,
 			);
 			name = InfoView.xib;
+			sourceTree = "<group>";
+		};
+		CC470A92262DE90B0013A3B7 /* Subscription.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC470A91262DE90B0013A3B7 /* Base */,
+				CC470A94262DE90C0013A3B7 /* en */,
+				CC470A96262DE90D0013A3B7 /* zh-Hans */,
+			);
+			name = Subscription.xib;
+			sourceTree = "<group>";
+		};
+		CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC470AAB262DEBD70013A3B7 /* Base */,
+				CC470AAE262DEBDA0013A3B7 /* en */,
+				CC470AB0262DEBDB0013A3B7 /* zh-Hans */,
+			);
+			name = Purchase.storyboard;
 			sourceTree = "<group>";
 		};
 		CC8F8C8C26207C9E00F60F78 /* TemplateInfoView.xib */ = {

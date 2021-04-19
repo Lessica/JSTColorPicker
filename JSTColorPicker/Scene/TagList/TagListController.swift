@@ -519,7 +519,9 @@ class TagListController: StackedPaneController {
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        performReorderAndSave(isAsync: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.performReorderAndSave(isAsync: true)
+        }
     }
     
     private var shouldRearrangeManagedTags: Bool = false
