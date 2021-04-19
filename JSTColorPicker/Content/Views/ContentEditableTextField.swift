@@ -18,5 +18,5 @@ class ContentEditableTextField: NSTextField {
     override func resignFirstResponder() -> Bool {
         return super.resignFirstResponder()
     }
-    
+
 }

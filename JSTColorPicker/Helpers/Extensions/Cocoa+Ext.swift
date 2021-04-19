@@ -354,9 +354,11 @@ extension NSColor {
             return "#000000"
         }
     }
+
     static var random: NSColor {
         return NSColor(calibratedRed: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
     }
+
     var isLightColor: Bool? {
         var colorBrightness: CGFloat = 0.0
         guard let colorSpaceModel = cgColor.colorSpace?.model else { return nil }
@@ -367,6 +369,10 @@ extension NSColor {
             getWhite(&colorBrightness, alpha: nil)
         }
         return colorBrightness >= 0.5
+    }
+
+    static var thinSplitViewDividerColor: NSColor {
+        return NSClassFromString("NSDynamicSystemColor")?.value(forKey: "thinSplitViewDividerColor") as? NSColor ?? .clear
     }
 }
 

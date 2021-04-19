@@ -3,6 +3,7 @@ project 'JSTColorPicker.xcodeproj'
 use_frameworks!
 
 target :JSTColorPicker do
+  pod 'SwiftyStoreKit'
 	pod 'PromiseKit/CorePromise'
 	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
 end

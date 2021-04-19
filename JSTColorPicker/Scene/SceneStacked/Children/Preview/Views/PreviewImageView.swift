@@ -30,6 +30,7 @@ class PreviewImageView: NSView {
         wantsLayer = true
         layer!.isOpaque = true
         layer!.masksToBounds = false
+        layer!.borderWidth = 1.0
         layer!.contentsGravity = .resizeAspect
         layer!.addSublayer(borderLayer)
         layerContentsRedrawPolicy = .never
@@ -76,5 +77,10 @@ class PreviewImageView: NSView {
         layer.borderWidth = PreviewImageView.defaultContentsBorderWidth
         return layer
     }()
+
+    override func updateLayer() {
+        super.updateLayer()
+        layer?.borderColor = NSColor.thinSplitViewDividerColor.withAlphaComponent(0.5).cgColor
+    }
     
 }

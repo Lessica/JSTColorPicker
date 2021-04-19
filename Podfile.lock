@@ -3,18 +3,21 @@ PODS:
   - MASPreferences (1.3)
   - PromiseKit/CorePromise (6.13.1)
   - Sparkle (1.26.0)
+  - SwiftyStoreKit (0.16.1)
 
 DEPENDENCIES:
   - LetsMove
   - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
   - PromiseKit/CorePromise
   - Sparkle
+  - SwiftyStoreKit
 
 SPEC REPOS:
   trunk:
     - LetsMove
     - PromiseKit
     - Sparkle
+    - SwiftyStoreKit
 
 EXTERNAL SOURCES:
   MASPreferences:
@@ -30,7 +33,8 @@ SPEC CHECKSUMS:
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: fd4df26f5120b1904f3750dc5cee087fce8a08e9
+PODFILE CHECKSUM: a65bcf7ef274b4fec138e138d72ab2d7e7e385a1
 
 COCOAPODS: 1.10.1

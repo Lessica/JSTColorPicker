@@ -9,6 +9,7 @@
 #import "JSTScreenshotHelper.h"
 #import "JSTConnectedDevice.h"
 #import "JSTConnectedDeviceStore.h"
+#import <Carbon/Carbon.h>
 
 @interface JSTScreenshotHelper () <JSTDeviceDelegate>
 @property (nonatomic, assign) BOOL isNetworkDiscoveryEnabled;
@@ -92,6 +93,86 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSArray <JSTConnectedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
         NSLog(@"%@", connectedDevices);
+    });
+}
+
+- (void)tellConsoleToStartStreamingWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // load script
+        NSURL *scptURL = [[NSBundle mainBundle] URLForResource:@"open_console" withExtension:@"scpt"];
+        if (!scptURL) {
+            reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Internal error occurred.", @"kJSTScreenshotError") }]);
+            return;
+        }
+
+        NSDictionary *errors = nil;
+        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:scptURL error:&errors];
+        if (!script) {
+            reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ (%@).", @"kJSTScreenshotError"), errors[NSAppleScriptErrorMessage], errors[NSAppleScriptErrorNumber]] }]);
+            return;
+        }
+
+        // setup parameters
+        NSAppleEventDescriptor *message = [NSAppleEventDescriptor descriptorWithString:@"process:JSTColorPicker"];
+        NSAppleEventDescriptor *parameters = [NSAppleEventDescriptor listDescriptor];
+        [parameters insertDescriptor:message atIndex:1];
+
+        // setup target
+        ProcessSerialNumber psn = {0, kCurrentProcess};
+        NSAppleEventDescriptor *target = [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber bytes:&psn length:sizeof(ProcessSerialNumber)];
+
+        // setup event
+        NSAppleEventDescriptor *handler = [NSAppleEventDescriptor descriptorWithString:@"open_console"];
+        NSAppleEventDescriptor *event = [NSAppleEventDescriptor appleEventWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:target returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+        [event setParamDescriptor:handler forKeyword:keyASSubroutineName];
+        [event setParamDescriptor:parameters forKeyword:keyDirectObject];
+
+        // execute
+        NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errors];
+        if (![result booleanValue]) {
+
+            // ask for permission #1
+            NSDictionary *options = @{(__bridge NSString *)kAXTrustedCheckOptionPrompt: @(YES)};
+            BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+            if (!accessibilityEnabled) {
+                reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"User consent required in \"Preferences > Privacy > Accessibility\".", comment: @"kJSTScreenshotError") }]);
+                return;
+            }
+
+            // ask for permission #2
+            NSArray <NSString *> *askIdentifiers = @[
+                @"com.apple.Console",
+                @"com.apple.systemevents",
+            ];
+            for (NSString *askIdentifier in askIdentifiers) {
+                NSAppleEventDescriptor *askTarget = [NSAppleEventDescriptor descriptorWithBundleIdentifier:askIdentifier];
+                OSStatus askErr = AEDeterminePermissionToAutomateTarget(askTarget.aeDesc, typeWildCard, typeWildCard, true);
+                switch (askErr) {
+                    case -600:
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Not running application with identifier \"%@\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        return;
+                    case 0:
+                        break;
+                    case errAEEventWouldRequireUserConsent:
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        return;
+                    case errAEEventNotPermitted:
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        return;
+                    default:
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:askErr userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown error occurred.", comment: @"kJSTScreenshotError") }]);
+                        return;
+                }
+            }
+
+            reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ (%@).", @"kJSTScreenshotError"), errors[NSAppleScriptErrorMessage], errors[NSAppleScriptErrorNumber]] }]);
+            return;
+        }
+
+        reply([NSPropertyListSerialization dataWithPropertyList:@{ @"succeed": @(YES) }
+                                                         format:NSPropertyListBinaryFormat_v1_0
+                                                        options:0
+                                                          error:nil], nil);
     });
 }
 

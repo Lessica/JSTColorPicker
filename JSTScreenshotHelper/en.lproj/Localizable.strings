@@ -1,3 +1,5 @@
+/* kJSTScreenshotError */
+"%@ (%@)." = "%@ (%@).";
 
 /* No comment provided by engineer. */
 "Cancel" = "Cancel";
@@ -44,5 +46,23 @@
 /* JSTScreenshotHelperInstall */
 "Do you want to setup JSTColorPickerHelper as a login item?" = "Do you want to setup JSTColorPicker screenshot helper as a login item?";
 
+/* kJSTScreenshotError */
+"Internal error occurred." = "Internal error occurred.";
+
+/* kJSTScreenshotError */
+"Not running application with identifier \"%@\"." = "Not running application with identifier \"%@\".";
+
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* kJSTScreenshotError */
+"Unknown error occurred." = "Unknown error occurred.";
+
+/* kJSTScreenshotError */
+"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".";
+
+/* kJSTScreenshotError */
+"User consent required in \"Preferences > Privacy > Accessibility\"." = "User consent required in \"Preferences > Privacy > Accessibility\".";
+
+/* kJSTScreenshotError */
+"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".";

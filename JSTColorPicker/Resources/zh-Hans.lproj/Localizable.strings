@@ -56,6 +56,9 @@
 /* PixelMatchServiceError */
 "Another task is in process, abort." = "另一项任务正在进行中, 此操作被迫终止.";
 
+/* ScriptError */
+"Application \"%@\" not found." = "找不到应用程序 \"%@\".";
+
 /* beginPixelMatchComparison(to:) */
 "Calculating Difference..." = "分析差异中...";
 
@@ -64,6 +67,9 @@
 
 /* ScreenshotError */
 "Cannot deserialize content." = "无法反序列化内容.";
+
+/* ScriptError */
+"Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\".";
 
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容.";
@@ -424,6 +430,9 @@
 /* None */
 "None" = "-";
 
+/* ScriptError */
+"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\".";
+
 /* screenshotItemTapped(_:) */
 "OK" = "好";
 
@@ -574,6 +583,9 @@
 /* Setup Persistent Store */
 "Unable to access tag database." = "无法访问标签数据库.";
 
+/* ScriptError */
+"Unknown error occurred." = "发生了未知错误.";
+
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
 
@@ -582,6 +594,15 @@
 
 /* Content.Error */
 "User aborted." = "用户已取消.";
+
+/* ScriptError */
+"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续.";
+
+/* ScriptError */
+"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续.";
+
+/* ScriptError */
+"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可.\n请打开 \"偏好设置 > 隐私 > 自动化\", 然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问.";
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
@@ -597,3 +618,6 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外, 则以中心点位置缩小视图).";
+
+/* ScriptError */
+"XPC connection to helper service is not established." = "";

@@ -43,11 +43,12 @@
 
 @end
 
-#ifdef SANDBOXED
+#if SANDBOXED
 
 #import <spawn.h>
 extern char **environ;
 
+#if !DEBUG
 NS_INLINE int os_system(const char *ctx) {
     const char *args[] = {
         "/bin/bash",
@@ -82,14 +83,20 @@ NS_INLINE int os_system(const char *ctx) {
         return -1;
     }
 }
+#endif
 
+#if !DEBUG
 NS_INLINE NSString *escape_arg(NSString *arg) {
     return [arg stringByReplacingOccurrencesOfString:@"\'" withString:@"'\\\''"];
 }
+#endif
 
 int main(int argc, const char *argv[])
 {
-    
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSString *bundleIdentifier = [mainBundle bundleIdentifier];
+
+#if !DEBUG
     NSString *applicationBundleIdentifier = kJSTColorPickerBundleIdentifier;
     NSString *applicationBundlePath = [NSString stringWithFormat:@"/Applications/%@", kJSTColorPickerBundleName];
     NSBundle *applicationBundle = [[NSBundle alloc] initWithPath:applicationBundlePath];
@@ -99,10 +106,7 @@ int main(int argc, const char *argv[])
         return EXIT_FAILURE;
     }
 
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *bundleIdentifier = [mainBundle bundleIdentifier];
     NSString *bundleVersion = [[mainBundle infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey];
-
     NSString *bundlePath = [mainBundle bundlePath];
     NSString *targetPath = [[NSString stringWithFormat:@"~/Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
 
@@ -215,7 +219,8 @@ int main(int argc, const char *argv[])
 
         return EXIT_SUCCESS;
     }
-    
+#endif
+
     // Create the delegate for the service.
     ServiceDelegate *delegate = [ServiceDelegate new];
     

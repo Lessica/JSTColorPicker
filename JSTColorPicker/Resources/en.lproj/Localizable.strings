@@ -56,6 +56,9 @@
 /* PixelMatchServiceError */
 "Another task is in process, abort." = "Another task is in process, abort.";
 
+/* ScriptError */
+"Application \"%@\" not found." = "Application \"%@\" not found.";
+
 /* beginPixelMatchComparison(to:) */
 "Calculating Difference..." = "Calculating Difference...";
 
@@ -64,6 +67,9 @@
 
 /* ScreenshotError */
 "Cannot deserialize content." = "Cannot deserialize content.";
+
+/* ScriptError */
+"Cannot open application at: \"%@\"." = "Cannot open application at: \"%@\".";
 
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
@@ -424,6 +430,9 @@
 /* None */
 "None" = "None";
 
+/* ScriptError */
+"Not running application with identifier \"%@\"." = "Not running application with identifier \"%@\".";
+
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
 
@@ -574,6 +583,9 @@
 /* Setup Persistent Store */
 "Unable to access tag database." = "Unable to access tag database.";
 
+/* ScriptError */
+"Unknown error occurred." = "Unknown error occurred.";
+
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
 
@@ -583,8 +595,20 @@
 /* Content.Error */
 "User aborted." = "User aborted.";
 
+/* ScriptError */
+"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".";
+
+/* ScriptError */
+"User consent required in \"Preferences > Privacy > Accessibility\"." = "User consent required in \"Preferences > Privacy > Accessibility\".";
+
+/* ScriptError */
+"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".";
+
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";
+
+/* ScriptError */
+"XPC connection to helper service is not established." = "XPC connection to helper service is not established.";
 
 /* Shortcut Guide */
 "Zoom In" = "Zoom In";

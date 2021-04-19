@@ -188,6 +188,13 @@
 		CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
 		CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
 		CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
+		CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
+		CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
+		CCED7D21262D736300F2C965 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
+		CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
+		CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
+		CCED7D43262D841400F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7D40262D83FA00F2C965 /* InfoPlist.strings */; };
+		CCED7D4B262D841400F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7D40262D83FA00F2C965 /* InfoPlist.strings */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -201,6 +208,10 @@
 		CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF7F1532618D38100ED16B7 /* InspectorView.xib */; };
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
+		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
+		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
+		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
+		CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
 		CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
 		CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
@@ -929,6 +940,12 @@
 		CCE9016F2626BAF700C84904 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		CCE901832626BFBF00C84904 /* ObjC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjC+Ext.swift"; sourceTree = "<group>"; };
+		CCED7CC2262D653E00F2C965 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCED7CDA262D689500F2C965 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCED7CF6262D68D600F2C965 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CCED7CFF262D68D800F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		CCED7D41262D83FA00F2C965 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CCED7D42262D83FA00F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
@@ -940,6 +957,8 @@
 		CCF7F1552618D38500ED16B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InspectorView.strings; sourceTree = "<group>"; };
 		CCF7F1572618D38600ED16B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InspectorView.strings"; sourceTree = "<group>"; };
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
+		CCFECFAA262D50D0001F6467 /* open_console.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_console.scpt; sourceTree = "<group>"; };
+		CCFECFBB262D5152001F6467 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShortcutGuide+Ext.swift"; sourceTree = "<group>"; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
 		D60A691123F2CDBA00ED9748 /* RulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerMarker.swift; sourceTree = "<group>"; };
@@ -955,7 +974,6 @@
 		D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		D60C88D023D5D4BD00DE5DF6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D61047E124224A170002E990 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D61047E324224A950002E990 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D61047E424224B9C0002E990 /* SUUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUUpdater.h; sourceTree = "<group>"; };
 		D61047E524224B9C0002E990 /* SUUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SUUpdater.m; sourceTree = "<group>"; };
 		D61047E724224CB10002E990 /* JSTColorPickerSparkle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPickerSparkle-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1100,7 +1118,6 @@
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
 		D658AFA123CB180D0098C567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D658AFA423CB180D0098C567 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D658AFA623CB180D0098C567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPicker.entitlements; sourceTree = "<group>"; };
 		D659168924A36E2500DB67A6 /* ItemInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInspector.swift; sourceTree = "<group>"; };
 		D659168C24A36FF100DB67A6 /* ItemPreviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewDelegate.swift; sourceTree = "<group>"; };
@@ -1206,6 +1223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
 				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
@@ -1229,6 +1247,7 @@
 				D61047CB24224A170002E990 /* Automator.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
+				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
@@ -1257,6 +1276,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
@@ -1274,6 +1294,7 @@
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
+				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
@@ -1712,6 +1733,7 @@
 				D647B06423D198CB00D76CB5 /* lib */,
 				D60B0F4424286AA30034F21C /* Info.plist */,
 				D60B0F4C24286C250034F21C /* JSTScreenshotHelper.entitlements */,
+				CCED7D40262D83FA00F2C965 /* InfoPlist.strings */,
 				D6DF0F9224292B27001E30F0 /* Localizable.strings */,
 				D69FD9DF2477816000ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist */,
 				CCF7E83F25A4776E00A99E4C /* AppIcon.icns */,
@@ -1745,7 +1767,7 @@
 		D61047E824224CC90002E990 /* JSTColorPickerSparkle */ = {
 			isa = PBXGroup;
 			children = (
-				D61047E324224A950002E990 /* Info.plist */,
+				CCED7CC2262D653E00F2C965 /* Info.plist */,
 				D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */,
 				D61047E724224CB10002E990 /* JSTColorPickerSparkle-Bridging-Header.h */,
 			);
@@ -1976,7 +1998,7 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				D658AFA623CB180D0098C567 /* Info.plist */,
+				CCED7CDA262D689500F2C965 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
@@ -2137,6 +2159,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCFECFBB262D5152001F6467 /* Carbon.framework */,
 				CC84219D26160CD200F1C007 /* Security.framework */,
 				D699E0CD24090AEC0011A4CB /* Automator.framework */,
 				D684841423D3E3FD00BC5E34 /* libz.tbd */,
@@ -2202,6 +2225,8 @@
 			isa = PBXGroup;
 			children = (
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
+				CCFECFAA262D50D0001F6467 /* open_console.scpt */,
+				CCED7CF7262D68D600F2C965 /* InfoPlist.strings */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
 				D69974E72416595500223B31 /* JSTColorPicker.html */,
 				D690C95624192C2A00BB1652 /* github-markdown.css */,
@@ -2691,6 +2716,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6D1CF0925A4ED7100B7FFF5 /* include in Resources */,
+				CCED7D43262D841400F2C965 /* InfoPlist.strings in Resources */,
 				CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */,
 				D6DF0F9024292B27001E30F0 /* Localizable.strings in Resources */,
 			);
@@ -2713,11 +2739,13 @@
 				CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 				CC3C4AEF262025E000794806 /* TemplateInfo.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
+				CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				180C6A8A249F92AB00B42656 /* AlertTextView.xib in Resources */,
+				CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
@@ -2736,8 +2764,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D629E59E242BC80A00AF333F /* Localizable.strings in Resources */,
+				CCED7D21262D736300F2C965 /* open_console.scpt in Resources */,
 				D69FD9E22477821D00ACBF74 /* com.jst.JSTColorPicker.ScreenshotHelper.plist in Resources */,
 				CCF7E84825A4779000A99E4C /* AppIcon.icns in Resources */,
+				CCED7D4B262D841400F2C965 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2746,6 +2776,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
+				CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
@@ -2766,6 +2797,7 @@
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */,
 				CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */,
+				CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */,
 				CC8F8CA826207CE700F60F78 /* TemplateInfoView.xib in Resources */,
 				1842C4652479832C008ECD6F /* Content.storyboard in Resources */,
 				D6E166A6248A481300D8D1C5 /* Edit.storyboard in Resources */,
@@ -3536,6 +3568,24 @@
 			name = ExportStacked.storyboard;
 			sourceTree = "<group>";
 		};
+		CCED7CF7262D68D600F2C965 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCED7CF6262D68D600F2C965 /* en */,
+				CCED7CFF262D68D800F2C965 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CCED7D40262D83FA00F2C965 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCED7D41262D83FA00F2C965 /* en */,
+				CCED7D42262D83FA00F2C965 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		CCF7F1532618D38100ED16B7 /* InspectorView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3650,7 +3700,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3674,7 +3724,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3910,7 +3960,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3941,7 +3991,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
 				HEADER_SEARCH_PATHS = (

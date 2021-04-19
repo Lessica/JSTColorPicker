@@ -162,5 +162,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs to control &quot;System Events&quot; to open &quot;Console&quot; and filter logs for you.</string>
 </dict>
 </plist>
