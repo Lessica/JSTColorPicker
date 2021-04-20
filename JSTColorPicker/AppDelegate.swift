@@ -62,10 +62,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private lazy var preferencesController: NSWindowController = {
         #if APP_STORE
-        let controller = PreferencesController(viewControllers: [GeneralController(), FolderController(), AdvancedController(), SubscriptionController()], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
+        let controller = PreferencesController(
+            viewControllers: [
+                GeneralController(),
+                FolderController(),
+                AdvancedController(),
+                SubscriptionController()
+            ],
+            title: NSLocalizedString("Preferences", comment: "PreferencesController")
+        )
         return controller
         #else
-        let controller = PreferencesController(viewControllers: [GeneralController(), FolderController(), AdvancedController()], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
+        let controller = PreferencesController(
+            viewControllers: [
+                GeneralController(),
+                FolderController(),
+                AdvancedController()
+            ], title: NSLocalizedString("Preferences", comment: "PreferencesController")
+        )
         return controller
         #endif
     }()

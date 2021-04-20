@@ -132,7 +132,12 @@ extension NSColor {
         let normalizedHexString: String = NSColor.normalize(hex)
         var c: CUnsignedInt = 0
         Scanner(string: normalizedHexString).scanHexInt32(&c)
-        self.init(red: NSColorMasks.redValue(c), green: NSColorMasks.greenValue(c), blue: NSColorMasks.blueValue(c), alpha: alpha ?? NSColorMasks.alphaValue(c))
+        self.init(
+            red: NSColorMasks.redValue(c),
+            green: NSColorMasks.greenValue(c),
+            blue: NSColorMasks.blueValue(c),
+            alpha: alpha ?? NSColorMasks.alphaValue(c)
+        )
     }
 
     /**

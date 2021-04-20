@@ -64,7 +64,6 @@ class DragLineOverlay {
             window.backgroundColor = .clear
             window.isOpaque = false
             window.hasShadow = false
-            window.isOneShot = true
             window.level = NSWindow.Level(rawValue: 1)
 
             window.contentView?.needsLayout = true

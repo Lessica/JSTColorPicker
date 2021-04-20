@@ -13,7 +13,7 @@
 
 @implementation NSImage (OpenCV)
 
-- (CGImageRef)CGImage
+- (CGImageRef)cv_cgImage
 {
     CGContextRef bitmapCtx = CGBitmapContextCreate(NULL /* data - pass NULL to let CG allocate the memory */,
                                                    [self size].width,
@@ -24,7 +24,7 @@
                                                    kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedFirst);
     
     [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:bitmapCtx flipped:NO]];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithCGContext:bitmapCtx flipped:NO]];
     [self drawInRect:NSMakeRect(0,0, [self size].width, [self size].height) fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
     [NSGraphicsContext restoreGraphicsState];
     
@@ -37,7 +37,7 @@
 
 - (cv::Mat)CVMat
 {
-    CGImageRef imageRef = [self CGImage];
+    CGImageRef imageRef = [self cv_cgImage];
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(imageRef);
     CGFloat cols = self.size.width;
     CGFloat rows = self.size.height;
@@ -60,7 +60,7 @@
 
 - (cv::Mat)CVGrayscaleMat
 {
-    CGImageRef imageRef = [self CGImage];
+    CGImageRef imageRef = [self cv_cgImage];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     CGFloat cols = self.size.width;
     CGFloat rows = self.size.height;
