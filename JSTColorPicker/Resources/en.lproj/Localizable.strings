@@ -294,6 +294,9 @@
 /* Item #%@: %@ */
 "Item #%ld: %@" = "Item #%ld: %@";
 
+/* actionRequiresRestart(_:) */
+"Later" = "Later";
+
 /* Shortcut Guide */
 "List All Cascaded Annotations" = "List All Cascaded Annotations";
 
@@ -456,6 +459,9 @@
 
 /* openConsole() */
 "process:JSTColorPicker" = "process:JSTColorPicker";
+
+/* actionRequiresRestart(_:) */
+"Quit Now" = "Quit Now";
 
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "Reload All Templates";

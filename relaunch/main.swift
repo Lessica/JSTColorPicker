@@ -29,7 +29,7 @@ class Observer: NSObject {
 autoreleasepool {
     
     // the application pid
-    guard let parentPID = Int32(CommandLine.arguments[1]) else {
+    guard CommandLine.arguments.count > 1, let parentPID = Int32(CommandLine.arguments[1]) else {
         fatalError("Relaunch: parentPID == nil.")
     }
     

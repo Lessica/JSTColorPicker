@@ -59,7 +59,7 @@ class AdvancedController: NSViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        #if SANDBOXED
+        #if APP_STORE
         checkUpdatesCheckbox.isEnabled = false
         checkUpdatesCheckbox.alphaValue = 0
         #else
@@ -71,7 +71,7 @@ class AdvancedController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        #if !SANDBOXED
+        #if !APP_STORE
         UserDefaults.standard[.checkUpdatesAutomatically] = (NSApp.delegate as? AppDelegate)?.sparkUpdater.automaticallyChecksForUpdates ?? false
         #endif
     }
@@ -81,13 +81,23 @@ class AdvancedController: NSViewController {
         alert.alertStyle = .informational
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")
         alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
+        #if !APP_STORE
         alert.addButton(withTitle: NSLocalizedString("Restart", comment: "actionRequiresRestart(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "actionRequiresRestart(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 NSApp.relaunch(sender)
             }
         }
+        #else
+        alert.addButton(withTitle: NSLocalizedString("Quit Now", comment: "actionRequiresRestart(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
+        alert.beginSheetModal(for: view.window!) { resp in
+            if resp == .alertFirstButtonReturn {
+                NSApp.terminate(sender)
+            }
+        }
+        #endif
     }
     
 }

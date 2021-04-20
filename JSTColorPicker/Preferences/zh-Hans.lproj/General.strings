@@ -10,6 +10,9 @@
 /* Class = "NSButtonCell"; title = "Draw Borders in Scene"; ObjectID = "2st-bp-3gG"; */
 "2st-bp-3gG.title" = "在场景中绘制边框";
 
+/* Class = "NSTextFieldCell"; title = "Maximum Lines: "; ObjectID = "3TH-mY-Z6r"; */
+"3TH-mY-Z6r.title" = "最大行数: ";
+
 /* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
 "3vS-gW-0fD.ibShadowedToolTip" = "通用差异颜色";
 
@@ -18,6 +21,9 @@
 
 /* Class = "NSButtonCell"; title = "Ignore Invalid Deletion"; ObjectID = "5JF-OO-Avm"; */
 "5JF-OO-Avm.title" = "忽略无效的删除请求";
+
+/* Class = "NSTextFieldCell"; title = "Template Preview"; ObjectID = "agj-4X-jVe"; */
+"agj-4X-jVe.title" = "模版预览";
 
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "标注";
@@ -67,6 +73,9 @@
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "颜色网格";
 
+/* Class = "NSTextFieldCell"; title = "20"; ObjectID = "sHh-N4-mNq"; */
+"sHh-N4-mNq.title" = "20";
+
 /* Class = "NSButtonCell"; title = "Uses Detailed Tool Tips"; ObjectID = "spB-al-HtT"; */
 "spB-al-HtT.title" = "显示详细的提示资讯";
 
@@ -93,3 +102,6 @@
 
 /* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "最大数量";
+
+/* Class = "NSTabViewItem"; label = "Sidebar"; ObjectID = "zFo-Qt-27V"; */
+"zFo-Qt-27V.label" = "侧边栏";

@@ -294,6 +294,9 @@
 /* Item #%@: %@ */
 "Item #%ld: %@" = "项 #%ld: %@";
 
+/* actionRequiresRestart(_:) */
+"Later" = "稍后";
+
 /* Shortcut Guide */
 "List All Cascaded Annotations" = "列出所有层叠标注";
 
@@ -456,6 +459,9 @@
 
 /* openConsole() */
 "process:JSTColorPicker" = "进程:JSTColorPicker";
+
+/* actionRequiresRestart(_:) */
+"Quit Now" = "立即退出";
 
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "重新加载所有模版";

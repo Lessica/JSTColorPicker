@@ -331,7 +331,11 @@ class TagListController: StackedPaneController {
     
     class func destoryPersistentStore() throws
     {
+        if let coordinator = TagListController.sharedContext?.persistentStoreCoordinator {
+            try coordinator.persistentStores.forEach({ try coordinator.remove($0) })
+        }
         TagListController.sharedContext = nil
+
         let itemsToRemove = [
             persistentStoreURL,
             persistentStoreURL.deletingPathExtension().appendingPathExtension("sqlite-wal"),

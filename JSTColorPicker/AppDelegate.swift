@@ -12,7 +12,7 @@ import MASPreferences
 import ServiceManagement
 import Carbon
 
-#if !SANDBOXED
+#if !APP_STORE
 import LetsMove
 #else
 import SwiftyStoreKit
@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     public var tabService: TabService?
     public var helperConnection: NSXPCConnection?
     
-    #if !SANDBOXED
+    #if !APP_STORE
     @IBOutlet public var sparkUpdater: SUUpdater!
     #else
     @IBOutlet public var sparkUpdater: SUUpdater!
@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private lazy var preferencesController: NSWindowController = {
-        #if SANDBOXED
+        #if APP_STORE
         let controller = PreferencesController(viewControllers: [GeneralController(), FolderController(), AdvancedController(), SubscriptionController()], title: NSLocalizedString("Preferences", comment: "PreferencesController"))
         return controller
         #else
@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Application Events
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        #if !DEBUG && !SANDBOXED
+        #if !DEBUG && !APP_STORE
         PFMoveToApplicationsFolderIfNecessary()
         #endif
     }
@@ -119,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
 
-        #if SANDBOXED
+        #if APP_STORE
         // see notes below for the meaning of Atomic / Non-Atomic
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
@@ -164,7 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.helperConnection = nil
         }
         
-        #if SANDBOXED
+        #if APP_STORE
         let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
         #else
         let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
@@ -546,7 +546,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
                 menuItem.action == #selector(notifyXPCDiscoverDevices(_:))
         {
             guard !hasAttachedSheet else { return false }
-            #if SANDBOXED
+            #if APP_STORE
             return applicationHasScreenshotHelper()
             #else
             return true
@@ -616,7 +616,7 @@ by \(template.author ?? "Unknown")
     
     private func updateDevicesMenuItems() {
         devicesEnableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
-        #if SANDBOXED
+        #if APP_STORE
         devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
         #endif
     }
@@ -735,7 +735,7 @@ extension AppDelegate {
     
     // MARK: - Device List
     
-    #if SANDBOXED
+    #if APP_STORE
     public func applicationHasScreenshotHelper() -> Bool {
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
         return FileManager.default.fileExists(atPath: launchAgentPath)
@@ -755,7 +755,7 @@ extension AppDelegate {
     }
     
     private func applicationXPCResetUI(with additionalItems: [NSMenuItem] = []) {
-        #if SANDBOXED
+        #if APP_STORE
         if !applicationHasScreenshotHelper() {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
             downloadItem.target = self
@@ -804,7 +804,7 @@ extension AppDelegate {
     
     // MARK: - Device Action: Download Redirect
 
-    #if SANDBOXED
+    #if APP_STORE
     @objc private func actionRedirectToDownloadPage() {
         if let url = URL(string: "https://82flex.com/jstcpweb/helper.html") {
             NSWorkspace.shared.open(url)
@@ -848,7 +848,7 @@ extension AppDelegate {
 
 extension AppDelegate {
     
-    #if SANDBOXED
+    #if APP_STORE
     enum ScriptError: LocalizedError {
         case applicationNotFound(identifier: String)
         case cannotOpenApplicationAtURL(url: URL)
@@ -920,7 +920,7 @@ extension AppDelegate {
         }
     }
 
-    #if SANDBOXED
+    #if APP_STORE
     private func promiseConnectXPCService() -> Promise<JSTScreenshotHelperProtocol> {
         return Promise { seal in
             guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
@@ -938,7 +938,7 @@ extension AppDelegate {
     }
     #endif
 
-    #if SANDBOXED
+    #if APP_STORE
     private func promiseTellConsoleToStartStreaming(_ proxy: JSTScreenshotHelperProtocol) -> Promise<Bool> {
         return Promise { seal in
             proxy.tellConsoleToStartStreaming { (data, error) in
@@ -952,7 +952,7 @@ extension AppDelegate {
     }
     #endif
 
-    #if SANDBOXED
+    #if APP_STORE
     @discardableResult
     private func openConsole() throws -> Bool {
         firstly {

@@ -29,7 +29,7 @@ class WindowController: NSWindowController {
 
     private var isInComparisonMode: Bool = false
     private var isScreenshotActionAllowed: Bool {
-        #if SANDBOXED
+        #if APP_STORE
         return AppDelegate.shared.applicationHasScreenshotHelper() && (documentState.isReadable || !documentState.isLoaded)
         #else
         return documentState.isReadable || !documentState.isLoaded

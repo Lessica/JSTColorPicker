@@ -12,8 +12,12 @@ import MASPreferences
 class GeneralController: NSViewController {
     
     @IBOutlet weak var tabView: NSTabView!
-    @objc dynamic var maximumCount: Int = 9999
-    @objc dynamic var minimumCount: Int = 1
+    
+    @objc dynamic var maximumAnnotations: Int = 999
+    @objc dynamic var minimumAnnotations: Int = 1
+
+    @objc dynamic var maximumTemplatePreviewLines: Int = 99
+    @objc dynamic var minimumTemplatePreviewLines: Int = 5
     
     init() {
         super.init(nibName: "General", bundle: nil)

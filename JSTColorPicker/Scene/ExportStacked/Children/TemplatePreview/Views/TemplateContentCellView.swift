@@ -23,9 +23,9 @@ class TemplateContentCellView: NSTableCellView {
         set { imageView?.image = newValue }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        textField?.maximumNumberOfLines = min(max(UserDefaults.standard[.maximumPreviewLineCount], 10), 100)
+    var maximumNumberOfLines: Int? {
+        get { textField?.maximumNumberOfLines }
+        set { textField?.maximumNumberOfLines = min(max(newValue ?? 20, 5), 99) }
     }
     
 }

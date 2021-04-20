@@ -43,7 +43,7 @@
 
 @end
 
-#if SANDBOXED
+#if APP_STORE
 
 #import <spawn.h>
 extern char **environ;

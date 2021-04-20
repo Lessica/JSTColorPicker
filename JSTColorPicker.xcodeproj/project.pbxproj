@@ -495,7 +495,6 @@
 		D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D684842323D4106900BC5E34 /* GridWindowController.swift */; };
 		D68A1FD62498B17F001E3FDA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68A1FD52498B17F001E3FDA /* main.swift */; };
 		D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D68A1FD32498B17F001E3FDA /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D68A1FE22498B439001E3FDA /* relaunch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D68A1FD32498B17F001E3FDA /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
 		D690C95724192C2A00BB1652 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
@@ -643,13 +642,6 @@
 			remoteGlobalIDString = D68A1FD22498B17F001E3FDA;
 			remoteInfo = relaunch;
 		};
-		D68A1FDF2498B420001E3FDA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D68A1FD22498B17F001E3FDA;
-			remoteInfo = relaunch;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -759,17 +751,6 @@
 			dstSubfolderSpec = 7;
 			files = (
 				D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */,
-			);
-			name = "Embed Tools";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D68A1FE12498B426001E3FDA /* Embed Tools */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-				D68A1FE22498B439001E3FDA /* relaunch in Embed Tools */,
 			);
 			name = "Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2593,7 +2574,6 @@
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 				D69FD93C24741A4000ACBF74 /* Embed Dynamic Libraries */,
-				D68A1FE12498B426001E3FDA /* Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -2601,7 +2581,6 @@
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
-				D68A1FE02498B420001E3FDA /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
 			packageProductDependencies = (
@@ -3450,11 +3429,6 @@
 			target = D68A1FD22498B17F001E3FDA /* relaunch */;
 			targetProxy = D68A1FDA2498B225001E3FDA /* PBXContainerItemProxy */;
 		};
-		D68A1FE02498B420001E3FDA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D68A1FD22498B17F001E3FDA /* relaunch */;
-			targetProxy = D68A1FDF2498B420001E3FDA /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -4014,7 +3988,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"SANDBOXED=1",
+					"APP_STORE=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4043,7 +4017,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOXED=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "APP_STORE=1";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
@@ -4197,7 +4171,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"SANDBOXED=1",
+					"APP_STORE=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4215,7 +4189,7 @@
 					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.4;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D SANDBOXED";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -4237,7 +4211,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"SANDBOXED=1",
+					"APP_STORE=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4255,7 +4229,7 @@
 					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MARKETING_VERSION = 2.4;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D SANDBOXED";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D APP_STORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";

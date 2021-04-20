@@ -65,6 +65,10 @@ class TemplatePreviewController: StackedPaneController {
     private        var documentExport         : ExportManager?   { screenshot?.export  }
     private        var documentState          : Screenshot.State { screenshot?.state ?? .notLoaded }
 
+    private        let observableKeys         : [UserDefaults.Key] = [.maximumPreviewLineCount]
+    private        var observables            : [Observable]?
+    private        var maximumNumberOfLines   : Int = min(max(UserDefaults.standard[.maximumPreviewLineCount], 5), 99)
+
     private var actionSelectedRowIndex: Int? {
         (outlineView.clickedRow >= 0 && !outlineView.selectedRowIndexes.contains(outlineView.clickedRow)) ? outlineView.clickedRow : outlineView.selectedRowIndexes.first
     }
@@ -105,6 +109,8 @@ class TemplatePreviewController: StackedPaneController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewState()
+
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
         
         NotificationCenter.default.addObserver(
             self,
@@ -132,6 +138,18 @@ class TemplatePreviewController: StackedPaneController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+
+
+    // MARK: - Defaults
+
+    private func prepareDefaults() { }
+
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if defaultKey == .maximumPreviewLineCount, let toValue = defaultValue as? Int {
+            maximumNumberOfLines = toValue
+            outlineView.reloadData()
+        }
     }
     
     
@@ -799,6 +817,7 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
                 cell.text = documentState.isLoaded
                     ? (templateObj.contents ?? templateObj.error ?? NSLocalizedString("Generating...", comment: "Outline Generation"))
                     : Error.documentNotLoaded.localizedDescription
+                cell.maximumNumberOfLines = maximumNumberOfLines
                 return cell
             }
         }
