@@ -6,16 +6,24 @@
 //  Copyright © 2021 JST. All rights reserved.
 //
 
+import Cocoa
+
 class TemplateContentCellView: NSTableCellView {
     
-    private static let textAttributes: [NSAttributedString.Key: Any] = [
-        .font: NSFont.monospacedSystemFont(ofSize: 11.0, weight: .regular),
+    static let defaultFontSize        : CGFloat = 11.0
+    static let defaultTextAttributes  : [NSAttributedString.Key: Any] = [
+        .font: NSFont.monospacedSystemFont(ofSize: defaultFontSize, weight: .regular),
         .foregroundColor: NSColor.labelColor,
     ]
 
     var text: String? {
         get { textField?.stringValue }
-        set { textField?.attributedStringValue = NSAttributedString(string: newValue ?? "", attributes: TemplateContentCellView.textAttributes) }
+        set { textField?.stringValue = newValue ?? "" }
+    }
+    
+    var attributedText: NSAttributedString? {
+        get { textField?.attributedStringValue }
+        set { textField?.attributedStringValue = newValue ?? NSAttributedString(string: "", attributes: TemplateContentCellView.defaultTextAttributes) }
     }
 
     var image: NSImage? {

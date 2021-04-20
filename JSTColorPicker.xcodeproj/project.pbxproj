@@ -171,6 +171,12 @@
 		CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
 		CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
+		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
+		CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525AD262EB72800D408B0 /* SyntaxKit */; };
+		CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
+		CCC525B8262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
+		CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */; };
+		CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */; };
 		CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD815F261C16F100BFDD6E /* SegmentController.swift */; };
 		CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD815F261C16F100BFDD6E /* SegmentController.swift */; };
 		CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD817A261C2DD000BFDD6E /* Segment.storyboard */; };
@@ -917,6 +923,8 @@
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
+		CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TemplatePreview.bundle; sourceTree = "<group>"; };
+		CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveAppearanceObserver.swift; sourceTree = "<group>"; };
 		CCCD815F261C16F100BFDD6E /* SegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentController.swift; sourceTree = "<group>"; };
 		CCCD8179261C2DD000BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Segment.storyboard; sourceTree = "<group>"; };
 		CCCD8183261C2DD300BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Segment.strings; sourceTree = "<group>"; };
@@ -1246,6 +1254,7 @@
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
+				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
 				CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */,
 			);
@@ -1292,6 +1301,7 @@
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
+				CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */,
 				CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1366,6 +1376,7 @@
 		CC300EFF262843A3002FD866 /* TemplatePreview */ = {
 			isa = PBXGroup;
 			children = (
+				CCC525C4262EF4CF00D408B0 /* Protocols */,
 				CC300F4826285E13002FD866 /* Views */,
 				CC300F1F26284536002FD866 /* TemplatePreview.storyboard */,
 				CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */,
@@ -1439,7 +1450,6 @@
 			isa = PBXGroup;
 			children = (
 				CC8E5D74262818480030B2FC /* Children */,
-				CCB769F5260A22170029693B /* Resources */,
 				CCCD821F261C5FE200BFDD6E /* Models */,
 				CC3C4B0C26202E3400794806 /* Views */,
 				CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */,
@@ -1679,12 +1689,12 @@
 			path = lpeg;
 			sourceTree = "<group>";
 		};
-		CCB769F5260A22170029693B /* Resources */ = {
+		CCC525C4262EF4CF00D408B0 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */,
+				CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */,
 			);
-			path = Resources;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		CCCD8154261C16D300BFDD6E /* Segment */ = {
@@ -2228,6 +2238,8 @@
 		D69974E22416574D00223B31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */,
+				CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */,
 				D658AFA123CB180D0098C567 /* Assets.xcassets */,
 				CCFECFAA262D50D0001F6467 /* open_console.scpt */,
 				CCED7CF7262D68D600F2C965 /* InfoPlist.strings */,
@@ -2502,6 +2514,7 @@
 			name = JSTColorPickerSparkle;
 			packageProductDependencies = (
 				CCABB72D260F5E83000AC582 /* ShortcutGuide */,
+				CCC525A4262EB71F00D408B0 /* SyntaxKit */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -2585,6 +2598,7 @@
 			name = JSTColorPicker;
 			packageProductDependencies = (
 				CCABB72F260F5E8C000AC582 /* ShortcutGuide */,
+				CCC525AD262EB72800D408B0 /* SyntaxKit */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -2695,6 +2709,7 @@
 			);
 			mainGroup = D658AF9123CB180C0098C567;
 			packageReferences = (
+				CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -2736,6 +2751,7 @@
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */,
+				CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
@@ -2809,6 +2825,7 @@
 				D6E166A6248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CCCD81ED261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
 				CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */,
+				CCC525B8262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
 				CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */,
@@ -2946,6 +2963,7 @@
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
+				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
@@ -3298,6 +3316,7 @@
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
+				CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
 				CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCF7F1372618CA2500ED16B7 /* InspectorView.swift in Sources */,
@@ -4432,6 +4451,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		CCABB72D260F5E83000AC582 /* ShortcutGuide */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -4440,6 +4470,16 @@
 		CCABB72F260F5E8C000AC582 /* ShortcutGuide */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ShortcutGuide;
+		};
+		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
+			productName = SyntaxKit;
+		};
+		CCC525AD262EB72800D408B0 /* SyntaxKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
+			productName = SyntaxKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

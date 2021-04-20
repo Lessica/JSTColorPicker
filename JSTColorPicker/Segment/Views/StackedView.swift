@@ -27,7 +27,7 @@ class StackedView: NSSplitView {
     }
 
     override var dividerColor: NSColor {
-        if NSAppearance.current.isLight {
+        if effectiveAppearance.isLight {
             return super.dividerColor
         } else {
             return NSColor.secondaryLabelColor.withAlphaComponent(0.24)

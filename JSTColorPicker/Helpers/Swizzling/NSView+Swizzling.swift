@@ -56,7 +56,7 @@ extension NSView: SwizzlingInjection {
             
             self.widget_updateLayer()
             // Remove corner radius with the alternative mask image
-            layer?.contents = NSAppearance.current.isLight
+            layer?.contents = effectiveAppearance.isLight
                 ? NSView.cornerMaskImageAqua
                 : NSView.cornerMaskImageDarkAqua
         }

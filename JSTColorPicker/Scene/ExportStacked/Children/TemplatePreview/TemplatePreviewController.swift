@@ -8,6 +8,7 @@
 
 import Cocoa
 import PromiseKit
+import SyntaxKit
 
 private extension NSUserInterfaceItemIdentifier {
     static let columnName = NSUserInterfaceItemIdentifier("col-name")
@@ -19,6 +20,12 @@ private extension NSUserInterfaceItemIdentifier {
 }
 
 struct TemplatePreviewObject: Equatable {
+    internal init(uuidString: String, contents: String?, error: String?) {
+        self.uuidString = uuidString
+        self.contents = contents
+        self.error = error
+    }
+    
     let uuidString: String
     let contents: String?
     let error: String?
@@ -26,7 +33,7 @@ struct TemplatePreviewObject: Equatable {
     static let empty = TemplatePreviewObject(uuidString: "", contents: nil, error: nil)
 }
 
-class TemplatePreviewController: StackedPaneController {
+class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
 
     enum Error: LocalizedError {
         case documentNotLoaded
@@ -54,12 +61,13 @@ class TemplatePreviewController: StackedPaneController {
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-preview") }
 
     @IBOutlet weak var timerButton            : NSButton!
-    @IBOutlet weak var outlineView            : NSOutlineView!
+    @IBOutlet weak var outlineView            : TemplateOutlineView!
     @IBOutlet weak var emptyOutlineLabel      : NSTextField!
     @IBOutlet      var outlineMenu            : NSMenu!
     @IBOutlet      var outlineHeaderMenu      : NSMenu!
     @IBOutlet weak var togglePreviewMenuItem  : NSMenuItem!
     @IBOutlet weak var toggleAllMenuItem      : NSMenuItem!
+    @IBOutlet weak var setAsSelectedMenuItem  : NSMenuItem!
 
     private        var documentContent        : Content?         { screenshot?.content }
     private        var documentExport         : ExportManager?   { screenshot?.export  }
@@ -108,6 +116,9 @@ class TemplatePreviewController: StackedPaneController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        outlineView.appearanceObserver = self
+        prepareDefaults()
         updateViewState()
 
         observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
@@ -130,10 +141,20 @@ class TemplatePreviewController: StackedPaneController {
     override func viewDidAppear() {
         super.viewDidAppear()
         processPreviewContextIfNeeded()
+        reloadDataIfNeeded()
+    }
+    
+    func viewDidChangeEffectiveAppearance() {
+        setNeedsReloadData()
+        guard !isPaneHidden && !isWindowHidden else {
+            return
+        }
+        reloadDataIfNeeded()
     }
     
     @objc private func windowVisibilityDidChange(_ noti: Notification) {
         processPreviewContextIfNeeded()
+        reloadDataIfNeeded()
     }
     
     deinit {
@@ -150,6 +171,126 @@ class TemplatePreviewController: StackedPaneController {
             maximumNumberOfLines = toValue
             outlineView.reloadData()
         }
+    }
+    
+    
+    // MARK: - Syntax Highlighting
+    
+    private var _shouldReloadData: Bool = false
+    private func setNeedsReloadData() {
+        _shouldReloadData = true
+    }
+    private func reloadDataIfNeeded() {
+        if _shouldReloadData {
+            _shouldReloadData = false
+            outlineView.reloadData()
+        }
+    }
+    
+    private static let highlightMaximumLines              : Int = 128
+    private static let highlightMaximumCharactersPerLine  : Int = 256
+    private static func shouldHighlightContents(_ contents: String) -> Bool {
+        guard !contents.isEmpty else { return false }
+        
+        // line count
+        var beginIndex: String.Index = contents.startIndex
+        let endIndex: String.Index = contents.endIndex
+        var lineCount = 0
+        while let separatorRange = contents.range(of: "\n", options: [], range: beginIndex..<endIndex)
+        {
+            beginIndex = separatorRange.upperBound
+            lineCount += 1
+            guard lineCount < highlightMaximumLines else { return false }
+        }
+        
+        // character count
+        guard contents.split(separator: "\n").firstIndex(where: { $0.count > highlightMaximumCharactersPerLine }) == nil
+        else { return false }
+        
+        return true
+    }
+    
+    private static let registeredLanguageIdentifiers      : [String] = [
+        "source.json",
+        "source.lua",
+        "text.xml",
+        "text.xml.plist",
+        "source.yaml",
+    ]
+    
+    private static var registeredLanguages                : [Language] = {
+        return registeredLanguageIdentifiers.compactMap({ syntaxManager.language(withIdentifier: $0) })
+    }()
+    
+    private static func languageForExtension(_ ext: String) -> Language? {
+        return registeredLanguages.first(where: { $0.fileTypes.contains(ext) })
+    }
+    
+    private static let syntaxBundle   = Bundle(url: Bundle.main.url(forResource: "TemplatePreview", withExtension: "bundle")!)!
+    private static let syntaxManager  = BundleManager { (identifier, type) -> (URL?) in
+        if identifier == "source.json" && type == .language {
+            return syntaxBundle.url(forResource: "JSON", withExtension: "tmLanguage")
+        }
+        else if identifier == "source.lua" && type == .language {
+            return syntaxBundle.url(forResource: "Lua", withExtension: "tmLanguage")
+        }
+        else if identifier == "source.yaml" && type == .language {
+            return syntaxBundle.url(forResource: "YAML", withExtension: "tmLanguage")
+        }
+        else if identifier == "text.xml" && type == .language {
+            return syntaxBundle.url(forResource: "XML", withExtension: "tmLanguage")
+        }
+        else if identifier == "text.xml.plist" && type == .language {
+            return syntaxBundle.url(forResource: "Property List (XML)", withExtension: "tmLanguage")
+        }
+        else if identifier == "theme.light.tomorrow" && type == .theme {
+            return syntaxBundle.url(forResource: "Tomorrow", withExtension: "tmTheme")
+        }
+        else if identifier == "theme.dark.tomorrow" && type == .theme {
+            return syntaxBundle.url(forResource: "Tomorrow-Night", withExtension: "tmTheme")
+        }
+        return nil
+    }
+    
+    private static func syntaxFontCallback(_ fontName: String, _ fontSize: CGFloat, _ fontStyle: FontStyle) -> (Font?) {
+        switch fontStyle {
+        case .bold:
+            return Font.monospacedSystemFont(ofSize: TemplateContentCellView.defaultFontSize, weight: .bold)
+        case .italic:
+            return Font.monospacedSystemFont(ofSize: TemplateContentCellView.defaultFontSize, weight: .regular).italic()
+        case .boldItalic:
+            return Font.monospacedSystemFont(ofSize: TemplateContentCellView.defaultFontSize, weight: .bold).italic()
+        default:
+            return Font.monospacedSystemFont(ofSize: TemplateContentCellView.defaultFontSize, weight: .regular)
+        }
+    }
+    
+    private static var lightTheme: Theme = {
+        return TemplatePreviewController.syntaxManager.theme(
+            withIdentifier: "theme.light.tomorrow",
+            fontCallback: TemplatePreviewController.syntaxFontCallback(_:_:_:)
+        )!
+    }()
+    
+    private static var darkTheme: Theme = {
+        return TemplatePreviewController.syntaxManager.theme(
+            withIdentifier: "theme.dark.tomorrow",
+            fontCallback: TemplatePreviewController.syntaxFontCallback(_:_:_:)
+        )!
+    }()
+    
+    private var effectiveTheme: Theme {
+        return view.effectiveAppearance.isLight ? TemplatePreviewController.lightTheme : TemplatePreviewController.darkTheme
+    }
+    
+    private func effectiveParserForExtension(_ ext: String) -> AttributedParser? {
+        guard let language = TemplatePreviewController.languageForExtension(ext) else { return nil }
+        return AttributedParser(language: language, theme: effectiveTheme)
+    }
+    
+    private func effectiveParserForTemplate(_ tmpl: Template) -> AttributedParser? {
+        guard let ext = tmpl.userExtension else { return nil }
+        return effectiveParserForExtension(ext)
     }
     
     
@@ -342,7 +483,7 @@ class TemplatePreviewController: StackedPaneController {
     }
     
     
-    // MARK: - Preview Contents
+    // MARK: - Prepare Contents
     
     private var cachedPreviewContents  : [String: TemplatePreviewObject] = [:]
     private let cachingQueue           : DispatchQueue = DispatchQueue(label: "CachedPreviewContents.Queue", qos: .background, attributes: .concurrent)
@@ -391,7 +532,7 @@ class TemplatePreviewController: StackedPaneController {
             do {
                 previewObj = TemplatePreviewObject(
                     uuidString: template.uuid.uuidString,
-                    contents: try exportManager.generateAllContentItems(with: template),
+                    contents: (try exportManager.generateAllContentItems(with: template)).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
                     error: nil
                 )
             } catch {
@@ -814,14 +955,50 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
             else if let templateObj = item as? TemplatePreviewObject,
                     let cell = outlineView.makeView(withIdentifier: .cellTemplateContent, owner: nil) as? TemplateContentCellView
             {
-                cell.text = documentState.isLoaded
-                    ? (templateObj.contents ?? templateObj.error ?? NSLocalizedString("Generating...", comment: "Outline Generation"))
-                    : Error.documentNotLoaded.localizedDescription
+                var attributedText: NSAttributedString
+                if !documentState.isLoaded {
+                    attributedText = NSAttributedString(
+                        string: Error.documentNotLoaded.localizedDescription,
+                        attributes: TemplateContentCellView.defaultTextAttributes
+                    )
+                } else if let contents = templateObj.contents,
+                          let template = templateWithUUIDString(templateObj.uuidString)
+                {
+                    if TemplatePreviewController.shouldHighlightContents(contents),
+                       let parser = effectiveParserForTemplate(template)
+                    {
+                        attributedText = parser.attributedString(
+                            for: contents,
+                            base: TemplateContentCellView.defaultTextAttributes
+                        )
+                    } else {
+                        attributedText = NSAttributedString(
+                            string: contents,
+                            attributes: TemplateContentCellView.defaultTextAttributes
+                        )
+                    }
+                } else if let errorString = templateObj.error {
+                    attributedText = NSAttributedString(
+                        string: errorString,
+                        attributes: TemplateContentCellView.defaultTextAttributes
+                    )
+                } else {
+                    attributedText = NSAttributedString(
+                        string: NSLocalizedString("Generating...", comment: "Outline Generation"),
+                        attributes: TemplateContentCellView.defaultTextAttributes
+                    )
+                }
+                
+                cell.attributedText = attributedText
                 cell.maximumNumberOfLines = maximumNumberOfLines
                 return cell
             }
         }
         return nil
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        return false
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldExpandItem item: Any) -> Bool {

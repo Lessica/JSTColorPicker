@@ -90,6 +90,27 @@ extension Data {
     var bitmap: NSBitmapImageRep? { NSBitmapImageRep(data: self) }
 }
 
+extension NSFont {
+    func withTraits(traits: NSFontTraitMask) -> NSFont {
+        return NSFontManager.shared.convert(
+            self,
+            toHaveTrait: traits
+        )
+    }
+    
+    func bold() -> NSFont {
+        return withTraits(traits: .boldFontMask)
+    }
+    
+    func italic() -> NSFont {
+        return withTraits(traits: .italicFontMask)
+    }
+    
+    func boldItalic() -> NSFont {
+        return withTraits(traits: [.boldFontMask, .italicFontMask])
+    }
+}
+
 extension NSColor {
     
     /**

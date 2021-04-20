@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SyntaxKit",
+        "repositoryURL": "git@github.com:Lessica/SyntaxKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "645735192d57c672e2c03b4be19a76ae542dd676",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

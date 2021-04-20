@@ -25,7 +25,7 @@
                                                 <rect key="frame" x="1" y="1" width="240" height="556"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="332" height="528"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="4" height="2"/>
@@ -50,7 +50,7 @@
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESU-Qk-5MC">
                                                                                 <rect key="frame" x="0.0" y="1" width="328" height="14"/>
-                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="azV-5Z-3ic">
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="..." usesSingleLineMode="YES" id="azV-5Z-3ic">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -68,14 +68,17 @@
                                                                             <outlet property="textField" destination="ESU-Qk-5MC" id="5Av-MF-qah"/>
                                                                         </connections>
                                                                     </tableCellView>
-                                                                    <tableCellView identifier="cell-template-content" misplaced="YES" id="NnQ-8B-mUA" customClass="TemplateContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                    <tableCellView identifier="cell-template-content" id="NnQ-8B-mUA" customClass="TemplateContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
                                                                         <rect key="frame" x="2" y="19" width="328" height="52"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZ4-zK-HDN">
-                                                                                <rect key="frame" x="0.0" y="2" width="328" height="32"/>
-                                                                                <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell Table View Cell Table View Cell Table View Cell Table View Cell" id="5X1-sF-u79">
+                                                                                <rect key="frame" x="0.0" y="2" width="328" height="48"/>
+                                                                                <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" id="5X1-sF-u79">
                                                                                     <font key="font" usesAppearanceFont="YES"/>
+                                                                                    <string key="title">...
+...
+...</string>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
@@ -175,6 +178,7 @@
                         <outlet property="outlineMenu" destination="06z-Oa-lyK" id="KQC-Iu-8CQ"/>
                         <outlet property="outlineView" destination="GMz-mc-eIC" id="Fzf-M6-rH0"/>
                         <outlet property="paneBox" destination="6E7-dV-CCY" id="fE9-Pa-f4J"/>
+                        <outlet property="setAsSelectedMenuItem" destination="t3u-gb-wJr" id="obH-fB-yEw"/>
                         <outlet property="timerButton" destination="SSM-Hr-J7n" id="44U-BZ-Nqe"/>
                         <outlet property="toggleAllMenuItem" destination="Bix-sf-pXq" id="ika-jJ-Qpa"/>
                         <outlet property="togglePreviewMenuItem" destination="Htl-dB-9fJ" id="y7i-sa-Xru"/>

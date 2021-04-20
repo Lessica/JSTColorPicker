@@ -8,4 +8,13 @@
 
 import Cocoa
 
-class TemplateOutlineView: NSOutlineView { }
+class TemplateOutlineView: NSOutlineView {
+    
+    weak var appearanceObserver: EffectiveAppearanceObserver?
+    
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        appearanceObserver?.viewDidChangeEffectiveAppearance()
+    }
+    
+}

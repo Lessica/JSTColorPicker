@@ -13,14 +13,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="92"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="750" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQo-5E-QcD">
-                    <rect key="frame" x="20" y="20" width="440" height="52"/>
+                    <rect key="frame" x="20" y="20" width="500" height="52"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UkO-PC-M9V">
-                            <rect key="frame" x="144" y="36" width="153" height="16"/>
+                            <rect key="frame" x="174" y="36" width="153" height="16"/>
                             <textFieldCell key="cell" lineBreakMode="clipping" title="Valid Subscription: None" id="IV7-RX-tML">
                                 <font key="font" usesAppearanceFont="YES"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -28,20 +28,20 @@
                             </textFieldCell>
                         </textField>
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxa-Le-u4Y">
-                            <rect key="frame" x="0.0" y="0.0" width="440" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="20"/>
                             <subviews>
                                 <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="GBG-DP-NM7">
-                                    <rect key="frame" x="0.0" y="0.0" width="132" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="162" height="20"/>
                                 </customView>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p3b-vd-Mmc">
-                                    <rect key="frame" x="133" y="-7" width="174" height="32"/>
+                                    <rect key="frame" x="163" y="-7" width="174" height="32"/>
                                     <buttonCell key="cell" type="push" title="Manage Subscription..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ubx-34-m7e">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
                                 <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="1Cj-Dp-XLJ">
-                                    <rect key="frame" x="308" y="0.0" width="132" height="20"/>
+                                    <rect key="frame" x="338" y="0.0" width="162" height="20"/>
                                 </customView>
                             </subviews>
                             <constraints>
@@ -60,6 +60,7 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="XiH-CK-wWY"/>
                         <constraint firstItem="dxa-Le-u4Y" firstAttribute="width" secondItem="nQo-5E-QcD" secondAttribute="width" id="iNK-h7-P0t"/>
                     </constraints>
                     <visibilityPriorities>

@@ -49,6 +49,7 @@ class Template {
     private(set) var platformVersion      : String
     private(set) var author               : String?
     private(set) var userDescription      : String?
+    private(set) var userExtension        : String?
     private(set) var allowedExtensions    : [String]
 
     private(set) var isAsync              : Bool
@@ -92,8 +93,10 @@ class Template {
             self.userDescription = stringDict["description"]
             
             if let ext = stringDict["extension"] {
+                self.userExtension = ext
                 self.allowedExtensions = [ext]
             } else {
+                self.userExtension = nil
                 self.allowedExtensions = []
             }
 

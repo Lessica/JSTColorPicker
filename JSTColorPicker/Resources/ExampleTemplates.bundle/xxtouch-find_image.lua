@@ -18,6 +18,7 @@ local generator = function (image, ...)
             end), 32), "\n")
             extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.minX) .. ", " .. tostring(a.minY) .. ", " .. tostring(a.maxX) .. ", " .. tostring(a.maxY)
             processed = true
+            break
         end
     end
     str = str .. "\n]]" .. extraEndings .. ")"
