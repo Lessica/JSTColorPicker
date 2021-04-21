@@ -98,6 +98,10 @@ extension NSFont {
         )
     }
     
+    func normal() -> NSFont {
+        return withTraits(traits: [])
+    }
+    
     func bold() -> NSFont {
         return withTraits(traits: .boldFontMask)
     }
@@ -130,8 +134,8 @@ extension NSColor {
      */
     convenience init(hex: String?, alpha: CGFloat? = nil) {
         let normalizedHexString: String = NSColor.normalize(hex)
-        var c: CUnsignedInt = 0
-        Scanner(string: normalizedHexString).scanHexInt32(&c)
+        var c: CUnsignedLongLong = 0
+        Scanner(string: normalizedHexString).scanHexInt64(&c)
         self.init(
             red: NSColorMasks.redValue(c),
             green: NSColorMasks.greenValue(c),
@@ -160,25 +164,25 @@ extension NSColor {
         return color
     }
 
-    fileprivate enum NSColorMasks: CUnsignedInt {
+    fileprivate enum NSColorMasks: CUnsignedLongLong {
         case redMask    = 0xff000000
         case greenMask  = 0x00ff0000
         case blueMask   = 0x0000ff00
         case alphaMask  = 0x000000ff
 
-        static func redValue(_ value: CUnsignedInt) -> CGFloat {
+        static func redValue(_ value: CUnsignedLongLong) -> CGFloat {
             return CGFloat((value & redMask.rawValue) >> 24) / 255.0
         }
 
-        static func greenValue(_ value: CUnsignedInt) -> CGFloat {
+        static func greenValue(_ value: CUnsignedLongLong) -> CGFloat {
             return CGFloat((value & greenMask.rawValue) >> 16) / 255.0
         }
 
-        static func blueValue(_ value: CUnsignedInt) -> CGFloat {
+        static func blueValue(_ value: CUnsignedLongLong) -> CGFloat {
             return CGFloat((value & blueMask.rawValue) >> 8) / 255.0
         }
 
-        static func alphaValue(_ value: CUnsignedInt) -> CGFloat {
+        static func alphaValue(_ value: CUnsignedLongLong) -> CGFloat {
             return CGFloat(value & alphaMask.rawValue) / 255.0
         }
     }

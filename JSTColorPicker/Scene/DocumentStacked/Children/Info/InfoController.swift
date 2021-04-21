@@ -58,6 +58,11 @@ class InfoController: StackedPaneController {
             ? NSLocalizedString("Info (Primary)", comment: "reloadPane()")
             : NSLocalizedString("Info (Secondary)", comment: "reloadPane()")
     }
+    
+    private static let availableHints: [String] = [
+        NSLocalizedString("Open an image of the same size for image comparison.", comment: "availableHints"),
+        NSLocalizedString("Double click **Command (⌘)** to toggle command palette.", comment: "availableHints"),
+    ]
 
     private func updateInformationPane(alternativeURL url: URL? = nil) {
         if let imageSource = imageSource {
@@ -72,9 +77,10 @@ class InfoController: StackedPaneController {
                 errorLabel.isHidden = false
             }
         } else {
-            errorLabel.stringValue = style == .primary
+            let errorString = style == .primary
                 ? NSLocalizedString("Open or drop an image here.", comment: "reloadPane()")
-                : NSLocalizedString("Open an image of the same size for image comparison.", comment: "reloadPane()")
+                : InfoController.availableHints.randomElement() ?? ""
+            errorLabel.attributedStringValue = errorString.markdownAttributed
             infoView.isHidden = true
             errorLabel.isHidden = false
             infoView.reset()

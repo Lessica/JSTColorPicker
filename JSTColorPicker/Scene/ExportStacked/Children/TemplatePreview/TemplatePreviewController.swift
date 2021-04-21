@@ -73,8 +73,10 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     private        var documentExport         : ExportManager?   { screenshot?.export  }
     private        var documentState          : Screenshot.State { screenshot?.state ?? .notLoaded }
 
-    private        let observableKeys         : [UserDefaults.Key] = [.maximumPreviewLineCount]
+    private        let observableKeys         : [UserDefaults.Key] = [.maximumPreviewLineCount, .enableSyntaxHighlighting]
     private        var observables            : [Observable]?
+    
+    private        var syntaxHighlighting     : Bool = UserDefaults.standard[.enableSyntaxHighlighting]
     private        var maximumNumberOfLines   : Int = min(max(UserDefaults.standard[.maximumPreviewLineCount], 5), 99)
 
     private var actionSelectedRowIndex: Int? {
@@ -90,7 +92,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     override func load(_ screenshot: Screenshot) throws {
         saveExpandedState()
         try super.load(screenshot)
-        processPreviewContext()
+        entirelyProcessPreviewContext(byKeepingCapacity: false)
         
         NotificationCenter.default.removeObserver(
             self,
@@ -158,6 +160,9 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     }
     
     deinit {
+        if isReloading {
+            isReloading = false
+        }  // we must unlock shared manager
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -165,11 +170,71 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     // MARK: - Defaults
 
     private func prepareDefaults() { }
+    
+    private func reloadOutlineView(
+        forRowIndexes rows: IndexSet,
+        forExpandedRowIndexes expandedRows: Bool,
+        forAllRowIndexes allRows: Bool,
+        byNotingRowHeightsChanged heightsChanged: Bool,
+        entirely: Bool
+    ) {
+        if entirely {
+            outlineView.reloadData()
+        } else {
+            var rowsToReload: IndexSet
+            if expandedRows {
+                var rowSet = IndexSet()
+                for rowIndex in IndexSet(integersIn: 0..<outlineView.numberOfRows) {
+                    let rowItem = outlineView.item(atRow: rowIndex)
+                    if outlineView.isItemExpanded(rowItem) {
+                        let childrenCount = outlineView.numberOfChildren(ofItem: rowItem)
+                        if childrenCount > 0 {
+                            let rowRange = rowIndex...rowIndex + childrenCount
+                            rowSet.insert(integersIn: rowRange)
+                        }
+                    }
+                }
+                rowsToReload = rowSet
+            } else if allRows {
+                rowsToReload = IndexSet(integersIn: 0..<outlineView.numberOfRows)
+            } else {
+                rowsToReload = rows
+            }
+            outlineView.reloadData(
+                forRowIndexes: rowsToReload,
+                columnIndexes: IndexSet(integersIn: 0..<outlineView.numberOfColumns)
+            )
+            if heightsChanged {
+                NSAnimationContext.beginGrouping()
+                NSAnimationContext.current.duration = 0
+                outlineView.noteHeightOfRows(
+                    withIndexesChanged: rowsToReload
+                )
+                NSAnimationContext.endGrouping()
+            }
+        }
+    }
 
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
         if defaultKey == .maximumPreviewLineCount, let toValue = defaultValue as? Int {
             maximumNumberOfLines = toValue
-            outlineView.reloadData()
+            reloadOutlineView(
+                forRowIndexes: IndexSet(),
+                forExpandedRowIndexes: true,
+                forAllRowIndexes: false,
+                byNotingRowHeightsChanged: true,
+                entirely: false
+            )
+        }
+        else if defaultKey == .enableSyntaxHighlighting, let toValue = defaultValue as? Bool {
+            syntaxHighlighting = toValue
+            reloadOutlineView(
+                forRowIndexes: IndexSet(),
+                forExpandedRowIndexes: true,
+                forAllRowIndexes: false,
+                byNotingRowHeightsChanged: false,
+                entirely: false
+            )
         }
     }
     
@@ -183,7 +248,13 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     private func reloadDataIfNeeded() {
         if _shouldReloadData {
             _shouldReloadData = false
-            outlineView.reloadData()
+            reloadOutlineView(
+                forRowIndexes: IndexSet(),
+                forExpandedRowIndexes: true,
+                forAllRowIndexes: false,
+                byNotingRowHeightsChanged: false,
+                entirely: false
+            )
         }
     }
     
@@ -296,28 +367,30 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     
     // MARK: - Context
 
-    private static let sharedContextQueue  : DispatchQueue = DispatchQueue(label: "TemplateSharedContext.Queue", qos: .background)
-    private var _shouldProcessContext      : Bool = false
+    private static let sharedContextQueue               : DispatchQueue = DispatchQueue(label: "TemplateSharedContext.Queue", qos: .background)
+    private var _shouldProcessContext                   : Bool = false
+    private var _shouldProcessContextByKeepingCapacity  : Bool = false
     
-    private func setNeedsProcessContext() {
+    private func setNeedsProcessContext(byKeepingCapacity keep: Bool) {
         _shouldProcessContext = true
+        _shouldProcessContextByKeepingCapacity = keep
     }
     
     private func processPreviewContextIfNeeded() {
         if _shouldProcessContext {
             _shouldProcessContext = false
-            processPreviewContext()
+            entirelyProcessPreviewContext(byKeepingCapacity: _shouldProcessContextByKeepingCapacity)
         }
     }
 
     private func documentContentChanged(_ content: Content, _ change: NSKeyValueObservedChange<[ContentItem]>) {
         saveExpandedState()
-        processPreviewContext()
+        entirelyProcessPreviewContext(byKeepingCapacity: true)
     }
     
-    private func processPreviewContext() {
+    private func entirelyProcessPreviewContext(byKeepingCapacity keep: Bool) {
         guard !isPaneHidden && !isWindowHidden else {
-            _shouldProcessContext = true
+            setNeedsProcessContext(byKeepingCapacity: keep)
             return
         }
         guard !isProcessing else { return }
@@ -325,16 +398,26 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         self.updateViewState()
         self.clearContentsForAsyncTemplates()
         
-        self.isExpanding = true
-        self.outlineView.reloadData()
         let templatesToReload = previewableTemplates
             .filter({ cachedExpandedState?.contains($0.uuid.uuidString) ?? false })
-        DispatchQueue.main.async { [weak self] in
-            self?.restoreExpandedState()
-            //isExpanding = false
-        }
-
         let isKeyOrMain = (view.window?.isKeyWindow ?? false) || (view.window?.isMainWindow ?? false)
+        
+        if !keep {
+            self.isExpanding = true
+            self.reloadOutlineView(
+                forRowIndexes: IndexSet(),
+                forExpandedRowIndexes: false,
+                forAllRowIndexes: true,
+                byNotingRowHeightsChanged: true,
+                entirely: true
+            )
+            DispatchQueue.main.async { [weak self] in
+                self?.restoreExpandedState()
+                //isExpanding = false
+            }
+        } else {
+            self.clearExpandedState()
+        }
 
         self.isReloading = true
         self.updateViewState()
@@ -348,6 +431,17 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
             { [weak self] (template) in
                 self?.outlineView.reloadItem(template, reloadChildren: true)
             } completionHandler: { [weak self] (finished) in
+                if keep {
+                    self?.isExpanding = true
+                    self?.reloadOutlineView(
+                        forRowIndexes: IndexSet(),
+                        forExpandedRowIndexes: true,
+                        forAllRowIndexes: false,
+                        byNotingRowHeightsChanged: true,
+                        entirely: false
+                    )
+                    self?.isExpanding = false
+                }
                 self?.isReloading = false
                 self?.updateViewState()
                 sema.signal()
@@ -381,13 +475,16 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         }
         
         self.clearContentsForTemplates(templatesToLoad)
-        self.reloadContentsForTemplates(templatesToLoad)
         
         self.isReloading = true
         self.updateViewState()
+        
+        self.outlineView.beginUpdates()
+        self.reloadContentsForTemplates(templatesToLoad)
         self.prepareContentsForTemplates(templatesToLoad) { [weak self] (template) in
             self?.outlineView.reloadItem(template, reloadChildren: true)
         } completionHandler: { [weak self] (finished) in
+            self?.outlineView.endUpdates()
             self?.isReloading = false
             self?.updateViewState()
         }
@@ -433,15 +530,11 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     }
     
     private func reloadContentsForTemplates(_ templates: [Template]) {
-        isReloading = true
         templates.forEach({ outlineView.reloadItem($0, reloadChildren: true) })
-        isReloading = false
     }
-    
+
     private func reloadContentsForTemplate(_ template: Template) {
-        isReloading = true
         outlineView.reloadItem(template, reloadChildren: true)
-        isReloading = false
     }
 
 
@@ -482,11 +575,15 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         isExpanding = false
     }
     
+    private func clearExpandedState() {
+        cachedExpandedState = nil
+    }
+    
     
     // MARK: - Prepare Contents
     
     private var cachedPreviewContents  : [String: TemplatePreviewObject] = [:]
-    private let cachingQueue           : DispatchQueue = DispatchQueue(label: "CachedPreviewContents.Queue", qos: .background, attributes: .concurrent)
+    private let cachingQueue           : DispatchQueue = DispatchQueue(label: "CachedPreviewContents.Queue", qos: .userInitiated, attributes: .concurrent)
     private let cachingLock            : ReadWriteLock = ReadWriteLock()
     
     private func clearContentsForTemplate(_ template: Template) {
@@ -964,7 +1061,8 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
                 } else if let contents = templateObj.contents,
                           let template = templateWithUUIDString(templateObj.uuidString)
                 {
-                    if TemplatePreviewController.shouldHighlightContents(contents),
+                    if syntaxHighlighting,
+                       TemplatePreviewController.shouldHighlightContents(contents),
                        let parser = effectiveParserForTemplate(template)
                     {
                         attributedText = parser.attributedString(
@@ -1075,7 +1173,7 @@ extension TemplatePreviewController {
     }
     
     @objc private func templatesDidLoad(_ noti: Notification) {
-        processPreviewContext()
+        entirelyProcessPreviewContext(byKeepingCapacity: false)
     }
     
 }

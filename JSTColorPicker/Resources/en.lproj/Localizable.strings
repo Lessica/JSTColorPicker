@@ -155,6 +155,9 @@
 /* Outline Generation */
 "Document not loaded." = "Document not loaded.";
 
+/* availableHints */
+"Double click **Command (⌘)** to toggle command palette." = "Double click **Command (⌘)** to toggle command palette.";
+
 /* Shortcut Guide */
 "Double Press" = "Double Press";
 

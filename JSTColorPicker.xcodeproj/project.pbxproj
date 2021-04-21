@@ -114,6 +114,7 @@
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
+		CC83770126304DF400B2C984 /* libreadline.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8376F126304DBD00B2C984 /* libreadline.tbd */; };
 		CC84216C2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
 		CC84216D2615F3BA00F1C007 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84216B2615F3BA00F1C007 /* PaneController.swift */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
@@ -135,9 +136,9 @@
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
-		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
+		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; settings = {COMPILER_FLAGS = "-Wno-strict-prototypes"; }; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
-		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
+		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; settings = {COMPILER_FLAGS = "-Wno-strict-prototypes"; }; };
 		CCA72A2A260B291800A934E2 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; };
 		CCA72A2B260B291800A934E2 /* strbuf.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A28260B291800A934E2 /* strbuf.h */; };
 		CCA72A2C260B291800A934E2 /* dtoa_config.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A29260B291800A934E2 /* dtoa_config.h */; };
@@ -171,6 +172,10 @@
 		CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
 		CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
+		CCC0F87D262FFE18006C4492 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = CCC0F87C262FFE18006C4492 /* Down */; };
+		CCC0F886262FFE20006C4492 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = CCC0F885262FFE20006C4492 /* Down */; };
+		CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
+		CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
 		CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525AD262EB72800D408B0 /* SyntaxKit */; };
 		CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
@@ -197,8 +202,8 @@
 		CCE901712626BAF700C84904 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9016F2626BAF700C84904 /* Observable.swift */; };
 		CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
 		CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
-		CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
-		CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; };
+		CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
 		CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
 		CCED7D21262D736300F2C965 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
@@ -376,8 +381,8 @@
 		D628353623F8EB5C0016573B /* lzio.h in Headers */ = {isa = PBXBuildFile; fileRef = D628346A23F8DC290016573B /* lzio.h */; };
 		D628355823F8EDAE0016573B /* lopcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353723F8EDAC0016573B /* lopcodes.c */; };
 		D628355923F8EDAE0016573B /* loadlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353823F8EDAD0016573B /* loadlib.c */; };
-		D628355A23F8EDAE0016573B /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353923F8EDAD0016573B /* lundump.c */; };
-		D628355B23F8EDAE0016573B /* loslib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353A23F8EDAD0016573B /* loslib.c */; };
+		D628355A23F8EDAE0016573B /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353923F8EDAD0016573B /* lundump.c */; settings = {COMPILER_FLAGS = "-Wno-string-plus-int"; }; };
+		D628355B23F8EDAE0016573B /* loslib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353A23F8EDAD0016573B /* loslib.c */; settings = {COMPILER_FLAGS = "-Wno-deprecated-declarations"; }; };
 		D628355C23F8EDAE0016573B /* lutf8lib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353B23F8EDAD0016573B /* lutf8lib.c */; };
 		D628355D23F8EDAE0016573B /* liolib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353C23F8EDAD0016573B /* liolib.c */; };
 		D628355E23F8EDAE0016573B /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628353D23F8EDAD0016573B /* lauxlib.c */; };
@@ -397,7 +402,7 @@
 		D628356C23F8EDAF0016573B /* lbitlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354B23F8EDAE0016573B /* lbitlib.c */; };
 		D628356D23F8EDAF0016573B /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354C23F8EDAE0016573B /* lbaselib.c */; };
 		D628356E23F8EDAF0016573B /* ldblib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354D23F8EDAE0016573B /* ldblib.c */; };
-		D628356F23F8EDAF0016573B /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354E23F8EDAE0016573B /* ltable.c */; };
+		D628356F23F8EDAF0016573B /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354E23F8EDAE0016573B /* ltable.c */; settings = {COMPILER_FLAGS = "-Wno-conditional-uninitialized"; }; };
 		D628357023F8EDAF0016573B /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = D628354F23F8EDAE0016573B /* ltm.c */; };
 		D628357123F8EDAF0016573B /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355023F8EDAE0016573B /* lzio.c */; };
 		D628357223F8EDAF0016573B /* lmathlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355123F8EDAE0016573B /* lmathlib.c */; };
@@ -881,6 +886,7 @@
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ExampleTemplates.bundle; sourceTree = "<group>"; };
+		CC8376F126304DBD00B2C984 /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
 		CC84216B2615F3BA00F1C007 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
 		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -923,6 +929,7 @@
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
+		CCC0F88E263001D5006C4492 /* Down+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Down+Ext.swift"; sourceTree = "<group>"; };
 		CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TemplatePreview.bundle; sourceTree = "<group>"; };
 		CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveAppearanceObserver.swift; sourceTree = "<group>"; };
 		CCCD815F261C16F100BFDD6E /* SegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentController.swift; sourceTree = "<group>"; };
@@ -1254,6 +1261,7 @@
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
+				CCC0F87D262FFE18006C4492 /* Down in Frameworks */,
 				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
 				CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */,
@@ -1272,6 +1280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC83770126304DF400B2C984 /* libreadline.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,6 +1302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCC0F886262FFE20006C4492 /* Down in Frameworks */,
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
@@ -1605,6 +1615,7 @@
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
 				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
 				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
+				CCC0F88E263001D5006C4492 /* Down+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2173,6 +2184,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC8376F126304DBD00B2C984 /* libreadline.tbd */,
 				CCFECFBB262D5152001F6467 /* Carbon.framework */,
 				CC84219D26160CD200F1C007 /* Security.framework */,
 				D699E0CD24090AEC0011A4CB /* Automator.framework */,
@@ -2515,6 +2527,7 @@
 			packageProductDependencies = (
 				CCABB72D260F5E83000AC582 /* ShortcutGuide */,
 				CCC525A4262EB71F00D408B0 /* SyntaxKit */,
+				CCC0F87C262FFE18006C4492 /* Down */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -2599,6 +2612,7 @@
 			packageProductDependencies = (
 				CCABB72F260F5E8C000AC582 /* ShortcutGuide */,
 				CCC525AD262EB72800D408B0 /* SyntaxKit */,
+				CCC0F885262FFE20006C4492 /* Down */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -2710,6 +2724,7 @@
 			mainGroup = D658AF9123CB180C0098C567;
 			packageReferences = (
 				CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */,
+				CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3014,6 +3029,7 @@
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
 				CC470AC0262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
+				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
@@ -3279,6 +3295,7 @@
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
+				CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
 				CC300F4B26285E27002FD866 /* TemplateCellView.swift in Sources */,
@@ -3954,6 +3971,17 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/LuaC/lib/\"",
 				);
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-DLUA_COMPAT_5_3",
+					"-DLUA_USE_MACOSX",
+					"-DLUA_USE_READLINE",
+					"-Wno-quoted-include-in-framework-header",
+					"-Wno-conditional-uninitialized",
+					"-Wno-shorten-64-to-32",
+					"-Wno-comma",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaC;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -3971,6 +3999,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"LUA_NOCVTN2S=1",
 					"LUA_NOCVTS2N=1",
@@ -3989,6 +4018,17 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/LuaC/lib/\"",
+				);
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-DLUA_COMPAT_5_3",
+					"-DLUA_USE_MACOSX",
+					"-DLUA_USE_READLINE",
+					"-Wno-quoted-include-in-framework-header",
+					"-Wno-conditional-uninitialized",
+					"-Wno-shorten-64-to-32",
+					"-Wno-comma",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.LuaC;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -4110,6 +4150,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBC_WARNINGS = NO;
+				IBSC_WARNINGS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4168,6 +4210,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBC_WARNINGS = NO;
+				IBSC_WARNINGS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -4452,6 +4496,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:johnxnguyen/Down.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
@@ -4470,6 +4522,16 @@
 		CCABB72F260F5E8C000AC582 /* ShortcutGuide */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ShortcutGuide;
+		};
+		CCC0F87C262FFE18006C4492 /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
+		};
+		CCC0F885262FFE20006C4492 /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;

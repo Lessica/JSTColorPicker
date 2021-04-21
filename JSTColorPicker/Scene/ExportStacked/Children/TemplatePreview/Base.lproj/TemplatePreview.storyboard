@@ -19,13 +19,13 @@
                                     <rect key="frame" x="11" y="19" width="242" height="566"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5Z-Op-qlc">
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="54" horizontalPageScroll="10" verticalLineScroll="54" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5Z-Op-qlc">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="558"/>
                                             <clipView key="contentView" id="UEa-vn-0yR">
                                                 <rect key="frame" x="1" y="1" width="240" height="556"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" rowHeight="52" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="332" height="528"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="4" height="2"/>
@@ -61,7 +61,6 @@
                                                                             <constraint firstAttribute="bottom" secondItem="ESU-Qk-5MC" secondAttribute="bottom" constant="1" id="CX1-gu-Pcj"/>
                                                                             <constraint firstItem="ESU-Qk-5MC" firstAttribute="leading" secondItem="vPh-de-a80" secondAttribute="leading" constant="2" id="VAc-5f-1Ph"/>
                                                                             <constraint firstItem="ESU-Qk-5MC" firstAttribute="top" secondItem="vPh-de-a80" secondAttribute="top" constant="1" id="kXs-ZH-uxz"/>
-                                                                            <constraint firstItem="ESU-Qk-5MC" firstAttribute="centerY" secondItem="vPh-de-a80" secondAttribute="centerY" id="rdy-jP-Uc1"/>
                                                                             <constraint firstAttribute="trailing" secondItem="ESU-Qk-5MC" secondAttribute="trailing" constant="2" id="zcx-or-k0F"/>
                                                                         </constraints>
                                                                         <connections>

@@ -155,6 +155,9 @@
 /* Outline Generation */
 "Document not loaded." = "文档未加载.";
 
+/* availableHints */
+"Double click **Command (⌘)** to toggle command palette." = "双击 **Command (⌘)** 以切换指令面板.";
+
 /* Shortcut Guide */
 "Double Press" = "连按两次";
 

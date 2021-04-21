@@ -62,6 +62,7 @@ extension UserDefaults.Key {
     static let pixelMatchBackgroundMode             : UserDefaults.Key     = "defaults:pixelMatchBackgroundMode"               // Bool
     
     static let enableGPUAcceleration                : UserDefaults.Key     = "defaults:enableGPUAcceleration"                  // Bool
+    static let enableSyntaxHighlighting             : UserDefaults.Key     = "defaults:enableSyntaxHighlighting"               // Bool
     static let checkUpdatesAutomatically            : UserDefaults.Key     = "SUEnableAutomaticChecks"                         // Bool
     
     static let initialSimilarity                    : UserDefaults.Key     = "defaults:initialSimilarity"                      // Double

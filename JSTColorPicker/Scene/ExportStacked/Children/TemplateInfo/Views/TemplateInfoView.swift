@@ -156,7 +156,7 @@ class TemplateInfoView: NSView {
             templateUUIDStack.isHidden = true
         }
 
-        templateDescriptionLabel.stringValue = template.userDescription ?? ""
+        templateDescriptionLabel.attributedStringValue = (template.userDescription ?? "").markdownAttributed
         templateDescriptionStack.isHidden = (template.userDescription ?? "").isEmpty
     }
     

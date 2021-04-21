@@ -13,6 +13,9 @@
 /* Class = "NSTextFieldCell"; title = "Maximum Lines: "; ObjectID = "3TH-mY-Z6r"; */
 "3TH-mY-Z6r.title" = "最大行数: ";
 
+/* Class = "NSButtonCell"; title = "Syntax Highlighting"; ObjectID = "3Us-0A-xpO"; */
+"3Us-0A-xpO.title" = "代码高亮";
+
 /* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
 "3vS-gW-0fD.ibShadowedToolTip" = "通用差异颜色";
 
