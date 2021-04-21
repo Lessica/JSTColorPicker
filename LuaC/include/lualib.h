@@ -1,5 +1,5 @@
 /*
-** $Id: lualib.h $
+** $Id: lualib.h,v 1.45.1.1 2017/04/19 17:20:42 roberto Exp $
 ** Lua standard libraries
 ** See Copyright Notice in lua.h
 */
@@ -43,6 +43,15 @@ LUAMOD_API int (luaopen_debug) (lua_State *L);
 
 #define LUA_LOADLIBNAME	"package"
 LUAMOD_API int (luaopen_package) (lua_State *L);
+
+#define LUA_LPEGLIBNAME "lpeg"
+LUAMOD_API int (luaopen_lpeg) (lua_State *L);
+
+#define LUA_CJSONLIBNAME "cjson"
+LUAMOD_API int (luaopen_cjson) (lua_State *L);
+
+#define LUA_CJSON_SAFELIBNAME "cjson_safe"
+LUAMOD_API int (luaopen_cjson_safe) (lua_State *L);
 
 
 /* open all previous libraries */

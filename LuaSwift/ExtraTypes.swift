@@ -11,7 +11,7 @@ extension CGPoint: Value {
     
     public func kind() -> Kind { return .table }
     
-    private static let typeName: String = "point (table with keys [x,y])"
+    private static let typeName: String = "CGPoint (Table Keys [x,y])"
     public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
@@ -26,19 +26,19 @@ extension CGSize: Value {
     
     public func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
-        t["w"] = Double(self.width)
-        t["h"] = Double(self.height)
+        t["width"] = Double(self.width)
+        t["height"] = Double(self.height)
         t.push(vm)
     }
     
     public func kind() -> Kind { return .table }
     
-    private static let typeName: String = "size (table with keys [w,h])"
+    private static let typeName: String = "CGSize (Table Keys [width,height])"
     public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if !(t["w"] is Number) || !(t["h"] is Number) { return typeName }
+        if !(t["width"] is Number) || !(t["height"] is Number) { return typeName }
         return nil
     }
     
@@ -73,8 +73,8 @@ extension Table {
     }
     
     public func toSize() -> CGSize? {
-        let w = self["w"] as? Number
-        let h = self["h"] as? Number
+        let w = self["width"] as? Number
+        let h = self["height"] as? Number
         if w == nil || h == nil { return nil }
         return CGSize(width: w!.toDouble(), height: h!.toDouble())
     }

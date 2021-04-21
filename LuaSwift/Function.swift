@@ -66,13 +66,13 @@ open class Arguments {
     open var boolean: Bool { return values.remove(at: 0) as! Bool }
     open var function: Function { return values.remove(at: 0) as! Function }
     open var table: Table { return values.remove(at: 0) as! Table }
-    open var userdata: Userdata { return values.remove(at: 0) as! Userdata }
-    open var lightUserdata: LightUserdata { return values.remove(at: 0) as! LightUserdata }
+    open var userdata: UserData { return values.remove(at: 0) as! UserData }
+    open var lightUserdata: LightUserData { return values.remove(at: 0) as! LightUserData }
     open var thread: Thread { return values.remove(at: 0) as! Thread }
     
     open var integer: Int64 { return (values.remove(at: 0) as! Number).toInteger() }
     open var double: Double { return (values.remove(at: 0) as! Number).toDouble() }
     
-    open func customType<T: CustomTypeInstance>() -> T { return (values.remove(at: 0) as! Userdata).toCustomType() }
+    open func customType<T: CustomTypeInstance>() -> T { return (values.remove(at: 0) as! UserData).toCustomType() }
     
 }

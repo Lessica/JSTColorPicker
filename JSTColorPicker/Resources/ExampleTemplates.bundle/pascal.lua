@@ -30,10 +30,9 @@ local template = [[<annotation>
 
 local _saveInPlace = true
 
-local generator = function (image, ...)
-    local objects = {...}
+local generator = function (image, items)
     local newObjects = {}
-    for k, v in ipairs(objects) do
+    for k, v in ipairs(items) do
         if v.width ~= nil then
             v['pose'] = 'Unspecified'
             v['truncated'] = 0
@@ -67,5 +66,5 @@ return {
     saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`
     generator = generator,                            -- required, the content generator
     enabled = true,                                   -- optional
-    previewable = true,                              -- optional
+    previewable = false,                              -- optional
 }

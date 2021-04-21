@@ -192,9 +192,7 @@ return {
 
 `generator` 生成器是一个 Lua 函数, 它将在你复制及导出项时被执行:
 ```lua
-local generator = function (image, ...)
-  --
-  local args = {...}
+local generator = function (image, items)
   --
 end
 ```
@@ -207,7 +205,7 @@ end
   - `image.get_color(x, y)`: 返回该位置颜色的 **argb** 32位整数值
   - `image.get_image(x, y, w, h)`: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式
 
-上述 `args` 是一个包含若干表的 Lua 序列, 它包含了所有的*坐标及颜色标注*及*区域标注*信息:
+上述 `items` 是一个包含若干表的 Lua 序列, 它包含了所有的*坐标及颜色标注*及*区域标注*信息:
 
 * 如果是*坐标及颜色标注*, 则表中应包含如下字段:
   - `color.id`: 标注序号

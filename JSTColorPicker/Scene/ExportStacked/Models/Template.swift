@@ -142,7 +142,7 @@ class Template {
         guard mutexLock.try() else {
             throw Error.resourceBusy
         }
-        let results = generator.call([image] + items)
+        let results = generator.call([image, Content(items: items)])
         mutexLock.unlock()
         switch results {
         case let .values(vals):

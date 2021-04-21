@@ -92,7 +92,8 @@ class PixelArea: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel area (table with keys [id,tags,similarity,minX,minY,maxX,maxY,width,height])"
+    private static let typeKeys: [String] = ["id", "tags", "similarity", "minX", "minY", "maxX", "maxY", "width", "height"]
+    private static let typeName: String = "PixelArea (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

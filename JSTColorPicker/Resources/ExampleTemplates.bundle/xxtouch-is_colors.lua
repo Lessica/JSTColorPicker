@@ -1,9 +1,8 @@
-local generator = function (image, ...)
-    local args = {...}
+local generator = function (image, items)
     local similarity = 0.9
     local str = "if (screen.is_colors("
     str = str .. "{\n"
-    for _, a in ipairs(args) do
+    for _, a in ipairs(items) do
         if a.color ~= nil then
             str = str .. "  { " .. string.format("%4d", a.x) .. ", " .. string.format("%4d", a.y) .. ", " .. string.format("0x%06x", a.color & 0xffffff).. " },  -- " .. tostring(a.id) .. "\n"
         end

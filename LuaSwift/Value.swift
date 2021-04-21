@@ -24,11 +24,11 @@ open class StoredValue: Value, Equatable {
     }
     
     open func kind() -> Kind {
-        fatalError("Override kind()")
+        fatalError("override kind()")
     }
     
     open class func arg(_ vm: VirtualMachine, value: Value) -> String? {
-        fatalError("Override arg()")
+        fatalError("override arg()")
     }
     
 }

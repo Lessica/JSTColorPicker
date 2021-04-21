@@ -1,5 +1,4 @@
-local generator = function (image, ...)
-    local args = {...}
+local generator = function (image, items)
     local function chunk(text, size)
         local s = {}
         for i = 1, #text, size do
@@ -11,7 +10,7 @@ local generator = function (image, ...)
     local str = "x, y = screen.find_image("
     local extraEndings = ""
     str = str .. "[[\n"
-    for _, a in ipairs(args) do
+    for _, a in ipairs(items) do
         if a.width ~= nil then
             str = str .. table.concat(chunk(image.get_image(a.minX, a.minY, a.width, a.height):gsub(".", function (c)
                 return string.format("\\x%02x", string.byte(c))

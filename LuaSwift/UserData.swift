@@ -1,4 +1,4 @@
-open class Userdata: StoredValue {
+open class UserData: StoredValue {
     
     open func userdataPointer<T>() -> UnsafeMutablePointer<T> {
         push(vm)
@@ -19,7 +19,7 @@ open class Userdata: StoredValue {
     
 }
 
-open class LightUserdata: StoredValue {
+open class LightUserData: StoredValue {
     
     override open func kind() -> Kind { return .lightUserdata }
     

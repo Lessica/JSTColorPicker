@@ -73,7 +73,8 @@ extension PixelCoordinate: LuaSwift.Value {
     
     func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel coordinate (table with keys [x,y])"
+    private static let typeKeys: [String] = ["x", "y"]
+    private static let typeName: String = "PixelCoordinate (Table Keys [\(typeKeys.joined(separator: ","))])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

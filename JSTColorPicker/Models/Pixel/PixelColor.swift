@@ -132,7 +132,8 @@ class PixelColor: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel color (table with keys [id,name,tags,similarity,x,y,color])"
+    private static let typeKeys: [String] = ["id", "name", "tags", "similarity", "x", "y", "color"]
+    private static let typeName: String = "PixelColor (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

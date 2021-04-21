@@ -103,9 +103,9 @@ open class VirtualMachine {
         case .table:
             v = Table(self)
         case .userdata:
-            v = Userdata(self)
+            v = UserData(self)
         case .lightUserdata:
-            v = LightUserdata(self)
+            v = LightUserData(self)
         case .thread:
             v = Thread(self)
         case .nil:
@@ -165,21 +165,21 @@ open class VirtualMachine {
         return err
     }
     
-    open func createUserdataMaybe<T: CustomTypeInstance>(_ o: T?) -> Userdata? {
+    open func createUserdataMaybe<T: CustomTypeInstance>(_ o: T?) -> UserData? {
         if let u = o {
             return createUserdata(u)
         }
         return nil
     }
     
-    open func createUserdata<T: CustomTypeInstance>(_ o: T) -> Userdata {
+    open func createUserdata<T: CustomTypeInstance>(_ o: T) -> UserData {
         let userdata = lua_newuserdatauv(vm, MemoryLayout<T>.size, 0) // this both pushes ptr onto stack and returns it
 
         let ptr = userdata!.bindMemory(to: T.self, capacity: 1)
         ptr.initialize(to: o) // creates a new legit reference to o
 
         luaL_setmetatable(vm, (T.luaTypeName() as NSString).utf8String) // this requires ptr to be on the stack
-        return popValue(-1) as! Userdata // this pops ptr off stack
+        return popValue(-1) as! UserData // this pops ptr off stack
     }
     
     public enum EvalResults {

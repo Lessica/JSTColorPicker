@@ -1,9 +1,8 @@
-local generator = function (image, ...)
-    local args = {...}
+local generator = function (image, items)
     local str = "x, y = screen.find_color("
     local extraEndings = ""
     str = str .. "{\n"
-    for _, a in ipairs(args) do
+    for _, a in ipairs(items) do
         if a.color ~= nil then
             str = str .. "  { " .. string.format("%4d", a.x) .. ", " .. string.format("%4d", a.y) .. ", " .. string.format("0x%06x", a.color & 0xffffff) .. ", " .. string.format("%6.2f", a.similarity * 100.0) .. " },  -- " .. tostring(a.id) .. "\n"
         elseif #extraEndings == 0 then

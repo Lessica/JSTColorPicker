@@ -26,6 +26,8 @@
 	<true/>
 	<key>defaults:enableNetworkDiscovery</key>
 	<false/>
+	<key>defaults:enableSyntaxHighlighting</key>
+	<true/>
 	<key>defaults:hideAnnotatorsWhenResize</key>
 	<true/>
 	<key>defaults:hideBordersWhenResize</key>

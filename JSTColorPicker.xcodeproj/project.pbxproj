@@ -346,7 +346,7 @@
 		D628350123F8EA050016573B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348523F8DE4A0016573B /* String.swift */; };
 		D628350223F8EA050016573B /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628347E23F8DE4A0016573B /* Table.swift */; };
 		D628350323F8EA050016573B /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348123F8DE4A0016573B /* Thread.swift */; };
-		D628350423F8EA050016573B /* Userdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628347F23F8DE4A0016573B /* Userdata.swift */; };
+		D628350423F8EA050016573B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628347F23F8DE4A0016573B /* UserData.swift */; };
 		D628350523F8EA050016573B /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348823F8DE4A0016573B /* Value.swift */; };
 		D628350623F8EA050016573B /* VirtualMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D628348023F8DE4A0016573B /* VirtualMachine.swift */; };
 		D628351123F8EAAA0016573B /* LuaC.h in Headers */ = {isa = PBXBuildFile; fileRef = D628350F23F8EAAA0016573B /* LuaC.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -836,6 +836,8 @@
 		3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.release.xcconfig"; sourceTree = "<group>"; };
 		5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.debug.xcconfig"; sourceTree = "<group>"; };
 		A5F9A691000B575F7C7BAD87 /* Pods-JSTColorPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPicker.release.xcconfig"; path = "Target Support Files/Pods-JSTColorPicker/Pods-JSTColorPicker.release.xcconfig"; sourceTree = "<group>"; };
+		CC059D0D2630707400E6B89C /* README_zh-Hans.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README_zh-Hans.md"; sourceTree = "<group>"; };
+		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
@@ -1018,7 +1020,7 @@
 		D628347823F8DC2A0016573B /* ldo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldo.h; sourceTree = "<group>"; };
 		D628347B23F8DE2B0016573B /* LuaC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaC.m; sourceTree = "<group>"; };
 		D628347E23F8DE4A0016573B /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		D628347F23F8DE4A0016573B /* Userdata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userdata.swift; sourceTree = "<group>"; };
+		D628347F23F8DE4A0016573B /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		D628348023F8DE4A0016573B /* VirtualMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualMachine.swift; sourceTree = "<group>"; };
 		D628348123F8DE4A0016573B /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		D628348223F8DE4A0016573B /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
@@ -1819,7 +1821,7 @@
 				D628348523F8DE4A0016573B /* String.swift */,
 				D628347E23F8DE4A0016573B /* Table.swift */,
 				D628348123F8DE4A0016573B /* Thread.swift */,
-				D628347F23F8DE4A0016573B /* Userdata.swift */,
+				D628347F23F8DE4A0016573B /* UserData.swift */,
 				D628348823F8DE4A0016573B /* Value.swift */,
 				D628348023F8DE4A0016573B /* VirtualMachine.swift */,
 				D628349F23F8E6D10016573B /* Info.plist */,
@@ -1986,6 +1988,8 @@
 		D658AF9123CB180C0098C567 = {
 			isa = PBXGroup;
 			children = (
+				CC059D0E2630707400E6B89C /* README.md */,
+				CC059D0D2630707400E6B89C /* README_zh-Hans.md */,
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
 				D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */,
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
@@ -3134,7 +3138,7 @@
 				D62834FC23F8EA050016573B /* Boolean.swift in Sources */,
 				D628350123F8EA050016573B /* String.swift in Sources */,
 				D628350623F8EA050016573B /* VirtualMachine.swift in Sources */,
-				D628350423F8EA050016573B /* Userdata.swift in Sources */,
+				D628350423F8EA050016573B /* UserData.swift in Sources */,
 				D628350223F8EA050016573B /* Table.swift in Sources */,
 				D628350323F8EA050016573B /* Thread.swift in Sources */,
 				D62834FE23F8EA050016573B /* Function.swift in Sources */,
@@ -3954,7 +3958,6 @@
 					"$(inherited)",
 					"LUA_NOCVTN2S=1",
 					"LUA_NOCVTS2N=1",
-					"LPEG_DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

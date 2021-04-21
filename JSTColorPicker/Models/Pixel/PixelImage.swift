@@ -156,7 +156,8 @@ extension PixelImage: LuaSwift.Value {
     
     func kind() -> Kind { return .table }
     
-    private static let typeName: String = "pixel image (table with keys [path,folder,filename,width,height,get_color,get_image])"
+    private static let typeKeys: [String] = ["path", "folder", "filename", "width", "height", "get_color", "get_image"]
+    private static let typeName: String = "PixelImage (Table Keys [\(typeKeys.joined(separator: ","))])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

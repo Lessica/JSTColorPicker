@@ -192,9 +192,7 @@ return {
 
 `generator` is a lua function which will be executed when you copy or export item(s):
 ```lua
-local generator = function (image, ...)
-    --
-    local args = {...}
+local generator = function (image, items)
     --
 end
 ```
@@ -207,7 +205,7 @@ end
   - `image.get_color(x, y)`: returns **argb** 32-bit integer value of color
   - `image.get_image(x, y, w, h)`: returns cropped image's PNG data representation
 
-`args` is a lua sequence of *color & coordinates* and *area*:
+`items` is a lua sequence of *color & coordinates* and *area*:
 
 * *color & coordinates*:
   - `color.id`

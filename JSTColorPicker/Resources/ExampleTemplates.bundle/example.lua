@@ -1,4 +1,4 @@
-local generator = function (image, ...)
+local generator = function (image, items)
     --[=[
     --    `image` is a lua table which represents the opened image document in current window:
     --        `image.path`
@@ -8,9 +8,8 @@ local generator = function (image, ...)
     --        `image.get_color(x, y)`: returns **argb** 32-bit integer value of color
     --        `image.get_image(x, y, w, h)`: returns png data representation
     ]=]
-    local args = {...}
     --[=[
-    --    `args` is a lua sequence of *colors* and *areas*:
+    --    `items` is a lua sequence of *colors* and *areas*:
     --    *color* item:
     --        `color.id`
     --        `color.name`
@@ -52,12 +51,12 @@ local generator = function (image, ...)
         end
         return s
     end
-    if #args == 1 then
+    if #items == 1 then
         local processed = false
         local str = "x, y = screen.find_image("
         local extraEndings = ""
         str = str .. "[[\n"
-        for _, a in ipairs(args) do
+        for _, a in ipairs(items) do
             if a.width ~= nil then
                 str = str .. table.concat(chunk(image.get_image(a.minX, a.minY, a.width, a.height):gsub(".", function (c)
                     return string.format("\\x%02x", string.byte(c))
@@ -76,7 +75,7 @@ local generator = function (image, ...)
     local str = "x, y = screen.find_color("
     local extraEndings = ""
     str = str .. "{\n"
-    for _, a in ipairs(args) do
+    for _, a in ipairs(items) do
         if a.color ~= nil then
             str = str .. "  { " .. string.format("%4d", a.x) .. ", " .. string.format("%4d", a.y) .. ", " .. string.format("0x%06x", a.color & 0xffffff) .. ", " .. string.format("%6.2f", a.similarity * 100.0) .. " },  -- " .. tostring(a.id) .. "\n"
         elseif #extraEndings == 0 then
@@ -96,6 +95,6 @@ return {
     description = "This is an example of JSTColorPicker export script.",
     extension = "lua",                              -- required, file extension used for exporting
     generator = generator,                          -- required, the content generator
-    enabled = true,                                 -- optional
+    enabled = true,                                 -- optional, default is true
     previewable = false,                            -- optional, default is false
 }
