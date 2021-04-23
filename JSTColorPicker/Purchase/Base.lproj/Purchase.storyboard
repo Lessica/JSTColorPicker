@@ -2,21 +2,22 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="tFo-Qr-5Rv">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Window Controller-->
         <scene sceneID="j5j-kO-6oI">
             <objects>
-                <windowController id="tFo-Qr-5Rv" sceneMemberID="viewController">
-                    <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" titleVisibility="hidden" id="0PI-qq-0aG">
-                        <windowStyleMask key="styleMask" closable="YES" fullSizeContentView="YES"/>
+                <windowController id="tFo-Qr-5Rv" customClass="PurchaseWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="PurchaseWindow" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="0PI-qq-0aG" customClass="PurchaseWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" documentModal="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="249" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="249" width="450" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <view key="contentView" id="EAG-R2-wqQ">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="400"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </view>
                         <connections>
@@ -31,18 +32,494 @@
             </objects>
             <point key="canvasLocation" x="-626" y="83"/>
         </scene>
-        <!--View Controller-->
+        <!--Purchase Controller-->
         <scene sceneID="lbY-4W-DqX">
             <objects>
-                <viewController id="R03-Ha-N0W" sceneMemberID="viewController">
-                    <view key="view" id="xcf-65-lg9">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <viewController id="R03-Ha-N0W" customClass="PurchaseController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="xcf-65-lg9" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VmA-2K-qK0">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="de4-fE-tM5">
+                                        <rect key="frame" x="0.0" y="329" width="450" height="118"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="24" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn5-Gp-JpV">
+                                                <rect key="frame" x="40" y="22" width="370" height="64"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uhU-GI-GRb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="64" id="SBq-fx-v4f"/>
+                                                            <constraint firstAttribute="height" constant="64" id="lpm-9L-N2K"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="bbo-TU-P0E"/>
+                                                    </imageView>
+                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTS-xp-LhK">
+                                                        <rect key="frame" x="88" y="0.0" width="282" height="64"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11c-hD-F1Y">
+                                                                <rect key="frame" x="-2" y="31" width="117" height="33"/>
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Welcome" usesSingleLineMode="YES" id="xX4-WW-Ncv">
+                                                                    <font key="font" metaFont="system" size="28"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="200" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3T-xd-asn">
+                                                                <rect key="frame" x="-2" y="0.0" width="269" height="25"/>
+                                                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Thank you for downloading JSTColorPicker!" id="bLR-0v-dAV">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="LTS-xp-LhK" firstAttribute="centerY" secondItem="uhU-GI-GRb" secondAttribute="centerY" id="cja-f5-gjb"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="rn5-Gp-JpV" firstAttribute="leading" secondItem="de4-fE-tM5" secondAttribute="leading" constant="40" id="68w-sM-VLy"/>
+                                            <constraint firstItem="rn5-Gp-JpV" firstAttribute="centerX" secondItem="de4-fE-tM5" secondAttribute="centerX" id="8xG-Xi-eer"/>
+                                            <constraint firstAttribute="bottom" secondItem="rn5-Gp-JpV" secondAttribute="bottom" constant="22" id="AW6-KN-eG0"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="118" id="Cns-ZR-r5F"/>
+                                            <constraint firstItem="rn5-Gp-JpV" firstAttribute="top" secondItem="de4-fE-tM5" secondAttribute="top" constant="32" id="N7F-uO-cvv"/>
+                                        </constraints>
+                                    </customView>
+                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5PK-fL-yOa">
+                                        <rect key="frame" x="0.0" y="326" width="96" height="5"/>
+                                    </box>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="zpa-A1-J1N" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="48" width="450" height="280"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-BJ-XR9">
+                                                <rect key="frame" x="47" y="27" width="356" height="226"/>
+                                                <subviews>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="wG9-DF-XYn" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="144" width="356" height="82"/>
+                                                        <subviews>
+                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhO-rr-Cg6">
+                                                                <rect key="frame" x="22" y="10" width="312" height="62"/>
+                                                                <subviews>
+                                                                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbm-fT-Sa2">
+                                                                        <rect key="frame" x="-2" y="46" width="111" height="16"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Try Demo Version" usesSingleLineMode="YES" id="KaK-a0-0WR">
+                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qe-9J-Llj">
+                                                                        <rect key="frame" x="-2" y="0.0" width="235" height="42"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" id="pVJ-BW-eky">
+                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <string key="title">You cannot save documents.
+You cannot export contents from templates.
+Sessions are time limited (30 minutes).</string>
+                                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <visibilityPriorities>
+                                                                    <integer value="1000"/>
+                                                                    <integer value="1000"/>
+                                                                </visibilityPriorities>
+                                                                <customSpacing>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                </customSpacing>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="GhO-rr-Cg6" firstAttribute="centerX" secondItem="wG9-DF-XYn" secondAttribute="centerX" id="61G-PV-KmG"/>
+                                                            <constraint firstItem="GhO-rr-Cg6" firstAttribute="centerY" secondItem="wG9-DF-XYn" secondAttribute="centerY" id="aGx-xW-PSx"/>
+                                                            <constraint firstItem="GhO-rr-Cg6" firstAttribute="leading" secondItem="wG9-DF-XYn" secondAttribute="leading" constant="22" id="eZE-0H-7NU"/>
+                                                            <constraint firstItem="GhO-rr-Cg6" firstAttribute="top" secondItem="wG9-DF-XYn" secondAttribute="top" constant="10" id="sKr-ml-bWf"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                                <color key="value" name="PurchaseControlBackground"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="R03-Ha-N0W" id="Mx2-6Q-M48"/>
+                                                            <outlet property="subtitleLabel" destination="0Qe-9J-Llj" id="z08-Ez-6VE"/>
+                                                            <outlet property="titleLabel" destination="vbm-fT-Sa2" id="qJB-IT-L0N"/>
+                                                        </connections>
+                                                    </customView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="lDD-IC-ivi" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="72" width="356" height="54"/>
+                                                        <subviews>
+                                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-aO-rDX">
+                                                                <rect key="frame" x="22" y="10" width="312" height="34"/>
+                                                                <subviews>
+                                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SS-IJ-6IX">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="312" height="34"/>
+                                                                        <subviews>
+                                                                            <textField horizontalHuggingPriority="275" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bin-bO-sVY">
+                                                                                <rect key="frame" x="-2" y="18" width="172" height="16"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Subscribe JSTColorPicker..." usesSingleLineMode="YES" id="wcU-IC-9mk">
+                                                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                            </textField>
+                                                                            <textField horizontalHuggingPriority="200" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-hK-yZe">
+                                                                                <rect key="frame" x="-2" y="0.0" width="316" height="14"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="With a free, unlimited trial expires in 14 days." id="Vnr-sP-jKa">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <visibilityPriorities>
+                                                                            <integer value="1000"/>
+                                                                            <integer value="1000"/>
+                                                                        </visibilityPriorities>
+                                                                        <customSpacing>
+                                                                            <real value="3.4028234663852886e+38"/>
+                                                                            <real value="3.4028234663852886e+38"/>
+                                                                        </customSpacing>
+                                                                    </stackView>
+                                                                    <textField hidden="YES" horizontalHuggingPriority="255" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do6-Ac-poj">
+                                                                        <rect key="frame" x="-2" y="18" width="64" height="16"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Loading..." usesSingleLineMode="YES" id="5JX-GV-MXZ">
+                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                            <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <visibilityPriorities>
+                                                                    <integer value="1000"/>
+                                                                    <integer value="1000"/>
+                                                                </visibilityPriorities>
+                                                                <customSpacing>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                </customSpacing>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="wMh-aO-rDX" firstAttribute="top" secondItem="lDD-IC-ivi" secondAttribute="top" constant="10" id="0Kl-5x-nO0"/>
+                                                            <constraint firstItem="wMh-aO-rDX" firstAttribute="centerX" secondItem="lDD-IC-ivi" secondAttribute="centerX" id="NkK-VZ-IoC"/>
+                                                            <constraint firstItem="wMh-aO-rDX" firstAttribute="leading" secondItem="lDD-IC-ivi" secondAttribute="leading" constant="22" id="TcQ-TM-j9M"/>
+                                                            <constraint firstItem="wMh-aO-rDX" firstAttribute="centerY" secondItem="lDD-IC-ivi" secondAttribute="centerY" id="wbJ-o0-GPE"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                                <color key="value" name="PurchaseControlBackground"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="R03-Ha-N0W" id="Nke-ZT-6sv"/>
+                                                            <outlet property="priceLabel" destination="Do6-Ac-poj" id="XBi-d7-Bml"/>
+                                                            <outlet property="subtitleLabel" destination="m7A-hK-yZe" id="wGd-mH-IU4"/>
+                                                            <outlet property="titleLabel" destination="Bin-bO-sVY" id="002-Kt-778"/>
+                                                        </connections>
+                                                    </customView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="jP7-UD-uQN" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="356" height="54"/>
+                                                        <subviews>
+                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tgd-CU-qbK">
+                                                                <rect key="frame" x="22" y="10" width="312" height="34"/>
+                                                                <subviews>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoY-7Y-PPq">
+                                                                        <rect key="frame" x="-2" y="18" width="244" height="16"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Already have a subscription? Restore it!" usesSingleLineMode="YES" id="g1O-YI-eSP">
+                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El3-2W-yvl">
+                                                                        <rect key="frame" x="-2" y="0.0" width="227" height="14"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Validate your subscription from App Store." id="dTv-jj-Alh">
+                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <visibilityPriorities>
+                                                                    <integer value="1000"/>
+                                                                    <integer value="1000"/>
+                                                                </visibilityPriorities>
+                                                                <customSpacing>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                </customSpacing>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="Tgd-CU-qbK" firstAttribute="leading" secondItem="jP7-UD-uQN" secondAttribute="leading" constant="22" id="7ir-Pa-oYU"/>
+                                                            <constraint firstItem="Tgd-CU-qbK" firstAttribute="centerY" secondItem="jP7-UD-uQN" secondAttribute="centerY" id="Wcz-VW-Hlm"/>
+                                                            <constraint firstItem="Tgd-CU-qbK" firstAttribute="top" secondItem="jP7-UD-uQN" secondAttribute="top" constant="10" id="r2y-KH-TU3"/>
+                                                            <constraint firstItem="Tgd-CU-qbK" firstAttribute="centerX" secondItem="jP7-UD-uQN" secondAttribute="centerX" id="rsr-pQ-cdP"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                                <color key="value" name="PurchaseControlBackground"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="R03-Ha-N0W" id="BmX-QD-ziK"/>
+                                                            <outlet property="subtitleLabel" destination="El3-2W-yvl" id="eum-WW-y7a"/>
+                                                            <outlet property="titleLabel" destination="eoY-7Y-PPq" id="zgj-Mb-3OD"/>
+                                                        </connections>
+                                                    </customView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="jP7-UD-uQN" firstAttribute="width" secondItem="dcW-BJ-XR9" secondAttribute="width" id="CxW-rB-QRN"/>
+                                                    <constraint firstItem="wG9-DF-XYn" firstAttribute="width" secondItem="dcW-BJ-XR9" secondAttribute="width" id="JTH-gD-ZFD"/>
+                                                    <constraint firstItem="lDD-IC-ivi" firstAttribute="width" secondItem="dcW-BJ-XR9" secondAttribute="width" id="KMN-A3-UHa"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="dcW-BJ-XR9" firstAttribute="centerX" secondItem="zpa-A1-J1N" secondAttribute="centerX" id="4EX-XD-Mvo"/>
+                                            <constraint firstItem="dcW-BJ-XR9" firstAttribute="top" secondItem="zpa-A1-J1N" secondAttribute="top" constant="27" id="JTZ-iw-QEw"/>
+                                            <constraint firstItem="dcW-BJ-XR9" firstAttribute="centerY" secondItem="zpa-A1-J1N" secondAttribute="centerY" id="L5q-r6-WcO"/>
+                                            <constraint firstItem="dcW-BJ-XR9" firstAttribute="leading" secondItem="zpa-A1-J1N" secondAttribute="leading" constant="47" id="bbZ-uC-G7F"/>
+                                            <constraint firstAttribute="height" constant="280" placeholder="YES" id="q5c-pz-Yj3"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                <color key="value" name="PurchaseContentBackground"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </customView>
+                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="du8-rD-arZ">
+                                        <rect key="frame" x="0.0" y="45" width="96" height="5"/>
+                                    </box>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7zR-0c-XeD">
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="47"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MpQ-wf-Usq">
+                                                <rect key="frame" x="18" y="12" width="414" height="23"/>
+                                                <subviews>
+                                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
+                                                        <rect key="frame" x="-7" y="-4" width="139" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Check Updates..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ap9-2N-l0A">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="checkUpdatesButtonTapped:" target="R03-Ha-N0W" id="wkm-gY-oxC"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwB-wJ-guh">
+                                                        <rect key="frame" x="-7" y="-4" width="149" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Download Helper..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ubj-Xv-WAA">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="downloadHelperButtonTapped:" target="R03-Ha-N0W" id="Q2R-59-LUH"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UQE-fO-0e5">
+                                                        <rect key="frame" x="-7" y="-4" width="137" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Remove Helper..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ETM-TG-pgK">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="removeHelperButtonTapped:" target="R03-Ha-N0W" id="rqp-34-b9G"/>
+                                                        </connections>
+                                                    </button>
+                                                    <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-9g-hJB">
+                                                        <rect key="frame" x="143" y="0.0" width="152" height="23"/>
+                                                    </customView>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Oc-8b-tUs">
+                                                        <rect key="frame" x="296" y="-4" width="125" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Visit Website..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkI-1Z-qCT">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="visitWebsiteButtonTapped:" target="R03-Ha-N0W" id="E8V-iU-HuM"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="MpQ-wf-Usq" firstAttribute="centerY" secondItem="7zR-0c-XeD" secondAttribute="centerY" id="8AQ-9s-OmK"/>
+                                            <constraint firstItem="MpQ-wf-Usq" firstAttribute="leading" secondItem="7zR-0c-XeD" secondAttribute="leading" constant="18" id="dSF-nW-Zdp"/>
+                                            <constraint firstAttribute="height" constant="47" id="iII-q0-TAy"/>
+                                            <constraint firstItem="MpQ-wf-Usq" firstAttribute="centerX" secondItem="7zR-0c-XeD" secondAttribute="centerX" id="qeg-dR-dWG"/>
+                                            <constraint firstItem="MpQ-wf-Usq" firstAttribute="top" secondItem="7zR-0c-XeD" secondAttribute="top" constant="12" id="yKY-Tv-nxd"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="7zR-0c-XeD" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="D4P-EP-oNj"/>
+                                    <constraint firstItem="zpa-A1-J1N" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="Rz9-jf-noe"/>
+                                    <constraint firstAttribute="width" constant="450" id="bYY-6o-RtJ"/>
+                                    <constraint firstItem="de4-fE-tM5" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="uwP-AE-h9X"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Zb-eiN" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
+                                <subviews>
+                                    <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-RD-xnd">
+                                        <rect key="frame" x="209" y="208" width="32" height="32"/>
+                                    </progressIndicator>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="n0R-RD-xnd" firstAttribute="centerX" secondItem="kfV-Zb-eiN" secondAttribute="centerX" id="J8x-zP-aFj"/>
+                                    <constraint firstItem="n0R-RD-xnd" firstAttribute="centerY" secondItem="kfV-Zb-eiN" secondAttribute="centerY" id="nSn-KM-gxh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" name="PurchaseControlMask"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kfV-Zb-eiN" firstAttribute="leading" secondItem="VmA-2K-qK0" secondAttribute="leading" id="2QH-3C-hqr"/>
+                            <constraint firstItem="VmA-2K-qK0" firstAttribute="leading" secondItem="xcf-65-lg9" secondAttribute="leading" id="6vr-Y7-fag"/>
+                            <constraint firstItem="kfV-Zb-eiN" firstAttribute="top" secondItem="VmA-2K-qK0" secondAttribute="top" id="Fgt-fy-FhR"/>
+                            <constraint firstItem="kfV-Zb-eiN" firstAttribute="trailing" secondItem="VmA-2K-qK0" secondAttribute="trailing" id="HiR-E6-sbs"/>
+                            <constraint firstItem="kfV-Zb-eiN" firstAttribute="bottom" secondItem="VmA-2K-qK0" secondAttribute="bottom" id="LxG-9t-7S7"/>
+                            <constraint firstAttribute="bottom" secondItem="VmA-2K-qK0" secondAttribute="bottom" id="TsB-Gc-Iiu"/>
+                            <constraint firstItem="VmA-2K-qK0" firstAttribute="top" secondItem="xcf-65-lg9" secondAttribute="top" id="iI3-vf-Elw"/>
+                            <constraint firstAttribute="trailing" secondItem="VmA-2K-qK0" secondAttribute="trailing" id="wsL-a6-T43"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                <color key="value" name="PurchaseBackground"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
+                    <connections>
+                        <outlet property="bottomLine" destination="du8-rD-arZ" id="INJ-R2-L20"/>
+                        <outlet property="bottomView" destination="7zR-0c-XeD" id="IPN-k0-1jR"/>
+                        <outlet property="buyButton" destination="lDD-IC-ivi" id="RyE-5W-6Ud"/>
+                        <outlet property="checkUpdatesButton" destination="WbD-0Z-9DL" id="Qo9-0O-PQb"/>
+                        <outlet property="downloadHelperButton" destination="hwB-wJ-guh" id="oOb-AT-db3"/>
+                        <outlet property="maskIndicator" destination="n0R-RD-xnd" id="GPM-nR-jhP"/>
+                        <outlet property="maskView" destination="kfV-Zb-eiN" id="Iji-z7-lmQ"/>
+                        <outlet property="middleView" destination="zpa-A1-J1N" id="2JP-CO-2g1"/>
+                        <outlet property="removeHelperButton" destination="UQE-fO-0e5" id="hRo-WN-KD9"/>
+                        <outlet property="restoreButton" destination="jP7-UD-uQN" id="HyT-70-ava"/>
+                        <outlet property="subtitleLabel" destination="F3T-xd-asn" id="irK-nH-YPj"/>
+                        <outlet property="titleLabel" destination="11c-hD-F1Y" id="4tj-At-i3R"/>
+                        <outlet property="topLine" destination="5PK-fL-yOa" id="1vX-qF-LSO"/>
+                        <outlet property="topView" destination="de4-fE-tM5" id="b7K-TK-wWa"/>
+                        <outlet property="trialButton" destination="wG9-DF-XYn" id="qIp-Lo-dZR"/>
+                        <outlet property="visitWebsiteButton" destination="6Oc-8b-tUs" id="nEg-Ey-NKM"/>
+                    </connections>
                 </viewController>
                 <customObject id="ofj-kR-tfA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-38" y="83"/>
+            <point key="canvasLocation" x="-15" y="82.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AppIcon" width="512" height="512"/>
+        <namedColor name="PurchaseBackground">
+            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PurchaseContentBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PurchaseControlBackground">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PurchaseControlMask">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

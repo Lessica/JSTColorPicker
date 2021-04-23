@@ -62,6 +62,7 @@ class WindowController: NSWindowController {
     
     private var documentObservations                   : [NSKeyValueObservation]?
     private var lastStoredMagnification                : CGFloat?
+    private var _windowSubtitle                        : String?
     
     var splitController: SplitController! {
         return self.window!.contentViewController?.children.first as? SplitController
@@ -93,6 +94,13 @@ class WindowController: NSWindowController {
         
         touchBarPreviewSlider.isEnabled = false
         ShortcutGuideWindowController.registerShortcutGuideForWindow(window!)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(productTypeDidChange(_:)),
+            name: PurchaseManager.productTypeDidChangeNotification,
+            object: nil
+        )
     }
     
     override func newWindowForTab(_ sender: Any?) {
@@ -203,6 +211,7 @@ class WindowController: NSWindowController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         debugPrint("\(className):\(#function)")
     }
     
@@ -472,7 +481,14 @@ extension WindowController: ItemPreviewDelegate {
     @available(OSX 11.0, *)
     private var windowSubtitle: String {
         get { window?.subtitle ?? ""      }
-        set { window?.subtitle = newValue }
+        set {
+            _windowSubtitle = newValue
+            if PurchaseManager.shared.productType == .subscribed {
+                window?.subtitle = newValue
+            } else {
+                window?.subtitle = NSLocalizedString("Demo Version - ", comment: "PurchaseManager") + newValue
+            }
+        }
     }
     
     func updateWindowTitle(_ url: URL, magnification: CGFloat? = nil) {
@@ -644,6 +660,17 @@ extension WindowController {
         {
             window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(rawValue: NSToolbarItem.Identifier.RawValue(selectedItemIdentifier))
             syncToolbarState()
+        }
+    }
+    
+}
+
+extension WindowController {
+    
+    @objc private func productTypeDidChange(_ noti: Notification) {
+        guard let manager = noti.object as? PurchaseManager else { return }
+        if manager.productType == .subscribed, let lastStoredSubtitle = _windowSubtitle {
+            window?.subtitle = lastStoredSubtitle
         }
     }
     

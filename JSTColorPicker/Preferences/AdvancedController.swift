@@ -72,7 +72,7 @@ class AdvancedController: NSViewController {
         super.viewWillAppear()
         
         #if !APP_STORE
-        UserDefaults.standard[.checkUpdatesAutomatically] = (NSApp.delegate as? AppDelegate)?.sparkUpdater.automaticallyChecksForUpdates ?? false
+        UserDefaults.standard[.checkUpdatesAutomatically] = AppDelegate.shared.sparkUpdater.automaticallyChecksForUpdates ?? false
         #endif
     }
     

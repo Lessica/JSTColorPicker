@@ -18,7 +18,6 @@ import LetsMove
 import SwiftyStoreKit
 #endif
 
-@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     public static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
@@ -48,6 +47,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #else
     @IBOutlet public var sparkUpdater: SUUpdater!
     #endif
+    
+    @IBOutlet weak var templateManager: TemplateManager!
+    @IBOutlet weak var purchaseManager: PurchaseManager!
     
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
@@ -143,7 +145,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         // Deliver content from server, then:
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
-                // Unlock content
+                    // Unlock content
                 case .failed, .purchasing, .deferred:
                     break // do nothing
                 @unknown default:
@@ -151,6 +153,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+        PurchaseWindowController.shared.showWindow(self)
         #endif
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import OSLog
 
-class TemplateManager {
+@objc class TemplateManager: NSObject {
     enum Error: LocalizedError {
         case unknown
         case resourceBusy
@@ -24,7 +24,9 @@ class TemplateManager {
         }
     }
 
-    static var shared = TemplateManager()
+    static var shared: TemplateManager {
+        AppDelegate.shared.templateManager
+    }
 
     struct NotificationType {
         struct Name {

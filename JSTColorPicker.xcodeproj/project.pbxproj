@@ -101,7 +101,6 @@
 		CC470A79262DE5020013A3B7 /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A77262DE5020013A3B7 /* SubscriptionController.swift */; };
 		CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC470A92262DE90B0013A3B7 /* Subscription.xib */; };
 		CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */; };
-		CC470AC0262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
 		CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
@@ -194,6 +193,16 @@
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCE33FEF26325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
+		CCE33FF026325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
+		CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
+		CCE340042632648B0082F73D /* PurchaseWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE340022632648B0082F73D /* PurchaseWindowController.swift */; };
+		CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3400C263265A50082F73D /* PurchaseManager.swift */; };
+		CCE34017263272590082F73D /* ColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34016263272590082F73D /* ColoredView.swift */; };
+		CCE34018263272590082F73D /* ColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34016263272590082F73D /* ColoredView.swift */; };
+		CCE34022263280620082F73D /* PurchaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34020263280620082F73D /* PurchaseButton.swift */; };
+		CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE3405426329A470082F73D /* StoreKit.framework */; };
+		CCE340662632B0F30082F73D /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = CCE340652632B0F30082F73D /* TPInAppReceipt */; };
 		CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
@@ -946,6 +955,13 @@
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
+		CCE33FEE26325F6C0082F73D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		CCE33FF82632642C0082F73D /* PurchaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindow.swift; sourceTree = "<group>"; };
+		CCE340022632648B0082F73D /* PurchaseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindowController.swift; sourceTree = "<group>"; };
+		CCE3400C263265A50082F73D /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		CCE34016263272590082F73D /* ColoredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredView.swift; sourceTree = "<group>"; };
+		CCE34020263280620082F73D /* PurchaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseButton.swift; sourceTree = "<group>"; };
+		CCE3405426329A470082F73D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CCE901542626BAC400C84904 /* KeyValueObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
 		CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserverResult.swift; sourceTree = "<group>"; };
 		CCE9016F2626BAF700C84904 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -1306,7 +1322,9 @@
 			files = (
 				CCC0F886262FFE20006C4492 /* Down in Frameworks */,
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
+				CCE340662632B0F30082F73D /* TPInAppReceipt in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
+				CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
@@ -1494,6 +1512,10 @@
 			children = (
 				CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */,
 				CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */,
+				CCE33FF82632642C0082F73D /* PurchaseWindow.swift */,
+				CCE340022632648B0082F73D /* PurchaseWindowController.swift */,
+				CCE3400C263265A50082F73D /* PurchaseManager.swift */,
+				CCE34020263280620082F73D /* PurchaseButton.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -1637,6 +1659,7 @@
 			isa = PBXGroup;
 			children = (
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
+				CCE34016263272590082F73D /* ColoredView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2046,6 +2069,7 @@
 				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
 				CCCD822F261C81C800BFDD6E /* MainWindow.swift */,
+				CCE33FEE26325F6C0082F73D /* main.swift */,
 			);
 			path = JSTColorPicker;
 			sourceTree = "<group>";
@@ -2188,6 +2212,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCE3405426329A470082F73D /* StoreKit.framework */,
 				CC8376F126304DBD00B2C984 /* libreadline.tbd */,
 				CCFECFBB262D5152001F6467 /* Carbon.framework */,
 				CC84219D26160CD200F1C007 /* Security.framework */,
@@ -2617,6 +2642,7 @@
 				CCABB72F260F5E8C000AC582 /* ShortcutGuide */,
 				CCC525AD262EB72800D408B0 /* SyntaxKit */,
 				CCC0F885262FFE20006C4492 /* Down */,
+				CCE340652632B0F30082F73D /* TPInAppReceipt */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -2729,6 +2755,7 @@
 			packageReferences = (
 				CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */,
 				CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */,
+				CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -2983,6 +3010,7 @@
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
+				CCE33FEF26325F6C0082F73D /* main.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
@@ -3031,7 +3059,6 @@
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
-				CC470AC0262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
@@ -3045,6 +3072,7 @@
 				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
+				CCE34017263272590082F73D /* ColoredView.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
 				D61047A324224A170002E990 /* ToolbarResponder.swift in Sources */,
@@ -3298,11 +3326,13 @@
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */,
+				CCE34018263272590082F73D /* ColoredView.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
 				CC300F4B26285E27002FD866 /* TemplateCellView.swift in Sources */,
+				CCE33FF026325F6C0082F73D /* main.swift in Sources */,
 				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
@@ -3320,10 +3350,12 @@
 				CC470A79262DE5020013A3B7 /* SubscriptionController.swift in Sources */,
 				D659168B24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				18D202C72496951B007A079F /* ContentCellView.swift in Sources */,
+				CCE340042632648B0082F73D /* PurchaseWindowController.swift in Sources */,
 				185D7EF5248A936A001C283B /* ContentItemSource.swift in Sources */,
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
+				CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				CCE901672626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
@@ -3333,6 +3365,8 @@
 				D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */,
 				CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
+				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
+				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
@@ -4271,8 +4305,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4298,6 +4334,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D APP_STORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = JSTColorPicker;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -4515,6 +4552,14 @@
 				kind = branch;
 			};
 		};
+		CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:tikhop/TPInAppReceipt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -4545,6 +4590,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
 			productName = SyntaxKit;
+		};
+		CCE340652632B0F30082F73D /* TPInAppReceipt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
+			productName = TPInAppReceipt;
 		};
 /* End XCSwiftPackageProductDependency section */
 

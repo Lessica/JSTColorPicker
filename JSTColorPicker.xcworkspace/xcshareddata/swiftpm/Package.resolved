@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ASN1Swift",
+        "repositoryURL": "https://github.com/tikhop/ASN1Swift",
+        "state": {
+          "branch": null,
+          "revision": "b53bee03a942623db25afc5bfb80227b2cb3b425",
+          "version": "1.2.4"
+        }
+      },
+      {
         "package": "Down",
         "repositoryURL": "git@github.com:johnxnguyen/Down.git",
         "state": {
@@ -17,6 +26,15 @@
           "branch": "master",
           "revision": "645735192d57c672e2c03b4be19a76ae542dd676",
           "version": null
+        }
+      },
+      {
+        "package": "TPInAppReceipt",
+        "repositoryURL": "git@github.com:tikhop/TPInAppReceipt.git",
+        "state": {
+          "branch": null,
+          "revision": "eb79f08ac36dfc787a588d37ceef063c191598d5",
+          "version": "3.1.1"
         }
       }
     ]
