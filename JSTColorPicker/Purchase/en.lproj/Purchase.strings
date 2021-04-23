@@ -1,2 +1,35 @@
 /* Class = "NSWindow"; title = "Purchase"; ObjectID = "0PI-qq-0aG"; */
-"0PI-qq-0aG.title" = "";
+"0PI-qq-0aG.title" = "Purchase";
+
+/* Class = "NSTextFieldCell"; title = "Loading..."; ObjectID = "5JX-GV-MXZ"; */
+"5JX-GV-MXZ.title" = "Loading...";
+
+/* Class = "NSButtonCell"; title = "Check Updates..."; ObjectID = "ap9-2N-l0A"; */
+"ap9-2N-l0A.title" = "Check Updates...";
+
+/* Class = "NSTextFieldCell"; title = "Thank you for downloading JSTColorPicker!"; ObjectID = "bLR-0v-dAV"; */
+"bLR-0v-dAV.title" = "Thank you for downloading JSTColorPicker!";
+
+/* Class = "NSTextFieldCell"; title = "Validate your subscription from App Store."; ObjectID = "dTv-jj-Alh"; */
+"dTv-jj-Alh.title" = "Validate your subscription from App Store.";
+
+/* Class = "NSTextFieldCell"; title = "Already have a subscription? Restore it!"; ObjectID = "g1O-YI-eSP"; */
+"g1O-YI-eSP.title" = "Already have a subscription? Restore it!";
+
+/* Class = "NSTextFieldCell"; title = "Try Demo Version"; ObjectID = "KaK-a0-0WR"; */
+"KaK-a0-0WR.title" = "Try Demo Version";
+
+/* Class = "NSTextFieldCell"; title = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes)."; ObjectID = "pVJ-BW-eky"; */
+"pVJ-BW-eky.title" = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes).";
+
+/* Class = "NSTextFieldCell"; title = "With a free, unlimited trial expires in 14 days."; ObjectID = "Vnr-sP-jKa"; */
+"Vnr-sP-jKa.title" = "With a free, unlimited trial expires in 14 days.";
+
+/* Class = "NSTextFieldCell"; title = "Subscribe JSTColorPicker..."; ObjectID = "wcU-IC-9mk"; */
+"wcU-IC-9mk.title" = "Subscribe JSTColorPicker...";
+
+/* Class = "NSTextFieldCell"; title = "Welcome"; ObjectID = "xX4-WW-Ncv"; */
+"xX4-WW-Ncv.title" = "Welcome";
+
+/* Class = "NSButtonCell"; title = "Visit Website..."; ObjectID = "zkI-1Z-qCT"; */
+"zkI-1Z-qCT.title" = "Visit Website...";

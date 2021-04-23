@@ -36,7 +36,7 @@
         <scene sceneID="lbY-4W-DqX">
             <objects>
                 <viewController id="R03-Ha-N0W" customClass="PurchaseController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="xcf-65-lg9" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
+                    <view key="view" id="xcf-65-lg9" customClass="PurchaseMainView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -46,7 +46,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="de4-fE-tM5">
                                         <rect key="frame" x="0.0" y="329" width="450" height="118"/>
                                         <subviews>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="24" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn5-Gp-JpV">
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="24" horizontalStackHuggingPriority="750" verticalStackHuggingPriority="750" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn5-Gp-JpV">
                                                 <rect key="frame" x="40" y="22" width="370" height="64"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uhU-GI-GRb">
@@ -58,10 +58,10 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="bbo-TU-P0E"/>
                                                     </imageView>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTS-xp-LhK">
-                                                        <rect key="frame" x="88" y="0.0" width="282" height="64"/>
+                                                        <rect key="frame" x="88" y="0.0" width="282" height="60"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11c-hD-F1Y">
-                                                                <rect key="frame" x="-2" y="31" width="117" height="33"/>
+                                                                <rect key="frame" x="-2" y="27" width="117" height="33"/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Welcome" usesSingleLineMode="YES" id="xX4-WW-Ncv">
                                                                     <font key="font" metaFont="system" size="28"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -69,7 +69,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="200" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3T-xd-asn">
-                                                                <rect key="frame" x="-2" y="0.0" width="269" height="25"/>
+                                                                <rect key="frame" x="-2" y="0.0" width="269" height="21"/>
                                                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Thank you for downloading JSTColorPicker!" id="bLR-0v-dAV">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -88,7 +88,7 @@
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="LTS-xp-LhK" firstAttribute="centerY" secondItem="uhU-GI-GRb" secondAttribute="centerY" id="cja-f5-gjb"/>
+                                                    <constraint firstItem="LTS-xp-LhK" firstAttribute="centerY" secondItem="uhU-GI-GRb" secondAttribute="centerY" constant="2" id="cja-f5-gjb"/>
                                                 </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
@@ -104,12 +104,12 @@
                                             <constraint firstItem="rn5-Gp-JpV" firstAttribute="leading" secondItem="de4-fE-tM5" secondAttribute="leading" constant="40" id="68w-sM-VLy"/>
                                             <constraint firstItem="rn5-Gp-JpV" firstAttribute="centerX" secondItem="de4-fE-tM5" secondAttribute="centerX" id="8xG-Xi-eer"/>
                                             <constraint firstAttribute="bottom" secondItem="rn5-Gp-JpV" secondAttribute="bottom" constant="22" id="AW6-KN-eG0"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="118" id="Cns-ZR-r5F"/>
                                             <constraint firstItem="rn5-Gp-JpV" firstAttribute="top" secondItem="de4-fE-tM5" secondAttribute="top" constant="32" id="N7F-uO-cvv"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="118" id="fch-6c-1f1"/>
                                         </constraints>
                                     </customView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5PK-fL-yOa">
-                                        <rect key="frame" x="0.0" y="326" width="96" height="5"/>
+                                        <rect key="frame" x="0.0" y="326" width="450" height="5"/>
                                     </box>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zpa-A1-J1N" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48" width="450" height="280"/>
@@ -124,9 +124,9 @@
                                                                 <rect key="frame" x="22" y="10" width="312" height="62"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbm-fT-Sa2">
-                                                                        <rect key="frame" x="-2" y="46" width="111" height="16"/>
+                                                                        <rect key="frame" x="-2" y="46" width="114" height="16"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Try Demo Version" usesSingleLineMode="YES" id="KaK-a0-0WR">
-                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                            <font key="font" metaFont="systemMedium" size="13"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -189,9 +189,9 @@ Sessions are time limited (30 minutes).</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="312" height="34"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="275" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bin-bO-sVY">
-                                                                                <rect key="frame" x="-2" y="18" width="172" height="16"/>
+                                                                                <rect key="frame" x="-2" y="18" width="177" height="16"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Subscribe JSTColorPicker..." usesSingleLineMode="YES" id="wcU-IC-9mk">
-                                                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                                                    <font key="font" metaFont="systemMedium" size="13"/>
                                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
@@ -267,9 +267,9 @@ Sessions are time limited (30 minutes).</string>
                                                                 <rect key="frame" x="22" y="10" width="312" height="34"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoY-7Y-PPq">
-                                                                        <rect key="frame" x="-2" y="18" width="244" height="16"/>
+                                                                        <rect key="frame" x="-2" y="18" width="250" height="16"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Already have a subscription? Restore it!" usesSingleLineMode="YES" id="g1O-YI-eSP">
-                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                            <font key="font" metaFont="systemMedium" size="13"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -351,7 +351,7 @@ Sessions are time limited (30 minutes).</string>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="du8-rD-arZ">
-                                        <rect key="frame" x="0.0" y="45" width="96" height="5"/>
+                                        <rect key="frame" x="0.0" y="45" width="450" height="5"/>
                                     </box>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="7zR-0c-XeD">
                                         <rect key="frame" x="0.0" y="0.0" width="450" height="47"/>
@@ -359,8 +359,8 @@ Sessions are time limited (30 minutes).</string>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MpQ-wf-Usq">
                                                 <rect key="frame" x="18" y="12" width="414" height="23"/>
                                                 <subviews>
-                                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
-                                                        <rect key="frame" x="-7" y="-4" width="139" height="32"/>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
+                                                        <rect key="frame" x="-7" y="-7" width="139" height="35"/>
                                                         <buttonCell key="cell" type="push" title="Check Updates..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ap9-2N-l0A">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -369,31 +369,11 @@ Sessions are time limited (30 minutes).</string>
                                                             <action selector="checkUpdatesButtonTapped:" target="R03-Ha-N0W" id="wkm-gY-oxC"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwB-wJ-guh">
-                                                        <rect key="frame" x="-7" y="-4" width="149" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Download Helper..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ubj-Xv-WAA">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="downloadHelperButtonTapped:" target="R03-Ha-N0W" id="Q2R-59-LUH"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UQE-fO-0e5">
-                                                        <rect key="frame" x="-7" y="-4" width="137" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Remove Helper..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ETM-TG-pgK">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="removeHelperButtonTapped:" target="R03-Ha-N0W" id="rqp-34-b9G"/>
-                                                        </connections>
-                                                    </button>
                                                     <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-9g-hJB">
-                                                        <rect key="frame" x="143" y="0.0" width="152" height="23"/>
+                                                        <rect key="frame" x="133" y="0.0" width="162" height="23"/>
                                                     </customView>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Oc-8b-tUs">
-                                                        <rect key="frame" x="296" y="-4" width="125" height="32"/>
+                                                        <rect key="frame" x="296" y="-7" width="125" height="35"/>
                                                         <buttonCell key="cell" type="push" title="Visit Website..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkI-1Z-qCT">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -403,16 +383,17 @@ Sessions are time limited (30 minutes).</string>
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="WbD-0Z-9DL" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="5eq-Xs-Pa9"/>
+                                                    <constraint firstItem="zb1-9g-hJB" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="KeR-12-PfM"/>
+                                                    <constraint firstItem="6Oc-8b-tUs" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="Ofj-IR-WCW"/>
+                                                </constraints>
                                                 <visibilityPriorities>
-                                                    <integer value="1000"/>
-                                                    <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
-                                                    <real value="3.4028234663852886e+38"/>
-                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
@@ -429,9 +410,11 @@ Sessions are time limited (30 minutes).</string>
                                     </customView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="5PK-fL-yOa" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="4Kh-lC-M9C"/>
                                     <constraint firstItem="7zR-0c-XeD" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="D4P-EP-oNj"/>
                                     <constraint firstItem="zpa-A1-J1N" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="Rz9-jf-noe"/>
                                     <constraint firstAttribute="width" constant="450" id="bYY-6o-RtJ"/>
+                                    <constraint firstItem="du8-rD-arZ" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="dOZ-6I-U1h"/>
                                     <constraint firstItem="de4-fE-tM5" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="uwP-AE-h9X"/>
                                 </constraints>
                                 <visibilityPriorities>
@@ -449,7 +432,7 @@ Sessions are time limited (30 minutes).</string>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Zb-eiN" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Zb-eiN" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
                                 <subviews>
                                     <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-RD-xnd">
@@ -488,11 +471,9 @@ Sessions are time limited (30 minutes).</string>
                         <outlet property="bottomView" destination="7zR-0c-XeD" id="IPN-k0-1jR"/>
                         <outlet property="buyButton" destination="lDD-IC-ivi" id="RyE-5W-6Ud"/>
                         <outlet property="checkUpdatesButton" destination="WbD-0Z-9DL" id="Qo9-0O-PQb"/>
-                        <outlet property="downloadHelperButton" destination="hwB-wJ-guh" id="oOb-AT-db3"/>
                         <outlet property="maskIndicator" destination="n0R-RD-xnd" id="GPM-nR-jhP"/>
                         <outlet property="maskView" destination="kfV-Zb-eiN" id="Iji-z7-lmQ"/>
                         <outlet property="middleView" destination="zpa-A1-J1N" id="2JP-CO-2g1"/>
-                        <outlet property="removeHelperButton" destination="UQE-fO-0e5" id="hRo-WN-KD9"/>
                         <outlet property="restoreButton" destination="jP7-UD-uQN" id="HyT-70-ava"/>
                         <outlet property="subtitleLabel" destination="F3T-xd-asn" id="irK-nH-YPj"/>
                         <outlet property="titleLabel" destination="11c-hD-F1Y" id="4tj-At-i3R"/>
@@ -519,7 +500,7 @@ Sessions are time limited (30 minutes).</string>
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PurchaseControlMask">
-            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

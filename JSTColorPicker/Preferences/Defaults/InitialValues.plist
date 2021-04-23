@@ -37,7 +37,7 @@
 	<key>defaults:ignoreInvalidDeletion</key>
 	<true/>
 	<key>defaults:ignoreRepeatedInsertion</key>
-	<true/>
+	<false/>
 	<key>defaults:zIndexBySize</key>
 	<false/>
 	<key>defaults:initialSimilarity</key>

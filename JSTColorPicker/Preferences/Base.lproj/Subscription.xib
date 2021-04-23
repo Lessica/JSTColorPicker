@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SubscriptionController" customModule="JSTColorPicker" customModuleProvider="target">
             <connections>
+                <outlet property="detailLabel" destination="UkO-PC-M9V" id="kte-FA-wse"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Q39-ye-Vnd"/>
             </connections>
         </customObject>
@@ -31,17 +32,30 @@
                             <rect key="frame" x="0.0" y="0.0" width="500" height="20"/>
                             <subviews>
                                 <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="GBG-DP-NM7">
-                                    <rect key="frame" x="0.0" y="0.0" width="162" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="93" height="20"/>
                                 </customView>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4gO-F7-e5S">
+                                    <rect key="frame" x="94" y="-7" width="144" height="32"/>
+                                    <buttonCell key="cell" type="push" title="View Subscription" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xg7-NE-czH">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="viewSubscriptionAction:" target="-2" id="UDc-jd-IdO"/>
+                                    </connections>
+                                </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p3b-vd-Mmc">
-                                    <rect key="frame" x="163" y="-7" width="174" height="32"/>
+                                    <rect key="frame" x="232" y="-7" width="174" height="32"/>
                                     <buttonCell key="cell" type="push" title="Manage Subscription..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ubx-34-m7e">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="manageSubscriptionAction:" target="-2" id="ZEf-BC-YbL"/>
+                                    </connections>
                                 </button>
                                 <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="1Cj-Dp-XLJ">
-                                    <rect key="frame" x="338" y="0.0" width="162" height="20"/>
+                                    <rect key="frame" x="407" y="0.0" width="93" height="20"/>
                                 </customView>
                             </subviews>
                             <constraints>
@@ -51,8 +65,10 @@
                                 <integer value="1000"/>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
+                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>

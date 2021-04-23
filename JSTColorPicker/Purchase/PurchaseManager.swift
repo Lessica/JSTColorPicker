@@ -14,19 +14,28 @@ import TPInAppReceipt
     
     enum Error: LocalizedError {
         case invalidReceipt
+        case invalidPurchase
         case notPurchased
+        case expired(at: Date)
         
         var failureReason: String? {
             switch self {
             case .invalidReceipt:
                 return NSLocalizedString("Invalid receipt.", comment: "PurchaseManager.Error")
+            case .invalidPurchase:
+                return NSLocalizedString("Invalid purchase.", comment: "PurchaseManager.Error")
             case .notPurchased:
                 return NSLocalizedString("Not purchased.", comment: "PurchaseController.Error")
+            case let .expired(at):
+                return String(
+                    format: NSLocalizedString("Your previous subscription has expired since %@. Please renew your subscription.", comment: "PurchaseController.Error"),
+                    PurchaseManager.expiryDateFormatter.string(from: at)
+                )
             }
         }
     }
     
-    class var shared: PurchaseManager { AppDelegate.shared.purchaseManager }
+    static var shared          = PurchaseManager()
     static let sharedProductID = "com.jst.JSTColorPicker.Subscription.Yearly"
     static let sharedSecret    = "53cbec8e68f445c596ce0c3e059a1f06"
     
@@ -35,6 +44,19 @@ import TPInAppReceipt
         case demoVersion
         case subscribed
         case expired
+        
+        var localizedString: String {
+            switch self {
+            case .uninitialized:
+                return NSLocalizedString("Uninitialized", comment: "PurchaseManager.ProductType")
+            case .demoVersion:
+                return NSLocalizedString("Demo Version", comment: "PurchaseManager.ProductType")
+            case .subscribed:
+                return NSLocalizedString("Subscribed", comment: "PurchaseManager.ProductType")
+            case .expired:
+                return NSLocalizedString("Expired", comment: "PurchaseManager.ProductType")
+            }
+        }
     }
     
     static let productTypeDidChangeNotification = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
@@ -44,7 +66,15 @@ import TPInAppReceipt
         }
     }
     
-    private(set) var expiredAt    : Date
+    var readableExpiredAt: String { PurchaseManager.expiryDateFormatter.string(from: expiredAt) }
+    private(set)   var expiredAt          : Date
+    private static var expiryDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     private(set) var isTrial      : Bool
     
     override init() {
@@ -62,6 +92,7 @@ import TPInAppReceipt
     
     var hasLocalReceipt: Bool { SwiftyStoreKit.localReceiptData != nil }
     
+    @discardableResult
     func loadLocalReceipt(withResult result: VerifySubscriptionResult? = nil) throws -> InAppPurchase {
         let receipt = try InAppReceipt.localReceipt()
         try receipt.verify()
@@ -72,7 +103,7 @@ import TPInAppReceipt
                 .first
         else {
             productType = .uninitialized
-            throw Error.notPurchased
+            throw Error.invalidPurchase
         }
         // Extra validation between remote and local receipts
         if let remoteResult = result {
@@ -81,7 +112,7 @@ import TPInAppReceipt
                 guard abs(expiryDate.timeIntervalSinceReferenceDate - lastPurchase.subscriptionExpirationDate!.timeIntervalSinceReferenceDate) < 60.0
                 else {
                     productType = .uninitialized
-                    throw Error.notPurchased
+                    throw Error.invalidPurchase
                 }
                 guard let lastReceipt = items
                         .filter({ $0.subscriptionExpirationDate != nil })
@@ -91,7 +122,7 @@ import TPInAppReceipt
                       (expiryDate.timeIntervalSinceReferenceDate - lastReceipt.subscriptionExpirationDate!.timeIntervalSinceReferenceDate) < 60.0
                 else {
                     productType = .uninitialized
-                    throw Error.notPurchased
+                    throw Error.invalidPurchase
                 }
             default:
                 productType = .uninitialized
@@ -122,12 +153,13 @@ import TPInAppReceipt
                   lastReceipt.productId == PurchaseManager.sharedProductID
             else {
                 productType = .uninitialized
-                throw Error.notPurchased
+                throw Error.invalidPurchase
             }
             expiredAt = expiryDate
             isTrial = false
             productType = .expired
             debugPrint("trySubscribe(): expired, expiredAt = \(expiryDate)")
+            throw Error.expired(at: expiryDate)
         case .notPurchased:
             productType = .uninitialized
             throw Error.notPurchased

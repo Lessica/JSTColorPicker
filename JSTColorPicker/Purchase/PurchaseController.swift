@@ -41,8 +41,6 @@ class PurchaseController: NSViewController {
     @IBOutlet weak var buyButton             : PurchaseButton!
     @IBOutlet weak var restoreButton         : PurchaseButton!
     @IBOutlet weak var checkUpdatesButton    : NSButton!
-    @IBOutlet weak var downloadHelperButton  : NSButton!
-    @IBOutlet weak var removeHelperButton    : NSButton!
     @IBOutlet weak var visitWebsiteButton    : NSButton!
     
     @IBOutlet weak var maskView              : ColoredView!
@@ -68,27 +66,28 @@ class PurchaseController: NSViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         #if APP_STORE
-        let hasHelper = AppDelegate.shared.applicationHasScreenshotHelper()
         checkUpdatesButton.isHidden = true
-        downloadHelperButton.isHidden = hasHelper
-        removeHelperButton.isHidden = !hasHelper
         #else
         checkUpdatesButton.isHidden = false
-        downloadHelperButton.isHidden = true
         #endif
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reloadProductsUI()
         reloadUI()
+        if PurchaseManager.shared.productType != .subscribed {
+            reloadProductsUI()
+        }
     }
     
     private func reloadUI() {
         if PurchaseManager.shared.productType == .subscribed {
             titleLabel.stringValue = NSLocalizedString("Thank you!", comment: "reloadUI()")
-            subtitleLabel.stringValue = NSLocalizedString("Thank you for purchasing JSTColorPicker. You are awesome!", comment: "reloadUI()")
+            subtitleLabel.stringValue = String(
+                format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@", comment: "reloadUI()"),
+                PurchaseManager.shared.readableExpiredAt
+            )
             topView.isHidden = false
             middleView.isHidden = true
             bottomView.isHidden = false
@@ -110,7 +109,6 @@ class PurchaseController: NSViewController {
         SwiftyStoreKit.retrieveProductsInfo([PurchaseManager.sharedProductID]) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.isMasked = false
                 do {
                     if let product = result.retrievedProducts.first {
                         self.buyButton.isEnabled = true
@@ -133,6 +131,7 @@ class PurchaseController: NSViewController {
                     self.buyButton.priceLabel?.isHidden = true
                     self.presentError(error)
                 }
+                self.isMasked = false
             }
         }
     }
@@ -156,7 +155,6 @@ class PurchaseController: NSViewController {
                     case .success(let purchase):
                         debugPrint("Purchase Succeed: \(purchase.productId)")
                         self.validateSubscription()
-                        self.isMasked = false
                     case .error(let error):
                         if error.code != .paymentCancelled {
                             throw error
@@ -182,12 +180,10 @@ class PurchaseController: NSViewController {
                     } else if let succeedPurchase = results.restoredPurchases.last, succeedPurchase.productId == PurchaseManager.sharedProductID {
                         debugPrint("Restore Succeed: \(succeedPurchase.productId)")
                         self.validateSubscription()
-                        self.isMasked = false
                     } else {
                         if failedPurchases.isEmpty && PurchaseManager.shared.hasLocalReceipt {
                             debugPrint("Nothing to restore.")
                             self.validateSubscription()
-                            self.isMasked = false
                         } else {
                             throw Error.nothingToRestore
                         }
@@ -222,15 +218,14 @@ class PurchaseController: NSViewController {
                         inReceipt: receipt
                     )
                     try PurchaseManager.shared.trySubscribe(purchaseResult)
-                    self.isMasked = false
                     self.reloadUI()
                 case .error(let error):
                     throw error
                 }
             } catch {
-                self.isMasked = false
                 self.presentError(error)
             }
+            self.isMasked = false
         }
     }
     
@@ -254,16 +249,10 @@ extension PurchaseController: PurchaseButtonDelegate {
         debugPrint("check updates")
     }
     
-    @IBAction func downloadHelperButtonTapped(_ sender: NSButton) {
-        debugPrint("download helper")
-    }
-    
-    @IBAction func removeHelperButtonTapped(_ sender: NSButton) {
-        debugPrint("remove helper")
-    }
-    
     @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
-        debugPrint("visit website")
+        if let url = URL(string: "https://82flex.com/jstcpweb/") {
+            NSWorkspace.shared.open(url)
+        }
     }
     
 }

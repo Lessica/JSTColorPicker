@@ -3,3 +3,6 @@
 
 /* Class = "NSButtonCell"; title = "Manage Subscription..."; ObjectID = "ubx-34-m7e"; */
 "ubx-34-m7e.title" = "管理订阅...";
+
+/* Class = "NSButtonCell"; title = "View Subscription"; ObjectID = "Xg7-NE-czH"; */
+"Xg7-NE-czH.title" = "查看订阅";

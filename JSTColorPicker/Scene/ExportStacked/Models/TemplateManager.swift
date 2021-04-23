@@ -24,9 +24,7 @@ import OSLog
         }
     }
 
-    static var shared: TemplateManager {
-        AppDelegate.shared.templateManager
-    }
+    static var shared = TemplateManager()
 
     struct NotificationType {
         struct Name {

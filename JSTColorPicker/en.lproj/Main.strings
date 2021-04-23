@@ -37,6 +37,9 @@
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "6U2-X2-jP4"; */
 "6U2-X2-jP4.title" = "Image Preview";
 
+/* Class = "NSMenuItem"; title = "Visit Website..."; ObjectID = "8AD-4g-2RS"; */
+"8AD-4g-2RS.title" = "Visit Website...";
+
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "Toggle Color Panel";
 

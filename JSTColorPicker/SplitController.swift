@@ -222,10 +222,10 @@ extension SplitController: ContentDelegate {
             return try contentController.addContentItem(of: coordinate, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
+        } catch Content.Error.itemExists where ignore {
+            return nil
         } catch {
-            if !ignore {
-                presentError(error)
-            }
+            presentError(error)
         }
         return nil
     }
@@ -235,10 +235,10 @@ extension SplitController: ContentDelegate {
             return try contentController.addContentItem(of: rect, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
+        } catch Content.Error.itemExists where ignore {
+            return nil
         } catch {
-            if !ignore {
-                presentError(error)
-            }
+            presentError(error)
         }
         return nil
     }
@@ -325,10 +325,10 @@ extension SplitController: ContentDelegate {
             return try contentController.deleteContentItem(of: coordinate, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
+        } catch Content.Error.itemDoesNotExist where ignore {
+            return nil
         } catch {
-            if !ignore {
-                presentError(error)
-            }
+            presentError(error)
         }
         return nil
     }
@@ -338,10 +338,10 @@ extension SplitController: ContentDelegate {
             return try contentController.deleteContentItem(item, byIgnoringPopups: ignore)
         } catch Content.Error.userAborted {
             return nil
+        } catch Content.Error.itemDoesNotExist where ignore {
+            return nil
         } catch {
-            if !ignore {
-                presentError(error)
-            }
+            presentError(error)
         }
         return nil
     }

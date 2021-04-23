@@ -8,6 +8,9 @@
 /* resample(_:) */
 "%@ Resample Item #%ld" = "%@ Resample Item #%ld";
 
+/* None */
+"-" = "-";
+
 /* Shortcut Guide */
 "[Magic Cursor]" = "[Magic Cursor]";
 
@@ -125,6 +128,12 @@
 /* internalDeleteContentItems(_:) */
 "Delete Items" = "Delete Items";
 
+/* PurchaseManager.ProductType */
+"Demo Version" = "Demo Version";
+
+/* PurchaseManager */
+"Demo Version - " = "Demo Version - ";
+
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "Discover Devices";
 
@@ -199,6 +208,9 @@
 
 /* menuNeedsUpdate(_:) */
 "Expand/Collapse Preview" = "Expand/Collapse Preview";
+
+/* PurchaseManager.ProductType */
+"Expired" = "Expired";
 
 /* copy(_:) */
 "Extract code snippets from template \"%@\"..." = "Extract code snippets from template \"%@\"...";
@@ -293,6 +305,15 @@
 
 /* ScreenshotError */
 "Invalid image." = "Invalid image.";
+
+/* PurchaseController.Error */
+"Invalid product identifier: \"%@\"." = "Invalid product identifier: \"%@\".";
+
+/* PurchaseManager.Error */
+"Invalid purchase." = "Invalid purchase.";
+
+/* PurchaseManager.Error */
+"Invalid receipt." = "Invalid receipt.";
 
 /* Item #%@: %@ */
 "Item #%ld: %@" = "Item #%ld: %@";
@@ -433,11 +454,17 @@
 /* ExportError */
 "No template selected." = "No template selected.";
 
-/* None */
+/* PurchaseManager */
 "None" = "None";
+
+/* PurchaseController.Error */
+"Not purchased." = "Not purchased.";
 
 /* ScriptError */
 "Not running application with identifier \"%@\"." = "Not running application with identifier \"%@\".";
+
+/* PurchaseController.Error */
+"Nothing to restore." = "Nothing to restore.";
 
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
@@ -447,6 +474,9 @@
 
 /* reloadPane() */
 "Open an image of the same size for image comparison." = "Open an image of the same size for image comparison.";
+
+/* manageSubscriptionAction(_:) */
+"Open Confirmation" = "Open Confirmation";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
@@ -535,6 +565,9 @@
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
 
+/* PurchaseManager.ProductType */
+"Subscribed" = "Subscribed";
+
 /* toolbarItemLabel */
 "Subscription" = "Subscription";
 
@@ -556,6 +589,15 @@
 /* Shortcut Guide */
 "Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "Take Snapshot (⌃S): Take a screenshot directly from the selected devices.";
 
+/* reloadUI() */
+"Thank you for downloading JSTColorPicker!" = "Thank you for downloading JSTColorPicker!";
+
+/* reloadUI() */
+"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@" = "Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@";
+
+/* reloadUI() */
+"Thank you!" = "Thank you!";
+
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
 
@@ -573,6 +615,9 @@
 
 /* Content.Error */
 "This operation requires %d more spaces." = "This operation requires %d more spaces.";
+
+/* Screenshot.Error */
+"This operation requires valid subscription of JSTColorPicker." = "This operation requires valid subscription of JSTColorPicker.";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "This option requires application to restart to complete the modification.";
@@ -598,6 +643,9 @@
 /* Setup Persistent Store */
 "Unable to access tag database." = "Unable to access tag database.";
 
+/* PurchaseManager.ProductType */
+"Uninitialized" = "Uninitialized";
+
 /* ScriptError */
 "Unknown error occurred." = "Unknown error occurred.";
 
@@ -619,11 +667,23 @@
 /* ScriptError */
 "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".";
 
+/* PurchaseManager */
+"Valid Subscription: %@" = "Valid Subscription: %@";
+
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";
 
+/* reloadUI() */
+"Welcome" = "Welcome";
+
+/* manageSubscriptionAction(_:) */
+"Will redirect to your Apple ID account page to manage your subscription, continue?" = "Will redirect to your Apple ID account page to manage your subscription, continue?";
+
 /* ScriptError */
 "XPC connection to helper service is not established." = "XPC connection to helper service is not established.";
+
+/* PurchaseController.Error */
+"Your previous subscription has expired since %@. Please renew your subscription." = "Your previous subscription has expired since %@. Please renew your subscription.";
 
 /* Shortcut Guide */
 "Zoom In" = "Zoom In";

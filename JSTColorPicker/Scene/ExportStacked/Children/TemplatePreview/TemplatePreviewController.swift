@@ -19,29 +19,6 @@ private extension NSUserInterfaceItemIdentifier {
     static let cellTemplateContent  = NSUserInterfaceItemIdentifier("cell-template-content")
 }
 
-class TemplatePreviewObject {
-    let uuidString: String
-    var contents: String?
-    var error: String?
-    
-    internal init(uuidString: String, contents: String?, error: String?) {
-        self.uuidString = uuidString
-        self.contents = contents
-        self.error = error
-    }
-    
-    var hasContents: Bool { !(contents?.isEmpty ?? true) }
-    var hasError: Bool { !(error?.isEmpty ?? true) }
-    var isPlaceholder: Bool { uuidString.isEmpty }
-    
-    static let placeholder = TemplatePreviewObject(uuidString: "", contents: nil, error: nil)
-    
-    func clear() {
-        contents = nil
-        error = nil
-    }
-}
-
 class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
 
     enum Error: LocalizedError {
@@ -116,13 +93,12 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
             object: view.window
         )
 
-        documentContentObservarion = documentContent?
-            .observe(
-                \.items,
-                options: [.new],
-                changeHandler:
-                    { [weak self] in self?.documentContentChanged($0, $1) }
-            )
+        documentContentObservarion = documentContent?.observe(
+            \.items,
+            options: [.new],
+            changeHandler:
+                { [weak self] in self?.documentContentChanged($0, $1) }
+        )
     }
     
     override func viewDidLoad() {
@@ -188,6 +164,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         byNotingRowHeightsChanged heightsChanged: Bool,
         entirely: Bool
     ) {
+        assert(Thread.isMainThread)
         if scrollToTop {
             outlineView.scrollToBeginningOfDocument(self)
         }
@@ -380,14 +357,18 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     
     // MARK: - Context
 
-    private static let sharedContextQueue               : DispatchQueue = DispatchQueue(label: "TemplateSharedContext.Queue", qos: .background)
-    private var _shouldProcessContext                   : Bool = false
+    private static let sharedContextQueue               : DispatchQueue = DispatchQueue(label: "TemplateSharedContext.Queue", qos: .userInitiated)
+    private var _shouldProcessContext                   : Bool = false {
+        willSet {
+            assert(Thread.isMainThread)
+        }
+    }
     
     private func setNeedsProcessContext() {
         _shouldProcessContext = true
     }
     
-    private func processPreviewContextIfNeeded() {
+    @objc private func processPreviewContextIfNeeded() {
         if _shouldProcessContext {
             _shouldProcessContext = false
             entirelyProcessPreviewContext()
@@ -400,11 +381,16 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     }
     
     private func entirelyProcessPreviewContext() {
-        guard !isPaneHidden && !isWindowHidden else {
+        assert(Thread.isMainThread)
+        guard !isPaneHidden && !isWindowHidden && !isProcessing else {
+            NSObject.cancelPreviousPerformRequests(
+                withTarget: self,
+                selector: #selector(processPreviewContextIfNeeded),
+                object: nil
+            )
             setNeedsProcessContext()
             return
         }
-        guard !isProcessing else { return }
         
         self.updateViewState()
         self.clearContentsForAsyncTemplates()
@@ -431,7 +417,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         self.isReloading = true
         self.updateViewState()
         TemplatePreviewController.sharedContextQueue.asyncAfter(
-            deadline: .now() + (isKeyOrMain ? 0.1 : 0.5),
+            deadline: .now() + (isKeyOrMain ? 0.1 : 0.3),
             qos: isKeyOrMain ? .utility : .background,
             flags: [.enforceQoS]
         ) { [weak self] in
@@ -446,12 +432,19 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
                 self.isReloading = false
                 self.updateViewState()
                 sema.signal()
+                
+                self.perform(
+                    #selector(self.processPreviewContextIfNeeded),
+                    with: nil,
+                    afterDelay: 0.5
+                )
             }
             sema.wait()
         }
     }
     
     private func partialProcessPreviewContextForTemplates(_ templates: [Template], force: Bool) {
+        assert(Thread.isMainThread)
         var templatesToLoad: [Template]
         if !force {
             guard !isProcessing,
@@ -532,10 +525,12 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     }
     
     private func reloadContentsForTemplates(_ templates: [Template]) {
+        assert(Thread.isMainThread)
         templates.forEach({ outlineView.reloadItem($0, reloadChildren: true) })
     }
 
     private func reloadContentsForTemplate(_ template: Template) {
+        assert(Thread.isMainThread)
         outlineView.reloadItem(template, reloadChildren: true)
     }
 
@@ -556,18 +551,21 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     
     private var currentExpandedState   : [String]
     {
+        assert(Thread.isMainThread)
         return previewableTemplates
             .filter({ outlineView.isItemExpanded($0) })
             .map({ $0.uuid.uuidString })
     }
     
     private func saveExpandedState() {
+        assert(Thread.isMainThread)
         if cachedExpandedState == nil {
             cachedExpandedState = currentExpandedState
         }
     }
     
     private func restoreExpandedState() {
+        assert(Thread.isMainThread)
         isExpanding = true
         cachedExpandedState?
             .compactMap({ templateWithUUIDString($0) })
@@ -578,6 +576,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
     }
     
     private func clearExpandedState() {
+        assert(Thread.isMainThread)
         cachedExpandedState = nil
     }
     
@@ -639,7 +638,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
             if let previewObj = self.cachedPreviewContents[template.uuid.uuidString] {
                 previewObj.clear()
                 do {
-                    previewObj.contents = (try exportManager.generateAllContentItems(with: template))
+                    previewObj.contents = (try exportManager.generateAllContentItems(with: template, forPreviewOnly: true))
                         .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 } catch {
                     previewObj.error = error.localizedDescription
@@ -649,7 +648,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
                 do {
                     previewObj = TemplatePreviewObject(
                         uuidString: template.uuid.uuidString,
-                        contents: (try exportManager.generateAllContentItems(with: template))
+                        contents: (try exportManager.generateAllContentItems(with: template, forPreviewOnly: true))
                             .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
                         error: nil
                     )
@@ -943,7 +942,7 @@ extension TemplatePreviewController {
             }
 
             do {
-                seal.fulfill((try exportManager.generateContentItems(items, with: template), template))
+                seal.fulfill((try exportManager.generateContentItems(items, with: template, forPreviewOnly: false), template))
             } catch {
                 seal.reject(error)
             }

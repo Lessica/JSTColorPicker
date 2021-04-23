@@ -8,6 +8,9 @@
 /* resample(_:) */
 "%@ Resample Item #%ld" = "%@ 重新采样的项 #%ld";
 
+/* None */
+"-" = "-";
+
 /* Shortcut Guide */
 "[Magic Cursor]" = "[魔术光标]";
 
@@ -125,6 +128,12 @@
 /* internalDeleteContentItems(_:) */
 "Delete Items" = "删除项";
 
+/* PurchaseManager.ProductType */
+"Demo Version" = "试用版本";
+
+/* PurchaseManager */
+"Demo Version - " = "试用版本 - ";
+
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "立即寻找设备";
 
@@ -199,6 +208,9 @@
 
 /* menuNeedsUpdate(_:) */
 "Expand/Collapse Preview" = "展开/收起预览";
+
+/* PurchaseManager.ProductType */
+"Expired" = "已过期";
 
 /* copy(_:) */
 "Extract code snippets from template \"%@\"..." = "正在从模版 \"%@\" 中解析代码片段...";
@@ -293,6 +305,15 @@
 
 /* ScreenshotError */
 "Invalid image." = "图像无效.";
+
+/* PurchaseController.Error */
+"Invalid product identifier: \"%@\"." = "无效的产品标志符: \"%@\".";
+
+/* PurchaseManager.Error */
+"Invalid purchase." = "无效的付款.";
+
+/* PurchaseManager.Error */
+"Invalid receipt." = "无效的收据.";
 
 /* Item #%@: %@ */
 "Item #%ld: %@" = "项 #%ld: %@";
@@ -433,11 +454,17 @@
 /* ExportError */
 "No template selected." = "未选择模板.";
 
-/* None */
-"None" = "-";
+/* PurchaseManager */
+"None" = "无";
+
+/* PurchaseController.Error */
+"Not purchased." = "未付款.";
 
 /* ScriptError */
 "Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\".";
+
+/* PurchaseController.Error */
+"Nothing to restore." = "未找到可恢复的项目.";
 
 /* screenshotItemTapped(_:) */
 "OK" = "好";
@@ -447,6 +474,9 @@
 
 /* reloadPane() */
 "Open an image of the same size for image comparison." = "打开尺寸相同的图像文件, 以进行差异比对.";
+
+/* manageSubscriptionAction(_:) */
+"Open Confirmation" = "打开确认";
 
 /* updateInformationPanel */
 "Open or drop an image here." = "打开或拖拽文件到此处.";
@@ -535,6 +565,9 @@
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在.";
 
+/* PurchaseManager.ProductType */
+"Subscribed" = "已订阅";
+
 /* toolbarItemLabel */
 "Subscription" = "订阅";
 
@@ -556,6 +589,15 @@
 /* Shortcut Guide */
 "Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "截图 (⌃S): 直接从已选中的设备获取屏幕截图.";
 
+/* reloadUI() */
+"Thank you for downloading JSTColorPicker!" = "感谢你下载 JSTColorPicker!";
+
+/* reloadUI() */
+"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@" = "感谢你从 App Store 购买了 JSTColorPicker. 你真棒!\n订阅到期时间: %@";
+
+/* reloadUI() */
+"Thank you!" = "Thank you!";
+
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
 
@@ -573,6 +615,9 @@
 
 /* Content.Error */
 "This operation requires %d more spaces." = "此操作需要 %d 额外空间.";
+
+/* Screenshot.Error */
+"This operation requires valid subscription of JSTColorPicker." = "此操作需要 JSTColorPicker 有效期内的订阅.";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效.";
@@ -598,6 +643,9 @@
 /* Setup Persistent Store */
 "Unable to access tag database." = "无法访问标签数据库.";
 
+/* PurchaseManager.ProductType */
+"Uninitialized" = "未初始化";
+
 /* ScriptError */
 "Unknown error occurred." = "发生了未知错误.";
 
@@ -619,11 +667,23 @@
 /* ScriptError */
 "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可.\n请打开 \"偏好设置 > 隐私 > 自动化\", 然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问.";
 
+/* PurchaseManager */
+"Valid Subscription: %@" = "有效期内的订阅: %@";
+
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
 
+/* reloadUI() */
+"Welcome" = "欢迎";
+
+/* manageSubscriptionAction(_:) */
+"Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将跳转到你的 Apple ID 账户页面以管理你的订阅, 继续?";
+
 /* ScriptError */
 "XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯.";
+
+/* PurchaseController.Error */
+"Your previous subscription has expired since %@. Please renew your subscription." = "你此前的订阅已于 %@ 过期. 请续订.";
 
 /* Shortcut Guide */
 "Zoom In" = "放大";

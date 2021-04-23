@@ -48,9 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet public var sparkUpdater: SUUpdater!
     #endif
     
-    @IBOutlet weak var templateManager: TemplateManager!
-    @IBOutlet weak var purchaseManager: PurchaseManager!
-    
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var mainMenu: NSMenu!
     
@@ -92,6 +89,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillFinishLaunching(_ notification: Notification) {
         #if !DEBUG && !APP_STORE
         PFMoveToApplicationsFolderIfNecessary()
+        #endif
+        #if APP_STORE
+        if PurchaseManager.shared.hasLocalReceipt {
+            _ = try? PurchaseManager.shared.loadLocalReceipt()
+        }
         #endif
     }
     
@@ -153,7 +155,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
-        PurchaseWindowController.shared.showWindow(self)
+        #endif
+        
+        #if APP_STORE
+        if PurchaseManager.shared.productType != .subscribed {
+            PurchaseWindowController.shared.showWindow(self)
+        }
         #endif
     }
     
@@ -530,6 +537,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
         if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
+            NSWorkspace.shared.open(url)
+        }
+    }
+    
+    @IBAction func actionRedirectToMainPage(_ sender: NSMenuItem) {
+        if let url = URL(string: "https://82flex.com/jstcpweb/") {
             NSWorkspace.shared.open(url)
         }
     }

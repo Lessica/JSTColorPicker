@@ -1440,7 +1440,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     }
                 } else {
                     cell.normalTextColor = nil
-                    cell.text = NSLocalizedString("None", comment: "None")
+                    cell.text = NSLocalizedString("-", comment: "None")
                     cell.toolTip = NSLocalizedString("No tag attached", comment: "Tool Tip: Tag Cell View")
                 }
             }

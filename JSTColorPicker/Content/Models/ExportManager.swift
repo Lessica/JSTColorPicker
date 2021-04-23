@@ -84,7 +84,12 @@ class ExportManager {
     }
     
     func copyContentItems(_ items: [ContentItem], with template: Template) throws {
+        try _copyContentItems(items, with: template)
+    }
+    
+    private func _copyContentItems(_ items: [ContentItem], with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
+        try screenshot.testExportCondition()
         do {
             exportToAdditionalPasteboard(items)
             exportToGeneralStringPasteboard(try template.generate(image, for: items))
@@ -101,20 +106,27 @@ class ExportManager {
         try copyContentItems(items, with: template)
     }
 
-    func generateContentItems(_ items: [ContentItem], with template: Template) throws -> String {
+    func generateContentItems(_ items: [ContentItem], with template: Template, forPreviewOnly preview: Bool) throws -> String {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
+        if !preview {
+            try screenshot.testExportCondition()
+        }
         return try template.generate(image, for: items)
     }
 
-    func generateAllContentItems(with template: Template) throws -> String {
+    func generateAllContentItems(with template: Template, forPreviewOnly preview: Bool) throws -> String {
         guard let image = screenshot.image,
               let items = screenshot.content?.items
         else { throw Error.noDocumentLoaded }
+        if !preview {
+            try screenshot.testExportCondition()
+        }
         return try template.generate(image, for: items)
     }
 
     private func _exportContentItems(_ items: [ContentItem], to url: URL?, with template: Template) throws {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
+        try screenshot.testExportCondition()
         do {
             if let url = url {
                 if let data = (try template.generate(image, for: items)).data(using: .utf8) {

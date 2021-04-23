@@ -25,6 +25,7 @@ class Screenshot: NSDocument {
         case cannotSerializeContent
         case cannotDeserializeContent
         case notImplemented
+        case platformSubscriptionRequired
         
         var failureReason: String? {
             switch self {
@@ -44,6 +45,8 @@ class Screenshot: NSDocument {
                 return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
             case .notImplemented:
                 return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
+            case .platformSubscriptionRequired:
+                return NSLocalizedString("This operation requires valid subscription of JSTColorPicker.", comment: "Screenshot.Error")
             }
         }
     }
@@ -61,8 +64,16 @@ class Screenshot: NSDocument {
     
     public fileprivate(set) var image    : PixelImage?
     public fileprivate(set) var content  : Content?
-    public lazy var export               : ExportManager = { return ExportManager(screenshot: self) }()
-    public var state                    : State
+    
+    public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
+    public func testExportCondition() throws {
+        guard PurchaseManager.shared.productType == .subscribed
+        else {
+            throw Error.platformSubscriptionRequired
+        }
+    }
+    
+    public var state         : State
     {
         if content == nil || image == nil       { return .notLoaded  }
         else if isInViewingMode                 { return .restricted }
@@ -95,6 +106,11 @@ class Screenshot: NSDocument {
             }
             self.content = archivedContent
         }
+    }
+    
+    override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
+        try testExportCondition()
+        try super.writeSafely(to: url, ofType: typeName, for: saveOperation)
     }
     
     override func data(ofType typeName: String) throws -> Data {
