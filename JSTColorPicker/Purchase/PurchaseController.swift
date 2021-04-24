@@ -31,6 +31,9 @@ class PurchaseController: NSViewController {
     @IBOutlet weak var titleLabel            : NSTextField!
     @IBOutlet weak var subtitleLabel         : NSTextField!
     
+    @IBOutlet weak var mainView              : PurchaseMainView!
+    @IBOutlet weak var thankYouView          : NSView!
+    @IBOutlet weak var iconView              : NSView!
     @IBOutlet weak var topView               : NSView!
     @IBOutlet weak var topLine               : NSBox!
     @IBOutlet weak var middleView            : NSView!
@@ -83,6 +86,9 @@ class PurchaseController: NSViewController {
     
     private func reloadUI() {
         if PurchaseManager.shared.productType == .subscribed {
+            mainView.material = .hudWindow
+            thankYouView.isHidden = false
+            iconView.isHidden = true
             titleLabel.stringValue = NSLocalizedString("Thank you!", comment: "reloadUI()")
             subtitleLabel.stringValue = String(
                 format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@", comment: "reloadUI()"),
@@ -94,6 +100,9 @@ class PurchaseController: NSViewController {
             topLine.isHidden = true
             bottomLine.isHidden = false
         } else {
+            mainView.material = .windowBackground
+            thankYouView.isHidden = true
+            iconView.isHidden = false
             titleLabel.stringValue = NSLocalizedString("Welcome", comment: "reloadUI()")
             subtitleLabel.stringValue = NSLocalizedString("Thank you for downloading JSTColorPicker!", comment: "reloadUI()")
             topView.isHidden = false
@@ -245,9 +254,7 @@ extension PurchaseController: PurchaseButtonDelegate {
         }
     }
     
-    @IBAction func checkUpdatesButtonTapped(_ sender: NSButton) {
-        debugPrint("check updates")
-    }
+    @IBAction func checkUpdatesButtonTapped(_ sender: NSButton) { }
     
     @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
         if let url = URL(string: "https://82flex.com/jstcpweb/") {

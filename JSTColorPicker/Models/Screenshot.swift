@@ -67,10 +67,12 @@ class Screenshot: NSDocument {
     
     public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
     public func testExportCondition() throws {
+        #if APP_STORE
         guard PurchaseManager.shared.productType == .subscribed
         else {
             throw Error.platformSubscriptionRequired
         }
+        #endif
     }
     
     public var state         : State
@@ -108,8 +110,29 @@ class Screenshot: NSDocument {
         }
     }
     
+    override class var readableTypes: [String] {
+        [
+            "public.png",
+            "public.jpg",
+            "public.jpeg"
+        ]
+    }
+    
+    override class var writableTypes: [String] {
+        [
+            "public.png",
+            "public.jpg",
+        ]
+    }
+    
     override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
-        try testExportCondition()
+        let restrictedOperation: [NSDocument.SaveOperationType] = [
+            .saveOperation,
+            .autosaveInPlaceOperation,
+        ]
+        if restrictedOperation.contains(saveOperation) {
+            try testExportCondition()
+        }
         try super.writeSafely(to: url, ofType: typeName, for: saveOperation)
     }
     
@@ -173,6 +196,7 @@ class Screenshot: NSDocument {
     }
     
     override class var autosavesInPlace   : Bool { true }
+    override class var autosavesDrafts    : Bool { true }
     override class var preservesVersions  : Bool { true }
     
     override func makeWindowControllers() {

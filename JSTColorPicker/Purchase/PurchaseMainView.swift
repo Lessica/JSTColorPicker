@@ -8,4 +8,9 @@
 
 import Cocoa
 
-class PurchaseMainView: ColoredView { }
+class PurchaseMainView: NSVisualEffectView {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        material = .hudWindow
+    }
+}

@@ -11,10 +11,10 @@
         <scene sceneID="j5j-kO-6oI">
             <objects>
                 <windowController id="tFo-Qr-5Rv" customClass="PurchaseWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="PurchaseWindow" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="0PI-qq-0aG" customClass="PurchaseWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                    <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="alertPanel" frameAutosaveName="PurchaseWindow" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="0PI-qq-0aG" customClass="PurchaseWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" documentModal="YES" fullSizeContentView="YES"/>
-                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
-                        <rect key="contentRect" x="196" y="249" width="450" height="447"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES"/>
+                        <rect key="contentRect" x="320" y="249" width="450" height="447"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <view key="contentView" id="EAG-R2-wqQ">
                             <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
@@ -43,7 +43,25 @@
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VmA-2K-qK0">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
                                 <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="de4-fE-tM5">
+                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYl-Cq-ntp">
+                                        <rect key="frame" x="0.0" y="199" width="450" height="248"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g7j-1a-udE">
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="248"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="248" id="UCb-Gf-BJu"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ThankYou" id="PcR-yI-siS"/>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="g7j-1a-udE" secondAttribute="bottom" id="6zr-FO-B3u"/>
+                                            <constraint firstAttribute="trailing" secondItem="g7j-1a-udE" secondAttribute="trailing" id="YDk-Cw-XeG"/>
+                                            <constraint firstItem="g7j-1a-udE" firstAttribute="top" secondItem="EYl-Cq-ntp" secondAttribute="top" id="c9H-3f-Gck"/>
+                                            <constraint firstItem="g7j-1a-udE" firstAttribute="leading" secondItem="EYl-Cq-ntp" secondAttribute="leading" id="uQZ-H5-XB1"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="de4-fE-tM5" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="329" width="450" height="118"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="24" horizontalStackHuggingPriority="750" verticalStackHuggingPriority="750" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn5-Gp-JpV">
@@ -68,7 +86,7 @@
                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="200" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3T-xd-asn">
+                                                            <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3T-xd-asn">
                                                                 <rect key="frame" x="-2" y="0.0" width="269" height="21"/>
                                                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Thank you for downloading JSTColorPicker!" id="bLR-0v-dAV">
                                                                     <font key="font" metaFont="system"/>
@@ -114,13 +132,13 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zpa-A1-J1N" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48" width="450" height="280"/>
                                         <subviews>
-                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-BJ-XR9">
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="700" verticalStackHuggingPriority="700" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-BJ-XR9">
                                                 <rect key="frame" x="47" y="27" width="356" height="226"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="wG9-DF-XYn" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="144" width="356" height="82"/>
                                                         <subviews>
-                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhO-rr-Cg6">
+                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="700" verticalStackHuggingPriority="700" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhO-rr-Cg6">
                                                                 <rect key="frame" x="22" y="10" width="312" height="62"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbm-fT-Sa2">
@@ -131,7 +149,7 @@
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qe-9J-Llj">
+                                                                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qe-9J-Llj">
                                                                         <rect key="frame" x="-2" y="0.0" width="235" height="42"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" id="pVJ-BW-eky">
                                                                             <font key="font" metaFont="smallSystem"/>
@@ -182,13 +200,13 @@ Sessions are time limited (30 minutes).</string>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="lDD-IC-ivi" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="72" width="356" height="54"/>
                                                         <subviews>
-                                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-aO-rDX">
+                                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="700" verticalStackHuggingPriority="700" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-aO-rDX">
                                                                 <rect key="frame" x="22" y="10" width="312" height="34"/>
                                                                 <subviews>
                                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SS-IJ-6IX">
                                                                         <rect key="frame" x="0.0" y="0.0" width="312" height="34"/>
                                                                         <subviews>
-                                                                            <textField horizontalHuggingPriority="275" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bin-bO-sVY">
+                                                                            <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bin-bO-sVY">
                                                                                 <rect key="frame" x="-2" y="18" width="176" height="16"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Subscribe JSTColorPicker…" usesSingleLineMode="YES" id="wcU-IC-9mk">
                                                                                     <font key="font" metaFont="systemMedium" size="13"/>
@@ -196,8 +214,8 @@ Sessions are time limited (30 minutes).</string>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
                                                                             </textField>
-                                                                            <textField horizontalHuggingPriority="200" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-hK-yZe">
-                                                                                <rect key="frame" x="-2" y="0.0" width="316" height="14"/>
+                                                                            <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" horizontalCompressionResistancePriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-hK-yZe">
+                                                                                <rect key="frame" x="-2" y="0.0" width="240" height="14"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="With a free, unlimited trial expires in 14 days." id="Vnr-sP-jKa">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -214,7 +232,7 @@ Sessions are time limited (30 minutes).</string>
                                                                             <real value="3.4028234663852886e+38"/>
                                                                         </customSpacing>
                                                                     </stackView>
-                                                                    <textField hidden="YES" horizontalHuggingPriority="255" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do6-Ac-poj">
+                                                                    <textField hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="725" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do6-Ac-poj">
                                                                         <rect key="frame" x="-2" y="18" width="63" height="16"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Loading…" usesSingleLineMode="YES" id="5JX-GV-MXZ">
                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -263,10 +281,10 @@ Sessions are time limited (30 minutes).</string>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="jP7-UD-uQN" customClass="PurchaseButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="356" height="54"/>
                                                         <subviews>
-                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tgd-CU-qbK">
+                                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="700" verticalStackHuggingPriority="700" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tgd-CU-qbK">
                                                                 <rect key="frame" x="22" y="10" width="312" height="34"/>
                                                                 <subviews>
-                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoY-7Y-PPq">
+                                                                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoY-7Y-PPq">
                                                                         <rect key="frame" x="-2" y="18" width="250" height="16"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Already have a subscription? Restore it!" usesSingleLineMode="YES" id="g1O-YI-eSP">
                                                                             <font key="font" metaFont="systemMedium" size="13"/>
@@ -274,7 +292,7 @@ Sessions are time limited (30 minutes).</string>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El3-2W-yvl">
+                                                                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El3-2W-yvl">
                                                                         <rect key="frame" x="-2" y="0.0" width="227" height="14"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Validate your subscription from App Store." id="dTv-jj-Alh">
                                                                             <font key="font" metaFont="smallSystem"/>
@@ -353,7 +371,7 @@ Sessions are time limited (30 minutes).</string>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="du8-rD-arZ">
                                         <rect key="frame" x="0.0" y="45" width="450" height="5"/>
                                     </box>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7zR-0c-XeD">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7zR-0c-XeD" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="450" height="47"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MpQ-wf-Usq">
@@ -412,6 +430,7 @@ Sessions are time limited (30 minutes).</string>
                                 <constraints>
                                     <constraint firstItem="5PK-fL-yOa" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="4Kh-lC-M9C"/>
                                     <constraint firstItem="7zR-0c-XeD" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="D4P-EP-oNj"/>
+                                    <constraint firstItem="EYl-Cq-ntp" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="KGq-dv-72V"/>
                                     <constraint firstItem="zpa-A1-J1N" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="Rz9-jf-noe"/>
                                     <constraint firstAttribute="width" constant="450" id="bYY-6o-RtJ"/>
                                     <constraint firstItem="du8-rD-arZ" firstAttribute="width" secondItem="VmA-2K-qK0" secondAttribute="width" id="dOZ-6I-U1h"/>
@@ -423,8 +442,10 @@ Sessions are time limited (30 minutes).</string>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -471,11 +492,14 @@ Sessions are time limited (30 minutes).</string>
                         <outlet property="bottomView" destination="7zR-0c-XeD" id="IPN-k0-1jR"/>
                         <outlet property="buyButton" destination="lDD-IC-ivi" id="RyE-5W-6Ud"/>
                         <outlet property="checkUpdatesButton" destination="WbD-0Z-9DL" id="Qo9-0O-PQb"/>
+                        <outlet property="iconView" destination="uhU-GI-GRb" id="rCn-nu-J2v"/>
+                        <outlet property="mainView" destination="xcf-65-lg9" id="HxH-ha-JPp"/>
                         <outlet property="maskIndicator" destination="n0R-RD-xnd" id="GPM-nR-jhP"/>
                         <outlet property="maskView" destination="kfV-Zb-eiN" id="Iji-z7-lmQ"/>
                         <outlet property="middleView" destination="zpa-A1-J1N" id="2JP-CO-2g1"/>
                         <outlet property="restoreButton" destination="jP7-UD-uQN" id="HyT-70-ava"/>
                         <outlet property="subtitleLabel" destination="F3T-xd-asn" id="irK-nH-YPj"/>
+                        <outlet property="thankYouView" destination="EYl-Cq-ntp" id="EP3-wj-Dx8"/>
                         <outlet property="titleLabel" destination="11c-hD-F1Y" id="4tj-At-i3R"/>
                         <outlet property="topLine" destination="5PK-fL-yOa" id="1vX-qF-LSO"/>
                         <outlet property="topView" destination="de4-fE-tM5" id="b7K-TK-wWa"/>
@@ -490,6 +514,7 @@ Sessions are time limited (30 minutes).</string>
     </scenes>
     <resources>
         <image name="AppIcon" width="512" height="512"/>
+        <image name="ThankYou" width="1736" height="956"/>
         <namedColor name="PurchaseBackground">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -23,12 +23,18 @@ class SubscriptionController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailLabel.stringValue = String(
-            format: NSLocalizedString("Valid Subscription: %@", comment: "PurchaseManager"),
-            PurchaseManager.shared.productType == .subscribed
-                ? PurchaseManager.shared.readableExpiredAt
-                : NSLocalizedString("None", comment: "PurchaseManager")
+        
+        reloadDetailUI()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(productTypeDidChange(_:)),
+            name: PurchaseManager.productTypeDidChangeNotification,
+            object: nil
         )
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @IBAction func viewSubscriptionAction(_ sender: NSButton) {
@@ -73,6 +79,21 @@ extension SubscriptionController: MASPreferencesViewController {
     
     var toolbarItemImage: NSImage? {
         return NSImage(systemSymbolName: "checkmark.seal", accessibilityDescription: "Subscription")
+    }
+    
+    @objc private func productTypeDidChange(_ noti: Notification) {
+        guard let manager = noti.object as? PurchaseManager else { return }
+        reloadDetailUI(from: manager)
+    }
+    
+    private func reloadDetailUI(from manager: PurchaseManager? = nil) {
+        let currentManager = manager ?? PurchaseManager.shared
+        detailLabel.stringValue = String(
+            format: NSLocalizedString("Valid Subscription: %@", comment: "PurchaseManager"),
+            currentManager.productType == .subscribed
+                ? currentManager.readableExpiredAt
+                : NSLocalizedString("None", comment: "PurchaseManager")
+        )
     }
     
 }
