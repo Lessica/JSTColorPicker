@@ -48,7 +48,7 @@
                                                 <action selector="checkForUpdates:" target="7t2-Hn-xkm" id="iYa-Ow-6U3"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Subscribe JSTColorPicker..." id="SGf-6i-QGZ">
+                                        <menuItem title="Subscribe JSTColorPicker…" id="SGf-6i-QGZ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="subscribeMenuItemTapped:" target="Voe-Tx-rLC" id="y3s-YJ-dA2"/>

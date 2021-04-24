@@ -648,7 +648,7 @@ by \(template.author ?? "Unknown")
         if PurchaseManager.shared.productType == .subscribed {
             subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.readableExpiredAt)
         } else {
-            subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker...", comment: "updateMainMenuItems()")
+            subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
         }
         #endif
     }

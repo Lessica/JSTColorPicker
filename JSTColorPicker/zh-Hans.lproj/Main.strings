@@ -292,6 +292,9 @@
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "跳到所选内容";
 
+/* Class = "NSMenuItem"; title = "Subscribe JSTColorPicker…"; ObjectID = "SGf-6i-QGZ"; */
+"SGf-6i-QGZ.title" = "订阅 JSTColorPicker…";
+
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "snW-S8-Cw5"; */
 "snW-S8-Cw5.title" = "显示工具栏";
 

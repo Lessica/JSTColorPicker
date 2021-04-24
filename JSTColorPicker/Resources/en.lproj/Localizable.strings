@@ -565,6 +565,9 @@
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
 
+/* updateMainMenuItems() */
+"Subscribe JSTColorPicker…" = "Subscribe JSTColorPicker…";
+
 /* PurchaseManager.ProductType */
 "Subscribed" = "Subscribed";
 
@@ -669,6 +672,9 @@
 
 /* PurchaseManager */
 "Valid Subscription: %@" = "Valid Subscription: %@";
+
+/* updateMainMenuItems() */
+"View Subscription (%@)" = "View Subscription (%@)";
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";
