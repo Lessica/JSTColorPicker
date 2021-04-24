@@ -243,7 +243,7 @@
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsN-Fd-s2i" customClass="ContentSearchField" customModule="JSTColorPicker" customModuleProvider="target">
                                         <rect key="frame" x="32" y="10" width="182" height="16"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item..." usesSingleLineMode="YES" id="jqt-id-cp6">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item…" usesSingleLineMode="YES" id="jqt-id-cp6">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -317,7 +317,7 @@ DQ
                                 <action selector="locate:" target="YIx-oB-8lo" id="sEq-cm-ZsQ"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Relocate..." toolTip="In the pop-up tab, precisely adjust the position of the selected annotation." id="iSf-IL-2kW">
+                        <menuItem title="Relocate…" toolTip="In the pop-up tab, precisely adjust the position of the selected annotation." id="iSf-IL-2kW">
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -327,7 +327,7 @@ DQ
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="xfS-Z5-Yd0"/>
-                        <menuItem title="Choose Tags..." id="AXF-B1-mtL">
+                        <menuItem title="Choose Tags…" id="AXF-B1-mtL">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="tags:" target="YIx-oB-8lo" id="3AO-9k-5wp"/>
@@ -363,13 +363,13 @@ DQ
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="P2s-yP-Ife"/>
-                        <menuItem title="Export As..." keyEquivalent="e" toolTip="Export these annotations with current template." id="qQO-Qw-Wgz">
+                        <menuItem title="Export As…" keyEquivalent="e" toolTip="Export these annotations with current template." id="qQO-Qw-Wgz">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="exportAs:" target="YIx-oB-8lo" id="ZzB-b5-lfB"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Resample..." keyEquivalent="r" toolTip="Save this area to a PNG file." id="qZ8-We-LFE">
+                        <menuItem title="Resample…" keyEquivalent="r" toolTip="Save this area to a PNG file." id="qZ8-We-LFE">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="resample:" target="YIx-oB-8lo" id="IRG-l1-fNf"/>
@@ -422,7 +422,7 @@ CA
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="gra-p3-5gh"/>
-                        <menuItem title="Reset Columns..." keyEquivalent="r" id="ued-v5-LbG">
+                        <menuItem title="Reset Columns…" keyEquivalent="r" id="ued-v5-LbG">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="resetColumns:" target="oDF-UT-bv5" id="enn-wd-35C"/>
@@ -435,13 +435,13 @@ CA
                 </menu>
                 <menu id="Cqe-SJ-8Rv">
                     <items>
-                        <menuItem title="Add Color &amp; Coordinates..." id="7Qu-yW-xLS">
+                        <menuItem title="Add Color &amp; Coordinates…" id="7Qu-yW-xLS">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="create:" target="oDF-UT-bv5" id="CSg-vR-jDO"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Add Area..." id="gSx-dD-DgQ">
+                        <menuItem title="Add Area…" id="gSx-dD-DgQ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="create:" target="oDF-UT-bv5" id="W2r-Aj-nb8"/>

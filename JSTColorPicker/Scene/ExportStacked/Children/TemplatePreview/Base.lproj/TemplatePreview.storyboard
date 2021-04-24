@@ -50,7 +50,7 @@
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESU-Qk-5MC">
                                                                                 <rect key="frame" x="0.0" y="1" width="328" height="14"/>
-                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="..." usesSingleLineMode="YES" id="azV-5Z-3ic">
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="…" usesSingleLineMode="YES" id="azV-5Z-3ic">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -75,9 +75,9 @@
                                                                                 <rect key="frame" x="0.0" y="2" width="328" height="48"/>
                                                                                 <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" id="5X1-sF-u79">
                                                                                     <font key="font" usesAppearanceFont="YES"/>
-                                                                                    <string key="title">...
-...
-...</string>
+                                                                                    <string key="title">…
+..…
+..…</string>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
@@ -204,7 +204,7 @@
                                 <action selector="copy:" target="UOg-SM-VP6" id="amt-jl-j4w"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Export As..." keyEquivalent="e" id="0sg-9I-ysm">
+                        <menuItem title="Export As…" keyEquivalent="e" id="0sg-9I-ysm">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="exportAs:" target="UOg-SM-VP6" id="QL0-qg-0Df"/>
@@ -230,7 +230,7 @@
                 </menu>
                 <menu id="qLM-Ye-vHV">
                     <items>
-                        <menuItem title="Reset Columns..." keyEquivalent="r" id="aXH-Iv-h49">
+                        <menuItem title="Reset Columns…" keyEquivalent="r" id="aXH-Iv-h49">
                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             <connections>
                                 <action selector="resetColumns:" target="Epo-YF-uKm" id="rW5-lj-V4P"/>

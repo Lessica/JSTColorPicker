@@ -8,10 +8,10 @@
 "2y0-1K-Lgi.title" = "好";
 
 /* Class = "NSTextFieldCell"; title = "Opposite Y: "; ObjectID = "7FU-fC-tAm"; */
-"7FU-fC-tAm.title" = "对点 Y: ";
+"7FU-fC-tAm.title" = "对点 Y：";
 
 /* Class = "NSTextFieldCell"; title = "Origin Y: "; ObjectID = "7hi-tL-x2j"; */
-"7hi-tL-x2j.title" = "原点 Y: ";
+"7hi-tL-x2j.title" = "原点 Y：";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
 "7qb-5Y-1eO.title" = "取消";
@@ -26,7 +26,7 @@
 "abA-Ke-xKL.title" = "取消";
 
 /* Class = "NSTextFieldCell"; title = "Width: "; ObjectID = "aqD-e5-Wi9"; */
-"aqD-e5-Wi9.title" = "宽度: ";
+"aqD-e5-Wi9.title" = "宽度：";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[错误信息]";
@@ -44,7 +44,7 @@
 "ghs-AJ-eau.title" = "选择标签";
 
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
-"IQb-2C-TvS.title" = "原点 X: ";
+"IQb-2C-TvS.title" = "原点 X：";
 
 /* Class = "NSBox"; title = "Edit Area"; ObjectID = "jKL-Xg-wfl"; */
 "jKL-Xg-wfl.title" = "修改区域";
@@ -59,19 +59,19 @@
 "kHm-RB-ux9.title" = "取消";
 
 /* Class = "NSTextFieldCell"; title = "Opposite X: "; ObjectID = "Kj7-lQ-uRK"; */
-"Kj7-lQ-uRK.title" = "对点 X: ";
+"Kj7-lQ-uRK.title" = "对点 X：";
 
 /* Class = "NSTextFieldCell"; title = "Color: "; ObjectID = "Lij-yf-Qhn"; */
-"Lij-yf-Qhn.title" = "颜色: ";
+"Lij-yf-Qhn.title" = "颜色：";
 
 /* Class = "NSTextFieldCell"; title = "Height: "; ObjectID = "LnB-Z2-dCx"; */
-"LnB-Z2-dCx.title" = "高度: ";
+"LnB-Z2-dCx.title" = "高度：";
 
 /* Class = "NSTextFieldCell"; title = "Coordinate Y: "; ObjectID = "M82-1D-OTf"; */
-"M82-1D-OTf.title" = "坐标 Y: ";
+"M82-1D-OTf.title" = "坐标 Y：";
 
 /* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
-"p8E-5k-JXY.title" = "坐标 X: ";
+"p8E-5k-JXY.title" = "坐标 X：";
 
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Pn8-8c-InX"; */
 "Pn8-8c-InX.alternateTitle" = "显示预览";

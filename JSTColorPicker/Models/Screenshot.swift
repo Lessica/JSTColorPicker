@@ -227,7 +227,7 @@ class Screenshot: NSDocument {
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
         loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
-        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"...", comment: "copy(_:)"), template.name)
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template \"%@\"…", comment: "copy(_:)"), template.name)
         loadingAlert.beginSheetModal(for: window) { (resp) in }
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             do {

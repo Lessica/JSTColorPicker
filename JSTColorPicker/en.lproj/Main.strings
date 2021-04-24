@@ -37,8 +37,8 @@
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "6U2-X2-jP4"; */
 "6U2-X2-jP4.title" = "Image Preview";
 
-/* Class = "NSMenuItem"; title = "Visit Website..."; ObjectID = "8AD-4g-2RS"; */
-"8AD-4g-2RS.title" = "Visit Website...";
+/* Class = "NSMenuItem"; title = "Visit Website…"; ObjectID = "8AD-4g-2RS"; */
+"8AD-4g-2RS.title" = "Visit Website…";
 
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "Toggle Color Panel";
@@ -46,8 +46,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.ibShadowedToolTip" = "Save this area to a PNG file.";
 
-/* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "9HA-IH-LiH"; */
-"9HA-IH-LiH.title" = "Resample...";
+/* Class = "NSMenuItem"; title = "Resample…"; ObjectID = "9HA-IH-LiH"; */
+"9HA-IH-LiH.title" = "Resample…";
 
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "Devices";
@@ -118,8 +118,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show a palette with available keyboard shortcuts."; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.ibShadowedToolTip" = "Show a palette with available keyboard shortcuts.";
 
-/* Class = "NSMenuItem"; title = "Command Palette..."; ObjectID = "cRg-fp-z1t"; */
-"cRg-fp-z1t.title" = "Command Palette...";
+/* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
+"cRg-fp-z1t.title" = "Command Palette…";
 
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "Compare Opened Documents";
@@ -172,8 +172,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show template runtime logs in Console.app"; ObjectID = "hye-bj-eGL"; */
 "hye-bj-eGL.ibShadowedToolTip" = "Show template runtime logs in Console.app";
 
-/* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "hye-bj-eGL"; */
-"hye-bj-eGL.title" = "Show Logs...";
+/* Class = "NSMenuItem"; title = "Show Logs…"; ObjectID = "hye-bj-eGL"; */
+"hye-bj-eGL.title" = "Show Logs…";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
 "HyV-fh-RgO.title" = "View";
@@ -238,14 +238,14 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show template scripts in Finder."; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.ibShadowedToolTip" = "Show template scripts in Finder.";
 
-/* Class = "NSMenuItem"; title = "Show Templates..."; ObjectID = "mod-X3-fdk"; */
-"mod-X3-fdk.title" = "Show Templates...";
+/* Class = "NSMenuItem"; title = "Show Templates…"; ObjectID = "mod-X3-fdk"; */
+"mod-X3-fdk.title" = "Show Templates…";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "Services";
 
-/* Class = "NSMenuItem"; title = "Check for Updates..."; ObjectID = "ntJ-ob-XWI"; */
-"ntJ-ob-XWI.title" = "Check for Updates...";
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "ntJ-ob-XWI"; */
+"ntJ-ob-XWI.title" = "Check for Updates…";
 
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "Open Recent";
@@ -283,8 +283,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export all annotations using selected template."; ObjectID = "Rl3-28-Fqh"; */
 "Rl3-28-Fqh.ibShadowedToolTip" = "Export all annotations using selected template.";
 
-/* Class = "NSMenuItem"; title = "Export All..."; ObjectID = "Rl3-28-Fqh"; */
-"Rl3-28-Fqh.title" = "Export All...";
+/* Class = "NSMenuItem"; title = "Export All…"; ObjectID = "Rl3-28-Fqh"; */
+"Rl3-28-Fqh.title" = "Export All…";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "Select All";
@@ -325,8 +325,8 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "vLS-fs-Vb8"; */
 "vLS-fs-Vb8.ibShadowedToolTip" = "Export these annotations with current template.";
 
-/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "vLS-fs-Vb8"; */
-"vLS-fs-Vb8.title" = "Export As...";
+/* Class = "NSMenuItem"; title = "Export As…"; ObjectID = "vLS-fs-Vb8"; */
+"vLS-fs-Vb8.title" = "Export As…";
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "Clear Menu";

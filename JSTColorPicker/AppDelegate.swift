@@ -450,12 +450,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         firstly { () -> Promise<[String: String]> in
             loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "screenshotItemTapped(_:)")
-            loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"...", comment: "screenshotItemTapped(_:)"), selectedDeviceUDID)
+            loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "screenshotItemTapped(_:)"), selectedDeviceUDID)
             windowController.showSheet(loadingAlert, completionHandler: nil)
             return self.promiseProxyLookupDevice(proxy, by: selectedDeviceUDID)
         }.then { [unowned self] (device) -> Promise<Data> in
             loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "screenshotItemTapped(_:)")
-            loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"...", comment: "screenshotItemTapped(_:)"), device["name"]!)
+            loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "screenshotItemTapped(_:)"), device["name"]!)
             return self.promiseProxyTakeScreenshot(proxy, by: device["udid"]!)
         }.then { [unowned self] (data) -> Promise<URL> in
             return self.promiseSaveScreenshot(data, to: picturesDirectoryPath)
@@ -787,7 +787,7 @@ extension AppDelegate {
     private func applicationXPCResetUI(with additionalItems: [NSMenuItem] = []) {
         #if APP_STORE
         if !applicationHasScreenshotHelper() {
-            let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper...", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
+            let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper…", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
             downloadItem.target = self
             downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
             downloadItem.isEnabled = true

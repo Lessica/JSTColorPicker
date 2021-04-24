@@ -63,7 +63,7 @@
 "Application \"%@\" not found." = "Application \"%@\" not found.";
 
 /* beginPixelMatchComparison(to:) */
-"Calculating Difference..." = "Calculating Difference...";
+"Calculating Difference…" = "Calculating Difference…";
 
 /* screenshotItemTapped(_:) */
 "Cancel" = "Cancel";
@@ -90,7 +90,7 @@
 "Collapse Preview" = "Collapse Preview";
 
 /* Shortcut Guide */
-"Command Palette..." = "Command Palette...";
+"Command Palette…" = "Command Palette…";
 
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
@@ -171,10 +171,10 @@
 "Double Press" = "Double Press";
 
 /* screenshotItemTapped(_:) */
-"Download screenshot from device \"%@\"..." = "Download screenshot from device \"%@\"...";
+"Download screenshot from device \"%@\"…" = "Download screenshot from device \"%@\"…";
 
 /* resetDevicesMenu */
-"Download screenshot helper..." = "Download screenshot helper...";
+"Download screenshot helper…" = "Download screenshot helper…";
 
 /* Shortcut Guide */
 "Drag" = "Drag";
@@ -195,7 +195,7 @@
 "Edit Coordinate" = "Edit Coordinate";
 
 /* screenshotItemTapped(_:) */
-"Establish connection to device \"%@\"..." = "Establish connection to device \"%@\"...";
+"Establish connection to device \"%@\"…" = "Establish connection to device \"%@\"…";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
@@ -213,7 +213,7 @@
 "Expired" = "Expired";
 
 /* copy(_:) */
-"Extract code snippets from template \"%@\"..." = "Extract code snippets from template \"%@\"...";
+"Extract code snippets from template \"%@\"…" = "Extract code snippets from template \"%@\"…";
 
 /* copy(_:) */
 "Extract Snippets" = "Extract Snippets";
@@ -243,7 +243,7 @@
 "General" = "General";
 
 /* Outline Generation */
-"Generating..." = "Generating...";
+"Generating…" = "Generating…";
 
 /* Shortcut Guide */
 "Hold" = "Hold";
@@ -482,7 +482,7 @@
 "Open or drop an image here." = "Open or drop an image here.";
 
 /* Shortcut Guide */
-"Open..." = "Open...";
+"Open…" = "Open…";
 
 /* TemplatePreviewController.Error */
 "Ownership of the pasteboard has changed." = "Ownership of the pasteboard has changed.";
@@ -503,7 +503,7 @@
 "Reload template scripts from file system." = "Reload template scripts from file system.";
 
 /* Shortcut Guide */
-"Relocate..." = "Relocate...";
+"Relocate…" = "Relocate…";
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "Reset Confirm";

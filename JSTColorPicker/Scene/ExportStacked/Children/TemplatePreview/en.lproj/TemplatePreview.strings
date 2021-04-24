@@ -1,16 +1,16 @@
-/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "0sg-9I-ysm"; */
-"0sg-9I-ysm.title" = "Export As...";
+/* Class = "NSMenuItem"; title = "Export As…"; ObjectID = "0sg-9I-ysm"; */
+"0sg-9I-ysm.title" = "Export As…";
 
-/* Class = "NSTextFieldCell"; title = "...\n...\n..."; ObjectID = "5X1-sF-u79"; */
+/* Class = "NSTextFieldCell"; title = "…\n…\n…"; ObjectID = "5X1-sF-u79"; */
 "5X1-sF-u79.title" = "Table View Cell Table View Cell Table View Cell Table View Cell Table View Cell";
 
 /* Class = "NSBox"; title = "Template Preview"; ObjectID = "6E7-dV-CCY"; */
 "6E7-dV-CCY.title" = "Template Preview";
 
-/* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "aXH-Iv-h49"; */
-"aXH-Iv-h49.title" = "Reset Columns...";
+/* Class = "NSMenuItem"; title = "Reset Columns…"; ObjectID = "aXH-Iv-h49"; */
+"aXH-Iv-h49.title" = "Reset Columns…";
 
-/* Class = "NSTextFieldCell"; title = "..."; ObjectID = "azV-5Z-3ic"; */
+/* Class = "NSTextFieldCell"; title = "…"; ObjectID = "azV-5Z-3ic"; */
 "azV-5Z-3ic.title" = "Table View Cell";
 
 /* Class = "NSMenuItem"; title = "Regenerate"; ObjectID = "do1-tV-RB6"; */

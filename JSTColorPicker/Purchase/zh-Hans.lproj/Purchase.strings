@@ -1,35 +1,35 @@
 /* Class = "NSWindow"; title = "Purchase"; ObjectID = "0PI-qq-0aG"; */
 "0PI-qq-0aG.title" = "购买";
 
-/* Class = "NSTextFieldCell"; title = "Loading..."; ObjectID = "5JX-GV-MXZ"; */
-"5JX-GV-MXZ.title" = "载入中...";
+/* Class = "NSTextFieldCell"; title = "Loading…"; ObjectID = "5JX-GV-MXZ"; */
+"5JX-GV-MXZ.title" = "载入中…";
 
-/* Class = "NSButtonCell"; title = "Check Updates..."; ObjectID = "ap9-2N-l0A"; */
-"ap9-2N-l0A.title" = "检查更新...";
+/* Class = "NSButtonCell"; title = "Check Updates…"; ObjectID = "ap9-2N-l0A"; */
+"ap9-2N-l0A.title" = "检查更新…";
 
 /* Class = "NSTextFieldCell"; title = "Thank you for downloading JSTColorPicker!"; ObjectID = "bLR-0v-dAV"; */
-"bLR-0v-dAV.title" = "感谢你下载 JSTColorPicker!";
+"bLR-0v-dAV.title" = "感谢你下载 JSTColorPicker！";
 
 /* Class = "NSTextFieldCell"; title = "Validate your subscription from App Store."; ObjectID = "dTv-jj-Alh"; */
-"dTv-jj-Alh.title" = "从 App Store 验证你的订阅信息.";
+"dTv-jj-Alh.title" = "从 App Store 验证你的订阅信息。";
 
 /* Class = "NSTextFieldCell"; title = "Already have a subscription? Restore it!"; ObjectID = "g1O-YI-eSP"; */
-"g1O-YI-eSP.title" = "已经订阅过? 点击此处恢复订阅.";
+"g1O-YI-eSP.title" = "已经订阅过？点击此处恢复订阅。";
 
 /* Class = "NSTextFieldCell"; title = "Try Demo Version"; ObjectID = "KaK-a0-0WR"; */
 "KaK-a0-0WR.title" = "继续试用";
 
 /* Class = "NSTextFieldCell"; title = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes)."; ObjectID = "pVJ-BW-eky"; */
-"pVJ-BW-eky.title" = "你无法保存文档.\n你无法从模版导出项目.\n单次使用时间受到限制 (30 分钟).";
+"pVJ-BW-eky.title" = "你无法保存文档。\n你无法从模版导出项目。\n单次使用时间受到限制 (30 分钟)。";
 
 /* Class = "NSTextFieldCell"; title = "With a free, unlimited trial expires in 14 days."; ObjectID = "Vnr-sP-jKa"; */
-"Vnr-sP-jKa.title" = "在订阅周期开始前, 你将有 14 天无限制试用时间.";
+"Vnr-sP-jKa.title" = "在订阅周期开始前，你将有 14 天无限制试用时间。";
 
-/* Class = "NSTextFieldCell"; title = "Subscribe JSTColorPicker..."; ObjectID = "wcU-IC-9mk"; */
-"wcU-IC-9mk.title" = "订阅 JSTColorPicker...";
+/* Class = "NSTextFieldCell"; title = "Subscribe JSTColorPicker…"; ObjectID = "wcU-IC-9mk"; */
+"wcU-IC-9mk.title" = "订阅 JSTColorPicker…";
 
 /* Class = "NSTextFieldCell"; title = "Welcome"; ObjectID = "xX4-WW-Ncv"; */
 "xX4-WW-Ncv.title" = "欢迎";
 
-/* Class = "NSButtonCell"; title = "Visit Website..."; ObjectID = "zkI-1Z-qCT"; */
-"zkI-1Z-qCT.title" = "访问网站...";
+/* Class = "NSButtonCell"; title = "Visit Website…"; ObjectID = "zkI-1Z-qCT"; */
+"zkI-1Z-qCT.title" = "访问网站…";

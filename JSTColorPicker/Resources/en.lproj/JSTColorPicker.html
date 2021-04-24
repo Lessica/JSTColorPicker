@@ -189,7 +189,7 @@
 <a id="user-content-jstcolorpicker-1" class="anchor" href="#jstcolorpicker-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h3>
 <ul>
 <li>
-<code>⌘,</code> Preferences...</li>
+<code>⌘,</code> Preferences…</li>
 <li>
 <code>⌘H</code> Hide JSTColorPicker</li>
 <li>
@@ -203,13 +203,13 @@
 <li>
 <code>⌘N</code> New</li>
 <li>
-<code>⌘O</code> Open...</li>
+<code>⌘O</code> Open…</li>
 <li>
 <code>⌘W</code> Close</li>
 <li>
 <code>⌘S</code> Save</li>
 <li>
-<code>⇧⌘S</code> Save As...</li>
+<code>⇧⌘S</code> Save As…</li>
 <li>
 <code>⇧⌘D</code> Compare Opened Documents</li>
 <li>
@@ -272,9 +272,9 @@
 <code>⌃⌘0</code> <em>Reload All Templates</em>
 </li>
 <li>
-<code>⌃⌘F</code> <em>Show Templates...</em>: Show all templates in Finder.</li>
+<code>⌃⌘F</code> <em>Show Templates…</em>: Show all templates in Finder.</li>
 <li>
-<code>⌃⌘L</code> <em>Show Logs...</em>: Open <em>Console.app</em> to watch all exceptions and warnings thrown from templates loading.</li>
+<code>⌃⌘L</code> <em>Show Logs…</em>: Open <em>Console.app</em> to watch all exceptions and warnings thrown from templates loading.</li>
 </ul>
 <h3>
 <a id="user-content-window" class="anchor" href="#window" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Window</h3>
@@ -298,7 +298,7 @@
 <a id="user-content-toolbar-key-equivalents" class="anchor" href="#toolbar-key-equivalents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Toolbar Key Equivalents</h2>
 <ul>
 <li>
-<code>[Fn]F1</code> Open...</li>
+<code>[Fn]F1</code> Open…</li>
 <li>
 <code>[Fn]F2</code> <em>Magic Cursor</em>
 </li>
@@ -322,7 +322,7 @@
 <h2>
 <a id="user-content-customizable-templates" class="anchor" href="#customizable-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customizable Templates</h2>
 <p>JSTColorPicker uses <a href="https://www.lua.org/" rel="nofollow">Lua 5.3.4</a> as its template engine.</p>
-<p>Click the <em>export option</em> button at the bottom right of window, you will see available templates in <code>templates</code> folder. Click <code>Show Templates...</code> will show that folder in Finder. The name of template file should end up with path extension <code>.lua</code>. Selected template will be applied to all copy/export actions if possible.</p>
+<p>Click the <em>export option</em> button at the bottom right of window, you will see available templates in <code>templates</code> folder. Click <code>Show Templates…</code> will show that folder in Finder. The name of template file should end up with path extension <code>.lua</code>. Selected template will be applied to all copy/export actions if possible.</p>
 <h3>
 <a id="user-content-write-templates" class="anchor" href="#write-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Write Templates</h3>
 <p><em>Template</em> is a <em>Lua</em> script which simply returns a table:</p>
@@ -337,9 +337,9 @@
     generator <span class="pl-k">=</span> generator,  <span class="pl-c"><span class="pl-c">--</span> required</span>
 }</pre></div>
 <p><code>generator</code> is a lua function which will be executed when you copy or export item(s):</p>
-<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, ...)
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, …)
     <span class="pl-c"><span class="pl-c">--</span></span>
-    <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">...</span>}
+    <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">…</span>}
     <span class="pl-c"><span class="pl-c">--</span></span>
 <span class="pl-k">end</span></pre></div>
 <p><code>image</code> is a lua table which represents the opened image document in current window:</p>

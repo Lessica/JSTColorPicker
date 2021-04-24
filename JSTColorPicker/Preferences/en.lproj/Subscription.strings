@@ -1,8 +1,8 @@
 /* Class = "NSTextFieldCell"; title = "Valid Subscription: None"; ObjectID = "IV7-RX-tML"; */
 "IV7-RX-tML.title" = "Valid Subscription: None";
 
-/* Class = "NSButtonCell"; title = "Manage Subscription..."; ObjectID = "ubx-34-m7e"; */
-"ubx-34-m7e.title" = "Manage Subscription...";
+/* Class = "NSButtonCell"; title = "Manage Subscription…"; ObjectID = "ubx-34-m7e"; */
+"ubx-34-m7e.title" = "Manage Subscription…";
 
 /* Class = "NSButtonCell"; title = "View Subscription"; ObjectID = "Xg7-NE-czH"; */
 "Xg7-NE-czH.title" = "View Subscription";

@@ -7,14 +7,14 @@
 /* Class = "NSTableColumn"; headerToolTip = "The primary key, a integer field of the item."; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerToolTip" = "The primary key, a integer field of the item.";
 
-/* Class = "NSMenuItem"; title = "Add Color & Coordinates..."; ObjectID = "7Qu-yW-xLS"; */
-"7Qu-yW-xLS.title" = "Add Color & Coordinates...";
+/* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "7Qu-yW-xLS"; */
+"7Qu-yW-xLS.title" = "Add Color & Coordinates…";
 
 /* Class = "NSMenuItem"; title = "Quick Add Patterns"; ObjectID = "as6-mp-8ga"; */
 "as6-mp-8ga.title" = "Quick Add Patterns";
 
-/* Class = "NSMenuItem"; title = "Choose Tags..."; ObjectID = "AXF-B1-mtL"; */
-"AXF-B1-mtL.title" = "Choose Tags...";
+/* Class = "NSMenuItem"; title = "Choose Tags…"; ObjectID = "AXF-B1-mtL"; */
+"AXF-B1-mtL.title" = "Choose Tags…";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste annotations from another document."; ObjectID = "COB-7T-s9l"; */
 "COB-7T-s9l.ibShadowedToolTip" = "Paste annotations from another document.";
@@ -43,20 +43,20 @@
 /* Class = "NSMenuItem"; title = "Description"; ObjectID = "gf5-SR-cVU"; */
 "gf5-SR-cVU.title" = "Description";
 
-/* Class = "NSMenuItem"; title = "Add Area..."; ObjectID = "gSx-dD-DgQ"; */
-"gSx-dD-DgQ.title" = "Add Area...";
+/* Class = "NSMenuItem"; title = "Add Area…"; ObjectID = "gSx-dD-DgQ"; */
+"gSx-dD-DgQ.title" = "Add Area…";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "iSf-IL-2kW"; */
 "iSf-IL-2kW.ibShadowedToolTip" = "In the pop-up tab, precisely adjust the position of the selected annotation.";
 
-/* Class = "NSMenuItem"; title = "Relocate..."; ObjectID = "iSf-IL-2kW"; */
-"iSf-IL-2kW.title" = "Relocate...";
+/* Class = "NSMenuItem"; title = "Relocate…"; ObjectID = "iSf-IL-2kW"; */
+"iSf-IL-2kW.title" = "Relocate…";
 
 /* Class = "NSMenuItem"; title = "Color & Coordinates: (x, y)"; ObjectID = "jKH-wp-n6X"; */
 "jKH-wp-n6X.title" = "Color & Coordinates: (x, y)";
 
-/* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item..."; ObjectID = "jqt-id-cp6"; */
-"jqt-id-cp6.placeholderString" = "Add/Locate Item...";
+/* Class = "NSTextFieldCell"; placeholderString = "Add/Locate Item…"; ObjectID = "jqt-id-cp6"; */
+"jqt-id-cp6.placeholderString" = "Add/Locate Item…";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "jxT-WR-Lp9"; */
 "jxT-WR-Lp9.title" = "Delete";
@@ -91,14 +91,14 @@
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Export these annotations with current template."; ObjectID = "qQO-Qw-Wgz"; */
 "qQO-Qw-Wgz.ibShadowedToolTip" = "Export these annotations with current template.";
 
-/* Class = "NSMenuItem"; title = "Export As..."; ObjectID = "qQO-Qw-Wgz"; */
-"qQO-Qw-Wgz.title" = "Export As...";
+/* Class = "NSMenuItem"; title = "Export As…"; ObjectID = "qQO-Qw-Wgz"; */
+"qQO-Qw-Wgz.title" = "Export As…";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "qZ8-We-LFE"; */
 "qZ8-We-LFE.ibShadowedToolTip" = "Save this area to a PNG file.";
 
-/* Class = "NSMenuItem"; title = "Resample..."; ObjectID = "qZ8-We-LFE"; */
-"qZ8-We-LFE.title" = "Resample...";
+/* Class = "NSMenuItem"; title = "Resample…"; ObjectID = "qZ8-We-LFE"; */
+"qZ8-We-LFE.title" = "Resample…";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll the scene to the selected annotation, and adjust the scale to fit its size."; ObjectID = "Sbm-OL-z0k"; */
 "Sbm-OL-z0k.ibShadowedToolTip" = "Scroll the scene to the selected annotation, and adjust the scale to fit its size.";
@@ -115,8 +115,8 @@
 /* Class = "NSMenuItem"; title = "Area: (x1, y1, x2, y2)"; ObjectID = "sVk-oR-IHz"; */
 "sVk-oR-IHz.title" = "Area: (x1, y1, x2, y2)";
 
-/* Class = "NSMenuItem"; title = "Reset Columns..."; ObjectID = "ued-v5-LbG"; */
-"ued-v5-LbG.title" = "Reset Columns...";
+/* Class = "NSMenuItem"; title = "Reset Columns…"; ObjectID = "ued-v5-LbG"; */
+"ued-v5-LbG.title" = "Reset Columns…";
 
 /* Class = "NSMenuItem"; title = "ID"; ObjectID = "w8Q-1g-gYa"; */
 "w8Q-1g-gYa.title" = "ID";

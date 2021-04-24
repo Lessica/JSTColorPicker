@@ -104,17 +104,17 @@ Scale the view to fit/fill the window size.
 ## Menu Key Equivalents
 
 ### JSTColorPicker
-- `⌘,` Preferences...
+- `⌘,` Preferences…
 - `⌘H` Hide JSTColorPicker
 - `⌥⌘H` Hide Others
 - `⌘Q` Quit JSTColorPicker
 
 ### File
 - `⌘N` New
-- `⌘O` Open...
+- `⌘O` Open…
 - `⌘W` Close
 - `⌘S` Save
-- `⇧⌘S` Save As...
+- `⇧⌘S` Save As…
 - `⇧⌘D` Compare Opened Documents
 - `⇧⌘C`: Copy all annotations using selected template.
 - `⇧⌘E`: Export all annotations using selected template.
@@ -144,8 +144,8 @@ Scale the view to fit/fill the window size.
 ### Templates
 - `⌃⌘` + `123456789`: Switch between templates.
 - `⌃⌘0` *Reload All Templates*
-- `⌃⌘F` *Show Templates...*: Show all templates in Finder.
-- `⌃⌘L` *Show Logs...*: Open *Console.app* to watch all exceptions and warnings thrown from templates loading.
+- `⌃⌘F` *Show Templates…*: Show all templates in Finder.
+- `⌃⌘L` *Show Logs…*: Open *Console.app* to watch all exceptions and warnings thrown from templates loading.
 
 ### Window
 - `⌘M` Minimize
@@ -158,7 +158,7 @@ Scale the view to fit/fill the window size.
 
 
 ## Toolbar Key Equivalents
-- `[Fn]F1` Open...
+- `[Fn]F1` Open…
 - `[Fn]F2` *Magic Cursor*
 - `[Fn]F3` *Magnifying Glass*
 - `[Fn]F4` *Minifying Glass*
@@ -172,7 +172,7 @@ Scale the view to fit/fill the window size.
 
 JSTColorPicker uses [Lua 5.3.4](https://www.lua.org/) as its template engine.
 
-Click the *export option* button at the bottom right of window, you will see available templates in `templates` folder. Click `Show Templates...` will show that folder in Finder. The name of template file should end up with path extension `.lua`. Selected template will be applied to all copy/export actions if possible.
+Click the *export option* button at the bottom right of window, you will see available templates in `templates` folder. Click `Show Templates…` will show that folder in Finder. The name of template file should end up with path extension `.lua`. Selected template will be applied to all copy/export actions if possible.
 
 ### Write Templates
 

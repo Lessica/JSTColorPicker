@@ -163,7 +163,7 @@ class WindowController: NSWindowController {
         
         isInComparisonMode = true
         let loadingAlert = NSAlert()
-        loadingAlert.messageText = NSLocalizedString("Calculating Difference...", comment: "beginPixelMatchComparison(to:)")
+        loadingAlert.messageText = NSLocalizedString("Calculating Difference…", comment: "beginPixelMatchComparison(to:)")
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
         loadingIndicator.startAnimation(nil)
@@ -563,7 +563,7 @@ extension WindowController: ShortcutGuideDataSource {
         if documentState.isReadable || !documentState.isLoaded {
             items += [
                 ShortcutItem(
-                    name: NSLocalizedString("Open...", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Open…", comment: "Shortcut Guide"),
                     keyString: "F1",
                     toolTip: NSLocalizedString("Open (F1): Load a PNG image file from file system.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
@@ -631,7 +631,7 @@ extension WindowController: ShortcutGuideDataSource {
                     modifierFlags: [.control]
                 ),
                 ShortcutItem(
-                    name: NSLocalizedString("Command Palette...", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Command Palette…", comment: "Shortcut Guide"),
                     keyString: NSLocalizedString("Double Press", comment: "Shortcut Guide"),
                     toolTip: NSLocalizedString("Show a palette with available keyboard shortcuts.", comment: "Shortcut Guide"),
                     modifierFlags: [.command]

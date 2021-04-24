@@ -24,7 +24,7 @@
 "[Selection Arrow]" = "[选择箭头]";
 
 /* Shortcut Guide */
-"A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作.";
+"A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作。";
 
 /* Shortcut Guide */
 "Add Area Annotation" = "添加区域标注";
@@ -36,19 +36,19 @@
 "Add Area Annotation (Square)" = "添加区域标注 (正方形)";
 
 /* Shortcut Guide */
-"Add Area at current dragged rectangle to content list." = "将当前拖拽的矩形区域作为区域标注添加到内容列表.";
+"Add Area at current dragged rectangle to content list." = "将当前拖拽的矩形区域作为区域标注添加到内容列表。";
 
 /* Shortcut Guide */
-"Add Area at current dragged square to content list." = "将当前拖拽的正方形区域作为区域标注添加到内容列表.";
+"Add Area at current dragged square to content list." = "将当前拖拽的正方形区域作为区域标注添加到内容列表。";
 
 /* Shortcut Guide */
-"Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "将当前拖拽的, 以起始点作为中点的矩形区域作为区域标注添加到内容列表.";
+"Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "将当前拖拽的，以起始点作为中点的矩形区域作为区域标注添加到内容列表。";
 
 /* Shortcut Guide */
 "Add Color & Coordinates Annotation" = "添加坐标及颜色标注";
 
 /* Shortcut Guide */
-"Add Color & Coordinates at current cursor position to content list." = "将当前光标位置下的坐标及颜色标注添加到内容列表.";
+"Add Color & Coordinates at current cursor position to content list." = "将当前光标位置下的坐标及颜色标注添加到内容列表。";
 
 /* internalAddContentItems(_:) */
 "Add Items" = "添加项";
@@ -57,25 +57,25 @@
 "Advanced" = "进阶";
 
 /* PixelMatchServiceError */
-"Another task is in process, abort." = "另一项任务正在进行中, 此操作被迫终止.";
+"Another task is in process, abort." = "另一项任务正在进行中，此操作被迫终止。";
 
 /* ScriptError */
-"Application \"%@\" not found." = "找不到应用程序 \"%@\".";
+"Application \"%@\" not found." = "找不到应用程序 \"%@\"。";
 
 /* beginPixelMatchComparison(to:) */
-"Calculating Difference..." = "分析差异中...";
+"Calculating Difference…" = "分析差异中…";
 
 /* screenshotItemTapped(_:) */
 "Cancel" = "取消";
 
 /* ScreenshotError */
-"Cannot deserialize content." = "无法反序列化内容.";
+"Cannot deserialize content." = "无法反序列化内容。";
 
 /* ScriptError */
-"Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\".";
+"Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\"。";
 
 /* ScreenshotError */
-"Cannot serialize content." = "无法序列化内容.";
+"Cannot serialize content." = "无法序列化内容。";
 
 /* NSColorPanel */
 "Choose Color" = "选择颜色";
@@ -90,7 +90,7 @@
 "Collapse Preview" = "收起预览";
 
 /* Shortcut Guide */
-"Command Palette..." = "切换指令面板";
+"Command Palette…" = "切换指令面板";
 
 /* updateMenuItems */
 "Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
@@ -105,22 +105,22 @@
 "Connect to device" = "连接到设备";
 
 /* screenshotItemTapped(_:) */
-"Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备.";
+"Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备。";
 
 /* XPCError */
-"Connection timeout." = "连接超时.";
+"Connection timeout." = "连接超时。";
 
 /* Shortcut Guide */
 "Copy Color & Coordinates" = "拷贝坐标及颜色标注";
 
 /* Shortcut Guide */
-"Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板.";
+"Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板。";
 
 /* Shortcut Guide */
 "Delete Annotation" = "删除标注";
 
 /* Shortcut Guide */
-"Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注.";
+"Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
 
 /* Delete Confirm */
 "Delete Confirm" = "删除确认";
@@ -138,43 +138,43 @@
 "Discover Devices" = "立即寻找设备";
 
 /* Shortcut Guide */
-"Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN." = "寻找设备 (⌃I): 立即广播寻找局域网内的可用设备.";
+"Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN." = "寻找设备 (⌃I)：立即广播寻找局域网内的可用设备。";
 
 /* Shortcut Guide */
-"Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "显示菜单, 包含当前光标位置所有层级下层叠的区域标注, 选择一项以删除标注.";
+"Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "显示菜单，包含当前光标位置所有层级下层叠的区域标注，选择一项以删除标注。";
 
 /* Shortcut Guide */
-"Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections." = "显示菜单, 包含当前光标位置所有层级下层叠的区域标注, 选择一项以选择标注, 同时保留之前的选择项.";
+"Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections." = "显示菜单，包含当前光标位置所有层级下层叠的区域标注，选择一项以选择标注，同时保留之前的选择项。";
 
 /* Import Confirm */
-"Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗?";
+"Do you want to import following %d tags from current document?" = "你确定要从当前文档中关联如下的 %d 个标签到数据库吗？";
 
 /* resetTagDatabaseAction(_:) */
-"Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone." = "你确定要移除所有用户自定义标签, 并重置标签数据库到初始状态吗?\n该操作不能撤销.";
+"Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone." = "你确定要移除所有用户自定义标签，并重置标签数据库到初始状态吗？\n该操作不能撤销。";
 
 /* Delete Confirm */
-"Do you want to remove selected %d items?" = "你确定要删除选定的 %d 个项吗?";
+"Do you want to remove selected %d items?" = "你确定要删除选定的 %d 个项吗？";
 
 /* Delete Confirm */
-"Do you want to remove selected item #%ld: %@?" = "你确定要删除选定的项 #%ld: %@?";
+"Do you want to remove selected item #%ld: %@?" = "你确定要删除选定的项 #%ld：%@？";
 
 /* Content.Error */
-"Document locked." = "文档已锁定.";
+"Document locked." = "文档已锁定。";
 
 /* Outline Generation */
-"Document not loaded." = "文档未加载.";
+"Document not loaded." = "文档未加载。";
 
 /* availableHints */
-"Double click **Command (⌘)** to toggle command palette." = "双击 **Command (⌘)** 以切换指令面板.";
+"Double click **Command (⌘)** to toggle command palette." = "双击 **Command (⌘)** 以切换指令面板。";
 
 /* Shortcut Guide */
 "Double Press" = "连按两次";
 
 /* screenshotItemTapped(_:) */
-"Download screenshot from device \"%@\"..." = "正在从设备 \"%@\" 下载截图...";
+"Download screenshot from device \"%@\"…" = "正在从设备 \"%@\" 下载截图…";
 
 /* resetDevicesMenu */
-"Download screenshot helper..." = "下载设备截图组件...";
+"Download screenshot helper…" = "下载设备截图组件…";
 
 /* Shortcut Guide */
 "Drag" = "拖拽";
@@ -195,7 +195,7 @@
 "Edit Coordinate" = "修改坐标";
 
 /* screenshotItemTapped(_:) */
-"Establish connection to device \"%@\"..." = "正在与设备 \"%@\" 建立连接...";
+"Establish connection to device \"%@\"…" = "正在与设备 \"%@\" 建立连接…";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
@@ -213,28 +213,28 @@
 "Expired" = "已过期";
 
 /* copy(_:) */
-"Extract code snippets from template \"%@\"..." = "正在从模版 \"%@\" 中解析代码片段...";
+"Extract code snippets from template \"%@\"…" = "正在从模版 \"%@\" 中解析代码片段…";
 
 /* copy(_:) */
 "Extract Snippets" = "解析片段";
 
 /* PixelMatchServiceError */
-"File does not exist: %@" = "文件不存在: %@";
+"File does not exist: %@" = "文件不存在：%@";
 
 /* PixelImageError */
-"File read failed." = "文件读取失败.";
+"File read failed." = "文件读取失败。";
 
 /* Shortcut Guide */
 "Fill Window" = "填充窗口";
 
 /* Shortcut Guide */
-"Fill Window (F8): Scale the view to fill the window size." = "填充窗口 (F8): 缩放场景到填充窗口的尺寸.";
+"Fill Window (F8): Scale the view to fill the window size." = "填充窗口 (F8)：缩放场景到填充窗口的尺寸。";
 
 /* Shortcut Guide */
 "Fit Window" = "适应窗口";
 
 /* Shortcut Guide */
-"Fit Window (F7): Scale the view to fit the window size." = "适应窗口 (F7): 缩放场景到适合窗口的尺寸.";
+"Fit Window (F7): Scale the view to fit the window size." = "适应窗口 (F7)：缩放场景到适合窗口的尺寸。";
 
 /* toolbarItemLabel */
 "Folder" = "目录";
@@ -243,26 +243,26 @@
 "General" = "通用";
 
 /* Outline Generation */
-"Generating..." = "生成中...";
+"Generating…" = "生成中…";
 
 /* Shortcut Guide */
 "Hold" = "按住";
 
 /* Shortcut Guide */
-"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注, 则切换选中状态到当前光标位置下层叠的后一个标注.";
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的后一个标注。";
 
 /* Shortcut Guide */
-"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注, 则切换选中状态到当前光标位置下层叠的前一个标注.";
+"If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的前一个标注。";
 
 /* PixelMatchError */
-"Image sizes do not match." = "图像尺寸不一致.";
+"Image sizes do not match." = "图像尺寸不一致。";
 
 /* PixelMatchServiceError */
-"Image sizes do not match: %dx%d vs %dx%d" = "图像尺寸不一致: %dx%d vs %dx%d";
+"Image sizes do not match: %dx%d vs %dx%d" = "图像尺寸不一致：%dx%d 与 %dx%d";
 
 /* reloadDevicesSubMenuItems()
    Shortcut Guide */
-"Immediately broadcast a search for available devices on the LAN." = "立即广播寻找局域网内的可用设备.";
+"Immediately broadcast a search for available devices on the LAN." = "立即广播寻找局域网内的可用设备。";
 
 /* Import Confirm */
 "Import Confirm" = "关联确认";
@@ -271,7 +271,7 @@
 "Import Failed" = "关联失败";
 
 /* Shortcut Guide */
-"In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中, 精确调整标注的位置.";
+"In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中，精确调整标注的位置。";
 
 /* reloadPane() */
 "Info (Primary)" = "信息 (主要)";
@@ -286,37 +286,37 @@
 "Inspector (Secondary)" = "检视器 (次要)";
 
 /* TemplateError */
-"Internal error." = "内部错误.";
+"Internal error." = "内部错误。";
 
 /* ScreenshotError */
-"Invalid content." = "内容无效.";
+"Invalid content." = "内容无效。";
 
 /* TemplateError */
-"Invalid field: %@." = "无效的字段: %@.";
+"Invalid field: %@." = "无效的字段：%@。";
 
 /* ScreenshotError */
-"Invalid image properties." = "无效的图像属性.";
+"Invalid image properties." = "无效的图像属性。";
 
 /* ScreenshotError */
-"Invalid image source." = "图像源无效.";
+"Invalid image source." = "图像源无效。";
 
 /* ScreenshotError */
-"Invalid image type." = "图像类型无效.";
+"Invalid image type." = "图像类型无效。";
 
 /* ScreenshotError */
-"Invalid image." = "图像无效.";
+"Invalid image." = "图像无效。";
 
 /* PurchaseController.Error */
-"Invalid product identifier: \"%@\"." = "无效的产品标志符: \"%@\".";
+"Invalid product identifier: \"%@\"." = "无效的产品标志符：\"%@\"。";
 
 /* PurchaseManager.Error */
-"Invalid purchase." = "无效的付款.";
+"Invalid purchase." = "无效的付款。";
 
 /* PurchaseManager.Error */
-"Invalid receipt." = "无效的收据.";
+"Invalid receipt." = "无效的收据。";
 
 /* Item #%@: %@ */
-"Item #%ld: %@" = "项 #%ld: %@";
+"Item #%ld: %@" = "项 #%ld：%@";
 
 /* actionRequiresRestart(_:) */
 "Later" = "稍后";
@@ -328,10 +328,10 @@
 "List Deletable Annotations" = "列出所有可删除标注";
 
 /* PixelImageError */
-"Load image data failed." = "加载图像数据失败.";
+"Load image data failed." = "加载图像数据失败。";
 
 /* PixelImageError */
-"Load image source failed." = "加载映像源失败.";
+"Load image source failed." = "加载映像源失败。";
 
 /* Shortcut Guide */
 "Locate" = "定位";
@@ -340,7 +340,7 @@
 "Magic Cursor" = "魔术光标";
 
 /* Shortcut Guide */
-"Magic Cursor (F2): Add, or delete annotations." = "魔术光标 (F2): 添加, 或是删除标注, 目前支持坐标及颜色标注和区域标注两种.";
+"Magic Cursor (F2): Add, or delete annotations." = "魔术光标 (F2)：添加，或是删除标注，目前支持坐标及颜色标注和区域标注两种。";
 
 /* Shortcut Guide */
 "Magnify" = "放大";
@@ -349,40 +349,40 @@
 "Magnify To Fill Window" = "放大以填充窗口";
 
 /* Shortcut Guide */
-"Magnify to fill window with dragged area." = "放大已拖拽区域, 使之填充整个窗口.";
+"Magnify to fill window with dragged area." = "放大已拖拽区域，使之填充整个窗口。";
 
 /* Shortcut Guide */
-"Magnify to next level from current cursor position." = "自当前光标位置放大到下一缩放级别.";
+"Magnify to next level from current cursor position." = "自当前光标位置放大到下一缩放级别。";
 
 /* Shortcut Guide */
 "Magnifying Glass" = "放大镜";
 
 /* Shortcut Guide */
-"Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." = "放大镜 (F4): 按预设的梯度比例放大场景, 支持放大到指定区域.";
+"Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." = "放大镜 (F4)：按预设的梯度比例放大场景，支持放大到指定区域。";
 
 /* Content.Error */
-"Maximum item count %d reached." = "已达到最大项数量 %d.";
+"Maximum item count %d reached." = "已达到最大项数量 %d。";
 
 /* Shortcut Guide */
 "Minify" = "缩小";
 
 /* Shortcut Guide */
-"Minify to previous level from current cursor position." = "自当前光标位置缩小到上一缩放级别.";
+"Minify to previous level from current cursor position." = "自当前光标位置缩小到上一缩放级别。";
 
 /* Shortcut Guide */
 "Minifying Glass" = "缩小镜";
 
 /* Shortcut Guide */
-"Minifying Glass (F5): Zoom out at a preset scale." = "缩小镜 (F5): 按预设的梯度比例缩小场景.";
+"Minifying Glass (F5): Zoom out at a preset scale." = "缩小镜 (F5)：按预设的梯度比例缩小场景。";
 
 /* TemplateError */
-"Missing required field: %@." = "缺少必填字段: %@.";
+"Missing required field: %@." = "缺少必填字段：%@。";
 
 /* TemplateError */
-"Missing returned string." = "缺少返回的字符串.";
+"Missing returned string." = "缺少返回的字符串。";
 
 /* TemplateError */
-"Missing root entry: template must return a table." = "缺少根条目: 模板必须返回表.";
+"Missing root entry: template must return a table." = "缺少根条目：模板必须返回表。";
 
 /* Shortcut Guide */
 "Modify Annotation" = "修改标注";
@@ -391,10 +391,10 @@
 "Modify Annotation (Fixed Ratio)" = "修改标注 (固定比例)";
 
 /* Shortcut Guide */
-"Modify Area to a new dimension with its original ratio." = "修改区域标注到新的尺寸, 保持其原始比例.";
+"Modify Area to a new dimension with its original ratio." = "修改区域标注到新的尺寸，保持其原始比例。";
 
 /* Shortcut Guide */
-"Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "修改坐标及颜色标注到新的位置, 修改区域标注的尺寸.";
+"Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "修改坐标及颜色标注到新的位置，修改区域标注的尺寸。";
 
 /* Shortcut Guide */
 "Move" = "移动";
@@ -421,7 +421,7 @@
 "Moving Hand" = "移动工具";
 
 /* Shortcut Guide */
-"Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." = "移动工具 (F6): 拖拽移动场景, 或是查看标注的首要标签.";
+"Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." = "移动工具 (F6)：拖拽移动场景，或是查看标注的首要标签。";
 
 /* EditAreaController */
 "New Area" = "新区域";
@@ -433,59 +433,59 @@
 "No device selected" = "未选中设备";
 
 /* PixelMatchServiceError */
-"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异. 请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试.";
+"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异。请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试。";
 
 /* Content.Error
    ExportError */
-"No document loaded." = "未加载任何文档.";
+"No document loaded." = "未加载任何文档。";
 
 /* ExportError */
-"No output file extension specified." = "未指定输出文件扩展名.";
+"No output file extension specified." = "未指定输出文件扩展名。";
 
 /* Content Tag Submenu */
 "No tag attached" = "未关联标签";
 
 /* Import Confirm */
-"No tag to import." = "当前文档中的所有标签业已关联到数据库, 无标签可供关联.";
+"No tag to import." = "当前文档中的所有标签业已关联到数据库，无标签可供关联。";
 
 /* updateTemplatesSubMenuItems() */
-"No template available." = "无可用模版.";
+"No template available." = "无可用模版。";
 
 /* ExportError */
-"No template selected." = "未选择模板.";
+"No template selected." = "未选择模板。";
 
 /* PurchaseManager */
 "None" = "无";
 
 /* PurchaseController.Error */
-"Not purchased." = "未付款.";
+"Not purchased." = "未付款。";
 
 /* ScriptError */
-"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\".";
+"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\"。";
 
 /* PurchaseController.Error */
-"Nothing to restore." = "未找到可恢复的项目.";
+"Nothing to restore." = "未找到可恢复的项目。";
 
 /* screenshotItemTapped(_:) */
 "OK" = "好";
 
 /* Shortcut Guide */
-"Open (F1): Load a PNG image file from file system." = "打开 (F1): 从文件系统载入指定 PNG 图像文件.";
+"Open (F1): Load a PNG image file from file system." = "打开 (F1)：从文件系统载入指定 PNG 图像文件。";
 
 /* reloadPane() */
-"Open an image of the same size for image comparison." = "打开尺寸相同的图像文件, 以进行差异比对.";
+"Open an image of the same size for image comparison." = "打开尺寸相同的图像文件，以进行差异比对。";
 
 /* manageSubscriptionAction(_:) */
 "Open Confirmation" = "打开确认";
 
 /* updateInformationPanel */
-"Open or drop an image here." = "打开或拖拽文件到此处.";
+"Open or drop an image here." = "打开或拖拽文件到此处。";
 
 /* Shortcut Guide */
-"Open..." = "打开...";
+"Open…" = "打开…";
 
 /* TemplatePreviewController.Error */
-"Ownership of the pasteboard has changed." = "剪贴板所有者已变更.";
+"Ownership of the pasteboard has changed." = "剪贴板所有者已变更。";
 
 /* PreferencesController */
 "Preferences" = "偏好设置";
@@ -500,19 +500,19 @@
 "Reload All Templates" = "重新加载所有模版";
 
 /* updateTemplatesSubMenuItems() */
-"Reload template scripts from file system." = "从文件系统中重新载入所有模版脚本.";
+"Reload template scripts from file system." = "从文件系统中重新载入所有模版脚本。";
 
 /* Shortcut Guide */
-"Relocate..." = "调整位置...";
+"Relocate…" = "调整位置…";
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "重置确认";
 
 /* TemplateError */
-"Resource busy." = "资源忙, 请在另一个导出或预览任务结束后重试.";
+"Resource busy." = "资源忙，请在另一个导出或预览任务结束后重试。";
 
 /* TemplatePreviewController.Error */
-"Resource not found." = "找不到资源.";
+"Resource not found." = "找不到资源。";
 
 /* actionRequiresRestart(_:) */
 "Restart" = "重启";
@@ -524,25 +524,25 @@
 "Right Click" = "右键单击";
 
 /* Shortcut Guide */
-"Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "将场景滚动定位到所选项, 并调整缩放比例以适配其尺寸.";
+"Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "将场景滚动定位到所选项，并调整缩放比例以适配其尺寸。";
 
 /* Shortcut Guide */
 "Select All Cascaded Annotations" = "选择所有层叠标注";
 
 /* screenshotItemTapped(_:) */
-"Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备.";
+"Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备。";
 
 /* Shortcut Guide */
 "Select Annotation" = "选择标注";
 
 /* Shortcut Guide */
-"Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注, 或所有层级下层叠的区域标注, 同时保留之前的选择项.";
+"Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注，或所有层级下层叠的区域标注，同时保留之前的选择项。";
 
 /* Shortcut Guide */
-"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注, 同时保留之前的选择项.";
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections." = "选择当前光标位置下的坐标及颜色标注，或位于顶层的区域标注，同时保留之前的选择项。";
 
 /* Shortcut Guide */
-"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "选择当前光标位置下的坐标及颜色标注, 或位于顶层的区域标注.";
+"Select Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "选择当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
 
 /* Shortcut Guide */
 "Select More Annotations" = "选择更多标注";
@@ -557,13 +557,13 @@
 "Selection Arrow" = "选择箭头";
 
 /* Shortcut Guide */
-"Selection Arrow (F3): View, select, or modify annotations." = "选择箭头 (F3): 查看, 选择, 或是修改选中的标注.";
+"Selection Arrow (F3): View, select, or modify annotations." = "选择箭头 (F3)：查看，选择，或是修改选中的标注。";
 
 /* Shortcut Guide */
-"Show a palette with available keyboard shortcuts." = "显示一个指令面板, 它包含了一些可用的键盘快捷键以供参考.";
+"Show a palette with available keyboard shortcuts." = "显示一个指令面板，它包含了一些可用的键盘快捷键以供参考。";
 
 /* Content.Error */
-"Some of these items do not exist." = "部分项目不存在.";
+"Some of these items do not exist." = "部分项目不存在。";
 
 /* PurchaseManager.ProductType */
 "Subscribed" = "已订阅";
@@ -572,82 +572,82 @@
 "Subscription" = "订阅";
 
 /* Shortcut Guide */
-"Switch to Magic Cursor temporarily." = "临时切换到魔术光标.";
+"Switch to Magic Cursor temporarily." = "临时切换到魔术光标。";
 
 /* Shortcut Guide */
-"Switch to Magnifying Glass temporarily." = "临时切换到放大镜.";
+"Switch to Magnifying Glass temporarily." = "临时切换到放大镜。";
 
 /* Shortcut Guide */
-"Switch to Minifying Glass temporarily." = "临时切换到缩小镜.";
+"Switch to Minifying Glass temporarily." = "临时切换到缩小镜。";
 
 /* Shortcut Guide */
-"Switch to Selection Arrow temporarily." = "临时切换到选择箭头.";
+"Switch to Selection Arrow temporarily." = "临时切换到选择箭头。";
 
 /* Shortcut Guide */
 "Take Snapshot" = "截图";
 
 /* Shortcut Guide */
-"Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "截图 (⌃S): 直接从已选中的设备获取屏幕截图.";
+"Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "截图 (⌃S)：直接从已选中的设备获取屏幕截图。";
 
 /* reloadUI() */
-"Thank you for downloading JSTColorPicker!" = "感谢你下载 JSTColorPicker!";
+"Thank you for downloading JSTColorPicker!" = "感谢你下载 JSTColorPicker！";
 
 /* reloadUI() */
-"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@" = "感谢你从 App Store 购买了 JSTColorPicker. 你真棒!\n订阅到期时间: %@";
+"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@" = "感谢你从 App Store 购买了 JSTColorPicker。你真棒！\n订阅到期时间：%@";
 
 /* reloadUI() */
 "Thank you!" = "Thank you!";
 
 /* Content.Error */
-"The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突.";
+"The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突。";
 
 /* Content.Error */
-"The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@.";
+"The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@。";
 
 /* ScreenshotError */
-"This feature is not implemented." = "此功能未实现.";
+"This feature is not implemented." = "此功能未实现。";
 
 /* Content.Error */
-"This item %@ already exists." = "此项 %@ 已存在.";
+"This item %@ already exists." = "此项 %@ 已存在。";
 
 /* Content.Error */
-"This item %@ does not exist." = "此项 %@ 不存在.";
+"This item %@ does not exist." = "此项 %@ 不存在。";
 
 /* Content.Error */
-"This operation requires %d more spaces." = "此操作需要 %d 额外空间.";
+"This operation requires %d more spaces." = "此操作需要 %d 额外空间。";
 
 /* Screenshot.Error */
-"This operation requires valid subscription of JSTColorPicker." = "此操作需要 JSTColorPicker 有效期内的订阅.";
+"This operation requires valid subscription of JSTColorPicker." = "此操作需要 JSTColorPicker 有效期内的订阅。";
 
 /* actionRequiresRestart(_:) */
-"This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效.";
+"This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效。";
 
 /* Content.Error */
-"This requested item %@ is not valid." = "请求的项 %@ 是无效的.";
+"This requested item %@ is not valid." = "请求的项 %@ 是无效的。";
 
 /* TemplateError */
-"This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本.";
+"This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本。";
 
 /* Tool Tip: Description of Pixel Area */
-"TOOLTIP_DESC_PIXEL_AREA" = "原点: %@\n对点: %@\n尺寸: %@";
+"TOOLTIP_DESC_PIXEL_AREA" = "原点：%@\n对点：%@\n尺寸：%@";
 
 /* Tool Tip: Description of Pixel Color */
-"TOOLTIP_DESC_PIXEL_COLOR" = "位置: %@\nCSS: %@\nRGBA: %@";
+"TOOLTIP_DESC_PIXEL_COLOR" = "位置：%@\nCSS：%@\nRGBA：%@";
 
 /* Tool Tip: Modify Similiarity */
-"TOOLTIP_MODIFY_SIMILARITY" = "相似度: %@%%\n单击此处以修改.";
+"TOOLTIP_MODIFY_SIMILARITY" = "相似度：%@%%\n单击此处以修改。";
 
 /* Tool Tip: Tag Cell View */
-"TOOLTIP_TAG_CELL_VIEW" = "已关联标签: \n%@\n\n其他标签: \n%@";
+"TOOLTIP_TAG_CELL_VIEW" = "已关联标签：\n%@\n\n其他标签：\n%@";
 
 /* Setup Persistent Store */
-"Unable to access tag database." = "无法访问标签数据库.";
+"Unable to access tag database." = "无法访问标签数据库。";
 
 /* PurchaseManager.ProductType */
 "Uninitialized" = "未初始化";
 
 /* ScriptError */
-"Unknown error occurred." = "发生了未知错误.";
+"Unknown error occurred." = "发生了未知错误。";
 
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
@@ -656,19 +656,19 @@
 "Update Items" = "更新项";
 
 /* Content.Error */
-"User aborted." = "用户已取消.";
+"User aborted." = "用户已取消。";
 
 /* ScriptError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续.";
+"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续。";
 
 /* ScriptError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续.";
+"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续。";
 
 /* ScriptError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可.\n请打开 \"偏好设置 > 隐私 > 自动化\", 然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问.";
+"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可。\n请打开 \"偏好设置 > 隐私 > 自动化\"，然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问。";
 
 /* PurchaseManager */
-"Valid Subscription: %@" = "有效期内的订阅: %@";
+"Valid Subscription: %@" = "有效期内的订阅：%@";
 
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
@@ -677,22 +677,22 @@
 "Welcome" = "欢迎";
 
 /* manageSubscriptionAction(_:) */
-"Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将跳转到你的 Apple ID 账户页面以管理你的订阅, 继续?";
+"Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将跳转到你的 Apple ID 账户页面以管理你的订阅，继续？";
 
 /* ScriptError */
-"XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯.";
+"XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯。";
 
 /* PurchaseController.Error */
-"Your previous subscription has expired since %@. Please renew your subscription." = "你此前的订阅已于 %@ 过期. 请续订.";
+"Your previous subscription has expired since %@. Please renew your subscription." = "你此前的订阅已于 %@ 过期，请续订。";
 
 /* Shortcut Guide */
 "Zoom In" = "放大";
 
 /* Shortcut Guide */
-"Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "自当前光标位置放大视图 (如果光标位于视图外, 则以中心点位置放大视图).";
+"Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "自当前光标位置放大视图 (如果光标位于视图外，则以中心点位置放大视图)。";
 
 /* Shortcut Guide */
 "Zoom Out" = "缩小";
 
 /* Shortcut Guide */
-"Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外, 则以中心点位置缩小视图).";
+"Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";

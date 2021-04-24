@@ -209,8 +209,8 @@
                                                             </tableHeaderView>
                                                         </scrollView>
                                                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
-                                                            <rect key="frame" x="55" y="357" width="132" height="14"/>
-                                                            <textFieldCell key="cell" controlSize="small" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="center" title="Loading tag database..." drawsBackground="YES" id="gqF-EC-Oma">
+                                                            <rect key="frame" x="56" y="357" width="131" height="14"/>
+                                                            <textFieldCell key="cell" controlSize="small" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" focusRingType="none" alignment="center" title="Loading tag database…" drawsBackground="YES" id="gqF-EC-Oma">
                                                                 <font key="font" metaFont="menu" size="11"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -386,7 +386,7 @@
                 <customObject id="ykx-Es-M9D" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="ftf-wG-U6b">
                     <items>
-                        <menuItem title="Change Color..." id="Ndd-m7-WU5">
+                        <menuItem title="Change Color…" id="Ndd-m7-WU5">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="changeColorItemTapped:" target="ifY-36-Ao8" id="cCA-NF-BMN"/>

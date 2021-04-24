@@ -7,8 +7,8 @@
 /* Class = "NSTextFieldCell"; title = "-"; ObjectID = "FUe-D3-zFx"; */
 "FUe-D3-zFx.title" = "-";
 
-/* Class = "NSTextFieldCell"; title = "Loading tag database..."; ObjectID = "gqF-EC-Oma"; */
-"gqF-EC-Oma.title" = "正在载入标签数据库...";
+/* Class = "NSTextFieldCell"; title = "Loading tag database…"; ObjectID = "gqF-EC-Oma"; */
+"gqF-EC-Oma.title" = "正在载入标签数据库…";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected tags"; ObjectID = "GwW-Rj-u1w"; */
 "GwW-Rj-u1w.ibShadowedToolTip" = "移除选中的标签";
@@ -31,8 +31,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Import tags from document"; ObjectID = "LsJ-yu-RS8"; */
 "LsJ-yu-RS8.ibShadowedToolTip" = "从当前文档关联标签";
 
-/* Class = "NSMenuItem"; title = "Change Color..."; ObjectID = "Ndd-m7-WU5"; */
-"Ndd-m7-WU5.title" = "更换颜色...";
+/* Class = "NSMenuItem"; title = "Change Color…"; ObjectID = "Ndd-m7-WU5"; */
+"Ndd-m7-WU5.title" = "更换颜色…";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Oun-4Q-Sxx"; */
 "Oun-4Q-Sxx.title" = "文本单元格";

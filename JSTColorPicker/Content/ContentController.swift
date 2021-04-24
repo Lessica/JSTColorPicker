@@ -1606,7 +1606,7 @@ extension ContentController: ShortcutGuideDataSource {
                     modifierFlags: []
                 ),
                 ShortcutItem(
-                    name: NSLocalizedString("Relocate...", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Relocate…", comment: "Shortcut Guide"),
                     keyString: .return,
                     toolTip: NSLocalizedString("In the pop-up tab, precisely adjust the position of the selected annotation.", comment: "Shortcut Guide"),
                     modifierFlags: [.option]

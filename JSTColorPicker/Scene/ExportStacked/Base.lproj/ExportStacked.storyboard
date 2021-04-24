@@ -27,12 +27,12 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
                                                         </constraints>
-                                                        <popUpButtonCell key="cell" type="inline" title="Select Template..." bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
+                                                        <popUpButtonCell key="cell" type="inline" title="Select Template…" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystemBold"/>
                                                             <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
                                                                 <items>
-                                                                    <menuItem title="Select Template..." id="SCj-y8-egk"/>
+                                                                    <menuItem title="Select Template…" id="SCj-y8-egk"/>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>

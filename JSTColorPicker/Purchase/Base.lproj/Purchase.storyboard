@@ -14,10 +14,10 @@
                     <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="PurchaseWindow" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="0PI-qq-0aG" customClass="PurchaseWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" documentModal="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
-                        <rect key="contentRect" x="196" y="249" width="450" height="400"/>
+                        <rect key="contentRect" x="196" y="249" width="450" height="447"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <view key="contentView" id="EAG-R2-wqQ">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="400"/>
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="447"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </view>
                         <connections>
@@ -189,8 +189,8 @@ Sessions are time limited (30 minutes).</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="312" height="34"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="275" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bin-bO-sVY">
-                                                                                <rect key="frame" x="-2" y="18" width="177" height="16"/>
-                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Subscribe JSTColorPicker..." usesSingleLineMode="YES" id="wcU-IC-9mk">
+                                                                                <rect key="frame" x="-2" y="18" width="176" height="16"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Subscribe JSTColorPicker…" usesSingleLineMode="YES" id="wcU-IC-9mk">
                                                                                     <font key="font" metaFont="systemMedium" size="13"/>
                                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -215,8 +215,8 @@ Sessions are time limited (30 minutes).</string>
                                                                         </customSpacing>
                                                                     </stackView>
                                                                     <textField hidden="YES" horizontalHuggingPriority="255" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do6-Ac-poj">
-                                                                        <rect key="frame" x="-2" y="18" width="64" height="16"/>
-                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Loading..." usesSingleLineMode="YES" id="5JX-GV-MXZ">
+                                                                        <rect key="frame" x="-2" y="18" width="63" height="16"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Loading…" usesSingleLineMode="YES" id="5JX-GV-MXZ">
                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                             <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -360,8 +360,8 @@ Sessions are time limited (30 minutes).</string>
                                                 <rect key="frame" x="18" y="12" width="414" height="23"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
-                                                        <rect key="frame" x="-7" y="-7" width="139" height="35"/>
-                                                        <buttonCell key="cell" type="push" title="Check Updates..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ap9-2N-l0A">
+                                                        <rect key="frame" x="-7" y="-7" width="138" height="35"/>
+                                                        <buttonCell key="cell" type="push" title="Check Updates…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ap9-2N-l0A">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -370,11 +370,11 @@ Sessions are time limited (30 minutes).</string>
                                                         </connections>
                                                     </button>
                                                     <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-9g-hJB">
-                                                        <rect key="frame" x="133" y="0.0" width="162" height="23"/>
+                                                        <rect key="frame" x="132" y="0.0" width="164" height="23"/>
                                                     </customView>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Oc-8b-tUs">
-                                                        <rect key="frame" x="296" y="-7" width="125" height="35"/>
-                                                        <buttonCell key="cell" type="push" title="Visit Website..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkI-1Z-qCT">
+                                                        <rect key="frame" x="297" y="-7" width="124" height="35"/>
+                                                        <buttonCell key="cell" type="push" title="Visit Website…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkI-1Z-qCT">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>

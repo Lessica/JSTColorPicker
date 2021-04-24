@@ -1,56 +1,56 @@
 /* kJSTScreenshotError */
-"%@ (%@)." = "%@ (%@).";
+"%@ (%@)." = "%@ (%@)。";
 
 /* No comment provided by engineer. */
 "Cancel" = "取消";
 
 /* kJSTScreenshotHelperError */
-"Cannot find main application of JSTColorPicker: %@" = "找不到 JSTColorPicker 的主应用程序: %@";
+"Cannot find main application of JSTColorPicker: %@" = "找不到 JSTColorPicker 的主应用程序：%@";
 
 /* kJSTScreenshotHelperError */
-"Cannot write launch item to: %@" = "无法写入启动项: %@";
+"Cannot write launch item to: %@" = "无法写入启动项：%@";
 
 /* kJSTScreenshotError */
-"Could not connect to \"%@\"." = "无法连接到 \"%@\".";
+"Could not connect to \"%@\"." = "无法连接到 \"%@\"。";
 
 /* kJSTScreenshotError */
-"Could not connect to lockdownd." = "无法连接到 lockdownd.";
+"Could not connect to lockdownd." = "无法连接到 lockdownd。";
 
 /* kJSTScreenshotError */
-"Could not create image from screenshot." = "无法从屏幕截图创建图像.";
+"Could not create image from screenshot." = "无法从屏幕截图创建图像。";
 
 /* kJSTScreenshotError */
-"Could not get interface orientation." = "无法获取界面方向.";
+"Could not get interface orientation." = "无法获取界面方向。";
 
 /* kJSTScreenshotError */
-"Could not get PNG/TIFF representation of screenshot." = "无法获取屏幕截图的 PNG/TIFF 数据表示形式.";
+"Could not get PNG/TIFF representation of screenshot." = "无法获取屏幕截图的 PNG/TIFF 数据表示形式。";
 
 /* kJSTScreenshotError */
-"Could not get screenshot." = "无法获取屏幕截图.";
+"Could not get screenshot." = "无法获取屏幕截图。";
 
 /* kJSTScreenshotError */
-"Could not read TIFF representation of screenshot from temporary storage." = "无法从临时存储读取屏幕截图的 TIFF 数据表示形式.";
+"Could not read TIFF representation of screenshot from temporary storage." = "无法从临时存储读取屏幕截图的 TIFF 数据表示形式。";
 
 /* kJSTScreenshotError */
-"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "无法启动 \"%@\" 服务. 请记住, 如果要使用 \"%@\" 服务, 必须安装 Xcode 或手动在设备上挂载开发人员磁盘映像.";
+"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "无法启动 \"%@\" 服务。请记住，如果要使用 \"%@\" 服务，必须安装 Xcode 并配对设备或手动在设备上挂载开发人员磁盘映像。";
 
 /* kJSTScreenshotError */
-"Could not write TIFF representation of screenshot to temporary storage." = "无法将屏幕截图的 TIFF 数据表示形式写入临时存储.";
+"Could not write TIFF representation of screenshot to temporary storage." = "无法将屏幕截图的 TIFF 数据表示形式写入临时存储。";
 
 /* kJSTScreenshotError */
-"Device \"%@\" is not reachable." = "设备 \"%@\" 暂不可用.";
+"Device \"%@\" is not reachable." = "设备 \"%@\" 暂不可用。";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to remove JSTColorPickerHelper from login items?" = "要将 JSTColorPicker 设备截图组件从启动项中移除吗?";
+"Do you want to remove JSTColorPickerHelper from login items?" = "要将 JSTColorPicker 设备截图组件从启动项中移除吗？";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to setup JSTColorPickerHelper as a login item?" = "要将 JSTColorPicker 设备截图组件设置为启动项吗?";
+"Do you want to setup JSTColorPickerHelper as a login item?" = "要将 JSTColorPicker 设备截图组件设置为启动项吗？";
 
 /* kJSTScreenshotError */
-"Internal error occurred." = "发生内部错误.";
+"Internal error occurred." = "发生内部错误。";
 
 /* kJSTScreenshotError */
-"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\".";
+"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\"。";
 
 /* No comment provided by engineer. */
 "OK" = "好";
@@ -59,13 +59,13 @@
 "process:JSTColorPicker" = "进程:JSTColorPicker";
 
 /* kJSTScreenshotError */
-"Unknown error occurred." = "发生了未知错误.";
+"Unknown error occurred." = "发生了未知错误。";
 
 /* kJSTScreenshotError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续.";
+"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续。";
 
 /* kJSTScreenshotError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续.";
+"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续。";
 
 /* kJSTScreenshotError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可.\n请打开 \"偏好设置 > 隐私 > 自动化\", 然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问.";
+"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可。\n请打开 \"偏好设置 > 隐私 > 自动化\"，然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问。";

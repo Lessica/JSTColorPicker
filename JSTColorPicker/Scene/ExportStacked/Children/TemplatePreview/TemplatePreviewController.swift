@@ -1109,7 +1109,7 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
                     )
                 } else {
                     attributedText = NSAttributedString(
-                        string: NSLocalizedString("Generating...", comment: "Outline Generation"),
+                        string: NSLocalizedString("Generating…", comment: "Outline Generation"),
                         attributes: TemplateContentCellView.defaultTextAttributes
                     )
                 }

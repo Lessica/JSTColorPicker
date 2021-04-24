@@ -187,7 +187,7 @@
 <a id="user-content-jstcolorpicker-1" class="anchor" href="#jstcolorpicker-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h3>
 <ul>
 <li>
-<code>⌘,</code> 偏好设置...</li>
+<code>⌘,</code> 偏好设置…</li>
 <li>
 <code>⌘H</code> 隐藏 JSTColorPicker</li>
 <li>
@@ -201,13 +201,13 @@
 <li>
 <code>⌘N</code> 新建</li>
 <li>
-<code>⌘O</code> 打开...</li>
+<code>⌘O</code> 打开…</li>
 <li>
 <code>⌘W</code> 关闭</li>
 <li>
 <code>⌘S</code> 存储</li>
 <li>
-<code>⇧⌘S</code> 另存为...</li>
+<code>⇧⌘S</code> 另存为…</li>
 <li>
 <code>⇧⌘D</code> 比较打开的文档</li>
 <li>
@@ -269,9 +269,9 @@
 <li>
 <code>⌃⌘0</code> <em>重新加载所有模板</em>: 修改模板文件后, 使用该操作以重载所有<em>模板</em>文件, 立即生效.</li>
 <li>
-<code>⌃⌘F</code> <em>显示模板...</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
+<code>⌃⌘F</code> <em>显示模板…</em>: 在 Finder 中显示<em>模板</em>存放的文件夹.</li>
 <li>
-<code>⌃⌘L</code> <em>显示日志...</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li>
+<code>⌃⌘L</code> <em>显示日志…</em>: 打开<em>控制台</em>, 以便显示<em>模板</em>执行过程中产生的所有日志以及异常信息.</li>
 </ul>
 <h3>
 <a id="user-content-窗口" class="anchor" href="#%E7%AA%97%E5%8F%A3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>窗口</h3>
@@ -295,7 +295,7 @@
 <a id="user-content-工具栏快捷键" class="anchor" href="#%E5%B7%A5%E5%85%B7%E6%A0%8F%E5%BF%AB%E6%8D%B7%E9%94%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>工具栏快捷键</h2>
 <ul>
 <li>
-<code>[Fn]F1</code> 打开...</li>
+<code>[Fn]F1</code> 打开…</li>
 <li>
 <code>[Fn]F2</code> <em>魔术光标</em>
 </li>
@@ -319,7 +319,7 @@
 <h2>
 <a id="user-content-自定义模板" class="anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>自定义模板</h2>
 <p>JSTColorPicker 使用 <a href="https://www.lua.org/" rel="nofollow">Lua 5.3.4</a> 作为其模板引擎.</p>
-<p>单击窗口右下方的<em>导出选项</em>按钮, 你将能查看并选择全部可用<em>模板</em>. 单击 <code>显示模板...</code> 将在 Finder 中打开默认<em>模板</em>文件夹 <code>templates</code>. 模板文件的文件名应以扩展名 <code>.lua</code> 结尾. 如果可能, 所选<em>模板</em>将应用于所有复制及导出操作.</p>
+<p>单击窗口右下方的<em>导出选项</em>按钮, 你将能查看并选择全部可用<em>模板</em>. 单击 <code>显示模板…</code> 将在 Finder 中打开默认<em>模板</em>文件夹 <code>templates</code>. 模板文件的文件名应以扩展名 <code>.lua</code> 结尾. 如果可能, 所选<em>模板</em>将应用于所有复制及导出操作.</p>
 <h3>
 <a id="user-content-编写自定义模板" class="anchor" href="#%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>编写自定义模板</h3>
 <p><em>模板</em>是一个 <em>Lua</em> 脚本文件, 它仅返回一个表:</p>
@@ -334,9 +334,9 @@
   generator <span class="pl-k">=</span> generator,                          <span class="pl-c"><span class="pl-c">--</span> 必填, 生成器回调函数</span>
 }</pre></div>
 <p><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项时被执行:</p>
-<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, ...)
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, …)
   <span class="pl-c"><span class="pl-c">--</span></span>
-  <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">...</span>}
+  <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">…</span>}
   <span class="pl-c"><span class="pl-c">--</span></span>
 <span class="pl-k">end</span></pre></div>
 <p>上述 <code>image</code> 是一个 Lua 表, 它代表当前窗口中打开的图像文档:</p>
