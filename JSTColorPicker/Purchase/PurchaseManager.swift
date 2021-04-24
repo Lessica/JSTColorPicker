@@ -133,7 +133,12 @@ import TPInAppReceipt
         let expiryDate = lastPurchase.subscriptionExpirationDate!
         expiredAt = expiryDate
         isTrial = lastPurchase.subscriptionTrialPeriod
+        
+        #if DEBUG
+        productType = .expired
+        #else
         productType = expiryDate > Date() ? .subscribed : .expired
+        #endif
         return lastPurchase
     }
     
