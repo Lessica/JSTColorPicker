@@ -79,20 +79,20 @@ class PurchaseController: NSViewController {
         super.viewDidLoad()
         
         reloadUI()
-        if PurchaseManager.shared.productType != .subscribed {
+        if PurchaseManager.shared.getProductType() != .subscribed {
             reloadProductsUI()
         }
     }
     
     private func reloadUI() {
-        if PurchaseManager.shared.productType == .subscribed {
+        if PurchaseManager.shared.getProductType() == .subscribed {
             mainView.material = .hudWindow
             thankYouView.isHidden = false
             iconView.isHidden = true
             titleLabel.stringValue = NSLocalizedString("Thank you!", comment: "reloadUI()")
             subtitleLabel.stringValue = String(
                 format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@", comment: "reloadUI()"),
-                PurchaseManager.shared.readableExpiredAt
+                PurchaseManager.shared.getReadableExpiredAt()
             )
             topView.isHidden = false
             middleView.isHidden = true
@@ -156,23 +156,46 @@ class PurchaseController: NSViewController {
         isSandbox = true
         #endif
         self.isMasked = true
-        SwiftyStoreKit.purchaseProduct(PurchaseManager.sharedProductID, quantity: 1, atomically: true, simulatesAskToBuyInSandbox: isSandbox) { [weak self] result in
+        SwiftyStoreKit.purchaseProduct(
+            PurchaseManager.sharedProductID,
+            quantity: 1,
+            atomically: true,
+            simulatesAskToBuyInSandbox: isSandbox
+        ) { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                do {
-                    switch result {
-                    case .success(let purchase):
-                        debugPrint("Purchase Succeed: \(purchase.productId)")
-                        self.validateSubscription()
-                    case .error(let error):
-                        if error.code != .paymentCancelled {
-                            throw error
+            do {
+                switch result {
+                case .success(let purchase):
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    debugPrint("Purchase Succeed: \(purchase.productId)")
+                    self._validateSubscription { [weak self] (succeed, error) in
+                        guard let self = self else { return }
+                        if let error = error {
+                            DispatchQueue.main.async {
+                                self.presentError(error)
+                                self.isMasked = false
+                            }
+                            return
                         }
+                        DispatchQueue.main.async {
+                            self.reloadUI()
+                            self.isMasked = false
+                        }
+                    }
+                case .error(let error):
+                    if error.code != .paymentCancelled {
+                        throw error
+                    }
+                    DispatchQueue.main.async {
                         self.isMasked = false
                     }
-                } catch {
-                    self.isMasked = false
+                }
+            } catch {
+                DispatchQueue.main.async {
                     self.presentError(error)
+                    self.isMasked = false
                 }
             }
         }
@@ -182,41 +205,56 @@ class PurchaseController: NSViewController {
         self.isMasked = true
         SwiftyStoreKit.restorePurchases(atomically: true) { [weak self] results in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                do {
-                    let failedPurchases = results.restoreFailedPurchases.filter({ $0.1 == PurchaseManager.sharedProductID })
-                    if let error = failedPurchases.first?.0 {
-                        throw error
-                    } else if let succeedPurchase = results.restoredPurchases.last, succeedPurchase.productId == PurchaseManager.sharedProductID {
-                        debugPrint("Restore Succeed: \(succeedPurchase.productId)")
-                        self.validateSubscription()
+            do {
+                var succeedPurchases: [Purchase]?
+                let failedPurchases = results.restoreFailedPurchases.filter({ $0.1 == PurchaseManager.sharedProductID })
+                if let error = failedPurchases.first?.0 {
+                    throw error
+                } else if let succeedPurchase = results.restoredPurchases.last, succeedPurchase.productId == PurchaseManager.sharedProductID {
+                    debugPrint("Restore Succeed: \(succeedPurchase.productId)")
+                    succeedPurchases = results.restoredPurchases
+                } else {
+                    if failedPurchases.isEmpty && PurchaseManager.shared.hasLocalReceipt {
+                        debugPrint("Nothing to restore.")
                     } else {
-                        if failedPurchases.isEmpty && PurchaseManager.shared.hasLocalReceipt {
-                            debugPrint("Nothing to restore.")
-                            self.validateSubscription()
-                        } else {
-                            throw Error.nothingToRestore
-                        }
+                        throw Error.nothingToRestore
                     }
-                } catch {
-                    self.isMasked = false
+                }
+                if let purchasesToFinish = succeedPurchases?.filter({ $0.needsFinishTransaction }) {
+                    purchasesToFinish.forEach({ SwiftyStoreKit.finishTransaction($0.transaction) })
+                }
+                self._validateSubscription { [weak self] (succeed, error) in
+                    guard let self = self else { return }
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            self.presentError(error)
+                            self.isMasked = false
+                        }
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.reloadUI()
+                        self.isMasked = false
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
                     self.presentError(error)
+                    self.isMasked = false
                 }
             }
         }
     }
     
-    private func validateSubscription() {
+    private func _validateSubscription(completionHandler completion: @escaping (Bool, Swift.Error?) -> Void) {
         var urlType: AppleReceiptValidator.VerifyReceiptURLType
         #if DEBUG
         urlType = .sandbox
         #else
         urlType = .production
         #endif
-        self.isMasked = true
         let appleValidator = AppleReceiptValidator(service: urlType, sharedSecret: PurchaseManager.sharedSecret)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
-            guard let self = self else { return }
+        SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
             do {
                 switch result {
                 case .success(let receipt):
@@ -228,14 +266,40 @@ class PurchaseController: NSViewController {
                         inReceipt: receipt
                     )
                     try PurchaseManager.shared.trySubscribe(purchaseResult)
-                    self.reloadUI()
+                    completion(true, nil)
                 case .error(let error):
                     throw error
                 }
             } catch {
-                self.presentError(error)
+                completion(false, error)
             }
-            self.isMasked = false
+        }
+    }
+    
+    private func fetchExistingReceipt(forceRefresh force: Bool) {
+        self.isMasked = true
+        SwiftyStoreKit.fetchReceipt(forceRefresh: force) { [weak self] result in
+            guard let self = self else { return }
+            do {
+                switch result {
+                case .success(let receiptData):
+                    let encryptedReceipt = receiptData.base64EncodedString(options: [])
+                    print("Fetch receipt success:\n\(encryptedReceipt)")
+                    try PurchaseManager.shared.loadLocalReceipt()
+                    DispatchQueue.main.async {
+                        self.reloadUI()
+                        self.isMasked = false
+                    }
+                case .error(let error):
+                    print("Fetch receipt failed: \(error)")
+                    throw error
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.presentError(error)
+                    self.isMasked = false
+                }
+            }
         }
     }
     

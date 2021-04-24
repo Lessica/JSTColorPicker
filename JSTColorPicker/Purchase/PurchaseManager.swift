@@ -12,6 +12,8 @@ import TPInAppReceipt
 
 @objc class PurchaseManager: NSObject {
     
+    static let productTypeDidChangeNotification  = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
+    
     enum Error: LocalizedError {
         case invalidReceipt
         case invalidPurchase
@@ -35,9 +37,9 @@ import TPInAppReceipt
         }
     }
     
-    static var shared          = PurchaseManager()
-    static let sharedProductID = "com.jst.JSTColorPicker.Subscription.Yearly"
-    static let sharedSecret    = "53cbec8e68f445c596ce0c3e059a1f06"
+    static var shared              = PurchaseManager()
+    static let sharedProductID     = "com.jst.JSTColorPicker.Subscription.Yearly"
+    static let sharedSecret        = "53cbec8e68f445c596ce0c3e059a1f06"
     
     enum ProductType: Int {
         case uninitialized
@@ -59,15 +61,6 @@ import TPInAppReceipt
         }
     }
     
-    static let productTypeDidChangeNotification = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
-    private(set) var productType  : ProductType = .uninitialized {
-        didSet {
-            NotificationCenter.default.post(name: PurchaseManager.productTypeDidChangeNotification, object: self)
-        }
-    }
-    
-    var readableExpiredAt: String { PurchaseManager.expiryDateFormatter.string(from: expiredAt) }
-    private(set)   var expiredAt          : Date
     private static var expiryDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -75,19 +68,55 @@ import TPInAppReceipt
         return formatter
     }()
     
-    private(set) var isTrial      : Bool
+    private        var productType   : ProductType = .uninitialized {
+        didSet {
+            NotificationCenter.default.post(name: PurchaseManager.productTypeDidChangeNotification, object: self)
+        }
+    }
+    func getProductType() -> ProductType {
+        var retVal: ProductType
+        internalLock.readLock()
+        retVal = self.productType
+        internalLock.unlock()
+        return retVal
+    }
+    
+    private        var expiredAt     : Date
+    func getExpiryDate() -> Date {
+        var retVal: Date
+        internalLock.readLock()
+        retVal = self.expiredAt
+        internalLock.unlock()
+        return retVal
+    }
+    func getReadableExpiredAt() -> String {
+        var retVal: String
+        internalLock.readLock()
+        retVal = PurchaseManager.expiryDateFormatter.string(from: expiredAt)
+        internalLock.unlock()
+        return retVal
+    }
+    
+    private        var isTrial       : Bool
+    private        var internalLock  = ReadWriteLock()
     
     override init() {
+        guard internalLock.tryWriteLock() else {
+            fatalError("unable to initialize PurchaseManager")
+        }
         self.expiredAt = Date()
         self.isTrial = false
         super.init()
+        internalLock.unlock()
     }
     
     func tryDemoVersion() {
+        internalLock.writeLock()
         if productType == .uninitialized {
             productType = .demoVersion
             debugPrint("tryDemoVersion()")
         }
+        internalLock.unlock()
     }
     
     var hasLocalReceipt: Bool { SwiftyStoreKit.localReceiptData != nil }
@@ -102,16 +131,23 @@ import TPInAppReceipt
                 .sorted(by: { $0.subscriptionExpirationDate! > $1.subscriptionExpirationDate! })
                 .first
         else {
-            productType = .uninitialized
+            if internalLock.tryWriteLock() {
+                productType = .uninitialized
+                internalLock.unlock()
+            }
             throw Error.invalidPurchase
         }
+        
         // Extra validation between remote and local receipts
         if let remoteResult = result {
             switch remoteResult {
             case let .purchased(expiryDate, items):
                 guard abs(expiryDate.timeIntervalSinceReferenceDate - lastPurchase.subscriptionExpirationDate!.timeIntervalSinceReferenceDate) < 60.0
                 else {
-                    productType = .uninitialized
+                    if internalLock.tryWriteLock() {
+                        productType = .uninitialized
+                        internalLock.unlock()
+                    }
                     throw Error.invalidPurchase
                 }
                 guard let lastReceipt = items
@@ -121,24 +157,30 @@ import TPInAppReceipt
                       lastReceipt.productId == PurchaseManager.sharedProductID,
                       (expiryDate.timeIntervalSinceReferenceDate - lastReceipt.subscriptionExpirationDate!.timeIntervalSinceReferenceDate) < 60.0
                 else {
-                    productType = .uninitialized
+                    if internalLock.tryWriteLock() {
+                        productType = .uninitialized
+                        internalLock.unlock()
+                    }
                     throw Error.invalidPurchase
                 }
             default:
-                productType = .uninitialized
+                if internalLock.tryWriteLock() {
+                    productType = .uninitialized
+                    internalLock.unlock()
+                }
                 throw Error.notPurchased
             }
         }
+        
         // Setup state from last valid purchase
         let expiryDate = lastPurchase.subscriptionExpirationDate!
+        
+        internalLock.writeLock()
         expiredAt = expiryDate
         isTrial = lastPurchase.subscriptionTrialPeriod
-        
-        #if DEBUG
-        productType = .expired
-        #else
         productType = expiryDate > Date() ? .subscribed : .expired
-        #endif
+        internalLock.unlock()
+        
         return lastPurchase
     }
     
@@ -146,10 +188,12 @@ import TPInAppReceipt
         switch result {
         case .purchased(let expiryDate, _):
             let lastPurchase = try loadLocalReceipt(withResult: result)
+            internalLock.writeLock()
             expiredAt = expiryDate
             isTrial = lastPurchase.subscriptionTrialPeriod
             productType = expiryDate > Date() ? .subscribed : .expired
             debugPrint("trySubscribe(): valid, expiredAt = \(expiryDate), isTrail = \(lastPurchase.subscriptionTrialPeriod)")
+            internalLock.unlock()
         case .expired(let expiryDate, let items):
             guard let lastReceipt = items
                     .filter({ $0.subscriptionExpirationDate != nil })
@@ -157,18 +201,38 @@ import TPInAppReceipt
                     .first,
                   lastReceipt.productId == PurchaseManager.sharedProductID
             else {
-                productType = .uninitialized
+                if internalLock.tryWriteLock() {
+                    productType = .uninitialized
+                    internalLock.unlock()
+                }
                 throw Error.invalidPurchase
             }
+            internalLock.writeLock()
             expiredAt = expiryDate
             isTrial = false
             productType = .expired
             debugPrint("trySubscribe(): expired, expiredAt = \(expiryDate)")
+            internalLock.unlock()
             throw Error.expired(at: expiryDate)
         case .notPurchased:
-            productType = .uninitialized
+            if internalLock.tryWriteLock() {
+                productType = .uninitialized
+                internalLock.unlock()
+            }
             throw Error.notPurchased
         }
+    }
+    
+    func readLock() {
+        internalLock.readLock()
+    }
+    
+    func tryReadLock() -> Bool {
+        return internalLock.tryReadLock()
+    }
+    
+    func unlock() {
+        internalLock.unlock()
     }
     
 }

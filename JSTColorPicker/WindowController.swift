@@ -486,7 +486,7 @@ extension WindowController: ItemPreviewDelegate {
         set {
             _windowSubtitle = newValue
             #if APP_STORE
-            if PurchaseManager.shared.productType == .subscribed {
+            if PurchaseManager.shared.getProductType() == .subscribed {
                 window?.subtitle = newValue
             } else {
                 window?.subtitle = NSLocalizedString("Demo Version - ", comment: "PurchaseManager") + newValue
@@ -676,7 +676,7 @@ extension WindowController {
     #if APP_STORE
     @objc private func productTypeDidChange(_ noti: Notification) {
         guard let manager = noti.object as? PurchaseManager else { return }
-        if manager.productType == .subscribed, let lastStoredSubtitle = _windowSubtitle {
+        if manager.getProductType() == .subscribed, let lastStoredSubtitle = _windowSubtitle {
             window?.subtitle = lastStoredSubtitle
         }
     }

@@ -68,7 +68,7 @@ class Screenshot: NSDocument {
     public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
     public func testExportCondition() throws {
         #if APP_STORE
-        guard PurchaseManager.shared.productType == .subscribed
+        guard PurchaseManager.shared.getProductType() == .subscribed
         else {
             throw Error.platformSubscriptionRequired
         }

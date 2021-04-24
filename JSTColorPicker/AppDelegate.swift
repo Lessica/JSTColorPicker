@@ -85,6 +85,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Application Events
+    
+    private var _shouldFetchRemoteReceipt: Bool = false
+    private func setNeedsFetchRemoteReceipt() {
+        _shouldFetchRemoteReceipt = true
+    }
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         #if !DEBUG && !APP_STORE
@@ -93,6 +98,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         #if APP_STORE
         if PurchaseManager.shared.hasLocalReceipt {
             _ = try? PurchaseManager.shared.loadLocalReceipt()
+        } else {
+            // automatically fetch remote receipt if missing?
+            self.setNeedsFetchRemoteReceipt()
         }
         #endif
     }
@@ -143,7 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         #if APP_STORE
         // see notes below for the meaning of Atomic / Non-Atomic
-        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+        SwiftyStoreKit.completeTransactions(atomically: true) { [weak self] purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
                 case .purchased, .restored:
@@ -151,7 +159,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         // Deliver content from server, then:
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
-                    // Unlock content
+                    // Unlock content if possible
+                    if PurchaseManager.shared.hasLocalReceipt {
+                        _ = try? PurchaseManager.shared.loadLocalReceipt()
+                    } else {
+                        // remote receipt?
+                        self?.setNeedsFetchRemoteReceipt()
+                    }
                 case .failed, .purchasing, .deferred:
                     break // do nothing
                 @unknown default:
@@ -162,8 +176,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         #endif
         
         #if APP_STORE
-        if PurchaseManager.shared.productType != .subscribed {
+        if PurchaseManager.shared.getProductType() != .subscribed {
             PurchaseWindowController.shared.showWindow(self)
+        } else {
+            // TODO: begin session
         }
         #endif
     }
@@ -645,8 +661,8 @@ by \(template.author ?? "Unknown")
     
     private func updateMainMenuItems() {
         #if APP_STORE
-        if PurchaseManager.shared.productType == .subscribed {
-            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.readableExpiredAt)
+        if PurchaseManager.shared.getProductType() == .subscribed {
+            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getReadableExpiredAt())
         } else {
             subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
         }
