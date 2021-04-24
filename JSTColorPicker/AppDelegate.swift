@@ -99,7 +99,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if objc_getClass("SUAppcast") != nil {
+            subscribeItem.isHidden = true
             checkForUpdatesItem.isHidden = false
+        } else {
+            subscribeItem.isHidden = false
+            checkForUpdatesItem.isHidden = true
         }
         
         var initialValues: [UserDefaults.Key: Any?] = [
@@ -549,8 +553,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Sparkle Hide
-    @IBOutlet weak var checkForUpdatesItem: NSMenuItem!
+    @IBOutlet weak var subscribeItem        : NSMenuItem!
+    @IBOutlet weak var checkForUpdatesItem  : NSMenuItem!
     
+    @IBAction func subscribeMenuItemTapped(_ sender: NSMenuItem) {
+        #if APP_STORE
+        PurchaseWindowController.shared.showWindow(sender)
+        #endif
+    }
     
 }
 
@@ -561,7 +571,10 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         let hasAttachedSheet = firstManagedWindowController?.hasAttachedSheet ?? false
-        if menuItem.action == #selector(compareMenuItemTapped(_:))
+        if menuItem.action == #selector(subscribeMenuItemTapped(_:)) {
+            return true
+        }
+        else if menuItem.action == #selector(compareMenuItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
@@ -613,7 +626,10 @@ by \(template.author ?? "Unknown")
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        if menu == self.fileMenu {
+        if menu == self.mainMenu {
+            updateMainMenuItems()
+        }
+        else if menu == self.fileMenu {
             updateFileMenuItems()
         }
         else if menu == self.devicesMenu {
@@ -625,6 +641,16 @@ by \(template.author ?? "Unknown")
         else if menu == self.templateSubMenu {
             updateTemplatesSubMenuItems()
         }
+    }
+    
+    private func updateMainMenuItems() {
+        #if APP_STORE
+        if PurchaseManager.shared.productType == .subscribed {
+            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.readableExpiredAt)
+        } else {
+            subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker...", comment: "updateMainMenuItems()")
+        }
+        #endif
     }
     
     private func updateFileMenuItems() {

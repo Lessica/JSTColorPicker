@@ -48,6 +48,12 @@
                                                 <action selector="checkForUpdates:" target="7t2-Hn-xkm" id="iYa-Ow-6U3"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Subscribe JSTColorPicker..." id="SGf-6i-QGZ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="subscribeMenuItemTapped:" target="Voe-Tx-rLC" id="y3s-YJ-dA2"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
@@ -84,6 +90,9 @@
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="TPx-XM-JXk"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="File" id="dMs-cI-mzQ">
@@ -486,6 +495,7 @@ CA
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
                         <outlet property="paneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
                         <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
+                        <outlet property="subscribeItem" destination="SGf-6i-QGZ" id="4Sj-YY-Kzk"/>
                         <outlet property="templateMenu" destination="0GS-5F-2Eu" id="KgQ-uV-vT1"/>
                         <outlet property="templateSubMenu" destination="af9-zN-lJB" id="bF6-pZ-izo"/>
                     </connections>

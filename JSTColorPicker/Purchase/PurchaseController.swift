@@ -168,6 +168,7 @@ class PurchaseController: NSViewController {
                         if error.code != .paymentCancelled {
                             throw error
                         }
+                        self.isMasked = false
                     }
                 } catch {
                     self.isMasked = false
