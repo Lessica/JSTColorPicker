@@ -717,3 +717,6 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
+
+/* FolderController */
+"(Not Installed)" = "(Not Installed)";

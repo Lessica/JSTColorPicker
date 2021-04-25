@@ -31,9 +31,39 @@ class FolderController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadUI()
+        
+        #if APP_STORE
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperDidBecomeAvailable(_:)),
+            name: AppDelegate.applicationHelperDidBecomeAvailableNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperDidResignAvailable(_:)),
+            name: AppDelegate.applicationHelperDidResignAvailableNotification,
+            object: nil
+        )
+        #endif
+    }
+    
+    private func reloadUI() {
         tagDatabaseLocationLabel.stringValue = TagListController.persistentStoreDirectoryURL.path
         templatesRootLocationLabel.stringValue = TemplateManager.templateRootURL.path
-        screenshotHelperLocationLabel.stringValue = GetJSTColorPickerHelperApplicationPath()
+        #if APP_STORE
+        if AppDelegate.shared.applicationHasScreenshotHelper() {
+            screenshotHelperLocationLabel.stringValue = GetJSTColorPickerHelperApplicationPath()
+            screenshotHelperLocationButton.isHidden = false
+        } else {
+            screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Not Installed)", comment: "FolderController")
+            screenshotHelperLocationButton.isHidden = true
+        }
+        #else
+        screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Not Installed)", comment: "FolderController")
+        screenshotHelperLocationButton.isHidden = true
+        #endif
     }
     
     @IBAction func locationButtonTapped(_ sender: NSButton) {
@@ -96,4 +126,14 @@ extension FolderController: MASPreferencesViewController {
         return NSImage(systemSymbolName: "folder", accessibilityDescription: "Folder")
     }
     
+}
+
+extension FolderController {
+    @objc private func applicationHelperDidBecomeAvailable(_ noti: Notification) {
+        reloadUI()
+    }
+    
+    @objc private func applicationHelperDidResignAvailable(_ noti: Notification) {
+        reloadUI()
+    }
 }

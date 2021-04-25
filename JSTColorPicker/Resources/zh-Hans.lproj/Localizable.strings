@@ -717,3 +717,6 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
+
+/* FolderController */
+"(Not Installed)" = "(未安装)";

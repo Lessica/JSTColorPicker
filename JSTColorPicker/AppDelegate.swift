@@ -24,7 +24,7 @@ import AppCenterCrashes
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    public static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
+    static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
 
     
     // MARK: - Structs
@@ -43,12 +43,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Attributes
     
-    public var tabService: TabService?
-    public var helperConnection: NSXPCConnection?
+    var tabService: TabService?
+    var helperConnection: NSXPCConnection?
     
     #if APP_STORE
-    private static let applicationHelperDidBecomeAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidBecomeAvailableNotification")
-    private static let applicationHelperDidResignAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidResignAvailableNotification")
+    static let applicationHelperDidBecomeAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidBecomeAvailableNotification")
+    static let applicationHelperDidResignAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidResignAvailableNotification")
     #endif
     
     #if APP_STORE
@@ -71,9 +71,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #endif
     
     #if !APP_STORE
-    @IBOutlet public var sparkUpdater: SUUpdater!
+    @IBOutlet var sparkUpdater: SUUpdater!
     #else
-    @IBOutlet public var sparkUpdater: SUUpdater!
+    @IBOutlet var sparkUpdater: SUUpdater!
     #endif
     
     @IBOutlet weak var menu: NSMenu!
@@ -268,7 +268,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
     
-    public func reinitializeTabService() -> WindowController {
+    func reinitializeTabService() -> WindowController {
         //debugPrint("\(#function)")
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
@@ -882,7 +882,7 @@ extension AppDelegate {
     
     #if APP_STORE
     @discardableResult
-    public func applicationHasScreenshotHelper() -> Bool {
+    func applicationHasScreenshotHelper() -> Bool {
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
         let isAvailable = FileManager.default.fileExists(atPath: launchAgentPath)
         if isAvailable != _isScreenshotHelperAvailable {
@@ -892,7 +892,7 @@ extension AppDelegate {
     }
     #else
     @discardableResult
-    public func applicationHasScreenshotHelper() -> Bool {
+    func applicationHasScreenshotHelper() -> Bool {
         return true
     }
     #endif
