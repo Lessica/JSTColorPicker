@@ -155,6 +155,8 @@
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72D260F5E83000AC582 /* ShortcutGuide */; };
 		CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72F260F5E8C000AC582 /* ShortcutGuide */; };
+		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
+		CCB741372635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
 		CCB76982260A0B350029693B /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
 		CCB76983260A0B350029693B /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
@@ -930,6 +932,7 @@
 		CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingInjection.swift; sourceTree = "<group>"; };
 		CCA73435261704B400808E02 /* SwizzlingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingHelper.swift; sourceTree = "<group>"; };
 		CCA73440261705E700808E02 /* NSView+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Swizzling.swift"; sourceTree = "<group>"; };
+		CCB741352635386D007D2CF5 /* Links+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Links+Ext.swift"; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
 		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
 		CCB7697E260A0B350029693B /* lptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lptree.c; sourceTree = "<group>"; };
@@ -1655,6 +1658,7 @@
 				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
 				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
 				CCC0F88E263001D5006C4492 /* Down+Ext.swift */,
+				CCB741352635386D007D2CF5 /* Links+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3084,6 +3088,7 @@
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
 				D61047A024224A170002E990 /* EditableOverlay.swift in Sources */,
 				D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
+				CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */,
 				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
@@ -3364,6 +3369,7 @@
 				CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */,
 				D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */,
 				CC470A79262DE5020013A3B7 /* SubscriptionController.swift in Sources */,
+				CCB741372635386D007D2CF5 /* Links+Ext.swift in Sources */,
 				D659168B24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				18D202C72496951B007A079F /* ContentCellView.swift in Sources */,
 				CCE340042632648B0082F73D /* PurchaseWindowController.swift in Sources */,

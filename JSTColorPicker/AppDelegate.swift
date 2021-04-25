@@ -596,21 +596,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Help Actions
     
     @IBAction func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
-        if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToLocalHelpPage()
     }
     
     @IBAction func actionRedirectToTermsAndPrivacyPage(_ sender: NSMenuItem) {
-        if let url = URL(string: "https://82flex.com/jstcpweb/terms.html") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToTermsPage()
     }
     
     @IBAction func actionRedirectToMainPage(_ sender: NSMenuItem) {
-        if let url = URL(string: "https://82flex.com/jstcpweb/") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToMainPage()
     }
     
     
@@ -971,9 +965,7 @@ extension AppDelegate {
 
     #if APP_STORE
     @objc private func actionRedirectToDownloadPage() {
-        if let url = URL(string: "https://82flex.com/jstcpweb/helper.html") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToHelperPage()
     }
     #endif
     

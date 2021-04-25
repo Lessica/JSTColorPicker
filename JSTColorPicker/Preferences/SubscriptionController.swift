@@ -50,9 +50,7 @@ class SubscriptionController: NSViewController {
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "manageSubscriptionAction(_:)"))
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
-                if let url = URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions") {
-                    NSWorkspace.shared.open(url)
-                }
+                NSWorkspace.shared.redirectToManageSubscription()
             }
         }
     }

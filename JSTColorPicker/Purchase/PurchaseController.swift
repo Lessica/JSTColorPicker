@@ -326,15 +326,11 @@ extension PurchaseController: PurchaseButtonDelegate {
     @IBAction func checkUpdatesButtonTapped(_ sender: NSButton) { }
     
     @IBAction func termsAndPrivacyButtonTapped(_ sender: NSButton) {
-        if let url = URL(string: "https://82flex.com/jstcpweb/terms.html") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToTermsPage()
     }
     
     @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
-        if let url = URL(string: "https://82flex.com/jstcpweb/") {
-            NSWorkspace.shared.open(url)
-        }
+        NSWorkspace.shared.redirectToMainPage()
     }
     
 }
