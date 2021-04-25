@@ -176,9 +176,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
+        applicationHasScreenshotHelper()
         
         #if APP_STORE
-        applicationHasScreenshotHelper()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(applicationHelperDidBecomeAvailable(_:)),
@@ -650,11 +650,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
                 menuItem.action == #selector(notifyXPCDiscoverDevices(_:))
         {
             guard !hasAttachedSheet else { return false }
-            #if APP_STORE
             return applicationHasScreenshotHelper()
-            #else
-            return true
-            #endif
         }
         else if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
         {
@@ -733,9 +729,7 @@ by \(template.author ?? "Unknown")
     
     private func updateDevicesMenuItems() {
         devicesEnableNetworkDiscoveryMenuItem.state = UserDefaults.standard[.enableNetworkDiscovery] ? .on : .off
-        #if APP_STORE
         devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
-        #endif
     }
     
     private func updateDevicesSubMenuItems() {
@@ -894,6 +888,11 @@ extension AppDelegate {
             _isScreenshotHelperAvailable = isAvailable
         }
         return isAvailable
+    }
+    #else
+    @discardableResult
+    public func applicationHasScreenshotHelper() -> Bool {
+        return true
     }
     #endif
     

@@ -170,7 +170,7 @@
 
 ## 自定义模板
 
-JSTColorPicker 使用 [Lua 5.3.4](https://www.lua.org/) 作为其模板引擎.
+JSTColorPicker 使用 [Lua 5.4.3](https://www.lua.org/) 作为其模板引擎.
 
 单击窗口右下方的*导出选项*按钮, 你将能查看并选择全部可用*模板*. 单击 `显示模板…` 将在 Finder 中打开默认*模板*文件夹 `templates`. 模板文件的文件名应以扩展名 `.lua` 结尾. 如果可能, 所选*模板*将应用于所有复制及导出操作.
 

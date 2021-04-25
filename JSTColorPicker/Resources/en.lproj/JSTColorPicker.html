@@ -10,7 +10,7 @@
 <body class="markdown-body">
 <h1>
 <a id="user-content-jstcolorpicker" class="anchor" href="#jstcolorpicker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h1>
-<p>Pick color, location, and area from PNG screenshots (i.e. image annotation). This tool uses <a href="https://en.wikipedia.org/wiki/SRGB" rel="nofollow">sRGB IEC61966-2.1</a> as its color space.</p>
+<p>Tagging color, location, and area from PNG screenshots (i.e. image annotation). This tool uses <a href="https://en.wikipedia.org/wiki/SRGB" rel="nofollow">sRGB IEC61966-2.1</a> as its color space.</p>
 <h2>
 <a id="user-content-features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
 <ul>
@@ -321,7 +321,7 @@
 </ul>
 <h2>
 <a id="user-content-customizable-templates" class="anchor" href="#customizable-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customizable Templates</h2>
-<p>JSTColorPicker uses <a href="https://www.lua.org/" rel="nofollow">Lua 5.3.4</a> as its template engine.</p>
+<p>JSTColorPicker uses <a href="https://www.lua.org/" rel="nofollow">Lua 5.4.3</a> as its template engine.</p>
 <p>Click the <em>export option</em> button at the bottom right of window, you will see available templates in <code>templates</code> folder. Click <code>Show Templates…</code> will show that folder in Finder. The name of template file should end up with path extension <code>.lua</code>. Selected template will be applied to all copy/export actions if possible.</p>
 <h3>
 <a id="user-content-write-templates" class="anchor" href="#write-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Write Templates</h3>
@@ -337,9 +337,7 @@
     generator <span class="pl-k">=</span> generator,  <span class="pl-c"><span class="pl-c">--</span> required</span>
 }</pre></div>
 <p><code>generator</code> is a lua function which will be executed when you copy or export item(s):</p>
-<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, …)
-    <span class="pl-c"><span class="pl-c">--</span></span>
-    <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">…</span>}
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, <span class="pl-smi">items</span>)
     <span class="pl-c"><span class="pl-c">--</span></span>
 <span class="pl-k">end</span></pre></div>
 <p><code>image</code> is a lua table which represents the opened image document in current window:</p>
@@ -357,7 +355,7 @@
 <li>
 <code>image.get_image(x, y, w, h)</code>: returns cropped image's PNG data representation</li>
 </ul>
-<p><code>args</code> is a lua sequence of <em>color &amp; coordinates</em> and <em>area</em>:</p>
+<p><code>items</code> is a lua sequence of <em>color &amp; coordinates</em> and <em>area</em>:</p>
 <ul>
 <li>
 <p><em>color &amp; coordinates</em>:</p>

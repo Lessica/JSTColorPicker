@@ -49,8 +49,10 @@ class Screenshot: NSDocument {
                 return 307
             case .notImplemented:
                 return 308
+            #if APP_STORE
             case .platformSubscriptionRequired:
                 return 309
+            #endif
             }
         }
         
@@ -72,8 +74,10 @@ class Screenshot: NSDocument {
                 return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
             case .notImplemented:
                 return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
+            #if APP_STORE
             case .platformSubscriptionRequired:
                 return NSLocalizedString("This operation requires valid subscription of JSTColorPicker.", comment: "Screenshot.Error")
+            #endif
             }
         }
     }
@@ -450,6 +454,7 @@ extension Screenshot {
         return super.willPresentError(error)
     }
     
+    #if APP_STORE
     @discardableResult
     private func presentPlatformSubscriptionRequiredError(_ error: Swift.Error) -> Bool {
         let alert = NSAlert()
@@ -463,8 +468,10 @@ extension Screenshot {
         }
         return retVal
     }
+    #endif
     
     private func presentAdditionalError(_ error: Swift.Error) -> Bool {
+        #if APP_STORE
         if let error = error as? Screenshot.Error {
             switch error {
             case .platformSubscriptionRequired:
@@ -480,6 +487,7 @@ extension Screenshot {
                 return true
             }
         }
+        #endif
         return false
     }
     

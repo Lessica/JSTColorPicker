@@ -170,7 +170,7 @@ Scale the view to fit/fill the window size.
 
 ## Customizable Templates
 
-JSTColorPicker uses [Lua 5.3.4](https://www.lua.org/) as its template engine.
+JSTColorPicker uses [Lua 5.4.3](https://www.lua.org/) as its template engine.
 
 Click the *export option* button at the bottom right of window, you will see available templates in `templates` folder. Click `Show Templates…` will show that folder in Finder. The name of template file should end up with path extension `.lua`. Selected template will be applied to all copy/export actions if possible.
 

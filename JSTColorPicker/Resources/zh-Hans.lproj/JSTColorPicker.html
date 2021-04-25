@@ -10,7 +10,7 @@
 <body class="markdown-body">
 <h1>
 <a id="user-content-jstcolorpicker" class="anchor" href="#jstcolorpicker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSTColorPicker</h1>
-<p>从 PNG 屏幕截图 (即图像批注) 中选择颜色，位置和区域。该工具使用 <a href="https://en.wikipedia.org/wiki/SRGB" rel="nofollow">sRGB IEC61966-2.1</a> 作为其色彩空间。</p>
+<p>从 PNG 屏幕截图中为颜色，位置和区域打标签 (即图像标注)。该工具使用 <a href="https://en.wikipedia.org/wiki/SRGB" rel="nofollow">sRGB IEC61966-2.1</a> 作为其色彩空间。</p>
 <h2>
 <a id="user-content-功能特性" class="anchor" href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>功能特性</h2>
 <ul>
@@ -318,7 +318,7 @@
 </ul>
 <h2>
 <a id="user-content-自定义模板" class="anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>自定义模板</h2>
-<p>JSTColorPicker 使用 <a href="https://www.lua.org/" rel="nofollow">Lua 5.3.4</a> 作为其模板引擎.</p>
+<p>JSTColorPicker 使用 <a href="https://www.lua.org/" rel="nofollow">Lua 5.4.3</a> 作为其模板引擎.</p>
 <p>单击窗口右下方的<em>导出选项</em>按钮, 你将能查看并选择全部可用<em>模板</em>. 单击 <code>显示模板…</code> 将在 Finder 中打开默认<em>模板</em>文件夹 <code>templates</code>. 模板文件的文件名应以扩展名 <code>.lua</code> 结尾. 如果可能, 所选<em>模板</em>将应用于所有复制及导出操作.</p>
 <h3>
 <a id="user-content-编写自定义模板" class="anchor" href="#%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>编写自定义模板</h3>
@@ -334,9 +334,7 @@
   generator <span class="pl-k">=</span> generator,                          <span class="pl-c"><span class="pl-c">--</span> 必填, 生成器回调函数</span>
 }</pre></div>
 <p><code>generator</code> 生成器是一个 Lua 函数, 它将在你复制及导出项时被执行:</p>
-<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, …)
-  <span class="pl-c"><span class="pl-c">--</span></span>
-  <span class="pl-k">local</span> args <span class="pl-k">=</span> {<span class="pl-c1">…</span>}
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> generator <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">image</span>, <span class="pl-smi">items</span>)
   <span class="pl-c"><span class="pl-c">--</span></span>
 <span class="pl-k">end</span></pre></div>
 <p>上述 <code>image</code> 是一个 Lua 表, 它代表当前窗口中打开的图像文档:</p>
@@ -354,7 +352,7 @@
 <li>
 <code>image.get_image(x, y, w, h)</code>: 返回以该区域裁切原始图像后, 生成子图像的 PNG 图像数据表示形式</li>
 </ul>
-<p>上述 <code>args</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标及颜色标注</em>及<em>区域标注</em>信息:</p>
+<p>上述 <code>items</code> 是一个包含若干表的 Lua 序列, 它包含了所有的<em>坐标及颜色标注</em>及<em>区域标注</em>信息:</p>
 <ul>
 <li>
 <p>如果是<em>坐标及颜色标注</em>, 则表中应包含如下字段:</p>

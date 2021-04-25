@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
 import requests
 import pathlib
@@ -41,12 +41,12 @@ def markdown_map(input_path, output_path):
 
 
 def markdown_do(root_path):
-    for markdown_path in root_path.glob('*.md'):
+    for markdown_path in root_path.glob('README*.md'):
         lang = 'en'
         name_arr = markdown_path.stem.split('_')
         if len(name_arr) == 2:
             lang = name_arr[1]
-        add_path = 'JSTColorPicker/Help/' + lang + '.lproj/JSTColorPicker.html'
+        add_path = 'JSTColorPicker/Resources/' + lang + '.lproj/JSTColorPicker.html'
         markdown_map(markdown_path, root_path / add_path)
 
 

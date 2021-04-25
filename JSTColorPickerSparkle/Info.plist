@@ -85,7 +85,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to control &quot;System Events&quot; to open &quot;Console&quot; and filter logs for you.</string>
+	<string>$(PRODUCT_NAME) needs to control "System Events" to open "Console" and filter logs for you.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2021 Zheng Wu. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
