@@ -213,6 +213,11 @@ class Screenshot: NSDocument {
         return destData as Data
     }
     
+    // is it safe to read png files asynchronously?
+    override class func canConcurrentlyReadDocuments(ofType typeName: String) -> Bool {
+        return true
+    }
+    
     // is it safe to write png files asynchronously?
     override func canAsynchronouslyWrite(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) -> Bool {
         return true

@@ -132,13 +132,52 @@ extension SplitController: DropViewDelegate {
         return ["png", "jpg", "jpeg"]
     }
     
-    func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL) {
+    func dropView(_: DropSplitView?, didDropFilesWith fileURLs: [URL]) {
+        guard fileURLs.count > 0 else { return }
         NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: view.window)
         let documentController = NSDocumentController.shared
-        documentController.openDocument(withContentsOf: fileURL as URL, display: true) { [weak self] (document, documentWasAlreadyOpen, error) in
-            NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
-            if let error = error {
-                self?.presentError(error)
+        if fileURLs.count == 1, let fileURL = fileURLs.first {
+            documentController.openDocument(
+                withContentsOf: fileURL,
+                display: true
+            ) { [weak self] (document, documentWasAlreadyOpen, error) in
+                NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
+                if let error = error {
+                    self?.presentError(error)
+                }
+            }
+        } else {
+            let window = view.window
+            DispatchQueue.global(qos: .userInitiated).async {
+                var errors = [Swift.Error]()
+                let group = DispatchGroup()
+                group.notify(queue: .main) {
+                    NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
+                    if !errors.isEmpty {
+                        debugPrint("\(errors)")
+                    }
+                }
+                let sema = DispatchSemaphore(value: fileURLs.count)
+                for (fileIndex, fileURL) in fileURLs.enumerated() {
+                    if fileIndex == 0 {
+                        NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: window)
+                    }
+                    group.enter()
+                    documentController.openDocument(
+                        withContentsOf: fileURL,
+                        display: true
+                    ) { (document, documentWasAlreadyOpen, error) in
+                        if let error = error {
+                            debugPrint(error)
+                            errors.append(error)
+                        } else {
+                            debugPrint("\(String(describing: document)), wasAlreadyOpen = \(documentWasAlreadyOpen)")
+                        }
+                        sema.signal()
+                        group.leave()
+                    }
+                }
+                sema.wait()
             }
         }
     }

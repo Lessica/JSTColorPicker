@@ -11,12 +11,27 @@ import Cocoa
 
 // MARK: - Structs
 
+private func address(o: UnsafeRawPointer) -> Int {
+    return Int(bitPattern: o)
+}
+
+private func addressHeap<T: AnyObject>(o: T) -> Int {
+    return unsafeBitCast(o, to: Int.self)
+}
+
 struct OverlayAnimationState {
     var lineDashCount: Int = 0
 }
 
 struct OverlayAnimationProxy: Hashable {
     weak var overlay: Overlay?
+    func hash(into hasher: inout Hasher) {
+        guard let overlay = overlay else {
+            hasher.combine(Int.random(in: Int.min...Int.max))
+            return
+        }
+        hasher.combine(addressHeap(o: overlay))
+    }
 }
 
 

@@ -10,10 +10,9 @@ import Cocoa
 
 extension NSDraggingInfo {
 
-    var draggedFileURL: NSURL? {
-        let filenames = draggingPasteboard.propertyList(forType: .init(rawValue: "NSFilenamesPboardType")) as? [String]
-        let path = filenames?.first
-        return path.map(NSURL.init)
+    var draggedFileURLs: [URL]? {
+        let paths = draggingPasteboard.propertyList(forType: .init(rawValue: "NSFilenamesPboardType")) as? [String]
+        return paths?.compactMap({ URL(fileURLWithPath: $0) })
     }
     
 }
@@ -21,7 +20,7 @@ extension NSDraggingInfo {
 @objc protocol DropViewDelegate: class {
     var allowsDrop: Bool { get }
     var acceptedFileExtensions: [String] { get }
-    func dropView(_: DropSplitView?, didDropFileWith fileURL: NSURL)
+    func dropView(_: DropSplitView?, didDropFilesWith fileURLs: [URL])
 }
 
 class DropSplitView: NSSplitView {
@@ -38,11 +37,16 @@ class DropSplitView: NSSplitView {
     @IBOutlet weak var dropDelegate : DropViewDelegate!
     
     private func checkExtension(drag: NSDraggingInfo) -> Bool {
-        guard let fileExt = drag.draggedFileURL?.pathExtension?.lowercased() else {
+        guard let fileURLs = drag.draggedFileURLs else {
             return false
         }
         
-        return acceptedFileExtensions.contains(fileExt)
+        let fileExts = fileURLs.compactMap({ $0.pathExtension.lowercased() })
+        guard fileURLs.count == fileExts.count else {
+            return false
+        }
+        
+        return fileExts.firstIndex(where: { !acceptedFileExtensions.contains($0) }) == nil
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -67,11 +71,11 @@ class DropSplitView: NSSplitView {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let draggedFileURL = sender.draggedFileURL else {
+        guard let draggedFileURLs = sender.draggedFileURLs else {
             return false
         }
         
-        dropDelegate.dropView(self, didDropFileWith: draggedFileURL)
+        dropDelegate.dropView(self, didDropFilesWith: draggedFileURLs)
         return true
     }
     
