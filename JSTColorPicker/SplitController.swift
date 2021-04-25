@@ -151,13 +151,6 @@ extension SplitController: DropViewDelegate {
             DispatchQueue.global(qos: .userInitiated).async {
                 var errors = [Swift.Error]()
                 let group = DispatchGroup()
-                group.notify(queue: .main) {
-                    NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
-                    if !errors.isEmpty {
-                        debugPrint("\(errors)")
-                    }
-                }
-                let sema = DispatchSemaphore(value: fileURLs.count)
                 for (fileIndex, fileURL) in fileURLs.enumerated() {
                     if fileIndex == 0 {
                         NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: window)
@@ -173,11 +166,15 @@ extension SplitController: DropViewDelegate {
                         } else {
                             debugPrint("\(String(describing: document)), wasAlreadyOpen = \(documentWasAlreadyOpen)")
                         }
-                        sema.signal()
                         group.leave()
                     }
                 }
-                sema.wait()
+                group.notify(queue: .main) {
+                    NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
+                    if !errors.isEmpty {
+                        debugPrint("\(errors)")
+                    }
+                }
             }
         }
     }

@@ -793,9 +793,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             self.promiseCopyContentsToGeneralPasteboard($0.0).asVoid()
         }.catch {
             self.presentError($0)
-        }.finally {
-            debugPrint("done copy(_:)")
-        }
+        }.finally { }
     }
 
     @IBAction func exportAs(_ sender:  Any?) {
@@ -815,9 +813,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             self.promiseWriteContentsToURL(contents: $0.0, url: targetURL!).asVoid()
         }.catch {
             self.presentError($0)
-        }.finally {
-            debugPrint("done exportAs(_:)")
-        }
+        }.finally { }
     }
 
     @IBAction func regenerate(_ sender: NSMenuItem) {

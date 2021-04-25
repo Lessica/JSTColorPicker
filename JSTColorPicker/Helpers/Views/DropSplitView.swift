@@ -11,7 +11,9 @@ import Cocoa
 extension NSDraggingInfo {
 
     var draggedFileURLs: [URL]? {
-        let paths = draggingPasteboard.propertyList(forType: .init(rawValue: "NSFilenamesPboardType")) as? [String]
+        let paths = draggingPasteboard.propertyList(
+            forType: .init(rawValue: "NSFilenamesPboardType")
+        ) as? [String]
         return paths?.compactMap({ URL(fileURLWithPath: $0) })
     }
     
@@ -36,24 +38,19 @@ class DropSplitView: NSSplitView {
     }
     @IBOutlet weak var dropDelegate : DropViewDelegate!
     
-    private func checkExtension(drag: NSDraggingInfo) -> Bool {
-        guard let fileURLs = drag.draggedFileURLs else {
+    private func checkExtension(_ sender: NSDraggingInfo) -> Bool {
+        guard let draggedFileURLs = sender.draggedFileURLs else {
             return false
         }
         
-        let fileExts = fileURLs.compactMap({ $0.pathExtension.lowercased() })
-        guard fileURLs.count == fileExts.count else {
-            return false
-        }
-        
-        return fileExts.firstIndex(where: { !acceptedFileExtensions.contains($0) }) == nil
+        return draggedFileURLs.firstIndex(where: { acceptedFileExtensions.contains($0.pathExtension) }) != nil
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         if !dropDelegate.allowsDrop {
             return []
         }
-        if checkExtension(drag: sender) {
+        if checkExtension(sender) {
             fileTypeIsAllowed = true
             return .copy
         } else {
@@ -75,7 +72,11 @@ class DropSplitView: NSSplitView {
             return false
         }
         
-        dropDelegate.dropView(self, didDropFilesWith: draggedFileURLs)
+        dropDelegate.dropView(
+            self,
+            didDropFilesWith: draggedFileURLs
+                .filter({ acceptedFileExtensions.contains($0.pathExtension) })
+        )
         return true
     }
     

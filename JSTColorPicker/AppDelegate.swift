@@ -1119,9 +1119,7 @@ extension AppDelegate {
             self.promiseTellConsoleToStartStreaming($0)
         }.catch {
             self.presentError($0)
-        }.finally {
-            debugPrint("done")
-        }
+        }.finally { }
         return true
     }
     #else
