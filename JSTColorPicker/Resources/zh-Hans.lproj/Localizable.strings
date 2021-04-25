@@ -252,7 +252,7 @@
 "Hold" = "按住";
 
 /* availableHints */
-"Hold **Shift (⇧)** and drag with mouse to create an area annotation." = "按住 **Shift (⇧)** 并拖拽鼠标指针以创建新的区域标注。";
+"Hold **Shift (⇧)** and drag with mouse to create an area annotation." = "在妙控板未启用时，按住 **Shift (⇧)** 并拖拽鼠标指针以创建新的区域标注。";
 
 /* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的后一个标注。";

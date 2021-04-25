@@ -43,7 +43,7 @@ class SubscriptionController: NSViewController {
     
     @IBAction func manageSubscriptionAction(_ sender: NSButton) {
         let alert = NSAlert()
-        alert.alertStyle = .informational
+        alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Open Confirmation", comment: "manageSubscriptionAction(_:)")
         alert.informativeText = NSLocalizedString("Will redirect to your Apple ID account page to manage your subscription, continue?", comment: "manageSubscriptionAction(_:)")
         alert.addButton(withTitle: NSLocalizedString("OK", comment: "manageSubscriptionAction(_:)"))

@@ -22,20 +22,6 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>JPG Image</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.jpg</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>$(PRODUCT_MODULE_NAME).Screenshot</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
 			<string>JPEG Image</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
@@ -85,7 +71,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to control "System Events" to open "Console" and filter logs for you.</string>
+	<string>$(PRODUCT_NAME) needs to control &quot;System Events&quot; to open &quot;Console&quot; and filter logs for you.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2021 Zheng Wu. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
@@ -127,27 +113,6 @@
 				<string>public.image</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>JPG Image</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>public.jpg</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>jpg</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-				<string>public.content</string>
-				<string>public.image</string>
-			</array>
-			<key>UTTypeDescription</key>
 			<string>JPEG Image</string>
 			<key>UTTypeIcons</key>
 			<dict/>
@@ -157,6 +122,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>jpg</string>
 					<string>jpeg</string>
 				</array>
 			</dict>

@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		180C6A87249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A88249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
-		180C6A8A249F92AB00B42656 /* AlertTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* AlertTextView.xib */; };
-		180C6A8B249F92AB00B42656 /* AlertTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* AlertTextView.xib */; };
-		180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A8C249F92BB00B42656 /* AlertTextView.swift */; };
-		180C6A8E249F92BB00B42656 /* AlertTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A8C249F92BB00B42656 /* AlertTextView.swift */; };
+		180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* TagImportAlertView.xib */; };
+		180C6A8B249F92AB00B42656 /* TagImportAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* TagImportAlertView.xib */; };
+		180C6A8D249F92BB00B42656 /* TagImportAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A8C249F92BB00B42656 /* TagImportAlertView.swift */; };
+		180C6A8E249F92BB00B42656 /* TagImportAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A8C249F92BB00B42656 /* TagImportAlertView.swift */; };
 		1842C4642479832C008ECD6F /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C4672479832C008ECD6F /* Content.storyboard */; };
 		1842C4652479832C008ECD6F /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C4672479832C008ECD6F /* Content.storyboard */; };
 		1842C46F247987C9008ECD6F /* SceneStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1842C472247987C9008ECD6F /* SceneStacked.storyboard */; };
@@ -138,6 +138,10 @@
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
+		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
+		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
+		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
+		CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
 		CCA72A1B260B290600A934E2 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; settings = {COMPILER_FLAGS = "-Wno-strict-prototypes"; }; };
 		CCA72A1E260B290600A934E2 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
 		CCA72A1F260B290600A934E2 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; settings = {COMPILER_FLAGS = "-Wno-strict-prototypes"; }; };
@@ -818,8 +822,8 @@
 /* Begin PBXFileReference section */
 		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
-		180C6A89249F92AB00B42656 /* AlertTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertTextView.xib; sourceTree = "<group>"; };
-		180C6A8C249F92BB00B42656 /* AlertTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTextView.swift; sourceTree = "<group>"; };
+		180C6A89249F92AB00B42656 /* TagImportAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImportAlertView.xib; sourceTree = "<group>"; };
+		180C6A8C249F92BB00B42656 /* TagImportAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportAlertView.swift; sourceTree = "<group>"; };
 		1842C4662479832C008ECD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Content.storyboard; sourceTree = "<group>"; };
 		1842C4692479832F008ECD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Content.strings; sourceTree = "<group>"; };
 		1842C46B24798330008ECD6F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Content.strings"; sourceTree = "<group>"; };
@@ -918,6 +922,8 @@
 		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneContainer.swift; sourceTree = "<group>"; };
 		CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePopUpButton.swift; sourceTree = "<group>"; };
+		CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleErrorAlertView.xib; sourceTree = "<group>"; };
+		CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleErrorAlertView.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
 		CCA72A18260B290600A934E2 /* dtoa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtoa.c; sourceTree = "<group>"; };
@@ -1679,6 +1685,8 @@
 			children = (
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				CCE34016263272590082F73D /* ColoredView.swift */,
+				CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */,
+				CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1690,6 +1698,15 @@
 				CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CC9BFB232635AB88008C1850 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */,
+				18D202C22496920C007A079F /* TagCellView.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		CCA72A15260B28F900A934E2 /* cjson */ = {
@@ -2096,8 +2113,8 @@
 		D659168724A36A0200DB67A6 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				180C6A89249F92AB00B42656 /* AlertTextView.xib */,
-				180C6A8C249F92BB00B42656 /* AlertTextView.swift */,
+				180C6A89249F92AB00B42656 /* TagImportAlertView.xib */,
+				180C6A8C249F92BB00B42656 /* TagImportAlertView.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -2369,10 +2386,9 @@
 		D6E4252424A368A700FAB4B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC9BFB232635AB88008C1850 /* Cells */,
 				D659168724A36A0200DB67A6 /* Alert */,
 				D67A8F09247E6D2E00153DE5 /* DragLine */,
-				18D202C22496920C007A079F /* TagCellView.swift */,
-				D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */,
 				D67A8F22247E853E00153DE5 /* TagListOverlayView.swift */,
 				18B22FF624801979003F70BA /* TagListTableView.swift */,
 				1885CF4324B106340067D02F /* TagListSearchField.swift */,
@@ -2829,7 +2845,8 @@
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
-				180C6A8A249F92AB00B42656 /* AlertTextView.xib in Resources */,
+				180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
+				CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */,
 				CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
@@ -2863,6 +2880,7 @@
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
 				CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
+				CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */,
 				CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
@@ -2880,7 +2898,7 @@
 				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
 				CC2318BC25A4BA5A00331BF6 /* include in Resources */,
 				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
-				180C6A8B249F92AB00B42656 /* AlertTextView.xib in Resources */,
+				180C6A8B249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
 				CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */,
 				CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */,
@@ -3026,13 +3044,14 @@
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
+				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				CCE33FEF26325F6C0082F73D /* main.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
-				180C6A8D249F92BB00B42656 /* AlertTextView.swift in Sources */,
+				180C6A8D249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
 				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
@@ -3334,7 +3353,7 @@
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
 				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
-				180C6A8E249F92BB00B42656 /* AlertTextView.swift in Sources */,
+				180C6A8E249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
 				D69374132403A92E007AF7AF /* Template.swift in Sources */,
 				D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */,
@@ -3412,6 +3431,7 @@
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */,
+				CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,

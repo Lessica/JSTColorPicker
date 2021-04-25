@@ -24,6 +24,8 @@ class SplitController: NSSplitViewController {
     func isSubviewCollapsed(at index: ArrangedIndex) -> Bool {
         return splitView.isSubviewCollapsed(arrangedSubview(at: index))
     }
+    
+    @IBOutlet weak var errorTextView            : MultipleErrorAlertView!
 
     public  weak var parentTracking             : SceneTracking?
     private weak var sceneToolSource            : SceneToolSource!
@@ -152,31 +154,55 @@ extension SplitController: DropViewDelegate {
                 var errors = [Swift.Error]()
                 let group = DispatchGroup()
                 for (fileIndex, fileURL) in fileURLs.enumerated() {
-                    if fileIndex == 0 {
-                        NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: window)
-                    }
                     group.enter()
-                    documentController.openDocument(
-                        withContentsOf: fileURL,
-                        display: true
-                    ) { (document, documentWasAlreadyOpen, error) in
-                        if let error = error {
-                            debugPrint(error)
-                            errors.append(error)
-                        } else {
-                            debugPrint("\(String(describing: document)), wasAlreadyOpen = \(documentWasAlreadyOpen)")
+                    DispatchQueue.main.async {
+                        if fileIndex == 0 {
+                            NotificationCenter.default.post(
+                                name: .dropRespondingWindowChanged,
+                                object: window
+                            )
                         }
-                        group.leave()
+                        documentController.openDocument(
+                            withContentsOf: fileURL,
+                            display: true
+                        ) { (document, documentWasAlreadyOpen, error) in
+                            if let error = error {
+                                debugPrint(error)
+                                errors.append(error)
+                            } else {
+                                debugPrint("\(String(describing: document)), wasAlreadyOpen = \(documentWasAlreadyOpen)")
+                            }
+                            group.leave()
+                        }
                     }
                 }
-                group.notify(queue: .main) {
-                    NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
+                group.notify(queue: .main) { [weak self] in
+                    NotificationCenter.default.post(
+                        name: .dropRespondingWindowChanged,
+                        object: nil
+                    )
                     if !errors.isEmpty {
-                        debugPrint("\(errors)")
+                        self?.presentMultipleErrors(errors)
                     }
                 }
             }
         }
+    }
+    
+    @discardableResult
+    private func presentMultipleErrors(_ errors: [Swift.Error]) -> NSApplication.ModalResponse {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Partial Open Succeed", comment: "presentMultipleErrors(_:)")
+        alert.informativeText = NSLocalizedString("Some of the files you requested cannot be opened:", comment: "presentMultipleErrors(_:)")
+        if Bundle.main.loadNibNamed(String(describing: MultipleErrorAlertView.self), owner: self, topLevelObjects: nil) {
+            errorTextView.text = errors
+                .map({ "\u{25CF} " + $0.localizedDescription })
+                .joined(separator: "\n")
+            alert.accessoryView = errorTextView
+        }
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Import Confirm"))
+        return alert.runModal()
     }
     
 }

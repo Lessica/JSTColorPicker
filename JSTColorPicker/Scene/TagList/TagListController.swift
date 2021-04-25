@@ -59,7 +59,7 @@ class TagListController: StackedPaneController {
     
     @IBOutlet var internalController              : TagController!
     @IBOutlet var tagMenu                         : NSMenu!
-    @IBOutlet var alertTextView                   : AlertTextView!
+    @IBOutlet var alertTextView                   : TagImportAlertView!
     
     @IBOutlet weak var paneTopConstraint          : NSLayoutConstraint!
     @IBOutlet weak var paneInnerTopConstraint     : NSLayoutConstraint!
@@ -422,11 +422,11 @@ class TagListController: StackedPaneController {
     
     private func importConfirmForTags(_ tagsToImport: [String]) -> Bool {
         let alert = NSAlert()
-        alert.alertStyle = .warning
         if tagsToImport.count > 0 {
+            alert.alertStyle = .warning
             alert.messageText = NSLocalizedString("Import Confirm", comment: "Import Confirm")
             alert.informativeText = String(format: NSLocalizedString("Do you want to import following %d tags from current document?", comment: "Import Confirm"), tagsToImport.count)
-            if Bundle.main.loadNibNamed("AlertTextView", owner: self, topLevelObjects: nil) {
+            if Bundle.main.loadNibNamed(String(describing: TagImportAlertView.self), owner: self, topLevelObjects: nil) {
                 alertTextView.text = tagsToImport
                     .map({ "\u{25CF} " + $0 })
                     .joined(separator: "\n")
@@ -436,6 +436,7 @@ class TagListController: StackedPaneController {
             alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Import Confirm"))
             return alert.runModal() == .alertFirstButtonReturn
         } else {
+            alert.alertStyle = .informational
             alert.messageText = NSLocalizedString("Import Failed", comment: "Import Confirm")
             alert.informativeText = NSLocalizedString("No tag to import.", comment: "Import Confirm")
             alert.accessoryView = nil

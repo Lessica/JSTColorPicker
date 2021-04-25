@@ -78,7 +78,7 @@ class AdvancedController: NSViewController {
     
     @IBAction func actionRequiresRestart(_ sender: NSButton) {
         let alert = NSAlert()
-        alert.alertStyle = .informational
+        alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")
         alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
         #if !APP_STORE

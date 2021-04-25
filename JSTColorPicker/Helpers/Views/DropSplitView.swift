@@ -43,7 +43,13 @@ class DropSplitView: NSSplitView {
             return false
         }
         
-        return draggedFileURLs.firstIndex(where: { acceptedFileExtensions.contains($0.pathExtension) }) != nil
+        return draggedFileURLs
+            .filter({ $0.isRegularFile })
+            .firstIndex(
+                where: {
+                    acceptedFileExtensions.contains($0.pathExtension)
+                }
+            ) != nil
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -75,7 +81,7 @@ class DropSplitView: NSSplitView {
         dropDelegate.dropView(
             self,
             didDropFilesWith: draggedFileURLs
-                .filter({ acceptedFileExtensions.contains($0.pathExtension) })
+                .filter({ $0.isRegularFile && acceptedFileExtensions.contains($0.pathExtension) })
         )
         return true
     }

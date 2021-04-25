@@ -133,6 +133,10 @@ class Screenshot: NSDocument {
         self.content = Content()
         
         let source = image.imageSource.cgSource
+        guard let uti = CGImageSourceGetType(source), Screenshot.readableTypes.contains(uti as String) else {
+            throw Error.invalidImageType
+        }
+        
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             throw Error.invalidImageProperties
         }
@@ -150,7 +154,6 @@ class Screenshot: NSDocument {
     override class var readableTypes: [String] {
         [
             "public.png",
-            "public.jpg",
             "public.jpeg"
         ]
     }
@@ -158,8 +161,17 @@ class Screenshot: NSDocument {
     override class var writableTypes: [String] {
         [
             "public.png",
-            "public.jpg",
+            "public.jpeg",
         ]
+    }
+    
+    override func fileNameExtension(forType typeName: String, saveOperation: NSDocument.SaveOperationType) -> String? {
+        if typeName == "public.png" {
+            return "png"
+        } else if typeName == "public.jpeg" {
+            return "jpg"
+        }
+        return nil
     }
     
     override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
@@ -178,7 +190,7 @@ class Screenshot: NSDocument {
             throw Error.invalidImageSource
         }
         
-        guard let uti = CGImageSourceGetType(source.cgSource) else {
+        guard let uti = CGImageSourceGetType(source.cgSource), Screenshot.writableTypes.contains(uti as String) else {
             throw Error.invalidImageType
         }
         

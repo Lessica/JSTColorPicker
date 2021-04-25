@@ -492,7 +492,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.messageText = NSLocalizedString("No device selected", comment: "screenshotItemTapped(_:)")
             alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "screenshotItemTapped(_:)")
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
-            alert.alertStyle = .warning
+            alert.alertStyle = .informational
             windowController.showSheet(alert) { [weak self] (resp) in
                 self?.isTakingScreenshot = false
             }

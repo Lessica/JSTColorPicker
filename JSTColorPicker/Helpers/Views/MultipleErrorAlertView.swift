@@ -1,5 +1,5 @@
 //
-//  AlertTextView.swift
+//  MultipleErrorAlertView.swift
 //  JSTColorPicker
 //
 //  Created by Apple on 2020/6/21.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class AlertTextView: NSView {
+class MultipleErrorAlertView: NSView {
 
     @IBOutlet weak var textView: NSTextView!
     
