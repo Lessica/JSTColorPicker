@@ -707,7 +707,7 @@ by \(template.author ?? "Unknown")
     private func updateMainMenuItems() {
         #if APP_STORE
         if PurchaseManager.shared.getProductType() == .subscribed {
-            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getReadableExpiredAt())
+            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getShortReadableExpiredAt())
         } else {
             subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
         }

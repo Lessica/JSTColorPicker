@@ -251,6 +251,9 @@
 /* Shortcut Guide */
 "Hold" = "Hold";
 
+/* availableHints */
+"Hold **Shift (⇧)** and drag with mouse to create an area annotation." = "Hold **Shift (⇧)** and drag with mouse to create an area annotation.";
+
 /* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.";
 
@@ -602,7 +605,7 @@
 "Thank you for downloading JSTColorPicker!" = "Thank you for downloading JSTColorPicker!";
 
 /* reloadUI() */
-"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@" = "Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@";
+"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_" = "Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_";
 
 /* reloadUI() */
 "Thank you!" = "Thank you!";

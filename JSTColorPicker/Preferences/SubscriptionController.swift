@@ -89,7 +89,7 @@ extension SubscriptionController: MASPreferencesViewController {
         detailLabel.stringValue = String(
             format: NSLocalizedString("Valid Subscription: %@", comment: "PurchaseManager"),
             currentManager.getProductType() == .subscribed
-                ? currentManager.getReadableExpiredAt()
+                ? currentManager.getMediumReadableExpiredAt()
                 : NSLocalizedString("None", comment: "PurchaseManager")
         )
     }

@@ -31,7 +31,7 @@ import TPInAppReceipt
             case let .expired(at):
                 return String(
                     format: NSLocalizedString("Your previous subscription has expired since %@. Please renew your subscription.", comment: "PurchaseController.Error"),
-                    PurchaseManager.expiryDateFormatter.string(from: at)
+                    PurchaseManager.mediumExpiryDateFormatter.string(from: at)
                 )
             }
         }
@@ -61,9 +61,16 @@ import TPInAppReceipt
         }
     }
     
-    private static var expiryDateFormatter: DateFormatter = {
+    private static var shortExpiryDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
+    private static var mediumExpiryDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
         formatter.timeStyle = .none
         return formatter
     }()
@@ -89,10 +96,17 @@ import TPInAppReceipt
         internalLock.unlock()
         return retVal
     }
-    func getReadableExpiredAt() -> String {
+    func getShortReadableExpiredAt() -> String {
         var retVal: String
         internalLock.readLock()
-        retVal = PurchaseManager.expiryDateFormatter.string(from: expiredAt)
+        retVal = PurchaseManager.shortExpiryDateFormatter.string(from: expiredAt)
+        internalLock.unlock()
+        return retVal
+    }
+    func getMediumReadableExpiredAt() -> String {
+        var retVal: String
+        internalLock.readLock()
+        retVal = PurchaseManager.mediumExpiryDateFormatter.string(from: expiredAt)
         internalLock.unlock()
         return retVal
     }

@@ -62,6 +62,7 @@ class InfoController: StackedPaneController {
     private static let availableHints: [String] = [
         NSLocalizedString("Open an image of the same size for image comparison.", comment: "availableHints"),
         NSLocalizedString("Double click **Command (⌘)** to toggle command palette.", comment: "availableHints"),
+        NSLocalizedString("Hold **Shift (⇧)** and drag with mouse to create an area annotation.", comment: "availableHints")
     ]
 
     private func updateInformationPane(alternativeURL url: URL? = nil) {

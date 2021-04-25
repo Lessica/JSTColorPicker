@@ -93,10 +93,10 @@ class PurchaseController: NSViewController {
             thankYouView.isHidden = false
             iconView.isHidden = true
             titleLabel.stringValue = NSLocalizedString("Thank you!", comment: "reloadUI()")
-            subtitleLabel.stringValue = String(
-                format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\nSubscription Expiry Date: %@", comment: "reloadUI()"),
-                PurchaseManager.shared.getReadableExpiredAt()
-            )
+            subtitleLabel.attributedStringValue = String(
+                format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_", comment: "reloadUI()"),
+                PurchaseManager.shared.getMediumReadableExpiredAt()
+            ).markdownAttributed
             topView.isHidden = false
             middleView.isHidden = true
             bottomView.isHidden = false
@@ -107,6 +107,7 @@ class PurchaseController: NSViewController {
             thankYouView.isHidden = true
             iconView.isHidden = false
             titleLabel.stringValue = NSLocalizedString("Welcome", comment: "reloadUI()")
+            subtitleLabel.font = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular))
             subtitleLabel.stringValue = NSLocalizedString("Thank you for downloading JSTColorPicker!", comment: "reloadUI()")
             topView.isHidden = false
             middleView.isHidden = false
