@@ -458,6 +458,12 @@ CA
                                                 <action selector="showHelpPageMenuItemTapped:" target="Voe-Tx-rLC" id="pQc-Qt-yjl"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Terms &amp; Privacy" id="Zll-9T-ZNP">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="actionRedirectToTermsAndPrivacyPage:" target="Voe-Tx-rLC" id="HtR-lJ-oqS"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Visit Website…" id="8AD-4g-2RS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

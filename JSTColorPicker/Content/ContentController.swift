@@ -176,12 +176,6 @@ class ContentController: NSViewController {
             }
         }
     }
-
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
-    }
     
     @IBAction func resetColumns(_ sender: NSMenuItem) {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnIdentifier)

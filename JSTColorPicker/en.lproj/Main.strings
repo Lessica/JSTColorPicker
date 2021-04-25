@@ -372,3 +372,6 @@
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "Find and Replace…";
+
+/* Class = "NSMenuItem"; title = "Terms & Privacy"; ObjectID = "Zll-9T-ZNP"; */
+"Zll-9T-ZNP.title" = "Terms & Privacy";

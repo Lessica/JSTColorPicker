@@ -22,8 +22,11 @@
 /* Class = "NSTextFieldCell"; title = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes)."; ObjectID = "pVJ-BW-eky"; */
 "pVJ-BW-eky.title" = "你无法保存文档。\n你无法从模版导出项目。\n单次使用时间受到限制 (30 分钟)。";
 
-/* Class = "NSTextFieldCell"; title = "With a free, unlimited trial expires in 14 days."; ObjectID = "Vnr-sP-jKa"; */
-"Vnr-sP-jKa.title" = "在订阅周期开始前，你将有 14 天无限制试用时间。";
+/* Class = "NSButtonCell"; title = "Terms & Privacy"; ObjectID = "TXe-9L-mai"; */
+"TXe-9L-mai.title" = "用户协议及隐私条款";
+
+/* Class = "NSTextFieldCell"; title = "A whole year unlimited use of JSTColorPicker."; ObjectID = "Vnr-sP-jKa"; */
+"Vnr-sP-jKa.title" = "此购买项目提供自订阅之日起一整年无限制使用 JSTColorPicker 的权限。";
 
 /* Class = "NSTextFieldCell"; title = "Subscribe JSTColorPicker…"; ObjectID = "wcU-IC-9mk"; */
 "wcU-IC-9mk.title" = "订阅 JSTColorPicker…";

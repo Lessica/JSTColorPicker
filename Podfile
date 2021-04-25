@@ -4,12 +4,14 @@ use_frameworks!
 inhibit_all_warnings!
 
 target :JSTColorPicker do
+  pod 'AppCenter'
   pod 'SwiftyStoreKit'
 	pod 'PromiseKit/CorePromise'
 	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
 end
 
 target :JSTColorPickerSparkle do
+  pod 'AppCenter'
 	pod 'Sparkle'
   pod 'LetsMove'
 	pod 'PromiseKit/CorePromise'

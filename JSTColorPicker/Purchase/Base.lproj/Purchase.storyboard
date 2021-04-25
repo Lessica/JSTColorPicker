@@ -215,8 +215,8 @@ Sessions are time limited (30 minutes).</string>
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="750" verticalHuggingPriority="700" horizontalCompressionResistancePriority="700" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-hK-yZe">
-                                                                                <rect key="frame" x="-2" y="0.0" width="240" height="14"/>
-                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="With a free, unlimited trial expires in 14 days." id="Vnr-sP-jKa">
+                                                                                <rect key="frame" x="-2" y="0.0" width="245" height="14"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="A whole year unlimited use of JSTColorPicker." id="Vnr-sP-jKa">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -377,7 +377,7 @@ Sessions are time limited (30 minutes).</string>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MpQ-wf-Usq">
                                                 <rect key="frame" x="18" y="12" width="414" height="23"/>
                                                 <subviews>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
+                                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WbD-0Z-9DL">
                                                         <rect key="frame" x="-7" y="-7" width="138" height="35"/>
                                                         <buttonCell key="cell" type="push" title="Check Updates…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ap9-2N-l0A">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -387,8 +387,18 @@ Sessions are time limited (30 minutes).</string>
                                                             <action selector="checkUpdatesButtonTapped:" target="R03-Ha-N0W" id="wkm-gY-oxC"/>
                                                         </connections>
                                                     </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fkJ-D2-j2a">
+                                                        <rect key="frame" x="-7" y="-7" width="132" height="35"/>
+                                                        <buttonCell key="cell" type="push" title="Terms &amp; Privacy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TXe-9L-mai">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="termsAndPrivacyButtonTapped:" target="R03-Ha-N0W" id="w3B-QW-cu6"/>
+                                                        </connections>
+                                                    </button>
                                                     <customView horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-9g-hJB">
-                                                        <rect key="frame" x="132" y="0.0" width="164" height="23"/>
+                                                        <rect key="frame" x="126" y="0.0" width="170" height="23"/>
                                                     </customView>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Oc-8b-tUs">
                                                         <rect key="frame" x="297" y="-7" width="124" height="35"/>
@@ -403,6 +413,7 @@ Sessions are time limited (30 minutes).</string>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="WbD-0Z-9DL" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="5eq-Xs-Pa9"/>
+                                                    <constraint firstItem="fkJ-D2-j2a" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="DN3-cX-bMN"/>
                                                     <constraint firstItem="zb1-9g-hJB" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="KeR-12-PfM"/>
                                                     <constraint firstItem="6Oc-8b-tUs" firstAttribute="height" secondItem="MpQ-wf-Usq" secondAttribute="height" id="Ofj-IR-WCW"/>
                                                 </constraints>
@@ -410,8 +421,10 @@ Sessions are time limited (30 minutes).</string>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
+                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
@@ -499,6 +512,7 @@ Sessions are time limited (30 minutes).</string>
                         <outlet property="middleView" destination="zpa-A1-J1N" id="2JP-CO-2g1"/>
                         <outlet property="restoreButton" destination="jP7-UD-uQN" id="HyT-70-ava"/>
                         <outlet property="subtitleLabel" destination="F3T-xd-asn" id="irK-nH-YPj"/>
+                        <outlet property="termsAndPrivacyButton" destination="fkJ-D2-j2a" id="fuZ-Dw-v4M"/>
                         <outlet property="thankYouView" destination="EYl-Cq-ntp" id="EP3-wj-Dx8"/>
                         <outlet property="titleLabel" destination="11c-hD-F1Y" id="4tj-At-i3R"/>
                         <outlet property="topLine" destination="5PK-fL-yOa" id="1vX-qF-LSO"/>

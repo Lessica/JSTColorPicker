@@ -35,12 +35,6 @@ class StackedPaneController: NSViewController, PaneController {
         isViewHidden = true
     }
 
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
-    }
-
     var isWindowHidden  : Bool { !((view.window as? MainWindow)?.isTabbingVisible ?? false) }
     var isPaneHidden    : Bool { view.isHiddenOrHasHiddenAncestor || isViewHidden }
     var isPaneStacked   : Bool { false }

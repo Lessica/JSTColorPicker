@@ -22,8 +22,11 @@
 /* Class = "NSTextFieldCell"; title = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes)."; ObjectID = "pVJ-BW-eky"; */
 "pVJ-BW-eky.title" = "You cannot save documents.\nYou cannot export contents from templates.\nSessions are time limited (30 minutes).";
 
-/* Class = "NSTextFieldCell"; title = "With a free, unlimited trial expires in 14 days."; ObjectID = "Vnr-sP-jKa"; */
-"Vnr-sP-jKa.title" = "With a free, unlimited trial expires in 14 days.";
+/* Class = "NSButtonCell"; title = "Terms & Privacy"; ObjectID = "TXe-9L-mai"; */
+"TXe-9L-mai.title" = "Terms & Privacy";
+
+/* Class = "NSTextFieldCell"; title = "A whole year unlimited use of JSTColorPicker."; ObjectID = "Vnr-sP-jKa"; */
+"Vnr-sP-jKa.title" = "A whole year unlimited use of JSTColorPicker.";
 
 /* Class = "NSTextFieldCell"; title = "Subscribe JSTColorPicker…"; ObjectID = "wcU-IC-9mk"; */
 "wcU-IC-9mk.title" = "Subscribe JSTColorPicker…";

@@ -16,7 +16,9 @@ protocol ScreenshotLoader: class {
 
 class Screenshot: NSDocument {
     
-    enum Error: LocalizedError {
+    // MARK: - Types
+    
+    enum Error: CustomNSError, LocalizedError {
         case invalidImage
         case invalidImageSource
         case invalidImageType
@@ -25,7 +27,32 @@ class Screenshot: NSDocument {
         case cannotSerializeContent
         case cannotDeserializeContent
         case notImplemented
+        #if APP_STORE
         case platformSubscriptionRequired
+        #endif
+        
+        var errorCode: Int {
+            switch self {
+            case .invalidImage:
+                return 301
+            case .invalidImageSource:
+                return 302
+            case .invalidContent:
+                return 303
+            case .invalidImageType:
+                return 304
+            case .invalidImageProperties:
+                return 305
+            case .cannotSerializeContent:
+                return 306
+            case .cannotDeserializeContent:
+                return 307
+            case .notImplemented:
+                return 308
+            case .platformSubscriptionRequired:
+                return 309
+            }
+        }
         
         var failureReason: String? {
             switch self {
@@ -62,6 +89,9 @@ class Screenshot: NSDocument {
         var isWriteable: Bool { self == .writeable                      }
     }
     
+    
+    // MARK: - Attributes
+    
     public fileprivate(set) var image    : PixelImage?
     public fileprivate(set) var content  : Content?
     
@@ -89,6 +119,9 @@ class Screenshot: NSDocument {
         get { appDelegate.tabService            }
         set { appDelegate.tabService = newValue }
     }
+    
+    
+    // MARK: - Read & Write
     
     override func read(from url: URL, ofType typeName: String) throws {
         let image = try PixelImage.init(contentsOf: url)
@@ -199,6 +232,9 @@ class Screenshot: NSDocument {
     override class var autosavesDrafts    : Bool { true }
     override class var preservesVersions  : Bool { true }
     
+    
+    // MARK: - Controllers
+    
     override func makeWindowControllers() {
         do {
             if
@@ -231,6 +267,7 @@ class Screenshot: NSDocument {
             debugPrint(error)
         }
     }
+    
 
     // MARK: - Content Extraction
 
@@ -273,6 +310,9 @@ class Screenshot: NSDocument {
     }
     
 }
+
+
+// MARK: - Menu Items
 
 extension Screenshot {
     
@@ -386,6 +426,9 @@ extension Screenshot {
     
 }
 
+
+// MARK: - Restorable States
+
 extension Screenshot {
 
     override func encodeRestorableState(with coder: NSCoder) {
@@ -396,4 +439,55 @@ extension Screenshot {
         super.restoreState(with: coder)
     }
 
+}
+
+
+// MARK: - Error Presenting
+
+extension Screenshot {
+    override func willPresentError(_ error: Swift.Error) -> Swift.Error {
+        debugPrint(error)
+        return super.willPresentError(error)
+    }
+    
+    @discardableResult
+    private func presentPlatformSubscriptionRequiredError(_ error: Swift.Error) -> Bool {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = error.localizedDescription
+        alert.addButton(withTitle: NSLocalizedString("Subscribe…", comment: "presentError(_:)"))
+        alert.addButton(withTitle: NSLocalizedString("Later", comment: "presentError(_:)"))
+        let retVal = alert.runModal() == .alertFirstButtonReturn
+        if retVal {
+            PurchaseWindowController.shared.showWindow(self)
+        }
+        return retVal
+    }
+    
+    private func presentAdditionalError(_ error: Swift.Error) -> Bool {
+        if let error = error as? Screenshot.Error {
+            switch error {
+            case .platformSubscriptionRequired:
+                presentPlatformSubscriptionRequiredError(error)
+                return true
+            default:
+                break
+            }
+        } else {
+            let error = error as NSError
+            if error.code == Screenshot.Error.platformSubscriptionRequired.errorCode {
+                presentPlatformSubscriptionRequiredError(error)
+                return true
+            }
+        }
+        return false
+    }
+    
+    @discardableResult
+    override func presentError(_ error: Swift.Error) -> Bool {
+        if presentAdditionalError(error) {
+            return true
+        }
+        return super.presentError(error)
+    }
 }

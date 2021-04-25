@@ -8,6 +8,9 @@
 /* resample(_:) */
 "%@ Resample Item #%ld" = "%@ Resample Item #%ld";
 
+/* reloadProductsUI() */
+"%@/%@" = "%@/%@";
+
 /* None */
 "-" = "-";
 
@@ -570,6 +573,9 @@
 
 /* PurchaseManager.ProductType */
 "Subscribed" = "Subscribed";
+
+/* presentError(_:) */
+"Subscribe…" = "Subscribe…";
 
 /* toolbarItemLabel */
 "Subscription" = "Subscription";

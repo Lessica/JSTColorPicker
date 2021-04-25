@@ -8,6 +8,9 @@
 /* resample(_:) */
 "%@ Resample Item #%ld" = "%@ 重新采样的项 #%ld";
 
+/* reloadProductsUI() */
+"%@/%@" = "%@/%@";
+
 /* None */
 "-" = "-";
 
@@ -570,6 +573,9 @@
 
 /* PurchaseManager.ProductType */
 "Subscribed" = "已订阅";
+
+/* presentError(_:) */
+"Subscribe…" = "订阅…";
 
 /* toolbarItemLabel */
 "Subscription" = "订阅";

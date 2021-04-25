@@ -11,6 +11,8 @@ import LuaSwift
 
 class Content: NSObject, Codable {
     
+    static let exifCodableStorageKey = "com.jst.JSTColorPicker.Content"
+    
     enum Error: LocalizedError {
         
         case itemExists(item: CustomStringConvertible)

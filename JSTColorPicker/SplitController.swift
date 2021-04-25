@@ -69,12 +69,6 @@ class SplitController: NSSplitViewController {
         )
     }
     
-    override func willPresentError(_ error: Error) -> Error {
-        let error = super.willPresentError(error)
-        debugPrint(error.localizedDescription)
-        return error
-    }
-    
 }
 
 extension SplitController: PaneContainer {

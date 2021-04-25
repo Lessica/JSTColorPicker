@@ -18,6 +18,10 @@ import LetsMove
 import SwiftyStoreKit
 #endif
 
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     public static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
@@ -41,6 +45,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     public var tabService: TabService?
     public var helperConnection: NSXPCConnection?
+    
+    #if APP_STORE
+    private static let applicationHelperDidBecomeAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidBecomeAvailableNotification")
+    private static let applicationHelperDidResignAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidResignAvailableNotification")
+    #endif
+    
+    #if APP_STORE
+    private        var _isScreenshotHelperAvailable: Bool = false
+    {
+        didSet {
+            if _isScreenshotHelperAvailable {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperDidBecomeAvailableNotification,
+                    object: self
+                )
+            } else {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperDidResignAvailableNotification,
+                    object: self
+                )
+            }
+        }
+    }
+    #endif
     
     #if !APP_STORE
     @IBOutlet public var sparkUpdater: SUUpdater!
@@ -148,6 +176,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
+        
+        #if APP_STORE
+        applicationHasScreenshotHelper()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperDidBecomeAvailable(_:)),
+            name: AppDelegate.applicationHelperDidBecomeAvailableNotification,
+            object: self
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperDidResignAvailable(_:)),
+            name: AppDelegate.applicationHelperDidResignAvailableNotification,
+            object: self
+        )
+        #endif
+        
+        AppCenter.start(withAppSecret: "8197ce52-8436-40f8-93b5-f9ab5e4fa331", services: [
+            Analytics.self,
+            Crashes.self
+        ])
 
         #if APP_STORE
         // see notes below for the meaning of Atomic / Non-Atomic
@@ -192,34 +241,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func applicationDidBecomeActive(_ notification: Notification) {
+        applicationHasScreenshotHelper()
+    }
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         self.helperConnection?.invalidate()
+        self.helperConnection = nil
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { return false }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { return false }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         return !applicationOpenUntitledDocumentIfNeeded()
-    }
-    
-    private func applicationXPCEstablish() {
-        if let prevConnection = self.helperConnection {
-            prevConnection.invalidate()
-            self.helperConnection = nil
-        }
-        
-        #if APP_STORE
-        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
-        #else
-        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
-        #endif
-        
-        connectionToService.interruptionHandler = { debugPrint("xpc conection interrupted") }
-        connectionToService.invalidationHandler = { debugPrint("xpc conection invalidated") }  // <- error occurred
-        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
-        connectionToService.resume()
-        
-        self.helperConnection = connectionToService
     }
     
     @discardableResult
@@ -239,6 +273,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let windowController = WindowController.newEmptyWindow()
         tabService = TabService(initialWindowController: windowController)
         return windowController
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -442,8 +480,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
         guard let windowController = firstRespondingWindowController else { return }
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            DispatchQueue.main.async {
-                self?.presentError(error)
+            if self?.applicationHasScreenshotHelper() ?? false {
+                DispatchQueue.main.async {
+                    self?.presentError(error)
+                }
             }
         }) as? JSTScreenshotHelperProtocol else { return }
         
@@ -561,6 +601,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func actionRedirectToTermsAndPrivacyPage(_ sender: NSMenuItem) {
+        if let url = URL(string: "https://82flex.com/jstcpweb/terms.html") {
+            NSWorkspace.shared.open(url)
+        }
+    }
+    
     @IBAction func actionRedirectToMainPage(_ sender: NSMenuItem) {
         if let url = URL(string: "https://82flex.com/jstcpweb/") {
             NSWorkspace.shared.open(url)
@@ -568,9 +614,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    // MARK: - Sparkle Hide
-    @IBOutlet weak var subscribeItem        : NSMenuItem!
+    // MARK: - Sparkle Actions
+    
     @IBOutlet weak var checkForUpdatesItem  : NSMenuItem!
+    
+    
+    // MARK: - Subscribe Actions
+    
+    @IBOutlet weak var subscribeItem        : NSMenuItem!
     
     @IBAction func subscribeMenuItemTapped(_ sender: NSMenuItem) {
         #if APP_STORE
@@ -581,7 +632,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 
-// MARK: -
+// MARK: - Menu Items
 
 extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
@@ -705,8 +756,10 @@ by \(template.author ?? "Unknown")
     
     private func reloadDevicesSubMenuItems() {
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            DispatchQueue.main.async {
-                self?.presentError(error)
+            if self?.applicationHasScreenshotHelper() ?? false {
+                DispatchQueue.main.async {
+                    self?.presentError(error)
+                }
             }
         }) as? JSTScreenshotHelperProtocol else { return }
         
@@ -800,25 +853,63 @@ by \(template.author ?? "Unknown")
 }
 
 
-// MARK: -
+// MARK: - XPC Connection
 
 extension AppDelegate {
+    
+    private func applicationXPCEstablish() {
+        if let prevConnection = self.helperConnection {
+            prevConnection.invalidate()
+            self.helperConnection = nil
+        }
+        
+        #if APP_STORE
+        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
+        #else
+        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
+        #endif
+        
+        connectionToService.interruptionHandler = { debugPrint("xpc conection interrupted") }
+        connectionToService.invalidationHandler = { debugPrint("xpc conection invalidated") }  // <- error occurred
+        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
+        connectionToService.resume()
+        
+        self.helperConnection = connectionToService
+    }
+    
+    @objc private func applicationHelperDidBecomeAvailable(_ noti: Notification) {
+        applicationXPCEstablish()
+    }
+    
+    @objc private func applicationHelperDidResignAvailable(_ noti: Notification) {
+        applicationXPCResetUI()
+        
+        self.helperConnection?.invalidate()
+        self.helperConnection = nil
+    }
     
     
     // MARK: - Device List
     
     #if APP_STORE
+    @discardableResult
     public func applicationHasScreenshotHelper() -> Bool {
         let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
-        return FileManager.default.fileExists(atPath: launchAgentPath)
+        let isAvailable = FileManager.default.fileExists(atPath: launchAgentPath)
+        if isAvailable != _isScreenshotHelperAvailable {
+            _isScreenshotHelperAvailable = isAvailable
+        }
+        return isAvailable
     }
     #endif
     
     private func applicationXPCSetup() {
         let enabled: Bool = UserDefaults.standard[.enableNetworkDiscovery]
         if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            DispatchQueue.main.async {
-                self?.presentError(error)
+            if self?.applicationHasScreenshotHelper() ?? false {
+                DispatchQueue.main.async {
+                    self?.presentError(error)
+                }
             }
         }) as? JSTScreenshotHelperProtocol {
             proxy.setNetworkDiscoveryEnabled(enabled)
@@ -848,8 +939,10 @@ extension AppDelegate {
 
     @objc private func notifyXPCDiscoverDevices(_ sender: Any?) {
         guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            DispatchQueue.main.async {
-                self?.presentError(error)
+            if self?.applicationHasScreenshotHelper() ?? false {
+                DispatchQueue.main.async {
+                    self?.presentError(error)
+                }
             }
         }) as? JSTScreenshotHelperProtocol else { return }
         proxy.discoverDevices()
@@ -888,7 +981,7 @@ extension AppDelegate {
 }
 
 
-// MARK: -
+// MARK: - Debug Preferences
 
 #if DEBUG
 extension AppDelegate {
@@ -899,7 +992,7 @@ extension AppDelegate {
 #endif
 
 
-// MARK: -
+// MARK: - Restorable State
 
 extension AppDelegate {
     
@@ -916,7 +1009,7 @@ extension AppDelegate {
 }
 
 
-// MARK: -
+// MARK: - Console Automation
 
 extension AppDelegate {
     
@@ -996,8 +1089,8 @@ extension AppDelegate {
     private func promiseConnectXPCService() -> Promise<JSTScreenshotHelperProtocol> {
         return Promise { seal in
             guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-                DispatchQueue.main.async {
-                    if self?.applicationHasScreenshotHelper() ?? false {
+                if self?.applicationHasScreenshotHelper() ?? false {
+                    DispatchQueue.main.async {
                         self?.presentError(error)
                     }
                 }

@@ -44,6 +44,7 @@ class PurchaseController: NSViewController {
     @IBOutlet weak var buyButton             : PurchaseButton!
     @IBOutlet weak var restoreButton         : PurchaseButton!
     @IBOutlet weak var checkUpdatesButton    : NSButton!
+    @IBOutlet weak var termsAndPrivacyButton : NSButton!
     @IBOutlet weak var visitWebsiteButton    : NSButton!
     
     @IBOutlet weak var maskView              : ColoredView!
@@ -70,8 +71,10 @@ class PurchaseController: NSViewController {
         super.awakeFromNib()
         #if APP_STORE
         checkUpdatesButton.isHidden = true
+        termsAndPrivacyButton.isHidden = false
         #else
         checkUpdatesButton.isHidden = false
+        termsAndPrivacyButton.isHidden = true
         #endif
     }
     
@@ -123,7 +126,8 @@ class PurchaseController: NSViewController {
                         self.buyButton.isEnabled = true
                         self.buyButton.subtitleLabel.stringValue = product.localizedDescription
                         if let priceString = product.localizedPrice {
-                            self.buyButton.priceLabel?.stringValue = priceString
+                            let periodString = product.localizedSubscriptionPeriod
+                            self.buyButton.priceLabel?.stringValue = String(format: NSLocalizedString("%@/%@", comment: "reloadProductsUI()"), priceString, periodString)
                             self.buyButton.priceLabel?.isHidden = false
                         } else {
                             self.buyButton.priceLabel?.isHidden = true
@@ -320,6 +324,12 @@ extension PurchaseController: PurchaseButtonDelegate {
     }
     
     @IBAction func checkUpdatesButtonTapped(_ sender: NSButton) { }
+    
+    @IBAction func termsAndPrivacyButtonTapped(_ sender: NSButton) {
+        if let url = URL(string: "https://82flex.com/jstcpweb/terms.html") {
+            NSWorkspace.shared.open(url)
+        }
+    }
     
     @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
         if let url = URL(string: "https://82flex.com/jstcpweb/") {
