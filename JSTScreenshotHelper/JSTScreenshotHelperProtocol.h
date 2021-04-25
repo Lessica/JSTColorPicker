@@ -32,6 +32,13 @@ NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
     }
     return [@"~/Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist" stringByExpandingTildeInPath];
 }
+NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath() {
+    NSString *homePath = RealHomeDirectory();
+    if (homePath != nil) {
+        return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName]];
+    }
+    return [[NSString stringWithFormat:@"~/Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
+}
 
 static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScreenshotHelper";
 

@@ -162,6 +162,7 @@ class InfoView: NSView {
     
     @IBAction func locateButtonTapped(_ sender: NSButton) {
         guard let url = lastStoredFileURL else { return }
+        // TODO: presentError
         NSWorkspace.shared.activateFileViewerSelecting([
             url
         ])

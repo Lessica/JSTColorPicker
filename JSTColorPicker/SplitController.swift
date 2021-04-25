@@ -194,7 +194,7 @@ extension SplitController: DropViewDelegate {
         let alert = NSAlert()
         alert.alertStyle = .informational
         alert.messageText = NSLocalizedString("Partial Open Succeed", comment: "presentMultipleErrors(_:)")
-        alert.informativeText = NSLocalizedString("Some of the files you requested cannot be opened:", comment: "presentMultipleErrors(_:)")
+        alert.informativeText = NSLocalizedString("Some of the documents you requested cannot be opened:", comment: "presentMultipleErrors(_:)")
         if Bundle.main.loadNibNamed(String(describing: MultipleErrorAlertView.self), owner: self, topLevelObjects: nil) {
             errorTextView.text = errors
                 .map({ "\u{25CF} " + $0.localizedDescription })

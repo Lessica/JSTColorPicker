@@ -493,6 +493,9 @@
 /* TemplatePreviewController.Error */
 "Ownership of the pasteboard has changed." = "剪贴板所有者已变更。";
 
+/* presentMultipleErrors(_:) */
+"Partial Open Succeed" = "部分打开成功";
+
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
@@ -567,6 +570,9 @@
 
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "显示一个指令面板，它包含了一些可用的键盘快捷键以供参考。";
+
+/* presentMultipleErrors(_:) */
+"Some of the documents you requested cannot be opened:" = "你所请求的文档当中有一些无法被打开：";
 
 /* Content.Error */
 "Some of these items do not exist." = "部分项目不存在。";

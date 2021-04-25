@@ -493,6 +493,9 @@
 /* TemplatePreviewController.Error */
 "Ownership of the pasteboard has changed." = "Ownership of the pasteboard has changed.";
 
+/* presentMultipleErrors(_:) */
+"Partial Open Succeed" = "Partial Open Succeed";
+
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -567,6 +570,9 @@
 
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
+
+/* presentMultipleErrors(_:) */
+"Some of the documents you requested cannot be opened:" = "Some of the documents you requested cannot be opened:";
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";

@@ -1,5 +1,23 @@
+/* Class = "NSTextFieldCell"; title = "Tag database: "; ObjectID = "0ys-eC-sUp"; */
+"0ys-eC-sUp.title" = "标签数据库位于：";
+
+/* Class = "NSTextFieldCell"; title = "Templates root: "; ObjectID = "7l3-74-aeT"; */
+"7l3-74-aeT.title" = "模版根目录位于：";
+
+/* Class = "NSTextFieldCell"; title = "Screenshot helper: "; ObjectID = "Drq-fi-d7F"; */
+"Drq-fi-d7F.title" = "截图助手程序位于：";
+
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
 "eGM-Kd-UMD.title" = "其他视图";
+
+/* Class = "NSTextFieldCell"; title = "/path/to/templates/root"; ObjectID = "hH2-20-bp2"; */
+"hH2-20-bp2.title" = "/path/to/templates/root";
+
+/* Class = "NSTextFieldCell"; title = "/path/to/tag/database"; ObjectID = "jOr-Zf-KeT"; */
+"jOr-Zf-KeT.title" = "/path/to/tag/database";
+
+/* Class = "NSTextFieldCell"; title = "/path/to/helper/application"; ObjectID = "nHo-iO-lgQ"; */
+"nHo-iO-lgQ.title" = "/path/to/helper/application";
 
 /* Class = "AMPathPopUpButton"; placeholder = "No Selection"; ObjectID = "xm4-2Y-TaL"; */
 "xm4-2Y-TaL.placeholder" = "无选择";

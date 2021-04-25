@@ -545,6 +545,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
         applicationLoadTemplatesIfNeeded()
+        // TODO: presentError
         NSWorkspace.shared.open(TemplateManager.templateRootURL)
     }
     

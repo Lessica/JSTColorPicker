@@ -221,6 +221,7 @@ class TemplateInfoView: NSView {
 
     @IBAction func locateButtonTapped(_ sender: NSButton) {
         guard let template = template else { return }
+        // TODO: presentError
         NSWorkspace.shared.activateFileViewerSelecting([
             template.url
         ])
