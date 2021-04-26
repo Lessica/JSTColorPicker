@@ -879,6 +879,10 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         if tableColumn == tableColumnChecked {
             if let headerCell = tableColumn.headerCell as? CheckboxHeaderCell {
                 editDelegate.alternateState = headerCell.toggleAlternateState()
+                tableView.reloadData(
+                    forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
+                    columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnChecked))
+                )
             }
         }
     }

@@ -22,6 +22,7 @@ class EditTagsController: EditViewController {
         return children.first as? TagListController
     }
     
+    var allTagNames: [String] = []
     private var cachedTagNames: [String] = []
     private var cachedTagStates: [String: NSControl.StateValue] = [:]
     private var _alternateState: NSControl.StateValue = .off
@@ -90,10 +91,21 @@ extension EditTagsController: TagListEditDelegate {
     
     var alternateState: NSControl.StateValue {
         get {
-            _alternateState
+            let reversedStates: [NSControl.StateValue: String] =
+                Dictionary(
+                    uniqueKeysWithValues: allTagNames.map({ (editState(of: $0), $0) })
+                )
+            debugPrint(reversedStates)
         }
         set {
-            _alternateState = newValue
+            if newValue == .on {
+                cachedTagNames = Array(allTagNames)
+                cachedTagStates = Dictionary(uniqueKeysWithValues: cachedTagNames.map({ ($0, .on) }))
+            } else if newValue == .off {
+                cachedTagNames = Array(allTagNames)
+                cachedTagStates = Dictionary(uniqueKeysWithValues: cachedTagNames.map({ ($0, .off) }))
+            }
+            enableOKButton()
         }
     }
     
@@ -119,9 +131,13 @@ extension EditTagsController: TagListEditDelegate {
     
     func editStateChanged(of name: String, to state: NSControl.StateValue) {
         cachedTagStates[name] = state
+        enableOKButton()
+        debugPrint(cachedTagStates)
+    }
+    
+    private func enableOKButton() {
         okBtn.isEnabled = true
         touchBarOkBtn.isEnabled = true
-        debugPrint(cachedTagStates)
     }
     
 }
