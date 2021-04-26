@@ -545,8 +545,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
         applicationLoadTemplatesIfNeeded()
-        // TODO: presentError
-        NSWorkspace.shared.open(TemplateManager.templateRootURL)
+        let url = TemplateManager.templateRootURL
+        guard url.isDirectory else {
+            presentError(GenericError.notDirectory(url: url))
+            return
+        }
+        NSWorkspace.shared.open(url)
     }
     
     @IBAction func showLogsMenuItemTapped(_ sender: NSMenuItem) {

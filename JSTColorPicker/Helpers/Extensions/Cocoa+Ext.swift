@@ -421,3 +421,27 @@ extension NSLayoutConstraint.Priority {
     static let middle = NSLayoutConstraint.Priority(rawValue: 500.0)
 }
 
+extension NSView {
+    func convert(_ edgeInsets: NSEdgeInsets, from view: NSView?) -> NSEdgeInsets {
+        let sizeTopLeft = convert(NSSize(width: edgeInsets.left, height: edgeInsets.top), from: view)
+        let sizeBottomRight = convert(NSSize(width: edgeInsets.right, height: edgeInsets.bottom), from: view)
+        return NSEdgeInsets(top: sizeTopLeft.height, left: sizeTopLeft.width, bottom: sizeBottomRight.height, right: sizeBottomRight.width)
+    }
+    
+    func convert(_ edgeInsets: NSEdgeInsets, to view: NSView?) -> NSEdgeInsets {
+        let sizeTopLeft = convert(NSSize(width: edgeInsets.left, height: edgeInsets.top), to: view)
+        let sizeBottomRight = convert(NSSize(width: edgeInsets.right, height: edgeInsets.bottom), to: view)
+        return NSEdgeInsets(top: sizeTopLeft.height, left: sizeTopLeft.width, bottom: sizeBottomRight.height, right: sizeBottomRight.width)
+    }
+}
+
+extension NSEdgeInsets {
+    static let zero = NSEdgeInsetsZero
+    static prefix func -(_ m: NSEdgeInsets) -> NSEdgeInsets {
+        return NSEdgeInsets(top: -m.top, left: -m.left, bottom: -m.bottom, right: -m.right)
+    }
+    init(edges: CGFloat) {
+        self.init(top: edges, left: edges, bottom: edges, right: edges)
+    }
+}
+

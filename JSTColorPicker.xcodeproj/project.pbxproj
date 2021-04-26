@@ -58,6 +58,10 @@
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D8B2633091300E6B89C /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
+		CC1B01522636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
+		CC1B01532636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
+		CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
+		CC1B015D26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
 		CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
 		CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
@@ -858,6 +862,8 @@
 		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewObject.swift; sourceTree = "<group>"; };
 		CC059D8A2633091300E6B89C /* PurchaseMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMainView.swift; sourceTree = "<group>"; };
+		CC1B01512636F896002EECF5 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
+		CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxHeaderCell.swift; sourceTree = "<group>"; };
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
@@ -1676,6 +1682,7 @@
 				D690C96A241BBE6B00BB1652 /* PixelMatch */,
 				D6F4A38623CF645800BE3DCF /* Tab */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
+				CC1B01512636F896002EECF5 /* GenericError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1705,6 +1712,7 @@
 			children = (
 				D6DD4B0724A3389100CC90E3 /* TagEditableTextField.swift */,
 				18D202C22496920C007A079F /* TagCellView.swift */,
+				CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3102,6 +3110,7 @@
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
+				CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
@@ -3181,6 +3190,7 @@
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
+				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
@@ -3307,6 +3317,7 @@
 				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
 				D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */,
+				CC1B015D26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
 				CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
@@ -3409,6 +3420,7 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
+				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,

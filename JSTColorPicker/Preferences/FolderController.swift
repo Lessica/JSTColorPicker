@@ -72,26 +72,38 @@ class FolderController: NSViewController {
         if sender == screenshotSavedAtLocationButton {
             if let locationPath: String = UserDefaults.standard[.screenshotSavingPath] {
                 locationURL = URL(fileURLWithPath: NSString(string: locationPath).standardizingPath)
+                guard locationURL!.isDirectory else {
+                    presentError(GenericError.notDirectory(url: locationURL!))
+                    return
+                }
                 isDirectory = true
             }
         }
         else if sender == tagDatabaseLocationButton {
             locationURL = TagListController.persistentStoreDirectoryURL
+            guard locationURL!.isDirectory else {
+                presentError(GenericError.notDirectory(url: locationURL!))
+                return
+            }
             isDirectory = true
         }
         else if sender == templatesRootLocationButton {
             locationURL = TemplateManager.templateRootURL
+            guard locationURL!.isDirectory else {
+                presentError(GenericError.notDirectory(url: locationURL!))
+                return
+            }
             isDirectory = true
         }
         else if sender == screenshotHelperLocationButton {
             locationURL = URL(fileURLWithPath: GetJSTColorPickerHelperApplicationPath())
+            guard locationURL!.isPackage else {
+                presentError(GenericError.notPackage(url: locationURL!))
+                return
+            }
             isDirectory = false
         }
         if let url = locationURL {
-            guard FileManager.default.fileExists(atPath: url.path) else {
-                // TODO: presentError
-                return
-            }
             if isDirectory {
                 NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
             } else {

@@ -24,6 +24,7 @@ class EditTagsController: EditViewController {
     
     private var cachedTagNames: [String] = []
     private var cachedTagStates: [String: NSControl.StateValue] = [:]
+    private var _alternateState: NSControl.StateValue = .off
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,15 @@ class EditTagsController: EditViewController {
 }
 
 extension EditTagsController: TagListEditDelegate {
+    
+    var alternateState: NSControl.StateValue {
+        get {
+            _alternateState
+        }
+        set {
+            _alternateState = newValue
+        }
+    }
     
     func editState(of name: String) -> NSControl.StateValue {
         if let cachedState = cachedTagStates[name] {

@@ -154,6 +154,7 @@ class TagListController: StackedPaneController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableColumnChecked.headerCell = CheckboxHeaderCell()
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
         tableViewOverlay.tableRowHeight = tableView.rowHeight
@@ -641,6 +642,9 @@ class TagListController: StackedPaneController {
         guard let editDelegate = editDelegate else { return }
         let checkedRow = tableView.row(for: sender)
         editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
+        if let headerCell = tableColumnChecked.headerCell as? CheckboxHeaderCell {
+            headerCell.alternateState = editDelegate.alternateState
+        }
     }
     
 }
@@ -868,6 +872,15 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
             return arrangedTags[row].name
         }
         return nil
+    }
+    
+    func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
+        guard let editDelegate = editDelegate else { return }
+        if tableColumn == tableColumnChecked {
+            if let headerCell = tableColumn.headerCell as? CheckboxHeaderCell {
+                editDelegate.alternateState = headerCell.toggleAlternateState()
+            }
+        }
     }
     
 }

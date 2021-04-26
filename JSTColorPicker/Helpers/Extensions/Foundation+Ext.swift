@@ -165,4 +165,12 @@ extension URL {
     var isRegularFile: Bool {
         return (try? resourceValues(forKeys: [.isRegularFileKey]))?.isRegularFile ?? false
     }
+    
+    var isDirectory: Bool {
+        return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
+    }
+    
+    var isPackage: Bool {
+        return (try? resourceValues(forKeys: [.isPackageKey]))?.isPackage ?? false
+    }
 }

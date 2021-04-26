@@ -677,7 +677,9 @@ extension WindowController {
     @objc private func productTypeDidChange(_ noti: Notification) {
         guard let manager = noti.object as? PurchaseManager else { return }
         if manager.getProductType() == .subscribed, let lastStoredSubtitle = _windowSubtitle {
-            window?.subtitle = lastStoredSubtitle
+            DispatchQueue.main.async {
+                self.window?.subtitle = lastStoredSubtitle
+            }
         }
     }
     #endif

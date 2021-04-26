@@ -1415,11 +1415,28 @@ extension SceneController: ToolbarResponder {
     func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapperBounds) }
     func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds)) }
     
-    private func sceneMagnify(toFit rect: CGRect, adjustBorder adjust: Bool = false) {
-        let altClipped = sceneClipView.convert(CGSize(width: sceneView.alternativeBoundsOrigin.x, height: sceneView.alternativeBoundsOrigin.y), from: sceneView)
-        let fitRect = adjust
-            ? rect.insetBy(dx: -(altClipped.width + 1.0), dy: -(altClipped.height + 1.0))
-            : rect.insetBy(dx: -1.0, dy: -1.0)
+    private func sceneMagnify(
+        toFit rect: CGRect,
+        adjustBorder adjust: Bool = false,
+        withExtraPadding padding: NSEdgeInsets = .zero
+    ) {
+        let altClipped = sceneClipView.convert(
+            CGSize(
+                width: sceneView.alternativeBoundsOrigin.x,
+                height: sceneView.alternativeBoundsOrigin.y
+            ),
+            from: sceneView
+        )
+        let altPadding = sceneClipView.convert(
+            padding,
+            from: sceneView
+        )
+        // notice: in documents' coordinate
+        let fitRect = (
+            adjust
+                ? rect.insetBy(dx: -(altClipped.width + 1.0), dy: -(altClipped.height + 1.0))
+                : rect.insetBy(dx: -1.0, dy: -1.0)
+        ).inset(by: -altPadding)
         guard !fitRect.isEmpty else {
             return
         }
@@ -1542,7 +1559,7 @@ extension SceneController: ItemPreviewResponder {
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
-        
+        // FIXME
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
@@ -1553,7 +1570,11 @@ extension SceneController: ItemPreviewResponder {
     }
     
     func previewAction(_ sender: ItemPreviewSender?, toFit rect: PixelRect) {
-        sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
+        sceneMagnify(
+            toFit: rect.toCGRect(),
+            adjustBorder: true,
+            withExtraPadding: NSEdgeInsets(edges: 32)
+        )
     }
     
 }

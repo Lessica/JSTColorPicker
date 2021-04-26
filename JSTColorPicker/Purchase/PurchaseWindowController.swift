@@ -20,4 +20,6 @@ class PurchaseWindowController: NSWindowController {
     
     var isVisible: Bool { window?.isVisible ?? false }
     
+    
+    
 }

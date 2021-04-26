@@ -9,6 +9,7 @@
 import Foundation
 
 protocol TagListEditDelegate: class {
+    var alternateState: NSControl.StateValue { get set }
     func editState(of name: String) -> NSControl.StateValue
     func editStateChanged(of name: String, to state: NSControl.StateValue)
 }

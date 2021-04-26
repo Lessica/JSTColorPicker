@@ -81,7 +81,9 @@ extension SubscriptionController: MASPreferencesViewController {
     
     @objc private func productTypeDidChange(_ noti: Notification) {
         guard let manager = noti.object as? PurchaseManager else { return }
-        reloadDetailUI(from: manager)
+        DispatchQueue.main.async {
+            self.reloadDetailUI(from: manager)
+        }
     }
     
     private func reloadDetailUI(from manager: PurchaseManager? = nil) {
