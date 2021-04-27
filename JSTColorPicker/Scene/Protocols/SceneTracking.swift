@@ -9,7 +9,7 @@
 import Cocoa
 
 
-protocol SceneTracking: class {
+protocol SceneTracking: AnyObject {
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
     func sceneRawColorDidChange   (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
     func sceneRawAreaDidChange    (_ sender: SceneScrollView?, to rect: PixelRect)

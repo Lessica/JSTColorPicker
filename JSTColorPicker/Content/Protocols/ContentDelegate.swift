@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ContentDelegate: class {
+protocol ContentDelegate: AnyObject {
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     

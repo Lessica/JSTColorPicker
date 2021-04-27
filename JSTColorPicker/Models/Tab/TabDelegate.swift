@@ -26,7 +26,7 @@ class ManagedWindow {
     }
 }
 
-protocol TabDelegate: class {
+protocol TabDelegate: AnyObject {
     func addManagedWindow(windowController: WindowController) -> ManagedWindow?
     
     @discardableResult

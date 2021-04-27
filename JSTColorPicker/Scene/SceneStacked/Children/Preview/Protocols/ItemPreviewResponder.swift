@@ -19,7 +19,7 @@ protocol ItemPreviewSender {
     var previewStage: ItemPreviewStage { get }
 }
 
-protocol ItemPreviewResponder: class {
+protocol ItemPreviewResponder: AnyObject {
     func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool)

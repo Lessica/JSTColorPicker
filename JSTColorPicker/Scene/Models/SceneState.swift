@@ -9,7 +9,7 @@
 import Cocoa
 
 
-protocol SceneStateSource: class {
+protocol SceneStateSource: AnyObject {
     var sceneState: SceneState { get }
     func beginEditing() -> EditableOverlay?
 }

@@ -19,7 +19,7 @@ extension NSDraggingInfo {
     
 }
 
-@objc protocol DropViewDelegate: class {
+@objc protocol DropViewDelegate: AnyObject {
     var allowsDrop: Bool { get }
     var acceptedFileExtensions: [String] { get }
     func dropView(_: DropSplitView?, didDropFilesWith fileURLs: [URL])

@@ -9,7 +9,7 @@
 import Cocoa
 
 
-protocol ScreenshotLoader: class {
+protocol ScreenshotLoader: AnyObject {
     var screenshot: Screenshot? { get }
     func load(_ screenshot: Screenshot) throws
 }

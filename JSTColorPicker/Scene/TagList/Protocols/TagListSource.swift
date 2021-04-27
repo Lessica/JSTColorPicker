@@ -12,7 +12,7 @@ extension NSNotification.Name {
     static let NSManagedObjectContextDidLoad = NSNotification.Name("NSManagingContextDidLoadNotification")
 }
 
-protocol TagListSource: class {
+protocol TagListSource: AnyObject {
     var managedObjectContext: NSManagedObjectContext? { get }
     var arrangedTags: [Tag] { get }
     func managedTag(of name: String) -> Tag?

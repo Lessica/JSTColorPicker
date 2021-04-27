@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol AnnotatorSource: class {
+protocol AnnotatorSource: AnyObject {
     var annotators: [Annotator] { get }
     func loadAnnotators(from content: Content) throws
     func addAnnotators(for items: [ContentItem])

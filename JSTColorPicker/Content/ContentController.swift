@@ -27,7 +27,7 @@ private extension NSUserInterfaceItemIdentifier {
     static let removeTags        = NSUserInterfaceItemIdentifier("remove-tags")
 }
 
-protocol ContentActionDelegate: class {
+protocol ContentActionDelegate: AnyObject {
     func contentActionAdded(_ items: [ContentItem])
     func contentActionSelected(_ items: [ContentItem])
     func contentActionConfirmed(_ items: [ContentItem])
