@@ -86,6 +86,7 @@ class TagListController: StackedPaneController {
     private var willRedoToken                     : NotificationToken?
     private var didUndoToken                      : NotificationToken?
     private var didRedoToken                      : NotificationToken?
+    private var arrangedObjectsObservation        : NSKeyValueObservation?
     
     static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
@@ -149,6 +150,9 @@ class TagListController: StackedPaneController {
             internalController.rearrangeObjects()
         }
         
+        arrangedObjectsObservation = internalController.observe(\.arrangedObjects, options: [.new], changeHandler: { [weak self] (target, change) in
+            self?.reloadHeaderView()
+        })
     }
     
     override func viewDidLoad() {
@@ -637,14 +641,20 @@ class TagListController: StackedPaneController {
     
     @IBAction func tableViewDoubleAction(_ sender: TagListTableView) { }
     
+    private func reloadHeaderView() {
+        guard let editDelegate = editDelegate else { return }
+        if let headerCell = tableColumnChecked.headerCell as? CheckboxHeaderCell {
+            headerCell.alternateState = editDelegate.fetchAlternateStateForTags(arrangedTags)
+            tableView.headerView?.needsDisplay = true
+        }
+    }
+    
     @IBAction func checkedButtonAction(_ sender: NSButton) {
         if sender.allowsMixedState { sender.allowsMixedState = false }
         guard let editDelegate = editDelegate else { return }
         let checkedRow = tableView.row(for: sender)
         editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
-        if let headerCell = tableColumnChecked.headerCell as? CheckboxHeaderCell {
-            headerCell.alternateState = editDelegate.alternateState
-        }
+        reloadHeaderView()
     }
     
 }
@@ -679,6 +689,7 @@ extension TagListController: TagListSource {
         
         return nil
     }
+    
     func managedTags(of names: [String]) -> [Tag] {
         
         if arrangedTags.count > 0 && internalController.filterPredicate == nil {
@@ -878,7 +889,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         guard let editDelegate = editDelegate else { return }
         if tableColumn == tableColumnChecked {
             if let headerCell = tableColumn.headerCell as? CheckboxHeaderCell {
-                editDelegate.alternateState = headerCell.toggleAlternateState()
+                editDelegate.setupAlternateState(headerCell.toggleAlternateState(), forTags: arrangedTags)
                 tableView.reloadData(
                     forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
                     columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnChecked))

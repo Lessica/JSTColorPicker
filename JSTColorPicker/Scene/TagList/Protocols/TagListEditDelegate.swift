@@ -9,7 +9,8 @@
 import Foundation
 
 protocol TagListEditDelegate: class {
-    var alternateState: NSControl.StateValue { get set }
+    func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue
+    func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag])
     func editState(of name: String) -> NSControl.StateValue
     func editStateChanged(of name: String, to state: NSControl.StateValue)
 }

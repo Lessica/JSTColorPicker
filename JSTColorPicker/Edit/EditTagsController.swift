@@ -22,10 +22,9 @@ class EditTagsController: EditViewController {
         return children.first as? TagListController
     }
     
-    var allTagNames: [String] = []
-    private var cachedTagNames: [String] = []
-    private var cachedTagStates: [String: NSControl.StateValue] = [:]
-    private var _alternateState: NSControl.StateValue = .off
+    private var cachedTagNames   = Set<String>()
+    private var cachedTagStates  : [String: NSControl.StateValue] = [:]
+    private var _alternateState  : NSControl.StateValue = .off
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,24 +88,46 @@ class EditTagsController: EditViewController {
 
 extension EditTagsController: TagListEditDelegate {
     
-    var alternateState: NSControl.StateValue {
-        get {
-            let reversedStates: [NSControl.StateValue: String] =
-                Dictionary(
-                    uniqueKeysWithValues: allTagNames.map({ (editState(of: $0), $0) })
-                )
-            debugPrint(reversedStates)
-        }
-        set {
-            if newValue == .on {
-                cachedTagNames = Array(allTagNames)
-                cachedTagStates = Dictionary(uniqueKeysWithValues: cachedTagNames.map({ ($0, .on) }))
-            } else if newValue == .off {
-                cachedTagNames = Array(allTagNames)
-                cachedTagStates = Dictionary(uniqueKeysWithValues: cachedTagNames.map({ ($0, .off) }))
+    func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue {
+        let allCount = tags.count
+        var onCount = 0
+        var offCount = 0
+        var mixedCount = 0
+        for state in tags.map({ editState(of: $0.name) }) {
+            switch state {
+            case .on:
+                onCount += 1
+            case .off:
+                offCount += 1
+            case .mixed:
+                mixedCount += 1
+            default:
+                break
             }
-            enableOKButton()
         }
+        if onCount == allCount {
+            return .on
+        }
+        else if offCount == allCount {
+            return .off
+        }
+        else {
+            return .mixed
+        }
+    }
+    
+    func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag]) {
+        let allTagNames = tags.map({ $0.name })
+        if state == .on {
+            cachedTagNames.formUnion(allTagNames)
+            cachedTagStates.merge(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, .on) }))) { _, new in new }
+        } else if state == .off {
+            cachedTagNames.formUnion(allTagNames)
+            cachedTagStates.merge(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, .off) }))) { _, new in new }
+        } else {
+            fatalError("cannot setup with .mixed state")
+        }
+        enableOKButton()
     }
     
     func editState(of name: String) -> NSControl.StateValue {
@@ -114,7 +135,7 @@ extension EditTagsController: TagListEditDelegate {
             return cachedState
         }
         let newState = internalStateOfTag(of: name)
-        cachedTagNames.append(name)
+        cachedTagNames.insert(name)
         cachedTagStates[name] = newState
         return newState
     }
