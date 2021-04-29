@@ -20,4 +20,8 @@ class TemplateCellView: NSTableCellView {
         set { imageView?.image = newValue }
     }
     
+    override var backgroundStyle: NSView.BackgroundStyle {
+        get { .normal }
+        set { }
+    }
 }

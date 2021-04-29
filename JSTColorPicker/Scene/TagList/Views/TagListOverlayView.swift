@@ -30,7 +30,7 @@ class TagListOverlayView: NSView, DragEndpoint {
     weak var sceneToolSource: SceneToolSource!
     private var sceneTool: SceneTool { return sceneToolSource!.sceneTool }
     
-    var tableRowHeight: CGFloat = 16.0
+    var tableRowHeight: CGFloat = 20.0
     private var highlightedRects: [CGRect]?
     
     private static let focusLineWidth: CGFloat = 2.0

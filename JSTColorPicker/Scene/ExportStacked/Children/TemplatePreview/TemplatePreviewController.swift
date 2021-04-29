@@ -790,10 +790,12 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }.then {
             self.promiseWriteCachedContents($0.0, template: $0.1)
         }.then {
-            self.promiseCopyContentsToGeneralPasteboard($0.0).asVoid()
+            return self.promiseCopyContentsToGeneralPasteboard($0.0)
         }.catch {
             self.presentError($0)
-        }.finally { }
+        }.finally {
+            NSSound(named: "Copy")?.play()
+        }
     }
 
     @IBAction func exportAs(_ sender:  Any?) {
@@ -813,7 +815,9 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             self.promiseWriteContentsToURL(contents: $0.0, url: targetURL!).asVoid()
         }.catch {
             self.presentError($0)
-        }.finally { }
+        }.finally {
+            NSSound(named: "Paste")?.play()
+        }
     }
 
     @IBAction func regenerate(_ sender: NSMenuItem) {
@@ -1061,6 +1065,15 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
         }
         return nil
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+        var rowView = outlineView.makeView(withIdentifier: TemplateRowView.itemIdentifier, owner: self)
+        if rowView == nil {
+            rowView = TemplateRowView()
+            rowView?.identifier = TemplateRowView.itemIdentifier
+        }
+        return rowView as? NSTableRowView
+    }
 
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let tableColumn = tableColumn else { return nil }
@@ -1119,6 +1132,9 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        if item is TemplatePreviewObject {
+            return true
+        }
         return false
     }
     

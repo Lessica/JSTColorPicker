@@ -36,4 +36,9 @@ class TemplateContentCellView: NSTableCellView {
         set { textField?.maximumNumberOfLines = min(max(newValue ?? 20, 5), 99) }
     }
     
+    override var backgroundStyle: NSView.BackgroundStyle {
+        get { .normal }
+        set { }
+    }
+    
 }

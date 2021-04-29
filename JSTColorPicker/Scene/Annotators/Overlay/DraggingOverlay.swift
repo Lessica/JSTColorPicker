@@ -9,6 +9,6 @@
 import Cocoa
 
 class DraggingOverlay: Overlay {
-    var contextRect    : PixelRect?
-    override var borderStyle  : BorderStyle { .dashed }
+    var contextRect: PixelRect?
+    override var borderStyle: BorderStyle { .dashed }
 }
