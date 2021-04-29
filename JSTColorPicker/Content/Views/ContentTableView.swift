@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol ContentTableViewResponder: class {
+protocol ContentTableViewResponder: AnyObject {
     func tableViewAction(_ sender: ContentTableView)
     func tableViewDoubleAction(_ sender: ContentTableView)
 }

@@ -17,11 +17,11 @@
 	<key>defaults:drawTagsInScene</key>
 	<true/>
 	<key>defaults:drawRulersInScene</key>
-	<false/>
+	<true/>
 	<key>defaults:drawSceneBackground</key>
 	<true/>
 	<key>defaults:enableForceTouch</key>
-	<false/>
+	<true/>
 	<key>defaults:enableGPUAcceleration</key>
 	<true/>
 	<key>defaults:enableNetworkDiscovery</key>
@@ -29,11 +29,11 @@
 	<key>defaults:enableSyntaxHighlighting</key>
 	<true/>
 	<key>defaults:hideAnnotatorsWhenResize</key>
-	<true/>
+	<false/>
 	<key>defaults:hideBordersWhenResize</key>
-	<true/>
+	<false/>
 	<key>defaults:hideGridsWhenResize</key>
-	<true/>
+	<false/>
 	<key>defaults:ignoreInvalidDeletion</key>
 	<true/>
 	<key>defaults:ignoreRepeatedInsertion</key>

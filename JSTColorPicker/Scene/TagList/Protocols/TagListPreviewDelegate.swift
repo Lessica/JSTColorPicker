@@ -8,6 +8,6 @@
 
 import Cocoa
 
-protocol TagListPreviewDelegate: class {
+protocol TagListPreviewDelegate: AnyObject {
     func previewTags(for items: [ContentItem])
 }

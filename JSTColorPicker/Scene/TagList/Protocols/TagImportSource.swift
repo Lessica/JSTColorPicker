@@ -8,6 +8,6 @@
 
 import Cocoa
 
-protocol TagImportSource: class {
+protocol TagImportSource: AnyObject {
     var importableTagNames: [String]? { get }
 }

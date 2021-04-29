@@ -59,8 +59,9 @@ class SceneScrollView: NSScrollView {
     private var sceneTool: SceneTool { sceneToolSource.sceneTool }
     weak var sceneStateSource: SceneStateSource!
     private var sceneState: SceneState { sceneStateSource.sceneState }
-    private var isProportionalScaling: Bool { sceneState.manipulatingOptions.contains(.proportionalScaling) && enableForceTouch }
-    private var isCenteredScaling: Bool { sceneState.manipulatingOptions.contains(.centeredScaling) && enableForceTouch }
+    var isRequiredEventStageSatisfied: Bool { sceneState.stage >= requiredEventStageFor(sceneTool, forManipulatingType: sceneState.manipulatingType) }
+    var isProportionalScaling: Bool { sceneState.manipulatingOptions.contains(.proportionalScaling) && isRequiredEventStageSatisfied }
+    var isCenteredScaling: Bool { sceneState.manipulatingOptions.contains(.centeredScaling) && isRequiredEventStageSatisfied }
     weak var sceneActionEffectViewSource: SceneEffectViewSource!
     private var sceneActionEffectView: SceneEffectView { sceneActionEffectViewSource.sourceSceneEffectView }
     
@@ -211,8 +212,18 @@ class SceneScrollView: NSScrollView {
     // MARK: - Events
     
     var enableForceTouch: Bool = false
-    private var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
-    private func requiredEventStageFor(_ tool: SceneTool) -> Int { enableForceTouch ? 1 : 0 }
+    var minimumDraggingDistance: CGFloat { enableForceTouch ? 6.0 : 3.0 }
+    func requiredEventStageFor(_ tool: SceneTool, forManipulatingType type: SceneState.ManipulatingType) -> Int {
+        switch tool {
+        case .magicCursor:
+            if type.isDragging {
+                return enableForceTouch ? 1 : 0
+            }
+        default:
+            break
+        }
+        return 0
+    }
     
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
@@ -702,7 +713,7 @@ class SceneScrollView: NSScrollView {
     }
     
     private func shouldBeginSceneDragging(for event: NSEvent) -> Bool {
-        return sceneState.stage >= requiredEventStageFor(sceneTool)
+        return sceneState.stage >= requiredEventStageFor(sceneTool, forManipulatingType: .sceneDragging)
     }
     
     private func shouldBeginAreaDragging(for event: NSEvent) -> Bool {
@@ -710,14 +721,14 @@ class SceneScrollView: NSScrollView {
             .intersection(.deviceIndependentFlagsMask)
             .contains(.shift)
         if enableForceTouch {
-            return shiftPressed || sceneState.stage >= requiredEventStageFor(sceneTool)
+            return shiftPressed || sceneState.stage >= requiredEventStageFor(sceneTool, forManipulatingType: .areaDragging)
         } else {
             return shiftPressed
         }
     }
     
     private func shouldBeginAnnotatorDragging(for event: NSEvent) -> Bool {
-        return sceneState.stage >= requiredEventStageFor(sceneTool)
+        return sceneState.stage >= requiredEventStageFor(sceneTool, forManipulatingType: .annotatorDragging)
     }
     
     private func beginAnnotatorDragging(for event: NSEvent) -> EditableOverlay? {

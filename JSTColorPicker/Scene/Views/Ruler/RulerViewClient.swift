@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol RulerViewClient: class {
+protocol RulerViewClient: AnyObject {
     func rulerView(_ ruler: RulerView?, shouldAdd marker: RulerMarker) -> Bool
     func rulerView(_ ruler: RulerView?, shouldMove marker: RulerMarker) -> Bool
     func rulerView(_ ruler: RulerView?, shouldRemove marker: RulerMarker) -> Bool

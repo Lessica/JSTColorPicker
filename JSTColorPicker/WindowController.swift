@@ -9,6 +9,44 @@
 import Cocoa
 import ShortcutGuide
 
+// MARK: - Toolbar
+private extension NSToolbarItem.Identifier {
+    private static let prefix     = "com.jst.JSTColorPicker.ToolbarItem."
+    
+    static let openItem           = Self(Self.prefix + "openItem")
+    
+    static let sceneToolsGroup    = Self(Self.prefix + "sceneToolsGroup")
+    static let annotateItem       = Self(Self.prefix + "annotateItem")
+    static let magnifyItem        = Self(Self.prefix + "magnifyItem")
+    static let minifyItem         = Self(Self.prefix + "minifyItem")
+    static let selectItem         = Self(Self.prefix + "selectItem")
+    static let moveItem           = Self(Self.prefix + "moveItem")
+    
+    static let previewToolsGroup  = Self(Self.prefix + "previewToolsGroup")
+    static let fitWindowItem      = Self(Self.prefix + "fitWindowItem")
+    static let fillWindowItem     = Self(Self.prefix + "fillWindowItem")
+    static let screenshotItem     = Self(Self.prefix + "screenshotItem")
+    
+    static let sidebarItem        = Self(Self.prefix + "sidebarItem")
+    
+    static let sidebarTrackingSeparator = Self(Self.prefix + "sidebarTrackingSeparator")
+}
+
+private extension NSToolbarItemGroup {
+    var selectedItemIdentifier: NSToolbarItem.Identifier? {
+        get {
+            guard selectionMode == .selectOne else { fatalError("this property only works when selectionMode == .selectOne") }
+            guard selectedIndex >= 0 && selectedIndex < subitems.count else { return nil }
+            return subitems[selectedIndex].itemIdentifier
+        }
+        set {
+            guard selectionMode == .selectOne else { fatalError("this property only works when selectionMode == .selectOne") }
+            guard let itemIndexToSelect = subitems.firstIndex(where: { $0.itemIdentifier == newValue }) else { return }
+            selectedIndex = itemIndexToSelect
+        }
+    }
+}
+
 private var windowCount = 0
 
 class WindowController: NSWindowController {
@@ -36,6 +74,7 @@ class WindowController: NSWindowController {
         #endif
     }
     
+    @IBOutlet weak var toolbar                         : NSToolbar!
     @IBOutlet weak var openItem                        : NSToolbarItem!
     @IBOutlet weak var annotateItem                    : NSToolbarItem!
     @IBOutlet weak var magnifyItem                     : NSToolbarItem!
@@ -45,6 +84,27 @@ class WindowController: NSWindowController {
     @IBOutlet weak var fitWindowItem                   : NSToolbarItem!
     @IBOutlet weak var fillWindowItem                  : NSToolbarItem!
     @IBOutlet weak var screenshotItem                  : NSToolbarItem!
+    @IBOutlet weak var sidebarItem                     : NSToolbarItem!
+    private   lazy var sceneToolsGroup                 : NSToolbarItemGroup = {
+        let item = NSToolbarItemGroup(itemIdentifier: .sceneToolsGroup)
+        item.isBordered = true
+        item.controlRepresentation = .expanded
+        item.selectionMode = .selectOne
+        item.label = NSLocalizedString("Scene Tools", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.subitems = [annotateItem, selectItem, magnifyItem, minifyItem, moveItem]
+        return item
+    }()
+    internal       var selectedSceneToolIdentifier     : NSToolbarItem.Identifier? { sceneToolsGroup.selectedItemIdentifier }
+    
+    private   lazy var previewToolsGroup                    : NSToolbarItemGroup = {
+        let item = NSToolbarItemGroup(itemIdentifier: .previewToolsGroup)
+        item.isBordered = true
+        item.controlRepresentation = .automatic
+        item.selectionMode = .momentary
+        item.label = NSLocalizedString("Preview Tools", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.subitems = [fitWindowItem, fillWindowItem]
+        return item
+    }()
     
     @IBOutlet weak var mainTouchBar                    : NSTouchBar!
     @IBOutlet weak var groupedTouchBar                 : NSTouchBar!
@@ -87,9 +147,8 @@ class WindowController: NSWindowController {
         NSColorPanel.shared.delegate = self
         splitController.parentTracking = self
         
-        window!.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
-        window!.toolbar?.delegate = self
-        window!.toolbar?.selectedItemIdentifier = annotateItem.itemIdentifier
+        window?.title = String(format: NSLocalizedString("Untitled #%d", comment: "initializeController"), windowCount)
+        sceneToolsGroup.selectedItemIdentifier = .annotateItem
         syncToolbarState()
         
         touchBarPreviewSlider.isEnabled = false
@@ -272,25 +331,25 @@ extension WindowController {
     }
     
     private func syncToolbarState() {
-        guard let identifier = window?.toolbar?.selectedItemIdentifier?.rawValue else { return }
+        let selectedSceneToolIdentifier = sceneToolsGroup.selectedItemIdentifier?.rawValue
 
-        if identifier == SceneTool.magicCursor.rawValue {
+        if selectedSceneToolIdentifier == SceneTool.magicCursor.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magicCursor.rawValue
             splitController.useAnnotateItemAction(self)
         }
-        else if identifier == SceneTool.selectionArrow.rawValue {
+        else if selectedSceneToolIdentifier == SceneTool.selectionArrow.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.selectionArrow.rawValue
             splitController.useSelectItemAction(self)
         }
-        else if identifier == SceneTool.magnifyingGlass.rawValue {
+        else if selectedSceneToolIdentifier == SceneTool.magnifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magnifyingGlass.rawValue
             splitController.useMagnifyItemAction(self)
         }
-        else if identifier == SceneTool.minifyingGlass.rawValue {
+        else if selectedSceneToolIdentifier == SceneTool.minifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.minifyingGlass.rawValue
             splitController.useMinifyItemAction(self)
         }
-        else if identifier == SceneTool.movingHand.rawValue {
+        else if selectedSceneToolIdentifier == SceneTool.movingHand.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.movingHand.rawValue
             splitController.useMoveItemAction(self)
         }
@@ -308,19 +367,19 @@ extension WindowController {
             return
         }
         if sender.selectedSegment == ToolIndex.magicCursor.rawValue {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.selectionArrow.rawValue {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.magnifyingGlass.rawValue {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.minifyingGlass.rawValue {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         }
         else if sender.selectedSegment == ToolIndex.movingHand.rawValue {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         }
         syncToolbarState()
     }
@@ -350,31 +409,31 @@ extension WindowController: ToolbarResponder {
     
     @IBAction func useAnnotateItemAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMagnifyItemAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMinifyItemAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useSelectItemAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
         syncToolbarState()
     }
     
     @IBAction func useMoveItemAction(_ sender: Any?) {
         guard documentState.isLoaded else { return }
-        window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
         syncToolbarState()
     }
     
@@ -449,7 +508,78 @@ extension WindowController: NSWindowDelegate {
     
 }
 
-extension WindowController: NSToolbarDelegate, NSTouchBarDelegate { }
+extension WindowController: NSToolbarDelegate, NSTouchBarDelegate {
+    
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        if toolbar == self.toolbar {
+            return [
+                .openItem,
+                .sceneToolsGroup,
+                .previewToolsGroup,
+                .screenshotItem,
+                .sidebarTrackingSeparator,
+                .sidebarItem,
+                .space,
+                .flexibleSpace,
+            ]
+        } else {
+            return []
+        }
+    }
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        if toolbar == self.toolbar {
+            return [
+                .openItem,
+                .sceneToolsGroup,
+                .previewToolsGroup,
+                .sidebarTrackingSeparator,
+                .sidebarItem,
+                .flexibleSpace,
+                .screenshotItem,
+            ]
+        } else {
+            return []
+        }
+    }
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        if toolbar == self.toolbar {
+            switch itemIdentifier {
+            case .openItem:
+                return openItem
+            case .annotateItem:
+                return annotateItem
+            case .selectItem:
+                return selectItem
+            case .magnifyItem:
+                return magnifyItem
+            case .minifyItem:
+                return minifyItem
+            case .moveItem:
+                return moveItem
+            case .fitWindowItem:
+                return fitWindowItem
+            case .fillWindowItem:
+                return fillWindowItem
+            case .screenshotItem:
+                return screenshotItem
+            case .sidebarItem:
+                return sidebarItem
+            case .sidebarTrackingSeparator:
+                return NSTrackingSeparatorToolbarItem(identifier: itemIdentifier, splitView: splitController.splitView, dividerIndex: 1)
+            case .sceneToolsGroup:
+                return sceneToolsGroup
+            case .previewToolsGroup:
+                return previewToolsGroup
+            default:
+                return nil
+            }
+        }
+        return nil
+    }
+    
+}
 
 extension WindowController: ScreenshotLoader {
     
@@ -655,16 +785,14 @@ extension WindowController {
 
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
-        if let toolbar = window?.toolbar {
-            coder.encode(toolbar.selectedItemIdentifier, forKey: WindowController.restorableToolbarSelectedState)
-        }
+        coder.encode(sceneToolsGroup.selectedItemIdentifier, forKey: WindowController.restorableToolbarSelectedState)
     }
 
     override func restoreState(with coder: NSCoder) {
         super.restoreState(with: coder)
         if let selectedItemIdentifier = coder.decodeObject(of: NSString.self, forKey: WindowController.restorableToolbarSelectedState)
         {
-            window?.toolbar?.selectedItemIdentifier = NSToolbarItem.Identifier(rawValue: NSToolbarItem.Identifier.RawValue(selectedItemIdentifier))
+            sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(rawValue: NSToolbarItem.Identifier.RawValue(selectedItemIdentifier))
             syncToolbarState()
         }
     }

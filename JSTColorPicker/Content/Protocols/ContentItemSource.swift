@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ContentItemSource: class {
+protocol ContentItemSource: AnyObject {
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem
     func contentItem(of rect: PixelRect) throws -> ContentItem
 }

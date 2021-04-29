@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="18009"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -521,86 +522,12 @@ CA
                         <rect key="contentRect" x="382" y="560" width="1280" height="800"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
                         <value key="minSize" type="size" width="600" height="587"/>
-                        <toolbar key="toolbar" implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" explicitIdentifier="JSTToolbarItems" displayMode="iconAndLabel" sizeMode="regular" id="H2W-dY-ULw">
-                            <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="OpenItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" image="JSTOpen" id="w6N-7T-9Nd">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="AnnotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2): Add, or delete annotations." tag="-1" image="JSTCursor" selectable="YES" id="P19-sN-vdr">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="SelectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3): View, select, or modify annotations." tag="-1" image="JSTArrow" selectable="YES" id="ljO-9K-PCE">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="MagnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." tag="-1" image="JSTMagnify" selectable="YES" id="TA2-eZ-zBd">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="MinifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5): Zoom out at a preset scale." tag="-1" image="JSTMinify" selectable="YES" id="Ajm-ph-nQm">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="MoveItem" label="Move" paletteLabel="Move" toolTip="Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" image="JSTMove" selectable="YES" id="mDy-EG-ccW">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="FitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7): Scale the view to fit the window size." tag="-1" image="JSTScaleToFit" id="b9N-8Y-kQX">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="FillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8): Scale the view to fill the window size." tag="-1" image="JSTScaleToFill" id="lQd-Bs-mbf">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="fillWindowAction:" target="B8D-0N-5wS" id="hZL-qD-Wzq"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                                <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="ScreenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Take Snapshot (⌃S): Take a screenshot directly from the selected devices." tag="-1" image="JSTCamera" id="BOP-NL-21X">
-                                    <size key="minSize" width="64" height="64"/>
-                                    <size key="maxSize" width="64" height="64"/>
-                                    <connections>
-                                        <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
-                            </allowedToolbarItems>
-                            <defaultToolbarItems>
-                                <toolbarItem reference="w6N-7T-9Nd"/>
-                                <toolbarItem reference="P19-sN-vdr"/>
-                                <toolbarItem reference="ljO-9K-PCE"/>
-                                <toolbarItem reference="TA2-eZ-zBd"/>
-                                <toolbarItem reference="Ajm-ph-nQm"/>
-                                <toolbarItem reference="mDy-EG-ccW"/>
-                                <toolbarItem reference="b9N-8Y-kQX"/>
-                                <toolbarItem reference="lQd-Bs-mbf"/>
-                                <toolbarItem reference="BOP-NL-21X"/>
-                            </defaultToolbarItems>
+                        <toolbar key="toolbar" implicitIdentifier="6887003F-BB6B-45F4-A51C-7E5CCF072E10" explicitIdentifier="JSTToolbar" displayMode="iconOnly" sizeMode="regular" id="620-Am-TdU">
+                            <allowedToolbarItems/>
+                            <defaultToolbarItems/>
+                            <connections>
+                                <outlet property="delegate" destination="B8D-0N-5wS" id="Mqu-i3-6it"/>
+                            </connections>
                         </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -735,7 +662,9 @@ CA
                         <outlet property="openItem" destination="w6N-7T-9Nd" id="9xU-WJ-5mc"/>
                         <outlet property="screenshotItem" destination="BOP-NL-21X" id="4Bp-BR-3CI"/>
                         <outlet property="selectItem" destination="ljO-9K-PCE" id="fsn-uT-JRv"/>
+                        <outlet property="sidebarItem" destination="sg6-54-CbE" id="CYt-zT-tKf"/>
                         <outlet property="sliderTouchBar" destination="CHb-N8-viq" id="xeD-nB-F47"/>
+                        <outlet property="toolbar" destination="620-Am-TdU" id="5RO-Dp-1A7"/>
                         <outlet property="touchBarOpenButton" destination="L5M-nI-yVz" id="ZsP-bN-NVw"/>
                         <outlet property="touchBarPopoverItem" destination="sTz-de-0Ey" id="Zbx-Yp-j6r"/>
                         <outlet property="touchBarPreviewSlider" destination="tRW-3S-kE7" id="CkQ-ga-9eb"/>
@@ -746,6 +675,74 @@ CA
                         <segue destination="KqA-fc-gUf" kind="relationship" relationship="window.shadowedContentViewController" id="4US-Ff-ae8"/>
                     </connections>
                 </windowController>
+                <toolbar implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="regular" id="H2W-dY-ULw">
+                    <allowedToolbarItems>
+                        <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.openItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" bordered="YES" sizingBehavior="auto" id="w6N-7T-9Nd">
+                            <imageReference key="image" image="plus.rectangle" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.annotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2): Add, or delete annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="P19-sN-vdr">
+                            <imageReference key="image" image="cursorarrow.rays" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.selectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3): View, select, or modify annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="ljO-9K-PCE">
+                            <imageReference key="image" image="cursorarrow.and.square.on.square.dashed" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.magnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="TA2-eZ-zBd">
+                            <imageReference key="image" image="plus.magnifyingglass" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.minifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5): Zoom out at a preset scale." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="Ajm-ph-nQm">
+                            <imageReference key="image" image="minus.magnifyingglass" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.moveItem" label="Move" paletteLabel="Move" toolTip="Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="mDy-EG-ccW">
+                            <imageReference key="image" image="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.fitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7): Scale the view to fit the window size." tag="-1" bordered="YES" sizingBehavior="auto" id="b9N-8Y-kQX">
+                            <imageReference key="image" image="aspectratio" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.fillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8): Scale the view to fill the window size." tag="-1" bordered="YES" sizingBehavior="auto" id="lQd-Bs-mbf">
+                            <imageReference key="image" image="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="fillWindowAction:" target="B8D-0N-5wS" id="hZL-qD-Wzq"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
+                        <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.screenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Take Snapshot (⌃S): Take a screenshot directly from the selected devices." tag="-1" bordered="YES" sizingBehavior="auto" id="BOP-NL-21X">
+                            <imageReference key="image" image="camera" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
+                            </connections>
+                        </toolbarItem>
+                        <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
+                        <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
+                        <toolbarItem implicitItemIdentifier="DAE9A46A-2534-4B61-BE83-A05B38B54E97" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.sidebarItem" label="Sidebar" paletteLabel="Sidebar" tag="-1" bordered="YES" sizingBehavior="auto" id="sg6-54-CbE">
+                            <imageReference key="image" image="sidebar.squares.right" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <connections>
+                                <action selector="toggleSidebar:" target="Oky-zY-oP4" id="jPU-f4-V4Q"/>
+                            </connections>
+                        </toolbarItem>
+                    </allowedToolbarItems>
+                    <defaultToolbarItems/>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="-2061" y="246"/>
         </scene>
@@ -827,24 +824,25 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="JSTArrow" width="22" height="22"/>
         <image name="JSTArrowTouch" width="32" height="32"/>
-        <image name="JSTCamera" width="22" height="22"/>
         <image name="JSTCameraTouch" width="32" height="32"/>
-        <image name="JSTCursor" width="22" height="22"/>
         <image name="JSTCursorTouch" width="32" height="32"/>
-        <image name="JSTMagnify" width="22" height="22"/>
         <image name="JSTMagnifyTouch" width="32" height="32"/>
-        <image name="JSTMinify" width="22" height="22"/>
         <image name="JSTMinifyTouch" width="32" height="32"/>
-        <image name="JSTMove" width="22" height="22"/>
         <image name="JSTMoveTouch" width="32" height="32"/>
-        <image name="JSTOpen" width="22" height="22"/>
         <image name="JSTOpenTouch" width="32" height="32"/>
-        <image name="JSTScaleToFill" width="22" height="22"/>
         <image name="JSTScaleToFillTouch" width="32" height="32"/>
-        <image name="JSTScaleToFit" width="22" height="22"/>
         <image name="JSTScaleToFitTouch" width="32" height="32"/>
         <image name="JSTZoomingTouch" width="32" height="32"/>
+        <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="16" height="15"/>
+        <image name="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" width="18" height="14"/>
+        <image name="aspectratio" catalog="system" width="18" height="14"/>
+        <image name="camera" catalog="system" width="19" height="15"/>
+        <image name="cursorarrow.and.square.on.square.dashed" catalog="system" width="17" height="16"/>
+        <image name="cursorarrow.rays" catalog="system" width="16" height="16"/>
+        <image name="minus.magnifyingglass" catalog="system" width="15" height="15"/>
+        <image name="plus.magnifyingglass" catalog="system" width="15" height="15"/>
+        <image name="plus.rectangle" catalog="system" width="18" height="14"/>
+        <image name="sidebar.squares.right" catalog="system" width="18" height="14"/>
     </resources>
 </document>

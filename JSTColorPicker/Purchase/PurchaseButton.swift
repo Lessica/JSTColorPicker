@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objc protocol PurchaseButtonDelegate: class {
+@objc protocol PurchaseButtonDelegate: AnyObject {
     func purchaseButtonTapped(_ sender: PurchaseButton)
 }
 

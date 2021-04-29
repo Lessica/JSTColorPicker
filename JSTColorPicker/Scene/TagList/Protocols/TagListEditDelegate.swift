@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TagListEditDelegate: class {
+protocol TagListEditDelegate: AnyObject {
     func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue
     func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag])
     func editState(of name: String) -> NSControl.StateValue

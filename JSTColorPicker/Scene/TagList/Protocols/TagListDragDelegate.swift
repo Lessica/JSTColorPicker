@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TagListDragDelegate: class {
+protocol TagListDragDelegate: AnyObject {
     
     var shouldPerformDragging: Bool { get }
     func willPerformDragging(_ sender: Any?) -> Bool

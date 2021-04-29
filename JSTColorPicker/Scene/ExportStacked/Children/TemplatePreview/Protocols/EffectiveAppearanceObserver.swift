@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol EffectiveAppearanceObserver: class {
+protocol EffectiveAppearanceObserver: AnyObject {
     func viewDidChangeEffectiveAppearance()
 }

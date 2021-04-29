@@ -292,6 +292,12 @@
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "跳到所选内容";
 
+/* Class = "NSToolbarItem"; label = "Sidebar"; ObjectID = "sg6-54-CbE"; */
+"sg6-54-CbE.label" = "边栏";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Sidebar"; ObjectID = "sg6-54-CbE"; */
+"sg6-54-CbE.paletteLabel" = "边栏";
+
 /* Class = "NSMenuItem"; title = "Subscribe JSTColorPicker…"; ObjectID = "SGf-6i-QGZ"; */
 "SGf-6i-QGZ.title" = "订阅 JSTColorPicker…";
 

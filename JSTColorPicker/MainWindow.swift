@@ -56,15 +56,4 @@ class MainWindow: NSWindow {
         isTabbingVisible = isKeyWindow || isMainWindow || (isVisible && tabGroup?.selectedWindow == self)
         NotificationCenter.default.post(name: MainWindow.VisibilityDidChangeNotification, object: self)
     }
-
-    override func runToolbarCustomizationPalette(_ sender: Any?) {
-        // do nothing
-    }
-
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(runToolbarCustomizationPalette(_:)) {
-            return false
-        }
-        return super.validateMenuItem(menuItem)
-    }
 }

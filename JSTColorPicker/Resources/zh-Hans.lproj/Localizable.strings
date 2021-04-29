@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* FolderController */
+"(Not Installed)" = "(未安装)";
+
 /* None */
 "-" = "-";
 
@@ -463,6 +466,15 @@
 /* PurchaseManager */
 "None" = "无";
 
+/* GenericError */
+"Not a directory: \"%@\"." = "\"%@\" 不是一个目录。";
+
+/* GenericError */
+"Not a package: \"%@\"." = "\"%@\" 不是一个组件。";
+
+/* GenericError */
+"Not a regular file: \"%@\"." = "\"%@\" 不是一个常规文件。";
+
 /* PurchaseController.Error */
 "Not purchased." = "未付款。";
 
@@ -499,6 +511,9 @@
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Preview Tools" = "预览工具";
+
 /* openConsole() */
 "process:JSTColorPicker" = "进程:JSTColorPicker";
 
@@ -531,6 +546,9 @@
 
 /* Shortcut Guide */
 "Right Click" = "右键单击";
+
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Scene Tools" = "场景工具";
 
 /* Shortcut Guide */
 "Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "将场景滚动定位到所选项，并调整缩放比例以适配其尺寸。";
@@ -717,6 +735,3 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
-
-/* FolderController */
-"(Not Installed)" = "(未安装)";

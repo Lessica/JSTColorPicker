@@ -133,7 +133,7 @@ class SceneController: NSViewController {
     
     private var windowSelectedSceneTool: SceneTool {
         get {
-            guard let tool = view.window?.toolbar?.selectedItemIdentifier?.rawValue else { return .arrow }
+            guard let tool = (view.window?.windowController as? WindowController)?.selectedSceneToolIdentifier?.rawValue else { return .arrow }
             return SceneTool(rawValue: tool) ?? .arrow
         }
     }
@@ -646,16 +646,12 @@ class SceneController: NSViewController {
         return false
     }
     
-    private func requiredStageFor(_ tool: SceneTool, type: SceneState.ManipulatingType) -> Int {
-        return enableForceTouch ? 1 : 0
-    }
-    
     override func mouseUp(with event: NSEvent) {
         var handled = false
         if sceneState.manipulatingType == .leftGeneric {
             let location = sceneView.convert(event.locationInWindow, from: nil)
             if isVisibleLocation(location) {
-                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.manipulatingType) {
+                if sceneState.stage >= sceneView.requiredEventStageFor(sceneTool, forManipulatingType: .leftGeneric) {
                     if sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)
@@ -700,7 +696,7 @@ class SceneController: NSViewController {
         if sceneState.manipulatingType == .rightGeneric {
             let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
             if isVisibleWrapperLocation(locInWrapper) {
-                if sceneState.stage >= requiredStageFor(sceneTool, type: sceneState.manipulatingType) {
+                if sceneState.stage >= sceneView.requiredEventStageFor(sceneTool, forManipulatingType: .rightGeneric) {
                     if sceneTool == .magicCursor || sceneTool == .selectionArrow {
                         let modifierFlags = event.modifierFlags
                             .intersection(.deviceIndependentFlagsMask)

@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* FolderController */
+"(Not Installed)" = "(Not Installed)";
+
 /* None */
 "-" = "-";
 
@@ -463,6 +466,15 @@
 /* PurchaseManager */
 "None" = "None";
 
+/* GenericError */
+"Not a directory: \"%@\"." = "Not a directory: \"%@\".";
+
+/* GenericError */
+"Not a package: \"%@\"." = "Not a package: \"%@\".";
+
+/* GenericError */
+"Not a regular file: \"%@\"." = "Not a regular file: \"%@\".";
+
 /* PurchaseController.Error */
 "Not purchased." = "Not purchased.";
 
@@ -499,6 +511,9 @@
 /* PreferencesController */
 "Preferences" = "Preferences";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Preview Tools" = "Preview Tools";
+
 /* openConsole() */
 "process:JSTColorPicker" = "process:JSTColorPicker";
 
@@ -531,6 +546,9 @@
 
 /* Shortcut Guide */
 "Right Click" = "Right Click";
+
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Scene Tools" = "Scene Tools";
 
 /* Shortcut Guide */
 "Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "Scroll the scene to the selected annotation, and adjust the scale to fit its size.";
@@ -717,6 +735,3 @@
 
 /* Shortcut Guide */
 "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
-
-/* FolderController */
-"(Not Installed)" = "(Not Installed)";

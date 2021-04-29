@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol SceneToolSource: class {
+protocol SceneToolSource: AnyObject {
     var sceneTool: SceneTool { get }
     var sceneToolEnabled: Bool { get }
     
@@ -16,13 +16,12 @@ protocol SceneToolSource: class {
 }
 
 enum SceneTool: String {
-    
     case arrow = ""
-    case magicCursor = "AnnotateItem"
-    case magnifyingGlass = "MagnifyItem"
-    case minifyingGlass = "MinifyItem"
-    case selectionArrow = "SelectItem"
-    case movingHand = "MoveItem"
+    case magicCursor = "com.jst.JSTColorPicker.ToolbarItem.annotateItem"
+    case magnifyingGlass = "com.jst.JSTColorPicker.ToolbarItem.magnifyItem"
+    case minifyingGlass = "com.jst.JSTColorPicker.ToolbarItem.minifyItem"
+    case selectionArrow = "com.jst.JSTColorPicker.ToolbarItem.selectItem"
+    case movingHand = "com.jst.JSTColorPicker.ToolbarItem.moveItem"
     
     static var arrowCursor: NSCursor = {
         return NSCursor.arrow

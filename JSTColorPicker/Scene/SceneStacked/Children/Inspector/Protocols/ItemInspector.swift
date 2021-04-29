@@ -8,6 +8,6 @@
 
 import Cocoa
 
-protocol ItemInspector: class {
+protocol ItemInspector: AnyObject {
     func inspectItem(_ item: ContentItem)
 }
