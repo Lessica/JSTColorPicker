@@ -100,6 +100,9 @@
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "缩放时隐藏标注";
 
+/* Class = "NSButtonCell"; title = "Sound Effects After Copy"; ObjectID = "v5U-oX-CRu"; */
+"v5U-oX-CRu.title" = "复制后触发声音效果";
+
 /* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
 "xbW-Nc-kC8.title" = "包含抗锯齿差异";
 

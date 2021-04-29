@@ -9,20 +9,22 @@
 import Cocoa
 import ShortcutGuide
 
-// MARK: - Toolbar
+
+// MARK: - Toolbar Item Identifier
+
 private extension NSToolbarItem.Identifier {
     private static let prefix     = "com.jst.JSTColorPicker.ToolbarItem."
     
     static let openItem           = Self(Self.prefix + "openItem")
     
-    static let sceneToolsGroup    = Self(Self.prefix + "sceneToolsGroup")
+    static let sceneToolGroup     = Self(Self.prefix + "sceneToolGroup")
     static let annotateItem       = Self(Self.prefix + "annotateItem")
     static let magnifyItem        = Self(Self.prefix + "magnifyItem")
     static let minifyItem         = Self(Self.prefix + "minifyItem")
     static let selectItem         = Self(Self.prefix + "selectItem")
     static let moveItem           = Self(Self.prefix + "moveItem")
     
-    static let previewToolsGroup  = Self(Self.prefix + "previewToolsGroup")
+    static let sceneActionGroup   = Self(Self.prefix + "sceneActionGroup")
     static let fitWindowItem      = Self(Self.prefix + "fitWindowItem")
     static let fillWindowItem     = Self(Self.prefix + "fillWindowItem")
     static let screenshotItem     = Self(Self.prefix + "screenshotItem")
@@ -51,22 +53,54 @@ private var windowCount = 0
 
 class WindowController: NSWindowController {
     
+    
+    // MARK: - Tabbing
+    
+    weak var tabDelegate: TabDelegate!
+    
+    override func newWindowForTab(_ sender: Any?) {
+        guard let window = window else { preconditionFailure("window not loaded") }
+        guard let newWindow = tabDelegate.addManagedWindow(windowController: WindowController.newEmptyWindow())?.window else { preconditionFailure() }
+        window.addTabbedWindow(newWindow, ordered: .above)
+        newWindow.makeKeyAndOrderFront(self)
+        inspectWindowHierarchy()
+    }
+    
+    private func inspectWindowHierarchy() {
+        let rootWindow = window!
+        print("Root window", rootWindow, rootWindow.title, "has tabs:")
+        rootWindow.tabbedWindows?.forEach { window in
+            print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
+        }
+    }
+    
     static func newEmptyWindow() -> WindowController {
         let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
         return windowStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainWindow")) as! WindowController
     }
     
-    weak var tabDelegate: TabDelegate!
-    lazy var pixelMatchService: PixelMatchService = {
-        return PixelMatchService()
-    }()
+    
+    // MARK: - Content Controller
+    
+    var splitController: SplitController! {
+        return self.window!.contentViewController?.children.first as? SplitController
+    }
+    
+    
+    // MARK: - Document States
     
     @objc dynamic internal weak var screenshot  : Screenshot?
     internal var documentScreenshot             : Screenshot?      { document as? Screenshot }
-    private var documentState                   : Screenshot.State { screenshot?.state ?? .notLoaded }
-
-    private var isInComparisonMode: Bool = false
-    private var isScreenshotActionAllowed: Bool {
+    private  var documentState                  : Screenshot.State { screenshot?.state ?? .notLoaded }
+    private  var documentObservations           : [NSKeyValueObservation]?
+    private  var lastStoredMagnification        : CGFloat?
+    private  var _windowSubtitle                : String?
+    private  var isInComparisonMode             : Bool = false
+    lazy     var pixelMatchService              : PixelMatchService = {
+        return PixelMatchService()
+    }()
+    private  var isScreenshotActionAllowed      : Bool
+    {
         #if APP_STORE
         return AppDelegate.shared.applicationHasScreenshotHelper() && (documentState.isReadable || !documentState.isLoaded)
         #else
@@ -74,37 +108,169 @@ class WindowController: NSWindowController {
         #endif
     }
     
+    
+    // MARK: - Toolbar Items
+    
     @IBOutlet weak var toolbar                         : NSToolbar!
-    @IBOutlet weak var openItem                        : NSToolbarItem!
-    @IBOutlet weak var annotateItem                    : NSToolbarItem!
-    @IBOutlet weak var magnifyItem                     : NSToolbarItem!
-    @IBOutlet weak var minifyItem                      : NSToolbarItem!
-    @IBOutlet weak var selectItem                      : NSToolbarItem!
-    @IBOutlet weak var moveItem                        : NSToolbarItem!
-    @IBOutlet weak var fitWindowItem                   : NSToolbarItem!
-    @IBOutlet weak var fillWindowItem                  : NSToolbarItem!
-    @IBOutlet weak var screenshotItem                  : NSToolbarItem!
-    @IBOutlet weak var sidebarItem                     : NSToolbarItem!
-    private   lazy var sceneToolsGroup                 : NSToolbarItemGroup = {
-        let item = NSToolbarItemGroup(itemIdentifier: .sceneToolsGroup)
+    
+    private   lazy var openItem                        : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .openItem)
         item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Open", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Open", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Open (F1): Load a PNG image file from file system.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "plus.rectangle", accessibilityDescription: "Open")
+        item.action = #selector(NSDocumentController.openDocument(_:))
+        return item
+    }()
+    
+    private   lazy var annotateItem                    : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .annotateItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Annotate", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Annotate", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Magic Cursor (F2): Add, or delete annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "cursorarrow.rays", accessibilityDescription: "Annotate")
+        item.target = self
+        item.action = #selector(useAnnotateItemAction(_:))
+        return item
+    }()
+    
+    private   lazy var selectItem                      : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .selectItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Select", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Select", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Selection Arrow (F3): View, select, or modify annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "cursorarrow.and.square.on.square.dashed", accessibilityDescription: "Select")
+        item.target = self
+        item.action = #selector(useSelectItemAction(_:))
+        return item
+    }()
+    
+    private   lazy var magnifyItem                     : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .magnifyItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Magnify", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Magnify", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "plus.magnifyingglass", accessibilityDescription: "Magnify")
+        item.target = self
+        item.action = #selector(useMagnifyItemAction(_:))
+        return item
+    }()
+    
+    private   lazy var minifyItem                      : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .minifyItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Minify", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Minify", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Minifying Glass (F5): Zoom out at a preset scale.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "minus.magnifyingglass", accessibilityDescription: "Minify")
+        item.target = self
+        item.action = #selector(useMinifyItemAction(_:))
+        return item
+    }()
+    
+    private   lazy var moveItem                        : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .moveItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Move", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Move", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left", accessibilityDescription: "Move")
+        item.target = self
+        item.action = #selector(useMoveItemAction(_:))
+        return item
+    }()
+    
+    private   lazy var fitWindowItem                   : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .fitWindowItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Fit Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Fit Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Fit Window (F7): Scale the view to fit the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "aspectratio", accessibilityDescription: "Fit Window")
+        item.target = self
+        item.action = #selector(fitWindowAction(_:))
+        return item
+    }()
+    
+    private   lazy var fillWindowItem                  : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .fillWindowItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Fill Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Fill Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Fill Window (F8): Scale the view to fill the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "arrow.up.right.and.arrow.down.left.rectangle", accessibilityDescription: "Fill Window")
+        item.target = self
+        item.action = #selector(fillWindowAction(_:))
+        return item
+    }()
+    
+    private   lazy var screenshotItem                  : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .screenshotItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Take Screenshot", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Take Screenshot", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Take Screenshot (⌃S): Take a screenshot directly from the selected devices.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "camera", accessibilityDescription: "Take Screenshot")
+        item.target = self
+        item.action = #selector(screenshotAction(_:))
+        return item
+    }()
+    
+    private   lazy var sidebarItem                     : NSToolbarItem = {
+        let item = NSToolbarItem(itemIdentifier: .sidebarItem)
+        item.isBordered = true
+        item.autovalidates = true
+        item.label = NSLocalizedString("Sidebar", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.paletteLabel = NSLocalizedString("Sidebar", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Toggle Sidebar (⌃⌘S)", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.image = NSImage(systemSymbolName: "sidebar.squares.right", accessibilityDescription: "Sidebar")
+        item.action = #selector(NSSplitViewController.toggleSidebar(_:))
+        return item
+    }()
+    
+    internal       var selectedSceneToolIdentifier     : NSToolbarItem.Identifier? { sceneToolsGroup.selectedItemIdentifier }
+    
+    private   lazy var sceneToolsGroup                 : NSToolbarItemGroup = {
+        let item = NSToolbarItemGroup(itemIdentifier: .sceneToolGroup)
+        item.isBordered = true
+        item.autovalidates = true
         item.controlRepresentation = .expanded
         item.selectionMode = .selectOne
         item.label = NSLocalizedString("Scene Tools", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.subitems = [annotateItem, selectItem, magnifyItem, minifyItem, moveItem]
         return item
     }()
-    internal       var selectedSceneToolIdentifier     : NSToolbarItem.Identifier? { sceneToolsGroup.selectedItemIdentifier }
     
     private   lazy var previewToolsGroup                    : NSToolbarItemGroup = {
-        let item = NSToolbarItemGroup(itemIdentifier: .previewToolsGroup)
+        let item = NSToolbarItemGroup(itemIdentifier: .sceneActionGroup)
         item.isBordered = true
+        item.autovalidates = true
         item.controlRepresentation = .automatic
         item.selectionMode = .momentary
         item.label = NSLocalizedString("Preview Tools", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.subitems = [fitWindowItem, fillWindowItem]
         return item
     }()
+    
+    private   lazy var sidebarTrackingSeparatorItem           : NSTrackingSeparatorToolbarItem = {
+        return NSTrackingSeparatorToolbarItem(identifier: .sidebarTrackingSeparator, splitView: splitController.splitView, dividerIndex: 1)
+    }()
+    
+    
+    // MARK: - TouchBar Items
     
     @IBOutlet weak var mainTouchBar                    : NSTouchBar!
     @IBOutlet weak var groupedTouchBar                 : NSTouchBar!
@@ -120,13 +286,9 @@ class WindowController: NSWindowController {
     @IBOutlet weak var touchBarPreviewSliderItem       : NSSliderTouchBarItem!
     @IBOutlet weak var touchBarPreviewSlider           : NSSlider!
     
-    private var documentObservations                   : [NSKeyValueObservation]?
-    private var lastStoredMagnification                : CGFloat?
-    private var _windowSubtitle                        : String?
     
-    var splitController: SplitController! {
-        return self.window!.contentViewController?.children.first as? SplitController
-    }
+    // MARK: - Alert Sheets
+    
     private var currentAlertSheet: NSAlert?
     var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     func showSheet(_ sheet: NSAlert?, completionHandler: ((NSApplication.ModalResponse) -> Void)?) {
@@ -140,6 +302,9 @@ class WindowController: NSWindowController {
         currentAlertSheet = sheet
     }
     
+    
+    // MARK: - Life Cycle
+    
     override func windowDidLoad() {
         super.windowDidLoad()
         windowCount += 1
@@ -151,7 +316,7 @@ class WindowController: NSWindowController {
         sceneToolsGroup.selectedItemIdentifier = .annotateItem
         syncToolbarState()
         
-        touchBarPreviewSlider.isEnabled = false
+        touchBarPreviewSlider.isEnabled = documentState.isLoaded
         ShortcutGuideWindowController.registerShortcutGuideForWindow(window!)
         
         #if APP_STORE
@@ -162,21 +327,6 @@ class WindowController: NSWindowController {
             object: nil
         )
         #endif
-    }
-    
-    override func newWindowForTab(_ sender: Any?) {
-        guard let window = window else { preconditionFailure("window not loaded") }
-        guard let newWindow = tabDelegate.addManagedWindow(windowController: WindowController.newEmptyWindow())?.window else { preconditionFailure() }
-        window.addTabbedWindow(newWindow, ordered: .above)
-        newWindow.makeKeyAndOrderFront(self)
-        inspectWindowHierarchy()
-    }
-    
-    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
-        if let title = window?.title {
-            return title
-        }
-        return displayName
     }
     
     override func keyDown(with event: NSEvent) {
@@ -211,13 +361,8 @@ class WindowController: NSWindowController {
         }
     }
     
-    private func inspectWindowHierarchy() {
-        let rootWindow = window!
-        print("Root window", rootWindow, rootWindow.title, "has tabs:")
-        rootWindow.tabbedWindows?.forEach { window in
-            print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
-        }
-    }
+    
+    // MARK: - Comparison
     
     func beginPixelMatchComparison(to image: PixelImage) {
         guard let currentPixelImage = screenshot?.image else { return }
@@ -282,14 +427,15 @@ extension WindowController: NSToolbarItemValidation {
     
     func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         
-        if item.action == #selector(useAnnotateItemAction(_:))
-            || item.action == #selector(useSelectItemAction(_:))
-            || item.action == #selector(useMagnifyItemAction(_:))
-            || item.action == #selector(useMinifyItemAction(_:))
-            || item.action == #selector(useMoveItemAction(_:))
-            || item.action == #selector(fitWindowAction(_:))
-            || item.action == #selector(fillWindowAction(_:))
-            || item.action == #selector(touchBarOpenAction(_:))
+        if item.itemIdentifier == .annotateItem
+            || item.itemIdentifier == .selectItem
+            || item.itemIdentifier == .magnifyItem
+            || item.itemIdentifier == .minifyItem
+            || item.itemIdentifier == .moveItem
+            || item.itemIdentifier == .fitWindowItem
+            || item.itemIdentifier == .fillWindowItem
+            || item.itemIdentifier == .sceneToolGroup
+            || item.itemIdentifier == .sceneActionGroup
             || item.action == #selector(touchBarOpenAction(_:))
             || item.action == #selector(touchBarSceneToolControlAction(_:))
             || item.action == #selector(touchBarSceneActionControlAction(_:))
@@ -297,13 +443,13 @@ extension WindowController: NSToolbarItemValidation {
             return documentState.isLoaded
         }
         
-        else if item.action == #selector(openAction(_:))
+        else if item.itemIdentifier == .openItem
             || item.action == #selector(touchBarOpenAction(_:))
         {  // not loaded or not restricted
             return documentState.isReadable || !documentState.isLoaded
         }
 
-        else if item.action == #selector(screenshotAction(_:))
+        else if item.itemIdentifier == .screenshotItem
             || item.action == #selector(touchBarScreenshotAction(_:))
         {
             return isScreenshotActionAllowed
@@ -514,8 +660,8 @@ extension WindowController: NSToolbarDelegate, NSTouchBarDelegate {
         if toolbar == self.toolbar {
             return [
                 .openItem,
-                .sceneToolsGroup,
-                .previewToolsGroup,
+                .sceneToolGroup,
+                .sceneActionGroup,
                 .screenshotItem,
                 .sidebarTrackingSeparator,
                 .sidebarItem,
@@ -531,8 +677,8 @@ extension WindowController: NSToolbarDelegate, NSTouchBarDelegate {
         if toolbar == self.toolbar {
             return [
                 .openItem,
-                .sceneToolsGroup,
-                .previewToolsGroup,
+                .sceneToolGroup,
+                .sceneActionGroup,
                 .sidebarTrackingSeparator,
                 .sidebarItem,
                 .flexibleSpace,
@@ -567,10 +713,10 @@ extension WindowController: NSToolbarDelegate, NSTouchBarDelegate {
             case .sidebarItem:
                 return sidebarItem
             case .sidebarTrackingSeparator:
-                return NSTrackingSeparatorToolbarItem(identifier: itemIdentifier, splitView: splitController.splitView, dividerIndex: 1)
-            case .sceneToolsGroup:
+                return sidebarTrackingSeparatorItem
+            case .sceneToolGroup:
                 return sceneToolsGroup
-            case .previewToolsGroup:
+            case .sceneActionGroup:
                 return previewToolsGroup
             default:
                 return nil
@@ -590,7 +736,10 @@ extension WindowController: ScreenshotLoader {
         if let fileURL = screenshot.fileURL {
             self.updateWindowTitle(fileURL)
         }
-        touchBarPreviewSlider.isEnabled = true
+        
+        touchBarSceneToolControl.isEnabled = documentState.isLoaded
+        touchBarSceneActionControl.isEnabled = documentState.isLoaded
+        touchBarPreviewSlider.isEnabled = documentState.isLoaded
 
         documentObservations = [
             observe(\.screenshot?.fileURL, options: [.new]) { (target, change) in
@@ -604,6 +753,13 @@ extension WindowController: ScreenshotLoader {
 }
 
 extension WindowController: ItemPreviewDelegate {
+    
+    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
+        if let title = window?.title {
+            return title
+        }
+        return displayName
+    }
     
     private var windowTitle: String {
         get { window?.title ?? ""      }
@@ -755,9 +911,9 @@ extension WindowController: ShortcutGuideDataSource {
         if isScreenshotActionAllowed {
             items += [
                 ShortcutItem(
-                    name: NSLocalizedString("Take Snapshot", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Take Screenshot", comment: "Shortcut Guide"),
                     keyString: "S",
-                    toolTip: NSLocalizedString("Take Snapshot (⌃S): Take a screenshot directly from the selected devices.", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Take Screenshot (⌃S): Take a screenshot directly from the selected devices.", comment: "Shortcut Guide"),
                     modifierFlags: [.control]
                 ),
                 ShortcutItem(

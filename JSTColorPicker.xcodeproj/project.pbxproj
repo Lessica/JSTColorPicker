@@ -200,6 +200,10 @@
 		CCC525B8262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
 		CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */; };
 		CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */; };
+		CCC8BC55263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */; };
+		CCC8BC56263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */; };
+		CCC8BC5E263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */; };
+		CCC8BC5F263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */; };
 		CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD815F261C16F100BFDD6E /* SegmentController.swift */; };
 		CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD815F261C16F100BFDD6E /* SegmentController.swift */; };
 		CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD817A261C2DD000BFDD6E /* Segment.storyboard */; };
@@ -972,6 +976,10 @@
 		CCC0F88E263001D5006C4492 /* Down+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Down+Ext.swift"; sourceTree = "<group>"; };
 		CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TemplatePreview.bundle; sourceTree = "<group>"; };
 		CCC525C5262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveAppearanceObserver.swift; sourceTree = "<group>"; };
+		CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPanelAccessoryView.swift; sourceTree = "<group>"; };
+		CCC8BC60263B30230040E82A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExportPanelAccessoryView.xib; sourceTree = "<group>"; };
+		CCC8BC71263B30270040E82A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExportPanelAccessoryView.strings; sourceTree = "<group>"; };
+		CCC8BC73263B30290040E82A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportPanelAccessoryView.strings"; sourceTree = "<group>"; };
 		CCCD815F261C16F100BFDD6E /* SegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentController.swift; sourceTree = "<group>"; };
 		CCCD8179261C2DD000BFDD6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Segment.storyboard; sourceTree = "<group>"; };
 		CCCD8183261C2DD300BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Segment.strings; sourceTree = "<group>"; };
@@ -1704,6 +1712,8 @@
 				CCE34016263272590082F73D /* ColoredView.swift */,
 				CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */,
 				CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */,
+				CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */,
+				CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2860,6 +2870,7 @@
 				CC3C4AAE262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 				CC3C4AEF262025E000794806 /* TemplateInfo.storyboard in Resources */,
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
+				CCC8BC5E263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
@@ -2911,6 +2922,7 @@
 				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
+				CCC8BC5F263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
@@ -3151,6 +3163,7 @@
 				CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
+				CCC8BC55263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
@@ -3391,6 +3404,7 @@
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
+				CCC8BC56263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				CC8E5D4A2627F1180030B2FC /* StackedView.swift in Sources */,
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
@@ -3708,6 +3722,16 @@
 				CC8F8C8F26207C9E00F60F78 /* zh-Hans */,
 			);
 			name = TemplateInfoView.xib;
+			sourceTree = "<group>";
+		};
+		CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCC8BC60263B30230040E82A /* Base */,
+				CCC8BC71263B30270040E82A /* en */,
+				CCC8BC73263B30290040E82A /* zh-Hans */,
+			);
+			name = ExportPanelAccessoryView.xib;
 			sourceTree = "<group>";
 		};
 		CCCD817A261C2DD000BFDD6E /* Segment.storyboard */ = {

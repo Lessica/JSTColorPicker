@@ -42,6 +42,8 @@
 	<false/>
 	<key>defaults:initialSimilarity</key>
 	<real>0.9</real>
+	<key>defaults:makeSoundsAfterDoubleClickCopy</key>
+	<true/>
 	<key>defaults:maximumItemCount</key>
 	<integer>99</integer>
 	<key>defaults:maximumItemCountEnabled</key>

@@ -579,14 +579,14 @@
                         </tabViewItem>
                         <tabViewItem label="Sidebar" identifier="" id="zFo-Qt-27V">
                             <view key="view" id="Bre-aN-fUZ">
-                                <rect key="frame" x="10" y="33" width="494" height="109"/>
+                                <rect key="frame" x="10" y="33" width="494" height="133"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28D-X8-5MD">
-                                        <rect key="frame" x="20" y="20" width="454" height="69"/>
+                                        <rect key="frame" x="20" y="20" width="454" height="93"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qy-qD-CxM">
-                                                <rect key="frame" x="-2" y="53" width="119" height="16"/>
+                                                <rect key="frame" x="-2" y="77" width="119" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Template Preview" usesSingleLineMode="YES" id="agj-4X-jVe">
                                                     <font key="font" textStyle="headline" name=".SFNS-Bold"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -594,13 +594,23 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YG4-MI-lkH">
-                                                <rect key="frame" x="-2" y="28" width="144" height="18"/>
+                                                <rect key="frame" x="-2" y="52" width="144" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Syntax Highlighting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3Us-0A-xpO">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:enableSyntaxHighlighting" id="HnU-pc-5oZ"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mi2-LH-B8w">
+                                                <rect key="frame" x="-2" y="28" width="180" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Sound Effects After Copy" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="v5U-oX-CRu">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:makeSoundsAfterDoubleClickCopy" id="Fdu-Xv-JZ8"/>
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFw-ye-NZj">
@@ -658,8 +668,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="18009"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -510,14 +509,14 @@ CA
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
             </objects>
-            <point key="canvasLocation" x="-1692" y="-417"/>
+            <point key="canvasLocation" x="-2061" y="-663"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="MainWindow" id="B8D-0N-5wS" customClass="WindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" tabbingMode="preferred" toolbarStyle="unified" id="IQv-IB-iLA" customClass="MainWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                    <window key="window" title="Color Picker" separatorStyle="line" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MainWindow" animationBehavior="default" tabbingIdentifier="JSTPickerTabbingIdentifier" tabbingMode="preferred" toolbarStyle="unified" id="IQv-IB-iLA" customClass="MainWindow" customModule="JSTColorPicker" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="382" y="560" width="1280" height="800"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
@@ -539,8 +538,7 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTOpenTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="plus.rectangle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -556,20 +554,19 @@ CA
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
-                                                    <rect key="frame" x="4" y="-2" width="278" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
+                                                    <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
-                                                            <segment image="JSTCursorTouch" width="54" selected="YES"/>
-                                                            <segment image="JSTArrowTouch" width="54" tag="1"/>
-                                                            <segment image="JSTMagnifyTouch" width="54" tag="2">
+                                                            <segment image="cursorarrow.rays" catalog="system" width="54" selected="YES"/>
+                                                            <segment image="cursorarrow.and.square.on.square.dashed" catalog="system" width="54" tag="1"/>
+                                                            <segment image="plus.magnifyingglass" catalog="system" width="54" tag="2">
                                                                 <nil key="label"/>
                                                             </segment>
-                                                            <segment image="JSTMinifyTouch" width="54" tag="3">
+                                                            <segment image="minus.magnifyingglass" catalog="system" width="54" tag="3">
                                                                 <nil key="label"/>
                                                             </segment>
-                                                            <segment image="JSTMoveTouch" width="54" tag="4">
+                                                            <segment image="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="54" tag="4">
                                                                 <nil key="label"/>
                                                             </segment>
                                                         </segments>
@@ -580,16 +577,24 @@ CA
                                                 </segmentedControl>
                                             </viewController>
                                         </touchBarItem>
+                                    </touchBarItems>
+                                    <connections>
+                                        <outlet property="delegate" destination="B8D-0N-5wS" id="0PP-FP-Gv8"/>
+                                    </connections>
+                                </touchBar>
+                            </touchBarGroupItem>
+                            <touchBarGroupItem visibilityPriority="700" id="XbN-av-LXE">
+                                <touchBar key="groupTouchBar" id="80w-CP-fQq">
+                                    <touchBarItems>
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
-                                                    <rect key="frame" x="6" y="-4" width="110" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                    <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
-                                                            <segment image="JSTScaleToFitTouch" width="54" tag="5"/>
-                                                            <segment image="JSTScaleToFillTouch" width="54" tag="6"/>
+                                                            <segment image="aspectratio" catalog="system" width="54" tag="5"/>
+                                                            <segment image="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" width="54" tag="6"/>
                                                         </segments>
                                                     </segmentedCell>
                                                     <connections>
@@ -599,12 +604,9 @@ CA
                                             </viewController>
                                         </touchBarItem>
                                     </touchBarItems>
-                                    <connections>
-                                        <outlet property="delegate" destination="B8D-0N-5wS" id="0PP-FP-Gv8"/>
-                                    </connections>
                                 </touchBar>
                             </touchBarGroupItem>
-                            <touchBarPopoverItem visibilityPriority="500" collapsedRepresentationImage="JSTZoomingTouch" collapsedRepresentationLabel="" id="sTz-de-0Ey">
+                            <touchBarPopoverItem visibilityPriority="500" collapsedRepresentationImage="arrow.up.left.and.down.right.magnifyingglass" catalog="system" collapsedRepresentationLabel="" id="sTz-de-0Ey">
                                 <touchBar key="popoverTouchBar" id="CHb-N8-viq">
                                     <touchBarItems>
                                         <sliderTouchBarItem label="" id="cVR-Hj-3Rf">
@@ -614,9 +616,8 @@ CA
                                             <sliderAccessory key="maximumValueAccessory" id="KdZ-Nz-Ii0">
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
-                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
-                                                <rect key="frame" x="17" y="0.0" width="663" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <slider key="slider" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                                <rect key="frame" x="17" y="0.0" width="66" height="30"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="above" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>
@@ -634,8 +635,7 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="JSTCameraTouch" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="camera" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
@@ -651,18 +651,8 @@ CA
                         </connections>
                     </touchBar>
                     <connections>
-                        <outlet property="annotateItem" destination="P19-sN-vdr" id="2Ww-Mb-seU"/>
-                        <outlet property="fillWindowItem" destination="lQd-Bs-mbf" id="YIR-oe-pfx"/>
-                        <outlet property="fitWindowItem" destination="b9N-8Y-kQX" id="RXS-k1-QtN"/>
                         <outlet property="groupedTouchBar" destination="TJk-1Z-9Wd" id="fp1-30-CV4"/>
-                        <outlet property="magnifyItem" destination="TA2-eZ-zBd" id="SWC-jg-Nj0"/>
                         <outlet property="mainTouchBar" destination="ZNC-mo-cGK" id="OHZ-fU-rhQ"/>
-                        <outlet property="minifyItem" destination="Ajm-ph-nQm" id="fNb-4M-Jt7"/>
-                        <outlet property="moveItem" destination="mDy-EG-ccW" id="56h-RB-dQ0"/>
-                        <outlet property="openItem" destination="w6N-7T-9Nd" id="9xU-WJ-5mc"/>
-                        <outlet property="screenshotItem" destination="BOP-NL-21X" id="4Bp-BR-3CI"/>
-                        <outlet property="selectItem" destination="ljO-9K-PCE" id="fsn-uT-JRv"/>
-                        <outlet property="sidebarItem" destination="sg6-54-CbE" id="CYt-zT-tKf"/>
                         <outlet property="sliderTouchBar" destination="CHb-N8-viq" id="xeD-nB-F47"/>
                         <outlet property="toolbar" destination="620-Am-TdU" id="5RO-Dp-1A7"/>
                         <outlet property="touchBarOpenButton" destination="L5M-nI-yVz" id="ZsP-bN-NVw"/>
@@ -675,74 +665,6 @@ CA
                         <segue destination="KqA-fc-gUf" kind="relationship" relationship="window.shadowedContentViewController" id="4US-Ff-ae8"/>
                     </connections>
                 </windowController>
-                <toolbar implicitIdentifier="0C0EE4C6-AE4E-42F2-A787-ECBD739DBF8C" displayMode="iconOnly" sizeMode="regular" id="H2W-dY-ULw">
-                    <allowedToolbarItems>
-                        <toolbarItem implicitItemIdentifier="2341EE41-04AE-49C4-961C-12E3B02D73EE" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.openItem" label="Open" paletteLabel="Open" toolTip="Open (F1): Load a PNG image file from file system." tag="-1" bordered="YES" sizingBehavior="auto" id="w6N-7T-9Nd">
-                            <imageReference key="image" image="plus.rectangle" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="openDocument:" target="Oky-zY-oP4" id="ryI-Po-XEZ"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="804CBFC0-A2E8-4ED7-938E-2B5CA21D26C9" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.annotateItem" label="Annotate" paletteLabel="Annotate" toolTip="Magic Cursor (F2): Add, or delete annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="P19-sN-vdr">
-                            <imageReference key="image" image="cursorarrow.rays" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="useAnnotateItemAction:" target="B8D-0N-5wS" id="IQw-5w-6wv"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="4A14B43F-7BA5-48F9-A579-F9F4DB9AAB8E" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.selectItem" label="Select" paletteLabel="Select" toolTip="Selection Arrow (F3): View, select, or modify annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="ljO-9K-PCE">
-                            <imageReference key="image" image="cursorarrow.and.square.on.square.dashed" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="useSelectItemAction:" target="B8D-0N-5wS" id="McP-Wi-NuD"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="56292F9E-C21D-4EC0-882B-7AE4720A150A" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.magnifyItem" label="Magnify" paletteLabel="Magnify" toolTip="Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="TA2-eZ-zBd">
-                            <imageReference key="image" image="plus.magnifyingglass" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="useMagnifyItemAction:" target="B8D-0N-5wS" id="Qdn-z8-lHq"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="E7C4E0AC-D6B1-4BBA-A8B5-66BBEE05C1CE" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.minifyItem" label="Minify" paletteLabel="Minify" toolTip="Minifying Glass (F5): Zoom out at a preset scale." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="Ajm-ph-nQm">
-                            <imageReference key="image" image="minus.magnifyingglass" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="useMinifyItemAction:" target="B8D-0N-5wS" id="yj0-eI-EiX"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="4DB0E691-E526-48EF-B348-4D9C14E5227B" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.moveItem" label="Move" paletteLabel="Move" toolTip="Moving Hand (F6): Drag to move the scene, or view the major tag of annotations." tag="-1" bordered="YES" sizingBehavior="auto" selectable="YES" id="mDy-EG-ccW">
-                            <imageReference key="image" image="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="useMoveItemAction:" target="B8D-0N-5wS" id="uYV-GE-gw6"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="1218158A-D5D2-43C9-BE15-16E143BFF7FD" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.fitWindowItem" label="Fit Window" paletteLabel="Fit Window" toolTip="Fit Window (F7): Scale the view to fit the window size." tag="-1" bordered="YES" sizingBehavior="auto" id="b9N-8Y-kQX">
-                            <imageReference key="image" image="aspectratio" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="fitWindowAction:" target="B8D-0N-5wS" id="rX7-AZ-2Bk"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="577A44DB-5B59-4511-99CA-71D9CB0318FB" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.fillWindowItem" label="Fill Window" paletteLabel="Fill Window" toolTip="Fill Window (F8): Scale the view to fill the window size." tag="-1" bordered="YES" sizingBehavior="auto" id="lQd-Bs-mbf">
-                            <imageReference key="image" image="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="fillWindowAction:" target="B8D-0N-5wS" id="hZL-qD-Wzq"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yYx-1s-yPE"/>
-                        <toolbarItem implicitItemIdentifier="C53ED0D0-F0F8-4CD6-864A-D2D33AEE612A" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.screenshotItem" label="Screenshot" paletteLabel="Screenshot" toolTip="Take Snapshot (⌃S): Take a screenshot directly from the selected devices." tag="-1" bordered="YES" sizingBehavior="auto" id="BOP-NL-21X">
-                            <imageReference key="image" image="camera" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="screenshotAction:" target="B8D-0N-5wS" id="qqF-kW-hmT"/>
-                            </connections>
-                        </toolbarItem>
-                        <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="GLl-T1-jgb"/>
-                        <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gLa-Lt-r0j"/>
-                        <toolbarItem implicitItemIdentifier="DAE9A46A-2534-4B61-BE83-A05B38B54E97" explicitItemIdentifier="com.jst.JSTColorPicker.ToolbarItem.sidebarItem" label="Sidebar" paletteLabel="Sidebar" tag="-1" bordered="YES" sizingBehavior="auto" id="sg6-54-CbE">
-                            <imageReference key="image" image="sidebar.squares.right" catalog="system" symbolScale="default" renderingMode="template"/>
-                            <connections>
-                                <action selector="toggleSidebar:" target="Oky-zY-oP4" id="jPU-f4-V4Q"/>
-                            </connections>
-                        </toolbarItem>
-                    </allowedToolbarItems>
-                    <defaultToolbarItems/>
-                </toolbar>
             </objects>
             <point key="canvasLocation" x="-2061" y="246"/>
         </scene>
@@ -767,9 +689,9 @@ CA
             <objects>
                 <splitViewController id="6eT-at-2NW" customClass="SplitController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="255" behavior="contentList" id="Ewe-3Z-1Vt"/>
-                        <splitViewItem holdingPriority="200" id="tdS-OK-dU7"/>
-                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="asx-f5-VzZ"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" separatorStyle="line" id="Ewe-3Z-1Vt"/>
+                        <splitViewItem holdingPriority="200" separatorStyle="line" id="tdS-OK-dU7"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" separatorStyle="line" id="asx-f5-VzZ"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="DropSplitView" dividerStyle="thin" vertical="YES" id="sn9-fl-Lyt" customClass="DropSplitView" customModule="JSTColorPicker" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>
@@ -824,17 +746,8 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="JSTArrowTouch" width="32" height="32"/>
-        <image name="JSTCameraTouch" width="32" height="32"/>
-        <image name="JSTCursorTouch" width="32" height="32"/>
-        <image name="JSTMagnifyTouch" width="32" height="32"/>
-        <image name="JSTMinifyTouch" width="32" height="32"/>
-        <image name="JSTMoveTouch" width="32" height="32"/>
-        <image name="JSTOpenTouch" width="32" height="32"/>
-        <image name="JSTScaleToFillTouch" width="32" height="32"/>
-        <image name="JSTScaleToFitTouch" width="32" height="32"/>
-        <image name="JSTZoomingTouch" width="32" height="32"/>
         <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="16" height="15"/>
+        <image name="arrow.up.left.and.down.right.magnifyingglass" catalog="system" width="15" height="15"/>
         <image name="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" width="18" height="14"/>
         <image name="aspectratio" catalog="system" width="18" height="14"/>
         <image name="camera" catalog="system" width="19" height="15"/>
@@ -843,6 +756,5 @@ CA
         <image name="minus.magnifyingglass" catalog="system" width="15" height="15"/>
         <image name="plus.magnifyingglass" catalog="system" width="15" height="15"/>
         <image name="plus.rectangle" catalog="system" width="18" height="14"/>
-        <image name="sidebar.squares.right" catalog="system" width="18" height="14"/>
     </resources>
 </document>

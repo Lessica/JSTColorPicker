@@ -781,6 +781,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     @IBAction func copy(_ sender: Any?) {
+        var succeed = true
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
         ).then {
@@ -790,15 +791,20 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }.then {
             self.promiseWriteCachedContents($0.0, template: $0.1)
         }.then {
-            return self.promiseCopyContentsToGeneralPasteboard($0.0)
+            self.promiseCopyContentsToGeneralPasteboard($0.0)
         }.catch {
             self.presentError($0)
+            succeed = false
         }.finally {
-            NSSound(named: "Copy")?.play()
+            let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
+            if succeed && shouldMakeSound {
+                NSSound(named: "Copy")?.play()
+            }
         }
     }
 
     @IBAction func exportAs(_ sender:  Any?) {
+        var succeed = true
         var targetURL: URL?
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
@@ -815,8 +821,12 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
             self.promiseWriteContentsToURL(contents: $0.0, url: targetURL!).asVoid()
         }.catch {
             self.presentError($0)
+            succeed = false
         }.finally {
-            NSSound(named: "Paste")?.play()
+            let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
+            if succeed && shouldMakeSound {
+                NSSound(named: "Paste")?.play()
+            }
         }
     }
 
@@ -998,6 +1008,8 @@ extension TemplatePreviewController {
             }
 
             let panel = NSSavePanel()
+            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = accessoryView
             panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), screenshot.displayName ?? "", items.count)
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { resp in

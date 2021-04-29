@@ -65,10 +65,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </box>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-fL-pPC">
+                                <rect key="frame" x="240" y="220.5" width="16" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Iau-tA-LOY"/>
+                                    <constraint firstAttribute="width" constant="16" id="e7f-rh-P62"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="shuffle" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="TnJ-nM-duN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="shuffleButtonTapped:" target="QE8-38-fA1" id="PuX-JZ-xlE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="r0W-fL-pPC" secondAttribute="trailing" constant="8" id="0gZ-44-Qic"/>
                             <constraint firstAttribute="trailing" secondItem="GEI-GX-uyj" secondAttribute="trailing" id="1Km-zX-atY"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" constant="4" id="EI4-bp-v0Y"/>
+                            <constraint firstItem="r0W-fL-pPC" firstAttribute="top" secondItem="TNs-V1-cem" secondAttribute="top" constant="2" id="F9w-Eu-sCT"/>
                             <constraint firstItem="GEI-GX-uyj" firstAttribute="leading" secondItem="TNs-V1-cem" secondAttribute="leading" id="N9Y-Ab-6nT"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GEI-GX-uyj" secondAttribute="bottom" id="xeE-zj-KBN"/>
                         </constraints>
@@ -77,6 +93,7 @@
                         <outlet property="errorLabel" destination="p6K-uU-XQe" id="nhl-2m-mk6"/>
                         <outlet property="infoView" destination="JDi-If-cWZ" id="p4O-tf-CaM"/>
                         <outlet property="paneBox" destination="GEI-GX-uyj" id="PJK-b4-e8j"/>
+                        <outlet property="shuffleButton" destination="r0W-fL-pPC" id="Qig-KG-JM5"/>
                     </connections>
                 </viewController>
                 <customObject id="wsY-yA-qFb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -84,4 +101,7 @@
             <point key="canvasLocation" x="-22" y="197"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="shuffle" catalog="system" width="18" height="14"/>
+    </resources>
 </document>

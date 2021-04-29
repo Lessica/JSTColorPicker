@@ -27,6 +27,7 @@ class InfoController: StackedPaneController {
 
     @IBOutlet weak var infoView        : InfoView!
     @IBOutlet weak var errorLabel      : NSTextField!
+    @IBOutlet weak var shuffleButton   : NSButton!
 
     override var isPaneStacked: Bool { true }
 
@@ -77,6 +78,7 @@ class InfoController: StackedPaneController {
                 infoView.isHidden = true
                 errorLabel.isHidden = false
             }
+            shuffleButton.isHidden = true
         } else {
             let errorString = style == .primary
                 ? NSLocalizedString("Open or drop an image here.", comment: "reloadPane()")
@@ -84,7 +86,13 @@ class InfoController: StackedPaneController {
             errorLabel.attributedStringValue = errorString.markdownAttributed
             infoView.isHidden = true
             errorLabel.isHidden = false
+            shuffleButton.isHidden = style != .secondary
             infoView.reset()
         }
+    }
+    
+    @IBAction func shuffleButtonTapped(_ sender: NSButton) {
+        guard style == .secondary && imageSource == nil else { return }
+        errorLabel.attributedStringValue = (InfoController.availableHints.randomElement() ?? "").markdownAttributed
     }
 }

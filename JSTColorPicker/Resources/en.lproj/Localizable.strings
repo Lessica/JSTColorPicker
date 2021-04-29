@@ -62,6 +62,9 @@
 /* toolbarItemLabel */
 "Advanced" = "Advanced";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Annotate" = "Annotate";
+
 /* PixelMatchServiceError */
 "Another task is in process, abort." = "Another task is in process, abort.";
 
@@ -487,6 +490,9 @@
 /* screenshotItemTapped(_:) */
 "OK" = "OK";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Open" = "Open";
+
 /* Shortcut Guide */
 "Open (F1): Load a PNG image file from file system." = "Open (F1): Load a PNG image file from file system.";
 
@@ -553,6 +559,9 @@
 /* Shortcut Guide */
 "Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "Scroll the scene to the selected annotation, and adjust the scale to fit its size.";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Select" = "Select";
+
 /* Shortcut Guide */
 "Select All Cascaded Annotations" = "Select All Cascaded Annotations";
 
@@ -589,6 +598,9 @@
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
 
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Sidebar" = "Sidebar";
+
 /* presentMultipleErrors(_:) */
 "Some of the documents you requested cannot be opened:" = "Some of the documents you requested cannot be opened:";
 
@@ -620,10 +632,10 @@
 "Switch to Selection Arrow temporarily." = "Switch to Selection Arrow temporarily.";
 
 /* Shortcut Guide */
-"Take Snapshot" = "Take Snapshot";
+"Take Screenshot" = "Take Screenshot";
 
 /* Shortcut Guide */
-"Take Snapshot (⌃S): Take a screenshot directly from the selected devices." = "Take Snapshot (⌃S): Take a screenshot directly from the selected devices.";
+"Take Screenshot (⌃S): Take a screenshot directly from the selected devices." = "Take Screenshot (⌃S): Take a screenshot directly from the selected devices.";
 
 /* reloadUI() */
 "Thank you for downloading JSTColorPicker!" = "Thank you for downloading JSTColorPicker!";
@@ -663,6 +675,9 @@
 
 /* TemplateError */
 "This template requires JSTColorPicker (%@) or later." = "This template requires JSTColorPicker (%@) or later.";
+
+/* com.jst.JSTColorPicker.ToolbarItem */
+"Toggle Sidebar (⌃⌘S)" = "Toggle Sidebar (⌃⌘S)";
 
 /* Tool Tip: Description of Pixel Area */
 "TOOLTIP_DESC_PIXEL_AREA" = "Origin: %@\nOpposite: %@\nSize: %@";

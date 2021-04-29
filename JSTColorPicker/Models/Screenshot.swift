@@ -378,6 +378,8 @@ extension Screenshot {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
+            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = accessoryView
             panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), displayName ?? "", content?.items.count ?? 0)
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: window) { [unowned self] (resp) in

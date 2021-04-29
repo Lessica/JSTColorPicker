@@ -1175,22 +1175,28 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let targetIndex = actionSelectedRowIndex else { return }
         let selectedItem = collection[targetIndex]
         let panel = NSSavePanel()
+        let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+        panel.accessoryView = accessoryView
         panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedItem.id)
         panel.allowedFileTypes = ["png", "jpg", "jpeg"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
                 if let url = panel.url {
                     if let selectedColor = selectedItem as? PixelColor {
-                        self?.saveSample(of: selectedColor, to: url)
+                        self?.saveSample(of: selectedColor, to: url, byLocatingTarget: accessoryView?.locateAfterOperation ?? false)
                     } else if let selectedArea = selectedItem as? PixelArea {
-                        self?.saveCroppedImage(of: selectedArea, to: url)
+                        self?.saveCroppedImage(of: selectedArea, to: url, byLocatingTarget: accessoryView?.locateAfterOperation ?? false)
                     }
                 }
             }
         }
     }
     
-    private func saveSample(of color: PixelColor, to url: URL) {
+    private func saveSample(
+        of color: PixelColor,
+        to url: URL,
+        byLocatingTarget locate: Bool
+    ) {
         guard let coloredData = NSImage(
                 color: color.toNSColor(),
                 size: CGSize(width: 74.0, height: 74.0)
@@ -1198,15 +1204,25 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         else { return }
         do {
             try coloredData.write(to: url)
+            if locate {
+                NSWorkspace.shared.activateFileViewerSelecting([ url ])
+            }
         } catch {
             presentError(error)
         }
     }
     
-    private func saveCroppedImage(of area: PixelArea, to url: URL) {
+    private func saveCroppedImage(
+        of area: PixelArea,
+        to url: URL,
+        byLocatingTarget locate: Bool
+    ) {
         guard let data = documentImage?.pngRepresentation(of: area) else { return }
         do {
             try data.write(to: url)
+            if locate {
+                NSWorkspace.shared.activateFileViewerSelecting([ url ])
+            }
         } catch {
             presentError(error)
         }
@@ -1225,6 +1241,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
+            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = accessoryView
             if selectedItems.count > 1 {
                 panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAs(_:)"), screenshot?.displayName ?? "", selectedItems.count)
             } else if !selectedItems.isEmpty {
@@ -1443,7 +1461,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     cell.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
                     cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString) : nil
                 } else if let area = item as? PixelArea {
-                    cell.image = NSImage(named: "JSTCropSmall")
+                    cell.image = NSImage(systemSymbolName: "crop", accessibilityDescription: "columnDescription")
                     cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_AREA", comment: "Tool Tip: Description of Pixel Area"), area.rect.origin.description, area.rect.opposite.description, area.rect.size.description) : nil
                 }
                 cell.text = item.description
