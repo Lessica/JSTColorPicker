@@ -113,23 +113,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Application Events
-    
-    private var _shouldFetchRemoteReceipt: Bool = false
-    private func setNeedsFetchRemoteReceipt() {
-        _shouldFetchRemoteReceipt = true
-    }
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         #if !DEBUG && !APP_STORE
         PFMoveToApplicationsFolderIfNecessary()
         #endif
         #if APP_STORE
-        if PurchaseManager.shared.hasLocalReceipt {
-            _ = try? PurchaseManager.shared.loadLocalReceipt()
-        } else {
-            // automatically fetch remote receipt if missing?
-            self.setNeedsFetchRemoteReceipt()
-        }
+        _ = try? PurchaseManager.shared.loadLocalReceipt()
         #endif
     }
     
@@ -197,10 +187,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Analytics.self,
             Crashes.self
         ])
-
+        
         #if APP_STORE
+        if PurchaseManager.shared.getProductType() != .subscribed {
+            PurchaseWindowController.shared.showWindow(self)
+        }
         // see notes below for the meaning of Atomic / Non-Atomic
-        SwiftyStoreKit.completeTransactions(atomically: true) { [weak self] purchases in
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
                 case .purchased, .restored:
@@ -209,26 +202,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
                     // Unlock content if possible
-                    if PurchaseManager.shared.hasLocalReceipt {
-                        _ = try? PurchaseManager.shared.loadLocalReceipt()
-                    } else {
-                        // remote receipt?
-                        self?.setNeedsFetchRemoteReceipt()
-                    }
+                    _ = try? PurchaseManager.shared.loadLocalReceipt()
                 case .failed, .purchasing, .deferred:
                     break // do nothing
                 @unknown default:
                     fatalError()
                 }
             }
-        }
-        #endif
-        
-        #if APP_STORE
-        if PurchaseManager.shared.getProductType() != .subscribed {
-            PurchaseWindowController.shared.showWindow(self)
-        } else {
-            // TODO: begin session
         }
         #endif
     }

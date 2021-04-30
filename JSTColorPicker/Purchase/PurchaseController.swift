@@ -85,6 +85,17 @@ class PurchaseController: NSViewController {
         if PurchaseManager.shared.getProductType() != .subscribed {
             reloadProductsUI()
         }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(productTypeDidChange(_:)),
+            name: PurchaseManager.productTypeDidChangeNotification,
+            object: nil
+        )
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func reloadUI() {
@@ -185,7 +196,6 @@ class PurchaseController: NSViewController {
                             return
                         }
                         DispatchQueue.main.async {
-                            self.reloadUI()
                             self.isMasked = false
                         }
                     }
@@ -219,7 +229,7 @@ class PurchaseController: NSViewController {
                     debugPrint("Restore Succeed: \(succeedPurchase.productId)")
                     succeedPurchases = results.restoredPurchases
                 } else {
-                    if failedPurchases.isEmpty && PurchaseManager.shared.hasLocalReceipt {
+                    if failedPurchases.isEmpty {
                         debugPrint("Nothing to restore.")
                     } else {
                         throw Error.nothingToRestore
@@ -238,7 +248,6 @@ class PurchaseController: NSViewController {
                         return
                     }
                     DispatchQueue.main.async {
-                        self.reloadUI()
                         self.isMasked = false
                     }
                 }
@@ -292,7 +301,6 @@ class PurchaseController: NSViewController {
                     print("Fetch receipt success:\n\(encryptedReceipt)")
                     try PurchaseManager.shared.loadLocalReceipt()
                     DispatchQueue.main.async {
-                        self.reloadUI()
                         self.isMasked = false
                     }
                 case .error(let error):
@@ -332,6 +340,16 @@ extension PurchaseController: PurchaseButtonDelegate {
     
     @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
         NSWorkspace.shared.redirectToMainPage()
+    }
+    
+}
+
+extension PurchaseController {
+    
+    @objc private func productTypeDidChange(_ noti: Notification) {
+        DispatchQueue.main.async {
+            self.reloadUI()
+        }
     }
     
 }

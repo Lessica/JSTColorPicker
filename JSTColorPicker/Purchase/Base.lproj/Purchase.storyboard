@@ -12,7 +12,7 @@
             <objects>
                 <windowController id="tFo-Qr-5Rv" customClass="PurchaseWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Purchase" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="alertPanel" frameAutosaveName="PurchaseWindow" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="0PI-qq-0aG" customClass="PurchaseWindow" customModule="JSTColorPicker" customModuleProvider="target">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" documentModal="YES" fullSizeContentView="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" documentModal="YES" texturedBackground="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES"/>
                         <rect key="contentRect" x="320" y="249" width="450" height="447"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
@@ -125,6 +125,9 @@
                                             <constraint firstItem="rn5-Gp-JpV" firstAttribute="top" secondItem="de4-fE-tM5" secondAttribute="top" constant="32" id="N7F-uO-cvv"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="118" id="fch-6c-1f1"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="bypassClicks" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </customView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5PK-fL-yOa">
                                         <rect key="frame" x="0.0" y="326" width="450" height="5"/>
@@ -366,6 +369,7 @@ Sessions are time limited (30 minutes).</string>
                                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                                 <color key="value" name="PurchaseContentBackground"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="bypassClicks" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="du8-rD-arZ">
@@ -438,6 +442,9 @@ Sessions are time limited (30 minutes).</string>
                                             <constraint firstItem="MpQ-wf-Usq" firstAttribute="centerX" secondItem="7zR-0c-XeD" secondAttribute="centerX" id="qeg-dR-dWG"/>
                                             <constraint firstItem="MpQ-wf-Usq" firstAttribute="top" secondItem="7zR-0c-XeD" secondAttribute="top" constant="12" id="yKY-Tv-nxd"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="bypassClicks" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </customView>
                                 </subviews>
                                 <constraints>
@@ -481,6 +488,7 @@ Sessions are time limited (30 minutes).</string>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" name="PurchaseControlMask"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bypassClicks" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
                         </subviews>

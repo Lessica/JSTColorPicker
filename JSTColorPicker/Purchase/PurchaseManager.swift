@@ -133,8 +133,6 @@ import TPInAppReceipt
         internalLock.unlock()
     }
     
-    var hasLocalReceipt: Bool { SwiftyStoreKit.localReceiptData != nil }
-    
     @discardableResult
     func loadLocalReceipt(withResult result: VerifySubscriptionResult? = nil) throws -> InAppPurchase {
         let receipt = try InAppReceipt.localReceipt()

@@ -9,8 +9,16 @@
 import Cocoa
 
 class PurchaseMainView: NSVisualEffectView {
+    
+    override var mouseDownCanMoveWindow: Bool { true }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         material = .hudWindow
     }
+    
+    override func mouseDown(with event: NSEvent) {
+        window?.performDrag(with: event)
+    }
+    
 }
