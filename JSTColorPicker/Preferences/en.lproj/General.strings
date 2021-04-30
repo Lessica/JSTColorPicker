@@ -64,9 +64,6 @@
 /* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
 "OcC-2j-6s0.title" = "Match Threshold: ";
 
-/* Class = "NSButtonCell"; title = "Enable Force Touch"; ObjectID = "pGG-Tu-mxf"; */
-"pGG-Tu-mxf.title" = "Enable Force Touch";
-
 /* Class = "NSButtonCell"; title = "Enable Scrolling Inertia (Requires Restart)"; ObjectID = "PMf-zJ-I4C"; */
 "PMf-zJ-I4C.title" = "Enable Scrolling Inertia (Requires Restart)";
 

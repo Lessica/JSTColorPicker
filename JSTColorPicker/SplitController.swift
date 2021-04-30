@@ -530,32 +530,19 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [.command]
                         ),
                     ]
-                    if sceneController.enableForceTouch {
-                        items += [
-                            ShortcutItem(
-                                name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
-                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
-                                toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
-                                modifierFlags: []
-                            ),
-                            ShortcutItem(
-                                name: NSLocalizedString("Add Area Annotation (Square)", comment: "Shortcut Guide"),
-                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
-                                toolTip: NSLocalizedString("Add Area at current dragged square to content list.", comment: "Shortcut Guide"),
-                                modifierFlags: [.shift]
-                            ),
-                        ]
-                    } else {
-                        items += [
-                            ShortcutItem(
-                                name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
-                                keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
-                                toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
-                                modifierFlags: [.shift]
-                            ),
-                        ]
-                    }
                     items += [
+                        ShortcutItem(
+                            name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
+                            keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
+                            toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
+                            modifierFlags: []
+                        ),
+                        ShortcutItem(
+                            name: NSLocalizedString("Add Area Annotation (Square)", comment: "Shortcut Guide"),
+                            keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
+                            toolTip: NSLocalizedString("Add Area at current dragged square to content list.", comment: "Shortcut Guide"),
+                            modifierFlags: [.shift]
+                        ),
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation (Centered)", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),

@@ -71,7 +71,7 @@
                                     <constraint firstAttribute="height" constant="16" id="Iau-tA-LOY"/>
                                     <constraint firstAttribute="width" constant="16" id="e7f-rh-P62"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="shuffle" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="TnJ-nM-duN">
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrowtriangle.right.square" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="TnJ-nM-duN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -92,8 +92,8 @@
                     <connections>
                         <outlet property="errorLabel" destination="p6K-uU-XQe" id="nhl-2m-mk6"/>
                         <outlet property="infoView" destination="JDi-If-cWZ" id="p4O-tf-CaM"/>
+                        <outlet property="nextButton" destination="r0W-fL-pPC" id="Qig-KG-JM5"/>
                         <outlet property="paneBox" destination="GEI-GX-uyj" id="PJK-b4-e8j"/>
-                        <outlet property="shuffleButton" destination="r0W-fL-pPC" id="Qig-KG-JM5"/>
                     </connections>
                 </viewController>
                 <customObject id="wsY-yA-qFb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -102,6 +102,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="shuffle" catalog="system" width="18" height="14"/>
+        <image name="arrowtriangle.right.square" catalog="system" width="15" height="14"/>
     </resources>
 </document>

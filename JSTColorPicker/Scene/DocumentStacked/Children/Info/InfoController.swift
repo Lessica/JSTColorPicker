@@ -27,7 +27,7 @@ class InfoController: StackedPaneController {
 
     @IBOutlet weak var infoView        : InfoView!
     @IBOutlet weak var errorLabel      : NSTextField!
-    @IBOutlet weak var shuffleButton   : NSButton!
+    @IBOutlet weak var nextButton      : NSButton!
 
     override var isPaneStacked: Bool { true }
 
@@ -59,12 +59,6 @@ class InfoController: StackedPaneController {
             ? NSLocalizedString("Info (Primary)", comment: "reloadPane()")
             : NSLocalizedString("Info (Secondary)", comment: "reloadPane()")
     }
-    
-    private static let availableHints: [String] = [
-        NSLocalizedString("Open an image of the same size for image comparison.", comment: "availableHints"),
-        NSLocalizedString("Double click **Command (⌘)** to toggle command palette.", comment: "availableHints"),
-        NSLocalizedString("Hold **Shift (⇧)** and drag with mouse to create an area annotation.", comment: "availableHints")
-    ]
 
     private func updateInformationPane(alternativeURL url: URL? = nil) {
         if let imageSource = imageSource {
@@ -78,21 +72,47 @@ class InfoController: StackedPaneController {
                 infoView.isHidden = true
                 errorLabel.isHidden = false
             }
-            shuffleButton.isHidden = true
+            nextButton.isHidden = true
         } else {
             let errorString = style == .primary
                 ? NSLocalizedString("Open or drop an image here.", comment: "reloadPane()")
-                : InfoController.availableHints.randomElement() ?? ""
+                : nextHint()
             errorLabel.attributedStringValue = errorString.markdownAttributed
             infoView.isHidden = true
             errorLabel.isHidden = false
-            shuffleButton.isHidden = style != .secondary
+            nextButton.isHidden = style != .secondary
             infoView.reset()
         }
     }
     
     @IBAction func shuffleButtonTapped(_ sender: NSButton) {
         guard style == .secondary && imageSource == nil else { return }
-        errorLabel.attributedStringValue = (InfoController.availableHints.randomElement() ?? "").markdownAttributed
+        errorLabel.attributedStringValue = nextHint().markdownAttributed
     }
+    
+    private var currentHintIndex: Int?
+    
+    private static let availableHints: [String] = [
+        NSLocalizedString("Open an image of the same size for image comparison.", comment: "availableHints"),
+        NSLocalizedString("Double click **Command (⌘)** to toggle command palette.", comment: "availableHints"),
+        NSLocalizedString("Right click and drag to move the scene.", comment: "availableHints"),
+        NSLocalizedString("Use your physical scroll wheel to scale the scene.", comment: "availableHints")
+    ]
+    
+    private func nextHint() -> String {
+        let availableHints = InfoController.availableHints
+        guard availableHints.count > 0 else {
+            fatalError("availableHints is empty")
+        }
+        var nextIndex = currentHintIndex ?? (availableHints.startIndex..<availableHints.endIndex).randomElement()!
+        if nextIndex == availableHints.endIndex - 1 {
+            nextIndex = availableHints.startIndex
+        } else {
+            nextIndex += 1
+        }
+        let currentHint = availableHints[nextIndex]
+        currentHintIndex = nextIndex
+        return currentHint
+    }
+    
 }

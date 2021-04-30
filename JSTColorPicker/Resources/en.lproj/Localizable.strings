@@ -257,9 +257,6 @@
 /* Shortcut Guide */
 "Hold" = "Hold";
 
-/* availableHints */
-"Hold **Shift (⇧)** and drag with mouse to create an area annotation." = "Hold **Shift (⇧)** and drag with mouse to create an area annotation.";
-
 /* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.";
 
@@ -553,6 +550,9 @@
 /* Shortcut Guide */
 "Right Click" = "Right Click";
 
+/* availableHints */
+"Right click and drag to move the scene." = "Right click and drag to move the scene.";
+
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Scene Tools" = "Scene Tools";
 
@@ -705,6 +705,9 @@
 
 /* internalUpdateContentItems(_:) */
 "Update Items" = "Update Items";
+
+/* availableHints */
+"Use your physical scroll wheel to scale the scene." = "Use your physical scroll wheel to scale the scene.";
 
 /* Content.Error */
 "User aborted." = "User aborted.";

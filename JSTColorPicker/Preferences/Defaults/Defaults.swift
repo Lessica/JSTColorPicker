@@ -29,7 +29,6 @@ extension UserDefaults.Key {
     static let toggleSecondaryInspectorHSBFormat    : UserDefaults.Key     = "defaults:toggleSecondaryInspectorHSBFormat"      // Bool
     static let usesAlternativeAreaRepresentation    : UserDefaults.Key     = "defaults:usesAlternativeAreaRepresentation"      // Bool
     
-    static let enableForceTouch                     : UserDefaults.Key     = "defaults:enableForceTouch"                       // Bool
     static let drawSceneBackground                  : UserDefaults.Key     = "defaults:drawSceneBackground"                    // Bool
     static let drawTagsInScene                      : UserDefaults.Key     = "defaults:drawTagsInScene"                        // Bool
     static let drawBordersInScene                   : UserDefaults.Key     = "defaults:drawBordersInScene"                     // Bool

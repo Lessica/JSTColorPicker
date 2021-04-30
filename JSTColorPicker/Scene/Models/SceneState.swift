@@ -16,6 +16,12 @@ protocol SceneStateSource: AnyObject {
 
 class SceneState {
     
+    enum ManipulatingSide {
+        case none
+        case left
+        case right
+    }
+    
     enum ManipulatingType {
         case none
         case leftGeneric
@@ -40,20 +46,19 @@ class SceneState {
             }
         }
         
-        static func leftDraggingType(for tool: SceneTool) -> ManipulatingType {
-            switch tool {
-            case .magicCursor, .magnifyingGlass:
-                return .areaDragging
-            case .movingHand:
-                return .sceneDragging
-            case .selectionArrow:
-                return .annotatorDragging
-            default:
-                return .forbidden
+        static func draggingType(at side: ManipulatingSide, for tool: SceneTool) -> ManipulatingType {
+            if side == .left {
+                switch tool {
+                case .magicCursor, .magnifyingGlass:
+                    return .areaDragging
+                case .movingHand:
+                    return .sceneDragging
+                case .selectionArrow:
+                    return .annotatorDragging
+                default:
+                    break
+                }
             }
-        }
-        
-        static func rightDraggingType(for tool: SceneTool) -> ManipulatingType {
             return .forbidden
         }
         
@@ -76,6 +81,7 @@ class SceneState {
         var shouldClip: Bool { self.isEmpty }
     }
     
+    var manipulatingSide                          = ManipulatingSide.none
     var manipulatingType                          = ManipulatingType.none
     var manipulatingOptions                       : ManipulatingOptions = []
     
@@ -101,10 +107,13 @@ class SceneState {
         set { internalManipulatingOverlay = newValue                        }
     }
     
-    var isManipulating  : Bool { manipulatingType.isManipulating }
-    var isDragging      : Bool { manipulatingType.isDragging     }
+    var isManipulating         : Bool { manipulatingType.isManipulating }
+    var isDragging             : Bool { manipulatingType.isDragging     }
+    var isProportionalScaling  : Bool { manipulatingOptions.contains(.proportionalScaling) }
+    var isCenteredScaling      : Bool { manipulatingOptions.contains(.centeredScaling)     }
     
     func reset() {
+        manipulatingSide = .none
         manipulatingType = .none
         manipulatingOptions = []
         internalStage = 0

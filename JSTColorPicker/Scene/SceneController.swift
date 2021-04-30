@@ -21,14 +21,6 @@ class SceneController: NSViewController {
     private var lazyColorAnnotators  : [ColorAnnotator] { annotators.lazy.compactMap({ $0 as? ColorAnnotator }) }
     private var lazyAreaAnnotators   : [AreaAnnotator]  { annotators.lazy.compactMap({ $0 as? AreaAnnotator })  }
     
-    private(set) var enableForceTouch: Bool {
-        get {
-            return sceneView.enableForceTouch
-        }
-        set {
-            sceneView.enableForceTouch = newValue
-        }
-    }
     private(set) var drawBordersInScene: Bool {
         get {
             return sceneBorderView.drawBordersInScene
@@ -166,7 +158,7 @@ class SceneController: NSViewController {
     }
 
     private let observableKeys                 : [UserDefaults.Key] = [
-        .enableForceTouch, .hideAnnotatorsWhenResize, .hideBordersWhenResize,
+        .hideAnnotatorsWhenResize, .hideBordersWhenResize,
         .hideGridsWhenResize, .usesPredominantAxisScrolling,
         .drawSceneBackground, .drawBordersInScene, .drawGridsInScene,
         .drawRulersInScene, .drawTagsInScene
@@ -280,7 +272,6 @@ class SceneController: NSViewController {
     }
 
     private func prepareDefaults() {
-        enableForceTouch               = UserDefaults.standard[.enableForceTouch]
         hideAnnotatorsWhenResize       = UserDefaults.standard[.hideAnnotatorsWhenResize]
         hideBordersWhenResize          = UserDefaults.standard[.hideBordersWhenResize]
         hideGridsWhenResize            = UserDefaults.standard[.hideGridsWhenResize]
@@ -300,10 +291,7 @@ class SceneController: NSViewController {
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
         if let toValue = defaultValue as? Bool {
             var shouldNotifySceneBoundsChanged = false
-            if defaultKey == .enableForceTouch && enableForceTouch != toValue {
-                enableForceTouch = toValue
-            }
-            else if defaultKey == .hideAnnotatorsWhenResize && hideAnnotatorsWhenResize != toValue {
+            if defaultKey == .hideAnnotatorsWhenResize && hideAnnotatorsWhenResize != toValue {
                 hideAnnotatorsWhenResize = toValue
             }
             else if defaultKey == .hideBordersWhenResize && hideBordersWhenResize != toValue {
@@ -651,37 +639,35 @@ class SceneController: NSViewController {
         if sceneState.manipulatingType == .leftGeneric {
             let location = sceneView.convert(event.locationInWindow, from: nil)
             if isVisibleLocation(location) {
-                if sceneState.stage >= sceneView.requiredEventStageFor(sceneTool, forManipulatingType: .leftGeneric) {
-                    if sceneTool == .selectionArrow {
-                        let modifierFlags = event.modifierFlags
-                            .intersection(.deviceIndependentFlagsMask)
-                        let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
-                        let commandPressed = modifierFlags.contains(.command) && modifierFlags.subtracting(.command).isEmpty
-                        let shiftPressed   = modifierFlags.contains(.shift) && modifierFlags.subtracting(.shift).isEmpty
-                        let isDoubleClick  = event.clickCount == 2
-                        handled = applySelectItem(
-                            at: location,
-                            byShowingOptions: optionPressed,
-                            byChangingSelection: isDoubleClick,
-                            byThroughoutHitting: shiftPressed,
-                            byExtendingSelection: commandPressed,
-                            withEvent: event
+                if sceneTool == .selectionArrow {
+                    let modifierFlags = event.modifierFlags
+                        .intersection(.deviceIndependentFlagsMask)
+                    let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
+                    let commandPressed = modifierFlags.contains(.command) && modifierFlags.subtracting(.command).isEmpty
+                    let shiftPressed   = modifierFlags.contains(.shift) && modifierFlags.subtracting(.shift).isEmpty
+                    let isDoubleClick  = event.clickCount == 2
+                    handled = applySelectItem(
+                        at: location,
+                        byShowingOptions: optionPressed,
+                        byChangingSelection: isDoubleClick,
+                        byThroughoutHitting: shiftPressed,
+                        byExtendingSelection: commandPressed,
+                        withEvent: event
+                    )
+                } else {
+                    let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+                    if sceneTool == .magicCursor {
+                        let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+                        handled = applyAnnotateItem(
+                            at: locInWrapper,
+                            byIgnoringPopups: ignoreRepeatedInsertion
                         )
-                    } else {
-                        let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
-                        if sceneTool == .magicCursor {
-                            let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
-                            handled = applyAnnotateItem(
-                                at: locInWrapper,
-                                byIgnoringPopups: ignoreRepeatedInsertion
-                            )
-                        }
-                        else if sceneTool == .magnifyingGlass {
-                            handled = applyMagnifyItem(at: locInWrapper)
-                        }
-                        else if sceneTool == .minifyingGlass {
-                            handled = applyMinifyItem(at: locInWrapper)
-                        }
+                    }
+                    else if sceneTool == .magnifyingGlass {
+                        handled = applyMagnifyItem(at: locInWrapper)
+                    }
+                    else if sceneTool == .minifyingGlass {
+                        handled = applyMinifyItem(at: locInWrapper)
                     }
                 }
             }
@@ -696,19 +682,17 @@ class SceneController: NSViewController {
         if sceneState.manipulatingType == .rightGeneric {
             let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
             if isVisibleWrapperLocation(locInWrapper) {
-                if sceneState.stage >= sceneView.requiredEventStageFor(sceneTool, forManipulatingType: .rightGeneric) {
-                    if sceneTool == .magicCursor || sceneTool == .selectionArrow {
-                        let modifierFlags = event.modifierFlags
-                            .intersection(.deviceIndependentFlagsMask)
-                        let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
-                        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
-                        handled = applyDeleteItem(
-                            at: locInWrapper,
-                            byShowingOptions: optionPressed,
-                            byIgnoringPopups: ignoreInvalidDeletion,
-                            withEvent: event
-                        )
-                    }
+                if sceneTool == .magicCursor || sceneTool == .selectionArrow {
+                    let modifierFlags = event.modifierFlags
+                        .intersection(.deviceIndependentFlagsMask)
+                    let optionPressed  = modifierFlags.contains(.option) && modifierFlags.subtracting(.option).isEmpty
+                    let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
+                    handled = applyDeleteItem(
+                        at: locInWrapper,
+                        byShowingOptions: optionPressed,
+                        byIgnoringPopups: ignoreInvalidDeletion,
+                        withEvent: event
+                    )
                 }
             }
         }

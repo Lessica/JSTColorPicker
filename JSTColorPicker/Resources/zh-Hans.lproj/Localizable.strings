@@ -257,9 +257,6 @@
 /* Shortcut Guide */
 "Hold" = "按住";
 
-/* availableHints */
-"Hold **Shift (⇧)** and drag with mouse to create an area annotation." = "在妙控板未启用时，按住 **Shift (⇧)** 并拖拽鼠标指针以创建新的区域标注。";
-
 /* Shortcut Guide */
 "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position." = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的后一个标注。";
 
@@ -553,6 +550,9 @@
 /* Shortcut Guide */
 "Right Click" = "右键单击";
 
+/* availableHints */
+"Right click and drag to move the scene." = "右键拖拽以移动场景。";
+
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Scene Tools" = "场景工具";
 
@@ -705,6 +705,9 @@
 
 /* internalUpdateContentItems(_:) */
 "Update Items" = "更新项";
+
+/* availableHints */
+"Use your physical scroll wheel to scale the scene." = "你可以使用物理滚轮来缩放场景。";
 
 /* Content.Error */
 "User aborted." = "用户已取消。";
