@@ -551,7 +551,7 @@
 "Right Click" = "右键单击";
 
 /* availableHints */
-"Right click and drag to move the scene." = "右键拖拽以移动场景。";
+"Right click and drag to move the scene." = "鼠标右键拖拽以移动场景。";
 
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Scene Tools" = "场景工具";
