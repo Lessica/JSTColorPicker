@@ -559,6 +559,9 @@
 /* Shortcut Guide */
 "Scroll the scene to the selected annotation, and adjust the scale to fit its size." = "将场景滚动定位到所选项，并调整缩放比例以适配其尺寸。";
 
+/* Shortcut Guide */
+"Scroll Wheel" = "滚动滚轮";
+
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Select" = "选择";
 
@@ -746,10 +749,16 @@
 "Zoom In" = "放大";
 
 /* Shortcut Guide */
-"Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "自当前光标位置放大视图 (如果光标位于视图外，则以中心点位置放大视图)。";
+"Zoom in at the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point)." = "自当前光标位置放大视图 (如果光标位于视图外，则以中心点位置放大视图)。";
+
+/* Shortcut Guide */
+"Zoom In/Out" = "放大/缩小";
+
+/* Shortcut Guide */
+"Zoom in/out at the current cursor position with a physical mouse wheel." = "使用物理鼠标滚轮，自当前光标位置放大/缩小视图。";
 
 /* Shortcut Guide */
 "Zoom Out" = "缩小";
 
 /* Shortcut Guide */
-"Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
+"Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";

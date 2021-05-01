@@ -212,6 +212,13 @@ class SceneScrollView: NSScrollView {
     var isForceTouch             : Bool    { sceneState.stage > 0         }
     var minimumDraggingDistance  : CGFloat { isForceTouch ? 6.0 : 3.0     }
     
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        if sceneState.isManipulating {
+            return true
+        }
+        return false
+    }
+    
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior
     
     override func pressureChange(with event: NSEvent) {
@@ -224,24 +231,33 @@ class SceneScrollView: NSScrollView {
     override func mouseMoved  (with event: NSEvent) { trackMovingOrDragging(with: event) }
     override func mouseExited (with event: NSEvent) { trackMovingOrDragging(with: event) }
     
-    override func mouseDown(with event: NSEvent) {
-        sceneEventObservers
-            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.before) })
-            .forEach({ $0.target?.mouseDown(with: event) })
-        
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        if visibleRectExcludingRulers.contains(currentLocation) {
-            sceneState.manipulatingSide = .left
-            sceneState.manipulatingType = .leftGeneric
-            let masks = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
-            var opts: SceneState.ManipulatingOptions = []
+    private func manipulatingOptions(at side: SceneState.ManipulatingSide, with event: NSEvent) -> SceneState.ManipulatingOptions {
+        var opts: SceneState.ManipulatingOptions = []
+        let masks = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        if side == .left {
             if masks.contains(.shift) {
                 opts.formUnion(.proportionalScaling)
             }
             if masks.contains(.option) {
                 opts.formUnion(.centeredScaling)
             }
-            sceneState.manipulatingOptions = opts
+        }
+        return opts
+    }
+    
+    private func internalMouseDown(at side: SceneState.ManipulatingSide, withEvent event: NSEvent) {
+        let currentLocation = convert(event.locationInWindow, from: nil)
+        if visibleRectExcludingRulers.contains(currentLocation) {
+            sceneState.manipulatingSide = side
+            switch side {
+            case .none:
+                sceneState.manipulatingType = .none
+            case .left:
+                sceneState.manipulatingType = .leftGeneric
+            case .right:
+                sceneState.manipulatingType = .rightGeneric
+            }
+            sceneState.manipulatingOptions = manipulatingOptions(at: side, with: event)
             sceneState.stage = 0
             sceneState.beginLocation = currentLocation
             sceneState.manipulatingOverlay = nil
@@ -249,6 +265,13 @@ class SceneScrollView: NSScrollView {
         }
         
         updateDraggingAppearance(with: event)
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.before) })
+            .forEach({ $0.target?.mouseDown(with: event) })
+        internalMouseDown(at: .left, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDown(with: event) })
@@ -258,28 +281,13 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.before) })
             .forEach({ $0.target?.rightMouseDown(with: event) })
-        
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        if visibleRectExcludingRulers.contains(currentLocation) {
-            sceneState.manipulatingSide = .right
-            sceneState.manipulatingType = .rightGeneric
-            sceneState.stage = 0
-            sceneState.beginLocation = currentLocation
-            sceneState.manipulatingOverlay = nil
-            trackMovingOrDragging(with: event)
-        }
-        
-        updateDraggingAppearance(with: event)
+        internalMouseDown(at: .right, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDown(with: event) })
     }
     
-    override func mouseUp(with event: NSEvent) {
-        sceneEventObservers
-            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.before) })
-            .forEach({ $0.target?.mouseUp(with: event) })
-        
+    private func internalMouseUp(at side: SceneState.ManipulatingSide, withEvent event: NSEvent) {
         let currentLocation = convert(event.locationInWindow, from: nil)
         if visibleRectExcludingRulers.contains(currentLocation) {
             trackMovingOrDragging(with: event)
@@ -288,10 +296,21 @@ class SceneScrollView: NSScrollView {
             }
         }
         
-        if let overlay = sceneState.manipulatingOverlay, overlay.hidesDuringEditing { overlay.isHidden = false }
-        sceneState.reset()
+        if let overlay = sceneState.manipulatingOverlay,
+           overlay.hidesDuringEditing
+        {
+            overlay.isHidden = false
+        }
         
+        sceneState.reset()
         updateDraggingAppearance(with: event)
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.before) })
+            .forEach({ $0.target?.mouseUp(with: event) })
+        internalMouseUp(at: .left, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseUp(with: event) })
@@ -301,18 +320,7 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.before) })
             .forEach({ $0.target?.rightMouseUp(with: event) })
-        
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        if visibleRectExcludingRulers.contains(currentLocation) {
-            trackMovingOrDragging(with: event)
-            if sceneState.isDragging {
-                trackDidEndDragging(with: event)
-            }
-        }
-        
-        sceneState.reset()
-        
-        updateDraggingAppearance(with: event)
+        internalMouseUp(at: .right, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseUp(with: event) })
@@ -412,52 +420,51 @@ class SceneScrollView: NSScrollView {
         return targetRect
     }
     
-    override func mouseDragged(with event: NSEvent) {
-        sceneEventObservers
-            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.before) })
-            .forEach({ $0.target?.mouseDragged(with: event) })
-        
+    private func internalMouseDragged(at side: SceneState.ManipulatingSide, withEvent event: NSEvent)
+    {
         guard !sceneState.beginLocation.isNull else { return }
         let currentLocation = convert(event.locationInWindow, from: nil)
         if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneState.ManipulatingType.draggingType(at: .left, for: sceneTool)
+            let type = SceneState.ManipulatingType.draggingType(at: side, for: sceneTool)
             if type.level > sceneState.manipulatingType.level {
-                let alternateType = alternateDraggingType(
+                let altType = alternatingDraggingType(
                     type,
                     withEvent: event
                 )
-                if alternateType == .annotatorDragging {
-                    if let overlay = beginAnnotatorDragging(with: event) {
-                        var shouldBeginEditing = false
-                        if let colorAnnotatorOverlay = overlay as? ColorAnnotatorOverlay,
-                            let capturedImage = colorAnnotatorOverlay.capturedImage
-                        {
-                            colorDraggingOverlay.setImage(capturedImage, size: capturedImage.size)
-                            shouldBeginEditing = true
-                        }
-                        else if let areaAnnotatorOverlay = overlay as? AreaAnnotatorOverlay,
-                            areaAnnotatorOverlay.editableEdge != .none
-                        {
-                            areaDraggingOverlay.animationState = areaAnnotatorOverlay.animationState
-                            shouldBeginEditing = true
-                        }
-                        if shouldBeginEditing {
-                            if overlay.hidesDuringEditing { overlay.isHidden = true }
-                            sceneState.manipulatingOverlay = overlay
-                            sceneState.manipulatingType = .annotatorDragging
+                if altType.level > sceneState.manipulatingType.level {
+                    if altType == .annotatorDragging {
+                        if let overlay = beginAnnotatorDragging(with: event) {
+                            var shouldBeginEditing = false
+                            if let colorAnnotatorOverlay = overlay as? ColorAnnotatorOverlay,
+                                let capturedImage = colorAnnotatorOverlay.capturedImage
+                            {
+                                colorDraggingOverlay.setImage(capturedImage, size: capturedImage.size)
+                                shouldBeginEditing = true
+                            }
+                            else if let areaAnnotatorOverlay = overlay as? AreaAnnotatorOverlay,
+                                areaAnnotatorOverlay.editableEdge != .none
+                            {
+                                areaDraggingOverlay.animationState = areaAnnotatorOverlay.animationState
+                                shouldBeginEditing = true
+                            }
+                            if shouldBeginEditing {
+                                if overlay.hidesDuringEditing { overlay.isHidden = true }
+                                sceneState.manipulatingOverlay = overlay
+                                sceneState.manipulatingType = .annotatorDragging
+                            }
+                            else { sceneState.manipulatingType = .forbidden }
                         }
                         else { sceneState.manipulatingType = .forbidden }
-                    }
-                    else { sceneState.manipulatingType = .forbidden }
-                } else { sceneState.manipulatingType = alternateType }
-                
-                let options = sceneState.manipulatingOptions
-                sceneState.manipulatingOptions = alternateDraggingOptions(
-                    options,
-                    withEvent: event
-                )
-                
-                trackWillBeginDragging(with: event)
+                    } else { sceneState.manipulatingType = altType }
+                    
+                    let options = sceneState.manipulatingOptions
+                    sceneState.manipulatingOptions = alternatingDraggingOptions(
+                        options,
+                        withEvent: event
+                    )
+                    
+                    trackWillBeginDragging(with: event)
+                }
             }
         }
         
@@ -602,8 +609,14 @@ class SceneScrollView: NSScrollView {
             }
         }
         trackMovingOrDragging(with: event)
-        
         updateDraggingAppearance(with: event)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.before) })
+            .forEach({ $0.target?.mouseDragged(with: event) })
+        internalMouseDragged(at: .left, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDragged(with: event) })
@@ -613,19 +626,7 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.before) })
             .forEach({ $0.target?.rightMouseDragged(with: event) })
-        
-        guard !sceneState.beginLocation.isNull else { return }
-        let currentLocation = convert(event.locationInWindow, from: nil)
-        if currentLocation.distanceTo(sceneState.beginLocation) >= minimumDraggingDistance {
-            let type = SceneState.ManipulatingType.draggingType(at: .right, for: sceneTool)
-            if sceneState.manipulatingType != type {
-                sceneState.manipulatingType = type
-            }
-            // TODO: alternate states
-        }
-        trackMovingOrDragging(with: event)
-        
-        updateDraggingAppearance(with: event)
+        internalMouseDragged(at: .right, withEvent: event)
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDragged(with: event) })
@@ -721,14 +722,22 @@ class SceneScrollView: NSScrollView {
     
     // MARK: - Event Processing
     
-    private func alternateDraggingType(
+    private func alternatingDraggingType(
         _ type: SceneState.ManipulatingType,
         withEvent event: NSEvent
     ) -> SceneState.ManipulatingType {
+        switch type {
+        case .sceneDragging:
+            if sceneState.manipulatingSide == .right {
+                return isForceTouch ? .forbidden : type
+            }
+        default:
+            break
+        }
         return type
     }
     
-    private func alternateDraggingOptions(
+    private func alternatingDraggingOptions(
         _ options: SceneState.ManipulatingOptions,
         withEvent event: NSEvent
     ) -> SceneState.ManipulatingOptions {

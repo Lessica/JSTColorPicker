@@ -37,10 +37,12 @@ class SceneState {
                 return 0
             case .leftGeneric, .rightGeneric:
                 return 1
-            case .areaDragging, .sceneDragging:
+            case .areaDragging:
                 return 2
             case .annotatorDragging:
                 return 3
+            case .sceneDragging:
+                return 4
             case .forbidden:
                 return Int.max
             }
@@ -57,6 +59,11 @@ class SceneState {
                     return .annotatorDragging
                 default:
                     break
+                }
+            } else if side == .right {
+                switch tool {
+                default:
+                    return .sceneDragging
                 }
             }
             return .forbidden

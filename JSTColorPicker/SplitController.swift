@@ -711,16 +711,22 @@ extension SplitController: ShortcutGuideDataSource {
 
             items += [
                 ShortcutItem(
-                    name: NSLocalizedString("Zoom Out", comment: "Shortcut Guide"),
-                    keyString: "-",
-                    toolTip: NSLocalizedString("Zoom out with the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Zoom In", comment: "Shortcut Guide"),
+                    keyString: "=",
+                    toolTip: NSLocalizedString("Zoom in at the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).", comment: "Shortcut Guide"),
                     modifierFlags: [.command]
                 ),
                 ShortcutItem(
-                    name: NSLocalizedString("Zoom In", comment: "Shortcut Guide"),
-                    keyString: "=",
-                    toolTip: NSLocalizedString("Zoom in with the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).", comment: "Shortcut Guide"),
+                    name: NSLocalizedString("Zoom Out", comment: "Shortcut Guide"),
+                    keyString: "-",
+                    toolTip: NSLocalizedString("Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).", comment: "Shortcut Guide"),
                     modifierFlags: [.command]
+                ),
+                ShortcutItem(
+                    name: NSLocalizedString("Zoom In/Out", comment: "Shortcut Guide"),
+                    keyString: NSLocalizedString("Scroll Wheel", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Zoom in/out at the current cursor position with a physical mouse wheel.", comment: "Shortcut Guide"),
+                    modifierFlags: []
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Copy Color & Coordinates", comment: "Shortcut Guide"),
