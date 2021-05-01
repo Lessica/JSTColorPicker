@@ -119,7 +119,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Open", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Open", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Open (F1): Load a PNG image file from file system.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Open (⌘O): Load a PNG image file from file system.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "plus.rectangle", accessibilityDescription: "Open")
         item.action = #selector(NSDocumentController.openDocument(_:))
         return item
@@ -131,7 +131,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Annotate", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Annotate", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Magic Cursor (F2): Add, or delete annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Magic Cursor (F1): Add, or delete annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "cursorarrow.rays", accessibilityDescription: "Annotate")
         item.target = self
         item.action = #selector(useAnnotateItemAction(_:))
@@ -144,7 +144,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Select", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Select", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Selection Arrow (F3): View, select, or modify annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Selection Arrow (F2): View, select, or modify annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "cursorarrow.and.square.on.square.dashed", accessibilityDescription: "Select")
         item.target = self
         item.action = #selector(useSelectItemAction(_:))
@@ -157,7 +157,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Magnify", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Magnify", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Magnifying Glass (F3): Zoom in at a preset scale, supports zooming into a specified area.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "plus.magnifyingglass", accessibilityDescription: "Magnify")
         item.target = self
         item.action = #selector(useMagnifyItemAction(_:))
@@ -170,7 +170,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Minify", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Minify", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Minifying Glass (F5): Zoom out at a preset scale.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Minifying Glass (F4): Zoom out at a preset scale.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "minus.magnifyingglass", accessibilityDescription: "Minify")
         item.target = self
         item.action = #selector(useMinifyItemAction(_:))
@@ -183,7 +183,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Move", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Move", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Moving Hand (F5): Drag to move the scene, or view the major tag of annotations.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left", accessibilityDescription: "Move")
         item.target = self
         item.action = #selector(useMoveItemAction(_:))
@@ -196,7 +196,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Fit Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Fit Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Fit Window (F7): Scale the view to fit the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Fit Window: Scale the view to fit the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "aspectratio", accessibilityDescription: "Fit Window")
         item.target = self
         item.action = #selector(fitWindowAction(_:))
@@ -209,7 +209,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Fill Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Fill Window", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Fill Window (F8): Scale the view to fill the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Fill Window: Scale the view to fill the window size.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "arrow.up.right.and.arrow.down.left.rectangle", accessibilityDescription: "Fill Window")
         item.target = self
         item.action = #selector(fillWindowAction(_:))
@@ -338,21 +338,15 @@ class WindowController: NSWindowController {
         {
             switch event.specialKey {
             case NSEvent.SpecialKey.f1:
-                openAction(event)
-            case NSEvent.SpecialKey.f2:
                 useAnnotateItemAction(event)
-            case NSEvent.SpecialKey.f3:
+            case NSEvent.SpecialKey.f2:
                 useSelectItemAction(event)
-            case NSEvent.SpecialKey.f4:
+            case NSEvent.SpecialKey.f3:
                 useMagnifyItemAction(event)
-            case NSEvent.SpecialKey.f5:
+            case NSEvent.SpecialKey.f4:
                 useMinifyItemAction(event)
-            case NSEvent.SpecialKey.f6:
+            case NSEvent.SpecialKey.f5:
                 useMoveItemAction(event)
-            case NSEvent.SpecialKey.f7:
-                fitWindowAction(event)
-            case NSEvent.SpecialKey.f8:
-                fillWindowAction(event)
             default:
                 super.keyDown(with: event)
             }
@@ -856,9 +850,9 @@ extension WindowController: ShortcutGuideDataSource {
             items += [
                 ShortcutItem(
                     name: NSLocalizedString("Open…", comment: "Shortcut Guide"),
-                    keyString: "F1",
-                    toolTip: NSLocalizedString("Open (F1): Load a PNG image file from file system.", comment: "Shortcut Guide"),
-                    modifierFlags: [.function]
+                    keyString: "O",
+                    toolTip: NSLocalizedString("Open (⌘O): Load a PNG image file from file system.", comment: "Shortcut Guide"),
+                    modifierFlags: [.command]
                 ),
             ]
         }
@@ -866,44 +860,32 @@ extension WindowController: ShortcutGuideDataSource {
             items += [
                 ShortcutItem(
                     name: NSLocalizedString("Magic Cursor", comment: "Shortcut Guide"),
-                    keyString: "F2",
-                    toolTip: NSLocalizedString("Magic Cursor (F2): Add, or delete annotations.", comment: "Shortcut Guide"),
+                    keyString: "F1",
+                    toolTip: NSLocalizedString("Magic Cursor (F1): Add, or delete annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Selection Arrow", comment: "Shortcut Guide"),
-                    keyString: "F3",
-                    toolTip: NSLocalizedString("Selection Arrow (F3): View, select, or modify annotations.", comment: "Shortcut Guide"),
+                    keyString: "F2",
+                    toolTip: NSLocalizedString("Selection Arrow (F2): View, select, or modify annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Magnifying Glass", comment: "Shortcut Guide"),
-                    keyString: "F4",
-                    toolTip: NSLocalizedString("Magnifying Glass (F4): Zoom in at a preset scale, supports zooming into a specified area.", comment: "Shortcut Guide"),
+                    keyString: "F3",
+                    toolTip: NSLocalizedString("Magnifying Glass (F3): Zoom in at a preset scale, supports zooming into a specified area.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Minifying Glass", comment: "Shortcut Guide"),
-                    keyString: "F5",
-                    toolTip: NSLocalizedString("Minifying Glass (F5): Zoom out at a preset scale.", comment: "Shortcut Guide"),
+                    keyString: "F4",
+                    toolTip: NSLocalizedString("Minifying Glass (F4): Zoom out at a preset scale.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Moving Hand", comment: "Shortcut Guide"),
-                    keyString: "F6",
-                    toolTip: NSLocalizedString("Moving Hand (F6): Drag to move the scene, or view the major tag of annotations.", comment: "Shortcut Guide"),
-                    modifierFlags: [.function]
-                ),
-                ShortcutItem(
-                    name: NSLocalizedString("Fit Window", comment: "Shortcut Guide"),
-                    keyString: "F7",
-                    toolTip: NSLocalizedString("Fit Window (F7): Scale the view to fit the window size.", comment: "Shortcut Guide"),
-                    modifierFlags: [.function]
-                ),
-                ShortcutItem(
-                    name: NSLocalizedString("Fill Window", comment: "Shortcut Guide"),
-                    keyString: "F8",
-                    toolTip: NSLocalizedString("Fill Window (F8): Scale the view to fill the window size.", comment: "Shortcut Guide"),
+                    keyString: "F5",
+                    toolTip: NSLocalizedString("Moving Hand (F5): Drag to move the scene, or view the major tag of annotations.", comment: "Shortcut Guide"),
                     modifierFlags: [.function]
                 ),
             ]

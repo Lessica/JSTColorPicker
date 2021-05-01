@@ -1,3 +1,6 @@
+/* Class = "NSMenuItem"; title = "Zoom to 4x"; ObjectID = "0ez-Fl-UDJ"; */
+"0ez-Fl-UDJ.title" = "Zoom to 4x";
+
 /* Class = "NSMenu"; title = "Templates"; ObjectID = "0GS-5F-2Eu"; */
 "0GS-5F-2Eu.title" = "Templates";
 
@@ -31,6 +34,9 @@
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Edit";
 
+/* Class = "NSMenuItem"; title = "Zoom to 128x"; ObjectID = "6b7-xj-dHq"; */
+"6b7-xj-dHq.title" = "Zoom to 128x";
+
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Redo";
 
@@ -39,6 +45,9 @@
 
 /* Class = "NSMenuItem"; title = "Visit Website…"; ObjectID = "8AD-4g-2RS"; */
 "8AD-4g-2RS.title" = "Visit Website…";
+
+/* Class = "NSMenuItem"; title = "Zoom to 2x"; ObjectID = "8he-XC-WaL"; */
+"8he-XC-WaL.title" = "Zoom to 2x";
 
 /* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "Toggle Color Panel";
@@ -88,6 +97,12 @@
 /* Class = "NSMenuItem"; title = "Information"; ObjectID = "Co5-Y3-Rnn"; */
 "Co5-Y3-Rnn.title" = "Information";
 
+/* Class = "NSMenuItem"; title = "Zoom to 64x"; ObjectID = "cPG-If-iEO"; */
+"cPG-If-iEO.title" = "Zoom to 64x";
+
+/* Class = "NSMenu"; title = "Zoom"; ObjectID = "Cpw-pf-A1c"; */
+"Cpw-pf-A1c.title" = "Zoom";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show a palette with available keyboard shortcuts."; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.ibShadowedToolTip" = "Show a palette with available keyboard shortcuts.";
 
@@ -96,6 +111,9 @@
 
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "Compare Opened Documents";
+
+/* Class = "NSMenuItem"; title = "Minifying Glass"; ObjectID = "dfF-dN-Qvm"; */
+"dfF-dN-Qvm.title" = "Minifying Glass";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
 "dMs-cI-mzQ.title" = "File";
@@ -111,6 +129,9 @@
 
 /* Class = "NSMenuItem"; title = "Inspector"; ObjectID = "dYY-Yn-vNs"; */
 "dYY-Yn-vNs.title" = "Inspector";
+
+/* Class = "NSMenuItem"; title = "Zoom to 75%"; ObjectID = "E9h-nV-D5B"; */
+"E9h-nV-D5B.title" = "Zoom to 75%";
 
 /* Class = "NSMenuItem"; title = "Toggle Color Grid"; ObjectID = "f1Y-VB-nPG"; */
 "f1Y-VB-nPG.title" = "Toggle Color Grid";
@@ -129,6 +150,9 @@
 
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "Templates";
+
+/* Class = "NSMenuItem"; title = "Zoom to 32x"; ObjectID = "gQL-9Z-UHq"; */
+"gQL-9Z-UHq.title" = "Zoom to 32x";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Paste annotations from another document."; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.ibShadowedToolTip" = "Paste annotations from another document.";
@@ -160,6 +184,9 @@
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "Color Picker";
 
+/* Class = "NSMenuItem"; title = "Moving Hand"; ObjectID = "Jfy-di-tRp"; */
+"Jfy-di-tRp.title" = "Moving Hand";
+
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "Select Template";
 
@@ -169,17 +196,29 @@
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "Take Screenshot";
 
+/* Class = "NSMenuItem"; title = "Zoom to Fill"; ObjectID = "K4R-ig-ZXW"; */
+"K4R-ig-ZXW.title" = "Zoom to Fill";
+
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "Show All";
 
 /* Class = "NSMenuItem"; title = "Show Sidebar"; ObjectID = "kIP-vf-haE"; */
 "kIP-vf-haE.title" = "Show Sidebar";
 
+/* Class = "NSMenuItem"; title = "Zoom to 100%"; ObjectID = "Kkk-xx-LeZ"; */
+"Kkk-xx-LeZ.title" = "Zoom to 100%";
+
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "kt2-f5-ySm"; */
 "kt2-f5-ySm.title" = "Revert to Saved";
 
+/* Class = "NSMenuItem"; title = "Selection Arrow"; ObjectID = "KzY-gR-loy"; */
+"KzY-gR-loy.title" = "Selection Arrow";
+
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "Zoom to 3x"; ObjectID = "mhz-lA-RTh"; */
+"mhz-lA-RTh.title" = "Zoom to 3x";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show template scripts in Finder."; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.ibShadowedToolTip" = "Show template scripts in Finder.";
@@ -196,8 +235,17 @@
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "Open Recent";
 
+/* Class = "NSMenuItem"; title = "Magic Cursor"; ObjectID = "OLF-SN-E6a"; */
+"OLF-SN-E6a.title" = "Magic Cursor";
+
 /* Class = "NSMenuItem"; title = "Hide JSTColorPicker"; ObjectID = "Olw-nP-bQN"; */
 "Olw-nP-bQN.title" = "Hide JSTColorPicker";
+
+/* Class = "NSMenuItem"; title = "Zoom to 8x"; ObjectID = "OQW-bq-Brv"; */
+"OQW-bq-Brv.title" = "Zoom to 8x";
+
+/* Class = "NSMenuItem"; title = "Scene"; ObjectID = "owj-5e-fSW"; */
+"owj-5e-fSW.title" = "Scene";
 
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
 "OwM-mh-QMV.title" = "Find Previous";
@@ -208,11 +256,23 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "Delete";
 
+/* Class = "NSMenuItem"; title = "Zoom to 25%"; ObjectID = "PAS-OP-Bs6"; */
+"PAS-OP-Bs6.title" = "Zoom to 25%";
+
+/* Class = "NSMenuItem"; title = "Zoom to 50%"; ObjectID = "prc-SX-5F8"; */
+"prc-SX-5F8.title" = "Zoom to 50%";
+
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "Save…";
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "Find Next";
+
+/* Class = "NSMenuItem"; title = "Zoom to 256x"; ObjectID = "Q6L-eM-eQe"; */
+"Q6L-eM-eQe.title" = "Zoom to 256x";
+
+/* Class = "NSMenuItem"; title = "Magnifying Glass"; ObjectID = "qRL-nx-uuS"; */
+"qRL-nx-uuS.title" = "Magnifying Glass";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "Zoom";
@@ -229,11 +289,17 @@
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "Jump to Selection";
 
+/* Class = "NSMenuItem"; title = "Zoom to 16x"; ObjectID = "sd4-jK-7JX"; */
+"sd4-jK-7JX.title" = "Zoom to 16x";
+
 /* Class = "NSMenuItem"; title = "Subscribe JSTColorPicker…"; ObjectID = "SGf-6i-QGZ"; */
 "SGf-6i-QGZ.title" = "Subscribe JSTColorPicker…";
 
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "snW-S8-Cw5"; */
 "snW-S8-Cw5.title" = "Show Toolbar";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "spS-3Y-xdg"; */
+"spS-3Y-xdg.title" = "Zoom";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Window";
@@ -241,8 +307,14 @@
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "Open Recent";
 
+/* Class = "NSMenuItem"; title = "Zoom to 150%"; ObjectID = "U9I-Yo-cey"; */
+"U9I-Yo-cey.title" = "Zoom to 150%";
+
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
+
+/* Class = "NSMenu"; title = "Scene"; ObjectID = "UrH-cz-CWF"; */
+"UrH-cz-CWF.title" = "Scene";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Cut";
@@ -286,11 +358,44 @@
 /* Class = "NSMenuItem"; title = "Sidebar Panes"; ObjectID = "XoB-WB-yEe"; */
 "XoB-WB-yEe.title" = "Sidebar Panes";
 
+/* Class = "NSMenuItem"; title = "Zoom Out"; ObjectID = "xxe-Bw-gaH"; */
+"xxe-Bw-gaH.title" = "Zoom Out";
+
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "Find…";
+
+/* Class = "NSMenuItem"; title = "Zoom to Fit"; ObjectID = "y3Z-QR-Lmf"; */
+"y3Z-QR-Lmf.title" = "Zoom to Fit";
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "Find and Replace…";
 
+/* Class = "NSMenuItem"; title = "Zoom to 125%"; ObjectID = "Z85-vK-dUZ"; */
+"Z85-vK-dUZ.title" = "Zoom to 125%";
+
 /* Class = "NSMenuItem"; title = "Terms & Privacy"; ObjectID = "Zll-9T-ZNP"; */
 "Zll-9T-ZNP.title" = "Terms & Privacy";
+
+/* Class = "NSMenuItem"; title = "Zoom In"; ObjectID = "znw-px-wvZ"; */
+"znw-px-wvZ.title" = "Zoom In";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Minifying Glass: Zoom out at a preset scale."; ObjectID = "dfF-dN-Qvm"; */
+"dfF-dN-Qvm.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Moving Hand: Drag to move the scene, or view the major tag of annotations."; ObjectID = "Jfy-di-tRp"; */
+"Jfy-di-tRp.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Fill Window: Scale the view to fill the window size."; ObjectID = "K4R-ig-ZXW"; */
+"K4R-ig-ZXW.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Selection Arrow: View, select, or modify annotations."; ObjectID = "KzY-gR-loy"; */
+"KzY-gR-loy.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
+"OLF-SN-E6a.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "qRL-nx-uuS"; */
+"qRL-nx-uuS.ibShadowedToolTip" = "";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Fit Window: Scale the view to fit the window size."; ObjectID = "y3Z-QR-Lmf"; */
+"y3Z-QR-Lmf.ibShadowedToolTip" = "";

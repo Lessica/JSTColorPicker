@@ -53,7 +53,7 @@ Zoom out at a preset scale.
 - **Hold** `⌃`: Switch to *Magic Cursor* temporarily.
 - **Hold** `⌥`: Switch to *Magnifying Glass* temporarily.
 
-### Move
+### Moving Hand
 Drag to move the scene, or view the major tag of annotations.
 
 - **Drag**: A simple drag-to-move operation for common pointer devices.
@@ -158,14 +158,11 @@ Scale the view to fit/fill the window size.
 
 
 ## Toolbar Key Equivalents
-- `[Fn]F1` Open…
-- `[Fn]F2` *Magic Cursor*
+- `[Fn]F1` *Magic Cursor*
+- `[Fn]F2` *Selection Arrow*
 - `[Fn]F3` *Magnifying Glass*
 - `[Fn]F4` *Minifying Glass*
-- `[Fn]F5` *Selection Arrow*
-- `[Fn]F6` *Move*
-- `[Fn]F7` Fit Window
-- `[Fn]F8` Fill Window
+- `[Fn]F5` *Moving Hand*
 
 
 ## Customizable Templates

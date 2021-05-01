@@ -23,7 +23,7 @@
                 </windowController>
                 <customObject id="vmA-Yf-7N1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2016" y="-421"/>
+            <point key="canvasLocation" x="-2440" y="-349"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -362,6 +362,91 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Scene" id="owj-5e-fSW">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Scene" id="UrH-cz-CWF">
+                                    <items>
+                                        <menuItem title="Magic Cursor" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.magicCursor" toolTip="Magic Cursor: Add, or delete annotations." id="OLF-SN-E6a">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Selection Arrow" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.selectionArrow" toolTip="Selection Arrow: View, select, or modify annotations." id="KzY-gR-loy">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Magnifying Glass" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.magnifyingClass" toolTip="Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." id="qRL-nx-uuS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Minifying Glass" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.minifyingGlass" toolTip="Minifying Glass: Zoom out at a preset scale." id="dfF-dN-Qvm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Moving Hand" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.movingHand" toolTip="Moving Hand: Drag to move the scene, or view the major tag of annotations." id="Jfy-di-tRp">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="zCp-Zu-YWe"/>
+                                        <menuItem title="Zoom" id="spS-3Y-xdg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Zoom" id="Cpw-pf-A1c">
+                                                <items>
+                                                    <menuItem title="Zoom to 25%" id="PAS-OP-Bs6">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 50%" id="prc-SX-5F8">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 75%" id="E9h-nV-D5B">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 100%" keyEquivalent="=" id="Kkk-xx-LeZ">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 125%" id="Z85-vK-dUZ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 150%" id="U9I-Yo-cey">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 2x" id="8he-XC-WaL">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 3x" id="mhz-lA-RTh">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 4x" id="0ez-Fl-UDJ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 8x" id="OQW-bq-Brv">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 16x" id="sd4-jK-7JX">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 32x" id="gQL-9Z-UHq">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 64x" id="cPG-If-iEO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 128x" id="6b7-xj-dHq">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to 256x" id="Q6L-eM-eQe">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="U9l-0H-rY8"/>
+                                                    <menuItem title="Zoom to Fit" toolTip="Fit Window: Scale the view to fit the window size." id="y3Z-QR-Lmf">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom to Fill" toolTip="Fill Window: Scale the view to fill the window size." id="K4R-ig-ZXW">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="sTu-Bh-hQO"/>
+                                                    <menuItem title="Zoom In" keyEquivalent="=" id="znw-px-wvZ"/>
+                                                    <menuItem title="Zoom Out" keyEquivalent="-" id="xxe-Bw-gaH"/>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Devices" id="9vP-dU-wGE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Devices" id="1Il-r8-iYp">
@@ -509,7 +594,7 @@ CA
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
             </objects>
-            <point key="canvasLocation" x="-2061" y="-663"/>
+            <point key="canvasLocation" x="-2104" y="-349"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
