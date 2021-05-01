@@ -36,6 +36,8 @@
 	<true/>
 	<key>defaults:ignoreRepeatedInsertion</key>
 	<false/>
+	<key>defaults:locateExportedItemsAfterOperation</key>
+	<false/>
 	<key>defaults:zIndexBySize</key>
 	<false/>
 	<key>defaults:initialSimilarity</key>

@@ -67,4 +67,6 @@ extension UserDefaults.Key {
     
     static let initialSimilarity                    : UserDefaults.Key     = "defaults:initialSimilarity"                      // Double
     
+    static let locateExportedItemsAfterOperation    : UserDefaults.Key     = "defaults:locateExportedItemsAfterOperation"      // Bool
+    
 }

@@ -294,8 +294,12 @@ class Screenshot: NSDocument {
 
     private(set) var isExtractingContentItems: Bool = false
 
-    func extractContentItems(in window: NSWindow, with template: Template, asyncTask task: @escaping (Template) throws -> Void)
-    {
+    func extractContentItems(
+        in window: NSWindow,
+        with template: Template,
+        asyncTask task: @escaping (Template) throws -> Void,
+        completionHandler completion: ((Bool) -> Void)? = nil
+    ) {
         guard !isExtractingContentItems else {
             fatalError("now extracting content items")
         }
@@ -318,6 +322,7 @@ class Screenshot: NSDocument {
                         loadingAlert.window.orderOut(self)
                         window.endSheet(loadingAlert.window)
                         self?.isExtractingContentItems = false
+                        completion?(true)
                     }
                 }
                 try task(template)
@@ -325,6 +330,7 @@ class Screenshot: NSDocument {
                 DispatchQueue.main.async { [weak self] in
                     self?.presentError(error)
                     self?.isExtractingContentItems = false
+                    completion?(false)
                 }
             }
         }
@@ -378,17 +384,25 @@ extension Screenshot {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
-            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
-            panel.accessoryView = accessoryView
+            let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = exportOptionView
             panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), displayName ?? "", content?.items.count ?? 0)
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: window) { [unowned self] (resp) in
                 if resp == .OK {
                     if let url = panel.url {
                         if template.isAsync {
-                            self.exportAllContentItemsAsync(to: url, with: template)
+                            self.exportAllContentItemsAsync(
+                                to: url,
+                                with: template,
+                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                            )
                         } else {
-                            self.exportAllContentItems(to: url, with: template)
+                            self.exportAllContentItems(
+                                to: url,
+                                with: template,
+                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                            )
                         }
                     }
                 }
@@ -417,9 +431,16 @@ extension Screenshot {
         }
     }
     
-    private func exportAllContentItems(to url: URL, with template: Template) {
+    private func exportAllContentItems(
+        to url: URL,
+        with template: Template,
+        byLocatingAfterOperation locate: Bool
+    ) {
         do {
             try export.exportAllContentItems(to: url, with: template)
+            if locate {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
         } catch {
             presentError(error)
         }
@@ -433,11 +454,20 @@ extension Screenshot {
         }
     }
 
-    private func exportAllContentItemsAsync(to url: URL, with template: Template) {
+    private func exportAllContentItemsAsync(
+        to url: URL,
+        with template: Template,
+        byLocatingAfterOperation locate: Bool
+    ) {
         guard let window = associatedWindowController?.window else { return }
         extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
             try self.export.exportAllContentItems(to: url, with: tmpl)
+        } completionHandler: { (succeed) in
+            if succeed && locate {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
         }
+
     }
 
     private func exportAllContentItemsAsyncInPlace(with template: Template) {

@@ -21,6 +21,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="0lf-8E-CnX" name="value" keyPath="values.defaults:locateExportedItemsAfterOperation" id="CSm-SA-dTF"/>
+                            </connections>
                         </button>
                     </subviews>
                     <visibilityPriorities>
@@ -42,5 +45,6 @@
             </connections>
             <point key="canvasLocation" x="-282.5" y="121"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="0lf-8E-CnX"/>
     </objects>
 </document>

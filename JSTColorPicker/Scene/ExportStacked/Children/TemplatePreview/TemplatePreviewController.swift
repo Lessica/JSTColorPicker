@@ -825,6 +825,10 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }.finally {
             let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
             if succeed && shouldMakeSound {
+                let locate: Bool = UserDefaults.standard[.locateExportedItemsAfterOperation]
+                if locate, let url = targetURL {
+                    NSWorkspace.shared.activateFileViewerSelecting([url])
+                }
                 NSSound(named: "Paste")?.play()
             }
         }
@@ -1008,8 +1012,8 @@ extension TemplatePreviewController {
             }
 
             let panel = NSSavePanel()
-            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
-            panel.accessoryView = accessoryView
+            let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = exportOptionView
             panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), screenshot.displayName ?? "", items.count)
             panel.allowedFileTypes = template.allowedExtensions
             panel.beginSheetModal(for: view.window!) { resp in

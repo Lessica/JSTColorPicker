@@ -1175,17 +1175,25 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let targetIndex = actionSelectedRowIndex else { return }
         let selectedItem = collection[targetIndex]
         let panel = NSSavePanel()
-        let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
-        panel.accessoryView = accessoryView
+        let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+        panel.accessoryView = exportOptionView
         panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Resample Item #%ld", comment: "resample(_:)"), screenshot?.displayName ?? "", selectedItem.id)
         panel.allowedFileTypes = ["png", "jpg", "jpeg"]
         panel.beginSheetModal(for: view.window!) { [weak self] (resp) in
             if resp == .OK {
                 if let url = panel.url {
                     if let selectedColor = selectedItem as? PixelColor {
-                        self?.saveSample(of: selectedColor, to: url, byLocatingTarget: accessoryView?.locateAfterOperation ?? false)
+                        self?.saveSample(
+                            of: selectedColor,
+                            to: url,
+                            byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                        )
                     } else if let selectedArea = selectedItem as? PixelArea {
-                        self?.saveCroppedImage(of: selectedArea, to: url, byLocatingTarget: accessoryView?.locateAfterOperation ?? false)
+                        self?.saveCroppedImage(
+                            of: selectedArea,
+                            to: url,
+                            byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                        )
                     }
                 }
             }
@@ -1195,7 +1203,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     private func saveSample(
         of color: PixelColor,
         to url: URL,
-        byLocatingTarget locate: Bool
+        byLocatingAfterOperation locate: Bool
     ) {
         guard let coloredData = NSImage(
                 color: color.toNSColor(),
@@ -1205,7 +1213,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         do {
             try coloredData.write(to: url)
             if locate {
-                NSWorkspace.shared.activateFileViewerSelecting([ url ])
+                NSWorkspace.shared.activateFileViewerSelecting([url])
             }
         } catch {
             presentError(error)
@@ -1215,13 +1223,13 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     private func saveCroppedImage(
         of area: PixelArea,
         to url: URL,
-        byLocatingTarget locate: Bool
+        byLocatingAfterOperation locate: Bool
     ) {
         guard let data = documentImage?.pngRepresentation(of: area) else { return }
         do {
             try data.write(to: url)
             if locate {
-                NSWorkspace.shared.activateFileViewerSelecting([ url ])
+                NSWorkspace.shared.activateFileViewerSelecting([url])
             }
         } catch {
             presentError(error)
@@ -1241,8 +1249,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
 
         if !template.saveInPlace {
             let panel = NSSavePanel()
-            let accessoryView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
-            panel.accessoryView = accessoryView
+            let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
+            panel.accessoryView = exportOptionView
             if selectedItems.count > 1 {
                 panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAs(_:)"), screenshot?.displayName ?? "", selectedItems.count)
             } else if !selectedItems.isEmpty {
@@ -1253,9 +1261,19 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 if resp == .OK {
                     if let url = panel.url {
                         if template.isAsync {
-                            self.exportContentItemsAsync(selectedItems, to: url, with: template)
+                            self.exportContentItemsAsync(
+                                selectedItems,
+                                to: url,
+                                with: template,
+                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                            )
                         } else {
-                            self.exportContentItems(selectedItems, to: url, with: template)
+                            self.exportContentItems(
+                                selectedItems,
+                                to: url,
+                                with: template,
+                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
+                            )
                         }
                     }
                 }
@@ -1269,9 +1287,17 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    private func exportContentItems(_ items: [ContentItem], to url: URL, with template: Template) {
+    private func exportContentItems(
+        _ items: [ContentItem],
+        to url: URL,
+        with template: Template,
+        byLocatingAfterOperation locate: Bool
+    ) {
         do {
             try documentExport?.exportContentItems(items, to: url, with: template)
+            if locate {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
         } catch {
             presentError(error)
         }
@@ -1285,10 +1311,19 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    private func exportContentItemsAsync(_ items: [ContentItem], to url: URL, with template: Template) {
-        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+    private func exportContentItemsAsync(
+        _ items: [ContentItem],
+        to url: URL,
+        with template: Template,
+        byLocatingAfterOperation locate: Bool
+    ) {
+        screenshot?.extractContentItems(in: view.window!, with: template, asyncTask: { [weak self] (tmpl) in
             try self?.documentExport?.exportContentItems(items, to: url, with: tmpl)
-        }
+        }, completionHandler: { (succeed) in
+            if succeed && locate {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
+        })
     }
 
     private func exportContentItemsAsyncInPlace(_ items: [ContentItem], with template: Template) {
