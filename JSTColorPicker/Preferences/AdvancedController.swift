@@ -21,7 +21,7 @@ class AdvancedController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func resetUserDefaultsAction(_ sender: NSButton) {
+    @IBAction private func resetUserDefaultsAction(_ sender: NSButton) {
         NSUserDefaultsController.shared.revertToInitialValues(sender)
         // clear restorable state
         AppDelegate.shared.tabService?
@@ -42,7 +42,7 @@ class AdvancedController: NSViewController {
         }
     }
     
-    @IBAction func resetTagDatabaseAction(_ sender: NSButton) {
+    @IBAction private func resetTagDatabaseAction(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Reset Confirm", comment: "resetTagDatabaseAction(_:)")
@@ -76,7 +76,7 @@ class AdvancedController: NSViewController {
         #endif
     }
     
-    @IBAction func actionRequiresRestart(_ sender: NSButton) {
+    @IBAction private func actionRequiresRestart(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")

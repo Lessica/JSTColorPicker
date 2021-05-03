@@ -358,7 +358,7 @@ extension Screenshot {
         return super.validateMenuItem(menuItem)
     }
     
-    @IBAction func copyAll(_ sender: Any) {
+    @IBAction private func copyAll(_ sender: Any) {
         guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
             return
@@ -371,7 +371,7 @@ extension Screenshot {
         }
     }
     
-    @IBAction func exportAll(_ sender: Any) {
+    @IBAction private func exportAll(_ sender: Any) {
         guard let window = associatedWindowController?.window else { return }
         guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)

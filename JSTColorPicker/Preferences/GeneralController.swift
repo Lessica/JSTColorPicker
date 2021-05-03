@@ -27,7 +27,7 @@ class GeneralController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func actionRequiresRestart(_ sender: NSButton) {
+    @IBAction private func actionRequiresRestart(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")

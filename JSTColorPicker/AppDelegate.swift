@@ -76,8 +76,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var sparkUpdater: SUUpdater!
     #endif
     
-    @IBOutlet weak var menu: NSMenu!
-    @IBOutlet weak var mainMenu: NSMenu!
+    @IBOutlet weak var menu                                   : NSMenu!
+    @IBOutlet weak var mainMenu                               : NSMenu!
+    @IBOutlet weak var fileMenu                               : NSMenu!
+    @IBOutlet weak var editMenu                               : NSMenu!
+    @IBOutlet weak var viewMenu                               : NSMenu!
+    @IBOutlet weak var sceneMenu                              : NSMenu!
+    @IBOutlet weak var sceneZoomMenu                          : NSMenu!
+    @IBOutlet weak var paneMenu                               : NSMenu!
+    @IBOutlet weak var templateMenu                           : NSMenu!
+    @IBOutlet weak var templateSubMenu                        : NSMenu!
+    @IBOutlet weak var devicesMenu                            : NSMenu!
+    @IBOutlet weak var devicesSubMenu                         : NSMenu!
+    @IBOutlet weak var windowMenu                             : NSMenu!
+    @IBOutlet weak var helpMenu                               : NSMenu!
+    
+    @IBOutlet weak var checkForUpdatesMenuItem                : NSMenuItem!
+    @IBOutlet weak var viewSubscriptionMenuItem               : NSMenuItem!
+    @IBOutlet weak var compareDocumentsMenuItem               : NSMenuItem!
+    @IBOutlet weak var gridSwitchMenuItem                     : NSMenuItem!
+    @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
+    @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
     
     private var firstManagedWindowController: WindowController? {
         return tabService?.firstManagedWindow?.windowController
@@ -87,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         tabService?.firstRespondingWindow?.windowController as? WindowController
     }
     
-    private lazy var preferencesController: NSWindowController = {
+    private lazy var preferencesController: PreferencesController = {
         #if APP_STORE
         let controller = PreferencesController(
             viewControllers: [
@@ -125,11 +144,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if objc_getClass("SUAppcast") != nil {
-            subscribeItem.isHidden = true
-            checkForUpdatesItem.isHidden = false
+            viewSubscriptionMenuItem.isHidden = true
+            checkForUpdatesMenuItem.isHidden = false
         } else {
-            subscribeItem.isHidden = false
-            checkForUpdatesItem.isHidden = true
+            viewSubscriptionMenuItem.isHidden = false
+            checkForUpdatesMenuItem.isHidden = true
         }
         
         var initialValues: [UserDefaults.Key: Any?] = [
@@ -262,7 +281,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Preferences Actions
     
-    @IBAction func preferencesItemTapped(_ sender: Any?) {
+    @objc func showPreferences(_ sender: Any?) {
         if let prefsWindow = preferencesController.window,
             !prefsWindow.isVisible,
             let keyScreen = tabService?.firstRespondingWindow?.screen,
@@ -277,11 +296,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesController.showWindow(sender)
     }
     
+    @IBAction private func showPreferencesItemTapped(_ sender: NSMenuItem) {
+        showPreferences(sender)
+    }
+    
     
     // MARK: - Compare Actions
-    
-    @IBOutlet weak var fileMenu: NSMenu!
-    @IBOutlet weak var compareMenuItem: NSMenuItem!
     
     private var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
         guard let managedWindows = tabService?.managedWindows else { return nil }
@@ -294,7 +314,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return (firstWindowController, preparedManagedWindows.compactMap({ $0.windowController.screenshot?.image }))
     }
     
-    @IBAction func compareMenuItemTapped(_ sender: Any?) {
+    @objc func compareDocuments(_ sender: Any?) {
         if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
             firstManagedWindowController?.endPixelMatchComparison()
         }
@@ -306,16 +326,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    @IBAction private func compareDocumentsMenuItemTapped(_ sender: NSMenuItem) {
+        compareDocuments(sender)
+    }
 
 
     // MARK: - Pane Actions
-
-    @IBOutlet weak var paneMenu: NSMenu!
     
     
     // MARK: - Color Grid Actions
-    
-    @IBOutlet weak var gridSwitchMenuItem: NSMenuItem!
     
     private var isGridVisible: Bool { GridWindowController.shared.isVisible }
     
@@ -328,12 +348,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.invalidateRestorableState()
     }
     
-    @IBAction func gridSwitchMenuItemTapped(_ sender: Any?) {
+    @objc func gridSwitch(_ sender: Any?) {
         if isGridVisible {
             toggleGridVisibleState(false, sender: sender)
         } else {
             toggleGridVisibleState(true, sender: sender)
         }
+    }
+    
+    @IBAction private func gridSwitchMenuItemTapped(_ sender: NSMenuItem) {
+        gridSwitch(sender)
     }
     
     
@@ -349,7 +373,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var colorPanelSwitchMenuItem: NSMenuItem!
     
-    @IBAction func colorPanelSwitchMenuItemTapped(_ sender: Any) {
+    @IBAction private func colorPanelSwitchMenuItemTapped(_ sender: NSMenuItem) {
         if !colorPanel.isVisible {
             colorPanel.makeKeyAndOrderFront(sender)
         } else {
@@ -361,10 +385,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Device Actions
     
     private var isTakingScreenshot                            : Bool = false
-    @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
-    @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
-    @IBOutlet weak var devicesMenu                            : NSMenu!
-    @IBOutlet weak var devicesSubMenu                         : NSMenu!
     private static let deviceIdentifierPrefix                 : String = "device-"
     private var selectedDeviceUDID                            : String?
     {
@@ -378,7 +398,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return formatter
     }()
     
-    @IBAction func enableNetworkDiscoveryMenuItemTapped(_ sender: NSMenuItem) {
+    @IBAction private func enableNetworkDiscoveryMenuItemTapped(_ sender: NSMenuItem) {
         let enabled = sender.state == .on
         sender.state = !enabled ? .on : .off
         UserDefaults.standard[.enableNetworkDiscovery] = !enabled
@@ -452,8 +472,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @IBAction func devicesTakeScreenshotMenuItemTapped(_ sender: Any?) {
-        
+    @objc func takeScreenshot(_ sender: Any?) {
         guard !self.isTakingScreenshot else { return }
         self.isTakingScreenshot = true
         
@@ -469,9 +488,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         guard let selectedDeviceUDID = selectedDeviceUDID else {
             let alert = NSAlert()
-            alert.messageText = NSLocalizedString("No device selected", comment: "screenshotItemTapped(_:)")
-            alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "screenshotItemTapped(_:)")
-            alert.addButton(withTitle: NSLocalizedString("OK", comment: "screenshotItemTapped(_:)"))
+            alert.messageText = NSLocalizedString("No device selected", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
+            alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "devicesTakeScreenshotMenuItemTapped(_:)"))
             alert.alertStyle = .informational
             windowController.showSheet(alert) { [weak self] (resp) in
                 self?.isTakingScreenshot = false
@@ -480,7 +499,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         let loadingAlert = NSAlert()
-        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "screenshotItemTapped(_:)"))
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "devicesTakeScreenshotMenuItemTapped(_:)"))
         loadingAlert.alertStyle = .informational
         loadingAlert.buttons.first?.isHidden = true
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
@@ -489,13 +508,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         loadingAlert.accessoryView = loadingIndicator
         
         firstly { () -> Promise<[String: String]> in
-            loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "screenshotItemTapped(_:)")
-            loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "screenshotItemTapped(_:)"), selectedDeviceUDID)
+            loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
+            loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "devicesTakeScreenshotMenuItemTapped(_:)"), selectedDeviceUDID)
             windowController.showSheet(loadingAlert, completionHandler: nil)
             return self.promiseProxyLookupDevice(proxy, by: selectedDeviceUDID)
         }.then { [unowned self] (device) -> Promise<Data> in
-            loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "screenshotItemTapped(_:)")
-            loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "screenshotItemTapped(_:)"), device["name"]!)
+            loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
+            loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "devicesTakeScreenshotMenuItemTapped(_:)"), device["name"]!)
             return self.promiseProxyTakeScreenshot(proxy, by: device["udid"]!)
         }.then { [unowned self] (data) -> Promise<URL> in
             return self.promiseSaveScreenshot(data, to: picturesDirectoryPath)
@@ -511,11 +530,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction private func devicesTakeScreenshotMenuItemTapped(_ sender: NSMenuItem) {
+        takeScreenshot(sender)
+    }
+    
     
     // MARK: - Template Actions
-    
-    @IBOutlet weak var templateMenu: NSMenu!
-    @IBOutlet weak var templateSubMenu: NSMenu!
 
     @discardableResult
     private func presentError(_ error: Error) -> Bool {
@@ -523,7 +543,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return NSApp.presentError(error)
     }
     
-    @IBAction func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
+    @objc func showTemplates(_ sender: Any?) {
         applicationLoadTemplatesIfNeeded()
         let url = TemplateManager.templateRootURL
         guard url.isDirectory else {
@@ -533,12 +553,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.open(url)
     }
     
-    @IBAction func showLogsMenuItemTapped(_ sender: NSMenuItem) {
+    @IBAction private func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
+        showTemplates(sender)
+    }
+    
+    @objc func showLogs(_ sender: Any?) {
         do {
             try openConsole()
         } catch {
             presentError(error)
         }
+    }
+    
+    @IBAction private func showLogsMenuItemTapped(_ sender: NSMenuItem) {
+        showLogs(sender)
     }
     
     @objc private func selectTemplateItemTapped(_ sender: NSMenuItem) {
@@ -580,33 +608,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Help Actions
     
-    @IBAction func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
+    @IBAction private func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
         NSWorkspace.shared.redirectToLocalHelpPage()
     }
     
-    @IBAction func actionRedirectToTermsAndPrivacyPage(_ sender: NSMenuItem) {
+    @IBAction private func actionRedirectToTermsAndPrivacyPage(_ sender: NSMenuItem) {
         NSWorkspace.shared.redirectToTermsPage()
     }
     
-    @IBAction func actionRedirectToMainPage(_ sender: NSMenuItem) {
+    @IBAction private func actionRedirectToMainPage(_ sender: NSMenuItem) {
         NSWorkspace.shared.redirectToMainPage()
     }
     
     
     // MARK: - Sparkle Actions
     
-    @IBOutlet weak var checkForUpdatesItem  : NSMenuItem!
-    
     
     // MARK: - Subscribe Actions
     
-    @IBOutlet weak var subscribeItem        : NSMenuItem!
-    
-    @IBAction func subscribeMenuItemTapped(_ sender: NSMenuItem) {
+    @IBAction private func subscribeMenuItemTapped(_ sender: NSMenuItem) {
         #if APP_STORE
         PurchaseWindowController.shared.showWindow(sender)
         #endif
     }
+    
+    
+    // MARK: - Scene Actions
     
 }
 
@@ -620,13 +647,15 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
         if menuItem.action == #selector(subscribeMenuItemTapped(_:)) {
             return true
         }
-        else if menuItem.action == #selector(compareMenuItemTapped(_:))
+        else if menuItem.action == #selector(compareDocumentsMenuItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
             if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
-            } else if preparedPixelMatchTuple != nil {
-                return true
+            } else if let tuple = preparedPixelMatchTuple {
+                return tuple.1.count > 1
+                    && tuple.1.first != nil
+                    && tuple.1.first?.bounds == tuple.1.last?.bounds
             } else {
                 return false
             }
@@ -674,6 +703,9 @@ by \(template.author ?? "Unknown")
         else if menu == self.fileMenu {
             updateFileMenuItems()
         }
+        else if menu == self.sceneMenu {
+            updateSceneMenuItems()
+        }
         else if menu == self.devicesMenu {
             updateDevicesMenuItems()
         }
@@ -688,27 +720,60 @@ by \(template.author ?? "Unknown")
     private func updateMainMenuItems() {
         #if APP_STORE
         if PurchaseManager.shared.getProductType() == .subscribed {
-            subscribeItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getShortReadableExpiredAt())
+            viewSubscriptionMenuItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getShortReadableExpiredAt())
         } else {
-            subscribeItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
+            viewSubscriptionMenuItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
         }
         #endif
     }
     
     private func updateFileMenuItems() {
         if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
-            compareMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
-            compareMenuItem.isEnabled = true
+            compareDocumentsMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
         }
-        else if let tuple = preparedPixelMatchTuple {
-            let name1 = tuple.1[0].imageSource.url.lastPathComponent
-            let name2 = tuple.1[1].imageSource.url.lastPathComponent
-            compareMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), name1, name2)
-            compareMenuItem.isEnabled = true
+        else if let tuple = preparedPixelMatchTuple, tuple.1.count > 1
+        {
+            let name1 = tuple.1
+                .first!
+                .imageSource
+                .url
+                .lastPathComponent
+                .truncated(limit: 32, position: .middle)
+            let name2 = tuple.1
+                .last!
+                .imageSource
+                .url
+                .lastPathComponent
+                .truncated(limit: 32, position: .middle)
+            compareDocumentsMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), name1, name2)
         }
         else {
-            compareMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")
-            compareMenuItem.isEnabled = false
+            compareDocumentsMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")
+        }
+    }
+    
+    private func updateSceneMenuItems() {
+        guard let toolIdent = firstRespondingWindowController?.selectedSceneToolIdentifier else { return }
+        var menuItemIdent: NSUserInterfaceItemIdentifier?
+        switch toolIdent {
+        case .annotateItem:
+            menuItemIdent = .magicCursor
+        case .selectItem:
+            menuItemIdent = .selectionArrow
+        case .magnifyItem:
+            menuItemIdent = .magnifyingGlass
+        case .minifyItem:
+            menuItemIdent = .minifyingGlass
+        case .moveItem:
+            menuItemIdent = .movingHand
+        default:
+            break
+        }
+        if let stateOnMenuItemIdent = menuItemIdent {
+            sceneMenu.items
+                .forEach({
+                    $0.state = $0.identifier == stateOnMenuItemIdent ? .on : .off
+                })
         }
     }
     

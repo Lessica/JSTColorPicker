@@ -37,11 +37,11 @@ class SubscriptionController: NSViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @IBAction func viewSubscriptionAction(_ sender: NSButton) {
+    @IBAction private func viewSubscriptionAction(_ sender: NSButton) {
         PurchaseWindowController.shared.showWindow(sender)
     }
     
-    @IBAction func manageSubscriptionAction(_ sender: NSButton) {
+    @IBAction private func manageSubscriptionAction(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Open Confirmation", comment: "manageSubscriptionAction(_:)")

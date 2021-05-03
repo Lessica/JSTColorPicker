@@ -23,7 +23,7 @@
                 </windowController>
                 <customObject id="vmA-Yf-7N1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2440" y="-349"/>
+            <point key="canvasLocation" x="-2428" y="-357"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -57,7 +57,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <action selector="preferencesItemTapped:" target="Voe-Tx-rLC" id="3cQ-7e-pVB"/>
+                                                <action selector="showPreferencesItemTapped:" target="Voe-Tx-rLC" id="3cQ-7e-pVB"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -125,7 +125,7 @@
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Compare Opened Documents" keyEquivalent="D" id="d6I-ng-9rQ">
                                             <connections>
-                                                <action selector="compareMenuItemTapped:" target="Voe-Tx-rLC" id="9y7-wZ-lyH"/>
+                                                <action selector="compareDocumentsMenuItemTapped:" target="Voe-Tx-rLC" id="9y7-wZ-lyH"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vCe-vl-D8R"/>
@@ -269,6 +269,9 @@ CA
                                             </menu>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="BcN-H9-ao5"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="View" id="H8h-7b-M4v">
@@ -360,6 +363,9 @@ CA
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Fvp-sl-SZl"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="Scene" id="owj-5e-fSW">
@@ -368,83 +374,163 @@ CA
                                     <items>
                                         <menuItem title="Magic Cursor" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.magicCursor" toolTip="Magic Cursor: Add, or delete annotations." id="OLF-SN-E6a">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowUseAnnotateItemAction:" target="Ady-hI-5gd" id="DTZ-zN-Iud"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Selection Arrow" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.selectionArrow" toolTip="Selection Arrow: View, select, or modify annotations." id="KzY-gR-loy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowUseSelectItemAction:" target="Ady-hI-5gd" id="d56-7X-1p8"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Magnifying Glass" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.magnifyingClass" toolTip="Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." id="qRL-nx-uuS">
+                                        <menuItem title="Magnifying Glass" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.magnifyingGlass" toolTip="Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." id="qRL-nx-uuS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowUseMagnifyItemAction:" target="Ady-hI-5gd" id="tnV-o6-FLZ"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Minifying Glass" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.minifyingGlass" toolTip="Minifying Glass: Zoom out at a preset scale." id="dfF-dN-Qvm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowUseMinifyItemAction:" target="Ady-hI-5gd" id="7ix-ls-pw6"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Moving Hand" keyEquivalent="" identifier="com.jst.JSTColorPicker.MenuItem.movingHand" toolTip="Moving Hand: Drag to move the scene, or view the major tag of annotations." id="Jfy-di-tRp">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowUseMoveItemAction:" target="Ady-hI-5gd" id="KrM-bg-z1t"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="zCp-Zu-YWe"/>
                                         <menuItem title="Zoom" id="spS-3Y-xdg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Zoom" id="Cpw-pf-A1c">
                                                 <items>
-                                                    <menuItem title="Zoom to 25%" id="PAS-OP-Bs6">
+                                                    <menuItem title="Zoom to 25%" identifier="com.jst.JSTColorPicker.ZoomingLevel.25" id="PAS-OP-Bs6">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="F0j-gh-VHm"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 50%" id="prc-SX-5F8">
+                                                    <menuItem title="Zoom to 50%" identifier="com.jst.JSTColorPicker.ZoomingLevel.50" id="prc-SX-5F8">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="BFw-rP-7Mk"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 75%" id="E9h-nV-D5B">
+                                                    <menuItem title="Zoom to 75%" identifier="com.jst.JSTColorPicker.ZoomingLevel.75" id="E9h-nV-D5B">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="SSi-2h-YUO"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 100%" keyEquivalent="=" id="Kkk-xx-LeZ">
+                                                    <menuItem title="Zoom to 100%" keyEquivalent="=" identifier="com.jst.JSTColorPicker.ZoomingLevel.100" id="Kkk-xx-LeZ">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="GAp-Tl-AVQ"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 125%" id="Z85-vK-dUZ">
+                                                    <menuItem title="Zoom to 125%" identifier="com.jst.JSTColorPicker.ZoomingLevel.125" id="Z85-vK-dUZ">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="1YU-ux-z6d"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 150%" id="U9I-Yo-cey">
+                                                    <menuItem title="Zoom to 150%" identifier="com.jst.JSTColorPicker.ZoomingLevel.150" id="U9I-Yo-cey">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="dT9-Da-Dgf"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 2x" id="8he-XC-WaL">
+                                                    <menuItem title="Zoom to 2x" identifier="com.jst.JSTColorPicker.ZoomingLevel.200" id="8he-XC-WaL">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="cri-Xc-EOK"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 3x" id="mhz-lA-RTh">
+                                                    <menuItem title="Zoom to 3x" identifier="com.jst.JSTColorPicker.ZoomingLevel.300" id="mhz-lA-RTh">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="oFm-Ga-sf1"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 4x" id="0ez-Fl-UDJ">
+                                                    <menuItem title="Zoom to 4x" identifier="com.jst.JSTColorPicker.ZoomingLevel.400" id="0ez-Fl-UDJ">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="RPg-8W-N22"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 8x" id="OQW-bq-Brv">
+                                                    <menuItem title="Zoom to 8x" identifier="com.jst.JSTColorPicker.ZoomingLevel.800" id="OQW-bq-Brv">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="bxp-1Y-Etf"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 16x" id="sd4-jK-7JX">
+                                                    <menuItem title="Zoom to 16x" identifier="com.jst.JSTColorPicker.ZoomingLevel.1600" id="sd4-jK-7JX">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="ub3-IG-1YU"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 32x" id="gQL-9Z-UHq">
+                                                    <menuItem title="Zoom to 32x" identifier="com.jst.JSTColorPicker.ZoomingLevel.3200" id="gQL-9Z-UHq">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="JTe-8S-aad"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 64x" id="cPG-If-iEO">
+                                                    <menuItem title="Zoom to 64x" identifier="com.jst.JSTColorPicker.ZoomingLevel.6400" id="cPG-If-iEO">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="hrD-Ak-qek"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 128x" id="6b7-xj-dHq">
+                                                    <menuItem title="Zoom to 128x" identifier="com.jst.JSTColorPicker.ZoomingLevel.12800" id="6b7-xj-dHq">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="rmF-b4-G2U"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Zoom to 256x" id="Q6L-eM-eQe">
+                                                    <menuItem title="Zoom to 256x" identifier="com.jst.JSTColorPicker.ZoomingLevel.25600" id="Q6L-eM-eQe">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowZoomToAction:" target="Ady-hI-5gd" id="Zzj-9x-one"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="U9l-0H-rY8"/>
                                                     <menuItem title="Zoom to Fit" toolTip="Fit Window: Scale the view to fit the window size." id="y3Z-QR-Lmf">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowFitWindowAction:" target="Ady-hI-5gd" id="AEi-Zg-Snk"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Zoom to Fill" toolTip="Fill Window: Scale the view to fill the window size." id="K4R-ig-ZXW">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="windowFillWindowAction:" target="Ady-hI-5gd" id="4me-3j-OwO"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="sTu-Bh-hQO"/>
-                                                    <menuItem title="Zoom In" keyEquivalent="=" id="znw-px-wvZ"/>
-                                                    <menuItem title="Zoom Out" keyEquivalent="-" id="xxe-Bw-gaH"/>
+                                                    <menuItem title="Zoom In" keyEquivalent="=" id="znw-px-wvZ">
+                                                        <connections>
+                                                            <action selector="windowZoomInAction:" target="Ady-hI-5gd" id="hCe-G0-oGV"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Zoom Out" keyEquivalent="-" id="xxe-Bw-gaH">
+                                                        <connections>
+                                                            <action selector="windowZoomOutAction:" target="Ady-hI-5gd" id="h8u-vM-teJ"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="T9A-XX-67P"/>
+                                                </connections>
                                             </menu>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="lsr-Fi-VwD"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="Devices" id="9vP-dU-wGE">
@@ -532,6 +618,9 @@ CA
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="oIU-qm-y0k"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
@@ -563,6 +652,9 @@ CA
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Cg7-n2-DTf"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                         </items>
@@ -573,22 +665,28 @@ CA
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
-                        <outlet property="checkForUpdatesItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
+                        <outlet property="checkForUpdatesMenuItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
                         <outlet property="colorPanelSwitchMenuItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
-                        <outlet property="compareMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
+                        <outlet property="compareDocumentsMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
                         <outlet property="devicesEnableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
                         <outlet property="devicesMenu" destination="1Il-r8-iYp" id="6DE-0J-47r"/>
                         <outlet property="devicesSubMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
                         <outlet property="devicesTakeScreenshotMenuItem" destination="k2M-xo-Glg" id="uFh-af-Dcp"/>
+                        <outlet property="editMenu" destination="W48-6f-4Dl" id="fqi-HN-p3H"/>
                         <outlet property="fileMenu" destination="bib-Uj-vzu" id="huq-wG-vw3"/>
                         <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
+                        <outlet property="helpMenu" destination="F2S-fz-NVQ" id="E5E-bh-2qp"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
                         <outlet property="paneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
+                        <outlet property="sceneMenu" destination="UrH-cz-CWF" id="odl-QP-g0h"/>
+                        <outlet property="sceneZoomMenu" destination="Cpw-pf-A1c" id="GDd-T4-sxH"/>
                         <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
-                        <outlet property="subscribeItem" destination="SGf-6i-QGZ" id="4Sj-YY-Kzk"/>
                         <outlet property="templateMenu" destination="0GS-5F-2Eu" id="KgQ-uV-vT1"/>
                         <outlet property="templateSubMenu" destination="af9-zN-lJB" id="bF6-pZ-izo"/>
+                        <outlet property="viewMenu" destination="HyV-fh-RgO" id="cfn-gl-0mH"/>
+                        <outlet property="viewSubscriptionMenuItem" destination="SGf-6i-QGZ" id="4Sj-YY-Kzk"/>
+                        <outlet property="windowMenu" destination="Td7-aD-5lo" id="bKh-Qh-jTf"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -623,6 +721,7 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="plus.rectangle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -640,6 +739,7 @@ CA
                                             <viewController key="viewController" id="7Oq-ht-hPs">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -675,6 +775,7 @@ CA
                                             <viewController key="viewController" id="eFW-EM-Kyw">
                                                 <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -701,8 +802,9 @@ CA
                                             <sliderAccessory key="maximumValueAccessory" id="KdZ-Nz-Ii0">
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
-                                            <slider key="slider" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
                                                 <rect key="frame" x="17" y="0.0" width="66" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="above" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>
@@ -720,6 +822,7 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="camera" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>

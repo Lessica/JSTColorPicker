@@ -91,7 +91,7 @@ extension InspectorController: ItemInspector {
         }
     }
 
-    @IBAction func colorIndicatorTapped(_ sender: InspectorView) {
+    @IBAction private func colorIndicatorTapped(_ sender: InspectorView) {
         colorPanel.setTarget(nil)
         colorPanel.setAction(nil)
         colorPanel.color = sender.colorView.color
@@ -124,7 +124,7 @@ extension InspectorController: ItemInspector {
         }
     }
 
-    @IBAction func detailButtonTapped(_ sender: NSButton) {
+    @IBAction private func detailButtonTapped(_ sender: NSButton) {
         inspectorView.isHSBFormat = sender.state == .on
         if style == .primary {
             UserDefaults.standard[.togglePrimaryInspectorHSBFormat] = sender.state == .on

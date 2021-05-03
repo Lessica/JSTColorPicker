@@ -419,7 +419,7 @@ class TagListController: StackedPaneController {
     
     // MARK: - Actions
     
-    @IBAction func delete(_ sender: Any) {
+    @IBAction private func delete(_ sender: Any) {
         let rows = ((tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? IndexSet(integer: tableView.clickedRow) : IndexSet(tableView.selectedRowIndexes))
             .filteredIndexSet(includeInteger: { $0 < arrangedTags.count })
         internalController.remove(contentsOf: rows.map({ arrangedTags[$0] }))
@@ -637,9 +637,9 @@ class TagListController: StackedPaneController {
     
     // MARK: - Action
     
-    @IBAction func tableViewAction(_ sender: TagListTableView) { }
+    @IBAction private func tableViewAction(_ sender: TagListTableView) { }
     
-    @IBAction func tableViewDoubleAction(_ sender: TagListTableView) { }
+    @IBAction private func tableViewDoubleAction(_ sender: TagListTableView) { }
     
     private func reloadHeaderView() {
         guard let editDelegate = editDelegate else { return }
@@ -649,7 +649,7 @@ class TagListController: StackedPaneController {
         }
     }
     
-    @IBAction func checkedButtonAction(_ sender: NSButton) {
+    @IBAction private func checkedButtonAction(_ sender: NSButton) {
         if sender.allowsMixedState { sender.allowsMixedState = false }
         guard let editDelegate = editDelegate else { return }
         let checkedRow = tableView.row(for: sender)

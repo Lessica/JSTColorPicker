@@ -72,6 +72,7 @@ class SceneController: NSViewController {
         _shouldRedrawAnnotatorContents = true
     }
     
+    private(set)   var isZooming = false
     private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
     private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
     private static let zoomingFactors: [CGFloat] = [
@@ -133,7 +134,7 @@ class SceneController: NSViewController {
     private var nextMagnificationFactor: CGFloat? { SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification }) }
     private var prevMagnificationFactor: CGFloat? { SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification }) }
     
-    private var canMagnify: Bool {
+    var canMagnify: Bool {
         get {
             if !sceneView.allowsMagnification {
                 return false
@@ -145,7 +146,7 @@ class SceneController: NSViewController {
         }
     }
     
-    private var canMinify: Bool {
+    var canMinify: Bool {
         get {
             if !sceneView.allowsMagnification {
                 return false
@@ -343,7 +344,9 @@ class SceneController: NSViewController {
     }
     
     private func renderImage(_ image: PixelImage) {
+        self.isZooming = true
         sceneView.magnification = SceneController.minimumZoomingFactor
+        self.isZooming = false
         sceneView.allowsMagnification = true
         
         let imageSize = image.size
@@ -359,6 +362,7 @@ class SceneController: NSViewController {
         useSelectedSceneTool()
     }
     
+    @discardableResult
     private func applyAnnotateItem(
         at locInWrapper: CGPoint,
         byIgnoringPopups ignore: Bool   // user defaults
@@ -370,6 +374,7 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     private func applySelectItem(
         at location: CGPoint,
         byShowingOptions menu: Bool,           // option pressed
@@ -484,6 +489,7 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     private func applyDeleteItem(
         at locInWrapper: CGPoint,
         byShowingOptions menu: Bool,     // option pressed
@@ -510,26 +516,32 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     private func applyMagnifyItem(at locInWrapper: CGPoint) -> Bool {
         if !canMagnify {
             return false
         }
+        guard !isZooming else { return false }
         if let next = nextMagnificationFactor {
-            if isVisibleWrapperLocation(locInWrapper) {
+            if !locInWrapper.isNull && isVisibleWrapperLocation(locInWrapper) {
                 self.sceneWillStartLiveMagnify()
+                self.isZooming = true
                 NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().setMagnification(next, centeredAt: locInWrapper)
                 }) { [unowned self] in
                     self.notifyVisibleRectChanged()
                     self.sceneDidEndLiveMagnify()
+                    self.isZooming = false
                 }
             } else {
                 self.sceneWillStartLiveMagnify()
+                self.isZooming = true
                 NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().magnification = next
                 }) { [unowned self] in
                     self.notifyVisibleRectChanged()
                     self.sceneDidEndLiveMagnify()
+                    self.isZooming = false
                 }
             }
             return true
@@ -537,26 +549,32 @@ class SceneController: NSViewController {
         return false
     }
     
+    @discardableResult
     private func applyMinifyItem(at locInWrapper: CGPoint) -> Bool {
         if !canMinify {
             return false
         }
+        guard !isZooming else { return false }
         if let prev = prevMagnificationFactor {
             if isVisibleWrapperLocation(locInWrapper) {
                 self.sceneWillStartLiveMagnify()
+                self.isZooming = true
                 NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().setMagnification(prev, centeredAt: locInWrapper)
                 }) { [unowned self] in
                     self.notifyVisibleRectChanged()
                     self.sceneDidEndLiveMagnify()
+                    self.isZooming = false
                 }
             } else {
                 self.sceneWillStartLiveMagnify()
+                self.isZooming = true
                 NSAnimationContext.runAnimationGroup({ _ in
                     self.sceneView.animator().magnification = prev
                 }) { [unowned self] in
                     self.notifyVisibleRectChanged()
                     self.sceneDidEndLiveMagnify()
+                    self.isZooming = false
                 }
             }
             return true
@@ -856,42 +874,46 @@ class SceneController: NSViewController {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
         
-        let flags = event.modifierFlags
+        let modifierFlags = event.modifierFlags
             .intersection(.deviceIndependentFlagsMask)
-        if flags.contains(.command) {
-            
-            var distance: CGFloat = 1.0
-            if flags.contains(.control) {
-                distance = 100.0
-            }
-            else if flags.contains(.shift) {
-                distance = 10.0
-            }
-            
+        if modifierFlags.contains(.command) {
             if let specialKey = event.specialKey {
-                if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow {
+                if specialKey == .upArrow || specialKey == .downArrow || specialKey == .leftArrow || specialKey == .rightArrow
+                {
+                    var distance: CGFloat = 1.0
+                    if modifierFlags.contains(.control) && modifierFlags.subtracting([.command, .control, .numericPad, .function]).isEmpty
+                    {
+                        distance = 100.0
+                    }
+                    else if modifierFlags.contains(.shift) && modifierFlags.subtracting([.command, .shift, .numericPad, .function]).isEmpty
+                    {
+                        distance = 10.0
+                    }
                     return shortcutMoveCursorOrScene(by: specialKey, for: distance, from: locInWrapper)
                 }
                 else if isVisibleWrapperLocation(locInWrapper) {
-                    if specialKey == .enter || specialKey == .carriageReturn {
+                    if modifierFlags.subtracting(.command).isEmpty && (specialKey == .enter || specialKey == .carriageReturn)
+                    {
                         let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
                         return applyAnnotateItem(
                             at: locInWrapper,
                             byIgnoringPopups: ignoreRepeatedInsertion
                         )
                     }
-                    else if specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace {
-                        let optionPressed = flags.contains(.option)
+                    else if modifierFlags.subtracting([.command, .option]).isEmpty && (specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace)
+                    {
+                        let optionPressed = modifierFlags.contains(.option)
                         let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
                         return applyDeleteItem(
                             at: locInWrapper,
                             byShowingOptions: optionPressed,
-                            byIgnoringPopups: ignoreInvalidDeletion
+                            byIgnoringPopups: ignoreInvalidDeletion,
+                            withEvent: event
                         )
                     }
                 }
             }
-            else if let characters = event.characters {
+            else if modifierFlags.subtracting(.command).isEmpty, let characters = event.characters {
                 if characters.contains("-") {
                     return applyMinifyItem(at: locInWrapper)
                 }
@@ -1385,15 +1407,57 @@ extension SceneController: AnnotatorSource {
 }
 
 extension SceneController: ToolbarResponder {
+    func useAnnotateItemAction(_ sender: Any?) {
+        if internalSceneTool != .magicCursor { internalSceneTool = .magicCursor }
+    }
     
-    func useAnnotateItemAction(_ sender: Any?) { if internalSceneTool != .magicCursor { internalSceneTool = .magicCursor } }
-    func useMagnifyItemAction(_ sender: Any?)  { if internalSceneTool != .magnifyingGlass { internalSceneTool = .magnifyingGlass } }
-    func useMinifyItemAction(_ sender: Any?)   { if internalSceneTool != .minifyingGlass { internalSceneTool = .minifyingGlass } }
-    func useSelectItemAction(_ sender: Any?)   { if internalSceneTool != .selectionArrow { internalSceneTool = .selectionArrow } }
-    func useMoveItemAction(_ sender: Any?)     { if internalSceneTool != .movingHand { internalSceneTool = .movingHand } }
+    func useMagnifyItemAction(_ sender: Any?) {
+        if internalSceneTool != .magnifyingGlass { internalSceneTool = .magnifyingGlass }
+    }
     
-    func fitWindowAction(_ sender: Any?)       { sceneMagnify(toFit: wrapperBounds) }
-    func fillWindowAction(_ sender: Any?)      { sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds)) }
+    func useMinifyItemAction(_ sender: Any?) {
+        if internalSceneTool != .minifyingGlass { internalSceneTool = .minifyingGlass }
+    }
+    
+    func useSelectItemAction(_ sender: Any?) {
+        if internalSceneTool != .selectionArrow { internalSceneTool = .selectionArrow }
+    }
+    
+    func useMoveItemAction(_ sender: Any?) {
+        if internalSceneTool != .movingHand { internalSceneTool = .movingHand }
+    }
+    
+    func fitWindowAction(_ sender: Any?) {
+        sceneMagnify(toFit: wrapperBounds)
+    }
+    
+    func fillWindowAction(_ sender: Any?) {
+        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds))
+    }
+    
+    func zoomInAction(_ sender: Any?) {
+        applyMagnifyItem(at: .null)
+    }
+    
+    func zoomOutAction(_ sender: Any?) {
+        applyMinifyItem(at: .null)
+    }
+    
+    func zoomToAction(_ sender: Any?, value: Double) {
+        guard !isZooming else { return }
+        self.sceneWillStartLiveMagnify()
+        self.isZooming = true
+        NSAnimationContext.runAnimationGroup({ _ in
+            self.sceneView.animator().magnification = CGFloat(value)
+        }) { [unowned self] in
+            self.notifyVisibleRectChanged()
+            self.sceneDidEndLiveMagnify()
+            self.isZooming = false
+        }
+    }
+}
+
+extension SceneController {
     
     private func sceneMagnify(
         toFit rect: CGRect,
@@ -1490,19 +1554,38 @@ extension SceneController: ContentDelegate {
 extension SceneController: ItemPreviewResponder {
     
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
-        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor else { return }
-        if let sender = sender {
-            if sender.previewStage == .begin {
-                sceneWillStartLiveMagnify()
+        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor
+        else {
+            if isZooming {
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
             }
+            
+            return
+        }
+        
+        if let sender = sender {
+            if !isZooming && sender.previewStage == .begin {
+                self.sceneWillStartLiveMagnify()
+                self.isZooming = true
+            }
+            
             sceneView.magnification = magnification
-            if sender.previewStage == .end {
-                sceneDidEndLiveMagnify()
+            
+            if isZooming && sender.previewStage == .end {
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
             }
         } else {
-            sceneWillStartLiveMagnify()
+            guard !isZooming else { return }
+            
+            self.sceneWillStartLiveMagnify()
+            self.isZooming = true
+            
             sceneView.magnification = magnification
-            sceneDidEndLiveMagnify()
+            
+            self.sceneDidEndLiveMagnify()
+            self.isZooming = false
         }
     }
     

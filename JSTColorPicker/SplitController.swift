@@ -115,7 +115,7 @@ extension SplitController: PaneContainer {
         )
     }
 
-    @IBAction func focusPane(_ sender: NSMenuItem) {
+    @IBAction private func focusPane(_ sender: NSMenuItem) {
         focusPane(menuIdentifier: sender.identifier!) { [unowned self] (sender) in
             if self.isSubviewCollapsed(at: .sidebar) {
                 self.toggleSidebar(sender)
@@ -237,13 +237,46 @@ extension SplitController: SceneTracking {
 }
 
 extension SplitController: ToolbarResponder {
-    func useAnnotateItemAction(_ sender: Any?) { sceneController.useAnnotateItemAction(sender) }
-    func useMagnifyItemAction(_ sender: Any?)  { sceneController.useMagnifyItemAction(sender)  }
-    func useMinifyItemAction(_ sender: Any?)   { sceneController.useMinifyItemAction(sender)   }
-    func useSelectItemAction(_ sender: Any?)   { sceneController.useSelectItemAction(sender)   }
-    func useMoveItemAction(_ sender: Any?)     { sceneController.useMoveItemAction(sender)     }
-    func fitWindowAction(_ sender: Any?)       { sceneController.fitWindowAction(sender)       }
-    func fillWindowAction(_ sender: Any?)      { sceneController.fillWindowAction(sender)      }
+    func useAnnotateItemAction(_ sender: Any?) {
+        sceneController.useAnnotateItemAction(sender)
+    }
+    
+    func useMagnifyItemAction(_ sender: Any?) {
+        sceneController.useMagnifyItemAction(sender)
+    }
+    
+    func useMinifyItemAction(_ sender: Any?) {
+        guard sender == nil else { return }
+        sceneController.useMinifyItemAction(sender)
+    }
+    
+    func useSelectItemAction(_ sender: Any?) {
+        sceneController.useSelectItemAction(sender)
+    }
+    
+    func useMoveItemAction(_ sender: Any?) {
+        sceneController.useMoveItemAction(sender)
+    }
+    
+    func fitWindowAction(_ sender: Any?) {
+        sceneController.fitWindowAction(sender)
+    }
+    
+    func fillWindowAction(_ sender: Any?) {
+        sceneController.fillWindowAction(sender)
+    }
+    
+    func zoomInAction(_ sender: Any?) {
+        sceneController.zoomInAction(sender)
+    }
+    
+    func zoomOutAction(_ sender: Any?) {
+        sceneController.zoomOutAction(sender)
+    }
+    
+    func zoomToAction(_ sender: Any?, value: Double) {
+        sceneController.zoomToAction(sender, value: value)
+    }
 }
 
 extension SplitController: ScreenshotLoader {

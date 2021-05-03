@@ -136,7 +136,7 @@ public class JSTColorPanel: NSColorPicker, NSColorPickingCustom {
         }
     }
     
-    @IBAction func copyAction(_ sender: NSPopUpButton) {
+    @IBAction private func copyAction(_ sender: NSPopUpButton) {
         Logger.debug(message: "Copy action called")
         
         var string = NSString(string: copyPopUp.selectedItem!.title)
@@ -152,7 +152,7 @@ public class JSTColorPanel: NSColorPicker, NSColorPickingCustom {
         pasteboard.setString(string as String, forType: .string)
     }
     
-    @IBAction func changeColorComponentAction(_ sender: NSButton) {
+    @IBAction private func changeColorComponentAction(_ sender: NSButton) {
         Logger.debug(message: "Changing active color component")
         
         if (sender == radioHue) {

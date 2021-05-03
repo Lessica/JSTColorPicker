@@ -52,7 +52,7 @@ extension DocumentStackedController: NSSplitViewDelegate {
 
 extension DocumentStackedController: PixelMatchResponder {
 
-    @IBAction func exitComparisonModeButtonTapped(_ sender: NSButton) {
+    @IBAction private func exitComparisonModeButtonTapped(_ sender: NSButton) {
         if let exitComparisonHandler = exitComparisonHandler {
             exitComparisonHandler(true)
         }

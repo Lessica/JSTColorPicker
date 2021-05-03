@@ -160,7 +160,7 @@ class InfoView: NSView {
     
     @IBOutlet weak var locateButton: NSButton!
     
-    @IBAction func locateButtonTapped(_ sender: NSButton) {
+    @IBAction private func locateButtonTapped(_ sender: NSButton) {
         guard let url = lastStoredFileURL else { return }
         guard url.isRegularFile else {
             presentError(GenericError.notRegularFile(url: url))

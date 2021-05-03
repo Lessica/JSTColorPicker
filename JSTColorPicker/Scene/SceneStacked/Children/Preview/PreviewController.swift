@@ -120,7 +120,7 @@ extension PreviewController: ItemPreviewDelegate {
 }
 
 extension PreviewController: ItemPreviewSender, ItemPreviewResponder {
-    @IBAction func previewSliderValueChanged(_ sender: NSSlider) {
+    @IBAction private func previewSliderValueChanged(_ sender: NSSlider) {
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
         if isPressed {
             if previewStage == .none || previewStage == .end {

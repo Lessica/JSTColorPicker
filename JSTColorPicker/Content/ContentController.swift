@@ -177,7 +177,7 @@ class ContentController: NSViewController {
         }
     }
     
-    @IBAction func resetColumns(_ sender: NSMenuItem) {
+    @IBAction private func resetColumns(_ sender: NSMenuItem) {
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnIdentifier)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnSimilarity)
         UserDefaults.standard.removeObject(forKey: .toggleTableColumnTag)
@@ -196,7 +196,7 @@ class ContentController: NSViewController {
         updateColumns()
     }
     
-    @IBAction func similarityFieldChanged(_ sender: NSTextField) {
+    @IBAction private func similarityFieldChanged(_ sender: NSTextField) {
         guard let content = documentContent else { return }
         
         let row = tableView.row(for: sender)
@@ -223,7 +223,7 @@ class ContentController: NSViewController {
         sender.stringValue = similarity + "%"
     }
     
-    @IBAction func addCoordinateFieldChanged(_ sender: NSTextField) {
+    @IBAction private func addCoordinateFieldChanged(_ sender: NSTextField) {
         guard let image = documentImage else { return }
         
         do {
@@ -307,7 +307,7 @@ class ContentController: NSViewController {
         
     }
     
-    @IBAction func addCoordinateAction(_ sender: NSButton) {
+    @IBAction private func addCoordinateAction(_ sender: NSButton) {
         if addCoordinateField.stringValue.isEmpty {
             guard let event = view.window?.currentEvent else { return }
             NSMenu.popUpContextMenu(itemNewMenu, with: event, for: sender)
@@ -752,11 +752,11 @@ extension ContentController: ContentDelegate {
 }
 
 extension ContentController: ContentTableViewResponder {
-    @IBAction func tableViewAction(_ sender: ContentTableView) {
+    @IBAction internal func tableViewAction(_ sender: ContentTableView) {
         // replaced by -tableViewSelectionDidChange(_:)
     }
     
-    @IBAction func tableViewDoubleAction(_ sender: ContentTableView) {
+    @IBAction internal func tableViewDoubleAction(_ sender: ContentTableView) {
         guard let event = NSApp.currentEvent else { return }
         let locationInView = sender.convert(event.locationInWindow, from: nil)
         guard sender.bounds.contains(locationInView) else { return }
@@ -1026,7 +1026,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-    @IBAction func locate(_ sender: Any) {
+    @IBAction private func locate(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
         
@@ -1034,7 +1034,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         actionManager.contentActionConfirmed([targetItem])
     }
     
-    @IBAction func relocate(_ sender: Any) {
+    @IBAction private func relocate(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
         
@@ -1067,7 +1067,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func tags(_ sender: NSMenuItem?) {
+    @IBAction private func tags(_ sender: NSMenuItem?) {
         guard let collection = documentContent?.items else { return }
         let rows = actionSelectedRowIndexes
         let itemsToEdit = rows.map({ collection[$0] })
@@ -1090,7 +1090,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func create(_ sender: NSMenuItem?) {
+    @IBAction private func create(_ sender: NSMenuItem?) {
         guard documentContent?.items != nil else { return }
         
         var panel: EditWindow?
@@ -1116,7 +1116,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func delete(_ sender: Any) {
+    @IBAction private func delete(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         let rows = actionSelectedRowIndexes
         let itemsToRemove = rows.map({ collection[$0] })
@@ -1125,7 +1125,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         tableView.removeRows(at: rows, withAnimation: .effectFade)
     }
     
-    @IBAction func copy(_ sender: Any) {
+    @IBAction private func copy(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
         guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
@@ -1161,7 +1161,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func paste(_ sender: Any) {
+    @IBAction private func paste(_ sender: Any) {
         guard let items = documentExport?.importFromAdditionalPasteboard(), items.count > 0 else { return }
         do {
             try importContentItems(items)
@@ -1170,7 +1170,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func resample(_ sender: Any) {
+    @IBAction private func resample(_ sender: Any) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
         let selectedItem = collection[targetIndex]
@@ -1236,7 +1236,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func exportAs(_ sender: Any) {
+    @IBAction private func exportAs(_ sender: Any) {
         guard let selectedItems = selectedContentItems else { return }
         guard let template = TemplateManager.shared.selectedTemplate else {
             presentError(ExportManager.Error.noTemplateSelected)
@@ -1332,7 +1332,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func toggleHeader(_ sender: NSMenuItem) {
+    @IBAction private func toggleHeader(_ sender: NSMenuItem) {
         var defaultKey: UserDefaults.Key?
         if sender.identifier == .toggleTableColumnIdentifier {
             defaultKey = .toggleTableColumnIdentifier
@@ -1354,7 +1354,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func toggleItemRepr(_ sender: NSMenuItem) {
+    @IBAction private func toggleItemRepr(_ sender: NSMenuItem) {
         if sender == itemReprColorMenuItem {
             
         }
@@ -1378,7 +1378,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         return try updateContentItem(item, to: trimmedRect)
     }
     
-    @IBAction func smartTrim(_ sender: NSMenuItem) {
+    @IBAction private func smartTrim(_ sender: NSMenuItem) {
         guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
         guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
@@ -1392,7 +1392,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func removeTag(_ sender: NSMenuItem) {
+    @IBAction private func removeTag(_ sender: NSMenuItem) {
         guard let parent = sender.menu else { return }
         guard let selectedItems = selectedContentItems,
             let menuTags = preparedMenuTags else { return }

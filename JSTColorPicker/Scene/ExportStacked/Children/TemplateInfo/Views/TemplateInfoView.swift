@@ -219,7 +219,7 @@ class TemplateInfoView: NSView {
 
     @IBOutlet weak var locateButton: NSButton!
 
-    @IBAction func locateButtonTapped(_ sender: NSButton) {
+    @IBAction private func locateButtonTapped(_ sender: NSButton) {
         guard let template = template else { return }
         guard template.url.isRegularFile else {
             presentError(GenericError.notRegularFile(url: template.url))

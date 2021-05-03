@@ -85,7 +85,7 @@ class InfoController: StackedPaneController {
         }
     }
     
-    @IBAction func shuffleButtonTapped(_ sender: NSButton) {
+    @IBAction private func shuffleButtonTapped(_ sender: NSButton) {
         guard style == .secondary && imageSource == nil else { return }
         errorLabel.attributedStringValue = nextHint().markdownAttributed
     }

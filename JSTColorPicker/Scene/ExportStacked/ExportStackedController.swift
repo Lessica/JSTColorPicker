@@ -156,7 +156,7 @@ by \(template.author ?? "Unknown")
         return enabled
     }
     
-    @IBAction func templatePopUpButtonValueChanged(_ sender: NSPopUpButton) {
+    @IBAction private func templatePopUpButtonValueChanged(_ sender: NSPopUpButton) {
         guard let selectedItem = sender.selectedItem else {
             synchronizeTitleAndSelectedItem()
             templateInfoController?.template = nil
@@ -168,7 +168,7 @@ by \(template.author ?? "Unknown")
         TemplateManager.shared.selectedTemplate = template
     }
     
-    @IBAction func reloadTemplatesItemTapped(_ sender: NSButton) {
+    @IBAction private func reloadTemplatesItemTapped(_ sender: NSButton) {
         do {
             try TemplateManager.shared.reloadTemplates()
         } catch {

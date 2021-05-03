@@ -66,7 +66,7 @@ class FolderController: NSViewController {
         #endif
     }
     
-    @IBAction func locationButtonTapped(_ sender: NSButton) {
+    @IBAction private func locationButtonTapped(_ sender: NSButton) {
         var isDirectory: Bool = false
         var locationURL: URL?
         if sender == screenshotSavedAtLocationButton {
@@ -112,7 +112,7 @@ class FolderController: NSViewController {
         }
     }
     
-    @IBAction func actionRequiresRestart(_ sender: NSButton) { }
+    @IBAction private func actionRequiresRestart(_ sender: NSButton) { }
     
 }
 

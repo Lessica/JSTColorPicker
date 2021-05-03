@@ -10,9 +10,43 @@ import Cocoa
 import ShortcutGuide
 
 
+// MARK: - Zooming Menu Item Identifier
+private extension NSUserInterfaceItemIdentifier {
+    private static let zoomingPrefix     = "com.jst.JSTColorPicker.ZoomingLevel."
+    
+    static let zoomingLevel25     = Self(Self.zoomingPrefix + "25"     )
+    static let zoomingLevel50     = Self(Self.zoomingPrefix + "50"     )
+    static let zoomingLevel75     = Self(Self.zoomingPrefix + "75"     )
+    static let zoomingLevel100    = Self(Self.zoomingPrefix + "100"    )
+    static let zoomingLevel125    = Self(Self.zoomingPrefix + "125"    )
+    static let zoomingLevel150    = Self(Self.zoomingPrefix + "150"    )
+    static let zoomingLevel200    = Self(Self.zoomingPrefix + "200"    )
+    static let zoomingLevel300    = Self(Self.zoomingPrefix + "300"    )
+    static let zoomingLevel400    = Self(Self.zoomingPrefix + "400"    )
+    static let zoomingLevel800    = Self(Self.zoomingPrefix + "800"    )
+    static let zoomingLevel1600   = Self(Self.zoomingPrefix + "1600"   )
+    static let zoomingLevel3200   = Self(Self.zoomingPrefix + "3200"   )
+    static let zoomingLevel6400   = Self(Self.zoomingPrefix + "6400"   )
+    static let zoomingLevel12800  = Self(Self.zoomingPrefix + "12800"  )
+    static let zoomingLevel25600  = Self(Self.zoomingPrefix + "25600"  )
+}
+
+
+// MARK: - Scene Tool Menu Item Identifier
+extension NSUserInterfaceItemIdentifier {
+    private static let prefix     = "com.jst.JSTColorPicker.MenuItem."
+    
+    static let magicCursor        = Self(Self.prefix + "magicCursor"      )
+    static let selectionArrow     = Self(Self.prefix + "selectionArrow"   )
+    static let magnifyingGlass    = Self(Self.prefix + "magnifyingGlass"  )
+    static let minifyingGlass     = Self(Self.prefix + "minifyingGlass"   )
+    static let movingHand         = Self(Self.prefix + "movingHand"       )
+}
+
+
 // MARK: - Toolbar Item Identifier
 
-private extension NSToolbarItem.Identifier {
+extension NSToolbarItem.Identifier {
     private static let prefix     = "com.jst.JSTColorPicker.ToolbarItem."
     
     static let openItem           = Self(Self.prefix + "openItem")
@@ -48,6 +82,9 @@ private extension NSToolbarItemGroup {
         }
     }
 }
+
+
+// MARK: - WindowController
 
 private var windowCount = 0
 
@@ -96,9 +133,11 @@ class WindowController: NSWindowController {
     private  var lastStoredMagnification        : CGFloat?
     private  var _windowSubtitle                : String?
     private  var isInComparisonMode             : Bool = false
+    
     lazy     var pixelMatchService              : PixelMatchService = {
         return PixelMatchService()
     }()
+    
     private  var isScreenshotActionAllowed      : Bool
     {
         #if APP_STORE
@@ -329,32 +368,6 @@ class WindowController: NSWindowController {
         #endif
     }
     
-    override func keyDown(with event: NSEvent) {
-        // for external keyboards
-        if event.modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-            .subtracting(.function)
-            .isEmpty
-        {
-            switch event.specialKey {
-            case NSEvent.SpecialKey.f1:
-                useAnnotateItemAction(event)
-            case NSEvent.SpecialKey.f2:
-                useSelectItemAction(event)
-            case NSEvent.SpecialKey.f3:
-                useMagnifyItemAction(event)
-            case NSEvent.SpecialKey.f4:
-                useMinifyItemAction(event)
-            case NSEvent.SpecialKey.f5:
-                useMoveItemAction(event)
-            default:
-                super.keyDown(with: event)
-            }
-        } else {
-            super.keyDown(with: event)
-        }
-    }
-    
     
     // MARK: - Comparison
     
@@ -417,10 +430,39 @@ class WindowController: NSWindowController {
     
 }
 
-extension WindowController: NSToolbarItemValidation {
+extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(windowUseAnnotateItemAction(_:))
+            || menuItem.action == #selector(windowUseSelectItemAction(_:))
+            || menuItem.action == #selector(windowUseMagnifyItemAction(_:))
+            || menuItem.action == #selector(windowUseMinifyItemAction(_:))
+            || menuItem.action == #selector(windowUseMoveItemAction(_:))
+            || menuItem.action == #selector(windowFitWindowAction(_:))
+            || menuItem.action == #selector(windowFillWindowAction(_:))
+            || menuItem.action == #selector(windowZoomInAction(_:))
+            || menuItem.action == #selector(windowZoomOutAction(_:))
+            || menuItem.action == #selector(windowZoomToAction(_:))
+        {
+            guard documentState.isLoaded else { return false }
+            
+            if menuItem.action == #selector(windowZoomInAction(_:)) {
+                return splitController.sceneController.canMagnify
+            }
+            else if menuItem.action == #selector(windowZoomOutAction(_:)) {
+                return splitController.sceneController.canMinify
+            }
+            
+            return true
+        }
+        else if menuItem.action == #selector(toggleCommandPalette(_:))
+        {
+            return true
+        }
+        return false
+    }
     
     func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        
         if item.itemIdentifier == .annotateItem
             || item.itemIdentifier == .selectItem
             || item.itemIdentifier == .magnifyItem
@@ -450,7 +492,6 @@ extension WindowController: NSToolbarItemValidation {
         }
 
         return false
-        
     }
     
 }
@@ -475,33 +516,33 @@ extension WindowController {
 
         if selectedSceneToolIdentifier == SceneTool.magicCursor.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magicCursor.rawValue
-            splitController.useAnnotateItemAction(self)
+            splitController.useAnnotateItemAction(nil)
         }
         else if selectedSceneToolIdentifier == SceneTool.selectionArrow.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.selectionArrow.rawValue
-            splitController.useSelectItemAction(self)
+            splitController.useSelectItemAction(nil)
         }
         else if selectedSceneToolIdentifier == SceneTool.magnifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.magnifyingGlass.rawValue
-            splitController.useMagnifyItemAction(self)
+            splitController.useMagnifyItemAction(nil)
         }
         else if selectedSceneToolIdentifier == SceneTool.minifyingGlass.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.minifyingGlass.rawValue
-            splitController.useMinifyItemAction(self)
+            splitController.useMinifyItemAction(nil)
         }
         else if selectedSceneToolIdentifier == SceneTool.movingHand.rawValue {
             touchBarSceneToolControl.selectedSegment = ToolIndex.movingHand.rawValue
-            splitController.useMoveItemAction(self)
+            splitController.useMoveItemAction(nil)
         }
 
         invalidateRestorableState()
     }
     
-    @IBAction func touchBarOpenAction(_ sender: Any?) {
+    @IBAction private func touchBarOpenAction(_ sender: Any?) {
         openAction(sender)
     }
     
-    @IBAction func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
+    @IBAction private func touchBarSceneToolControlAction(_ sender: NSSegmentedControl) {
         guard documentState.isLoaded else {
             syncToolbarState()
             return
@@ -524,7 +565,7 @@ extension WindowController {
         syncToolbarState()
     }
     
-    @IBAction func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
+    @IBAction private func touchBarSceneActionControlAction(_ sender: NSSegmentedControl) {
         guard documentState.isLoaded else { return }
         if sender.selectedSegment == ActionIndex.fitWindow.rawValue {
             splitController.fitWindowAction(sender)
@@ -534,66 +575,11 @@ extension WindowController {
         }
     }
     
-    @IBAction func touchBarScreenshotAction(_ sender: Any?) {
+    @IBAction private func touchBarScreenshotAction(_ sender: Any?) {
         screenshotAction(sender)
     }
     
-}
-
-extension WindowController: ToolbarResponder {
-    
-    @IBAction func openAction(_ sender: Any?) {
-        guard documentState.isReadable || !documentState.isLoaded else { return }
-        NSDocumentController.shared.openDocument(sender)
-    }
-    
-    @IBAction func useAnnotateItemAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
-        syncToolbarState()
-    }
-    
-    @IBAction func useMagnifyItemAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
-        syncToolbarState()
-    }
-    
-    @IBAction func useMinifyItemAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
-        syncToolbarState()
-    }
-    
-    @IBAction func useSelectItemAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
-        syncToolbarState()
-    }
-    
-    @IBAction func useMoveItemAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
-        syncToolbarState()
-    }
-    
-    @IBAction func fitWindowAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        splitController.fitWindowAction(sender)
-    }
-    
-    @IBAction func fillWindowAction(_ sender: Any?) {
-        guard documentState.isLoaded else { return }
-        splitController.fillWindowAction(sender)
-    }
-    
-    @IBAction func screenshotAction(_ sender: Any?) {
-        guard documentState.isReadable || !documentState.isLoaded else { return }
-        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
-        delegate.devicesTakeScreenshotMenuItemTapped(sender)
-    }
-    
-    @IBAction func previewSliderValueChanged(_ sender: NSSlider?) {
+    @IBAction private func previewSliderValueChanged(_ sender: NSSlider?) {
         guard let sender = sender else { return }
         let isPressed = !(NSEvent.pressedMouseButtons & 1 != 1)
         if isPressed {
@@ -610,6 +596,149 @@ extension WindowController: ToolbarResponder {
             }
         }
         previewAction(self, toMagnification: CGFloat(pow(2, sender.doubleValue)))
+    }
+    
+}
+
+extension WindowController: ToolbarResponder {
+    
+    @objc func openAction(_ sender: Any?) {
+        guard documentState.isReadable || !documentState.isLoaded else { return }
+        NSDocumentController.shared.openDocument(sender)
+    }
+    
+    @objc func useAnnotateItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magicCursor.rawValue)
+        syncToolbarState()
+    }
+    
+    @objc func useMagnifyItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.magnifyingGlass.rawValue)
+        syncToolbarState()
+    }
+    
+    @objc func useMinifyItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.minifyingGlass.rawValue)
+        syncToolbarState()
+    }
+    
+    @objc func useSelectItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.selectionArrow.rawValue)
+        syncToolbarState()
+    }
+    
+    @objc func useMoveItemAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        sceneToolsGroup.selectedItemIdentifier = NSToolbarItem.Identifier(SceneTool.movingHand.rawValue)
+        syncToolbarState()
+    }
+    
+    @objc func fitWindowAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.fitWindowAction(sender)
+    }
+    
+    @objc func fillWindowAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.fillWindowAction(sender)
+    }
+    
+    @objc func zoomInAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.zoomInAction(sender)
+    }
+    
+    @objc func zoomOutAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.zoomOutAction(sender)
+    }
+    
+    @objc func zoomToAction(_ sender: Any?, value: Double) {
+        guard documentState.isLoaded else { return }
+        splitController.zoomToAction(sender, value: value)
+    }
+    
+    @objc func screenshotAction(_ sender: Any?) {
+        guard documentState.isReadable || !documentState.isLoaded else { return }
+        AppDelegate.shared.takeScreenshot(sender)
+    }
+    
+    @IBAction private func windowUseAnnotateItemAction(_ sender: NSMenuItem) {
+        useAnnotateItemAction(sender)
+    }
+    
+    @IBAction private func windowUseMagnifyItemAction(_ sender: NSMenuItem) {
+        useMagnifyItemAction(sender)
+    }
+    
+    @IBAction private func windowUseMinifyItemAction(_ sender: NSMenuItem) {
+        useMinifyItemAction(sender)
+    }
+    
+    @IBAction private func windowUseSelectItemAction(_ sender: NSMenuItem) {
+        useSelectItemAction(sender)
+    }
+    
+    @IBAction private func windowUseMoveItemAction(_ sender: NSMenuItem) {
+        useMoveItemAction(sender)
+    }
+    
+    @IBAction private func windowFitWindowAction(_ sender: NSMenuItem) {
+        fitWindowAction(sender)
+    }
+    
+    @IBAction private func windowFillWindowAction(_ sender: NSMenuItem) {
+        fillWindowAction(sender)
+    }
+    
+    @IBAction private func windowZoomInAction(_ sender: NSMenuItem) {
+        zoomInAction(sender)
+    }
+    
+    @IBAction private func windowZoomOutAction(_ sender: NSMenuItem) {
+        zoomOutAction(sender)
+    }
+    
+    @IBAction private func windowZoomToAction(_ sender: NSMenuItem) {
+        guard let ident = sender.identifier else { return }
+        switch ident {
+        case .zoomingLevel25:
+            zoomToAction(sender, value: 0.25)
+        case .zoomingLevel50:
+            zoomToAction(sender, value: 0.5)
+        case .zoomingLevel75:
+            zoomToAction(sender, value: 0.75)
+        case .zoomingLevel100:
+            zoomToAction(sender, value: 1)
+        case .zoomingLevel125:
+            zoomToAction(sender, value: 1.25)
+        case .zoomingLevel150:
+            zoomToAction(sender, value: 1.5)
+        case .zoomingLevel200:
+            zoomToAction(sender, value: 2)
+        case .zoomingLevel300:
+            zoomToAction(sender, value: 3)
+        case .zoomingLevel400:
+            zoomToAction(sender, value: 4)
+        case .zoomingLevel800:
+            zoomToAction(sender, value: 8)
+        case .zoomingLevel1600:
+            zoomToAction(sender, value: 16)
+        case .zoomingLevel3200:
+            zoomToAction(sender, value: 32)
+        case .zoomingLevel6400:
+            zoomToAction(sender, value: 64)
+        case .zoomingLevel12800:
+            zoomToAction(sender, value: 128)
+        case .zoomingLevel25600:
+            zoomToAction(sender, value: 256)
+        default:
+            fatalError("unrecognized menu item")
+        }
     }
     
 }
@@ -838,7 +967,7 @@ extension WindowController: ItemPreviewSender, ItemPreviewResponder {
 
 extension WindowController: ShortcutGuideDataSource {
 
-    @IBAction func toggleCommandPalette(_ sender: Any?) {
+    @IBAction private func toggleCommandPalette(_ sender: Any?) {
         let guideCtrl = ShortcutGuideWindowController.shared
         guideCtrl.loadItemsForWindow(window!)
         guideCtrl.toggleForWindow(window!, columnStyle: nil)

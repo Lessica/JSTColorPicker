@@ -47,7 +47,7 @@ class InspectorView: NSControl {
         }
     }
     
-    @IBAction func colorIndicatorTapped(_ sender: ColorIndicator) {
+    @IBAction private func colorIndicatorTapped(_ sender: ColorIndicator) {
         if let action = action {
             NSApp.sendAction(action, to: self.target, from: self)
         }

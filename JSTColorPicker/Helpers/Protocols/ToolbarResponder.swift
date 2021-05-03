@@ -6,7 +6,7 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 @objc protocol ToolbarResponder {
     @objc optional func openAction(_ sender: Any?)
@@ -17,4 +17,7 @@ import Cocoa
     func useMoveItemAction(_ sender: Any?)
     func fitWindowAction(_ sender: Any?)
     func fillWindowAction(_ sender: Any?)
+    func zoomInAction(_ sender: Any?)
+    func zoomOutAction(_ sender: Any?)
+    func zoomToAction(_ sender: Any?, value: Double)
 }

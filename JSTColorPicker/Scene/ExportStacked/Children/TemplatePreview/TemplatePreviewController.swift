@@ -69,7 +69,7 @@ class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObser
         (outlineView.clickedRow >= 0 && !outlineView.selectedRowIndexes.contains(outlineView.clickedRow)) ? outlineView.clickedRow : outlineView.selectedRowIndexes.first
     }
 
-    @IBAction func timerButtonTapped(_ sender: NSButton) {
+    @IBAction private func timerButtonTapped(_ sender: NSButton) {
         // TODO
     }
 
@@ -748,7 +748,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction func togglePreview(_ sender: Any?) {
+    @IBAction private func togglePreview(_ sender: Any?) {
         guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
         
         if !outlineView.isItemExpanded(template) && outlineView.isExpandable(template) {
@@ -766,7 +766,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     
     var hasCollapsedItem: Bool { previewableTemplates.firstIndex(where: { !outlineView.isItemExpanded($0) }) != nil }
     
-    @IBAction func toggleAll(_ sender: Any?) {
+    @IBAction private func toggleAll(_ sender: Any?) {
         if hasCollapsedItem {
             isExpanding = true
             outlineView.expandItem(nil, expandChildren: true)
@@ -780,7 +780,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    @IBAction func copy(_ sender: Any?) {
+    @IBAction private func copy(_ sender: Any?) {
         var succeed = true
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
@@ -803,7 +803,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    @IBAction func exportAs(_ sender:  Any?) {
+    @IBAction private func exportAs(_ sender:  Any?) {
         var succeed = true
         var targetURL: URL?
         when(
@@ -834,28 +834,28 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
 
-    @IBAction func regenerate(_ sender: NSMenuItem) {
+    @IBAction private func regenerate(_ sender: NSMenuItem) {
         guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
         partialProcessPreviewContextForTemplates([template], force: true)
     }
 
-    @IBAction func setAsSelected(_ sender: NSMenuItem) {
+    @IBAction private func setAsSelected(_ sender: NSMenuItem) {
         guard let template = try? promiseCheckSelectedTemplate().wait() else { return }
         TemplateManager.shared.selectedTemplate = template
     }
 
-    @IBAction func outlineViewAction(_ sender: TemplateOutlineView) {
+    @IBAction private func outlineViewAction(_ sender: TemplateOutlineView) {
         // do nothing
     }
 
-    @IBAction func outlineViewDoubleAction(_ sender: TemplateOutlineView) {
+    @IBAction private func outlineViewDoubleAction(_ sender: TemplateOutlineView) {
         guard let event = NSApp.currentEvent else { return }
         let locationInView = sender.convert(event.locationInWindow, from: nil)
         guard sender.bounds.contains(locationInView) else { return }
         copy(sender)
     }
 
-    @IBAction func resetColumns(_ sender: NSMenuItem) {
+    @IBAction private func resetColumns(_ sender: NSMenuItem) {
         outlineView.tableColumns.forEach({ $0.width = 320 })
     }
 

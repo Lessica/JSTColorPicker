@@ -332,13 +332,13 @@ extension PurchaseController: PurchaseButtonDelegate {
         }
     }
     
-    @IBAction func checkUpdatesButtonTapped(_ sender: NSButton) { }
+    @IBAction private func checkUpdatesButtonTapped(_ sender: NSButton) { }
     
-    @IBAction func termsAndPrivacyButtonTapped(_ sender: NSButton) {
+    @IBAction private func termsAndPrivacyButtonTapped(_ sender: NSButton) {
         NSWorkspace.shared.redirectToTermsPage()
     }
     
-    @IBAction func visitWebsiteButtonTapped(_ sender: NSButton) {
+    @IBAction private func visitWebsiteButtonTapped(_ sender: NSButton) {
         NSWorkspace.shared.redirectToMainPage()
     }
     

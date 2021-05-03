@@ -68,7 +68,7 @@ class TemplateInfoController: StackedPaneController {
         }
     }
 
-    @IBAction func detailButtonTapped(_ sender: NSButton) {
+    @IBAction private func detailButtonTapped(_ sender: NSButton) {
         templateInfoView.isAdvanced = sender.state == .on
         UserDefaults.standard[.toggleTemplateDetailedInformation] = sender.state == .on
     }
