@@ -269,11 +269,11 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDown(with event: NSEvent) {
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.before) })
+            .filter({ $0.types.contains(.leftMouseDown) && $0.order.contains(.before) })
             .forEach({ $0.target?.mouseDown(with: event) })
         internalMouseDown(at: .left, withEvent: event)
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseDown) && $0.order.contains(.after) })
+            .filter({ $0.types.contains(.leftMouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDown(with: event) })
     }
     
@@ -285,6 +285,15 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDown) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDown(with: event) })
+    }
+    
+    override func otherMouseDown(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseDown) && $0.order.contains(.before) })
+            .forEach({ $0.target?.otherMouseDown(with: event) })
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseDown) && $0.order.contains(.after) })
+            .forEach({ $0.target?.otherMouseDown(with: event) })
     }
     
     private func internalMouseUp(at side: SceneState.ManipulatingSide, withEvent event: NSEvent) {
@@ -308,11 +317,11 @@ class SceneScrollView: NSScrollView {
     
     override func mouseUp(with event: NSEvent) {
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.before) })
+            .filter({ $0.types.contains(.leftMouseUp) && $0.order.contains(.before) })
             .forEach({ $0.target?.mouseUp(with: event) })
         internalMouseUp(at: .left, withEvent: event)
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseUp) && $0.order.contains(.after) })
+            .filter({ $0.types.contains(.leftMouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseUp(with: event) })
     }
     
@@ -324,6 +333,15 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseUp) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseUp(with: event) })
+    }
+    
+    override func otherMouseUp(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseUp) && $0.order.contains(.before) })
+            .forEach({ $0.target?.otherMouseUp(with: event) })
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseUp) && $0.order.contains(.after) })
+            .forEach({ $0.target?.otherMouseUp(with: event) })
     }
 
     private static func calculatePixelRect(
@@ -614,11 +632,11 @@ class SceneScrollView: NSScrollView {
     
     override func mouseDragged(with event: NSEvent) {
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.before) })
+            .filter({ $0.types.contains(.leftMouseDragged) && $0.order.contains(.before) })
             .forEach({ $0.target?.mouseDragged(with: event) })
         internalMouseDragged(at: .left, withEvent: event)
         sceneEventObservers
-            .filter({ $0.types.contains(.mouseDragged) && $0.order.contains(.after) })
+            .filter({ $0.types.contains(.leftMouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.mouseDragged(with: event) })
     }
     
@@ -630,6 +648,15 @@ class SceneScrollView: NSScrollView {
         sceneEventObservers
             .filter({ $0.types.contains(.rightMouseDragged) && $0.order.contains(.after) })
             .forEach({ $0.target?.rightMouseDragged(with: event) })
+    }
+    
+    override func otherMouseDragged(with event: NSEvent) {
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseDragged) && $0.order.contains(.before) })
+            .forEach({ $0.target?.otherMouseDragged(with: event) })
+        sceneEventObservers
+            .filter({ $0.types.contains(.otherMouseDragged) && $0.order.contains(.after) })
+            .forEach({ $0.target?.otherMouseDragged(with: event) })
     }
     
     override func scrollWheel(with event: NSEvent) {

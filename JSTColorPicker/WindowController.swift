@@ -45,7 +45,6 @@ extension NSUserInterfaceItemIdentifier {
 
 
 // MARK: - Toolbar Item Identifier
-
 extension NSToolbarItem.Identifier {
     private static let prefix     = "com.jst.JSTColorPicker.ToolbarItem."
     
@@ -104,7 +103,7 @@ class WindowController: NSWindowController {
     }
     
     private func inspectWindowHierarchy() {
-        let rootWindow = window!
+        guard let rootWindow = window else { return }
         print("Root window", rootWindow, rootWindow.title, "has tabs:")
         rootWindow.tabbedWindows?.forEach { window in
             print("- ", window, window.title, "isKey =", window.isKeyWindow, ", isMain =", window.isMainWindow, " at ", window.frame)
@@ -120,7 +119,7 @@ class WindowController: NSWindowController {
     // MARK: - Content Controller
     
     var splitController: SplitController! {
-        return self.window!.contentViewController?.children.first as? SplitController
+        return self.window?.contentViewController?.children.first as? SplitController
     }
     
     
@@ -356,7 +355,9 @@ class WindowController: NSWindowController {
         syncToolbarState()
         
         touchBarPreviewSlider.isEnabled = documentState.isLoaded
-        ShortcutGuideWindowController.registerShortcutGuideForWindow(window!)
+        if let window = window {
+            ShortcutGuideWindowController.registerShortcutGuideForWindow(window)
+        }
         
         #if APP_STORE
         NotificationCenter.default.addObserver(
@@ -647,14 +648,14 @@ extension WindowController: ToolbarResponder {
         splitController.fillWindowAction(sender)
     }
     
-    @objc func zoomInAction(_ sender: Any?) {
+    @objc func zoomInAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
         guard documentState.isLoaded else { return }
-        splitController.zoomInAction(sender)
+        splitController.zoomInAction(sender, centeringType: center)
     }
     
-    @objc func zoomOutAction(_ sender: Any?) {
+    @objc func zoomOutAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
         guard documentState.isLoaded else { return }
-        splitController.zoomOutAction(sender)
+        splitController.zoomOutAction(sender, centeringType: center)
     }
     
     @objc func zoomToAction(_ sender: Any?, value: Double) {
@@ -696,11 +697,13 @@ extension WindowController: ToolbarResponder {
     }
     
     @IBAction private func windowZoomInAction(_ sender: NSMenuItem) {
-        zoomInAction(sender)
+        guard let eventType = window?.currentEvent?.type else { return }
+        zoomInAction(sender, centeringType: eventType.isPointerType ? .imageCenter : .mouseLocation)
     }
     
     @IBAction private func windowZoomOutAction(_ sender: NSMenuItem) {
-        zoomOutAction(sender)
+        guard let eventType = window?.currentEvent?.type else { return }
+        zoomOutAction(sender, centeringType: eventType.isPointerType ? .imageCenter : .mouseLocation)
     }
     
     @IBAction private func windowZoomToAction(_ sender: NSMenuItem) {
@@ -968,9 +971,10 @@ extension WindowController: ItemPreviewSender, ItemPreviewResponder {
 extension WindowController: ShortcutGuideDataSource {
 
     @IBAction private func toggleCommandPalette(_ sender: Any?) {
+        guard let window = window else { return }
         let guideCtrl = ShortcutGuideWindowController.shared
-        guideCtrl.loadItemsForWindow(window!)
-        guideCtrl.toggleForWindow(window!, columnStyle: nil)
+        guideCtrl.loadItemsForWindow(window)
+        guideCtrl.toggleForWindow(window, columnStyle: nil)
     }
 
     var shortcutItems: [ShortcutItem] {

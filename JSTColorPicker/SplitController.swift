@@ -266,12 +266,12 @@ extension SplitController: ToolbarResponder {
         sceneController.fillWindowAction(sender)
     }
     
-    func zoomInAction(_ sender: Any?) {
-        sceneController.zoomInAction(sender)
+    func zoomInAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+        sceneController.zoomInAction(sender, centeringType: center)
     }
     
-    func zoomOutAction(_ sender: Any?) {
-        sceneController.zoomOutAction(sender)
+    func zoomOutAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+        sceneController.zoomOutAction(sender, centeringType: center)
     }
     
     func zoomToAction(_ sender: Any?, value: Double) {

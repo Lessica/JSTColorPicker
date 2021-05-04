@@ -187,8 +187,8 @@ class SceneController: NSViewController {
         reloadSceneRulerConstraints()
         
         sceneView.sceneEventObservers = Set([
-            SceneEventObserver(self, types: [.mouseUp, .rightMouseUp], order: [.before]),
-            SceneEventObserver(sceneOverlayView, types: .all, order: [.after])
+            SceneEventObserver(self, types: [.leftMouseUp, .rightMouseUp], order: [.before]),
+            SceneEventObserver(sceneOverlayView, types: NSEvent.EventType.allCases, order: [.after])
         ])
         
         sceneView.trackingDelegate                 = self
@@ -914,13 +914,7 @@ class SceneController: NSViewController {
                 }
             }
             else if modifierFlags.subtracting(.command).isEmpty, let characters = event.characters {
-                if characters.contains("-") {
-                    return applyMinifyItem(at: locInWrapper)
-                }
-                else if characters.contains("=") {
-                    return applyMagnifyItem(at: locInWrapper)
-                }
-                else if characters.contains("`") {
+                if characters.contains("`") {
                     return shortcutCopyPixelColor(at: locInWrapper)
                 }
                 else if characters.contains("[") {
@@ -1435,12 +1429,28 @@ extension SceneController: ToolbarResponder {
         sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds))
     }
     
-    func zoomInAction(_ sender: Any?) {
-        applyMagnifyItem(at: .null)
+    func zoomInAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+        if center == .imageCenter {
+            applyMagnifyItem(at: .null)
+        } else if center == .mouseLocation {
+            guard let event = view.window?.currentEvent else {
+                return
+            }
+            let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+            applyMagnifyItem(at: locInWrapper)
+        }
     }
     
-    func zoomOutAction(_ sender: Any?) {
-        applyMinifyItem(at: .null)
+    func zoomOutAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+        if center == .imageCenter {
+            applyMinifyItem(at: .null)
+        } else if center == .mouseLocation {
+            guard let event = view.window?.currentEvent else {
+                return
+            }
+            let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+            applyMinifyItem(at: locInWrapper)
+        }
     }
     
     func zoomToAction(_ sender: Any?, value: Double) {

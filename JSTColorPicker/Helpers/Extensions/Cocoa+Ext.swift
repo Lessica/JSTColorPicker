@@ -478,3 +478,61 @@ extension NSSound.Name {
     static let submarine = NSSound.Name("Submarine")
     static let tink      = NSSound.Name("Tink")
 }
+
+extension NSEvent.EventType: CaseIterable {
+    var isPointerType: Bool {
+        let pointerTypes: [NSEvent.EventType] = [
+            .leftMouseUp,
+            .leftMouseDown,
+            .leftMouseDragged,
+            .rightMouseUp,
+            .rightMouseDown,
+            .rightMouseDragged,
+            .mouseEntered,
+            .mouseMoved,
+            .mouseExited,
+            .otherMouseUp,
+            .otherMouseDown,
+            .otherMouseDragged,
+        ]
+        return pointerTypes.contains(self)
+    }
+    public static var allCases: [NSEvent.EventType] {
+        return [
+            .leftMouseDown,
+            .leftMouseUp,
+            .rightMouseDown,
+            .rightMouseUp,
+            .mouseMoved,
+            .leftMouseDragged,
+            .rightMouseDragged,
+            .mouseEntered,
+            .mouseExited,
+            .keyDown,
+            .keyUp,
+            .flagsChanged,
+            .appKitDefined,
+            .systemDefined,
+            .applicationDefined,
+            .periodic,
+            .cursorUpdate,
+            .scrollWheel,
+            .tabletPoint,
+            .tabletProximity,
+            .otherMouseDown,
+            .otherMouseUp,
+            .otherMouseDragged,
+            .gesture,
+            .magnify,
+            .swipe,
+            .rotate,
+            .beginGesture,
+            .endGesture,
+            .smartMagnify,
+            .quickLook,
+            .pressure,
+            .directTouch,
+            .changeMode,
+        ]
+    }
+}

@@ -8,6 +8,11 @@
 
 import Foundation
 
+@objc enum ZoomingCenteringType: UInt {
+    case imageCenter
+    case mouseLocation
+}
+
 @objc protocol ToolbarResponder {
     @objc optional func openAction(_ sender: Any?)
     func useAnnotateItemAction(_ sender: Any?)
@@ -17,7 +22,7 @@ import Foundation
     func useMoveItemAction(_ sender: Any?)
     func fitWindowAction(_ sender: Any?)
     func fillWindowAction(_ sender: Any?)
-    func zoomInAction(_ sender: Any?)
-    func zoomOutAction(_ sender: Any?)
+    func zoomInAction(_ sender: Any?, centeringType center: ZoomingCenteringType)
+    func zoomOutAction(_ sender: Any?, centeringType center: ZoomingCenteringType)
     func zoomToAction(_ sender: Any?, value: Double)
 }
