@@ -17,7 +17,7 @@ class SceneController: NSViewController {
     
     weak     var screenshot           : Screenshot?
     weak     var parentTracking       : SceneTracking?
-    weak     var contentManager       : ContentDelegate!
+    weak     var contentManager       : ContentActionResponder!
     weak     var tagManager           : TagListSource!
     
     
@@ -1625,9 +1625,9 @@ extension SceneController: SceneActionResponder {
 }
 
 
-// MARK: - ContentDelegate
+// MARK: - ContentActionResponder
 
-extension SceneController: ContentDelegate {
+extension SceneController: ContentActionResponder {
     
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         return try contentManager.addContentItem(of: coordinate, byIgnoringPopups: ignore)

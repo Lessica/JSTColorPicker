@@ -45,7 +45,7 @@ class TagListController: StackedPaneController {
     private var previewMode                       : PreviewMode = .none
     private var previewContext                    : [String: Int]?
     
-    weak var contentManager                       : ContentDelegate?
+    weak var contentManager                       : ContentActionResponder?
     weak var importSource                         : TagImportSource?
     weak var sceneToolSource                      : SceneToolSource!
     {

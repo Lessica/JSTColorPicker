@@ -479,7 +479,7 @@ extension ContentController: ContentItemSource {
     
 }
 
-extension ContentController: ContentDelegate {
+extension ContentController: ContentActionResponder {
     
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         return try addContentItem(contentItem(of: coordinate))

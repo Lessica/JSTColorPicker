@@ -339,9 +339,9 @@ extension SplitController: ScreenshotLoader {
 }
 
 
-// MARK: - ContentDelegate
+// MARK: - ContentActionResponder
 
-extension SplitController: ContentDelegate {
+extension SplitController: ContentActionResponder {
     
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         do {

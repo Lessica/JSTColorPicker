@@ -34,7 +34,7 @@ class EditWindow: NSWindow {
     var contentItems: [ContentItem]?
     
     weak var loader: ScreenshotLoader?
-    weak var contentDelegate: ContentDelegate?
+    weak var contentDelegate: ContentActionResponder?
     weak var contentItemSource: ContentItemSource?
 
 }

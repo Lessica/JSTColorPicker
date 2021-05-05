@@ -45,7 +45,7 @@ class SceneOverlayView: NSView {
         super.updateTrackingAreas()
     }
     
-    weak var contentDelegate                   : ContentDelegate!
+    weak var contentDelegate                   : ContentActionResponder!
     weak var sceneToolSource                   : SceneToolSource!
     private var sceneTool                      : SceneTool               { sceneToolSource.sceneTool }
     weak var sceneStateSource                  : SceneStateSource!

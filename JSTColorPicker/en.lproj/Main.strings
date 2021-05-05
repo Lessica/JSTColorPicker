@@ -97,6 +97,9 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
+/* Class = "NSMenuItem"; title = "Add Area…"; ObjectID = "bd3-nq-reS"; */
+"bd3-nq-reS.title" = "Add Area…";
+
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "File";
 
@@ -141,12 +144,6 @@
 
 /* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.title" = "Command Palette…";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Place Color & Coordinates at current cursor position."; ObjectID = "CT0-bH-xdb"; */
-"CT0-bH-xdb.ibShadowedToolTip" = "Place Color & Coordinates at current cursor position.";
-
-/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "CT0-bH-xdb"; */
-"CT0-bH-xdb.title" = "New Annotation";
 
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "Compare Opened Documents";
@@ -219,6 +216,9 @@
 
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "Templates";
+
+/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "g6D-ui-0m3"; */
+"g6D-ui-0m3.title" = "New Annotation";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "gCq-jW-QdJ"; */
 "gCq-jW-QdJ.title" = "Capitalize";
@@ -496,6 +496,9 @@
 /* Class = "NSMenuItem"; title = "Remove Annotation"; ObjectID = "ufD-HR-qj1"; */
 "ufD-HR-qj1.title" = "Remove Annotation";
 
+/* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "ULC-vu-0Kt"; */
+"ULC-vu-0Kt.title" = "Add Color & Coordinates…";
+
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
 
@@ -582,6 +585,9 @@
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "Find and Replace…";
+
+/* Class = "NSMenu"; title = "New Annotation"; ObjectID = "Yxk-xO-mxj"; */
+"Yxk-xO-mxj.title" = "New Annotation";
 
 /* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Z3z-gx-xhT"; */
 "Z3z-gx-xhT.title" = "Stop Speaking";

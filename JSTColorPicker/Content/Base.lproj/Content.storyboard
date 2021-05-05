@@ -436,7 +436,9 @@ CA
                 <menu id="Cqe-SJ-8Rv">
                     <items>
                         <menuItem title="Add Color &amp; Coordinates…" id="7Qu-yW-xLS">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                             <connections>
                                 <action selector="create:" target="oDF-UT-bv5" id="CSg-vR-jDO"/>
                             </connections>

@@ -20,7 +20,7 @@ class EditViewController: NSViewController {
     var contentItems: [ContentItem]? { (view.window as? EditWindow)?.contentItems }
     
     weak var contentItemSource: ContentItemSource? { (view.window as? EditWindow)?.contentItemSource }
-    weak var contentDelegate: ContentDelegate?     { (view.window as? EditWindow)?.contentDelegate   }
+    weak var contentDelegate: ContentActionResponder?     { (view.window as? EditWindow)?.contentDelegate   }
     
     var undoToken: NotificationToken?
     var redoToken: NotificationToken?

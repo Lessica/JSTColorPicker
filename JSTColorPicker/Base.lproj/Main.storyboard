@@ -668,44 +668,8 @@ CA
                                                 </connections>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Smart Zoom..." id="7BO-ZP-rPi">
+                                        <menuItem title="Smart Zoom…" id="7BO-ZP-rPi">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                    <connections>
-                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="lsr-Fi-VwD"/>
-                                    </connections>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Annotation" id="jkP-y6-J5t">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
-                                    <items>
-                                        <menuItem title="New Annotation" toolTip="Place Color &amp; Coordinates at current cursor position." id="CT0-bH-xdb">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="Xdd-Yq-ir0"/>
-                                        <menuItem title="Copy Annotation" keyEquivalent="`" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte"/>
-                                        <menuItem isSeparatorItem="YES" id="iAA-Ge-vBa"/>
-                                        <menuItem title="Select Previous Annotation" keyEquivalent="[" id="TLO-Ak-Y83">
-                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.</string>
-                                        </menuItem>
-                                        <menuItem title="Select Next Annotation" keyEquivalent="]" id="sYZ-jQ-Gay">
-                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.</string>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="6DE-xm-3j0"/>
-                                        <menuItem title="Remove Annotation" toolTip="Delete Color &amp; Coordinates at current cursor position or the top most Area contains current cursor position." id="ufD-HR-qj1">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                        </menuItem>
-                                        <menuItem title="List Removable Annotations…" toolTip="Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." id="hGb-fc-2Ig">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="NIB-hc-5fb"/>
                                         <menuItem title="Pinpoint Navigation" toolTip="Move the cursor by keyboard precisely." id="PB4-O5-RIu">
@@ -810,6 +774,52 @@ CA
                                                     </menuItem>
                                                 </items>
                                             </menu>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="lsr-Fi-VwD"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Annotation" id="jkP-y6-J5t">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
+                                    <items>
+                                        <menuItem title="New Annotation" id="g6D-ui-0m3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="New Annotation" id="Yxk-xO-mxj">
+                                                <items>
+                                                    <menuItem title="Add Color &amp; Coordinates…" id="ULC-vu-0Kt">
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                    </menuItem>
+                                                    <menuItem title="Add Area…" id="bd3-nq-reS">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Xdd-Yq-ir0"/>
+                                        <menuItem title="Copy Annotation" keyEquivalent="`" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte"/>
+                                        <menuItem isSeparatorItem="YES" id="iAA-Ge-vBa"/>
+                                        <menuItem title="Select Previous Annotation" keyEquivalent="[" id="TLO-Ak-Y83">
+                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.</string>
+                                        </menuItem>
+                                        <menuItem title="Select Next Annotation" keyEquivalent="]" id="sYZ-jQ-Gay">
+                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.</string>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="6DE-xm-3j0"/>
+                                        <menuItem title="Remove Annotation" toolTip="Delete Color &amp; Coordinates at current cursor position or the top most Area contains current cursor position." id="ufD-HR-qj1">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                        </menuItem>
+                                        <menuItem title="List Removable Annotations…" toolTip="Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." id="hGb-fc-2Ig">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
                                     </items>
                                 </menu>

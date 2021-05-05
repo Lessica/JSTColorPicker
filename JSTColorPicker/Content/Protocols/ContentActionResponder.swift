@@ -1,5 +1,5 @@
 //
-//  ContentDelegate.swift
+//  ContentActionResponder.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 2/13/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ContentDelegate: AnyObject {
+protocol ContentActionResponder: AnyObject {
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     
