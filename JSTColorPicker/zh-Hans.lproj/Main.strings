@@ -97,9 +97,6 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
 
-/* Class = "NSMenuItem"; title = "Add Area…"; ObjectID = "bd3-nq-reS"; */
-"bd3-nq-reS.title" = "添加区域…";
-
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "文件";
 
@@ -216,9 +213,6 @@
 
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "模版";
-
-/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "g6D-ui-0m3"; */
-"g6D-ui-0m3.title" = "新建标注";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "gCq-jW-QdJ"; */
 "gCq-jW-QdJ.title" = "首字母大写";
@@ -370,6 +364,9 @@
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "打开最近使用";
 
+/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "oIk-EK-Nig"; */
+"oIk-EK-Nig.title" = "新建标注";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
 "OLF-SN-E6a.ibShadowedToolTip" = "魔术光标：添加，或是移除标注，目前支持坐标及颜色标注和区域标注两种。";
 
@@ -496,9 +493,6 @@
 /* Class = "NSMenuItem"; title = "Remove Annotation"; ObjectID = "ufD-HR-qj1"; */
 "ufD-HR-qj1.title" = "移除标注";
 
-/* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "ULC-vu-0Kt"; */
-"ULC-vu-0Kt.title" = "添加颜色与坐标…";
-
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
 
@@ -585,9 +579,6 @@
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "查找与替换…";
-
-/* Class = "NSMenu"; title = "New Annotation"; ObjectID = "Yxk-xO-mxj"; */
-"Yxk-xO-mxj.title" = "新建标注";
 
 /* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Z3z-gx-xhT"; */
 "Z3z-gx-xhT.title" = "停止朗读";

@@ -241,6 +241,7 @@ class SceneController: NSViewController {
             return event
         }!)
 
+        // FIXME: make this optional
         eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
             guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowKeyDown(with: event) {

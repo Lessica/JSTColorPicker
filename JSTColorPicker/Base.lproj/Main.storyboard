@@ -785,20 +785,10 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
                                     <items>
-                                        <menuItem title="New Annotation" id="g6D-ui-0m3">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="New Annotation" id="Yxk-xO-mxj">
-                                                <items>
-                                                    <menuItem title="Add Color &amp; Coordinates…" id="ULC-vu-0Kt">
-                                                        <string key="keyEquivalent" base64-UTF8="YES">
+                                        <menuItem title="New Annotation" id="oIk-EK-Nig">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                                                    </menuItem>
-                                                    <menuItem title="Add Area…" id="bd3-nq-reS">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Xdd-Yq-ir0"/>
                                         <menuItem title="Copy Annotation" keyEquivalent="`" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte"/>

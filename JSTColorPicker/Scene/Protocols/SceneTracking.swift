@@ -10,18 +10,18 @@ import Cocoa
 
 
 protocol SceneTracking: AnyObject {
-    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
-    func sceneRawColorDidChange   (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
-    func sceneRawAreaDidChange    (_ sender: SceneScrollView?, to rect: PixelRect)
-    func sceneWillStartLiveResize (_ sender: SceneScrollView?)
-    func sceneDidEndLiveResize    (_ sender: SceneScrollView?)
+    func sceneVisibleRectDidChange  (_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat)
+    func sceneRawColorDidChange     (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)
+    func sceneRawAreaDidChange      (_ sender: SceneScrollView?, to rect: PixelRect)
+    func sceneWillStartLiveResize   (_ sender: SceneScrollView?)
+    func sceneDidEndLiveResize      (_ sender: SceneScrollView?)
 }
 
 extension SceneTracking {
-    func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
-    func sceneRawColorDidChange   (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)             { }
-    func sceneRawAreaDidChange    (_ sender: SceneScrollView?, to rect: PixelRect)                         { }
-    func sceneWillStartLiveResize (_ sender: SceneScrollView?)                                             { }
-    func sceneDidEndLiveResize    (_ sender: SceneScrollView?)                                             { }
+    func sceneVisibleRectDidChange  (_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) { }
+    func sceneRawColorDidChange     (_ sender: SceneScrollView?, at coordinate: PixelCoordinate)             { }
+    func sceneRawAreaDidChange      (_ sender: SceneScrollView?, to rect: PixelRect)                         { }
+    func sceneWillStartLiveResize   (_ sender: SceneScrollView?)                                             { }
+    func sceneDidEndLiveResize      (_ sender: SceneScrollView?)                                             { }
 }
 
