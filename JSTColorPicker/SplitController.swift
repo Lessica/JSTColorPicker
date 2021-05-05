@@ -10,25 +10,13 @@ import Cocoa
 import ShortcutGuide
 
 class SplitController: NSSplitViewController {
-
-    enum ArrangedIndex: Int {
-        case content = 0
-        case scene
-        case sidebar
-    }
-
-    private func arrangedSubview(at index: ArrangedIndex) -> NSView {
-        return splitView.arrangedSubviews[index.rawValue]
-    }
-
-    func isSubviewCollapsed(at index: ArrangedIndex) -> Bool {
-        return splitView.isSubviewCollapsed(arrangedSubview(at: index))
-    }
     
-    @IBOutlet weak var errorTextView            : MultipleErrorAlertView!
-
-    public  weak var parentTracking             : SceneTracking?
-    private weak var sceneToolSource            : SceneToolSource!
+    @IBOutlet weak var errorTextView             : MultipleErrorAlertView!
+    public    weak var parentTracking            : SceneTracking?
+    private   weak var sceneToolSource           : SceneToolSource!
+    
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         contentController.actionManager          = self
@@ -46,17 +34,33 @@ class SplitController: NSSplitViewController {
         tagListController.contentManager   = self
     }
     
+    internal weak var screenshot                : Screenshot?
+    private var documentState                   : Screenshot.State { screenshot?.state ?? .notLoaded }
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
         }
     }
     
-    internal weak var screenshot                : Screenshot?
-    private var documentState                   : Screenshot.State { screenshot?.state ?? .notLoaded }
-    
     deinit {
         debugPrint("\(className):\(#function)")
+    }
+    
+    
+    // MARK: - Split View Helpers
+    
+    enum ArrangedIndex: Int {
+        case content = 0
+        case scene
+        case sidebar
+    }
+
+    private func arrangedSubview(at index: ArrangedIndex) -> NSView {
+        return splitView.arrangedSubviews[index.rawValue]
+    }
+
+    func isSubviewCollapsed(at index: ArrangedIndex) -> Bool {
+        return splitView.isSubviewCollapsed(arrangedSubview(at: index))
     }
     
     override func splitViewDidResizeSubviews(_ notification: Notification) {
@@ -72,6 +76,9 @@ class SplitController: NSSplitViewController {
     }
     
 }
+
+
+// MARK: - PaneContainer
 
 extension SplitController: PaneContainer {
     
@@ -123,6 +130,9 @@ extension SplitController: PaneContainer {
         }
     }
 }
+
+
+// MARK: - DropViewDelegate
 
 extension SplitController: DropViewDelegate {
 
@@ -207,6 +217,9 @@ extension SplitController: DropViewDelegate {
     
 }
 
+
+// MARK: - SceneTracking
+
 extension SplitController: SceneTracking {
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
@@ -236,7 +249,12 @@ extension SplitController: SceneTracking {
     
 }
 
-extension SplitController: ToolbarResponder {
+
+// MARK: - SceneActionResponder
+
+extension SplitController: SceneActionResponder {
+    func openAction(_ sender: Any?) { }
+    
     func useAnnotateItemAction(_ sender: Any?) {
         sceneController.useAnnotateItemAction(sender)
     }
@@ -246,7 +264,6 @@ extension SplitController: ToolbarResponder {
     }
     
     func useMinifyItemAction(_ sender: Any?) {
-        guard sender == nil else { return }
         sceneController.useMinifyItemAction(sender)
     }
     
@@ -266,18 +283,35 @@ extension SplitController: ToolbarResponder {
         sceneController.fillWindowAction(sender)
     }
     
-    func zoomInAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+    func zoomInAction(_ sender: Any?, centeringType center: SceneScrollView.ZoomingCenteringType) {
         sceneController.zoomInAction(sender, centeringType: center)
     }
     
-    func zoomOutAction(_ sender: Any?, centeringType center: ZoomingCenteringType) {
+    func zoomOutAction(_ sender: Any?, centeringType center: SceneScrollView.ZoomingCenteringType) {
         sceneController.zoomOutAction(sender, centeringType: center)
     }
     
-    func zoomToAction(_ sender: Any?, value: Double) {
+    func zoomToAction(_ sender: Any?, value: CGFloat) {
         sceneController.zoomToAction(sender, value: value)
     }
+    
+    func navigateToAction(
+        _ sender: Any?,
+        direction: SceneScrollView.NavigationDirection,
+        distance: SceneScrollView.NavigationDistance,
+        centeringType center: SceneScrollView.NavigationCenteringType
+    ) {
+        sceneController.navigateToAction(
+            sender,
+            direction: direction,
+            distance: distance,
+            centeringType: center
+        )
+    }
 }
+
+
+// MARK: - ScreenshotLoader
 
 extension SplitController: ScreenshotLoader {
 
@@ -303,6 +337,9 @@ extension SplitController: ScreenshotLoader {
     }
     
 }
+
+
+// MARK: - ContentDelegate
 
 extension SplitController: ContentDelegate {
     
@@ -452,6 +489,9 @@ extension SplitController: ContentDelegate {
     
 }
 
+
+// MARK: - ContentActionDelegate
+
 extension SplitController: ContentActionDelegate {
     
     private func contentItemChanged(_ item: ContentItem) {
@@ -503,6 +543,9 @@ extension SplitController: ContentActionDelegate {
     
 }
 
+
+// MARK: - ItemPreviewResponder
+
 extension SplitController: ItemPreviewResponder {
     
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
@@ -523,6 +566,9 @@ extension SplitController: ItemPreviewResponder {
     
 }
 
+
+// MARK: - PixelMatchResponder
+
 extension SplitController: PixelMatchResponder {
 
     var childPixelMatchResponders: [PixelMatchResponder] { [
@@ -540,6 +586,9 @@ extension SplitController: PixelMatchResponder {
     
 }
 
+
+// MARK: - ShortcutGuideDataSource
+
 extension SplitController: ShortcutGuideDataSource {
 
     var shortcutItems: [ShortcutItem] {
@@ -548,7 +597,7 @@ extension SplitController: ShortcutGuideDataSource {
         if documentState.isLoaded {
             switch sceneToolSource.sceneTool {
             case .magicCursor:
-                if documentState.isWriteable {
+                if documentState.isWritable {
                     items += [
                         ShortcutItem(
                             name: NSLocalizedString("Add Color & Coordinates Annotation", comment: "Shortcut Guide"),
@@ -556,14 +605,6 @@ extension SplitController: ShortcutGuideDataSource {
                             toolTip: NSLocalizedString("Add Color & Coordinates at current cursor position to content list.", comment: "Shortcut Guide"),
                             modifierFlags: []
                         ),
-                        ShortcutItem(
-                            name: NSLocalizedString("Add Color & Coordinates Annotation", comment: "Shortcut Guide"),
-                            keyString: .return,
-                            toolTip: NSLocalizedString("Add Color & Coordinates at current cursor position to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: [.command]
-                        ),
-                    ]
-                    items += [
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
@@ -583,22 +624,16 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [.option]
                         ),
                         ShortcutItem(
-                            name: NSLocalizedString("Delete Annotation", comment: "Shortcut Guide"),
+                            name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
                             modifierFlags: []
                         ),
                         ShortcutItem(
-                            name: NSLocalizedString("List Deletable Annotations", comment: "Shortcut Guide"),
+                            name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
                             modifierFlags: [.option]
-                        ),
-                        ShortcutItem(
-                            name: NSLocalizedString("Delete Annotation", comment: "Shortcut Guide"),
-                            keyString: .delete,
-                            toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
-                            modifierFlags: [.command]
                         ),
                     ]
                 }
@@ -637,16 +672,16 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.option]
                     ),
                 ]
-                if documentState.isWriteable {
+                if documentState.isWritable {
                     items += [
                         ShortcutItem(
-                            name: NSLocalizedString("Delete Annotation", comment: "Shortcut Guide"),
+                            name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
                             modifierFlags: []
                         ),
                         ShortcutItem(
-                            name: NSLocalizedString("List Deletable Annotations", comment: "Shortcut Guide"),
+                            name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
                             keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
                             modifierFlags: [.option]
@@ -741,6 +776,29 @@ extension SplitController: ShortcutGuideDataSource {
             default:
                 break
             }
+            
+            if documentState.isWritable {
+                items += [
+                    ShortcutItem(
+                        name: NSLocalizedString("Add Color & Coordinates Annotation", comment: "Shortcut Guide"),
+                        keyString: .return,
+                        toolTip: NSLocalizedString("Place Color & Coordinates at current cursor position.", comment: "Shortcut Guide"),
+                        modifierFlags: [.command]
+                    ),
+                    ShortcutItem(
+                        name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
+                        keyString: .delete,
+                        toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
+                        modifierFlags: [.command]
+                    ),
+                    ShortcutItem(
+                        name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
+                        keyString: .delete,
+                        toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
+                        modifierFlags: [.option, .command]
+                    ),
+                ]
+            }
 
             items += [
                 ShortcutItem(
@@ -764,7 +822,7 @@ extension SplitController: ShortcutGuideDataSource {
                 ShortcutItem(
                     name: NSLocalizedString("Copy Color & Coordinates", comment: "Shortcut Guide"),
                     keyString: "`",
-                    toolTip: NSLocalizedString("Copy the Color & Coordinates at the cursor location directly to the general pasteboard.", comment: "Shortcut Guide"),
+                    toolTip: NSLocalizedString("Copy Color & Coordinates at current cursor location directly to the general pasteboard.", comment: "Shortcut Guide"),
                     modifierFlags: [.command]
                 ),
             ]

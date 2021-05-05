@@ -1033,7 +1033,7 @@ extension AppDelegate {
 #endif
 
 
-// MARK: - Restorable State
+// MARK: - Restorable States
 
 extension AppDelegate {
     

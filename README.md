@@ -98,7 +98,7 @@ Scale the view to fit/fill the window size.
   * *area*: `(x, y, w, h)`
 
 ### Others
-- <code>⌘`</code>: Copy the *color & coordinates* at the cursor location directly to the general pasteboard.
+- <code>⌘`</code>: Copy *color & coordinates* at current cursor location directly to the general pasteboard.
 
 
 ## Menu Key Equivalents

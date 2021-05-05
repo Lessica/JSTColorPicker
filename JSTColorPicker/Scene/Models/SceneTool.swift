@@ -92,7 +92,7 @@ enum SceneTool: String {
         }
     }
     
-    func focusingCursorForEditableDirection(_ direction: EditableOverlay.Direction) -> NSCursor {
+    func focusingCursorForEditableDirection(_ direction: EditableOverlay.Direction) -> NSCursor? {
         switch self {
         case .selectionArrow:
             switch direction {
@@ -108,7 +108,7 @@ enum SceneTool: String {
                 return NSCursor.pointingHand
             }
         default:
-            return NSCursor.current
+            return nil
         }
     }
 

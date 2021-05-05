@@ -714,6 +714,11 @@ class SceneScrollView: NSScrollView {
             .forEach({ $0.target?.smartMagnify(with: event) })
     }
     
+    override func rectForSmartMagnification(at location: NSPoint, in visibleRect: NSRect) -> NSRect {
+        // FIXME: change default behavior of smart magnification
+        return rectForSmartMagnification(at: location, in: visibleRect)
+    }
+    
     override func reflectScrolledClipView(_ clipView: NSClipView) {
         guard let trackingDelegate = trackingDelegate else { return }
         let rect = wrapperVisibleRect

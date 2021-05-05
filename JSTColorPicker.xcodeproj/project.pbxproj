@@ -313,7 +313,7 @@
 		D61047A024224A170002E990 /* EditableOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C923F137B900829B51 /* EditableOverlay.swift */; };
 		D61047A124224A170002E990 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C51C523F1361800829B51 /* Overlay.swift */; };
 		D61047A224224A170002E990 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6652823FAB9A600037D02 /* ExportManager.swift */; };
-		D61047A324224A170002E990 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
+		D61047A324224A170002E990 /* SceneActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */; };
 		D61047A424224A170002E990 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D61047A524224A170002E990 /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
 		D61047A724224A170002E990 /* SceneEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C05240FC77D000339C2 /* SceneEvent.swift */; };
@@ -564,7 +564,7 @@
 		D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */; };
 		D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E83823D0A542006AB402 /* Screenshot.swift */; };
 		D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85823D14219006AB402 /* TabDelegate.swift */; };
-		D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */; };
+		D6B8E85B23D14865006AB402 /* SceneActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */; };
 		D6C1E1F023CEBB840027DE6F /* SceneImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */; };
 		D6C1E1F323CEC23F0027DE6F /* SceneStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SceneStackedController.swift */; };
 		D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */; };
@@ -1255,7 +1255,7 @@
 		D6A3EA4023E40A6F008F53DC /* ColorAnnotatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotatorOverlay.swift; sourceTree = "<group>"; };
 		D6B8E83823D0A542006AB402 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		D6B8E85823D14219006AB402 /* TabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDelegate.swift; sourceTree = "<group>"; };
-		D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarResponder.swift; sourceTree = "<group>"; };
+		D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActionResponder.swift; sourceTree = "<group>"; };
 		D6C1E1EF23CEBB840027DE6F /* SceneImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageWrapper.swift; sourceTree = "<group>"; };
 		D6C1E1F223CEC23F0027DE6F /* SceneStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStackedController.swift; sourceTree = "<group>"; };
 		D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorIndicator.swift; sourceTree = "<group>"; };
@@ -1415,7 +1415,7 @@
 			isa = PBXGroup;
 			children = (
 				1885CF3D24B0FEA30067D02F /* UndoProxy.swift */,
-				D6B8E85A23D14865006AB402 /* ToolbarResponder.swift */,
+				D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2130,10 +2130,8 @@
 				CC470A9E262DEBC00013A3B7 /* Purchase */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
-				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
 				CCCD822F261C81C800BFDD6E /* MainWindow.swift */,
-				CCE33FEE26325F6C0082F73D /* main.swift */,
 			);
 			path = JSTColorPicker;
 			sourceTree = "<group>";
@@ -2215,6 +2213,8 @@
 				1885CF3C24B0FE750067D02F /* Protocols */,
 				CCA7343F2617059600808E02 /* Swizzling */,
 				CC8E5DC726281CF10030B2FC /* Views */,
+				D67A8F0D247E6D5F00153DE5 /* RetainingViewController.swift */,
+				CCE33FEE26325F6C0082F73D /* main.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3151,7 +3151,7 @@
 				CCE34017263272590082F73D /* ColoredView.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
-				D61047A324224A170002E990 /* ToolbarResponder.swift in Sources */,
+				D61047A324224A170002E990 /* SceneActionResponder.swift in Sources */,
 				CC4422EA263AD7F700161852 /* TemplateRowView.swift in Sources */,
 				D636A3A524B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				D61047A424224A170002E990 /* Template.swift in Sources */,
@@ -3396,7 +3396,7 @@
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
 				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
 				180C6A8E249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
-				D6B8E85B23D14865006AB402 /* ToolbarResponder.swift in Sources */,
+				D6B8E85B23D14865006AB402 /* SceneActionResponder.swift in Sources */,
 				D69374132403A92E007AF7AF /* Template.swift in Sources */,
 				D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */,
 				D6729C06240FC77D000339C2 /* SceneEvent.swift in Sources */,

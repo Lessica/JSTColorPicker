@@ -493,7 +493,7 @@ extension ContentController: ContentDelegate {
     private func addContentItem(_ item: ContentItem) throws -> ContentItem? {
         
         guard let content = documentContent  else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+        guard documentState.isWritable      else { throw Content.Error.notWritable   }
         
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
@@ -522,7 +522,7 @@ extension ContentController: ContentDelegate {
         
         guard let content = documentContent,
             let image = documentImage    else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        guard documentState.isWritable  else { throw Content.Error.notWritable   }
         
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
@@ -625,7 +625,7 @@ extension ContentController: ContentDelegate {
     
     func deleteContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable      else { throw Content.Error.notWritable }
+        guard documentState.isWritable      else { throw Content.Error.notWritable }
         
         guard let item = content.lazyColors.last(where: { $0.coordinate == coordinate })
             ?? content.lazyAreas.last(where: { $0.rect.contains(coordinate) })
@@ -640,7 +640,7 @@ extension ContentController: ContentDelegate {
     private func deleteContentItem(_ item: ContentItem, bySkipingValidation skip: Bool) throws -> ContentItem? {
         if !skip {
             guard let content = documentContent  else { throw Content.Error.notLoaded }
-            guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+            guard documentState.isWritable      else { throw Content.Error.notWritable   }
             guard content.items.firstIndex(of: item) != nil else { throw Content.Error.itemDoesNotExist(item: item) }
         }
         guard deleteConfirmForItems([item]) else { throw Content.Error.userAborted }
@@ -653,7 +653,7 @@ extension ContentController: ContentDelegate {
     func updateContentItem(_ item: ContentItem, to coordinate: PixelCoordinate) throws -> ContentItem? {
         guard let content = documentContent,
             let image = documentImage    else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        guard documentState.isWritable  else { throw Content.Error.notWritable   }
         
         guard content.items.first(where: { $0.id == item.id }) != nil                           else { throw Content.Error.itemDoesNotExist(item: item) }
         if let conflictItem = content.lazyColors.first(where: { $0.coordinate == coordinate })       { throw Content.Error.itemConflict(item1: coordinate, item2: conflictItem) }
@@ -676,7 +676,7 @@ extension ContentController: ContentDelegate {
     func updateContentItem(_ item: ContentItem, to rect: PixelRect) throws -> ContentItem? {
         guard let content = documentContent,
             let image = documentImage    else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable  else { throw Content.Error.notWritable   }
+        guard documentState.isWritable  else { throw Content.Error.notWritable   }
         
         guard content.items.first(where: { $0.id == item.id }) != nil             else { throw Content.Error.itemDoesNotExist(item: item) }
         if let conflictItem = content.lazyAreas.first(where: { $0.rect == rect })      { throw Content.Error.itemConflict(item1: rect, item2: conflictItem) }
@@ -698,7 +698,7 @@ extension ContentController: ContentDelegate {
     
     func updateContentItem(_ item: ContentItem) throws -> ContentItem? {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+        guard documentState.isWritable      else { throw Content.Error.notWritable   }
         
         guard content.items.first(where: { $0.id == item.id }) != nil              else { throw Content.Error.itemDoesNotExist(item: item) }
         
@@ -716,7 +716,7 @@ extension ContentController: ContentDelegate {
     
     func updateContentItems(_ items: [ContentItem]) throws -> [ContentItem]? {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
-        guard documentState.isWriteable      else { throw Content.Error.notWritable   }
+        guard documentState.isWritable      else { throw Content.Error.notWritable   }
         
         let itemIndexes = IndexSet(
             items.compactMap({ content.items.firstIndex(of: $0) })
@@ -822,7 +822,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             if menuItem.action == #selector(tags(_:))
                 || menuItem.action == #selector(delete(_:))
             {
-                guard documentState.isWriteable else { return false }
+                guard documentState.isWritable else { return false }
             }
             
             guard documentState.isLoaded else { return false }
@@ -849,7 +849,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         {  // contents available / single target / from right click menu
             
             if menuItem.action == #selector(relocate(_:)) {
-                guard documentState.isWriteable else { return false }
+                guard documentState.isWritable else { return false }
             }
             
             guard documentState.isLoaded  else { return false }
@@ -862,7 +862,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         {  // contents available / single target / from both menu / must be an area
             
             if menuItem.action == #selector(smartTrim(_:)) {
-                guard documentState.isWriteable else { return false }
+                guard documentState.isWritable else { return false }
             }
             
             guard let content = documentContent else { return false }
@@ -894,7 +894,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
         else if menuItem.action == #selector(paste(_:))
         {  // contents available / paste manager
-            guard documentState.isWriteable else { return false }
+            guard documentState.isWritable else { return false }
             return documentExport?.canImportFromAdditionalPasteboard ?? false
         }
             
@@ -911,7 +911,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         else if menuItem.action == #selector(create(_:))
             || menuItem.action == #selector(removeTag(_:))
         {  // contents writeable
-            return documentState.isWriteable
+            return documentState.isWritable
         }
             
         else if menuItem.action == #selector(resetColumns(_:))

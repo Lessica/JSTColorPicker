@@ -164,14 +164,17 @@ class SceneOverlayView: NSView {
                     sceneTool.disabledCursor.set()
                 }
             }
-            else if let focusedOverlay = focusedOverlay {
-                if let mouseLocation = locInWindow ?? window?.mouseLocationOutsideOfEventStream {
-                    let locInOverlay = focusedOverlay.convert(mouseLocation, from: nil)
-                    let direction = focusedOverlay.direction(at: locInOverlay)
-                    sceneTool.focusingCursorForEditableDirection(direction).set()
+            else if let focusedOverlay = focusedOverlay,
+                    let mouseLocation = locInWindow ?? window?.mouseLocationOutsideOfEventStream
+            {
+                let locInOverlay = focusedOverlay.convert(mouseLocation, from: nil)
+                let direction = focusedOverlay.direction(at: locInOverlay)
+                if let focusingCursor = sceneTool.focusingCursorForEditableDirection(direction) {
+                    focusingCursor.set()
+                } else {
+                    sceneTool.normalCursor.set()
                 }
-            }
-            else {
+            } else {
                 sceneTool.normalCursor.set()
             }
         } else {

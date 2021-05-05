@@ -123,10 +123,7 @@
 "Copy Color & Coordinates" = "Copy Color & Coordinates";
 
 /* Shortcut Guide */
-"Copy the Color & Coordinates at the cursor location directly to the general pasteboard." = "Copy the Color & Coordinates at the cursor location directly to the general pasteboard.";
-
-/* Shortcut Guide */
-"Delete Annotation" = "Delete Annotation";
+"Copy Color & Coordinates at current cursor location directly to the general pasteboard." = "Copy Color & Coordinates at current cursor location directly to the general pasteboard.";
 
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
@@ -334,7 +331,7 @@
 "List All Cascaded Annotations" = "List All Cascaded Annotations";
 
 /* Shortcut Guide */
-"List Deletable Annotations" = "List Deletable Annotations";
+"List Removable Annotations" = "List Removable Annotations";
 
 /* PixelImageError */
 "Load image data failed." = "Load image data failed.";
@@ -511,6 +508,9 @@
 /* presentMultipleErrors(_:) */
 "Partial Open Succeed" = "Partial Open Succeed";
 
+/* Shortcut Guide */
+"Place Color & Coordinates at current cursor position." = "Place Color & Coordinates at current cursor position.";
+
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -531,6 +531,9 @@
 
 /* Shortcut Guide */
 "Relocate…" = "Relocate…";
+
+/* Shortcut Guide */
+"Remove Annotation" = "Remove Annotation";
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "Reset Confirm";

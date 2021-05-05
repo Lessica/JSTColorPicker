@@ -7,6 +7,9 @@
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "查找";
 
+/* Class = "NSMenuItem"; title = "Move Right (10 Pixel)"; ObjectID = "1H6-qb-USf"; */
+"1H6-qb-USf.title" = "向右移动 (10 像素)";
+
 /* Class = "NSMenu"; title = "Devices"; ObjectID = "1Il-r8-iYp"; */
 "1Il-r8-iYp.title" = "设备";
 
@@ -24,6 +27,9 @@
 
 /* Class = "NSMenuItem"; title = "Quit JSTColorPicker"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "退出 JSTColorPicker";
+
+/* Class = "NSMenu"; title = "Transformations"; ObjectID = "5Ea-sf-93c"; */
+"5Ea-sf-93c.title" = "转换";
 
 /* Class = "NSMenu"; title = "Select Device"; ObjectID = "5FZ-FF-ebV"; */
 "5FZ-FF-ebV.title" = "选择设备";
@@ -43,8 +49,17 @@
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "6U2-X2-jP4"; */
 "6U2-X2-jP4.title" = "图像预览";
 
+/* Class = "NSMenuItem"; title = "Smart Zoom…"; ObjectID = "7BO-ZP-rPi"; */
+"7BO-ZP-rPi.title" = "智能缩放…";
+
+/* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "7jK-B5-6gt"; */
+"7jK-B5-6gt.title" = "页面设置…";
+
 /* Class = "NSMenuItem"; title = "Visit Website…"; ObjectID = "8AD-4g-2RS"; */
 "8AD-4g-2RS.title" = "访问网站…";
+
+/* Class = "NSMenuItem"; title = "Check Document Now"; ObjectID = "8E9-YQ-BzG"; */
+"8E9-YQ-BzG.title" = "立即检查文稿";
 
 /* Class = "NSMenuItem"; title = "Zoom to 2x"; ObjectID = "8he-XC-WaL"; */
 "8he-XC-WaL.title" = "缩放到 2x";
@@ -61,11 +76,23 @@
 /* Class = "NSMenuItem"; title = "Devices"; ObjectID = "9vP-dU-wGE"; */
 "9vP-dU-wGE.title" = "设备";
 
+/* Class = "NSMenuItem"; title = "Move Down"; ObjectID = "acG-Sc-8v3"; */
+"acG-Sc-8v3.title" = "向下移动";
+
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "Ae9-EU-JvU"; */
+"Ae9-EU-JvU.title" = "智能引号";
+
 /* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
 "af9-zN-lJB.title" = "选择模版";
 
+/* Class = "NSMenuItem"; title = "Move Down (10 Pixel)"; ObjectID = "ARW-N9-fGa"; */
+"ARW-N9-fGa.title" = "向下移动 (10 像素)";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "ayg-jl-nTr"; */
+"ayg-jl-nTr.title" = "变为小写";
 
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
@@ -76,11 +103,17 @@
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "偏好设置…";
 
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "Bsb-Hb-Rtv"; */
+"Bsb-Hb-Rtv.title" = "自动纠正拼写";
+
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
 "buJ-ug-pKt.title" = "查找所选内容";
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
 "Bw7-FT-i3A.title" = "另存为…";
+
+/* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "C4Y-Ww-Ifc"; */
+"C4Y-Ww-Ifc.title" = "智能链接";
 
 /* Class = "NSMenuItem"; title = "Template Preview"; ObjectID = "cC4-8w-iNy"; */
 "cC4-8w-iNy.title" = "模版预览";
@@ -109,8 +142,23 @@
 /* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.title" = "切换指令面板";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Place Color & Coordinates at current cursor position."; ObjectID = "CT0-bH-xdb"; */
+"CT0-bH-xdb.ibShadowedToolTip" = "在当前光标位置放置坐标及颜色标注。";
+
+/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "CT0-bH-xdb"; */
+"CT0-bH-xdb.title" = "新标注";
+
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "比较已打开的文档";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "d8r-lP-wfF"; */
+"d8r-lP-wfF.title" = "语音";
+
+/* Class = "NSMenuItem"; title = "Move Up (100 Pixel)"; ObjectID = "DD7-lo-QgB"; */
+"DD7-lo-QgB.title" = "向上移动 (100 像素)";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Minifying Glass: Zoom out at a preset scale."; ObjectID = "dfF-dN-Qvm"; */
+"dfF-dN-Qvm.ibShadowedToolTip" = "缩小镜：按预设的梯度比例缩小场景。";
 
 /* Class = "NSMenuItem"; title = "Minifying Glass"; ObjectID = "dfF-dN-Qvm"; */
 "dfF-dN-Qvm.title" = "缩小镜";
@@ -121,17 +169,32 @@
 /* Class = "NSMenuItem"; title = "New"; ObjectID = "dNj-Nf-Agp"; */
 "dNj-Nf-Agp.title" = "新建";
 
+/* Class = "NSMenuItem"; title = "Move Left (100 Pixel)"; ObjectID = "dQ0-Fj-ARO"; */
+"dQ0-Fj-ARO.title" = "向左移动 (100 像素)";
+
 /* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
 "dRJ-4n-Yzg.title" = "撤消";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
 "DVo-aG-piG.title" = "关闭";
 
+/* Class = "NSMenu"; title = "Move Left"; ObjectID = "dxN-wD-dtb"; */
+"dxN-wD-dtb.title" = "向左移动";
+
 /* Class = "NSMenuItem"; title = "Inspector"; ObjectID = "dYY-Yn-vNs"; */
 "dYY-Yn-vNs.title" = "检视器";
 
 /* Class = "NSMenuItem"; title = "Zoom to 75%"; ObjectID = "E9h-nV-D5B"; */
 "E9h-nV-D5B.title" = "缩放到 75%";
+
+/* Class = "NSMenuItem"; title = "Move Left (10 Pixel)"; ObjectID = "EAh-ec-dSJ"; */
+"EAh-ec-dSJ.title" = "向左移动 (10 像素)";
+
+/* Class = "NSMenu"; title = "Move Up"; ObjectID = "eBC-2I-EGe"; */
+"eBC-2I-EGe.title" = "向上移动";
+
+/* Class = "NSMenuItem"; title = "Move Down (100 Pixel)"; ObjectID = "Epn-EC-VxY"; */
+"Epn-EC-VxY.title" = "向下移动 (100 像素)";
 
 /* Class = "NSMenuItem"; title = "Toggle Color Grid"; ObjectID = "f1Y-VB-nPG"; */
 "f1Y-VB-nPG.title" = "切换颜色网格";
@@ -145,11 +208,20 @@
 /* Class = "NSMenuItem"; title = "Smart Trim"; ObjectID = "fAq-vA-bJd"; */
 "fAq-vA-bJd.title" = "智能裁切";
 
+/* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "fID-Sk-FUy"; */
+"fID-Sk-FUy.title" = "显示拼写和语法";
+
 /* Class = "NSMenuItem"; title = "JSTColorPicker Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "JSTColorPicker 帮助";
 
+/* Class = "NSMenu"; title = "Pinpoint Navigation"; ObjectID = "fov-86-TQ4"; */
+"fov-86-TQ4.title" = "精确导航";
+
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "模版";
+
+/* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "gCq-jW-QdJ"; */
+"gCq-jW-QdJ.title" = "首字母大写";
 
 /* Class = "NSMenuItem"; title = "Zoom to 32x"; ObjectID = "gQL-9Z-UHq"; */
 "gQL-9Z-UHq.title" = "缩放到 32x";
@@ -166,6 +238,18 @@
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "视图";
 
+/* Class = "NSMenuItem"; title = "Move Right (100 Pixel)"; ObjectID = "haN-CE-ZQE"; */
+"haN-CE-ZQE.title" = "向右移动 (100 像素)";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation."; ObjectID = "hGb-fc-2Ig"; */
+"hGb-fc-2Ig.ibShadowedToolTip" = "显示菜单，包含当前光标位置所有层级下层叠的区域标注，选择一项以移除标注。";
+
+/* Class = "NSMenuItem"; title = "List Removable Annotations…"; ObjectID = "hGb-fc-2Ig"; */
+"hGb-fc-2Ig.title" = "列出可移除标注…";
+
+/* Class = "NSMenuItem"; title = "Move Right (1 Pixel)"; ObjectID = "HQE-Xg-wkU"; */
+"HQE-Xg-wkU.title" = "向右移动 (1 像素)";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show template runtime logs in Console.app"; ObjectID = "hye-bj-eGL"; */
 "hye-bj-eGL.ibShadowedToolTip" = "在控制台中显示模版脚本的运行时日志。";
 
@@ -181,20 +265,41 @@
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
 "IAo-SY-fd9.title" = "打开…";
 
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "IDy-sI-zc5"; */
+"IDy-sI-zc5.title" = "显示替换";
+
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "颜色选取器";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "jBe-k0-sOR"; */
+"jBe-k0-sOR.title" = "语音";
+
+/* Class = "NSMenu"; title = "Substitutions"; ObjectID = "Jcd-4c-QGK"; */
+"Jcd-4c-QGK.title" = "替换";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Moving Hand: Drag to move the scene, or view the major tag of annotations."; ObjectID = "Jfy-di-tRp"; */
+"Jfy-di-tRp.ibShadowedToolTip" = "移动工具：拖拽移动场景，或是查看标注的首要标签。";
 
 /* Class = "NSMenuItem"; title = "Moving Hand"; ObjectID = "Jfy-di-tRp"; */
 "Jfy-di-tRp.title" = "移动工具";
 
+/* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
+"jkP-y6-J5t.title" = "标注";
+
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "选择模版";
+
+/* Class = "NSMenuItem"; title = "Move Left (1 Pixel)"; ObjectID = "jy4-Zr-A9u"; */
+"jy4-Zr-A9u.title" = "向左移动 (1 像素)";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Take screenshots directly from the selected devices."; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.ibShadowedToolTip" = "直接从已选中的设备获取屏幕截图。";
 
 /* Class = "NSMenuItem"; title = "Take Screenshot"; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.title" = "截图";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Fill Window: Scale the view to fill the window size."; ObjectID = "K4R-ig-ZXW"; */
+"K4R-ig-ZXW.ibShadowedToolTip" = "填充窗口：缩放场景到填充窗口的尺寸。";
 
 /* Class = "NSMenuItem"; title = "Zoom to Fill"; ObjectID = "K4R-ig-ZXW"; */
 "K4R-ig-ZXW.title" = "缩放以填充窗口";
@@ -205,11 +310,20 @@
 /* Class = "NSMenuItem"; title = "Show Sidebar"; ObjectID = "kIP-vf-haE"; */
 "kIP-vf-haE.title" = "显示边栏";
 
+/* Class = "NSMenuItem"; title = "Move Up"; ObjectID = "KIq-fC-XZ8"; */
+"KIq-fC-XZ8.title" = "向上移动";
+
 /* Class = "NSMenuItem"; title = "Zoom to 100%"; ObjectID = "Kkk-xx-LeZ"; */
 "Kkk-xx-LeZ.title" = "缩放到 100%";
 
+/* Class = "NSMenuItem"; title = "Move Up (1 Pixel)"; ObjectID = "KsJ-1u-MnF"; */
+"KsJ-1u-MnF.title" = "向上移动 (1 像素)";
+
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "kt2-f5-ySm"; */
 "kt2-f5-ySm.title" = "还原为上次保存的内容";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Selection Arrow: View, select, or modify annotations."; ObjectID = "KzY-gR-loy"; */
+"KzY-gR-loy.ibShadowedToolTip" = "选择箭头：查看，选择，或是修改选中的标注。";
 
 /* Class = "NSMenuItem"; title = "Selection Arrow"; ObjectID = "KzY-gR-loy"; */
 "KzY-gR-loy.title" = "选择箭头";
@@ -217,8 +331,14 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "前置所有窗口";
 
+/* Class = "NSMenu"; title = "Move Right"; ObjectID = "ljf-1o-0sR"; */
+"ljf-1o-0sR.title" = "向右移动";
+
 /* Class = "NSMenuItem"; title = "Zoom to 3x"; ObjectID = "mhz-lA-RTh"; */
 "mhz-lA-RTh.title" = "缩放到 3x";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "mmf-M4-xMw"; */
+"mmf-M4-xMw.title" = "开始朗读";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show template scripts in Finder."; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.ibShadowedToolTip" = "在 Finder 中显示所有模版脚本。";
@@ -226,14 +346,32 @@
 /* Class = "NSMenuItem"; title = "Show Templates…"; ObjectID = "mod-X3-fdk"; */
 "mod-X3-fdk.title" = "显示模版…";
 
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "MpC-dE-jLe"; */
+"MpC-dE-jLe.title" = "拼写和语法";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "Mql-2P-7nA"; */
+"Mql-2P-7nA.title" = "打印…";
+
+/* Class = "NSMenu"; title = "Move Down"; ObjectID = "Mv2-3J-pqI"; */
+"Mv2-3J-pqI.title" = "向下移动";
+
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
 "NMo-om-nkz.title" = "服务";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "ntJ-ob-XWI"; */
 "ntJ-ob-XWI.title" = "检查更新…";
 
+/* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "nWV-sO-9ZA"; */
+"nWV-sO-9ZA.title" = "文本替换";
+
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "nzw-tF-Tr9"; */
+"nzw-tF-Tr9.title" = "替换";
+
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "打开最近使用";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
+"OLF-SN-E6a.ibShadowedToolTip" = "魔术光标：添加，或是移除标注，目前支持坐标及颜色标注和区域标注两种。";
 
 /* Class = "NSMenuItem"; title = "Magic Cursor"; ObjectID = "OLF-SN-E6a"; */
 "OLF-SN-E6a.title" = "魔术光标";
@@ -250,6 +388,9 @@
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
 "OwM-mh-QMV.title" = "查找上一个";
 
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "Owx-hg-O1R"; */
+"Owx-hg-O1R.title" = "检查拼写和语法";
+
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "最小化";
 
@@ -259,8 +400,20 @@
 /* Class = "NSMenuItem"; title = "Zoom to 25%"; ObjectID = "PAS-OP-Bs6"; */
 "PAS-OP-Bs6.title" = "缩放到 25%";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Move the cursor by keyboard precisely."; ObjectID = "PB4-O5-RIu"; */
+"PB4-O5-RIu.ibShadowedToolTip" = "使用键盘精确移动光标。";
+
+/* Class = "NSMenuItem"; title = "Pinpoint Navigation"; ObjectID = "PB4-O5-RIu"; */
+"PB4-O5-RIu.title" = "精确导航";
+
 /* Class = "NSMenuItem"; title = "Zoom to 50%"; ObjectID = "prc-SX-5F8"; */
 "prc-SX-5F8.title" = "缩放到 50%";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy Color & Coordinates at current cursor location directly to the general pasteboard."; ObjectID = "PRZ-A8-gte"; */
+"PRZ-A8-gte.ibShadowedToolTip" = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板。";
+
+/* Class = "NSMenuItem"; title = "Copy Annotation"; ObjectID = "PRZ-A8-gte"; */
+"PRZ-A8-gte.title" = "拷贝标注";
 
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "保存…";
@@ -270,6 +423,12 @@
 
 /* Class = "NSMenuItem"; title = "Zoom to 256x"; ObjectID = "Q6L-eM-eQe"; */
 "Q6L-eM-eQe.title" = "缩放到 256x";
+
+/* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "QCZ-G0-PcD"; */
+"QCZ-G0-PcD.title" = "智能拷贝/粘贴";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "qRL-nx-uuS"; */
+"qRL-nx-uuS.ibShadowedToolTip" = "放大镜：按预设的梯度比例放大场景，支持放大到指定区域。";
 
 /* Class = "NSMenuItem"; title = "Magnifying Glass"; ObjectID = "qRL-nx-uuS"; */
 "qRL-nx-uuS.title" = "放大镜";
@@ -286,6 +445,9 @@
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "全选";
 
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "ry0-8N-Tht"; */
+"ry0-8N-Tht.title" = "变为大写";
+
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
 "S0p-oC-mLd.title" = "跳到所选内容";
 
@@ -301,14 +463,38 @@
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "spS-3Y-xdg"; */
 "spS-3Y-xdg.title" = "缩放";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position."; ObjectID = "sYZ-jQ-Gay"; */
+"sYZ-jQ-Gay.ibShadowedToolTip" = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的后一个标注。";
+
+/* Class = "NSMenuItem"; title = "Select Next Annotation"; ObjectID = "sYZ-jQ-Gay"; */
+"sYZ-jQ-Gay.title" = "选择下一层标注";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "SZF-1B-wHT"; */
+"SZF-1B-wHT.title" = "转换";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position."; ObjectID = "TLO-Ak-Y83"; */
+"TLO-Ak-Y83.ibShadowedToolTip" = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的前一个标注。";
+
+/* Class = "NSMenuItem"; title = "Select Previous Annotation"; ObjectID = "TLO-Ak-Y83"; */
+"TLO-Ak-Y83.title" = "选择上一层标注";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "打开最近使用";
 
 /* Class = "NSMenuItem"; title = "Zoom to 150%"; ObjectID = "U9I-Yo-cey"; */
 "U9I-Yo-cey.title" = "缩放到 150%";
+
+/* Class = "NSMenuItem"; title = "Move Left"; ObjectID = "Ubf-Hw-pkN"; */
+"Ubf-Hw-pkN.title" = "向左移动";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position."; ObjectID = "ufD-HR-qj1"; */
+"ufD-HR-qj1.ibShadowedToolTip" = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
+
+/* Class = "NSMenuItem"; title = "Remove Annotation"; ObjectID = "ufD-HR-qj1"; */
+"ufD-HR-qj1.title" = "移除标注";
 
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
@@ -318,6 +504,12 @@
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "剪切";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "VaC-Ad-v4s"; */
+"VaC-Ad-v4s.title" = "键入时检查拼写";
+
+/* Class = "NSMenuItem"; title = "Move Down (1 Pixel)"; ObjectID = "vcT-bb-oPX"; */
+"vcT-bb-oPX.title" = "向下移动 (1 像素)";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "隐藏其他窗口";
@@ -340,11 +532,23 @@
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "编辑";
 
+/* Class = "NSMenu"; title = "Annotation"; ObjectID = "wa4-Og-nGn"; */
+"wa4-Og-nGn.title" = "标注";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "wEQ-YH-cCW"; */
+"wEQ-YH-cCW.title" = "拼写";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Allows device discovery via local network."; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.ibShadowedToolTip" = "允许基于本地网络的设备发现。";
 
 /* Class = "NSMenuItem"; title = "Enable Network Discovery"; ObjectID = "wfH-DD-URU"; */
 "wfH-DD-URU.title" = "启用网络发现";
+
+/* Class = "NSMenuItem"; title = "Move Right"; ObjectID = "Whz-49-Z7P"; */
+"Whz-49-Z7P.title" = "向右移动";
+
+/* Class = "NSMenuItem"; title = "Move Up (10 Pixel)"; ObjectID = "WLV-10-RGZ"; */
+"WLV-10-RGZ.title" = "向上移动 (10 像素)";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "帮助";
@@ -355,8 +559,14 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "复制";
 
+/* Class = "NSMenuItem"; title = "Data Detectors"; ObjectID = "xfC-yr-fwX"; */
+"xfC-yr-fwX.title" = "数据检测器";
+
 /* Class = "NSMenuItem"; title = "Sidebar Panes"; ObjectID = "XoB-WB-yEe"; */
 "XoB-WB-yEe.title" = "边栏面板";
+
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "xSP-1Z-mIJ"; */
+"xSP-1Z-mIJ.title" = "智能破折号";
 
 /* Class = "NSMenuItem"; title = "Zoom Out"; ObjectID = "xxe-Bw-gaH"; */
 "xxe-Bw-gaH.title" = "缩小";
@@ -364,11 +574,17 @@
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "查找…";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Fit Window: Scale the view to fit the window size."; ObjectID = "y3Z-QR-Lmf"; */
+"y3Z-QR-Lmf.ibShadowedToolTip" = "适合窗口：缩放场景到适合窗口的尺寸。";
+
 /* Class = "NSMenuItem"; title = "Zoom to Fit"; ObjectID = "y3Z-QR-Lmf"; */
 "y3Z-QR-Lmf.title" = "缩放以适合窗口";
 
 /* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
 "YEy-JH-Tfz.title" = "查找与替换…";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Z3z-gx-xhT"; */
+"Z3z-gx-xhT.title" = "停止朗读";
 
 /* Class = "NSMenuItem"; title = "Zoom to 125%"; ObjectID = "Z85-vK-dUZ"; */
 "Z85-vK-dUZ.title" = "缩放到 125%";
@@ -378,24 +594,3 @@
 
 /* Class = "NSMenuItem"; title = "Zoom In"; ObjectID = "znw-px-wvZ"; */
 "znw-px-wvZ.title" = "放大";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Minifying Glass: Zoom out at a preset scale."; ObjectID = "dfF-dN-Qvm"; */
-"dfF-dN-Qvm.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Moving Hand: Drag to move the scene, or view the major tag of annotations."; ObjectID = "Jfy-di-tRp"; */
-"Jfy-di-tRp.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Fill Window: Scale the view to fill the window size."; ObjectID = "K4R-ig-ZXW"; */
-"K4R-ig-ZXW.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Selection Arrow: View, select, or modify annotations."; ObjectID = "KzY-gR-loy"; */
-"KzY-gR-loy.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
-"OLF-SN-E6a.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "qRL-nx-uuS"; */
-"qRL-nx-uuS.ibShadowedToolTip" = "";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Fit Window: Scale the view to fit the window size."; ObjectID = "y3Z-QR-Lmf"; */
-"y3Z-QR-Lmf.ibShadowedToolTip" = "";
