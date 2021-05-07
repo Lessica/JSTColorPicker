@@ -235,12 +235,6 @@
 /* Class = "NSMenuItem"; title = "Move Right (100 Pixel)"; ObjectID = "haN-CE-ZQE"; */
 "haN-CE-ZQE.title" = "向右移动 (100 像素)";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation."; ObjectID = "hGb-fc-2Ig"; */
-"hGb-fc-2Ig.ibShadowedToolTip" = "显示菜单，包含当前光标位置所有层级下层叠的区域标注，选择一项以移除标注。";
-
-/* Class = "NSMenuItem"; title = "List Removable Annotations…"; ObjectID = "hGb-fc-2Ig"; */
-"hGb-fc-2Ig.title" = "列出可移除标注…";
-
 /* Class = "NSMenuItem"; title = "Move Right (1 Pixel)"; ObjectID = "HQE-Xg-wkU"; */
 "HQE-Xg-wkU.title" = "向右移动 (1 像素)";
 
@@ -276,9 +270,6 @@
 
 /* Class = "NSMenuItem"; title = "Moving Hand"; ObjectID = "Jfy-di-tRp"; */
 "Jfy-di-tRp.title" = "移动工具";
-
-/* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
-"jkP-y6-J5t.title" = "标注";
 
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "选择模版";
@@ -364,9 +355,6 @@
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "打开最近使用";
 
-/* Class = "NSMenuItem"; title = "New Annotation"; ObjectID = "oIk-EK-Nig"; */
-"oIk-EK-Nig.title" = "新建标注";
-
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
 "OLF-SN-E6a.ibShadowedToolTip" = "魔术光标：添加，或是移除标注，目前支持坐标及颜色标注和区域标注两种。";
 
@@ -405,12 +393,6 @@
 
 /* Class = "NSMenuItem"; title = "Zoom to 50%"; ObjectID = "prc-SX-5F8"; */
 "prc-SX-5F8.title" = "缩放到 50%";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy Color & Coordinates at current cursor location directly to the general pasteboard."; ObjectID = "PRZ-A8-gte"; */
-"PRZ-A8-gte.ibShadowedToolTip" = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板。";
-
-/* Class = "NSMenuItem"; title = "Copy Annotation"; ObjectID = "PRZ-A8-gte"; */
-"PRZ-A8-gte.title" = "拷贝标注";
 
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "保存…";
@@ -460,23 +442,11 @@
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "spS-3Y-xdg"; */
 "spS-3Y-xdg.title" = "缩放";
 
-/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position."; ObjectID = "sYZ-jQ-Gay"; */
-"sYZ-jQ-Gay.ibShadowedToolTip" = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的后一个标注。";
-
-/* Class = "NSMenuItem"; title = "Select Next Annotation"; ObjectID = "sYZ-jQ-Gay"; */
-"sYZ-jQ-Gay.title" = "选择下一层标注";
-
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "SZF-1B-wHT"; */
 "SZF-1B-wHT.title" = "转换";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position."; ObjectID = "TLO-Ak-Y83"; */
-"TLO-Ak-Y83.ibShadowedToolTip" = "如果已选中的标注是当前光标位置下所有层级中唯一选中的标注，则切换选中状态到当前光标位置下层叠的前一个标注。";
-
-/* Class = "NSMenuItem"; title = "Select Previous Annotation"; ObjectID = "TLO-Ak-Y83"; */
-"TLO-Ak-Y83.title" = "选择上一层标注";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "打开最近使用";
@@ -486,12 +456,6 @@
 
 /* Class = "NSMenuItem"; title = "Move Left"; ObjectID = "Ubf-Hw-pkN"; */
 "Ubf-Hw-pkN.title" = "向左移动";
-
-/* Class = "NSMenuItem"; ibShadowedToolTip = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position."; ObjectID = "ufD-HR-qj1"; */
-"ufD-HR-qj1.ibShadowedToolTip" = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
-
-/* Class = "NSMenuItem"; title = "Remove Annotation"; ObjectID = "ufD-HR-qj1"; */
-"ufD-HR-qj1.title" = "移除标注";
 
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
@@ -528,9 +492,6 @@
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "编辑";
-
-/* Class = "NSMenu"; title = "Annotation"; ObjectID = "wa4-Og-nGn"; */
-"wa4-Og-nGn.title" = "标注";
 
 /* Class = "NSMenu"; title = "Spelling"; ObjectID = "wEQ-YH-cCW"; */
 "wEQ-YH-cCW.title" = "拼写";

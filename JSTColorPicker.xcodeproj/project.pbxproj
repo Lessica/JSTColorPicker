@@ -148,8 +148,6 @@
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
-		CC97E7202642D8BA00FC660A /* AnnotatorActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97E71F2642D8BA00FC660A /* AnnotatorActionResponder.swift */; };
-		CC97E7212642D8BA00FC660A /* AnnotatorActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97E71F2642D8BA00FC660A /* AnnotatorActionResponder.swift */; };
 		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
@@ -943,7 +941,6 @@
 		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneContainer.swift; sourceTree = "<group>"; };
 		CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePopUpButton.swift; sourceTree = "<group>"; };
-		CC97E71F2642D8BA00FC660A /* AnnotatorActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorActionResponder.swift; sourceTree = "<group>"; };
 		CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleErrorAlertView.xib; sourceTree = "<group>"; };
 		CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleErrorAlertView.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -1903,7 +1900,6 @@
 				D66460EA23D056440032727A /* SceneTracking.swift */,
 				D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */,
 				D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */,
-				CC97E71F2642D8BA00FC660A /* AnnotatorActionResponder.swift */,
 				D6E2455C23E153340012BE5F /* AnnotatorSource.swift */,
 			);
 			path = Protocols;
@@ -3162,7 +3158,6 @@
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				CCE34017263272590082F73D /* ColoredView.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
-				CC97E7202642D8BA00FC660A /* AnnotatorActionResponder.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
 				D61047A324224A170002E990 /* SceneActionResponder.swift in Sources */,
 				CC4422EA263AD7F700161852 /* TemplateRowView.swift in Sources */,
@@ -3331,7 +3326,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
-				CC97E7212642D8BA00FC660A /* AnnotatorActionResponder.swift in Sources */,
 				CC8E5D69262817860030B2FC /* PaneContainer.swift in Sources */,
 				CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="18009"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -779,39 +779,6 @@ CA
                                     <connections>
                                         <outlet property="delegate" destination="Voe-Tx-rLC" id="lsr-Fi-VwD"/>
                                     </connections>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Annotation" id="jkP-y6-J5t">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
-                                    <items>
-                                        <menuItem title="New Annotation" id="oIk-EK-Nig">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="Xdd-Yq-ir0"/>
-                                        <menuItem title="Copy Annotation" keyEquivalent="`" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte"/>
-                                        <menuItem isSeparatorItem="YES" id="iAA-Ge-vBa"/>
-                                        <menuItem title="Select Previous Annotation" keyEquivalent="[" id="TLO-Ak-Y83">
-                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.</string>
-                                        </menuItem>
-                                        <menuItem title="Select Next Annotation" keyEquivalent="]" id="sYZ-jQ-Gay">
-                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.</string>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="6DE-xm-3j0"/>
-                                        <menuItem title="Remove Annotation" toolTip="Delete Color &amp; Coordinates at current cursor position or the top most Area contains current cursor position." id="ufD-HR-qj1">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                        </menuItem>
-                                        <menuItem title="List Removable Annotations…" toolTip="Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." id="hGb-fc-2Ig">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                    </items>
                                 </menu>
                             </menuItem>
                             <menuItem title="Devices" id="9vP-dU-wGE">

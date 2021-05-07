@@ -99,4 +99,23 @@ class SceneImageWrapper: NSView {
         rulerViewClient?.rulerView(ruler as? RulerView, didRemove: marker as! RulerMarker)
     }
     
+    override func rectForSmartMagnification(at location: NSPoint, in visibleRect: NSRect) -> NSRect {
+        let upperRect = convert(visibleRect, to: enclosingScrollView)
+        let calculatedMagnification = round(
+            min(
+                upperRect.width / visibleRect.width,
+                upperRect.height / visibleRect.height
+            ) * 100
+        ) / 100
+        var targetMagnification: CGFloat
+        let maxMagnification: CGFloat = 1.5
+        if calculatedMagnification > (1.0 + maxMagnification) / 2 {
+            targetMagnification = 1.0
+        } else {
+            targetMagnification = maxMagnification
+        }
+        debugPrint(targetMagnification)
+        return .zero
+    }
+    
 }
