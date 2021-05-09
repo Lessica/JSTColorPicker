@@ -29,9 +29,10 @@ class SceneScrollView: NSScrollView {
     private static let reservedThicknessForAccessoryView: CGFloat = 0.0
     var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
-        return CGRect(x: rect.minX + alternativeBoundsOrigin.x, y: rect.minY + alternativeBoundsOrigin.y, width: rect.width - alternativeBoundsOrigin.x, height: rect.height - alternativeBoundsOrigin.y)
+        return CGRect(x: rect.minX + alternateBoundsOrigin.x, y: rect.minY + alternateBoundsOrigin.y, width: rect.width - alternateBoundsOrigin.x, height: rect.height - alternateBoundsOrigin.y)
     }
-    var alternativeBoundsOrigin: CGPoint {
+    
+    var alternateBoundsOrigin: CGPoint {
         if drawRulersInScene {
             return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
         }

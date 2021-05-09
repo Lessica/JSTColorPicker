@@ -100,22 +100,35 @@ class SceneImageWrapper: NSView {
     }
     
     override func rectForSmartMagnification(at location: NSPoint, in visibleRect: NSRect) -> NSRect {
-        let upperRect = convert(visibleRect, to: enclosingScrollView)
+        guard let scrollView = enclosingScrollView as? SceneScrollView else {
+            return .zero
+        }
+        
+        let upperRect = scrollView.bounds
         let calculatedMagnification = round(
             min(
                 upperRect.width / visibleRect.width,
                 upperRect.height / visibleRect.height
             ) * 100
         ) / 100
+        
         var targetMagnification: CGFloat
-        let maxMagnification: CGFloat = 1.5
-        if calculatedMagnification > (1.0 + maxMagnification) / 2 {
+        let maxMagnification: CGFloat = UserDefaults.standard[.sceneMaximumSmartMagnification]
+        if calculatedMagnification < 1.0 || calculatedMagnification > (1.0 + maxMagnification) / 2 {
             targetMagnification = 1.0
         } else {
             targetMagnification = maxMagnification
         }
-        debugPrint(targetMagnification)
-        return .zero
+        
+        let centerPoint = location
+        let targetWidth = upperRect.width / targetMagnification
+        let targetHeight = upperRect.height / targetMagnification
+        return CGRect(
+            x: centerPoint.x - targetWidth / 2,
+            y: centerPoint.y - targetHeight / 2,
+            width: targetWidth,
+            height: targetHeight
+        )
     }
     
 }

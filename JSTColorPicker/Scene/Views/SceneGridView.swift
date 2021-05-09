@@ -188,7 +188,7 @@ extension SceneGridView: SceneTracking {
                 wrappedPixelRect = wrappedRestrictedRect.smallestWrappingPixelRect
                 wrappedRenderingArea = sceneView
                     .convertFromDocumentView(wrappedPixelRect.toCGRect())
-                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+                    .offsetBy(-sceneView.alternateBoundsOrigin)
                 drawable = enableGPUAcceleration ? positionSatisfiedGridDrawing : true
             } else {
                 wrappedPixelRect = .null

@@ -140,7 +140,7 @@ extension SceneBorderView: SceneTracking {
             if !rect.isEmpty && !wrappedRestrictedRect.isEmpty {
                 wrappedRenderingArea = sceneView
                     .convertFromDocumentView(wrappedRestrictedRect)
-                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+                    .offsetBy(-sceneView.alternateBoundsOrigin)
                 drawable = positionSatisfiedGridDrawing
             } else {
                 wrappedRenderingArea = .null

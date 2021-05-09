@@ -214,7 +214,7 @@ class SceneController: NSViewController {
         sceneView.horizontalRulerView?.clientView = wrapper
         
         // `sceneView.documentCursor` is not what we need, see `SceneScrollView` for a more accurate implementation of cursor appearance
-        sceneClipView.contentInsets = NSEdgeInsetsMake(240, 240, 240, 240)
+        sceneClipView.contentInsets = NSEdgeInsetsMake(480, 480, 480, 480)
         reloadSceneRulerConstraints()
         
         sceneView.sceneEventObservers = Set([
@@ -336,8 +336,8 @@ extension SceneController {
     }
     
     private func reloadSceneRulerConstraints() {
-        sceneTopConstraint.constant = sceneView.alternativeBoundsOrigin.y
-        sceneLeadingConstraint.constant = sceneView.alternativeBoundsOrigin.x
+        sceneTopConstraint.constant = sceneView.alternateBoundsOrigin.y
+        sceneLeadingConstraint.constant = sceneView.alternateBoundsOrigin.x
     }
 
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
@@ -1267,7 +1267,7 @@ extension SceneController: AnnotatorSource {
             let pointInMask =
                 sceneView
                     .convert(annotator.pixelColor.coordinate.toCGPoint().toPixelCenterCGPoint(), from: wrapper)
-                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+                    .offsetBy(-sceneView.alternateBoundsOrigin)
             annotator.overlay.frame = 
                 CGRect(origin: pointInMask, size: AnnotatorOverlay.fixedOverlaySize)
                     .offsetBy(AnnotatorOverlay.fixedOverlayOffset)
@@ -1277,7 +1277,7 @@ extension SceneController: AnnotatorSource {
             let rectInMask =
                 sceneView
                     .convert(annotator.pixelArea.rect.toCGRect(), from: wrapper)
-                    .offsetBy(-sceneView.alternativeBoundsOrigin)
+                    .offsetBy(-sceneView.alternateBoundsOrigin)
             // if smaller than default size
             if  rectInMask.size.width  < AnnotatorOverlay.minimumBorderedOverlaySize.width  ||
                 rectInMask.size.height < AnnotatorOverlay.minimumBorderedOverlaySize.height
@@ -1783,8 +1783,8 @@ extension SceneController: ItemPreviewResponder {
     ) {
         let altClipped = sceneClipView.convert(
             CGSize(
-                width: sceneView.alternativeBoundsOrigin.x,
-                height: sceneView.alternativeBoundsOrigin.y
+                width: sceneView.alternateBoundsOrigin.x,
+                height: sceneView.alternateBoundsOrigin.y
             ),
             from: sceneView
         )
