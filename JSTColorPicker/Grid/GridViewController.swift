@@ -11,7 +11,7 @@ import Cocoa
 class GridViewController: NSViewController {
     
     @IBOutlet weak var gridView        : GridView!
-    private        let observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView]
+    private        let observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView, .gridViewSizeLevel, .gridViewAnimationSpeed]
     private        var observables     : [Observable]?
     
     var drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView] {
@@ -43,6 +43,9 @@ class GridViewController: NSViewController {
                 self.gridView.shouldDrawAnnotators = toValue
                 self.gridView.setNeedsDisplayAll()
             }
+        }
+        else if defaultKey == .gridViewSizeLevel || defaultKey == .gridViewAnimationSpeed {
+            self.gridView.applyFromDefaults()
         }
     }
     

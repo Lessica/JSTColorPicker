@@ -108,3 +108,33 @@
 
 /* Class = "NSTabViewItem"; label = "Sidebar"; ObjectID = "zFo-Qt-27V"; */
 "zFo-Qt-27V.label" = "Sidebar";
+
+/* Class = "NSMenuItem"; title = "Medium"; ObjectID = "a9v-sb-vHL"; */
+"a9v-sb-vHL.title" = "";
+
+/* Class = "NSMenuItem"; title = "Fast"; ObjectID = "hhd-EP-A3P"; */
+"hhd-EP-A3P.title" = "";
+
+/* Class = "NSMenuItem"; title = "Medium"; ObjectID = "kue-4P-Fbv"; */
+"kue-4P-Fbv.title" = "";
+
+/* Class = "NSTextFieldCell"; title = "Grid Size: "; ObjectID = "lk8-3M-7V7"; */
+"lk8-3M-7V7.title" = "";
+
+/* Class = "NSMenuItem"; title = "Large"; ObjectID = "m2S-bT-aZF"; */
+"m2S-bT-aZF.title" = "";
+
+/* Class = "NSMenuItem"; title = "Slow"; ObjectID = "MJL-Pa-NCj"; */
+"MJL-Pa-NCj.title" = "";
+
+/* Class = "NSTextFieldCell"; title = "Blink Speed: "; ObjectID = "My4-fj-P5q"; */
+"My4-fj-P5q.title" = "";
+
+/* Class = "NSMenuItem"; title = "Extreme"; ObjectID = "O81-P5-iNo"; */
+"O81-P5-iNo.title" = "";
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "rLf-q6-q1W"; */
+"rLf-q6-q1W.title" = "";
+
+/* Class = "NSMenuItem"; title = "Extra Large"; ObjectID = "zCU-XX-0mt"; */
+"zCU-XX-0mt.title" = "";

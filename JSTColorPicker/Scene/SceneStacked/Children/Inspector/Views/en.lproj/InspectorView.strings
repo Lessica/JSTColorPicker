@@ -7,6 +7,9 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Alpha"; ObjectID = "7sA-bc-6r8"; */
 "7sA-bc-6r8.ibShadowedToolTip" = "Alpha";
 
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "9Bm-NJ-8UR"; */
+"9Bm-NJ-8UR.title" = "0";
+
 /* Class = "NSTextFieldCell"; title = "Blue"; ObjectID = "dP5-tj-2ff"; */
 "dP5-tj-2ff.title" = "B";
 
@@ -15,6 +18,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Hex"; ObjectID = "e7i-54-Sog"; */
 "e7i-54-Sog.title" = "Hex";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "Gl9-kX-cjS"; */
+"Gl9-kX-cjS.title" = "0";
 
 /* Class = "NSTextFieldCell"; title = "247"; ObjectID = "HJ6-2a-iha"; */
 "HJ6-2a-iha.title" = "247";
@@ -28,11 +34,17 @@
 /* Class = "NSTextFieldCell"; title = "Alpha"; ObjectID = "hXq-8F-fab"; */
 "hXq-8F-fab.title" = "Alpha";
 
+/* Class = "NSTextField"; ibShadowedToolTip = "X"; ObjectID = "JDt-eI-dh2"; */
+"JDt-eI-dh2.ibShadowedToolTip" = "X";
+
 /* Class = "NSTextFieldCell"; title = "100"; ObjectID = "Jyo-Fh-SP1"; */
 "Jyo-Fh-SP1.title" = "100";
 
 /* Class = "NSTextFieldCell"; title = "F7F7F7"; ObjectID = "K0H-5p-gM1"; */
 "K0H-5p-gM1.title" = "F7F7F7";
+
+/* Class = "NSTextFieldCell"; title = "Y"; ObjectID = "KAn-JQ-s5x"; */
+"KAn-JQ-s5x.title" = "Y";
 
 /* Class = "NSTextFieldCell"; title = "Red"; ObjectID = "KmM-K6-Di7"; */
 "KmM-K6-Di7.title" = "R";
@@ -73,6 +85,9 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Red"; ObjectID = "sMW-Py-tX5"; */
 "sMW-Py-tX5.ibShadowedToolTip" = "Red";
 
+/* Class = "NSTextField"; ibShadowedToolTip = "Y"; ObjectID = "Svh-R4-DYF"; */
+"Svh-R4-DYF.ibShadowedToolTip" = "Y";
+
 /* Class = "NSTextFieldCell"; title = "247"; ObjectID = "T86-LC-rIK"; */
 "T86-LC-rIK.title" = "247";
 
@@ -90,3 +105,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Green"; ObjectID = "X95-Fb-bbn"; */
 "X95-Fb-bbn.title" = "G";
+
+/* Class = "NSTextFieldCell"; title = "X"; ObjectID = "ZHM-Kb-SV4"; */
+"ZHM-Kb-SV4.title" = "X";

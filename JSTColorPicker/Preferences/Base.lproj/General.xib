@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,12 +13,12 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="334"/>
+        <customView misplaced="YES" id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="195"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView initialItem="DBw-sv-D6x" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
-                    <rect key="frame" x="13" y="10" width="514" height="318"/>
+                    <rect key="frame" x="13" y="10" width="514" height="182"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="eLw-O7-No5"/>
                     </constraints>
@@ -170,14 +170,14 @@
                         </tabViewItem>
                         <tabViewItem label="Color Grid" identifier="" id="Qrb-RZ-ezf">
                             <view key="view" id="8yU-rV-VCd">
-                                <rect key="frame" x="10" y="33" width="494" height="80"/>
+                                <rect key="frame" x="10" y="33" width="494" height="136"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaZ-jx-mTk">
-                                        <rect key="frame" x="20" y="20" width="454" height="40"/>
+                                        <rect key="frame" x="20" y="20" width="454" height="96"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
-                                                <rect key="frame" x="-2" y="23" width="207" height="18"/>
+                                                <rect key="frame" x="-2" y="79" width="207" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1xD-ZG-hUt">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -187,7 +187,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-XV-TOP">
-                                                <rect key="frame" x="-2" y="-1" width="213" height="18"/>
+                                                <rect key="frame" x="-2" y="55" width="213" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Draw Background in Color Grid" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QKj-aX-mro">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -196,12 +196,124 @@
                                                     <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawBackgroundInGridView" id="geJ-B9-nS6"/>
                                                 </connections>
                                             </button>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-Yu-JgM">
+                                                <rect key="frame" x="0.0" y="28" width="190" height="20"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H06-mb-ZBp" userLabel="Grid Size:">
+                                                        <rect key="frame" x="-2" y="2" width="66" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Grid Size: " id="lk8-3M-7V7">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WSz-mZ-Z4c">
+                                                        <rect key="frame" x="67" y="-4" width="127" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="120" id="8RV-dm-R99"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="push" title="Small" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rLf-q6-q1W" id="q9e-UF-Jw5">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="Knr-rJ-RyE">
+                                                                <items>
+                                                                    <menuItem title="Small" id="rLf-q6-q1W">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Medium" state="on" id="kue-4P-Fbv">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Large" id="m2S-bT-aZF">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Extra Large" id="zCU-XX-0mt">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="selectedIndex" keyPath="values.defaults:gridViewSizeLevel" id="98Z-J7-q9N"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="WSz-mZ-Z4c" firstAttribute="height" secondItem="tDB-Yu-JgM" secondAttribute="height" id="QUf-EP-o19"/>
+                                                    <constraint firstItem="H06-mb-ZBp" firstAttribute="centerY" secondItem="WSz-mZ-Z4c" secondAttribute="centerY" id="fBl-Kz-sqZ"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-Fh-Xme">
+                                                <rect key="frame" x="0.0" y="0.0" width="207" height="20"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kgv-5v-eDy">
+                                                        <rect key="frame" x="-2" y="2" width="83" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Blink Speed: " id="My4-fj-P5q">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IJZ-BO-UNd">
+                                                        <rect key="frame" x="84" y="-4" width="127" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="120" id="aTG-Fq-Lgk"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="a9v-sb-vHL" id="qd2-rb-lfY">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="nap-y4-qan">
+                                                                <items>
+                                                                    <menuItem title="Slow" id="MJL-Pa-NCj">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Medium" state="on" id="a9v-sb-vHL">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Fast" id="hhd-EP-A3P">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Extreme" id="O81-P5-iNo">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="selectedIndex" keyPath="values.defaults:gridViewAnimationSpeed" id="508-x9-9tN"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="kgv-5v-eDy" firstAttribute="centerY" secondItem="IJZ-BO-UNd" secondAttribute="centerY" id="YL2-pM-iaZ"/>
+                                                    <constraint firstItem="IJZ-BO-UNd" firstAttribute="height" secondItem="CdY-Fh-Xme" secondAttribute="height" id="aXi-Yb-5M1"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
@@ -683,7 +795,7 @@
                 <constraint firstAttribute="trailing" secondItem="eyG-g3-MLb" secondAttribute="trailing" constant="20" symbolic="YES" id="XDa-0c-rVM"/>
                 <constraint firstItem="eyG-g3-MLb" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="YpZ-b3-iKR"/>
             </constraints>
-            <point key="canvasLocation" x="134.5" y="180"/>
+            <point key="canvasLocation" x="134" y="122"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="c61-nB-UBl"/>
     </objects>

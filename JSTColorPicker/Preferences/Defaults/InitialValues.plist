@@ -26,6 +26,10 @@
 	<false/>
 	<key>defaults:enableSyntaxHighlighting</key>
 	<true/>
+	<key>defaults:gridViewAnimationSpeed</key>
+	<integer>1</integer>
+	<key>defaults:gridViewSizeLevel</key>
+	<integer>1</integer>
 	<key>defaults:hideAnnotatorsWhenResize</key>
 	<false/>
 	<key>defaults:hideBordersWhenResize</key>

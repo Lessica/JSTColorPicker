@@ -784,7 +784,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Annotation" hidden="YES" id="jkP-y6-J5t">
+                            <menuItem title="Annotation" id="jkP-y6-J5t">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
                                     <items>

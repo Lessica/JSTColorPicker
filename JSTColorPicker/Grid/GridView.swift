@@ -11,6 +11,54 @@ import Cocoa
 
 class GridView: NSView {
     
+    // MARK: - Types
+    
+    enum SizeLevel: UInt {
+        case small = 17
+        case medium = 15
+        case large = 13
+        case extraLarge = 11
+        
+        static func level(atDefaultValue value: Int) -> SizeLevel {
+            if value == 0 {
+                return .small
+            }
+            else if value == 1 {
+                return .medium
+            }
+            else if value == 2 {
+                return .large
+            }
+            else if value == 3 {
+                return .extraLarge
+            }
+            return .medium
+        }
+    }
+    
+    enum AnimationSpeed: TimeInterval {
+        case slow = 0.8
+        case medium = 0.6
+        case fast = 0.4
+        case extreme = 0.2
+        
+        static func speed(atDefaultValue value: Int) -> AnimationSpeed {
+            if value == 0 {
+                return .slow
+            }
+            else if value == 1 {
+                return .medium
+            }
+            else if value == 2 {
+                return .fast
+            }
+            else if value == 3 {
+                return .extreme
+            }
+            return .medium
+        }
+    }
+    
     private enum State: CaseIterable {
         
         case none
@@ -72,49 +120,6 @@ class GridView: NSView {
     }
     
     weak var dataSource: ScreenshotLoader?
-    var shouldDrawAnnotators: Bool = false
-    var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
-        didSet {
-            updateDisplayIfNeeded()
-        }
-    }
-    func updateDisplayIfNeeded() {
-        guard window?.isVisible ?? false else { return }
-        setNeedsDisplayAll()
-    }
-    func setNeedsDisplayAll() {
-        setNeedsDisplay(bounds)
-    }
-    var animating: Bool = false {
-        didSet {
-            if animating {
-                shimAnimation(false)
-            }
-        }
-    }
-    private var pixelSize = CGSize(width: 20.0, height: 20.0)
-    private var hPixelNum: Int = 0
-    private var vPixelNum: Int = 0
-    private lazy var centerOverlay: NSView = {
-        let view = NSView()
-        view.wantsLayer = true
-        view.layer?.backgroundColor = .white
-        return view
-    }()
-    private var pixelImage: PixelImage? { dataSource?.screenshot?.image }
-    
-    private func shimAnimation(_ opaque: Bool) {
-        if !animating { return }
-        NSAnimationContext.runAnimationGroup({ [weak self] (context) in
-            guard let self = self else { return }
-            context.duration = 0.6
-            self.centerOverlay.animator().alphaValue = opaque ? 1.0 : 0.0
-        }) { [weak self] in
-            guard let self = self else { return }
-            self.shimAnimation(!opaque)
-        }
-    }
-    
     override var isOpaque: Bool { false }
     override var wantsDefaultClipping: Bool { false }
     
@@ -126,10 +131,55 @@ class GridView: NSView {
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .center
         
-        hPixelNum = Int(bounds.width / pixelSize.width)
-        vPixelNum = Int(bounds.height / pixelSize.height)
-        centerOverlay.frame = CGRect(x: CGFloat(hPixelNum / 2 * Int(pixelSize.width)), y: CGFloat(vPixelNum / 2 * Int(pixelSize.height)), width: pixelSize.width, height: pixelSize.height)
+        applyFromDefaults()
         addSubview(centerOverlay)
+    }
+    
+    
+    // MARK: - Layout
+    
+    var shouldDrawAnnotators: Bool = false
+    private var pixelSize: CGSize = .zero
+    
+    private lazy var centerOverlay: NSView = {
+        let view = NSView()
+        view.wantsLayer = true
+        view.layer?.backgroundColor = .white
+        return view
+    }()
+    
+    var pixelSizeLevel: SizeLevel = .medium {
+        didSet {
+            pixelSize = CGSize(
+                width: bounds.width / CGFloat(pixelSizeLevel.rawValue),
+                height: bounds.height / CGFloat(pixelSizeLevel.rawValue)
+            )
+            centerOverlay.frame = CGRect(
+                origin: bounds.center
+                    .offsetBy(
+                        dx: -pixelSize.width / 2,
+                        dy: -pixelSize.height / 2
+                    ),
+                size: pixelSize
+            )
+            needsDisplay = true
+        }
+    }
+    
+    func applyFromDefaults() {
+        pixelSizeLevel = SizeLevel.level(atDefaultValue: UserDefaults.standard[.gridViewSizeLevel])
+        animationSpeed = AnimationSpeed.speed(atDefaultValue: UserDefaults.standard[.gridViewAnimationSpeed])
+    }
+    
+    
+    // MARK: - State
+    
+    private var pixelImage: PixelImage? { dataSource?.screenshot?.image }
+    
+    var centerCoordinate: PixelCoordinate = PixelCoordinate.zero {
+        didSet {
+            updateDisplayIfNeeded()
+        }
     }
     
     private func gridState(at coordinate: PixelCoordinate) -> State {
@@ -155,6 +205,18 @@ class GridView: NSView {
         return .none
     }
     
+    
+    // MARK: - Drawing
+    
+    func updateDisplayIfNeeded() {
+        guard window?.isVisible ?? false else { return }
+        setNeedsDisplayAll()
+    }
+    
+    func setNeedsDisplayAll() {
+        setNeedsDisplay(bounds)
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         guard !inLiveResize else { return }
         guard let pixelImage = pixelImage else { return }
@@ -163,12 +225,11 @@ class GridView: NSView {
         var points: [State: [(state: State, coordinate: PixelCoordinate, rect: CGRect)]] = [:]
         State.allCases.forEach({ points[$0] = [] })
         
-        let hNum = CGFloat(hPixelNum) / 2.0
-        let vNum = CGFloat(vPixelNum) / 2.0
+        let pixelNum = CGFloat(pixelSizeLevel.rawValue) / 2.0
         let imageSize = pixelImage.size
-        for i in 0..<Int(hNum * 2) {
-            for j in 0..<Int(vNum * 2) {
-                let coord = PixelCoordinate(x: centerCoordinate.x - Int(hNum) + i, y: centerCoordinate.y + Int(vNum) - j)
+        for i in 0..<Int(pixelNum * 2) {
+            for j in 0..<Int(pixelNum * 2) {
+                let coord = PixelCoordinate(x: centerCoordinate.x - Int(pixelNum) + i, y: centerCoordinate.y + Int(pixelNum) - j)
                 if coord.x > 0 && coord.y > 0 && coord.x < imageSize.width && coord.y < imageSize.height {
                     let state = gridState(at: coord)
                     points[state]?.append((state, coord, CGRect(x: CGFloat(i) * pixelSize.width, y: CGFloat(j) * pixelSize.height, width: pixelSize.width, height: pixelSize.height)))
@@ -204,6 +265,31 @@ class GridView: NSView {
     override func viewDidEndLiveResize() {
         super.viewDidEndLiveResize()
         needsDisplay = true
+    }
+    
+    
+    // MARK: - Animation
+    
+    var animationSpeed: AnimationSpeed = .medium
+    
+    var animating: Bool = false {
+        didSet {
+            if animating {
+                shimAnimation(false)
+            }
+        }
+    }
+    
+    private func shimAnimation(_ opaque: Bool) {
+        if !animating { return }
+        NSAnimationContext.runAnimationGroup({ [weak self] (context) in
+            guard let self = self else { return }
+            context.duration = self.animationSpeed.rawValue
+            self.centerOverlay.animator().alphaValue = opaque ? 1.0 : 0.0
+        }) { [weak self] in
+            guard let self = self else { return }
+            self.shimAnimation(!opaque)
+        }
     }
     
 }

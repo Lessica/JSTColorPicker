@@ -25,6 +25,9 @@
 /* Class = "NSButtonCell"; title = "Ignore Invalid Deletion"; ObjectID = "5JF-OO-Avm"; */
 "5JF-OO-Avm.title" = "忽略无效的删除请求";
 
+/* Class = "NSMenuItem"; title = "Medium"; ObjectID = "a9v-sb-vHL"; */
+"a9v-sb-vHL.title" = "常规";
+
 /* Class = "NSTextFieldCell"; title = "Template Preview"; ObjectID = "agj-4X-jVe"; */
 "agj-4X-jVe.title" = "模版预览";
 
@@ -49,17 +52,38 @@
 /* Class = "NSButtonCell"; title = "Hide Borders When Resize"; ObjectID = "h0A-m9-W9L"; */
 "h0A-m9-W9L.title" = "缩放时隐藏边框";
 
+/* Class = "NSMenuItem"; title = "Fast"; ObjectID = "hhd-EP-A3P"; */
+"hhd-EP-A3P.title" = "较快";
+
 /* Class = "NSButtonCell"; title = "Draw Scene Background"; ObjectID = "j40-58-CMN"; */
 "j40-58-CMN.title" = "绘制场景背景";
 
 /* Class = "NSButtonCell"; title = "Hide Grids When Resize"; ObjectID = "kpn-WU-eHb"; */
 "kpn-WU-eHb.title" = "缩放时隐藏网格";
 
+/* Class = "NSMenuItem"; title = "Medium"; ObjectID = "kue-4P-Fbv"; */
+"kue-4P-Fbv.title" = "常规";
+
+/* Class = "NSTextFieldCell"; title = "Grid Size: "; ObjectID = "lk8-3M-7V7"; */
+"lk8-3M-7V7.title" = "网格尺寸：";
+
 /* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "lYE-nA-h1B"; */
 "lYE-nA-h1B.label" = "比较";
 
+/* Class = "NSMenuItem"; title = "Large"; ObjectID = "m2S-bT-aZF"; */
+"m2S-bT-aZF.title" = "较大";
+
 /* Class = "NSTextFieldCell"; title = "Difference Colors: "; ObjectID = "m4o-GL-Izv"; */
 "m4o-GL-Izv.title" = "差异颜色: ";
+
+/* Class = "NSMenuItem"; title = "Slow"; ObjectID = "MJL-Pa-NCj"; */
+"MJL-Pa-NCj.title" = "较慢";
+
+/* Class = "NSTextFieldCell"; title = "Blink Speed: "; ObjectID = "My4-fj-P5q"; */
+"My4-fj-P5q.title" = "闪烁速度：";
+
+/* Class = "NSMenuItem"; title = "Extreme"; ObjectID = "O81-P5-iNo"; */
+"O81-P5-iNo.title" = "非常快";
 
 /* Class = "NSTextFieldCell"; title = "Match Threshold: "; ObjectID = "OcC-2j-6s0"; */
 "OcC-2j-6s0.title" = "匹配阀值: ";
@@ -72,6 +96,9 @@
 
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "颜色网格";
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "rLf-q6-q1W"; */
+"rLf-q6-q1W.title" = "较小";
 
 /* Class = "NSTextFieldCell"; title = "20"; ObjectID = "sHh-N4-mNq"; */
 "sHh-N4-mNq.title" = "20";
@@ -105,6 +132,9 @@
 
 /* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "最大数量";
+
+/* Class = "NSMenuItem"; title = "Extra Large"; ObjectID = "zCU-XX-0mt"; */
+"zCU-XX-0mt.title" = "非常大";
 
 /* Class = "NSTabViewItem"; label = "Sidebar"; ObjectID = "zFo-Qt-27V"; */
 "zFo-Qt-27V.label" = "边栏";

@@ -1114,3 +1114,9 @@ extension WindowController {
     
 }
 
+// MARK: - Local Notification
+
+extension WindowController {
+    
+}
+

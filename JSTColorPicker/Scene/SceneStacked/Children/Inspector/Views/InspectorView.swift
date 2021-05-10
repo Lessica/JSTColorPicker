@@ -13,6 +13,13 @@ class InspectorView: NSControl {
     private let nibName = "InspectorView"
     private var contentView: NSView?
     
+    @IBOutlet weak var locationStack    : NSStackView!
+    @IBOutlet weak var majorColorStack  : NSStackView!
+    @IBOutlet weak var minorColorStack  : NSStackView!
+    
+    @IBOutlet weak var xLabel           : NSTextField!
+    @IBOutlet weak var yLabel           : NSTextField!
+    
     @IBOutlet weak var colorView        : ColorIndicator!
     @IBOutlet weak var hexLabel         : NSTextField!
     @IBOutlet weak var redLabel         : NSTextField!
@@ -88,6 +95,8 @@ class InspectorView: NSControl {
         contentItem = color
         colorView.color = color.toNSColor()
         hexLabel.stringValue = String(color.cssString.dropFirst())
+        xLabel.stringValue = String(color.coordinate.x)
+        yLabel.stringValue = String(color.coordinate.y)
         if isHSBFormat {
             hueLabel.stringValue = String(Int(color.hue))
             saturationLabel.stringValue = String(Int(color.saturation * 100))
@@ -117,6 +126,8 @@ class InspectorView: NSControl {
     
     func setArea(_ area: PixelArea) {
         contentItem = area
+        xLabel.stringValue = String(area.rect.minX)
+        yLabel.stringValue = String(area.rect.minY)
         widthLabel.stringValue = String(area.rect.width)
         heightLabel.stringValue = String(area.rect.height)
         redStack.isHidden = true
@@ -132,6 +143,8 @@ class InspectorView: NSControl {
     
     func reset() {
         colorView.color = .clear
+        xLabel.stringValue = "-"
+        yLabel.stringValue = "-"
         redLabel.stringValue = "-"
         greenLabel.stringValue = "-"
         blueLabel.stringValue = "-"
