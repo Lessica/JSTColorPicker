@@ -18,7 +18,7 @@ private extension CGContext {
 
 class PreviewOverlayView: NSView, ItemPreviewSender {
     
-    weak     var overlayDelegate                  : ItemPreviewResponder?
+    weak     var previewResponder                 : ItemPreviewResponder?
     private  var trackingArea                     : NSTrackingArea?
     private  var isSmallArea                      : Bool { highlightArea.width < PreviewOverlayView.minimumOverlayDiameter || highlightArea.height < PreviewOverlayView.minimumOverlayDiameter }
     override var isFlipped                        : Bool { true }
@@ -137,7 +137,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
     }
     
     private func updateCursorAppearance(with event: NSEvent) {
-        guard overlayDelegate != nil else { return }
+        guard previewResponder != nil else { return }
         if isInDragging {
             NSCursor.closedHand.set()
         } else if isMouseInsideImage(with: event) {
@@ -167,6 +167,10 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         resetCursorAppearance()
     }
     
+    override func scrollWheel(with event: NSEvent) {
+        previewResponder?.previewActionRaw(self, withEvent: event)
+    }
+    
     private var isDirectMode              : Bool = false
     private var isDraggingMode            : Bool = false
     private var isInDragging              : Bool = false
@@ -180,7 +184,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
             let currentLocation = convert(event.locationInWindow, from: nil)
             guard imageArea.contains(currentLocation) else { return }
             let relLoc = CGPoint(x: (currentLocation.x - imageArea.minX) / imageScale, y: (currentLocation.y - imageArea.minY) / imageScale)
-            overlayDelegate?.previewAction(self, atCoordinate: PixelCoordinate(relLoc), animated: true)
+            previewResponder?.previewAction(self, atCoordinate: PixelCoordinate(relLoc), animated: true)
         }
         if isDraggingMode {
             if isInDragging {
@@ -203,7 +207,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
             let closestLocation = imageArea.closestPoint(to: middleLocation)
             
             let relLoc = CGPoint(x: (closestLocation.x - imageArea.minX) / imageScale, y: (closestLocation.y - imageArea.minY) / imageScale)
-            overlayDelegate?.previewAction(self, atAbsolutePoint: relLoc, animated: false)
+            previewResponder?.previewAction(self, atAbsolutePoint: relLoc, animated: false)
         }
     }
     

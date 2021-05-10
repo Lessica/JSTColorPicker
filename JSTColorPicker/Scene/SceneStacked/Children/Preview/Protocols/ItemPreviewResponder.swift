@@ -24,4 +24,5 @@ protocol ItemPreviewResponder: AnyObject {
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat)
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent)
 }

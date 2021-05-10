@@ -309,7 +309,7 @@ class EditAreaController: EditViewController {
         previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
         
-        previewOverlayView.overlayDelegate = self
+        previewOverlayView.previewResponder = self
     }
     
     private func updatePreview(to rect: CGRect) {
@@ -354,12 +354,12 @@ extension EditAreaController: ItemPreviewResponder {
         internalValidateInputs(sender)
     }
     
-    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) { }
-    
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
         previewAction(sender, atAbsolutePoint: coordinate.toCGPoint(), animated: animated)
     }
     
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) { }
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) { }
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) { }
     
 }

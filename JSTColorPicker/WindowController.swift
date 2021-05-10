@@ -990,6 +990,10 @@ extension WindowController: ItemPreviewSender, ItemPreviewResponder {
         splitController.previewAction(sender, toMagnification: magnification)
     }
     
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) {
+        splitController.previewActionRaw(sender, withEvent: event)
+    }
+    
 }
 
 extension WindowController: ShortcutGuideDataSource {

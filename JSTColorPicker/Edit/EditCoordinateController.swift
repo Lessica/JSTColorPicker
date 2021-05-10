@@ -281,7 +281,7 @@ class EditCoordinateController: EditViewController {
         previewOverlayView.imageSize = previewSize
         previewOverlayView.highlightArea = previewRect
         
-        previewOverlayView.overlayDelegate = self
+        previewOverlayView.previewResponder = self
     }
     
     private func updatePreview(to point: CGPoint) {
@@ -319,6 +319,7 @@ extension EditCoordinateController: ItemPreviewResponder {
     func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) { }
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) { }
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) { }
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) { }
     
 }
 

@@ -1802,6 +1802,16 @@ extension SceneController: ItemPreviewResponder {
         )
     }
     
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) {
+        if event.type == .scrollWheel {
+            sceneView.scrollWheel(with: event)
+        } else if event.type == .magnify {
+            sceneView.magnify(with: event)
+        } else if event.type == .smartMagnify {
+            sceneView.smartMagnify(with: event)
+        }
+    }
+    
     private func sceneMagnify(
         toFit rect: CGRect,
         adjustBorder adjust: Bool = false,

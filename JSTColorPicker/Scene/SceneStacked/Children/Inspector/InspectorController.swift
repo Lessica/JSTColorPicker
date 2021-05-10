@@ -21,7 +21,15 @@ class InspectorController: StackedPaneController {
 
     private let observableKeys         : [UserDefaults.Key] = [.togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat]
     private var observables            : [Observable]?
-    private var lastStoredItem         : ContentItem?
+    
+    private var isRestorable           : Bool { style == .secondary }
+    private var lastStoredItem         : ContentItem? {
+        didSet {
+            if isRestorable {
+                invalidateRestorableState()
+            }
+        }
+    }
 
     override func viewDidLoad() {
         _ = colorPanel
@@ -132,4 +140,32 @@ extension InspectorController: ItemInspector {
             UserDefaults.standard[.toggleSecondaryInspectorHSBFormat] = sender.state == .on
         }
     }
+}
+
+extension InspectorController {
+    
+    private var restorableStoredItemState: String {
+        switch style {
+        case .primary:
+            return "InspectorController.primary.lastStoredItem"
+        case .secondary:
+            return "InspectorController.secondary.lastStoredItem"
+        }
+    }
+
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        if isRestorable {
+            coder.encode(lastStoredItem, forKey: restorableStoredItemState)
+        }
+    }
+
+    override func restoreState(with coder: NSCoder) {
+        super.restoreState(with: coder)
+        if isRestorable, let storedItem = coder.decodeObject(of: ContentItem.self, forKey: restorableStoredItemState)
+        {
+            ensurePreviewedItem(storedItem)
+        }
+    }
+    
 }

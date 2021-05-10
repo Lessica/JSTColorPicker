@@ -28,7 +28,7 @@ class SplitController: NSSplitViewController {
         contentController.tagManager       = tagListController
         sceneController.tagManager         = tagListController
         sceneToolSource                    = sceneController
-        previewController.overlayDelegate  = self
+        previewController.previewResponder  = self
         tagListController.sceneToolSource  = sceneController
         tagListController.importSource     = contentController
         tagListController.contentManager   = self
@@ -562,6 +562,10 @@ extension SplitController: ItemPreviewResponder {
     
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
         sceneController.previewAction(sender, atCoordinate: coordinate, animated: animated)
+    }
+    
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) {
+        sceneController.previewActionRaw(sender, withEvent: event)
     }
     
 }

@@ -12,7 +12,7 @@ class PreviewController: StackedPaneController {
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-image-preview") }
 
     var previewStage                             : ItemPreviewStage = .none
-    public weak var overlayDelegate              : ItemPreviewResponder!
+    public weak var previewResponder             : ItemPreviewResponder!
 
     @IBOutlet weak var previewImageView          : PreviewImageView!
     @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
@@ -38,7 +38,7 @@ class PreviewController: StackedPaneController {
         lastStoredRect = nil
         lastStoredMagnification = nil
 
-        previewOverlayView.overlayDelegate = self
+        previewOverlayView.previewResponder = self
         previewSliderLabel.textColor = .white
         previewSlider.isEnabled = false
         noImageHintLabel.isHidden = false
@@ -152,18 +152,23 @@ extension PreviewController: ItemPreviewSender, ItemPreviewResponder {
     }
 
     func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) {
-        overlayDelegate.previewAction(sender, atAbsolutePoint: point, animated: animated)
+        previewResponder.previewAction(sender, atAbsolutePoint: point, animated: animated)
     }
 
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
-        overlayDelegate.previewAction(sender, atRelativePosition: position, animated: animated)
+        previewResponder.previewAction(sender, atRelativePosition: position, animated: animated)
     }
 
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
-        overlayDelegate.previewAction(sender, atCoordinate: coordinate, animated: animated)
+        previewResponder.previewAction(sender, atCoordinate: coordinate, animated: animated)
     }
 
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
-        overlayDelegate.previewAction(sender, toMagnification: magnification)
+        previewResponder.previewAction(sender, toMagnification: magnification)
     }
+    
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) {
+        previewResponder.previewActionRaw(sender, withEvent: event)
+    }
+    
 }
