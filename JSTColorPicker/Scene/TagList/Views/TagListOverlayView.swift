@@ -42,7 +42,7 @@ class TagListOverlayView: NSView, DragEndpoint {
         super.awakeFromNib()
         wantsLayer = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
-        layerContentsPlacement = .center
+        layerContentsPlacement = .scaleAxesIndependently
     }
     
     override func rightMouseDown(with event: NSEvent) {

@@ -11,6 +11,10 @@ import CoreImage
 
 class SceneScrollView: NSScrollView {
     
+    // MARK: - Internal Notifications
+    static let willStartSmartMagnifyNotification = NSNotification.Name("SceneScrollView.willStartSmartMagnifyNotification")
+    static let didEndSmartMagnifyNotification = NSNotification.Name("SceneScrollView.didEndSmartMagnifyNotification")
+    
     
     // MARK: - Wrapper Shortcuts
     
@@ -140,7 +144,7 @@ class SceneScrollView: NSScrollView {
         
         SceneScrollView.rulerViewClass = RulerView.self
         contentInsets = NSEdgeInsetsZero
-        drawsBackground = true
+        drawsBackground = false
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
         scrollerStyle = .overlay
@@ -198,13 +202,22 @@ class SceneScrollView: NSScrollView {
     }
     
     private func reloadSceneRulers() { rulersVisible = drawRulersInScene }
-    private func reloadSceneBackground() {
+    private func reloadSceneBackground() { needsDisplay = true }
+    private static let patternBackgroundColor = NSColor.init(patternImage: SceneScrollView.checkerboardImage)
+    
+    override func draw(_ dirtyRect: NSRect) {
+        let yOffset = convert(frame, to: nil).maxY
+        NSGraphicsContext.current?.patternPhase = NSMakePoint(0, yOffset)
+        
+        NSColor.controlBackgroundColor.setFill()
+        dirtyRect.fill()
+        
         if drawSceneBackground {
-            backgroundColor = NSColor.init(patternImage: SceneScrollView.checkerboardImage)
+            SceneScrollView.patternBackgroundColor.setFill()
+            dirtyRect.fill()
         }
-        else {
-            backgroundColor = NSColor.controlBackgroundColor
-        }
+        
+        super.draw(dirtyRect)
     }
 
     
@@ -708,7 +721,18 @@ class SceneScrollView: NSScrollView {
             .filter({ $0.types.contains(.smartMagnify) && $0.order.contains(.before) })
             .forEach({ $0.target?.smartMagnify(with: event) })
         
-        super.smartMagnify(with: event)
+        NotificationCenter.default.post(
+            name: SceneScrollView.willStartSmartMagnifyNotification,
+            object: self
+        )
+        NSAnimationContext.runAnimationGroup({ _ in
+            super.smartMagnify(with: event)
+        }) { [unowned self] in
+            NotificationCenter.default.post(
+                name: SceneScrollView.didEndSmartMagnifyNotification,
+                object: self
+            )
+        }
         
         sceneEventObservers
             .filter({ $0.types.contains(.smartMagnify) && $0.order.contains(.after) })

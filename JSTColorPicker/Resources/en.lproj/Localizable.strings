@@ -502,6 +502,9 @@
 /* Shortcut Guide */
 "Open…" = "Open…";
 
+/* windowSetupSmartZoomAction(_:) */
+"Operation Succeed" = "Operation Succeed";
+
 /* TemplatePreviewController.Error */
 "Ownership of the pasteboard has changed." = "Ownership of the pasteboard has changed.";
 

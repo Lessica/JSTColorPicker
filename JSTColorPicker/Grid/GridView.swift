@@ -129,7 +129,7 @@ class GridView: NSView {
         
         layer!.isOpaque = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
-        layerContentsPlacement = .center
+        layerContentsPlacement = .scaleAxesIndependently
         
         applyFromDefaults()
         addSubview(centerOverlay)

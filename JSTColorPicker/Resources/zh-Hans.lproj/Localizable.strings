@@ -502,6 +502,9 @@
 /* Shortcut Guide */
 "Open…" = "打开…";
 
+/* windowSetupSmartZoomAction(_:) */
+"Operation Succeed" = "操作成功";
+
 /* TemplatePreviewController.Error */
 "Ownership of the pasteboard has changed." = "剪贴板所有者已变更。";
 

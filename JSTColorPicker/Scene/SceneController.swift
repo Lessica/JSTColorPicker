@@ -289,6 +289,20 @@ class SceneController: NSViewController {
             name: NSScrollView.didEndLiveMagnifyNotification,
             object: sceneView!
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneWillStartSmartMagnify(_:)),
+            name: SceneScrollView.willStartSmartMagnifyNotification,
+            object: sceneView!
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sceneDidEndSmartMagnify(_:)),
+            name: SceneScrollView.didEndSmartMagnifyNotification,
+            object: sceneView!
+        )
 
         NotificationCenter.default.addObserver(
             self,
@@ -1088,6 +1102,15 @@ extension SceneController: SceneTracking, SceneActionTracking {
             showSceneOverlays()
         }
         debugPrint("\(className):\(#function)")
+    }
+    
+    @objc private func sceneWillStartSmartMagnify(_ notification: NSNotification? = nil) {
+        sceneWillStartLiveMagnify(notification)
+    }
+    
+    @objc private func sceneDidEndSmartMagnify(_ notification: NSNotification? = nil) {
+        notifyVisibleRectChanged()
+        sceneDidEndLiveMagnify(notification)
     }
     
     @objc private func sceneWillStartLiveScroll(_ notification: NSNotification? = nil) {

@@ -748,7 +748,8 @@ extension WindowController {
         let toMagnification = sceneController.wrapperRestrictedMagnification
         UserDefaults.standard[.sceneMaximumSmartMagnification] = toMagnification
         let userAlert = NSAlert()
-        userAlert.messageText = String(format: NSLocalizedString("Successfully set maximum smart zoom magnification to a new value = %.2f", comment: "windowSetupSmartZoomAction(_:)"), toMagnification)
+        userAlert.messageText = NSLocalizedString("Operation Succeed", comment: "windowSetupSmartZoomAction(_:)")
+        userAlert.informativeText = String(format: NSLocalizedString("Successfully set maximum smart zoom magnification to a new value = %.2f", comment: "windowSetupSmartZoomAction(_:)"), toMagnification)
         showSheet(userAlert, completionHandler: nil)
     }
     

@@ -44,7 +44,7 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         
         wantsLayer = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
-        layerContentsPlacement = .center
+        layerContentsPlacement = .scaleAxesIndependently
     }
     
     private func createTrackingArea() {

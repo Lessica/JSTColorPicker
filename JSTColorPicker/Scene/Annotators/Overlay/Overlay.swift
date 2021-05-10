@@ -173,7 +173,7 @@ class Overlay: NSView {
         wantsLayer = true
         canDrawSubviewsIntoLayer = true
         layerContentsRedrawPolicy = .onSetNeedsDisplay
-        layerContentsPlacement = .center
+        layerContentsPlacement = .scaleAxesIndependently
     }
     
     required init?(coder: NSCoder) {

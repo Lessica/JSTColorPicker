@@ -15,7 +15,7 @@ class SceneGridView: NSView {
         wantsLayer = true
         
         layerContentsRedrawPolicy = .onSetNeedsDisplay
-        layerContentsPlacement = .center
+        layerContentsPlacement = .scaleAxesIndependently
 
         layerUsesCoreImageFilters = true
         compositingFilter = CIFilter(name: "CIOverlayBlendMode")
