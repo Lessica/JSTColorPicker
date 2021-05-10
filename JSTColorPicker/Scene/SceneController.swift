@@ -129,6 +129,9 @@ class SceneController: NSViewController {
     var isCursorMovableByKeyboard                          : Bool                 { wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification }
     var isOverlaySelectableByKeyboard                      : Bool                 { sceneOverlayView.hasSelectedOverlay }
     
+    private static let minimumSmartZoomMagnification       : CGFloat = 1.5
+    var isSmartZoomMagnificationAvailable                  : Bool                 { wrapperRestrictedMagnification >= SceneController.minimumSmartZoomMagnification }
+    
     
     // MARK: - Interface Builder Connections
     

@@ -625,6 +625,9 @@
 /* toolbarItemLabel */
 "Subscription" = "订阅";
 
+/* windowSetupSmartZoomAction(_:) */
+"Successfully set maximum smart zoom magnification to a new value = %.2f" = "成功将智能缩放最大值更新为 %.2f";
+
 /* Shortcut Guide */
 "Switch to Magic Cursor temporarily." = "临时切换到魔术光标。";
 

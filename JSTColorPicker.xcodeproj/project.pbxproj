@@ -63,6 +63,8 @@
 		CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
 		CC1B015D26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
 		CC2318BC25A4BA5A00331BF6 /* include in Resources */ = {isa = PBXBuildFile; fileRef = CC2318BA25A4BA5A00331BF6 /* include */; };
+		CC2E3F562648E6D700AE25C3 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */; };
+		CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */; };
 		CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
 		CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
 		CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */; };
@@ -877,6 +879,7 @@
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSlider.swift; sourceTree = "<group>"; };
 		CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOutlineView.swift; sourceTree = "<group>"; };
 		CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewController.swift; sourceTree = "<group>"; };
 		CC300F1E26284536002FD866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TemplatePreview.storyboard; sourceTree = "<group>"; };
@@ -1611,6 +1614,7 @@
 				D645E4AA23EC40B30039F4F6 /* PreviewImageView.swift */,
 				D645E4AC23EC40C50039F4F6 /* PreviewOverlayView.swift */,
 				CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */,
+				CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3140,6 +3144,7 @@
 				D610479524224A170002E990 /* GridView.swift in Sources */,
 				D610479624224A170002E990 /* SceneTracking.swift in Sources */,
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
+				CC2E3F562648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
@@ -3352,6 +3357,7 @@
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
+				CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
 				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,

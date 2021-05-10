@@ -49,8 +49,8 @@
 /* Class = "NSMenuItem"; title = "Image Preview"; ObjectID = "6U2-X2-jP4"; */
 "6U2-X2-jP4.title" = "Image Preview";
 
-/* Class = "NSMenuItem"; title = "Smart Zoom…"; ObjectID = "7BO-ZP-rPi"; */
-"7BO-ZP-rPi.title" = "Smart Zoom…";
+/* Class = "NSMenuItem"; title = "Setup Smart Zoom"; ObjectID = "7BO-ZP-rPi"; */
+"7BO-ZP-rPi.title" = "Setup Smart Zoom";
 
 /* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "7jK-B5-6gt"; */
 "7jK-B5-6gt.title" = "Page Setup…";
@@ -235,6 +235,12 @@
 /* Class = "NSMenuItem"; title = "Move Right (100 Pixel)"; ObjectID = "haN-CE-ZQE"; */
 "haN-CE-ZQE.title" = "Move Right (100 Pixel)";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation."; ObjectID = "hGb-fc-2Ig"; */
+"hGb-fc-2Ig.ibShadowedToolTip" = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.";
+
+/* Class = "NSMenuItem"; title = "List Removable Annotations…"; ObjectID = "hGb-fc-2Ig"; */
+"hGb-fc-2Ig.title" = "List Removable Annotations…";
+
 /* Class = "NSMenuItem"; title = "Move Right (1 Pixel)"; ObjectID = "HQE-Xg-wkU"; */
 "HQE-Xg-wkU.title" = "Move Right (1 Pixel)";
 
@@ -270,6 +276,9 @@
 
 /* Class = "NSMenuItem"; title = "Moving Hand"; ObjectID = "Jfy-di-tRp"; */
 "Jfy-di-tRp.title" = "Moving Hand";
+
+/* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
+"jkP-y6-J5t.title" = "Annotation";
 
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "Select Template";
@@ -355,6 +364,9 @@
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "Open Recent";
 
+/* Class = "NSMenuItem"; title = "Quick Annotation"; ObjectID = "oIk-EK-Nig"; */
+"oIk-EK-Nig.title" = "Quick Annotation";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Magic Cursor: Add, or delete annotations."; ObjectID = "OLF-SN-E6a"; */
 "OLF-SN-E6a.ibShadowedToolTip" = "Magic Cursor: Add, or delete annotations.";
 
@@ -393,6 +405,12 @@
 
 /* Class = "NSMenuItem"; title = "Zoom to 50%"; ObjectID = "prc-SX-5F8"; */
 "prc-SX-5F8.title" = "Zoom to 50%";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Copy Color & Coordinates at current cursor location directly to the general pasteboard."; ObjectID = "PRZ-A8-gte"; */
+"PRZ-A8-gte.ibShadowedToolTip" = "Copy Color & Coordinates at current cursor location directly to the general pasteboard.";
+
+/* Class = "NSMenuItem"; title = "Quick Copy Annotation"; ObjectID = "PRZ-A8-gte"; */
+"PRZ-A8-gte.title" = "Quick Copy Annotation";
 
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "Save…";
@@ -442,11 +460,23 @@
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "spS-3Y-xdg"; */
 "spS-3Y-xdg.title" = "Zoom";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position."; ObjectID = "sYZ-jQ-Gay"; */
+"sYZ-jQ-Gay.ibShadowedToolTip" = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.";
+
+/* Class = "NSMenuItem"; title = "Select Next Annotation"; ObjectID = "sYZ-jQ-Gay"; */
+"sYZ-jQ-Gay.title" = "Select Next Annotation";
+
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "SZF-1B-wHT"; */
 "SZF-1B-wHT.title" = "Transformations";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Window";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position."; ObjectID = "TLO-Ak-Y83"; */
+"TLO-Ak-Y83.ibShadowedToolTip" = "If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.";
+
+/* Class = "NSMenuItem"; title = "Select Previous Annotation"; ObjectID = "TLO-Ak-Y83"; */
+"TLO-Ak-Y83.title" = "Select Previous Annotation";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "Open Recent";
@@ -456,6 +486,12 @@
 
 /* Class = "NSMenuItem"; title = "Move Left"; ObjectID = "Ubf-Hw-pkN"; */
 "Ubf-Hw-pkN.title" = "Move Left";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position."; ObjectID = "ufD-HR-qj1"; */
+"ufD-HR-qj1.ibShadowedToolTip" = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
+
+/* Class = "NSMenuItem"; title = "Remove Annotation"; ObjectID = "ufD-HR-qj1"; */
+"ufD-HR-qj1.title" = "Remove Annotation";
 
 /* Class = "NSMenu"; title = "JSTColorPicker"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "JSTColorPicker";
@@ -492,6 +528,9 @@
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "Edit";
+
+/* Class = "NSMenu"; title = "Annotation"; ObjectID = "wa4-Og-nGn"; */
+"wa4-Og-nGn.title" = "Annotation";
 
 /* Class = "NSMenu"; title = "Spelling"; ObjectID = "wEQ-YH-cCW"; */
 "wEQ-YH-cCW.title" = "Spelling";

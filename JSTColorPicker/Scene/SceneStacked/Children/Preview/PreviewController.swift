@@ -16,10 +16,13 @@ class PreviewController: StackedPaneController {
 
     @IBOutlet weak var previewImageView          : PreviewImageView!
     @IBOutlet weak var previewOverlayView        : PreviewOverlayView!
-    @IBOutlet weak var previewSlider             : NSSlider!
+    @IBOutlet weak var previewSlider             : PreviewSlider!
     @IBOutlet weak var previewSliderBgView       : NSView!
     @IBOutlet weak var previewSliderLabel        : NSTextField!
     @IBOutlet weak var noImageHintLabel          : NSTextField!
+    
+    private        let observableKeys            : [UserDefaults.Key] = [.sceneMaximumSmartMagnification]
+    private        var observables               : [Observable]?
 
     private var lastStoredRect                   : CGRect?
     private var lastStoredMagnification          : CGFloat?
@@ -39,11 +42,19 @@ class PreviewController: StackedPaneController {
         previewSliderLabel.textColor = .white
         previewSlider.isEnabled = false
         noImageHintLabel.isHidden = false
+        
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         ensureOverlayBounds(to: lastStoredRect, magnification: lastStoredMagnification)
+    }
+    
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if defaultKey == .sceneMaximumSmartMagnification {
+            previewSlider.resetMaximumSmartMagnification()
+        }
     }
 
     override var isPaneStacked: Bool { true }

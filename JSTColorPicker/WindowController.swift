@@ -67,6 +67,10 @@ class WindowController: NSWindowController {
         return self.window?.contentViewController?.children.first as? SplitController
     }
     
+    var contentController        : ContentController!       { splitController.contentController }
+    var sceneController          : SceneController!         { splitController.sceneController   }
+    var segmentController        : SegmentController!       { splitController.segmentController }
+    
     
     // MARK: - Document States
     
@@ -393,17 +397,21 @@ extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
             || menuItem.action == #selector(windowZoomOutAction(_:))
             || menuItem.action == #selector(windowZoomToAction(_:))
             || menuItem.action == #selector(windowNavigateToAction(_:))
+            || menuItem.action == #selector(windowSetupSmartZoomAction(_:))
         {
             guard documentState.isLoaded else { return false }
             
             if menuItem.action == #selector(windowZoomInAction(_:)) {
-                return splitController.sceneController.canMagnify
+                return sceneController.canMagnify
             }
             else if menuItem.action == #selector(windowZoomOutAction(_:)) {
-                return splitController.sceneController.canMinify
+                return sceneController.canMinify
             }
             else if menuItem.action == #selector(windowNavigateToAction(_:)) {
-                return splitController.sceneController.isCursorMovableByKeyboard
+                return sceneController.isCursorMovableByKeyboard
+            }
+            else if menuItem.action == #selector(windowSetupSmartZoomAction(_:)) {
+                return sceneController.isSmartZoomMagnificationAvailable
             }
             
             return true
@@ -734,6 +742,14 @@ extension WindowController {
             distance: SceneScrollView.NavigationDistance.distance(from: ident),
             centeringType: eventType.isPointerType ? .global : .fromMouseLocation
         )
+    }
+    
+    @IBAction private func windowSetupSmartZoomAction(_ sender: NSMenuItem) {
+        let toMagnification = sceneController.wrapperRestrictedMagnification
+        UserDefaults.standard[.sceneMaximumSmartMagnification] = toMagnification
+        let userAlert = NSAlert()
+        userAlert.messageText = String(format: NSLocalizedString("Successfully set maximum smart zoom magnification to a new value = %.2f", comment: "windowSetupSmartZoomAction(_:)"), toMagnification)
+        showSheet(userAlert, completionHandler: nil)
     }
     
 }

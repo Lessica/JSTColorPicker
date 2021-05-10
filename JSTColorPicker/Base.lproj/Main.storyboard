@@ -668,8 +668,11 @@ CA
                                                 </connections>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Smart Zoom…" id="7BO-ZP-rPi">
+                                        <menuItem title="Setup Smart Zoom" id="7BO-ZP-rPi">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowSetupSmartZoomAction:" target="Ady-hI-5gd" id="nej-DL-nng"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="NIB-hc-5fb"/>
                                         <menuItem title="Pinpoint Navigation" toolTip="Move the cursor by keyboard precisely." id="PB4-O5-RIu">
@@ -973,7 +976,7 @@ CA
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
             </objects>
-            <point key="canvasLocation" x="-2104" y="-349"/>
+            <point key="canvasLocation" x="-2044" y="-357"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
