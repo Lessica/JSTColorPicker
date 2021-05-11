@@ -88,9 +88,10 @@ class SceneController: NSViewController {
     
     // MARK: - Zooming States
     
-    private(set)   var isZooming = false
-    private static let minimumZoomingFactor: CGFloat = pow(2.0, -2)  // 0.25x
-    private static let maximumZoomingFactor: CGFloat = pow(2.0, 8)   // 256x
+    private static let minimumZoomingFactor                : CGFloat = pow(2.0, -2)  // 0.25x
+    private static let maximumZoomingFactor                : CGFloat = pow(2.0, 8)   // 256x
+    private static let minimumRecognizableMagnification    : CGFloat = 16.0
+    private static let minimumSmartZoomMagnification       : CGFloat = 1.5
     private static let zoomingFactors: [CGFloat] = [
         0.250, 0.333, 0.500, 0.667, 1.000,
         2.000, 3.000, 4.000, 5.000, 6.000,
@@ -98,39 +99,9 @@ class SceneController: NSViewController {
         64.00, 128.0, 256.0
     ]
     
-    private var nextMagnificationFactor: CGFloat? { SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification }) }
-    private var prevMagnificationFactor: CGFloat? { SceneController.zoomingFactors.last(where: { $0 < sceneView.magnification }) }
-    
-    var canMagnify: Bool {
-        get {
-            if !sceneView.allowsMagnification {
-                return false
-            }
-            if sceneView.magnification >= SceneController.maximumZoomingFactor {
-                return false
-            }
-            return true
-        }
-    }
-    
-    var canMinify: Bool {
-        get {
-            if !sceneView.allowsMagnification {
-                return false
-            }
-            if sceneView.magnification <= SceneController.minimumZoomingFactor {
-                return false
-            }
-            return true
-        }
-    }
-
-    private static let minimumRecognizableMagnification    : CGFloat = 16.0
-    var isCursorMovableByKeyboard                          : Bool                 { wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification }
-    var isOverlaySelectableByKeyboard                      : Bool                 { sceneOverlayView.hasSelectedOverlay }
-    
-    private static let minimumSmartZoomMagnification       : CGFloat = 1.5
-    var isSmartZoomMagnificationAvailable                  : Bool                 { wrapperRestrictedMagnification >= SceneController.minimumSmartZoomMagnification }
+    private var isZooming = false
+    private var nextMagnificationFactor                    : CGFloat?             { SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification }) }
+    private var prevMagnificationFactor                    : CGFloat?             { SceneController.zoomingFactors.last (where: { $0 < sceneView.magnification }) }
     
     
     // MARK: - Interface Builder Connections
@@ -154,16 +125,30 @@ class SceneController: NSViewController {
     // MARK: - Wrapper Convenience Variables & Functions
     
     private var wrapper                                    : SceneImageWrapper    { sceneView.documentView as! SceneImageWrapper   }
-    var wrapperBounds                                      : CGRect               { wrapper.bounds                                 }
-    var wrapperVisibleRect                                 : CGRect               { wrapper.visibleRect                            }
-    var wrapperMangnification                              : CGFloat              { sceneView.magnification                        }
-    var wrapperRestrictedRect                              : CGRect               { wrapperVisibleRect.intersection(wrapperBounds) }
-    var wrapperRestrictedMagnification                     : CGFloat              { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    private var wrapperBounds                              : CGRect               { wrapper.bounds                                 }
+    private var wrapperVisibleRect                         : CGRect               { wrapper.visibleRect                            }
+    private var wrapperMangnification                      : CGFloat              { sceneView.magnification                        }
+    internal var wrapperRestrictedRect                     : CGRect               { wrapperVisibleRect.intersection(wrapperBounds) }
+    internal var wrapperRestrictedMagnification            : CGFloat              { max(min(wrapperMangnification, SceneController.maximumZoomingFactor), SceneController.minimumZoomingFactor) }
+    private var wrapperMouseLocation                       : CGPoint
+    {
+        guard let window = view.window else {
+            fatalError("no associated window")
+        }
+        if window.isKeyWindow, let event = window.currentEvent {
+            return wrapper.convert(event.locationInWindow, from: nil)
+        } else {
+            return wrapper.convert(window.mouseLocationOutsideOfEventStream, from: nil)
+        }
+    }
     
-    private func isVisibleLocation(_ location: CGPoint) -> Bool {
+    private var isWrapperMouseLocationVisible              : Bool                 { isWrapperLocationVisible(wrapperMouseLocation) }
+    
+    private func isLocationVisible(_ location: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(location)
     }
-    private func isVisibleWrapperLocation(_ locInWrapper: CGPoint) -> Bool {
+    
+    private func isWrapperLocationVisible(_ locInWrapper: CGPoint) -> Bool {
         return sceneView.visibleRectExcludingRulers.contains(sceneView.convert(locInWrapper, from: wrapper))
             && wrapperVisibleRect.contains(locInWrapper)
     }
@@ -239,15 +224,6 @@ class SceneController: NSViewController {
         eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in
             guard let self = self, event.window == self.view.window else { return event }
             if self.monitorWindowFlagsChanged(with: event) {
-                return nil
-            }
-            return event
-        }!)
-
-        // FIXME: make this optional
-        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
-            guard let self = self, event.window == self.view.window else { return event }
-            if self.monitorWindowKeyDown(with: event) {
                 return nil
             }
             return event
@@ -422,7 +398,7 @@ extension SceneController {
         var handled = false
         if sceneState.manipulatingType == .leftGeneric {
             let location = sceneView.convert(event.locationInWindow, from: nil)
-            if isVisibleLocation(location) {
+            if isLocationVisible(location) {
                 if sceneTool == .selectionArrow {
                     let modifierFlags = event.modifierFlags
                         .intersection(.deviceIndependentFlagsMask)
@@ -465,7 +441,7 @@ extension SceneController {
         var handled = false
         if sceneState.manipulatingType == .rightGeneric {
             let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
-            if isVisibleWrapperLocation(locInWrapper) {
+            if isWrapperLocationVisible(locInWrapper) {
                 if sceneTool == .magicCursor || sceneTool == .selectionArrow {
                     let modifierFlags = event.modifierFlags
                         .intersection(.deviceIndependentFlagsMask)
@@ -490,18 +466,17 @@ extension SceneController {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
         var needsUpdate = false
         var handled = false
-        let modifierFlags = event?.modifierFlags ?? NSEvent.modifierFlags
-        switch modifierFlags
+        let modifierFlags = (event?.modifierFlags ?? NSEvent.modifierFlags)
             .intersection(.deviceIndependentFlagsMask)
-            .subtracting([.shift, .command])
-        {
-        case [.option]:
+        if modifierFlags.contains(.option) && modifierFlags.subtracting([.option]).isEmpty {
             needsUpdate = useOptionModifiedSceneTool(forceReset)
             handled = true
-        case [.control]:
-            needsUpdate = useCommandModifiedSceneTool(forceReset)
+        }
+        else if modifierFlags.contains(.control) && modifierFlags.subtracting([.control]).isEmpty {
+            needsUpdate = useControlModifiedSceneTool(forceReset)
             handled = true
-        default:
+        }
+        else {
             needsUpdate = useSelectedSceneTool(forceReset)
             handled = false
         }
@@ -511,106 +486,67 @@ extension SceneController {
         return handled
     }
     
-    @discardableResult
-    private func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
-        guard let event = event else { return false }
-        guard let window = view.window, window.isKeyWindow else { return false }  // important
-        let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
-        
-        let modifierFlags = event.modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-        if modifierFlags.contains(.command) {
-            if let specialKey = event.specialKey {
-                if specialKey == .upArrow
-                    || specialKey == .downArrow
-                    || specialKey == .leftArrow
-                    || specialKey == .rightArrow
-                {
-                    let direction = SceneScrollView.NavigationDirection
-                        .direction(fromSpecialKey: specialKey)
-                    var distance: SceneScrollView.NavigationDistance
-                    if modifierFlags.contains(.control)
-                        && modifierFlags.subtracting([.command, .control, .numericPad, .function]).isEmpty
-                    {
-                        distance = .by100
-                    }
-                    else if modifierFlags.contains(.shift)
-                                && modifierFlags.subtracting([.command, .shift, .numericPad, .function]).isEmpty
-                    {
-                        distance = .by10
-                    }
-                    else
-                    {
-                        distance = .by1
-                    }
-                    return shortcutMoveCursorOrScene(
-                        toDirection: direction,
-                        byDistance: distance,
-                        fromLocationInWrapper: locInWrapper
-                    )
-                }
-                else if isVisibleWrapperLocation(locInWrapper) {
-                    if modifierFlags.subtracting(.command).isEmpty
-                        && (specialKey == .enter || specialKey == .carriageReturn)
-                    {
-                        let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
-                        return applyAnnotateItem(
-                            at: locInWrapper,
-                            byIgnoringPopups: ignoreRepeatedInsertion
-                        )
-                    }
-                    else if modifierFlags.subtracting([.command, .option]).isEmpty
-                                && (specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace)
-                    {
-                        let optionPressed = modifierFlags.contains(.option)
-                        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
-                        return applyDeleteItem(
-                            at: locInWrapper,
-                            byShowingOptions: optionPressed,
-                            byIgnoringPopups: ignoreInvalidDeletion,
-                            withEvent: event
-                        )
-                    }
-                }
-            }
-            else if modifierFlags.subtracting(.command).isEmpty,
-                    let characters = event.characters
-            {
-                if characters.contains("-") {
-                    return applyMinifyItem(at: locInWrapper)
-                }
-                else if characters.contains("=") {
-                    return applyMagnifyItem(at: locInWrapper)
-                }
-                else if characters.contains("`") {
-                    return shortcutCopyPixelColor(at: locInWrapper)
-                }
-                else if characters.contains("[") {
-                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: true)
-                }
-                else if characters.contains("]") {
-                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: false)
-                }
-            }
-            
-        }
-        
-        return false
-    }
-    
 }
 
 
-// MARK: - Scene Tool Appliance
+// MARK: - @discardable Scene Tool Appliance
 
 extension SceneController {
+    
+    /* Use What */
+    
+    @discardableResult
+    private func useOptionModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+        guard forceReset || !sceneState.isManipulating else { return false }
+        let selectedSceneTool = windowSelectedSceneTool
+        if selectedSceneTool == .magnifyingGlass {
+            internalSceneTool = .minifyingGlass
+            return true
+        }
+        else if selectedSceneTool == .minifyingGlass {
+            internalSceneTool = .magnifyingGlass
+            return true
+        }
+        return false
+    }
+    
+    @discardableResult
+    private func useControlModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
+        guard forceReset || !sceneState.isManipulating else { return false }
+        let selectedSceneTool = windowSelectedSceneTool
+        if selectedSceneTool == .magicCursor {
+            internalSceneTool = .selectionArrow
+            return true
+        }
+        else if selectedSceneTool == .magnifyingGlass
+            || selectedSceneTool == .minifyingGlass
+            || selectedSceneTool == .selectionArrow
+            || selectedSceneTool == .movingHand
+        {
+            internalSceneTool = .magicCursor
+            return true
+        }
+        return false
+    }
+    
+    @discardableResult
+    private func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
+        if internalSceneTool != windowSelectedSceneTool {
+            internalSceneTool = windowSelectedSceneTool
+        }
+        return true
+    }
+    
+    
+    /* Apply What */
     
     @discardableResult
     private func applyAnnotateItem(
         at locInWrapper: CGPoint,
         byIgnoringPopups ignore: Bool   // user defaults
     ) -> Bool {
-        guard isVisibleWrapperLocation(locInWrapper) else { return false }
+        guard isWrapperLocationVisible(locInWrapper)
+        else { return false }
         if let _ = try? addContentItem(of: PixelCoordinate(locInWrapper), byIgnoringPopups: ignore) {
             return true
         }
@@ -619,7 +555,7 @@ extension SceneController {
     
     @discardableResult
     private func applySelectItem(
-        at location: CGPoint,
+        at locInScene: CGPoint,
         byShowingOptions menu: Bool,           // option pressed
         byChangingSelection change: Bool,      // double click
         byThroughoutHitting throughout: Bool,  // shift pressed
@@ -627,7 +563,7 @@ extension SceneController {
         withEvent event: NSEvent? = NSApp.currentEvent
     ) -> Bool
     {
-        let locInMask = sceneOverlayView.convert(location, from: sceneView)
+        let locInMask = sceneOverlayView.convert(locInScene, from: sceneView)
         if let event = event, menu {
             NSMenu.popUpContextMenu(selectionMenu, with: event, for: sceneView)
         } else {
@@ -737,7 +673,7 @@ extension SceneController {
         at locInWrapper: CGPoint,
         byShowingOptions menu: Bool,     // option pressed
         byIgnoringPopups ignore: Bool,   // user defaults
-        withEvent event: NSEvent? = nil
+        withEvent event: NSEvent? = NSApp.currentEvent
     ) -> Bool
     {
         if let event = event, menu {
@@ -746,13 +682,19 @@ extension SceneController {
             let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
             if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
                 if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
-                    if let _ = try? deleteContentItem(annotator.contentItem, byIgnoringPopups: ignore) {
+                    if let _ = try? deleteContentItem(
+                        annotator.contentItem,
+                        byIgnoringPopups: ignore
+                    ) {
                         return true
                     }
                 }
                 return false
             }
-            if let _ = try? deleteContentItem(of: PixelCoordinate(locInWrapper), byIgnoringPopups: ignore) {
+            if let _ = try? deleteContentItem(
+                of: PixelCoordinate(locInWrapper),
+                byIgnoringPopups: ignore
+            ) {
                 return true
             }
         }
@@ -761,69 +703,64 @@ extension SceneController {
     
     @discardableResult
     private func applyMagnifyItem(at locInWrapper: CGPoint) -> Bool {
-        if !canMagnify {
+        guard isAllowedToPerformMagnify, let next = nextMagnificationFactor else {
             return false
         }
-        guard !isZooming else { return false }
-        if let next = nextMagnificationFactor {
-            if !locInWrapper.isNull && isVisibleWrapperLocation(locInWrapper) {
-                self.sceneWillStartLiveMagnify()
-                self.isZooming = true
-                NSAnimationContext.runAnimationGroup({ _ in
-                    self.sceneView.animator().setMagnification(next, centeredAt: locInWrapper)
-                }) { [unowned self] in
-                    self.notifyVisibleRectChanged()
-                    self.sceneDidEndLiveMagnify()
-                    self.isZooming = false
-                }
-            } else {
-                self.sceneWillStartLiveMagnify()
-                self.isZooming = true
-                NSAnimationContext.runAnimationGroup({ _ in
-                    self.sceneView.animator().magnification = next
-                }) { [unowned self] in
-                    self.notifyVisibleRectChanged()
-                    self.sceneDidEndLiveMagnify()
-                    self.isZooming = false
-                }
+        if !locInWrapper.isNull && isWrapperLocationVisible(locInWrapper) {
+            self.sceneWillStartLiveMagnify()
+            self.isZooming = true
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneView.animator().setMagnification(next, centeredAt: locInWrapper)
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
             }
-            return true
+        } else {
+            self.sceneWillStartLiveMagnify()
+            self.isZooming = true
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneView.animator().magnification = next
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
+            }
         }
-        return false
+        return true
     }
     
     @discardableResult
     private func applyMinifyItem(at locInWrapper: CGPoint) -> Bool {
-        if !canMinify {
+        guard isAllowedToPerformMinify, let prev = prevMagnificationFactor else {
             return false
         }
-        guard !isZooming else { return false }
-        if let prev = prevMagnificationFactor {
-            if isVisibleWrapperLocation(locInWrapper) {
-                self.sceneWillStartLiveMagnify()
-                self.isZooming = true
-                NSAnimationContext.runAnimationGroup({ _ in
-                    self.sceneView.animator().setMagnification(prev, centeredAt: locInWrapper)
-                }) { [unowned self] in
-                    self.notifyVisibleRectChanged()
-                    self.sceneDidEndLiveMagnify()
-                    self.isZooming = false
-                }
-            } else {
-                self.sceneWillStartLiveMagnify()
-                self.isZooming = true
-                NSAnimationContext.runAnimationGroup({ _ in
-                    self.sceneView.animator().magnification = prev
-                }) { [unowned self] in
-                    self.notifyVisibleRectChanged()
-                    self.sceneDidEndLiveMagnify()
-                    self.isZooming = false
-                }
+        if !locInWrapper.isNull && isWrapperLocationVisible(locInWrapper) {
+            self.sceneWillStartLiveMagnify()
+            self.isZooming = true
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneView.animator().setMagnification(prev, centeredAt: locInWrapper)
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
             }
-            return true
+        } else {
+            self.sceneWillStartLiveMagnify()
+            self.isZooming = true
+            NSAnimationContext.runAnimationGroup({ _ in
+                self.sceneView.animator().magnification = prev
+            }) { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveMagnify()
+                self.isZooming = false
+            }
         }
-        return false
+        return true
     }
+    
+    
+    /* Shortcut What */
     
     @discardableResult
     private func shortcutAnnotatorSwitching(at locInWrapper: CGPoint, byForwardingSelection forward: Bool) -> Bool {
@@ -897,48 +834,6 @@ extension SceneController {
     }
     
     @discardableResult
-    private func useOptionModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
-        guard forceReset || !sceneState.isManipulating else { return false }
-        let selectedSceneTool = windowSelectedSceneTool
-        if selectedSceneTool == .magnifyingGlass {
-            internalSceneTool = .minifyingGlass
-            return true
-        }
-        else if selectedSceneTool == .minifyingGlass {
-            internalSceneTool = .magnifyingGlass
-            return true
-        }
-        return false
-    }
-    
-    @discardableResult
-    private func useCommandModifiedSceneTool(_ forceReset: Bool = false) -> Bool {
-        guard forceReset || !sceneState.isManipulating else { return false }
-        let selectedSceneTool = windowSelectedSceneTool
-        if selectedSceneTool == .magicCursor {
-            internalSceneTool = .selectionArrow
-            return true
-        }
-        else if selectedSceneTool == .magnifyingGlass
-            || selectedSceneTool == .minifyingGlass
-            || selectedSceneTool == .selectionArrow
-            || selectedSceneTool == .movingHand
-        {
-            internalSceneTool = .magicCursor
-            return true
-        }
-        return false
-    }
-    
-    @discardableResult
-    private func useSelectedSceneTool(_ forceReset: Bool = true) -> Bool {
-        if internalSceneTool != windowSelectedSceneTool {
-            internalSceneTool = windowSelectedSceneTool
-        }
-        return true
-    }
-    
-    @discardableResult
     private func shortcutMoveScene(
         withDelta delta: CGSize
     ) -> Bool {
@@ -958,8 +853,6 @@ extension SceneController {
         } else {
             clipOrigin.y -= clipDelta.height
         }
-        
-        // FIXME: test whether it is OK to move scene
         
         self.sceneWillStartLiveScroll()
         NSAnimationContext.runAnimationGroup({ _ in
@@ -992,14 +885,14 @@ extension SceneController {
             wrapperDelta.width  += distance.actualDistance
         }
         
-        let cursorBeginInWrapper = isVisibleWrapperLocation(locInWrapper)
+        let cursorBeginInWrapper = isWrapperLocationVisible(locInWrapper)
         
         var toWrapperPoint = locInWrapper.toPixelCenterCGPoint()
         toWrapperPoint.x += wrapperDelta.width
         toWrapperPoint.y += wrapperDelta.height
         
         let isValidEndpoint = wrapperBounds.contains(toWrapperPoint)
-        let cursorEndInWrapper = isVisibleWrapperLocation(toWrapperPoint)
+        let cursorEndInWrapper = isWrapperLocationVisible(toWrapperPoint)
         
         guard !locInWrapper.isNull
                 && cursorBeginInWrapper
@@ -1032,7 +925,8 @@ extension SceneController {
     
     @discardableResult
     private func shortcutCopyPixelColor(at locInWrapper: CGPoint) -> Bool {
-        guard isVisibleWrapperLocation(locInWrapper) else { return false }
+        guard isWrapperLocationVisible(locInWrapper)
+        else { return false }
         if let _ = try? copyContentItem(of: PixelCoordinate(locInWrapper)) {
             return true
         }
@@ -1047,7 +941,6 @@ extension SceneController {
 extension SceneController: ScreenshotLoader {
     
     func load(_ screenshot: Screenshot) throws {
-        
         guard let image = screenshot.image else {
             throw Screenshot.Error.invalidImage
         }
@@ -1061,7 +954,6 @@ extension SceneController: ScreenshotLoader {
         
         removeAllAnnotators()
         try loadAnnotators(from: content)
-        
     }
     
     private func renderImage(_ image: PixelImage) {
@@ -1198,17 +1090,15 @@ extension SceneController: SceneTracking, SceneActionTracking {
 extension SceneController: SceneToolSource {
     
     var sceneTool: SceneTool {
-        get {
-            return internalSceneTool
-        }
+        return internalSceneTool
     }
     
     var sceneToolEnabled: Bool {
         if sceneTool == .magnifyingGlass {
-            return canMagnify
+            return isAllowedToPerformMagnify
         }
         else if sceneTool == .minifyingGlass {
-            return canMinify
+            return isAllowedToPerformMinify
         }
         return screenshot != nil
     }
@@ -1419,17 +1309,19 @@ extension SceneController: AnnotatorSource {
         addAnnotatorsAdvanced(for: items)
     }
     
-    private func addAnnotatorsAdvanced(for items: [ContentItem], with overlayAnimationStates: [Int: OverlayAnimationState]? = nil) {
+    @discardableResult
+    private func addAnnotatorsAdvanced(for items: [ContentItem], with overlayAnimationStates: [Int: OverlayAnimationState]? = nil) -> [Annotator] {
+        var addedAnnotators = [Annotator]()
         for item in items {
-            guard !annotators.contains(where: { $0.contentItem == item }) else { return }
+            guard !annotators.contains(where: { $0.contentItem == item }) else { continue }
             let state = overlayAnimationStates?[item.id]
-            if item is PixelColor { addAnnotator(for: item as! PixelColor, with: state) }
-            else if item is PixelArea { addAnnotator(for: item as! PixelArea, with: state) }
+            if item is PixelColor { addedAnnotators.append(addAnnotator(for: item as! PixelColor, with: state)) }
+            else if item is PixelArea { addedAnnotators.append(addAnnotator(for: item as! PixelArea, with: state)) }
         }
         debugPrint("add annotators \(items.debugDescription)")
+        return addedAnnotators
     }
     
-    @discardableResult
     private func addAnnotator(for color: PixelColor, with overlayAnimationState: OverlayAnimationState? = nil) -> ColorAnnotator {
         let copiedColor = color.copy() as! PixelColor
         let annotator = ColorAnnotator(copiedColor)
@@ -1444,7 +1336,6 @@ extension SceneController: AnnotatorSource {
         return annotator
     }
     
-    @discardableResult
     private func addAnnotator(for area: PixelArea, with overlayAnimationState: OverlayAnimationState? = nil) -> AreaAnnotator {
         let copiedArea = area.copy() as! PixelArea
         let annotator = AreaAnnotator(copiedArea)
@@ -1544,20 +1435,54 @@ extension SceneController: AnnotatorSource {
 }
 
 
+// MARK: - CustomResponder
+
+extension SceneController: CustomResponder {
+    
+    internal var isOverlaySelectableByKeyboard: Bool {
+        return sceneOverlayView.hasSelectedOverlay
+    }
+    
+    internal var isCursorMovableByKeyboard: Bool {
+        return wrapperRestrictedMagnification >= SceneController.minimumRecognizableMagnification
+    }
+    
+    internal var isSmartZoomMagnificationAvailable: Bool {
+        return wrapperRestrictedMagnification >= SceneController.minimumSmartZoomMagnification
+    }
+    
+    internal var isAllowedToPerformCursorActions: Bool {
+        return isWrapperLocationVisible(wrapperMouseLocation)
+    }
+    
+    internal var isAllowedToPerformMagnify: Bool {
+        guard sceneView.allowsMagnification
+                && sceneView.magnification < SceneController.maximumZoomingFactor
+                && !isZooming
+                && nextMagnificationFactor != nil
+        else {
+            return false
+        }
+        return true
+    }
+    
+    internal var isAllowedToPerformMinify: Bool {
+        guard sceneView.allowsMagnification
+                && sceneView.magnification > SceneController.minimumZoomingFactor
+                && !isZooming
+                && prevMagnificationFactor != nil
+        else {
+            return false
+        }
+        return true
+    }
+    
+}
+
+
 // MARK: - SceneActionResponder
 
 extension SceneController: SceneActionResponder {
-    
-    private var locationInWrapperForSceneAction: CGPoint? {
-        guard let window = view.window else {
-            return nil
-        }
-        if window.isKeyWindow, let event = window.currentEvent {
-            return wrapper.convert(event.locationInWindow, from: nil)
-        } else {
-            return wrapper.convert(window.mouseLocationOutsideOfEventStream, from: nil)
-        }
-    }
     
     func openAction(_ sender: Any?) { }
     
@@ -1593,10 +1518,7 @@ extension SceneController: SceneActionResponder {
         if center == .imageCenter {
             applyMagnifyItem(at: .null)
         } else if center == .mouseLocation {
-            guard let locInWrapper = locationInWrapperForSceneAction else {
-                fatalError("cannot fetch location in wrapper")
-            }
-            applyMagnifyItem(at: locInWrapper)
+            applyMagnifyItem(at: wrapperMouseLocation)
         }
     }
     
@@ -1604,10 +1526,7 @@ extension SceneController: SceneActionResponder {
         if center == .imageCenter {
             applyMinifyItem(at: .null)
         } else if center == .mouseLocation {
-            guard let locInWrapper = locationInWrapperForSceneAction else {
-                fatalError("cannot fetch location in wrapper")
-            }
-            applyMinifyItem(at: locInWrapper)
+            applyMinifyItem(at: wrapperMouseLocation)
         }
     }
     
@@ -1631,14 +1550,11 @@ extension SceneController: SceneActionResponder {
         centeringType center: SceneScrollView.NavigationCenteringType
     ) {
         guard !isZooming else { return }
-        guard let locInWrapper = locationInWrapperForSceneAction else {
-            fatalError("cannot fetch location in wrapper")
-        }
         if center == .fromMouseLocation {
             shortcutMoveCursorOrScene(
                 toDirection: direction,
                 byDistance: distance,
-                fromLocationInWrapper: locInWrapper
+                fromLocationInWrapper: wrapperMouseLocation
             )
         } else {
             shortcutMoveCursorOrScene(
@@ -1647,6 +1563,53 @@ extension SceneController: SceneActionResponder {
                 fromLocationInWrapper: .null
             )
         }
+    }
+    
+}
+
+
+// MARK: - AnnotatorActionResponder
+
+extension SceneController: AnnotatorActionResponder {
+    
+    func quickAnnotatorAction(_ sender: Any?) {
+        let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+        applyAnnotateItem(
+            at: wrapperMouseLocation,
+            byIgnoringPopups: ignoreRepeatedInsertion
+        )
+    }
+    
+    func quickCopyAnnotatorAction(_ sender: Any?) {
+        shortcutCopyPixelColor(at: wrapperMouseLocation)
+    }
+    
+    func selectPreviousAnnotatorAction(_ sender: Any?) {
+        shortcutAnnotatorSwitching(at: wrapperMouseLocation, byForwardingSelection: true)
+    }
+    
+    func selectNextAnnotatorAction(_ sender: Any?) {
+        shortcutAnnotatorSwitching(at: wrapperMouseLocation, byForwardingSelection: false)
+    }
+    
+    func removeAnnotatorAction(_ sender: Any?) {
+        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
+        applyDeleteItem(
+            at: wrapperMouseLocation,
+            byShowingOptions: false,
+            byIgnoringPopups: ignoreInvalidDeletion,
+            withEvent: view.window?.currentEvent
+        )
+    }
+    
+    func listRemovableAnnotatorAction(_ sender: Any?) {
+        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
+        applyDeleteItem(
+            at: wrapperMouseLocation,
+            byShowingOptions: true,
+            byIgnoringPopups: ignoreInvalidDeletion,
+            withEvent: view.window?.currentEvent
+        )
     }
     
 }
@@ -1784,12 +1747,12 @@ extension SceneController: ItemPreviewResponder {
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) {
-        // FIXME
+        fatalError("not implemented")
     }
     
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool) {
         let centeredPointInWrapper = coordinate.toCGPoint().toPixelCenterCGPoint()
-        if !isVisibleWrapperLocation(centeredPointInWrapper) {
+        if !isWrapperLocationVisible(centeredPointInWrapper) {
             previewAction(sender, atAbsolutePoint: centeredPointInWrapper, animated: animated)
         }
     }
@@ -1869,9 +1832,7 @@ extension SceneController: RulerViewClient {
         return location
     }
     
-    func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) {
-        
-    }
+    func rulerView(_ ruler: RulerView?, didAdd marker: RulerMarker) { }
     
     func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
         
@@ -1910,9 +1871,7 @@ extension SceneController: RulerViewClient {
         
     }
     
-    func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) {
-        
-    }
+    func rulerView(_ ruler: RulerView?, didRemove marker: RulerMarker) { }
     
 }
 

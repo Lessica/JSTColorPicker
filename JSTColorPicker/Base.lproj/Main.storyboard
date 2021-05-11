@@ -674,27 +674,27 @@ CA
                                                 <action selector="windowSetupSmartZoomAction:" target="Ady-hI-5gd" id="nej-DL-nng"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="NIB-hc-5fb"/>
-                                        <menuItem title="Pinpoint Navigation" toolTip="Move the cursor by keyboard precisely." id="PB4-O5-RIu">
+                                        <menuItem isSeparatorItem="YES" hidden="YES" id="NIB-hc-5fb"/>
+                                        <menuItem title="Pinpoint Navigation" hidden="YES" allowsKeyEquivalentWhenHidden="YES" toolTip="Move the cursor by keyboard precisely." id="PB4-O5-RIu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Pinpoint Navigation" id="fov-86-TQ4">
                                                 <items>
-                                                    <menuItem title="Move Up" id="KIq-fC-XZ8">
+                                                    <menuItem title="Move Up" allowsKeyEquivalentWhenHidden="YES" id="KIq-fC-XZ8">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <menu key="submenu" title="Move Up" id="eBC-2I-EGe">
                                                             <items>
-                                                                <menuItem title="Move Up (1 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy1" id="KsJ-1u-MnF">
+                                                                <menuItem title="Move Up (1 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy1" id="KsJ-1u-MnF">
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="7NZ-zd-E4M"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Up (10 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy10" id="WLV-10-RGZ">
+                                                                <menuItem title="Move Up (10 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy10" id="WLV-10-RGZ">
                                                                     <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="Dlj-3g-h6Q"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Up (100 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy100" id="DD7-lo-QgB">
+                                                                <menuItem title="Move Up (100 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveUpBy100" id="DD7-lo-QgB">
                                                                     <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="ia5-MD-1QV"/>
@@ -703,22 +703,22 @@ CA
                                                             </items>
                                                         </menu>
                                                     </menuItem>
-                                                    <menuItem title="Move Left" id="Ubf-Hw-pkN">
+                                                    <menuItem title="Move Left" allowsKeyEquivalentWhenHidden="YES" id="Ubf-Hw-pkN">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <menu key="submenu" title="Move Left" id="dxN-wD-dtb">
                                                             <items>
-                                                                <menuItem title="Move Left (1 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy1" id="jy4-Zr-A9u">
+                                                                <menuItem title="Move Left (1 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy1" id="jy4-Zr-A9u">
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="jpa-wF-dTK"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Left (10 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy10" id="EAh-ec-dSJ">
+                                                                <menuItem title="Move Left (10 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy10" id="EAh-ec-dSJ">
                                                                     <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="U50-nm-cEI"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Left (100 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy100" id="dQ0-Fj-ARO">
+                                                                <menuItem title="Move Left (100 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveLeftBy100" id="dQ0-Fj-ARO">
                                                                     <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="S4S-Cz-HzA"/>
@@ -727,22 +727,22 @@ CA
                                                             </items>
                                                         </menu>
                                                     </menuItem>
-                                                    <menuItem title="Move Down" id="acG-Sc-8v3">
+                                                    <menuItem title="Move Down" allowsKeyEquivalentWhenHidden="YES" id="acG-Sc-8v3">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <menu key="submenu" title="Move Down" id="Mv2-3J-pqI">
                                                             <items>
-                                                                <menuItem title="Move Down (1 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy1" id="vcT-bb-oPX">
+                                                                <menuItem title="Move Down (1 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy1" id="vcT-bb-oPX">
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="TOS-Ow-JqD"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Down (10 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy10" id="ARW-N9-fGa">
+                                                                <menuItem title="Move Down (10 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy10" id="ARW-N9-fGa">
                                                                     <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="6fH-cE-Avj"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Down (100 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy100" id="Epn-EC-VxY">
+                                                                <menuItem title="Move Down (100 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveDownBy100" id="Epn-EC-VxY">
                                                                     <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="0Bc-7u-Bw9"/>
@@ -751,22 +751,22 @@ CA
                                                             </items>
                                                         </menu>
                                                     </menuItem>
-                                                    <menuItem title="Move Right" id="Whz-49-Z7P">
+                                                    <menuItem title="Move Right" allowsKeyEquivalentWhenHidden="YES" id="Whz-49-Z7P">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <menu key="submenu" title="Move Right" id="ljf-1o-0sR">
                                                             <items>
-                                                                <menuItem title="Move Right (1 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy1" id="HQE-Xg-wkU">
+                                                                <menuItem title="Move Right (1 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy1" id="HQE-Xg-wkU">
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="Oad-oQ-cmX"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Right (10 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy10" id="1H6-qb-USf">
+                                                                <menuItem title="Move Right (10 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy10" id="1H6-qb-USf">
                                                                     <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="QPj-hz-y5E"/>
                                                                     </connections>
                                                                 </menuItem>
-                                                                <menuItem title="Move Right (100 Pixel)" keyEquivalent="" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy100" id="haN-CE-ZQE">
+                                                                <menuItem title="Move Right (100 Pixel)" keyEquivalent="" allowsKeyEquivalentWhenHidden="YES" identifier="com.jst.JSTColorPicker.Navigation.moveRightBy100" id="haN-CE-ZQE">
                                                                     <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                                     <connections>
                                                                         <action selector="windowNavigateToAction:" target="Ady-hI-5gd" id="2TY-Xi-FOY"/>
@@ -784,35 +784,54 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Annotation" id="jkP-y6-J5t">
+                            <menuItem title="Annotation" hidden="YES" allowsKeyEquivalentWhenHidden="YES" id="jkP-y6-J5t">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Annotation" id="wa4-Og-nGn">
                                     <items>
-                                        <menuItem title="Quick Annotation" id="oIk-EK-Nig">
+                                        <menuItem title="Quick Annotation" allowsKeyEquivalentWhenHidden="YES" id="oIk-EK-Nig">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
+                                            <connections>
+                                                <action selector="windowQuickAnnotatorAction:" target="Ady-hI-5gd" id="S3U-OX-30I"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Xdd-Yq-ir0"/>
-                                        <menuItem title="Quick Copy Annotation" keyEquivalent="`" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte"/>
-                                        <menuItem isSeparatorItem="YES" id="iAA-Ge-vBa"/>
-                                        <menuItem title="Select Previous Annotation" keyEquivalent="[" id="TLO-Ak-Y83">
-                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.</string>
+                                        <menuItem title="Quick Copy Annotation" keyEquivalent="`" allowsKeyEquivalentWhenHidden="YES" toolTip="Copy Color &amp; Coordinates at current cursor location directly to the general pasteboard." id="PRZ-A8-gte">
+                                            <connections>
+                                                <action selector="windowQuickCopyAnnotatorAction:" target="Ady-hI-5gd" id="aiz-G0-h5H"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Select Next Annotation" keyEquivalent="]" id="sYZ-jQ-Gay">
+                                        <menuItem isSeparatorItem="YES" id="iAA-Ge-vBa"/>
+                                        <menuItem title="Select Previous Annotation" keyEquivalent="[" allowsKeyEquivalentWhenHidden="YES" id="TLO-Ak-Y83">
+                                            <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.</string>
+                                            <connections>
+                                                <action selector="windowSelectPreviousAnnotatorAction:" target="Ady-hI-5gd" id="l8T-bu-jXc"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select Next Annotation" keyEquivalent="]" allowsKeyEquivalentWhenHidden="YES" id="sYZ-jQ-Gay">
                                             <string key="toolTip">If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.</string>
+                                            <connections>
+                                                <action selector="windowSelectNextAnnotatorAction:" target="Ady-hI-5gd" id="Tmm-j5-BAk"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="6DE-xm-3j0"/>
-                                        <menuItem title="Remove Annotation" toolTip="Delete Color &amp; Coordinates at current cursor position or the top most Area contains current cursor position." id="ufD-HR-qj1">
+                                        <menuItem title="Remove Annotation" allowsKeyEquivalentWhenHidden="YES" toolTip="Delete Color &amp; Coordinates at current cursor position or the top most Area contains current cursor position." id="ufD-HR-qj1">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
+                                            <connections>
+                                                <action selector="windowRemoveAnnotatorAction:" target="Ady-hI-5gd" id="QO0-QT-1Ci"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="List Removable Annotations…" toolTip="Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." id="hGb-fc-2Ig">
+                                        <menuItem title="List Removable Annotations…" allowsKeyEquivalentWhenHidden="YES" toolTip="Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." id="hGb-fc-2Ig">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="windowListRemovableAnnotatorAction:" target="Ady-hI-5gd" id="69a-Ol-fr7"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -1005,7 +1024,6 @@ CA
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="plus.rectangle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1021,9 +1039,8 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -1057,9 +1074,8 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
                                                         <segments>
@@ -1083,13 +1099,12 @@ CA
                                             <sliderAccessory key="minimumValueAccessory" enabled="NO" id="fES-Mm-UWk">
                                                 <sliderAccessoryBehavior key="behavior" id="gfF-uT-6e8"/>
                                             </sliderAccessory>
-                                            <sliderAccessory key="maximumValueAccessory" id="KdZ-Nz-Ii0">
+                                            <sliderAccessory key="maximumValueAccessory" enabled="NO" id="KdZ-Nz-Ii0">
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
-                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                            <slider key="slider" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
                                                 <rect key="frame" x="17" y="0.0" width="66" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="above" sliderType="linear" id="J7Y-8q-Nhm"/>
+                                                <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>
                                                 </connections>
@@ -1106,7 +1121,6 @@ CA
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="camera" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>

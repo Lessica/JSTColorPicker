@@ -171,9 +171,9 @@ class PreviewOverlayView: NSView, ItemPreviewSender {
         previewResponder?.previewActionRaw(self, withEvent: event)
     }
     
-    private var isDirectMode              : Bool = false
-    private var isDraggingMode            : Bool = false
-    private var isInDragging              : Bool = false
+    private var isDirectMode              : Bool    = false
+    private var isDraggingMode            : Bool    = false
+    private var isInDragging              : Bool    = false
     private var beginDraggingLocation     : CGPoint = .null
     private var beginDraggingMiddlePoint  : CGPoint = .null
     

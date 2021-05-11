@@ -15,11 +15,11 @@ enum ItemPreviewStage {
     case end
 }
 
-protocol ItemPreviewSender {
+protocol ItemPreviewSender: AnyObject {
     var previewStage: ItemPreviewStage { get }
 }
 
-protocol ItemPreviewResponder: AnyObject {
+protocol ItemPreviewResponder: CustomResponder {
     func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool)
     func previewAction(_ sender: ItemPreviewSender?, atCoordinate coordinate: PixelCoordinate, animated: Bool)

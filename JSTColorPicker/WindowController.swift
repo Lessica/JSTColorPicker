@@ -386,7 +386,9 @@ class WindowController: NSWindowController {
 extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(windowUseAnnotateItemAction(_:))
+        if
+            /* Scene Actions */
+               menuItem.action == #selector(windowUseAnnotateItemAction(_:))
             || menuItem.action == #selector(windowUseSelectItemAction(_:))
             || menuItem.action == #selector(windowUseMagnifyItemAction(_:))
             || menuItem.action == #selector(windowUseMinifyItemAction(_:))
@@ -398,20 +400,44 @@ extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
             || menuItem.action == #selector(windowZoomToAction(_:))
             || menuItem.action == #selector(windowNavigateToAction(_:))
             || menuItem.action == #selector(windowSetupSmartZoomAction(_:))
+            /* Annotator Actions */
+            || menuItem.action == #selector(windowQuickAnnotatorAction(_:))
+            || menuItem.action == #selector(windowQuickCopyAnnotatorAction(_:))
+            || menuItem.action == #selector(windowSelectPreviousAnnotatorAction(_:))
+            || menuItem.action == #selector(windowSelectNextAnnotatorAction(_:))
+            || menuItem.action == #selector(windowRemoveAnnotatorAction(_:))
+            || menuItem.action == #selector(windowListRemovableAnnotatorAction(_:))
         {
             guard documentState.isLoaded else { return false }
             
-            if menuItem.action == #selector(windowZoomInAction(_:)) {
-                return sceneController.canMagnify
+            /* Menu Shortcuts */
+            if menuItem.action == #selector(windowSetupSmartZoomAction(_:)) {
+                return sceneController.isSmartZoomMagnificationAvailable
+            }
+            
+            /* Keyboard & Menu Shortcuts */
+            else if menuItem.action == #selector(windowZoomInAction(_:)) {
+                return sceneController.isAllowedToPerformMagnify
             }
             else if menuItem.action == #selector(windowZoomOutAction(_:)) {
-                return sceneController.canMinify
+                return sceneController.isAllowedToPerformMinify
             }
             else if menuItem.action == #selector(windowNavigateToAction(_:)) {
                 return sceneController.isCursorMovableByKeyboard
             }
-            else if menuItem.action == #selector(windowSetupSmartZoomAction(_:)) {
-                return sceneController.isSmartZoomMagnificationAvailable
+            
+            /* Keyboard Shortcuts */
+            else if menuItem.action == #selector(windowQuickAnnotatorAction(_:))
+                        || menuItem.action == #selector(windowQuickCopyAnnotatorAction(_:))
+                        || menuItem.action == #selector(windowRemoveAnnotatorAction(_:))
+                        || menuItem.action == #selector(windowListRemovableAnnotatorAction(_:))
+            {
+                return sceneController.isAllowedToPerformCursorActions
+            }
+            else if menuItem.action == #selector(windowSelectPreviousAnnotatorAction(_:))
+                        || menuItem.action == #selector(windowSelectNextAnnotatorAction(_:))
+            {
+                return sceneController.isAllowedToPerformCursorActions && sceneController.isOverlaySelectableByKeyboard
             }
             
             return true
@@ -567,7 +593,9 @@ extension WindowController {
 
 // MARK: - Toolbar Actions
 
-extension WindowController: SceneActionResponder {
+extension WindowController: SceneActionResponder, AnnotatorActionResponder {
+    
+    /* Scene Actions */
     
     @objc func openAction(_ sender: Any?) {
         guard documentState.isReadable || !documentState.isLoaded else { return }
@@ -649,12 +677,46 @@ extension WindowController: SceneActionResponder {
         )
     }
     
+    /* Annotator Actions (Local Notifications) */
+    
+    func quickAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.quickAnnotatorAction(sender)
+    }
+    
+    func quickCopyAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.quickCopyAnnotatorAction(sender)
+    }
+    
+    func selectPreviousAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.selectPreviousAnnotatorAction(sender)
+    }
+    
+    func selectNextAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.selectNextAnnotatorAction(sender)
+    }
+    
+    func removeAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.removeAnnotatorAction(sender)
+    }
+    
+    func listRemovableAnnotatorAction(_ sender: Any?) {
+        guard documentState.isLoaded else { return }
+        splitController.listRemovableAnnotatorAction(sender)
+    }
+    
 }
 
 
 // MARK: - Interface Builder Actions
 
 extension WindowController {
+    
+    /* Scene Actions */
     
     @IBAction private func windowUseAnnotateItemAction(_ sender: NSMenuItem) {
         useAnnotateItemAction(sender)
@@ -751,6 +813,50 @@ extension WindowController {
         userAlert.messageText = NSLocalizedString("Operation Succeed", comment: "windowSetupSmartZoomAction(_:)")
         userAlert.informativeText = String(format: NSLocalizedString("Successfully set maximum smart zoom magnification to a new value = %.2f", comment: "windowSetupSmartZoomAction(_:)"), toMagnification)
         showSheet(userAlert, completionHandler: nil)
+    }
+    
+    /* Annotator Actions (Local Notifications) */
+    
+    @IBAction private func windowQuickAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        quickAnnotatorAction(sender)
+    }
+    
+    @IBAction private func windowQuickCopyAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        quickCopyAnnotatorAction(sender)
+    }
+    
+    @IBAction private func windowSelectPreviousAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        selectPreviousAnnotatorAction(sender)
+    }
+    
+    @IBAction private func windowSelectNextAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        selectNextAnnotatorAction(sender)
+    }
+    
+    @IBAction private func windowRemoveAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        removeAnnotatorAction(sender)
+    }
+    
+    @IBAction private func windowListRemovableAnnotatorAction(_ sender: Any?) {
+        guard let eventType = window?.currentEvent?.type,
+              !eventType.isPointerType
+        else { return }
+        listRemovableAnnotatorAction(sender)
     }
     
 }
@@ -1116,12 +1222,6 @@ extension WindowController {
         }
     }
     #endif
-    
-}
-
-// MARK: - Local Notification
-
-extension WindowController {
     
 }
 

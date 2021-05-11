@@ -311,6 +311,37 @@ extension SplitController: SceneActionResponder {
 }
 
 
+// MARK: - AnnotatorActionResponder
+
+extension SplitController: AnnotatorActionResponder {
+    
+    func quickAnnotatorAction(_ sender: Any?) {
+        sceneController.quickAnnotatorAction(sender)
+    }
+    
+    func quickCopyAnnotatorAction(_ sender: Any?) {
+        sceneController.quickCopyAnnotatorAction(sender)
+    }
+    
+    func selectPreviousAnnotatorAction(_ sender: Any?) {
+        sceneController.selectPreviousAnnotatorAction(sender)
+    }
+    
+    func selectNextAnnotatorAction(_ sender: Any?) {
+        sceneController.selectNextAnnotatorAction(sender)
+    }
+    
+    func removeAnnotatorAction(_ sender: Any?) {
+        sceneController.removeAnnotatorAction(sender)
+    }
+    
+    func listRemovableAnnotatorAction(_ sender: Any?) {
+        sceneController.listRemovableAnnotatorAction(sender)
+    }
+    
+}
+
+
 // MARK: - ScreenshotLoader
 
 extension SplitController: ScreenshotLoader {

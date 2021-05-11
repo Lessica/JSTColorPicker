@@ -50,6 +50,14 @@ extension DocumentStackedController: NSSplitViewDelegate {
     }
 }
 
+extension DocumentStackedController: CustomResponder {
+    
+    func canPerformResponderAction(_ selector: Selector) -> Bool {
+        return true
+    }
+    
+}
+
 extension DocumentStackedController: PixelMatchResponder {
 
     @IBAction private func exitComparisonModeButtonTapped(_ sender: NSButton) {
@@ -75,4 +83,5 @@ extension DocumentStackedController: PixelMatchResponder {
     private var isInComparisonMode: Bool {
         return primaryInfoController?.imageSource != nil && secondaryInfoController?.imageSource != nil
     }
+    
 }

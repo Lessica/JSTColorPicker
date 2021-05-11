@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SceneActionResponder {
+protocol SceneActionResponder: CustomResponder {
     // Document Actions
     func openAction(_ sender: Any?)
     

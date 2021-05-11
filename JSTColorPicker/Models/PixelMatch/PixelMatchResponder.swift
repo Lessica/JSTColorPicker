@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PixelMatchResponder {
+protocol PixelMatchResponder: CustomResponder {
     func beginPixelMatchComparison(to image: PixelImage, with maskImage: JSTPixelImage, completionHandler: @escaping (_ shouldExit: Bool) -> Void)
     func endPixelMatchComparison()
 }
