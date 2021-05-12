@@ -26,14 +26,21 @@
 import Foundation
 
 struct KeyBinding: Hashable, Codable {
-    internal init(action: Selector, associatedIdentifier: String, shortcut: Shortcut?) {
+    internal init(
+        action: Selector,
+        associatedIdentifier: String,
+        associatedTag: Int,
+        shortcut: Shortcut?
+    ) {
         self.action = action
         self.associatedIdentifier = associatedIdentifier
+        self.associatedTag = associatedTag
         self.shortcut = shortcut
     }
     
     let action: Selector
     let associatedIdentifier: String
+    let associatedTag: Int
     let shortcut: Shortcut?
 }
 

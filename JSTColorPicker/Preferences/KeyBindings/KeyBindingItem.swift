@@ -27,27 +27,28 @@ import struct Foundation.Selector
 import AppKit.NSTreeNode
 
 final class KeyBindingItem {
-    // MARK: Public Properties
-    
-    let action: Selector
-    let associatedIdentifier: String
-    var shortcut: Shortcut?
-    let defaultShortcut: Shortcut
-    
-    
-    init(
+    internal init(
         action: Selector,
         associatedIdentifier: String,
-        shortcut: Shortcut?,
+        associatedTag: Int,
+        shortcut: Shortcut? = nil,
         defaultShortcut: Shortcut
     ) {
         self.action = action
         self.associatedIdentifier = associatedIdentifier
+        self.associatedTag = associatedTag
         self.shortcut = shortcut
         self.defaultShortcut = defaultShortcut
     }
+    
+    // MARK: Public Properties
+    
+    let action: Selector
+    let associatedIdentifier: String
+    let associatedTag: Int
+    var shortcut: Shortcut?
+    let defaultShortcut: Shortcut
 }
-
 
 
 // MARK: -
@@ -57,8 +58,6 @@ final class NamedTreeNode: NSTreeNode {
     // MARK: Public Properties
     
     let name: String
-    
-    
     
     // MARK: -
     // MARK: Lifecycle

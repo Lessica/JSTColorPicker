@@ -1039,7 +1039,7 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
@@ -1074,7 +1074,7 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>

@@ -84,7 +84,6 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
     // MARK: Public Properties
     
     final private(set) lazy var keyBindings: Set<KeyBinding> = {
-        
         guard
             let data = try? Data(contentsOf: self.keyBindingSettingFileURL),
             let customKeyBindings = try? PropertyListDecoder().decode([KeyBinding].self, from: data)
@@ -94,7 +93,9 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
         let defaultKeyBindings = self.defaultKeyBindings
             .filter { kb in
                 !keyBindings.contains { binding in
-                    if !binding.associatedIdentifier.hasPrefix("_NS:") && !binding.associatedIdentifier.isEmpty
+                    if binding.associatedTag > 0 {
+                        return binding.associatedTag == kb.associatedTag || binding.shortcut == kb.shortcut
+                    } else if !binding.associatedIdentifier.hasPrefix("_NS:") && !binding.associatedIdentifier.isEmpty
                     {
                         return binding.associatedIdentifier == kb.associatedIdentifier || binding.shortcut == kb.shortcut
                     } else {
@@ -219,6 +220,7 @@ private extension Collection where Element == NSTreeNode {
                 KeyBinding(
                     action: keyItem.action,
                     associatedIdentifier: keyItem.associatedIdentifier,
+                    associatedTag: keyItem.associatedTag,
                     shortcut: shortcut.isValid ? shortcut : nil
                 )
             ]
