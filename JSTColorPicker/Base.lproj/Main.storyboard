@@ -840,7 +840,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Devices" id="1Il-r8-iYp">
                                     <items>
-                                        <menuItem title="Select Device" tag="7999" id="Gxd-vS-gSq">
+                                        <menuItem title="Select Device" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Device" id="5FZ-FF-ebV">
                                                 <connections>
@@ -871,7 +871,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Templates" id="0GS-5F-2Eu">
                                     <items>
-                                        <menuItem title="Select Template" tag="8999" id="jqq-oO-M2a">
+                                        <menuItem title="Select Template" id="jqq-oO-M2a">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Template" id="af9-zN-lJB">
                                                 <connections>
@@ -1039,7 +1039,7 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="500" id="PNh-sU-yk9">
                                             <viewController key="viewController" id="7Oq-ht-hPs">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfU-je-mpH">
                                                     <rect key="frame" x="0.0" y="0.0" width="278" height="30"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="I3I-PR-kUf">
                                                         <font key="font" metaFont="system"/>
@@ -1074,7 +1074,7 @@ CA
                                     <touchBarItems>
                                         <touchBarItem visibilityPriority="250" id="JTe-Pb-tmM">
                                             <viewController key="viewController" id="eFW-EM-Kyw">
-                                                <segmentedControl key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
+                                                <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-qA-DRk">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                     <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="o0H-Sl-F5s">
                                                         <font key="font" metaFont="system"/>
@@ -1102,8 +1102,8 @@ CA
                                             <sliderAccessory key="maximumValueAccessory" enabled="NO" id="KdZ-Nz-Ii0">
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
-                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
-                                                <rect key="frame" x="17" y="0.0" width="663" height="30"/>
+                                            <slider key="slider" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                                <rect key="frame" x="17" y="0.0" width="66" height="30"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>

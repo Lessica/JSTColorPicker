@@ -538,6 +538,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Template Actions
+    
+    private static let templateIdentifierPrefix                 : String = "template-"
 
     @discardableResult
     private func presentError(_ error: Error) -> Bool {
@@ -818,6 +820,7 @@ by \(template.author ?? "Unknown")
                         let deviceIdentifier = "\(AppDelegate.deviceIdentifierPrefix)\(udid)"
                         let item = NSMenuItem(title: "\(name) (\(udid))", action: #selector(self?.actionDeviceItemTapped(_:)), keyEquivalent: "")
                         item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceIdentifier)
+                        item.tag = MainMenu.MenuItemTag.devices.rawValue
                         item.isEnabled = true
                         item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
                         items.append(item)
@@ -861,6 +864,8 @@ by \(template.author ?? "Unknown")
                 item.representedObject = template
                 item.keyEquivalentModifierMask = [.control, .command]
                 item.state = template.uuid == TemplateManager.shared.selectedTemplate?.uuid ? .on : .off
+                item.identifier = NSUserInterfaceItemIdentifier("\(AppDelegate.templateIdentifierPrefix)\(template.uuid.uuidString)")
+                item.tag = MainMenu.MenuItemTag.templates.rawValue
                 
                 return item
             })
