@@ -921,7 +921,7 @@
 		CC236334264AE8E9005E909A /* SettingManaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingManaging.swift; sourceTree = "<group>"; };
 		CC236349264BC763005E909A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/KeyBindings.xib; sourceTree = "<group>"; };
 		CC23634A264BC772005E909A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/KeyBindings.strings; sourceTree = "<group>"; };
-		CC23634C264BC781005E909A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/KeyBindings.strings"; sourceTree = "<group>"; };
+		CC23634E264BC939005E909A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/KeyBindings.strings"; sourceTree = "<group>"; };
 		CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSlider.swift; sourceTree = "<group>"; };
 		CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOutlineView.swift; sourceTree = "<group>"; };
 		CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewController.swift; sourceTree = "<group>"; };
@@ -3766,7 +3766,7 @@
 			children = (
 				CC236349264BC763005E909A /* Base */,
 				CC23634A264BC772005E909A /* en */,
-				CC23634C264BC781005E909A /* zh-Hans */,
+				CC23634E264BC939005E909A /* zh-Hans */,
 			);
 			name = KeyBindings.xib;
 			sourceTree = "<group>";
