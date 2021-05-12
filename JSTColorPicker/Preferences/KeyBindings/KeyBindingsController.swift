@@ -102,6 +102,27 @@ class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NSOutlin
     }
     
     
+    /// auto-expand save
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        if let node = item as? NamedTreeNode {
+            return node.name
+        }
+        return nil
+    }
+    
+    
+    /// auto-expand restore
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        if let nodeName = object as? String {
+            // only top-level nodes
+            return self.outlineTree
+                .compactMap({ $0 as? NamedTreeNode })
+                .first(where: { $0.name == nodeName })
+        }
+        return nil
+    }
+    
+    
     /// return suitable item for cell to display
     func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
         

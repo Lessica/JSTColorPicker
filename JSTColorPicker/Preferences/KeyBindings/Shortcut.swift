@@ -131,8 +131,16 @@ struct Shortcut: Hashable {
     ///
     /// - Note: An empty shortcut is marked as invalid.
     var isValid: Bool {
+        guard keyEquivalent.count == 1 else {
+            return false
+        }
+        if let firstChar = self.keyEquivalent.utf16.first {
+            if (0xF700...0xF8FF).contains(firstChar) {
+                return true
+            }
+        }
         let keys = ModifierKey.allCases.filter { self.modifierMask.contains($0.mask) }
-        return self.keyEquivalent.count == 1 && !keys.isEmpty
+        return !keys.isEmpty
     }
     
     

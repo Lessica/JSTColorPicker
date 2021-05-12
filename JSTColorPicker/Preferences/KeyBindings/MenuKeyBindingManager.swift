@@ -137,7 +137,10 @@ final class MenuKeyBindingManager: KeyBindingManager {
             defaults: false
         )
         
-        guard !shortcut.keyEquivalent.isEmpty, !shortcut.modifierMask.isEmpty else { return .none }
+        guard !shortcut.keyEquivalent.isEmpty, !shortcut.modifierMask.isEmpty
+        else {
+            return .none
+        }
         
         return shortcut
     }
@@ -223,10 +226,14 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 
                 guard shortcut.isValid else { return [] }
                 
+                var associatedIdentifier: String = menuItem.identifier?.rawValue ?? ""
+                if associatedIdentifier.isEmpty && menuItem.tag > 0 {
+                    associatedIdentifier = String(menuItem.tag)
+                }
                 return [
                     KeyBinding(
                         action: action,
-                        associatedIdentifier: menuItem.identifier?.rawValue ?? "",
+                        associatedIdentifier: associatedIdentifier,
                         shortcut: shortcut
                     )
                 ]
@@ -273,7 +280,10 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 )
                 
                 // apply only if both keyEquivalent and modifierMask exist
-                guard !shortcut.keyEquivalent.isEmpty, !shortcut.modifierMask.isEmpty else { return }
+                guard !shortcut.keyEquivalent.isEmpty, !shortcut.modifierMask.isEmpty
+                else {
+                    return
+                }
                 
                 menuItem.keyEquivalent = shortcut.keyEquivalent
                 menuItem.keyEquivalentModifierMask = shortcut.modifierMask
