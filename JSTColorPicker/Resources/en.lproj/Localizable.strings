@@ -18,18 +18,6 @@
 "-" = "-";
 
 /* Shortcut Guide */
-"[Magic Cursor]" = "[Magic Cursor]";
-
-/* Shortcut Guide */
-"[Magnifying Glass]" = "[Magnifying Glass]";
-
-/* Shortcut Guide */
-"[Minifying Glass]" = "[Minifying Glass]";
-
-/* Shortcut Guide */
-"[Selection Arrow]" = "[Selection Arrow]";
-
-/* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "A simple drag-to-move operation for pointer devices.";
 
 /* Shortcut Guide */
@@ -771,3 +759,36 @@
 
 /* Shortcut Guide */
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
+
+/* Shortcut Guide */
+"◦ Magic Cursor" = "◦ Magic Cursor";
+
+/* Shortcut Guide */
+"◦ Magnifying Glass" = "◦ Magnifying Glass";
+
+/* Shortcut Guide */
+"◦ Minifying Glass" = "◦ Minifying Glass";
+
+/* Shortcut Guide */
+"◦ Selection Arrow" = "◦ Selection Arrow";
+
+/* toolbarItemLabel */
+"Key Bindings" = "Key Bindings";
+
+/* SwiftKeyBindings */
+"Please combine with other keys." = "Please combine with other keys.";
+
+/* SwiftKeyBindings */
+"Single type is invalid for a shortcut." = "Single type is invalid for a shortcut.";
+
+/* SwiftKeyBindings */
+"Space" = "Space";
+
+/* SwiftKeyBindings */
+"“%@” does not include the Command key." = "“%@” does not include the Command key.";
+
+/* SwiftKeyBindings */
+"“%@” includes the Command key." = "“%@” includes the Command key.";
+
+/* SwiftKeyBindings */
+"“%@” is already taken." = "“%@” is already taken.";

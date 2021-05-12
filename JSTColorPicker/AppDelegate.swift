@@ -111,6 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let controller = PreferencesController(
             viewControllers: [
                 GeneralController(),
+                KeyBindingsController(),
                 FolderController(),
                 AdvancedController(),
                 SubscriptionController()
@@ -122,6 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let controller = PreferencesController(
             viewControllers: [
                 GeneralController(),
+                KeyBindingsController(),
                 FolderController(),
                 AdvancedController()
             ], title: NSLocalizedString("Preferences", comment: "PreferencesController")

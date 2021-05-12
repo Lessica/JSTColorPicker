@@ -1,0 +1,24 @@
+
+/* Class = "NSTextFieldCell"; title = "To change a binding, select it, click the key column, and then type the keys."; ObjectID = "AYc-W8-YaF"; */
+"AYc-W8-YaF.title" = "To change a binding, select it, click the key column, and then type the keys.";
+
+/* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "HzX-EJ-8Nk"; */
+"HzX-EJ-8Nk.title" = "Restore Defaults";
+
+/* Class = "NSTextFieldCell"; title = "⌘N"; ObjectID = "IIm-ja-1Ds"; */
+"IIm-ja-1Ds.title" = "⌘N";
+
+/* Class = "NSTextFieldCell"; title = "'Foo' doesn’t include Command Key. Please choose another key."; ObjectID = "KSq-Jb-f68"; */
+"KSq-Jb-f68.title" = "'Foo' doesn’t include Command Key. Please choose another key.";
+
+/* Class = "NSTableColumn"; headerCell.title = "Key"; ObjectID = "ep8-iq-SpN"; */
+"ep8-iq-SpN.headerCell.title" = "Key";
+
+/* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "lH9-HJ-NYN"; */
+"lH9-HJ-NYN.headerCell.title" = "Action";
+
+/* Class = "NSTextFieldCell"; title = "Shortcuts for menu items"; ObjectID = "rcQ-Dh-rzJ"; */
+"rcQ-Dh-rzJ.title" = "Shortcuts for menu items";
+
+/* Class = "NSTextFieldCell"; title = "Action Name"; ObjectID = "zI9-El-TA7"; */
+"zI9-El-TA7.title" = "Action Name";

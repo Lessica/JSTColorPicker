@@ -73,6 +73,28 @@
 		CC236316264A8199005E909A /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236311264A8199005E909A /* PaneController.swift */; };
 		CC236317264A8199005E909A /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236312264A8199005E909A /* PaneContainer.swift */; };
 		CC236318264A8199005E909A /* PaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236312264A8199005E909A /* PaneContainer.swift */; };
+		CC236320264AE7AB005E909A /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631A264AE7AA005E909A /* MainMenu.swift */; };
+		CC236321264AE7AB005E909A /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631A264AE7AA005E909A /* MainMenu.swift */; };
+		CC236322264AE7AB005E909A /* KeyBindingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631B264AE7AA005E909A /* KeyBindingItem.swift */; };
+		CC236323264AE7AB005E909A /* KeyBindingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631B264AE7AA005E909A /* KeyBindingItem.swift */; };
+		CC236324264AE7AB005E909A /* KeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631C264AE7AA005E909A /* KeyBindingManager.swift */; };
+		CC236325264AE7AB005E909A /* KeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631C264AE7AA005E909A /* KeyBindingManager.swift */; };
+		CC236326264AE7AB005E909A /* KeyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631D264AE7AB005E909A /* KeyBinding.swift */; };
+		CC236327264AE7AB005E909A /* KeyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631D264AE7AB005E909A /* KeyBinding.swift */; };
+		CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631F264AE7AB005E909A /* KeyBindingsController.swift */; };
+		CC23632B264AE7AB005E909A /* KeyBindingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631F264AE7AB005E909A /* KeyBindingsController.swift */; };
+		CC23632D264AE7DC005E909A /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
+		CC236330264AE889005E909A /* ShortcutKeyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23632E264AE889005E909A /* ShortcutKeyField.swift */; };
+		CC236331264AE889005E909A /* ShortcutKeyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23632E264AE889005E909A /* ShortcutKeyField.swift */; };
+		CC236332264AE889005E909A /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23632F264AE889005E909A /* Shortcut.swift */; };
+		CC236333264AE889005E909A /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23632F264AE889005E909A /* Shortcut.swift */; };
+		CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236334264AE8E9005E909A /* SettingManaging.swift */; };
+		CC236336264AE8E9005E909A /* SettingManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236334264AE8E9005E909A /* SettingManaging.swift */; };
+		CC23633B264AEB2F005E909A /* SUUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SUUpdater.m */; };
+		CC23633E264AEC51005E909A /* MenuKeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */; };
+		CC23633F264AEC52005E909A /* MenuKeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */; };
+		CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC236346264BC5CD005E909A /* KeyBindings.xib */; };
+		CC236344264BC5CD005E909A /* KeyBindings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC236346264BC5CD005E909A /* KeyBindings.xib */; };
 		CC2E3F562648E6D700AE25C3 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */; };
 		CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */; };
 		CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */; };
@@ -888,6 +910,18 @@
 		CC23630F264A8199005E909A /* StackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedView.swift; sourceTree = "<group>"; };
 		CC236311264A8199005E909A /* PaneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
 		CC236312264A8199005E909A /* PaneContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaneContainer.swift; sourceTree = "<group>"; };
+		CC23631A264AE7AA005E909A /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		CC23631B264AE7AA005E909A /* KeyBindingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyBindingItem.swift; sourceTree = "<group>"; };
+		CC23631C264AE7AA005E909A /* KeyBindingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyBindingManager.swift; sourceTree = "<group>"; };
+		CC23631D264AE7AB005E909A /* KeyBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyBinding.swift; sourceTree = "<group>"; };
+		CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuKeyBindingManager.swift; sourceTree = "<group>"; };
+		CC23631F264AE7AB005E909A /* KeyBindingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyBindingsController.swift; sourceTree = "<group>"; };
+		CC23632E264AE889005E909A /* ShortcutKeyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutKeyField.swift; sourceTree = "<group>"; };
+		CC23632F264AE889005E909A /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
+		CC236334264AE8E9005E909A /* SettingManaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingManaging.swift; sourceTree = "<group>"; };
+		CC236349264BC763005E909A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/KeyBindings.xib; sourceTree = "<group>"; };
+		CC23634A264BC772005E909A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/KeyBindings.strings; sourceTree = "<group>"; };
+		CC23634C264BC781005E909A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/KeyBindings.strings"; sourceTree = "<group>"; };
 		CC2E3F552648E6D700AE25C3 /* PreviewSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSlider.swift; sourceTree = "<group>"; };
 		CC2EFC202629CCBE00B0D6E6 /* TemplateOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOutlineView.swift; sourceTree = "<group>"; };
 		CC300F0B262843CD002FD866 /* TemplatePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewController.swift; sourceTree = "<group>"; };
@@ -1420,14 +1454,6 @@
 			path = TagList;
 			sourceTree = "<group>";
 		};
-		1885CF3C24B0FE750067D02F /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				1885CF3D24B0FEA30067D02F /* UndoProxy.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		39B44362740250C81599A741 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1460,6 +1486,9 @@
 			isa = PBXGroup;
 			children = (
 				CC23630A264A77CC005E909A /* CustomResponder.swift */,
+				D65DB2DD241CD4C70026AE7F /* PixelMatchResponder.swift */,
+				D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */,
+				1885CF3D24B0FEA30067D02F /* UndoProxy.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1495,6 +1524,91 @@
 				CC236312264A8199005E909A /* PaneContainer.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CC236319264AE6F4005E909A /* KeyBindings */ = {
+			isa = PBXGroup;
+			children = (
+				CC236346264BC5CD005E909A /* KeyBindings.xib */,
+				CC23631D264AE7AB005E909A /* KeyBinding.swift */,
+				CC23631B264AE7AA005E909A /* KeyBindingItem.swift */,
+				CC23631C264AE7AA005E909A /* KeyBindingManager.swift */,
+				CC23631F264AE7AB005E909A /* KeyBindingsController.swift */,
+				CC23631A264AE7AA005E909A /* MainMenu.swift */,
+				CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */,
+				CC236334264AE8E9005E909A /* SettingManaging.swift */,
+				CC23632F264AE889005E909A /* Shortcut.swift */,
+				CC23632E264AE889005E909A /* ShortcutKeyField.swift */,
+			);
+			path = KeyBindings;
+			sourceTree = "<group>";
+		};
+		CC23632C264AE7CF005E909A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D690C9592419440300BB1652 /* PixelMatch.swift */,
+				D690C96B241BBEA000BB1652 /* PixelMatchService.swift */,
+				D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */,
+				D6B8E85823D14219006AB402 /* TabDelegate.swift */,
+				D6F4A38423CF644B00BE3DCF /* TabService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CC236337264AEAF5005E909A /* General */ = {
+			isa = PBXGroup;
+			children = (
+				D64AF09D240D05BB003A5B17 /* General.xib */,
+				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		CC236338264AEAFC005E909A /* Folder */ = {
+			isa = PBXGroup;
+			children = (
+				D64AF0A0240D05E0003A5B17 /* Folder.xib */,
+				D699E0CB240908F90011A4CB /* FolderController.swift */,
+			);
+			path = Folder;
+			sourceTree = "<group>";
+		};
+		CC236339264AEB13005E909A /* Advanced */ = {
+			isa = PBXGroup;
+			children = (
+				D64AF0A3240D05E5003A5B17 /* Advanced.xib */,
+				D699E0D12409224E0011A4CB /* AdvancedController.swift */,
+				D61047E424224B9C0002E990 /* SUUpdater.h */,
+				D61047E524224B9C0002E990 /* SUUpdater.m */,
+			);
+			path = Advanced;
+			sourceTree = "<group>";
+		};
+		CC23633A264AEB1D005E909A /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				CC470A92262DE90B0013A3B7 /* Subscription.xib */,
+				CC470A77262DE5020013A3B7 /* SubscriptionController.swift */,
+			);
+			path = Subscription;
+			sourceTree = "<group>";
+		};
+		CC23633C264AEB59005E909A /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				D6E1669B248A0B4200D8D1C5 /* Edit */,
+				D684842023D40C9300BC5E34 /* Grid */,
+				CC470A9E262DEBC00013A3B7 /* Purchase */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		CC23633D264AEBAE005E909A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		CC300EFF262843A3002FD866 /* TemplatePreview */ = {
@@ -1712,10 +1826,11 @@
 			isa = PBXGroup;
 			children = (
 				D635BE9A23CD861100FD62B8 /* Pixel */,
-				D690C96A241BBE6B00BB1652 /* PixelMatch */,
-				D6F4A38623CF645800BE3DCF /* Tab */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				CC1B01512636F896002EECF5 /* GenericError.swift */,
+				D64790F72490E79C003159FD /* OrderedSet.swift */,
+				CC470A19262B1CAB0013A3B7 /* MutexLock.swift */,
+				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2144,15 +2259,17 @@
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
 				D69974E22416574D00223B31 /* Resources */,
 				CC236309264A77BA005E909A /* Protocols */,
+				CC23632C264AE7CF005E909A /* Services */,
+				CC23633D264AEBAE005E909A /* Managers */,
 				CC8E5D8B262818A70030B2FC /* Models */,
-				D6729C07240FC7FC000339C2 /* Helpers */,
+				CC8E5DC726281CF10030B2FC /* Views */,
+				CC8E5D83262818940030B2FC /* Extensions */,
+				D6729C07240FC7FC000339C2 /* Others */,
 				D682FC8F23D6DB1800DA1750 /* Content */,
 				D649231623CC64490067C04A /* Scene */,
 				CC23630D264A8138005E909A /* Panes */,
-				D684842023D40C9300BC5E34 /* Grid */,
 				D699E0C42408E4960011A4CB /* Preferences */,
-				D6E1669B248A0B4200D8D1C5 /* Edit */,
-				CC470A9E262DEBC00013A3B7 /* Purchase */,
+				CC23633C264AEB59005E909A /* Panels */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				D658AF9F23CB180C0098C567 /* SplitController.swift */,
 				D6CDC00C23CF3473004AA431 /* WindowController.swift */,
@@ -2230,18 +2347,15 @@
 			path = Overlay;
 			sourceTree = "<group>";
 		};
-		D6729C07240FC7FC000339C2 /* Helpers */ = {
+		D6729C07240FC7FC000339C2 /* Others */ = {
 			isa = PBXGroup;
 			children = (
 				D69FD8882473DBA000ACBF74 /* OpenCV */,
-				CC8E5D83262818940030B2FC /* Extensions */,
-				1885CF3C24B0FE750067D02F /* Protocols */,
 				CCA7343F2617059600808E02 /* Swizzling */,
-				CC8E5DC726281CF10030B2FC /* Views */,
 				CC97E7092642D6D800FC660A /* ViewControllers */,
 				CCE33FEE26325F6C0082F73D /* main.swift */,
 			);
-			path = Helpers;
+			path = Others;
 			sourceTree = "<group>";
 		};
 		D6729C0F240FCBE3000339C2 /* Views */ = {
@@ -2345,16 +2459,6 @@
 			path = PixelMatch;
 			sourceTree = "<group>";
 		};
-		D690C96A241BBE6B00BB1652 /* PixelMatch */ = {
-			isa = PBXGroup;
-			children = (
-				D690C9592419440300BB1652 /* PixelMatch.swift */,
-				D690C96B241BBEA000BB1652 /* PixelMatchService.swift */,
-				D65DB2DD241CD4C70026AE7F /* PixelMatchResponder.swift */,
-			);
-			path = PixelMatch;
-			sourceTree = "<group>";
-		};
 		D69974CE2414ADF500223B31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2387,16 +2491,11 @@
 			children = (
 				CCE901532626BAB200C84904 /* Defaults */,
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
-				D64AF09D240D05BB003A5B17 /* General.xib */,
-				D699E0C72408E6E80011A4CB /* GeneralController.swift */,
-				D64AF0A0240D05E0003A5B17 /* Folder.xib */,
-				D699E0CB240908F90011A4CB /* FolderController.swift */,
-				D64AF0A3240D05E5003A5B17 /* Advanced.xib */,
-				D699E0D12409224E0011A4CB /* AdvancedController.swift */,
-				CC470A92262DE90B0013A3B7 /* Subscription.xib */,
-				CC470A77262DE5020013A3B7 /* SubscriptionController.swift */,
-				D61047E424224B9C0002E990 /* SUUpdater.h */,
-				D61047E524224B9C0002E990 /* SUUpdater.m */,
+				CC236337264AEAF5005E909A /* General */,
+				CC236338264AEAFC005E909A /* Folder */,
+				CC236319264AE6F4005E909A /* KeyBindings */,
+				CC236339264AEB13005E909A /* Advanced */,
+				CC23633A264AEB1D005E909A /* Subscription */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -2477,7 +2576,6 @@
 		D6E4252724A368E700FAB4B5 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */,
 				185D7EF3248A936A001C283B /* ContentItemSource.swift */,
 				D66CABE823F583E000BFB4CB /* ContentActionResponder.swift */,
 			);
@@ -2500,24 +2598,10 @@
 		D6E4252924A3690000FAB4B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D64790F72490E79C003159FD /* OrderedSet.swift */,
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
-				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
-				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
-				CC470A19262B1CAB0013A3B7 /* MutexLock.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		D6F4A38623CF645800BE3DCF /* Tab */ = {
-			isa = PBXGroup;
-			children = (
-				D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */,
-				D6F4A38423CF644B00BE3DCF /* TabService.swift */,
-				D6B8E85823D14219006AB402 /* TabDelegate.swift */,
-			);
-			path = Tab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2888,6 +2972,7 @@
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
+				CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
 				CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */,
@@ -2954,6 +3039,7 @@
 				CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */,
 				D658AFA523CB180D0098C567 /* Main.storyboard in Resources */,
 				D64AF09E240D05E0003A5B17 /* Folder.xib in Resources */,
+				CC236344264BC5CD005E909A /* KeyBindings.xib in Resources */,
 				CCCD8178261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */,
 				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
@@ -3109,6 +3195,7 @@
 				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
+				CC236326264AE7AB005E909A /* KeyBinding.swift in Sources */,
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				CCE33FEF26325F6C0082F73D /* main.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
@@ -3132,6 +3219,7 @@
 				D610478824224A170002E990 /* ColorAnnotatorOverlay.swift in Sources */,
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
+				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
 				CC236317264A8199005E909A /* PaneContainer.swift in Sources */,
 				D610478C24224A170002E990 /* PreferencesController.swift in Sources */,
@@ -3150,8 +3238,10 @@
 				CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
+				CC23633E264AEC51005E909A /* MenuKeyBindingManager.swift in Sources */,
 				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
 				CC300F4A26285E27002FD866 /* TemplateCellView.swift in Sources */,
+				CC236322264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
 				D610479324224A170002E990 /* Cocoa+Ext.swift in Sources */,
 				D610479424224A170002E990 /* ImageOverlay.swift in Sources */,
 				D610479524224A170002E990 /* GridView.swift in Sources */,
@@ -3165,6 +3255,7 @@
 				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
 				CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
+				CC236324264AE7AB005E909A /* KeyBindingManager.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
@@ -3180,6 +3271,7 @@
 				D61047A324224A170002E990 /* SceneActionResponder.swift in Sources */,
 				CC4422EA263AD7F700161852 /* TemplateRowView.swift in Sources */,
 				D636A3A524B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
+				CC236330264AE889005E909A /* ShortcutKeyField.swift in Sources */,
 				D61047A424224A170002E990 /* Template.swift in Sources */,
 				D659168A24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -3189,6 +3281,7 @@
 				CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
+				CC236320264AE7AB005E909A /* MainMenu.swift in Sources */,
 				CCC8BC55263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
@@ -3213,10 +3306,12 @@
 				D61047B224224A170002E990 /* ContentItem.swift in Sources */,
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
+				CC236332264AE889005E909A /* Shortcut.swift in Sources */,
 				CC23630B264A77CC005E909A /* CustomResponder.swift in Sources */,
 				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
+				CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
@@ -3248,6 +3343,7 @@
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
+				CC23633B264AEB2F005E909A /* SUUpdater.m in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
@@ -3348,6 +3444,7 @@
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
 				CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
+				CC236333264AE889005E909A /* Shortcut.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
@@ -3355,6 +3452,7 @@
 				D659168E24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
+				CC236325264AE7AB005E909A /* KeyBindingManager.swift in Sources */,
 				CC4422EB263AD7F700161852 /* TemplateRowView.swift in Sources */,
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
 				D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */,
@@ -3371,6 +3469,7 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
+				CC236336264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
 				CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
@@ -3395,6 +3494,7 @@
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
+				CC236323264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
 				D6729C0C240FC9F5000339C2 /* Cocoa+Ext.swift in Sources */,
 				CC8F8CB226209BB700F60F78 /* PaddedButton.swift in Sources */,
 				D656CD50245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
@@ -3433,6 +3533,7 @@
 				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
+				CC236331264AE889005E909A /* ShortcutKeyField.swift in Sources */,
 				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
 				CCC8BC56263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
@@ -3480,6 +3581,7 @@
 				CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */,
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
+				CC236321264AE7AB005E909A /* MainMenu.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
@@ -3494,6 +3596,7 @@
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */,
 				CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */,
+				CC23633F264AEC52005E909A /* MenuKeyBindingManager.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
 				CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
@@ -3501,10 +3604,12 @@
 				CC23630C264A77CC005E909A /* CustomResponder.swift in Sources */,
 				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
 				CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */,
+				CC23632B264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				CC236318264A8199005E909A /* PaneContainer.swift in Sources */,
+				CC236327264AE7AB005E909A /* KeyBinding.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
 				CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */,
@@ -3556,6 +3661,7 @@
 				D65DB2DF241CEA230026AE7F /* Defaults.swift in Sources */,
 				D690C968241A612700BB1652 /* PixelMatch.swift in Sources */,
 				D690C962241A60DC00BB1652 /* main.swift in Sources */,
+				CC23632D264AE7DC005E909A /* TabService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3653,6 +3759,16 @@
 				1842C47E247988F0008ECD6F /* zh-Hans */,
 			);
 			name = TagList.storyboard;
+			sourceTree = "<group>";
+		};
+		CC236346264BC5CD005E909A /* KeyBindings.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC236349264BC763005E909A /* Base */,
+				CC23634A264BC772005E909A /* en */,
+				CC23634C264BC781005E909A /* zh-Hans */,
+			);
+			name = KeyBindings.xib;
 			sourceTree = "<group>";
 		};
 		CC300F1F26284536002FD866 /* TemplatePreview.storyboard */ = {
@@ -4008,16 +4124,11 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.6;
@@ -4025,7 +4136,6 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -4046,16 +4156,11 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.6;
@@ -4064,7 +4169,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -4328,9 +4432,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/JSTColorPicker/Others/OpenCV/include\"";
 				IBC_WARNINGS = NO;
 				IBSC_WARNINGS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/JSTColorPicker/Others/OpenCV/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4338,6 +4444,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -4393,15 +4500,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/JSTColorPicker/Others/OpenCV/include\"";
 				IBC_WARNINGS = NO;
 				IBSC_WARNINGS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/JSTColorPicker/Others/OpenCV/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -4427,16 +4537,11 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.6;
@@ -4445,7 +4550,6 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -4470,16 +4574,11 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers\"",
-					"\"${PROJECT_DIR}/JSTColorPicker/Helpers/OpenCV/include\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JSTColorPicker/Helpers/OpenCV/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.6;
@@ -4489,7 +4588,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

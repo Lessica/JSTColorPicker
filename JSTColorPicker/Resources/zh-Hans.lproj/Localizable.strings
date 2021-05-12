@@ -18,18 +18,6 @@
 "-" = "-";
 
 /* Shortcut Guide */
-"[Magic Cursor]" = "[魔术光标]";
-
-/* Shortcut Guide */
-"[Magnifying Glass]" = "[放大镜]";
-
-/* Shortcut Guide */
-"[Minifying Glass]" = "[缩小镜]";
-
-/* Shortcut Guide */
-"[Selection Arrow]" = "[选择箭头]";
-
-/* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作。";
 
 /* Shortcut Guide */
@@ -771,3 +759,36 @@
 
 /* Shortcut Guide */
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
+
+/* Shortcut Guide */
+"◦ Magic Cursor" = "◦ 魔术光标";
+
+/* Shortcut Guide */
+"◦ Magnifying Glass" = "◦ 放大镜";
+
+/* Shortcut Guide */
+"◦ Minifying Glass" = "◦ 缩小镜";
+
+/* Shortcut Guide */
+"◦ Selection Arrow" = "◦ 选择箭头";
+
+/* toolbarItemLabel */
+"Key Bindings" = "按键绑定";
+
+/* SwiftKeyBindings */
+"Please combine with other keys." = "请组合其他按键。";
+
+/* SwiftKeyBindings */
+"Single type is invalid for a shortcut." = "单按键是无效的，不能作为快捷按键组合使用。";
+
+/* SwiftKeyBindings */
+"Space" = "空格";
+
+/* SwiftKeyBindings */
+"“%@” does not include the Command key." = "“%@” 不包含 Command 键。";
+
+/* SwiftKeyBindings */
+"“%@” includes the Command key." = "“%@” 包含 Command 键。";
+
+/* SwiftKeyBindings */
+"“%@” is already taken." = "“%@” 已被占用。";

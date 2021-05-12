@@ -674,7 +674,7 @@ extension SplitController: ShortcutGuideDataSource {
                 }
                 items += [
                     ShortcutItem(
-                        name: NSLocalizedString("[Selection Arrow]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Selection Arrow", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Selection Arrow temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.control]
@@ -739,7 +739,7 @@ extension SplitController: ShortcutGuideDataSource {
                 }
                 items += [
                     ShortcutItem(
-                        name: NSLocalizedString("[Magic Cursor]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.control]
@@ -760,13 +760,13 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.shift]
                     ),
                     ShortcutItem(
-                        name: NSLocalizedString("[Magic Cursor]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.control]
                     ),
                     ShortcutItem(
-                        name: NSLocalizedString("[Minifying Glass]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Minifying Glass", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Minifying Glass temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.option]
@@ -781,13 +781,13 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: []
                     ),
                     ShortcutItem(
-                        name: NSLocalizedString("[Magic Cursor]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.control]
                     ),
                     ShortcutItem(
-                        name: NSLocalizedString("[Magnifying Glass]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Magnifying Glass", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magnifying Glass temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.option]
@@ -802,7 +802,7 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: []
                     ),
                     ShortcutItem(
-                        name: NSLocalizedString("[Magic Cursor]", comment: "Shortcut Guide"),
+                        name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
                         keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
                         modifierFlags: [.control]

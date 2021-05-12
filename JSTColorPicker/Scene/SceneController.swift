@@ -676,11 +676,9 @@ extension SceneController {
         withEvent event: NSEvent? = NSApp.currentEvent
     ) -> Bool
     {
-        if let event = event, menu {
-            NSMenu.popUpContextMenu(deletionMenu, with: event, for: sceneView)
-        } else {
-            let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
-            if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
+        let locInMask = sceneOverlayView.convert(locInWrapper, from: wrapper)
+        if let annotatorView = sceneOverlayView.frontmostOverlay(at: locInMask) {
+            if !menu {
                 if let annotator = annotators.last(where: { $0.overlay === annotatorView }) {
                     if let _ = try? deleteContentItem(
                         annotator.contentItem,
@@ -689,13 +687,20 @@ extension SceneController {
                         return true
                     }
                 }
-                return false
+            } else {
+                if let event = event {
+                    NSMenu.popUpContextMenu(deletionMenu, with: event, for: sceneView)
+                    return true
+                }
             }
-            if let _ = try? deleteContentItem(
-                of: PixelCoordinate(locInWrapper),
-                byIgnoringPopups: ignore
-            ) {
-                return true
+        } else {
+            if !menu {
+                if let _ = try? deleteContentItem(
+                    of: PixelCoordinate(locInWrapper),
+                    byIgnoringPopups: ignore
+                ) {
+                    return true
+                }
             }
         }
         return false

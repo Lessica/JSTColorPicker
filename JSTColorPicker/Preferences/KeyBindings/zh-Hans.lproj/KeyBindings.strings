@@ -1,0 +1,24 @@
+
+/* Class = "NSTextFieldCell"; title = "To change a binding, select it, click the key column, and then type the keys."; ObjectID = "AYc-W8-YaF"; */
+"AYc-W8-YaF.title" = "选中要绑定的项目，并单击按键列来修改按键绑定。";
+
+/* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "HzX-EJ-8Nk"; */
+"HzX-EJ-8Nk.title" = "恢复默认";
+
+/* Class = "NSTextFieldCell"; title = "⌘N"; ObjectID = "IIm-ja-1Ds"; */
+"IIm-ja-1Ds.title" = "⌘N";
+
+/* Class = "NSTextFieldCell"; title = "'Foo' doesn’t include Command Key. Please choose another key."; ObjectID = "KSq-Jb-f68"; */
+"KSq-Jb-f68.title" = "'Foo' 不包含 Command 键，请选择其他包含 Command 键的按键组合。";
+
+/* Class = "NSTableColumn"; headerCell.title = "Key"; ObjectID = "ep8-iq-SpN"; */
+"ep8-iq-SpN.headerCell.title" = "按键";
+
+/* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "lH9-HJ-NYN"; */
+"lH9-HJ-NYN.headerCell.title" = "动作";
+
+/* Class = "NSTextFieldCell"; title = "Shortcuts for menu items"; ObjectID = "rcQ-Dh-rzJ"; */
+"rcQ-Dh-rzJ.title" = "菜单项目的快捷按键";
+
+/* Class = "NSTextFieldCell"; title = "Action Name"; ObjectID = "zI9-El-TA7"; */
+"zI9-El-TA7.title" = "动作名称";

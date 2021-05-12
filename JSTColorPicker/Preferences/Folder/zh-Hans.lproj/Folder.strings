@@ -1,11 +1,11 @@
 /* Class = "NSTextFieldCell"; title = "Tag database: "; ObjectID = "0ys-eC-sUp"; */
-"0ys-eC-sUp.title" = "标签数据库位于：";
+"0ys-eC-sUp.title" = "标签数据库：";
 
 /* Class = "NSTextFieldCell"; title = "Templates root: "; ObjectID = "7l3-74-aeT"; */
-"7l3-74-aeT.title" = "模版根目录位于：";
+"7l3-74-aeT.title" = "模版根目录：";
 
 /* Class = "NSTextFieldCell"; title = "Screenshot helper: "; ObjectID = "Drq-fi-d7F"; */
-"Drq-fi-d7F.title" = "截图助手程序位于：";
+"Drq-fi-d7F.title" = "截图助手程序：";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
 "eGM-Kd-UMD.title" = "其他视图";
@@ -23,4 +23,4 @@
 "xm4-2Y-TaL.placeholder" = "无选择";
 
 /* Class = "NSTextFieldCell"; title = "Screenshots saved at: "; ObjectID = "YaA-b5-bfQ"; */
-"YaA-b5-bfQ.title" = "屏幕截图保存在：";
+"YaA-b5-bfQ.title" = "屏幕截图：";
