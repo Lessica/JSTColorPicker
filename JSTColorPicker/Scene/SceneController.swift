@@ -2064,6 +2064,15 @@ extension SceneController: NSMenuItemValidation, NSMenuDelegate {
             menuItems.forEach({ $0.action = #selector(deleteContentItemFromMenuItem(_:)) })
             menu.items = menuItems
         }
+        
+        applyKeyBindingsToTopLevelContextMenu(menu)
+    }
+    
+    // Apply key bindings for top-level menus.
+    private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
+        if menu == selectionMenu || menu == deletionMenu {
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+        }
     }
 
     @objc private func selectContentItemFromMenuItem(_ menuItem: NSMenuItem) {

@@ -633,178 +633,203 @@ extension SplitController: ShortcutGuideDataSource {
             case .magicCursor:
                 if documentState.isWritable {
                     items += [
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Color & Coordinates Annotation", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Add Color & Coordinates at current cursor position to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: []
+                            modifierFlags: [],
+                            keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Add Area at current dragged rectangle to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: []
+                            modifierFlags: [],
+                            keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation (Square)", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Add Area at current dragged square to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: [.shift]
+                            modifierFlags: [.shift],
+                            keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation (Centered)", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Add Area using the starting point as the midpoint of current dragged rectangle, to content list.", comment: "Shortcut Guide"),
-                            modifierFlags: [.option]
+                            modifierFlags: [.option],
+                            keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
-                            modifierFlags: []
+                            modifierFlags: [],
+                            keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
-                            modifierFlags: [.option]
+                            modifierFlags: [.option],
+                            keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
                     ]
                 }
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Selection Arrow", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Selection Arrow temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control]
+                        modifierFlags: [.control],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
                 ]
             case .selectionArrow:
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Select Annotation", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Select Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: []
+                        modifierFlags: [],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Select More Annotations", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Select Color & Coordinates at current cursor position or the top most Area contains current cursor position, while keeping the previous selections.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Select All Cascaded Annotations", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Select Color & Coordinates at current cursor position or all Areas contains current cursor position, while keeping the previous selections.", comment: "Shortcut Guide"),
-                        modifierFlags: [.shift]
+                        modifierFlags: [.shift],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("List All Cascaded Annotations", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to select the annotation, while keeping the previous selections.", comment: "Shortcut Guide"),
-                        modifierFlags: [.option]
+                        modifierFlags: [.option],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
                 ]
                 if documentState.isWritable {
                     items += [
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
-                            modifierFlags: []
+                            modifierFlags: [],
+                            keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Right Click", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
-                            modifierFlags: [.option]
+                            modifierFlags: [.option],
+                            keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Modify Annotation", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Drag Anchors", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Modify Color & Coordinates to a new position, or modify Area to a new dimension.", comment: "Shortcut Guide"),
-                            modifierFlags: []
+                            modifierFlags: [],
+                            keyEquivalent: NSLocalizedString("Drag Anchors", comment: "Shortcut Guide")
                         ),
                     ]
                     items += [
+                        /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Modify Annotation (Fixed Ratio)", comment: "Shortcut Guide"),
-                            keyString: NSLocalizedString("Drag Anchors in Corner", comment: "Shortcut Guide"),
                             toolTip: NSLocalizedString("Modify Area to a new dimension with its original ratio.", comment: "Shortcut Guide"),
-                            modifierFlags: [.shift]
+                            modifierFlags: [.shift],
+                            keyEquivalent: NSLocalizedString("Drag Anchors in Corner", comment: "Shortcut Guide")
                         ),
                     ]
                 }
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control]
+                        modifierFlags: [.control],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
                 ]
             case .magnifyingGlass:
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Magnify", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Magnify to next level from current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: []
+                        modifierFlags: [],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Magnify To Fill Window", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Magnify to fill window with dragged area.", comment: "Shortcut Guide"),
-                        modifierFlags: [.shift]
+                        modifierFlags: [.shift],
+                        keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control]
+                        modifierFlags: [.control],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Minifying Glass", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Minifying Glass temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.option]
+                        modifierFlags: [.option],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
                 ]
             case .minifyingGlass:
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Minify", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Click", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Minify to previous level from current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: []
+                        modifierFlags: [],
+                        keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control]
+                        modifierFlags: [.control],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magnifying Glass", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magnifying Glass temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.option]
+                        modifierFlags: [.option],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
                 ]
             case .movingHand:
                 items += [
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Move", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Drag", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("A simple drag-to-move operation for pointer devices.", comment: "Shortcut Guide"),
-                        modifierFlags: []
+                        modifierFlags: [],
+                        keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                     ),
+                    /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
-                        keyString: NSLocalizedString("Hold", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Switch to Magic Cursor temporarily.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control]
+                        modifierFlags: [.control],
+                        keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
                 ]
             default:
@@ -815,21 +840,21 @@ extension SplitController: ShortcutGuideDataSource {
                 items += [
                     ShortcutItem(
                         name: NSLocalizedString("Add Color & Coordinates Annotation", comment: "Shortcut Guide"),
-                        keyString: .return,
                         toolTip: NSLocalizedString("Place Color & Coordinates at current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: .carriageReturn
                     ),
                     ShortcutItem(
                         name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
-                        keyString: .delete,
                         toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: .delete
                     ),
                     ShortcutItem(
                         name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
-                        keyString: .delete,
                         toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
-                        modifierFlags: [.option, .command]
+                        modifierFlags: [.option, .command],
+                        keyEquivalent: .delete
                     ),
                 ]
             }
@@ -837,49 +862,54 @@ extension SplitController: ShortcutGuideDataSource {
             items += [
                 ShortcutItem(
                     name: NSLocalizedString("Zoom In", comment: "Shortcut Guide"),
-                    keyString: "=",
                     toolTip: NSLocalizedString("Zoom in at the current cursor position (if the cursor is outside the scene, the scene is zoomed in with the center point).", comment: "Shortcut Guide"),
-                    modifierFlags: [.command]
+                    modifierFlags: [.command],
+                    keyEquivalent: "="
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Zoom Out", comment: "Shortcut Guide"),
-                    keyString: "-",
                     toolTip: NSLocalizedString("Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).", comment: "Shortcut Guide"),
-                    modifierFlags: [.command]
+                    modifierFlags: [.command],
+                    keyEquivalent: "-"
                 ),
+                /* FIXED */
                 ShortcutItem(
                     name: NSLocalizedString("Zoom In/Out", comment: "Shortcut Guide"),
-                    keyString: NSLocalizedString("Scroll Wheel", comment: "Shortcut Guide"),
                     toolTip: NSLocalizedString("Zoom in/out at the current cursor position with a physical mouse wheel.", comment: "Shortcut Guide"),
-                    modifierFlags: []
+                    modifierFlags: [],
+                    keyEquivalent: NSLocalizedString("Scroll Wheel", comment: "Shortcut Guide")
                 ),
                 ShortcutItem(
                     name: NSLocalizedString("Copy Color & Coordinates", comment: "Shortcut Guide"),
-                    keyString: "`",
                     toolTip: NSLocalizedString("Copy Color & Coordinates at current cursor location directly to the general pasteboard.", comment: "Shortcut Guide"),
-                    modifierFlags: [.command]
+                    modifierFlags: [.command],
+                    keyEquivalent: "`"
                 ),
             ]
 
             if sceneController.isCursorMovableByKeyboard {
+                let cursorKeyString = [NSEvent.SpecialKey](arrayLiteral: .upArrow, .leftArrow, .downArrow, .rightArrow)
+                    .map({ Shortcut.printableKeyEquivalent(forSpecialKey: $0.unicodeScalar) })
+                    .compactMap({ $0 })
+                    .joined(separator: "/")
                 items += [
                     ShortcutItem(
                         name: NSLocalizedString("Move Cursor (1 pixel)", comment: "Shortcut Guide"),
-                        keyString: [ShortcutItem.KeyboardCharacter](arrayLiteral: .up, .left, .down, .right).map({ $0.rawValue }).joined(separator: "/"),
                         toolTip: NSLocalizedString("Move cursor with keyboard by 1 pixel.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: cursorKeyString
                     ),
                     ShortcutItem(
                         name: NSLocalizedString("Move Cursor (10 pixel)", comment: "Shortcut Guide"),
-                        keyString: [ShortcutItem.KeyboardCharacter](arrayLiteral: .up, .left, .down, .right).map({ $0.rawValue }).joined(separator: "/"),
                         toolTip: NSLocalizedString("Move cursor with keyboard by 10 pixel.", comment: "Shortcut Guide"),
-                        modifierFlags: [.shift, .command]
+                        modifierFlags: [.shift, .command],
+                        keyEquivalent: cursorKeyString
                     ),
                     ShortcutItem(
                         name: NSLocalizedString("Move Cursor (100 pixel)", comment: "Shortcut Guide"),
-                        keyString: [ShortcutItem.KeyboardCharacter](arrayLiteral: .up, .left, .down, .right).map({ $0.rawValue }).joined(separator: "/"),
                         toolTip: NSLocalizedString("Move cursor with keyboard by 100 pixel.", comment: "Shortcut Guide"),
-                        modifierFlags: [.control, .command]
+                        modifierFlags: [.control, .command],
+                        keyEquivalent: cursorKeyString
                     ),
                 ]
             }
@@ -888,15 +918,15 @@ extension SplitController: ShortcutGuideDataSource {
                 items += [
                     ShortcutItem(
                         name: NSLocalizedString("Select Previous Annotation", comment: "Shortcut Guide"),
-                        keyString: "[",
                         toolTip: NSLocalizedString("If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the previous annotation in the cascade under the current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: "["
                     ),
                     ShortcutItem(
                         name: NSLocalizedString("Select Next Annotation", comment: "Shortcut Guide"),
-                        keyString: "]",
                         toolTip: NSLocalizedString("If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.", comment: "Shortcut Guide"),
-                        modifierFlags: [.command]
+                        modifierFlags: [.command],
+                        keyEquivalent: "]"
                     ),
                 ]
             }

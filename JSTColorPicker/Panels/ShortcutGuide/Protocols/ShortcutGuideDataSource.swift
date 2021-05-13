@@ -8,6 +8,6 @@
 
 import Cocoa
 
-public protocol ShortcutGuideDataSource: NSResponder {
+protocol ShortcutGuideDataSource: NSResponder {
     var shortcutItems: [ShortcutItem] { get }
 }

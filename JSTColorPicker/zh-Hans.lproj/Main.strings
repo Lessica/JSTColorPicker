@@ -85,11 +85,17 @@
 /* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
 "af9-zN-lJB.title" = "选择模版";
 
+/* Class = "NSMenuItem"; title = "Relocate…"; ObjectID = "AJo-qL-2Gv"; */
+"AJo-qL-2Gv.title" = "调整位置…";
+
 /* Class = "NSMenuItem"; title = "Move Down (10 Pixel)"; ObjectID = "ARW-N9-fGa"; */
 "ARW-N9-fGa.title" = "向下移动 (10 像素)";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "窗口";
+
+/* Class = "NSMenu"; title = "Remove Tags"; ObjectID = "AyF-fj-fBt"; */
+"AyF-fj-fBt.title" = "移除标签";
 
 /* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "ayg-jl-nTr"; */
 "ayg-jl-nTr.title" = "变为小写";
@@ -141,6 +147,9 @@
 
 /* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.title" = "切换指令面板";
+
+/* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "D1L-Dl-ZRc"; */
+"D1L-Dl-ZRc.title" = "添加颜色与坐标…";
 
 /* Class = "NSMenuItem"; title = "Compare Opened Documents"; ObjectID = "d6I-ng-9rQ"; */
 "d6I-ng-9rQ.title" = "比较已打开的文档";
@@ -280,11 +289,17 @@
 /* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
 "jkP-y6-J5t.title" = "标注";
 
+/* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Jo6-Fi-YVW"; */
+"Jo6-Fi-YVW.title" = "定位";
+
 /* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
 "jqq-oO-M2a.title" = "选择模版";
 
 /* Class = "NSMenuItem"; title = "Move Left (1 Pixel)"; ObjectID = "jy4-Zr-A9u"; */
 "jy4-Zr-A9u.title" = "向左移动 (1 像素)";
+
+/* Class = "NSMenuItem"; title = "Choose Tags…"; ObjectID = "JZs-RC-iJL"; */
+"JZs-RC-iJL.title" = "选择标签…";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Take screenshots directly from the selected devices."; ObjectID = "k2M-xo-Glg"; */
 "k2M-xo-Glg.ibShadowedToolTip" = "直接从已选中的设备获取屏幕截图。";
@@ -327,6 +342,9 @@
 
 /* Class = "NSMenu"; title = "Move Right"; ObjectID = "ljf-1o-0sR"; */
 "ljf-1o-0sR.title" = "向右移动";
+
+/* Class = "NSMenuItem"; title = "Add Area…"; ObjectID = "lyv-Dv-gQ8"; */
+"lyv-Dv-gQ8.title" = "添加区域…";
 
 /* Class = "NSMenuItem"; title = "Zoom to 3x"; ObjectID = "mhz-lA-RTh"; */
 "mhz-lA-RTh.title" = "缩放到 3x";
@@ -561,6 +579,9 @@
 
 /* Class = "NSMenuItem"; title = "Sidebar Panes"; ObjectID = "XoB-WB-yEe"; */
 "XoB-WB-yEe.title" = "边栏面板";
+
+/* Class = "NSMenuItem"; title = "Remove Tags"; ObjectID = "Xr7-Sa-h1y"; */
+"Xr7-Sa-h1y.title" = "移除标签";
 
 /* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "xSP-1Z-mIJ"; */
 "xSP-1Z-mIJ.title" = "智能破折号";

@@ -917,9 +917,15 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        if menu == tagMenu {}
+        applyKeyBindingsToTopLevelContextMenu(menu)
     }
     
+    // Apply key bindings for top-level menus.
+    private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
+        if menu == tagMenu {
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+        }
+    }
 }
 
 extension TagListController: TagListPreviewDelegate {

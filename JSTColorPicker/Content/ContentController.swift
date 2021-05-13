@@ -77,8 +77,6 @@ final class ContentController: NSViewController {
     @IBOutlet var tableRemoveTagsMenuItem : NSMenuItem!
     
     @IBOutlet var itemNewMenu             : NSMenu!
-    @IBOutlet var itemNewColorMenuItem    : NSMenuItem!
-    @IBOutlet var itemNewAreaMenuItem     : NSMenuItem!
     
     @IBOutlet var itemReprMenu            : NSMenu!
     @IBOutlet var itemReprColorMenuItem   : NSMenuItem!
@@ -805,6 +803,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 tableRemoveTagsMenuItem.isEnabled = false
             }
         }
+        applyKeyBindingsToTopLevelContextMenu(menu)
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -852,7 +851,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             }
             
             guard documentState.isLoaded  else { return false }
-            guard tableView.clickedRow >= 0 else { return false }
+            guard tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count == 1 else { return false }
             return !(tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow))
             
         }
@@ -907,8 +906,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             return documentState.isLoaded
         }
             
-        else if menuItem.action == #selector(create(_:))
-            || menuItem.action == #selector(removeTag(_:))
+        else if menuItem.action == #selector(createCoordinate(_:))
+                    || menuItem.action == #selector(createArea(_:))
+                    || menuItem.action == #selector(removeTag(_:))
         {  // contents writeable
             return documentState.isWritable
         }
@@ -1089,28 +1089,29 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
     }
     
-    @IBAction private func create(_ sender: NSMenuItem?) {
-        guard documentContent?.items != nil else { return }
+    @IBAction private func createCoordinate(_ sender: NSMenuItem) {
+        createWithPanel(EditWindow.newEditCoordinatePanel())
+    }
+    
+    @IBAction private func createArea(_ sender: NSMenuItem) {
+        createWithPanel(EditWindow.newEditAreaPanel())
+    }
+    
+    private func createWithPanel(_ panel: EditWindow?) {
+        guard documentContent?.items != nil,
+              let panel = panel
+        else { return }
         
-        var panel: EditWindow?
-        if sender == itemNewColorMenuItem {
-            panel = EditWindow.newEditCoordinatePanel()
-        } else if sender == itemNewAreaMenuItem {
-            panel = EditWindow.newEditAreaPanel()
-        }
+        panel.loader = self
+        panel.contentDelegate = self
+        panel.contentItemSource = self
         
-        if let panel = panel {
-            panel.loader = self
-            panel.contentDelegate = self
-            panel.contentItemSource = self
-            
-            panel.contentItem = nil
-            panel.type = .add
-            
-            view.window!.beginSheet(panel) { (resp) in
-                if resp == .OK {
-                    // do nothing
-                }
+        panel.contentItem = nil
+        panel.type = .add
+        
+        view.window!.beginSheet(panel) { (resp) in
+            if resp == .OK {
+                // do nothing
             }
         }
     }
@@ -1563,6 +1564,14 @@ extension ContentController: NSMenuDelegateAlternate {
             }
             idx += 1
         }
+        applyKeyBindingsToTopLevelContextMenu(altMenu)
+    }
+    
+    // Apply key bindings for top-level menus.
+    private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
+        if menu == tableHeaderMenu || menu == tableMenu || menu == itemNewMenu {
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+        }
     }
     
 }
@@ -1645,17 +1654,19 @@ extension ContentController: ShortcutGuideDataSource {
         var items = [ShortcutItem]()
         if hasSelectedContentItem {
             items += [
+                /* FIXED */
                 ShortcutItem(
                     name: NSLocalizedString("Locate", comment: "Shortcut Guide"),
-                    keyString: .return,
                     toolTip: NSLocalizedString("Scroll the scene to the selected annotation, and adjust the scale to fit its size.", comment: "Shortcut Guide"),
-                    modifierFlags: []
+                    modifierFlags: [],
+                    keyEquivalent: .carriageReturn
                 ),
+                /* FIXED */
                 ShortcutItem(
                     name: NSLocalizedString("Relocate…", comment: "Shortcut Guide"),
-                    keyString: .return,
                     toolTip: NSLocalizedString("In the pop-up tab, precisely adjust the position of the selected annotation.", comment: "Shortcut Guide"),
-                    modifierFlags: [.option]
+                    modifierFlags: [.option],
+                    keyEquivalent: .carriageReturn
                 ),
             ]
         }

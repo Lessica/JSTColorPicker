@@ -8,16 +8,16 @@
 
 import Cocoa
 
-public enum ShortcutGuideColumnStyle {
+enum ShortcutGuideColumnStyle {
     case single
     case dual
 }
 
 final class ShortcutGuideWindowController: NSWindowController {
     
-    public static let shared = newShortcutGuideController()
+    static let shared = newShortcutGuideController()
 
-    public var animationBehavior: NSWindow.AnimationBehavior? {
+    var animationBehavior: NSWindow.AnimationBehavior? {
         get { window?.animationBehavior }
         set { window?.animationBehavior = newValue ?? .default }
     }
@@ -28,7 +28,7 @@ final class ShortcutGuideWindowController: NSWindowController {
         return sgWindowController
     }
     
-    public override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         window?.level = .statusBar
         window?.isOpaque = false
@@ -98,10 +98,10 @@ final class ShortcutGuideWindowController: NSWindowController {
 
     // MARK: - Registered Window Events
 
-    public var preferredColumnStyle: ShortcutGuideColumnStyle = .dual
+    var preferredColumnStyle: ShortcutGuideColumnStyle = .dual
     private var managedWindows = [ManagedWindow]()
 
-    public static func registerShortcutGuideForWindow(_ extWindow: NSWindow) {
+    static func registerShortcutGuideForWindow(_ extWindow: NSWindow) {
         ShortcutGuideWindowController.shared.registerShortcutGuideForWindow(extWindow)
     }
 
@@ -179,7 +179,7 @@ final class ShortcutGuideWindowController: NSWindowController {
     
     // MARK: - Toggle
     
-    public var isVisible: Bool { window?.isVisible ?? false }
+    var isVisible: Bool { window?.isVisible ?? false }
 
     private static func inspectItemsForWindow(_ extWindow: NSWindow) -> [ShortcutItem] {
         var items = [ShortcutItem]()
@@ -193,22 +193,22 @@ final class ShortcutGuideWindowController: NSWindowController {
         return items
     }
 
-    public func loadItemsForWindow(_ extWindow: NSWindow) {
+    func loadItemsForWindow(_ extWindow: NSWindow) {
         items = ShortcutGuideWindowController.inspectItemsForWindow(extWindow)
     }
     
-    public func showForWindow(_ extWindow: NSWindow, columnStyle style: ShortcutGuideColumnStyle?) {
+    func showForWindow(_ extWindow: NSWindow, columnStyle style: ShortcutGuideColumnStyle?) {
         prepareForPresentation(window: extWindow, columnStyle: style ?? preferredColumnStyle)
         showWindow(nil)
         addCloseOnOutsideClick()
     }
     
-    public func hide() {
+    func hide() {
         removeCloseOnOutsideClick()
         window?.orderOut(nil)
     }
     
-    public func toggleForWindow(_ extWindow: NSWindow, columnStyle style: ShortcutGuideColumnStyle?) {
+    func toggleForWindow(_ extWindow: NSWindow, columnStyle style: ShortcutGuideColumnStyle?) {
         guard let window = window else { return }
         if !window.isVisible {
             showForWindow(extWindow, columnStyle: style)
@@ -220,7 +220,7 @@ final class ShortcutGuideWindowController: NSWindowController {
     
     // MARK: - Shortcut Items
 
-    public var items: [ShortcutItem]? {
+    var items: [ShortcutItem]? {
         get {
             rootViewController.items
         }
@@ -241,7 +241,7 @@ final class ShortcutGuideWindowController: NSWindowController {
 
 extension ShortcutGuideWindowController: NSWindowDelegate {
     
-    public func windowDidResignKey(_ notification: Notification) {
+    func windowDidResignKey(_ notification: Notification) {
         self.hide()
     }
     

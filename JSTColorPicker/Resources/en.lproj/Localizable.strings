@@ -132,9 +132,6 @@
 "Discover Devices" = "Discover Devices";
 
 /* Shortcut Guide */
-"Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN." = "Discover Devices (⌃I): Immediately broadcast a search for available devices on the LAN.";
-
-/* Shortcut Guide */
 "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.";
 
 /* Shortcut Guide */
@@ -312,6 +309,9 @@
 /* Item #%@: %@ */
 "Item #%ld: %@" = "Item #%ld: %@";
 
+/* toolbarItemLabel */
+"Key Bindings" = "Key Bindings";
+
 /* actionRequiresRestart(_:) */
 "Later" = "Later";
 
@@ -331,10 +331,7 @@
 "Locate" = "Locate";
 
 /* Shortcut Guide */
-"Magic Cursor" = "Magic Cursor";
-
-/* Shortcut Guide */
-"Magic Cursor (F1): Add, or delete annotations." = "Magic Cursor (F1): Add, or delete annotations.";
+"Magic Cursor: Add, or delete annotations." = "Magic Cursor: Add, or delete annotations.";
 
 /* Shortcut Guide */
 "Magnify" = "Magnify";
@@ -349,10 +346,7 @@
 "Magnify to next level from current cursor position." = "Magnify to next level from current cursor position.";
 
 /* Shortcut Guide */
-"Magnifying Glass" = "Magnifying Glass";
-
-/* Shortcut Guide */
-"Magnifying Glass (F3): Zoom in at a preset scale, supports zooming into a specified area." = "Magnifying Glass (F3): Zoom in at a preset scale, supports zooming into a specified area.";
+"Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area.";
 
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
@@ -364,10 +358,7 @@
 "Minify to previous level from current cursor position." = "Minify to previous level from current cursor position.";
 
 /* Shortcut Guide */
-"Minifying Glass" = "Minifying Glass";
-
-/* Shortcut Guide */
-"Minifying Glass (F4): Zoom out at a preset scale." = "Minifying Glass (F4): Zoom out at a preset scale.";
+"Minifying Glass: Zoom out at a preset scale." = "Minifying Glass: Zoom out at a preset scale.";
 
 /* TemplateError */
 "Missing required field: %@." = "Missing required field: %@.";
@@ -412,10 +403,7 @@
 "Move cursor with keyboard by 100 pixel." = "Move cursor with keyboard by 100 pixel.";
 
 /* Shortcut Guide */
-"Moving Hand" = "Moving Hand";
-
-/* Shortcut Guide */
-"Moving Hand (F5): Drag to move the scene, or view the major tag of annotations." = "Moving Hand (F5): Drag to move the scene, or view the major tag of annotations.";
+"Moving Hand: Drag to move the scene, or view the major tag of annotations." = "Moving Hand: Drag to move the scene, or view the major tag of annotations.";
 
 /* EditAreaController */
 "New Area" = "New Area";
@@ -487,9 +475,6 @@
 /* updateInformationPanel */
 "Open or drop an image here." = "Open or drop an image here.";
 
-/* Shortcut Guide */
-"Open…" = "Open…";
-
 /* windowSetupSmartZoomAction(_:) */
 "Operation Succeed" = "Operation Succeed";
 
@@ -501,6 +486,9 @@
 
 /* Shortcut Guide */
 "Place Color & Coordinates at current cursor position." = "Place Color & Coordinates at current cursor position.";
+
+/* SwiftKeyBindings */
+"Please combine with other keys." = "Please combine with other keys.";
 
 /* PreferencesController */
 "Preferences" = "Preferences";
@@ -587,10 +575,7 @@
 "Select Previous Annotation" = "Select Previous Annotation";
 
 /* Shortcut Guide */
-"Selection Arrow" = "Selection Arrow";
-
-/* Shortcut Guide */
-"Selection Arrow (F2): View, select, or modify annotations." = "Selection Arrow (F2): View, select, or modify annotations.";
+"Selection Arrow: View, select, or modify annotations." = "Selection Arrow: View, select, or modify annotations.";
 
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
@@ -598,11 +583,17 @@
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Sidebar" = "Sidebar";
 
+/* SwiftKeyBindings */
+"Single type is invalid for a shortcut." = "Single type is invalid for a shortcut.";
+
 /* presentMultipleErrors(_:) */
 "Some of the documents you requested cannot be opened:" = "Some of the documents you requested cannot be opened:";
 
 /* Content.Error */
 "Some of these items do not exist." = "Some of these items do not exist.";
+
+/* SwiftKeyBindings */
+"Space" = "Space";
 
 /* updateMainMenuItems() */
 "Subscribe JSTColorPicker…" = "Subscribe JSTColorPicker…";
@@ -635,7 +626,7 @@
 "Take Screenshot" = "Take Screenshot";
 
 /* Shortcut Guide */
-"Take Screenshot (⌃S): Take a screenshot directly from the selected devices." = "Take Screenshot (⌃S): Take a screenshot directly from the selected devices.";
+"Take Screenshot: Take a screenshot directly from the selected devices." = "Take Screenshot: Take a screenshot directly from the selected devices.";
 
 /* reloadUI() */
 "Thank you for downloading JSTColorPicker!" = "Thank you for downloading JSTColorPicker!";
@@ -760,6 +751,15 @@
 /* Shortcut Guide */
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
 
+/* SwiftKeyBindings */
+"“%@” does not include the Command key." = "“%@” does not include the Command key.";
+
+/* SwiftKeyBindings */
+"“%@” includes the Command key." = "“%@” includes the Command key.";
+
+/* SwiftKeyBindings */
+"“%@” is already taken." = "“%@” is already taken.";
+
 /* Shortcut Guide */
 "◦ Magic Cursor" = "◦ Magic Cursor";
 
@@ -771,24 +771,3 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ Selection Arrow";
-
-/* toolbarItemLabel */
-"Key Bindings" = "Key Bindings";
-
-/* SwiftKeyBindings */
-"Please combine with other keys." = "Please combine with other keys.";
-
-/* SwiftKeyBindings */
-"Single type is invalid for a shortcut." = "Single type is invalid for a shortcut.";
-
-/* SwiftKeyBindings */
-"Space" = "Space";
-
-/* SwiftKeyBindings */
-"“%@” does not include the Command key." = "“%@” does not include the Command key.";
-
-/* SwiftKeyBindings */
-"“%@” includes the Command key." = "“%@” includes the Command key.";
-
-/* SwiftKeyBindings */
-"“%@” is already taken." = "“%@” is already taken.";

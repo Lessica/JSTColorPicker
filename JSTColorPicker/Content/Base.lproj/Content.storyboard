@@ -289,8 +289,6 @@
                         <outlet property="columnIdentifier" destination="71D-st-arP" id="bLD-ac-vcN"/>
                         <outlet property="columnSimilarity" destination="pnx-EH-SzG" id="c6k-Ci-tgF"/>
                         <outlet property="columnTag" destination="oZV-av-rVK" id="9jm-DH-212"/>
-                        <outlet property="itemNewAreaMenuItem" destination="gSx-dD-DgQ" id="8yc-Jt-SF3"/>
-                        <outlet property="itemNewColorMenuItem" destination="7Qu-yW-xLS" id="Vss-bk-J1A"/>
                         <outlet property="itemNewMenu" destination="Cqe-SJ-8Rv" id="0xI-hS-XYh"/>
                         <outlet property="itemReprAreaAltMenuItem" destination="dmE-sc-yBQ" id="RHr-Hb-Xil"/>
                         <outlet property="itemReprAreaMenuItem" destination="sVk-oR-IHz" id="GwM-dB-mQn"/>
@@ -438,13 +436,13 @@ CA
                         <menuItem title="Add Color &amp; Coordinates…" id="7Qu-yW-xLS">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="create:" target="oDF-UT-bv5" id="CSg-vR-jDO"/>
+                                <action selector="createCoordinate:" target="YIx-oB-8lo" id="hwH-35-n9d"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Add Area…" id="gSx-dD-DgQ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="create:" target="oDF-UT-bv5" id="W2r-Aj-nb8"/>
+                                <action selector="createArea:" target="YIx-oB-8lo" id="sKb-DU-aw6"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="IMH-Di-kpO"/>

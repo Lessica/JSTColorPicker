@@ -254,12 +254,8 @@
 		CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */; };
 		CCE01C86264CD8E1005960A7 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C74264CD8E0005960A7 /* NotificationToken.swift */; };
 		CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C74264CD8E0005960A7 /* NotificationToken.swift */; };
-		CCE01C88264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */; };
-		CCE01C89264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */; };
 		CCE01C8A264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */; };
 		CCE01C8B264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */; };
-		CCE01C8C264CD8E1005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */; };
-		CCE01C8D264CD8E1005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */; };
 		CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */; };
 		CCE01C8F264CD8E1005960A7 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */; };
 		CCE01C95264CDA67005960A7 /* ManagedWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */; };
@@ -268,6 +264,8 @@
 		CCE01C99264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */; };
 		CCE01C9A264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
 		CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
+		CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
+		CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
 		CCE33FEF26325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FF026325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
@@ -312,8 +310,6 @@
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
 		CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
-		CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
-		CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */; };
 		D60A691023F2C89200ED9748 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
 		D60B0F4124286AA30034F21C /* JSTScreenshotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTScreenshotHelper.m */; };
@@ -1064,12 +1060,11 @@
 		CCE01C72264CD8E0005960A7 /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
 		CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItemGroup.swift; sourceTree = "<group>"; };
 		CCE01C74264CD8E0005960A7 /* NotificationToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
-		CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardCharacter.swift; sourceTree = "<group>"; };
 		CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageControl.swift; sourceTree = "<group>"; };
-		CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItemView.swift; sourceTree = "<group>"; };
 		CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
 		CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedTabWindow.swift; sourceTree = "<group>"; };
+		CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		CCE33FEE26325F6C0082F73D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCE33FF82632642C0082F73D /* PurchaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindow.swift; sourceTree = "<group>"; };
 		CCE340022632648B0082F73D /* PurchaseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindowController.swift; sourceTree = "<group>"; };
@@ -1101,7 +1096,6 @@
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
 		CCFECFAA262D50D0001F6467 /* open_console.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_console.scpt; sourceTree = "<group>"; };
 		CCFECFBB262D5152001F6467 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShortcutGuide+Ext.swift"; sourceTree = "<group>"; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
 		D60A691123F2CDBA00ED9748 /* RulerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerMarker.swift; sourceTree = "<group>"; };
 		D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = JSTScreenshotHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1838,7 +1832,6 @@
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
 				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
-				CCFFCA222613516C00E05F87 /* ShortcutGuide+Ext.swift */,
 				CCC0F88E263001D5006C4492 /* Down+Ext.swift */,
 				CCB741352635386D007D2CF5 /* Links+Ext.swift */,
 			);
@@ -2068,8 +2061,7 @@
 		CCE01CA4264CE104005960A7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */,
-				CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */,
+				CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */,
 				CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */,
 			);
 			path = Models;
@@ -3400,7 +3392,7 @@
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
-				CCE01C8C264CD8E1005960A7 /* ShortcutItem.swift in Sources */,
+				CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
@@ -3433,9 +3425,7 @@
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
-				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
-				CCE01C88264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
@@ -3614,7 +3604,6 @@
 				CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
 				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
-				CCE01C89264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
@@ -3708,8 +3697,8 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
 				CC236321264AE7AB005E909A /* MainMenu.swift in Sources */,
-				CCE01C8D264CD8E1005960A7 /* ShortcutItem.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
+				CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
@@ -3729,7 +3718,6 @@
 				CC23633F264AEC52005E909A /* MenuKeyBindingManager.swift in Sources */,
 				D645E4AD23EC40C50039F4F6 /* PreviewOverlayView.swift in Sources */,
 				D645E4B123EE72A30039F4F6 /* AreaAnnotatorOverlay.swift in Sources */,
-				CCFFCA242613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
 				CC23630C264A77CC005E909A /* CustomResponder.swift in Sources */,
 				D67A8F0F247E6D6000153DE5 /* DragEndpoint.swift in Sources */,

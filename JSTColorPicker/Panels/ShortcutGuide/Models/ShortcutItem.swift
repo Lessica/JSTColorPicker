@@ -9,22 +9,22 @@
 import Cocoa
 
 public struct ShortcutItem {
-    public init(name: String, keyString: String, toolTip: String, modifierFlags: NSEvent.ModifierFlags) {
+    public init(name: String, toolTip: String, modifierFlags: NSEvent.ModifierFlags, keyEquivalent: String) {
         self.name = name
-        self.keyString = keyString
         self.toolTip = toolTip
         self.modifierFlags = modifierFlags
+        self.keyEquivalent = keyEquivalent
     }
 
-    public init(name: String, keyString: ShortcutItem.KeyboardCharacter, toolTip: String, modifierFlags: NSEvent.ModifierFlags) {
+    public init(name: String, toolTip: String, modifierFlags: NSEvent.ModifierFlags, keyEquivalent: NSEvent.SpecialKey) {
         self.name = name
-        self.keyString = keyString.rawValue
         self.toolTip = toolTip
         self.modifierFlags = modifierFlags
+        self.keyEquivalent = Shortcut.printableKeyEquivalent(forSpecialKey: keyEquivalent.unicodeScalar) ?? ""
     }
 
     public let name: String
-    public let keyString: String
     public let toolTip: String
     public let modifierFlags: NSEvent.ModifierFlags
+    public let keyEquivalent: String
 }

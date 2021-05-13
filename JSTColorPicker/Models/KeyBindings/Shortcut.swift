@@ -135,7 +135,7 @@ struct Shortcut: Hashable {
             return false
         }
         if let firstChar = self.keyEquivalent.utf16.first {
-            if (0xF700...0xF8FF).contains(firstChar) {
+            if (0xF700...0xF8FF).contains(firstChar) || firstChar == 0x0D {
                 return true
             }
         }

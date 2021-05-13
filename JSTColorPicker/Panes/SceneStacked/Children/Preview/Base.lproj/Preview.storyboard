@@ -61,7 +61,7 @@
                                                 <constraint firstItem="WDj-KY-q2N" firstAttribute="leading" secondItem="5Rg-8u-MhX" secondAttribute="leading" constant="-2" id="r1k-qb-ZfE"/>
                                             </constraints>
                                         </customView>
-                                        <slider toolTip="Increase/Decrease Magnification (⌘=/⌘-)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7x2-C5-jRk" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
+                                        <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7x2-C5-jRk" customClass="PreviewSlider" customModule="JSTColorPicker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="2" width="230" height="28"/>
                                             <sliderCell key="cell" continuous="YES" enabled="NO" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="pAE-QJ-VIC"/>
                                             <connections>

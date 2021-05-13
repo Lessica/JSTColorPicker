@@ -700,6 +700,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
 
 // MARK: - Promised Actions
 extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
+    
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !isProcessing else {
             return false
@@ -746,7 +747,22 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
                 ? NSLocalizedString("Collapse All Previews", comment: "menuNeedsUpdate(_:)")
                 : NSLocalizedString("Expand All Previews", comment: "menuNeedsUpdate(_:)")
         }
+        applyKeyBindingsToTopLevelContextMenu(menu)
     }
+    
+    // Apply key bindings for top-level menus.
+    private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
+        if menu == outlineHeaderMenu || menu == outlineMenu {
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+        }
+    }
+    
+}
+
+
+// MARK: - Menu Actions
+
+extension TemplatePreviewController {
     
     @IBAction private func togglePreview(_ sender: Any?) {
         guard let template = try? promiseCheckSelectedTemplate().wait() else { return }

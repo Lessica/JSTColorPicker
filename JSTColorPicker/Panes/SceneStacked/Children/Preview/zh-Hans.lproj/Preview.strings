@@ -1,6 +1,3 @@
-/* Class = "NSSlider"; ibShadowedToolTip = "Increase/Decrease Magnification (⌘=/⌘-)"; ObjectID = "7x2-C5-jRk"; */
-"7x2-C5-jRk.ibShadowedToolTip" = "放大/缩小 (⌘=/⌘-)";
-
 /* Class = "NSTextFieldCell"; title = "100%"; ObjectID = "FRO-AF-Qt1"; */
 "FRO-AF-Qt1.title" = "100%";
 
@@ -8,4 +5,4 @@
 "mmK-Yn-gAd.title" = "图像预览";
 
 /* Class = "NSTextFieldCell"; title = "No image."; ObjectID = "MN5-Ix-Wcd"; */
-"MN5-Ix-Wcd.title" = "";
+"MN5-Ix-Wcd.title" = "无图像。";

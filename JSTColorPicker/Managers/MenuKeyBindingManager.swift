@@ -86,7 +86,7 @@ final class MenuKeyBindingManager: KeyBindingManager {
         try super.saveKeyBindings(outlineTree: outlineTree)
         
         // apply new settings to the menu
-        self.applyKeyBindingsToMainMenu()
+        self.applyKeyBindingsToMainMenu(needsUpdate: true)
     }
     
     
@@ -116,18 +116,23 @@ final class MenuKeyBindingManager: KeyBindingManager {
     
     
     /// re-apply keyboard short cut to all menu items
-    func applyKeyBindingsToMainMenu() {
-        
-        let mainMenu = NSApp.mainMenu!
-        
-        // at first, clear all current short cut sttings at first
-        self.clearMenuKeyBindingRecurrently(menu: mainMenu)
-        
-        // then apply the latest settings
-        self.applyMenuKeyBindingRecurrently(menu: mainMenu)
-        mainMenu.update()
+    func applyKeyBindingsToMainMenu(needsUpdate update: Bool) {
+        applyKeyBindingsToMenu(NSApp.mainMenu!, needsUpdate: update)
     }
     
+    
+    /// re-apply keyboard short cut to all menu items
+    func applyKeyBindingsToMenu(_ menu: NSMenu, needsUpdate update: Bool) {
+        // at first, clear all current short cut sttings at first
+        self.clearMenuKeyBindingRecurrently(menu: menu)
+        
+        // then apply the latest settings
+        self.applyMenuKeyBindingRecurrently(menu: menu)
+        
+        if update {
+            menu.update()
+        }
+    }
     
     /// keyEquivalent and modifierMask for passed-in selector
     func shortcut(
@@ -198,21 +203,27 @@ final class MenuKeyBindingManager: KeyBindingManager {
             }
         }
         
+        // specific private actions
+        if menuItem.action?.description == "_share:" {
+            return false
+        }
+        
         // specific actions
         switch menuItem.action {
-            case #selector(NSWindow.makeKeyAndOrderFront),
-                 #selector(NSApplication.orderFrontCharacterPalette):  // = "Emoji & Symbols"
-                return false
+        case #selector(NSWindow.makeKeyAndOrderFront),
+             #selector(NSApplication.orderFrontCharacterPalette):  // = "Emoji & Symbols"
+            return false
             
-            // window tabbing actions
-            // -> Because they cannot be set correctly.
-            case #selector(NSWindow.selectNextTab(_:)),
-                 #selector(NSWindow.selectPreviousTab(_:)),
-                 #selector(NSWindow.moveTabToNewWindow(_:)),
-                 #selector(NSWindow.mergeAllWindows(_:)):
-                return false
+        // window tabbing actions
+        // -> Because they cannot be set correctly.
+        case #selector(NSDocument.revertToSaved(_:)),
+             #selector(NSWindow.selectNextTab(_:)),
+             #selector(NSWindow.selectPreviousTab(_:)),
+             #selector(NSWindow.moveTabToNewWindow(_:)),
+             #selector(NSWindow.mergeAllWindows(_:)):
+            return false
             
-            default: break
+        default: break
         }
         
         return true
