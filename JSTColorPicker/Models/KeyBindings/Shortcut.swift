@@ -212,7 +212,8 @@ struct Shortcut: Hashable {
         .escape: "⎋",
     ].mapKeys(\.unicodeScalar)
     
-    internal static func printableKeyEquivalent(forSpecialKey specialKey: Unicode.Scalar) -> String? {
+    internal static func printableKeyEquivalent(forSpecialKey specialKey: Unicode.Scalar?) -> String? {
+        guard let specialKey = specialKey else { return nil }
         return printableKeyEquivalents[specialKey]
     }
     

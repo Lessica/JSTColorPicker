@@ -20,7 +20,7 @@ public struct ShortcutItem {
         self.name = name
         self.toolTip = toolTip
         self.modifierFlags = modifierFlags
-        self.keyEquivalent = Shortcut.printableKeyEquivalent(forSpecialKey: keyEquivalent.unicodeScalar) ?? ""
+        self.keyEquivalent = String(keyEquivalent.unicodeScalar)
     }
 
     public let name: String

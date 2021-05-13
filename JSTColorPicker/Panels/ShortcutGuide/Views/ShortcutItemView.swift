@@ -25,7 +25,7 @@ final class ShortcutItemView: NSView {
         itemKeyLabelShift.isHidden = !item.modifierFlags.contains(.shift)
         itemKeyLabelCommand.isHidden = !item.modifierFlags.contains(.command)
         itemKeyLabelFunction.isHidden = !item.modifierFlags.contains(.function)
-        itemKeyLabel.stringValue = item.keyEquivalent
+        itemKeyLabel.stringValue = Shortcut.printableKeyEquivalent(forSpecialKey: item.keyEquivalent.unicodeScalars.first) ?? item.keyEquivalent
         itemLabel.toolTip = item.toolTip
     }
     

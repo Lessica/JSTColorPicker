@@ -26,7 +26,6 @@
 import AppKit
 
 enum MainMenu: Int {
-    
     case application
     case file
     case edit
@@ -38,9 +37,7 @@ enum MainMenu: Int {
     case window
     case help
     
-    
     enum MenuItemTag: Int {
-        
         case services = 999  // not to list up in "Menu Key Bindings" setting
         case sharingService = 1999
         case recentDocuments = 2999  // not to list up in "Menu Key Bindings" setting
@@ -48,10 +45,7 @@ enum MainMenu: Int {
         case templates = 8999  // not to list up in "Menu Key Bindings" setting
     }
     
-    
     var menu: NSMenu? {
-        
         return NSApp.mainMenu?.item(at: self.rawValue)?.submenu
     }
-    
 }
