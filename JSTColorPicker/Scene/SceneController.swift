@@ -7,10 +7,9 @@
 //
 
 import Cocoa
-import ShortcutGuide
 
 
-class SceneController: NSViewController {
+final class SceneController: NSViewController {
     
     
     // MARK: - Delegates

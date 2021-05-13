@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AreaAnnotator: Annotator {
+final class AreaAnnotator: Annotator {
     var pixelArea     : PixelArea            { contentItem as! PixelArea        }
     var pixelOverlay  : AreaAnnotatorOverlay { overlay as! AreaAnnotatorOverlay }
     

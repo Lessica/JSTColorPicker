@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneOverlayView: NSView {
+final class SceneOverlayView: NSView {
     
     var state: DragEndpointState = .idle
     

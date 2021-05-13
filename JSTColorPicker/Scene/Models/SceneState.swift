@@ -14,7 +14,7 @@ protocol SceneStateSource: AnyObject {
     func beginEditing() -> EditableOverlay?
 }
 
-class SceneState {
+final class SceneState {
     
     enum ManipulatingSide {
         case none

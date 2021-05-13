@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import ShortcutGuide
 
 private extension NSUserInterfaceItemIdentifier {
     static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
@@ -35,7 +34,7 @@ protocol ContentActionDelegate: AnyObject {
     func contentActionDeleted(_ items: [ContentItem])
 }
 
-class ContentController: NSViewController {
+final class ContentController: NSViewController {
     
     weak var actionManager          : ContentActionDelegate!
     weak var tagManager             : TagListSource!

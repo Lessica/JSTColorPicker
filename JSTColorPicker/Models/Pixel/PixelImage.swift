@@ -9,7 +9,7 @@
 import Cocoa
 import LuaSwift
 
-class PixelImage {
+final class PixelImage {
     
     struct Source {
         var url: URL

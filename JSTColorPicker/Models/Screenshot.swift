@@ -14,7 +14,7 @@ protocol ScreenshotLoader: AnyObject {
     func load(_ screenshot: Screenshot) throws
 }
 
-class Screenshot: NSDocument {
+final class Screenshot: NSDocument {
     
     // MARK: - Types
     

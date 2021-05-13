@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TemplateOutlineView: NSOutlineView {
+final class TemplateOutlineView: NSOutlineView {
     
     weak var appearanceObserver: EffectiveAppearanceObserver?
     

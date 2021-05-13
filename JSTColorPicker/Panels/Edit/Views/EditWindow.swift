@@ -9,7 +9,7 @@
 import Cocoa
 
 
-class EditWindow: NSWindow {
+final class EditWindow: NSWindow {
     
     enum EditType {
         case add

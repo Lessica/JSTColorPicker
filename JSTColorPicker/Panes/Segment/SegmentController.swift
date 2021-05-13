@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SegmentController: NSViewController {
+final class SegmentController: NSViewController {
     weak var screenshot: Screenshot?
     
     @IBOutlet weak var segmentedControl  : NSSegmentedControl!

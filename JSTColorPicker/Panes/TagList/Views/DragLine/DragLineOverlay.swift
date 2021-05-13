@@ -2,7 +2,7 @@
 
 import Cocoa
 
-class DragLineOverlay {
+final class DragLineOverlay {
 
     init(startScreenPoint: CGPoint, endScreenPoint: CGPoint) {
         self.startScreenPoint = startScreenPoint

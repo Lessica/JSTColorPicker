@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneBorderView: NSView {
+final class SceneBorderView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()

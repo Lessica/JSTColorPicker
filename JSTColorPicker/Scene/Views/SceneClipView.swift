@@ -12,7 +12,7 @@ import Cocoa
     `SceneClipView` is a clip view subclass that centers smaller documents views
     within its inset clip bounds (as described by the set `contentInsets`).
 */
-class SceneClipView: NSClipView {
+final class SceneClipView: NSClipView {
     
     override var isFlipped: Bool { true }
 

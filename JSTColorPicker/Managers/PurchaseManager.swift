@@ -10,7 +10,7 @@ import Foundation
 import SwiftyStoreKit
 import TPInAppReceipt
 
-@objc class PurchaseManager: NSObject {
+@objc final class PurchaseManager: NSObject {
     
     static let productTypeDidChangeNotification  = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
     

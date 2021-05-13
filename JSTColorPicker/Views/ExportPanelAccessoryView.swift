@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ExportPanelAccessoryView: NSView {
+final class ExportPanelAccessoryView: NSView {
     private static let nibName = String(describing: ExportPanelAccessoryView.self)
     @IBOutlet weak var locateAfterOperationButton: NSButton!
     

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagCellView: NSTableCellView {
+final class TagCellView: NSTableCellView {
     
     var text: String? {
         get { textField?.stringValue                  }

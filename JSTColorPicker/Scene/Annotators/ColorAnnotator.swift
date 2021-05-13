@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ColorAnnotator: Annotator {
+final class ColorAnnotator: Annotator {
     var pixelColor    : PixelColor            { contentItem as! PixelColor        }
     var pixelOverlay  : ColorAnnotatorOverlay { overlay as! ColorAnnotatorOverlay }
     

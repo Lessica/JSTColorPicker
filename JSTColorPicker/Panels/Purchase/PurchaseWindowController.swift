@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PurchaseWindowController: NSWindowController {
+final class PurchaseWindowController: NSWindowController {
     
     static let shared = newController()
     

@@ -13,7 +13,7 @@ extension NSPasteboard.Name {
     static let jstColorPicker = NSPasteboard.Name("com.jst.JSTColorPicker.pasteboard")
 }
 
-class ExportManager {
+final class ExportManager {
     
     enum Error: LocalizedError {
         case noDocumentLoaded

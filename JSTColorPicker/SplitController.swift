@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import ShortcutGuide
 
 class SplitController: NSSplitViewController {
     

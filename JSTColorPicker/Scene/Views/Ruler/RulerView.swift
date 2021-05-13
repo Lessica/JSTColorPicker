@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class RulerView: NSRulerView {
+final class RulerView: NSRulerView {
     
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)

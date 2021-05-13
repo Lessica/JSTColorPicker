@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TemplateInfoController: StackedPaneController {
+final class TemplateInfoController: StackedPaneController {
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-information") }
 
     private let observableKeys        : [UserDefaults.Key] = [.toggleTemplateDetailedInformation]

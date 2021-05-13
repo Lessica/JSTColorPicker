@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PurchaseWindow: NSPanel {
+final class PurchaseWindow: NSPanel {
     
     override func awakeFromNib() {
         super.awakeFromNib()

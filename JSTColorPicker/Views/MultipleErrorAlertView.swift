@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MultipleErrorAlertView: NSView {
+final class MultipleErrorAlertView: NSView {
 
     @IBOutlet weak var textView: NSTextView!
     

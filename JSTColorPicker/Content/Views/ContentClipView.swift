@@ -8,6 +8,6 @@
 
 import Cocoa
 
-class ContentClipView: NSClipView {
+final class ContentClipView: NSClipView {
     override var isFlipped: Bool { true }
 }

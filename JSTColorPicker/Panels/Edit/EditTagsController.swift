@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditTagsController: EditViewController {
+final class EditTagsController: EditViewController {
     
     @IBOutlet weak var box          : NSBox!
     

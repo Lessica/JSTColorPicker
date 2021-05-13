@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class AreaAnnotatorOverlay: AnnotatorOverlay {
+final class AreaAnnotatorOverlay: AnnotatorOverlay {
 
     internal private(set) var rect: PixelRect
     override var hidesDuringEditing: Bool { true }

@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import ShortcutGuide
 
 private extension NSUserInterfaceItemIdentifier {
     static let columnFlags      = NSUserInterfaceItemIdentifier("col-flags")
@@ -24,7 +23,7 @@ private extension NSUserInterfaceItemIdentifier {
     }
 }
 
-class TagListController: StackedPaneController {
+final class TagListController: StackedPaneController {
     struct NotificationType {
         struct Name {
             static let tagPersistentStoreRequiresReloadNotification = NSNotification.Name(rawValue: "TagPersistentStoreRequiresReloadNotification")

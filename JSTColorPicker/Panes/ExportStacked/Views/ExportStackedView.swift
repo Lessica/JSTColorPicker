@@ -8,4 +8,4 @@
 
 import Cocoa
 
-class ExportStackedView: StackedView { }
+final class ExportStackedView: StackedView { }

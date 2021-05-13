@@ -9,7 +9,7 @@
 import Cocoa
 import MASPreferences
 
-class AdvancedController: NSViewController {
+final class AdvancedController: NSViewController {
     
     @IBOutlet weak var checkUpdatesCheckbox: NSButton!
     

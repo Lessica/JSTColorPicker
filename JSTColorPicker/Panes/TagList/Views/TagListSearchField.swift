@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagListSearchField: NSSearchField, UndoProxy {
+final class TagListSearchField: NSSearchField, UndoProxy {
     lazy var contextUndoManager: UndoManager = { return UndoManager() }()
     override var undoManager: UndoManager? { contextUndoManager }
 }

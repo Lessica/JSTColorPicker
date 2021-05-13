@@ -9,7 +9,7 @@
 import Cocoa
 
 @IBDesignable
-class InspectorView: NSControl {
+final class InspectorView: NSControl {
     private let nibName = "InspectorView"
     private var contentView: NSView?
     

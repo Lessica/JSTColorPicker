@@ -5,7 +5,7 @@ extension Notification.Name {
     static let dropRespondingWindowChanged = Notification.Name("DropRespondingWindowChanged")
 }
 
-class TabService: TabDelegate {
+final class TabService: TabDelegate {
     
     private var internalActiveOrder: Int = 0
     private var pendingActiveOrder: Int {
@@ -13,9 +13,9 @@ class TabService: TabDelegate {
         internalActiveOrder += 1
         return currentActiveOrder
     }
-    private var internalManagedWindows: [ManagedWindow] = []
+    private var internalManagedWindows: [ManagedTabWindow] = []
     private weak var dropRespondingWindow: NSWindow?
-    var managedWindows: [ManagedWindow] { internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder }) }
+    var managedWindows: [ManagedTabWindow] { internalManagedWindows.sorted(by: { $1.windowActiveOrder < $0.windowActiveOrder }) }
     
     /// Returns the main window of the managed window stack.
     /// Falls back the first element if no window is main. Note that this would
@@ -32,7 +32,7 @@ class TabService: TabDelegate {
         return firstManagedWindow.map({ $0.window })
     }
     
-    var firstManagedWindow: ManagedWindow? {
+    var firstManagedWindow: ManagedTabWindow? {
         let mainManagedWindow = internalManagedWindows
             .first { $0.window.isMainWindow }
         
@@ -68,7 +68,7 @@ class TabService: TabDelegate {
     }
     
     @discardableResult
-    func addManagedWindow(windowController: WindowController) -> ManagedWindow? {
+    func addManagedWindow(windowController: WindowController) -> ManagedTabWindow? {
         guard let window = windowController.window else { return nil }
         let subscription = NotificationCenter.default.observe(
             name: NSWindow.willCloseNotification,
@@ -77,7 +77,7 @@ class TabService: TabDelegate {
             guard let window = notification.object as? NSWindow else { return }
             self.removeManagedWindow(forWindow: window)
         }
-        let management = ManagedWindow(
+        let management = ManagedTabWindow(
             windowActiveOrder: pendingActiveOrder,
             windowController: windowController,
             closingSubscription: subscription

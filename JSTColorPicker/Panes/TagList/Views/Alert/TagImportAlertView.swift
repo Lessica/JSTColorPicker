@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagImportAlertView: NSView {
+final class TagImportAlertView: NSView {
 
     @IBOutlet weak var textView: NSTextView!
     

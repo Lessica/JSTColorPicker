@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TemplateContentCellView: NSTableCellView {
+final class TemplateContentCellView: NSTableCellView {
     
     static let defaultFontSize        : CGFloat = 11.0
     static let defaultTextAttributes  : [NSAttributedString.Key: Any] = [

@@ -18,7 +18,7 @@ enum RulerMarkerPosition {
     case opposite
 }
 
-class RulerMarker: NSRulerMarker {
+final class RulerMarker: NSRulerMarker {
     
     static let markerSize       = CGSize(width: 10.0, height: 10.0)
     static let placeholderImage = NSImage(color: .clear, size: RulerMarker.markerSize)

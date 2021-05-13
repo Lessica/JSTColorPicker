@@ -12,7 +12,7 @@ import Cocoa
     func purchaseButtonTapped(_ sender: PurchaseButton)
 }
 
-class PurchaseButton: ColoredView {
+final class PurchaseButton: ColoredView {
     
     @IBOutlet weak var titleLabel     : NSTextField!
     @IBOutlet weak var subtitleLabel  : NSTextField!

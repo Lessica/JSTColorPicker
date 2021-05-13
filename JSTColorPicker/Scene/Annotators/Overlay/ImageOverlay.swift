@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ImageOverlay: NSView {
+final class ImageOverlay: NSView {
     
     override func hitTest(_ point: NSPoint) -> NSView? {
         return nil

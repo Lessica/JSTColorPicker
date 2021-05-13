@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class GridWindow: NSPanel {
+final class GridWindow: NSPanel {
     
     override func awakeFromNib() {
         super.awakeFromNib()

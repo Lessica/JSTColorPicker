@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditAreaController: EditViewController {
+final class EditAreaController: EditViewController {
     
     @IBOutlet weak var box          : NSBox!
     @IBOutlet weak var previewBox   : NSBox!

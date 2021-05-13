@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneGridView: NSView {
+final class SceneGridView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()

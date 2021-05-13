@@ -9,7 +9,7 @@
 import Cocoa
 
 @IBDesignable
-class TemplateInfoView: NSView {
+final class TemplateInfoView: NSView {
     private let nibName = String(describing: TemplateInfoView.self)
     private var contentView: NSView?
     

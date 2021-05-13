@@ -13,7 +13,7 @@ protocol ContentTableViewResponder: AnyObject {
     func tableViewDoubleAction(_ sender: ContentTableView)
 }
 
-class ContentTableView: NSTableView, UndoProxy {
+final class ContentTableView: NSTableView, UndoProxy {
 
     override var isFlipped: Bool { true }
     

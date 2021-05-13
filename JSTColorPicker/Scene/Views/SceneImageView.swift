@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneImageView: NSView {
+final class SceneImageView: NSView {
     
     override func hitTest(_ point: NSPoint) -> NSView? { return nil }  // disable user interactions
     override func cursorUpdate(with event: NSEvent) { }  // do not perform default behavior

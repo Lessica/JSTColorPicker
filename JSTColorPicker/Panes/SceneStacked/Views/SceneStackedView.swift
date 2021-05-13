@@ -8,4 +8,4 @@
 
 import Cocoa
 
-class SceneStackedView: StackedView { }
+final class SceneStackedView: StackedView { }

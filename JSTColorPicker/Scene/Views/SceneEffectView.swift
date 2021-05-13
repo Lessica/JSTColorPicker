@@ -12,7 +12,7 @@ protocol SceneEffectViewSource: AnyObject {
     var sourceSceneEffectView: SceneEffectView { get }
 }
 
-class SceneEffectView: NSView {
+final class SceneEffectView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()

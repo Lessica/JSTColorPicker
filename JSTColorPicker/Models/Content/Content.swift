@@ -9,7 +9,7 @@
 import Foundation
 import LuaSwift
 
-class Content: NSObject, Codable {
+final class Content: NSObject, Codable {
     
     static let exifCodableStorageKey = "com.jst.JSTColorPicker.Content"
     

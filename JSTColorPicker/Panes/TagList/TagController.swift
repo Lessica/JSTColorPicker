@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagController: NSArrayController {
+final class TagController: NSArrayController {
     
     override func insert(_ object: Any, atArrangedObjectIndex index: Int) {
         guard let items = arrangedObjects as? [Tag] else { return }

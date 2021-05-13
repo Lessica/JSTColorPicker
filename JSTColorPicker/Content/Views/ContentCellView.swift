@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ContentCellView: NSTableCellView {
+final class ContentCellView: NSTableCellView {
     
     var normalTextColor: NSColor? {
         didSet {

@@ -8,6 +8,6 @@
 
 import Cocoa
 
-class ContentScrollView: NSScrollView {
+final class ContentScrollView: NSScrollView {
     override var isFlipped: Bool { true }
 }

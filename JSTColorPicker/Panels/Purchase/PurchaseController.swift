@@ -9,7 +9,7 @@
 import Cocoa
 import SwiftyStoreKit
 
-class PurchaseController: NSViewController {
+final class PurchaseController: NSViewController {
     
     enum Error: LocalizedError {
         case invalidProductIdentifier(identifier: String)

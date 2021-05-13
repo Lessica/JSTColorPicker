@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TemplatePreviewObject {
+final class TemplatePreviewObject {
     enum State {
         case initialized
         case rejected

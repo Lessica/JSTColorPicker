@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ColorAnnotatorOverlay: AnnotatorOverlay {
+final class ColorAnnotatorOverlay: AnnotatorOverlay {
     
     internal private(set) var coordinate: PixelCoordinate
     

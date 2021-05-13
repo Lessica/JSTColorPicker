@@ -2,7 +2,7 @@
 
 import Cocoa
 
-class DragConnectionController: NSObject, NSDraggingSource {
+final class DragConnectionController: NSObject, NSDraggingSource {
 
     var pasteboardType: NSPasteboard.PasteboardType
     var sourceEndpoint: DragEndpoint?

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PurchaseMainView: NSVisualEffectView {
+final class PurchaseMainView: NSVisualEffectView {
     
     override var mouseDownCanMoveWindow: Bool { true }
     

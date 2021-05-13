@@ -13,7 +13,7 @@ extension NSPasteboard.PasteboardType {
     static let area = NSPasteboard.PasteboardType(rawValue: "public.jst.content.area")
 }
 
-class PixelArea: ContentItem {
+final class PixelArea: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     

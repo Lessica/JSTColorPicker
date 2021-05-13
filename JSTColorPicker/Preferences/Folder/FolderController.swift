@@ -9,7 +9,7 @@
 import Cocoa
 import MASPreferences
 
-class FolderController: NSViewController {
+final class FolderController: NSViewController {
     
     @IBOutlet weak var screenshotSavedAtLocationButton       : NSButton!
     @IBOutlet weak var tagDatabaseLocationButton             : NSButton!

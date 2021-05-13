@@ -14,7 +14,7 @@ private extension NSStoryboardSegue.Identifier {
     static let preview = "Preview"
 }
 
-class SceneStackedController: StackedPaneContainer {
+final class SceneStackedController: StackedPaneContainer {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let inspectorCtrl = segue.destinationController as? InspectorController {
             inspectorCtrl.style = segue.identifier == .primaryInspector ? .primary : .secondary

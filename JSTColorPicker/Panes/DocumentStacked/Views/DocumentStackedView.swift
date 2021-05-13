@@ -8,4 +8,4 @@
 
 import Cocoa
 
-class DocumentStackedView: StackedView { }
+final class DocumentStackedView: StackedView { }

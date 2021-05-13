@@ -9,7 +9,7 @@
 import Foundation
 import LuaSwift
 
-class Template {
+final class Template {
     enum Error: LocalizedError {
         case unknown
         case unsatisfiedPlatformVersion(version: String)

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PixelMatchService {
+final class PixelMatchService {
     
     enum Error: LocalizedError {
         

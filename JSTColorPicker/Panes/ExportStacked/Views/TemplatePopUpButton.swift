@@ -8,6 +8,6 @@
 
 import Cocoa
 
-class TemplatePopUpButton: NSPopUpButton {
+final class TemplatePopUpButton: NSPopUpButton {
     override func synchronizeTitleAndSelectedItem() { }
 }

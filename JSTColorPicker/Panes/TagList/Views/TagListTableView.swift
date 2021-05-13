@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagListTableView: NSTableView, UndoProxy {
+final class TagListTableView: NSTableView, UndoProxy {
     
     var isEmbeddedMode: Bool = false
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }

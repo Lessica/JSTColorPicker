@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagListOverlayView: NSView, DragEndpoint {
+final class TagListOverlayView: NSView, DragEndpoint {
     
     var state: DragEndpointState = .idle {
         didSet {

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class GridViewController: NSViewController {
+final class GridViewController: NSViewController {
     
     @IBOutlet weak var gridView        : GridView!
     private        let observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView, .gridViewSizeLevel, .gridViewAnimationSpeed]

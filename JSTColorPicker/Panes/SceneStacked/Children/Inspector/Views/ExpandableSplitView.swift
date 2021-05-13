@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ExpandableSplitView: NSSplitView {
+final class ExpandableSplitView: NSSplitView {
 
     override func mouseUp(with event: NSEvent) {
         if event.clickCount == 2 && arrangedSubviews.count == 2 {

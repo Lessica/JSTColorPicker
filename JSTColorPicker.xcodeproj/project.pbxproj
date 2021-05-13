@@ -195,8 +195,6 @@
 		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
-		CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72D260F5E83000AC582 /* ShortcutGuide */; };
-		CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = CCABB72F260F5E8C000AC582 /* ShortcutGuide */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
 		CCB741372635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
 		CCB76981260A0B350029693B /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
@@ -244,6 +242,32 @@
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
+		CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
+		CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
+		CCE01C7F264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
+		CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C71264CD8E0005960A7 /* ShortcutGuidePageController.swift */; };
+		CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C71264CD8E0005960A7 /* ShortcutGuidePageController.swift */; };
+		CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C72264CD8E0005960A7 /* ShortcutGuideViewController.swift */; };
+		CCE01C83264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C72264CD8E0005960A7 /* ShortcutGuideViewController.swift */; };
+		CCE01C84264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */; };
+		CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */; };
+		CCE01C86264CD8E1005960A7 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C74264CD8E0005960A7 /* NotificationToken.swift */; };
+		CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C74264CD8E0005960A7 /* NotificationToken.swift */; };
+		CCE01C88264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */; };
+		CCE01C89264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */; };
+		CCE01C8A264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */; };
+		CCE01C8B264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */; };
+		CCE01C8C264CD8E1005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */; };
+		CCE01C8D264CD8E1005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */; };
+		CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */; };
+		CCE01C8F264CD8E1005960A7 /* ShortcutItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */; };
+		CCE01C95264CDA67005960A7 /* ManagedWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */; };
+		CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */; };
+		CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */; };
+		CCE01C99264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */; };
+		CCE01C9A264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
+		CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
 		CCE33FEF26325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FF026325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
@@ -333,7 +357,6 @@
 		D610479724224A170002E990 /* SceneStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1E1F223CEC23F0027DE6F /* SceneStackedController.swift */; };
 		D610479924224A170002E990 /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9023D6DB3400DA1750 /* ContentController.swift */; };
 		D610479A24224A170002E990 /* PixelRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49C23E805EA0039F4F6 /* PixelRect.swift */; };
-		D610479B24224A170002E990 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */; };
 		D610479D24224A170002E990 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
 		D610479E24224A170002E990 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A690F23F2C89200ED9748 /* RulerView.swift */; };
@@ -623,7 +646,6 @@
 		D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */; };
 		D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */; };
 		D6EBF40424B5E50700DD2560 /* SceneActionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */; };
-		D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */; };
 		D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4A38423CF644B00BE3DCF /* TabService.swift */; };
 		D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6652823FAB9A600037D02 /* ExportManager.swift */; };
 /* End PBXBuildFile section */
@@ -1035,6 +1057,19 @@
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
+		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
+		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
+		CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
+		CCE01C71264CD8E0005960A7 /* ShortcutGuidePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageController.swift; sourceTree = "<group>"; };
+		CCE01C72264CD8E0005960A7 /* ShortcutGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideViewController.swift; sourceTree = "<group>"; };
+		CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItemGroup.swift; sourceTree = "<group>"; };
+		CCE01C74264CD8E0005960A7 /* NotificationToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
+		CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardCharacter.swift; sourceTree = "<group>"; };
+		CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuidePageControl.swift; sourceTree = "<group>"; };
+		CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
+		CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItemView.swift; sourceTree = "<group>"; };
+		CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
+		CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedTabWindow.swift; sourceTree = "<group>"; };
 		CCE33FEE26325F6C0082F73D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCE33FF82632642C0082F73D /* PurchaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindow.swift; sourceTree = "<group>"; };
 		CCE340022632648B0082F73D /* PurchaseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindowController.swift; sourceTree = "<group>"; };
@@ -1319,7 +1354,6 @@
 		D6E2455E23E186260012BE5F /* ColorAnnotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAnnotator.swift; sourceTree = "<group>"; };
 		D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListPreviewDelegate.swift; sourceTree = "<group>"; };
 		D6EBF40224B5E50700DD2560 /* SceneActionTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActionTracking.swift; sourceTree = "<group>"; };
-		D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		D6F4A38423CF644B00BE3DCF /* TabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabService.swift; sourceTree = "<group>"; };
 		D6F6652823FAB9A600037D02 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
 		E650FEB5C863349F25FE32DE /* Pods_JSTColorPickerSparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSTColorPickerSparkle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1362,7 +1396,6 @@
 				CCC0F87D262FFE18006C4492 /* Down in Frameworks */,
 				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
-				CCABB72E260F5E83000AC582 /* ShortcutGuide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,7 +1445,6 @@
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 				CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */,
-				CCABB730260F5E8C000AC582 /* ShortcutGuide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,16 +1561,9 @@
 		CC236319264AE6F4005E909A /* KeyBindings */ = {
 			isa = PBXGroup;
 			children = (
+				CCE01C9D264CDC9C005960A7 /* Views */,
 				CC236346264BC5CD005E909A /* KeyBindings.xib */,
-				CC23631D264AE7AB005E909A /* KeyBinding.swift */,
-				CC23631B264AE7AA005E909A /* KeyBindingItem.swift */,
-				CC23631C264AE7AA005E909A /* KeyBindingManager.swift */,
 				CC23631F264AE7AB005E909A /* KeyBindingsController.swift */,
-				CC23631A264AE7AA005E909A /* MainMenu.swift */,
-				CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */,
-				CC236334264AE8E9005E909A /* SettingManaging.swift */,
-				CC23632F264AE889005E909A /* Shortcut.swift */,
-				CC23632E264AE889005E909A /* ShortcutKeyField.swift */,
 			);
 			path = KeyBindings;
 			sourceTree = "<group>";
@@ -1548,7 +1573,6 @@
 			children = (
 				D690C9592419440300BB1652 /* PixelMatch.swift */,
 				D690C96B241BBEA000BB1652 /* PixelMatchService.swift */,
-				D6F4A38223CF642A00BE3DCF /* NotificationToken.swift */,
 				D6B8E85823D14219006AB402 /* TabDelegate.swift */,
 				D6F4A38423CF644B00BE3DCF /* TabService.swift */,
 			);
@@ -1599,6 +1623,7 @@
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
 				D684842023D40C9300BC5E34 /* Grid */,
 				CC470A9E262DEBC00013A3B7 /* Purchase */,
+				CCE01C6D264CD8CE005960A7 /* ShortcutGuide */,
 			);
 			path = Panels;
 			sourceTree = "<group>";
@@ -1607,6 +1632,10 @@
 			isa = PBXGroup;
 			children = (
 				D6F6652823FAB9A600037D02 /* ExportManager.swift */,
+				CC4102022625C33E00AC8129 /* TemplateManager.swift */,
+				CC23631C264AE7AA005E909A /* KeyBindingManager.swift */,
+				CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */,
+				CCE3400C263265A50082F73D /* PurchaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1681,7 +1710,6 @@
 			isa = PBXGroup;
 			children = (
 				CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */,
-				CC8F8CB026209BB700F60F78 /* PaddedButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1690,7 +1718,6 @@
 			isa = PBXGroup;
 			children = (
 				CC8E5D74262818480030B2FC /* Children */,
-				CCCD821F261C5FE200BFDD6E /* Models */,
 				CC3C4B0C26202E3400794806 /* Views */,
 				CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */,
 				CC84218626160AEF00F1C007 /* ExportStackedController.swift */,
@@ -1720,13 +1747,10 @@
 		CC470A9E262DEBC00013A3B7 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				CCE01CA0264CE0B0005960A7 /* Views */,
 				CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */,
 				CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */,
-				CCE33FF82632642C0082F73D /* PurchaseWindow.swift */,
 				CCE340022632648B0082F73D /* PurchaseWindowController.swift */,
-				CCE3400C263265A50082F73D /* PurchaseManager.swift */,
-				CCE34020263280620082F73D /* PurchaseButton.swift */,
-				CC059D8A2633091300E6B89C /* PurchaseMainView.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -1761,7 +1785,6 @@
 			isa = PBXGroup;
 			children = (
 				D6C2983C23D6BBF4005CFBDC /* ColorIndicator.swift */,
-				CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */,
 				CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */,
 				CCF7F1532618D38100ED16B7 /* InspectorView.xib */,
 				CCF7F1352618CA2500ED16B7 /* InspectorView.swift */,
@@ -1825,12 +1848,18 @@
 		CC8E5D8B262818A70030B2FC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CCE01C9E264CDEAD005960A7 /* Content */,
+				CCE901532626BAB200C84904 /* Defaults */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
+				CCE01C9C264CDC30005960A7 /* KeyBindings */,
+				D69374122403A92E007AF7AF /* Template.swift */,
 				D6B8E83823D0A542006AB402 /* Screenshot.swift */,
 				CC1B01512636F896002EECF5 /* GenericError.swift */,
 				D64790F72490E79C003159FD /* OrderedSet.swift */,
 				CC470A19262B1CAB0013A3B7 /* MutexLock.swift */,
 				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
+				CCE01C74264CD8E0005960A7 /* NotificationToken.swift */,
+				CC23631A264AE7AA005E909A /* MainMenu.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1844,6 +1873,10 @@
 				CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */,
 				CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */,
 				CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */,
+				CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */,
+				CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */,
+				CC8F8CB026209BB700F60F78 /* PaddedButton.swift */,
+				CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1955,13 +1988,99 @@
 			path = SceneStacked;
 			sourceTree = "<group>";
 		};
-		CCCD821F261C5FE200BFDD6E /* Models */ = {
+		CCE01C6D264CD8CE005960A7 /* ShortcutGuide */ = {
 			isa = PBXGroup;
 			children = (
-				D69374122403A92E007AF7AF /* Template.swift */,
-				CC4102022625C33E00AC8129 /* TemplateManager.swift */,
+				CCE01CA3264CE0F6005960A7 /* Views */,
+				CCE01CA4264CE104005960A7 /* Models */,
+				CCE01CA5264CE112005960A7 /* Protocols */,
+				CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */,
+				CCE01C71264CD8E0005960A7 /* ShortcutGuidePageController.swift */,
+				CCE01C72264CD8E0005960A7 /* ShortcutGuideViewController.swift */,
+				CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */,
+			);
+			path = ShortcutGuide;
+			sourceTree = "<group>";
+		};
+		CCE01C9C264CDC30005960A7 /* KeyBindings */ = {
+			isa = PBXGroup;
+			children = (
+				CC23632F264AE889005E909A /* Shortcut.swift */,
+				CC23631D264AE7AB005E909A /* KeyBinding.swift */,
+				CC23631B264AE7AA005E909A /* KeyBindingItem.swift */,
+			);
+			path = KeyBindings;
+			sourceTree = "<group>";
+		};
+		CCE01C9D264CDC9C005960A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC23632E264AE889005E909A /* ShortcutKeyField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CCE01C9E264CDEAD005960A7 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				D682FC9223D6EC4F00DA1750 /* Content.swift */,
+				D645E49E23E807600039F4F6 /* ContentItem.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		CCE01CA0264CE0B0005960A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CCE33FF82632642C0082F73D /* PurchaseWindow.swift */,
+				CCE34020263280620082F73D /* PurchaseButton.swift */,
+				CC059D8A2633091300E6B89C /* PurchaseMainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CCE01CA1264CE0B9005960A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D60C88CC23D5B23700DE5DF6 /* GridWindow.swift */,
+				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CCE01CA2264CE0C2005960A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				185D7EED248A80C4001C283B /* EditWindow.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CCE01CA3264CE0F6005960A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CCE01C76264CD8E0005960A7 /* ShortcutGuidePageControl.swift */,
+				CCE01C78264CD8E0005960A7 /* ShortcutItemView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CCE01CA4264CE104005960A7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CCE01C75264CD8E0005960A7 /* KeyboardCharacter.swift */,
+				CCE01C77264CD8E0005960A7 /* ShortcutItem.swift */,
+				CCE01C73264CD8E0005960A7 /* ShortcutItemGroup.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CCE01CA5264CE112005960A7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		CCE901532626BAB200C84904 /* Defaults */ = {
@@ -1972,6 +2091,7 @@
 				CCE901542626BAC400C84904 /* KeyValueObserver.swift */,
 				CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */,
 				CCE9016F2626BAF700C84904 /* Observable.swift */,
+				CC236334264AE8E9005E909A /* SettingManaging.swift */,
 				CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */,
 			);
 			path = Defaults;
@@ -2033,6 +2153,7 @@
 				D6B8E85A23D14865006AB402 /* SceneActionResponder.swift */,
 				D6E2455C23E153340012BE5F /* AnnotatorSource.swift */,
 				CC236306264A3B19005E909A /* AnnotatorActionResponder.swift */,
+				D61336B324A99FED006263E5 /* RulerViewClient.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2404,7 +2525,6 @@
 			isa = PBXGroup;
 			children = (
 				D6E4252724A368E700FAB4B5 /* Protocols */,
-				D6E4252924A3690000FAB4B5 /* Models */,
 				D6E4252824A368F100FAB4B5 /* Views */,
 				1842C4672479832C008ECD6F /* Content.storyboard */,
 				D682FC9023D6DB3400DA1750 /* ContentController.swift */,
@@ -2431,11 +2551,10 @@
 		D684842023D40C9300BC5E34 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
+				CCE01CA1264CE0B9005960A7 /* Views */,
 				CCCD81EF261C5C1A00BFDD6E /* Grid.storyboard */,
 				D684842323D4106900BC5E34 /* GridWindowController.swift */,
-				D60C88CC23D5B23700DE5DF6 /* GridWindow.swift */,
 				D60C88CE23D5D4B100DE5DF6 /* GridViewController.swift */,
-				D60C88D023D5D4BD00DE5DF6 /* GridView.swift */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -2489,7 +2608,6 @@
 		D699E0C42408E4960011A4CB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				CCE901532626BAB200C84904 /* Defaults */,
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				CC236337264AEAF5005E909A /* General */,
 				CC236338264AEAFC005E909A /* Folder */,
@@ -2518,7 +2636,6 @@
 			children = (
 				D60A690F23F2C89200ED9748 /* RulerView.swift */,
 				D60A691123F2CDBA00ED9748 /* RulerMarker.swift */,
-				D61336B324A99FED006263E5 /* RulerViewClient.swift */,
 			);
 			path = Ruler;
 			sourceTree = "<group>";
@@ -2526,8 +2643,8 @@
 		D6E1669B248A0B4200D8D1C5 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				CCE01CA2264CE0C2005960A7 /* Views */,
 				D6E166A8248A481300D8D1C5 /* Edit.storyboard */,
-				185D7EED248A80C4001C283B /* EditWindow.swift */,
 				18D202BF248D32EC007A079F /* EditWindowController.swift */,
 				185D7EF0248A8518001C283B /* EditViewController.swift */,
 				185D7EE7248A8019001C283B /* EditCoordinateController.swift */,
@@ -2593,15 +2710,6 @@
 				CCC0DC162601F0C100019146 /* ContentScrollView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		D6E4252924A3690000FAB4B5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D682FC9223D6EC4F00DA1750 /* Content.swift */,
-				D645E49E23E807600039F4F6 /* ContentItem.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2728,7 +2836,6 @@
 			);
 			name = JSTColorPickerSparkle;
 			packageProductDependencies = (
-				CCABB72D260F5E83000AC582 /* ShortcutGuide */,
 				CCC525A4262EB71F00D408B0 /* SyntaxKit */,
 				CCC0F87C262FFE18006C4492 /* Down */,
 			);
@@ -2813,7 +2920,6 @@
 			);
 			name = JSTColorPicker;
 			packageProductDependencies = (
-				CCABB72F260F5E8C000AC582 /* ShortcutGuide */,
 				CCC525AD262EB72800D408B0 /* SyntaxKit */,
 				CCC0F885262FFE20006C4492 /* Down */,
 				CCE340652632B0F30082F73D /* TPInAppReceipt */,
@@ -2971,6 +3077,7 @@
 				D69FD9F02477D0DA00ACBF74 /* Scene.storyboard in Resources */,
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */,
+				CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */,
 				CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
@@ -3021,6 +3128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64AF09B240D05BB003A5B17 /* General.xib in Resources */,
+				CCE01C9A264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */,
 				CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */,
 				CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CC4422F1263AE56D00161852 /* Copy.aiff in Resources */,
@@ -3185,7 +3293,9 @@
 				CC236313264A8199005E909A /* StackedView.swift in Sources */,
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
+				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
+				CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
 				CC8F8CB126209BB700F60F78 /* PaddedButton.swift in Sources */,
@@ -3194,6 +3304,7 @@
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
+				CCE01C95264CDA67005960A7 /* ManagedWindow.swift in Sources */,
 				CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				CC236326264AE7AB005E909A /* KeyBinding.swift in Sources */,
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
@@ -3204,6 +3315,7 @@
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
 				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D610478024224A170002E990 /* ColorAnnotator.swift in Sources */,
+				CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */,
 				D610478124224A170002E990 /* Screenshot.swift in Sources */,
 				CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */,
 				D610478224224A170002E990 /* AnnotatorSource.swift in Sources */,
@@ -3218,6 +3330,7 @@
 				D610478724224A170002E990 /* SplitController.swift in Sources */,
 				D610478824224A170002E990 /* ColorAnnotatorOverlay.swift in Sources */,
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
+				CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
@@ -3252,8 +3365,8 @@
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
-				D610479B24224A170002E990 /* NotificationToken.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
+				CCE01C84264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
 				CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
 				CC236324264AE7AB005E909A /* KeyBindingManager.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
@@ -3265,6 +3378,7 @@
 				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
+				CCE01C86264CD8E1005960A7 /* NotificationToken.swift in Sources */,
 				CCE34017263272590082F73D /* ColoredView.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
@@ -3286,12 +3400,14 @@
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
 				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
+				CCE01C8C264CD8E1005960A7 /* ShortcutItem.swift in Sources */,
 				CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
 				CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */,
+				CCE01C8A264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */,
 				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
 				185D7EE8248A8019001C283B /* EditCoordinateController.swift in Sources */,
@@ -3310,6 +3426,7 @@
 				CC23630B264A77CC005E909A /* CustomResponder.swift in Sources */,
 				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
+				CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
@@ -3318,6 +3435,7 @@
 				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CCFFCA232613516C00E05F87 /* ShortcutGuide+Ext.swift in Sources */,
 				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
+				CCE01C88264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
@@ -3346,6 +3464,7 @@
 				CC23633B264AEB2F005E909A /* SUUpdater.m in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
+				CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
 				D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
@@ -3449,6 +3568,7 @@
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
+				CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
 				D659168E24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
@@ -3465,6 +3585,7 @@
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
+				CCE01C7F264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */,
 				CC236314264A8199005E909A /* StackedView.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
@@ -3490,7 +3611,10 @@
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentActionResponder.swift in Sources */,
+				CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
+				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
+				CCE01C89264CD8E1005960A7 /* KeyboardCharacter.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
@@ -3514,16 +3638,17 @@
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,
-				D6F4A38323CF642A00BE3DCF /* NotificationToken.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
+				CCE01C83264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
 				CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
+				CCE01C8F264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				D6F6652923FAB9A600037D02 /* ExportManager.swift in Sources */,
 				180C6A8E249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
 				D6B8E85B23D14865006AB402 /* SceneActionResponder.swift in Sources */,
@@ -3552,6 +3677,7 @@
 				CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
+				CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
@@ -3582,18 +3708,22 @@
 				D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */,
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
 				CC236321264AE7AB005E909A /* MainMenu.swift in Sources */,
+				CCE01C8D264CD8E1005960A7 /* ShortcutItem.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
+				CCE01C99264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
+				CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
 				CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCF7F1372618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
+				CCE01C8B264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */,
 				CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */,
 				CCCD8161261C16F100BFDD6E /* SegmentController.swift in Sources */,
 				CC23633F264AEC52005E909A /* MenuKeyBindingManager.swift in Sources */,
@@ -4116,9 +4246,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1173;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4134,6 +4266,7 @@
 				MARKETING_VERSION = 2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 			};
@@ -4525,8 +4658,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4548,6 +4683,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 			};
@@ -4825,14 +4961,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CCABB72D260F5E83000AC582 /* ShortcutGuide */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ShortcutGuide;
-		};
-		CCABB72F260F5E8C000AC582 /* ShortcutGuide */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ShortcutGuide;
-		};
 		CCC0F87C262FFE18006C4492 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */;

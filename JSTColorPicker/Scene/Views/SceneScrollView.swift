@@ -9,7 +9,7 @@
 import Cocoa
 import CoreImage
 
-class SceneScrollView: NSScrollView {
+final class SceneScrollView: NSScrollView {
     
     // MARK: - Internal Notifications
     static let willStartSmartMagnifyNotification = NSNotification.Name("SceneScrollView.willStartSmartMagnifyNotification")

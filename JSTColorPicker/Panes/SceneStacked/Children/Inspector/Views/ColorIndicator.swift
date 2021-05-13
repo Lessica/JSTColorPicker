@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ColorIndicator: NSControl {
+final class ColorIndicator: NSControl {
     
     var color: NSColor = .clear {
         didSet {

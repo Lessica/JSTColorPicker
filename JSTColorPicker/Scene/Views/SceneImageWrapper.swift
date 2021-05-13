@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SceneImageWrapper: NSView {
+final class SceneImageWrapper: NSView {
     
     weak var rulerViewClient: RulerViewClient?
     var pixelBounds: PixelRect

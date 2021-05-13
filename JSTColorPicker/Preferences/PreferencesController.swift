@@ -9,7 +9,7 @@
 import Cocoa
 import MASPreferences
 
-class PreferencesController: MASPreferencesWindowController {
+final class PreferencesController: MASPreferencesWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()

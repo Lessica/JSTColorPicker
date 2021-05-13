@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TagEditableTextField: NSTextField {
+final class TagEditableTextField: NSTextField {
     
     override func becomeFirstResponder() -> Bool {
         textColor = .labelColor

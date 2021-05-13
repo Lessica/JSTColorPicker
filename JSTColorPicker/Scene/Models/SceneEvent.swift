@@ -8,8 +8,7 @@
 
 import Cocoa
 
-
-class SceneEventObserver: NSResponder {
+final class SceneEventObserver: NSResponder {
 
     struct EventOrder: OptionSet {
         let rawValue: Int

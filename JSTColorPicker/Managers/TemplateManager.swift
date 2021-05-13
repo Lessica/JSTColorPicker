@@ -9,7 +9,7 @@
 import Foundation
 import OSLog
 
-@objc class TemplateManager: NSObject {
+@objc final class TemplateManager: NSObject {
     enum Error: LocalizedError {
         case unknown
         case resourceBusy

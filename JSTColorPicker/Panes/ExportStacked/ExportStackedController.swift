@@ -12,7 +12,7 @@ private extension NSUserInterfaceItemIdentifier {
     static let templatesSubMenu = NSUserInterfaceItemIdentifier("TemplatesSubMenu")
 }
 
-class ExportStackedController: StackedPaneContainer {
+final class ExportStackedController: StackedPaneContainer {
 
     @IBOutlet weak var actionView: NSView!
     @IBOutlet weak var templatePopUpButton: NSPopUpButton!

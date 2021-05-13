@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TemplateCellView: NSTableCellView {
+final class TemplateCellView: NSTableCellView {
 
     var text: String? {
         get { textField?.stringValue                  }

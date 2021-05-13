@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditWindowController: NSWindowController {
+final class EditWindowController: NSWindowController {
     
     private lazy var internalUndoManager: UndoManager = { return UndoManager() }()
 

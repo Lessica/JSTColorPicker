@@ -34,7 +34,7 @@ private extension NSUserInterfaceItemIdentifier {
 }
 
 
-class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
+final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
     
     // MARK: Private Properties
     

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class InfoController: StackedPaneController {
+final class InfoController: StackedPaneController {
     enum Style {
         case primary
         case secondary

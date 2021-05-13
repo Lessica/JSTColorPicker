@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TemplateRowView: NSTableRowView {
+final class TemplateRowView: NSTableRowView {
     static let itemIdentifier = NSUserInterfaceItemIdentifier(String(describing: TemplateRowView.self))
     
     override var isEmphasized: Bool {

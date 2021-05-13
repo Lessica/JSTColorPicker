@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SwizzlingHelper {
+final class SwizzlingHelper {
     private static let doOnce: Any? = {
         NSView.inject()
         return nil

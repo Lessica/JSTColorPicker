@@ -9,7 +9,7 @@
 import Cocoa
 import MASPreferences
 
-class GeneralController: NSViewController {
+final class GeneralController: NSViewController {
     
     @IBOutlet weak var tabView: NSTabView!
     

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditCoordinateController: EditViewController {
+final class EditCoordinateController: EditViewController {
     
     @IBOutlet weak var box                  : NSBox!
     @IBOutlet weak var previewBox           : NSBox!

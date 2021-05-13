@@ -25,7 +25,7 @@ extension NSDraggingInfo {
     func dropView(_: DropSplitView?, didDropFilesWith fileURLs: [URL])
 }
 
-class DropSplitView: NSSplitView {
+final class DropSplitView: NSSplitView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

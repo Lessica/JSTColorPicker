@@ -9,7 +9,7 @@
 import Cocoa
 import MASPreferences
 
-class SubscriptionController: NSViewController {
+final class SubscriptionController: NSViewController {
     
     @IBOutlet weak var detailLabel: NSTextField!
     

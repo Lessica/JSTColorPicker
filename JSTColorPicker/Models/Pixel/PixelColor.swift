@@ -13,7 +13,7 @@ extension NSPasteboard.PasteboardType {
     static let color = NSPasteboard.PasteboardType(rawValue: "public.jst.content.color")
 }
 
-class PixelColor: ContentItem {
+final class PixelColor: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     

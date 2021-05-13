@@ -212,6 +212,10 @@ struct Shortcut: Hashable {
         .escape: "⎋",
     ].mapKeys(\.unicodeScalar)
     
+    internal static func printableKeyEquivalent(forSpecialKey specialKey: Unicode.Scalar) -> String? {
+        return printableKeyEquivalents[specialKey]
+    }
+    
 }
 
 private extension NSEvent.SpecialKey {

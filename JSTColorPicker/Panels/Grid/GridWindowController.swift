@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class GridWindowController: NSWindowController {
+final class GridWindowController: NSWindowController {
     
     static let shared = newController()
 

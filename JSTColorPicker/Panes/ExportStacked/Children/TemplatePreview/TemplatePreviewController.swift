@@ -19,7 +19,7 @@ private extension NSUserInterfaceItemIdentifier {
     static let cellTemplateContent  = NSUserInterfaceItemIdentifier("cell-template-content")
 }
 
-class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
+final class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
 
     enum Error: LocalizedError {
         case documentNotLoaded

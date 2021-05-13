@@ -13,7 +13,7 @@ private extension NSStoryboardSegue.Identifier {
     static let secondaryInfo = "SecondaryInfo"
 }
 
-class DocumentStackedController: StackedPaneContainer {
+final class DocumentStackedController: StackedPaneContainer {
 
     @IBOutlet weak var actionView: NSView!
     private var exitComparisonHandler: ((Bool) -> Void)?

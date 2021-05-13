@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class CheckboxCell: NSButtonCell {
+final class CheckboxCell: NSButtonCell {
     var alternateState: NSControl.StateValue = .off {
         didSet {
             super.state = alternateState
@@ -20,7 +20,7 @@ class CheckboxCell: NSButtonCell {
     }
 }
 
-class CheckboxHeaderCell: NSTableHeaderCell {
+final class CheckboxHeaderCell: NSTableHeaderCell {
     private lazy var innerCell: CheckboxCell = {
         let cell = CheckboxCell()
         cell.title = ""

@@ -9,7 +9,7 @@
 import Cocoa
 
 
-class GridView: NSView {
+final class GridView: NSView {
     
     // MARK: - Types
     

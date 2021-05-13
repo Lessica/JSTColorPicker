@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ContentSearchField: NSTextField, UndoProxy {
+final class ContentSearchField: NSTextField, UndoProxy {
     lazy var contextUndoManager: UndoManager = { return UndoManager() }()
     override var undoManager: UndoManager? { contextUndoManager }
 }
