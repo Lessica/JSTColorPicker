@@ -227,6 +227,14 @@ final class SceneController: NSViewController {
             }
             return event
         }!)
+        
+        eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] (event) -> NSEvent? in
+            guard let self = self, event.window == self.view.window else { return event }
+            if self.monitorWindowKeyDown(with: event) {
+                return nil
+            }
+            return event
+        }!)
 
         windowActiveNotificationToken = NotificationCenter.default.observe(
             name: NSWindow.didResignKeyNotification,
@@ -460,6 +468,18 @@ extension SceneController {
         }
     }
     
+}
+
+
+// MARK: - (@discardableResult) Local & Global Events
+
+/* IMPORTANT:
+ * These events are embedded and fixed, not affected by user-defined key bindings.
+ * Also, shortcut guide will include these monitored keys without any conditional check.
+ */
+
+extension SceneController {
+    
     @discardableResult
     private func monitorWindowFlagsChanged(with event: NSEvent?, forceReset: Bool = false) -> Bool {
         guard let window = view.window, window.isKeyWindow else { return false }  // important
@@ -485,10 +505,91 @@ extension SceneController {
         return handled
     }
     
+    @discardableResult
+    private func monitorWindowKeyDown(with event: NSEvent?) -> Bool {
+        guard let event = event else { return false }
+        guard let window = view.window, window.isKeyWindow else { return false }  // important
+        let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
+        
+        let modifierFlags = event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+        if modifierFlags.contains(.command) {
+            if let specialKey = event.specialKey {
+                if specialKey == .upArrow
+                    || specialKey == .downArrow
+                    || specialKey == .leftArrow
+                    || specialKey == .rightArrow
+                {
+                    let direction = SceneScrollView.NavigationDirection
+                        .direction(fromSpecialKey: specialKey)
+                    var distance: SceneScrollView.NavigationDistance
+                    if modifierFlags.contains(.control)
+                        && modifierFlags.subtracting([.command, .control, .numericPad, .function]).isEmpty
+                    { distance = .by100 }
+                    else if modifierFlags.contains(.shift)
+                                && modifierFlags.subtracting([.command, .shift, .numericPad, .function]).isEmpty
+                    { distance = .by10 }
+                    else
+                    { distance = .by1 }
+                    return shortcutMoveCursorOrScene(
+                        toDirection: direction,
+                        byDistance: distance,
+                        fromLocationInWrapper: locInWrapper
+                    )
+                }
+                else if isWrapperLocationVisible(locInWrapper) {
+                    if modifierFlags.subtracting(.command).isEmpty
+                        && (specialKey == .enter || specialKey == .carriageReturn)
+                    {
+                        let ignoreRepeatedInsertion: Bool = UserDefaults.standard[.ignoreRepeatedInsertion]
+                        return applyAnnotateItem(
+                            at: locInWrapper,
+                            byIgnoringPopups: ignoreRepeatedInsertion
+                        )
+                    }
+                    else if modifierFlags.subtracting([.command, .option]).isEmpty
+                                && (specialKey == .delete || specialKey == .deleteForward || specialKey == .backspace)
+                    {
+                        let optionPressed = modifierFlags.contains(.option)
+                        let ignoreInvalidDeletion: Bool = UserDefaults.standard[.ignoreInvalidDeletion]
+                        return applyDeleteItem(
+                            at: locInWrapper,
+                            byShowingOptions: optionPressed,
+                            byIgnoringPopups: ignoreInvalidDeletion,
+                            withEvent: event
+                        )
+                    }
+                }
+            }
+            else if modifierFlags.subtracting(.command).isEmpty,
+                    let characters = event.characters
+            {
+                if characters.contains("-") {
+                    return applyMinifyItem(at: locInWrapper)
+                }
+                else if characters.contains("=") {
+                    return applyMagnifyItem(at: locInWrapper)
+                }
+                else if characters.contains("`") {
+                    return shortcutCopyPixelColor(at: locInWrapper)
+                }
+                else if characters.contains("[") {
+                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: true)
+                }
+                else if characters.contains("]") {
+                    return shortcutAnnotatorSwitching(at: locInWrapper, byForwardingSelection: false)
+                }
+            }
+            
+        }
+        
+        return false
+    }
+    
 }
 
 
-// MARK: - @discardable Scene Tool Appliance
+// MARK: - (@discardableResult) Scene Tool Appliance
 
 extension SceneController {
     

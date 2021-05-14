@@ -1033,9 +1033,7 @@ extension AppDelegate {
 
 #if DEBUG
 extension AppDelegate {
-    @objc private func applicationApplyPreferences(_ notification: Notification?) {
-        debugPrint("\(className):\(#function)")
-    }
+    @objc private func applicationApplyPreferences(_ notification: Notification?) { }
 }
 #endif
 
