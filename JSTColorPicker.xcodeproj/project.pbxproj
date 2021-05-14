@@ -276,6 +276,11 @@
 		CCE34022263280620082F73D /* PurchaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34020263280620082F73D /* PurchaseButton.swift */; };
 		CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE3405426329A470082F73D /* StoreKit.framework */; };
 		CCE340662632B0F30082F73D /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = CCE340652632B0F30082F73D /* TPInAppReceipt */; };
+		CCE352E7264E88A100147567 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180725AD24A64868006D4551 /* Quartz.framework */; };
+		CCE352EA264E88A100147567 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE352E9264E88A100147567 /* PreviewViewController.swift */; };
+		CCE352ED264E88A100147567 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCE352EB264E88A100147567 /* PreviewViewController.xib */; };
+		CCE352F2264E88A100147567 /* JSTQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CCE352E6264E88A100147567 /* JSTQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CCE352F7264E88B100147567 /* JSTQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CCE352E6264E88A100147567 /* JSTQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
@@ -647,6 +652,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CCE352F0264E88A100147567 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCE352E5264E88A100147567;
+			remoteInfo = JSTQuickLook;
+		};
+		CCE352F8264E88B200147567 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCE352E5264E88A100147567;
+			remoteInfo = JSTQuickLook;
+		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -755,6 +774,28 @@
 				CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */,
 			);
 			name = "Copy Lua Modules (cjson)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCE352F6264E88A100147567 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CCE352F2264E88A100147567 /* JSTQuickLook.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCE352FA264E88B200147567 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CCE352F7264E88B100147567 /* JSTQuickLook.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D60B0F50242887610034F21C /* Embed XPC Services */ = {
@@ -1072,6 +1113,11 @@
 		CCE34016263272590082F73D /* ColoredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredView.swift; sourceTree = "<group>"; };
 		CCE34020263280620082F73D /* PurchaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseButton.swift; sourceTree = "<group>"; };
 		CCE3405426329A470082F73D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CCE352E6264E88A100147567 /* JSTQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JSTQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCE352E9264E88A100147567 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		CCE352EC264E88A100147567 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		CCE352EE264E88A100147567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCE352EF264E88A100147567 /* JSTQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTQuickLook.entitlements; sourceTree = "<group>"; };
 		CCE901542626BAC400C84904 /* KeyValueObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
 		CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserverResult.swift; sourceTree = "<group>"; };
 		CCE9016F2626BAF700C84904 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -1354,6 +1400,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CCE352E3264E88A100147567 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCE352E7264E88A100147567 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3924286AA30034F21C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2075,6 +2129,17 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		CCE352E8264E88A100147567 /* JSTQuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				CCE352E9264E88A100147567 /* PreviewViewController.swift */,
+				CCE352EB264E88A100147567 /* PreviewViewController.xib */,
+				CCE352EE264E88A100147567 /* Info.plist */,
+				CCE352EF264E88A100147567 /* JSTQuickLook.entitlements */,
+			);
+			path = JSTQuickLook;
+			sourceTree = "<group>";
+		};
 		CCE901532626BAB200C84904 /* Defaults */ = {
 			isa = PBXGroup;
 			children = (
@@ -2335,6 +2400,7 @@
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
 				D63FE1CF242B234500F1982A /* JSTColorPickerHelper */,
 				D65AEBBF2427B60100D6A6CA /* JSTColorPanel */,
+				CCE352E8264E88A100147567 /* JSTQuickLook */,
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
@@ -2359,6 +2425,7 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
+				CCE352E6264E88A100147567 /* JSTQuickLook.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2767,6 +2834,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		CCE352E5264E88A100147567 /* JSTQuickLook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCE352F3264E88A100147567 /* Build configuration list for PBXNativeTarget "JSTQuickLook" */;
+			buildPhases = (
+				CCE352E2264E88A100147567 /* Sources */,
+				CCE352E3264E88A100147567 /* Frameworks */,
+				CCE352E4264E88A100147567 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSTQuickLook;
+			productName = JSTQuickLook;
+			productReference = CCE352E6264E88A100147567 /* JSTQuickLook.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
@@ -2816,6 +2900,7 @@
 				D60B0F50242887610034F21C /* Embed XPC Services */,
 				D69FD94024741B9300ACBF74 /* Embed Dynamic Libraries */,
 				D68A1FDD2498B24F001E3FDA /* Embed Tools */,
+				CCE352F6264E88A100147567 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -2825,6 +2910,7 @@
 				D62693672429F4D800463E36 /* PBXTargetDependency */,
 				D60B0F9A24288EFA0034F21C /* PBXTargetDependency */,
 				D68A1FDB2498B225001E3FDA /* PBXTargetDependency */,
+				CCE352F1264E88A100147567 /* PBXTargetDependency */,
 			);
 			name = JSTColorPickerSparkle;
 			packageProductDependencies = (
@@ -2902,6 +2988,7 @@
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 				D69FD93C24741A4000ACBF74 /* Embed Dynamic Libraries */,
+				CCE352FA264E88B200147567 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -2909,6 +2996,7 @@
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
+				CCE352F9264E88B200147567 /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
 			packageProductDependencies = (
@@ -2980,10 +3068,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
+					CCE352E5264E88A100147567 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					D60B0F3B24286AA30034F21C = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -3038,6 +3129,7 @@
 				D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */,
 				D63FE1CD242B234500F1982A /* JSTColorPickerHelper */,
 				D65AEBBD2427B60100D6A6CA /* JSTColorPanel */,
+				CCE352E5264E88A100147567 /* JSTQuickLook */,
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
@@ -3048,6 +3140,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CCE352E4264E88A100147567 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCE352ED264E88A100147567 /* PreviewViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3A24286AA30034F21C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3256,6 +3356,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CCE352E2264E88A100147567 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCE352EA264E88A100147567 /* PreviewViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3824286AA30034F21C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3786,6 +3894,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CCE352F1264E88A100147567 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCE352E5264E88A100147567 /* JSTQuickLook */;
+			targetProxy = CCE352F0264E88A100147567 /* PBXContainerItemProxy */;
+		};
+		CCE352F9264E88B200147567 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCE352E5264E88A100147567 /* JSTQuickLook */;
+			targetProxy = CCE352F8264E88B200147567 /* PBXContainerItemProxy */;
+		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */;
@@ -4029,6 +4147,14 @@
 			name = ExportStacked.storyboard;
 			sourceTree = "<group>";
 		};
+		CCE352EB264E88A100147567 /* PreviewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCE352EC264E88A100147567 /* Base */,
+			);
+			name = PreviewViewController.xib;
+			sourceTree = "<group>";
+		};
 		CCED7CF7262D68D600F2C965 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4156,6 +4282,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CCE352F4264E88A100147567 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = JSTQuickLook/JSTQuickLook.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1212;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = JSTQuickLook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker.JSTQuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CCE352F5264E88A100147567 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = JSTQuickLook/JSTQuickLook.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1212;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = JSTQuickLook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker.JSTQuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D60B0F4924286AA30034F21C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4822,6 +4998,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CCE352F3264E88A100147567 /* Build configuration list for PBXNativeTarget "JSTQuickLook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCE352F4264E88A100147567 /* Debug */,
+				CCE352F5264E88A100147567 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
