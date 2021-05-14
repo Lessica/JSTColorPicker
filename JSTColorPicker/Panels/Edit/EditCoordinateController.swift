@@ -316,10 +316,9 @@ extension EditCoordinateController: ItemPreviewResponder {
         internalValidateInputs(sender)
     }
     
-    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) { fatalError("not implemented") }
-    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) { fatalError("not implemented") }
-    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) { fatalError("not implemented") }
-    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) { fatalError("not implemented") }
-    
+    func previewAction(_ sender: ItemPreviewSender?, atAbsolutePoint point: CGPoint, animated: Bool) { }
+    func previewAction(_ sender: ItemPreviewSender?, atRelativePosition position: CGSize, animated: Bool) { }
+    func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) { }
+    func previewActionRaw(_ sender: ItemPreviewSender?, withEvent event: NSEvent) { }
 }
 

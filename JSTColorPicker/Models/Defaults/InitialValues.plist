@@ -73,7 +73,7 @@
 	<key>defaults:pixelMatchThreshold</key>
 	<real>0.1</real>
 	<key>defaults:sceneMaximumSmartMagnification</key>
-	<integer>16</integer>
+	<integer>32</integer>
 	<key>defaults:togglePreviewColor</key>
 	<false/>
 	<key>defaults:togglePreviewArea</key>
