@@ -594,32 +594,34 @@ final class SceneScrollView: NSScrollView {
                     }
                     else if edge.isMiddle {
                         var locAligned = locInAction
-                        var locAlignedCoord = PixelCoordinate(x: Int(round(locInWrapper.x)), y: Int(round(locInWrapper.y)))
+                        var locAlignedCoordX = Int(round(locInWrapper.x))
+                        var locAlignedCoordY = Int(round(locInWrapper.y))
                         var fixedOpposite: CGPoint?
                         var fixedOppositeCoord: PixelCoordinate?
                         switch edge {
                         case .middleLeft:
                             locAligned.y = annotatorFrame.minY
-                            locAlignedCoord.y = annotatorPixelRect.minY
+                            locAlignedCoordY = annotatorPixelRect.minY
                             fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.maxY)
                             fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.maxY)
                         case .topMiddle:
                             locAligned.x = annotatorFrame.maxX
-                            locAlignedCoord.x = annotatorPixelRect.maxX
+                            locAlignedCoordX = annotatorPixelRect.maxX
                             fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.maxY)
                             fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.maxY)
                         case .bottomMiddle:
                             locAligned.x = annotatorFrame.minX
-                            locAlignedCoord.x = annotatorPixelRect.minX
+                            locAlignedCoordX = annotatorPixelRect.minX
                             fixedOpposite = CGPoint(x: annotatorFrame.maxX, y: annotatorFrame.minY)
                             fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.maxX, y: annotatorPixelRect.minY)
                         case .middleRight:
                             locAligned.y = annotatorFrame.maxY
-                            locAlignedCoord.y = annotatorPixelRect.maxY
+                            locAlignedCoordY = annotatorPixelRect.maxY
                             fixedOpposite = CGPoint(x: annotatorFrame.minX, y: annotatorFrame.minY)
                             fixedOppositeCoord = PixelCoordinate(x: annotatorPixelRect.minX, y: annotatorPixelRect.minY)
                         default: break
                         }
+                        let locAlignedCoord = PixelCoordinate(x: locAlignedCoordX, y: locAlignedCoordY)
                         if let fixedOpposite = fixedOpposite, let fixedOppositeCoord = fixedOppositeCoord {
                             let newFrame = CGRect(point1: fixedOpposite, point2: locAligned)
                             areaDraggingOverlay.frame =

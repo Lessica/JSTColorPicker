@@ -17,7 +17,7 @@ final class PixelArea: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     
-    public private(set) var rect: PixelRect
+    public let rect: PixelRect
     
     public init(id: Int, rect: PixelRect) {
         self.rect = rect
@@ -92,22 +92,22 @@ final class PixelArea: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeKeys: [String] = ["id", "tags", "similarity", "minX", "minY", "maxX", "maxY", "width", "height"]
-    private static let typeName: String = "PixelArea (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeKeys: [String] = ["id", "name", "tags", "similarity", "minX", "minY", "maxX", "maxY", "width", "height"]
+    private static let typeName: String = "\(String(describing: PixelArea.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
         if  !(t["id"]         is  Number)        ||
-            !(t["name"]       is  String)        ||
-            !(t["tags"]       is  Table )        ||
-            !(t["similarity"] is  Number)        ||
-            !(t["minX"]       is  Number)        ||
-            !(t["minY"]       is  Number)        ||
-            !(t["maxX"]       is  Number)        ||
-            !(t["maxY"]       is  Number)        ||
-            !(t["width"]      is  Number)        ||
-            !(t["height"]     is  Number)
+                !(t["name"]       is  String)        ||
+                !(t["tags"]       is  Table )        ||
+                !(t["similarity"] is  Number)        ||
+                !(t["minX"]       is  Number)        ||
+                !(t["minY"]       is  Number)        ||
+                !(t["maxX"]       is  Number)        ||
+                !(t["maxY"]       is  Number)        ||
+                !(t["width"]      is  Number)        ||
+                !(t["height"]     is  Number)
         {
             return typeName
         }

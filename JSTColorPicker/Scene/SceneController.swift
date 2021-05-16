@@ -1941,14 +1941,16 @@ extension SceneController: RulerViewClient {
     
     func rulerView(_ ruler: RulerView?, didMove marker: RulerMarker) {
         
-        var coordinate = marker.coordinate
+        var coordX = marker.coordinate.x
+        var coordY = marker.coordinate.y
         if marker.type == .horizontal {
-            coordinate.x = Int(round(marker.markerLocation))
+            coordX = Int(round(marker.markerLocation))
         }
         else if marker.type == .vertical {
-            coordinate.y = Int(round(marker.markerLocation))
+            coordY = Int(round(marker.markerLocation))
         }
         
+        let coordinate = PixelCoordinate(x: coordX, y: coordY)
         guard coordinate != marker.coordinate else { return }
         let item = marker.annotator?.contentItem.copy()
         if let item = item as? PixelColor {

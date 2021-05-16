@@ -11,12 +11,10 @@ import LuaSwift
 
 struct PixelSize: Codable {
     
-    public static var zero: PixelSize { PixelSize() }
+    public static var zero: PixelSize { PixelSize(width: 0, height: 0) }
     
-    public var width:  Int = 0
-    public var height: Int = 0
-    
-    init() {}
+    public let width:  Int
+    public let height: Int
     
     init(width: Int, height: Int) {
         self.width  = width
@@ -37,7 +35,7 @@ struct PixelSize: Codable {
 extension PixelSize: CustomStringConvertible {
     
     var description: String {
-        return "{w:\(width),h:\(height)}"
+        return "size{w:\(width),h:\(height)}"
     }
     
 }
@@ -75,13 +73,13 @@ extension PixelSize: LuaSwift.Value {
     func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["width", "height"]
-    private static let typeName: String = "PixelSize (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeName: String = "\(String(describing: PixelSize.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
         if  !(t["width"] is Number) ||
-            !(t["height"] is Number)
+                !(t["height"] is Number)
         {
             return typeName
         }

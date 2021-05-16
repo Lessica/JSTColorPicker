@@ -11,16 +11,14 @@ import LuaSwift
 
 struct PixelCoordinate: Codable {
     
-    public static var zero: PixelCoordinate { PixelCoordinate() }
+    public static var zero: PixelCoordinate { PixelCoordinate(x: 0, y: 0) }
     
     public static var null: PixelCoordinate { PixelCoordinate(x: Int.max, y: Int.max) }
     
     public var isNull: Bool { self == PixelCoordinate.null }
     
-    public var x: Int = 0
-    public var y: Int = 0
-    
-    init() {}
+    public let x: Int
+    public let y: Int
     
     init(x: Int, y: Int) {
         self.x = x
@@ -74,7 +72,7 @@ extension PixelCoordinate: LuaSwift.Value {
     func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["x", "y"]
-    private static let typeName: String = "PixelCoordinate (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeName: String = "\(String(describing: PixelCoordinate.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }

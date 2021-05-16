@@ -17,8 +17,8 @@ final class PixelColor: ContentItem {
     
     override class var supportsSecureCoding: Bool { true }
     
-    public private(set) var coordinate: PixelCoordinate
-    public private(set) var pixelColorRep: JSTPixelColor
+    public let coordinate: PixelCoordinate
+    public let pixelColorRep: JSTPixelColor
     
     enum CodingKeys: String, CodingKey {
         case red, green, blue, alpha, coordinate
@@ -133,18 +133,18 @@ final class PixelColor: ContentItem {
     override func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["id", "name", "tags", "similarity", "x", "y", "color"]
-    private static let typeName: String = "PixelColor (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeName: String = "\(String(describing: PixelColor.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
         if  !(t["id"]         is Number)       ||
-            !(t["name"]       is String)       ||
-            !(t["tags"]       is Table )       ||
-            !(t["similarity"] is Number)       ||
-            !(t["x"]          is Number)       ||
-            !(t["y"]          is Number)       ||
-            !(t["color"]      is Number)
+                !(t["name"]       is String)       ||
+                !(t["tags"]       is Table )       ||
+                !(t["similarity"] is Number)       ||
+                !(t["x"]          is Number)       ||
+                !(t["y"]          is Number)       ||
+                !(t["color"]      is Number)
         {
             return typeName
         }
@@ -157,6 +157,8 @@ final class PixelColor: ContentItem {
     required convenience init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
         guard let item = try? PropertyListDecoder().decode(PixelColor.self, from: propertyList as! Data) else { return nil }
         self.init(id: item.id, coordinate: item.coordinate, color: item.pixelColorRep)
+        self.tags = item.tags
+        self.similarity = item.similarity
         copyFrom(item)
     }
     
