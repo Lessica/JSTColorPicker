@@ -15,9 +15,10 @@ struct PixelRect: Codable {
     
     public static var null: PixelRect { PixelRect(x: Int.max, y: Int.max, width: 0, height: 0) }
     
-    public var isNull         : Bool { x == Int.max || y == Int.max }
-    public var isEmpty        : Bool { isNull || size == .zero      }
-    public var hasStandardized: Bool { width >= 0 && height >= 0    }
+    public var isNull           : Bool { x == Int.max || y == Int.max   }
+    public var isEmpty          : Bool { isNull || size == .zero        }
+    public var isValid          : Bool { origin.isValid && size.isValid }
+    public var hasStandardized  : Bool { width >= 0 && height >= 0      }
     
     public let origin: PixelCoordinate
     public let size:   PixelSize
@@ -69,11 +70,29 @@ struct PixelRect: Codable {
     }
     
     init(point1: CGPoint, point2: CGPoint) {
-        self.init(origin: PixelCoordinate(x: Int(min(point1.x, point2.x)), y: Int(min(point1.y, point2.y))), size: PixelSize(width: Int(abs(point2.x - point1.x)), height: Int(abs(point2.y - point1.y))))
+        self.init(
+            origin: PixelCoordinate(
+                x: Int(min(point1.x, point2.x)),
+                y: Int(min(point1.y, point2.y))
+            ),
+            size: PixelSize(
+                width: Int(abs(point2.x - point1.x)),
+                height: Int(abs(point2.y - point1.y))
+            )
+        )
     }
     
     init(coordinate1: PixelCoordinate, coordinate2: PixelCoordinate) {
-        self.init(origin: PixelCoordinate(x: min(coordinate1.x, coordinate2.x), y: min(coordinate1.y, coordinate2.y)), size: PixelSize(width: abs(coordinate2.x - coordinate1.x), height: abs(coordinate2.y - coordinate1.y)))
+        self.init(
+            origin: PixelCoordinate(
+                x: min(coordinate1.x, coordinate2.x),
+                y: min(coordinate1.y, coordinate2.y)
+            ),
+            size: PixelSize(
+                width: abs(coordinate2.x - coordinate1.x),
+                height: abs(coordinate2.y - coordinate1.y)
+            )
+        )
     }
     
     public func toCGRect() -> CGRect {
@@ -122,26 +141,30 @@ struct PixelRect: Codable {
         
         var sizeWidth: Int
         if (r1.origin.x + r1.size.width < r2.origin.x + r2.size.width) {
-            sizeWidth = r1.origin.x + r1.size.width - rect.origin.x
+            sizeWidth = r1.origin.x + r1.size.width - originX
         } else {
-            sizeWidth = r2.origin.x + r2.size.width - rect.origin.x
+            sizeWidth = r2.origin.x + r2.size.width - originX
         }
         
         var sizeHeight: Int
         if (r1.origin.y + r1.size.height < r2.origin.y + r2.size.height) {
-            sizeHeight = r1.origin.y + r1.size.height - rect.origin.y
+            sizeHeight = r1.origin.y + r1.size.height - originY
         } else {
-            sizeHeight = r2.origin.y + r2.size.height - rect.origin.y
+            sizeHeight = r2.origin.y + r2.size.height - originY
         }
         return PixelRect(x: originX, y: originY, width: sizeWidth, height: sizeHeight)
     }
     
 }
 
-extension PixelRect: CustomStringConvertible {
+extension PixelRect: CustomStringConvertible, CustomDebugStringConvertible {
     
     var description: String {
-        return "(\(origin.x),\(origin.y),w\(size.width),h\(size.height))"
+        return "{x:\(origin.x),y:\(origin.y),w:\(size.width),h:\(size.height)}"
+    }
+    
+    var debugDescription: String {
+        return "rect{x:\(origin.x),y:\(origin.y),w:\(size.width),h:\(size.height)}"
     }
     
 }

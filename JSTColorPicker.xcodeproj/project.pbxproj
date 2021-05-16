@@ -58,8 +58,8 @@
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D8B2633091300E6B89C /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
-		CC0FC87C265105A500D8BD73 /* PixelLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelLine.swift */; };
-		CC0FC87D265105A500D8BD73 /* PixelLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelLine.swift */; };
+		CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
+		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC1B01522636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
 		CC1B01532636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
 		CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
@@ -961,7 +961,7 @@
 		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewObject.swift; sourceTree = "<group>"; };
 		CC059D8A2633091300E6B89C /* PurchaseMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMainView.swift; sourceTree = "<group>"; };
-		CC0FC87B265105A500D8BD73 /* PixelLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelLine.swift; sourceTree = "<group>"; };
+		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC1B01512636F896002EECF5 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxHeaderCell.swift; sourceTree = "<group>"; };
 		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
@@ -2339,7 +2339,7 @@
 			isa = PBXGroup;
 			children = (
 				D645E49823E805340039F4F6 /* PixelCoordinate.swift */,
-				CC0FC87B265105A500D8BD73 /* PixelLine.swift */,
+				CC0FC87B265105A500D8BD73 /* PixelSegment.swift */,
 				D645E49A23E805560039F4F6 /* PixelSize.swift */,
 				D645E49C23E805EA0039F4F6 /* PixelRect.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
@@ -3452,7 +3452,7 @@
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				D610479024224A170002E990 /* ContentActionResponder.swift in Sources */,
-				CC0FC87C265105A500D8BD73 /* PixelLine.swift in Sources */,
+				CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */,
 				CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
@@ -3739,7 +3739,7 @@
 				CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
-				CC0FC87D265105A500D8BD73 /* PixelLine.swift in Sources */,
+				CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,

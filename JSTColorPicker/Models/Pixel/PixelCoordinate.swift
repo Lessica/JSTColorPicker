@@ -16,6 +16,7 @@ struct PixelCoordinate: Codable {
     public static var null: PixelCoordinate { PixelCoordinate(x: Int.max, y: Int.max) }
     
     public var isNull: Bool { self == PixelCoordinate.null }
+    public var isValid: Bool { x >= 0 && y >= 0 && !isNull }
     
     public let x: Int
     public let y: Int
@@ -39,10 +40,14 @@ struct PixelCoordinate: Codable {
     
 }
 
-extension PixelCoordinate: CustomStringConvertible {
+extension PixelCoordinate: CustomStringConvertible, CustomDebugStringConvertible {
     
     var description: String {
         return "(\(x),\(y))"
+    }
+    
+    var debugDescription: String {
+        return "coordinate{x\(x),y\(y)}"
     }
     
 }

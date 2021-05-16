@@ -37,10 +37,15 @@ final class PixelColor: ContentItem {
     }
     
     required init?(coder: NSCoder) {
-        guard let pixelColorRep = coder.decodeObject(of: [JSTPixelColor.self], forKey: "pixelColorRep") as? JSTPixelColor else { return nil }
-        self.coordinate    = PixelCoordinate(
-            x: coder.decodeInteger(forKey: "coordinate.x"),
-            y: coder.decodeInteger(forKey: "coordinate.y")
+        guard let pixelColorRep = coder.decodeObject(of: [JSTPixelColor.self], forKey: "pixelColorRep") as? JSTPixelColor
+        else { return nil }
+        let coordX = coder.decodeInteger(forKey: "coordinate.x")
+        let coordY = coder.decodeInteger(forKey: "coordinate.y")
+        guard coordX >= 0, coordY >= 0
+        else { return nil }
+        self.coordinate = PixelCoordinate(
+            x: coordX,
+            y: coordY
         )
         self.pixelColorRep = pixelColorRep
         super.init(coder: coder)
@@ -53,9 +58,15 @@ final class PixelColor: ContentItem {
         let green = try container.decode(UInt8.self, forKey: .green)
         let blue = try container.decode(UInt8.self, forKey: .blue)
         let alpha = try container.decode(UInt8.self, forKey: .alpha)
+        self.pixelColorRep = JSTPixelColor(red: red, green: green, blue: blue, alpha: alpha)
         
-        coordinate = try container.decode(PixelCoordinate.self, forKey: .coordinate)
-        pixelColorRep = JSTPixelColor(red: red, green: green, blue: blue, alpha: alpha)
+        let coordinate = try container.decode(PixelCoordinate.self, forKey: .coordinate)
+        guard coordinate.isValid
+        else {
+            throw Content.Error.notSerialized
+        }
+        self.coordinate = coordinate
+        
         try super.init(from: decoder)
     }
     
@@ -121,6 +132,7 @@ final class PixelColor: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
+        t["type"]       = String(describing: PixelColor.self)
         t["name"]       = firstTag ?? ""
         t["tags"]       = vm.createTable(withSequence: tags.contents)
         t["similarity"] = similarity
@@ -132,13 +144,14 @@ final class PixelColor: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeKeys: [String] = ["id", "name", "tags", "similarity", "x", "y", "color"]
+    private static let typeKeys: [String] = ["id", "type", "name", "tags", "similarity", "x", "y", "color"]
     private static let typeName: String = "\(String(describing: PixelColor.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
         if  !(t["id"]         is Number)       ||
+                !(t["type"]       is String)       ||
                 !(t["name"]       is String)       ||
                 !(t["tags"]       is Table )       ||
                 !(t["similarity"] is Number)       ||

@@ -25,6 +25,7 @@ final class Content: NSObject, Codable {
         case itemConflict(item1: CustomStringConvertible, item2: CustomStringConvertible)
         case notLoaded
         case notWritable
+        case notSerialized
         case userAborted
         
         var failureReason: String? {
@@ -49,6 +50,8 @@ final class Content: NSObject, Codable {
                 return NSLocalizedString("No document loaded.", comment: "Content.Error")
             case .notWritable:
                 return NSLocalizedString("Document locked.", comment: "Content.Error")
+            case .notSerialized:
+                return NSLocalizedString("Cannot deserialize content.", comment: "Content.Error")
             case .userAborted:
                 return NSLocalizedString("User aborted.", comment: "Content.Error")
             }

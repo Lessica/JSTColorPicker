@@ -13,6 +13,8 @@ struct PixelSize: Codable {
     
     public static var zero: PixelSize { PixelSize(width: 0, height: 0) }
     
+    public var isValid: Bool { width >= 0 && height >= 0 }
+    
     public let width:  Int
     public let height: Int
     
@@ -32,9 +34,13 @@ struct PixelSize: Codable {
     
 }
 
-extension PixelSize: CustomStringConvertible {
+extension PixelSize: CustomStringConvertible, CustomDebugStringConvertible {
     
     var description: String {
+        return "{w:\(width),h:\(height)}"
+    }
+    
+    var debugDescription: String {
         return "size{w:\(width),h:\(height)}"
     }
     

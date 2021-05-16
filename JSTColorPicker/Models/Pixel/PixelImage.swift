@@ -114,7 +114,7 @@ final class PixelImage {
             kCGImageSourceShouldCacheImmediately: true,
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-            ] as CFDictionary
+        ] as CFDictionary
         let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource.cgSource, 0, downsampleOptions)!
         return NSImage(cgImage: downsampledImage, size: pointSize)
     }
@@ -126,6 +126,7 @@ extension PixelImage: LuaSwift.Value {
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         let imageURL = imageSource.url
+        t["type"] = String(describing: PixelImage.self)
         t["path"] = imageURL.path
         t["folder"] = imageURL.deletingLastPathComponent().lastPathComponent
         t["filename"] = imageURL.lastPathComponent
@@ -156,19 +157,20 @@ extension PixelImage: LuaSwift.Value {
     
     func kind() -> Kind { return .table }
     
-    private static let typeKeys: [String] = ["path", "folder", "filename", "width", "height", "get_color", "get_image"]
-    private static let typeName: String = "PixelImage (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeKeys: [String] = ["type", "path", "folder", "filename", "width", "height", "get_color", "get_image"]
+    private static let typeName: String = "\(String(describing: PixelImage.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["path"] is String)          ||
-            !(t["folder"] is String)        ||
-            !(t["filename"] is String)      ||
-            !(t["width"] is Number)         ||
-            !(t["height"] is Number)        ||
-            !(t["get_color"] is Function)   ||
-            !(t["get_image"] is Function)
+        if  !(t["type"] is String)          ||
+                !(t["path"] is String)          ||
+                !(t["folder"] is String)        ||
+                !(t["filename"] is String)      ||
+                !(t["width"] is Number)         ||
+                !(t["height"] is Number)        ||
+                !(t["get_color"] is Function)   ||
+                !(t["get_image"] is Function)
         {
             return typeName
         }

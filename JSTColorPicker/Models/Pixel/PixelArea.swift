@@ -34,18 +34,31 @@ final class PixelArea: ContentItem {
     }
     
     required init?(coder: NSCoder) {
+        let rectX = coder.decodeInteger(forKey: "rect.origin.x")
+        let rectY = coder.decodeInteger(forKey: "rect.origin.y")
+        let rectW = coder.decodeInteger(forKey: "rect.size.width")
+        let rectH = coder.decodeInteger(forKey: "rect.size.height")
+        guard rectX >= 0, rectY >= 0, rectW > 0, rectH > 0 else
+        {
+            return nil
+        }
         self.rect  = PixelRect(
-            x: coder.decodeInteger(forKey: "rect.origin.x"),
-            y: coder.decodeInteger(forKey: "rect.origin.y"),
-            width: coder.decodeInteger(forKey: "rect.size.width"),
-            height: coder.decodeInteger(forKey: "rect.size.height")
+            x: rectX,
+            y: rectY,
+            width: rectW,
+            height: rectH
         )
         super.init(coder: coder)
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        rect = try container.decode(PixelRect.self, forKey: .rect)
+        let rect = try container.decode(PixelRect.self, forKey: .rect)
+        guard rect.isValid else
+        {
+            throw Content.Error.notSerialized
+        }
+        self.rect = rect
         try super.init(from: decoder)
     }
     
@@ -78,9 +91,12 @@ final class PixelArea: ContentItem {
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]              = id
+        t["type"]            = String(describing: PixelArea.self)
         t["name"]            = firstTag ?? ""
         t["tags"]            = vm.createTable(withSequence: tags.contents)
         t["similarity"]      = similarity
+        t["x"]               = rect.x
+        t["y"]               = rect.y
         t["minX"]            = rect.minX
         t["minY"]            = rect.minY
         t["maxX"]            = rect.maxX
@@ -92,16 +108,23 @@ final class PixelArea: ContentItem {
     
     override func kind() -> Kind { return .table }
     
-    private static let typeKeys: [String] = ["id", "name", "tags", "similarity", "minX", "minY", "maxX", "maxY", "width", "height"]
+    private static let typeKeys: [String] = [
+        "id", "type", "name", "tags", "similarity",
+        "x", "y", "minX", "minY", "maxX", "maxY",
+        "width", "height"
+    ]
     private static let typeName: String = "\(String(describing: PixelArea.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
         if  !(t["id"]         is  Number)        ||
+                !(t["type"]       is  String)        ||
                 !(t["name"]       is  String)        ||
                 !(t["tags"]       is  Table )        ||
                 !(t["similarity"] is  Number)        ||
+                !(t["x"]          is  Number)        ||
+                !(t["y"]          is  Number)        ||
                 !(t["minX"]       is  Number)        ||
                 !(t["minY"]       is  Number)        ||
                 !(t["maxX"]       is  Number)        ||

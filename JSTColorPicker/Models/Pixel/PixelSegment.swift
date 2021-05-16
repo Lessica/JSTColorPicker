@@ -1,5 +1,5 @@
 //
-//  PixelLine.swift
+//  PixelSegment.swift
 //  JSTColorPicker
 //
 //  Created by Rachel on 2021/5/16.
@@ -9,10 +9,12 @@
 import Foundation
 import LuaSwift
 
-struct PixelLine: Codable {
+struct PixelSegment: Codable {
     
     public var coordinate1: PixelCoordinate { PixelCoordinate(x: x1, y: y1) }
     public var coordinate2: PixelCoordinate { PixelCoordinate(x: x2, y: y2) }
+    
+    public var isValid: Bool { coordinate1.isValid && coordinate2.isValid && coordinate1 != coordinate2 }
     
     public let x1: Int
     public let y1: Int
@@ -35,17 +37,21 @@ struct PixelLine: Codable {
     
 }
 
-extension PixelLine: CustomStringConvertible {
+extension PixelSegment: CustomStringConvertible, CustomDebugStringConvertible {
     
     var description: String {
-        return "line{x1:\(x1),y1:\(y1),x2:\(x2),y2:\(y2)}"
+        return "{x1:\(x1),y1:\(y1),x2:\(x2),y2:\(y2)}"
+    }
+    
+    var debugDescription: String {
+        return "segment{x1:\(x1),y1:\(y1),x2:\(x2),y2:\(y2)}"
     }
     
 }
 
-extension PixelLine: Hashable {
+extension PixelSegment: Hashable {
     
-    static func == (lhs: PixelLine, rhs: PixelLine) -> Bool {
+    static func == (lhs: PixelSegment, rhs: PixelSegment) -> Bool {
         return (lhs.coordinate1 == rhs.coordinate1 && lhs.coordinate2 == rhs.coordinate2) || (lhs.coordinate1 == rhs.coordinate2 && lhs.coordinate2 == rhs.coordinate1)
     }
     
@@ -58,7 +64,7 @@ extension PixelLine: Hashable {
     
 }
 
-extension PixelLine: LuaSwift.Value {
+extension PixelSegment: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
@@ -72,7 +78,7 @@ extension PixelLine: LuaSwift.Value {
     func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["x1", "y1", "x2", "y2"]
-    private static let typeName: String = "\(String(describing: PixelLine.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeName: String = "\(String(describing: PixelSegment.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
