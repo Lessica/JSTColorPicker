@@ -26,11 +26,11 @@ class PreviewSlider: NSSlider {
         if let ctx = NSGraphicsContext.current?.cgContext {
             ctx.saveGState()
             
-            let minValue = minValue
-            let maxValue = maxValue
+            let minValue = self.minValue
+            let maxValue = self.maxValue
             let cachedFirstTickMarkBounds = rectOfTickMark(at: 0)
             let cachedLastTickMarkBounds  = rectOfTickMark(at: numberOfTickMarks - 1)
-            let knobThickness             = knobThickness
+            let knobThickness             = self.knobThickness
             let beginLocation             = cachedFirstTickMarkBounds.minX + knobThickness / 2 - cachedFirstTickMarkBounds.width / 2 - 1
             let endLocation               = cachedLastTickMarkBounds.maxX - knobThickness / 2 + cachedLastTickMarkBounds.width / 2 + 1
             let markWidth                 = cachedFirstTickMarkBounds.width * 2

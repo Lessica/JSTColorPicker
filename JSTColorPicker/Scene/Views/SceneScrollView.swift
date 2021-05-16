@@ -31,16 +31,40 @@ final class SceneScrollView: NSScrollView {
     private static let rulerThickness: CGFloat = 16.0
     private static let reservedThicknessForMarkers: CGFloat = 12.0
     private static let reservedThicknessForAccessoryView: CGFloat = 0.0
+    
+    var boundsExcludingRulers: CGRect {
+        return bounds.inset(
+            by: NSEdgeInsets(
+                top: alternateBoundsOrigin.y,
+                left: alternateBoundsOrigin.x,
+                bottom: 0,
+                right: 0
+            )
+        )
+    }
+    
     var visibleRectExcludingRulers: CGRect {
         let rect = visibleRect
-        return CGRect(x: rect.minX + alternateBoundsOrigin.x, y: rect.minY + alternateBoundsOrigin.y, width: rect.width - alternateBoundsOrigin.x, height: rect.height - alternateBoundsOrigin.y)
+        return CGRect(
+            x: rect.minX + alternateBoundsOrigin.x,
+            y: rect.minY + alternateBoundsOrigin.y,
+            width: rect.width - alternateBoundsOrigin.x,
+            height: rect.height - alternateBoundsOrigin.y
+        )
     }
     
     var alternateBoundsOrigin: CGPoint {
         if drawRulersInScene {
-            return CGPoint(x: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView, y: SceneScrollView.rulerThickness + SceneScrollView.reservedThicknessForMarkers + SceneScrollView.reservedThicknessForAccessoryView)
+            return CGPoint(
+                x: SceneScrollView.rulerThickness +
+                    SceneScrollView.reservedThicknessForMarkers +
+                    SceneScrollView.reservedThicknessForAccessoryView,
+                y: SceneScrollView.rulerThickness +
+                    SceneScrollView.reservedThicknessForMarkers +
+                    SceneScrollView.reservedThicknessForAccessoryView
+            )
         }
-        return CGPoint.zero
+        return .zero
     }
     
     
@@ -930,5 +954,32 @@ extension SceneScrollView {
         
         return NSImage(cgImage: cgImage!, size: ciSize)
     }()
+    
+}
+
+extension SceneScrollView {
+    
+    override func magnify(toFit rect: NSRect) {
+        fatalError("call magnify(toFit:withRealBounds:) instead")
+    }
+    
+    // BugFix
+    func magnify(toFit rect: CGRect, withRealBounds bounds: CGRect) {
+        guard !rect.isEmpty else { return }
+        
+        let fitRatio = rect.width / rect.height
+        let boundsRatio = bounds.width / bounds.height
+        
+        var fitMagnification: CGFloat
+        if fitRatio > boundsRatio {
+            // use full visible width
+            fitMagnification = bounds.width / rect.width
+        } else {
+            // use full visible height
+            fitMagnification = bounds.height / rect.height
+        }
+        setMagnification(fitMagnification, centeredAt: rect.center)
+    }
+    
 }
 

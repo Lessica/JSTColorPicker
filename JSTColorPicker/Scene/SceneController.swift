@@ -1150,7 +1150,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
     }
     
     func sceneMagnifyingGlassActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
-        sceneMagnify(toFit: rect.toCGRect(), adjustBorder: true)
+        sceneMagnify(toFit: rect.toCGRect())
     }
     
     func sceneMagicCursorActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
@@ -1616,7 +1616,11 @@ extension SceneController: SceneActionResponder {
     }
     
     func fillWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: sceneView.bounds.aspectFit(in: wrapperBounds))
+        sceneMagnify(
+            toFit: sceneView
+                .boundsExcludingRulers
+                .aspectFit(in: wrapperBounds)
+        )
     }
     
     func zoomInAction(_ sender: Any?, centeringType center: SceneScrollView.ZoomingCenteringType) {
@@ -1865,7 +1869,6 @@ extension SceneController: ItemPreviewResponder {
     func previewAction(_ sender: ItemPreviewSender?, toFit rect: PixelRect) {
         sceneMagnify(
             toFit: rect.toCGRect(),
-            adjustBorder: true,
             withExtraPadding: NSEdgeInsets(edges: 32)
         )
     }
@@ -1882,32 +1885,23 @@ extension SceneController: ItemPreviewResponder {
     
     private func sceneMagnify(
         toFit rect: CGRect,
-        adjustBorder adjust: Bool = false,
         withExtraPadding padding: NSEdgeInsets = .zero
     ) {
-        let altClipped = sceneClipView.convert(
-            CGSize(
-                width: sceneView.alternateBoundsOrigin.x,
-                height: sceneView.alternateBoundsOrigin.y
-            ),
-            from: sceneView
-        )
         let altPadding = sceneClipView.convert(
             padding,
             from: sceneView
         )
         // notice: in documents' coordinate
-        let fitRect = (
-            adjust
-                ? rect.insetBy(dx: -(altClipped.width + 1.0), dy: -(altClipped.height + 1.0))
-                : rect.insetBy(dx: -1.0, dy: -1.0)
-        ).inset(by: -altPadding)
-        guard !fitRect.isEmpty else {
+        let altRect = rect.inset(by: -altPadding)
+        guard !altRect.isEmpty else {
             return
         }
         self.sceneWillStartLiveMagnify()
-        NSAnimationContext.runAnimationGroup({ _ in
-            self.sceneView.animator().magnify(toFit: fitRect)
+        NSAnimationContext.runAnimationGroup({ [unowned self] ctx in
+            self.sceneView.animator().magnify(
+                toFit: altRect,
+                withRealBounds: self.sceneView.boundsExcludingRulers
+            )
         }) { [unowned self] in
             self.notifyVisibleRectChanged()
             self.sceneDidEndLiveMagnify()
