@@ -268,6 +268,10 @@
 		CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
 		CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
 		CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
+		CCE1875726528A29006FBDB4 /* PixelSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */; };
+		CCE1875826528A29006FBDB4 /* PixelSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */; };
+		CCE1875A26528A3B006FBDB4 /* PixelPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */; };
+		CCE1875B26528A3B006FBDB4 /* PixelPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */; };
 		CCE33FEF26325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FF026325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
@@ -1109,6 +1113,8 @@
 		CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
 		CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedTabWindow.swift; sourceTree = "<group>"; };
 		CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
+		CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSkeleton.swift; sourceTree = "<group>"; };
+		CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPolygon.swift; sourceTree = "<group>"; };
 		CCE33FEE26325F6C0082F73D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCE33FF82632642C0082F73D /* PurchaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindow.swift; sourceTree = "<group>"; };
 		CCE340022632648B0082F73D /* PurchaseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindowController.swift; sourceTree = "<group>"; };
@@ -2343,6 +2349,8 @@
 				D645E49A23E805560039F4F6 /* PixelSize.swift */,
 				D645E49C23E805EA0039F4F6 /* PixelRect.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
+				CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */,
+				CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */,
 				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
 			);
@@ -3435,6 +3443,7 @@
 				D610478824224A170002E990 /* ColorAnnotatorOverlay.swift in Sources */,
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
+				CCE1875A26528A3B006FBDB4 /* PixelPolygon.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
@@ -3528,6 +3537,7 @@
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				CC236332264AE889005E909A /* Shortcut.swift in Sources */,
+				CCE1875726528A29006FBDB4 /* PixelSkeleton.swift in Sources */,
 				CC23630B264A77CC005E909A /* CustomResponder.swift in Sources */,
 				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
@@ -3718,6 +3728,7 @@
 				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				CCE1875B26528A3B006FBDB4 /* PixelPolygon.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				CC236323264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
@@ -3798,6 +3809,7 @@
 				185D7EF5248A936A001C283B /* ContentItemSource.swift in Sources */,
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
+				CCE1875826528A29006FBDB4 /* PixelSkeleton.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
