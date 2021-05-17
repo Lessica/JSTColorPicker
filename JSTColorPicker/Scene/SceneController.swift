@@ -1154,7 +1154,11 @@ extension SceneController: SceneTracking, SceneActionTracking {
     }
     
     func sceneMagnifyingGlassActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
-        sceneMagnify(toFit: rect.toCGRect())
+        sceneMagnify(
+            toFit: rect.toCGRect(),
+            withExtraPadding: .zero,
+            animated: true
+        )
     }
     
     func sceneMagicCursorActionDidEnd(_ sender: SceneScrollView?, to rect: PixelRect) {
@@ -1614,14 +1618,20 @@ extension SceneController: SceneActionResponder {
     }
     
     func fitWindowAction(_ sender: Any?) {
-        sceneMagnify(toFit: wrapperBounds)
+        sceneMagnify(
+            toFit: wrapperBounds,
+            withExtraPadding: .zero,
+            animated: true
+        )
     }
     
     func fillWindowAction(_ sender: Any?) {
         sceneMagnify(
             toFit: sceneView
                 .boundsExcludingRulers
-                .aspectFit(in: wrapperBounds)
+                .aspectFit(in: wrapperBounds),
+            withExtraPadding: .zero,
+            animated: true
         )
     }
     
@@ -1871,7 +1881,8 @@ extension SceneController: ItemPreviewResponder {
     func previewAction(_ sender: ItemPreviewSender?, toFit rect: PixelRect) {
         sceneMagnify(
             toFit: rect.toCGRect(),
-            withExtraPadding: NSEdgeInsets(edges: 32)
+            withExtraPadding: NSEdgeInsets(edges: 32),
+            animated: true
         )
     }
     
@@ -1887,8 +1898,13 @@ extension SceneController: ItemPreviewResponder {
     
     private func sceneMagnify(
         toFit rect: CGRect,
-        withExtraPadding padding: NSEdgeInsets = .zero
+        withExtraPadding padding: NSEdgeInsets,
+        animated: Bool
     ) {
+        guard !rect.isEmpty else {
+            return
+        }
+        
         let altPadding = sceneClipView.convert(
             padding,
             from: sceneView
@@ -1900,43 +1916,52 @@ extension SceneController: ItemPreviewResponder {
             return
         }
         
-        let boundsExcludingRulers = self.sceneView.boundsExcludingRulers
+        guard let scrollView = sceneView,
+              let contentView = sceneClipView
+        else {
+            return
+        }
+        
+        let adjustedBounds = sceneView.boundsExcludingRulers
+        let minMagnification = scrollView.minMagnification
+        let maxMagnification = scrollView.maxMagnification
+        let contentSize = contentView.frame.size
         
         self.sceneWillStartLiveMagnify()
-        NSAnimationContext.beginGrouping()
-        NSAnimationContext.current.completionHandler = { [unowned self] in
+        if animated {
+            NSAnimationContext.beginGrouping()
+            NSAnimationContext.current.completionHandler = { [unowned self] in
+                self.notifyVisibleRectChanged()
+                self.sceneDidEndLiveMagnify()
+            }
+        }
+        
+        let restrictedMagnification = max(
+            min(
+                (altRect.width / altRect.height) > (adjustedBounds.width / adjustedBounds.height)
+                    ? adjustedBounds.width / altRect.width
+                    : adjustedBounds.height / altRect.height, maxMagnification
+            ), minMagnification
+        )
+        
+        let fitBounds = CGRect(
+            x: altRect.midX - (adjustedBounds.minX + adjustedBounds.width / 2.0) / restrictedMagnification,
+            y: altRect.midY - (adjustedBounds.minY + adjustedBounds.height / 2.0) / restrictedMagnification,
+            width: contentSize.width / restrictedMagnification,
+            height: contentSize.height / restrictedMagnification
+        )
+        
+        if animated {
+            contentView.animator().bounds = fitBounds
+            
+            NSAnimationContext.endGrouping()
+        } else {
+            scrollView.magnification = restrictedMagnification
+            contentView.bounds = fitBounds
+            
             self.notifyVisibleRectChanged()
             self.sceneDidEndLiveMagnify()
         }
-        
-        let fitRatio = altRect.width / altRect.height
-        let boundsRatio = boundsExcludingRulers.width / boundsExcludingRulers.height
-        
-        var fitMagnification: CGFloat
-        if fitRatio > boundsRatio {
-            // use full visible width
-            fitMagnification = boundsExcludingRulers.width / altRect.width
-        } else {
-            // use full visible height
-            fitMagnification = boundsExcludingRulers.height / altRect.height
-        }
-        
-        let fitOrigin = CGPoint(
-            x: -boundsExcludingRulers.minX / fitMagnification,
-            y: -boundsExcludingRulers.minY / fitMagnification
-        ).offsetBy(
-            CGPoint(
-                x: altRect.midX - boundsExcludingRulers.width / fitMagnification / 2.0 ,
-                y: altRect.midY - boundsExcludingRulers.height / fitMagnification / 2.0
-            )
-        )
-        
-        // FIXME: animation conflicts
-        //self.sceneView.animator().magnify(toFit: altRect)
-        self.sceneView.animator().magnification = fitMagnification
-        self.sceneClipView.animator().setBoundsOrigin(fitOrigin)
-        
-        NSAnimationContext.endGrouping()
     }
     
 }

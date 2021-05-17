@@ -931,6 +931,7 @@ final class SceneScrollView: NSScrollView {
 }
 
 extension SceneScrollView {
+    
     static var checkerboardImage: NSImage = {
         let filter = CIFilter(name: "CICheckerboardGenerator")!
         
@@ -956,5 +957,13 @@ extension SceneScrollView {
         
         return NSImage(cgImage: cgImage!, size: ciSize)
     }()
+    
+}
+
+extension SceneScrollView {
+    
+    override func magnify(toFit rect: NSRect) {
+        fatalError("do not use this implementation")
+    }
     
 }
