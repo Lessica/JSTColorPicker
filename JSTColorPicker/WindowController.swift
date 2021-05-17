@@ -221,7 +221,7 @@ class WindowController: NSWindowController {
         item.autovalidates = true
         item.label = NSLocalizedString("Sidebar", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.paletteLabel = NSLocalizedString("Sidebar", comment: "com.jst.JSTColorPicker.ToolbarItem")
-        item.toolTip = NSLocalizedString("Toggle Sidebar (⌃⌘S)", comment: "com.jst.JSTColorPicker.ToolbarItem")
+        item.toolTip = NSLocalizedString("Toggle Sidebar", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "sidebar.squares.right", accessibilityDescription: "Sidebar")
         item.action = #selector(NSSplitViewController.toggleSidebar(_:))
         return item
@@ -233,14 +233,14 @@ class WindowController: NSWindowController {
         let item = NSToolbarItemGroup(itemIdentifier: .sceneToolGroup)
         item.isBordered = true
         item.autovalidates = true
-        item.controlRepresentation = .expanded
+        item.controlRepresentation = .automatic
         item.selectionMode = .selectOne
         item.label = NSLocalizedString("Scene Tools", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.subitems = [annotateItem, selectItem, magnifyItem, minifyItem, moveItem]
         return item
     }()
     
-    private   lazy var previewToolsGroup                    : NSToolbarItemGroup = {
+    private   lazy var previewToolsGroup               : NSToolbarItemGroup = {
         let item = NSToolbarItemGroup(itemIdentifier: .sceneActionGroup)
         item.isBordered = true
         item.autovalidates = true
@@ -251,7 +251,7 @@ class WindowController: NSWindowController {
         return item
     }()
     
-    private   lazy var sidebarTrackingSeparatorItem           : NSTrackingSeparatorToolbarItem = {
+    private   lazy var sidebarTrackingSeparatorItem    : NSTrackingSeparatorToolbarItem = {
         return NSTrackingSeparatorToolbarItem(identifier: .sidebarTrackingSeparator, splitView: splitController.splitView, dividerIndex: 1)
     }()
     

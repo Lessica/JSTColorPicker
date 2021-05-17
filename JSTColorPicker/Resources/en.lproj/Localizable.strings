@@ -668,7 +668,7 @@
 "This template requires JSTColorPicker (%@) or later." = "This template requires JSTColorPicker (%@) or later.";
 
 /* com.jst.JSTColorPicker.ToolbarItem */
-"Toggle Sidebar (⌃⌘S)" = "Toggle Sidebar (⌃⌘S)";
+"Toggle Sidebar" = "Toggle Sidebar";
 
 /* Tool Tip: Description of Pixel Area */
 "TOOLTIP_DESC_PIXEL_AREA" = "Origin: %@\nOpposite: %@\nSize: %@";

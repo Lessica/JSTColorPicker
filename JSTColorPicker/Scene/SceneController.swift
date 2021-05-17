@@ -808,7 +808,7 @@ extension SceneController {
     
     @discardableResult
     private func applyMagnifyItem(at locInWrapper: CGPoint) -> Bool {
-        guard isAllowedToPerformMagnify, let next = nextMagnificationFactor else {
+        guard isAllowedToPerformMagnify && !isZooming, let next = nextMagnificationFactor else {
             return false
         }
         if !locInWrapper.isNull && isWrapperLocationVisible(locInWrapper) {
@@ -837,7 +837,7 @@ extension SceneController {
     
     @discardableResult
     private func applyMinifyItem(at locInWrapper: CGPoint) -> Bool {
-        guard isAllowedToPerformMinify, let prev = prevMagnificationFactor else {
+        guard isAllowedToPerformMinify && !isZooming, let prev = prevMagnificationFactor else {
             return false
         }
         if !locInWrapper.isNull && isWrapperLocationVisible(locInWrapper) {
@@ -1092,6 +1092,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
             hideSceneOverlays()
         }
         debugPrint("\(className):\(#function)")
+        sceneOverlayView.updateAppearance()
     }
     
     @objc private func sceneDidEndLiveMagnify(_ notification: NSNotification? = nil) {
@@ -1099,6 +1100,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
             showSceneOverlays()
         }
         debugPrint("\(className):\(#function)")
+        sceneOverlayView.updateAppearance()
     }
     
     @objc private func sceneWillStartSmartMagnify(_ notification: NSNotification? = nil) {
@@ -1112,10 +1114,12 @@ extension SceneController: SceneTracking, SceneActionTracking {
     
     @objc private func sceneWillStartLiveScroll(_ notification: NSNotification? = nil) {
         debugPrint("\(className):\(#function)")
+        sceneOverlayView.updateAppearance()
     }
     
     @objc private func sceneDidEndLiveScroll(_ notification: NSNotification? = nil) {
         debugPrint("\(className):\(#function)")
+        sceneOverlayView.updateAppearance()
     }
     
     func sceneVisibleRectDidChange(_ sender: SceneScrollView?, to rect: CGRect, of magnification: CGFloat) {
@@ -1184,7 +1188,7 @@ extension SceneController: SceneTracking, SceneActionTracking {
     }
     
     private func notifyVisibleRectChanged() {
-        sceneVisibleRectDidChange(sceneView, to: wrapperRestrictedRect, of: wrapperRestrictedMagnification)
+        sceneView.reflectScrolledClipView(sceneClipView)
     }
     
 }
@@ -1563,7 +1567,6 @@ extension SceneController: CustomResponder {
     internal var isAllowedToPerformMagnify: Bool {
         guard sceneView.allowsMagnification
                 && sceneView.magnification < SceneController.maximumZoomingFactor
-                && !isZooming
                 && nextMagnificationFactor != nil
         else {
             return false
@@ -1574,7 +1577,6 @@ extension SceneController: CustomResponder {
     internal var isAllowedToPerformMinify: Bool {
         guard sceneView.allowsMagnification
                 && sceneView.magnification > SceneController.minimumZoomingFactor
-                && !isZooming
                 && prevMagnificationFactor != nil
         else {
             return false
@@ -1891,21 +1893,50 @@ extension SceneController: ItemPreviewResponder {
             padding,
             from: sceneView
         )
+        
         // notice: in documents' coordinate
         let altRect = rect.inset(by: -altPadding)
         guard !altRect.isEmpty else {
             return
         }
+        
+        let boundsExcludingRulers = self.sceneView.boundsExcludingRulers
+        
         self.sceneWillStartLiveMagnify()
-        NSAnimationContext.runAnimationGroup({ [unowned self] ctx in
-            self.sceneView.animator().magnify(
-                toFit: altRect,
-                withRealBounds: self.sceneView.boundsExcludingRulers
-            )
-        }) { [unowned self] in
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.completionHandler = { [unowned self] in
             self.notifyVisibleRectChanged()
             self.sceneDidEndLiveMagnify()
         }
+        
+        let fitRatio = altRect.width / altRect.height
+        let boundsRatio = boundsExcludingRulers.width / boundsExcludingRulers.height
+        
+        var fitMagnification: CGFloat
+        if fitRatio > boundsRatio {
+            // use full visible width
+            fitMagnification = boundsExcludingRulers.width / altRect.width
+        } else {
+            // use full visible height
+            fitMagnification = boundsExcludingRulers.height / altRect.height
+        }
+        
+        let fitOrigin = CGPoint(
+            x: -boundsExcludingRulers.minX / fitMagnification,
+            y: -boundsExcludingRulers.minY / fitMagnification
+        ).offsetBy(
+            CGPoint(
+                x: altRect.midX - boundsExcludingRulers.width / fitMagnification / 2.0 ,
+                y: altRect.midY - boundsExcludingRulers.height / fitMagnification / 2.0
+            )
+        )
+        
+        // FIXME: animation conflicts
+        //self.sceneView.animator().magnify(toFit: altRect)
+        self.sceneView.animator().magnification = fitMagnification
+        self.sceneClipView.animator().setBoundsOrigin(fitOrigin)
+        
+        NSAnimationContext.endGrouping()
     }
     
 }

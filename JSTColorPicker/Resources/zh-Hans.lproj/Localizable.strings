@@ -668,7 +668,7 @@
 "This template requires JSTColorPicker (%@) or later." = "此模板需要 JSTColorPicker (%@) 或更高版本。";
 
 /* com.jst.JSTColorPicker.ToolbarItem */
-"Toggle Sidebar (⌃⌘S)" = "切换边栏 (⌃⌘S)";
+"Toggle Sidebar" = "切换边栏";
 
 /* Tool Tip: Description of Pixel Area */
 "TOOLTIP_DESC_PIXEL_AREA" = "原点：%@\n对点：%@\n尺寸：%@";

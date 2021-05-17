@@ -11,6 +11,9 @@ import CoreImage
 
 final class SceneScrollView: NSScrollView {
     
+    // To avoid unexpected jumps?
+    override class var isCompatibleWithResponsiveScrolling: Bool { true }
+    
     // MARK: - Internal Notifications
     static let willStartSmartMagnifyNotification = NSNotification.Name("SceneScrollView.willStartSmartMagnifyNotification")
     static let didEndSmartMagnifyNotification = NSNotification.Name("SceneScrollView.didEndSmartMagnifyNotification")
@@ -33,13 +36,12 @@ final class SceneScrollView: NSScrollView {
     private static let reservedThicknessForAccessoryView: CGFloat = 0.0
     
     var boundsExcludingRulers: CGRect {
-        return bounds.inset(
-            by: NSEdgeInsets(
-                top: alternateBoundsOrigin.y,
-                left: alternateBoundsOrigin.x,
-                bottom: 0,
-                right: 0
-            )
+        let rect = bounds
+        return CGRect(
+            x: rect.minX + alternateBoundsOrigin.x,
+            y: rect.minY + alternateBoundsOrigin.y,
+            width: rect.width - alternateBoundsOrigin.x,
+            height: rect.height - alternateBoundsOrigin.y
         )
     }
     
@@ -956,30 +958,3 @@ extension SceneScrollView {
     }()
     
 }
-
-extension SceneScrollView {
-    
-    override func magnify(toFit rect: NSRect) {
-        fatalError("call magnify(toFit:withRealBounds:) instead")
-    }
-    
-    // BugFix
-    func magnify(toFit rect: CGRect, withRealBounds bounds: CGRect) {
-        guard !rect.isEmpty else { return }
-        
-        let fitRatio = rect.width / rect.height
-        let boundsRatio = bounds.width / bounds.height
-        
-        var fitMagnification: CGFloat
-        if fitRatio > boundsRatio {
-            // use full visible width
-            fitMagnification = bounds.width / rect.width
-        } else {
-            // use full visible height
-            fitMagnification = bounds.height / rect.height
-        }
-        setMagnification(fitMagnification, centeredAt: rect.center)
-    }
-    
-}
-
