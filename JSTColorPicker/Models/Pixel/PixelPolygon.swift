@@ -19,6 +19,11 @@ final class PixelPolygon: ContentItem {
     
     public let coordinates: [PixelCoordinate]
     
+    public init(id: Int, coordinates: [PixelCoordinate]) {
+        self.coordinates = coordinates
+        super.init(id: id)
+    }
+    
     override init(id: Int) {
         self.coordinates = [PixelCoordinate]()
         super.init(id: id)
@@ -70,7 +75,7 @@ final class PixelPolygon: ContentItem {
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        let item = PixelPolygon(id: id)
+        let item = PixelPolygon(id: id, coordinates: coordinates)
         item.tags = tags
         item.similarity = similarity
         return item
@@ -83,14 +88,7 @@ final class PixelPolygon: ContentItem {
         t["name"]            = firstTag ?? ""
         t["tags"]            = vm.createTable(withSequence: tags.contents)
         t["similarity"]      = similarity
-        t["x"]               = rect.x
-        t["y"]               = rect.y
-        t["minX"]            = rect.minX
-        t["minY"]            = rect.minY
-        t["maxX"]            = rect.maxX
-        t["maxY"]            = rect.maxY
-        t["width"]           = rect.width
-        t["height"]          = rect.height
+        t["coordinates"]     = vm.createTable(withSequence: coordinates)
         t.push(vm)
     }
     
@@ -98,27 +96,19 @@ final class PixelPolygon: ContentItem {
     
     private static let typeKeys: [String] = [
         "id", "type", "name", "tags", "similarity",
-        "x", "y", "minX", "minY", "maxX", "maxY",
-        "width", "height"
+        "coordinates"
     ]
-    private static let typeName: String = "\(String(describing: PixelArea.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
+    private static let typeName: String = "\(String(describing: PixelPolygon.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]         is  Number)        ||
-                !(t["type"]       is  String)        ||
-                !(t["name"]       is  String)        ||
-                !(t["tags"]       is  Table )        ||
-                !(t["similarity"] is  Number)        ||
-                !(t["x"]          is  Number)        ||
-                !(t["y"]          is  Number)        ||
-                !(t["minX"]       is  Number)        ||
-                !(t["minY"]       is  Number)        ||
-                !(t["maxX"]       is  Number)        ||
-                !(t["maxY"]       is  Number)        ||
-                !(t["width"]      is  Number)        ||
-                !(t["height"]     is  Number)
+        if  !(t["id"]              is  Number)        ||
+                !(t["type"]        is  String)        ||
+                !(t["name"]        is  String)        ||
+                !(t["tags"]        is  Table )        ||
+                !(t["similarity"]  is  Number)        ||
+                !(t["coordinates"] is  Table )
         {
             return typeName
         }
@@ -129,35 +119,34 @@ final class PixelPolygon: ContentItem {
     // MARK: - Pasteboard
     
     required convenience init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
-        guard let item = try? PropertyListDecoder().decode(PixelArea.self, from: propertyList as! Data) else { return nil }
-        self.init(id: item.id, rect: item.rect)
+        guard let item = try? PropertyListDecoder().decode(PixelPolygon.self, from: propertyList as! Data) else { return nil }
+        self.init(id: item.id, coordinates: item.coordinates)
         copyFrom(item)
     }
     
     override class func readableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
-        return [.area]
+        return [.polygon]
     }
     
     override func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
-        return [.area]
+        return [.polygon]
     }
     
 }
 
-extension PixelArea /*: Equatable*/ {
+extension PixelPolygon /*: Equatable*/ {
     
-    static func == (lhs: PixelArea, rhs: PixelArea) -> Bool {
-        return lhs.rect == rhs.rect
+    static func == (lhs: PixelPolygon, rhs: PixelPolygon) -> Bool {
+        return lhs.coordinates.elementsEqual(rhs.coordinates)
     }
     
 }
 
-extension PixelArea /*: CustomStringConvertible*/ {
+extension PixelPolygon /*: CustomStringConvertible*/ {
     
-    override var description: String { rect.description }
+    override var description: String { NSLocalizedString(String(format: "Polygon with %ld coordinates", coordinates.count), comment: "PixelPolygon Description") }
     
-    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(rect.description)>" }
+    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(coordinates.map({ $0.description }).joined(separator: ","))>" }
     
 }
-
 
