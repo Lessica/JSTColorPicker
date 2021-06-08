@@ -11,6 +11,23 @@ import Cocoa
 
 extension AppDelegate {
     
+    // MARK: - Preferences Observation
+    
+    internal func prepareDefaults() {
+        isNetworkDiscoveryEnabled = UserDefaults.standard[.enableNetworkDiscovery]
+    }
+    
+    internal func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if defaultKey == .enableNetworkDiscovery, let toValue = defaultValue as? Bool {
+            if isNetworkDiscoveryEnabled != toValue {
+                isNetworkDiscoveryEnabled = toValue
+                
+                applicationBonjourSetup()
+            }
+        }
+    }
+    
+    
     // MARK: - Preferences Actions
     
     @objc func showPreferences(_ sender: Any?) {

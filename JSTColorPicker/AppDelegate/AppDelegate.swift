@@ -10,6 +10,7 @@ import Cocoa
 import PromiseKit
 import MASPreferences
 import ServiceManagement
+import SwiftBonjour
 
 #if !APP_STORE
 import LetsMove
@@ -38,13 +39,78 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    enum NetworkError: LocalizedError {
+        case cannotResolveName(name: String)
+        
+        var failureReason: String? {
+            switch self {
+                case let .cannotResolveName(name):
+                    return String(format: NSLocalizedString("Cannot resolve name: %@", comment: "NetworkError"), name)
+            }
+        }
+    }
+    
+    enum CustomProtocolError: LocalizedError {
+        case malformedResponse
+        
+        var failureReason: String? {
+            switch self {
+                case .malformedResponse:
+                    return NSLocalizedString("Malformed response.", comment: "CustomProtocolError")
+            }
+        }
+    }
 
     
     // MARK: - Attributes
     
-    var tabService: TabService?
-    var helperConnection: NSXPCConnection?
-    var isTakingScreenshot : Bool = false
+    var tabService                         : TabService?
+    var helperConnection                   : NSXPCConnection?
+    var helperBonjourBrowser               : BonjourBrowser?
+    var helperBonjourDevices               : Set<BonjourDevice> = Set<BonjourDevice>()
+    var helperSession                      = URLSession(configuration: .ephemeral)
+    private let observableKeys             : [UserDefaults.Key] = [.enableNetworkDiscovery]
+    private var observables                : [Observable]?
+    internal var isNetworkDiscoveryEnabled : Bool = false
+    internal var isTakingScreenshot        : Bool = false
+    
+    #if APP_STORE
+    private var _isScreenshotHelperAvailable: Bool = false
+    {
+        didSet {
+            if _isScreenshotHelperAvailable {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperDidBecomeAvailableNotification,
+                    object: self
+                )
+            } else {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperDidResignAvailableNotification,
+                    object: self
+                )
+            }
+        }
+    }
+    #endif
+    
+    
+    #if APP_STORE
+    @discardableResult
+    internal func applicationHasScreenshotHelper() -> Bool {
+        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
+        let isAvailable = FileManager.default.fileExists(atPath: launchAgentPath)
+        if isAvailable != _isScreenshotHelperAvailable {
+            _isScreenshotHelperAvailable = isAvailable
+        }
+        return isAvailable
+    }
+    #else
+    @discardableResult
+    internal func applicationHasScreenshotHelper() -> Bool {
+        return true
+    }
+    #endif
     
     
     #if !APP_STORE
@@ -149,6 +215,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.register(defaults: initialValues)
 
+        prepareDefaults()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
+        
         #if DEBUG
         NotificationCenter.default.addObserver(
             self,
@@ -159,9 +228,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         applicationApplyPreferences(nil)
         #endif
         
-        applicationXPCResetUI()
-        applicationXPCEstablish()
+        applicationResetDeviceUI()
+        
         applicationXPCSetup()
+        applicationBonjourSetup()
+        applicationXPCEstablish()
+        applicationBonjourEstablish()
         
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
@@ -216,7 +288,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let url = urls.first else { return }
         guard url.scheme == "jstcolorpicker" else { return }
         if url.host == "activate" {
-            applicationXPCEstablish()
+            applicationXPCSetup()
         }
     }
     
@@ -225,8 +297,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        self.helperConnection?.invalidate()
-        self.helperConnection = nil
+        applicationXPCDeactivate()
+        applicationBonjourDeactivate()
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { return false }
@@ -290,7 +362,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             }
         }
         else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) ||
-                menuItem.action == #selector(notifyXPCDiscoverDevices(_:))
+                menuItem.action == #selector(notifyDiscoverDevices(_:))
         {
             guard !hasAttachedSheet else { return false }
             return applicationHasScreenshotHelper()
