@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import "JSTScreenshotHelper.h"
-#import "JSTConnectedDeviceStore.h"
+#import "JSTPairedDeviceService.h"
 
 
-@interface ServiceDelegate : NSObject <NSXPCListenerDelegate>
+@interface JSTListenerDelegate : NSObject <NSXPCListenerDelegate>
 @end
 
-@implementation ServiceDelegate
+@implementation JSTListenerDelegate
 
 - (BOOL)listener:(NSXPCListener *)listener shouldAcceptNewConnection:(NSXPCConnection *)newConnection {
     // This method is where the NSXPCListener configures, accepts, and resumes a new incoming NSXPCConnection.
@@ -25,7 +24,7 @@
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(JSTScreenshotHelperProtocol)];
     
     // Next, set the object that the connection exports. All messages sent on the connection to this service will be sent to the exported object to handle. The connection retains the exported object.
-    JSTScreenshotHelper *exportedObject = [[JSTScreenshotHelper alloc] init];
+    JSTPairedDeviceService *exportedObject = [[JSTPairedDeviceService alloc] init];
     newConnection.exportedObject = exportedObject;
     newConnection.interruptionHandler = ^{
         [exportedObject disconnectAllDevices];
@@ -42,6 +41,9 @@
 }
 
 @end
+
+
+#pragma mark - Helper Function
 
 #if APP_STORE
 
@@ -91,8 +93,12 @@ NS_INLINE NSString *escape_arg(NSString *arg) {
 }
 #endif
 
+
+#pragma mark - Main Function
+
 int main(int argc, const char *argv[])
 {
+    
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -222,7 +228,7 @@ int main(int argc, const char *argv[])
 #endif
 
     // Create the delegate for the service.
-    ServiceDelegate *delegate = [ServiceDelegate new];
+    JSTListenerDelegate *delegate = [JSTListenerDelegate new];
     
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [[NSXPCListener alloc] initWithMachServiceName:bundleIdentifier];
@@ -232,7 +238,6 @@ int main(int argc, const char *argv[])
     // Resuming the serviceListener starts this service. This method does not return.
     [listener resume];
     
-    [[NSRunLoop currentRunLoop] run];
     return EXIT_SUCCESS;
     
 }
@@ -241,7 +246,7 @@ int main(int argc, const char *argv[])
 {
     
     // Create the delegate for the service.
-    ServiceDelegate *delegate = [ServiceDelegate new];
+    JSTListenerDelegate *delegate = [JSTListenerDelegate new];
     
     // Set up the one NSXPCListener for this service. It will handle all incoming connections.
     NSXPCListener *listener = [NSXPCListener serviceListener];
@@ -251,7 +256,6 @@ int main(int argc, const char *argv[])
     // Resuming the serviceListener starts this service. This method does not return.
     [listener resume];
     
-    [[NSRunLoop currentRunLoop] run];
     return EXIT_SUCCESS;
     
 }

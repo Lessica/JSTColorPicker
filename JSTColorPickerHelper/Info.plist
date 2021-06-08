@@ -30,5 +30,9 @@
 	<string>Copyright © 2020-2021 Zheng Wu. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_http._tcp.</string>
+	</array>
 </dict>
 </plist>

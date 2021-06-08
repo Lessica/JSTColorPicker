@@ -1,21 +1,22 @@
 //
-//  JSTConnectedDeviceStore.m
+//  JSTPairedDeviceStore.m
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import "JSTConnectedDeviceStore.h"
-#import "JSTConnectedDevice.h"
+#import "JSTScreenshotHelperProtocol.h"
+#import "JSTPairedDeviceStore.h"
+#import "JSTPairedDevice.h"
 #import <libimobiledevice/lockdown.h>
 
 static void handle_idevice_event(const idevice_event_t *event, void *user_data) {
-    JSTConnectedDeviceStore *service = (__bridge JSTConnectedDeviceStore *)(user_data);
+    JSTPairedDeviceStore *service = (__bridge JSTPairedDeviceStore *)(user_data);
     [service.delegate didReceiveiDeviceEvent:service];
 }
 
-@implementation JSTConnectedDeviceStore
+@implementation JSTPairedDeviceStore
 
 - (instancetype)init {
     self = [super init];
@@ -32,7 +33,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
     idevice_event_unsubscribe();
 }
 
-- (NSArray <JSTConnectedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices {
+- (NSArray <JSTPairedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices {
     if (includingNetworkDevices) {
         idevice_info_t *cDevices;
         int cUDIDCount = 0;
@@ -44,15 +45,26 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         for (NSInteger i = 0; i < cUDIDCount; i++) {
             NSString *udid = [NSString stringWithUTF8String:cDevices[i]->udid];
             if (self.cachedDevices[udid]) {
+                JSTPairedDevice *device = self.cachedDevices[udid];
+                if (cDevices[i]->conn_type == CONNECTION_USBMUXD) {
+                    device.type = JSTDeviceTypeUSB;
+                } else {
+                    device.type = JSTDeviceTypeNetwork;
+                }
                 if (self.activeDevices[udid]) {
                     continue;
-                }
-                else {
-                    self.activeDevices[udid] = self.cachedDevices[udid];
+                } else {
+                    self.activeDevices[udid] = device;
                 }
             }
             else {
-                JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
+                NSString *deviceType = nil;
+                if (cDevices[i]->conn_type == CONNECTION_USBMUXD) {
+                    deviceType = JSTDeviceTypeUSB;
+                } else {
+                    deviceType = JSTDeviceTypeNetwork;
+                }
+                JSTPairedDevice *device = [[JSTPairedDevice alloc] initWithUDID:udid type:deviceType];
                 self.cachedDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }
@@ -72,15 +84,16 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
         for (NSInteger i = 0; i < cUDIDCount; i++) {
             NSString *udid = [NSString stringWithUTF8String:cUDIDs[i]];
             if (self.cachedDevices[udid]) {
+                JSTPairedDevice *device = self.cachedDevices[udid];
+                device.type = JSTDeviceTypeUSB;
                 if (self.activeDevices[udid]) {
                     continue;
-                }
-                else {
-                    self.activeDevices[udid] = self.cachedDevices[udid];
+                } else {
+                    self.activeDevices[udid] = device;
                 }
             }
             else {
-                JSTConnectedDevice *device = [[JSTConnectedDevice alloc] initWithUDID:udid];
+                JSTPairedDevice *device = [[JSTPairedDevice alloc] initWithUDID:udid type:JSTDeviceTypeUSB];
                 self.cachedDevices[udid] = device;
                 self.activeDevices[udid] = device;
             }
@@ -91,7 +104,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
     }
 }
 
-- (void)disconnectDevice:(JSTConnectedDevice *)device {
+- (void)disconnectDevice:(JSTPairedDevice *)device {
     [self.activeDevices removeObjectForKey:device.udid];
     [self.cachedDevices removeObjectForKey:device.udid];
 }

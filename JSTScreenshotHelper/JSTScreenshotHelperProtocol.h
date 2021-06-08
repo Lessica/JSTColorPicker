@@ -20,6 +20,14 @@ static NSString * const kJSTColorPickerHelperBundleIdentifier = @"GXZ23M5TP2.com
 static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
 static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
 static NSString * const kJSTColorPickerHelperErrorDomain = @"com.jst.JSTScreenshotHelper.error";
+
+static NSString * const JSTDeviceTypeUSB = @"usb";
+static NSString * const JSTDeviceTypeNetwork = @"network";
+static NSString * const JSTDeviceTypeBonjour = @"bonjour";
+
+typedef void (^JSTScreenshotHandler)(NSData * _Nullable, NSError * _Nullable);
+static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
+
 NS_INLINE NSString *RealHomeDirectory() {
     struct passwd *pw = getpwuid(getuid());
     if (!pw) { return nil; }

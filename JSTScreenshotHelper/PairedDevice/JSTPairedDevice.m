@@ -1,33 +1,30 @@
 //
-//  JSTConnectedDevice.m
+//  JSTPairedDevice.m
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import "JSTConnectedDevice.h"
+#import "JSTScreenshotHelperProtocol.h"
+#import "JSTPairedDevice.h"
 #import "JSTPixelImage.h"
 #import <libimobiledevice/libimobiledevice.h>
 #import <libimobiledevice/lockdown.h>
 #import <libimobiledevice/screenshotr.h>
 #import <libimobiledevice/sbservices.h>
 
-@implementation JSTConnectedDevice {
+@implementation JSTPairedDevice {
     idevice_t cDevice;
     char *cUDID;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<JSTDevice: [%@ %@]>", self.name, self.udid];
+    return [NSString stringWithFormat:@"<%@: [%@ %@ %@]>", NSStringFromClass([JSTPairedDevice class]), [self.type uppercaseString], self.name, self.udid];
 }
 
-- (BOOL)isEqual:(id)object {
-    return [self.udid isEqual:object];
-}
-
-- (instancetype)initWithUDID:(NSString *)udid {
-    NSString *name = @"Unknown";
+- (instancetype)initWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
+    NSString *name = @"Unknown Device";
     cDevice = NULL;
     cUDID = strndup(udid.UTF8String, udid.length);
     if (idevice_new_with_options(&cDevice, cUDID, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
@@ -44,15 +41,25 @@
         free(cDeviceName);
     }
     lockdownd_client_free(cClient);
-    if (self = [super init]) {
+    if (self = [super initWithBase:udid Name:name Type:type]) {
+        assert([self hasValidType]);
+        
         _udid = udid;
-        _name = name;
     }
     return self;
 }
 
-+ (instancetype)deviceWithUDID:(NSString *)udid {
-    return [[JSTConnectedDevice alloc] initWithUDID:udid];
+- (BOOL)hasValidType {
+    return [[self type] isEqualToString:JSTDeviceTypeUSB] || [[self type] isEqualToString:JSTDeviceTypeNetwork];
+}
+
+- (void)setType:(NSString *)type {
+    [super setType:type];
+    assert([self hasValidType]);
+}
+
++ (instancetype)deviceWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
+    return [[JSTPairedDevice alloc] initWithUDID:udid type:type];
 }
 
 - (void)dealloc {
@@ -64,7 +71,6 @@
 }
 
 - (void)takeScreenshotWithCompletionHandler:(JSTScreenshotHandler)completion {
-    
     idevice_t device = self->cDevice;
     lockdownd_client_t lckd = NULL;
     lockdownd_error_t ldret = LOCKDOWN_E_UNKNOWN_ERROR;
@@ -212,7 +218,6 @@
     screenshotr_client_free(shotr);
     lockdownd_service_descriptor_free(sbsService);
     lockdownd_service_descriptor_free(shotrService);
-    
 }
 
 @end

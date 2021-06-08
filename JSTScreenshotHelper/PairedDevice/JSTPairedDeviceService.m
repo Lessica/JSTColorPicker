@@ -1,21 +1,23 @@
 //
-//  JSTScreenshotHelper.m
+//  JSTPairedDeviceService.m
 //  JSTScreenshotHelper
 //
 //  Created by Darwin on 3/23/20.
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import "JSTScreenshotHelper.h"
-#import "JSTConnectedDevice.h"
-#import "JSTConnectedDeviceStore.h"
+#import "JSTPairedDeviceService.h"
+#import "JSTPairedDevice.h"
+#import "JSTPairedDeviceStore.h"
 #import <Carbon/Carbon.h>
 
-@interface JSTScreenshotHelper () <JSTDeviceDelegate>
+
+@interface JSTPairedDeviceService () <JSTPairedDeviceDelegate, NSNetServiceBrowserDelegate>
 @property (nonatomic, assign) BOOL isNetworkDiscoveryEnabled;
 @end
 
-@implementation JSTScreenshotHelper
+
+@implementation JSTPairedDeviceService
 
 - (void)setNetworkDiscoveryEnabled:(BOOL)enabled {
     _isNetworkDiscoveryEnabled = enabled;
@@ -27,10 +29,11 @@
 
 - (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.deviceService.activeDevices.count];
-    for (JSTConnectedDevice *connectedDevice in self.deviceService.activeDevices.allValues) {
+    for (JSTPairedDevice *connectedDevice in self.deviceService.activeDevices.allValues) {
         [discoveredDevices addObject:@{
             @"name": connectedDevice.name,
             @"udid": connectedDevice.udid,
+            @"type": connectedDevice.type,
         }];
     }
     reply([NSPropertyListSerialization dataWithPropertyList:discoveredDevices
@@ -40,7 +43,7 @@
 }
 
 - (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTConnectedDevice *targetDevice = self.deviceService.cachedDevices[udid];
+    JSTPairedDevice *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
@@ -48,13 +51,14 @@
     reply([NSPropertyListSerialization dataWithPropertyList:@{
         @"name": targetDevice.name,
         @"udid": targetDevice.udid,
+        @"type": targetDevice.type,
     } format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil], nil);
 }
 
 - (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTConnectedDevice *targetDevice = self.deviceService.cachedDevices[udid];
+    JSTPairedDevice *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
-        targetDevice = [JSTConnectedDevice deviceWithUDID:udid];
+        targetDevice = [JSTPairedDevice deviceWithUDID:udid type:JSTDeviceTypeUSB];
     }
     if (!targetDevice) {
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
@@ -70,7 +74,7 @@
     }];
 }
 
-- (void)disconnectDevice:(JSTConnectedDevice *)device {
+- (void)disconnectDevice:(JSTPairedDevice *)device {
     [self.deviceService disconnectDevice:device];
 }
 
@@ -80,18 +84,17 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self)
-    {
-        _deviceService = [[JSTConnectedDeviceStore alloc] init];
+    if (self) {
+        _deviceService = [[JSTPairedDeviceStore alloc] init];
         _deviceService.delegate = self;
         [self didReceiveiDeviceEvent:self.deviceService];
     }
     return self;
 }
 
-- (void)didReceiveiDeviceEvent:(nonnull JSTConnectedDeviceStore *)service {
+- (void)didReceiveiDeviceEvent:(nonnull JSTPairedDeviceStore *)service {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSArray <JSTConnectedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
+        NSArray <JSTPairedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
         NSLog(@"%@", connectedDevices);
     });
 }
