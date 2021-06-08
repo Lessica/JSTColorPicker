@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+
 #import "JSTPairedDeviceService.h"
+#import "JSTScreenshotHelperProtocol.h"
 
 
 @interface JSTListenerDelegate : NSObject <NSXPCListenerDelegate>

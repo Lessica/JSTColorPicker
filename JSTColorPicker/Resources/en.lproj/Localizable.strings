@@ -71,6 +71,9 @@
 /* ScriptError */
 "Cannot open application at: \"%@\"." = "Cannot open application at: \"%@\".";
 
+/* NetworkError */
+"Cannot resolve name: %@" = "Cannot resolve name: %@";
+
 /* ScreenshotError */
 "Cannot serialize content." = "Cannot serialize content.";
 
@@ -347,6 +350,9 @@
 
 /* Shortcut Guide */
 "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area.";
+
+/* CustomProtocolError */
+"Malformed response." = "Malformed response.";
 
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";

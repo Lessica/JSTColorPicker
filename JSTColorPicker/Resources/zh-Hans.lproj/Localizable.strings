@@ -71,6 +71,9 @@
 /* ScriptError */
 "Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\"。";
 
+/* NetworkError */
+"Cannot resolve name: %@" = "无法解析名称：%@";
+
 /* ScreenshotError */
 "Cannot serialize content." = "无法序列化内容。";
 
@@ -347,6 +350,9 @@
 
 /* Shortcut Guide */
 "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area." = "放大镜：按预设的梯度比例放大场景，支持放大到指定区域。";
+
+/* CustomProtocolError */
+"Malformed response." = "损坏的响应。";
 
 /* Content.Error */
 "Maximum item count %d reached." = "已达到最大项数量 %d。";
