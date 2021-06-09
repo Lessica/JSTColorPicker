@@ -12,6 +12,9 @@
 "%@/%@" = "%@/%@";
 
 /* FolderController */
+"(Already Embedded)" = "(Already Embedded)";
+
+/* FolderController */
 "(Not Installed)" = "(Not Installed)";
 
 /* None */
@@ -495,6 +498,9 @@
 
 /* SwiftKeyBindings */
 "Please combine with other keys." = "Please combine with other keys.";
+
+/* PixelPolygon Description */
+"Polygon with %ld coordinates" = "Polygon with %ld coordinates";
 
 /* PreferencesController */
 "Preferences" = "Preferences";

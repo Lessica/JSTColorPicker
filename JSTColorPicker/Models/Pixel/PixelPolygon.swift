@@ -144,7 +144,7 @@ extension PixelPolygon /*: Equatable*/ {
 
 extension PixelPolygon /*: CustomStringConvertible*/ {
     
-    override var description: String { NSLocalizedString(String(format: "Polygon with %ld coordinates", coordinates.count), comment: "PixelPolygon Description") }
+    override var description: String { String(format: NSLocalizedString("Polygon with %ld coordinates", comment: "PixelPolygon Description"), coordinates.count) }
     
     override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(coordinates.map({ $0.description }).joined(separator: ","))>" }
     

@@ -12,6 +12,9 @@
 "%@/%@" = "%@/%@";
 
 /* FolderController */
+"(Already Embedded)" = "（已内置）";
+
+/* FolderController */
 "(Not Installed)" = "(未安装)";
 
 /* None */
@@ -495,6 +498,9 @@
 
 /* SwiftKeyBindings */
 "Please combine with other keys." = "请组合其他按键。";
+
+/* PixelPolygon Description */
+"Polygon with %ld coordinates" = "包含 %ld 个顶点的多边形";
 
 /* PreferencesController */
 "Preferences" = "偏好设置";

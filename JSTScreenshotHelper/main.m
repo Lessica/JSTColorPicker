@@ -237,8 +237,9 @@ int main(int argc, const char *argv[])
     if (!listener) { return EXIT_FAILURE; }
     listener.delegate = delegate;
     
-    // Resuming the serviceListener starts this service. This method does not return.
+    // Resuming the serviceListener starts this service. This method will return immediately.
     [listener resume];
+    [[NSRunLoop currentRunLoop] run];
     
     return EXIT_SUCCESS;
     

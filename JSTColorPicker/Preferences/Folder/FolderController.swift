@@ -61,7 +61,7 @@ final class FolderController: NSViewController {
             screenshotHelperLocationButton.isHidden = true
         }
         #else
-        screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Not Installed)", comment: "FolderController")
+        screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Already Embedded)", comment: "FolderController")
         screenshotHelperLocationButton.isHidden = true
         #endif
     }
