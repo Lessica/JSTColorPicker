@@ -6,7 +6,6 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
 #import "JSTPairedDeviceService.h"

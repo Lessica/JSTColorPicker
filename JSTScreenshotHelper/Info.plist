@@ -31,9 +31,5 @@
 		<key>ServiceType</key>
 		<string>Application</string>
 	</dict>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_http._tcp.</string>
-	</array>
 </dict>
 </plist>

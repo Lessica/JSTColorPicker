@@ -198,8 +198,6 @@
 		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC7D6763266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC7D6764266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
-		CC7D6772266E49BD002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
-		CC7D6773266E49BE002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC83770126304DF400B2C984 /* libreadline.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8376F126304DBD00B2C984 /* libreadline.tbd */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
@@ -3648,7 +3646,6 @@
 				D61047B824224A170002E990 /* ItemPreviewResponder.swift in Sources */,
 				D61047B924224A170002E990 /* Defaults.swift in Sources */,
 				D69FD88E2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
-				CC7D6773266E49BE002099AD /* JSTDevice.m in Sources */,
 				CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
 				CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */,
@@ -3861,7 +3858,6 @@
 				D69374132403A92E007AF7AF /* Template.swift in Sources */,
 				D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */,
 				D6729C06240FC77D000339C2 /* SceneEvent.swift in Sources */,
-				CC7D6772266E49BD002099AD /* JSTDevice.m in Sources */,
 				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
@@ -4425,9 +4421,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1077;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4442,6 +4440,7 @@
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -4705,10 +4704,12 @@
 		D63FE1DC242B234600F1982A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1077;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4732,13 +4733,14 @@
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		D63FE1DD242B234600F1982A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = JSTColorPickerHelper/JSTColorPickerHelper.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

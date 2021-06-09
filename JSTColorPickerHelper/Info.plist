@@ -23,16 +23,16 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSBackgroundOnly</key>
+	<false/>
+	<key>LSMultipleInstancesProhibited</key>
+	<true/>
+	<key>NSSupportsAutomaticTermination</key>
+	<true/>
+	<key>NSSupportsSuddenTermination</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2021 Zheng Wu. All rights reserved.</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_http._tcp.</string>
-	</array>
 </dict>
 </plist>
