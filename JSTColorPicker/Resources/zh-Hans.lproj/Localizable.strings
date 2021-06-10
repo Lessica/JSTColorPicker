@@ -288,6 +288,9 @@
 /* ScreenshotError */
 "Invalid content." = "内容无效。";
 
+/* InternalError */
+"Invalid device handler." = "无效的设备句柄。";
+
 /* TemplateError */
 "Invalid field: %@." = "无效的字段：%@。";
 

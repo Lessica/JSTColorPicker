@@ -19,6 +19,9 @@
 /* Class = "NSMenuItem"; title = "JSTColorPicker"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "JSTColorPicker";
 
+/* Class = "NSMenuItem"; title = "Discover Devices"; ObjectID = "47y-aT-n1T"; */
+"47y-aT-n1T.title" = "立即寻找设备";
+
 /* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
 "4EN-yA-p0u.title" = "查找";
 
@@ -51,6 +54,9 @@
 
 /* Class = "NSMenuItem"; title = "Setup Smart Zoom"; ObjectID = "7BO-ZP-rPi"; */
 "7BO-ZP-rPi.title" = "设置智能缩放";
+
+/* Class = "NSMenuItem"; title = "Manage Custom Devices…"; ObjectID = "7hm-jK-3qP"; */
+"7hm-jK-3qP.title" = "管理自定义设备…";
 
 /* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "7jK-B5-6gt"; */
 "7jK-B5-6gt.title" = "页面设置…";

@@ -12,67 +12,16 @@ import PromiseKit
 import SwiftBonjour
 
 
-// MARK: - Bonjour Device
-
-struct BonjourDevice: Equatable, Hashable {
-    internal init(hostName: String, domain: String, name: String, port: Int, txtRecord: [String : String], ipAddresses: [String]) {
-        self.hostName = hostName
-        self.domain = domain
-        self.name = name
-        self.port = port
-        self.txtRecord = txtRecord
-        self.ipAddresses = ipAddresses
-    }
-    
-    let hostName: String
-    let domain: String
-    let name: String
-    let port: Int
-    let txtRecord: [String: String]
-    let ipAddresses: [String]
-    
-    internal init(netService: NetService) {
-        self.domain = netService.domain
-        self.name = netService.name
-        self.hostName = netService.hostName ?? ""
-        self.port = netService.port
-        self.txtRecord = netService.txtRecordDictionary ?? [:]
-        self.ipAddresses = netService.ipAddresses.map({ String(describing: $0) })
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(hostName)
-        hasher.combine(domain)
-        hasher.combine(name)
-        hasher.combine(port)
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.hostName == rhs.hostName && lhs.domain == rhs.domain && lhs.name == rhs.name && lhs.port == rhs.port
-    }
-    
-    static func unresolved(hostName: String) -> BonjourDevice {
-        return BonjourDevice(hostName: hostName, domain: "", name: "", port: 0, txtRecord: [:], ipAddresses: [])
-    }
-    
-    var isResolved: Bool {
-        ipAddresses.count > 0
-    }
-}
-
-
 // MARK: - XPC Connection
 
 extension AppDelegate {
     
-    private var selectedDeviceUDID: String?
+    private var selectedDeviceUniqueIdentifier: String?
     {
         get { UserDefaults.standard[.lastSelectedDeviceUDID]            }
         set { UserDefaults.standard[.lastSelectedDeviceUDID] = newValue }
     }
     
-    private static let devicePrefixPaired: String = "device.paired."
-    private static let devicePrefixBonjour: String = "device.bonjour."
     private static let deviceBonjourServicePort = 46952
     private static let deviceBonjourServiceType = ServiceType.tcp("http")
     private static var screenshotDateFormatter: DateFormatter =
@@ -183,7 +132,18 @@ extension AppDelegate {
         }
     }
     
-    internal func applicationResetDeviceUI(with additionalItems: [NSMenuItem] = []) {
+    internal var manuallyDiscoverItem: NSMenuItem {
+        let item = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(self.notifyDiscoverDevices(_:)), keyEquivalent: "i")
+        item.keyEquivalentModifierMask = [.control]
+        item.toolTip = NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "reloadDevicesSubMenuItems()")
+        return item
+    }
+    
+    internal func applicationResetDeviceUI() {
+        internalApplicationResetDeviceUI(withAdditionalItems: [self.manuallyDiscoverItem])
+    }
+    
+    private func internalApplicationResetDeviceUI(withAdditionalItems additionalItems: [NSMenuItem]) {
         #if APP_STORE
         if !applicationHasScreenshotHelper() {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper…", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
@@ -203,7 +163,7 @@ extension AppDelegate {
         devicesSubMenu.items = [ emptyItem ] + additionalItems
     }
     
-    @objc internal func notifyDiscoverDevices(_ sender: Any?) {
+    @IBAction internal func notifyDiscoverDevices(_ sender: Any?) {
         applicationXPCEstablish()
         applicationBonjourEstablish()
     }
@@ -370,10 +330,6 @@ extension AppDelegate {
         }
     }
     
-    private static func checkUDIDOrHostName(_ string: String) -> Bool {
-        return !string.contains(".")
-    }
-    
     @objc func takeScreenshot(_ sender: Any?) {
         guard !self.isTakingScreenshot else { return }
         self.isTakingScreenshot = true
@@ -388,7 +344,7 @@ extension AppDelegate {
             }
         }) as? JSTScreenshotHelperProtocol else { return }
         
-        guard let selectedDeviceUDID = selectedDeviceUDID else {
+        guard let selectedIdentifier = selectedDeviceUniqueIdentifier else {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("No device selected", comment: "takeScreenshot(_:)")
             alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
@@ -410,29 +366,35 @@ extension AppDelegate {
         loadingAlert.accessoryView = loadingIndicator
         
         var dataPromise: Promise<Data>
-        if AppDelegate.checkUDIDOrHostName(selectedDeviceUDID) {
+        if selectedIdentifier.hasPrefix(PairedDevice.uniquePrefix) {
             dataPromise = firstly { [unowned self] () -> Promise<[String: String]> in
                 loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedDeviceUDID)
+                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
                 windowController.showSheet(loadingAlert, completionHandler: nil)
-                return self.promiseProxyLookupDevice(proxy, by: selectedDeviceUDID)
+                return self.promiseProxyLookupDevice(proxy, by: selectedIdentifier)
             }.then { [unowned self] (device) -> Promise<Data> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device["name"]!)
                 return self.promiseProxyTakeScreenshot(proxy, by: device["udid"]!)
             }
-        } else {
+        }
+        else if selectedIdentifier.hasPrefix(BonjourDevice.uniquePrefix) {
             dataPromise = firstly { [unowned self] () -> Promise<BonjourDevice> in
                 loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedDeviceUDID)
+                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
                 windowController.showSheet(loadingAlert, completionHandler: nil)
-                return self.promiseResolveBonjourDevice(byHostName: selectedDeviceUDID)
+                return self.promiseResolveBonjourDevice(byHostName: selectedIdentifier)
             }.then { [unowned self] (device: BonjourDevice) -> Promise<SocketAddress> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device.name.isEmpty ? device.hostName : device.name)
                 return self.promiseResolveSocketAddress(ofDevice: device)
             }.then { [unowned self] (sockAddr: SocketAddress) -> Promise<Data> in
                 return self.promiseDownloadScreenshot(fromSocketAddress: sockAddr)
+            }
+        }
+        else {
+            dataPromise = Promise<Data> { seal in
+                seal.reject(InternalError.invalidDeviceHandler)
             }
         }
         
@@ -462,11 +424,11 @@ extension AppDelegate {
     }
     
     private func selectDeviceSubMenuItem(_ sender: NSMenuItem?) {
-        guard let identifier = sender?.identifier?.rawValue.components(separatedBy: ".").dropFirst(2).joined(separator: ".") else {
-            selectedDeviceUDID = nil
+        guard let deviceModel = sender?.representedObject as? Device else {
+            selectedDeviceUniqueIdentifier = nil
             return
         }
-        selectedDeviceUDID = identifier
+        selectedDeviceUniqueIdentifier = deviceModel.uniqueIdentifier
     }
     
     
@@ -488,10 +450,11 @@ extension AppDelegate {
     
     internal func updateDevicesSubMenuItems() {
         for item in devicesSubMenu.items {
-            guard let deviceIdentifier = item.identifier?.rawValue.components(separatedBy: ".").dropFirst(2).joined(separator: ".") else { continue }
+            guard let deviceModel = item.representedObject as? Device else { continue }
             item.isEnabled = true
-            item.state = deviceIdentifier == self.selectedDeviceUDID ? .on : .off
+            item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
         }
+        
         reloadDevicesSubMenuItems()
     }
     
@@ -515,6 +478,7 @@ extension AppDelegate {
                 else { return }
                 
                 DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
                     
                     var items = [NSMenuItem]()
                     
@@ -526,50 +490,50 @@ extension AppDelegate {
                     items += bonjourItems
                         .sorted(by: { $0.title.localizedStandardCompare($1.title) == .orderedAscending })
                     
-                    let manuallyDiscoverItem = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(self?.notifyDiscoverDevices(_:)), keyEquivalent: "i")
-                    manuallyDiscoverItem.keyEquivalentModifierMask = [.control]
-                    manuallyDiscoverItem.toolTip = NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "reloadDevicesSubMenuItems()")
-                    
                     if items.count > 0 {
-                        items += [NSMenuItem.separator(), manuallyDiscoverItem]
-                        self?.devicesSubMenu.items = items
+                        items += [NSMenuItem.separator(), self.manuallyDiscoverItem]
+                        self.devicesSubMenu.items = items
                     }
                     else {
-                        self?.applicationResetDeviceUI(with: [NSMenuItem.separator(), manuallyDiscoverItem])
+                        self.internalApplicationResetDeviceUI(withAdditionalItems: [NSMenuItem.separator(), self.manuallyDiscoverItem])
                     }
                     
-                    self?.devicesSubMenu.update()
+                    self.devicesSubMenu.update()
                 }
             }
         }
     }
     
     private func menuItemsForPairedDevices(_ devices: [[String: String]]) -> [NSMenuItem] {
-        let selectedDeviceIdentifier = "\(AppDelegate.devicePrefixPaired)\(self.selectedDeviceUDID ?? "")"
         var items: [NSMenuItem] = []
         
         for device in devices {
-            guard let deviceUDID = device["udid"], let deviceName = device["name"] else { continue }
-            // if self?.selectedDeviceUDID == nil { self?.selectedDeviceUDID = udid }
+            guard let deviceUDID = device["udid"],
+                  let deviceName = device["name"]
+            else { continue }
             
-            let deviceIdentifier = "\(AppDelegate.devicePrefixPaired)\(deviceUDID)"
-            let item = NSMenuItem(title: "\(deviceName) (\(deviceUDID))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
-            item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceIdentifier)
+            let deviceModel = PairedDevice(
+                udid: deviceUDID,
+                name: deviceName,
+                type: device["type"] ?? ""
+            )
+            
+            let item = NSMenuItem(title: "\(deviceModel.title) (\(deviceModel.subtitle))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
+            item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceModel.uniqueIdentifier)
             item.tag = MainMenu.MenuItemTag.devices.rawValue
             item.isEnabled = true
-            item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
-            if let deviceType = device["type"] {
-                switch deviceType {
-                    case JSTDeviceTypeUSB:
-                        item.image = NSImage(named: "usb")
-                    case JSTDeviceTypeNetwork:
-                        item.image = NSImage(systemSymbolName: "wifi", accessibilityDescription: "wifi")
-                    case JSTDeviceTypeBonjour:
-                        item.image = NSImage(systemSymbolName: "bonjour", accessibilityDescription: "bonjour")
-                    default:
-                        break
-                }
+            item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
+            switch deviceModel.type {
+                case JSTDeviceTypeUSB:
+                    item.image = NSImage(named: "usb")
+                case JSTDeviceTypeNetwork:
+                    item.image = NSImage(systemSymbolName: "wifi", accessibilityDescription: "wifi")
+                case JSTDeviceTypeBonjour:
+                    item.image = NSImage(systemSymbolName: "bonjour", accessibilityDescription: "bonjour")
+                default:
+                    break
             }
+            item.representedObject = deviceModel
             
             items.append(item)
         }
@@ -578,18 +542,17 @@ extension AppDelegate {
     }
     
     private func menuItemsForBonjourDevices(_ devices: [BonjourDevice]) -> [NSMenuItem] {
-        let selectedDeviceIdentifier = "\(AppDelegate.devicePrefixBonjour)\(self.selectedDeviceUDID ?? "")"
         var items: [NSMenuItem] = []
         
         // FIXME: XXTouch Compatible
-        for device in devices.filter({ $0.port == AppDelegate.deviceBonjourServicePort }) {
-            let deviceIdentifier = "\(AppDelegate.devicePrefixBonjour)\(device.hostName)"
-            let item = NSMenuItem(title: "\(device.name) (\(device.ipAddresses.first ?? ""))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
-            item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceIdentifier)
+        for deviceModel in devices.filter({ $0.port == AppDelegate.deviceBonjourServicePort }) {
+            let item = NSMenuItem(title: "\(deviceModel.title) (\(deviceModel.subtitle))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
+            item.identifier = NSUserInterfaceItemIdentifier(rawValue: deviceModel.uniqueIdentifier)
             item.tag = MainMenu.MenuItemTag.devices.rawValue
             item.isEnabled = true
-            item.state = deviceIdentifier == selectedDeviceIdentifier ? .on : .off
+            item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
             item.image = NSImage(systemSymbolName: "bonjour", accessibilityDescription: "bonjour")
+            item.representedObject = deviceModel
             
             items.append(item)
         }

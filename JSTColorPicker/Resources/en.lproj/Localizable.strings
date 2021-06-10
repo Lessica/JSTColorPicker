@@ -288,6 +288,9 @@
 /* ScreenshotError */
 "Invalid content." = "Invalid content.";
 
+/* InternalError */
+"Invalid device handler." = "Invalid device handler.";
+
 /* TemplateError */
 "Invalid field: %@." = "Invalid field: %@.";
 

@@ -29,6 +29,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Structs
     
+    enum InternalError: LocalizedError {
+        case invalidDeviceHandler
+        
+        var failureReason: String? {
+            switch self {
+            case .invalidDeviceHandler:
+                return NSLocalizedString("Invalid device handler.", comment: "InternalError")
+            }
+        }
+    }
+    
     enum XPCError: LocalizedError {
         case timeout
         

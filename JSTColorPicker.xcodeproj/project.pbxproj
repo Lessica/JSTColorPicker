@@ -214,6 +214,12 @@
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
+		CC96F93D26727E0400CB55E9 /* BonjourDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */; };
+		CC96F93E26727E0400CB55E9 /* BonjourDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */; };
+		CC96F94026727E2000CB55E9 /* PairedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93F26727E2000CB55E9 /* PairedDevice.swift */; };
+		CC96F94126727E2000CB55E9 /* PairedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93F26727E2000CB55E9 /* PairedDevice.swift */; };
+		CC96F94326727E6F00CB55E9 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F94226727E6F00CB55E9 /* Device.swift */; };
+		CC96F94426727E6F00CB55E9 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F94226727E6F00CB55E9 /* Device.swift */; };
 		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
@@ -1113,6 +1119,9 @@
 		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneContainer.swift; sourceTree = "<group>"; };
 		CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePopUpButton.swift; sourceTree = "<group>"; };
+		CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourDevice.swift; sourceTree = "<group>"; };
+		CC96F93F26727E2000CB55E9 /* PairedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedDevice.swift; sourceTree = "<group>"; };
+		CC96F94226727E6F00CB55E9 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleErrorAlertView.xib; sourceTree = "<group>"; };
 		CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleErrorAlertView.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -1808,6 +1817,7 @@
 		CC347729266F510800391E73 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				CC96F93B26727DF200CB55E9 /* Models */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				CC347723266F505900391E73 /* AppDelegate+ColorPanel.swift */,
 				CC34771D266F4F2500391E73 /* AppDelegate+Compare.swift */,
@@ -2038,6 +2048,16 @@
 				CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CC96F93B26727DF200CB55E9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CC96F94226727E6F00CB55E9 /* Device.swift */,
+				CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */,
+				CC96F93F26727E2000CB55E9 /* PairedDevice.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CC97E7092642D6D800FC660A /* ViewControllers */ = {
@@ -3596,6 +3616,7 @@
 				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
 				CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */,
+				CC96F93D26727E0400CB55E9 /* BonjourDevice.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
@@ -3625,6 +3646,7 @@
 				CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
+				CC96F94026727E2000CB55E9 /* PairedDevice.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
@@ -3670,6 +3692,7 @@
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
 				CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */,
+				CC96F94326727E6F00CB55E9 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3777,6 +3800,7 @@
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
 				CC3C4A94261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
+				CC96F94426727E6F00CB55E9 /* Device.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
@@ -3786,6 +3810,7 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
+				CC96F94126727E2000CB55E9 /* PairedDevice.swift in Sources */,
 				CC236336264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				CC347722266F4F6300391E73 /* AppDelegate+Grid.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
@@ -3849,6 +3874,7 @@
 				CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
 				CC347728266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */,
+				CC96F93E26727E0400CB55E9 /* BonjourDevice.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
 				CCE01C8F264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				CC347710266F4AF400391E73 /* AppDelegate+Console.swift in Sources */,
@@ -4719,7 +4745,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
-				INFOPLIST_FILE = JSTColorPickerHelper/Info.plist;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -4752,7 +4778,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
-				INFOPLIST_FILE = JSTColorPickerHelper/Info.plist;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
