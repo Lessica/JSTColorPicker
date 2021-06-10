@@ -547,4 +547,8 @@ extension Screenshot {
         }
         return super.presentError(error)
     }
+    
+    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
+        fatalError("not implemented")
+    }
 }

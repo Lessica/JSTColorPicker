@@ -163,7 +163,7 @@
                                         <menuItem isSeparatorItem="YES" id="6lZ-6v-Fet"/>
                                         <menuItem title="Print…" keyEquivalent="p" id="Mql-2P-7nA">
                                             <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="yHY-nV-myo"/>
+                                                <action selector="printDocument:" target="Ady-hI-5gd" id="uW4-Az-a6P"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="7jK-B5-6gt">
