@@ -436,6 +436,9 @@
 /* Class = "NSMenuItem"; title = "Quick Copy Annotation"; ObjectID = "PRZ-A8-gte"; */
 "PRZ-A8-gte.title" = "Quick Copy Annotation";
 
+/* Class = "NSMenuItem"; title = "Reload All Templates"; ObjectID = "pTo-Sm-9zs"; */
+"pTo-Sm-9zs.title" = "Reload All Templates";
+
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "Save…";
 

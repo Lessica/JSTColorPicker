@@ -1817,7 +1817,6 @@
 		CC347729266F510800391E73 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				CC96F93B26727DF200CB55E9 /* Models */,
 				D658AF9D23CB180C0098C567 /* AppDelegate.swift */,
 				CC347723266F505900391E73 /* AppDelegate+ColorPanel.swift */,
 				CC34771D266F4F2500391E73 /* AppDelegate+Compare.swift */,
@@ -2010,6 +2009,7 @@
 			children = (
 				CCE01C9E264CDEAD005960A7 /* Content */,
 				CCE901532626BAB200C84904 /* Defaults */,
+				CC96F945267296FA00CB55E9 /* Device */,
 				D635BE9A23CD861100FD62B8 /* Pixel */,
 				CCE01C9C264CDC30005960A7 /* KeyBindings */,
 				D69374122403A92E007AF7AF /* Template.swift */,
@@ -2050,14 +2050,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		CC96F93B26727DF200CB55E9 /* Models */ = {
+		CC96F945267296FA00CB55E9 /* Device */ = {
 			isa = PBXGroup;
 			children = (
 				CC96F94226727E6F00CB55E9 /* Device.swift */,
 				CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */,
 				CC96F93F26727E2000CB55E9 /* PairedDevice.swift */,
 			);
-			path = Models;
+			path = Device;
 			sourceTree = "<group>";
 		};
 		CC97E7092642D6D800FC660A /* ViewControllers */ = {

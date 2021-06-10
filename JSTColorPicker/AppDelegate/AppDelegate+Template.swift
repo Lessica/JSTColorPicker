@@ -70,7 +70,7 @@ extension AppDelegate {
         TemplateManager.shared.selectedTemplate = template
     }
     
-    @objc internal func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
+    @IBAction internal func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
         do {
             try TemplateManager.shared.reloadTemplates()
         } catch {
