@@ -163,7 +163,7 @@
                                         <menuItem isSeparatorItem="YES" id="6lZ-6v-Fet"/>
                                         <menuItem title="Print…" keyEquivalent="p" id="Mql-2P-7nA">
                                             <connections>
-                                                <action selector="printDocument:" target="Ady-hI-5gd" id="uW4-Az-a6P"/>
+                                                <action selector="print:" target="Ady-hI-5gd" id="UYz-Dp-g1a"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="7jK-B5-6gt">
@@ -1067,7 +1067,7 @@ CA
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" participatesInCycle="YES" fullScreenPrimary="YES" fullScreenAllowsTiling="YES"/>
                         <rect key="contentRect" x="382" y="560" width="1280" height="800"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <value key="minSize" type="size" width="600" height="587"/>
                         <toolbar key="toolbar" implicitIdentifier="6887003F-BB6B-45F4-A51C-7E5CCF072E10" explicitIdentifier="JSTToolbar" displayMode="iconOnly" sizeMode="regular" id="620-Am-TdU">
                             <allowedToolbarItems/>
@@ -1164,8 +1164,8 @@ CA
                                             <sliderAccessory key="maximumValueAccessory" enabled="NO" id="KdZ-Nz-Ii0">
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
-                                            <slider key="slider" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
-                                                <rect key="frame" x="17" y="0.0" width="66" height="30"/>
+                                            <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
+                                                <rect key="frame" x="17" y="0.0" width="663" height="30"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
                                                     <action selector="previewSliderValueChanged:" target="B8D-0N-5wS" id="TGa-b9-gU8"/>

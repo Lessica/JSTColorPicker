@@ -547,6 +547,12 @@ extension Screenshot {
         }
         return super.presentError(error)
     }
+}
+
+
+// MARK: - Print Operation
+
+extension Screenshot {
     
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
         fatalError("not implemented")
