@@ -17,9 +17,6 @@ final class FolderController: NSViewController {
     @IBOutlet weak var screenshotHelperLocationButton        : NSButton!
     
     @IBOutlet weak var screenshotSavedAtLocationPopUpButton  : NSPopUpButton!
-    @IBOutlet weak var tagDatabaseLocationLabel              : NSTextField!
-    @IBOutlet weak var templatesRootLocationLabel            : NSTextField!
-    @IBOutlet weak var screenshotHelperLocationLabel         : NSTextField!
     
     init() {
         super.init(nibName: "Folder", bundle: nil)
@@ -50,19 +47,14 @@ final class FolderController: NSViewController {
     }
     
     private func reloadUI() {
-        tagDatabaseLocationLabel.stringValue = TagListController.persistentStoreDirectoryURL.path
-        templatesRootLocationLabel.stringValue = TemplateManager.templateRootURL.path
         #if APP_STORE
         if AppDelegate.shared.applicationHasScreenshotHelper() {
-            screenshotHelperLocationLabel.stringValue = GetJSTColorPickerHelperApplicationPath()
-            screenshotHelperLocationButton.isHidden = false
+            screenshotHelperLocationButton.isEnabled = true
         } else {
-            screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Not Installed)", comment: "FolderController")
-            screenshotHelperLocationButton.isHidden = true
+            screenshotHelperLocationButton.isEnabled = false
         }
         #else
-        screenshotHelperLocationLabel.stringValue = NSLocalizedString("(Already Embedded)", comment: "FolderController")
-        screenshotHelperLocationButton.isHidden = true
+        screenshotHelperLocationButton.isEnabled = false
         #endif
     }
     

@@ -11,12 +11,6 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
-/* FolderController */
-"(Already Embedded)" = "(Already Embedded)";
-
-/* FolderController */
-"(Not Installed)" = "(Not Installed)";
-
 /* None */
 "-" = "-";
 

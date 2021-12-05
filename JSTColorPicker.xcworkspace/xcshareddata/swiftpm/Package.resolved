@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "SwiftBonjour",
-        "repositoryURL": "https://github.com/Lessica/SwiftBonjour.git",
-        "state": {
-          "branch": "main",
-          "revision": "9fb0589a7f3cee4faa1953f0c1f43ada24415ecc",
-          "version": null
-        }
-      },
-      {
         "package": "SyntaxKit",
         "repositoryURL": "git@github.com:Lessica/SyntaxKit.git",
         "state": {

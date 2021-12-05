@@ -174,7 +174,7 @@ import OSLog
         )
 
         // purpose: filter the greatest version of each template
-        let newTemplates = Dictionary(
+        var newTemplates = Dictionary(
             grouping: enumerator
                 .compactMap({ $0 as? URL })
                 .filter({ $0.isRegularFile && $0.pathExtension == "lua" })
@@ -191,7 +191,9 @@ import OSLog
             by: { $0.uuid }
         )
         .compactMap({ $0.1.first })
-        .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
+
+        newTemplates = newTemplates
+            .sorted(by: { $0.name.compare($1.name) == .orderedAscending })
 
         self.templates
             .removeAll()
