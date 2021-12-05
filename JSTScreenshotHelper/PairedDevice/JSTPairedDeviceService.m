@@ -19,6 +19,10 @@
 
 @implementation JSTPairedDeviceService
 
+- (void)getHelperInfoDictionary:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
+    reply([NSPropertyListSerialization dataWithPropertyList:[[NSBundle mainBundle] infoDictionary] format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil], nil);
+}
+
 - (void)setNetworkDiscoveryEnabled:(BOOL)enabled {
     _isNetworkDiscoveryEnabled = enabled;
 }
