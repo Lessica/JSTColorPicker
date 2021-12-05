@@ -12,6 +12,7 @@ struct PairedDevice: Codable, Hashable, Device {
     let udid: String
     let name: String
     let type: DeviceType
+    let model: String
     
     static let uniquePrefix: String = "device.paired."
     var uniqueIdentifier: String { "\(PairedDevice.uniquePrefix)\(udid)" }

@@ -20,28 +20,46 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: [%@ %@ %@]>", NSStringFromClass([JSTPairedDevice class]), [self.type uppercaseString], self.name, self.udid];
+    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([JSTPairedDevice class]), [self.type uppercaseString], self.name, self.udid, self.model];
 }
 
 - (instancetype)initWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
-    NSString *name = @"Unknown Device";
+    NSString *deviceName = @"Unknown Device";
+    NSString *deviceModel = @"Unknown Model";
     cDevice = NULL;
     cUDID = strndup(udid.UTF8String, udid.length);
     if (idevice_new_with_options(&cDevice, cUDID, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
         return nil;
     }
-    lockdownd_client_t cClient;
-    if (lockdownd_client_new(cDevice, &cClient, "JSTColorPicker") != LOCKDOWN_E_SUCCESS) {
+    lockdownd_client_t comm;
+    if (lockdownd_client_new(cDevice, &comm, "JSTColorPicker") != LOCKDOWN_E_SUCCESS) {
         idevice_free(cDevice); cDevice = nil;
         return nil;
     }
-    char *cDeviceName;
-    if (lockdownd_get_device_name(cClient, &cDeviceName) == LOCKDOWN_E_SUCCESS) {
-        name = [NSString stringWithUTF8String:cDeviceName];
-        free(cDeviceName);
+    char *cDeviceName = NULL;
+    if (lockdownd_get_device_name(comm, &cDeviceName) == LOCKDOWN_E_SUCCESS) {
+        if (cDeviceName) {
+            deviceName = [NSString stringWithUTF8String:cDeviceName];
+            free(cDeviceName);
+        }
     }
-    lockdownd_client_free(cClient);
-    if (self = [super initWithBase:udid Name:name Type:type]) {
+    plist_t pDeviceType = NULL;
+    if (lockdownd_get_value(comm, NULL, "ProductType", &pDeviceType) == LOCKDOWN_E_SUCCESS) {
+        if (pDeviceType && (plist_get_node_type(pDeviceType) == PLIST_STRING)) {
+            char *cDeviceType = NULL;
+            plist_get_string_val(pDeviceType, &cDeviceType);
+            if (cDeviceType) {
+                deviceModel = [NSString stringWithUTF8String:cDeviceType];
+                free(cDeviceType);
+            }
+        }
+        if (pDeviceType) {
+            plist_free(pDeviceType);
+        }
+    }
+    lockdownd_goodbye(comm);
+    lockdownd_client_free(comm);
+    if (self = [super initWithBase:udid Name:deviceName Model:deviceModel Type:type]) {
         assert([self hasValidType]);
         
         _udid = udid;
@@ -71,6 +89,8 @@
 }
 
 - (void)takeScreenshotWithCompletionHandler:(JSTScreenshotHandler)completion {
+    BOOL sbsRequired = NO;
+
     idevice_t device = self->cDevice;
     lockdownd_client_t lckd = NULL;
     lockdownd_error_t ldret = LOCKDOWN_E_UNKNOWN_ERROR;
@@ -86,48 +106,108 @@
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SBSERVICES_SERVICE_NAME, &sbsService)) || !(sbsService && sbsService->port > 0)) {
-        lockdownd_client_free(lckd);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
-        return;
+        if (sbsRequired && lckd) {
+            lockdownd_goodbye(lckd);
+            lockdownd_client_free(lckd);
+            lckd = NULL;
+        }
+        if (sbsRequired) {
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
+            return;
+        }
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SCREENSHOTR_SERVICE_NAME, &shotrService)) || !(shotrService && shotrService->port > 0)) {
-        lockdownd_client_free(lckd);
+        if (lckd) {
+            lockdownd_goodbye(lckd);
+            lockdownd_client_free(lckd);
+            lckd = NULL;
+        }
         completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
-    lockdownd_client_free(lckd);
+
+    if (lckd) {
+        lockdownd_goodbye(lckd);
+        lockdownd_client_free(lckd);
+        lckd = NULL;
+    }
     
     if (SBSERVICES_E_SUCCESS != (sbret = sbservices_client_new(device, sbsService, &sbs))) {
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME] }]);
-        return;
+        if (sbsService) {
+            lockdownd_service_descriptor_free(sbsService);
+            sbsService = NULL;
+        }
+        if (sbsRequired && shotrService) {
+            lockdownd_service_descriptor_free(shotrService);
+            shotrService = NULL;
+        }
+        if (sbsRequired) {
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME] }]);
+            return;
+        }
     }
     if (SCREENSHOTR_E_SUCCESS != (scret = screenshotr_client_new(device, shotrService, &shotr))) {
-        sbservices_client_free(sbs);
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
+        if (sbs) {
+            sbservices_client_free(sbs);
+            sbs = NULL;
+        }
+        if (sbsService) {
+            lockdownd_service_descriptor_free(sbsService);
+            sbsService = NULL;
+        }
+        if (shotrService) {
+            lockdownd_service_descriptor_free(shotrService);
+            shotrService = NULL;
+        }
         completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
     
     sbservices_interface_orientation_t orientation = SBSERVICES_INTERFACE_ORIENTATION_UNKNOWN;
-    if (SBSERVICES_E_SUCCESS != (sbret = sbservices_get_interface_orientation(sbs, &orientation)) && orientation != SBSERVICES_INTERFACE_ORIENTATION_UNKNOWN) {
-        sbservices_client_free(sbs);
-        screenshotr_client_free(shotr);
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get interface orientation.", @"kJSTScreenshotError") }]);
-        return;
+    if (sbs) {
+        if (SBSERVICES_E_SUCCESS != (sbret = sbservices_get_interface_orientation(sbs, &orientation)) && orientation != SBSERVICES_INTERFACE_ORIENTATION_UNKNOWN) {
+            if (sbs) {
+                sbservices_client_free(sbs);
+                sbs = NULL;
+            }
+            if (sbsRequired && shotr) {
+                screenshotr_client_free(shotr);
+                shotr = NULL;
+            }
+            if (sbsService) {
+                lockdownd_service_descriptor_free(sbsService);
+                sbsService = NULL;
+            }
+            if (sbsRequired && shotrService) {
+                lockdownd_service_descriptor_free(shotrService);
+                shotrService = NULL;
+            }
+            if (sbsRequired) {
+                completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get interface orientation.", @"kJSTScreenshotError") }]);
+                return;
+            }
+        }
     }
     
     char *cIMGData = NULL;
     uint64_t cIMGSize = 0;
     if (SCREENSHOTR_E_SUCCESS != (scret = screenshotr_take_screenshot(shotr, &cIMGData, &cIMGSize)) && cIMGData != NULL) {
-        sbservices_client_free(sbs);
-        screenshotr_client_free(shotr);
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
+        if (sbs) {
+            sbservices_client_free(sbs);
+            sbs = NULL;
+        }
+        if (shotr) {
+            screenshotr_client_free(shotr);
+            shotr = NULL;
+        }
+        if (sbsService) {
+            lockdownd_service_descriptor_free(sbsService);
+            sbsService = NULL;
+        }
+        if (shotrService) {
+            lockdownd_service_descriptor_free(shotrService);
+            shotrService = NULL;
+        }
         completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
@@ -138,10 +218,22 @@
     else if (memcmp(cIMGData, "MM\x00*", MIN(4, cIMGSize)) == 0) { isTIFFData = YES; }
     else {
         free(cIMGData);
-        sbservices_client_free(sbs);
-        screenshotr_client_free(shotr);
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
+        if (sbs) {
+            sbservices_client_free(sbs);
+            sbs = NULL;
+        }
+        if (shotr) {
+            screenshotr_client_free(shotr);
+            shotr = NULL;
+        }
+        if (sbsService) {
+            lockdownd_service_descriptor_free(sbsService);
+            sbsService = NULL;
+        }
+        if (shotrService) {
+            lockdownd_service_descriptor_free(shotrService);
+            shotrService = NULL;
+        }
         completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get PNG/TIFF representation of screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
@@ -154,10 +246,22 @@
         
         BOOL temporaryWrite = [temporaryData writeToURL:temporaryFileURL atomically:YES];
         if (!temporaryWrite) {
-            sbservices_client_free(sbs);
-            screenshotr_client_free(shotr);
-            lockdownd_service_descriptor_free(sbsService);
-            lockdownd_service_descriptor_free(shotrService);
+            if (sbs) {
+                sbservices_client_free(sbs);
+                sbs = NULL;
+            }
+            if (shotr) {
+                screenshotr_client_free(shotr);
+                shotr = NULL;
+            }
+            if (sbsService) {
+                lockdownd_service_descriptor_free(sbsService);
+                sbsService = NULL;
+            }
+            if (shotrService) {
+                lockdownd_service_descriptor_free(shotrService);
+                shotrService = NULL;
+            }
             completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not write TIFF representation of screenshot to temporary storage.", @"kJSTScreenshotError") }]);
             return;
         }
@@ -170,10 +274,22 @@
         CFDictionaryRef sourceOptionsRef = (__bridge CFDictionaryRef)sourceOptions;
         CGImageSourceRef imageSource = CGImageSourceCreateWithURL(imageURLRef, sourceOptionsRef);
         if (!imageSource) {
-            sbservices_client_free(sbs);
-            screenshotr_client_free(shotr);
-            lockdownd_service_descriptor_free(sbsService);
-            lockdownd_service_descriptor_free(shotrService);
+            if (sbs) {
+                sbservices_client_free(sbs);
+                sbs = NULL;
+            }
+            if (shotr) {
+                screenshotr_client_free(shotr);
+                shotr = NULL;
+            }
+            if (sbsService) {
+                lockdownd_service_descriptor_free(sbsService);
+                sbsService = NULL;
+            }
+            if (shotrService) {
+                lockdownd_service_descriptor_free(shotrService);
+                shotrService = NULL;
+            }
             completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not read TIFF representation of screenshot from temporary storage.", @"kJSTScreenshotError") }]);
             return;
         }
@@ -190,10 +306,22 @@
     }
     
     if (!image) {
-        sbservices_client_free(sbs);
-        screenshotr_client_free(shotr);
-        lockdownd_service_descriptor_free(sbsService);
-        lockdownd_service_descriptor_free(shotrService);
+        if (sbs) {
+            sbservices_client_free(sbs);
+            sbs = NULL;
+        }
+        if (shotr) {
+            screenshotr_client_free(shotr);
+            shotr = NULL;
+        }
+        if (sbsService) {
+            lockdownd_service_descriptor_free(sbsService);
+            sbsService = NULL;
+        }
+        if (shotrService) {
+            lockdownd_service_descriptor_free(shotrService);
+            shotrService = NULL;
+        }
         completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not create image from screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
@@ -214,10 +342,22 @@
     completion([pixelImage pngRepresentation], nil);
     if (image) { CGImageRelease(image); }
     
-    sbservices_client_free(sbs);
-    screenshotr_client_free(shotr);
-    lockdownd_service_descriptor_free(sbsService);
-    lockdownd_service_descriptor_free(shotrService);
+    if (sbs) {
+        sbservices_client_free(sbs);
+        sbs = NULL;
+    }
+    if (shotr) {
+        screenshotr_client_free(shotr);
+        shotr = NULL;
+    }
+    if (sbsService) {
+        lockdownd_service_descriptor_free(sbsService);
+        sbsService = NULL;
+    }
+    if (shotrService) {
+        lockdownd_service_descriptor_free(shotrService);
+        shotrService = NULL;
+    }
 }
 
 @end

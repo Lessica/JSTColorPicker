@@ -178,10 +178,14 @@ extension AppDelegate {
         notifyDiscoverDevices(sender)
     }
     
-    private func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<[String: String]> {
+    private func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, byHostName hostName: String) -> Promise<[String: String]> {
         return Promise<[String: String]> { seal in
             after(.seconds(3)).done {
                 seal.reject(XPCError.timeout)
+            }
+            guard let udid = hostName.split(separator: ".").compactMap({ String($0) }).last else {
+                seal.reject(InternalError.invalidDeviceHandler)
+                return
             }
             proxy.lookupDevice(byUDID: udid) { (data, error) in
                 if let error = error {
@@ -193,10 +197,14 @@ extension AppDelegate {
         }
     }
     
-    private func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, by udid: String) -> Promise<Data> {
+    private func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, byHostName hostName: String) -> Promise<Data> {
         return Promise<Data> { seal in
             after(.seconds(30)).done {
                 seal.reject(XPCError.timeout)
+            }
+            guard let udid = hostName.split(separator: ".").compactMap({ String($0) }).last else {
+                seal.reject(InternalError.invalidDeviceHandler)
+                return
             }
             proxy.takeScreenshot(byUDID: udid) { (data, error) in
                 if let error = error {
@@ -371,11 +379,11 @@ extension AppDelegate {
                 loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
                 windowController.showSheet(loadingAlert, completionHandler: nil)
-                return self.promiseProxyLookupDevice(proxy, by: selectedIdentifier)
+                return self.promiseProxyLookupDevice(proxy, byHostName: selectedIdentifier)
             }.then { [unowned self] (device) -> Promise<Data> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device["name"]!)
-                return self.promiseProxyTakeScreenshot(proxy, by: device["udid"]!)
+                return self.promiseProxyTakeScreenshot(proxy, byHostName: device["udid"]!)
             }
         }
         else if selectedIdentifier.hasPrefix(BonjourDevice.uniquePrefix) {
@@ -515,7 +523,8 @@ extension AppDelegate {
             let deviceModel = PairedDevice(
                 udid: deviceUDID,
                 name: deviceName,
-                type: device["type"] ?? ""
+                type: device["type"] ?? "",
+                model: device["model"] ?? ""
             )
             
             let item = NSMenuItem(title: "\(deviceModel.title) (\(deviceModel.subtitle))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
@@ -523,15 +532,29 @@ extension AppDelegate {
             item.tag = MainMenu.MenuItemTag.devices.rawValue
             item.isEnabled = true
             item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
-            switch deviceModel.type {
-                case JSTDeviceTypeUSB:
-                    item.image = NSImage(named: "usb")
-                case JSTDeviceTypeNetwork:
-                    item.image = NSImage(systemSymbolName: "wifi", accessibilityDescription: "wifi")
-                case JSTDeviceTypeBonjour:
-                    item.image = NSImage(systemSymbolName: "bonjour", accessibilityDescription: "bonjour")
-                default:
-                    break
+            if deviceModel.model.lowercased().hasPrefix("appletv") {
+                item.image = NSImage(systemSymbolName: "appletv.fill", accessibilityDescription: "appletv.fill")
+            }
+            else if deviceModel.model.lowercased().hasPrefix("iphone") {
+                item.image = NSImage(systemSymbolName: "iphone", accessibilityDescription: "iphone")
+            }
+            else if deviceModel.model.lowercased().hasPrefix("ipad") {
+                item.image = NSImage(systemSymbolName: "ipad", accessibilityDescription: "ipad")
+            }
+            else if deviceModel.model.lowercased().hasPrefix("ipod") {
+                item.image = NSImage(systemSymbolName: "ipodtouch", accessibilityDescription: "ipodtouch")
+            }
+            else {
+                switch deviceModel.type {
+                    case JSTDeviceTypeUSB:
+                        item.image = NSImage(named: "usb")
+                    case JSTDeviceTypeNetwork:
+                        item.image = NSImage(systemSymbolName: "wifi", accessibilityDescription: "wifi")
+                    case JSTDeviceTypeBonjour:
+                        item.image = NSImage(systemSymbolName: "bonjour", accessibilityDescription: "bonjour")
+                    default:
+                        break
+                }
             }
             item.representedObject = deviceModel
             

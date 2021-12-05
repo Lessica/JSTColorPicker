@@ -11,17 +11,18 @@
 @implementation JSTDevice
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: [%@ %@ %@]>", NSStringFromClass([JSTDevice class]), [self.type uppercaseString], self.name, self.base];
+    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([JSTDevice class]), [self.type uppercaseString], self.name, self.base, self.model];
 }
 
 - (BOOL)isEqual:(JSTDevice *)object {
     return [self.base isEqualToString:object.base];
 }
 
-- (instancetype)initWithBase:(NSString *)base Name:(NSString *)name Type:(NSString *)type {
+- (instancetype)initWithBase:(NSString *)base Name:(NSString *)name Model:(NSString *)model Type:(NSString *)type {
     if (self = [super init]) {
         _base = base;
         _name = name;
+        _model = model;
         _type = type;
         assert([self hasValidType]);
     }

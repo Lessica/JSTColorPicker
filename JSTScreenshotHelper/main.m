@@ -238,7 +238,7 @@ int main(int argc, const char *argv[])
     
     // Resuming the serviceListener starts this service. This method will return immediately.
     [listener resume];
-    [[NSRunLoop currentRunLoop] run];
+    NSApplicationMain(argc, argv);
     
     return EXIT_SUCCESS;
     
