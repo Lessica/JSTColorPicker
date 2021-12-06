@@ -70,8 +70,8 @@
 /* Class = "NSMenuItem"; title = "Zoom to 2x"; ObjectID = "8he-XC-WaL"; */
 "8he-XC-WaL.title" = "缩放到 2x";
 
-/* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
-"8Lc-x4-Wqe.title" = "切换颜色面板";
+/* Class = "NSMenuItem"; title = "Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
+"8Lc-x4-Wqe.title" = "颜色面板";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.ibShadowedToolTip" = "将选中区域另存为 PNG 文件。";
@@ -205,8 +205,8 @@
 /* Class = "NSMenuItem"; title = "Move Down (100 Pixel)"; ObjectID = "Epn-EC-VxY"; */
 "Epn-EC-VxY.title" = "向下移动 (100 像素)";
 
-/* Class = "NSMenuItem"; title = "Toggle Color Grid"; ObjectID = "f1Y-VB-nPG"; */
-"f1Y-VB-nPG.title" = "切换颜色网格";
+/* Class = "NSMenuItem"; title = "Color Grid"; ObjectID = "f1Y-VB-nPG"; */
+"f1Y-VB-nPG.title" = "颜色网格";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "帮助";

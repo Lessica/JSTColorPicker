@@ -135,6 +135,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileMenu                               : NSMenu!
     @IBOutlet weak var editMenu                               : NSMenu!
     @IBOutlet weak var viewMenu                               : NSMenu!
+    @IBOutlet weak var viewPanelMenu                          : NSMenu!
     @IBOutlet weak var sceneMenu                              : NSMenu!
     @IBOutlet weak var sceneZoomMenu                          : NSMenu!
     @IBOutlet weak var paneMenu                               : NSMenu!
@@ -148,10 +149,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var checkForUpdatesMenuItem                : NSMenuItem!
     @IBOutlet weak var viewSubscriptionMenuItem               : NSMenuItem!
     @IBOutlet weak var compareDocumentsMenuItem               : NSMenuItem!
-    @IBOutlet weak var gridSwitchMenuItem                     : NSMenuItem!
     @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
     @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
-    @IBOutlet weak var colorPanelSwitchMenuItem               : NSMenuItem!
     
     internal var firstManagedWindowController: WindowController? {
         return tabService?.firstManagedWindow?.windowController
@@ -410,26 +409,29 @@ by \(template.author ?? "Unknown")
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         if menu == self.mainMenu {
-            updateMainMenuItems()
+            updateMainMenuItems(menu)
         }
         else if menu == self.fileMenu {
-            updateFileMenuItems()
+            updateFileMenuItems(menu)
+        }
+        else if menu == self.viewPanelMenu {
+            updateViewPanelMenuItems(menu)
         }
         else if menu == self.sceneMenu {
-            updateSceneMenuItems()
+            updateSceneMenuItems(menu)
         }
         else if menu == self.devicesMenu {
-            updateDevicesMenuItems()
+            updateDevicesMenuItems(menu)
         }
         else if menu == self.devicesSubMenu {
-            updateDevicesSubMenuItems()
+            updateDevicesSubMenuItems(menu)
         }
         else if menu == self.templateSubMenu {
-            updateTemplatesSubMenuItems()
+            updateTemplatesSubMenuItems(menu)
         }
     }
     
-    private func updateMainMenuItems() {
+    private func updateMainMenuItems(_ menu: NSMenu) {
         #if APP_STORE
         if PurchaseManager.shared.getProductType() == .subscribed {
             viewSubscriptionMenuItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getShortReadableExpiredAt())
@@ -439,7 +441,7 @@ by \(template.author ?? "Unknown")
         #endif
     }
     
-    private func updateFileMenuItems() {
+    private func updateFileMenuItems(_ menu: NSMenu) {
         if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
             compareDocumentsMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
         }
@@ -464,7 +466,23 @@ by \(template.author ?? "Unknown")
         }
     }
     
-    private func updateSceneMenuItems() {
+    private func updateViewPanelMenuItems(_ menu: NSMenu) {
+        for menuItem in menu.items {
+            guard let menuIdentifier = menuItem.identifier else { continue }
+            switch menuIdentifier {
+                case .panelBrowser:
+                    menuItem.state = BrowserWindowController.shared.isVisible ? .on : .off
+                case .panelColorPanel:
+                    menuItem.state = colorPanel.isVisible ? .on : .off
+                case .panelColorGrid:
+                    menuItem.state = GridWindowController.shared.isVisible ? .on : .off
+                default:
+                    break
+            }
+        }
+    }
+    
+    private func updateSceneMenuItems(_ menu: NSMenu) {
         guard let toolIdent = firstRespondingWindowController?.selectedSceneToolIdentifier else { return }
         var menuItemIdent: NSUserInterfaceItemIdentifier?
         switch toolIdent {
@@ -496,14 +514,17 @@ by \(template.author ?? "Unknown")
 
 extension AppDelegate {
     
-    private static let restorableGridWindowVisibleState = "GridWindowController.shared.window.isVisible"
+    private static let restorableBrowserWindowVisibleState = "BrowserWindowController.shared.isVisible"
+    private static let restorableColorGridWindowVisibleState = "GridWindowController.shared.isVisible"
     
     func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
-        coder.encode(GridWindowController.shared.isVisible, forKey: AppDelegate.restorableGridWindowVisibleState)
+        coder.encode(isBrowserVisible, forKey: AppDelegate.restorableBrowserWindowVisibleState)
+        coder.encode(isColorGridVisible, forKey: AppDelegate.restorableColorGridWindowVisibleState)
     }
     
     func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
-        toggleGridVisibleState(coder.decodeBool(forKey: AppDelegate.restorableGridWindowVisibleState), sender: app)
+        toggleBrowserVisibleState(coder.decodeBool(forKey: AppDelegate.restorableBrowserWindowVisibleState), sender: app)
+        toggleColorGridVisibleState(coder.decodeBool(forKey: AppDelegate.restorableColorGridWindowVisibleState), sender: app)
     }
     
 }

@@ -1,38 +1,43 @@
-//
-//  ObjC+Ext.swift
-//  JSTColorPicker
-//
-//  Created by Rachel on 4/14/21.
-//  Copyright © 2021 JST. All rights reserved.
-//
+/*
+ AssociatedObject.swift
+ 
+ Copyright © 2020 RFUI.
+ https://github.com/BB9z/iOS-Project-Template
+ 
+ The MIT License
+ https://opensource.org/licenses/MIT
+ */
 
 import Foundation
 
-final class Lifted<T> {
-    let value: T
-    init(_ x: T) {
-        value = x
+/**
+ Objective-C associated value wrapper.
+ 
+ Usage
+ 
+ ```
+ private let fooAssociation = AssociatedObject<String>()
+ extension SomeObject {
+ var foo: String? {
+ get { fooAssociation[self] }
+ set { fooAssociation[self] = newValue }
+ }
+ }
+ ```
+ */
+public final class AssociatedObject<T> {
+    private let policy: objc_AssociationPolicy
+    
+    /// Creates an associated value wrapper.
+    /// - Parameter policy: The policy for the association.
+    public init(policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC) {
+        self.policy = policy
     }
-}
-
-func lift<T>(x: T) -> Lifted<T>  {
-    return Lifted(x)
-}
-
-func setAssociatedObject<T>(object: AnyObject, value: T, associativeKey: UnsafeRawPointer, policy: objc_AssociationPolicy) {
-    if let v: AnyObject = value as? AnyObject {
-        objc_setAssociatedObject(object, associativeKey, v,  policy)
-    } else {
-        objc_setAssociatedObject(object, associativeKey, lift(x: value),  policy)
-    }
-}
-
-func getAssociatedObject<T>(object: AnyObject, associativeKey: UnsafeRawPointer) -> T? {
-    if let v = objc_getAssociatedObject(object, associativeKey) as? T {
-        return v
-    } else if let v = objc_getAssociatedObject(object, associativeKey) as? Lifted<T> {
-        return v.value
-    } else {
-        return nil
+    
+    /// Accesses the associated value.
+    /// - Parameter index: The source object for the association.
+    public subscript(index: AnyObject) -> T? {
+        get { objc_getAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque()) as? T }
+        set { objc_setAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque(), newValue, policy) }
     }
 }

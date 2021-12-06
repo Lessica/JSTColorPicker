@@ -81,7 +81,7 @@ extension AppDelegate {
     
     // MARK: - Template Menu Items
     
-    internal func updateTemplatesSubMenuItems() {
+    internal func updateTemplatesSubMenuItems(_ menu: NSMenu) {
         var itemIdx: Int = 0
         let items = TemplateManager.shared.templates
             .compactMap({ [weak self] (template) -> NSMenuItem in
@@ -108,7 +108,7 @@ extension AppDelegate {
         
         let separatorItem = NSMenuItem.separator()
         let reloadTemplatesItem = NSMenuItem(
-            title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems()"),
+            title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems(_:)"),
             action: #selector(reloadTemplatesItemTapped(_:)),
             keyEquivalent: "0"
         )
@@ -116,13 +116,13 @@ extension AppDelegate {
         reloadTemplatesItem.target = self
         reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
         reloadTemplatesItem.isEnabled = true
-        reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems()")
+        reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems(_:)")
         
         if items.count > 0 {
             templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
         } else {
             let emptyItem = NSMenuItem(
-                title: NSLocalizedString("No template available.", comment: "updateTemplatesSubMenuItems()"),
+                title: NSLocalizedString("No template available.", comment: "updateTemplatesSubMenuItems(_:)"),
                 action: nil,
                 keyEquivalent: ""
             )

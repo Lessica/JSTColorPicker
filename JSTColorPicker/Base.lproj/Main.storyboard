@@ -469,6 +469,12 @@ CA
                                                 <action selector="toggleSidebar:" target="Ady-hI-5gd" id="3dJ-Od-Ods"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Sidebar Panes" id="XoB-WB-yEe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" showsStateColumn="NO" id="W5Q-zL-aIc">
@@ -515,24 +521,33 @@ CA
                                                 </connections>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="Rni-dG-O6T"/>
-                                        <menuItem title="Toggle Color Grid" keyEquivalent="g" id="f1Y-VB-nPG">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="gridSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="IrU-H6-5y4"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Toggle Color Panel" keyEquivalent="c" id="8Lc-x4-Wqe">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="colorPanelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="VZD-Kz-jQH"/>
-                                            </connections>
+                                        <menuItem title="Panels" id="iFV-CC-wZn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Panels" id="Q4C-MZ-Ews">
+                                                <items>
+                                                    <menuItem title="Browser" keyEquivalent="b" identifier="com.jst.JSTColorPicker.Panel.Browser" id="2wf-y9-YT4">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="798-GK-KAF"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Color Panel" keyEquivalent="c" identifier="com.jst.JSTColorPicker.Panel.ColorPanel" id="8Lc-x4-Wqe">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="7QQ-mq-vwT"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Color Grid" keyEquivalent="g" identifier="com.jst.JSTColorPicker.Panel.ColorGrid" id="f1Y-VB-nPG">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="ikW-4G-X4Z"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="b6m-Fq-5f2"/>
+                                                </connections>
+                                            </menu>
                                         </menuItem>
                                     </items>
                                     <connections>
@@ -1031,7 +1046,6 @@ CA
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="JSTColorPicker" customModuleProvider="target">
                     <connections>
                         <outlet property="checkForUpdatesMenuItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
-                        <outlet property="colorPanelSwitchMenuItem" destination="8Lc-x4-Wqe" id="G0m-8J-CvS"/>
                         <outlet property="compareDocumentsMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
                         <outlet property="devicesEnableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
                         <outlet property="devicesMenu" destination="1Il-r8-iYp" id="6DE-0J-47r"/>
@@ -1039,7 +1053,6 @@ CA
                         <outlet property="devicesTakeScreenshotMenuItem" destination="k2M-xo-Glg" id="uFh-af-Dcp"/>
                         <outlet property="editMenu" destination="W48-6f-4Dl" id="fqi-HN-p3H"/>
                         <outlet property="fileMenu" destination="bib-Uj-vzu" id="huq-wG-vw3"/>
-                        <outlet property="gridSwitchMenuItem" destination="f1Y-VB-nPG" id="9fO-bw-SNB"/>
                         <outlet property="helpMenu" destination="F2S-fz-NVQ" id="E5E-bh-2qp"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
@@ -1050,6 +1063,7 @@ CA
                         <outlet property="templateMenu" destination="0GS-5F-2Eu" id="KgQ-uV-vT1"/>
                         <outlet property="templateSubMenu" destination="af9-zN-lJB" id="bF6-pZ-izo"/>
                         <outlet property="viewMenu" destination="HyV-fh-RgO" id="cfn-gl-0mH"/>
+                        <outlet property="viewPanelMenu" destination="Q4C-MZ-Ews" id="Gru-4D-XoG"/>
                         <outlet property="viewSubscriptionMenuItem" destination="SGf-6i-QGZ" id="4Sj-YY-Kzk"/>
                         <outlet property="windowMenu" destination="Td7-aD-5lo" id="bKh-Qh-jTf"/>
                     </connections>
@@ -1086,7 +1100,7 @@ CA
                             <touchBarItem visibilityPriority="1000" id="eXV-YH-bGl">
                                 <viewController key="viewController" id="beq-Ue-Gvs">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-nI-yVz">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="7" y="-5" width="72" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="plus.rectangle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RH3-9C-SpD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1169,7 +1183,7 @@ CA
                                                 <sliderAccessoryBehavior key="behavior" id="fkA-dZ-kIM"/>
                                             </sliderAccessory>
                                             <slider key="slider" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-3S-kE7">
-                                                <rect key="frame" x="17" y="0.0" width="663" height="30"/>
+                                                <rect key="frame" x="17" y="0.0" width="66" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="8" tickMarkPosition="below" sliderType="linear" id="J7Y-8q-Nhm"/>
                                                 <connections>
@@ -1187,7 +1201,7 @@ CA
                             <touchBarItem visibilityPriority="1000" id="PQH-8F-ERn">
                                 <viewController key="viewController" id="WCX-ou-J2B">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tud-ma-aIR">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <rect key="frame" x="7" y="-5" width="72" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="camera" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sVm-Aj-N2L">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1301,14 +1315,14 @@ CA
     </scenes>
     <resources>
         <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="16" height="15"/>
-        <image name="arrow.up.left.and.down.right.magnifyingglass" catalog="system" width="16" height="15"/>
+        <image name="arrow.up.left.and.down.right.magnifyingglass" catalog="system" width="15" height="15"/>
         <image name="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" width="18" height="14"/>
         <image name="aspectratio" catalog="system" width="18" height="14"/>
         <image name="camera" catalog="system" width="19" height="15"/>
-        <image name="cursorarrow.and.square.on.square.dashed" catalog="system" width="17" height="17"/>
+        <image name="cursorarrow.and.square.on.square.dashed" catalog="system" width="17" height="16"/>
         <image name="cursorarrow.rays" catalog="system" width="16" height="16"/>
-        <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
+        <image name="minus.magnifyingglass" catalog="system" width="15" height="15"/>
+        <image name="plus.magnifyingglass" catalog="system" width="15" height="15"/>
         <image name="plus.rectangle" catalog="system" width="18" height="14"/>
     </resources>
 </document>

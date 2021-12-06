@@ -14,5 +14,6 @@
 #import "JSTScreenshotHelperProtocol.h"
 #import "OpenCVWrapper.h"
 #import <Sparkle/SUUpdater.h>
+#import "BrowserController.h"
 
 #endif /* JSTColorPicker_Bridging_Header_h */

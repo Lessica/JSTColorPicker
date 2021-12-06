@@ -451,12 +451,12 @@ extension AppDelegate {
     
     // MARK: - Device Menu Items
     
-    internal func updateDevicesMenuItems() {
+    internal func updateDevicesMenuItems(_ menu: NSMenu) {
         devicesEnableNetworkDiscoveryMenuItem.state = isNetworkDiscoveryEnabled ? .on : .off
         devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
     }
     
-    internal func updateDevicesSubMenuItems() {
+    internal func updateDevicesSubMenuItems(_ menu: NSMenu) {
         for item in devicesSubMenu.items {
             guard let deviceModel = item.representedObject as? Device else { continue }
             item.isEnabled = true

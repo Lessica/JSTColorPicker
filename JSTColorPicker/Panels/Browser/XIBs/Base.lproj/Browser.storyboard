@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="qYB-o5-LAg">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="Ev7-YW-9jS">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="qYB-o5-LAg" customClass="BrowserWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Document Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="DocumentBrowser" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="3Wk-ly-nP9" customClass="NSPanel">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" documentModal="YES" texturedBackground="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="335" y="461" width="250" height="480"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <value key="minSize" type="size" width="250" height="360"/>
+                        <view key="contentView" id="aoT-Rc-Hq7">
+                            <rect key="frame" x="0.0" y="0.0" width="250" height="480"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                    </window>
+                    <connections>
+                        <segue destination="RNH-hp-6tO" kind="relationship" relationship="window.shadowedContentViewController" id="2eY-zi-Os4"/>
+                    </connections>
+                </windowController>
+                <customObject id="A0Q-pw-csM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-183" y="-432"/>
+        </scene>
+        <!--Browser-->
+        <scene sceneID="h30-HY-NiK">
+            <objects>
+                <viewController title="Browser" id="RNH-hp-6tO" customClass="BrowserViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="f1W-kO-pbr" customClass="NSVisualEffectView">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" prefersAllColumnUserResizing="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnsAutosaveName="BrowserColumns" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="t6r-VH-7dj">
+                                <rect key="frame" x="4" y="0.0" width="246" height="418"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Tzi-PL-tLf" id="6UH-ri-fH0"/>
+                                </connections>
+                            </browser>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="3oc-eM-wwZ" firstAttribute="bottom" secondItem="t6r-VH-7dj" secondAttribute="bottom" id="04j-bt-HUs"/>
+                            <constraint firstItem="3oc-eM-wwZ" firstAttribute="trailing" secondItem="t6r-VH-7dj" secondAttribute="trailing" id="O5N-2g-rve"/>
+                            <constraint firstItem="t6r-VH-7dj" firstAttribute="leading" secondItem="3oc-eM-wwZ" secondAttribute="leading" constant="4" id="U1z-YE-XAs"/>
+                            <constraint firstItem="t6r-VH-7dj" firstAttribute="top" secondItem="eGV-wR-85i" secondAttribute="top" constant="12" id="XdZ-5g-AFc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3oc-eM-wwZ"/>
+                        <viewLayoutGuide key="layoutMargins" id="eGV-wR-85i"/>
+                    </view>
+                    <connections>
+                        <outlet property="browser" destination="t6r-VH-7dj" id="RgM-NW-O5G"/>
+                        <outlet property="browserController" destination="Tzi-PL-tLf" id="K5m-se-3Sz"/>
+                    </connections>
+                </viewController>
+                <customObject id="ILy-3S-cnP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Tzi-PL-tLf" customClass="BrowserController">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leafItemPreviewable" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="browser" destination="t6r-VH-7dj" id="rLt-rE-jfY"/>
+                        <outlet property="window" destination="3Wk-ly-nP9" id="mmc-uA-4tI"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="207" y="-432"/>
+        </scene>
+    </scenes>
+</document>

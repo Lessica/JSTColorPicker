@@ -9,21 +9,12 @@
 import Cocoa
 import ObjectiveC
 
+private let fooAssociation = AssociatedObject<Any>()
+
 extension NSColorPanel {
-    
-    private struct AssociatedKey {
-        static var strongTarget = "strongTarget"
-    }
-    
     var strongTarget: Any? {
-        get {
-            return getAssociatedObject(object: self, associativeKey: &AssociatedKey.strongTarget)
-        }
-        set {
-            setTarget(newValue)
-            setAssociatedObject(object: self, value: newValue, associativeKey: &AssociatedKey.strongTarget, policy: objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { fooAssociation[self] }
+        set { fooAssociation[self] = newValue }
     }
-    
 }
 

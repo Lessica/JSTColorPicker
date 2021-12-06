@@ -70,8 +70,8 @@
 /* Class = "NSMenuItem"; title = "Zoom to 2x"; ObjectID = "8he-XC-WaL"; */
 "8he-XC-WaL.title" = "Zoom to 2x";
 
-/* Class = "NSMenuItem"; title = "Toggle Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
-"8Lc-x4-Wqe.title" = "Toggle Color Panel";
+/* Class = "NSMenuItem"; title = "Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
+"8Lc-x4-Wqe.title" = "Color Panel";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.ibShadowedToolTip" = "Save this area to a PNG file.";
@@ -205,8 +205,8 @@
 /* Class = "NSMenuItem"; title = "Move Down (100 Pixel)"; ObjectID = "Epn-EC-VxY"; */
 "Epn-EC-VxY.title" = "Move Down (100 Pixel)";
 
-/* Class = "NSMenuItem"; title = "Toggle Color Grid"; ObjectID = "f1Y-VB-nPG"; */
-"f1Y-VB-nPG.title" = "Toggle Color Grid";
+/* Class = "NSMenuItem"; title = "Color Grid"; ObjectID = "f1Y-VB-nPG"; */
+"f1Y-VB-nPG.title" = "Color Grid";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "Help";
