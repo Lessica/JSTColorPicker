@@ -12,7 +12,7 @@
             <objects>
                 <windowController showSeguePresentationStyle="single" id="qYB-o5-LAg" customClass="BrowserWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Document Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="DocumentBrowser" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="3Wk-ly-nP9" customClass="NSPanel">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" documentModal="YES" texturedBackground="YES" fullSizeContentView="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" documentModal="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="335" y="461" width="500" height="360"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>

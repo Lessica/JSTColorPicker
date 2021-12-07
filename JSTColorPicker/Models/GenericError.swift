@@ -12,6 +12,7 @@ enum GenericError: CustomNSError, LocalizedError {
     case notRegularFile(url: URL)
     case notDirectory(url: URL)
     case notPackage(url: URL)
+    case invalidFilename(name: String)
     
     var errorCode: Int {
         switch self {
@@ -21,6 +22,8 @@ enum GenericError: CustomNSError, LocalizedError {
             return 502
         case .notPackage:
             return 503
+        case .invalidFilename:
+            return 504
         }
     }
     
@@ -32,6 +35,8 @@ enum GenericError: CustomNSError, LocalizedError {
             return String(format: NSLocalizedString("Not a directory: \"%@\".", comment: "GenericError"), url.path)
         case let .notPackage(url):
             return String(format: NSLocalizedString("Not a package: \"%@\".", comment: "GenericError"), url.path)
+        case let .invalidFilename(name):
+            return String(format: NSLocalizedString("Invalid filename: \"%@\".", comment: "GenericError"), name)
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PromiseKit
 
 
 // MIT licence. Copyright © 2018 Simon Strandgaard. All rights reserved.
@@ -123,9 +124,12 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
         : IndexSet(browser.selectedRowIndexes(inColumn: browser.clickedColumn) ?? IndexSet())
     }
     
-    private var hasSelectedNode: Bool { actionSelectedRowIndexes.count > 0 }
-    private var selectedNodes: [FileSystemNode] {
-        guard let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode,
+    private var hasSelectedChildNode: Bool { actionSelectedRowIndexes.count > 0 }
+    private var selectedParentNode: FileSystemNode? {
+        return browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode
+    }
+    private var selectedChildNodes: [FileSystemNode] {
+        guard let parentNode = selectedParentNode,
               let collection = parentNode.children
         else {
             return []
@@ -137,7 +141,9 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
 
     private var actionIsPreview: Bool {
-        guard browser.clickedRow < 0, let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode else {
+        guard browser.clickedRow < 0,
+                let parentNode = selectedParentNode
+        else {
             return false
         }
         return parentNode.isPackage || !parentNode.isDirectory
@@ -180,17 +186,17 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
     
     @IBAction func showInFinder(_ sender: Any?) {
-        NSWorkspace.shared.activateFileViewerSelecting(selectedNodes.compactMap({ $0.url }))
+        NSWorkspace.shared.activateFileViewerSelecting(selectedChildNodes.compactMap({ $0.url }))
     }
     
     @IBAction func openInTab(_ sender: Any?) {
-        selectedNodes.forEach { [unowned self] node in
+        selectedChildNodes.forEach { [unowned self] node in
             self.browserController.openInternalNode(node)
         }
     }
     
     @IBAction func openWithExternalEditor(_ sender: Any?) {
-        selectedNodes.forEach { [unowned self] node in
+        selectedChildNodes.forEach { [unowned self] node in
             self.browserController.openExternalNode(node)
         }
     }
@@ -207,18 +213,14 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
     
     @IBAction func moveToTrash(_ sender: Any?) {
-        selectedNodes.forEach { node in
+        selectedChildNodes.forEach { node in
             try? FileManager.default.trashItem(at: node.url, resultingItemURL: nil)
         }
         reloadClickedColumn()
     }
     
-    @IBAction func rename(_ sender: Any?) {
-        fatalError("not implemented")
-    }
-    
     @IBAction func duplicate(_ sender: Any?) {
-        NSWorkspace.shared.duplicate(selectedNodes.compactMap({ $0.url })) { [weak self] _, err in
+        NSWorkspace.shared.duplicate(selectedChildNodes.compactMap({ $0.url })) { [weak self] _, err in
             // TODO: select newly created items
             if let err = err {
                 self?.presentError(err)
@@ -226,8 +228,91 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
             self?.reloadClickedColumn()
         }
     }
+
+    func promiseCreateNewFolder(inParentNode parent: FileSystemNode, withName folderName: String) -> Promise<URL> {
+        return Promise<URL> { seal in
+            if folderName.isEmpty || folderName.hasPrefix(".") || folderName.contains("/") {
+                seal.reject(GenericError.invalidFilename(name: folderName))
+                return
+            }
+            do {
+                let targetURL = parent.url.appendingPathComponent(folderName, isDirectory: true)
+                try FileManager.default.createDirectory(
+                    at: targetURL,
+                    withIntermediateDirectories: false,
+                    attributes: nil
+                )
+                seal.fulfill(targetURL)
+            } catch let err {
+                seal.reject(err)
+            }
+        }
+    }
+
+    func promiseMoveNodes(_ nodes: [FileSystemNode], to destinationURL: URL) -> Promise<URL> {
+        return Promise<URL> { seal in
+            do {
+                try nodes.forEach { node in
+                    try FileManager.default.moveItem(at: node.url, to: destinationURL.appendingPathComponent(node.url.lastPathComponent))
+                }
+                seal.fulfill(destinationURL)
+            } catch let err {
+                seal.reject(err)
+            }
+        }
+    }
+
+    func promiseReloadColumn(at url: URL) -> Promise<Void> {
+        let parentURL = url.deletingLastPathComponent()
+        var reloadIndex: Int? = nil
+        for columnIndex in (0...browser.lastColumn).reversed() {
+            guard let parentNode = browser.parentForItems(inColumn: columnIndex) as? FileSystemNode else { continue }
+            if parentNode.url == parentURL {
+                parentNode.invalidateChildren()
+                reloadIndex = columnIndex
+            }
+        }
+        return Promise<Void> { [weak self] seal in
+            if let reloadIndex = reloadIndex {
+                self?.browser.reloadColumn(reloadIndex)
+                seal.fulfill(())
+            } else {
+                seal.reject(GenericError.notDirectory(url: url))
+            }
+        }
+    }
     
     @IBAction func newFolder(_ sender: Any?) {
+        if let parentNode = selectedParentNode {
+            NSAlert.textField(
+                window: browser.window,
+                text: .init(
+                    message: NSLocalizedString("Create New Folder", comment: "newFolder(_:)")
+                ),
+                textField: .init(
+                    text: NSLocalizedString("Untitled Folder", comment: "newFolder(_:)"),
+                    placeholder: NSLocalizedString("Folder Name", comment: "newFolder(_:)")
+                ),
+                button: .init(
+                    title: NSLocalizedString("OK", comment: "newFolder(_:)")
+                )
+            ).then { [unowned self] folderName in
+                return self.promiseCreateNewFolder(inParentNode: parentNode, withName: folderName)
+            }.then { [unowned self] folderURL in
+                return self.promiseMoveNodes(browser.clickedRow >= 0 ? selectedChildNodes : [], to: folderURL)
+            }.then { [unowned self] folderURL in
+                return self.promiseReloadColumn(at: folderURL)
+            }.catch { [weak self] error in
+                if let window = self?.browser.window {
+                    NSAlert(error: error).beginSheetModal(
+                        for: window, completionHandler: nil
+                    )
+                }
+            }
+        }
+    }
+
+    @IBAction func rename(_ sender: Any?) {
         fatalError("not implemented")
     }
     

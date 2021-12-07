@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
+		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		180C6A87249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A88249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* TagImportAlertView.xib */; };
@@ -118,7 +120,6 @@
 		CC236333264AE889005E909A /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23632F264AE889005E909A /* Shortcut.swift */; };
 		CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236334264AE8E9005E909A /* SettingManaging.swift */; };
 		CC236336264AE8E9005E909A /* SettingManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236334264AE8E9005E909A /* SettingManaging.swift */; };
-		CC23633B264AEB2F005E909A /* SUUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SUUpdater.m */; };
 		CC23633E264AEC51005E909A /* MenuKeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */; };
 		CC23633F264AEC52005E909A /* MenuKeyBindingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23631E264AE7AB005E909A /* MenuKeyBindingManager.swift */; };
 		CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC236346264BC5CD005E909A /* KeyBindings.xib */; };
@@ -1001,6 +1002,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
 		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
 		180C6A89249F92AB00B42656 /* TagImportAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImportAlertView.xib; sourceTree = "<group>"; };
@@ -2070,6 +2072,7 @@
 				CCE901832626BFBF00C84904 /* ObjC+Ext.swift */,
 				CCC0F88E263001D5006C4492 /* Down+Ext.swift */,
 				CCB741352635386D007D2CF5 /* Links+Ext.swift */,
+				0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3634,6 +3637,7 @@
 				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
+				0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */,
 				D610479024224A170002E990 /* ContentActionResponder.swift in Sources */,
 				CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */,
 				CC347727266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */,
@@ -3759,7 +3763,6 @@
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
-				CC23633B264AEB2F005E909A /* SUUpdater.m in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
@@ -3917,6 +3920,7 @@
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentActionResponder.swift in Sources */,
 				CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
+				0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */,
 				CC042789275E3384008DD0C5 /* BrowserViewController.swift in Sources */,
 				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
