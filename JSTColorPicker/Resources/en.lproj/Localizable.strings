@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* Browser */
+"%ld items being dragged" = "%ld items being dragged";
+
 /* None */
 "-" = "-";
 
@@ -56,6 +59,9 @@
 /* ScriptError */
 "Application \"%@\" not found." = "Application \"%@\" not found.";
 
+/* Browser */
+"Are you sure you want to move '%@' to '%@'?" = "Are you sure you want to move '%@' to '%@'?";
+
 /* beginPixelMatchComparison(to:) */
 "Calculating Difference…" = "Calculating Difference…";
 
@@ -97,6 +103,9 @@
 
 /* Delete Confirm */
 "Confirm" = "Confirm";
+
+/* Browser */
+"Confirm file move" = "Confirm file move";
 
 /* screenshotItemTapped(_:) */
 "Connect to device" = "Connect to device";
@@ -416,6 +425,9 @@
 
 /* EditCoordinateController */
 "New Color & Coordinates" = "New Color & Coordinates";
+
+/* Browser */
+"No" = "No";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "No device selected";
@@ -738,6 +750,9 @@
 
 /* ScriptError */
 "XPC connection to helper service is not established." = "XPC connection to helper service is not established.";
+
+/* Browser */
+"Yes" = "Yes";
 
 /* PurchaseController.Error */
 "Your previous subscription has expired since %@. Please renew your subscription." = "Your previous subscription has expired since %@. Please renew your subscription.";

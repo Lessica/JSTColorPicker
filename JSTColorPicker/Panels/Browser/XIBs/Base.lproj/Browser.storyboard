@@ -14,11 +14,11 @@
                     <window key="window" title="Document Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="DocumentBrowser" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="3Wk-ly-nP9" customClass="NSPanel">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" documentModal="YES" texturedBackground="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="335" y="461" width="250" height="480"/>
+                        <rect key="contentRect" x="335" y="461" width="500" height="360"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <value key="minSize" type="size" width="250" height="360"/>
                         <view key="contentView" id="aoT-Rc-Hq7">
-                            <rect key="frame" x="0.0" y="0.0" width="250" height="480"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="360"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </view>
                     </window>
@@ -28,18 +28,18 @@
                 </windowController>
                 <customObject id="A0Q-pw-csM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-183" y="-432"/>
+            <point key="canvasLocation" x="-312" y="-432"/>
         </scene>
         <!--Browser-->
         <scene sceneID="h30-HY-NiK">
             <objects>
                 <viewController title="Browser" id="RNH-hp-6tO" customClass="BrowserViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="f1W-kO-pbr" customClass="NSVisualEffectView">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="360"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" prefersAllColumnUserResizing="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnsAutosaveName="BrowserColumns" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="t6r-VH-7dj">
-                                <rect key="frame" x="4" y="0.0" width="246" height="418"/>
+                                <rect key="frame" x="4" y="0.0" width="496" height="298"/>
                                 <connections>
                                     <outlet property="delegate" destination="Tzi-PL-tLf" id="6UH-ri-fH0"/>
                                 </connections>
@@ -66,11 +66,10 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="browser" destination="t6r-VH-7dj" id="rLt-rE-jfY"/>
-                        <outlet property="window" destination="3Wk-ly-nP9" id="mmc-uA-4tI"/>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="207" y="-432"/>
+            <point key="canvasLocation" x="339" y="-432"/>
         </scene>
     </scenes>
 </document>

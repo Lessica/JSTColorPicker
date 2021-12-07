@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* Browser */
+"%ld items being dragged" = "%ld 项目被拖拽";
+
 /* None */
 "-" = "-";
 
@@ -56,6 +59,9 @@
 /* ScriptError */
 "Application \"%@\" not found." = "找不到应用程序 \"%@\"。";
 
+/* Browser */
+"Are you sure you want to move '%@' to '%@'?" = "你确定要移动 '%@' 到 '%@'?";
+
 /* beginPixelMatchComparison(to:) */
 "Calculating Difference…" = "分析差异中…";
 
@@ -97,6 +103,9 @@
 
 /* Delete Confirm */
 "Confirm" = "确认";
+
+/* Browser */
+"Confirm file move" = "确认文件移动";
 
 /* screenshotItemTapped(_:) */
 "Connect to device" = "连接到设备";
@@ -416,6 +425,9 @@
 
 /* EditCoordinateController */
 "New Color & Coordinates" = "新颜色与坐标";
+
+/* Browser */
+"No" = "否";
 
 /* screenshotItemTapped(_:) */
 "No device selected" = "未选中设备";
@@ -738,6 +750,9 @@
 
 /* ScriptError */
 "XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯。";
+
+/* Browser */
+"Yes" = "是";
 
 /* PurchaseController.Error */
 "Your previous subscription has expired since %@. Please renew your subscription." = "你此前的订阅已于 %@ 过期，请续订。";

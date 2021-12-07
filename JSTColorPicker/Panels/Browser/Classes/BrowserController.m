@@ -12,18 +12,18 @@
 #import "PreviewViewController.h"
 
 
-@interface BrowserController () <NSBrowserDelegate>
+@interface BrowserController ()
 
 // please note bug #24527817
 // NSBrowser column titles draw sporadic when navigating back with left arrow key (10.11)
 //
-@property (weak) IBOutlet NSBrowser *browser;
+@property (nonatomic, weak) IBOutlet NSBrowser *browser;
 
-@property (strong) FileSystemNode *rootNode;
-@property NSInteger draggedColumnIndex;
+@property (nonatomic, strong) FileSystemNode *rootNode;
+@property (nonatomic, assign) NSInteger draggedColumnIndex;
 
-@property (strong) PreviewViewController *sharedPreviewController;
-@property (weak) IBOutlet NSWindow *window;
+@property (nonatomic, strong) PreviewViewController *sharedPreviewController;
+@property (nonatomic, strong) NSWindow *window;
 
 @end
 
@@ -56,6 +56,13 @@
     }
     return self.rootNode;
 }
+
+- (NSWindow *)window {
+    return self.browser.window;
+}
+
+
+#pragma mark - Path Finder
 
 
 #pragma mark - NSBrowserDelegate
@@ -205,10 +212,19 @@
             BOOL droppingFromSameFolder = ([info draggingSource] == browser) && (*column == self.draggedColumnIndex);
             if (*row != -1) {
                 // If we are dropping on a folder, then we will accept the drop at that row
-                FileSystemNode *fileSystemNode = [self fileSystemNodeAtRow:*row column:*column];
-                if (fileSystemNode.isDirectory) {
-                    // Yup, a good drop
-                    result = NSDragOperationEvery;
+                FileSystemNode *toFileSystemNode = [self fileSystemNodeAtRow:*row column:*column];
+                if (toFileSystemNode.isDirectory && !toFileSystemNode.isPackage) {
+                    NSArray <NSString *> *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
+                    if ([filenames count] == 1 && [[NSURL fileURLWithPath:filenames.firstObject] isEqual:toFileSystemNode.URL]) {
+                        result = NSDragOperationNone;
+                    }
+                    else if ([filenames count] != 0 && [[[NSURL fileURLWithPath:filenames.firstObject] URLByDeletingLastPathComponent] isEqual:toFileSystemNode.URL]) {
+                        result = NSDragOperationNone;
+                    }
+                    else {
+                        // Yup, a good drop
+                        result = NSDragOperationEvery;
+                    }
                 } else {
                     // Nope, we can't drop onto a file! We will retarget to the column, if it isn't the same folder.
                     if (!droppingFromSameFolder) {
@@ -228,13 +244,13 @@
 }
 
 - (BOOL)browser:(NSBrowser *)browser acceptDrop:(id <NSDraggingInfo>)info atRow:(NSInteger)row column:(NSInteger)column dropOperation:(NSBrowserDropOperation)dropOperation {
-    NSArray *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
+    NSArray <NSString *> *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
     // Find the target folder
     FileSystemNode *targetFileSystemNode = nil;
     if ((column != -1) && (filenames != nil)) {
         if (row != -1) {
             FileSystemNode *fileSystemNode = [self fileSystemNodeAtRow:row column:column];
-            if (fileSystemNode.isDirectory) {
+            if (fileSystemNode.isDirectory && !fileSystemNode.isPackage) {
                 targetFileSystemNode = fileSystemNode;
             }
         } else {
@@ -246,16 +262,6 @@
     // We now have the target folder, so move things around    
     if (targetFileSystemNode != nil) {
         NSString *targetFolder = targetFileSystemNode.URL.path;
-        
-        // SELF -> SELF
-        if ([filenames count] == 1 && [filenames.firstObject isEqualToString:targetFolder]) {
-            return NO;
-        }
-        
-        // CHILD -> PARENT
-        if ([filenames count] != 0 && [[filenames.firstObject stringByDeletingLastPathComponent] isEqualToString:targetFolder]) {
-            return NO;
-        }
         
         NSMutableString *prettyNames = nil;
 
@@ -272,7 +278,7 @@
         
         // Ask the user if they really want to move those files
         NSAlert *warningAlert = [[NSAlert alloc] init];
-        warningAlert.messageText = NSLocalizedString(@"Verify file move", @"Browser");
+        warningAlert.messageText = NSLocalizedString(@"Confirm file move", @"Browser");
         warningAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to move '%@' to '%@'?", @"Browser"), prettyNames, targetFolder];
         [warningAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Browser")];
         [warningAlert addButtonWithTitle:NSLocalizedString(@"No", @"Browser")];
@@ -286,7 +292,7 @@
                     // Normally, you should check the result of movePath to see if it worked or not.
                     NSError *error = nil;
                     if (![[NSFileManager defaultManager] moveItemAtPath:filename toPath:targetPath error:&error] && error) {
-                        [NSApp presentError:error];
+                        [self.browser presentError:error];
                         break;
                     }
                 }

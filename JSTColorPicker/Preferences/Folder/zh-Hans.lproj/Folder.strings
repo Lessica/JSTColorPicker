@@ -1,17 +1,17 @@
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
-"eGM-Kd-UMD.title" = "其他视图";
-
-/* Class = "AMPathPopUpButton"; placeholder = "No Selection"; ObjectID = "xm4-2Y-TaL"; */
-"xm4-2Y-TaL.placeholder" = "无选择";
-
-/* Class = "NSTextFieldCell"; title = "Screenshots saved at: "; ObjectID = "YaA-b5-bfQ"; */
-"YaA-b5-bfQ.title" = "屏幕截图：";
-
 /* Class = "NSButtonCell"; title = "View templates..."; ObjectID = "6Wy-jv-Soc"; */
 "6Wy-jv-Soc.title" = "查看模版...";
 
 /* Class = "NSButtonCell"; title = "Locate screenshot helper..."; ObjectID = "dSv-DK-p6a"; */
 "dSv-DK-p6a.title" = "定位到截图助手...";
 
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
+"eGM-Kd-UMD.title" = "其他视图";
+
 /* Class = "NSButtonCell"; title = "View tag database..."; ObjectID = "HDd-hx-7QQ"; */
 "HDd-hx-7QQ.title" = "查看标签数据库...";
+
+/* Class = "AMPathPopUpButton"; placeholder = "No Selection"; ObjectID = "xm4-2Y-TaL"; */
+"xm4-2Y-TaL.placeholder" = "无选择";
+
+/* Class = "NSTextFieldCell"; title = "Screenshots saved at: "; ObjectID = "YaA-b5-bfQ"; */
+"YaA-b5-bfQ.title" = "屏幕截图：";

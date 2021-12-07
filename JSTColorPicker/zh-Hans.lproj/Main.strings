@@ -19,6 +19,9 @@
 /* Class = "NSMenuItem"; title = "JSTColorPicker"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "JSTColorPicker";
 
+/* Class = "NSMenuItem"; title = "Browser"; ObjectID = "2wf-y9-YT4"; */
+"2wf-y9-YT4.title" = "浏览器";
+
 /* Class = "NSMenuItem"; title = "Discover Devices"; ObjectID = "47y-aT-n1T"; */
 "47y-aT-n1T.title" = "立即寻找设备";
 
@@ -277,6 +280,9 @@
 /* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "IDy-sI-zc5"; */
 "IDy-sI-zc5.title" = "显示替换";
 
+/* Class = "NSMenuItem"; title = "Panels"; ObjectID = "iFV-CC-wZn"; */
+"iFV-CC-wZn.title" = "面板";
+
 /* Class = "NSWindow"; title = "Color Picker"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "颜色选取器";
 
@@ -444,6 +450,9 @@
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "查找下一个";
+
+/* Class = "NSMenu"; title = "Panels"; ObjectID = "Q4C-MZ-Ews"; */
+"Q4C-MZ-Ews.title" = "面板";
 
 /* Class = "NSMenuItem"; title = "Zoom to 256x"; ObjectID = "Q6L-eM-eQe"; */
 "Q6L-eM-eQe.title" = "缩放到 256x";

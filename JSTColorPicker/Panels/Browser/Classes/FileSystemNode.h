@@ -27,7 +27,7 @@
 @property (readonly, strong) NSString *documentKind;
 @property (readonly, strong) NSDate *creationDate;
 @property (readonly, strong) NSDate *modificationDate;
-@property (readonly, strong) NSDate *lastOpened;
+@property (readonly, strong) NSDate *lastUsedDate;
 
 - (void)invalidateChildren;
 

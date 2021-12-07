@@ -1,6 +1,5 @@
+/* Class = "NSBox"; title = "Box"; ObjectID = "11"; */
+"11.title" = "Box";
 
 /* Class = "NSTextFieldCell"; title = "Label example"; ObjectID = "8"; */
 "8.title" = "Label example";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "11"; */
-"11.title" = "Box";

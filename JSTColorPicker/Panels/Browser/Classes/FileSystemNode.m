@@ -21,7 +21,7 @@
 
 @implementation FileSystemNode
 
-@dynamic displayName, children, isDirectory, icon, labelColor, documentKind, size, formattedFileSize, creationDate, modificationDate, lastOpened;
+@dynamic displayName, children, isDirectory, icon, labelColor, documentKind, size, formattedFileSize, creationDate, modificationDate, lastUsedDate;
 
 - (instancetype)init {
     
@@ -81,11 +81,14 @@
     return dateValue;
 }
 
-- (NSDate *)lastOpened {
+- (NSDate *)lastUsedDate {
     MDItemRef itemRef = MDItemCreateWithURL(nil, (CFURLRef)self.URL);
-    NSDate *lastOpenedDate = CFBridgingRelease(MDItemCopyAttribute(itemRef, kMDItemLastUsedDate));
-    CFRelease(itemRef);
-    return lastOpenedDate;
+    if (itemRef) {
+        NSDate *lastUsedDate = CFBridgingRelease(MDItemCopyAttribute(itemRef, kMDItemLastUsedDate));
+        CFRelease(itemRef);
+        return lastUsedDate;
+    }
+    return nil;
 }
 
 - (NSUInteger)size {
@@ -152,7 +155,9 @@
                 if (enumeratorResult == kCFURLEnumeratorSuccess) {
                     FileSystemNode *node = [[FileSystemNode alloc] initWithURL:(__bridge NSURL *)childURL];
                     if (self.internalChildren != nil) {
-                        NSInteger oldIndex = [self.internalChildren indexOfObject:(__bridge NSURL *)childURL];
+                        NSInteger oldIndex = [self.internalChildren indexOfObjectPassingTest:^BOOL(FileSystemNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            return [obj.URL isEqual:(__bridge NSURL *)childURL];
+                        }];
                         if (oldIndex != NSNotFound) {
                             // Use the same pointer value, if possible
                             node = (self.internalChildren)[oldIndex];

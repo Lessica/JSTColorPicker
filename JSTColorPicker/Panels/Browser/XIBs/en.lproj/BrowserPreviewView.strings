@@ -1,12 +1,14 @@
+/* Class = "NSTextFieldCell"; title = "Modified: "; ObjectID = "9zY-Py-TK2"; */
+"9zY-Py-TK2.title" = "Modified: ";
 
-/* Class = "NSTextFieldCell"; title = "Modified:"; ObjectID = "9zY-Py-TK2"; */
-"9zY-Py-TK2.title" = "Modified:";
+/* Class = "NSTextFieldCell"; title = "Created: "; ObjectID = "OpQ-hw-JK1"; */
+"OpQ-hw-JK1.title" = "Created: ";
 
-/* Class = "NSTextFieldCell"; title = "Created:"; ObjectID = "OpQ-hw-JK1"; */
-"OpQ-hw-JK1.title" = "Created:";
+/* Class = "NSTextFieldCell"; title = "Size: "; ObjectID = "uiJ-ba-p2i"; */
+"uiJ-ba-p2i.title" = "Size: ";
 
-/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "uiJ-ba-p2i"; */
-"uiJ-ba-p2i.title" = "Size:";
+/* Class = "NSTextFieldCell"; title = "Used: "; ObjectID = "zNc-9J-61l"; */
+"zNc-9J-61l.title" = "Used: ";
 
-/* Class = "NSTextFieldCell"; title = "Opened:"; ObjectID = "zNc-9J-61l"; */
-"zNc-9J-61l.title" = "Opened:";
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Never"; ObjectID = "Dzd-nm-Ep4"; */
+"Dzd-nm-Ep4.ibShadowedIsNilPlaceholder" = "Never";

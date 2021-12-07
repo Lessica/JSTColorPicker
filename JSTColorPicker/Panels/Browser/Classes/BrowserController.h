@@ -8,7 +8,7 @@
 
 @import Cocoa;
 
-@interface BrowserController : NSObject
+@interface BrowserController : NSObject <NSBrowserDelegate>
 
 @property (nonatomic, assign, getter=isLeafItemPreviewable) IBInspectable BOOL leafItemPreviewable;
 
