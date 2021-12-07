@@ -42,6 +42,7 @@
                                 <rect key="frame" x="4" y="0.0" width="496" height="298"/>
                                 <connections>
                                     <outlet property="delegate" destination="Tzi-PL-tLf" id="6UH-ri-fH0"/>
+                                    <outlet property="menu" destination="b1M-f5-hNP" id="nja-V9-0Xp"/>
                                 </connections>
                             </browser>
                         </subviews>
@@ -57,6 +58,8 @@
                     <connections>
                         <outlet property="browser" destination="t6r-VH-7dj" id="RgM-NW-O5G"/>
                         <outlet property="browserController" destination="Tzi-PL-tLf" id="K5m-se-3Sz"/>
+                        <outlet property="contextMenu" destination="b1M-f5-hNP" id="Ssy-iY-ug7"/>
+                        <outlet property="sortedByMenu" destination="e09-Eo-dXB" id="5Jb-7g-t4Q"/>
                     </connections>
                 </viewController>
                 <customObject id="ILy-3S-cnP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -68,6 +71,111 @@
                         <outlet property="browser" destination="t6r-VH-7dj" id="rLt-rE-jfY"/>
                     </connections>
                 </customObject>
+                <menu id="b1M-f5-hNP">
+                    <items>
+                        <menuItem title="Show in Finder" id="LNI-bl-lZG">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="showInFinder:" target="RNH-hp-6tO" id="vbA-L5-PUD"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="yYG-XF-gGZ"/>
+                        <menuItem title="Open in Tab" id="3yl-4y-R8b">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="openInTab:" target="RNH-hp-6tO" id="302-3N-CXf"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Open with External Editor" id="4gM-Sf-VWS">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="openWithExternalEditor:" target="RNH-hp-6tO" id="V6H-3g-K59"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="59q-BP-GMd"/>
+                        <menuItem title="Move to Trash" id="8Wm-SC-SYn">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="moveToTrash:" target="RNH-hp-6tO" id="i5W-HP-H6d"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="DzK-OM-y2Z"/>
+                        <menuItem title="Rename" id="E5a-9d-Ydm">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="rename:" target="RNH-hp-6tO" id="DOa-p2-ITS"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Duplicate" id="bql-B3-dua">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="duplicate:" target="RNH-hp-6tO" id="FHv-oL-E5F"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="88c-HD-XDx"/>
+                        <menuItem title="New Folder" id="Hny-R5-Ac7">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="newFolder:" target="RNH-hp-6tO" id="Vsj-JG-1g2"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Sort By" id="bc2-Ho-sGu">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Sort By" id="e09-Eo-dXB">
+                                <items>
+                                    <menuItem title="Name" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.Name" id="5Eu-Qu-j6B">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="twV-fm-VgX"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Kind" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.Kind" id="1ZP-vd-SKI">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="uJq-mJ-iBu"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Date Last Opened" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.DateLastOpened" id="64f-iP-uCX">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="nwd-Ws-c6Q"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Date Added" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.DateAdded" id="zME-zb-fAq">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="UcV-i8-ZQH"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Date Modified" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.DateModified" id="hpb-Z0-Ynj">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="Ndg-K1-nR9"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Date Created" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.DateCreated" id="dca-CC-BLe">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="so1-tf-rFe"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Size" identifier="com.jst.JSTColorPicker.Panel.Browser.SortedBy.Size" id="eIS-B5-sk3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortBy:" target="RNH-hp-6tO" id="reY-Vk-bPR"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="RNH-hp-6tO" id="Shu-ug-CuR"/>
+                                </connections>
+                            </menu>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="RNH-hp-6tO" id="38g-T0-eW2"/>
+                    </connections>
+                </menu>
             </objects>
             <point key="canvasLocation" x="339" y="-432"/>
         </scene>

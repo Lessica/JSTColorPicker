@@ -15,6 +15,5 @@
 #import "OpenCVWrapper.h"
 #import "SUUpdater.h"
 #import "BrowserController.h"
-#import "FileSystemNode.h"
 
 #endif /* JSTColorPicker_Bridging_Header_h */

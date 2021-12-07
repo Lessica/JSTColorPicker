@@ -21,7 +21,7 @@
 
 @implementation FileSystemNode
 
-@dynamic displayName, children, isDirectory, icon, labelColor, documentKind, size, formattedFileSize, creationDate, modificationDate, lastUsedDate;
+@dynamic displayName, children, isDirectory, icon, labelColor, documentKind, size, formattedFileSize, creationDate, modificationDate, addedDate, lastUsedDate;
 
 - (instancetype)init {
     
@@ -79,6 +79,16 @@
     NSDate *dateValue;
     [self.URL getResourceValue:&dateValue forKey:NSURLContentModificationDateKey error:nil];
     return dateValue;
+}
+
+- (NSDate *)addedDate {
+    MDItemRef itemRef = MDItemCreateWithURL(nil, (CFURLRef)self.URL);
+    if (itemRef) {
+        NSDate *addedDate = CFBridgingRelease(MDItemCopyAttribute(itemRef, kMDItemDateAdded));
+        CFRelease(itemRef);
+        return addedDate;
+    }
+    return nil;
 }
 
 - (NSDate *)lastUsedDate {
@@ -173,15 +183,69 @@
         _childrenDirty = NO;
         
         // Now sort them
-        _internalChildren = [newChildren sortedArrayUsingComparator:^(id obj1, id obj2) {
-            NSString *objName = [obj1 displayName];
-            NSString *obj2Name = [obj2 displayName];
-            NSComparisonResult result = [objName compare:obj2Name options:NSNumericSearch | NSCaseInsensitiveSearch | NSWidthInsensitiveSearch | NSForcedOrderingSearch range:NSMakeRange(0, objName.length) locale:[NSLocale currentLocale]];
-            return result;
-        }];
+        _internalChildren = [newChildren sortedArrayUsingComparator:[self childrenSortedByNSComparator]];
     }
     
     return self.internalChildren;
+}
+
+- (NSComparator)childrenSortedByNSComparator {
+    if (self.childrenSortedBy == FileSystemNodeSortedByKind) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSString *objAttr = [obj1 documentKind];
+            NSString *obj2Attr = [obj2 documentKind];
+            NSComparisonResult result = [objAttr compare:obj2Attr options:NSNumericSearch | NSCaseInsensitiveSearch | NSWidthInsensitiveSearch | NSForcedOrderingSearch range:NSMakeRange(0, objAttr.length) locale:[NSLocale currentLocale]];
+            return result;
+        };
+    }
+    else if (self.childrenSortedBy == FileSystemNodeSortedByDateLastOpened) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSDate *objAttr = [obj1 lastUsedDate];
+            NSDate *obj2Attr = [obj2 lastUsedDate];
+            return [obj2Attr compare:objAttr];
+        };
+    }
+    else if (self.childrenSortedBy == FileSystemNodeSortedByDateAdded) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSDate *objAttr = [obj1 addedDate];
+            NSDate *obj2Attr = [obj2 addedDate];
+            return [obj2Attr compare:objAttr];
+        };
+    }
+    else if (self.childrenSortedBy == FileSystemNodeSortedByDateModified) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSDate *objAttr = [obj1 modificationDate];
+            NSDate *obj2Attr = [obj2 modificationDate];
+            return [obj2Attr compare:objAttr];
+        };
+    }
+    else if (self.childrenSortedBy == FileSystemNodeSortedByDateCreated) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSDate *objAttr = [obj1 creationDate];
+            NSDate *obj2Attr = [obj2 creationDate];
+            return [obj2Attr compare:objAttr];
+        };
+    }
+    else if (self.childrenSortedBy == FileSystemNodeSortedBySize) {
+        return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+            NSNumber *objAttr = @([obj1 size]);
+            NSNumber *obj2Attr = @([obj2 size]);
+            return [obj2Attr compare:objAttr];
+        };
+    }
+    return ^NSComparisonResult(FileSystemNode *obj1, FileSystemNode *obj2) {
+        NSString *objAttr = [obj1 displayName];
+        NSString *obj2Attr = [obj2 displayName];
+        NSComparisonResult result = [objAttr compare:obj2Attr options:NSNumericSearch | NSCaseInsensitiveSearch | NSWidthInsensitiveSearch | NSForcedOrderingSearch range:NSMakeRange(0, objAttr.length) locale:[NSLocale currentLocale]];
+        return result;
+    };
+}
+
+- (void)setChildrenSortedBy:(FileSystemNodeSortedBy)childrenSortedBy {
+    _childrenSortedBy = childrenSortedBy;
+    for (FileSystemNode *child in self.internalChildren) {
+        [child setChildrenSortedBy:childrenSortedBy];
+    }
 }
 
 - (void)invalidateChildren {

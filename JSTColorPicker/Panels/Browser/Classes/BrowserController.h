@@ -7,9 +7,15 @@
  */
 
 @import Cocoa;
+#import "FileSystemNode.h"
 
 @interface BrowserController : NSObject <NSBrowserDelegate>
 
 @property (nonatomic, assign, getter=isLeafItemPreviewable) IBInspectable BOOL leafItemPreviewable;
+@property (readonly, assign) FileSystemNodeSortedBy sortedBy;
+
+- (BOOL)openNode:(FileSystemNode *)clickedNode;
+- (BOOL)openInternalNode:(FileSystemNode *)clickedNode;
+- (BOOL)openExternalNode:(FileSystemNode *)clickedNode;
 
 @end

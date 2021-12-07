@@ -61,11 +61,35 @@ private extension URL {
     }
 }
 
-class BrowserViewController: NSViewController {
+
+private extension NSUserInterfaceItemIdentifier {
+    private static let sortedByPrefix     = "com.jst.JSTColorPicker.Panel.Browser.SortedBy."
+    
+    static let sortedByName               = Self(Self.sortedByPrefix + "Name"            )
+    static let sortedByKind               = Self(Self.sortedByPrefix + "Kind"            )
+    static let sortedByDateLastOpened     = Self(Self.sortedByPrefix + "DateLastOpened"  )
+    static let sortedByDateAdded          = Self(Self.sortedByPrefix + "DateAdded"       )
+    static let sortedByDateModified       = Self(Self.sortedByPrefix + "DateModified"    )
+    static let sortedByDateCreated        = Self(Self.sortedByPrefix + "DateCreated"     )
+    static let sortedBySize               = Self(Self.sortedByPrefix + "Size"            )
+    static let _sortedByOptions           : [NSUserInterfaceItemIdentifier] = [
+        .sortedByName,
+        .sortedByKind,
+        .sortedByDateLastOpened,
+        .sortedByDateAdded,
+        .sortedByDateModified,
+        .sortedByDateCreated,
+        .sortedBySize,
+    ]
+}
+
+
+class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidation {
     
     @IBOutlet weak var browserController: BrowserController!
     @IBOutlet weak var browser: NSBrowser!
-    
+    @IBOutlet weak var contextMenu: NSMenu!
+    @IBOutlet weak var sortedByMenu: NSMenu!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +111,122 @@ class BrowserViewController: NSViewController {
             ) ?? ""
         ).path
         return self.browser.setPath(expandedRelativePath)
+    }
+    
+    private var actionSelectedRowIndex: Int? {
+        (browser.clickedRow >= 0 && !(browser.selectedRowIndexes(inColumn: browser.clickedColumn) ?? IndexSet()).contains(browser.clickedRow)) ? browser.clickedRow : browser.selectedRowIndexes(inColumn: browser.clickedColumn)?.first
+    }
+    
+    private var actionSelectedRowIndexes: IndexSet {
+        (browser.clickedRow >= 0 && !(browser.selectedRowIndexes(inColumn: browser.clickedColumn) ?? IndexSet()).contains(browser.clickedRow))
+        ? IndexSet(integer: browser.clickedRow)
+        : IndexSet(browser.selectedRowIndexes(inColumn: browser.clickedColumn) ?? IndexSet())
+    }
+    
+    private var hasSelectedNode: Bool { actionSelectedRowIndexes.count > 0 }
+    private var selectedNodes: [FileSystemNode] {
+        guard let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode,
+              let collection = parentNode.children
+        else {
+            return []
+        }
+        return actionSelectedRowIndexes.map { collection[$0] }
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(showInFinder(_:)) ||
+            menuItem.action == #selector(openInTab(_:)) ||
+            menuItem.action == #selector(openWithExternalEditor(_:)) ||
+            menuItem.action == #selector(moveToTrash(_:)) ||
+            menuItem.action == #selector(duplicate(_:))
+        {
+            return browser.clickedRow >= 0
+        }
+        else if menuItem.action == #selector(rename(_:))
+        {
+            return browser.clickedRow >= 0 && actionSelectedRowIndexes.count == 1
+        }
+        else if menuItem.action == #selector(newFolder(_:)) ||
+                    menuItem.action == #selector(sortBy(_:))
+        {
+            return browser.clickedColumn >= 0
+        }
+        return false
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menu == self.sortedByMenu {
+            for menuItem in menu.items {
+                if let menuItemIdentifier = menuItem.identifier?.rawValue,
+                   let menuItemIdentifierIndex = NSUserInterfaceItemIdentifier._sortedByOptions.map({ $0.rawValue }).firstIndex(of: menuItemIdentifier),
+                   browserController.sortedBy.rawValue == UInt(menuItemIdentifierIndex)
+                {
+                    menuItem.state = .on
+                } else {
+                    menuItem.state = .off
+                }
+            }
+        }
+    }
+    
+    @IBAction func showInFinder(_ sender: Any?) {
+        NSWorkspace.shared.activateFileViewerSelecting(selectedNodes.compactMap({ $0.url }))
+    }
+    
+    @IBAction func openInTab(_ sender: Any?) {
+        selectedNodes.forEach { [unowned self] node in
+            self.browserController.openInternalNode(node)
+        }
+    }
+    
+    @IBAction func openWithExternalEditor(_ sender: Any?) {
+        selectedNodes.forEach { [unowned self] node in
+            self.browserController.openExternalNode(node)
+        }
+    }
+    
+    private func reloadClickedColumn() {
+        if let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode {
+            parentNode.invalidateChildren()
+        }
+        browser.reloadColumn(browser.clickedColumn)
+    }
+    
+    @IBAction func moveToTrash(_ sender: Any?) {
+        selectedNodes.forEach { node in
+            try? FileManager.default.trashItem(at: node.url, resultingItemURL: nil)
+        }
+        reloadClickedColumn()
+    }
+    
+    @IBAction func rename(_ sender: Any?) {
+        fatalError("not implemented")
+    }
+    
+    @IBAction func duplicate(_ sender: Any?) {
+        NSWorkspace.shared.duplicate(selectedNodes.compactMap({ $0.url })) { [weak self] _, err in
+            // TODO: select newly created items
+            if let err = err {
+                self?.presentError(err)
+            }
+            self?.reloadClickedColumn()
+        }
+    }
+    
+    @IBAction func newFolder(_ sender: Any?) {
+        fatalError("not implemented")
+    }
+    
+    @IBAction func sortBy(_ sender: Any?) {
+        if let menuItem = sender as? NSMenuItem,
+           let menuItemIdentifier = menuItem.identifier?.rawValue,
+           let menuItemIdentifierIndex = NSUserInterfaceItemIdentifier._sortedByOptions.map({ $0.rawValue }).firstIndex(of: menuItemIdentifier),
+           let rootNode = browserController.rootItem(for: browser) as? FileSystemNode
+        {
+            rootNode.setChildrenSortedBy(FileSystemNodeSortedBy(rawValue: UInt(menuItemIdentifierIndex)))
+            rootNode.invalidateChildren()
+        }
+        reloadClickedColumn()
     }
     
 }

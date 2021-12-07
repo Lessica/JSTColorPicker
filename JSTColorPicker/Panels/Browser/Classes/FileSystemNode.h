@@ -8,6 +8,16 @@
 
 @import Cocoa;
 
+typedef enum : NSUInteger {
+    FileSystemNodeSortedByName = 0,
+    FileSystemNodeSortedByKind,
+    FileSystemNodeSortedByDateLastOpened,
+    FileSystemNodeSortedByDateAdded,
+    FileSystemNodeSortedByDateModified,
+    FileSystemNodeSortedByDateCreated,
+    FileSystemNodeSortedBySize,
+} FileSystemNodeSortedBy;
+
 // This is a simple wrapper around the file system. Its main purpose is to cache children.
 @interface FileSystemNode : NSObject
 
@@ -17,7 +27,8 @@
 @property (readonly) NSURL *URL;
 @property (readonly, copy) NSString *displayName;
 @property (readonly, strong) NSImage *icon;
-@property (readonly, strong) NSArray *children;
+@property (readonly, strong) NSArray <FileSystemNode *> *children;
+@property (readonly, assign) FileSystemNodeSortedBy childrenSortedBy;
 @property (readonly) BOOL isDirectory;
 @property (readonly) BOOL isPackage;
 @property (readonly, strong) NSColor *labelColor;
@@ -27,8 +38,10 @@
 @property (readonly, strong) NSString *documentKind;
 @property (readonly, strong) NSDate *creationDate;
 @property (readonly, strong) NSDate *modificationDate;
+@property (readonly, strong) NSDate *addedDate;
 @property (readonly, strong) NSDate *lastUsedDate;
 
+- (void)setChildrenSortedBy:(FileSystemNodeSortedBy)childrenSortedBy;
 - (void)invalidateChildren;
 
 @end

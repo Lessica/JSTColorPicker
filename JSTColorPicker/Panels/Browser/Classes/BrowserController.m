@@ -7,7 +7,6 @@
  */
 
 #import "BrowserController.h"
-#import "FileSystemNode.h"
 #import "FileSystemBrowserCell.h"
 #import "PreviewViewController.h"
 
@@ -59,6 +58,10 @@
 
 - (NSWindow *)window {
     return self.browser.window;
+}
+
+- (FileSystemNodeSortedBy)sortedBy {
+    return self.rootNode.childrenSortedBy;
 }
 
 
@@ -318,30 +321,45 @@
     // Find the clicked item and open it in Finder
     FileSystemNode *clickedNode = [self fileSystemNodeAtRow:self.browser.clickedRow column:self.browser.clickedColumn];
     if (clickedNode != nil) {
-        BOOL handleBySelf = NO;
-        if (@available(macOS 12.0, *)) {
-            NSArray <NSURL *> *handlerURLs = [[NSWorkspace sharedWorkspace] URLsForApplicationsToOpenURL:clickedNode.URL];
-            if ([handlerURLs containsObject:[[NSBundle mainBundle] bundleURL]]) {
-                handleBySelf = YES;
-            }
-        } else {
-            // Fallback on earlier versions
-            NSArray <NSString *> *handlerIdentifiers = (__bridge NSArray *)(LSCopyAllRoleHandlersForContentType((__bridge CFStringRef _Nonnull)(clickedNode.contentType), kLSRolesEditor));
-            if ([handlerIdentifiers containsObject:[[NSBundle mainBundle] bundleIdentifier]]) {
-                handleBySelf = YES;
-            }
+        [self openNode:clickedNode];
+    }
+}
+
+- (BOOL)openNode:(FileSystemNode *)clickedNode {
+    BOOL opened = [self openInternalNode:clickedNode];
+    if (!opened) {
+        opened = [self openExternalNode:clickedNode];
+    }
+    return opened;
+}
+
+- (BOOL)openInternalNode:(FileSystemNode *)clickedNode {
+    BOOL handleBySelf = NO;
+    if (@available(macOS 12.0, *)) {
+        NSArray <NSURL *> *handlerURLs = [[NSWorkspace sharedWorkspace] URLsForApplicationsToOpenURL:clickedNode.URL];
+        if ([handlerURLs containsObject:[[NSBundle mainBundle] bundleURL]]) {
+            handleBySelf = YES;
         }
-        if (handleBySelf) {
-            [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:clickedNode.URL display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kJSTColorPickerNotificationNameDropRespondingWindowChanged object:nil];
-                if (error) {
-                    [self.browser presentError:error];
-                }
-            }];
-        } else {
-            [[NSWorkspace sharedWorkspace] openURL:clickedNode.URL];
+    } else {
+        // Fallback on earlier versions
+        NSArray <NSString *> *handlerIdentifiers = (__bridge NSArray *)(LSCopyAllRoleHandlersForContentType((__bridge CFStringRef _Nonnull)(clickedNode.contentType), kLSRolesEditor));
+        if ([handlerIdentifiers containsObject:[[NSBundle mainBundle] bundleIdentifier]]) {
+            handleBySelf = YES;
         }
     }
+    if (handleBySelf) {
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:clickedNode.URL display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJSTColorPickerNotificationNameDropRespondingWindowChanged object:nil];
+            if (error) {
+                [self.browser presentError:error];
+            }
+        }];
+    }
+    return handleBySelf;
+}
+
+- (BOOL)openExternalNode:(FileSystemNode *)clickedNode {
+    return [[NSWorkspace sharedWorkspace] openURL:clickedNode.URL];
 }
 
 @end
