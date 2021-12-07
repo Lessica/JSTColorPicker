@@ -3,3 +3,51 @@
 
 /* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
 "RNH-hp-6tO.title" = "Browser";
+
+/* Class = "NSMenuItem"; title = "Kind"; ObjectID = "1ZP-vd-SKI"; */
+"1ZP-vd-SKI.title" = "Kind";
+
+/* Class = "NSMenuItem"; title = "Open in Tab"; ObjectID = "3yl-4y-R8b"; */
+"3yl-4y-R8b.title" = "Open in Tab";
+
+/* Class = "NSMenuItem"; title = "Open with External Editor"; ObjectID = "4gM-Sf-VWS"; */
+"4gM-Sf-VWS.title" = "Open with External Editor";
+
+/* Class = "NSMenuItem"; title = "Name"; ObjectID = "5Eu-Qu-j6B"; */
+"5Eu-Qu-j6B.title" = "Name";
+
+/* Class = "NSMenuItem"; title = "Date Last Opened"; ObjectID = "64f-iP-uCX"; */
+"64f-iP-uCX.title" = "Date Last Opened";
+
+/* Class = "NSMenuItem"; title = "Move to Trash"; ObjectID = "8Wm-SC-SYn"; */
+"8Wm-SC-SYn.title" = "Move to Trash";
+
+/* Class = "NSMenuItem"; title = "Sort By"; ObjectID = "bc2-Ho-sGu"; */
+"bc2-Ho-sGu.title" = "Sort By";
+
+/* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "bql-B3-dua"; */
+"bql-B3-dua.title" = "Duplicate";
+
+/* Class = "NSMenuItem"; title = "Date Created"; ObjectID = "dca-CC-BLe"; */
+"dca-CC-BLe.title" = "Date Created";
+
+/* Class = "NSMenu"; title = "Sort By"; ObjectID = "e09-Eo-dXB"; */
+"e09-Eo-dXB.title" = "Sort By";
+
+/* Class = "NSMenuItem"; title = "Rename"; ObjectID = "E5a-9d-Ydm"; */
+"E5a-9d-Ydm.title" = "Rename";
+
+/* Class = "NSMenuItem"; title = "Size"; ObjectID = "eIS-B5-sk3"; */
+"eIS-B5-sk3.title" = "Size";
+
+/* Class = "NSMenuItem"; title = "New Folder"; ObjectID = "Hny-R5-Ac7"; */
+"Hny-R5-Ac7.title" = "New Folder";
+
+/* Class = "NSMenuItem"; title = "Date Modified"; ObjectID = "hpb-Z0-Ynj"; */
+"hpb-Z0-Ynj.title" = "Date Modified";
+
+/* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "LNI-bl-lZG"; */
+"LNI-bl-lZG.title" = "Show in Finder";
+
+/* Class = "NSMenuItem"; title = "Date Added"; ObjectID = "zME-zb-fAq"; */
+"zME-zb-fAq.title" = "Date Added";

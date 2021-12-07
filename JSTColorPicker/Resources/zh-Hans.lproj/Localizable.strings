@@ -12,7 +12,7 @@
 "%@/%@" = "%@/%@";
 
 /* Browser */
-"%ld items being dragged" = "%ld 项目被拖拽";
+"%ld items being dragged" = "拖拽 %ld 个项";
 
 /* None */
 "-" = "-";

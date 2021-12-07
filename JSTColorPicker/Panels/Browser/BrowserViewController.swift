@@ -130,7 +130,17 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
         else {
             return []
         }
+        if actionIsPreview {
+            return [parentNode]
+        }
         return actionSelectedRowIndexes.map { collection[$0] }
+    }
+
+    private var actionIsPreview: Bool {
+        guard browser.clickedRow < 0, let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode else {
+            return false
+        }
+        return parentNode.isPackage || !parentNode.isDirectory
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -140,16 +150,16 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
             menuItem.action == #selector(moveToTrash(_:)) ||
             menuItem.action == #selector(duplicate(_:))
         {
-            return browser.clickedRow >= 0
+            return actionIsPreview || browser.clickedRow >= 0
         }
         else if menuItem.action == #selector(rename(_:))
         {
-            return browser.clickedRow >= 0 && actionSelectedRowIndexes.count == 1
+            return actionIsPreview || (browser.clickedRow >= 0 && actionSelectedRowIndexes.count == 1)
         }
         else if menuItem.action == #selector(newFolder(_:)) ||
                     menuItem.action == #selector(sortBy(_:))
         {
-            return browser.clickedColumn >= 0
+            return !actionIsPreview && browser.clickedColumn >= 0
         }
         return false
     }
@@ -186,10 +196,14 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
     
     private func reloadClickedColumn() {
-        if let parentNode = browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode {
+        var operatingColumn = browser.clickedColumn
+        if actionIsPreview {
+            operatingColumn -= 1
+        }
+        if let parentNode = browser.parentForItems(inColumn: operatingColumn) as? FileSystemNode {
             parentNode.invalidateChildren()
         }
-        browser.reloadColumn(browser.clickedColumn)
+        browser.reloadColumn(operatingColumn)
     }
     
     @IBAction func moveToTrash(_ sender: Any?) {

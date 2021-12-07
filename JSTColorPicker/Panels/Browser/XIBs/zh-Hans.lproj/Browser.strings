@@ -1,5 +1,53 @@
 /* Class = "NSWindow"; title = "Document Browser"; ObjectID = "3Wk-ly-nP9"; */
-"3Wk-ly-nP9.title" = "Document Browser";
+"3Wk-ly-nP9.title" = "文档浏览器";
 
 /* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
-"RNH-hp-6tO.title" = "Browser";
+"RNH-hp-6tO.title" = "浏览器";
+
+/* Class = "NSMenuItem"; title = "Kind"; ObjectID = "1ZP-vd-SKI"; */
+"1ZP-vd-SKI.title" = "种类";
+
+/* Class = "NSMenuItem"; title = "Open in Tab"; ObjectID = "3yl-4y-R8b"; */
+"3yl-4y-R8b.title" = "在新标签页中打开";
+
+/* Class = "NSMenuItem"; title = "Open with External Editor"; ObjectID = "4gM-Sf-VWS"; */
+"4gM-Sf-VWS.title" = "在外部编辑器中打开";
+
+/* Class = "NSMenuItem"; title = "Name"; ObjectID = "5Eu-Qu-j6B"; */
+"5Eu-Qu-j6B.title" = "名称";
+
+/* Class = "NSMenuItem"; title = "Date Last Opened"; ObjectID = "64f-iP-uCX"; */
+"64f-iP-uCX.title" = "上次打开日期";
+
+/* Class = "NSMenuItem"; title = "Move to Trash"; ObjectID = "8Wm-SC-SYn"; */
+"8Wm-SC-SYn.title" = "移到废纸篓";
+
+/* Class = "NSMenuItem"; title = "Sort By"; ObjectID = "bc2-Ho-sGu"; */
+"bc2-Ho-sGu.title" = "排序方式";
+
+/* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "bql-B3-dua"; */
+"bql-B3-dua.title" = "复制";
+
+/* Class = "NSMenuItem"; title = "Date Created"; ObjectID = "dca-CC-BLe"; */
+"dca-CC-BLe.title" = "创建日期";
+
+/* Class = "NSMenu"; title = "Sort By"; ObjectID = "e09-Eo-dXB"; */
+"e09-Eo-dXB.title" = "排序方式";
+
+/* Class = "NSMenuItem"; title = "Rename"; ObjectID = "E5a-9d-Ydm"; */
+"E5a-9d-Ydm.title" = "重命名";
+
+/* Class = "NSMenuItem"; title = "Size"; ObjectID = "eIS-B5-sk3"; */
+"eIS-B5-sk3.title" = "大小";
+
+/* Class = "NSMenuItem"; title = "New Folder"; ObjectID = "Hny-R5-Ac7"; */
+"Hny-R5-Ac7.title" = "新建文件夹";
+
+/* Class = "NSMenuItem"; title = "Date Modified"; ObjectID = "hpb-Z0-Ynj"; */
+"hpb-Z0-Ynj.title" = "修改日期";
+
+/* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "LNI-bl-lZG"; */
+"LNI-bl-lZG.title" = "在 Finder 中显示";
+
+/* Class = "NSMenuItem"; title = "Date Added"; ObjectID = "zME-zb-fAq"; */
+"zME-zb-fAq.title" = "添加日期";
