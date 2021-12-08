@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "Modified: "; ObjectID = "9zY-Py-TK2"; */
 "9zY-Py-TK2.title" = "修改于: ";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Never"; ObjectID = "GdW-pg-IqD"; */
+"GdW-pg-IqD.ibShadowedIsNilPlaceholder" = "从未";
+
 /* Class = "NSTextFieldCell"; title = "Created: "; ObjectID = "OpQ-hw-JK1"; */
 "OpQ-hw-JK1.title" = "创建于: ";
 
@@ -9,6 +12,3 @@
 
 /* Class = "NSTextFieldCell"; title = "Used: "; ObjectID = "zNc-9J-61l"; */
 "zNc-9J-61l.title" = "最后访问: ";
-
-/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Never"; ObjectID = "GdW-pg-IqD"; */
-"GdW-pg-IqD.ibShadowedIsNilPlaceholder" = "从未";

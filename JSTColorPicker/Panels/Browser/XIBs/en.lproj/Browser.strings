@@ -1,11 +1,8 @@
-/* Class = "NSWindow"; title = "Document Browser"; ObjectID = "3Wk-ly-nP9"; */
-"3Wk-ly-nP9.title" = "Document Browser";
-
-/* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
-"RNH-hp-6tO.title" = "Browser";
-
 /* Class = "NSMenuItem"; title = "Kind"; ObjectID = "1ZP-vd-SKI"; */
 "1ZP-vd-SKI.title" = "Kind";
+
+/* Class = "NSWindow"; title = "Document Browser"; ObjectID = "3Wk-ly-nP9"; */
+"3Wk-ly-nP9.title" = "Document Browser";
 
 /* Class = "NSMenuItem"; title = "Open in Tab"; ObjectID = "3yl-4y-R8b"; */
 "3yl-4y-R8b.title" = "Open in Tab";
@@ -48,6 +45,9 @@
 
 /* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "LNI-bl-lZG"; */
 "LNI-bl-lZG.title" = "Show in Finder";
+
+/* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
+"RNH-hp-6tO.title" = "Browser";
 
 /* Class = "NSMenuItem"; title = "Date Added"; ObjectID = "zME-zb-fAq"; */
 "zME-zb-fAq.title" = "Date Added";

@@ -122,6 +122,9 @@
 /* Shortcut Guide */
 "Copy Color & Coordinates at current cursor location directly to the general pasteboard." = "套用当前模板拷贝当前光标位置下的坐标及颜色标注到系统剪贴板。";
 
+/* newFolder(_:) */
+"Create New Folder" = "新建文件夹";
+
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
 
@@ -239,6 +242,9 @@
 /* toolbarItemLabel */
 "Folder" = "目录";
 
+/* newFolder(_:) */
+"Folder Name" = "文件夹名称";
+
 /* toolbarItemLabel */
 "General" = "通用";
 
@@ -296,6 +302,9 @@
 
 /* TemplateError */
 "Invalid field: %@." = "无效的字段：%@。";
+
+/* GenericError */
+"Invalid filename: \"%@\"." = "无效的文件名: \"%@\".";
 
 /* ScreenshotError */
 "Invalid image properties." = "无效的图像属性。";
@@ -426,6 +435,9 @@
 /* EditCoordinateController */
 "New Color & Coordinates" = "新颜色与坐标";
 
+/* rename(_:) */
+"New Name" = "新文件名";
+
 /* Browser */
 "No" = "否";
 
@@ -534,6 +546,9 @@
 
 /* Shortcut Guide */
 "Remove Annotation" = "移除标注";
+
+/* rename(_:) */
+"Rename" = "重命名";
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "重置确认";
@@ -714,6 +729,9 @@
 
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";
+
+/* newFolder(_:) */
+"Untitled Folder" = "未命名文件夹";
 
 /* internalUpdateContentItems(_:) */
 "Update Items" = "更新项";

@@ -229,12 +229,18 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
         }
     }
 
-    func promiseCreateNewFolder(inParentNode parent: FileSystemNode, withName folderName: String) -> Promise<URL> {
-        return Promise<URL> { seal in
-            if folderName.isEmpty || folderName.hasPrefix(".") || folderName.contains("/") {
-                seal.reject(GenericError.invalidFilename(name: folderName))
+    func promiseCheckFilename(_ name: String) -> Promise<String> {
+        return Promise<String> { seal in
+            if name.isEmpty || name.hasPrefix(".") || name.contains("/") {
+                seal.reject(GenericError.invalidFilename(name: name))
                 return
             }
+            seal.fulfill(name)
+        }
+    }
+
+    func promiseCreateNewFolder(inParentNode parent: FileSystemNode, withName folderName: String) -> Promise<URL> {
+        return Promise<URL> { seal in
             do {
                 let targetURL = parent.url.appendingPathComponent(folderName, isDirectory: true)
                 try FileManager.default.createDirectory(
@@ -249,17 +255,35 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
         }
     }
 
-    func promiseMoveNodes(_ nodes: [FileSystemNode], to destinationURL: URL) -> Promise<URL> {
+    func promiseMoveNodes(_ nodes: [FileSystemNode], to destinationBaseURL: URL) -> Promise<URL> {
         return Promise<URL> { seal in
             do {
                 try nodes.forEach { node in
-                    try FileManager.default.moveItem(at: node.url, to: destinationURL.appendingPathComponent(node.url.lastPathComponent))
+                    try FileManager.default.moveItem(at: node.url, to: destinationBaseURL.appendingPathComponent(node.url.lastPathComponent))
                 }
+                seal.fulfill(destinationBaseURL)
+            } catch let err {
+                seal.reject(err)
+            }
+        }
+    }
+
+    func promiseMoveNode(_ node: FileSystemNode, to destinationURL: URL) -> Promise<URL> {
+        return Promise<URL> { seal in
+            do {
+                try FileManager.default.moveItem(at: node.url, to: destinationURL)
                 seal.fulfill(destinationURL)
             } catch let err {
                 seal.reject(err)
             }
         }
+    }
+
+    func promiseRenameNode(_ node: FileSystemNode, withNewName newName: String) -> Promise<URL> {
+        let newURL = node.url
+            .deletingLastPathComponent()
+            .appendingPathComponent(newName)
+        return promiseMoveNode(node, to: newURL)
     }
 
     func promiseReloadColumn(at url: URL) -> Promise<Void> {
@@ -283,6 +307,7 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
     
     @IBAction func newFolder(_ sender: Any?) {
+        let childNodes = browser.clickedRow >= 0 ? selectedChildNodes : []
         if let parentNode = selectedParentNode {
             NSAlert.textField(
                 window: browser.window,
@@ -297,9 +322,11 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
                     title: NSLocalizedString("OK", comment: "newFolder(_:)")
                 )
             ).then { [unowned self] folderName in
+                return self.promiseCheckFilename(folderName)
+            }.then { [unowned self] folderName in
                 return self.promiseCreateNewFolder(inParentNode: parentNode, withName: folderName)
             }.then { [unowned self] folderURL in
-                return self.promiseMoveNodes(browser.clickedRow >= 0 ? selectedChildNodes : [], to: folderURL)
+                return self.promiseMoveNodes(childNodes, to: folderURL)
             }.then { [unowned self] folderURL in
                 return self.promiseReloadColumn(at: folderURL)
             }.catch { [weak self] error in
@@ -313,7 +340,34 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
 
     @IBAction func rename(_ sender: Any?) {
-        fatalError("not implemented")
+        if let childNode = browser.clickedRow >= 0 ? selectedChildNodes.first : nil {
+            let oldName = childNode.url.lastPathComponent
+            NSAlert.textField(
+                window: browser.window,
+                text: .init(
+                    message: NSLocalizedString("Rename", comment: "rename(_:)")
+                ),
+                textField: .init(
+                    text: oldName,
+                    placeholder: NSLocalizedString("New Name", comment: "rename(_:)")
+                ),
+                button: .init(
+                    title: NSLocalizedString("OK", comment: "rename(_:)")
+                )
+            ).then { [unowned self] fileName in
+                return self.promiseCheckFilename(fileName)
+            }.then { [unowned self] fileName in
+                return self.promiseRenameNode(childNode, withNewName: fileName)
+            }.then { [unowned self] newItemURL in
+                return self.promiseReloadColumn(at: newItemURL)
+            }.catch { [weak self] error in
+                if let window = self?.browser.window {
+                    NSAlert(error: error).beginSheetModal(
+                        for: window, completionHandler: nil
+                    )
+                }
+            }
+        }
     }
     
     @IBAction func sortBy(_ sender: Any?) {

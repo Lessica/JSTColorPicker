@@ -1,11 +1,8 @@
-/* Class = "NSWindow"; title = "Document Browser"; ObjectID = "3Wk-ly-nP9"; */
-"3Wk-ly-nP9.title" = "文档浏览器";
-
-/* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
-"RNH-hp-6tO.title" = "浏览器";
-
 /* Class = "NSMenuItem"; title = "Kind"; ObjectID = "1ZP-vd-SKI"; */
 "1ZP-vd-SKI.title" = "种类";
+
+/* Class = "NSWindow"; title = "Document Browser"; ObjectID = "3Wk-ly-nP9"; */
+"3Wk-ly-nP9.title" = "文档浏览器";
 
 /* Class = "NSMenuItem"; title = "Open in Tab"; ObjectID = "3yl-4y-R8b"; */
 "3yl-4y-R8b.title" = "在新标签页中打开";
@@ -48,6 +45,9 @@
 
 /* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "LNI-bl-lZG"; */
 "LNI-bl-lZG.title" = "在 Finder 中显示";
+
+/* Class = "NSViewController"; title = "Browser"; ObjectID = "RNH-hp-6tO"; */
+"RNH-hp-6tO.title" = "浏览器";
 
 /* Class = "NSMenuItem"; title = "Date Added"; ObjectID = "zME-zb-fAq"; */
 "zME-zb-fAq.title" = "添加日期";

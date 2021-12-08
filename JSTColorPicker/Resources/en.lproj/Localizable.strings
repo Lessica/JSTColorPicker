@@ -122,6 +122,9 @@
 /* Shortcut Guide */
 "Copy Color & Coordinates at current cursor location directly to the general pasteboard." = "Copy Color & Coordinates at current cursor location directly to the general pasteboard.";
 
+/* newFolder(_:) */
+"Create New Folder" = "Create New Folder";
+
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
 
@@ -239,6 +242,9 @@
 /* toolbarItemLabel */
 "Folder" = "Folder";
 
+/* newFolder(_:) */
+"Folder Name" = "Folder Name";
+
 /* toolbarItemLabel */
 "General" = "General";
 
@@ -296,6 +302,9 @@
 
 /* TemplateError */
 "Invalid field: %@." = "Invalid field: %@.";
+
+/* GenericError */
+"Invalid filename: \"%@\"." = "Invalid filename: \"%@\".";
 
 /* ScreenshotError */
 "Invalid image properties." = "Invalid image properties.";
@@ -426,6 +435,9 @@
 /* EditCoordinateController */
 "New Color & Coordinates" = "New Color & Coordinates";
 
+/* rename(_:) */
+"New Name" = "New Name";
+
 /* Browser */
 "No" = "No";
 
@@ -534,6 +546,9 @@
 
 /* Shortcut Guide */
 "Remove Annotation" = "Remove Annotation";
+
+/* rename(_:) */
+"Rename" = "Rename";
 
 /* resetTagDatabaseAction(_:) */
 "Reset Confirm" = "Reset Confirm";
@@ -714,6 +729,9 @@
 
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";
+
+/* newFolder(_:) */
+"Untitled Folder" = "Untitled Folder";
 
 /* internalUpdateContentItems(_:) */
 "Update Items" = "Update Items";
