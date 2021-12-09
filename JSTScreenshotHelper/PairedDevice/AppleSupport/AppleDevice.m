@@ -1,5 +1,5 @@
 //
-//  JSTPairedDevice.m
+//  AppleDevice.m
 //  JSTColorPicker
 //
 //  Created by Darwin on 1/17/20.
@@ -7,20 +7,22 @@
 //
 
 #import "JSTScreenshotHelperProtocol.h"
-#import "JSTPairedDevice.h"
+#import "AppleDevice.h"
 #import "JSTPixelImage.h"
 #import <libimobiledevice/libimobiledevice.h>
 #import <libimobiledevice/lockdown.h>
 #import <libimobiledevice/screenshotr.h>
 #import <libimobiledevice/sbservices.h>
 
-@implementation JSTPairedDevice {
+@implementation AppleDevice {
     idevice_t cDevice;
     char *cUDID;
 }
 
+@synthesize udid = _udid;
+
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([JSTPairedDevice class]), [self.type uppercaseString], self.name, self.udid, self.model];
+    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([AppleDevice class]), [self.type uppercaseString], self.name, self.udid, self.model];
 }
 
 - (instancetype)initWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
@@ -74,10 +76,6 @@
 - (void)setType:(NSString *)type {
     [super setType:type];
     assert([self hasValidType]);
-}
-
-+ (instancetype)deviceWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
-    return [[JSTPairedDevice alloc] initWithUDID:udid type:type];
 }
 
 - (void)dealloc {

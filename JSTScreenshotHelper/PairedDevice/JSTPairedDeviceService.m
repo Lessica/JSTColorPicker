@@ -14,6 +14,7 @@
 
 @interface JSTPairedDeviceService () <JSTPairedDeviceDelegate, NSNetServiceBrowserDelegate>
 @property (nonatomic, assign) BOOL isNetworkDiscoveryEnabled;
+@property (nonatomic, strong) dispatch_source_t discoveryTimerSource;
 @end
 
 
@@ -28,15 +29,15 @@
 }
 
 - (void)discoverDevices {
-    [self didReceiveiDeviceEvent:self.deviceService];
+    [self didReceiveiDeviceEvent:nil];
 }
 
 - (void)discoveredDevicesWithReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     NSMutableArray <NSDictionary *> *discoveredDevices = [[NSMutableArray alloc] initWithCapacity:self.deviceService.activeDevices.count];
-    for (JSTPairedDevice *connectedDevice in self.deviceService.activeDevices.allValues) {
+    for (JSTDevice <JSTPairedDevice> *connectedDevice in self.deviceService.activeDevices.allValues) {
         [discoveredDevices addObject:@{
             @"name": connectedDevice.name,
-            @"udid": connectedDevice.udid,
+            @"udid": connectedDevice.base,
             @"type": connectedDevice.type,
             @"model": connectedDevice.model,
         }];
@@ -48,24 +49,21 @@
 }
 
 - (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTPairedDevice *targetDevice = self.deviceService.cachedDevices[udid];
+    JSTDevice <JSTPairedDevice> *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
     }
     reply([NSPropertyListSerialization dataWithPropertyList:@{
         @"name": targetDevice.name,
-        @"udid": targetDevice.udid,
+        @"udid": targetDevice.base,
         @"type": targetDevice.type,
         @"model": targetDevice.model,
     } format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil], nil);
 }
 
 - (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
-    JSTPairedDevice *targetDevice = self.deviceService.cachedDevices[udid];
-    if (!targetDevice) {
-        targetDevice = [JSTPairedDevice deviceWithUDID:udid type:JSTDeviceTypeUSB];
-    }
+    JSTDevice <JSTPairedDevice> *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
@@ -75,12 +73,12 @@
         reply(imageData, error);
         if (error) {
             [weakSelf disconnectDevice:targetDevice];
-            [weakSelf didReceiveiDeviceEvent:self.deviceService];
+            [weakSelf didReceiveiDeviceEvent:nil];
         }
     }];
 }
 
-- (void)disconnectDevice:(JSTPairedDevice *)device {
+- (void)disconnectDevice:(JSTDevice <JSTPairedDevice> *)device {
     [self.deviceService disconnectDevice:device];
 }
 
@@ -93,14 +91,34 @@
     if (self) {
         _deviceService = [[JSTPairedDeviceStore alloc] init];
         _deviceService.delegate = self;
-        [self didReceiveiDeviceEvent:self.deviceService];
+        [self didReceiveiDeviceEvent:nil];
+
+        dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0));
+        dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10ull * NSEC_PER_SEC));
+        dispatch_source_set_timer(timer, start, (uint64_t)(10ull * NSEC_PER_SEC), (uint64_t)(1ull * NSEC_PER_SEC));
+        __weak typeof(self) weakSelf = self;
+        dispatch_source_set_event_handler(timer, ^{
+            [weakSelf didReceiveiDeviceEvent:nil];
+        });
+        dispatch_resume(timer);
+        _discoveryTimerSource = timer;
     }
     return self;
 }
 
-- (void)didReceiveiDeviceEvent:(nonnull JSTPairedDeviceStore *)service {
+- (void)dealloc {
+    if (_discoveryTimerSource) {
+        dispatch_source_cancel(self.discoveryTimerSource);
+        _discoveryTimerSource = nil;
+    }
+}
+
+- (void)didReceiveiDeviceEvent:(nullable JSTPairedDeviceStore *)service {
+    if (!service) {
+        service = self.deviceService;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSArray <JSTPairedDevice *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
+        NSArray <JSTDevice <JSTPairedDevice> *> *connectedDevices = [service connectedDevicesIncludingNetworkDevices:self.isNetworkDiscoveryEnabled];
         NSLog(@"%@", connectedDevices);
     });
 }

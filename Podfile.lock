@@ -9,16 +9,6 @@ PODS:
     - AppCenter/Core
   - LetsMove (1.25)
   - MASPreferences (1.3)
-  - OMGHTTPURLRQ (3.2.4):
-    - OMGHTTPURLRQ/RQ (= 3.2.4)
-  - OMGHTTPURLRQ/FormURLEncode (3.2.4)
-  - OMGHTTPURLRQ/RQ (3.2.4):
-    - OMGHTTPURLRQ/FormURLEncode
-    - OMGHTTPURLRQ/UserAgent
-  - OMGHTTPURLRQ/UserAgent (3.2.4)
-  - PromiseKit/CorePromise (6.13.1)
-  - PromiseKit/Foundation (6.13.1):
-    - PromiseKit/CorePromise
   - Sparkle (1.26.0)
   - SwiftyStoreKit (0.16.1)
 
@@ -26,9 +16,6 @@ DEPENDENCIES:
   - AppCenter
   - LetsMove
   - "MASPreferences (from `git@github.com:Lessica/MASPreferences.git`)"
-  - OMGHTTPURLRQ
-  - PromiseKit/CorePromise
-  - PromiseKit/Foundation
   - Sparkle
   - SwiftyStoreKit
 
@@ -36,8 +23,6 @@ SPEC REPOS:
   trunk:
     - AppCenter
     - LetsMove
-    - OMGHTTPURLRQ
-    - PromiseKit
     - Sparkle
     - SwiftyStoreKit
 
@@ -54,11 +39,9 @@ SPEC CHECKSUMS:
   AppCenter: cd53e3ed3563cc720bcb806c9731a12389b40d44
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
   MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
-  OMGHTTPURLRQ: 9ac96bdf5c90a33f75836630729ea1adc312a9ed
-  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 0f6c9dc2f9129ffe40d44c926d50d1d0b486036d
+PODFILE CHECKSUM: 530184c8c3b2c9ade0999ba7ef8da6f782679d7f
 
 COCOAPODS: 1.11.2

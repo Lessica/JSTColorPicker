@@ -2,20 +2,19 @@
 //  JSTPairedDevice.h
 //  JSTColorPicker
 //
-//  Created by Darwin on 1/17/20.
-//  Copyright © 2020 JST. All rights reserved.
+//  Created by Rachel on 2021/12/9.
+//  Copyright © 2021 JST. All rights reserved.
 //
 
 #import "JSTDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JSTPairedDevice : JSTDevice
+@protocol JSTPairedDevice
 
 @property (nonatomic, copy, readonly) NSString *udid;
 
-- (nullable JSTPairedDevice *)initWithUDID:(NSString *)udid type:(NSString *)type;
-+ (nullable JSTPairedDevice *)deviceWithUDID:(NSString *)udid type:(NSString *)type;
+- (nullable JSTDevice<JSTPairedDevice> *)initWithUDID:(NSString *)udid type:(NSString *)type;
 
 @end
 

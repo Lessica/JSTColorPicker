@@ -23,8 +23,8 @@
 /* Begin PBXBuildFile section */
 		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
-		0FF4701F2762071A00F46554 /* adb in Copy Embedded Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		0FF470212762072F00F46554 /* adb in Copy Embedded Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		0FF470212762072F00F46554 /* adb in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF47023276208A900F46554 /* SwiftBonjour */; };
 		0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF47025276208C200F46554 /* SwiftBonjour */; };
 		0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470282762097B00F46554 /* TPInAppReceipt */; };
@@ -36,6 +36,18 @@
 		0FF4703C27620F6300F46554 /* AndroidDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703A27620F6300F46554 /* AndroidDevice.swift */; };
 		0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4703E2762191400F46554 /* AuxiliaryExecute */; };
 		0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470402762191D00F46554 /* AuxiliaryExecute */; };
+		0FF4704327621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */; };
+		0FF4704427621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */; };
+		0FF4704B27622FAA00F46554 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4704A27622FAA00F46554 /* PromiseKit */; };
+		0FF4704D27622FB400F46554 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4704C27622FB400F46554 /* PromiseKit */; };
+		0FF4704F27622FBB00F46554 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4704E27622FBB00F46554 /* PromiseKit */; };
+		0FF4705127622FC200F46554 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4705027622FC200F46554 /* PromiseKit */; };
+		0FF470542762300F00F46554 /* OMGHTTPURLRQ in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470532762300F00F46554 /* OMGHTTPURLRQ */; };
+		0FF470562762301A00F46554 /* OMGHTTPURLRQ in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470552762301A00F46554 /* OMGHTTPURLRQ */; };
+		0FF470592762319D00F46554 /* PMKFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470582762319D00F46554 /* PMKFoundation */; };
+		0FF4705B276231A900F46554 /* PMKFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4705A276231A900F46554 /* PMKFoundation */; };
+		0FF4706227626DDC00F46554 /* NSImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4706127626DDC00F46554 /* NSImage+Ext.swift */; };
+		0FF4706327626DDC00F46554 /* NSImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4706127626DDC00F46554 /* NSImage+Ext.swift */; };
 		180C6A87249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A88249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* TagImportAlertView.xib */; };
@@ -389,7 +401,7 @@
 		D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60A691123F2CDBA00ED9748 /* RulerMarker.swift */; };
 		D60B0F4124286AA30034F21C /* JSTPairedDeviceService.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTPairedDeviceService.m */; };
 		D60B0F4324286AA30034F21C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
-		D60B0F52242887A10034F21C /* JSTPairedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* JSTPairedDevice.m */; };
+		D60B0F52242887A10034F21C /* AppleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* AppleDevice.m */; };
 		D60B0F53242887A10034F21C /* JSTPairedDeviceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTPairedDeviceStore.m */; };
 		D60B0F9024288D000034F21C /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
 		D60B0F9124288D000034F21C /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; };
@@ -566,7 +578,7 @@
 		D628357623F8EDAF0016573B /* lmem.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355523F8EDAE0016573B /* lmem.c */; };
 		D628357723F8EDAF0016573B /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355623F8EDAE0016573B /* ldump.c */; };
 		D628357823F8EDAF0016573B /* lfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = D628355723F8EDAE0016573B /* lfunc.c */; };
-		D629E59A242BC7E100AF333F /* JSTPairedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* JSTPairedDevice.m */; };
+		D629E59A242BC7E100AF333F /* AppleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* AppleDevice.m */; };
 		D629E59B242BC7E100AF333F /* JSTPairedDeviceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTPairedDeviceStore.m */; };
 		D629E59C242BC7E100AF333F /* JSTPairedDeviceService.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4024286AA30034F21C /* JSTPairedDeviceService.m */; };
 		D629E59D242BC7E100AF333F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
@@ -844,26 +856,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0FF4701E2762070100F46554 /* Copy Embedded Tools */ = {
+		0FF4701E2762070100F46554 /* Copy Embed Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				0FF4701F2762071A00F46554 /* adb in Copy Embedded Tools */,
+				0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */,
 			);
-			name = "Copy Embedded Tools";
+			name = "Copy Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0FF470202762072700F46554 /* Copy Embedded Tools */ = {
+		0FF470202762072700F46554 /* Copy Embed Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				0FF470212762072F00F46554 /* adb in Copy Embedded Tools */,
+				0FF470212762072F00F46554 /* adb in Copy Embed Tools */,
 			);
-			name = "Copy Embedded Tools";
+			name = "Copy Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CCA72A73260B31DF00A934E2 /* Copy Lua Modules */ = {
@@ -1038,6 +1050,10 @@
 		0FF4703627620B1600F46554 /* JSTColorPickerHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPickerHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		0FF4703727620B1700F46554 /* AdbHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdbHelper.swift; sourceTree = "<group>"; };
 		0FF4703A27620F6300F46554 /* AndroidDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndroidDevice.swift; sourceTree = "<group>"; };
+		0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuxiliaryExecute+Promise.swift"; sourceTree = "<group>"; };
+		0FF4704527621B3E00F46554 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FF4705D2762359000F46554 /* JSTPairedDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTPairedDevice.h; sourceTree = "<group>"; };
+		0FF4706127626DDC00F46554 /* NSImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Ext.swift"; sourceTree = "<group>"; };
 		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
 		180C6A89249F92AB00B42656 /* TagImportAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImportAlertView.xib; sourceTree = "<group>"; };
@@ -1422,8 +1438,8 @@
 		D64790F72490E79C003159FD /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		D647B10423D1A52000D76CB5 /* JSTPairedDeviceStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTPairedDeviceStore.h; sourceTree = "<group>"; };
 		D647B10523D1A52000D76CB5 /* JSTPairedDeviceStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTPairedDeviceStore.m; sourceTree = "<group>"; };
-		D647B10723D1FDB000D76CB5 /* JSTPairedDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTPairedDevice.h; sourceTree = "<group>"; };
-		D647B10823D1FDB000D76CB5 /* JSTPairedDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTPairedDevice.m; sourceTree = "<group>"; };
+		D647B10723D1FDB000D76CB5 /* AppleDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleDevice.h; sourceTree = "<group>"; };
+		D647B10823D1FDB000D76CB5 /* AppleDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleDevice.m; sourceTree = "<group>"; };
 		D649230B23CC56E20067C04A /* DropSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropSplitView.swift; sourceTree = "<group>"; };
 		D649230D23CC62D70067C04A /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		D649231823CC647D0067C04A /* SceneScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneScrollView.swift; sourceTree = "<group>"; };
@@ -1553,6 +1569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
+				0FF4704F27622FBB00F46554 /* PromiseKit in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
 				0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */,
@@ -1579,10 +1596,13 @@
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
 				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
+				0FF470592762319D00F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
+				0FF470542762300F00F46554 /* OMGHTTPURLRQ in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
 				0FF4702C276209B600F46554 /* Down in Frameworks */,
+				0FF4704B27622FAA00F46554 /* PromiseKit in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
@@ -1610,6 +1630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
+				0FF4705127622FC200F46554 /* PromiseKit in Frameworks */,
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
 				0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */,
@@ -1629,14 +1650,17 @@
 				0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */,
 				0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
+				0FF4704D27622FB400F46554 /* PromiseKit in Frameworks */,
 				CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
+				0FF4705B276231A900F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 				CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */,
+				0FF470562762301A00F46554 /* OMGHTTPURLRQ in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,10 +1702,18 @@
 			children = (
 				0FF4703727620B1700F46554 /* AdbHelper.swift */,
 				0FF4703A27620F6300F46554 /* AndroidDevice.swift */,
-				0FF4703527620B1600F46554 /* JSTScreenshotHelper-Bridging-Header.h */,
-				0FF4703627620B1600F46554 /* JSTColorPickerHelper-Bridging-Header.h */,
+				0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */,
 			);
 			path = AndroidSupport;
+			sourceTree = "<group>";
+		};
+		0FF4705C2762355F00F46554 /* AppleSupport */ = {
+			isa = PBXGroup;
+			children = (
+				D647B10723D1FDB000D76CB5 /* AppleDevice.h */,
+				D647B10823D1FDB000D76CB5 /* AppleDevice.m */,
+			);
+			path = AppleSupport;
 			sourceTree = "<group>";
 		};
 		1842C47F24798E46008ECD6F /* TagList */ = {
@@ -2031,8 +2063,9 @@
 		CC7D6769266E480B002099AD /* PairedDevice */ = {
 			isa = PBXGroup;
 			children = (
-				D647B10723D1FDB000D76CB5 /* JSTPairedDevice.h */,
-				D647B10823D1FDB000D76CB5 /* JSTPairedDevice.m */,
+				0FF4705C2762355F00F46554 /* AppleSupport */,
+				0FF4703427620AEF00F46554 /* AndroidSupport */,
+				0FF4705D2762359000F46554 /* JSTPairedDevice.h */,
 				D647B10423D1A52000D76CB5 /* JSTPairedDeviceStore.h */,
 				D647B10523D1A52000D76CB5 /* JSTPairedDeviceStore.m */,
 				D60B0F3F24286AA30034F21C /* JSTPairedDeviceService.h */,
@@ -2129,6 +2162,7 @@
 				CCC0F88E263001D5006C4492 /* Down+Ext.swift */,
 				CCB741352635386D007D2CF5 /* Links+Ext.swift */,
 				0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */,
+				0FF4706127626DDC00F46554 /* NSImage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2404,7 +2438,7 @@
 				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
 				CC7D6761266E037B002099AD /* JSTDevice.h */,
 				CC7D6762266E037B002099AD /* JSTDevice.m */,
-				0FF4703427620AEF00F46554 /* AndroidSupport */,
+				0FF4703527620B1600F46554 /* JSTScreenshotHelper-Bridging-Header.h */,
 				CC7D6769266E480B002099AD /* PairedDevice */,
 				CC7D676B266E4847002099AD /* Resources */,
 				D6D1CF0825A4ED7100B7FFF5 /* include */,
@@ -2590,6 +2624,7 @@
 			children = (
 				D63FE1D8242B234600F1982A /* Info.plist */,
 				D63FE1DB242B234600F1982A /* JSTColorPickerHelper.entitlements */,
+				0FF4703627620B1600F46554 /* JSTColorPickerHelper-Bridging-Header.h */,
 			);
 			path = JSTColorPickerHelper;
 			sourceTree = "<group>";
@@ -2832,6 +2867,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FF4704527621B3E00F46554 /* PromiseKit.framework */,
 				CCE3405426329A470082F73D /* StoreKit.framework */,
 				CC8376F126304DBD00B2C984 /* libreadline.tbd */,
 				CCFECFBB262D5152001F6467 /* Carbon.framework */,
@@ -3080,7 +3116,7 @@
 				D60B0F3824286AA30034F21C /* Sources */,
 				D60B0F3924286AA30034F21C /* Frameworks */,
 				D60B0F3A24286AA30034F21C /* Resources */,
-				0FF470202762072700F46554 /* Copy Embedded Tools */,
+				0FF470202762072700F46554 /* Copy Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -3091,6 +3127,7 @@
 			name = JSTScreenshotHelper;
 			packageProductDependencies = (
 				0FF4703E2762191400F46554 /* AuxiliaryExecute */,
+				0FF4704E27622FBB00F46554 /* PromiseKit */,
 			);
 			productName = JSTScreenshotHelper;
 			productReference = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */;
@@ -3144,6 +3181,9 @@
 				CCC525A4262EB71F00D408B0 /* SyntaxKit */,
 				0FF47023276208A900F46554 /* SwiftBonjour */,
 				0FF4702B276209B600F46554 /* Down */,
+				0FF4704A27622FAA00F46554 /* PromiseKit */,
+				0FF470532762300F00F46554 /* OMGHTTPURLRQ */,
+				0FF470582762319D00F46554 /* PMKFoundation */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -3193,7 +3233,7 @@
 				D63FE1CA242B234500F1982A /* Sources */,
 				D63FE1CB242B234500F1982A /* Frameworks */,
 				D63FE1CC242B234500F1982A /* Resources */,
-				0FF4701E2762070100F46554 /* Copy Embedded Tools */,
+				0FF4701E2762070100F46554 /* Copy Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -3204,6 +3244,7 @@
 			name = JSTColorPickerHelper;
 			packageProductDependencies = (
 				0FF470402762191D00F46554 /* AuxiliaryExecute */,
+				0FF4705027622FC200F46554 /* PromiseKit */,
 			);
 			productName = JSTColorPickerHelper;
 			productReference = D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */;
@@ -3237,6 +3278,9 @@
 				0FF47025276208C200F46554 /* SwiftBonjour */,
 				0FF470282762097B00F46554 /* TPInAppReceipt */,
 				0FF4702D276209C300F46554 /* Down */,
+				0FF4704C27622FB400F46554 /* PromiseKit */,
+				0FF470552762301A00F46554 /* OMGHTTPURLRQ */,
+				0FF4705A276231A900F46554 /* PMKFoundation */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -3358,6 +3402,9 @@
 				0FF470272762097B00F46554 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
 				0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */,
 				0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
+				0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
+				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3621,7 +3668,8 @@
 				CC7D6763266E037B002099AD /* JSTDevice.m in Sources */,
 				0FF4703827620B1700F46554 /* AdbHelper.swift in Sources */,
 				0FF4703B27620F6300F46554 /* AndroidDevice.swift in Sources */,
-				D60B0F52242887A10034F21C /* JSTPairedDevice.m in Sources */,
+				D60B0F52242887A10034F21C /* AppleDevice.m in Sources */,
+				0FF4704327621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */,
 				D60B0F53242887A10034F21C /* JSTPairedDeviceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3757,6 +3805,7 @@
 				CC8F8CBB2621798A00F60F78 /* StackedPaneContainer.swift in Sources */,
 				D61047A724224A170002E990 /* SceneEvent.swift in Sources */,
 				CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */,
+				0FF4706227626DDC00F46554 /* NSImage+Ext.swift in Sources */,
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
 				CC236320264AE7AB005E909A /* MainMenu.swift in Sources */,
@@ -3923,7 +3972,8 @@
 				CC7D6764266E037B002099AD /* JSTDevice.m in Sources */,
 				0FF4703927620B1700F46554 /* AdbHelper.swift in Sources */,
 				0FF4703C27620F6300F46554 /* AndroidDevice.swift in Sources */,
-				D629E59A242BC7E100AF333F /* JSTPairedDevice.m in Sources */,
+				D629E59A242BC7E100AF333F /* AppleDevice.m in Sources */,
+				0FF4704427621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */,
 				D629E59C242BC7E100AF333F /* JSTPairedDeviceService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4010,6 +4060,7 @@
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
+				0FF4706327626DDC00F46554 /* NSImage+Ext.swift in Sources */,
 				D6C1E1F323CEC23F0027DE6F /* SceneStackedController.swift in Sources */,
 				D61047E624224B9C0002E990 /* SUUpdater.m in Sources */,
 				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
@@ -4663,7 +4714,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTScreenshotHelper-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -4700,7 +4751,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTScreenshotHelper-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -4729,7 +4780,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4762,7 +4812,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EB32BCD690A9515B7508551 /* Pods-JSTColorPickerSparkle.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4967,7 +5016,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTColorPickerHelper-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -4984,7 +5033,10 @@
 				CURRENT_PROJECT_VERSION = 1078;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "APP_STORE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"APP_STORE=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
@@ -5004,7 +5056,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTColorPickerHelper-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -5153,7 +5205,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5EE1D60F46C5724BCE0E76E3 /* Pods-JSTColorPicker.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -5192,7 +5243,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5F9A691000B575F7C7BAD87 /* Pods-JSTColorPicker.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -5230,7 +5280,6 @@
 		D65AEBC12427B60100D6A6CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -5253,7 +5302,6 @@
 		D65AEBC22427B60100D6A6CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5475,6 +5523,30 @@
 				kind = branch;
 			};
 		};
+		0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:mxcl/PromiseKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.16.2;
+			};
+		};
+		0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:mxcl/OMGHTTPURLRQ.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.3.0;
+			};
+		};
+		0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:PromiseKit/Foundation.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.4.0;
+			};
+		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
@@ -5520,6 +5592,46 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
 			productName = AuxiliaryExecute;
+		};
+		0FF4704A27622FAA00F46554 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		0FF4704C27622FB400F46554 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		0FF4704E27622FBB00F46554 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		0FF4705027622FC200F46554 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		0FF470532762300F00F46554 /* OMGHTTPURLRQ */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */;
+			productName = OMGHTTPURLRQ;
+		};
+		0FF470552762301A00F46554 /* OMGHTTPURLRQ */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */;
+			productName = OMGHTTPURLRQ;
+		};
+		0FF470582762319D00F46554 /* PMKFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
+			productName = PMKFoundation;
+		};
+		0FF4705A276231A900F46554 /* PMKFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
+			productName = PMKFoundation;
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;

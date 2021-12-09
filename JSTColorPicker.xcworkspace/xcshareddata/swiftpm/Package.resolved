@@ -29,6 +29,33 @@
         }
       },
       {
+        "package": "PMKFoundation",
+        "repositoryURL": "git@github.com:PromiseKit/Foundation.git",
+        "state": {
+          "branch": null,
+          "revision": "985f17fa69ee0e5b7eb3ff9be87ffc4e05fc0927",
+          "version": "3.4.0"
+        }
+      },
+      {
+        "package": "OMGHTTPURLRQ",
+        "repositoryURL": "git@github.com:mxcl/OMGHTTPURLRQ.git",
+        "state": {
+          "branch": null,
+          "revision": "d3781339560d47a9e5cb9e70a81dc16b2d291edc",
+          "version": "3.3.0"
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "git@github.com:mxcl/PromiseKit.git",
+        "state": {
+          "branch": null,
+          "revision": "93c8d41ce96ed78f36c3948be396d76f3ca3de1b",
+          "version": "6.16.2"
+        }
+      },
+      {
         "package": "SwiftBonjour",
         "repositoryURL": "git@github.com:Lessica/SwiftBonjour.git",
         "state": {

@@ -8,24 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import <libimobiledevice/libimobiledevice.h>
+#import "JSTPairedDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JSTPairedDeviceStore, JSTPairedDevice;
+@class JSTPairedDeviceStore;
 
 @protocol JSTPairedDeviceDelegate <NSObject>
-- (void)didReceiveiDeviceEvent:(JSTPairedDeviceStore *)service;
+- (void)didReceiveiDeviceEvent:(nullable JSTPairedDeviceStore *)service;
 @end
 
 @interface JSTPairedDeviceStore : NSObject
 
 @property (nonatomic, weak) id <JSTPairedDeviceDelegate> delegate;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTPairedDevice *> *activeDevices;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTPairedDevice *> *cachedDevices;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTDevice <JSTPairedDevice> *> *activeDevices;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, JSTDevice <JSTPairedDevice> *> *cachedDevices;
 
-- (void)disconnectDevice:(JSTPairedDevice *)device;
+- (void)disconnectDevice:(JSTDevice <JSTPairedDevice> *)device;
 - (void)disconnectAllDevices;
-- (NSArray <JSTPairedDevice *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
+- (NSArray <JSTDevice <JSTPairedDevice> *> *)connectedDevicesIncludingNetworkDevices:(BOOL)includingNetworkDevices;
 
 @end
 

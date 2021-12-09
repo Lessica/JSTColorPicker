@@ -10,6 +10,7 @@ import Cocoa
 import OMGHTTPURLRQ
 import PromiseKit
 import SwiftBonjour
+import PMKFoundation
 
 
 // MARK: - XPC Connection
@@ -532,18 +533,21 @@ extension AppDelegate {
             item.tag = MainMenu.MenuItemTag.devices.rawValue
             item.isEnabled = true
             item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
-            if deviceModel.model.lowercased().hasPrefix("appletv") {
+            let lowercasedModel = deviceModel.model.lowercased()
+            // Apple Device (Fancy Icons)
+            if lowercasedModel.hasPrefix("appletv") {
                 item.image = NSImage(systemSymbolName: "appletv.fill", accessibilityDescription: "appletv.fill")
             }
-            else if deviceModel.model.lowercased().hasPrefix("iphone") {
+            else if lowercasedModel.hasPrefix("iphone") {
                 item.image = NSImage(systemSymbolName: "iphone", accessibilityDescription: "iphone")
             }
-            else if deviceModel.model.lowercased().hasPrefix("ipad") {
+            else if lowercasedModel.hasPrefix("ipad") {
                 item.image = NSImage(systemSymbolName: "ipad", accessibilityDescription: "ipad")
             }
-            else if deviceModel.model.lowercased().hasPrefix("ipod") {
+            else if lowercasedModel.hasPrefix("ipod") {
                 item.image = NSImage(systemSymbolName: "ipodtouch", accessibilityDescription: "ipodtouch")
             }
+            // Android Device (USB)
             else {
                 switch deviceModel.type {
                     case JSTDeviceTypeUSB:

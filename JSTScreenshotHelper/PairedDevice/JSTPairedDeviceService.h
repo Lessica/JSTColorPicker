@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "JSTScreenshotHelperProtocol.h"
+#import "JSTPairedDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JSTPairedDevice, JSTPairedDeviceStore;
+@class JSTPairedDeviceStore;
 
 @interface JSTPairedDeviceService : NSObject <JSTScreenshotHelperProtocol>
 @property (nonatomic, strong, readonly) JSTPairedDeviceStore *deviceService;
-- (void)disconnectDevice:(JSTPairedDevice *)device;
+- (void)disconnectDevice:(JSTDevice <JSTPairedDevice> *)device;
 - (void)disconnectAllDevices;
 @end
 
