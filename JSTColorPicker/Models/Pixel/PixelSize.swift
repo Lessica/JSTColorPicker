@@ -9,14 +9,14 @@
 import Foundation
 import LuaSwift
 
-struct PixelSize: Codable {
+public struct PixelSize: Codable {
     
-    public static var zero: PixelSize { PixelSize(width: 0, height: 0) }
+    static var zero: PixelSize { PixelSize(width: 0, height: 0) }
     
-    public var isValid: Bool { width >= 0 && height >= 0 }
+    var isValid: Bool { width >= 0 && height >= 0 }
     
-    public let width:  Int
-    public let height: Int
+    let width:  Int
+    let height: Int
     
     init(width: Int, height: Int) {
         self.width  = width
@@ -28,7 +28,7 @@ struct PixelSize: Codable {
         height = Int(size.height)
     }
     
-    public func toCGSize() -> CGSize {
+    func toCGSize() -> CGSize {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
     
@@ -36,11 +36,11 @@ struct PixelSize: Codable {
 
 extension PixelSize: CustomStringConvertible, CustomDebugStringConvertible {
     
-    var description: String {
+    public var description: String {
         return "{w:\(width),h:\(height)}"
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         return "size{w:\(width),h:\(height)}"
     }
     
@@ -48,11 +48,11 @@ extension PixelSize: CustomStringConvertible, CustomDebugStringConvertible {
 
 extension PixelSize: Hashable {
     
-    static func == (lhs: PixelSize, rhs: PixelSize) -> Bool {
+    public static func == (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width == rhs.width && lhs.height == rhs.height
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(width)
         hasher.combine(height)
     }
@@ -61,7 +61,7 @@ extension PixelSize: Hashable {
 
 extension PixelSize: Comparable {
     
-    static func < (lhs: PixelSize, rhs: PixelSize) -> Bool {
+    public static func < (lhs: PixelSize, rhs: PixelSize) -> Bool {
         return lhs.width * lhs.height < rhs.width * rhs.height
     }
     
@@ -69,18 +69,18 @@ extension PixelSize: Comparable {
 
 extension PixelSize: LuaSwift.Value {
     
-    func push(_ vm: VirtualMachine) {
+    public func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["width"] = width
         t["height"] = height
         t.push(vm)
     }
     
-    func kind() -> Kind { return .table }
+    public func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["width", "height"]
     private static let typeName: String = "\(String(describing: PixelSize.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
-    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table

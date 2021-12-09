@@ -16,6 +16,9 @@ final class GeneralController: NSViewController {
     @objc dynamic var maximumAnnotations: Int = 999
     @objc dynamic var minimumAnnotations: Int = 1
 
+    @objc dynamic var maximumDuplicateOffset: Int = 9999
+    @objc dynamic var minimumDuplicateOffset: Int = -9999
+
     @objc dynamic var maximumTemplatePreviewLines: Int = 99
     @objc dynamic var minimumTemplatePreviewLines: Int = 5
     

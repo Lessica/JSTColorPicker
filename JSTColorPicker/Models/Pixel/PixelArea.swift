@@ -82,7 +82,20 @@ final class PixelArea: ContentItem {
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        let item = PixelArea(id: id, rect: rect)
+        let item = PixelArea(
+            id: id,
+            rect: rect
+        )
+        item.tags = tags
+        item.similarity = similarity
+        return item
+    }
+
+    override func offsetBy(_ offsetPoint: CGPoint) -> Any {
+        let item = PixelArea(
+            id: id,
+            rect: rect.offsetBy(PixelCoordinate(offsetPoint))
+        )
         item.tags = tags
         item.similarity = similarity
         return item

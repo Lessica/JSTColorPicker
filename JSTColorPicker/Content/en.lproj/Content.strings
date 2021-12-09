@@ -1,6 +1,12 @@
 /* Class = "NSMenu"; title = "Quick Add Patterns"; ObjectID = "1HL-Zx-eDR"; */
 "1HL-Zx-eDR.title" = "Quick Add Patterns";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Create another annotation with the same size."; ObjectID = "6zh-Lw-AOd"; */
+"6zh-Lw-AOd.ibShadowedToolTip" = "Create another annotation with the same size.";
+
+/* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "6zh-Lw-AOd"; */
+"6zh-Lw-AOd.title" = "Duplicate";
+
 /* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "71D-st-arP"; */
 "71D-st-arP.headerCell.title" = "ID";
 

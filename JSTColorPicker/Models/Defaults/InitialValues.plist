@@ -52,6 +52,8 @@
 	<integer>99</integer>
 	<key>defaults:maximumItemCountEnabled</key>
 	<true/>
+	<key>defaults:duplicateOffset</key>
+	<integer>10</integer>
 	<key>defaults:maximumPreviewLineCount</key>
 	<integer>20</integer>
 	<key>defaults:paneView.toggle-info</key>

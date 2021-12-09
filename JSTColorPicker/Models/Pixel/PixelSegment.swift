@@ -9,17 +9,17 @@
 import Foundation
 import LuaSwift
 
-struct PixelSegment: Codable {
+public struct PixelSegment: Codable {
     
-    public var coordinate1: PixelCoordinate { PixelCoordinate(x: x1, y: y1) }
-    public var coordinate2: PixelCoordinate { PixelCoordinate(x: x2, y: y2) }
+    var coordinate1: PixelCoordinate { PixelCoordinate(x: x1, y: y1) }
+    var coordinate2: PixelCoordinate { PixelCoordinate(x: x2, y: y2) }
     
-    public var isValid: Bool { coordinate1.isValid && coordinate2.isValid && coordinate1 != coordinate2 }
+    var isValid: Bool { coordinate1.isValid && coordinate2.isValid && coordinate1 != coordinate2 }
     
-    public let x1: Int
-    public let y1: Int
-    public let x2: Int
-    public let y2: Int
+    let x1: Int
+    let y1: Int
+    let x2: Int
+    let y2: Int
     
     init(x1: Int, y1: Int, x2: Int, y2: Int) {
         self.x1 = x1
@@ -34,16 +34,23 @@ struct PixelSegment: Codable {
         self.x2 = coordinate2.x
         self.y2 = coordinate2.y
     }
+
+    func offsetBy(_ offsetCoordinate: PixelCoordinate) -> PixelSegment {
+        return PixelSegment(
+            coordinate1: coordinate1.offsetBy(offsetCoordinate),
+            coordinate2: coordinate2.offsetBy(offsetCoordinate)
+        )
+    }
     
 }
 
 extension PixelSegment: CustomStringConvertible, CustomDebugStringConvertible {
     
-    var description: String {
+    public var description: String {
         return "{x1:\(x1),y1:\(y1),x2:\(x2),y2:\(y2)}"
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         return "segment{x1:\(x1),y1:\(y1),x2:\(x2),y2:\(y2)}"
     }
     
@@ -51,11 +58,11 @@ extension PixelSegment: CustomStringConvertible, CustomDebugStringConvertible {
 
 extension PixelSegment: Hashable {
     
-    static func == (lhs: PixelSegment, rhs: PixelSegment) -> Bool {
+    public static func == (lhs: PixelSegment, rhs: PixelSegment) -> Bool {
         return (lhs.coordinate1 == rhs.coordinate1 && lhs.coordinate2 == rhs.coordinate2) || (lhs.coordinate1 == rhs.coordinate2 && lhs.coordinate2 == rhs.coordinate1)
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(x1)
         hasher.combine(y1)
         hasher.combine(x2)
@@ -66,7 +73,7 @@ extension PixelSegment: Hashable {
 
 extension PixelSegment: LuaSwift.Value {
     
-    func push(_ vm: VirtualMachine) {
+    public func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["x1"] = x1
         t["y1"] = y1
@@ -75,11 +82,11 @@ extension PixelSegment: LuaSwift.Value {
         t.push(vm)
     }
     
-    func kind() -> Kind { return .table }
+    public func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["x1", "y1", "x2", "y2"]
     private static let typeName: String = "\(String(describing: PixelSegment.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
-    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table

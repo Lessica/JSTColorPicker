@@ -9,36 +9,36 @@
 import Foundation
 import LuaSwift
 
-struct PixelRect: Codable {
+public struct PixelRect: Codable {
     
-    public static var zero: PixelRect { PixelRect(origin: .zero, size: .zero) }
+    static var zero: PixelRect { PixelRect(origin: .zero, size: .zero) }
     
-    public static var null: PixelRect { PixelRect(x: Int.max, y: Int.max, width: 0, height: 0) }
+    static var null: PixelRect { PixelRect(x: Int.max, y: Int.max, width: 0, height: 0) }
     
-    public var isNull           : Bool { x == Int.max || y == Int.max   }
-    public var isEmpty          : Bool { isNull || size == .zero        }
-    public var isValid          : Bool { origin.isValid && size.isValid }
-    public var hasStandardized  : Bool { width >= 0 && height >= 0      }
+    var isNull           : Bool { x == Int.max || y == Int.max   }
+    var isEmpty          : Bool { isNull || size == .zero        }
+    var isValid          : Bool { origin.isValid && size.isValid }
+    var hasStandardized  : Bool { width >= 0 && height >= 0      }
     
-    public let origin: PixelCoordinate
-    public let size:   PixelSize
+    let origin: PixelCoordinate
+    let size:   PixelSize
     
-    public var x: Int         { origin.x    }
-    public var y: Int         { origin.y    }
+    var x: Int         { origin.x    }
+    var y: Int         { origin.y    }
     
-    public var minX: Int      { origin.x    }
-    public var minY: Int      { origin.y    }
+    var minX: Int      { origin.x    }
+    var minY: Int      { origin.y    }
     
-    public var maxX: Int      { origin.x + size.width  }
-    public var maxY: Int      { origin.y + size.height }
+    var maxX: Int      { origin.x + size.width  }
+    var maxY: Int      { origin.y + size.height }
     
-    public var width: Int     { size.width  }
-    public var height: Int    { size.height }
-    public var ratio: CGFloat { CGFloat(width) / CGFloat(height) }
+    var width: Int     { size.width  }
+    var height: Int    { size.height }
+    var ratio: CGFloat { CGFloat(width) / CGFloat(height) }
     
-    public var opposite: PixelCoordinate { PixelCoordinate(x: x + width, y: y + height) }
+    var opposite: PixelCoordinate { PixelCoordinate(x: x + width, y: y + height) }
     
-    public var standardized: PixelRect {
+    var standardized: PixelRect {
         var originX: Int = origin.x
         var originY: Int = origin.y
         var sizeWidth: Int = size.width
@@ -95,28 +95,32 @@ struct PixelRect: Codable {
         )
     }
     
-    public func toCGRect() -> CGRect {
+    func toCGRect() -> CGRect {
         if isNull {
             return .null
         }
         return CGRect(origin: origin.toCGPoint(), size: size.toCGSize())
     }
+
+    func offsetBy(_ offsetCoordinate: PixelCoordinate) -> PixelRect {
+        return PixelRect(origin: origin.offsetBy(offsetCoordinate), size: size)
+    }
     
-    public func contains(_ coordinate: PixelCoordinate) -> Bool {
+    func contains(_ coordinate: PixelCoordinate) -> Bool {
         if coordinate.x >= x && coordinate.y >= y && coordinate.x < x + width && coordinate.y < y + height {
             return true
         }
         return false
     }
     
-    public func contains(_ rect: PixelRect) -> Bool {
+    func contains(_ rect: PixelRect) -> Bool {
         if x <= rect.x && y <= rect.y && x + width >= rect.x + rect.width && y + height >= rect.y + rect.height {
             return true
         }
         return false
     }
     
-    public func intersection(_ rect: PixelRect) -> PixelRect {
+    func intersection(_ rect: PixelRect) -> PixelRect {
         var r1 = self
         var r2 = rect
         
@@ -159,11 +163,11 @@ struct PixelRect: Codable {
 
 extension PixelRect: CustomStringConvertible, CustomDebugStringConvertible {
     
-    var description: String {
+    public var description: String {
         return "{x:\(origin.x),y:\(origin.y),w:\(size.width),h:\(size.height)}"
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         return "rect{x:\(origin.x),y:\(origin.y),w:\(size.width),h:\(size.height)}"
     }
     
@@ -171,11 +175,11 @@ extension PixelRect: CustomStringConvertible, CustomDebugStringConvertible {
 
 extension PixelRect: Hashable {
     
-    static func == (lhs: PixelRect, rhs: PixelRect) -> Bool {
+    public static func == (lhs: PixelRect, rhs: PixelRect) -> Bool {
         return lhs.origin == rhs.origin && lhs.size == rhs.size
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(origin)
         hasher.combine(size)
     }
@@ -184,7 +188,7 @@ extension PixelRect: Hashable {
 
 extension PixelRect: LuaSwift.Value {
     
-    func push(_ vm: VirtualMachine) {
+    public func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["minX"] = minX
         t["minY"] = minY
@@ -195,11 +199,11 @@ extension PixelRect: LuaSwift.Value {
         t.push(vm)
     }
     
-    func kind() -> Kind { return .table }
+    public func kind() -> Kind { return .table }
     
     private static let typeKeys: [String] = ["minX", "minY", "maxX", "maxY", "width", "height"]
     private static let typeName: String = "\(String(describing: PixelRect.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
-    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+    public static func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table

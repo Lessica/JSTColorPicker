@@ -812,6 +812,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         
         // menu item with action
         if menuItem.action == #selector(copy(_:))
+            || menuItem.action == #selector(duplicate(_:))
             || menuItem.action == #selector(exportAs(_:))
             || menuItem.action == #selector(tags(_:))
             || menuItem.action == #selector(delete(_:))
@@ -1165,6 +1166,22 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         guard let items = documentExport?.importFromAdditionalPasteboard(), items.count > 0 else { return }
         do {
             try importContentItems(items)
+        } catch {
+            presentError(error)
+        }
+    }
+
+    @IBAction private func duplicate(_ sender: Any) {
+        guard let selectedItems = selectedContentItems else { return }
+        let duplicateOffset: Int = UserDefaults.standard[.duplicateOffset]
+        let duplicatedItems = selectedItems.map({
+            $0.offsetBy(CGPoint(
+                x: duplicateOffset,
+                y: duplicateOffset
+            )) as! ContentItem
+        })
+        do {
+            try importContentItems(duplicatedItems)
         } catch {
             presentError(error)
         }

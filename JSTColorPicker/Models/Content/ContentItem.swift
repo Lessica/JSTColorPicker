@@ -61,6 +61,10 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     func copy(with zone: NSZone? = nil) -> Any {
         fatalError("copy(with:) has not been implemented")
     }
+
+    func offsetBy(_ offsetPoint: CGPoint) -> Any {
+        fatalError("offsetBy(_:) has not been implemented")
+    }
     
     func copyFrom(_ item: ContentItem) {
         id = item.id

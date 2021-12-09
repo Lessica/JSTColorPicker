@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="334"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView initialItem="DBw-sv-D6x" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
-                    <rect key="frame" x="13" y="10" width="514" height="318"/>
+                    <rect key="frame" x="13" y="10" width="514" height="256"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="eLw-O7-No5"/>
                     </constraints>
@@ -330,14 +330,14 @@
                         </tabViewItem>
                         <tabViewItem label="Annotation" identifier="" id="AZY-Lx-ojw">
                             <view key="view" id="ibT-Qp-igG">
-                                <rect key="frame" x="10" y="33" width="494" height="181"/>
+                                <rect key="frame" x="10" y="33" width="494" height="210"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMr-ya-cMx">
-                                        <rect key="frame" x="20" y="20" width="454" height="141"/>
+                                        <rect key="frame" x="20" y="20" width="454" height="170"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVN-0E-XuN">
-                                                <rect key="frame" x="-2" y="124" width="169" height="18"/>
+                                                <rect key="frame" x="-2" y="153" width="169" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Uses Detailed Tool Tips" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="spB-al-HtT">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -347,7 +347,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6b1-O7-Cvg">
-                                                <rect key="frame" x="-2" y="100" width="161" height="18"/>
+                                                <rect key="frame" x="-2" y="129" width="161" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Confirm Before Delete" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1Y6-DK-gNW">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -357,7 +357,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qhO-NY-W2a">
-                                                <rect key="frame" x="-2" y="76" width="183" height="18"/>
+                                                <rect key="frame" x="-2" y="105" width="183" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Ignore Repeated Insertion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UjQ-Tx-ycu">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -367,7 +367,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Jz-ZnC">
-                                                <rect key="frame" x="-2" y="52" width="161" height="18"/>
+                                                <rect key="frame" x="-2" y="81" width="161" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Ignore Invalid Deletion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5JF-OO-Avm">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -377,7 +377,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HAS-6c-zRj">
-                                                <rect key="frame" x="-2" y="28" width="113" height="18"/>
+                                                <rect key="frame" x="-2" y="57" width="113" height="18"/>
                                                 <buttonCell key="cell" type="check" title="zIndex by Size" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BE1-Lr-IA1">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -387,7 +387,7 @@
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fnr-8z-7NY">
-                                                <rect key="frame" x="0.0" y="0.0" width="179" height="21"/>
+                                                <rect key="frame" x="0.0" y="29" width="179" height="21"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YDo-1B-sFe">
                                                         <rect key="frame" x="-2" y="2" width="125" height="18"/>
@@ -438,6 +438,58 @@
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q9S-i8-VTJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="179" height="21"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95f-Gt-76I">
+                                                        <rect key="frame" x="-2" y="2" width="125" height="18"/>
+                                                        <buttonCell key="cell" type="check" title="Duplicate Offset" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="W9l-RS-qWb">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:maximumItemCountEnabled" id="fn6-rV-tXK"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nq-Fk-i3e">
+                                                        <rect key="frame" x="131" y="0.0" width="48" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="48" id="g1d-EG-vQo"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="10" drawsBackground="YES" usesSingleLineMode="YES" id="tLa-Pd-tlr">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="yJP-f5-smL">
+                                                                <real key="minimum" value="-9999"/>
+                                                                <real key="maximum" value="9999"/>
+                                                            </numberFormatter>
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <allowedInputSourceLocales>
+                                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                            </allowedInputSourceLocales>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="enabled" keyPath="values.defaults:maximumItemCountEnabled" id="Twc-37-PHW"/>
+                                                            <binding destination="-2" name="maxValue" keyPath="maximumDuplicateOffset" id="6Vr-mB-eHl"/>
+                                                            <binding destination="-2" name="minValue" keyPath="minimumDuplicateOffset" previousBinding="6Vr-mB-eHl" id="WuO-jY-GpJ"/>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:duplicateOffset" previousBinding="WuO-jY-GpJ" id="4ml-6R-5lP"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="7nq-Fk-i3e" secondAttribute="bottom" id="Uqb-Bu-QEm"/>
+                                                    <constraint firstItem="95f-Gt-76I" firstAttribute="centerY" secondItem="Q9S-i8-VTJ" secondAttribute="centerY" id="WoK-8i-oOC"/>
+                                                    <constraint firstItem="7nq-Fk-i3e" firstAttribute="top" secondItem="Q9S-i8-VTJ" secondAttribute="top" id="cx0-aw-nzn"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
@@ -446,8 +498,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -340,7 +341,7 @@ DQ
                             </menu>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="h55-l6-TzM"/>
-                        <menuItem title="Cut" keyEquivalent="x" id="WQj-mW-NTJ">
+                        <menuItem title="Cut" hidden="YES" keyEquivalent="x" id="WQj-mW-NTJ">
                             <connections>
                                 <action selector="cut:" target="YIx-oB-8lo" id="KYR-De-hb9"/>
                             </connections>
@@ -352,7 +353,12 @@ DQ
                         </menuItem>
                         <menuItem title="Paste" keyEquivalent="v" toolTip="Paste annotations from another document." id="COB-7T-s9l">
                             <connections>
-                                <action selector="paste:" target="YIx-oB-8lo" id="rh3-0q-hxU"/>
+                                <action selector="paste:" target="YIx-oB-8lo" id="q9Q-H7-ckV"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Duplicate" keyEquivalent="d" toolTip="Create another annotation with the same size." id="6zh-Lw-AOd">
+                            <connections>
+                                <action selector="duplicate:" target="YIx-oB-8lo" id="MHq-nT-Ecb"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm." id="q07-T2-0Ey">

@@ -190,6 +190,12 @@
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
 "DVo-aG-piG.title" = "关闭";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Create another annotation with the same size."; ObjectID = "dwZ-lp-pGZ"; */
+"dwZ-lp-pGZ.ibShadowedToolTip" = "以相同尺寸创建另一个标注。";
+
+/* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "dwZ-lp-pGZ"; */
+"dwZ-lp-pGZ.title" = "创建副本";
+
 /* Class = "NSMenu"; title = "Move Left"; ObjectID = "dxN-wD-dtb"; */
 "dxN-wD-dtb.title" = "向左移动";
 

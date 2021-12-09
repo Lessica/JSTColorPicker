@@ -238,6 +238,11 @@ DQ
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Duplicate" keyEquivalent="d" toolTip="Create another annotation with the same size." id="dwZ-lp-pGZ">
+                                            <connections>
+                                                <action selector="duplicate:" target="Ady-hI-5gd" id="Di6-ia-IQn"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Smart Trim" keyEquivalent="t" toolTip="Trim this area with Canny edge detection algorithm." id="fAq-vA-bJd">
                                             <connections>
                                                 <action selector="smartTrim:" target="Ady-hI-5gd" id="KdY-BK-fAm"/>
@@ -1315,14 +1320,14 @@ CA
     </scenes>
     <resources>
         <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="16" height="15"/>
-        <image name="arrow.up.left.and.down.right.magnifyingglass" catalog="system" width="15" height="15"/>
+        <image name="arrow.up.left.and.down.right.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="arrow.up.right.and.arrow.down.left.rectangle" catalog="system" width="18" height="14"/>
         <image name="aspectratio" catalog="system" width="18" height="14"/>
         <image name="camera" catalog="system" width="19" height="15"/>
-        <image name="cursorarrow.and.square.on.square.dashed" catalog="system" width="17" height="16"/>
+        <image name="cursorarrow.and.square.on.square.dashed" catalog="system" width="17" height="17"/>
         <image name="cursorarrow.rays" catalog="system" width="16" height="16"/>
-        <image name="minus.magnifyingglass" catalog="system" width="15" height="15"/>
-        <image name="plus.magnifyingglass" catalog="system" width="15" height="15"/>
+        <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
+        <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="plus.rectangle" catalog="system" width="18" height="14"/>
     </resources>
 </document>

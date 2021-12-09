@@ -123,7 +123,22 @@ final class PixelColor: ContentItem {
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        let item = PixelColor(id: id, coordinate: coordinate, color: pixelColorRep.copy() as! JSTPixelColor)
+        let item = PixelColor(
+            id: id,
+            coordinate: coordinate,
+            color: pixelColorRep.copy() as! JSTPixelColor
+        )
+        item.tags = tags
+        item.similarity = similarity
+        return item
+    }
+
+    override func offsetBy(_ offsetPoint: CGPoint) -> Any {
+        let item = PixelColor(
+            id: id,
+            coordinate: coordinate.offsetBy(PixelCoordinate(offsetPoint)),
+            color: pixelColorRep.copy() as! JSTPixelColor
+        )
         item.tags = tags
         item.similarity = similarity
         return item

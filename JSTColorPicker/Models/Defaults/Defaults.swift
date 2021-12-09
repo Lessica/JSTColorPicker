@@ -48,6 +48,7 @@ extension UserDefaults.Key {
     static let zIndexBySize                         : UserDefaults.Key     = "defaults:zIndexBySize"                           // Bool
     static let maximumItemCountEnabled              : UserDefaults.Key     = "defaults:maximumItemCountEnabled"                // Bool
     static let maximumItemCount                     : UserDefaults.Key     = "defaults:maximumItemCount"                       // Int
+    static let duplicateOffset                      : UserDefaults.Key     = "defaults:duplicateOffset"                        // Int
     static let maximumPreviewLineCount              : UserDefaults.Key     = "defaults:maximumPreviewLineCount"                // Int
     static let makeSoundsAfterDoubleClickCopy       : UserDefaults.Key     = "defaults:makeSoundsAfterDoubleClickCopy"         // Bool
     
