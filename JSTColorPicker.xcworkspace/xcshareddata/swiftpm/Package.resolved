@@ -11,17 +11,26 @@
         }
       },
       {
+        "package": "AuxiliaryExecute",
+        "repositoryURL": "git@github.com:Lessica/AuxiliaryExecute.git",
+        "state": {
+          "branch": "main",
+          "revision": "c46b5e2c72d6e247a96a12c74f47c137e5957387",
+          "version": null
+        }
+      },
+      {
         "package": "Down",
-        "repositoryURL": "git@github.com:johnxnguyen/Down.git",
+        "repositoryURL": "git@github.com:Lessica/Down.git",
         "state": {
           "branch": null,
-          "revision": "0bcd20dc56ad7fd47bbb99a1d2302a8bfa43b6d0",
-          "version": "0.10.0"
+          "revision": "f34b166be1f1db4aa8f573067e901d72f2a6be57",
+          "version": "0.11.0"
         }
       },
       {
         "package": "SwiftBonjour",
-        "repositoryURL": "https://github.com/Lessica/SwiftBonjour.git",
+        "repositoryURL": "git@github.com:Lessica/SwiftBonjour.git",
         "state": {
           "branch": "main",
           "revision": "0cff5e329eadfca4a3ed8670b252d7c413eee57c",
@@ -39,11 +48,11 @@
       },
       {
         "package": "TPInAppReceipt",
-        "repositoryURL": "git@github.com:tikhop/TPInAppReceipt.git",
+        "repositoryURL": "git@github.com:Lessica/TPInAppReceipt.git",
         "state": {
           "branch": null,
-          "revision": "eb79f08ac36dfc787a588d37ceef063c191598d5",
-          "version": "3.1.1"
+          "revision": "4bdd84a82d1db4f03e7df55b666b4442c301980d",
+          "version": "3.3.2"
         }
       }
     ]

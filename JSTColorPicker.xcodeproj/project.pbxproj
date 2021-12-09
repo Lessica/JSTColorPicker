@@ -23,6 +23,19 @@
 /* Begin PBXBuildFile section */
 		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
+		0FF4701F2762071A00F46554 /* adb in Copy Embedded Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		0FF470212762072F00F46554 /* adb in Copy Embedded Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF47023276208A900F46554 /* SwiftBonjour */; };
+		0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF47025276208C200F46554 /* SwiftBonjour */; };
+		0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470282762097B00F46554 /* TPInAppReceipt */; };
+		0FF4702C276209B600F46554 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4702B276209B600F46554 /* Down */; };
+		0FF4702E276209C300F46554 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4702D276209C300F46554 /* Down */; };
+		0FF4703827620B1700F46554 /* AdbHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703727620B1700F46554 /* AdbHelper.swift */; };
+		0FF4703927620B1700F46554 /* AdbHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703727620B1700F46554 /* AdbHelper.swift */; };
+		0FF4703B27620F6300F46554 /* AndroidDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703A27620F6300F46554 /* AndroidDevice.swift */; };
+		0FF4703C27620F6300F46554 /* AndroidDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703A27620F6300F46554 /* AndroidDevice.swift */; };
+		0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4703E2762191400F46554 /* AuxiliaryExecute */; };
+		0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470402762191D00F46554 /* AuxiliaryExecute */; };
 		180C6A87249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A88249F652800B42656 /* TagImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C6A86249F652800B42656 /* TagImportSource.swift */; };
 		180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180C6A89249F92AB00B42656 /* TagImportAlertView.xib */; };
@@ -146,8 +159,6 @@
 		CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
 		CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
 		CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
-		CC34770B266F4ABC00391E73 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = CC34770A266F4ABC00391E73 /* SwiftBonjour */; };
-		CC34770D266F4AC800391E73 /* SwiftBonjour in Frameworks */ = {isa = PBXBuildFile; productRef = CC34770C266F4AC800391E73 /* SwiftBonjour */; };
 		CC34770F266F4AF400391E73 /* AppDelegate+Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34770E266F4AF400391E73 /* AppDelegate+Console.swift */; };
 		CC347710266F4AF400391E73 /* AppDelegate+Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34770E266F4AF400391E73 /* AppDelegate+Console.swift */; };
 		CC347712266F4B8B00391E73 /* AppDelegate+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC347711266F4B8B00391E73 /* AppDelegate+Device.swift */; };
@@ -279,8 +290,6 @@
 		CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
 		CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
-		CCC0F87D262FFE18006C4492 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = CCC0F87C262FFE18006C4492 /* Down */; };
-		CCC0F886262FFE20006C4492 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = CCC0F885262FFE20006C4492 /* Down */; };
 		CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
@@ -342,7 +351,6 @@
 		CCE34018263272590082F73D /* ColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34016263272590082F73D /* ColoredView.swift */; };
 		CCE34022263280620082F73D /* PurchaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34020263280620082F73D /* PurchaseButton.swift */; };
 		CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE3405426329A470082F73D /* StoreKit.framework */; };
-		CCE340662632B0F30082F73D /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = CCE340652632B0F30082F73D /* TPInAppReceipt */; };
 		CCE901552626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
 		CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
@@ -836,6 +844,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0FF4701E2762070100F46554 /* Copy Embedded Tools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				0FF4701F2762071A00F46554 /* adb in Copy Embedded Tools */,
+			);
+			name = "Copy Embedded Tools";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FF470202762072700F46554 /* Copy Embedded Tools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				0FF470212762072F00F46554 /* adb in Copy Embedded Tools */,
+			);
+			name = "Copy Embedded Tools";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CCA72A73260B31DF00A934E2 /* Copy Lua Modules */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1003,6 +1033,11 @@
 
 /* Begin PBXFileReference section */
 		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
+		0FF4701B276206CE00F46554 /* adb */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = adb; sourceTree = "<group>"; };
+		0FF4703527620B1600F46554 /* JSTScreenshotHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTScreenshotHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		0FF4703627620B1600F46554 /* JSTColorPickerHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSTColorPickerHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		0FF4703727620B1700F46554 /* AdbHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdbHelper.swift; sourceTree = "<group>"; };
+		0FF4703A27620F6300F46554 /* AndroidDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndroidDevice.swift; sourceTree = "<group>"; };
 		180725AD24A64868006D4551 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		180C6A86249F652800B42656 /* TagImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImportSource.swift; sourceTree = "<group>"; };
 		180C6A89249F92AB00B42656 /* TagImportAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImportAlertView.xib; sourceTree = "<group>"; };
@@ -1520,6 +1555,7 @@
 				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
+				0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */,
 				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
 				CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */,
 				CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */,
@@ -1542,12 +1578,12 @@
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
-				CC34770B266F4ABC00391E73 /* SwiftBonjour in Frameworks */,
+				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
+				0FF4702C276209B600F46554 /* Down in Frameworks */,
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
-				CCC0F87D262FFE18006C4492 /* Down in Frameworks */,
 				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
 			);
@@ -1576,6 +1612,7 @@
 				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
+				0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
 				CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */,
 				CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */,
@@ -1587,10 +1624,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCC0F886262FFE20006C4492 /* Down in Frameworks */,
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
-				CCE340662632B0F30082F73D /* TPInAppReceipt in Frameworks */,
-				CC34770D266F4AC800391E73 /* SwiftBonjour in Frameworks */,
+				0FF4702E276209C300F46554 /* Down in Frameworks */,
+				0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */,
+				0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
 				CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
@@ -1628,6 +1665,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FF470162762068400F46554 /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				0FF4701B276206CE00F46554 /* adb */,
+			);
+			path = bin;
+			sourceTree = "<group>";
+		};
+		0FF4703427620AEF00F46554 /* AndroidSupport */ = {
+			isa = PBXGroup;
+			children = (
+				0FF4703727620B1700F46554 /* AdbHelper.swift */,
+				0FF4703A27620F6300F46554 /* AndroidDevice.swift */,
+				0FF4703527620B1600F46554 /* JSTScreenshotHelper-Bridging-Header.h */,
+				0FF4703627620B1600F46554 /* JSTColorPickerHelper-Bridging-Header.h */,
+			);
+			path = AndroidSupport;
+			sourceTree = "<group>";
+		};
 		1842C47F24798E46008ECD6F /* TagList */ = {
 			isa = PBXGroup;
 			children = (
@@ -2348,9 +2404,11 @@
 				D60B0F3E24286AA30034F21C /* JSTScreenshotHelperProtocol.h */,
 				CC7D6761266E037B002099AD /* JSTDevice.h */,
 				CC7D6762266E037B002099AD /* JSTDevice.m */,
+				0FF4703427620AEF00F46554 /* AndroidSupport */,
 				CC7D6769266E480B002099AD /* PairedDevice */,
 				CC7D676B266E4847002099AD /* Resources */,
 				D6D1CF0825A4ED7100B7FFF5 /* include */,
+				0FF470162762068400F46554 /* bin */,
 				D647B06423D198CB00D76CB5 /* lib */,
 			);
 			path = JSTScreenshotHelper;
@@ -3022,6 +3080,7 @@
 				D60B0F3824286AA30034F21C /* Sources */,
 				D60B0F3924286AA30034F21C /* Frameworks */,
 				D60B0F3A24286AA30034F21C /* Resources */,
+				0FF470202762072700F46554 /* Copy Embedded Tools */,
 			);
 			buildRules = (
 			);
@@ -3031,6 +3090,7 @@
 			);
 			name = JSTScreenshotHelper;
 			packageProductDependencies = (
+				0FF4703E2762191400F46554 /* AuxiliaryExecute */,
 			);
 			productName = JSTScreenshotHelper;
 			productReference = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */;
@@ -3082,8 +3142,8 @@
 			name = JSTColorPickerSparkle;
 			packageProductDependencies = (
 				CCC525A4262EB71F00D408B0 /* SyntaxKit */,
-				CCC0F87C262FFE18006C4492 /* Down */,
-				CC34770A266F4ABC00391E73 /* SwiftBonjour */,
+				0FF47023276208A900F46554 /* SwiftBonjour */,
+				0FF4702B276209B600F46554 /* Down */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -3133,6 +3193,7 @@
 				D63FE1CA242B234500F1982A /* Sources */,
 				D63FE1CB242B234500F1982A /* Frameworks */,
 				D63FE1CC242B234500F1982A /* Resources */,
+				0FF4701E2762070100F46554 /* Copy Embedded Tools */,
 			);
 			buildRules = (
 			);
@@ -3142,6 +3203,7 @@
 			);
 			name = JSTColorPickerHelper;
 			packageProductDependencies = (
+				0FF470402762191D00F46554 /* AuxiliaryExecute */,
 			);
 			productName = JSTColorPickerHelper;
 			productReference = D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */;
@@ -3172,9 +3234,9 @@
 			name = JSTColorPicker;
 			packageProductDependencies = (
 				CCC525AD262EB72800D408B0 /* SyntaxKit */,
-				CCC0F885262FFE20006C4492 /* Down */,
-				CCE340652632B0F30082F73D /* TPInAppReceipt */,
-				CC34770C266F4AC800391E73 /* SwiftBonjour */,
+				0FF47025276208C200F46554 /* SwiftBonjour */,
+				0FF470282762097B00F46554 /* TPInAppReceipt */,
+				0FF4702D276209C300F46554 /* Down */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -3250,6 +3312,7 @@
 					};
 					D60B0F3B24286AA30034F21C = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1310;
 					};
 					D60B0F8624288CF20034F21C = {
 						CreatedOnToolsVersion = 11.3;
@@ -3262,6 +3325,7 @@
 					};
 					D63FE1CD242B234500F1982A = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1310;
 					};
 					D658AF9923CB180C0098C567 = {
 						CreatedOnToolsVersion = 11.3;
@@ -3290,9 +3354,10 @@
 			mainGroup = D658AF9123CB180C0098C567;
 			packageReferences = (
 				CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */,
-				CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */,
-				CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
-				CC347709266F4ABC00391E73 /* XCRemoteSwiftPackageReference "SwiftBonjour" */,
+				0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */,
+				0FF470272762097B00F46554 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
+				0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */,
+				0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3554,6 +3619,8 @@
 				D60B0F4324286AA30034F21C /* main.m in Sources */,
 				D60B0F4124286AA30034F21C /* JSTPairedDeviceService.m in Sources */,
 				CC7D6763266E037B002099AD /* JSTDevice.m in Sources */,
+				0FF4703827620B1700F46554 /* AdbHelper.swift in Sources */,
+				0FF4703B27620F6300F46554 /* AndroidDevice.swift in Sources */,
 				D60B0F52242887A10034F21C /* JSTPairedDevice.m in Sources */,
 				D60B0F53242887A10034F21C /* JSTPairedDeviceStore.m in Sources */,
 			);
@@ -3854,6 +3921,8 @@
 				D629E59D242BC7E100AF333F /* main.m in Sources */,
 				D629E59B242BC7E100AF333F /* JSTPairedDeviceStore.m in Sources */,
 				CC7D6764266E037B002099AD /* JSTDevice.m in Sources */,
+				0FF4703927620B1700F46554 /* AdbHelper.swift in Sources */,
+				0FF4703C27620F6300F46554 /* AndroidDevice.swift in Sources */,
 				D629E59A242BC7E100AF333F /* JSTPairedDevice.m in Sources */,
 				D629E59C242BC7E100AF333F /* JSTPairedDeviceService.m in Sources */,
 			);
@@ -4566,6 +4635,7 @@
 		D60B0F4924286AA30034F21C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4578,6 +4648,11 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
@@ -4588,12 +4663,16 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTScreenshotHelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		D60B0F4A24286AA30034F21C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4606,6 +4685,11 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
 				);
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
@@ -4616,6 +4700,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTScreenshotHelper-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -4850,6 +4936,7 @@
 		D63FE1DC242B234600F1982A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4880,12 +4967,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTColorPickerHelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		D63FE1DD242B234600F1982A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME)/$(TARGET_NAME).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4913,6 +5004,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "JSTScreenshotHelper/AndroidSupport/JSTColorPickerHelper-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5350,20 +5443,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CC347709266F4ABC00391E73 /* XCRemoteSwiftPackageReference "SwiftBonjour" */ = {
+		0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Lessica/SwiftBonjour.git";
+			repositoryURL = "git@github.com:Lessica/SwiftBonjour.git";
 			requirement = {
 				branch = main;
 				kind = branch;
 			};
 		};
-		CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */ = {
+		0FF470272762097B00F46554 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:johnxnguyen/Down.git";
+			repositoryURL = "git@github.com:Lessica/TPInAppReceipt.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.0;
+				kind = exactVersion;
+				version = 3.3.2;
+			};
+		};
+		0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lessica/Down.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.11.0;
+			};
+		};
+		0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lessica/AuxiliaryExecute.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
@@ -5374,36 +5483,43 @@
 				kind = branch;
 			};
 		};
-		CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:tikhop/TPInAppReceipt.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CC34770A266F4ABC00391E73 /* SwiftBonjour */ = {
+		0FF47023276208A900F46554 /* SwiftBonjour */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CC347709266F4ABC00391E73 /* XCRemoteSwiftPackageReference "SwiftBonjour" */;
+			package = 0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */;
 			productName = SwiftBonjour;
 		};
-		CC34770C266F4AC800391E73 /* SwiftBonjour */ = {
+		0FF47025276208C200F46554 /* SwiftBonjour */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CC347709266F4ABC00391E73 /* XCRemoteSwiftPackageReference "SwiftBonjour" */;
+			package = 0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */;
 			productName = SwiftBonjour;
 		};
-		CCC0F87C262FFE18006C4492 /* Down */ = {
+		0FF470282762097B00F46554 /* TPInAppReceipt */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */;
+			package = 0FF470272762097B00F46554 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
+			productName = TPInAppReceipt;
+		};
+		0FF4702B276209B600F46554 /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
-		CCC0F885262FFE20006C4492 /* Down */ = {
+		0FF4702D276209C300F46554 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCC0F87B262FFE18006C4492 /* XCRemoteSwiftPackageReference "Down" */;
+			package = 0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
+		};
+		0FF4703E2762191400F46554 /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
+		};
+		0FF470402762191D00F46554 /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5414,11 +5530,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
 			productName = SyntaxKit;
-		};
-		CCE340652632B0F30082F73D /* TPInAppReceipt */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCE340642632B0F30082F73D /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
-			productName = TPInAppReceipt;
 		};
 /* End XCSwiftPackageProductDependency section */
 

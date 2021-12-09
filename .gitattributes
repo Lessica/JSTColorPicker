@@ -3,6 +3,7 @@ JSTScreenshotHelper/lib/libssl.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libplist-2.0.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libusbmuxd-2.0.a filter=lfs diff=lfs merge=lfs -text
 JSTScreenshotHelper/lib/libimobiledevice-1.0.a filter=lfs diff=lfs merge=lfs -text
+JSTScreenshotHelper/bin/adb filter=lfs diff=lfs merge=lfs -text
 JSTColorPicker/OpenCV/lib/libopencv_core.4.5.dylib filter=lfs diff=lfs merge=lfs -text
 JSTColorPicker/OpenCV/lib/libopencv_imgproc.4.5.dylib filter=lfs diff=lfs merge=lfs -text
 include/** linguist-vendored=true
@@ -11,5 +12,6 @@ JSTColorPicker/OpenCV/include/** linguist-vendored=true
 JSTColorPicker/OpenCV/lib/** linguist-vendored=true
 JSTScreenshotHelper/include/** linguist-vendored=true
 JSTScreenshotHelper/lib/** linguist-vendored=true
+JSTScreenshotHelper/bin/** linguist-vendored=true
 LuaC/include/** linguist-vendored=true
 LuaC/lib/** linguist-vendored=true
