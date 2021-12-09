@@ -86,6 +86,7 @@ Scale the view to fit/fill the window size.
   * `⌥↵`: Relocate: In the pop-up tab, precisely adjust the position of the selected annotation.
   * `⌘C`: Copy: Copy these annotations with current template.
   * `⌘V`: Paste: Paste annotations from another document.
+  * `⌘D`: Duplicate: Create another annotation with the same size.
   * `⌘T`: Smart Trim: Trim this area with Canny edge detection algorithm.
   * `⌥⌘E`: Export As: Export these annotations with current template.
   * `⌥⌘R`: Resample: Save this area to a PNG file.
