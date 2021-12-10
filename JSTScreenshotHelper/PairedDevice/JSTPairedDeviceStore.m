@@ -11,7 +11,7 @@
 #import "AppleDevice.h"
 #import <libimobiledevice/lockdown.h>
 
-#ifdef APPSTORE
+#ifdef APP_STORE
 #import "JSTColorPickerHelper-Swift.h"
 #else
 #import "JSTScreenshotHelper-Swift.h"
