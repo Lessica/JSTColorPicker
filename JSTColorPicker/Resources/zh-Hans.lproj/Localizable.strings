@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* presentHelperConnectionFailureError(_:) */
+"%@\nThis is most likely due to an outdated or incorrect helper installation, and we strongly advise that you download and install helper application again." = "%@\n这很可能是由于设备截图组件已过期或者未被正确安装，我们强烈建议你重新下载并安装设备截图组件。";
+
 /* Browser */
 "%ld items being dragged" = "拖拽 %ld 个项";
 
@@ -112,6 +115,12 @@
 
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备。";
+
+/* XPCError */
+"Connection interrupted." = "连接中断。";
+
+/* XPCError */
+"Connection invalidated." = "连接无效。";
 
 /* XPCError */
 "Connection timeout." = "连接超时。";
@@ -251,6 +260,9 @@
 /* Outline Generation */
 "Generating…" = "生成中…";
 
+/* presentHelperConnectionFailureError(_:) */
+"Helper Connection Failure" = "无法与助手程序通信";
+
 /* Shortcut Guide */
 "Hold" = "按住";
 
@@ -297,8 +309,8 @@
 /* ScreenshotError */
 "Invalid content." = "内容无效。";
 
-/* InternalError */
-"Invalid device handler." = "无效的设备句柄。";
+/* XPCError */
+"Invalid device handler: %@." = "无效的设备句柄：%@。";
 
 /* TemplateError */
 "Invalid field: %@." = "无效的字段：%@。";
@@ -520,9 +532,6 @@
 /* SwiftKeyBindings */
 "Please combine with other keys." = "请组合其他按键。";
 
-/* PixelPolygon Description */
-"Polygon with %ld coordinates" = "包含 %ld 个顶点的多边形";
-
 /* PreferencesController */
 "Preferences" = "偏好设置";
 
@@ -534,6 +543,9 @@
 
 /* actionRequiresRestart(_:) */
 "Quit Now" = "立即退出";
+
+/* presentHelperConnectionFailureError(_:) */
+"Redirect to download page" = "重定向到下载页面";
 
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "重新加载所有模版";
@@ -736,6 +748,9 @@
 /* internalUpdateContentItems(_:) */
 "Update Items" = "更新项";
 
+/* reloadDevicesSubMenuItems() */
+"Update screenshot helper…" = "更新设备截图组件…";
+
 /* availableHints */
 "Use your physical scroll wheel to scale the scene." = "你可以使用物理滚轮来缩放场景。";
 
@@ -764,10 +779,7 @@
 "Welcome" = "欢迎";
 
 /* manageSubscriptionAction(_:) */
-"Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将跳转到你的 Apple ID 账户页面以管理你的订阅，继续？";
-
-/* ScriptError */
-"XPC connection to helper service is not established." = "无法建立到助手服务的跨进程通讯。";
+"Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将重定向到你的 Apple ID 账户页面以管理你的订阅，继续？";
 
 /* Browser */
 "Yes" = "是";

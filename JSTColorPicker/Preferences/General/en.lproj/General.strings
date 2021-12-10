@@ -109,6 +109,9 @@
 /* Class = "NSButtonCell"; title = "Allows Background Processing"; ObjectID = "tfR-Z1-4WZ"; */
 "tfR-Z1-4WZ.title" = "Allows Background Processing";
 
+/* Class = "NSTextFieldCell"; title = "10"; ObjectID = "tLa-Pd-tlr"; */
+"tLa-Pd-tlr.title" = "10";
+
 /* Class = "NSButtonCell"; title = "Draw Rulers in Scene"; ObjectID = "uai-sp-jsU"; */
 "uai-sp-jsU.title" = "Draw Rulers in Scene";
 
@@ -126,6 +129,9 @@
 
 /* Class = "NSButtonCell"; title = "Sound Effects After Copy"; ObjectID = "v5U-oX-CRu"; */
 "v5U-oX-CRu.title" = "Sound Effects After Copy";
+
+/* Class = "NSButtonCell"; title = "Duplicate Offset"; ObjectID = "W9l-RS-qWb"; */
+"W9l-RS-qWb.title" = "Duplicate Offset";
 
 /* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
 "xbW-Nc-kC8.title" = "Include Anti-Alias Difference";

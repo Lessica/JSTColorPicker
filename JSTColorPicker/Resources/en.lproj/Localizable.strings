@@ -11,6 +11,9 @@
 /* reloadProductsUI() */
 "%@/%@" = "%@/%@";
 
+/* presentHelperConnectionFailureError(_:) */
+"%@\nThis is most likely due to an outdated or incorrect helper installation, and we strongly advise that you download and install helper application again." = "%@\nThis is most likely due to an outdated or incorrect helper installation, and we strongly advise that you download and install helper application again.";
+
 /* Browser */
 "%ld items being dragged" = "%ld items being dragged";
 
@@ -112,6 +115,12 @@
 
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "Connect to your iOS device via USB or network.";
+
+/* XPCError */
+"Connection interrupted." = "Connection interrupted.";
+
+/* XPCError */
+"Connection invalidated." = "Connection invalidated.";
 
 /* XPCError */
 "Connection timeout." = "Connection timeout.";
@@ -251,6 +260,9 @@
 /* Outline Generation */
 "Generating…" = "Generating…";
 
+/* presentHelperConnectionFailureError(_:) */
+"Helper Connection Failure" = "Helper Connection Failure";
+
 /* Shortcut Guide */
 "Hold" = "Hold";
 
@@ -297,8 +309,8 @@
 /* ScreenshotError */
 "Invalid content." = "Invalid content.";
 
-/* InternalError */
-"Invalid device handler." = "Invalid device handler.";
+/* XPCError */
+"Invalid device handler: %@." = "Invalid device handler: %@.";
 
 /* TemplateError */
 "Invalid field: %@." = "Invalid field: %@.";
@@ -520,9 +532,6 @@
 /* SwiftKeyBindings */
 "Please combine with other keys." = "Please combine with other keys.";
 
-/* PixelPolygon Description */
-"Polygon with %ld coordinates" = "Polygon with %ld coordinates";
-
 /* PreferencesController */
 "Preferences" = "Preferences";
 
@@ -534,6 +543,9 @@
 
 /* actionRequiresRestart(_:) */
 "Quit Now" = "Quit Now";
+
+/* presentHelperConnectionFailureError(_:) */
+"Redirect to download page" = "Redirect to download page";
 
 /* updateTemplatesSubMenuItems */
 "Reload All Templates" = "Reload All Templates";
@@ -736,6 +748,9 @@
 /* internalUpdateContentItems(_:) */
 "Update Items" = "Update Items";
 
+/* reloadDevicesSubMenuItems() */
+"Update screenshot helper…" = "Update screenshot helper…";
+
 /* availableHints */
 "Use your physical scroll wheel to scale the scene." = "Use your physical scroll wheel to scale the scene.";
 
@@ -765,9 +780,6 @@
 
 /* manageSubscriptionAction(_:) */
 "Will redirect to your Apple ID account page to manage your subscription, continue?" = "Will redirect to your Apple ID account page to manage your subscription, continue?";
-
-/* ScriptError */
-"XPC connection to helper service is not established." = "XPC connection to helper service is not established.";
 
 /* Browser */
 "Yes" = "Yes";

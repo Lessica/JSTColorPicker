@@ -32,6 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     enum XPCError: LocalizedError {
         case timeout
         case interrupted
+        case invalidated
         case malformedResponse
         case invalidDeviceHandler(handler: String)
         
@@ -41,10 +42,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return NSLocalizedString("Connection timeout.", comment: "XPCError")
                 case .interrupted:
                     return NSLocalizedString("Connection interrupted.", comment: "XPCError")
+                case .invalidated:
+                    return NSLocalizedString("Connection invalidated.", comment: "XPCError")
                 case .malformedResponse:
                     return NSLocalizedString("Malformed response.", comment: "XPCError")
                 case .invalidDeviceHandler(let handler):
-                    return NSLocalizedString("Invalid device handler: \(handler).", comment: "XPCError")
+                    return String(format: NSLocalizedString("Invalid device handler: %@.", comment: "XPCError"), handler)
             }
         }
     }
@@ -103,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     #if APP_STORE
     @discardableResult
-    internal func applicationCheckScreenshotHelper() -> HelperState {
+    func applicationCheckScreenshotHelper() -> HelperState {
         let launchAgentURL = URL(fileURLWithPath: GetJSTColorPickerHelperLaunchAgentPath())
         let doesLaunchAgentExist = FileManager.default.fileExists(atPath: launchAgentURL.path)
         if doesLaunchAgentExist && screenshotHelperState == .missing {
@@ -111,9 +114,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return screenshotHelperState
     }
+    private var _helperConnectionFailureErrorPresented = false
+    func presentHelperConnectionFailureError(_ error: Error) {
+        if (!_helperConnectionFailureErrorPresented) {
+            // present only once
+            screenshotHelperState = .outdated
+            _helperConnectionFailureErrorPresented = true
+            NSAlert.action(
+                text: .init(
+                    message: NSLocalizedString("Helper Connection Failure", comment: "presentHelperConnectionFailureError(_:)"),
+                    information: String(format: NSLocalizedString("%@\nThis is most likely due to an outdated or incorrect helper installation, and we strongly advise that you download and install helper application again.", comment: "presentHelperConnectionFailureError(_:)"), error.localizedDescription)
+                ),
+                button: .init(title: NSLocalizedString("Redirect to download page", comment: "presentHelperConnectionFailureError(_:)"))
+            ).then { [unowned self] () -> Promise<Void> in
+                self.actionRedirectToDownloadPage()
+                return self.promiseVoid
+            }.catch { _ in }
+        }
+    }
     #else
     @discardableResult
-    internal func applicationCheckScreenshotHelper() -> HelperState {
+    func applicationCheckScreenshotHelper() -> HelperState {
         return .latest
     }
     #endif
@@ -237,8 +258,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         applicationXPCSetup()
         applicationBonjourSetup()
-        applicationXPCEstablish()
-        applicationBonjourEstablish()
+        
+        applicationXPCReloadDevices()
+        applicationBonjourReloadDevices()
         
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
@@ -255,6 +277,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self,
             selector: #selector(applicationHelperDidResignAvailable(_:)),
             name: AppDelegate.applicationHelperDidResignAvailableNotification,
+            object: self
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperConnectionFailure(_:)),
+            name: AppDelegate.applicationHelperConnectionDidInvalidatedNotification,
+            object: self
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationHelperConnectionFailure(_:)),
+            name: AppDelegate.applicationHelperConnectionDidInterruptedNotification,
             object: self
         )
         #endif
@@ -336,7 +370,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @discardableResult
-    internal func presentError(_ error: Error) -> Bool {
+    func presentError(_ error: Error) -> Bool {
         assert(Thread.isMainThread)
         return NSApp.presentError(error)
     }

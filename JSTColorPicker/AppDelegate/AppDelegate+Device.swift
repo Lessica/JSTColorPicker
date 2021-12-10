@@ -37,24 +37,39 @@ extension AppDelegate {
     static let applicationHelperDidResignAvailableNotification = Notification.Name("AppDelegate.applicationHelperDidResignAvailableNotification")
     #endif
     
+    static let applicationHelperConnectionDidInvalidatedNotification = Notification.Name("AppDelegate.applicationHelperConnectionDidInvalidatedNotification")
+    static let applicationHelperConnectionDidInterruptedNotification = Notification.Name("AppDelegate.applicationHelperConnectionDidInterruptedNotification")
+    
     
     // MARK: - XPC Functions
     
     internal func applicationXPCSetup() {
         applicationXPCDeactivate()
         
-        #if APP_STORE
-        let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
-        #else
-        let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
-        #endif
-        
-        connectionToService.interruptionHandler = { debugPrint("xpc conection interrupted") }
-        connectionToService.invalidationHandler = { debugPrint("xpc conection invalidated") }  // <- error occurred
-        connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
-        connectionToService.resume()
-        
-        self.helperConnection = connectionToService
+        if applicationCheckScreenshotHelper().exists {
+#if APP_STORE
+            let connectionToService = NSXPCConnection(machServiceName: kJSTColorPickerHelperBundleIdentifier)
+#else
+            let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
+#endif
+            
+            connectionToService.interruptionHandler = {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperConnectionDidInterruptedNotification,
+                    object: self
+                )
+            }
+            connectionToService.invalidationHandler = {
+                NotificationCenter.default.post(
+                    name: AppDelegate.applicationHelperConnectionDidInvalidatedNotification,
+                    object: self
+                )
+            }  // <- error occurred
+            connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
+            connectionToService.resume()
+            
+            self.helperConnection = connectionToService
+        }
     }
     
     internal func applicationXPCDeactivate() {
@@ -65,7 +80,8 @@ extension AppDelegate {
     internal func applicationBonjourSetup() {
         applicationBonjourDeactivate()
         
-        if isNetworkDiscoveryEnabled {
+        if applicationCheckScreenshotHelper().exists && isNetworkDiscoveryEnabled
+        {
             let deviceBrowser = BonjourBrowser()
             
             deviceBrowser.serviceFoundHandler = { service in
@@ -104,6 +120,9 @@ extension AppDelegate {
     @objc internal func applicationHelperDidBecomeAvailable(_ noti: Notification) {
         applicationXPCSetup()
         applicationBonjourSetup()
+        
+        applicationXPCReloadDevices()
+        applicationBonjourReloadDevices()
     }
     
     @objc internal func applicationHelperDidResignAvailable(_ noti: Notification) {
@@ -113,7 +132,22 @@ extension AppDelegate {
         applicationResetDeviceUI()
     }
     
-    internal func applicationXPCEstablish() {
+#if APP_STORE
+    @objc internal func applicationHelperConnectionFailure(_ noti: Notification) {
+        guard applicationCheckScreenshotHelper().exists else { return }
+        if noti.name == AppDelegate.applicationHelperConnectionDidInterruptedNotification {
+            DispatchQueue.main.async { [unowned self] in
+                self.presentHelperConnectionFailureError(XPCError.interrupted)
+            }
+        } else if noti.name == AppDelegate.applicationHelperConnectionDidInvalidatedNotification {
+            DispatchQueue.main.async { [unowned self] in
+                self.presentHelperConnectionFailureError(XPCError.invalidated)
+            }
+        }
+    }
+#endif
+    
+    internal func applicationXPCReloadDevices() {
         let isNetworkDiscoveryEnabled = isNetworkDiscoveryEnabled
         promiseXPCProxy()
             .then { [unowned self] proxy -> Promise<Data> in
@@ -127,8 +161,10 @@ extension AppDelegate {
             .then { [unowned self] infoDictionary in
                 return self.promiseXPCServiceVersion(infoDictionary)
             }
-            .then { [unowned self] version in
-                
+            .then { [unowned self] version -> Promise<Void> in
+                if version != Bundle.main.bundleVersion {
+                    // TODO: helper version outdated
+                }
                 return self.promiseVoid
             }
             .catch { [unowned self] err in
@@ -140,7 +176,7 @@ extension AppDelegate {
             }
     }
     
-    internal func applicationBonjourEstablish() {
+    internal func applicationBonjourReloadDevices() {
         if isNetworkDiscoveryEnabled {
             self.helperBonjourBrowser?.browse(type: AppDelegate.deviceBonjourServiceType, domain: "local.")
         }
@@ -153,6 +189,7 @@ extension AppDelegate {
         return item
     }
     
+    #if APP_STORE
     internal var updateScreenshotHelperItem: NSMenuItem {
         let updateItem = NSMenuItem(title: NSLocalizedString("Update screenshot helper…", comment: "reloadDevicesSubMenuItems()"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
         updateItem.target = self
@@ -161,12 +198,15 @@ extension AppDelegate {
         updateItem.state = .off
         return updateItem
     }
+    #endif
     
     internal var additionalItemGroup: [NSMenuItem] {
         var additionalItems = [NSMenuItem](arrayLiteral: NSMenuItem.separator(), manuallyDiscoverItem)
+        #if APP_STORE
         if applicationCheckScreenshotHelper() != .latest {
             additionalItems.append(updateScreenshotHelperItem)
         }
+        #endif
         return additionalItems
     }
     
@@ -195,8 +235,8 @@ extension AppDelegate {
     }
     
     @IBAction internal func notifyDiscoverDevices(_ sender: Any?) {
-        applicationXPCEstablish()
-        applicationBonjourEstablish()
+        applicationXPCReloadDevices()
+        applicationBonjourReloadDevices()
     }
     
     
@@ -479,7 +519,7 @@ extension AppDelegate {
     // MARK: - Device Action: Download Redirect
     
     #if APP_STORE
-    @objc private func actionRedirectToDownloadPage() {
+    @objc internal func actionRedirectToDownloadPage() {
         NSWorkspace.shared.redirectToHelperPage()
     }
     #endif

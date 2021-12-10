@@ -93,7 +93,7 @@
         _deviceService.delegate = self;
         [self didReceiveiDeviceEvent:nil];
 
-        dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0));
+        dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0));
         dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10ull * NSEC_PER_SEC));
         dispatch_source_set_timer(timer, start, (uint64_t)(10ull * NSEC_PER_SEC), (uint64_t)(1ull * NSEC_PER_SEC));
         __weak typeof(self) weakSelf = self;
