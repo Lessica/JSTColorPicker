@@ -44,5 +44,23 @@
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
             <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.7-1225.dmg" sparkle:version="1225" sparkle:shortVersionString="2.7" length="18852014" type="application/octet-stream"/>
         </item>
+        <item>
+            <title>2.8</title>
+            <pubDate>Fri, 10 Dec 2021 20:36:54 +0800</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.8-1227.dmg" sparkle:version="1227" sparkle:shortVersionString="2.8" length="18719865" type="application/octet-stream"/>
+        </item>
+        <item>
+            <title>2.9</title>
+            <pubDate>Fri, 10 Dec 2021 20:37:09 +0800</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.9-1228.dmg" sparkle:version="1228" sparkle:shortVersionString="2.9" length="18810949" type="application/octet-stream"/>
+        </item>
+        <item>
+            <title>2.10</title>
+            <pubDate>Fri, 10 Dec 2021 20:41:42 +0800</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.10-1230.dmg" sparkle:version="1230" sparkle:shortVersionString="2.10" length="22671411" type="application/octet-stream"/>
+        </item>
     </channel>
 </rss>
