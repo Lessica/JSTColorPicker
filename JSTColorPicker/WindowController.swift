@@ -87,11 +87,9 @@ class WindowController: NSWindowController {
     
     private  var isScreenshotActionAllowed      : Bool
     {
-        #if APP_STORE
-        return AppDelegate.shared.applicationHasScreenshotHelper() && (documentState.isReadable || !documentState.isLoaded)
-        #else
-        return documentState.isReadable || !documentState.isLoaded
-        #endif
+        return AppDelegate.shared.applicationCheckScreenshotHelper().exists && (
+            documentState.isReadable || !documentState.isLoaded
+        )
     }
     
     

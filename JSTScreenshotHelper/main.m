@@ -212,11 +212,16 @@ int main(int argc, const char *argv[])
                     
                     os_system([NSString stringWithFormat:@"launchctl unload -w '%@'", escape_arg(launchAgentTarget)].UTF8String);
                     
-                    succeed = [fileManager removeItemAtPath:launchAgentTarget error:&error];
-                    if (!succeed) {
-                        [[NSAlert alertWithError:error] runModal];
-                        return EXIT_FAILURE;
-                    }
+                    [[NSWorkspace sharedWorkspace] recycleURLs:@[[NSURL fileURLWithPath:launchAgentTarget]] completionHandler:^(NSDictionary<NSURL *,NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
+                        if (error) {
+                            [[NSAlert alertWithError:error] runModal];
+                            exit(EXIT_FAILURE);
+                        }
+                        exit(EXIT_SUCCESS);
+                    }];
+                    
+                    CFRunLoopRun();
+                    return EXIT_SUCCESS;
                     
                 }
                 

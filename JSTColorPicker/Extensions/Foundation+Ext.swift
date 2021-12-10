@@ -196,3 +196,11 @@ extension URL {
         return (try? resourceValues(forKeys: [.isPackageKey]))?.isPackage ?? false
     }
 }
+
+extension Bundle {
+    
+    var bundleVersion: String? {
+        infoDictionary?[kCFBundleVersionKey as String] as? String
+    }
+    
+}

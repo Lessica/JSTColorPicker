@@ -19,7 +19,6 @@ extension AppDelegate {
     enum ScriptError: LocalizedError {
         case applicationNotFound(identifier: String)
         case cannotOpenApplicationAtURL(url: URL)
-        case xpcConnectionNotEstablished
         
         var failureReason: String? {
             switch self {
@@ -27,8 +26,6 @@ extension AppDelegate {
                     return String(format: NSLocalizedString("Application \"%@\" not found.", comment: "ScriptError"), identifier)
                 case let .cannotOpenApplicationAtURL(url):
                     return String(format: NSLocalizedString("Cannot open application at: \"%@\".", comment: "ScriptError"), url.path)
-                case .xpcConnectionNotEstablished:
-                    return NSLocalizedString("XPC connection to helper service is not established.", comment: "ScriptError")
             }
         }
     }
@@ -88,24 +85,6 @@ extension AppDelegate {
     }
     
     #if APP_STORE
-    private func promiseConnectXPCService() -> Promise<JSTScreenshotHelperProtocol> {
-        return Promise { seal in
-            guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-                if self?.applicationHasScreenshotHelper() ?? false {
-                    DispatchQueue.main.async {
-                        self?.presentError(error)
-                    }
-                }
-            }) as? JSTScreenshotHelperProtocol else {
-                seal.reject(ScriptError.xpcConnectionNotEstablished)
-                return
-            }
-            seal.fulfill(proxy)
-        }
-    }
-    #endif
-    
-    #if APP_STORE
     private func promiseTellConsoleToStartStreaming(_ proxy: JSTScreenshotHelperProtocol) -> Promise<Bool> {
         return Promise { seal in
             proxy.tellConsoleToStartStreaming { (data, error) in
@@ -122,14 +101,18 @@ extension AppDelegate {
     #if APP_STORE
     @discardableResult
     internal func openConsole() throws -> Bool {
-        firstly {
+        firstly { [unowned self] in
             self.promiseOpenConsole().asVoid()
-        }.then {
-            self.promiseConnectXPCService()
-        }.then {
+        }.then { [unowned self] in
+            self.promiseXPCProxy()
+        }.then { [unowned self] in
             self.promiseTellConsoleToStartStreaming($0)
-        }.catch {
-            self.presentError($0)
+        }.catch { [unowned self] err in
+            if self.applicationCheckScreenshotHelper().exists {
+                DispatchQueue.main.async {
+                    self.presentError(err)
+                }
+            }
         }.finally { }
         return true
     }

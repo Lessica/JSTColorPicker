@@ -114,17 +114,30 @@ extension AppDelegate {
     }
     
     internal func applicationXPCEstablish() {
-        if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            if self?.applicationHasScreenshotHelper() ?? false {
-                DispatchQueue.main.async {
-                    self?.presentError(error)
+        let isNetworkDiscoveryEnabled = isNetworkDiscoveryEnabled
+        promiseXPCProxy()
+            .then { [unowned self] proxy -> Promise<Data> in
+                proxy.setNetworkDiscoveryEnabled(isNetworkDiscoveryEnabled)
+                proxy.discoverDevices()
+                return self.promiseXPCServiceInfo(proxy)
+            }
+            .then { [unowned self] data in
+                return self.promiseXPCParseResponse(data)
+            }
+            .then { [unowned self] infoDictionary in
+                return self.promiseXPCServiceVersion(infoDictionary)
+            }
+            .then { [unowned self] version in
+                
+                return self.promiseVoid
+            }
+            .catch { [unowned self] err in
+                if self.applicationCheckScreenshotHelper().exists {
+                    DispatchQueue.main.async {
+                        self.presentError(err)
+                    }
                 }
             }
-        }) as? JSTScreenshotHelperProtocol
-        {
-            proxy.setNetworkDiscoveryEnabled(isNetworkDiscoveryEnabled)
-            proxy.discoverDevices()
-        }
     }
     
     internal func applicationBonjourEstablish() {
@@ -134,19 +147,36 @@ extension AppDelegate {
     }
     
     internal var manuallyDiscoverItem: NSMenuItem {
-        let item = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(self.notifyDiscoverDevices(_:)), keyEquivalent: "i")
+        let item = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(notifyDiscoverDevices(_:)), keyEquivalent: "i")
         item.keyEquivalentModifierMask = [.control]
         item.toolTip = NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "reloadDevicesSubMenuItems()")
         return item
     }
     
+    internal var updateScreenshotHelperItem: NSMenuItem {
+        let updateItem = NSMenuItem(title: NSLocalizedString("Update screenshot helper…", comment: "reloadDevicesSubMenuItems()"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
+        updateItem.target = self
+        updateItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
+        updateItem.isEnabled = true
+        updateItem.state = .off
+        return updateItem
+    }
+    
+    internal var additionalItemGroup: [NSMenuItem] {
+        var additionalItems = [NSMenuItem](arrayLiteral: NSMenuItem.separator(), manuallyDiscoverItem)
+        if applicationCheckScreenshotHelper() != .latest {
+            additionalItems.append(updateScreenshotHelperItem)
+        }
+        return additionalItems
+    }
+    
     internal func applicationResetDeviceUI() {
-        internalApplicationResetDeviceUI(withAdditionalItems: [self.manuallyDiscoverItem])
+        internalApplicationResetDeviceUI(withAdditionalItems: additionalItemGroup)
     }
     
     private func internalApplicationResetDeviceUI(withAdditionalItems additionalItems: [NSMenuItem]) {
         #if APP_STORE
-        if !applicationHasScreenshotHelper() {
+        if applicationCheckScreenshotHelper() == .missing {
             let downloadItem = NSMenuItem(title: NSLocalizedString("Download screenshot helper…", comment: "resetDevicesMenu"), action: #selector(actionRedirectToDownloadPage), keyEquivalent: "")
             downloadItem.target = self
             downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
@@ -179,40 +209,44 @@ extension AppDelegate {
         notifyDiscoverDevices(sender)
     }
     
-    private func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, byHostName hostName: String) -> Promise<[String: String]> {
-        return Promise<[String: String]> { seal in
+    private func promiseProxyLookupDevice(_ proxy: JSTScreenshotHelperProtocol, byHostName hostName: String) -> Promise<Data> {
+        return Promise<Data> { seal in
             after(.seconds(3)).done {
                 seal.reject(XPCError.timeout)
             }
             guard let udid = hostName.split(separator: ".").compactMap({ String($0) }).last else {
-                seal.reject(InternalError.invalidDeviceHandler)
+                seal.reject(XPCError.invalidDeviceHandler(handler: hostName))
                 return
             }
-            proxy.lookupDevice(byUDID: udid) { (data, error) in
-                if let error = error {
-                    seal.reject(error)
-                    return
+            DispatchQueue.global(qos: .userInitiated).async {
+                proxy.lookupDevice(byUDID: udid) { (data, error) in
+                    if let error = error {
+                        seal.reject(error)
+                    } else if let data = data {
+                        seal.fulfill(data)
+                    }
                 }
-                seal.fulfill(try! PropertyListSerialization.propertyList(from: data!, options: [], format: nil) as! [String: String])
             }
         }
     }
     
     private func promiseProxyTakeScreenshot(_ proxy: JSTScreenshotHelperProtocol, byHostName hostName: String) -> Promise<Data> {
         return Promise<Data> { seal in
-            after(.seconds(30)).done {
+            after(.seconds(60)).done {
                 seal.reject(XPCError.timeout)
             }
             guard let udid = hostName.split(separator: ".").compactMap({ String($0) }).last else {
-                seal.reject(InternalError.invalidDeviceHandler)
+                seal.reject(XPCError.invalidDeviceHandler(handler: hostName))
                 return
             }
-            proxy.takeScreenshot(byUDID: udid) { (data, error) in
-                if let error = error {
-                    seal.reject(error)
-                    return
+            DispatchQueue.global(qos: .userInitiated).async {
+                proxy.takeScreenshot(byUDID: udid) { (data, error) in
+                    if let error = error {
+                        seal.reject(error)
+                    } else if let data = data {
+                        seal.fulfill(data)
+                    }
                 }
-                seal.fulfill(data!)
             }
         }
     }
@@ -264,7 +298,7 @@ extension AppDelegate {
                 if let orien = (json["data"] as? [String: Any])?["orien"] as? Int {
                     seal.fulfill(orien)
                 } else {
-                    seal.reject(CustomProtocolError.malformedResponse)
+                    seal.reject(XPCError.malformedResponse)
                 }
             }.catch {
                 seal.reject($0)
@@ -288,13 +322,13 @@ extension AppDelegate {
     
     private func promiseDownloadScreenshot(fromSocketAddress socketAddress: SocketAddress, withOrientation orientation: Int) -> Promise<Data> {
         return Promise<Data> { seal in
-            after(.seconds(20)).done {
+            after(.seconds(60)).done {
                 seal.reject(XPCError.timeout)
             }
             let urlString = "http://\(socketAddress.address):\(socketAddress.port)/snapshot"
             let rq = try! OMGHTTPURLRQ.get(urlString, ["orient": orientation]) as URLRequest
             let task = self.helperSession.dataTask(.promise, with: rq)
-            task.done { (data: Data, _: URLResponse) in
+            task.done { data, _ in
                 seal.fulfill(data)
             }.catch {
                 seal.reject($0)
@@ -345,22 +379,14 @@ extension AppDelegate {
         
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
         guard let windowController = firstRespondingWindowController else { return }
-        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            if self?.applicationHasScreenshotHelper() ?? false {
-                DispatchQueue.main.async {
-                    self?.presentError(error)
-                }
-            }
-        }) as? JSTScreenshotHelperProtocol else { return }
-        
         guard let selectedIdentifier = selectedDeviceUniqueIdentifier else {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("No device selected", comment: "takeScreenshot(_:)")
             alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "takeScreenshot(_:)"))
             alert.alertStyle = .informational
-            windowController.showSheet(alert) { [weak self] (resp) in
-                self?.isTakingScreenshot = false
+            windowController.showSheet(alert) { [unowned self] (resp) in
+                self.isTakingScreenshot = false
             }
             return
         }
@@ -376,16 +402,21 @@ extension AppDelegate {
         
         var dataPromise: Promise<Data>
         if selectedIdentifier.hasPrefix(PairedDevice.uniquePrefix) {
-            dataPromise = firstly { [unowned self] () -> Promise<[String: String]> in
-                loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
-                windowController.showSheet(loadingAlert, completionHandler: nil)
-                return self.promiseProxyLookupDevice(proxy, byHostName: selectedIdentifier)
-            }.then { [unowned self] (device) -> Promise<Data> in
-                loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device["name"]!)
-                return self.promiseProxyTakeScreenshot(proxy, byHostName: device["udid"]!)
-            }
+            dataPromise = promiseXPCProxy()
+                .then { [unowned self] (proxy) -> Promise<(JSTScreenshotHelperProtocol, Data)> in
+                    loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
+                    loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
+                    windowController.showSheet(loadingAlert, completionHandler: nil)
+                    return self.promiseProxyLookupDevice(proxy, byHostName: selectedIdentifier).map { (proxy, $0) }
+                }
+                .then { [unowned self] (proxy, data) -> Promise<(JSTScreenshotHelperProtocol, [String: String])> in
+                    return self.promiseXPCParseResponse(data).map { (proxy, $0) }
+                }
+                .then { [unowned self] (proxy, device) -> Promise<Data> in
+                    loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
+                    loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device["name"]!)
+                    return self.promiseProxyTakeScreenshot(proxy, byHostName: device["udid"]!)
+                }
         }
         else if selectedIdentifier.hasPrefix(BonjourDevice.uniquePrefix) {
             dataPromise = firstly { [unowned self] () -> Promise<BonjourDevice> in
@@ -403,21 +434,25 @@ extension AppDelegate {
         }
         else {
             dataPromise = Promise<Data> { seal in
-                seal.reject(InternalError.invalidDeviceHandler)
+                seal.reject(XPCError.invalidDeviceHandler(handler: selectedIdentifier))
             }
         }
         
-        dataPromise.then { [unowned self] (data) -> Promise<URL> in
+        dataPromise.then { [unowned self] data -> Promise<URL> in
             return self.promiseSaveScreenshot(data, to: picturesDirectoryPath)
-        }.then { [unowned self] (url) -> Promise<Void> in
+        }.then { [unowned self] url -> Promise<Void> in
             windowController.showSheet(nil, completionHandler: nil)
             return self.promiseOpenDocument(at: url)
-        }.catch { (error) in
-            let alert = NSAlert(error: error)
-            windowController.showSheet(alert, completionHandler: nil)
-        }.finally { [weak self] in
+        }.catch { [unowned self] err in
+            if self.applicationCheckScreenshotHelper().exists {
+                DispatchQueue.main.async {
+                    let alert = NSAlert(error: err)
+                    windowController.showSheet(alert, completionHandler: nil)
+                }
+            }
+        }.finally { [unowned self] in
             // do nothing
-            self?.isTakingScreenshot = false
+            self.isTakingScreenshot = false
         }
     }
     
@@ -454,7 +489,7 @@ extension AppDelegate {
     
     internal func updateDevicesMenuItems(_ menu: NSMenu) {
         devicesEnableNetworkDiscoveryMenuItem.state = isNetworkDiscoveryEnabled ? .on : .off
-        devicesTakeScreenshotMenuItem.isEnabled = applicationHasScreenshotHelper()
+        devicesTakeScreenshotMenuItem.isEnabled = applicationCheckScreenshotHelper().exists
     }
     
     internal func updateDevicesSubMenuItems(_ menu: NSMenu) {
@@ -467,28 +502,37 @@ extension AppDelegate {
         reloadDevicesSubMenuItems()
     }
     
-    private func reloadDevicesSubMenuItems() {
-        guard let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ [weak self] (error) in
-            if self?.applicationHasScreenshotHelper() ?? false {
-                DispatchQueue.main.async {
-                    self?.presentError(error)
+    private func promiseDiscoveredDevices(_ proxy: JSTScreenshotHelperProtocol) -> Promise<Data> {
+        return Promise<Data> { seal in
+            after(.seconds(3)).done {
+                seal.reject(XPCError.timeout)
+            }
+            DispatchQueue.global(qos: .userInitiated).async {
+                proxy.discoveredDevices { data, err in
+                    if let err = err {
+                        seal.reject(err)
+                    } else if let data = data {
+                        seal.fulfill(data)
+                    }
                 }
             }
-        }) as? JSTScreenshotHelperProtocol else { return }
-        
-        
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            proxy.discoveredDevices { [weak self] (data, error) in
-                guard let data = data else { return }
-                guard let pairedDevices = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [[String: String]],
-                      let pairedItems = self?.menuItemsForPairedDevices(pairedDevices),
-                      let bonjourDevices = self?.helperBonjourDevices,
-                      let bonjourItems = self?.menuItemsForBonjourDevices(Array(bonjourDevices))
-                else { return }
+        }
+    }
+    
+    private func reloadDevicesSubMenuItems() {
+        promiseXPCProxy()
+            .then { [unowned self] proxy in
+                return self.promiseDiscoveredDevices(proxy)
+            }
+            .then { [unowned self] data -> Promise<[[String: String]]> in
+                return self.promiseXPCParseResponse(data)
+            }
+            .then { [unowned self] pairedDevices -> Promise<Void> in
+                let pairedItems = self.menuItemsForPairedDevices(pairedDevices)
+                let bonjourDevices = self.helperBonjourDevices
+                let bonjourItems = self.menuItemsForBonjourDevices(Array(bonjourDevices))
                 
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    
+                DispatchQueue.main.async {
                     var items = [NSMenuItem]()
                     
                     items += pairedItems
@@ -500,17 +544,20 @@ extension AppDelegate {
                         .sorted(by: { $0.title.localizedStandardCompare($1.title) == .orderedAscending })
                     
                     if items.count > 0 {
-                        items += [NSMenuItem.separator(), self.manuallyDiscoverItem]
+                        items += self.additionalItemGroup
                         self.devicesSubMenu.items = items
                     }
                     else {
-                        self.internalApplicationResetDeviceUI(withAdditionalItems: [NSMenuItem.separator(), self.manuallyDiscoverItem])
+                        items += self.additionalItemGroup
+                        self.internalApplicationResetDeviceUI(withAdditionalItems: items)
                     }
                     
                     self.devicesSubMenu.update()
                 }
+                
+                return self.promiseVoid
             }
-        }
+            .catch { _ in }
     }
     
     private func menuItemsForPairedDevices(_ devices: [[String: String]]) -> [NSMenuItem] {

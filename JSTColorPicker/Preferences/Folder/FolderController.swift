@@ -48,7 +48,7 @@ final class FolderController: NSViewController {
     
     private func reloadUI() {
         #if APP_STORE
-        if AppDelegate.shared.applicationHasScreenshotHelper() {
+        if AppDelegate.shared.applicationCheckScreenshotHelper().exists {
             screenshotHelperLocationButton.isEnabled = true
         } else {
             screenshotHelperLocationButton.isEnabled = false

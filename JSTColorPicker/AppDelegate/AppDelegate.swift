@@ -29,24 +29,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Structs
     
-    enum InternalError: LocalizedError {
-        case invalidDeviceHandler
-        
-        var failureReason: String? {
-            switch self {
-            case .invalidDeviceHandler:
-                return NSLocalizedString("Invalid device handler.", comment: "InternalError")
-            }
-        }
-    }
-    
     enum XPCError: LocalizedError {
         case timeout
+        case interrupted
+        case malformedResponse
+        case invalidDeviceHandler(handler: String)
         
         var failureReason: String? {
             switch self {
-            case .timeout:
-                return NSLocalizedString("Connection timeout.", comment: "XPCError")
+                case .timeout:
+                    return NSLocalizedString("Connection timeout.", comment: "XPCError")
+                case .interrupted:
+                    return NSLocalizedString("Connection interrupted.", comment: "XPCError")
+                case .malformedResponse:
+                    return NSLocalizedString("Malformed response.", comment: "XPCError")
+                case .invalidDeviceHandler(let handler):
+                    return NSLocalizedString("Invalid device handler: \(handler).", comment: "XPCError")
             }
         }
     }
@@ -58,17 +56,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch self {
                 case let .cannotResolveName(name):
                     return String(format: NSLocalizedString("Cannot resolve name: %@", comment: "NetworkError"), name)
-            }
-        }
-    }
-    
-    enum CustomProtocolError: LocalizedError {
-        case malformedResponse
-        
-        var failureReason: String? {
-            switch self {
-                case .malformedResponse:
-                    return NSLocalizedString("Malformed response.", comment: "CustomProtocolError")
             }
         }
     }
@@ -86,11 +73,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     internal var isNetworkDiscoveryEnabled : Bool = false
     internal var isTakingScreenshot        : Bool = false
     
+    enum HelperState {
+        case missing
+        case outdated
+        case latest
+        
+        var exists: Bool { self != .missing }
+    }
+    
     #if APP_STORE
-    private var _isScreenshotHelperAvailable: Bool = false
+    internal fileprivate(set) var screenshotHelperState: HelperState = .missing
     {
         didSet {
-            if _isScreenshotHelperAvailable {
+            if screenshotHelperState.exists {
                 NotificationCenter.default.post(
                     name: AppDelegate.applicationHelperDidBecomeAvailableNotification,
                     object: self
@@ -108,18 +103,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     #if APP_STORE
     @discardableResult
-    internal func applicationHasScreenshotHelper() -> Bool {
-        let launchAgentPath = GetJSTColorPickerHelperLaunchAgentPath()
-        let isAvailable = FileManager.default.fileExists(atPath: launchAgentPath)
-        if isAvailable != _isScreenshotHelperAvailable {
-            _isScreenshotHelperAvailable = isAvailable
+    internal func applicationCheckScreenshotHelper() -> HelperState {
+        let launchAgentURL = URL(fileURLWithPath: GetJSTColorPickerHelperLaunchAgentPath())
+        let doesLaunchAgentExist = FileManager.default.fileExists(atPath: launchAgentURL.path)
+        if doesLaunchAgentExist && screenshotHelperState == .missing {
+            screenshotHelperState = .latest
         }
-        return isAvailable
+        return screenshotHelperState
     }
     #else
     @discardableResult
-    internal func applicationHasScreenshotHelper() -> Bool {
-        return true
+    internal func applicationCheckScreenshotHelper() -> HelperState {
+        return .latest
     }
     #endif
     
@@ -247,7 +242,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         applicationLoadTemplatesIfNeeded()
         applicationOpenUntitledDocumentIfNeeded()
-        applicationHasScreenshotHelper()
+        applicationCheckScreenshotHelper()
         
         #if APP_STORE
         NotificationCenter.default.addObserver(
@@ -303,7 +298,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        applicationHasScreenshotHelper()
+        applicationCheckScreenshotHelper()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -375,7 +370,7 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
                 menuItem.action == #selector(notifyDiscoverDevices(_:))
         {
             guard !hasAttachedSheet else { return false }
-            return applicationHasScreenshotHelper()
+            return applicationCheckScreenshotHelper().exists
         }
         else if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
         {
@@ -526,6 +521,63 @@ extension AppDelegate {
         toggleBrowserVisibleState(coder.decodeBool(forKey: AppDelegate.restorableBrowserWindowVisibleState), sender: app)
         toggleColorGridVisibleState(coder.decodeBool(forKey: AppDelegate.restorableColorGridWindowVisibleState), sender: app)
     }
+    
+}
+
+
+// MARK: - XPC Promises
+
+extension AppDelegate {
+    
+    func promiseXPCProxy() -> Promise<JSTScreenshotHelperProtocol> {
+        return Promise<JSTScreenshotHelperProtocol> { [unowned self] seal in
+            if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ error in
+                seal.reject(error)
+            }) as? JSTScreenshotHelperProtocol
+            {
+                seal.fulfill(proxy)
+            } else {
+                seal.reject(XPCError.interrupted)
+            }
+        }
+    }
+    
+    func promiseXPCServiceInfo(_ proxy: JSTScreenshotHelperProtocol) -> Promise<Data> {
+        return Promise<Data> { seal in
+            DispatchQueue.global(qos: .userInitiated).async {
+                proxy.getHelperInfoDictionary { data, err in
+                    if let err = err {
+                        seal.reject(err)
+                    } else if let data = data {
+                        seal.fulfill(data)
+                    }
+                }
+            }
+        }
+    }
+    
+    func promiseXPCServiceVersion(_ serviceInfo: [String: Any]) -> Promise<String> {
+        return Promise<String> { seal in
+            if let versionString = serviceInfo[kCFBundleVersionKey as String] as? String {
+                seal.fulfill(versionString)
+            } else {
+                seal.reject(XPCError.malformedResponse)
+            }
+        }
+    }
+    
+    func promiseXPCParseResponse<T>(_ data: Data) -> Promise<T> {
+        return Promise<T> { seal in
+            guard let respObj = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? T
+            else {
+                seal.reject(XPCError.malformedResponse)
+                return
+            }
+            seal.fulfill(respObj)
+        }
+    }
+    
+    var promiseVoid: Promise<Void> { Promise<Void>() }
     
 }
 

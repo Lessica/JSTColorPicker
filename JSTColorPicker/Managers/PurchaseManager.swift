@@ -136,7 +136,7 @@ import TPInAppReceipt
     @discardableResult
     func loadLocalReceipt(withResult result: VerifySubscriptionResult? = nil) throws -> InAppPurchase {
         let receipt = try InAppReceipt.localReceipt()
-        try receipt.verify()
+        try receipt.validate()
         guard receipt.hasPurchases else { throw Error.notPurchased }
         guard let lastPurchase = receipt.autoRenewablePurchases
                 .filter({ $0.subscriptionExpirationDate != nil })
