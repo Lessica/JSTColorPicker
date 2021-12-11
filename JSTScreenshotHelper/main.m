@@ -7,9 +7,31 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Security/Security.h>
+#import <zlib.h>
 
 #import "JSTPairedDeviceService.h"
 #import "JSTScreenshotHelperProtocol.h"
+
+
+unsigned char csreq_dat[] = {
+  0x26, 0x85, 0xb4, 0x61, 0x00, 0x03, 0x95, 0x8e, 0xb1, 0x0a, 0xc2, 0x30,
+  0x14, 0x45, 0x7f, 0xe5, 0xd1, 0x49, 0x3b, 0xbc, 0x36, 0x89, 0x2d, 0x3a,
+  0x38, 0x39, 0x08, 0x82, 0x58, 0xb0, 0x82, 0x28, 0x1d, 0x62, 0xfa, 0xaa,
+  0xa9, 0x35, 0x29, 0x69, 0x04, 0x3f, 0xdf, 0xd6, 0x49, 0x1c, 0x44, 0xd7,
+  0xcb, 0x3d, 0xe7, 0x5e, 0x69, 0xd4, 0xc5, 0x3a, 0x90, 0x6d, 0xdb, 0x10,
+  0x9c, 0xc9, 0x90, 0xd3, 0x0a, 0xa4, 0x29, 0x41, 0x97, 0x64, 0xbc, 0xae,
+  0x34, 0x39, 0x08, 0x94, 0xbd, 0x61, 0xdd, 0x79, 0x5c, 0x6d, 0xf3, 0x85,
+  0x6d, 0xac, 0xcb, 0xb4, 0xba, 0x92, 0x0b, 0x5e, 0xbd, 0x91, 0x22, 0x37,
+  0xf4, 0x94, 0xf4, 0x04, 0x0d, 0xc9, 0xea, 0xd8, 0x33, 0x4d, 0x89, 0x0c,
+  0x39, 0x4e, 0x27, 0x31, 0x32, 0x26, 0x52, 0x91, 0x20, 0x8b, 0x63, 0x4c,
+  0xfb, 0x70, 0x56, 0x40, 0x14, 0x02, 0x3d, 0x74, 0xe7, 0x3b, 0x08, 0x23,
+  0xe8, 0xb7, 0xdf, 0x05, 0xec, 0x1b, 0xcd, 0x31, 0xfd, 0xa0, 0x87, 0x03,
+  0xff, 0xed, 0x33, 0xf1, 0x8b, 0xa2, 0xbb, 0x9f, 0x6a, 0x52, 0x1e, 0x37,
+  0xbb, 0x02, 0xe6, 0xb0, 0xdc, 0x1f, 0xb8, 0x58, 0x27, 0x79, 0xc6, 0xc7,
+  0x4f, 0x70, 0x3b, 0x90, 0xfa, 0x2f, 0x01, 0x00, 0x00
+};
+unsigned int csreq_dat_len = 177;
 
 
 @interface JSTListenerDelegate : NSObject <NSXPCListenerDelegate>
@@ -19,6 +41,126 @@
 
 - (BOOL)listener:(NSXPCListener *)listener shouldAcceptNewConnection:(NSXPCConnection *)newConnection {
     // This method is where the NSXPCListener configures, accepts, and resumes a new incoming NSXPCConnection.
+
+    // Begin Authentication Progress
+    pid_t clientProcessIdentifier = newConnection.processIdentifier;
+#ifdef DEBUG
+    NSLog(@"processIdentifier = %d", clientProcessIdentifier);
+#endif
+
+    // Create PID Object
+    CFNumberRef cfClientProcessIdentifier = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &clientProcessIdentifier);
+    if (cfClientProcessIdentifier == NULL) {
+        [newConnection invalidate];
+        return NO;
+    }
+
+    // Create Sec Attributes
+    CFDictionaryRef cfSecAttributes = CFDictionaryCreate(kCFAllocatorDefault, (const void **)&kSecGuestAttributePid, (const void **)&cfClientProcessIdentifier, 1, NULL, NULL);
+    if (cfSecAttributes == NULL) {
+        CFRelease(cfClientProcessIdentifier);
+        [newConnection invalidate];
+        return NO;
+    }
+
+    // Create SecCode Object
+    SecCodeRef secGuestCode = NULL;
+    OSStatus osStatus = SecCodeCopyGuestWithAttributes(NULL, cfSecAttributes, kSecCSDefaultFlags, &secGuestCode);
+    if (osStatus != errSecSuccess) {
+        CFRelease(cfClientProcessIdentifier);
+        CFRelease(cfSecAttributes);
+        [newConnection invalidate];
+        return NO;
+    }
+
+    // Check Client Path
+    CFURLRef cfClientPath = NULL;
+    osStatus = SecCodeCopyPath(secGuestCode, kSecCSDefaultFlags, &cfClientPath);
+    if (osStatus != errSecSuccess) {
+        CFRelease(cfClientProcessIdentifier);
+        CFRelease(cfSecAttributes);
+        CFRelease(secGuestCode);
+        [newConnection invalidate];
+        return NO;
+    }
+
+    // Copy POSIX Client Path
+    CFStringRef cfClientPOSIXPath = CFURLCopyFileSystemPath(cfClientPath, kCFURLPOSIXPathStyle);
+    if (cfClientPOSIXPath == NULL) {
+        CFRelease(cfClientProcessIdentifier);
+        CFRelease(cfSecAttributes);
+        CFRelease(secGuestCode);
+        CFRelease(cfClientPath);
+        [newConnection invalidate];
+        return NO;
+    }
+
+    NSString *clientPOSIXPath = (__bridge NSString *)cfClientPOSIXPath;
+#ifdef DEBUG
+    NSLog(@"clientPOSIXPath = %@", clientPOSIXPath);
+#endif
+
+    // Fetch Compressed csreq
+    int gzMagic = 0x088b1f;
+    NSMutableData *gzData = [NSMutableData dataWithBytes:&gzMagic length:4];
+    [gzData appendBytes:csreq_dat length:csreq_dat_len];
+
+    // Decompress csreq
+    z_stream gzStream;
+    gzStream.zalloc = Z_NULL;
+    gzStream.zfree = Z_NULL;
+    gzStream.avail_in = (uint)gzData.length;
+    gzStream.next_in = (Bytef *)gzData.bytes;
+    gzStream.total_out = 0;
+    gzStream.avail_out = 0;
+
+    NSMutableData *gzOutput = nil;
+    if (inflateInit2(&gzStream, 47) == Z_OK)
+    {
+        int status = Z_OK;
+        gzOutput = [NSMutableData dataWithCapacity:gzData.length * 2];
+        while (status == Z_OK)
+        {
+            if (gzStream.total_out >= gzOutput.length)
+            {
+                gzOutput.length += gzData.length / 2;
+            }
+            gzStream.next_out = (uint8_t *)gzOutput.mutableBytes + gzStream.total_out;
+            gzStream.avail_out = (uInt)(gzOutput.length - gzStream.total_out);
+            status = inflate (&gzStream, Z_SYNC_FLUSH);
+        }
+        if (inflateEnd(&gzStream) == Z_OK)
+        {
+            if (status == Z_STREAM_END)
+            {
+                gzOutput.length = gzStream.total_out;
+            }
+        }
+    }
+
+    // Create SecRequirement Object
+    SecRequirementRef secRequirement = NULL;
+    osStatus =  ((__bridge CFDataRef _Nonnull)(gzOutput), kSecCSDefaultFlags, &secRequirement);
+    if (osStatus != errSecSuccess) {
+        CFRelease(cfClientProcessIdentifier);
+        CFRelease(cfSecAttributes);
+        CFRelease(secGuestCode);
+        CFRelease(cfClientPath);
+        CFRelease(cfClientPOSIXPath);
+        [newConnection invalidate];
+        return NO;
+    }
+
+#ifdef DEBUG
+    NSLog(@"SecRequirement = %@", secRequirement);
+#endif
+
+    CFRelease(cfClientProcessIdentifier);
+    CFRelease(cfSecAttributes);
+    CFRelease(secGuestCode);
+    CFRelease(cfClientPath);
+    CFRelease(cfClientPOSIXPath);
+    CFRelease(secRequirement);
     
     // Configure the connection.
     // First, set the interface that the exported object implements.
@@ -187,7 +329,6 @@ int main(int argc, const char *argv[])
             NSModalResponse alertResp = [alert runModal];
             if (alertResp == NSAlertFirstButtonReturn) {
                 
-                NSError *error = nil;
                 BOOL succeed = NO;
 
                 if (isInstallOrUninstall) {
