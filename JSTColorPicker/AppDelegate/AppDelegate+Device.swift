@@ -168,6 +168,7 @@ extension AppDelegate {
                 return self.promiseXPCServiceVersion(infoDictionary)
             }
             .then { [unowned self] version -> Promise<Void> in
+#if APP_STORE
                 if version != Bundle.main.bundleVersion {
                     if self.screenshotHelperState != .outdated {
                         self.screenshotHelperState = .outdated
@@ -177,6 +178,7 @@ extension AppDelegate {
                         self.screenshotHelperState = .latest
                     }
                 }
+#endif
                 return self.promiseVoid
             }
             .catch { [unowned self] err in

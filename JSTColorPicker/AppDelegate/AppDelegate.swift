@@ -103,7 +103,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     #endif
     
-    
+
+    internal var helperConnectionInvalidatedManually = false
     #if APP_STORE
     @discardableResult
     func applicationCheckScreenshotHelper() -> HelperState {
@@ -114,8 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return screenshotHelperState
     }
-    internal var helperConnectionInvalidatedManually = false
-    internal var helperConnectionFailureErrorPresented = false
+    private var helperConnectionFailureErrorPresented = false
     func presentHelperConnectionFailureError(_ error: Error) {
         if (!helperConnectionFailureErrorPresented) {
             // present only once
