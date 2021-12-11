@@ -43,8 +43,10 @@ extension AppDelegate {
     
     // MARK: - XPC Functions
     
-    internal func applicationXPCSetup() {
-        applicationXPCDeactivate()
+    internal func applicationXPCSetup(deactivate: Bool) {
+        if deactivate {
+            applicationXPCDeactivate()
+        }
         
         if applicationCheckScreenshotHelper().exists {
 #if APP_STORE
@@ -80,8 +82,10 @@ extension AppDelegate {
         helperConnection = nil
     }
     
-    internal func applicationBonjourSetup() {
-        applicationBonjourDeactivate()
+    internal func applicationBonjourSetup(deactivate: Bool) {
+        if deactivate {
+            applicationBonjourDeactivate()
+        }
         
         if applicationCheckScreenshotHelper().exists && isNetworkDiscoveryEnabled
         {
@@ -121,8 +125,8 @@ extension AppDelegate {
     }
     
     @objc internal func applicationHelperDidBecomeAvailable(_ noti: Notification) {
-        applicationXPCSetup()
-        applicationBonjourSetup()
+        applicationXPCSetup(deactivate: true)
+        applicationBonjourSetup(deactivate: true)
         
         applicationXPCReloadDevices()
         applicationBonjourReloadDevices()
@@ -142,13 +146,12 @@ extension AppDelegate {
             return
         }
         if noti.name == AppDelegate.applicationHelperConnectionDidInterruptedNotification {
+            // Crash (including not compatible), or killed by user
             DispatchQueue.main.async { [unowned self] in
                 self.presentHelperConnectionFailureError(XPCError.interrupted)
             }
         } else if noti.name == AppDelegate.applicationHelperConnectionDidInvalidatedNotification {
-            DispatchQueue.main.async { [unowned self] in
-                self.presentHelperConnectionFailureError(XPCError.invalidated)
-            }
+            // Helper connection may be invalidated by system sometimes...
         }
     }
 #endif
@@ -169,7 +172,7 @@ extension AppDelegate {
             }
             .then { [unowned self] version -> Promise<Void> in
 #if APP_STORE
-                if version != Bundle.main.bundleVersion {
+                if let mainVersion = Bundle.main.bundleVersion, version.isVersion(lessThan: mainVersion) {
                     if self.screenshotHelperState != .outdated {
                         self.screenshotHelperState = .outdated
                     }

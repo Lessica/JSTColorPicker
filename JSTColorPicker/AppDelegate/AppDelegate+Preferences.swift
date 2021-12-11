@@ -22,7 +22,7 @@ extension AppDelegate {
             if isNetworkDiscoveryEnabled != toValue {
                 isNetworkDiscoveryEnabled = toValue
                 
-                applicationBonjourSetup()
+                applicationBonjourSetup(deactivate: true)
             }
         }
     }

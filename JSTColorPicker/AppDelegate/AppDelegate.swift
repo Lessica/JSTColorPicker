@@ -257,8 +257,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         applicationResetDeviceUI()
         
-        applicationXPCSetup()
-        applicationBonjourSetup()
+        applicationXPCSetup(deactivate: false)
+        applicationBonjourSetup(deactivate: false)
         
         applicationXPCReloadDevices()
         applicationBonjourReloadDevices()
@@ -328,7 +328,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let url = urls.first else { return }
         guard url.scheme == "jstcolorpicker" else { return }
         if url.host == "activate" {
-            applicationXPCSetup()
+            applicationXPCSetup(deactivate: true)
         }
     }
     
