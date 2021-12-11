@@ -53,18 +53,20 @@ extension AppDelegate {
             let connectionToService = NSXPCConnection(serviceName: kJSTScreenshotHelperBundleIdentifier)
 #endif
             
-            connectionToService.interruptionHandler = {
+            connectionToService.interruptionHandler = { [weak self] in
                 NotificationCenter.default.post(
                     name: AppDelegate.applicationHelperConnectionDidInterruptedNotification,
                     object: self
                 )
             }
-            connectionToService.invalidationHandler = {
+            connectionToService.invalidationHandler = { [weak self] in
                 NotificationCenter.default.post(
                     name: AppDelegate.applicationHelperConnectionDidInvalidatedNotification,
                     object: self
                 )
+                self?.helperConnectionInvalidatedManually = false
             }  // <- error occurred
+
             connectionToService.remoteObjectInterface = NSXPCInterface(with: JSTScreenshotHelperProtocol.self)
             connectionToService.resume()
             
@@ -73,8 +75,9 @@ extension AppDelegate {
     }
     
     internal func applicationXPCDeactivate() {
-        self.helperConnection?.invalidate()
-        self.helperConnection = nil
+        helperConnectionInvalidatedManually = true
+        helperConnection?.invalidate()
+        helperConnection = nil
     }
     
     internal func applicationBonjourSetup() {
@@ -112,9 +115,9 @@ extension AppDelegate {
     }
     
     internal func applicationBonjourDeactivate() {
-        self.helperBonjourBrowser?.stop()
-        self.helperBonjourBrowser = nil
-        self.helperBonjourDevices.removeAll()
+        helperBonjourBrowser?.stop()
+        helperBonjourBrowser = nil
+        helperBonjourDevices.removeAll()
     }
     
     @objc internal func applicationHelperDidBecomeAvailable(_ noti: Notification) {
@@ -134,7 +137,10 @@ extension AppDelegate {
     
 #if APP_STORE
     @objc internal func applicationHelperConnectionFailure(_ noti: Notification) {
-        guard applicationCheckScreenshotHelper().exists else { return }
+        guard !helperConnectionInvalidatedManually && applicationCheckScreenshotHelper().exists
+        else {
+            return
+        }
         if noti.name == AppDelegate.applicationHelperConnectionDidInterruptedNotification {
             DispatchQueue.main.async { [unowned self] in
                 self.presentHelperConnectionFailureError(XPCError.interrupted)
@@ -163,7 +169,13 @@ extension AppDelegate {
             }
             .then { [unowned self] version -> Promise<Void> in
                 if version != Bundle.main.bundleVersion {
-                    // TODO: helper version outdated
+                    if self.screenshotHelperState != .outdated {
+                        self.screenshotHelperState = .outdated
+                    }
+                } else {
+                    if self.screenshotHelperState != .latest {
+                        self.screenshotHelperState = .latest
+                    }
                 }
                 return self.promiseVoid
             }

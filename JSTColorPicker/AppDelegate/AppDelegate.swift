@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     #if APP_STORE
-    internal fileprivate(set) var screenshotHelperState: HelperState = .missing
+    var screenshotHelperState: HelperState = .missing
     {
         didSet {
             if screenshotHelperState.exists {
@@ -114,12 +114,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return screenshotHelperState
     }
-    private var _helperConnectionFailureErrorPresented = false
+    internal var helperConnectionInvalidatedManually = false
+    internal var helperConnectionFailureErrorPresented = false
     func presentHelperConnectionFailureError(_ error: Error) {
-        if (!_helperConnectionFailureErrorPresented) {
+        if (!helperConnectionFailureErrorPresented) {
             // present only once
             screenshotHelperState = .outdated
-            _helperConnectionFailureErrorPresented = true
+            helperConnectionFailureErrorPresented = true
             NSAlert.action(
                 text: .init(
                     message: NSLocalizedString("Helper Connection Failure", comment: "presentHelperConnectionFailureError(_:)"),

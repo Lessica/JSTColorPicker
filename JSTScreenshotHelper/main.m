@@ -167,7 +167,8 @@ int main(int argc, const char *argv[])
         sleep(1);
 
         if ([fileManager fileExistsAtPath:targetPath]) {
-            
+
+            NSString *helperBundlePath = GetJSTColorPickerHelperApplicationPath();
             NSString *launchAgentTarget = GetJSTColorPickerHelperLaunchAgentPath();
             
             BOOL isInstallOrUninstall = YES;
@@ -212,7 +213,10 @@ int main(int argc, const char *argv[])
                     
                     os_system([NSString stringWithFormat:@"launchctl unload -w '%@'", escape_arg(launchAgentTarget)].UTF8String);
                     
-                    [[NSWorkspace sharedWorkspace] recycleURLs:@[[NSURL fileURLWithPath:launchAgentTarget]] completionHandler:^(NSDictionary<NSURL *,NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
+                    [[NSWorkspace sharedWorkspace] recycleURLs:@[
+                        [NSURL fileURLWithPath:launchAgentTarget],
+                        [NSURL fileURLWithPath:helperBundlePath],
+                    ] completionHandler:^(NSDictionary<NSURL *,NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
                         if (error) {
                             [[NSAlert alertWithError:error] runModal];
                             exit(EXIT_FAILURE);
