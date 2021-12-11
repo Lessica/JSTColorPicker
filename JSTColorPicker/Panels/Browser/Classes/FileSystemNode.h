@@ -31,6 +31,8 @@ typedef enum : NSUInteger {
 @property (readonly, assign) FileSystemNodeSortedBy childrenSortedBy;
 @property (readonly) BOOL isDirectory;
 @property (readonly) BOOL isPackage;
+@property (readonly) BOOL isSymbolicLink;
+@property (readonly) BOOL isLeafItem;
 @property (readonly, strong) NSColor *labelColor;
 @property (readonly) NSUInteger size;
 @property (readonly, strong) NSString *formattedFileSize;

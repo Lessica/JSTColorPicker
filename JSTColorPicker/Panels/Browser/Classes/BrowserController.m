@@ -83,7 +83,7 @@
 
 - (BOOL)browser:(NSBrowser *)browser isLeafItem:(id)item {
     FileSystemNode *node = (FileSystemNode *)item;
-    return !node.isDirectory || node.isPackage; // take into account packaged apps and documents
+    return node.isLeafItem; // take into account packaged apps and documents
 }
 
 - (id)browser:(NSBrowser *)browser objectValueForItem:(id)item {
@@ -216,7 +216,7 @@
             if (*row != -1) {
                 // If we are dropping on a folder, then we will accept the drop at that row
                 FileSystemNode *toFileSystemNode = [self fileSystemNodeAtRow:*row column:*column];
-                if (toFileSystemNode.isDirectory && !toFileSystemNode.isPackage) {
+                if (!toFileSystemNode.isLeafItem) {
                     NSArray <NSString *> *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
                     if ([filenames count] == 1 && [[NSURL fileURLWithPath:filenames.firstObject] isEqual:toFileSystemNode.URL]) {
                         result = NSDragOperationNone;
@@ -253,7 +253,7 @@
     if ((column != -1) && (filenames != nil)) {
         if (row != -1) {
             FileSystemNode *fileSystemNode = [self fileSystemNodeAtRow:row column:column];
-            if (fileSystemNode.isDirectory && !fileSystemNode.isPackage) {
+            if (!fileSystemNode.isLeafItem) {
                 targetFileSystemNode = fileSystemNode;
             }
         } else {

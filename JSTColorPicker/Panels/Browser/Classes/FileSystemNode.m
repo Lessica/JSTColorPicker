@@ -37,6 +37,11 @@
     return self;
 }
 
++ (instancetype)nodeWithURL:(NSURL *)url {
+    FileSystemNode *node = [[FileSystemNode alloc] initWithURL:url];
+    return node;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ - %@", super.description, self.URL];
 }
@@ -131,6 +136,23 @@
     return [value boolValue];
 }
 
+- (BOOL)isSymbolicLink {
+    id value = nil;
+    [self.URL getResourceValue:&value forKey:NSURLIsSymbolicLinkKey error:nil];
+    return [value boolValue];
+}
+
+- (BOOL)isLeafItem {
+    if (self.isSymbolicLink) {
+        NSURL *realURL = [self.URL URLByResolvingSymlinksInPath];
+        if ([self.URL isEqual:realURL]) {
+            return YES;
+        }
+        return [[FileSystemNode nodeWithURL:realURL] isLeafItem];
+    }
+    return !self.isDirectory || self.isPackage;
+}
+
 - (NSColor *)labelColor {
     id value = nil;
     [self.URL getResourceValue:&value forKey:NSURLLabelColorKey error:nil];
@@ -157,7 +179,7 @@
         // This logic keeps the same pointers around, if possible.
         NSMutableArray *newChildren = [NSMutableArray array];
         
-        CFURLEnumeratorRef enumerator = CFURLEnumeratorCreateForDirectoryURL(NULL, (CFURLRef)self.URL, kCFURLEnumeratorSkipInvisibles, (CFArrayRef)[NSArray array]);
+        CFURLEnumeratorRef enumerator = CFURLEnumeratorCreateForDirectoryURL(NULL, (CFURLRef)[self.URL URLByResolvingSymlinksInPath], kCFURLEnumeratorSkipInvisibles, (CFArrayRef)[NSArray array]);
         CFURLRef childURL = nil;
         CFURLEnumeratorResult enumeratorResult;
         do {
