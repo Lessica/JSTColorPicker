@@ -22,10 +22,21 @@
 
 @implementation FileSystemNode
 
-@dynamic displayName, children, isDirectory, icon, labelColor, documentKind, size, formattedFileSize, creationDate, modificationDate, addedDate, lastUsedDate;
+@dynamic displayName;
+@dynamic children;
+@dynamic isDirectory;
+@dynamic labelColor;
+@dynamic documentKind;
+@dynamic size;
+@dynamic formattedFileSize;
+@dynamic creationDate;
+@dynamic modificationDate;
+@dynamic addedDate;
+@dynamic lastUsedDate;
+@synthesize icon = _icon;
+@synthesize previewImage = _previewImage;
 
 - (instancetype)init {
-    
     NSAssert(NO, @"Invalid use of init; use initWithURL to create FileSystemNode");
     return [self init];
 }
@@ -66,11 +77,17 @@
 }
 
 - (NSImage *)icon {
-    return [self previewImageWithSize:CGSizeMake(64, 64) isIcon:YES];
+    if (!_icon) {
+        _icon = [self previewImageWithSize:CGSizeMake(64, 64) isIcon:YES];
+    }
+    return _icon;
 }
 
 - (NSImage *)previewImage {
-    return [self previewImageWithSize:CGSizeMake(768, 768) isIcon:NO];
+    if (!_previewImage) {
+        _previewImage = [self previewImageWithSize:CGSizeMake(768, 768) isIcon:NO];
+    }
+    return _previewImage;
 }
 
 - (NSImage *)previewImageWithSize:(CGSize)size isIcon:(BOOL)icon {
