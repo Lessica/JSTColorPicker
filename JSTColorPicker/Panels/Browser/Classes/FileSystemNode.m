@@ -7,6 +7,7 @@
  */
 
 #import "FileSystemNode.h"
+#import <QuickLook/QuickLook.h>
 
 @interface FileSystemNode ()
 
@@ -65,7 +66,38 @@
 }
 
 - (NSImage *)icon {
-    return [[NSWorkspace sharedWorkspace] iconForFile:(self.URL).path];
+    return [self previewImageWithSize:CGSizeMake(64, 64) isIcon:YES];
+}
+
+- (NSImage *)previewImage {
+    return [self previewImageWithSize:CGSizeMake(768, 768) isIcon:NO];
+}
+
+- (NSImage *)previewImageWithSize:(CGSize)size isIcon:(BOOL)icon {
+    NSDictionary *opts = @{
+        (__bridge NSString *)kQLThumbnailOptionIconModeKey: @(icon),
+    };
+
+    NSImage *image = nil;
+    if ([self isImage]) {
+        CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, (__bridge CFURLRef)(self.URL), size, (__bridge CFDictionaryRef)(opts));
+        if (ref != NULL) {
+            // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
+            // which is a lot more efficient than copying pixel data into a brand new NSImage.
+            // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
+            NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:(CGImageRef)ref];
+            image = [[NSImage alloc] initWithSize:bitmapImageRep.size];
+            [image addRepresentation:bitmapImageRep];
+
+            CFRelease(ref);
+        }
+    }
+
+    if (!image) {
+        image = [[NSWorkspace sharedWorkspace] iconForFile:(self.URL).path];
+    }
+
+    return image;
 }
 
 - (NSString *)documentKind {
@@ -122,6 +154,10 @@
     UTType *typeStr;
     [self.URL getResourceValue:&typeStr forKey:NSURLContentTypeKey error:nil];
     return [(NSObject *)typeStr performSelector:@selector(identifier)];  // OC is dead
+}
+
+- (BOOL)isImage {
+    return UTTypeConformsTo((__bridge CFStringRef _Nonnull)(self.contentType), kUTTypeImage);
 }
 
 - (BOOL)isDirectory {

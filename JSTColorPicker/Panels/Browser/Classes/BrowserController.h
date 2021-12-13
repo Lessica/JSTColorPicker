@@ -17,5 +17,6 @@
 - (BOOL)openNode:(FileSystemNode *)clickedNode;
 - (BOOL)openInternalNode:(FileSystemNode *)clickedNode;
 - (BOOL)openExternalNode:(FileSystemNode *)clickedNode;
+- (void)invalidate;
 
 @end

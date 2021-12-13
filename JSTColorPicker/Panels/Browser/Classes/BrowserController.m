@@ -362,4 +362,8 @@
     return [[NSWorkspace sharedWorkspace] openURL:clickedNode.URL];
 }
 
+- (void)invalidate {
+    [self.rootNode invalidateChildren];
+}
+
 @end

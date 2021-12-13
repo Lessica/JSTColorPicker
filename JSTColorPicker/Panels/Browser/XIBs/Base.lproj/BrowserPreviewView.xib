@@ -27,7 +27,7 @@
                             </constraints>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="10"/>
                             <connections>
-                                <binding destination="-2" name="value" keyPath="representedObject.icon" id="16"/>
+                                <binding destination="-2" name="value" keyPath="representedObject.previewImage" id="82h-8Z-VeW"/>
                             </connections>
                         </imageView>
                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2">

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class BrowserWindowController : NSWindowController {
+class BrowserWindowController : NSWindowController, NSWindowDelegate {
     
     static let shared = newController()
 
@@ -19,4 +19,13 @@ class BrowserWindowController : NSWindowController {
     }
 
     var isVisible: Bool { window?.isVisible ?? false }
+
+    var viewController: BrowserViewController { contentViewController as! BrowserViewController }
+    var browserController: BrowserController { viewController.browserController }
+    var browser: NSBrowser { viewController.browser }
+
+    func windowDidBecomeKey(_ notification: Notification) {
+        browserController.invalidate()
+    }
+
 }

@@ -21,6 +21,9 @@
                             <rect key="frame" x="0.0" y="0.0" width="500" height="376"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </view>
+                        <connections>
+                            <outlet property="delegate" destination="qYB-o5-LAg" id="Yga-cz-hnD"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="RNH-hp-6tO" kind="relationship" relationship="window.shadowedContentViewController" id="2eY-zi-Os4"/>

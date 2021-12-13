@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
+		0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
 		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1048,6 +1050,7 @@
 		0F4E87592764C7040048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875D2764C75C0048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875E2764C75C0048882B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
+		0F7AE629276718D600D818E5 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
 		0FF2ADDF2764D4A600BA5C6B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0FF2ADE02764D4A600BA5C6B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
@@ -1598,6 +1601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D61047CB24224A170002E990 /* Automator.framework in Frameworks */,
+				0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
@@ -1660,6 +1664,7 @@
 				CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */,
 				D628351423F8EAAA0016573B /* LuaC.framework in Frameworks */,
 				D6D1CEF525A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
+				0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */,
 				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
@@ -2911,6 +2916,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F7AE629276718D600D818E5 /* QuickLook.framework */,
 				0FF4704527621B3E00F46554 /* PromiseKit.framework */,
 				CCE3405426329A470082F73D /* StoreKit.framework */,
 				CC8376F126304DBD00B2C984 /* libreadline.tbd */,

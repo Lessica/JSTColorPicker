@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 @property (readonly) NSURL *URL;
 @property (readonly, copy) NSString *displayName;
 @property (readonly, strong) NSImage *icon;
+@property (readonly, strong) NSImage *previewImage;
 @property (readonly, strong) NSArray <FileSystemNode *> *children;
 @property (readonly, assign) FileSystemNodeSortedBy childrenSortedBy;
 @property (readonly) BOOL isDirectory;
