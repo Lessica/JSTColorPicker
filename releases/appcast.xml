@@ -68,5 +68,11 @@
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
             <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.10-1231.dmg" sparkle:version="1231" sparkle:shortVersionString="2.10" length="22673604" type="application/octet-stream"/>
         </item>
+        <item>
+            <title>2.10</title>
+            <pubDate>Mon, 13 Dec 2021 23:13:29 +0800</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.10-1232.dmg" sparkle:version="1232" sparkle:shortVersionString="2.10" length="22670909" type="application/octet-stream"/>
+        </item>
     </channel>
 </rss>

@@ -35,7 +35,6 @@
 		0F87C3512769CC600006F446 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0F87C3532769CCA00006F446 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0F87C35B2769D6620006F446 /* PixelExifCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87C35A2769D6620006F446 /* PixelExifCommand.swift */; };
-		0F87C3612769D8760006F446 /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = 0F87C3602769D8760006F446 /* SwiftExif */; };
 		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -293,6 +292,8 @@
 		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
+		CCAA129C2769F537004BA44A /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA129B2769F537004BA44A /* SwiftExif */; };
+		CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA129D2769F544004BA44A /* ArgumentParser */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
@@ -1090,7 +1091,7 @@
 		0F4E875D2764C75C0048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875E2764C75C0048882B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
 		0F7AE629276718D600D818E5 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
-		0F87C3582769D6620006F446 /* PixelExif */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PixelExif; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F87C3582769D6620006F446 /* pixelexif */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelexif; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F87C35A2769D6620006F446 /* PixelExifCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelExifCommand.swift; sourceTree = "<group>"; };
 		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
 		0FF2ADDF2764D4A600BA5C6B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
@@ -1618,7 +1619,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F87C3612769D8760006F446 /* SwiftExif in Frameworks */,
+				CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */,
+				CCAA129C2769F537004BA44A /* SwiftExif in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2807,7 +2809,7 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
-				0F87C3582769D6620006F446 /* PixelExif */,
+				0F87C3582769D6620006F446 /* pixelexif */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3233,10 +3235,11 @@
 			);
 			name = PixelExif;
 			packageProductDependencies = (
-				0F87C3602769D8760006F446 /* SwiftExif */,
+				CCAA129B2769F537004BA44A /* SwiftExif */,
+				CCAA129D2769F544004BA44A /* ArgumentParser */,
 			);
 			productName = PixelExif;
-			productReference = 0F87C3582769D6620006F446 /* PixelExif */;
+			productReference = 0F87C3582769D6620006F446 /* pixelexif */;
 			productType = "com.apple.product-type.tool";
 		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
@@ -3544,7 +3547,7 @@
 				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
-				0F87C35F2769D8760006F446 /* XCRemoteSwiftPackageReference "SwiftExif" */,
+				CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3558,10 +3561,10 @@
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
+				0F87C3572769D6620006F446 /* PixelExif */,
 				D60B0F8624288CF20034F21C /* pixel */,
 				D68A1FD22498B17F001E3FDA /* relaunch */,
 				CC7D6749266DDB5C002099AD /* PauseForSounds */,
-				0F87C3572769D6620006F446 /* PixelExif */,
 			);
 		};
 /* End PBXProject section */
@@ -4834,7 +4837,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pixelexif;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -4848,7 +4851,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pixelexif;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -5706,14 +5709,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		0F87C35F2769D8760006F446 /* XCRemoteSwiftPackageReference "SwiftExif" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:kradalby/SwiftExif.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SwiftBonjour.git";
@@ -5770,6 +5765,14 @@
 				version = 3.4.0;
 			};
 		};
+		CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lessica/SwiftExif.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
@@ -5785,11 +5788,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
-		};
-		0F87C3602769D8760006F446 /* SwiftExif */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0F87C35F2769D8760006F446 /* XCRemoteSwiftPackageReference "SwiftExif" */;
-			productName = SwiftExif;
 		};
 		0FF47023276208A900F46554 /* SwiftBonjour */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5865,6 +5863,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
+		};
+		CCAA129B2769F537004BA44A /* SwiftExif */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */;
+			productName = SwiftExif;
+		};
+		CCAA129D2769F544004BA44A /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0F87C3572769D6620006F446"
-               BuildableName = "PixelExif"
+               BuildableName = "pixelexif"
                BlueprintName = "PixelExif"
                ReferencedContainer = "container:JSTColorPicker.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F87C3572769D6620006F446"
-            BuildableName = "PixelExif"
+            BuildableName = "pixelexif"
             BlueprintName = "PixelExif"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F87C3572769D6620006F446"
-            BuildableName = "PixelExif"
+            BuildableName = "pixelexif"
             BlueprintName = "PixelExif"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
