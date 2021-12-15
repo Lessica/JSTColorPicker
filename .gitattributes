@@ -13,5 +13,6 @@ JSTColorPicker/OpenCV/lib/** linguist-vendored=true
 JSTScreenshotHelper/include/** linguist-vendored=true
 JSTScreenshotHelper/lib/** linguist-vendored=true
 JSTScreenshotHelper/bin/** linguist-vendored=true
+PrecompiledLibraries/** linguist-vendored=true
 LuaC/include/** linguist-vendored=true
 LuaC/lib/** linguist-vendored=true
