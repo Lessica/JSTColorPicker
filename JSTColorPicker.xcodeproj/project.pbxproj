@@ -292,7 +292,6 @@
 		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
-		CCAA129C2769F537004BA44A /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA129B2769F537004BA44A /* SwiftExif */; };
 		CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA129D2769F544004BA44A /* ArgumentParser */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
@@ -408,6 +407,9 @@
 		CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF7F1532618D38100ED16B7 /* InspectorView.xib */; };
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
+		CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD9989276A16FC0012E5AF /* SwiftExif */; };
+		CCFD999A276A27490012E5AF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD9991276A240E0012E5AF /* libiconv.tbd */; };
+		CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD999D276A281B0012E5AF /* gettext-wrapper */; };
 		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
@@ -1354,6 +1356,8 @@
 		CCF7F1552618D38500ED16B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InspectorView.strings; sourceTree = "<group>"; };
 		CCF7F1572618D38600ED16B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InspectorView.strings"; sourceTree = "<group>"; };
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
+		CCFD9991276A240E0012E5AF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		CCFD9995276A26030012E5AF /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		CCFECFAA262D50D0001F6467 /* open_console.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_console.scpt; sourceTree = "<group>"; };
 		CCFECFBB262D5152001F6467 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
@@ -1618,8 +1622,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */,
 				CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */,
-				CCAA129C2769F537004BA44A /* SwiftExif in Frameworks */,
+				CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */,
+				CCFD999A276A27490012E5AF /* libiconv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2977,6 +2983,8 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCFD9995276A26030012E5AF /* libiconv.2.4.0.tbd */,
+				CCFD9991276A240E0012E5AF /* libiconv.tbd */,
 				0F7AE629276718D600D818E5 /* QuickLook.framework */,
 				0FF4704527621B3E00F46554 /* PromiseKit.framework */,
 				CCE3405426329A470082F73D /* StoreKit.framework */,
@@ -3233,8 +3241,9 @@
 			);
 			name = PixelExif;
 			packageProductDependencies = (
-				CCAA129B2769F537004BA44A /* SwiftExif */,
 				CCAA129D2769F544004BA44A /* ArgumentParser */,
+				CCFD9989276A16FC0012E5AF /* SwiftExif */,
+				CCFD999D276A281B0012E5AF /* gettext-wrapper */,
 			);
 			productName = PixelExif;
 			productReference = 0F87C3582769D6620006F446 /* pixelexif */;
@@ -3545,7 +3554,7 @@
 				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
-				CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */,
+				CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -5764,17 +5773,17 @@
 				version = 3.4.0;
 			};
 		};
-		CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */ = {
+		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Lessica/SwiftExif.git";
+			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
 			requirement = {
 				branch = master;
 				kind = branch;
 			};
 		};
-		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
+		CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
+			repositoryURL = "git@github.com:Lessica/SwiftExif.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -5863,11 +5872,6 @@
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
 		};
-		CCAA129B2769F537004BA44A /* SwiftExif */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCAA129A2769F537004BA44A /* XCRemoteSwiftPackageReference "SwiftExif" */;
-			productName = SwiftExif;
-		};
 		CCAA129D2769F544004BA44A /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
@@ -5882,6 +5886,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
 			productName = SyntaxKit;
+		};
+		CCFD9989276A16FC0012E5AF /* SwiftExif */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */;
+			productName = SwiftExif;
+		};
+		CCFD999D276A281B0012E5AF /* gettext-wrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "gettext-wrapper";
 		};
 /* End XCSwiftPackageProductDependency section */
 
