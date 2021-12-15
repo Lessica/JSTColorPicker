@@ -24,12 +24,6 @@
 		0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
 		0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
 		0F7AE62E2767B56300D818E5 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 0F7AE62D2767B56300D818E5 /* ArgumentParser */; };
-		0F7AE62F2767BC2D00D818E5 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631E2C623F7B38B00652B17 /* Defaults.swift */; };
-		0F7AE6302767BC3700D818E5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
-		0F7AE6312767BC4800D818E5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9016F2626BAF700C84904 /* Observable.swift */; };
-		0F7AE6322767BC5000D818E5 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901542626BAC400C84904 /* KeyValueObserver.swift */; };
-		0F7AE6332767BC5600D818E5 /* KeyValueObserverResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */; };
-		0F7AE6342768F29B00D818E5 /* Cocoa+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */; };
 		0F7AE6352768F2A100D818E5 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
 		0F87C34C2769C7B90006F446 /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */; };
 		0F87C3512769CC600006F446 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -247,6 +241,7 @@
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
+		CC71BF2B276A476B0000B5A1 /* Cocoa+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */; };
 		CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC7D6763266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
@@ -364,10 +359,6 @@
 		CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */; };
 		CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
 		CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */; };
-		CCE1875726528A29006FBDB4 /* PixelSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */; };
-		CCE1875826528A29006FBDB4 /* PixelSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */; };
-		CCE1875A26528A3B006FBDB4 /* PixelPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */; };
-		CCE1875B26528A3B006FBDB4 /* PixelPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */; };
 		CCE33FEF26325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FF026325F6C0082F73D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FEE26325F6C0082F73D /* main.swift */; };
 		CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
@@ -409,6 +400,28 @@
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD9989276A16FC0012E5AF /* SwiftExif */; };
 		CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD999D276A281B0012E5AF /* gettext-wrapper */; };
+		CCFD999F276A37700012E5AF /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9223D6EC4F00DA1750 /* Content.swift */; };
+		CCFD99A0276A37740012E5AF /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49E23E807600039F4F6 /* ContentItem.swift */; };
+		CCFD99A1276A377C0012E5AF /* PixelCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49823E805340039F4F6 /* PixelCoordinate.swift */; };
+		CCFD99A2276A377C0012E5AF /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49A23E805560039F4F6 /* PixelSize.swift */; };
+		CCFD99A4276A377C0012E5AF /* PixelRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49C23E805EA0039F4F6 /* PixelRect.swift */; };
+		CCFD99A6276A377C0012E5AF /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
+		CCFD99A8276A377C0012E5AF /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
+		CCFD99A9276A377C0012E5AF /* PixelArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A023E8080E0039F4F6 /* PixelArea.swift */; };
+		CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
+		CCFD99B0276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
+		CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */; };
+		CCFD99B2276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */; };
+		CCFD99B3276A38FA0012E5AF /* PixelSize+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */; };
+		CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */; };
+		CCFD99B6276A391D0012E5AF /* PixelRect+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */; };
+		CCFD99B7276A391D0012E5AF /* PixelRect+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */; };
+		CCFD99B8276A39350012E5AF /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
+		CCFD99BC276A3A260012E5AF /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
+		CCFD99BE276A3A790012E5AF /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
+		CCFD99C2276A3AC30012E5AF /* Content+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */; };
+		CCFD99C3276A3AC40012E5AF /* Content+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */; };
+		CCFD99CB276A3B8D0012E5AF /* CoreGraphics+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */; };
 		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
@@ -1357,6 +1370,12 @@
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
 		CCFD9991276A240E0012E5AF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		CCFD9995276A26030012E5AF /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
+		CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelCoordinate+Lua.swift"; sourceTree = "<group>"; };
+		CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelSegment+Lua.swift"; sourceTree = "<group>"; };
+		CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelSize+Lua.swift"; sourceTree = "<group>"; };
+		CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelRect+Lua.swift"; sourceTree = "<group>"; };
+		CCFD99BB276A39D30012E5AF /* PixelExif-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelExif-Bridging-Header.h"; sourceTree = "<group>"; };
+		CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+Lua.swift"; sourceTree = "<group>"; };
 		CCFECFAA262D50D0001F6467 /* open_console.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_console.scpt; sourceTree = "<group>"; };
 		CCFECFBB262D5152001F6467 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		D60A690F23F2C89200ED9748 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
@@ -1621,6 +1640,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCFD99B8276A39350012E5AF /* libpixel.a in Frameworks */,
 				CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */,
 				CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */,
 				CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */,
@@ -1795,6 +1815,7 @@
 		0F87C3592769D6620006F446 /* PixelExif */ = {
 			isa = PBXGroup;
 			children = (
+				CCFD99BB276A39D30012E5AF /* PixelExif-Bridging-Header.h */,
 				0F87C35A2769D6620006F446 /* PixelExifCommand.swift */,
 			);
 			path = PixelExif;
@@ -2468,6 +2489,7 @@
 			isa = PBXGroup;
 			children = (
 				D682FC9223D6EC4F00DA1750 /* Content.swift */,
+				CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */,
 				D645E49E23E807600039F4F6 /* ContentItem.swift */,
 			);
 			path = Content;
@@ -2719,9 +2741,13 @@
 			isa = PBXGroup;
 			children = (
 				D645E49823E805340039F4F6 /* PixelCoordinate.swift */,
+				CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */,
 				CC0FC87B265105A500D8BD73 /* PixelSegment.swift */,
+				CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */,
 				D645E49A23E805560039F4F6 /* PixelSize.swift */,
+				CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */,
 				D645E49C23E805EA0039F4F6 /* PixelRect.swift */,
+				CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */,
 				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
 				CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */,
@@ -3812,7 +3838,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCFD99A6276A377C0012E5AF /* PixelSegment.swift in Sources */,
+				CCFD99A0276A37740012E5AF /* ContentItem.swift in Sources */,
+				CCFD99CB276A3B8D0012E5AF /* CoreGraphics+Ext.swift in Sources */,
 				0F87C35B2769D6620006F446 /* PixelExifCommand.swift in Sources */,
+				CCFD99A1276A377C0012E5AF /* PixelCoordinate.swift in Sources */,
+				CCFD99BC276A3A260012E5AF /* Color+HSV.swift in Sources */,
+				CCFD99A2276A377C0012E5AF /* PixelSize.swift in Sources */,
+				CCFD99A8276A377C0012E5AF /* PixelColor.swift in Sources */,
+				CCFD99A4276A377C0012E5AF /* PixelRect.swift in Sources */,
+				CCFD99A9276A377C0012E5AF /* PixelArea.swift in Sources */,
+				CCFD99BE276A3A790012E5AF /* OrderedSet.swift in Sources */,
+				CCFD999F276A37700012E5AF /* Content.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3858,6 +3895,7 @@
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
+				CCFD99B3276A38FA0012E5AF /* PixelSize+Lua.swift in Sources */,
 				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CC34771B266F4ED500391E73 /* AppDelegate+Preferences.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
@@ -3890,7 +3928,6 @@
 				D610478824224A170002E990 /* ColorAnnotatorOverlay.swift in Sources */,
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
-				CCE1875A26528A3B006FBDB4 /* PixelPolygon.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
@@ -3935,6 +3972,7 @@
 				CCE01C84264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
 				CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
 				CC236324264AE7AB005E909A /* KeyBindingManager.swift in Sources */,
+				CCFD99C2276A3AC30012E5AF /* Content+Lua.swift in Sources */,
 				D610479D24224A170002E990 /* PixelMatch.swift in Sources */,
 				D610479E24224A170002E990 /* RulerView.swift in Sources */,
 				D610479F24224A170002E990 /* AreaAnnotator.swift in Sources */,
@@ -3977,6 +4015,7 @@
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
+				CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */,
 				CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */,
 				CCE01C8A264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */,
 				1885CF3E24B0FEA30067D02F /* UndoProxy.swift in Sources */,
@@ -3995,7 +4034,7 @@
 				1885CF4424B106340067D02F /* TagListSearchField.swift in Sources */,
 				D61047B324224A170002E990 /* AdvancedController.swift in Sources */,
 				CC236332264AE889005E909A /* Shortcut.swift in Sources */,
-				CCE1875726528A29006FBDB4 /* PixelSkeleton.swift in Sources */,
+				CCFD99B6276A391D0012E5AF /* PixelRect+Lua.swift in Sources */,
 				CC34771E266F4F2500391E73 /* AppDelegate+Compare.swift in Sources */,
 				CC23630B264A77CC005E909A /* CustomResponder.swift in Sources */,
 				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
@@ -4038,6 +4077,7 @@
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
+				CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */,
 				CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
@@ -4148,6 +4188,7 @@
 				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
+				CCFD99B7276A391D0012E5AF /* PixelRect+Lua.swift in Sources */,
 				D659168E24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
 				D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */,
@@ -4166,6 +4207,7 @@
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				CCE01C7F264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */,
+				CCFD99C3276A3AC40012E5AF /* Content+Lua.swift in Sources */,
 				CC236314264A8199005E909A /* StackedView.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
@@ -4201,7 +4243,6 @@
 				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
-				CCE1875B26528A3B006FBDB4 /* PixelPolygon.swift in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				CC236323264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
@@ -4214,6 +4255,7 @@
 				D6E4252D24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */,
 				D60C88D123D5D4BD00DE5DF6 /* GridView.swift in Sources */,
+				CCFD99B0276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */,
 				D66460EB23D056440032727A /* SceneTracking.swift in Sources */,
 				CC2EFC222629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
@@ -4292,7 +4334,6 @@
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				CC042773275E212B008DD0C5 /* BrowserController.m in Sources */,
 				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
-				CCE1875826528A29006FBDB4 /* PixelSkeleton.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
@@ -4315,6 +4356,7 @@
 				CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				CC04276F275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
+				CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */,
 				CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
 				CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
@@ -4349,6 +4391,7 @@
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,
 				185D7EE9248A8019001C283B /* EditCoordinateController.swift in Sources */,
 				D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
+				CCFD99B2276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */,
 				D6729C09240FC821000339C2 /* CoreGraphics+Ext.swift in Sources */,
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 				CC608BE7261787E800F5B861 /* InfoView.swift in Sources */,
@@ -4386,16 +4429,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC71BF2B276A476B0000B5A1 /* Cocoa+Ext.swift in Sources */,
 				D690C96D241BC07100BB1652 /* PixelMatchService.swift in Sources */,
 				D690C968241A612700BB1652 /* PixelMatch.swift in Sources */,
-				0F7AE6302767BC3700D818E5 /* UserDefaults+Ext.swift in Sources */,
-				0F7AE62F2767BC2D00D818E5 /* Defaults.swift in Sources */,
-				0F7AE6332767BC5600D818E5 /* KeyValueObserverResult.swift in Sources */,
 				0F87C34C2769C7B90006F446 /* Foundation+Ext.swift in Sources */,
 				0F7AE6352768F2A100D818E5 /* Color+HSV.swift in Sources */,
-				0F7AE6312767BC4800D818E5 /* Observable.swift in Sources */,
-				0F7AE6342768F29B00D818E5 /* Cocoa+Ext.swift in Sources */,
-				0F7AE6322767BC5000D818E5 /* KeyValueObserver.swift in Sources */,
 				D690C962241A60DC00BB1652 /* PixelMatchCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4843,6 +4881,7 @@
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = pixelexif;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -4857,6 +4896,7 @@
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = pixelexif;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -4984,6 +5024,11 @@
 				CURRENT_PROJECT_VERSION = 1232;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WITH_LUASWIFT=1",
+					"WITH_COCOA=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
@@ -4996,6 +5041,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5016,6 +5062,11 @@
 				CURRENT_PROJECT_VERSION = 1232;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WITH_LUASWIFT=1",
+					"WITH_COCOA=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MASPreferences/MASPreferences.framework/Headers\"",
@@ -5028,6 +5079,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5419,8 +5471,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"APP_STORE=1",
+					"WITH_LUASWIFT=1",
+					"WITH_COCOA=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5434,7 +5487,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5457,8 +5510,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"APP_STORE=1",
+					"WITH_LUASWIFT=1",
+					"WITH_COCOA=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5472,7 +5526,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D APP_STORE";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

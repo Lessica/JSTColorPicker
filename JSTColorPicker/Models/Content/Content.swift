@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import LuaSwift
 
 final class Content: NSObject, Codable {
     
@@ -100,25 +99,6 @@ extension Content: NSSecureCoding {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(items, forKey: .items)
-    }
-    
-}
-
-extension Content: LuaSwift.Value {
-    
-    func push(_ vm: VirtualMachine) {
-        let t = vm.createTable(withSequence: items)
-        t.push(vm)
-    }
-    
-    func kind() -> Kind {
-        return .table
-    }
-    
-    private static let typeName: String = "Content (Table Array)"
-    static func arg(_ vm: VirtualMachine, value: Value) -> String? {
-        if value.kind() != .table { return typeName }
-        return nil
     }
     
 }

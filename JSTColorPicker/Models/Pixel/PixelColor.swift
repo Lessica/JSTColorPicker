@@ -7,11 +7,16 @@
 //
 
 import Foundation
+#if WITH_LUASWIFT
 import LuaSwift
+#endif
+#if WITH_COCOA
+import Cocoa
 
 extension NSPasteboard.PasteboardType {
     static let color = NSPasteboard.PasteboardType(rawValue: "public.jst.content.color")
 }
+#endif
 
 final class PixelColor: ContentItem {
     
@@ -144,6 +149,10 @@ final class PixelColor: ContentItem {
         return item
     }
     
+    
+    // MARK: - LuaSwift.Value
+    
+#if WITH_LUASWIFT
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]         = id
@@ -178,10 +187,12 @@ final class PixelColor: ContentItem {
         }
         return nil
     }
+#endif
     
     
     // MARK: - Pasteboard
     
+#if WITH_COCOA
     required convenience init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
         guard let item = try? PropertyListDecoder().decode(PixelColor.self, from: propertyList as! Data) else { return nil }
         self.init(id: item.id, coordinate: item.coordinate, color: item.pixelColorRep)
@@ -197,6 +208,7 @@ final class PixelColor: ContentItem {
     override func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
         return [.color]
     }
+#endif
     
 }
 

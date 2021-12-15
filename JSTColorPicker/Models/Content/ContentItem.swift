@@ -7,9 +7,18 @@
 //
 
 import Foundation
+#if WITH_COCOA
+import Cocoa
+
+extension ContentItem: NSPasteboardWriting, NSPasteboardReading {}
+#endif
+#if WITH_LUASWIFT
 import LuaSwift
 
-class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteboardWriting, NSPasteboardReading, Codable
+extension ContentItem: LuaSwift.Value {}
+#endif
+
+class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
 {
     
     class var supportsSecureCoding: Bool { true }
@@ -72,6 +81,10 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
         similarity = item.similarity
     }
     
+    
+    // MARK: - LuaSwift.Value
+    
+#if WITH_LUASWIFT
     func push(_ vm: VirtualMachine) {
         fatalError("push(_:) has not been implemented")
     }
@@ -84,10 +97,12 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     }
     
     override var description: String { "<#\(id): \(tags)>" }
+#endif
     
     
     // MARK: - Pasteboard
     
+#if WITH_COCOA
     required init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
         fatalError("init(pasteboardPropertyList:ofType:) has not been implemented")
     }
@@ -111,6 +126,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, LuaSwift.Value, NSPasteb
     func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
         return try? PropertyListEncoder().encode(self)
     }
+#endif
     
 }
 

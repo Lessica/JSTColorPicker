@@ -7,11 +7,16 @@
 //
 
 import Foundation
+#if WITH_LUASWIFT
 import LuaSwift
+#endif
+#if WITH_COCOA
+import Cocoa
 
 extension NSPasteboard.PasteboardType {
     static let area = NSPasteboard.PasteboardType(rawValue: "public.jst.content.area")
 }
+#endif
 
 final class PixelArea: ContentItem {
     
@@ -101,6 +106,10 @@ final class PixelArea: ContentItem {
         return item
     }
     
+    
+    // MARK: - LuaSwift.Value
+    
+#if WITH_LUASWIFT
     override func push(_ vm: VirtualMachine) {
         let t = vm.createTable()
         t["id"]              = id
@@ -149,10 +158,12 @@ final class PixelArea: ContentItem {
         }
         return nil
     }
+#endif
     
     
     // MARK: - Pasteboard
     
+#if WITH_COCOA
     required convenience init?(pasteboardPropertyList propertyList: Any, ofType type: NSPasteboard.PasteboardType) {
         guard let item = try? PropertyListDecoder().decode(PixelArea.self, from: propertyList as! Data) else { return nil }
         self.init(id: item.id, rect: item.rect)
@@ -166,6 +177,7 @@ final class PixelArea: ContentItem {
     override func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
         return [.area]
     }
+#endif
     
 }
 

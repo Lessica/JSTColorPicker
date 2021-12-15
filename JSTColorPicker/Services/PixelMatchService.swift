@@ -34,6 +34,7 @@ final class PixelMatchService {
     
     public private(set) var isProcessing: Bool = false
     
+#if WITH_COCOA
     public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage) throws -> JSTPixelImage {
         var options = MatchOptions()
         options.threshold = UserDefaults.standard[.pixelMatchThreshold]
@@ -48,6 +49,7 @@ final class PixelMatchService {
         options.diffMask = UserDefaults.standard[.pixelMatchDiffMask]
         return try performConcurrentPixelMatch(img1, img2, options: options)
     }
+#endif
     
     public func performConcurrentPixelMatch(_ img1: JSTPixelImage, _ img2: JSTPixelImage, options: MatchOptions) throws -> JSTPixelImage {
         guard !isProcessing else { throw PixelMatchService.Error.taskConflict }
