@@ -13,7 +13,7 @@ final class PixelMatchService {
     enum Error: LocalizedError {
         
         case taskConflict
-        case fileDoesNotExist(url: URL)
+        case cannotLoadImage(url: URL)
         case sizesDoNotMatch(size1: CGSize, size2: CGSize)
         case noDifferenceDetected
         
@@ -21,8 +21,8 @@ final class PixelMatchService {
             switch self {
             case .taskConflict:
                 return NSLocalizedString("Another task is in process, abort.", comment: "PixelMatchServiceError")
-            case let .fileDoesNotExist(url):
-                return String(format: NSLocalizedString("File does not exist: %@", comment: "PixelMatchServiceError"), url.path)
+            case let .cannotLoadImage(url):
+                return String(format: NSLocalizedString("Cannot load image: %@", comment: "PixelMatchServiceError"), url.path)
             case let .sizesDoNotMatch(size1, size2):
                 return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
             case .noDifferenceDetected:
@@ -62,18 +62,23 @@ final class PixelMatchService {
         let totalColumns = Int(img1.size.width)
         , totalRows = Int(img1.size.height)
         , totalCount = totalColumns * totalRows
+        var outputStream = StandardErrorOutputStream()
 
 
         // MARK: - Concurrent Perform
 
         var threadCount: Int = 32
-        let upperBound = Int(ceil(sqrt(Double(totalRows))))
+        let upperBound = min(Int(ceil(sqrt(Double(totalRows)))), max(options.maximumThreadCount, 1))
         for tCount in stride(from: upperBound, to: 1, by: -1) {
             if totalRows % tCount == 0 {
                 threadCount = tCount
                 break
             }
         }
+        if options.verbose {
+            print("thread count: \(threadCount)", to: &outputStream)
+        }
+
         let partialRows = totalRows / threadCount
         , partialCount = totalColumns * partialRows
 
@@ -89,13 +94,19 @@ final class PixelMatchService {
             
             let beginOffset  = idx * partialCount - rowOffset
             let endOffset    = beginOffset + processCount
-            if options.includeAA {
-                debugPrint("thread#\(idx): process[\(beginOffset)..<\(endOffset)](\(processCount))")
-            }
-            else {
-                let validBegin   = beginOffset + rowOffset
-                let validEnd     = validBegin  + partialCount
-                debugPrint("thread#\(idx): process[\(beginOffset)..<\(endOffset)](\(processCount))->valid[\(validBegin)..<\(validEnd)](\(partialCount))")
+            if options.verbose {
+                if options.includeAA {
+                    threadQueue.sync {
+                        print("thread#\(idx): process[\(beginOffset)..<\(endOffset)](\(processCount))", to: &outputStream)
+                    }
+                }
+                else {
+                    let validBegin   = beginOffset + rowOffset
+                    let validEnd     = validBegin  + partialCount
+                    threadQueue.sync {
+                        print("thread#\(idx): process[\(beginOffset)..<\(endOffset)](\(processCount))->valid[\(validBegin)..<\(validEnd)](\(partialCount))", to: &outputStream)
+                    }
+                }
             }
             
             var threadOutputs0 = [JST_COLOR](
@@ -138,8 +149,8 @@ final class PixelMatchService {
         // MARK: - Output Differences
 
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        debugPrint(String(format: "time elapsed: %.3fs", timeElapsed))
-        debugPrint(String(format: "approximate count: \(diffCount), difference: %.3f%%", Double(diffCount) / Double(totalCount) * 100.0))
+        print(String(format: "time elapsed: %.3fs", timeElapsed), to: &outputStream)
+        print(String(format: "approximate count: \(diffCount), difference: %.3f%%", Double(diffCount) / Double(totalCount) * 100.0), to: &outputStream)
         guard diffCount > 0 else {
             isProcessing = false
             throw PixelMatchService.Error.noDifferenceDetected

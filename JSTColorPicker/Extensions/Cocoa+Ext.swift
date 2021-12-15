@@ -410,7 +410,7 @@ extension NSApplication {
     func relaunch(_ sender: AnyObject?) {
         let task = Process()
         // helper tool path
-        task.launchPath = Bundle.main.path(forResource: "relaunch", ofType: nil)!
+        task.launchPath = Bundle.main.url(forAuxiliaryExecutable: "relaunch")?.path
         // self PID as a argument
         task.arguments = [String(ProcessInfo.processInfo.processIdentifier)]
         task.launch()

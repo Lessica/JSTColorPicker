@@ -16,6 +16,8 @@ public struct MatchOptions {
     public var aaColor: (UInt8, UInt8, UInt8) = (255, 255, 0)    // color of anti-aliased pixels in diff output
     public var diffColor: (UInt8, UInt8, UInt8) = (255, 0, 0)    // color of different pixels in diff output
     public var diffMask: Bool = false                            // draw the diff over a transparent background (a mask)
+    public var maximumThreadCount: Int = 32                      // maximum concurrent jobs count
+    public var verbose: Bool = false                             // enable verbose logging
     
 }
 

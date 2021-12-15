@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "SwiftExif",
+        "repositoryURL": "git@github.com:kradalby/SwiftExif.git",
+        "state": {
+          "branch": "master",
+          "revision": "1e25e39d747ad95c27d6e75c5ff1256584dbac37",
+          "version": null
+        }
+      },
+      {
         "package": "SyntaxKit",
         "repositoryURL": "git@github.com:Lessica/SyntaxKit.git",
         "state": {

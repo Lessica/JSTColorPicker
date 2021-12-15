@@ -14,37 +14,50 @@ struct PixelMatchCommand: ParsableCommand {
 
     static let service = PixelMatchService()
 
-    @Argument(help: ArgumentHelp(valueName: "path-of-image-1"))
+    static var configuration = CommandConfiguration(
+        commandName: "pixelmatch",
+        abstract: "compute difference between two images with the same dimension pixel by pixel",
+        discussion: "",
+        version: "2.10"
+    )
+
+    @Argument(help: ArgumentHelp("path of the first image to compute difference", valueName: "path-of-image-1"))
     var pathOfImage1: String
 
-    @Argument(help: ArgumentHelp(valueName: "path-of-image-2"))
+    @Argument(help: ArgumentHelp("path of the second image to compute difference", valueName: "path-of-image-2"))
     var pathOfImage2: String
 
-    @Argument(help: ArgumentHelp(valueName: "output"))
+    @Argument(help: ArgumentHelp("path of the output image", valueName: "output"))
     var pathOfOutputImage: String
 
     @Option(help: "matching threshold (0 to 1); smaller is more sensitive")
-    var threshold: Double = 0.005
-
-    @Flag(help: ArgumentHelp("whether to skip anti-aliasing detection", valueName: "skip-aa"))
-    var skipAntiAliasing: Bool = false
+    var threshold: Double = 0.00
 
     @Option(help: "opacity of original image in diff ouput")
     var alpha: Double = 0.5
 
-    @Option(help: ArgumentHelp("HEX color of anti-aliased pixels in diff output", valueName: "aa-color"))
+    @Flag(name: .customLong("skip-aa"), help: ArgumentHelp("whether to skip anti-aliasing detection", valueName: "skip-aa"))
+    var skipAntiAliasing: Bool = false
+
+    @Option(name: .customLong("aa-color"), help: ArgumentHelp("HEX color of anti-aliased pixels in diff output", valueName: "aa-color"))
     var antiAliasingColorHex: String = "#ffff00"
 
-    @Option(help: ArgumentHelp("HEX color of different pixels in diff output", valueName: "diff-color"))
-    var diffColorHex: String = "#ff0000"
-
-    @Option(help: "draw the diff over a transparent background (a mask)")
+    @Flag(help: "draw the diff over a transparent background (a mask)")
     var diffMask: Bool = false
 
+    @Option(name: .customLong("diff-color"), help: ArgumentHelp("HEX color of different pixels in diff output", valueName: "diff-color"))
+    var diffColorHex: String = "#ff0000"
+
+    @Option(name: [.customShort("j"), .long], help: "maximum concurrent jobs count")
+    var maximumThreadCount: Int = ProcessInfo.processInfo.activeProcessorCount
+
+    @Flag(name: .shortAndLong, help: "enable verbose logging")
+    var verbose: Bool = false
+
     mutating func run() throws {
-        let img1Path = URL(fileURLWithPath: pathOfImage1).standardizedFileURL
-        let img2Path = URL(fileURLWithPath: pathOfImage2).standardizedFileURL
-        let diffPath = URL(fileURLWithPath: pathOfOutputImage)
+        let img1URL = URL(fileURLWithPath: pathOfImage1).standardizedFileURL
+        let img2URL = URL(fileURLWithPath: pathOfImage2).standardizedFileURL
+        let outputURL = URL(fileURLWithPath: pathOfOutputImage)
 
         let antiAliasingColor = NSColor(hex: antiAliasingColorHex)
         let diffColor = NSColor(hex: diffColorHex)
@@ -62,24 +75,26 @@ struct PixelMatchCommand: ParsableCommand {
                 UInt8(diffColor.greenComponent * 255.0),
                 UInt8(diffColor.blueComponent * 255.0)
             ),
-            diffMask: diffMask
+            diffMask: diffMask,
+            maximumThreadCount: maximumThreadCount,
+            verbose: verbose
         )
 
-        guard let nsimg1 = NSImage(contentsOf: img1Path) else {
-            // TODO: error type
-            throw PixelMatchService.Error.fileDoesNotExist(url: img1Path)
+        let img1Data = try Data(contentsOf: img1URL)
+        guard let nsimg1 = NSImage(data: img1Data) else {
+            throw PixelMatchService.Error.cannotLoadImage(url: img1URL)
         }
         let img1 = JSTPixelImage(nsImage: nsimg1)
-        
-        guard let nsimg2 = NSImage(contentsOf: img2Path) else {
-            throw PixelMatchService.Error.fileDoesNotExist(url: img2Path)
+
+        let img2Data = try Data(contentsOf: img2URL)
+        guard let nsimg2 = NSImage(data: img2Data) else {
+            throw PixelMatchService.Error.cannotLoadImage(url: img2URL)
         }
         let img2 = JSTPixelImage(nsImage: nsimg2)
 
         let output = try PixelMatchCommand.service.performConcurrentPixelMatch(img1, img2, options: opts)
         try output
             .pngRepresentation()
-            .write(to: diffPath)
-
+            .write(to: outputURL)
     }
 }
