@@ -408,7 +408,6 @@
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD9989276A16FC0012E5AF /* SwiftExif */; };
-		CCFD999A276A27490012E5AF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD9991276A240E0012E5AF /* libiconv.tbd */; };
 		CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD999D276A281B0012E5AF /* gettext-wrapper */; };
 		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
@@ -1625,7 +1624,6 @@
 				CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */,
 				CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */,
 				CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */,
-				CCFD999A276A27490012E5AF /* libiconv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

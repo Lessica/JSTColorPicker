@@ -13,8 +13,7 @@ let package = Package(
         .library(
             name: "gettext-wrapper",
             targets: [
-                "gettext-libintl",
-                "gettext-libasprintf",
+                "gettext-wrapper",
             ]
         ),
     ],
@@ -27,7 +26,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "gettext-wrapper",
-            dependencies: [],
+            dependencies: [
+                "gettext-libintl",
+                "gettext-libasprintf",
+                "libexif",
+                "libiptcdata",
+            ],
             linkerSettings: [
                 .linkedLibrary("iconv")
             ]
@@ -39,6 +43,14 @@ let package = Package(
         .binaryTarget(
             name: "gettext-libasprintf",
             path: "./libasprintf.xcframework"
+        ),
+        .binaryTarget(
+            name: "libexif",
+            path: "./libexif.xcframework"
+        ),
+        .binaryTarget(
+            name: "libiptcdata",
+            path: "./libiptcdata.xcframework"
         ),
     ]
 )
