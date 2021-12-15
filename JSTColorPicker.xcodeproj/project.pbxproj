@@ -3483,7 +3483,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
 					0F87C3572769D6620006F446 = {
@@ -4830,6 +4830,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4843,6 +4844,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;

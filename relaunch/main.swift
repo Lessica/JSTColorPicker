@@ -46,12 +46,7 @@ autoreleasepool {
         CFRunLoopRun() // wait KVO notification
         app.removeObserver(listener, forKeyPath: "isTerminated", context: nil)
         
-        // relaunch
-        do {
-            try NSWorkspace.shared.launchApplication(at: bundleURL, configuration: [:])
-        } catch {
-            fatalError("Relaunch: NSWorkspace.shared().launchApplication failed.")
-        }
+        NSWorkspace.shared.openApplication(at: bundleURL, configuration: .init())
     }
     
 }
