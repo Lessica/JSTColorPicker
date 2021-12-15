@@ -17,7 +17,6 @@ struct PixelMatchCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "pixelmatch",
         abstract: "compute difference between two images with the same dimension pixel by pixel",
-        discussion: "",
         version: "2.10"
     )
 

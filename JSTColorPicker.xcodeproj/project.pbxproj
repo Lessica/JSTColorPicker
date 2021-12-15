@@ -1156,7 +1156,6 @@
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC1B01512636F896002EECF5 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxHeaderCell.swift; sourceTree = "<group>"; };
-		CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pixelmatch.entitlements; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		CC236306264A3B19005E909A /* AnnotatorActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorActionResponder.swift; sourceTree = "<group>"; };
@@ -3016,7 +3015,6 @@
 		D690C960241A60DC00BB1652 /* PixelMatch */ = {
 			isa = PBXGroup;
 			children = (
-				CC2318AA25A479A000331BF6 /* pixelmatch.entitlements */,
 				D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */,
 				D690C961241A60DC00BB1652 /* PixelMatchCommand.swift */,
 			);
@@ -5553,10 +5551,12 @@
 		D690C964241A60DC00BB1652 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = PixelMatch/pixelmatch.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = pixelmatch;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
@@ -5565,8 +5565,7 @@
 		D690C965241A60DC00BB1652 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = PixelMatch/pixelmatch.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
