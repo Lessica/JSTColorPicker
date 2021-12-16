@@ -31,9 +31,11 @@ let package = Package(
                 "gettext-libasprintf",
                 "libexif",
                 "libiptcdata",
+                "libpng",
             ],
             linkerSettings: [
-                .linkedLibrary("iconv")
+                .linkedLibrary("iconv"),
+                .linkedLibrary("z"),
             ]
         ),
         .binaryTarget(
@@ -51,6 +53,10 @@ let package = Package(
         .binaryTarget(
             name: "libiptcdata",
             path: "./libiptcdata.xcframework"
+        ),
+        .binaryTarget(
+            name: "libpng",
+            path: "./libpng.xcframework"
         ),
     ]
 )
