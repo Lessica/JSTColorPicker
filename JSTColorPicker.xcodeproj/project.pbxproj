@@ -28,7 +28,6 @@
 		0F87C34C2769C7B90006F446 /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */; };
 		0F87C3512769CC600006F446 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0F87C3532769CCA00006F446 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		0F87C35B2769D6620006F446 /* PixelExifCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87C35A2769D6620006F446 /* PixelExifCommand.swift */; };
 		0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FCB2D32275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */; };
 		0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = 0FF4701B276206CE00F46554 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -287,7 +286,6 @@
 		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
-		CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA129D2769F544004BA44A /* ArgumentParser */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
@@ -398,16 +396,6 @@
 		CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF7F1532618D38100ED16B7 /* InspectorView.xib */; };
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
-		CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD9989276A16FC0012E5AF /* SwiftExif */; };
-		CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCFD999D276A281B0012E5AF /* gettext-wrapper */; };
-		CCFD999F276A37700012E5AF /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9223D6EC4F00DA1750 /* Content.swift */; };
-		CCFD99A0276A37740012E5AF /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49E23E807600039F4F6 /* ContentItem.swift */; };
-		CCFD99A1276A377C0012E5AF /* PixelCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49823E805340039F4F6 /* PixelCoordinate.swift */; };
-		CCFD99A2276A377C0012E5AF /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49A23E805560039F4F6 /* PixelSize.swift */; };
-		CCFD99A4276A377C0012E5AF /* PixelRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49C23E805EA0039F4F6 /* PixelRect.swift */; };
-		CCFD99A6276A377C0012E5AF /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
-		CCFD99A8276A377C0012E5AF /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
-		CCFD99A9276A377C0012E5AF /* PixelArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A023E8080E0039F4F6 /* PixelArea.swift */; };
 		CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
 		CCFD99B0276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
 		CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */; };
@@ -416,12 +404,8 @@
 		CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */; };
 		CCFD99B6276A391D0012E5AF /* PixelRect+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */; };
 		CCFD99B7276A391D0012E5AF /* PixelRect+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */; };
-		CCFD99B8276A39350012E5AF /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
-		CCFD99BC276A3A260012E5AF /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
-		CCFD99BE276A3A790012E5AF /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
 		CCFD99C2276A3AC30012E5AF /* Content+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */; };
 		CCFD99C3276A3AC40012E5AF /* Content+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */; };
-		CCFD99CB276A3B8D0012E5AF /* CoreGraphics+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */; };
 		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
@@ -902,15 +886,6 @@
 			name = "Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F87C3562769D6620006F446 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		0FF4701E2762070100F46554 /* Copy Embed Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1105,8 +1080,6 @@
 		0F4E875D2764C75C0048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875E2764C75C0048882B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
 		0F7AE629276718D600D818E5 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
-		0F87C3582769D6620006F446 /* pixelexif */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelexif; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F87C35A2769D6620006F446 /* PixelExifCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelExifCommand.swift; sourceTree = "<group>"; };
 		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
 		0FF2ADDF2764D4A600BA5C6B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0FF2ADE02764D4A600BA5C6B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
@@ -1374,7 +1347,6 @@
 		CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelSegment+Lua.swift"; sourceTree = "<group>"; };
 		CCFD99AE276A38D90012E5AF /* PixelSize+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelSize+Lua.swift"; sourceTree = "<group>"; };
 		CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelRect+Lua.swift"; sourceTree = "<group>"; };
-		CCFD99BB276A39D30012E5AF /* PixelExif-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelExif-Bridging-Header.h"; sourceTree = "<group>"; };
 		CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+Lua.swift"; sourceTree = "<group>"; };
 		CCFECFAA262D50D0001F6467 /* open_console.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_console.scpt; sourceTree = "<group>"; };
 		CCFECFBB262D5152001F6467 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -1636,17 +1608,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0F87C3552769D6620006F446 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCFD99B8276A39350012E5AF /* libpixel.a in Frameworks */,
-				CCFD998A276A16FC0012E5AF /* SwiftExif in Frameworks */,
-				CCAA129E2769F544004BA44A /* ArgumentParser in Frameworks */,
-				CCFD999E276A281B0012E5AF /* gettext-wrapper in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F3924286AA30034F21C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1810,15 +1771,6 @@
 				0F4E87582764C7040048882B /* csreq.dat.enc */,
 			);
 			path = Sparkle;
-			sourceTree = "<group>";
-		};
-		0F87C3592769D6620006F446 /* PixelExif */ = {
-			isa = PBXGroup;
-			children = (
-				CCFD99BB276A39D30012E5AF /* PixelExif-Bridging-Header.h */,
-				0F87C35A2769D6620006F446 /* PixelExifCommand.swift */,
-			);
-			path = PixelExif;
 			sourceTree = "<group>";
 		};
 		0FF470162762068400F46554 /* bin */ = {
@@ -2816,7 +2768,6 @@
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
-				0F87C3592769D6620006F446 /* PixelExif */,
 				D60B0F8824288CF20034F21C /* pixel */,
 				D68A1FD42498B17F001E3FDA /* relaunch */,
 				D658AF9B23CB180C0098C567 /* Products */,
@@ -2838,7 +2789,6 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
-				0F87C3582769D6620006F446 /* pixelexif */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3251,28 +3201,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0F87C3572769D6620006F446 /* PixelExif */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F87C35E2769D6620006F446 /* Build configuration list for PBXNativeTarget "PixelExif" */;
-			buildPhases = (
-				0F87C3542769D6620006F446 /* Sources */,
-				0F87C3552769D6620006F446 /* Frameworks */,
-				0F87C3562769D6620006F446 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PixelExif;
-			packageProductDependencies = (
-				CCAA129D2769F544004BA44A /* ArgumentParser */,
-				CCFD9989276A16FC0012E5AF /* SwiftExif */,
-				CCFD999D276A281B0012E5AF /* gettext-wrapper */,
-			);
-			productName = PixelExif;
-			productReference = 0F87C3582769D6620006F446 /* pixelexif */;
-			productType = "com.apple.product-type.tool";
-		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
@@ -3520,9 +3448,6 @@
 				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = JST;
 				TargetAttributes = {
-					0F87C3572769D6620006F446 = {
-						CreatedOnToolsVersion = 13.1;
-					};
 					CC7D6749266DDB5C002099AD = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -3592,7 +3517,6 @@
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
-				0F87C3572769D6620006F446 /* PixelExif */,
 				D60B0F8624288CF20034F21C /* pixel */,
 				D68A1FD22498B17F001E3FDA /* relaunch */,
 				CC7D6749266DDB5C002099AD /* PauseForSounds */,
@@ -3834,25 +3758,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0F87C3542769D6620006F446 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCFD99A6276A377C0012E5AF /* PixelSegment.swift in Sources */,
-				CCFD99A0276A37740012E5AF /* ContentItem.swift in Sources */,
-				CCFD99CB276A3B8D0012E5AF /* CoreGraphics+Ext.swift in Sources */,
-				0F87C35B2769D6620006F446 /* PixelExifCommand.swift in Sources */,
-				CCFD99A1276A377C0012E5AF /* PixelCoordinate.swift in Sources */,
-				CCFD99BC276A3A260012E5AF /* Color+HSV.swift in Sources */,
-				CCFD99A2276A377C0012E5AF /* PixelSize.swift in Sources */,
-				CCFD99A8276A377C0012E5AF /* PixelColor.swift in Sources */,
-				CCFD99A4276A377C0012E5AF /* PixelRect.swift in Sources */,
-				CCFD99A9276A377C0012E5AF /* PixelArea.swift in Sources */,
-				CCFD99BE276A3A790012E5AF /* OrderedSet.swift in Sources */,
-				CCFD999F276A37700012E5AF /* Content.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F3824286AA30034F21C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4871,38 +4776,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0F87C35C2769D6620006F446 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GXZ23M5TP2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = pixelexif;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		0F87C35D2769D6620006F446 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GXZ23M5TP2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = pixelexif;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		CC7D674B266DDB5C002099AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5041,7 +4914,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -5079,7 +4951,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -5269,7 +5140,6 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5309,7 +5179,6 @@
 					"\"$(PROJECT_DIR)/JSTScreenshotHelper/lib/\"",
 					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5487,7 +5356,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -5526,7 +5394,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.10;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
@@ -5618,7 +5485,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_NAME = pixelmatch;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
@@ -5633,7 +5499,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_NAME = pixelmatch;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -5645,15 +5510,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0F87C35E2769D6620006F446 /* Build configuration list for PBXNativeTarget "PixelExif" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F87C35C2769D6620006F446 /* Debug */,
-				0F87C35D2769D6620006F446 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		CC7D674A266DDB5C002099AD /* Build configuration list for PBXAggregateTarget "PauseForSounds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5928,11 +5784,6 @@
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
 		};
-		CCAA129D2769F544004BA44A /* ArgumentParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
-			productName = ArgumentParser;
-		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
@@ -5942,15 +5793,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
 			productName = SyntaxKit;
-		};
-		CCFD9989276A16FC0012E5AF /* SwiftExif */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */;
-			productName = SwiftExif;
-		};
-		CCFD999D276A281B0012E5AF /* gettext-wrapper */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "gettext-wrapper";
 		};
 /* End XCSwiftPackageProductDependency section */
 
