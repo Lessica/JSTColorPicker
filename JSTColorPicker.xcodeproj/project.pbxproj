@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0F5BBA0D276F3B3300AF0DC8 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 0F5BBA03276F3B3300AF0DC8 /* ArgumentParser */; };
+		0F5BBA0E276F3B3300AF0DC8 /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
 		0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
 		0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7AE629276718D600D818E5 /* QuickLook.framework */; platformFilter = maccatalyst; };
 		0F7AE62E2767B56300D818E5 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 0F7AE62D2767B56300D818E5 /* ArgumentParser */; };
@@ -746,6 +748,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0F5BBA02276F3B3300AF0DC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D60B0F8624288CF20034F21C;
+			remoteInfo = pixel;
+		};
 		0F87C34F2769CC530006F446 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -875,6 +884,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0F5BBA0F276F3B3300AF0DC8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		0F87C3522769CC700006F446 /* Embed Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -960,16 +978,6 @@
 				D63FE1E3242B25BB00F1982A /* JSTScreenshotHelper.xpc in Embed XPC Services */,
 			);
 			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D60B0F7524288CB70034F21C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D61047DA24224A170002E990 /* Embed Frameworks */ = {
@@ -1079,6 +1087,7 @@
 		0F4E87592764C7040048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875D2764C75C0048882B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
 		0F4E875E2764C75C0048882B /* csreq.dat.enc */ = {isa = PBXFileReference; lastKnownFileType = file; path = csreq.dat.enc; sourceTree = "<group>"; };
+		0F5BBA14276F3B3300AF0DC8 /* pixelexif */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelexif; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7AE629276718D600D818E5 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Ext.swift"; sourceTree = "<group>"; };
 		0FF2ADDF2764D4A600BA5C6B /* csreq.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = csreq.dat; sourceTree = "<group>"; };
@@ -1608,6 +1617,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0F5BBA0C276F3B3300AF0DC8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F5BBA0D276F3B3300AF0DC8 /* ArgumentParser in Frameworks */,
+				0F5BBA0E276F3B3300AF0DC8 /* libpixel.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3924286AA30034F21C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1771,6 +1789,13 @@
 				0F4E87582764C7040048882B /* csreq.dat.enc */,
 			);
 			path = Sparkle;
+			sourceTree = "<group>";
+		};
+		0F5BBA15276F3B7D00AF0DC8 /* PixelExif */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PixelExif;
 			sourceTree = "<group>";
 		};
 		0FF470162762068400F46554 /* bin */ = {
@@ -2768,6 +2793,7 @@
 				D628349D23F8E6D10016573B /* LuaSwift */,
 				D628350E23F8EAAA0016573B /* LuaC */,
 				D690C960241A60DC00BB1652 /* PixelMatch */,
+				0F5BBA15276F3B7D00AF0DC8 /* PixelExif */,
 				D60B0F8824288CF20034F21C /* pixel */,
 				D68A1FD42498B17F001E3FDA /* relaunch */,
 				D658AF9B23CB180C0098C567 /* Products */,
@@ -2789,6 +2815,7 @@
 				D60B0F8724288CF20034F21C /* libpixel.a */,
 				D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */,
 				D68A1FD32498B17F001E3FDA /* relaunch */,
+				0F5BBA14276F3B3300AF0DC8 /* pixelexif */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3201,6 +3228,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0F5BBA00276F3B3300AF0DC8 /* PixelExif */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F5BBA11276F3B3300AF0DC8 /* Build configuration list for PBXNativeTarget "PixelExif" */;
+			buildPhases = (
+				0F5BBA05276F3B3300AF0DC8 /* Sources */,
+				0F5BBA0C276F3B3300AF0DC8 /* Frameworks */,
+				0F5BBA0F276F3B3300AF0DC8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0F5BBA01276F3B3300AF0DC8 /* PBXTargetDependency */,
+			);
+			name = PixelExif;
+			packageProductDependencies = (
+				0F5BBA03276F3B3300AF0DC8 /* ArgumentParser */,
+			);
+			productName = PixelMatch;
+			productReference = 0F5BBA14276F3B3300AF0DC8 /* pixelexif */;
+			productType = "com.apple.product-type.tool";
+		};
 		D60B0F3B24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D60B0F4B24286AA30034F21C /* Build configuration list for PBXNativeTarget "JSTScreenshotHelper" */;
@@ -3422,7 +3470,6 @@
 				D690C95B241A60DC00BB1652 /* Sources */,
 				D690C95C241A60DC00BB1652 /* Frameworks */,
 				D690C95D241A60DC00BB1652 /* CopyFiles */,
-				D60B0F7524288CB70034F21C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3517,6 +3564,7 @@
 				D62834ED23F8E9DB0016573B /* LuaSwift */,
 				D628350C23F8EAAA0016573B /* LuaC */,
 				D690C95E241A60DC00BB1652 /* PixelMatch */,
+				0F5BBA00276F3B3300AF0DC8 /* PixelExif */,
 				D60B0F8624288CF20034F21C /* pixel */,
 				D68A1FD22498B17F001E3FDA /* relaunch */,
 				CC7D6749266DDB5C002099AD /* PauseForSounds */,
@@ -3758,6 +3806,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0F5BBA05276F3B3300AF0DC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D60B0F3824286AA30034F21C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4346,6 +4401,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0F5BBA01276F3B3300AF0DC8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D60B0F8624288CF20034F21C /* pixel */;
+			targetProxy = 0F5BBA02276F3B3300AF0DC8 /* PBXContainerItemProxy */;
+		};
 		0F87C3502769CC530006F446 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
@@ -4776,6 +4836,35 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0F5BBA12276F3B3300AF0DC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = pixelexif;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0F5BBA13276F3B3300AF0DC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = pixelexif;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(TARGET_NAME)/$(TARGET_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		CC7D674B266DDB5C002099AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5510,6 +5599,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0F5BBA11276F3B3300AF0DC8 /* Build configuration list for PBXNativeTarget "PixelExif" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F5BBA12276F3B3300AF0DC8 /* Debug */,
+				0F5BBA13276F3B3300AF0DC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CC7D674A266DDB5C002099AD /* Build configuration list for PBXAggregateTarget "PauseForSounds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5621,6 +5719,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0F5BBA04276F3B3300AF0DC8 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
@@ -5704,6 +5810,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0F5BBA03276F3B3300AF0DC8 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F5BBA04276F3B3300AF0DC8 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
 		0F7AE62D2767B56300D818E5 /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
