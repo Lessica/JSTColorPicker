@@ -53,47 +53,53 @@ struct PixelMatchCommand: ParsableCommand {
     @Flag(name: .shortAndLong, help: "enable verbose logging")
     var verbose: Bool = false
 
-    mutating func run() throws {
-        let img1URL = URL(fileURLWithPath: pathOfImage1).standardizedFileURL
-        let img2URL = URL(fileURLWithPath: pathOfImage2).standardizedFileURL
-        let outputURL = URL(fileURLWithPath: pathOfOutputImage)
+    func run() throws {
+        do {
+            let img1URL = URL(fileURLWithPath: pathOfImage1).standardizedFileURL
+            let img2URL = URL(fileURLWithPath: pathOfImage2).standardizedFileURL
+            let outputURL = URL(fileURLWithPath: pathOfOutputImage)
 
-        let antiAliasingColor = NSColor(hex: antiAliasingColorHex)
-        let diffColor = NSColor(hex: diffColorHex)
-        let opts = MatchOptions(
-            threshold: threshold,
-            includeAA: !skipAntiAliasing,
-            alpha: alpha,
-            aaColor: (
-                UInt8(antiAliasingColor.redComponent * 255.0),
-                UInt8(antiAliasingColor.greenComponent * 255.0),
-                UInt8(antiAliasingColor.blueComponent * 255.0)
-            ),
-            diffColor: (
-                UInt8(diffColor.redComponent * 255.0),
-                UInt8(diffColor.greenComponent * 255.0),
-                UInt8(diffColor.blueComponent * 255.0)
-            ),
-            diffMask: diffMask,
-            maximumThreadCount: maximumThreadCount,
-            verbose: verbose
-        )
+            let antiAliasingColor = NSColor(hex: antiAliasingColorHex)
+            let diffColor = NSColor(hex: diffColorHex)
+            let opts = MatchOptions(
+                threshold: threshold,
+                includeAA: !skipAntiAliasing,
+                alpha: alpha,
+                aaColor: (
+                    UInt8(antiAliasingColor.redComponent * 255.0),
+                    UInt8(antiAliasingColor.greenComponent * 255.0),
+                    UInt8(antiAliasingColor.blueComponent * 255.0)
+                ),
+                diffColor: (
+                    UInt8(diffColor.redComponent * 255.0),
+                    UInt8(diffColor.greenComponent * 255.0),
+                    UInt8(diffColor.blueComponent * 255.0)
+                ),
+                diffMask: diffMask,
+                maximumThreadCount: maximumThreadCount,
+                verbose: verbose
+            )
 
-        let img1Data = try Data(contentsOf: img1URL)
-        guard let nsimg1 = NSImage(data: img1Data) else {
-            throw PixelMatchService.Error.cannotLoadImage(url: img1URL)
+            let img1Data = try Data(contentsOf: img1URL)
+            guard let nsimg1 = NSImage(data: img1Data) else {
+                throw PixelMatchService.Error.cannotLoadImage(url: img1URL)
+            }
+            let img1 = JSTPixelImage(nsImage: nsimg1)
+
+            let img2Data = try Data(contentsOf: img2URL)
+            guard let nsimg2 = NSImage(data: img2Data) else {
+                throw PixelMatchService.Error.cannotLoadImage(url: img2URL)
+            }
+            let img2 = JSTPixelImage(nsImage: nsimg2)
+
+            let output = try PixelMatchCommand.service.performConcurrentPixelMatch(img1, img2, options: opts)
+            try output
+                .pngRepresentation()
+                .write(to: outputURL)
+        } catch {
+            var outputStream = StandardErrorOutputStream()
+            print(error.localizedDescription, to: &outputStream)
+            throw error
         }
-        let img1 = JSTPixelImage(nsImage: nsimg1)
-
-        let img2Data = try Data(contentsOf: img2URL)
-        guard let nsimg2 = NSImage(data: img2Data) else {
-            throw PixelMatchService.Error.cannotLoadImage(url: img2URL)
-        }
-        let img2 = JSTPixelImage(nsImage: nsimg2)
-
-        let output = try PixelMatchCommand.service.performConcurrentPixelMatch(img1, img2, options: opts)
-        try output
-            .pngRepresentation()
-            .write(to: outputURL)
     }
 }

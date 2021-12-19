@@ -97,17 +97,8 @@ final class Screenshot: NSDocument {
     // MARK: - Attributes
     
     public fileprivate(set) var image    : PixelImage?
+    public fileprivate(set) var metadata : [AnyHashable: Any]?
     public fileprivate(set) var content  : Content?
-    
-    public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
-    public func testExportCondition() throws {
-        #if APP_STORE
-        guard PurchaseManager.shared.getProductType() == .subscribed
-        else {
-            throw Error.platformSubscriptionRequired
-        }
-        #endif
-    }
     
     public var state         : State
     {
@@ -115,13 +106,6 @@ final class Screenshot: NSDocument {
         else if isInViewingMode                 { return .restricted }
         else if isLocked                        { return .readable   }
         return .writeable
-    }
-    
-    private var appDelegate  : AppDelegate! { AppDelegate.shared }
-    private var tabService   : TabService?
-    {
-        get { appDelegate.tabService            }
-        set { appDelegate.tabService = newValue }
     }
     
     
@@ -140,7 +124,8 @@ final class Screenshot: NSDocument {
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             throw Error.invalidImageProperties
         }
-        
+        self.metadata = metadata
+
         guard let EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
         guard let archivedContentBase64EncodedString = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? String else { return }
         if let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
@@ -235,13 +220,6 @@ final class Screenshot: NSDocument {
         return true
     }
     
-    override func revert(toContentsOf url: URL, ofType typeName: String) throws {
-        try super.revert(toContentsOf: url, ofType: typeName)
-        try windowControllers
-            .compactMap({ $0 as? WindowController })
-            .forEach({ try $0.load(self) })
-    }
-    
     @objc dynamic override var fileURL: URL? {
         willSet {
             guard let image = image, let url = newValue else { return }
@@ -253,8 +231,23 @@ final class Screenshot: NSDocument {
     override class var autosavesDrafts    : Bool { true }
     override class var preservesVersions  : Bool { true }
     
-    
+
+#if WITH_COCOA
     // MARK: - Controllers
+
+    private var appDelegate  : AppDelegate! { AppDelegate.shared }
+    private var tabService   : TabService?
+    {
+        get { appDelegate.tabService            }
+        set { appDelegate.tabService = newValue }
+    }
+
+    override func revert(toContentsOf url: URL, ofType typeName: String) throws {
+        try super.revert(toContentsOf: url, ofType: typeName)
+        try windowControllers
+            .compactMap({ $0 as? WindowController })
+            .forEach({ try $0.load(self) })
+    }
     
     override func makeWindowControllers() {
         do {
@@ -292,6 +285,15 @@ final class Screenshot: NSDocument {
 
     // MARK: - Content Extraction
 
+    public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
+    public func testExportCondition() throws {
+        #if APP_STORE
+        guard PurchaseManager.shared.getProductType() == .subscribed
+        else {
+            throw Error.platformSubscriptionRequired
+        }
+        #endif
+    }
     private(set) var isExtractingContentItems: Bool = false
 
     func extractContentItems(
@@ -335,226 +337,7 @@ final class Screenshot: NSDocument {
             }
         }
     }
-    
-}
-
-
-// MARK: - Menu Items
-
-extension Screenshot {
-    
-    private var associatedWindowController: WindowController? { windowControllers.first as? WindowController }
-
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(copyAll(_:))
-            || menuItem.action == #selector(exportAll(_:))
-        {
-            guard let template = TemplateManager.shared.selectedTemplate else { return false }
-
-            if menuItem.action == #selector(exportAll(_:)) {
-                guard template.saveInPlace || template.allowedExtensions.count > 0 else { return false }
-            }
-        }
-        return super.validateMenuItem(menuItem)
-    }
-    
-    @IBAction private func copyAll(_ sender: Any) {
-        guard let template = TemplateManager.shared.selectedTemplate else {
-            presentError(ExportManager.Error.noTemplateSelected)
-            return
-        }
-        
-        if template.isAsync {
-            copyAllContentItemsAsync(with: template)
-        } else {
-            copyAllContentItems(with: template)
-        }
-    }
-    
-    @IBAction private func exportAll(_ sender: Any) {
-        guard let window = associatedWindowController?.window else { return }
-        guard let template = TemplateManager.shared.selectedTemplate else {
-            presentError(ExportManager.Error.noTemplateSelected)
-            return
-        }
-        guard template.saveInPlace || template.allowedExtensions.count > 0 else {
-            presentError(ExportManager.Error.noExtensionSpecified)
-            return
-        }
-
-        if !template.saveInPlace {
-            let panel = NSSavePanel()
-            let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
-            panel.accessoryView = exportOptionView
-            panel.nameFieldStringValue = String(format: NSLocalizedString("%@ Exported %ld Items", comment: "exportAll(_:)"), displayName ?? "", content?.items.count ?? 0)
-            panel.allowedFileTypes = template.allowedExtensions
-            panel.beginSheetModal(for: window) { [unowned self] (resp) in
-                if resp == .OK {
-                    if let url = panel.url {
-                        if template.isAsync {
-                            self.exportAllContentItemsAsync(
-                                to: url,
-                                with: template,
-                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
-                            )
-                        } else {
-                            self.exportAllContentItems(
-                                to: url,
-                                with: template,
-                                byLocatingAfterOperation: exportOptionView?.locateAfterOperation ?? false
-                            )
-                        }
-                    }
-                }
-            }
-        } else {
-            if template.isAsync {
-                self.exportAllContentItemsAsyncInPlace(with: template)
-            } else {
-                self.exportAllContentItemsInPlace(with: template)
-            }
-        }
-    }
-    
-    private func copyAllContentItems(with template: Template) {
-        do {
-            try export.copyAllContentItems(with: template)
-        } catch {
-            presentError(error)
-        }
-    }
-
-    private func copyAllContentItemsAsync(with template: Template) {
-        guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
-            try export.copyAllContentItems(with: tmpl)
-        }
-    }
-    
-    private func exportAllContentItems(
-        to url: URL,
-        with template: Template,
-        byLocatingAfterOperation locate: Bool
-    ) {
-        do {
-            try export.exportAllContentItems(to: url, with: template)
-            if locate {
-                NSWorkspace.shared.activateFileViewerSelecting([url])
-            }
-        } catch {
-            presentError(error)
-        }
-    }
-
-    private func exportAllContentItemsInPlace(with template: Template) {
-        do {
-            try export.exportAllContentItemsInPlace(with: template)
-        } catch {
-            presentError(error)
-        }
-    }
-
-    private func exportAllContentItemsAsync(
-        to url: URL,
-        with template: Template,
-        byLocatingAfterOperation locate: Bool
-    ) {
-        guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
-            try self.export.exportAllContentItems(to: url, with: tmpl)
-        } completionHandler: { (succeed) in
-            if succeed && locate {
-                NSWorkspace.shared.activateFileViewerSelecting([url])
-            }
-        }
-
-    }
-
-    private func exportAllContentItemsAsyncInPlace(with template: Template) {
-        guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
-            try self.export.exportAllContentItemsInPlace(with: tmpl)
-        }
-    }
-    
-}
-
-
-// MARK: - Restorable States
-
-extension Screenshot {
-
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-    }
-
-    override func restoreState(with coder: NSCoder) {
-        super.restoreState(with: coder)
-    }
-
-}
-
-
-// MARK: - Error Presenting
-
-extension Screenshot {
-    override func willPresentError(_ error: Swift.Error) -> Swift.Error {
-        debugPrint(error)
-        return super.willPresentError(error)
-    }
-    
-    #if APP_STORE
-    @discardableResult
-    private func presentPlatformSubscriptionRequiredError(_ error: Swift.Error) -> Bool {
-        let alert = NSAlert()
-        alert.alertStyle = .informational
-        alert.messageText = error.localizedDescription
-        alert.addButton(withTitle: NSLocalizedString("Subscribe…", comment: "presentError(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Later", comment: "presentError(_:)"))
-        let retVal = alert.runModal() == .alertFirstButtonReturn
-        if retVal {
-            PurchaseWindowController.shared.showWindow(self)
-        }
-        return retVal
-    }
-    #endif
-    
-    private func presentAdditionalError(_ error: Swift.Error) -> Bool {
-        #if APP_STORE
-        if let error = error as? Screenshot.Error {
-            switch error {
-            case .platformSubscriptionRequired:
-                presentPlatformSubscriptionRequiredError(error)
-                return true
-            default:
-                break
-            }
-        } else {
-            let error = error as NSError
-            if error.code == Screenshot.Error.platformSubscriptionRequired.errorCode {
-                presentPlatformSubscriptionRequiredError(error)
-                return true
-            }
-        }
-        #endif
-        return false
-    }
-    
-    @discardableResult
-    override func presentError(_ error: Swift.Error) -> Bool {
-        if presentAdditionalError(error) {
-            return true
-        }
-        return super.presentError(error)
-    }
-}
-
-
-// MARK: - Print Operation
-
-extension Screenshot {
-    
-    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
-        fatalError("not implemented")
-    }
+#else
+    public func testExportCondition() throws {}
+#endif
 }

@@ -25,5 +25,4 @@ extension Content: LuaSwift.Value {
         if value.kind() != .table { return typeName }
         return nil
     }
-    
 }

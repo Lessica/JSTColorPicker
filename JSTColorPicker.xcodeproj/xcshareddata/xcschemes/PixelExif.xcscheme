@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0F5BBA00276F3B3300AF0DC8"
-               BuildableName = "PixelMatch copy"
+               BuildableName = "pixelexif"
                BlueprintName = "PixelExif"
                ReferencedContainer = "container:JSTColorPicker.xcodeproj">
             </BuildableReference>
@@ -45,11 +45,25 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F5BBA00276F3B3300AF0DC8"
-            BuildableName = "PixelMatch copy"
+            BuildableName = "pixelexif"
             BlueprintName = "PixelExif"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "enteries"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--jsonify"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/zheng/Desktop/rpi_cellulariot_app_shield_pinout-e1545901898330.png"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -62,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F5BBA00276F3B3300AF0DC8"
-            BuildableName = "PixelMatch copy"
+            BuildableName = "pixelexif"
             BlueprintName = "PixelExif"
             ReferencedContainer = "container:JSTColorPicker.xcodeproj">
          </BuildableReference>

@@ -7,7 +7,9 @@
 //
 
 import Cocoa
+#if WITH_LUASWIFT
 import LuaSwift
+#endif
 
 final class PixelImage {
     
@@ -18,18 +20,18 @@ final class PixelImage {
     
     enum Error: LocalizedError {
         
-        case readFailed
-        case loadSourceFailed
-        case loadImageFailed
+        case readFailed(_ url: URL)
+        case loadSourceFailed(_ url: URL)
+        case loadImageFailed(_ url: URL)
         
         var failureReason: String? {
             switch self {
-            case .readFailed:
-                return NSLocalizedString("File read failed.", comment: "PixelImageError")
-            case .loadSourceFailed:
-                return NSLocalizedString("Load image source failed.", comment: "PixelImageError")
-            case .loadImageFailed:
-                return NSLocalizedString("Load image data failed.", comment: "PixelImageError")
+            case .readFailed(let url):
+                return String(format: NSLocalizedString("File read failed: %@.", comment: "PixelImageError"), url.path)
+            case .loadSourceFailed(let url):
+                return String(format: NSLocalizedString("Load image source failed: %@.", comment: "PixelImageError"), url.path)
+            case .loadImageFailed(let url):
+                return String(format: NSLocalizedString("Load image data failed: %@.", comment: "PixelImageError"), url.path)
             }
         }
         
@@ -42,11 +44,11 @@ final class PixelImage {
     
     public init(contentsOf url: URL) throws {
         guard let dataProvider = CGDataProvider(filename: url.path) else {
-            throw PixelImage.Error.readFailed
+            throw PixelImage.Error.readFailed(url)
         }
         let imageSourceOptions = [kCGImageSourceShouldCache: true] as CFDictionary
         guard let cgimgSource = CGImageSourceCreateWithDataProvider(dataProvider, imageSourceOptions) else {
-            throw PixelImage.Error.loadSourceFailed
+            throw PixelImage.Error.loadSourceFailed(url)
         }
         
         var imageLoader: CGImage? = nil
@@ -61,7 +63,7 @@ final class PixelImage {
         }
         
         guard let cgimg = imageLoader else {
-            throw PixelImage.Error.loadImageFailed
+            throw PixelImage.Error.loadImageFailed(url)
         }
         
         self.cgImage                   = cgimg
@@ -121,6 +123,7 @@ final class PixelImage {
     
 }
 
+#if WITH_LUASWIFT
 extension PixelImage: LuaSwift.Value {
     
     func push(_ vm: VirtualMachine) {
@@ -178,4 +181,4 @@ extension PixelImage: LuaSwift.Value {
     }
     
 }
-
+#endif
