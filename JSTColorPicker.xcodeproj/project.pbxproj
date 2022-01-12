@@ -3595,7 +3595,6 @@
 				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
-				CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -5871,14 +5870,6 @@
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		CCFD9988276A16FC0012E5AF /* XCRemoteSwiftPackageReference "SwiftExif" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Lessica/SwiftExif.git";
 			requirement = {
 				branch = master;
 				kind = branch;
