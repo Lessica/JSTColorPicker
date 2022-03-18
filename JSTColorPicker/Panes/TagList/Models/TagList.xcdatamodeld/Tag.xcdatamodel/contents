@@ -7,11 +7,6 @@
         <attribute name="type" attributeType="String"/>
         <attribute name="validationRegex" optional="YES" attributeType="String"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="fields" inverseEntity="Tag"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="name"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="colorHex" attributeType="String" defaultValueString="#000000" regularExpressionString="#[0-9a-fA-F]{6}"/>

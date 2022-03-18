@@ -363,11 +363,11 @@ final class TagListController: StackedPaneController {
                     
                     var idx = 1
                     withInitialTags(context).forEach { (tag) in
-//                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
-//                        obj.order = Int64(idx)
-//                        obj.name = tag.name ?? "Untitled"
-//                        obj.colorHex = tag.colorHex ?? "#000000"
-//                        obj.tagDescription = tag.tagDescription ?? "No description."
+                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
+                        obj.order = Int64(idx)
+                        obj.name = tag.name
+                        obj.colorHex = tag.colorHex 
+                        obj.tagDescription = tag.tagDescription ?? "No description."
                         idx += 1
                     }
                     
