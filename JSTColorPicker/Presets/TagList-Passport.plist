@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>Photo</string>
+		<key>colorHex</key>
+		<string>#171E6D</string>
+		<key>tagDescription</key>
+		<string>Area of a random photo.</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Passport Type</string>
+		<key>colorHex</key>
+		<string>#1E3388</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Passport Code</string>
+		<key>colorHex</key>
+		<string>#27539B</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Passport Number</string>
+		<key>colorHex</key>
+		<string>#3073AE</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Surname / First Name</string>
+		<key>colorHex</key>
+		<string>#3993C2</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Given Names / Last Name</string>
+		<key>colorHex</key>
+		<string>#42B3D5</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Nationality</string>
+		<key>colorHex</key>
+		<string>#75C6D1</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Date of Birth</string>
+		<key>colorHex</key>
+		<string>#A9DACC</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Place of Birth</string>
+		<key>colorHex</key>
+		<string>#044E48</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Date of Issue</string>
+		<key>colorHex</key>
+		<string>#06746B</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Date of Expiration</string>
+		<key>colorHex</key>
+		<string>#20876B</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Endorsements</string>
+		<key>colorHex</key>
+		<string>#6A9A48</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Sex</string>
+		<key>colorHex</key>
+		<string>#B5AC23</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Authority</string>
+		<key>colorHex</key>
+		<string>#E6B80B</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Signature</string>
+		<key>colorHex</key>
+		<string>#FACA3E</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Font Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Font Size</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Color Hex</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Mask</string>
+		<key>colorHex</key>
+		<string>#FACA3E</string>
+		<key>fields</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Image Name</string>
+				<key>type</key>
+				<string>String</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Alpha Value</string>
+				<key>type</key>
+				<string>Double</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

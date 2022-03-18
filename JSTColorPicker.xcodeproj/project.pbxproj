@@ -413,6 +413,16 @@
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
+		CCF7C84527E4D3E90090B7F7 /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList.plist */; };
+		CCF7C84627E4D3E90090B7F7 /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList.plist */; };
+		CCF7C84827E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
+		CCF7C84927E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
+		CCF7C84E27E4ED4F0090B7F7 /* TagList-Passport.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */; };
+		CCF7C84F27E4ED500090B7F7 /* TagList-Passport.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */; };
+		CCF7C85127E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */; };
+		CCF7C85227E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */; };
+		CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */; };
+		CCF7C85527E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */; };
 		CCF7E84025A4776E00A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
 		CCF7E84825A4779000A99E4C /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CCF7E83F25A4776E00A99E4C /* AppIcon.icns */; };
 		CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F1352618CA2500ED16B7 /* InspectorView.swift */; };
@@ -656,8 +666,6 @@
 		D656CD50245E6EA8009EC41A /* SceneStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656CD4E245E6EA8009EC41A /* SceneStackedView.swift */; };
 		D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */; };
 		D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */; };
-		D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */; };
-		D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */; };
 		D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9D23CB180C0098C567 /* AppDelegate.swift */; };
 		D658AFA023CB180C0098C567 /* SplitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658AF9F23CB180C0098C567 /* SplitController.swift */; };
 		D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA123CB180D0098C567 /* Assets.xcassets */; };
@@ -1381,6 +1389,11 @@
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
 		CCF67A06255AC7B300061A51 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		CCF7C84427E4D3E90090B7F7 /* TagList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
+		CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagList-Passport.plist"; sourceTree = "<group>"; };
+		CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CCF7E83F25A4776E00A99E4C /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		CCF7F1352618CA2500ED16B7 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		CCF7F1522618D38100ED16B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InspectorView.xib; sourceTree = "<group>"; };
@@ -1548,7 +1561,6 @@
 		D64AF0B6240D0B62003A5B17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		D656CD4E245E6EA8009EC41A /* SceneStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStackedView.swift; sourceTree = "<group>"; };
 		D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D658AF9A23CB180C0098C567 /* JSTColorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSTColorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D658AF9D23CB180C0098C567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D658AF9F23CB180C0098C567 /* SplitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitController.swift; sourceTree = "<group>"; };
@@ -2582,6 +2594,15 @@
 			path = Defaults;
 			sourceTree = "<group>";
 		};
+		CCF7C84327E4D3C60090B7F7 /* Presets */ = {
+			isa = PBXGroup;
+			children = (
+				CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */,
+				CCF7C84427E4D3E90090B7F7 /* TagList.plist */,
+			);
+			path = Presets;
+			sourceTree = "<group>";
+		};
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2866,6 +2887,7 @@
 		D658AF9C23CB180C0098C567 /* JSTColorPicker */ = {
 			isa = PBXGroup;
 			children = (
+				CCF7C84327E4D3C60090B7F7 /* Presets */,
 				CCED7CDA262D689500F2C965 /* Info.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
@@ -3169,7 +3191,9 @@
 			children = (
 				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */,
-				D658584124811A7400BB2B6A /* Tag+CoreDataProperties.swift */,
+				CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */,
+				CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */,
+				CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */,
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
 			);
 			path = Models;
@@ -3656,6 +3680,7 @@
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				CC4422EE263AE56D00161852 /* Paste.aiff in Resources */,
+				CCF7C84E27E4ED4F0090B7F7 /* TagList-Passport.plist in Resources */,
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
 				CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */,
@@ -3664,6 +3689,7 @@
 				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
 				CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */,
+				CCF7C84527E4D3E90090B7F7 /* TagList.plist in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CC4422F0263AE56D00161852 /* Copy.aiff in Resources */,
 				CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
@@ -3700,12 +3726,14 @@
 				CC4422F1263AE56D00161852 /* Copy.aiff in Resources */,
 				CC4422EF263AE56D00161852 /* Paste.aiff in Resources */,
 				CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */,
+				CCF7C84627E4D3E90090B7F7 /* TagList.plist in Resources */,
 				CC5480A2275E4BE800B7652C /* Browser.storyboard in Resources */,
 				CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
 				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */,
+				CCF7C84F27E4ED500090B7F7 /* TagList-Passport.plist in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				CCC8BC5F263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
@@ -3962,6 +3990,7 @@
 				CC347712266F4B8B00391E73 /* AppDelegate+Device.swift in Sources */,
 				CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				CC04276E275E212B008DD0C5 /* FileSystemNode.m in Sources */,
+				CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
@@ -3976,6 +4005,7 @@
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
 				CC23633E264AEC51005E909A /* MenuKeyBindingManager.swift in Sources */,
 				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
+				CCF7C85127E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */,
 				CC300F4A26285E27002FD866 /* TemplateCellView.swift in Sources */,
 				CC236322264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
 				D610479324224A170002E990 /* Cocoa+Ext.swift in Sources */,
@@ -4092,7 +4122,6 @@
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
 				CC042770275E212B008DD0C5 /* PreviewViewController.m in Sources */,
 				CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */,
-				D658584424811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
@@ -4111,6 +4140,7 @@
 				D6E4252C24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
 				D61047C224224A170002E990 /* CoreGraphics+Ext.swift in Sources */,
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
+				CCF7C84827E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */,
 				CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */,
 				CC96F94326727E6F00CB55E9 /* Device.swift in Sources */,
@@ -4209,7 +4239,6 @@
 				CC236333264AE889005E909A /* Shortcut.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
-				D658584524811A7400BB2B6A /* Tag+CoreDataProperties.swift in Sources */,
 				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
 				CCFD99B7276A391D0012E5AF /* PixelRect+Lua.swift in Sources */,
@@ -4256,6 +4285,7 @@
 				CC347716266F4D8000391E73 /* AppDelegate+Template.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
+				CCF7C85227E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
@@ -4343,6 +4373,7 @@
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
+				CCF7C85527E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				D60C88CD23D5B23700DE5DF6 /* GridWindow.swift in Sources */,
 				CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
@@ -4375,6 +4406,7 @@
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
 				CC236321264AE7AB005E909A /* MainMenu.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
+				CCF7C84927E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */,
 				CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,

@@ -223,37 +223,13 @@ final class TagListController: StackedPaneController {
                 object: nil
             )
         } else {
-            TagListController.setupPersistentStore(withInitialTags: { () -> ([(String, String)]) in
-                return [
-                    
-                    /* Controls */
-                    ("Button",         "#171E6D"),
-                    ("Switch",         "#1E3388"),
-                    ("Slider",         "#27539B"),
-                    ("Checkbox",       "#3073AE"),
-                    ("Radio",          "#3993C2"),
-                    ("TextField",      "#42B3D5"),
-                    ("Rate",           "#75C6D1"),
-                    ("BackTop",        "#A9DACC"),
-                    
-                    /* Displays */
-                    ("Label",          "#044E48"),
-                    ("Badge",          "#06746B"),
-                    ("Media",          "#20876B"),
-                    ("Box",            "#6A9A48"),
-                    ("Hud",            "#B5AC23"),
-                    ("Keyboard",       "#E6B80B"),
-                    ("Progress",       "#FACA3E"),
-                    ("Spin",           "#FFDF80"),
-                    
-                    /* Layouts */
-                    ("StatusBar",      "#661900"),
-                    ("TabBar",         "#B22C00"),
-                    ("NavigationBar",  "#E6450F"),
-                    ("Skeleton",       "#FF6500"),
-                    ("Notification",   "#FF8C00"),
-                    
-                ]
+            TagListController.setupPersistentStore(withInitialTags: { (context) -> ([Tag]) in
+                let decoder = PropertyListDecoder()
+                decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
+                let schemaPath = Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
+                let schemaData = try! Data(contentsOf: schemaPath!)
+                let tags = try! decoder.decode([Tag].self, from: schemaData)
+                return tags
             }) { [weak self] (_ context: NSManagedObjectContext?, _ error: Error?) in
                 
                 guard let self = self else { return }
@@ -348,7 +324,7 @@ final class TagListController: StackedPaneController {
         try itemsToRemove.forEach({ try FileManager.default.removeItem(at: $0) })
     }
     
-    class func setupPersistentStore(withInitialTags: @escaping () -> ([(String, String)]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
+    class func setupPersistentStore(withInitialTags: @escaping (_ context: NSManagedObjectContext) -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
     {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
@@ -386,11 +362,12 @@ final class TagListController: StackedPaneController {
                     )
                     
                     var idx = 1
-                    withInitialTags().forEach { (tag) in
-                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
-                        obj.order = Int64(idx)
-                        obj.name = tag.0
-                        obj.colorHex = tag.1
+                    withInitialTags(context).forEach { (tag) in
+//                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
+//                        obj.order = Int64(idx)
+//                        obj.name = tag.name ?? "Untitled"
+//                        obj.colorHex = tag.colorHex ?? "#000000"
+//                        obj.tagDescription = tag.tagDescription ?? "No description."
                         idx += 1
                     }
                     
@@ -775,7 +752,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
-            "name": arrangedTags[row].name
+            "name": arrangedTags[row].name 
         ], forType: TagListController.inlinePasteboardType)
         return item
     }

@@ -14,14 +14,9 @@ extension Tag {
         return NSFetchRequest<Tag>(entityName: "Tag")
     }
 
+    @NSManaged var tagDescription: String?
     @NSManaged var colorHex: String
     @NSManaged var name: String
     @NSManaged var order: Int64
-    
-    @objc var color: NSColor { NSColor(hex: colorHex) }
-    @objc var toolTip: String { name + " (" + colorHex + ")" }
-    
-    @objc func colorWithAlphaComponent(_ alpha: CGFloat) -> NSColor {
-        return NSColor(hex: colorHex, alpha: alpha)
-    }
+    @NSManaged var fields: NSOrderedSet?
 }
