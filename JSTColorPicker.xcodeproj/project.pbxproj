@@ -66,8 +66,6 @@
 		0FF4703927620B1700F46554 /* AdbHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703727620B1700F46554 /* AdbHelper.swift */; };
 		0FF4703B27620F6300F46554 /* AndroidDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703A27620F6300F46554 /* AndroidDevice.swift */; };
 		0FF4703C27620F6300F46554 /* AndroidDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4703A27620F6300F46554 /* AndroidDevice.swift */; };
-		0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4703E2762191400F46554 /* AuxiliaryExecute */; };
-		0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF470402762191D00F46554 /* AuxiliaryExecute */; };
 		0FF4704327621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */; };
 		0FF4704427621B2400F46554 /* AuxiliaryExecute+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4704227621B2400F46554 /* AuxiliaryExecute+Promise.swift */; };
 		0FF4704B27622FAA00F46554 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF4704A27622FAA00F46554 /* PromiseKit */; };
@@ -334,6 +332,10 @@
 		CCB76999260A0B5A0029693B /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
 		CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
 		CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
+		CCBCE10927E6372500544546 /* MRManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE10527E636E000544546 /* MRManagedObjectContext.m */; };
+		CCBCE10A27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE10727E636E000544546 /* MRSimpleCoreDataStack.m */; };
+		CCBCE10B27E6372500544546 /* MRManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE10527E636E000544546 /* MRManagedObjectContext.m */; };
+		CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE10727E636E000544546 /* MRSimpleCoreDataStack.m */; };
 		CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */; };
 		CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
@@ -342,6 +344,8 @@
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
+		CCC3CD6727E6419900B7B884 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */; };
+		CCC3CD6927E641A500B7B884 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */; };
 		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
 		CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525AD262EB72800D408B0 /* SyntaxKit */; };
 		CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
@@ -552,8 +556,8 @@
 		D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336B324A99FED006263E5 /* RulerViewClient.swift */; };
 		D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
 		D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BA24A9DDC8006263E5 /* EditTagsController.swift */; };
-		D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */; };
-		D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */; };
+		D61336BE24A9E3D5006263E5 /* TagListSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListSelectDelegate.swift */; };
+		D61336BF24A9E3D5006263E5 /* TagListSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61336BD24A9E3D5006263E5 /* TagListSelectDelegate.swift */; };
 		D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */; };
 		D62693632429F3EE00463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D62693652429F4C500463E36 /* JSTColorPanel.colorPicker in Embed Color Pickers */ = {isa = PBXBuildFile; fileRef = D65AEBBE2427B60100D6A6CA /* JSTColorPanel.colorPicker */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1357,6 +1361,10 @@
 		CCB76992260A0B5A0029693B /* lptree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptree.h; sourceTree = "<group>"; };
 		CCB76993260A0B5A0029693B /* lpcap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpcap.h; sourceTree = "<group>"; };
 		CCB7847C26257B9200FC4216 /* Color+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HSV.swift"; sourceTree = "<group>"; };
+		CCBCE10427E636E000544546 /* MRSimpleCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRSimpleCoreDataStack.h; sourceTree = "<group>"; };
+		CCBCE10527E636E000544546 /* MRManagedObjectContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRManagedObjectContext.m; sourceTree = "<group>"; };
+		CCBCE10627E636E000544546 /* MRManagedObjectContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRManagedObjectContext.h; sourceTree = "<group>"; };
+		CCBCE10727E636E000544546 /* MRSimpleCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRSimpleCoreDataStack.m; sourceTree = "<group>"; };
 		CCC0DBFE2601E9BC00019146 /* ExpandableSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSplitView.swift; sourceTree = "<group>"; };
 		CCC0DC162601F0C100019146 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		CCC0DC202601F0F200019146 /* ContentClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentClipView.swift; sourceTree = "<group>"; };
@@ -1456,7 +1464,7 @@
 		D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSTColorPickerSparkle.entitlements; sourceTree = "<group>"; };
 		D61336B324A99FED006263E5 /* RulerViewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerViewClient.swift; sourceTree = "<group>"; };
 		D61336BA24A9DDC8006263E5 /* EditTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagsController.swift; sourceTree = "<group>"; };
-		D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListEditDelegate.swift; sourceTree = "<group>"; };
+		D61336BD24A9E3D5006263E5 /* TagListSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListSelectDelegate.swift; sourceTree = "<group>"; };
 		D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneOverlayView.swift; sourceTree = "<group>"; };
 		D628346023F8DC280016573B /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		D628346123F8DC280016573B /* lcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lcode.h; sourceTree = "<group>"; };
@@ -1708,9 +1716,9 @@
 			files = (
 				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
 				0FF4704F27622FBB00F46554 /* PromiseKit in Frameworks */,
+				CCC3CD6727E6419900B7B884 /* AuxiliaryExecute in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
-				0FF4703F2762191400F46554 /* AuxiliaryExecute in Frameworks */,
 				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
 				CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */,
 				CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */,
@@ -1770,9 +1778,9 @@
 			files = (
 				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
 				0FF4705127622FC200F46554 /* PromiseKit in Frameworks */,
+				CCC3CD6927E641A500B7B884 /* AuxiliaryExecute in Frameworks */,
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
-				0FF470412762191D00F46554 /* AuxiliaryExecute in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
 				CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */,
 				CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */,
@@ -2482,6 +2490,17 @@
 				CCB7697F260A0B350029693B /* lpvm.c */,
 			);
 			path = lpeg;
+			sourceTree = "<group>";
+		};
+		CCBCE10827E636ED00544546 /* ReadOnlyExtension */ = {
+			isa = PBXGroup;
+			children = (
+				CCBCE10627E636E000544546 /* MRManagedObjectContext.h */,
+				CCBCE10527E636E000544546 /* MRManagedObjectContext.m */,
+				CCBCE10427E636E000544546 /* MRSimpleCoreDataStack.h */,
+				CCBCE10727E636E000544546 /* MRSimpleCoreDataStack.m */,
+			);
+			path = ReadOnlyExtension;
 			sourceTree = "<group>";
 		};
 		CCC525C4262EF4CF00D408B0 /* Protocols */ = {
@@ -3216,6 +3235,7 @@
 		D6E4252524A368B400FAB4B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CCBCE10827E636ED00544546 /* ReadOnlyExtension */,
 				18B6EA93247ABE6F00A61386 /* TagList.xcdatamodeld */,
 				D658584024811A7400BB2B6A /* Tag+CoreDataClass.swift */,
 				CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */,
@@ -3233,7 +3253,7 @@
 			isa = PBXGroup;
 			children = (
 				18B22FF0247EBD65003F70BA /* TagListSource.swift */,
-				D61336BD24A9E3D5006263E5 /* TagListEditDelegate.swift */,
+				D61336BD24A9E3D5006263E5 /* TagListSelectDelegate.swift */,
 				18B22FF3247EBEAC003F70BA /* TagListDragDelegate.swift */,
 				D6E4252B24A3693B00FAB4B5 /* TagListPreviewDelegate.swift */,
 				180C6A86249F652800B42656 /* TagImportSource.swift */,
@@ -3364,8 +3384,8 @@
 			);
 			name = JSTScreenshotHelper;
 			packageProductDependencies = (
-				0FF4703E2762191400F46554 /* AuxiliaryExecute */,
 				0FF4704E27622FBB00F46554 /* PromiseKit */,
+				CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */,
 			);
 			productName = JSTScreenshotHelper;
 			productReference = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */;
@@ -3483,8 +3503,8 @@
 			);
 			name = JSTColorPickerHelper;
 			packageProductDependencies = (
-				0FF470402762191D00F46554 /* AuxiliaryExecute */,
 				0FF4705027622FC200F46554 /* PromiseKit */,
+				CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */,
 			);
 			productName = JSTColorPickerHelper;
 			productReference = D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */;
@@ -3646,11 +3666,11 @@
 				0FF47022276208A900F46554 /* XCRemoteSwiftPackageReference "SwiftBonjour" */,
 				0FF470272762097B00F46554 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
 				0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */,
-				0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
 				0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3968,6 +3988,7 @@
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
 				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
+				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
@@ -4092,7 +4113,7 @@
 				CCC8BC55263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				D61047A924224A170002E990 /* Content.swift in Sources */,
 				CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */,
-				D61336BE24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
+				D61336BE24A9E3D5006263E5 /* TagListSelectDelegate.swift in Sources */,
 				CCE01CAA264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CCCD8160261C16F100BFDD6E /* SegmentController.swift in Sources */,
 				CC96F93D26727E0400CB55E9 /* BonjourDevice.swift in Sources */,
@@ -4137,6 +4158,7 @@
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				0F5BBA2D276F415900AF0DC8 /* Screenshot+Error.swift in Sources */,
 				D6CD28A8247BD4670051BE18 /* TagController.swift in Sources */,
+				CCBCE10B27E6372500544546 /* MRManagedObjectContext.m in Sources */,
 				D67A8F10247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
@@ -4374,6 +4396,7 @@
 				CCE01C83264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
 				CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				D67C51CA23F137B900829B51 /* EditableOverlay.swift in Sources */,
+				CCBCE10A27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				CC347728266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */,
 				CC96F93E26727E0400CB55E9 /* BonjourDevice.swift in Sources */,
 				D67C51C623F1361800829B51 /* Overlay.swift in Sources */,
@@ -4393,6 +4416,7 @@
 				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
 				CCC8BC56263B2E0D0040E82A /* ExportPanelAccessoryView.swift in Sources */,
 				CCC0DBFF2601E9BC00019146 /* ExpandableSplitView.swift in Sources */,
+				CCBCE10927E6372500544546 /* MRManagedObjectContext.m in Sources */,
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				CCE34018263272590082F73D /* ColoredView.swift in Sources */,
@@ -4448,7 +4472,7 @@
 				CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
-				D61336BF24A9E3D5006263E5 /* TagListEditDelegate.swift in Sources */,
+				D61336BF24A9E3D5006263E5 /* TagListSelectDelegate.swift in Sources */,
 				CCE01C99264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				CC04276F275E212B008DD0C5 /* FileSystemNode.m in Sources */,
@@ -5465,7 +5489,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				COMPILER_INDEX_STORE_ENABLE = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1026;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -5540,7 +5563,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				COMPILER_INDEX_STORE_ENABLE = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1026;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -5917,14 +5939,6 @@
 				version = 0.11.0;
 			};
 		};
-		0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Lessica/AuxiliaryExecute.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:mxcl/PromiseKit.git";
@@ -5947,6 +5961,14 @@
 			requirement = {
 				kind = exactVersion;
 				version = 3.4.0;
+			};
+		};
+		CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lakr233/AuxiliaryExecute.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
@@ -5995,16 +6017,6 @@
 			package = 0FF4702A276209B600F46554 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
-		0FF4703E2762191400F46554 /* AuxiliaryExecute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
-			productName = AuxiliaryExecute;
-		};
-		0FF470402762191D00F46554 /* AuxiliaryExecute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0FF4703D2762191400F46554 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
-			productName = AuxiliaryExecute;
-		};
 		0FF4704A27622FAA00F46554 /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF4704927622FAA00F46554 /* XCRemoteSwiftPackageReference "PromiseKit" */;
@@ -6044,6 +6056,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
+		};
+		CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
+		};
+		CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;

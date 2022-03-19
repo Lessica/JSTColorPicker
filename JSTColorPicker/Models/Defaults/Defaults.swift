@@ -78,5 +78,6 @@ extension UserDefaults.Key {
     
     static let disableColorAnnotation               : UserDefaults.Key     = "defaults:disableColorAnnotation"                 // Bool
     static let disableTagReordering                 : UserDefaults.Key     = "defaults:disableTagReordering"                   // Bool
+    static let disableTagEditing                    : UserDefaults.Key     = "defaults:disableTagEditing"                      // Bool
     
 }

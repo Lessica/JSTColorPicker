@@ -640,6 +640,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [],
                             keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation", comment: "Shortcut Guide"),
@@ -647,6 +649,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [],
                             keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation (Square)", comment: "Shortcut Guide"),
@@ -654,6 +658,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [.shift],
                             keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Add Area Annotation (Centered)", comment: "Shortcut Guide"),
@@ -661,6 +667,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [.option],
                             keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
@@ -668,6 +676,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [],
                             keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
@@ -695,6 +705,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [],
                         keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Select More Annotations", comment: "Shortcut Guide"),
@@ -702,6 +714,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.command],
                         keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Select All Cascaded Annotations", comment: "Shortcut Guide"),
@@ -709,6 +723,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.shift],
                         keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("List All Cascaded Annotations", comment: "Shortcut Guide"),
@@ -726,6 +742,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [],
                             keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
@@ -733,6 +751,8 @@ extension SplitController: ShortcutGuideDataSource {
                             modifierFlags: [.option],
                             keyEquivalent: NSLocalizedString("Right Click", comment: "Shortcut Guide")
                         ),
+                    ]
+                    items += [
                         /* FIXED */
                         ShortcutItem(
                             name: NSLocalizedString("Modify Annotation", comment: "Shortcut Guide"),
@@ -769,6 +789,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [],
                         keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("Magnify To Fill Window", comment: "Shortcut Guide"),
@@ -776,6 +798,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.shift],
                         keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
@@ -783,6 +807,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.control],
                         keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Minifying Glass", comment: "Shortcut Guide"),
@@ -800,6 +826,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [],
                         keyEquivalent: NSLocalizedString("Click", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
@@ -807,6 +835,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.control],
                         keyEquivalent: NSLocalizedString("Hold", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magnifying Glass", comment: "Shortcut Guide"),
@@ -824,6 +854,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [],
                         keyEquivalent: NSLocalizedString("Drag", comment: "Shortcut Guide")
                     ),
+                ]
+                items += [
                     /* FIXED */
                     ShortcutItem(
                         name: NSLocalizedString("◦ Magic Cursor", comment: "Shortcut Guide"),
@@ -844,12 +876,16 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.command],
                         keyEquivalent: .carriageReturn
                     ),
+                ]
+                items += [
                     ShortcutItem(
                         name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
                         modifierFlags: [.command],
                         keyEquivalent: .delete
                     ),
+                ]
+                items += [
                     ShortcutItem(
                         name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
@@ -866,12 +902,16 @@ extension SplitController: ShortcutGuideDataSource {
                     modifierFlags: [.command],
                     keyEquivalent: "="
                 ),
+            ]
+            items += [
                 ShortcutItem(
                     name: NSLocalizedString("Zoom Out", comment: "Shortcut Guide"),
                     toolTip: NSLocalizedString("Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).", comment: "Shortcut Guide"),
                     modifierFlags: [.command],
                     keyEquivalent: "-"
                 ),
+            ]
+            items += [
                 /* FIXED */
                 ShortcutItem(
                     name: NSLocalizedString("Zoom In/Out", comment: "Shortcut Guide"),
@@ -879,6 +919,8 @@ extension SplitController: ShortcutGuideDataSource {
                     modifierFlags: [],
                     keyEquivalent: NSLocalizedString("Scroll Wheel", comment: "Shortcut Guide")
                 ),
+            ]
+            items += [
                 ShortcutItem(
                     name: NSLocalizedString("Copy Color & Coordinates", comment: "Shortcut Guide"),
                     toolTip: NSLocalizedString("Copy Color & Coordinates at current cursor location directly to the general pasteboard.", comment: "Shortcut Guide"),
@@ -899,12 +941,16 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.command],
                         keyEquivalent: cursorKeyString
                     ),
+                ]
+                items += [
                     ShortcutItem(
                         name: NSLocalizedString("Move Cursor (10 pixel)", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Move cursor with keyboard by 10 pixel.", comment: "Shortcut Guide"),
                         modifierFlags: [.shift, .command],
                         keyEquivalent: cursorKeyString
                     ),
+                ]
+                items += [
                     ShortcutItem(
                         name: NSLocalizedString("Move Cursor (100 pixel)", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Move cursor with keyboard by 100 pixel.", comment: "Shortcut Guide"),
@@ -922,6 +968,8 @@ extension SplitController: ShortcutGuideDataSource {
                         modifierFlags: [.command],
                         keyEquivalent: "["
                     ),
+                ]
+                items += [
                     ShortcutItem(
                         name: NSLocalizedString("Select Next Annotation", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("If the selected annotation is the only selected annotation in all levels under the current cursor position, the selected state is switched to the next annotation in the cascade under the current cursor position.", comment: "Shortcut Guide"),

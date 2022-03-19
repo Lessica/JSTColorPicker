@@ -1,5 +1,5 @@
 //
-//  TagListEditDelegate.swift
+//  TagListSelectDelegate.swift
 //  JSTColorPicker
 //
 //  Created by Darwin on 6/29/20.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol TagListEditDelegate: AnyObject {
+protocol TagListSelectDelegate: AnyObject {
     func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue
     func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag])
-    func editState(of name: String) -> NSControl.StateValue
-    func editStateChanged(of name: String, to state: NSControl.StateValue)
+    func selectedState(of name: String) -> NSControl.StateValue
+    func selectedStateChanged(of name: String, to state: NSControl.StateValue)
 }
 

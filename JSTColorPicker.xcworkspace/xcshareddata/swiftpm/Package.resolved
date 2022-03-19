@@ -12,10 +12,10 @@
       },
       {
         "package": "AuxiliaryExecute",
-        "repositoryURL": "git@github.com:Lessica/AuxiliaryExecute.git",
+        "repositoryURL": "git@github.com:Lakr233/AuxiliaryExecute.git",
         "state": {
           "branch": "main",
-          "revision": "c46b5e2c72d6e247a96a12c74f47c137e5957387",
+          "revision": "baed197de469ebfc0aaccc6074ad8a98673cebe9",
           "version": null
         }
       },

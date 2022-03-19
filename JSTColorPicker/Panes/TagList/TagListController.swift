@@ -38,8 +38,8 @@ final class TagListController: StackedPaneController {
         case none
     }
     
-    weak var editDelegate                         : TagListEditDelegate?
-    var isEditMode                                : Bool { editDelegate != nil }
+    weak var selectDelegate                       : TagListSelectDelegate?
+    var isSelectMode                              : Bool { selectDelegate != nil }
     
     private var previewMode                       : PreviewMode = .none
     private var previewContext                    : [String: Int]?
@@ -52,7 +52,7 @@ final class TagListController: StackedPaneController {
         set { tableViewOverlay.sceneToolSource = newValue }
     }
     
-    private static var sharedContext              : NSManagedObjectContext?
+    private static var sharedContext              : MRManagedObjectContext?
     private static var sharedUndoManager          : UndoManager = { return UndoManager() }()
     private var isContextLoaded                   : Bool          { TagListController.sharedContext != nil }
     
@@ -91,9 +91,19 @@ final class TagListController: StackedPaneController {
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
     private var disableTagReordering              : Bool = false
+    private var disableTagEditing                 : Bool = false
+    
+    var isEditable                                : Bool {
+        get {
+            internalController.isEditable
+        }
+        set {
+            internalController.isEditable = newValue
+        }
+    }
     
     private let observableKeys                    : [UserDefaults.Key] = [
-        .disableTagReordering,
+        .disableTagReordering, .disableTagEditing,
     ]
     private var observables                       : [Observable]?
     
@@ -118,21 +128,21 @@ final class TagListController: StackedPaneController {
     }
     
     private func setupEmbeddedState(with context: NSManagedObjectContext? = nil) {
-        paneBox.titlePosition               = isEditMode ? .noTitle : .atTop
-        paneBox.isTransparent               = isEditMode
-        paneTopConstraint.constant          = isEditMode ? 0 : 4
-        paneInnerTopConstraint.constant     = isEditMode ? 0 : 8
+        paneBox.titlePosition               = isSelectMode ? .noTitle : .atTop
+        paneBox.isTransparent               = isSelectMode
+        paneTopConstraint.constant          = isSelectMode ? 0 : 4
+        paneInnerTopConstraint.constant     = isSelectMode ? 0 : 8
         
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
-        tableView.allowsMultipleSelection   = !isEditMode
-        tableView.gridStyleMask             = isEditMode ? [] : [.solidVerticalGridLineMask]
-        tableView.isEmbeddedMode            = isEditMode
+        tableView.allowsMultipleSelection   = !isSelectMode
+        tableView.gridStyleMask             = isSelectMode ? [] : [.solidVerticalGridLineMask]
+        tableView.isEmbeddedMode            = isSelectMode
         tableView.contextUndoManager        = TagListController.sharedUndoManager
         
-        tableActionCustomView.isHidden      = isEditMode
-        tableColumnFlags.isHidden           = isEditMode
-        tableColumnChecked.isHidden         = !isEditMode
+        tableActionCustomView.isHidden      = isSelectMode
+        tableColumnFlags.isHidden           = isSelectMode
+        tableColumnChecked.isHidden         = !isSelectMode
         
         searchField.isEnabled               = isContextLoaded
         loadingErrorLabel.isHidden          = isContextLoaded
@@ -147,9 +157,9 @@ final class TagListController: StackedPaneController {
         internalController.entityName                       = "Tag"
         internalController.usesLazyFetching                 = false
         internalController.sortDescriptors                  = [NSSortDescriptor(key: "order", ascending: true)]
-        internalController.isEditable                       = isContextLoaded ? !isEditMode : false
         internalController.managedObjectContext             = context
         internalController.automaticallyPreparesContent     = context != nil
+        setupEditableState()
         
         if context != nil {
             internalController.prepareContent()
@@ -159,6 +169,19 @@ final class TagListController: StackedPaneController {
         arrangedObjectsObservation = internalController.observe(\.arrangedObjects, options: [.new], changeHandler: { [weak self] (target, change) in
             self?.reloadHeaderView()
         })
+    }
+    
+    private func setupEditableState() {
+        guard let sharedContext = TagListController.sharedContext else { return }
+        sharedContext.failsOnSave = disableTagEditing
+        isEditable = (isContextLoaded ? (!isSelectMode && !disableTagEditing) : false)
+        
+        if tableView.numberOfRows > 0 {
+            tableView.reloadData(
+                forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
+                columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnName))
+            )
+        }
     }
     
     override func viewDidLoad() {
@@ -185,12 +208,20 @@ final class TagListController: StackedPaneController {
     
     private func prepareDefaults() {
         disableTagReordering = UserDefaults.standard[.disableTagReordering]
+        disableTagEditing = UserDefaults.standard[.disableTagEditing]
+        
+        setupEditableState()
     }
     
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
         if let toValue = defaultValue as? Bool {
             if defaultKey == .disableTagReordering && disableTagReordering != toValue {
                 disableTagReordering = toValue
+            }
+            else if defaultKey == .disableTagEditing && disableTagEditing != toValue {
+                disableTagEditing = toValue
+                
+                setupEditableState()
             }
         }
     }
@@ -259,6 +290,7 @@ final class TagListController: StackedPaneController {
                 if let context = context {
                     
                     context.undoManager = TagListController.sharedUndoManager
+                    
                     self.setupEmbeddedState(with: context)
                     
                     self.willUndoToken = NotificationCenter.default.observe(
@@ -302,9 +334,11 @@ final class TagListController: StackedPaneController {
                     
                 } else if let error = error {
                     self.setupEmbeddedState()
+                    
                     if !ignore {
                         self.presentError(error)
                     }
+                    
                     debugPrint(error)
                 }
             }
@@ -357,7 +391,7 @@ final class TagListController: StackedPaneController {
             fatalError("error initializing model from \(tagModelURL)")
         }
         
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        let context = MRManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
         context.persistentStoreCoordinator = coordinator
         
@@ -635,18 +669,18 @@ final class TagListController: StackedPaneController {
     @IBAction private func tableViewDoubleAction(_ sender: TagListTableView) { }
     
     private func reloadHeaderView() {
-        guard let editDelegate = editDelegate else { return }
+        guard let selectDelegate = selectDelegate else { return }
         if let headerCell = tableColumnChecked.headerCell as? CheckboxHeaderCell {
-            headerCell.alternateState = editDelegate.fetchAlternateStateForTags(arrangedTags)
+            headerCell.alternateState = selectDelegate.fetchAlternateStateForTags(arrangedTags)
             tableView.headerView?.needsDisplay = true
         }
     }
     
     @IBAction private func checkedButtonAction(_ sender: NSButton) {
         if sender.allowsMixedState { sender.allowsMixedState = false }
-        guard let editDelegate = editDelegate else { return }
+        guard let selectDelegate = selectDelegate else { return }
         let checkedRow = tableView.row(for: sender)
-        editDelegate.editStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
+        selectDelegate.selectedStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
         reloadHeaderView()
     }
     
@@ -715,7 +749,7 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var shouldPerformDragging: Bool { !isEditMode && internalController.isEditable }
+    var shouldPerformDragging: Bool { !isSelectMode && internalController.isEditable }
     
     func willPerformDragging(_ sender: Any?) -> Bool {
         contentManager?.deselectAllContentItems()
@@ -765,7 +799,7 @@ extension TagListController: TagListDragDelegate {
 extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        guard !isEditMode, case .idle = tableViewOverlay.state else { return nil }
+        guard !isSelectMode, case .idle = tableViewOverlay.state else { return nil }
         let item = NSPasteboardItem()
         item.setPropertyList([
             "row": row,
@@ -775,7 +809,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        if disableTagReordering {
+        if disableTagReordering || disableTagEditing {
             return []
         }
         guard case .idle = tableViewOverlay.state else { return [] }
@@ -859,13 +893,13 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
                 }
             }
             else if col == .columnChecked,
-                let editDelegate = editDelegate
+                let selectDelegate = selectDelegate
             {
                 let tagName = arrangedTags[row].name
-                cell.state = editDelegate.editState(of: tagName)
+                cell.state = selectDelegate.selectedState(of: tagName)
             }
             else if col == .columnName {
-                cell.isEditable = !isEditMode
+                cell.isEditable = !isSelectMode && isEditable
             }
             return cell
         }
@@ -882,10 +916,10 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
-        guard let editDelegate = editDelegate else { return }
+        guard let selectDelegate = selectDelegate else { return }
         if tableColumn == tableColumnChecked {
             if let headerCell = tableColumn.headerCell as? CheckboxHeaderCell {
-                editDelegate.setupAlternateState(headerCell.toggleAlternateState(), forTags: arrangedTags)
+                selectDelegate.setupAlternateState(headerCell.toggleAlternateState(), forTags: arrangedTags)
                 tableView.reloadData(
                     forRowIndexes: IndexSet(integersIn: 0..<tableView.numberOfRows),
                     columnIndexes: IndexSet(integer: tableView.column(withIdentifier: .columnChecked))
@@ -903,13 +937,13 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
         if menuItem.action == #selector(changeColorItemTapped(_:)) {
-            guard editDelegate == nil else { return false }
+            guard !isSelectMode && isEditable else { return false }
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true
         }
         else if menuItem.action == #selector(delete(_:)) {
-            guard editDelegate == nil else { return false }
+            guard !isSelectMode && isEditable else { return false }
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
         return false

@@ -250,20 +250,24 @@ final class ContentController: NSViewController {
             // color & coordinates
             if !scanned3 || !scanned4 {
                 
-                let coordinate = PixelCoordinate(x: x, y: y)
+                let disableColorAnnotation: Bool = UserDefaults.standard[.disableColorAnnotation]
                 
-                guard image.bounds.contains(coordinate) else {
-                    throw Content.Error.itemOutOfRange(item: coordinate, range: image.size)
+                if !disableColorAnnotation {
+                    let coordinate = PixelCoordinate(x: x, y: y)
+                    
+                    guard image.bounds.contains(coordinate) else {
+                        throw Content.Error.itemOutOfRange(item: coordinate, range: image.size)
+                    }
+                    
+                    do {
+                        _ = try addContentItem(of: coordinate, byIgnoringPopups: false)
+                    } catch Content.Error.itemExists {
+                        try selectContentItem(of: coordinate)
+                    }
+                    
+                    sender.stringValue = ""
+                    addedOrSelected = true
                 }
-                
-                do {
-                    _ = try addContentItem(of: coordinate, byIgnoringPopups: false)
-                } catch Content.Error.itemExists {
-                    try selectContentItem(of: coordinate)
-                }
-                
-                sender.stringValue = ""
-                addedOrSelected = true
                 
             }
             else {
@@ -936,6 +940,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                     || menuItem.action == #selector(createArea(_:))
                     || menuItem.action == #selector(removeTag(_:))
         {  // contents writeable
+            if menuItem.action == #selector(createCoordinate(_:)) {
+                return !UserDefaults.standard[.disableColorAnnotation]
+            }
             return documentState.isWritable
         }
             

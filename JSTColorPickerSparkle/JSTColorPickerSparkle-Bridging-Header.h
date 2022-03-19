@@ -15,5 +15,7 @@
 #import "OpenCVWrapper.h"
 #import <Sparkle/SUUpdater.h>
 #import "BrowserController.h"
+#import "MRManagedObjectContext.h"
+#import "MRSimpleCoreDataStack.h"
 
 #endif /* JSTColorPicker_Bridging_Header_h */

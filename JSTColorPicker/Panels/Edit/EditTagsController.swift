@@ -39,7 +39,7 @@ final class EditTagsController: EditViewController {
             let controller = segue.destinationController as? TagListController else
         { return }
         
-        controller.editDelegate = self
+        controller.selectDelegate = self
     }
     
     @IBAction private func cancelAction(_ sender: NSButton) {
@@ -87,14 +87,14 @@ final class EditTagsController: EditViewController {
     
 }
 
-extension EditTagsController: TagListEditDelegate {
+extension EditTagsController: TagListSelectDelegate {
     
     func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue {
         let allCount = tags.count
         var onCount = 0
         var offCount = 0
         var mixedCount = 0
-        for state in tags.map({ editState(of: $0.name) }) {
+        for state in tags.map({ selectedState(of: $0.name) }) {
             switch state {
             case .on:
                 onCount += 1
@@ -134,7 +134,7 @@ extension EditTagsController: TagListEditDelegate {
         updateOKButtonState()
     }
     
-    func editState(of name: String) -> NSControl.StateValue {
+    func selectedState(of name: String) -> NSControl.StateValue {
         if let cachedState = cachedTagStates[name] {
             return cachedState
         }
@@ -154,7 +154,7 @@ extension EditTagsController: TagListEditDelegate {
         return matchesCount == contentItems.count ? .on : .mixed
     }
     
-    func editStateChanged(of name: String, to state: NSControl.StateValue) {
+    func selectedStateChanged(of name: String, to state: NSControl.StateValue) {
         cachedTagStates[name] = state
         updateOKButtonState()
         debugPrint(cachedTagStates)

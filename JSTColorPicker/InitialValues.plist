@@ -110,5 +110,7 @@
 	<true/>
 	<key>defaults:disableTagReordering</key>
 	<true/>
+	<key>defaults:disableTagEditing</key>
+	<true/>
 </dict>
 </plist>
