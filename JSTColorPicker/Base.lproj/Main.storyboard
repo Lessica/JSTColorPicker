@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="DkE-tD-sge">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="19016"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="19500"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -161,13 +161,13 @@
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="P3Z-6I-nHl"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="6lZ-6v-Fet"/>
-                                        <menuItem title="Print…" keyEquivalent="p" id="Mql-2P-7nA">
+                                        <menuItem isSeparatorItem="YES" hidden="YES" id="6lZ-6v-Fet"/>
+                                        <menuItem title="Print…" hidden="YES" enabled="NO" keyEquivalent="p" id="Mql-2P-7nA">
                                             <connections>
                                                 <action selector="print:" target="Ady-hI-5gd" id="UYz-Dp-g1a"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="7jK-B5-6gt">
+                                        <menuItem title="Page Setup…" hidden="YES" enabled="NO" keyEquivalent="P" id="7jK-B5-6gt">
                                             <connections>
                                                 <action selector="runPageLayout:" target="Ady-hI-5gd" id="Fc6-wN-Ksc"/>
                                             </connections>

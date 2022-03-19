@@ -90,6 +90,13 @@ final class TagListController: StackedPaneController {
     static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
+    private var disableTagReordering              : Bool = false
+    
+    private let observableKeys                    : [UserDefaults.Key] = [
+        .disableTagReordering,
+    ]
+    private var observables                       : [Observable]?
+    
     // MARK: - Touch Bar
     
     private lazy var colorPanelTouchBar: NSTouchBar = {
@@ -165,12 +172,27 @@ final class TagListController: StackedPaneController {
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         setupPersistentStore(byIgnoringError: false)
         
+        prepareDefaults()
+        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(tagPersistentStoreRequiresReload(_:)),
             name: NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
             object: nil
         )
+    }
+    
+    private func prepareDefaults() {
+        disableTagReordering = UserDefaults.standard[.disableTagReordering]
+    }
+    
+    private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
+        if let toValue = defaultValue as? Bool {
+            if defaultKey == .disableTagReordering && disableTagReordering != toValue {
+                disableTagReordering = toValue
+            }
+        }
     }
     
     @objc private func tagPersistentStoreRequiresReload(_ noti: Notification) {
@@ -223,7 +245,7 @@ final class TagListController: StackedPaneController {
                 object: nil
             )
         } else {
-            TagListController.setupPersistentStore(withInitialTags: { (context) -> ([Tag]) in
+            TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
                 let schemaPath = Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
@@ -283,6 +305,7 @@ final class TagListController: StackedPaneController {
                     if !ignore {
                         self.presentError(error)
                     }
+                    debugPrint(error)
                 }
             }
         }
@@ -324,7 +347,7 @@ final class TagListController: StackedPaneController {
         try itemsToRemove.forEach({ try FileManager.default.removeItem(at: $0) })
     }
     
-    class func setupPersistentStore(withInitialTags: @escaping (_ context: NSManagedObjectContext) -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
+    class func setupPersistentStore(withTagInitializer tagInitializer: @escaping (_ context: NSManagedObjectContext) -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
     {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
@@ -361,14 +384,8 @@ final class TagListController: StackedPaneController {
                         options: nil
                     )
                     
-                    var idx = 1
-                    withInitialTags(context).forEach { (tag) in
-                        let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
-                        obj.order = Int64(idx)
-                        obj.name = tag.name
-                        obj.colorHex = tag.colorHex 
-                        obj.tagDescription = tag.tagDescription ?? "No description."
-                        idx += 1
+                    tagInitializer(context).forEach { (tag) in
+                        debugPrint(tag)
                     }
                     
                     try context.save()
@@ -758,6 +775,9 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        if disableTagReordering {
+            return []
+        }
         guard case .idle = tableViewOverlay.state else { return [] }
         guard internalController.filterPredicate == nil else { return [] }
         if dropOperation == .above {
@@ -883,11 +903,13 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
         if menuItem.action == #selector(changeColorItemTapped(_:)) {
+            guard editDelegate == nil else { return false }
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true
         }
         else if menuItem.action == #selector(delete(_:)) {
+            guard editDelegate == nil else { return false }
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
         return false

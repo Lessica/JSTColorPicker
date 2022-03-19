@@ -18,5 +18,5 @@ extension Tag {
     @NSManaged var colorHex: String
     @NSManaged var name: String
     @NSManaged var order: Int64
-    @NSManaged var fields: NSOrderedSet?
+    @NSManaged var fields: NSOrderedSet
 }

@@ -12,6 +12,10 @@ final class SceneOverlayView: NSView {
     
     var state: DragEndpointState = .idle
     
+    var maximumTagPerItem: Int = 0
+    var maximumTagPerItemEnabled: Bool = false
+    var replaceSingleTagWhileDrop: Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = false
@@ -200,9 +204,45 @@ extension SceneOverlayView: DragEndpoint {
     
     // MARK: - Drag/Drop
     
-    private func isAcceptableDraggingTarget(_ draggingInfo: NSDraggingInfo, target: AnnotatorOverlay?) -> Bool {
-        guard target != nil else { return false }
-        return true
+    private func extractTagNamesFromDraggingInfo(_ draggingInfo: NSDraggingInfo) -> [String]
+    {
+        var tagNames = [String]()
+        draggingInfo.enumerateDraggingItems(
+            options: [],
+            for: self,
+            classes: [NSPasteboardItem.self],
+            searchOptions: [:]
+        ) { (dragItem, _, _) in
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(
+                forType: TagListController.attachPasteboardType
+            ) as? [String] {
+                obj.forEach({ tagNames.append($0) })
+            }
+        }
+        return tagNames
+    }
+    
+    private func operationMaskOfDraggingTarget(
+        _ draggingInfo: NSDraggingInfo,
+        target: AnnotatorOverlay?
+    ) -> NSDragOperation
+    {
+        let operationMask = draggingInfo.draggingSourceOperationMask
+        guard target != nil else { return [] }
+        if maximumTagPerItemEnabled {
+            guard let targetOverlay = target, let targetItem = contentItem(of: targetOverlay) else {
+                return []
+            }
+            let tagNamesToAppend = extractTagNamesFromDraggingInfo(draggingInfo)
+            if maximumTagPerItem > 0 {
+                if replaceSingleTagWhileDrop && maximumTagPerItem == 1 && targetItem.tags.count == 1 && tagNamesToAppend.count == 1 {
+                    return operationMask.intersection([.link])
+                }
+                guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem else { return [] }
+            }
+            guard !Set(tagNamesToAppend).isSubset(of: Set(targetItem.tags)) else { return [] }
+        }
+        return operationMask.intersection([.copy])
     }
     
     private func updateDraggingAppearance(with locInWindow: CGPoint?) {
@@ -214,26 +254,32 @@ extension SceneOverlayView: DragEndpoint {
         guard case .idle = state else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if isAcceptableDraggingTarget(sender, target: internalFocusedOverlay) {
+        let operationMask = operationMaskOfDraggingTarget(
+            sender,
+            target: internalFocusedOverlay
+        )
+        if !operationMask.isEmpty {
             state = .target
-            return sender.draggingSourceOperationMask
         } else {
             state = .source
         }
-        return []
+        return operationMask
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard state != .idle else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
-        if isAcceptableDraggingTarget(sender, target: internalFocusedOverlay) {
+        let operationMask = operationMaskOfDraggingTarget(
+            sender,
+            target: internalFocusedOverlay
+        )
+        if !operationMask.isEmpty {
             state = .target
-            return sender.draggingSourceOperationMask
         } else {
             state = .source
         }
-        return []
+        return operationMask
     }
     
     override func draggingExited(_ sender: NSDraggingInfo?) {
@@ -250,18 +296,20 @@ extension SceneOverlayView: DragEndpoint {
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         guard let focusedOverlay = internalFocusedOverlay,
-            isAcceptableDraggingTarget(sender, target: focusedOverlay) else { return false }
+              !operationMaskOfDraggingTarget(
+                sender,
+                target: focusedOverlay
+              ).isEmpty else { return false }
         guard let origItem = contentItem(of: focusedOverlay) else { return false }
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
         controller.connect(to: self)
         
-        sender.enumerateDraggingItems(options: [], for: self, classes: [NSPasteboardItem.self], searchOptions: [:]) { (dragItem, _, _) in
-            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.attachPasteboardType) as? [String] {
-                obj.forEach({ replItem.tags.append($0) })
-            }
+        if sender.draggingSourceOperationMask.contains(.link) {
+            replItem.tags.removeAll(keepingCapacity: true)
         }
+        replItem.tags.append(contentsOf: extractTagNamesFromDraggingInfo(sender))
         
         if let _ = try? contentDelegate.updateContentItem(replItem) {
             return true

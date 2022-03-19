@@ -25,12 +25,12 @@ final class DragConnectionController: NSObject, NSDraggingSource {
 
     func draggingSession(_ session: NSDraggingSession, sourceOperationMaskFor context: NSDraggingContext) -> NSDragOperation {
         switch context {
-        case .withinApplication:
-            return .copy
-        case .outsideApplication:
-            return []
-        @unknown default:
-            fatalError()
+            case .withinApplication:
+                return [.copy, .link]
+            case .outsideApplication:
+                return []
+            @unknown default:
+                fatalError()
         }
     }
 

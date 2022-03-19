@@ -10,14 +10,14 @@ import CoreData
 import Foundation
 
 @objc(Tag)
-final class Tag: NSManagedObject, Codable {
+public final class Tag: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
         case tagDescription, colorHex, name, order, fields
     }
     
     private static var initializedOrder: Int64 = 0
 
-    required convenience init(from decoder: Decoder) throws {
+    required convenience public init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[CodingUserInfoKey.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -30,24 +30,24 @@ final class Tag: NSManagedObject, Codable {
         name = try container.decode(String.self, forKey: .name)
         Tag.initializedOrder += 1
         order = try container.decodeIfPresent(Int64.self, forKey: .order) ?? Tag.initializedOrder
-        fields = NSOrderedSet(array: try container.decode([Field].self, forKey: .fields))
+        fields = NSOrderedSet(array: try container.decodeIfPresent([Field].self, forKey: .fields) ?? [])
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(tagDescription, forKey: .tagDescription)
         try container.encode(colorHex, forKey: .colorHex)
         try container.encode(name, forKey: .name)
         try container.encode(order, forKey: .order)
-        try container.encode(fields?.array as? [Field] ?? [], forKey: .fields)
+        try container.encode(fields.array as? [Field] ?? [], forKey: .fields)
     }
     
     @objc var color: NSColor { NSColor(hex: colorHex) }
     @objc var toolTip: String {
         if let tagDescription = tagDescription, !tagDescription.isEmpty {
-            return String(format: "%@ (%@)\n%@", name , colorHex ?? "(null)", tagDescription)
+            return String(format: "%@ (%@)\n%@", name, colorHex, tagDescription)
         }
-        return String(format: "%@ (%@)", name , colorHex ?? "(null)")
+        return String(format: "%@ (%@)", name, colorHex)
     }
 
     @objc func colorWithAlphaComponent(_ alpha: CGFloat) -> NSColor {

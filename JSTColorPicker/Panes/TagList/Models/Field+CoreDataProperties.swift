@@ -19,4 +19,5 @@ extension Field {
     @NSManaged var order: Int64
     @NSManaged var type: String
     @NSManaged var validationRegex: String?
+    @NSManaged var options: NSOrderedSet
 }

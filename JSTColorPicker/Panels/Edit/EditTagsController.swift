@@ -24,6 +24,7 @@ final class EditTagsController: EditViewController {
     
     private var cachedTagNames   = Set<String>()
     private var cachedTagStates  : [String: NSControl.StateValue] = [:]
+    private var initialTagStates : [String: NSControl.StateValue]?
     private var _alternateState  : NSControl.StateValue = .off
     
     override func viewDidLoad() {
@@ -105,6 +106,9 @@ extension EditTagsController: TagListEditDelegate {
                 break
             }
         }
+        if initialTagStates == nil {
+            initialTagStates = cachedTagStates
+        }
         if onCount == allCount {
             return .on
         }
@@ -127,7 +131,7 @@ extension EditTagsController: TagListEditDelegate {
         } else {
             fatalError("cannot setup with .mixed state")
         }
-        enableOKButton()
+        updateOKButtonState()
     }
     
     func editState(of name: String) -> NSControl.StateValue {
@@ -152,13 +156,22 @@ extension EditTagsController: TagListEditDelegate {
     
     func editStateChanged(of name: String, to state: NSControl.StateValue) {
         cachedTagStates[name] = state
-        enableOKButton()
+        updateOKButtonState()
         debugPrint(cachedTagStates)
     }
     
-    private func enableOKButton() {
-        okBtn.isEnabled = true
-        touchBarOkBtn.isEnabled = true
+    private func updateOKButtonState() {
+        isOKButtonEnabled = initialTagStates != cachedTagStates
+    }
+    
+    private var isOKButtonEnabled: Bool {
+        get {
+            okBtn.isEnabled
+        }
+        set {
+            okBtn.isEnabled = newValue
+            touchBarOkBtn.isEnabled = newValue
+        }
     }
     
 }

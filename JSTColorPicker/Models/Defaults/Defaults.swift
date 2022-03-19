@@ -48,6 +48,9 @@ extension UserDefaults.Key {
     static let zIndexBySize                         : UserDefaults.Key     = "defaults:zIndexBySize"                           // Bool
     static let maximumItemCountEnabled              : UserDefaults.Key     = "defaults:maximumItemCountEnabled"                // Bool
     static let maximumItemCount                     : UserDefaults.Key     = "defaults:maximumItemCount"                       // Int
+    static let maximumTagPerItemEnabled             : UserDefaults.Key     = "defaults:maximumTagPerItemEnabled"               // Bool
+    static let maximumTagPerItem                    : UserDefaults.Key     = "defaults:maximumTagPerItem"                      // Int
+    static let replaceSingleTagWhileDrop            : UserDefaults.Key     = "defaults:replaceSingleTagWhileDrop"              // Bool
     static let duplicateOffset                      : UserDefaults.Key     = "defaults:duplicateOffset"                        // Int
     static let maximumPreviewLineCount              : UserDefaults.Key     = "defaults:maximumPreviewLineCount"                // Int
     static let makeSoundsAfterDoubleClickCopy       : UserDefaults.Key     = "defaults:makeSoundsAfterDoubleClickCopy"         // Bool
@@ -72,5 +75,8 @@ extension UserDefaults.Key {
     static let gridViewAnimationSpeed               : UserDefaults.Key     = "defaults:gridViewAnimationSpeed"                 // Int
     
     static let locateExportedItemsAfterOperation    : UserDefaults.Key     = "defaults:locateExportedItemsAfterOperation"      // Bool
+    
+    static let disableColorAnnotation               : UserDefaults.Key     = "defaults:disableColorAnnotation"                 // Bool
+    static let disableTagReordering                 : UserDefaults.Key     = "defaults:disableTagReordering"                   // Bool
     
 }

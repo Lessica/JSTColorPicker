@@ -74,6 +74,33 @@ final class SceneController: NSViewController {
         }
     }
     
+    private(set) var maximumTagPerItem: Int {
+        get {
+            return sceneOverlayView.maximumTagPerItem
+        }
+        set {
+            sceneOverlayView.maximumTagPerItem = newValue
+        }
+    }
+    
+    private(set) var maximumTagPerItemEnabled: Bool {
+        get {
+            return sceneOverlayView.maximumTagPerItemEnabled
+        }
+        set {
+            sceneOverlayView.maximumTagPerItemEnabled = newValue
+        }
+    }
+    
+    private(set) var replaceSingleTagWhileDrop: Bool {
+        get {
+            return sceneOverlayView.replaceSingleTagWhileDrop
+        }
+        set {
+            sceneOverlayView.replaceSingleTagWhileDrop = newValue
+        }
+    }
+    
     private(set) var drawTagsInScene                 : Bool = false
     private(set) var hideAnnotatorsWhenResize        : Bool = true
     private(set) var hideBordersWhenResize           : Bool = false
@@ -177,7 +204,9 @@ final class SceneController: NSViewController {
         .hideAnnotatorsWhenResize, .hideBordersWhenResize,
         .hideGridsWhenResize, .usesPredominantAxisScrolling,
         .drawSceneBackground, .drawBordersInScene, .drawGridsInScene,
-        .drawRulersInScene, .drawTagsInScene
+        .drawRulersInScene, .drawTagsInScene,
+        .maximumTagPerItem, .maximumTagPerItemEnabled,
+        .replaceSingleTagWhileDrop,
     ]
     private var observables                    : [Observable]?
     private var windowActiveNotificationToken  : NotificationToken?
@@ -328,6 +357,9 @@ extension SceneController {
         drawGridsInScene               = UserDefaults.standard[.drawGridsInScene]
         drawRulersInScene              = UserDefaults.standard[.drawRulersInScene]
         drawTagsInScene                = UserDefaults.standard[.drawTagsInScene]
+        maximumTagPerItem              = UserDefaults.standard[.maximumTagPerItem]
+        maximumTagPerItemEnabled       = UserDefaults.standard[.maximumTagPerItemEnabled]
+        replaceSingleTagWhileDrop      = UserDefaults.standard[.replaceSingleTagWhileDrop]
 
         sceneBorderView.isHidden       = !drawBordersInScene
         sceneGridView.isHidden         = !drawGridsInScene
@@ -388,8 +420,18 @@ extension SceneController {
                 setNeedsRedrawAnnotatorContents()
                 shouldNotifySceneBoundsChanged = true
             }
+            else if defaultKey == .maximumTagPerItemEnabled && maximumTagPerItemEnabled != toValue {
+                maximumTagPerItemEnabled = toValue
+            }
+            else if defaultKey == .replaceSingleTagWhileDrop && replaceSingleTagWhileDrop != toValue {
+                replaceSingleTagWhileDrop = toValue
+            }
             if shouldNotifySceneBoundsChanged {
                 notifyVisibleRectChanged()
+            }
+        } else if let toValue = defaultValue as? Int {
+            if defaultKey == .maximumTagPerItem && maximumTagPerItem != toValue {
+                maximumTagPerItem = toValue
             }
         }
     }

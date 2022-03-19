@@ -22,6 +22,7 @@ final class Content: NSObject, Codable {
         case itemReachLimit(totalSpace: Int)
         case itemReachLimitBatch(moreSpace: Int)
         case itemConflict(item1: CustomStringConvertible, item2: CustomStringConvertible)
+        case itemTagPerItemReachLimit(totalSpace: Int)
         case notLoaded
         case notWritable
         case notSerialized
@@ -45,6 +46,8 @@ final class Content: NSObject, Codable {
                 return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "Content.Error"), moreSpace)
             case let .itemConflict(item1, item2):
                 return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "Content.Error"), item1.description, item2.description)
+            case let .itemTagPerItemReachLimit(totalSpace):
+                return String(format: NSLocalizedString("Maximum tag per item count %d reached.", comment: "Content.Error"), totalSpace)
             case .notLoaded:
                 return NSLocalizedString("No document loaded.", comment: "Content.Error")
             case .notWritable:

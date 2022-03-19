@@ -274,6 +274,12 @@
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84219E26160CD200F1C007 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84219D26160CD200F1C007 /* Security.framework */; };
+		CC85DACB27E56A80003263FD /* CoreData+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACA27E56A80003263FD /* CoreData+Decodable.swift */; };
+		CC85DACC27E56A80003263FD /* CoreData+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACA27E56A80003263FD /* CoreData+Decodable.swift */; };
+		CC85DAD327E579BF003263FD /* FieldOption+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACD27E57754003263FD /* FieldOption+CoreDataClass.swift */; };
+		CC85DAD427E579C0003263FD /* FieldOption+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACD27E57754003263FD /* FieldOption+CoreDataClass.swift */; };
+		CC85DAD527E579C9003263FD /* FieldOption+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACE27E57754003263FD /* FieldOption+CoreDataProperties.swift */; };
+		CC85DAD627E579CA003263FD /* FieldOption+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC85DACE27E57754003263FD /* FieldOption+CoreDataProperties.swift */; };
 		CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */; };
 		CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */; };
 		CC8F8C9026207C9E00F60F78 /* TemplateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */; };
@@ -356,6 +362,8 @@
 		CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */; };
 		CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
+		CCCEB8D127E59A6F00A761C4 /* pixelexif in Embed Tools */ = {isa = PBXBuildFile; fileRef = 0F5BBA14276F3B3300AF0DC8 /* pixelexif */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CCCEB8D227E59A7A00A761C4 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
@@ -413,8 +421,8 @@
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
-		CCF7C84527E4D3E90090B7F7 /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList.plist */; };
-		CCF7C84627E4D3E90090B7F7 /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList.plist */; };
+		CCF7C84527E4D3E90090B7F7 /* TagList-UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */; };
+		CCF7C84627E4D3E90090B7F7 /* TagList-UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */; };
 		CCF7C84827E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
 		CCF7C84927E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
 		CCF7C84E27E4ED4F0090B7F7 /* TagList-Passport.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */; };
@@ -835,6 +843,20 @@
 			remoteGlobalIDString = CC7D6749266DDB5C002099AD;
 			remoteInfo = PauseForSounds;
 		};
+		CCCEB8CD27E59A5A00A761C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0F5BBA00276F3B3300AF0DC8;
+			remoteInfo = PixelExif;
+		};
+		CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D690C95E241A60DC00BB1652;
+			remoteInfo = PixelMatch;
+		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -937,6 +959,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				CCCEB8D127E59A6F00A761C4 /* pixelexif in Embed Tools */,
+				CCCEB8D227E59A7A00A761C4 /* pixelmatch in Embed Tools */,
 			);
 			name = "Embed Tools";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1289,6 +1313,9 @@
 		CC8376F126304DBD00B2C984 /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
 		CC84218626160AEF00F1C007 /* ExportStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedController.swift; sourceTree = "<group>"; };
 		CC84219D26160CD200F1C007 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CC85DACA27E56A80003263FD /* CoreData+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Decodable.swift"; sourceTree = "<group>"; };
+		CC85DACD27E57754003263FD /* FieldOption+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FieldOption+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CC85DACE27E57754003263FD /* FieldOption+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FieldOption+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CC8E5DAF262819D00030B2FC /* StackedPaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneController.swift; sourceTree = "<group>"; };
 		CC8F8C8B26207C9E00F60F78 /* TemplateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateInfoView.swift; sourceTree = "<group>"; };
 		CC8F8C8D26207C9E00F60F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TemplateInfoView.xib; sourceTree = "<group>"; };
@@ -1389,7 +1416,7 @@
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
 		CCF67A06255AC7B300061A51 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		CCF7C84427E4D3E90090B7F7 /* TagList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
+		CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagList-UI.plist"; sourceTree = "<group>"; };
 		CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagList-Passport.plist"; sourceTree = "<group>"; };
 		CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -2583,7 +2610,6 @@
 		CCE901532626BAB200C84904 /* Defaults */ = {
 			isa = PBXGroup;
 			children = (
-				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
 				D631E2C623F7B38B00652B17 /* Defaults.swift */,
 				CCE901542626BAC400C84904 /* KeyValueObserver.swift */,
 				CCE901652626BAE400C84904 /* KeyValueObserverResult.swift */,
@@ -2598,7 +2624,7 @@
 			isa = PBXGroup;
 			children = (
 				CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */,
-				CCF7C84427E4D3E90090B7F7 /* TagList.plist */,
+				CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */,
 			);
 			path = Presets;
 			sourceTree = "<group>";
@@ -2889,6 +2915,7 @@
 			children = (
 				CCF7C84327E4D3C60090B7F7 /* Presets */,
 				CCED7CDA262D689500F2C965 /* Info.plist */,
+				D6CB454E248784EF00F5C7A1 /* InitialValues.plist */,
 				D658AFA723CB180D0098C567 /* JSTColorPicker.entitlements */,
 				D690C969241A614300BB1652 /* JSTColorPicker-Bridging-Header.h */,
 				D658AFA323CB180D0098C567 /* Main.storyboard */,
@@ -3194,7 +3221,10 @@
 				CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */,
 				CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */,
 				CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */,
+				CC85DACD27E57754003263FD /* FieldOption+CoreDataClass.swift */,
+				CC85DACE27E57754003263FD /* FieldOption+CoreDataProperties.swift */,
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
+				CC85DACA27E56A80003263FD /* CoreData+Decodable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3481,6 +3511,8 @@
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
+				CCCEB8CE27E59A5A00A761C4 /* PBXTargetDependency */,
+				CCCEB8D027E59A5C00A761C4 /* PBXTargetDependency */,
 				CC7D6751266DDB96002099AD /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
@@ -3689,7 +3721,7 @@
 				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
 				CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */,
-				CCF7C84527E4D3E90090B7F7 /* TagList.plist in Resources */,
+				CCF7C84527E4D3E90090B7F7 /* TagList-UI.plist in Resources */,
 				D6E166A5248A481300D8D1C5 /* Edit.storyboard in Resources */,
 				CC4422F0263AE56D00161852 /* Copy.aiff in Resources */,
 				CCCD81EC261C5C1A00BFDD6E /* Grid.storyboard in Resources */,
@@ -3726,7 +3758,7 @@
 				CC4422F1263AE56D00161852 /* Copy.aiff in Resources */,
 				CC4422EF263AE56D00161852 /* Paste.aiff in Resources */,
 				CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */,
-				CCF7C84627E4D3E90090B7F7 /* TagList.plist in Resources */,
+				CCF7C84627E4D3E90090B7F7 /* TagList-UI.plist in Resources */,
 				CC5480A2275E4BE800B7652C /* Browser.storyboard in Resources */,
 				CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */,
 				CC32E20A2615D5B700F5F6AA /* Inspector.storyboard in Resources */,
@@ -4097,6 +4129,7 @@
 				CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
 				CC96F94026727E2000CB55E9 /* PairedDevice.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
+				CC85DAD327E579BF003263FD /* FieldOption+CoreDataClass.swift in Sources */,
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
@@ -4126,6 +4159,8 @@
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
+				CC85DACB27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
+				CC85DAD527E579C9003263FD /* FieldOption+CoreDataProperties.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
@@ -4249,6 +4284,7 @@
 				CC4422EB263AD7F700161852 /* TemplateRowView.swift in Sources */,
 				D6E2455F23E186260012BE5F /* ColorAnnotator.swift in Sources */,
 				D6B8E83923D0A542006AB402 /* Screenshot.swift in Sources */,
+				CC85DAD627E579CA003263FD /* FieldOption+CoreDataProperties.swift in Sources */,
 				1885CF3F24B0FEA30067D02F /* UndoProxy.swift in Sources */,
 				D6E2455D23E153340012BE5F /* AnnotatorSource.swift in Sources */,
 				D67C51C823F1365500829B51 /* AnnotatorOverlay.swift in Sources */,
@@ -4324,12 +4360,14 @@
 				CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
+				CC85DAD427E579C0003263FD /* FieldOption+CoreDataClass.swift in Sources */,
 				CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */,
 				CC042786275E297E008DD0C5 /* BrowserWindowController.swift in Sources */,
 				D6CD28A9247BD4670051BE18 /* TagController.swift in Sources */,
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
+				CC85DACC27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
@@ -4539,6 +4577,16 @@
 			isa = PBXTargetDependency;
 			target = CC7D6749266DDB5C002099AD /* PauseForSounds */;
 			targetProxy = CC7D6752266DDBBE002099AD /* PBXContainerItemProxy */;
+		};
+		CCCEB8CE27E59A5A00A761C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0F5BBA00276F3B3300AF0DC8 /* PixelExif */;
+			targetProxy = CCCEB8CD27E59A5A00A761C4 /* PBXContainerItemProxy */;
+		};
+		CCCEB8D027E59A5C00A761C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
+			targetProxy = CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */;
 		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5091,7 +5139,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1232;
+				CURRENT_PROJECT_VERSION = 1233;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5128,7 +5176,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1232;
+				CURRENT_PROJECT_VERSION = 1233;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5417,6 +5465,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				COMPILER_INDEX_STORE_ENABLE = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1026;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -5491,6 +5540,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
+				COMPILER_INDEX_STORE_ENABLE = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1026;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

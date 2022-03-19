@@ -9,31 +9,15 @@
 import CoreData
 import Foundation
 
-extension CodingUserInfoKey {
-    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
-}
-
-enum DecoderConfigurationError: Error {
-    case missingManagedObjectContext
-}
-
-extension NSManagedObject {
-    convenience init(context: NSManagedObjectContext) {
-        let name = String(describing: type(of: self))
-        let entity = NSEntityDescription.entity(forEntityName: name, in: context)!
-        self.init(entity: entity, insertInto: context)
-    }
-}
-
 @objc(Field)
-final class Field: NSManagedObject, Codable {
+public final class Field: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
-        case helpText, name, order, type, validationRegex
+        case helpText, name, order, type, validationRegex, options
     }
     
     private static var initializedOrder: Int64 = 0
 
-    required convenience init(from decoder: Decoder) throws {
+    required convenience public init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[CodingUserInfoKey.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -47,14 +31,26 @@ final class Field: NSManagedObject, Codable {
         order = try container.decodeIfPresent(Int64.self, forKey: .order) ?? Field.initializedOrder
         type = try container.decode(String.self, forKey: .type)
         validationRegex = try container.decodeIfPresent(String.self, forKey: .validationRegex)
+        do {
+            let possibleOptionNames = try container.decodeIfPresent([String].self, forKey: .options) ?? []
+            let possibleOptions = possibleOptionNames.compactMap { optionName -> FieldOption in
+                let option = FieldOption(context: context)
+                option.name = optionName
+                return option
+            }
+            options = NSOrderedSet(array: possibleOptions)
+        } catch {
+            options = NSOrderedSet(array: try container.decodeIfPresent([FieldOption].self, forKey: .options) ?? [])
+        }
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(helpText, forKey: .helpText)
         try container.encode(name, forKey: .name)
         try container.encode(order, forKey: .order)
         try container.encode(type, forKey: .type)
         try container.encode(validationRegex, forKey: .validationRegex)
+        try container.encode(options.array as? [FieldOption] ?? [], forKey: .options)
     }
 }

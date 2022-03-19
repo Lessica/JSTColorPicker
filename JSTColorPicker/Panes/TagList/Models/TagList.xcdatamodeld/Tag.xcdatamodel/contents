@@ -2,18 +2,23 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Field" representedClassName="Field" syncable="YES">
         <attribute name="helpText" optional="YES" attributeType="String"/>
-        <attribute name="name" attributeType="String" minValueString="1" spotlightIndexingEnabled="YES"/>
+        <attribute name="name" attributeType="String" minValueString="1"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" attributeType="String"/>
         <attribute name="validationRegex" optional="YES" attributeType="String"/>
+        <relationship name="options" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="FieldOption" inverseName="field" inverseEntity="FieldOption"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="fields" inverseEntity="Tag"/>
+    </entity>
+    <entity name="FieldOption" representedClassName="FieldOption" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="field" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Field" inverseName="options" inverseEntity="Field"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="colorHex" attributeType="String" defaultValueString="#000000" regularExpressionString="#[0-9a-fA-F]{6}"/>
         <attribute name="name" attributeType="String" minValueString="1" spotlightIndexingEnabled="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="tagDescription" optional="YES" attributeType="String"/>
-        <relationship name="fields" optional="YES" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Field" inverseName="tag" inverseEntity="Field"/>
+        <relationship name="fields" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Field" inverseName="tag" inverseEntity="Field"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -21,7 +26,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Tag" positionX="-63" positionY="-18" width="128" height="118"/>
-        <element name="Field" positionX="-63" positionY="9" width="128" height="133"/>
+        <element name="Field" positionX="-63" positionY="9" width="128" height="134"/>
+        <element name="Tag" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="FieldOption" positionX="-54" positionY="45" width="128" height="59"/>
     </elements>
 </model>

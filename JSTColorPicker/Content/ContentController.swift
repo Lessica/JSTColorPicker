@@ -479,6 +479,13 @@ extension ContentController: ContentItemSource {
 extension ContentController: ContentActionResponder {
     
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem? {
+        let disableColorAnnotation: Bool = UserDefaults.standard[.disableColorAnnotation]
+        if disableColorAnnotation {
+            if ignore {
+                return nil
+            }
+            throw Content.Error.itemReachLimit(totalSpace: 0)
+        }
         return try addContentItem(contentItem(of: coordinate))
     }
     
@@ -521,6 +528,7 @@ extension ContentController: ContentActionResponder {
             let image = documentImage    else { throw Content.Error.notLoaded }
         guard documentState.isWritable  else { throw Content.Error.notWritable   }
         
+        let disableColorAnnotation: Bool = UserDefaults.standard[.disableColorAnnotation]
         let maximumItemCountEnabled: Bool = UserDefaults.standard[.maximumItemCountEnabled]
         if maximumItemCountEnabled {
             let maximumItemCount: Int = UserDefaults.standard[.maximumItemCount]
@@ -537,6 +545,9 @@ extension ContentController: ContentActionResponder {
         for item in items {
             var relatedItem: ContentItem?
             if let color = item as? PixelColor {
+                if disableColorAnnotation {
+                    continue
+                }
                 let coordinate = color.coordinate
                 guard !existingCoordinates.contains(coordinate) else { throw Content.Error.itemExists(item: color) }
                 guard let newItem = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size)}
@@ -697,6 +708,13 @@ extension ContentController: ContentActionResponder {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWritable      else { throw Content.Error.notWritable   }
         
+        let maximumTagPerItemEnabled: Bool = UserDefaults.standard[.maximumTagPerItemEnabled]
+        if maximumTagPerItemEnabled {
+            let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
+            guard item.tags.count <= maximumTagPerItem else {
+                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+            }
+        }
         guard content.items.first(where: { $0.id == item.id }) != nil              else { throw Content.Error.itemDoesNotExist(item: item) }
         
         let replItem = item.copy() as! ContentItem
@@ -715,6 +733,13 @@ extension ContentController: ContentActionResponder {
         guard let content = documentContent  else { throw Content.Error.notLoaded }
         guard documentState.isWritable      else { throw Content.Error.notWritable   }
         
+        let maximumTagPerItemEnabled: Bool = UserDefaults.standard[.maximumTagPerItemEnabled]
+        if maximumTagPerItemEnabled {
+            let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
+            guard items.allSatisfy({ $0.tags.count <= maximumTagPerItem }) else {
+                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+            }
+        }
         let itemIndexes = IndexSet(
             items.compactMap({ content.items.firstIndex(of: $0) })
         )

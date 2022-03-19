@@ -39,7 +39,7 @@
 	<key>defaults:ignoreInvalidDeletion</key>
 	<true/>
 	<key>defaults:ignoreRepeatedInsertion</key>
-	<false/>
+	<true/>
 	<key>defaults:locateExportedItemsAfterOperation</key>
 	<false/>
 	<key>defaults:zIndexBySize</key>
@@ -51,6 +51,12 @@
 	<key>defaults:maximumItemCount</key>
 	<integer>99</integer>
 	<key>defaults:maximumItemCountEnabled</key>
+	<true/>
+	<key>defaults:maximumTagPerItem</key>
+	<integer>1</integer>
+	<key>defaults:maximumTagPerItemEnabled</key>
+	<true/>
+	<key>defaults:replaceSingleTagWhileDrop</key>
 	<true/>
 	<key>defaults:duplicateOffset</key>
 	<integer>10</integer>
@@ -100,5 +106,9 @@
 	<true/>
 	<key>defaults:usesPredominantAxisScrolling</key>
 	<false/>
+	<key>defaults:disableColorAnnotation</key>
+	<true/>
+	<key>defaults:disableTagReordering</key>
+	<true/>
 </dict>
 </plist>
