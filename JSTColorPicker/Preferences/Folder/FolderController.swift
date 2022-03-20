@@ -11,6 +11,7 @@ import MASPreferences
 
 final class FolderController: NSViewController {
     
+    static let Identifier = "FolderPreferences"
     @IBOutlet weak var screenshotSavedAtLocationButton       : NSButton!
     @IBOutlet weak var tagDatabaseLocationButton             : NSButton!
     @IBOutlet weak var templatesRootLocationButton           : NSButton!
@@ -119,7 +120,7 @@ extension FolderController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "FolderPreferences"
+        return FolderController.Identifier
     }
     
     var toolbarItemLabel: String? {

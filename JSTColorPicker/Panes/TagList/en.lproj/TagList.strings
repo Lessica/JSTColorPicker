@@ -7,6 +7,9 @@
 /* Class = "NSTextFieldCell"; title = "-"; ObjectID = "FUe-D3-zFx"; */
 "FUe-D3-zFx.title" = "-";
 
+/* Class = "NSButtonCell"; title = "Reset…"; ObjectID = "fxc-ms-dJs"; */
+"fxc-ms-dJs.title" = "Reset…";
+
 /* Class = "NSTextFieldCell"; title = "Loading tag database…"; ObjectID = "gqF-EC-Oma"; */
 "gqF-EC-Oma.title" = "Loading tag database…";
 

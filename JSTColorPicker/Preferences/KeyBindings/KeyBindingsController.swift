@@ -38,6 +38,7 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
     
     // MARK: Private Properties
     
+    static let Identifier = "KeyBindingsPreferences"
     private var outlineTree: [NSTreeNode] = []
     @objc private dynamic var warningMessage: String?  // for binding
     @objc private dynamic var isRestoreble: Bool = false  // for binding
@@ -291,7 +292,7 @@ extension KeyBindingsController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "KeyBindingsPreferences"
+        return KeyBindingsController.Identifier
     }
     
     var toolbarItemLabel: String? {

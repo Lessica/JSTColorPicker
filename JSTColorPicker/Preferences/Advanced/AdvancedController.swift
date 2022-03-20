@@ -11,6 +11,7 @@ import MASPreferences
 
 final class AdvancedController: NSViewController {
     
+    static let Identifier = "AdvancedPreferences"
     @IBOutlet weak var checkUpdatesCheckbox: NSButton!
     
     init() {
@@ -113,7 +114,7 @@ extension AdvancedController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "AdvancedPreferences"
+        return AdvancedController.Identifier
     }
     
     var toolbarItemLabel: String? {

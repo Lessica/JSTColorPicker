@@ -11,6 +11,7 @@ import MASPreferences
 
 final class GeneralController: NSViewController {
     
+    static let Identifier = "GeneralPreferences"
     @IBOutlet weak var tabView: NSTabView!
     
     @objc dynamic var maximumAnnotations: Int = 999
@@ -57,7 +58,7 @@ extension GeneralController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "GeneralPreferences"
+        return GeneralController.Identifier
     }
     
     var toolbarItemLabel: String? {

@@ -177,6 +177,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         tabService?.firstRespondingWindow?.windowController as? WindowController
     }
     
+    private var initialPreferencesControllerViewIdentifier: String?
     internal lazy var preferencesController: PreferencesController = {
         #if APP_STORE
         let controller = PreferencesController(
@@ -189,6 +190,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             ],
             title: NSLocalizedString("Preferences", comment: "PreferencesController")
         )
+        if let initialPreferencesControllerViewIdentifier = initialPreferencesControllerViewIdentifier
+        {
+            controller.select(withIdentifier: initialPreferencesControllerViewIdentifier)
+        }
         return controller
         #else
         let controller = PreferencesController(
@@ -199,9 +204,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 AdvancedController()
             ], title: NSLocalizedString("Preferences", comment: "PreferencesController")
         )
+        if let initialPreferencesControllerViewIdentifier = initialPreferencesControllerViewIdentifier
+        {
+            controller.select(withIdentifier: initialPreferencesControllerViewIdentifier)
+        }
         return controller
         #endif
     }()
+    
+    @objc private func prepareInitialPreferencesControllerViewIdentifierNotification(_ notification: NSNotification)
+    {
+        initialPreferencesControllerViewIdentifier = notification.userInfo?["viewIdentifier"] as? String
+        showPreferences(self)
+    }
     
     
     // MARK: - Application Events
@@ -293,6 +308,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             object: self
         )
         #endif
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(prepareInitialPreferencesControllerViewIdentifierNotification(_:)),
+            name: PreferencesController.makeKeyAndOrderFrontNotification,
+            object: nil
+        )
         
         AppCenter.start(withAppSecret: "8197ce52-8436-40f8-93b5-f9ab5e4fa331", services: [
             Analytics.self,

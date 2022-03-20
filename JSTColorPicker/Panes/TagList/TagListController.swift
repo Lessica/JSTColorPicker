@@ -62,6 +62,7 @@ final class TagListController: StackedPaneController {
     
     @IBOutlet weak var paneTopConstraint          : NSLayoutConstraint!
     @IBOutlet weak var paneInnerTopConstraint     : NSLayoutConstraint!
+    @IBOutlet weak var loadingErrorStack          : NSStackView!
     @IBOutlet weak var loadingErrorLabel          : NSTextField!
     @IBOutlet weak var buttonImport               : NSButton!
     @IBOutlet weak var buttonAdd                  : NSButton!
@@ -145,6 +146,7 @@ final class TagListController: StackedPaneController {
         tableColumnChecked.isHidden         = !isSelectMode
         
         searchField.isEnabled               = isContextLoaded
+        loadingErrorStack.isHidden          = isContextLoaded
         loadingErrorLabel.isHidden          = isContextLoaded
         loadingErrorLabel.stringValue       = isContextLoaded ? "" : NSLocalizedString("Unable to access tag database.", comment: "Setup Persistent Store")
         
@@ -682,6 +684,10 @@ final class TagListController: StackedPaneController {
         let checkedRow = tableView.row(for: sender)
         selectDelegate.selectedStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
         reloadHeaderView()
+    }
+    
+    @IBAction private func resetButtonAction(_ sender: NSButton) {
+        NotificationCenter.default.post(name: PreferencesController.makeKeyAndOrderFrontNotification, object: self, userInfo: ["viewIdentifier": AdvancedController.Identifier])
     }
     
 }

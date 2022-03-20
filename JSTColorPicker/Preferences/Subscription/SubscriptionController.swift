@@ -11,6 +11,7 @@ import MASPreferences
 
 final class SubscriptionController: NSViewController {
     
+    static let Identifier = "SubscriptionPreferences"
     @IBOutlet weak var detailLabel: NSTextField!
     
     init() {
@@ -68,7 +69,7 @@ extension SubscriptionController: MASPreferencesViewController {
     }
     
     var viewIdentifier: String {
-        return "SubscriptionPreferences"
+        return SubscriptionController.Identifier
     }
     
     var toolbarItemLabel: String? {
