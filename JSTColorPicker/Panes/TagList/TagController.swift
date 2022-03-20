@@ -10,6 +10,22 @@ import Cocoa
 
 final class TagController: NSArrayController {
     
+    @objc dynamic var controllerDisplayTitle: String = NSLocalizedString("Tag Manager", comment: "TagController")
+    
+    override var isEditable: Bool {
+        get {
+            super.isEditable
+        }
+        set {
+            super.isEditable = newValue
+            if newValue {
+                controllerDisplayTitle = NSLocalizedString("Tag Manager", comment: "TagController")
+            } else {
+                controllerDisplayTitle = NSLocalizedString("Tag Manager (Read-only)", comment: "TagController")
+            }
+        }
+    }
+    
     override func insert(_ object: Any, atArrangedObjectIndex index: Int) {
         guard let items = arrangedObjects as? [Tag] else { return }
         if let tag = object as? Tag {

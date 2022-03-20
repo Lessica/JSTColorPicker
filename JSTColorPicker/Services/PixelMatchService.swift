@@ -22,7 +22,7 @@ final class PixelMatchService {
             case .taskConflict:
                 return NSLocalizedString("Another task is in process, abort.", comment: "PixelMatchServiceError")
             case let .cannotLoadImage(url):
-                return String(format: NSLocalizedString("Cannot load image: %@", comment: "PixelMatchServiceError"), url.path)
+                return String(format: NSLocalizedString("Cannot load image: %@.", comment: "PixelMatchServiceError"), url.path)
             case let .sizesDoNotMatch(size1, size2):
                 return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
             case .noDifferenceDetected:

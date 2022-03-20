@@ -353,6 +353,9 @@
                                     </constraints>
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>
+                                <connections>
+                                    <binding destination="lSV-Dz-huJ" name="title" keyPath="controllerDisplayTitle" id="IDh-ob-fZy"/>
+                                </connections>
                             </box>
                         </subviews>
                         <constraints>

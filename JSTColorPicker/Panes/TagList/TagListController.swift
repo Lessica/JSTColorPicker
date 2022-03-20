@@ -749,11 +749,11 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var shouldPerformDragging: Bool { !isSelectMode && internalController.isEditable }
+    var shouldPerformDragging: Bool { isContextLoaded && !isSelectMode }
     
     func willPerformDragging(_ sender: Any?) -> Bool {
         contentManager?.deselectAllContentItems()
-        return internalController.isEditable
+        return shouldPerformDragging
     }
     
     var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }

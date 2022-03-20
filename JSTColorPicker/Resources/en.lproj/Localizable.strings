@@ -74,6 +74,9 @@
 /* ScreenshotError */
 "Cannot deserialize content." = "Cannot deserialize content.";
 
+/* PixelMatchServiceError */
+"Cannot load image: %@." = "Cannot load image: %@.";
+
 /* ScriptError */
 "Cannot open application at: \"%@\"." = "Cannot open application at: \"%@\".";
 
@@ -230,11 +233,8 @@
 /* copy(_:) */
 "Extract Snippets" = "Extract Snippets";
 
-/* PixelMatchServiceError */
-"File does not exist: %@" = "File does not exist: %@";
-
 /* PixelImageError */
-"File read failed." = "File read failed.";
+"File read failed: %@." = "File read failed: %@.";
 
 /* Shortcut Guide */
 "Fill Window" = "Fill Window";
@@ -355,10 +355,10 @@
 "List Removable Annotations" = "List Removable Annotations";
 
 /* PixelImageError */
-"Load image data failed." = "Load image data failed.";
+"Load image data failed: %@." = "Load image data failed: %@.";
 
 /* PixelImageError */
-"Load image source failed." = "Load image source failed.";
+"Load image source failed: %@." = "Load image source failed: %@.";
 
 /* Shortcut Guide */
 "Locate" = "Locate";
@@ -386,6 +386,9 @@
 
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
+
+/* Content.Error */
+"Maximum tag per item count %d reached." = "Maximum tag per item count %d reached.";
 
 /* Shortcut Guide */
 "Minify" = "Minify";
@@ -670,6 +673,12 @@
 /* Shortcut Guide */
 "Switch to Selection Arrow temporarily." = "Switch to Selection Arrow temporarily.";
 
+/* TagController */
+"Tag Manager" = "Tag Manager";
+
+/* TagController */
+"Tag Manager (Read-only)" = "Tag Manager (Read-only)";
+
 /* Shortcut Guide */
 "Take Screenshot" = "Take Screenshot";
 
@@ -732,6 +741,9 @@
 
 /* Setup Persistent Store */
 "Unable to access tag database." = "Unable to access tag database.";
+
+/* No comment provided by engineer. */
+"Unable to write a read-only context." = "Unable to write a read-only context.";
 
 /* PurchaseManager.ProductType */
 "Uninitialized" = "Uninitialized";

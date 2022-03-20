@@ -74,6 +74,9 @@
 /* ScreenshotError */
 "Cannot deserialize content." = "无法反序列化内容。";
 
+/* PixelMatchServiceError */
+"Cannot load image: %@." = "无法加载图像：%@。";
+
 /* ScriptError */
 "Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\"。";
 
@@ -230,11 +233,8 @@
 /* copy(_:) */
 "Extract Snippets" = "解析片段";
 
-/* PixelMatchServiceError */
-"File does not exist: %@" = "文件不存在：%@";
-
 /* PixelImageError */
-"File read failed." = "文件读取失败。";
+"File read failed: %@." = "无法读取文件：%@。";
 
 /* Shortcut Guide */
 "Fill Window" = "填充窗口";
@@ -355,10 +355,10 @@
 "List Removable Annotations" = "列出可移除标注";
 
 /* PixelImageError */
-"Load image data failed." = "加载图像数据失败。";
+"Load image data failed: %@." = "无法加载图像数据：%@。";
 
 /* PixelImageError */
-"Load image source failed." = "加载映像源失败。";
+"Load image source failed: %@." = "无法加载图像来源：%@。";
 
 /* Shortcut Guide */
 "Locate" = "定位";
@@ -386,6 +386,9 @@
 
 /* Content.Error */
 "Maximum item count %d reached." = "已达到最大项数量 %d。";
+
+/* Content.Error */
+"Maximum tag per item count %d reached." = "已达到每项最大标签数 %d。";
 
 /* Shortcut Guide */
 "Minify" = "缩小";
@@ -670,6 +673,12 @@
 /* Shortcut Guide */
 "Switch to Selection Arrow temporarily." = "临时切换到选择箭头。";
 
+/* TagController */
+"Tag Manager" = "标签管理器";
+
+/* TagController */
+"Tag Manager (Read-only)" = "标签管理器（只读）";
+
 /* Shortcut Guide */
 "Take Screenshot" = "截图";
 
@@ -732,6 +741,9 @@
 
 /* Setup Persistent Store */
 "Unable to access tag database." = "无法访问标签数据库。";
+
+/* No comment provided by engineer. */
+"Unable to write a read-only context." = "无法写入只读环境。";
 
 /* PurchaseManager.ProductType */
 "Uninitialized" = "未初始化";
