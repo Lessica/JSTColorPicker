@@ -138,6 +138,7 @@ final class SceneController: NSViewController {
     @IBOutlet private weak var sceneGridView               : SceneGridView!
     @IBOutlet private weak var sceneOverlayView            : SceneOverlayView!
     @IBOutlet private weak var sceneEffectView             : SceneEffectView!
+    @IBOutlet private weak var sceneCursorView             : SceneCursorView!
     @IBOutlet private weak var sceneTopConstraint          : NSLayoutConstraint!
     @IBOutlet private weak var sceneLeadingConstraint      : NSLayoutConstraint!
 
@@ -247,6 +248,7 @@ final class SceneController: NSViewController {
         sceneOverlayView.sceneTagsEffectViewSource = self
         sceneOverlayView.annotatorSource           = self
         sceneOverlayView.contentDelegate           = self
+        sceneCursorView.backgroundSource           = sceneView
         prepareDefaults()
 
         eventMonitors.append(NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] (event) -> NSEvent? in

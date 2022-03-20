@@ -368,6 +368,8 @@
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCCEB8D127E59A6F00A761C4 /* pixelexif in Embed Tools */ = {isa = PBXBuildFile; fileRef = 0F5BBA14276F3B3300AF0DC8 /* pixelexif */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CCCEB8D227E59A7A00A761C4 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CCD04E2627E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
+		CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
@@ -1386,6 +1388,7 @@
 		CCCD8215261C5DBD00BFDD6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExportStacked.strings; sourceTree = "<group>"; };
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
@@ -3051,6 +3054,7 @@
 				D699E0C2240836280011A4CB /* SceneGridView.swift */,
 				D61FC4E723E18FE100299F48 /* SceneOverlayView.swift */,
 				D69974CA24140A9000223B31 /* SceneEffectView.swift */,
+				CCD04E2527E7811000C43E64 /* SceneCursorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4153,6 +4157,7 @@
 				CC85DAD327E579BF003263FD /* FieldOption+CoreDataClass.swift in Sources */,
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
+				CCD04E2627E7811A00C43E64 /* SceneCursorView.swift in Sources */,
 				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
@@ -4517,6 +4522,7 @@
 				D658AF9E23CB180C0098C567 /* AppDelegate.swift in Sources */,
 				CC608BE7261787E800F5B861 /* InfoView.swift in Sources */,
 				CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */,
+				CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

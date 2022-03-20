@@ -16,6 +16,7 @@ final class SceneBorderView: NSView {
         
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .scaleAxesIndependently
+        
         if let compositingFilter = CIFilter(name: "CIOverlayBlendMode") {
             layer?.compositingFilter = compositingFilter
         }

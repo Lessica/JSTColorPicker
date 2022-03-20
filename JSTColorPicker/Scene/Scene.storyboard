@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsz-Ju-e0d">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,11 +18,11 @@
                             <scrollView autoresizesSubviews="NO" focusRingType="none" borderType="none" horizontalLineScroll="10" horizontalPageScroll="0.0" verticalLineScroll="10" verticalPageScroll="0.0" allowsMagnification="YES" maxMagnification="256" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7m-Sv-4Wm" customClass="SceneScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                                 <clipView key="contentView" focusRingType="none" id="sQJ-yc-X1x" customClass="SceneClipView" customModule="JSTColorPicker" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="985" height="733"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view focusRingType="none" id="V2d-Mg-fgu">
-                                            <rect key="frame" x="0.0" y="0.0" width="970" height="718"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="985" height="733"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                     </subviews>
@@ -29,11 +30,11 @@
                                 </clipView>
                                 <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                 <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="LfN-XO-MdU">
-                                    <rect key="frame" x="0.0" y="733" width="985" height="15"/>
+                                    <rect key="frame" x="0.0" y="732" width="1000" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OKd-TY-Jrf">
-                                    <rect key="frame" x="985" y="0.0" width="15" height="733"/>
+                                    <rect key="frame" x="984" y="0.0" width="16" height="748"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -49,13 +50,18 @@
                             <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="p5F-Ek-hEY" customClass="SceneEffectView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
                             </customView>
+                            <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="zv1-3f-q7C" customClass="SceneCursorView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="748"/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="k96-rq-b85" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="4wB-3u-qQr"/>
+                            <constraint firstItem="zv1-3f-q7C" firstAttribute="leading" secondItem="W7m-Sv-4Wm" secondAttribute="leading" id="9kQ-qp-pbZ"/>
                             <constraint firstItem="k96-rq-b85" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="AdZ-ta-A0z"/>
                             <constraint firstItem="k96-rq-b85" firstAttribute="top" secondItem="LWT-QD-3FC" secondAttribute="top" id="FyI-bc-5JX"/>
                             <constraint firstItem="LWT-QD-3FC" firstAttribute="leading" secondItem="W7m-Sv-4Wm" secondAttribute="leading" id="Gl8-j0-zLg"/>
                             <constraint firstItem="LWT-QD-3FC" firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="HcK-UY-ppE"/>
+                            <constraint firstItem="zv1-3f-q7C" firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="LCP-oR-XFA"/>
                             <constraint firstItem="LWT-QD-3FC" firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="MMD-2i-UHh"/>
                             <constraint firstItem="LWT-QD-3FC" firstAttribute="top" secondItem="W7m-Sv-4Wm" secondAttribute="top" id="MfV-gd-Dzt"/>
                             <constraint firstItem="k96-rq-b85" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="Okw-4p-hrt"/>
@@ -63,6 +69,7 @@
                             <constraint firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="SA0-FP-amj"/>
                             <constraint firstAttribute="bottom" secondItem="W7m-Sv-4Wm" secondAttribute="bottom" id="TeC-i8-Deo"/>
                             <constraint firstItem="W7m-Sv-4Wm" firstAttribute="leading" secondItem="LSe-l3-GPX" secondAttribute="leading" id="Ttr-TX-L5H"/>
+                            <constraint firstItem="zv1-3f-q7C" firstAttribute="trailing" secondItem="W7m-Sv-4Wm" secondAttribute="trailing" id="UcU-fe-SkJ"/>
                             <constraint firstItem="p5F-Ek-hEY" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="XWQ-vp-JI5"/>
                             <constraint firstItem="Gm2-nK-LVB" firstAttribute="bottom" secondItem="LWT-QD-3FC" secondAttribute="bottom" id="ZbE-JD-8bJ"/>
                             <constraint firstItem="Gm2-nK-LVB" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="Zzj-ej-eFS"/>
@@ -71,6 +78,7 @@
                             <constraint firstItem="Gm2-nK-LVB" firstAttribute="leading" secondItem="LWT-QD-3FC" secondAttribute="leading" id="e2K-Oy-6MV"/>
                             <constraint firstItem="p5F-Ek-hEY" firstAttribute="trailing" secondItem="LWT-QD-3FC" secondAttribute="trailing" id="eCd-bx-d3c"/>
                             <constraint firstItem="W7m-Sv-4Wm" firstAttribute="top" secondItem="WRf-xZ-PrK" secondAttribute="top" id="ntz-rt-KTI"/>
+                            <constraint firstItem="zv1-3f-q7C" firstAttribute="top" secondItem="W7m-Sv-4Wm" secondAttribute="top" id="spV-IS-OTK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WRf-xZ-PrK"/>
                         <viewLayoutGuide key="layoutMargins" id="dOn-aT-h9C"/>
@@ -79,6 +87,7 @@
                         <outlet property="deletionMenu" destination="u9q-jA-WiX" id="VpU-Q2-Eon"/>
                         <outlet property="sceneBorderView" destination="LWT-QD-3FC" id="9Fn-nR-AAe"/>
                         <outlet property="sceneClipView" destination="sQJ-yc-X1x" id="Vqt-wf-8ut"/>
+                        <outlet property="sceneCursorView" destination="zv1-3f-q7C" id="CI3-8L-WxD"/>
                         <outlet property="sceneEffectView" destination="p5F-Ek-hEY" id="5P4-Cu-8Q3"/>
                         <outlet property="sceneGridView" destination="k96-rq-b85" id="AJp-Yk-LEU"/>
                         <outlet property="sceneLeadingConstraint" destination="Gl8-j0-zLg" id="qUx-t6-ZDy"/>

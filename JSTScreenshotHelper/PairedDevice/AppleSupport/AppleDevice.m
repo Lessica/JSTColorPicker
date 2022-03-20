@@ -189,7 +189,7 @@
     
     char *cIMGData = NULL;
     uint64_t cIMGSize = 0;
-    if (SCREENSHOTR_E_SUCCESS != (scret = screenshotr_take_screenshot(shotr, &cIMGData, &cIMGSize)) && cIMGData != NULL) {
+    if (SCREENSHOTR_E_SUCCESS != (scret = screenshotr_take_screenshot(shotr, &cIMGData, &cIMGSize)) || cIMGData == NULL) {
         if (sbs) {
             sbservices_client_free(sbs);
             sbs = NULL;

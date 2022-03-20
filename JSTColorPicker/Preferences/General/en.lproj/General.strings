@@ -151,6 +151,9 @@
 /* Class = "NSButtonCell"; title = "Hide Annotators When Resize"; ObjectID = "UrU-KM-bp8"; */
 "UrU-KM-bp8.title" = "Hide Annotators When Resize";
 
+/* Class = "NSButtonCell"; title = "Disallow Adding Color & Coordinate"; ObjectID = "uzs-QA-U93"; */
+"uzs-QA-U93.title" = "Disallow Adding Color & Coordinate";
+
 /* Class = "NSButtonCell"; title = "Sound Effects After Copy"; ObjectID = "v5U-oX-CRu"; */
 "v5U-oX-CRu.title" = "Sound Effects After Copy";
 
