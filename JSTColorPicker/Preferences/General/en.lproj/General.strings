@@ -1,3 +1,6 @@
+/* Class = "NSTextFieldCell"; title = "99"; ObjectID = "0u6-PD-p0S"; */
+"0u6-PD-p0S.title" = "99";
+
 /* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
 "1xD-ZG-hUt.title" = "Draw Annotators in Color Grid";
 
@@ -10,6 +13,9 @@
 /* Class = "NSButtonCell"; title = "Draw Borders in Scene"; ObjectID = "2st-bp-3gG"; */
 "2st-bp-3gG.title" = "Draw Borders in Scene";
 
+/* Class = "NSTextFieldCell"; title = "Tag Manager"; ObjectID = "3PW-wY-T84"; */
+"3PW-wY-T84.title" = "Tag Manager";
+
 /* Class = "NSTextFieldCell"; title = "Maximum Lines: "; ObjectID = "3TH-mY-Z6r"; */
 "3TH-mY-Z6r.title" = "Maximum Lines: ";
 
@@ -19,11 +25,17 @@
 /* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
 "3vS-gW-0fD.ibShadowedToolTip" = "Common Difference Color";
 
+/* Class = "NSButtonCell"; title = "Maximum Number of Tag Per Item"; ObjectID = "580-Sp-Ajx"; */
+"580-Sp-Ajx.title" = "Maximum Number of Tag Per Item";
+
 /* Class = "NSColorWell"; ibShadowedToolTip = "Anti-Alias Difference Color"; ObjectID = "5HO-8W-nvd"; */
 "5HO-8W-nvd.ibShadowedToolTip" = "Anti-Alias Difference Color";
 
 /* Class = "NSButtonCell"; title = "Ignore Invalid Deletion"; ObjectID = "5JF-OO-Avm"; */
 "5JF-OO-Avm.title" = "Ignore Invalid Deletion";
+
+/* Class = "NSButtonCell"; title = "Read-only Mode"; ObjectID = "5PQ-Gd-gQr"; */
+"5PQ-Gd-gQr.title" = "Read-only Mode";
 
 /* Class = "NSMenuItem"; title = "Medium"; ObjectID = "a9v-sb-vHL"; */
 "a9v-sb-vHL.title" = "Medium";
@@ -34,17 +46,26 @@
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "Annotation";
 
+/* Class = "NSTextFieldCell"; title = "Restrictions"; ObjectID = "B37-VO-qUd"; */
+"B37-VO-qUd.title" = "Restrictions";
+
 /* Class = "NSButtonCell"; title = "zIndex by Size"; ObjectID = "BE1-Lr-IA1"; */
 "BE1-Lr-IA1.title" = "zIndex by Size";
 
 /* Class = "NSTextFieldCell"; title = "Original Image Alpha: "; ObjectID = "Bu1-Ny-gMT"; */
 "Bu1-Ny-gMT.title" = "Original Image Alpha: ";
 
+/* Class = "NSTextFieldCell"; title = "Interactions"; ObjectID = "c2l-3h-NaU"; */
+"c2l-3h-NaU.title" = "Interactions";
+
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
 "cBd-ZX-L0H.title" = "Uses Predominant Axis Scrolling";
 
 /* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "DBw-sv-D6x"; */
 "DBw-sv-D6x.label" = "Scene";
+
+/* Class = "NSButtonCell"; title = "Disallow Reordering"; ObjectID = "FDz-Be-Gds"; */
+"FDz-Be-Gds.title" = "Disallow Reordering";
 
 /* Class = "NSButtonCell"; title = "Draw Tags in Scene"; ObjectID = "GZk-gf-6Oz"; */
 "GZk-gf-6Oz.title" = "Draw Tags in Scene";
@@ -81,6 +102,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Blink Speed: "; ObjectID = "My4-fj-P5q"; */
 "My4-fj-P5q.title" = "Blink Speed: ";
+
+/* Class = "NSTextFieldCell"; title = "Drawings"; ObjectID = "nbR-cA-LF4"; */
+"nbR-cA-LF4.title" = "Drawings";
 
 /* Class = "NSMenuItem"; title = "Extreme"; ObjectID = "O81-P5-iNo"; */
 "O81-P5-iNo.title" = "Extreme";
@@ -136,7 +160,10 @@
 /* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
 "xbW-Nc-kC8.title" = "Include Anti-Alias Difference";
 
-/* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
+/* Class = "NSTextFieldCell"; title = "Interactions"; ObjectID = "XMg-Gz-mhi"; */
+"XMg-Gz-mhi.title" = "Interactions";
+
+/* Class = "NSButtonCell"; title = "Maximum Number of Item"; ObjectID = "YHt-z7-662"; */
 "YHt-z7-662.title" = "Maximum Count";
 
 /* Class = "NSMenuItem"; title = "Extra Large"; ObjectID = "zCU-XX-0mt"; */

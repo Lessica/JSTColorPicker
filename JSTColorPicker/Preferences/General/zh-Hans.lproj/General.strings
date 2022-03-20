@@ -1,3 +1,6 @@
+/* Class = "NSTextFieldCell"; title = "99"; ObjectID = "0u6-PD-p0S"; */
+"0u6-PD-p0S.title" = "99";
+
 /* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
 "1xD-ZG-hUt.title" = "在颜色网格中绘制标注";
 
@@ -10,6 +13,9 @@
 /* Class = "NSButtonCell"; title = "Draw Borders in Scene"; ObjectID = "2st-bp-3gG"; */
 "2st-bp-3gG.title" = "在场景中绘制边框";
 
+/* Class = "NSTextFieldCell"; title = "Tag Manager"; ObjectID = "3PW-wY-T84"; */
+"3PW-wY-T84.title" = "标签管理器";
+
 /* Class = "NSTextFieldCell"; title = "Maximum Lines: "; ObjectID = "3TH-mY-Z6r"; */
 "3TH-mY-Z6r.title" = "最大行数：";
 
@@ -19,11 +25,17 @@
 /* Class = "NSColorWell"; ibShadowedToolTip = "Common Difference Color"; ObjectID = "3vS-gW-0fD"; */
 "3vS-gW-0fD.ibShadowedToolTip" = "通用差异颜色";
 
+/* Class = "NSButtonCell"; title = "Maximum Number of Tag Per Item"; ObjectID = "580-Sp-Ajx"; */
+"580-Sp-Ajx.title" = "每个标注最大标签数量";
+
 /* Class = "NSColorWell"; ibShadowedToolTip = "Anti-Alias Difference Color"; ObjectID = "5HO-8W-nvd"; */
 "5HO-8W-nvd.ibShadowedToolTip" = "抗锯齿差异颜色";
 
 /* Class = "NSButtonCell"; title = "Ignore Invalid Deletion"; ObjectID = "5JF-OO-Avm"; */
 "5JF-OO-Avm.title" = "忽略无效的删除请求";
+
+/* Class = "NSButtonCell"; title = "Read-only Mode"; ObjectID = "5PQ-Gd-gQr"; */
+"5PQ-Gd-gQr.title" = "只读模式";
 
 /* Class = "NSMenuItem"; title = "Medium"; ObjectID = "a9v-sb-vHL"; */
 "a9v-sb-vHL.title" = "常规";
@@ -34,17 +46,26 @@
 /* Class = "NSTabViewItem"; label = "Annotation"; ObjectID = "AZY-Lx-ojw"; */
 "AZY-Lx-ojw.label" = "标注";
 
+/* Class = "NSTextFieldCell"; title = "Restrictions"; ObjectID = "B37-VO-qUd"; */
+"B37-VO-qUd.title" = "限制";
+
 /* Class = "NSButtonCell"; title = "zIndex by Size"; ObjectID = "BE1-Lr-IA1"; */
 "BE1-Lr-IA1.title" = "以尺寸层叠";
 
 /* Class = "NSTextFieldCell"; title = "Original Image Alpha: "; ObjectID = "Bu1-Ny-gMT"; */
 "Bu1-Ny-gMT.title" = "原始图像透明度: ";
 
+/* Class = "NSTextFieldCell"; title = "Interactions"; ObjectID = "c2l-3h-NaU"; */
+"c2l-3h-NaU.title" = "交互";
+
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
 "cBd-ZX-L0H.title" = "启用轴向滚动";
 
 /* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "DBw-sv-D6x"; */
 "DBw-sv-D6x.label" = "场景";
+
+/* Class = "NSButtonCell"; title = "Disallow Reordering"; ObjectID = "FDz-Be-Gds"; */
+"FDz-Be-Gds.title" = "停用排序";
 
 /* Class = "NSButtonCell"; title = "Draw Tags in Scene"; ObjectID = "GZk-gf-6Oz"; */
 "GZk-gf-6Oz.title" = "在场景中绘制标签";
@@ -81,6 +102,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Blink Speed: "; ObjectID = "My4-fj-P5q"; */
 "My4-fj-P5q.title" = "闪烁速度：";
+
+/* Class = "NSTextFieldCell"; title = "Drawings"; ObjectID = "nbR-cA-LF4"; */
+"nbR-cA-LF4.title" = "绘制";
 
 /* Class = "NSMenuItem"; title = "Extreme"; ObjectID = "O81-P5-iNo"; */
 "O81-P5-iNo.title" = "非常快";
@@ -136,8 +160,11 @@
 /* Class = "NSButtonCell"; title = "Include Anti-Alias Difference"; ObjectID = "xbW-Nc-kC8"; */
 "xbW-Nc-kC8.title" = "包含抗锯齿差异";
 
-/* Class = "NSButtonCell"; title = "Maximum Count"; ObjectID = "YHt-z7-662"; */
-"YHt-z7-662.title" = "最大数量";
+/* Class = "NSTextFieldCell"; title = "Interactions"; ObjectID = "XMg-Gz-mhi"; */
+"XMg-Gz-mhi.title" = "交互";
+
+/* Class = "NSButtonCell"; title = "Maximum Number of Item"; ObjectID = "YHt-z7-662"; */
+"YHt-z7-662.title" = "最大标注数量";
 
 /* Class = "NSMenuItem"; title = "Extra Large"; ObjectID = "zCU-XX-0mt"; */
 "zCU-XX-0mt.title" = "非常大";

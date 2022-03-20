@@ -46,24 +46,49 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
 
     override var menuIdentifier: NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-template-preview") }
 
-    @IBOutlet weak var timerButton            : NSButton!
-    @IBOutlet weak var outlineView            : TemplateOutlineView!
-    @IBOutlet weak var emptyOutlineLabel      : NSTextField!
-    @IBOutlet      var outlineMenu            : NSMenu!
-    @IBOutlet      var outlineHeaderMenu      : NSMenu!
-    @IBOutlet weak var togglePreviewMenuItem  : NSMenuItem!
-    @IBOutlet weak var toggleAllMenuItem      : NSMenuItem!
-    @IBOutlet weak var setAsSelectedMenuItem  : NSMenuItem!
+    @IBOutlet weak var timerButton              : NSButton!
+    @IBOutlet weak var outlineView              : TemplateOutlineView!
+    @IBOutlet weak var emptyOutlineLabel        : NSTextField!
+    @IBOutlet      var outlineMenu              : NSMenu!
+    @IBOutlet      var outlineHeaderMenu        : NSMenu!
+    @IBOutlet weak var togglePreviewMenuItem    : NSMenuItem!
+    @IBOutlet weak var toggleAllMenuItem        : NSMenuItem!
+    @IBOutlet weak var setAsSelectedMenuItem    : NSMenuItem!
 
-    private        var documentContent        : Content?         { screenshot?.content }
-    private        var documentExport         : ExportManager?   { screenshot?.export  }
-    private        var documentState          : Screenshot.State { screenshot?.state ?? .notLoaded }
+    private        var documentContent          : Content?         { screenshot?.content }
+    private        var documentExport           : ExportManager?   { screenshot?.export  }
+    private        var documentState            : Screenshot.State { screenshot?.state ?? .notLoaded }
 
-    private        let observableKeys         : [UserDefaults.Key] = [.maximumPreviewLineCount, .enableSyntaxHighlighting]
-    private        var observables            : [Observable]?
+    private        let observableKeys           : [UserDefaults.Key] = [.maximumPreviewLineCount, .enableSyntaxHighlighting]
+    private        var observables              : [Observable]?
     
-    private        var syntaxHighlighting     : Bool = UserDefaults.standard[.enableSyntaxHighlighting]
-    private        var maximumNumberOfLines   : Int = min(max(UserDefaults.standard[.maximumPreviewLineCount], 5), 99)
+    private        var syntaxHighlighting       : Bool = UserDefaults.standard[.enableSyntaxHighlighting]
+    private        var maximumNumberOfLines     : Int = min(max(UserDefaults.standard[.maximumPreviewLineCount], 5), 99)
+    
+    private func restrictString(_ contents: String) -> String {
+        var restricted = String()
+        
+        var beginIndex: String.Index = contents.startIndex
+        let endIndex: String.Index = contents.endIndex
+        
+        var lineCount = 0
+        var appendingContentsLeft = true
+        while let separatorRange = contents.range(of: "\n", options: [], range: beginIndex..<endIndex)
+        {
+            restricted += contents[beginIndex..<separatorRange.upperBound]
+            beginIndex = separatorRange.upperBound
+            lineCount += 1
+            guard lineCount < maximumNumberOfLines else {
+                appendingContentsLeft = false
+                break
+            }
+        }
+        if appendingContentsLeft {
+            restricted += contents[beginIndex..<endIndex]
+        }
+        
+        return restricted
+    }
 
     private var actionSelectedRowIndex: Int? {
         (outlineView.clickedRow >= 0 && !outlineView.selectedRowIndexes.contains(outlineView.clickedRow)) ? outlineView.clickedRow : outlineView.selectedRowIndexes.first
@@ -259,14 +284,12 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
         var lineCount = 0
         while let separatorRange = contents.range(of: "\n", options: [], range: beginIndex..<endIndex)
         {
+            // character count
+            guard contents[beginIndex..<separatorRange.upperBound].count < highlightMaximumCharactersPerLine else { return false }
             beginIndex = separatorRange.upperBound
             lineCount += 1
             guard lineCount < highlightMaximumLines else { return false }
         }
-        
-        // character count
-        guard contents.split(separator: "\n").firstIndex(where: { $0.count > highlightMaximumCharactersPerLine }) == nil
-        else { return false }
         
         return true
     }
@@ -1139,7 +1162,7 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
                         )
                     } else {
                         attributedText = NSAttributedString(
-                            string: contents,
+                            string: restrictString(contents),
                             attributes: TemplateContentCellView.defaultTextAttributes
                         )
                     }

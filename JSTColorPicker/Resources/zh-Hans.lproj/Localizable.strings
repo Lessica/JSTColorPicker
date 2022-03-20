@@ -292,16 +292,16 @@
 "In the pop-up tab, precisely adjust the position of the selected annotation." = "在弹出的选项卡中，精确调整标注的位置。";
 
 /* reloadPane() */
-"Info (Primary)" = "信息 (主要)";
+"Info (Primary)" = "信息（主要）";
 
 /* reloadPane() */
-"Info (Secondary)" = "信息 (次要)";
+"Info (Secondary)" = "信息（次要）";
 
 /* reloadPane() */
-"Inspector (Primary)" = "检视器 (主要)";
+"Inspector (Primary)" = "检视器（主要）";
 
 /* reloadPane() */
-"Inspector (Secondary)" = "检视器 (次要)";
+"Inspector (Secondary)" = "检视器（次要）";
 
 /* TemplateError */
 "Internal error." = "内部错误。";
@@ -316,7 +316,7 @@
 "Invalid field: %@." = "无效的字段：%@。";
 
 /* GenericError */
-"Invalid filename: \"%@\"." = "无效的文件名: \"%@\".";
+"Invalid filename: \"%@\"." = "无效的文件名: \"%@\"。";
 
 /* ScreenshotError */
 "Invalid image properties." = "无效的图像属性。";
@@ -433,13 +433,13 @@
 "Move Cursor (100 pixel)" = "移动光标 (100 像素)";
 
 /* Shortcut Guide */
-"Move cursor with keyboard by 1 pixel." = "将光标向指定方向移动 1 个像素.";
+"Move cursor with keyboard by 1 pixel." = "将光标向指定方向移动 1 个像素。";
 
 /* Shortcut Guide */
-"Move cursor with keyboard by 10 pixel." = "将光标向指定方向移动 10 个像素.";
+"Move cursor with keyboard by 10 pixel." = "将光标向指定方向移动 10 个像素。";
 
 /* Shortcut Guide */
-"Move cursor with keyboard by 100 pixel." = "将光标向指定方向移动 100 个像素.";
+"Move cursor with keyboard by 100 pixel." = "将光标向指定方向移动 100 个像素。";
 
 /* Shortcut Guide */
 "Moving Hand: Drag to move the scene, or view the major tag of annotations." = "移动工具：拖拽移动场景，或是查看标注的首要标签。";
