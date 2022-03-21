@@ -159,6 +159,17 @@ open class VirtualMachine {
         return table
     }
     
+    open func createTable<K1: Value, V1: Value, K2: Value, V2: Value>(withDictionary dictionary: [K1: V1], _ kfn: (K1) -> K2 = {$0 as! K2}, _ vfn: (V1) -> V2 = {$0 as! V2}) -> Table where K1: Hashable
+    {
+        let table = createTable(dictionary.count, keyCapacity: dictionary.count)
+        if dictionary.count > 0 {
+            for seq in dictionary {
+                table[kfn(seq.key)] = vfn(seq.value)
+            }
+        }
+        return table
+    }
+    
     internal func popError() -> String {
         let err = popValue(-1) as! String
         if let fn = errorHandler { fn(err) }

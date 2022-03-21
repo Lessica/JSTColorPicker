@@ -7,6 +7,7 @@ target :JSTColorPicker do
   pod 'AppCenter'
   pod 'SwiftyStoreKit'
 	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
+  pod 'DynamicCodable', '1.0'
 end
 
 target :JSTColorPickerSparkle do
@@ -14,6 +15,7 @@ target :JSTColorPickerSparkle do
 	pod 'Sparkle'
   pod 'LetsMove'
 	pod 'MASPreferences', :git => 'git@github.com:Lessica/MASPreferences.git'
+  pod 'DynamicCodable', '1.0'
 end
 
 post_install do |installer|

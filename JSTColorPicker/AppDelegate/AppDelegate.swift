@@ -587,8 +587,8 @@ extension AppDelegate {
 extension AppDelegate {
     
     func promiseXPCProxy() -> Promise<JSTScreenshotHelperProtocol> {
-        return Promise<JSTScreenshotHelperProtocol> { [unowned self] seal in
-            if let proxy = self.helperConnection?.remoteObjectProxyWithErrorHandler({ error in
+        return Promise<JSTScreenshotHelperProtocol> { [weak self] seal in
+            if let proxy = self?.helperConnection?.remoteObjectProxyWithErrorHandler({ error in
                 seal.reject(error)
             }) as? JSTScreenshotHelperProtocol
             {

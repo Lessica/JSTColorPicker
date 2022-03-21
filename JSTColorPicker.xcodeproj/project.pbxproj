@@ -344,8 +344,6 @@
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
-		CCC3CD6727E6419900B7B884 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */; };
-		CCC3CD6927E641A500B7B884 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */; };
 		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
 		CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525AD262EB72800D408B0 /* SyntaxKit */; };
 		CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
@@ -422,6 +420,14 @@
 		CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
 		CCED7D43262D841400F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7D40262D83FA00F2C965 /* InfoPlist.strings */; };
 		CCED7D4B262D841400F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7D40262D83FA00F2C965 /* InfoPlist.strings */; };
+		CCF26A9B27E85B2000BEFFDE /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCF26A9A27E85B2000BEFFDE /* AuxiliaryExecute */; };
+		CCF26A9D27E85B2800BEFFDE /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = CCF26A9C27E85B2800BEFFDE /* AuxiliaryExecute */; };
+		CCF26AA427E860BE00BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
+		CCF26AA527E860BE00BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
+		CCF26AA627E860C100BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
+		CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
+		CCF26AA827E8610800BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
+		CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -1422,6 +1428,8 @@
 		CCED7CFF262D68D800F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CCED7D41262D83FA00F2C965 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CCED7D42262D83FA00F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
+		CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EncodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
@@ -1719,7 +1727,7 @@
 			files = (
 				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
 				0FF4704F27622FBB00F46554 /* PromiseKit in Frameworks */,
-				CCC3CD6727E6419900B7B884 /* AuxiliaryExecute in Frameworks */,
+				CCF26A9B27E85B2000BEFFDE /* AuxiliaryExecute in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
 				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
@@ -1781,7 +1789,7 @@
 			files = (
 				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
 				0FF4705127622FC200F46554 /* PromiseKit in Frameworks */,
-				CCC3CD6927E641A500B7B884 /* AuxiliaryExecute in Frameworks */,
+				CCF26A9D27E85B2800BEFFDE /* AuxiliaryExecute in Frameworks */,
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
@@ -2362,6 +2370,8 @@
 				CCB741352635386D007D2CF5 /* Links+Ext.swift */,
 				0FCB2D30275FD051001AE5F6 /* NSAlert+Ext.swift */,
 				0FF4706127626DDC00F46554 /* NSImage+Ext.swift */,
+				CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */,
+				CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3389,7 +3399,7 @@
 			name = JSTScreenshotHelper;
 			packageProductDependencies = (
 				0FF4704E27622FBB00F46554 /* PromiseKit */,
-				CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */,
+				CCF26A9A27E85B2000BEFFDE /* AuxiliaryExecute */,
 			);
 			productName = JSTScreenshotHelper;
 			productReference = D60B0F3C24286AA30034F21C /* JSTScreenshotHelper.xpc */;
@@ -3508,7 +3518,7 @@
 			name = JSTColorPickerHelper;
 			packageProductDependencies = (
 				0FF4705027622FC200F46554 /* PromiseKit */,
-				CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */,
+				CCF26A9C27E85B2800BEFFDE /* AuxiliaryExecute */,
 			);
 			productName = JSTColorPickerHelper;
 			productReference = D63FE1CE242B234500F1982A /* JSTColorPickerHelper.app */;
@@ -3674,7 +3684,7 @@
 				0FF470522762300F00F46554 /* XCRemoteSwiftPackageReference "OMGHTTPURLRQ" */,
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
-				CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
+				CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -3941,6 +3951,7 @@
 				0F5BBA21276F406900AF0DC8 /* PixelSegment.swift in Sources */,
 				0F5BBA1C276F406900AF0DC8 /* PixelCoordinate.swift in Sources */,
 				0F5BBA24276F407F00AF0DC8 /* CoreGraphics+Ext.swift in Sources */,
+				CCF26AA827E8610800BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */,
 				0F5BBA1B276F406900AF0DC8 /* PixelImage.swift in Sources */,
 				0F5BBA25276F408F00AF0DC8 /* ContentItem.swift in Sources */,
 				0F5BBA1D276F406900AF0DC8 /* PixelColor.swift in Sources */,
@@ -3954,6 +3965,7 @@
 				0F5BBA17276F3C5800AF0DC8 /* PixelExifCommand.swift in Sources */,
 				0F5BBA33276F518900AF0DC8 /* Foundation+Ext.swift in Sources */,
 				0F5BBA20276F406900AF0DC8 /* PixelSkeleton.swift in Sources */,
+				CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				0F5BBA19276F405800AF0DC8 /* Screenshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3993,6 +4005,7 @@
 				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
 				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
+				CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
@@ -4036,6 +4049,7 @@
 				CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
+				CCF26AA527E860BE00BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
 				CC236317264A8199005E909A /* PaneContainer.swift in Sources */,
 				D610478C24224A170002E990 /* PreferencesController.swift in Sources */,
@@ -4416,6 +4430,7 @@
 				18B22FF5247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
 				D60C88CF23D5D4B100DE5DF6 /* GridViewController.swift in Sources */,
 				CC04276D275E212B008DD0C5 /* FileSystemBrowserCell.m in Sources */,
+				CCF26AA427E860BE00BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */,
 				D682FC9323D6EC4F00DA1750 /* Content.swift in Sources */,
 				CC236331264AE889005E909A /* ShortcutKeyField.swift in Sources */,
 				CCE901562626BAC400C84904 /* KeyValueObserver.swift in Sources */,
@@ -4459,6 +4474,7 @@
 				D645E4A123E8080E0039F4F6 /* PixelArea.swift in Sources */,
 				CC042773275E212B008DD0C5 /* BrowserController.m in Sources */,
 				1885CF4524B106340067D02F /* TagListSearchField.swift in Sources */,
+				CCF26AA627E860C100BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
@@ -5969,19 +5985,19 @@
 				version = 3.4.0;
 			};
 		};
-		CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Lakr233/AuxiliaryExecute.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
 			requirement = {
 				branch = master;
+				kind = branch;
+			};
+		};
+		CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Lakr233/AuxiliaryExecute";
+			requirement = {
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -6063,16 +6079,6 @@
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
 		};
-		CCC3CD6627E6419900B7B884 /* AuxiliaryExecute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
-			productName = AuxiliaryExecute;
-		};
-		CCC3CD6827E641A500B7B884 /* AuxiliaryExecute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCC3CD6527E6419900B7B884 /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
-			productName = AuxiliaryExecute;
-		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
@@ -6082,6 +6088,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
 			productName = SyntaxKit;
+		};
+		CCF26A9A27E85B2000BEFFDE /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
+		};
+		CCF26A9C27E85B2800BEFFDE /* AuxiliaryExecute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
+			productName = AuxiliaryExecute;
 		};
 /* End XCSwiftPackageProductDependency section */
 

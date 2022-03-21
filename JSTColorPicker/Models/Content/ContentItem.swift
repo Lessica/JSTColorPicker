@@ -24,22 +24,24 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
     class var supportsSecureCoding: Bool { true }
     
     enum CodingKeys: String, CodingKey {
-        case id, tags, similarity
+        case id, tags, similarity, userInfo
     }
     
     var id: Int
     var firstTag: String? { tags.first }
     var tags = OrderedSet<String>()
     var similarity: Double = 1.0
+    var userInfo: [String: String]?
     
     init(id: Int) {
         self.id = id
     }
 
     required init?(coder: NSCoder) {
-        id = coder.decodeInteger(forKey: "id")
-        tags = OrderedSet((coder.decodeObject(forKey: "tags") as? [String]) ?? [])
-        similarity = coder.decodeDouble(forKey: "similarity")
+        id = coder.decodeInteger(forKey: CodingKeys.id.rawValue)
+        tags = OrderedSet((coder.decodeObject(forKey: CodingKeys.tags.rawValue) as? [String]) ?? [])
+        similarity = coder.decodeDouble(forKey: CodingKeys.similarity.rawValue)
+        userInfo = coder.decodeObject(forKey: CodingKeys.userInfo.rawValue) as? [String: String]
     }
     
     required init(from decoder: Decoder) throws {
@@ -47,12 +49,14 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         id = try container.decode(Int.self, forKey: .id)
         tags = OrderedSet(try container.decode([String].self, forKey: .tags))
         similarity = try container.decode(Double.self, forKey: .similarity)
+        userInfo = try container.decodeIfPresent([String: String].self, forKey: .userInfo)
     }
     
     func encode(with coder: NSCoder) {
-        coder.encode(id, forKey: "id")
-        coder.encode(tags.contents, forKey: "tags")
-        coder.encode(similarity, forKey: "similarity")
+        coder.encode(id, forKey: CodingKeys.id.rawValue)
+        coder.encode(tags.contents, forKey: CodingKeys.tags.rawValue)
+        coder.encode(similarity, forKey: CodingKeys.similarity.rawValue)
+        coder.encodeConditionalObject(userInfo, forKey: CodingKeys.userInfo.rawValue)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -60,6 +64,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         try container.encode(id, forKey: .id)
         try container.encode(tags.contents, forKey: .tags)
         try container.encode(similarity, forKey: .similarity)
+        try container.encodeIfPresent(userInfo, forKey: .userInfo)
     }
     
     override func isEqual(_ object: Any?) -> Bool {
@@ -79,6 +84,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         id = item.id
         tags = item.tags
         similarity = item.similarity
+        userInfo = item.userInfo
     }
     
     

@@ -93,6 +93,7 @@ final class PixelArea: ContentItem {
         )
         item.tags = tags
         item.similarity = similarity
+        item.userInfo = userInfo
         return item
     }
 
@@ -103,6 +104,7 @@ final class PixelArea: ContentItem {
         )
         item.tags = tags
         item.similarity = similarity
+        item.userInfo = userInfo
         return item
     }
     
@@ -125,6 +127,7 @@ final class PixelArea: ContentItem {
         t["maxY"]            = rect.maxY
         t["width"]           = rect.width
         t["height"]          = rect.height
+        t["userInfo"]        = vm.createTable(withDictionary: userInfo ?? [:], { $0 as String }, { $0 as String })
         t.push(vm)
     }
     
@@ -133,26 +136,27 @@ final class PixelArea: ContentItem {
     private static let typeKeys: [String] = [
         "id", "type", "name", "tags", "similarity",
         "x", "y", "minX", "minY", "maxX", "maxY",
-        "width", "height"
+        "width", "height", "userInfo",
     ]
     private static let typeName: String = "\(String(describing: PixelArea.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     override class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["id"]         is  Number)        ||
-                !(t["type"]       is  String)        ||
-                !(t["name"]       is  String)        ||
-                !(t["tags"]       is  Table )        ||
-                !(t["similarity"] is  Number)        ||
-                !(t["x"]          is  Number)        ||
-                !(t["y"]          is  Number)        ||
-                !(t["minX"]       is  Number)        ||
-                !(t["minY"]       is  Number)        ||
-                !(t["maxX"]       is  Number)        ||
-                !(t["maxY"]       is  Number)        ||
-                !(t["width"]      is  Number)        ||
-                !(t["height"]     is  Number)
+        if  !(t["id"]         is  Number)       ||
+            !(t["type"]       is  String)       ||
+            !(t["name"]       is  String)       ||
+            !(t["tags"]       is  Table )       ||
+            !(t["similarity"] is  Number)       ||
+            !(t["x"]          is  Number)       ||
+            !(t["y"]          is  Number)       ||
+            !(t["minX"]       is  Number)       ||
+            !(t["minY"]       is  Number)       ||
+            !(t["maxX"]       is  Number)       ||
+            !(t["maxY"]       is  Number)       ||
+            !(t["width"]      is  Number)       ||
+            !(t["height"]     is  Number)       ||
+            !(t["userInfo"]   is  Table )
         {
             return typeName
         }
