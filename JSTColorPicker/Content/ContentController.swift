@@ -874,6 +874,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             
         else if menuItem.action == #selector(locate(_:))
             || menuItem.action == #selector(relocate(_:))
+            || menuItem.action == #selector(editAssociatedValues(_:))
         {  // contents available / single target / from right click menu
             
             if menuItem.action == #selector(relocate(_:)) {
@@ -1095,6 +1096,31 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                 if resp == .OK {
                     // do nothing
                 }
+            }
+        }
+    }
+    
+    @IBAction private func editAssociatedValues(_ sender: NSMenuItem?) {
+        guard let collection = documentContent?.items else { return }
+        guard let targetIndex = actionSelectedRowIndex else { return }
+        
+        let targetItem = collection[targetIndex]
+        let panel = EditWindow.newEditAssociatedValuesPanel()
+        internalSelectContentItems(
+            in: IndexSet(integer: targetIndex),
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
+        
+        panel.loader = self
+        panel.contentDelegate = self
+        panel.contentItemSource = self
+        panel.contentItem = targetItem
+        panel.type = .edit
+        
+        view.window!.beginSheet(panel) { (resp) in
+            if resp == .OK {
+                // do nothing
             }
         }
     }

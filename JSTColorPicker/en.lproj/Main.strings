@@ -94,6 +94,9 @@
 /* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
 "af9-zN-lJB.title" = "Select Template";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "AJo-qL-2Gv"; */
+"AJo-qL-2Gv.ibShadowedToolTip" = "In the pop-up tab, precisely adjust the position of the selected annotation.";
+
 /* Class = "NSMenuItem"; title = "Relocate…"; ObjectID = "AJo-qL-2Gv"; */
 "AJo-qL-2Gv.title" = "Relocate…";
 
@@ -156,6 +159,12 @@
 
 /* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.title" = "Command Palette…";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Edit tag associated key paths, types and values."; ObjectID = "CVD-RK-3yI"; */
+"CVD-RK-3yI.ibShadowedToolTip" = "Edit tag associated key paths, types and values.";
+
+/* Class = "NSMenuItem"; title = "Edit Associated Values…"; ObjectID = "CVD-RK-3yI"; */
+"CVD-RK-3yI.title" = "Edit Associated Values…";
 
 /* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "D1L-Dl-ZRc"; */
 "D1L-Dl-ZRc.title" = "Add Color & Coordinates…";
@@ -306,6 +315,9 @@
 
 /* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
 "jkP-y6-J5t.title" = "Annotation";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll the scene to the selected annotation, and adjust the scale to fit its size."; ObjectID = "Jo6-Fi-YVW"; */
+"Jo6-Fi-YVW.ibShadowedToolTip" = "Scroll the scene to the selected annotation, and adjust the scale to fit its size.";
 
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Jo6-Fi-YVW"; */
 "Jo6-Fi-YVW.title" = "Locate";

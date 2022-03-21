@@ -16,16 +16,22 @@ final class EditWindow: NSWindow {
         case edit
     }
     
+    static var storyboard = NSStoryboard(name: "Edit", bundle: nil)
+    
     static func newEditCoordinatePanel() -> EditWindow {
-        return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditCoordinateWindowController") as! NSWindowController).window as! EditWindow
+        return (storyboard.instantiateController(withIdentifier: "EditCoordinateWindowController") as! NSWindowController).window as! EditWindow
     }
     
     static func newEditAreaPanel() -> EditWindow {
-        return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditAreaWindowController") as! NSWindowController).window as! EditWindow
+        return (storyboard.instantiateController(withIdentifier: "EditAreaWindowController") as! NSWindowController).window as! EditWindow
     }
     
     static func newEditTagsPanel() -> EditWindow {
-        return (NSStoryboard(name: "Edit", bundle: nil).instantiateController(withIdentifier: "EditTagsWindowController") as! NSWindowController).window as! EditWindow
+        return (storyboard.instantiateController(withIdentifier: "EditTagsWindowController") as! NSWindowController).window as! EditWindow
+    }
+    
+    static func newEditAssociatedValuesPanel() -> EditWindow {
+        return (storyboard.instantiateController(withIdentifier: "EditAssociatedValuesWindowController") as! NSWindowController).window as! EditWindow
     }
     
     var isAdd: Bool { type == .add }

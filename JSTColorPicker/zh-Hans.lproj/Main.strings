@@ -94,6 +94,9 @@
 /* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
 "af9-zN-lJB.title" = "选择模版";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "AJo-qL-2Gv"; */
+"AJo-qL-2Gv.ibShadowedToolTip" = "在弹出的选项卡中，精确调整标注的位置。";
+
 /* Class = "NSMenuItem"; title = "Relocate…"; ObjectID = "AJo-qL-2Gv"; */
 "AJo-qL-2Gv.title" = "调整位置…";
 
@@ -156,6 +159,12 @@
 
 /* Class = "NSMenuItem"; title = "Command Palette…"; ObjectID = "cRg-fp-z1t"; */
 "cRg-fp-z1t.title" = "切换指令面板";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Edit tag associated key paths, types and values."; ObjectID = "CVD-RK-3yI"; */
+"CVD-RK-3yI.ibShadowedToolTip" = "修改与标签关联的键名、类型和值。";
+
+/* Class = "NSMenuItem"; title = "Edit Associated Values…"; ObjectID = "CVD-RK-3yI"; */
+"CVD-RK-3yI.title" = "修改关联值…";
 
 /* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "D1L-Dl-ZRc"; */
 "D1L-Dl-ZRc.title" = "添加颜色与坐标…";
@@ -306,6 +315,9 @@
 
 /* Class = "NSMenuItem"; title = "Annotation"; ObjectID = "jkP-y6-J5t"; */
 "jkP-y6-J5t.title" = "标注";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Scroll the scene to the selected annotation, and adjust the scale to fit its size."; ObjectID = "Jo6-Fi-YVW"; */
+"Jo6-Fi-YVW.ibShadowedToolTip" = "将场景滚动定位到所选项，并调整缩放比例以适配其尺寸。";
 
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Jo6-Fi-YVW"; */
 "Jo6-Fi-YVW.title" = "定位";

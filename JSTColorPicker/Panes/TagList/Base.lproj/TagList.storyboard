@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +22,7 @@
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="766"/>
                                             <subviews>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
+                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
                                                     <rect key="frame" x="0.0" y="736" width="242" height="30"/>
                                                     <subviews>
                                                         <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
@@ -53,19 +53,19 @@
                                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="top" secondItem="K6j-Zr-Q1x" secondAttribute="top" id="gAO-5J-q3b"/>
                                                     </constraints>
                                                 </customView>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="qAb-om-glU">
+                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qAb-om-glU">
                                                     <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
                                                     <subviews>
-                                                        <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
+                                                        <scrollView focusRingType="none" ambiguous="YES" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
-                                                            <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="Q9a-31-8kW">
+                                                            <clipView key="contentView" focusRingType="none" ambiguous="YES" drawsBackground="NO" id="Q9a-31-8kW">
                                                                 <rect key="frame" x="1" y="1" width="240" height="726"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="20" headerView="ZJN-ac-bw2" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="24" headerView="ZJN-ac-bw2" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="240" height="698"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <size key="intercellSpacing" width="4" height="2"/>
+                                                                        <size key="intercellSpacing" width="8" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -82,11 +82,11 @@
                                                                                 </textFieldCell>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="Swr-H3-w9y" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="2" y="1" width="34" height="20"/>
+                                                                                        <rect key="frame" x="4" y="1" width="34" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-Sc-b4D">
-                                                                                                <rect key="frame" x="-1" y="2" width="34" height="16"/>
+                                                                                                <rect key="frame" x="-1" y="4" width="34" height="16"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="-" usesSingleLineMode="YES" id="FUe-D3-zFx">
                                                                                                     <font key="font" metaFont="system"/>
@@ -113,12 +113,11 @@
                                                                                 </textFieldCell>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="6rS-aE-9Be" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="40" y="1" width="30" height="20"/>
+                                                                                        <rect key="frame" x="44" y="1" width="30" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
-                                                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gcf-2X-IFc">
-                                                                                                <rect key="frame" x="5" y="1" width="18" height="18"/>
-                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gcf-2X-IFc">
+                                                                                                <rect key="frame" x="6" y="3" width="18" height="18"/>
                                                                                                 <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" allowsMixedState="YES" inset="2" id="G3l-16-GYx">
                                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                     <font key="font" metaFont="system"/>
@@ -128,6 +127,10 @@
                                                                                                 </connections>
                                                                                             </button>
                                                                                         </subviews>
+                                                                                        <constraints>
+                                                                                            <constraint firstItem="Gcf-2X-IFc" firstAttribute="centerY" secondItem="6rS-aE-9Be" secondAttribute="centerY" id="36T-KY-x5J"/>
+                                                                                            <constraint firstItem="Gcf-2X-IFc" firstAttribute="centerX" secondItem="6rS-aE-9Be" secondAttribute="centerX" id="zAX-kL-CLC"/>
+                                                                                        </constraints>
                                                                                         <connections>
                                                                                             <outlet property="checkbox" destination="Gcf-2X-IFc" id="7wH-rB-84m"/>
                                                                                         </connections>
@@ -147,11 +150,11 @@
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="yGX-y2-tND" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="74" y="1" width="104" height="20"/>
+                                                                                        <rect key="frame" x="82" y="1" width="104" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="2" width="104" height="16"/>
+                                                                                                <rect key="frame" x="0.0" y="4" width="104" height="16"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" usesSingleLineMode="YES" id="36l-Jz-ijV">
                                                                                                     <font key="font" metaFont="system"/>
@@ -209,7 +212,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </tableHeaderView>
                                                         </scrollView>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1R-EZ-pCN">
+                                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1R-EZ-pCN">
                                                             <rect key="frame" x="56" y="344" width="131" height="40"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
@@ -240,7 +243,7 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
                                                         </customView>
                                                     </subviews>

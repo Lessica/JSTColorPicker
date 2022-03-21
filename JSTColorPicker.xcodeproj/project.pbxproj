@@ -248,6 +248,8 @@
 		CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC470A92262DE90B0013A3B7 /* Subscription.xib */; };
 		CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */; };
 		CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
+		CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */; };
+		CC515BAF27E8DA6F0081A233 /* EditAssociatedValuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */; };
 		CC548099275E4A5100B7652C /* BrowserPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54809C275E4A5100B7652C /* BrowserPreviewView.xib */; };
 		CC54809A275E4A5100B7652C /* BrowserPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54809C275E4A5100B7652C /* BrowserPreviewView.xib */; };
 		CC5480A1275E4BE800B7652C /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC5480A4275E4BE800B7652C /* Browser.storyboard */; };
@@ -1412,6 +1414,7 @@
 		CCCD8217261C5DBF00BFDD6E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ExportStacked.strings"; sourceTree = "<group>"; };
 		CCCD822F261C81C800BFDD6E /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
+		CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesController.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
@@ -3267,6 +3270,7 @@
 				185D7EE7248A8019001C283B /* EditCoordinateController.swift */,
 				185D7EEA248A8025001C283B /* EditAreaController.swift */,
 				D61336BA24A9DDC8006263E5 /* EditTagsController.swift */,
+				CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -4044,6 +4048,7 @@
 				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
 				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
+				CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
@@ -4380,6 +4385,7 @@
 				CCFD99C3276A3AC40012E5AF /* Content+Lua.swift in Sources */,
 				CC236314264A8199005E909A /* StackedView.swift in Sources */,
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
+				CC515BAF27E8DA6F0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				CC96F94126727E2000CB55E9 /* PairedDevice.swift in Sources */,

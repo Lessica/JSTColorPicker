@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,16 +15,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="36" width="220" height="712"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="220" height="712"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="20" headerView="7Jl-wJ-daV" viewBased="YES" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="394" height="684"/>
+                                        <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="24" headerView="7Jl-wJ-daV" viewBased="YES" floatsGroupRows="NO" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="406" height="684"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <size key="intercellSpacing" width="4" height="2"/>
+                                            <size key="intercellSpacing" width="8" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -41,11 +41,11 @@
                                                     </textFieldCell>
                                                     <prototypeCellViews>
                                                         <tableCellView id="5z2-yi-9PI" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="2" y="1" width="34" height="20"/>
+                                                            <rect key="frame" x="4" y="1" width="34" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCW-yY-fH2">
-                                                                    <rect key="frame" x="0.0" y="2" width="34" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="34" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="3v1-QE-BeJ">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -76,11 +76,11 @@
                                                     </textFieldCell>
                                                     <prototypeCellViews>
                                                         <tableCellView id="vmH-ZF-EVa" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="40" y="1" width="60" height="20"/>
+                                                            <rect key="frame" x="44" y="1" width="60" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8q-QU-5Er" customClass="ContentEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="2" width="60" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="60" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="NO9-ED-jed">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -115,11 +115,11 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="6Ma-uU-S3m" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="104" y="1" width="60" height="20"/>
+                                                            <rect key="frame" x="112" y="1" width="60" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caP-k1-UiG">
-                                                                    <rect key="frame" x="0.0" y="2" width="60" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="60" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="pmg-zN-1kk">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -151,18 +151,18 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="ROt-Ae-AXF" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="168" y="1" width="224" height="20"/>
+                                                            <rect key="frame" x="180" y="1" width="224" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="44X-Vu-x9l">
-                                                                    <rect key="frame" x="3" y="3" width="17.5" height="17"/>
+                                                                    <rect key="frame" x="3" y="5" width="17.5" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="17" id="dTX-in-bBZ"/>
                                                                     </constraints>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="square.and.arrow.up" catalog="system" id="amW-wa-Evw"/>
                                                                 </imageView>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve9-tP-B9R">
-                                                                    <rect key="frame" x="25" y="3" width="199" height="15"/>
+                                                                    <rect key="frame" x="25" y="5" width="199" height="15"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="ndM-Rr-NDX">
                                                                         <font key="font" size="13" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -201,7 +201,7 @@
                                     <constraint firstAttribute="height" constant="712" placeholder="YES" id="3bE-sK-7M9"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="ep1-B6-8yg"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="NM7-Vt-IF5">
+                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="0.032258064516129031" horizontal="YES" id="NM7-Vt-IF5">
                                     <rect key="frame" x="0.0" y="696" width="220" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -210,7 +210,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" wantsLayer="YES" id="7Jl-wJ-daV">
-                                    <rect key="frame" x="0.0" y="0.0" width="394" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="406" height="28"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <connections>
                                         <outlet property="menu" destination="a29-Fd-YbH" id="A0k-Vb-flV"/>
@@ -323,6 +323,15 @@ DQ
                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                             <connections>
                                 <action selector="relocate:" target="YIx-oB-8lo" id="l7Z-L0-yoA"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Edit Associated Values…" toolTip="Edit tag associated key paths, types and values." id="mZG-YC-OLN">
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                            <connections>
+                                <action selector="editAssociatedValues:" target="YIx-oB-8lo" id="UgX-dO-hfg"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="xfS-Z5-Yd0"/>

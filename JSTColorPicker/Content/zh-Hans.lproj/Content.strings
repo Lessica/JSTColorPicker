@@ -70,6 +70,12 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "Lyu-4U-FxO"; */
 "Lyu-4U-FxO.ibShadowedToolTip" = "添加/定位项 (↵)";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Edit tag associated key paths, types and values."; ObjectID = "mZG-YC-OLN"; */
+"mZG-YC-OLN.ibShadowedToolTip" = "修改与标签关联的键名、类型和值。";
+
+/* Class = "NSMenuItem"; title = "Edit Associated Values…"; ObjectID = "mZG-YC-OLN"; */
+"mZG-YC-OLN.title" = "修改关联值…";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OWW-WD-eeB"; */
 "OWW-WD-eeB.title" = "文本单元格";
 

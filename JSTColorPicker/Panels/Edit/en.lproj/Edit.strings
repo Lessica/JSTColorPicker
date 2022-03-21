@@ -1,11 +1,26 @@
+/* Class = "NSMenuItem"; title = "Color"; ObjectID = "0B0-kY-j3F"; */
+"0B0-kY-j3F.title" = "Color";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "1uj-vh-5L4"; */
+"1uj-vh-5L4.title" = "OK";
+
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "1Y2-lj-x3S"; */
 "1Y2-lj-x3S.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "1Y8-Cv-fjM"; */
+"1Y8-Cv-fjM.title" = "Cancel";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2bH-EZ-CHg"; */
 "2bH-EZ-CHg.title" = "Cancel";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "2y0-1K-Lgi"; */
 "2y0-1K-Lgi.title" = "OK";
+
+/* Class = "NSTableColumn"; headerCell.title = "Key Path"; ObjectID = "6Mw-UB-aY3"; */
+"6Mw-UB-aY3.headerCell.title" = "Key Path";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6Os-Mc-cFY"; */
+"6Os-Mc-cFY.title" = "OK";
 
 /* Class = "NSTextFieldCell"; title = "Opposite Y: "; ObjectID = "7FU-fC-tAm"; */
 "7FU-fC-tAm.title" = "Opposite Y: ";
@@ -16,8 +31,17 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
 "7qb-5Y-1eO.title" = "Cancel";
 
+/* Class = "NSTextFieldCell"; title = "Value"; ObjectID = "8hY-gc-NsQ"; */
+"8hY-gc-NsQ.title" = "Value";
+
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "8MM-oB-27f"; */
 "8MM-oB-27f.title" = "Cancel";
+
+/* Class = "NSMenuItem"; title = "Point"; ObjectID = "97t-y4-YDD"; */
+"97t-y4-YDD.title" = "Point";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "A0o-VB-YBl"; */
+"A0o-VB-YBl.title" = "Cancel";
 
 /* Class = "NSBox"; title = "Preview"; ObjectID = "A6n-Ur-CSs"; */
 "A6n-Ur-CSs.title" = "Preview";
@@ -27,6 +51,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Width: "; ObjectID = "aqD-e5-Wi9"; */
 "aqD-e5-Wi9.title" = "Width: ";
+
+/* Class = "NSMenuItem"; title = "Size"; ObjectID = "Aze-AB-Aaa"; */
+"Aze-AB-Aaa.title" = "Size";
 
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "b1c-AO-Wxw"; */
 "b1c-AO-Wxw.title" = "[Error Message]";
@@ -40,8 +67,23 @@
 /* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "d7Y-BF-gov"; */
 "d7Y-BF-gov.title" = "Hide Preview";
 
+/* Class = "NSTextFieldCell"; title = "Key Path"; ObjectID = "e1J-94-06e"; */
+"e1J-94-06e.title" = "Key Path";
+
+/* Class = "NSViewController"; title = "Edit Associated Values"; ObjectID = "EXU-cB-ZwZ"; */
+"EXU-cB-ZwZ.title" = "Edit Associated Values";
+
+/* Class = "NSMenuItem"; title = "Nil"; ObjectID = "Ffm-cD-eb8"; */
+"Ffm-cD-eb8.title" = "Nil";
+
 /* Class = "NSBox"; title = "Choose Tags"; ObjectID = "ghs-AJ-eau"; */
 "ghs-AJ-eau.title" = "Choose Tags";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "GUr-Ru-L4q"; */
+"GUr-Ru-L4q.headerCell.title" = "Type";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "Gw6-tA-f9x"; */
+"Gw6-tA-f9x.headerCell.title" = "Value";
 
 /* Class = "NSTextFieldCell"; title = "Origin X: "; ObjectID = "IQb-2C-TvS"; */
 "IQb-2C-TvS.title" = "Origin X: ";
@@ -70,6 +112,12 @@
 /* Class = "NSTextFieldCell"; title = "Coordinate Y: "; ObjectID = "M82-1D-OTf"; */
 "M82-1D-OTf.title" = "Coordinate Y: ";
 
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "NJF-un-mVE"; */
+"NJF-un-mVE.title" = "Image";
+
+/* Class = "NSMenuItem"; title = "Number"; ObjectID = "o0x-A4-bg2"; */
+"o0x-A4-bg2.title" = "Number";
+
 /* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
 "p8E-5k-JXY.title" = "Coordinate X: ";
 
@@ -82,11 +130,17 @@
 /* Class = "NSBox"; title = "Preview"; ObjectID = "pxe-de-bqq"; */
 "pxe-de-bqq.title" = "Preview";
 
+/* Class = "NSBox"; title = "Edit Associated Values"; ObjectID = "qA2-aD-5uF"; */
+"qA2-aD-5uF.title" = "Edit Associated Values";
+
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "qOP-7N-d4C"; */
 "qOP-7N-d4C.alternateTitle" = "Show Preview";
 
 /* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "qOP-7N-d4C"; */
 "qOP-7N-d4C.title" = "Hide Preview";
+
+/* Class = "NSMenuItem"; title = "Boolean"; ObjectID = "s8M-AQ-aBd"; */
+"s8M-AQ-aBd.title" = "Boolean";
 
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "Sev-EQ-tCf"; */
 "Sev-EQ-tCf.alternateTitle" = "Show Preview";
@@ -94,11 +148,23 @@
 /* Class = "NSButtonCell"; title = "Hide Preview"; ObjectID = "Sev-EQ-tCf"; */
 "Sev-EQ-tCf.title" = "Hide Preview";
 
+/* Class = "NSMenuItem"; title = "Rect"; ObjectID = "taL-BW-yEN"; */
+"taL-BW-yEN.title" = "Rect";
+
 /* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
 "Ujz-vy-7WQ.title" = "● #FFFFFF";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Uqy-8z-m0T"; */
 "Uqy-8z-m0T.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "vwv-Wa-MCR"; */
+"vwv-Wa-MCR.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "wg9-zI-mZy"; */
+"wg9-zI-mZy.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "WgB-6s-lnu"; */
+"WgB-6s-lnu.title" = "Text Cell";
 
 /* Class = "NSBox"; title = "Edit Color & Coordinates"; ObjectID = "WvB-Hs-BAB"; */
 "WvB-Hs-BAB.title" = "Edit Color & Coordinates";
@@ -106,11 +172,17 @@
 /* Class = "NSTextFieldCell"; title = "[Error Message]"; ObjectID = "XWu-hr-oyw"; */
 "XWu-hr-oyw.title" = "[Error Message]";
 
+/* Class = "NSMenuItem"; title = "String"; ObjectID = "xxl-ee-c4i"; */
+"xxl-ee-c4i.title" = "String";
+
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "Y35-CF-HpA"; */
 "Y35-CF-HpA.title" = "OK";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "yv9-A6-ZQK"; */
 "yv9-A6-ZQK.title" = "OK";
+
+/* Class = "NSMenuItem"; title = "Range"; ObjectID = "zQr-XX-uvg"; */
+"zQr-XX-uvg.title" = "Range";
 
 /* Class = "NSViewController"; title = "Edit Area"; ObjectID = "ZWq-hK-DTj"; */
 "ZWq-hK-DTj.title" = "Edit Area";
