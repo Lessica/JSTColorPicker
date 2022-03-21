@@ -7,21 +7,17 @@
 		<string>Photo</string>
 		<key>colorHex</key>
 		<string>#171E6D</string>
-		<key>tagDescription</key>
+		<key>helpText</key>
 		<string>Area of a random photo.</string>
 		<key>fields</key>
 		<array>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 		</array>
 	</dict>
@@ -35,37 +31,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -80,37 +67,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -125,37 +103,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -170,37 +139,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -215,37 +175,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -260,37 +211,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -305,37 +247,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -350,37 +283,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -395,37 +319,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -440,37 +355,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -485,37 +391,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -530,37 +427,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -575,37 +463,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -620,37 +499,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -665,37 +535,28 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Text Alignment</string>
-				<key>type</key>
-				<string>Select</string>
 				<key>options</key>
 				<array>
 					<string>Left</string>
 					<string>Right</string>
 					<string>Center</string>
+					<string>Natural</string>
 				</array>
 			</dict>
 		</array>
@@ -710,14 +571,10 @@
 			<dict>
 				<key>name</key>
 				<string>Image Name</string>
-				<key>type</key>
-				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
-				<key>type</key>
-				<string>Double</string>
 			</dict>
 		</array>
 	</dict>

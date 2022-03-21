@@ -306,9 +306,6 @@
 		CCA72A2A260B291800A934E2 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; };
 		CCA72A2B260B291800A934E2 /* strbuf.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A28260B291800A934E2 /* strbuf.h */; };
 		CCA72A2C260B291800A934E2 /* dtoa_config.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A29260B291800A934E2 /* dtoa_config.h */; };
-		CCA72A76260B31EE00A934E2 /* lupa.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A40260B30FD00A934E2 /* lupa.lua */; };
-		CCA72A77260B31EE00A934E2 /* re.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCA72A41260B30FD00A934E2 /* re.lua */; };
-		CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCA72A3E260B30FD00A934E2 /* util.lua */; };
 		CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
 		CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
 		CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
@@ -428,6 +425,14 @@
 		CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
 		CCF26AA827E8610800BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
 		CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
+		CCF26AB827E89E1D00BEFFDE /* XmlParser.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCF26AB027E89E0C00BEFFDE /* XmlParser.lua */; };
+		CCF26AB927E89E1D00BEFFDE /* xml2lua.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCF26AB127E89E0C00BEFFDE /* xml2lua.lua */; };
+		CCF26ABA27E89E1D00BEFFDE /* re.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCF26AB227E89E0C00BEFFDE /* re.lua */; };
+		CCF26ABB27E89E1D00BEFFDE /* lupa.lua in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CCF26AB727E89E0C00BEFFDE /* lupa.lua */; };
+		CCF26ABC27E89E2400BEFFDE /* util.lua in Copy Lua Modules (cjson) */ = {isa = PBXBuildFile; fileRef = CCF26AAF27E89E0C00BEFFDE /* util.lua */; };
+		CCF26ABE27E89E3D00BEFFDE /* print.lua in Copy Lua Modules (xmlhandler) */ = {isa = PBXBuildFile; fileRef = CCF26AB427E89E0C00BEFFDE /* print.lua */; };
+		CCF26ABF27E89E3D00BEFFDE /* tree.lua in Copy Lua Modules (xmlhandler) */ = {isa = PBXBuildFile; fileRef = CCF26AB527E89E0C00BEFFDE /* tree.lua */; };
+		CCF26AC027E89E3D00BEFFDE /* dom.lua in Copy Lua Modules (xmlhandler) */ = {isa = PBXBuildFile; fileRef = CCF26AB627E89E0C00BEFFDE /* dom.lua */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
@@ -1005,8 +1010,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				CCA72A76260B31EE00A934E2 /* lupa.lua in Copy Lua Modules */,
-				CCA72A77260B31EE00A934E2 /* re.lua in Copy Lua Modules */,
+				CCF26AB827E89E1D00BEFFDE /* XmlParser.lua in Copy Lua Modules */,
+				CCF26AB927E89E1D00BEFFDE /* xml2lua.lua in Copy Lua Modules */,
+				CCF26ABA27E89E1D00BEFFDE /* re.lua in Copy Lua Modules */,
+				CCF26ABB27E89E1D00BEFFDE /* lupa.lua in Copy Lua Modules */,
 			);
 			name = "Copy Lua Modules";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1017,7 +1024,7 @@
 			dstPath = cjson;
 			dstSubfolderSpec = 7;
 			files = (
-				CCA72A80260B31FE00A934E2 /* util.lua in Copy Lua Modules (cjson) */,
+				CCF26ABC27E89E2400BEFFDE /* util.lua in Copy Lua Modules (cjson) */,
 			);
 			name = "Copy Lua Modules (cjson)";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1040,6 +1047,19 @@
 			files = (
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF26ABD27E89E2D00BEFFDE /* Copy Lua Modules (xmlhandler) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = xmlhandler;
+			dstSubfolderSpec = 7;
+			files = (
+				CCF26ABE27E89E3D00BEFFDE /* print.lua in Copy Lua Modules (xmlhandler) */,
+				CCF26ABF27E89E3D00BEFFDE /* tree.lua in Copy Lua Modules (xmlhandler) */,
+				CCF26AC027E89E3D00BEFFDE /* dom.lua in Copy Lua Modules (xmlhandler) */,
+			);
+			name = "Copy Lua Modules (xmlhandler)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D60B0F50242887610034F21C /* Embed XPC Services */ = {
@@ -1349,9 +1369,6 @@
 		CCA72A27260B291800A934E2 /* fpconv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpconv.h; sourceTree = "<group>"; };
 		CCA72A28260B291800A934E2 /* strbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuf.h; sourceTree = "<group>"; };
 		CCA72A29260B291800A934E2 /* dtoa_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtoa_config.h; sourceTree = "<group>"; };
-		CCA72A3E260B30FD00A934E2 /* util.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = util.lua; sourceTree = "<group>"; };
-		CCA72A40260B30FD00A934E2 /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
-		CCA72A41260B30FD00A934E2 /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
 		CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingInjection.swift; sourceTree = "<group>"; };
 		CCA73435261704B400808E02 /* SwizzlingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingHelper.swift; sourceTree = "<group>"; };
 		CCA73440261705E700808E02 /* NSView+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Swizzling.swift"; sourceTree = "<group>"; };
@@ -1430,6 +1447,14 @@
 		CCED7D42262D83FA00F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
 		CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EncodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
+		CCF26AAF27E89E0C00BEFFDE /* util.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = util.lua; sourceTree = "<group>"; };
+		CCF26AB027E89E0C00BEFFDE /* XmlParser.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XmlParser.lua; sourceTree = "<group>"; };
+		CCF26AB127E89E0C00BEFFDE /* xml2lua.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xml2lua.lua; sourceTree = "<group>"; };
+		CCF26AB227E89E0C00BEFFDE /* re.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = re.lua; sourceTree = "<group>"; };
+		CCF26AB427E89E0C00BEFFDE /* print.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = print.lua; sourceTree = "<group>"; };
+		CCF26AB527E89E0C00BEFFDE /* tree.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree.lua; sourceTree = "<group>"; };
+		CCF26AB627E89E0C00BEFFDE /* dom.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dom.lua; sourceTree = "<group>"; };
+		CCF26AB727E89E0C00BEFFDE /* lupa.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lupa.lua; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
@@ -2465,24 +2490,6 @@
 			path = cjson;
 			sourceTree = "<group>";
 		};
-		CCA72A3B260B30CA00A934E2 /* modules */ = {
-			isa = PBXGroup;
-			children = (
-				CCA72A3D260B30FD00A934E2 /* cjson */,
-				CCA72A40260B30FD00A934E2 /* lupa.lua */,
-				CCA72A41260B30FD00A934E2 /* re.lua */,
-			);
-			path = modules;
-			sourceTree = "<group>";
-		};
-		CCA72A3D260B30FD00A934E2 /* cjson */ = {
-			isa = PBXGroup;
-			children = (
-				CCA72A3E260B30FD00A934E2 /* util.lua */,
-			);
-			path = cjson;
-			sourceTree = "<group>";
-		};
 		CCA7343F2617059600808E02 /* Swizzling */ = {
 			isa = PBXGroup;
 			children = (
@@ -2650,6 +2657,37 @@
 				CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */,
 			);
 			path = Defaults;
+			sourceTree = "<group>";
+		};
+		CCF26AAD27E89E0C00BEFFDE /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				CCF26AAE27E89E0C00BEFFDE /* cjson */,
+				CCF26AB027E89E0C00BEFFDE /* XmlParser.lua */,
+				CCF26AB127E89E0C00BEFFDE /* xml2lua.lua */,
+				CCF26AB227E89E0C00BEFFDE /* re.lua */,
+				CCF26AB327E89E0C00BEFFDE /* xmlhandler */,
+				CCF26AB727E89E0C00BEFFDE /* lupa.lua */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		CCF26AAE27E89E0C00BEFFDE /* cjson */ = {
+			isa = PBXGroup;
+			children = (
+				CCF26AAF27E89E0C00BEFFDE /* util.lua */,
+			);
+			path = cjson;
+			sourceTree = "<group>";
+		};
+		CCF26AB327E89E0C00BEFFDE /* xmlhandler */ = {
+			isa = PBXGroup;
+			children = (
+				CCF26AB427E89E0C00BEFFDE /* print.lua */,
+				CCF26AB527E89E0C00BEFFDE /* tree.lua */,
+				CCF26AB627E89E0C00BEFFDE /* dom.lua */,
+			);
+			path = xmlhandler;
 			sourceTree = "<group>";
 		};
 		CCF7C84327E4D3C60090B7F7 /* Presets */ = {
@@ -2826,7 +2864,7 @@
 		D628350E23F8EAAA0016573B /* LuaC */ = {
 			isa = PBXGroup;
 			children = (
-				CCA72A3B260B30CA00A934E2 /* modules */,
+				CCF26AAD27E89E0C00BEFFDE /* modules */,
 				D62834A923F8E6E60016573B /* lib */,
 				D62834AA23F8E6EF0016573B /* include */,
 				D628350F23F8EAAA0016573B /* LuaC.h */,
@@ -3490,6 +3528,7 @@
 				D628350A23F8EAAA0016573B /* Frameworks */,
 				CCA72A73260B31DF00A934E2 /* Copy Lua Modules */,
 				CCA72A7F260B31F500A934E2 /* Copy Lua Modules (cjson) */,
+				CCF26ABD27E89E2D00BEFFDE /* Copy Lua Modules (xmlhandler) */,
 			);
 			buildRules = (
 			);

@@ -14,10 +14,8 @@ extension Field {
         return NSFetchRequest<Field>(entityName: "Field")
     }
 
-    @NSManaged var helpText: String?
     @NSManaged var name: String
-    @NSManaged var order: Int64
-    @NSManaged var type: String
-    @NSManaged var validationRegex: String?
+    @NSManaged var defaultValue: String?
+    @NSManaged var helpText: String?
     @NSManaged var options: NSOrderedSet
 }

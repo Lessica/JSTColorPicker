@@ -12,7 +12,7 @@ import Foundation
 @objc(Tag)
 public final class Tag: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
-        case tagDescription, colorHex, name, order, fields
+        case helpText, colorHex, name, order, fields
     }
     
     private static var initializedOrder: Int64 = 0
@@ -25,7 +25,7 @@ public final class Tag: NSManagedObject, Codable {
         self.init(context: context)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        tagDescription = try container.decodeIfPresent(String.self, forKey: .tagDescription)
+        helpText = try container.decodeIfPresent(String.self, forKey: .helpText)
         colorHex = try container.decode(String.self, forKey: .colorHex)
         name = try container.decode(String.self, forKey: .name)
         Tag.initializedOrder += 1
@@ -35,7 +35,7 @@ public final class Tag: NSManagedObject, Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(tagDescription, forKey: .tagDescription)
+        try container.encode(helpText, forKey: .helpText)
         try container.encode(colorHex, forKey: .colorHex)
         try container.encode(name, forKey: .name)
         try container.encode(order, forKey: .order)
@@ -44,8 +44,8 @@ public final class Tag: NSManagedObject, Codable {
     
     @objc var color: NSColor { NSColor(hex: colorHex) }
     @objc var toolTip: String {
-        if let tagDescription = tagDescription, !tagDescription.isEmpty {
-            return String(format: "%@ (%@)\n%@", name, colorHex, tagDescription)
+        if let helpText = helpText, !helpText.isEmpty {
+            return String(format: "%@ (%@)\n%@", name, colorHex, helpText)
         }
         return String(format: "%@ (%@)", name, colorHex)
     }

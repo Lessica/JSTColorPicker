@@ -1,4 +1,5 @@
 local lupa = require "lupa"
+local xml2lua = require("xml2lua")
 
 local template = [[<annotation>
     <folder>{{ folder }}</folder>
@@ -23,10 +24,9 @@ local template = [[<annotation>
             <ymin>{{ object.minY }}</ymin>
             <xmax>{{ object.maxX }}</xmax>
             <ymax>{{ object.maxY }}</ymax>
-        </bndbox>
+        </bndbox>{{ object.userInfo }}
     </object>
-{% endfor %}
-</annotation>]]
+{% endfor %}</annotation>]]
 
 local _saveInPlace = true
 
@@ -38,6 +38,11 @@ local generator = function (image, items)
             v['truncated'] = 0
             v['difficult'] = 0
             newObjects[k] = v
+        end
+        if v.userInfo ~= nil then
+            v['userInfo'] = '\n        ' .. xml2lua.toXml(v.userInfo, 'userInfo'):sub(1, -2):gsub("[\n]", "\n        ")
+        else
+            v['userInfo'] = ''
         end
     end
     image['objects'] = newObjects
@@ -66,5 +71,5 @@ return {
     saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`
     generator = generator,                            -- required, the content generator
     enabled = true,                                   -- optional
-    previewable = false,                              -- optional
+    previewable = true,                               -- optional
 }
