@@ -325,15 +325,6 @@ DQ
                                 <action selector="relocate:" target="YIx-oB-8lo" id="l7Z-L0-yoA"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Edit Associated Values…" toolTip="Edit tag associated key paths, types and values." id="mZG-YC-OLN">
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                            <connections>
-                                <action selector="editAssociatedValues:" target="YIx-oB-8lo" id="UgX-dO-hfg"/>
-                            </connections>
-                        </menuItem>
                         <menuItem isSeparatorItem="YES" id="xfS-Z5-Yd0"/>
                         <menuItem title="Choose Tags…" id="AXF-B1-mtL">
                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -348,6 +339,12 @@ DQ
                                     <outlet property="delegate" destination="oDF-UT-bv5" id="BZz-BV-dRx"/>
                                 </connections>
                             </menu>
+                        </menuItem>
+                        <menuItem title="Edit Associated Values…" toolTip="Edit tag associated key paths, types and values." id="mZG-YC-OLN">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="editAssociatedValues:" target="YIx-oB-8lo" id="UgX-dO-hfg"/>
+                            </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="h55-l6-TzM"/>
                         <menuItem title="Cut" hidden="YES" keyEquivalent="x" id="WQj-mW-NTJ">
