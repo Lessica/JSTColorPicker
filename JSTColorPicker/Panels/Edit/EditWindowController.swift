@@ -10,7 +10,10 @@ import Cocoa
 
 final class EditWindowController: NSWindowController {
     
-    private lazy var internalUndoManager: UndoManager = { return UndoManager() }()
+    private lazy var _undoManager: UndoManager = {
+        return UndoManager()
+    }()
+    override var undoManager: UndoManager? { _undoManager }
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -24,7 +27,7 @@ extension EditWindowController: NSWindowDelegate {
     
     func windowWillReturnUndoManager(_ window: NSWindow) -> UndoManager? {
         if window == self.window {
-            return internalUndoManager
+            return _undoManager
         }
         return nil
     }

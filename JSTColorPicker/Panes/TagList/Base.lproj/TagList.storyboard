@@ -22,7 +22,7 @@
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="766"/>
                                             <subviews>
-                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
                                                     <rect key="frame" x="0.0" y="736" width="242" height="30"/>
                                                     <subviews>
                                                         <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
@@ -82,11 +82,11 @@
                                                                                 </textFieldCell>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="Swr-H3-w9y" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="4" y="1" width="34" height="24"/>
+                                                                                        <rect key="frame" x="4" y="1" width="32" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-Sc-b4D">
-                                                                                                <rect key="frame" x="-1" y="4" width="34" height="16"/>
+                                                                                                <rect key="frame" x="-1" y="4" width="32" height="16"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="-" usesSingleLineMode="YES" id="FUe-D3-zFx">
                                                                                                     <font key="font" metaFont="system"/>
@@ -150,11 +150,11 @@
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="yGX-y2-tND" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="82" y="1" width="104" height="24"/>
+                                                                                        <rect key="frame" x="82" y="1" width="102" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="4" width="104" height="16"/>
+                                                                                                <rect key="frame" x="0.0" y="4" width="102" height="16"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" usesSingleLineMode="YES" id="36l-Jz-ijV">
                                                                                                     <font key="font" metaFont="system"/>

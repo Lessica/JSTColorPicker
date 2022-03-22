@@ -9,6 +9,7 @@
 import Foundation
 
 protocol TagListSelectDelegate: AnyObject {
+    var undoManager: UndoManager? { get }
     func fetchAlternateStateForTags(_ tags: [Tag]) -> NSControl.StateValue
     func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag])
     func selectedState(of name: String) -> NSControl.StateValue

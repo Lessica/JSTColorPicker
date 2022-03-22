@@ -14,7 +14,7 @@ final class TagListTableView: NSTableView, UndoProxy {
     private var hasAttachedSheet: Bool { window?.attachedSheet != nil }
     
     var contextUndoManager: UndoManager?
-    override var undoManager: UndoManager? { contextUndoManager }
+    override var undoManager: UndoManager? { contextUndoManager ?? super.undoManager }
     
     override func menu(for event: NSEvent) -> NSMenu? {
         if hasAttachedSheet

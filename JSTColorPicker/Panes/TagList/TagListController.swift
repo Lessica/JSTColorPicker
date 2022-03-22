@@ -88,6 +88,10 @@ final class TagListController: StackedPaneController {
     private var didRedoToken                      : NotificationToken?
     private var arrangedObjectsObservation        : NSKeyValueObservation?
     
+    private var _selectModeDelayedRowIndexes      : IndexSet?
+    override var undoManager                      : UndoManager?
+    { isSelectMode ? selectDelegate?.undoManager : TagListController.sharedUndoManager }
+    
     static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
@@ -139,7 +143,7 @@ final class TagListController: StackedPaneController {
         tableView.allowsMultipleSelection   = !isSelectMode
         tableView.gridStyleMask             = isSelectMode ? [] : [.solidVerticalGridLineMask]
         tableView.isEmbeddedMode            = isSelectMode
-        tableView.contextUndoManager        = TagListController.sharedUndoManager
+        tableView.contextUndoManager        = undoManager
         
         tableActionCustomView.isHidden      = isSelectMode
         tableColumnFlags.isHidden           = isSelectMode
@@ -232,51 +236,116 @@ final class TagListController: StackedPaneController {
         setupPersistentStore(byIgnoringError: true)
     }
     
+    func internalSetDeferredSelection(_ indexes: IndexSet) {
+        _selectModeDelayedRowIndexes = indexes
+    }
+    
+    @discardableResult
+    private func _applyDeferredSelection() -> IndexSet? {
+        let set = _selectModeDelayedRowIndexes
+        if let set = set, tableView.selectedRowIndexes != set {
+            tableView.selectRowIndexes(set, byExtendingSelection: false)
+        }
+        _cancelDeferredSelection()
+        return set
+    }
+    
+    @discardableResult
+    private func _cancelDeferredSelection() -> IndexSet? {
+        let originalSet = _selectModeDelayedRowIndexes
+        _selectModeDelayedRowIndexes = nil
+        return originalSet
+    }
+    
+    func removeUndoRedoNotifications() {
+        willUndoToken = nil
+        willRedoToken = nil
+        didUndoToken = nil
+        didRedoToken = nil
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+    }
+    
+    func setupUndoRedoNotifications() {
+        willUndoToken = NotificationCenter.default.observe(
+            name: NSNotification.Name.NSUndoManagerWillUndoChange,
+            object: undoManager
+        ) { [unowned self] noti in
+            if noti.object as? UndoManager == self.undoManager {
+                if !self.isSelectMode {
+                    self.setNeedsSaveManagedTags()
+                }
+            }
+        }
+        willRedoToken = NotificationCenter.default.observe(
+            name: NSNotification.Name.NSUndoManagerWillRedoChange,
+            object: undoManager
+        ) { [unowned self] noti in
+            if noti.object as? UndoManager == self.undoManager {
+                if !self.isSelectMode {
+                    self.setNeedsSaveManagedTags()
+                }
+            }
+        }
+        didUndoToken = NotificationCenter.default.observe(
+            name: NSNotification.Name.NSUndoManagerDidUndoChange,
+            object: undoManager
+        ) { [unowned self] noti in
+            if noti.object as? UndoManager == self.undoManager {
+                if self.isSelectMode {
+                    self.tableView.reloadData(
+                        forRowIndexes: IndexSet(integersIn: 0..<self.tableView.numberOfRows),
+                        columnIndexes: IndexSet(integer: self.tableView.column(withIdentifier: .columnChecked))
+                    )
+                    self.reloadHeaderView()
+                    self._applyDeferredSelection()
+                } else {
+                    self.internalController.rearrangeObjects()
+                }
+            }
+        }
+        didRedoToken = NotificationCenter.default.observe(
+            name: NSNotification.Name.NSUndoManagerDidRedoChange,
+            object: undoManager
+        ) { [unowned self] noti in
+            if noti.object as? UndoManager == self.undoManager {
+                if self.isSelectMode {
+                    self.tableView.reloadData(
+                        forRowIndexes: IndexSet(integersIn: 0..<self.tableView.numberOfRows),
+                        columnIndexes: IndexSet(integer: self.tableView.column(withIdentifier: .columnChecked))
+                    )
+                    self.reloadHeaderView()
+                    self._applyDeferredSelection()
+                } else {
+                    self.internalController.rearrangeObjects()
+                }
+            }
+        }
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(managedTagsDidChangeNotification(_:)),
+            name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: nil
+        )
+    }
+    
     private func setupPersistentStore(
         byIgnoringError ignore: Bool
     ) {
         if let context = TagListController.sharedContext {
             self.setupEmbeddedState(with: context)
-            
-            if let undoManager = tableView.contextUndoManager {
-                willUndoToken = NotificationCenter.default.observe(
-                    name: NSNotification.Name.NSUndoManagerWillUndoChange,
-                    object: undoManager,
-                    using: { [unowned self] _ in
-                        self.setNeedsSaveManagedTags()
-                    })
-                willRedoToken = NotificationCenter.default.observe(
-                    name: NSNotification.Name.NSUndoManagerWillRedoChange,
-                    object: undoManager,
-                    using: { [unowned self] _ in
-                        self.setNeedsSaveManagedTags()
-                    })
-                didUndoToken = NotificationCenter.default.observe(
-                    name: NSNotification.Name.NSUndoManagerDidUndoChange,
-                    object: undoManager
-                ) { [unowned self] _ in
-                    self.internalController.rearrangeObjects()
-                }
-                didRedoToken = NotificationCenter.default.observe(
-                    name: NSNotification.Name.NSUndoManagerDidRedoChange,
-                    object: undoManager
-                ) { [unowned self] _ in
-                    self.internalController.rearrangeObjects()
-                }
-            }
-            
-            NotificationCenter.default.removeObserver(
-                self,
-                name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-                object: nil
-            )
-            
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(managedTagsDidChangeNotification(_:)),
-                name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-                object: nil
-            )
+            self.setupUndoRedoNotifications()
         } else {
             TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
@@ -290,52 +359,12 @@ final class TagListController: StackedPaneController {
                 guard let self = self else { return }
                 
                 if let context = context {
-                    
                     context.undoManager = TagListController.sharedUndoManager
-                    
                     self.setupEmbeddedState(with: context)
-                    
-                    self.willUndoToken = NotificationCenter.default.observe(
-                        name: NSNotification.Name.NSUndoManagerWillUndoChange,
-                        object: self.tableView.contextUndoManager,
-                        using: { [unowned self] _ in
-                            self.setNeedsSaveManagedTags()
-                        })
-                    self.willRedoToken = NotificationCenter.default.observe(
-                        name: NSNotification.Name.NSUndoManagerWillRedoChange,
-                        object: self.tableView.contextUndoManager,
-                        using: { [unowned self] _ in
-                            self.setNeedsSaveManagedTags()
-                        })
-                    
-                    self.didUndoToken = NotificationCenter.default.observe(
-                        name: NSNotification.Name.NSUndoManagerDidUndoChange,
-                        object: self.tableView.contextUndoManager
-                    ) { [unowned self] _ in
-                        self.internalController.rearrangeObjects()
-                    }
-                    self.didRedoToken = NotificationCenter.default.observe(
-                        name: NSNotification.Name.NSUndoManagerDidRedoChange,
-                        object: self.tableView.contextUndoManager
-                    ) { [unowned self] _ in
-                        self.internalController.rearrangeObjects()
-                    }
-                    
-                    NotificationCenter.default.removeObserver(
-                        self,
-                        name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-                        object: nil
-                    )
-                    
-                    NotificationCenter.default.addObserver(
-                        self,
-                        selector: #selector(self.managedTagsDidChangeNotification(_:)),
-                        name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-                        object: nil
-                    )
-                    
+                    self.setupUndoRedoNotifications()
                 } else if let error = error {
                     self.setupEmbeddedState()
+                    self.removeUndoRedoNotifications()
                     
                     if !ignore {
                         self.presentError(error)
@@ -682,6 +711,8 @@ final class TagListController: StackedPaneController {
         if sender.allowsMixedState { sender.allowsMixedState = false }
         guard let selectDelegate = selectDelegate else { return }
         let checkedRow = tableView.row(for: sender)
+        makeFirstResponder(tableView)
+        tableView.selectRowIndexes(IndexSet(integer: checkedRow), byExtendingSelection: false)
         selectDelegate.selectedStateChanged(of: arrangedTags[checkedRow].name, to: sender.state)
         reloadHeaderView()
     }

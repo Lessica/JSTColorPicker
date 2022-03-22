@@ -12,13 +12,13 @@
             <objects>
                 <viewController identifier="ContentController" id="oDF-UT-bv5" customClass="ContentController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9GN-DY-133">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="222" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" translatesAutoresizingMaskIntoConstraints="NO" id="W8X-3b-Td7" customClass="ContentScrollView" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="36" width="220" height="712"/>
+                                <rect key="frame" x="0.0" y="36" width="222" height="712"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="Gfa-UH-GB2" customClass="ContentClipView" customModule="JSTColorPicker" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="712"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="222" height="712"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView identifier="ContentTableView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="ContentTableView" rowHeight="24" headerView="7Jl-wJ-daV" viewBased="YES" floatsGroupRows="NO" id="JHd-l9-l6u" customClass="ContentTableView" customModule="JSTColorPicker" customModuleProvider="target">
@@ -41,11 +41,11 @@
                                                     </textFieldCell>
                                                     <prototypeCellViews>
                                                         <tableCellView id="5z2-yi-9PI" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="4" y="1" width="34" height="24"/>
+                                                            <rect key="frame" x="4" y="1" width="32" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCW-yY-fH2">
-                                                                    <rect key="frame" x="0.0" y="4" width="34" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="32" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="3v1-QE-BeJ">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -69,7 +69,7 @@
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="wfg-Vz-ZiE">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" identifier="cell-similarity" title="Text Cell" id="wfg-Vz-ZiE">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -107,7 +107,7 @@
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="YgK-ZS-zbR">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" identifier="cell-tag" title="Text Cell" id="YgK-ZS-zbR">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -151,7 +151,7 @@
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="ROt-Ae-AXF" customClass="ContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                            <rect key="frame" x="180" y="1" width="224" height="24"/>
+                                                            <rect key="frame" x="180" y="1" width="222" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="44X-Vu-x9l">
@@ -162,7 +162,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="square.and.arrow.up" catalog="system" id="amW-wa-Evw"/>
                                                                 </imageView>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve9-tP-B9R">
-                                                                    <rect key="frame" x="25" y="5" width="199" height="15"/>
+                                                                    <rect key="frame" x="25" y="5" width="197" height="15"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" id="ndM-Rr-NDX">
                                                                         <font key="font" size="13" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -201,8 +201,8 @@
                                     <constraint firstAttribute="height" constant="712" placeholder="YES" id="3bE-sK-7M9"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="ep1-B6-8yg"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" doubleValue="0.032258064516129031" horizontal="YES" id="NM7-Vt-IF5">
-                                    <rect key="frame" x="0.0" y="696" width="220" height="16"/>
+                                <scroller key="horizontalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="YES" id="NM7-Vt-IF5">
+                                    <rect key="frame" x="0.0" y="696" width="222" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="NO" id="o7Y-Vl-G5o">
@@ -218,10 +218,10 @@
                                 </tableHeaderView>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zMj-9c-qFb">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="222" height="36"/>
                                 <subviews>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="82o-Li-RYj">
-                                        <rect key="frame" x="0.0" y="33" width="220" height="5"/>
+                                        <rect key="frame" x="0.0" y="33" width="222" height="5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="qU5-MK-te6"/>
                                         </constraints>
@@ -243,7 +243,7 @@
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsN-Fd-s2i" customClass="ContentSearchField" customModule="JSTColorPicker" customModuleProvider="target">
-                                        <rect key="frame" x="32" y="10" width="182" height="16"/>
+                                        <rect key="frame" x="32" y="10" width="184" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" focusRingType="none" alignment="left" placeholderString="Add/Locate Item…" usesSingleLineMode="YES" id="jqt-id-cp6">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

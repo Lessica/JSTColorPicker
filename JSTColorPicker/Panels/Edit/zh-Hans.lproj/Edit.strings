@@ -31,7 +31,7 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
 "7qb-5Y-1eO.title" = "取消";
 
-/* Class = "NSTextFieldCell"; title = "Value"; ObjectID = "8hY-gc-NsQ"; */
+/* Class = "NSTextFieldCell"; title = "String Value"; ObjectID = "8hY-gc-NsQ"; */
 "8hY-gc-NsQ.title" = "值";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "8MM-oB-27f"; */
@@ -48,6 +48,9 @@
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "abA-Ke-xKL"; */
 "abA-Ke-xKL.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Integer Value"; ObjectID = "aLp-7D-Irm"; */
+"aLp-7D-Irm.title" = "Integer Value";
 
 /* Class = "NSTextFieldCell"; title = "Width: "; ObjectID = "aqD-e5-Wi9"; */
 "aqD-e5-Wi9.title" = "宽度：";
@@ -115,8 +118,11 @@
 /* Class = "NSMenuItem"; title = "Image"; ObjectID = "NJF-un-mVE"; */
 "NJF-un-mVE.title" = "Image";
 
-/* Class = "NSMenuItem"; title = "Number"; ObjectID = "o0x-A4-bg2"; */
-"o0x-A4-bg2.title" = "Number";
+/* Class = "NSMenuItem"; title = "Integer"; ObjectID = "o0x-A4-bg2"; */
+"o0x-A4-bg2.title" = "Integer";
+
+/* Class = "NSTextFieldCell"; title = "Decimal Value"; ObjectID = "p8a-9r-fdf"; */
+"p8a-9r-fdf.title" = "Decimal Value";
 
 /* Class = "NSTextFieldCell"; title = "Coordinate X: "; ObjectID = "p8E-5k-JXY"; */
 "p8E-5k-JXY.title" = "坐标 X：";
@@ -150,6 +156,9 @@
 
 /* Class = "NSMenuItem"; title = "Rect"; ObjectID = "taL-BW-yEN"; */
 "taL-BW-yEN.title" = "Rect";
+
+/* Class = "NSMenuItem"; title = "Decimal"; ObjectID = "ttj-lP-yev"; */
+"ttj-lP-yev.title" = "Decimal";
 
 /* Class = "NSTextFieldCell"; title = "● #FFFFFF"; ObjectID = "Ujz-vy-7WQ"; */
 "Ujz-vy-7WQ.title" = "● #FFFFFF";

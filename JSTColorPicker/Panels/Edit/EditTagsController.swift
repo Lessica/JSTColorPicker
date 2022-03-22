@@ -122,16 +122,7 @@ extension EditTagsController: TagListSelectDelegate {
     
     func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag]) {
         let allTagNames = tags.map({ $0.name })
-        if state == .on {
-            cachedTagNames.formUnion(allTagNames)
-            cachedTagStates.merge(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, .on) }))) { _, new in new }
-        } else if state == .off {
-            cachedTagNames.formUnion(allTagNames)
-            cachedTagStates.merge(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, .off) }))) { _, new in new }
-        } else {
-            fatalError("cannot setup with .mixed state")
-        }
-        updateOKButtonState()
+        selectedStatesChanged(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, state) })))
     }
     
     func selectedState(of name: String) -> NSControl.StateValue {
@@ -155,7 +146,30 @@ extension EditTagsController: TagListSelectDelegate {
     }
     
     func selectedStateChanged(of name: String, to state: NSControl.StateValue) {
+        if let originalState = cachedTagStates[name] {
+            let currentSelectedIndexSet = tagListController.selectedRowIndexes
+            undoManager?.registerUndo(withTarget: self, handler: { (target) in
+                target.tagListController.internalSetDeferredSelection(currentSelectedIndexSet)
+                target.selectedStateChanged(of: name, to: originalState)
+            })
+            undoManager?.setActionName(NSLocalizedString("Choose Tags", comment: "selectedStateChanged(of:to:)"))
+        }
+        cachedTagNames.insert(name)
         cachedTagStates[name] = state
+        updateOKButtonState()
+        debugPrint(cachedTagStates)
+    }
+    
+    func selectedStatesChanged(_ states: [String: NSControl.StateValue]) {
+        let originalStates = cachedTagStates
+        let currentSelectedIndexSet = tagListController.selectedRowIndexes
+        undoManager?.registerUndo(withTarget: self, handler: { (target) in
+            target.tagListController.internalSetDeferredSelection(currentSelectedIndexSet)
+            target.selectedStatesChanged(originalStates)
+        })
+        undoManager?.setActionName(NSLocalizedString("Choose Tags", comment: "selectedStatesChanged(_:)"))
+        cachedTagNames.formUnion(states.keys)
+        cachedTagStates.merge(states) { _, new in new }
         updateOKButtonState()
         debugPrint(cachedTagStates)
     }

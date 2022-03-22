@@ -42,6 +42,7 @@ final class EditWindow: NSWindow {
     weak var loader: ScreenshotLoader?
     weak var contentDelegate: ContentActionResponder?
     weak var contentItemSource: ContentItemSource?
+    weak var tagManager: TagListSource?
 
 }
 

@@ -1116,6 +1116,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         panel.contentDelegate = self
         panel.contentItemSource = self
         panel.contentItem = targetItem
+        panel.tagManager = self.tagManager
         panel.type = .edit
         
         view.window!.beginSheet(panel) { (resp) in
