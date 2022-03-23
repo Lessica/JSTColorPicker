@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="19500"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
@@ -39,31 +39,31 @@
             <objects>
                 <viewController title="Edit Associated Values" id="EXU-cB-ZwZ" customClass="EditAssociatedValuesController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="ey7-Qy-9YF">
-                        <rect key="frame" x="0.0" y="0.0" width="446" height="325"/>
+                        <rect key="frame" x="0.0" y="0.0" width="452" height="325"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXg-Lq-Xvm">
-                                <rect key="frame" x="20" y="20" width="406" height="285"/>
+                                <rect key="frame" x="20" y="20" width="412" height="285"/>
                                 <subviews>
                                     <box title="Edit Associated Values" translatesAutoresizingMaskIntoConstraints="NO" id="qA2-aD-5uF">
-                                        <rect key="frame" x="-3" y="24" width="412" height="261"/>
+                                        <rect key="frame" x="-3" y="24" width="418" height="261"/>
                                         <view key="contentView" id="1Ea-j4-u0v">
-                                            <rect key="frame" x="3" y="3" width="406" height="243"/>
+                                            <rect key="frame" x="3" y="3" width="412" height="243"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Zp-Jz-gRh">
-                                                    <rect key="frame" x="20" y="20" width="366" height="203"/>
+                                                    <rect key="frame" x="20" y="20" width="372" height="203"/>
                                                     <clipView key="contentView" id="uRn-ge-5hs">
-                                                        <rect key="frame" x="1" y="1" width="364" height="201"/>
+                                                        <rect key="frame" x="1" y="1" width="370" height="201"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" autosaveColumns="NO" rowHeight="24" headerView="AHV-BD-lgf" viewBased="YES" floatsGroupRows="NO" id="krd-cv-u6e">
-                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="149"/>
+                                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" autosaveColumns="NO" rowHeight="24" headerView="AHV-BD-lgf" viewBased="YES" floatsGroupRows="NO" id="krd-cv-u6e" customClass="EditAssociatedValuesTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="370" height="149"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="8" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                 <tableColumns>
-                                                                    <tableColumn identifier="col-name" width="80" minWidth="40" maxWidth="1000" id="6Mw-UB-aY3">
+                                                                    <tableColumn identifier="col-name" width="100" minWidth="80" maxWidth="1000" id="6Mw-UB-aY3">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Key Path">
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -76,13 +76,13 @@
                                                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView id="zHu-If-SNN">
-                                                                                <rect key="frame" x="4" y="1" width="82" height="24"/>
+                                                                                <rect key="frame" x="4" y="1" width="102" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xny-OA-uf0">
-                                                                                        <rect key="frame" x="0.0" y="4" width="82" height="16"/>
+                                                                                        <rect key="frame" x="0.0" y="4" width="102" height="16"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Key Path" id="e1J-94-06e">
-                                                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                                                            <font key="font" size="13" name="Helvetica"/>
                                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
@@ -92,6 +92,7 @@
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="zHu-If-SNN" name="toolTip" keyPath="objectValue.helpText" id="QhX-zF-eiv"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                 </subviews>
@@ -113,7 +114,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn identifier="col-type" width="80" minWidth="40" maxWidth="1000" id="GUr-Ru-L4q">
+                                                                    <tableColumn identifier="col-type" width="80" minWidth="80" maxWidth="1000" id="GUr-Ru-L4q">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Type">
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -126,14 +127,14 @@
                                                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView id="iId-lv-Rpx">
-                                                                                <rect key="frame" x="94" y="1" width="80" height="24"/>
+                                                                                <rect key="frame" x="114" y="1" width="80" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="0mN-zV-hFE">
                                                                                         <rect key="frame" x="-3" y="4" width="81" height="16"/>
-                                                                                        <popUpButtonCell key="cell" type="check" title="Boolean" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="s8M-AQ-aBd" id="Li5-FB-Cp3">
-                                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                            <font key="font" metaFont="menu"/>
+                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Boolean" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="s8M-AQ-aBd" id="Li5-FB-Cp3">
+                                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                            <font key="font" metaFont="system"/>
                                                                                             <menu key="menu" id="3rc-qL-Wam">
                                                                                                 <items>
                                                                                                     <menuItem title="Boolean" state="on" id="s8M-AQ-aBd">
@@ -179,6 +180,7 @@
                                                                                                 </dictionary>
                                                                                             </binding>
                                                                                             <binding destination="iId-lv-Rpx" name="selectedIndex" keyPath="objectValue.type" id="uFk-S1-1cz"/>
+                                                                                            <binding destination="iId-lv-Rpx" name="toolTip" keyPath="objectValue.helpText" id="TXR-hp-pR5"/>
                                                                                         </connections>
                                                                                     </popUpButton>
                                                                                 </subviews>
@@ -197,7 +199,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn identifier="col-value" width="176" minWidth="40" maxWidth="1000" id="Gw6-tA-f9x">
+                                                                    <tableColumn identifier="col-value" width="162" minWidth="80" maxWidth="1000" id="Gw6-tA-f9x">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -210,14 +212,14 @@
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView id="Ubs-uG-ko1">
-                                                                                <rect key="frame" x="182" y="1" width="178" height="24"/>
+                                                                                <rect key="frame" x="202" y="1" width="164" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-Hi-c7R">
-                                                                                        <rect key="frame" x="-3" y="4" width="179" height="16"/>
-                                                                                        <popUpButtonCell key="cell" type="check" title="Item 1" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" selectedItem="7Td-mz-f34" id="d0q-AZ-U47">
-                                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                            <font key="font" metaFont="menu"/>
+                                                                                        <rect key="frame" x="-3" y="4" width="165" height="16"/>
+                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="7Td-mz-f34" id="d0q-AZ-U47">
+                                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                            <font key="font" metaFont="system"/>
                                                                                             <menu key="menu" id="aqa-2k-gXP">
                                                                                                 <items>
                                                                                                     <menuItem title="Item 1" state="on" id="7Td-mz-f34"/>
@@ -242,11 +244,12 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="LDV-uR-654"/>
                                                                                         </connections>
                                                                                     </popUpButton>
                                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MlX-nI-W0S">
                                                                                         <rect key="frame" x="0.0" y="3" width="18" height="18"/>
-                                                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oID-gs-EgG">
+                                                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" state="on" inset="2" id="oID-gs-EgG">
                                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
@@ -261,10 +264,11 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="GbF-Ze-JwS"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0y6-P4-DSn">
-                                                                                        <rect key="frame" x="0.0" y="4" width="178" height="16"/>
+                                                                                        <rect key="frame" x="2" y="4" width="162" height="16"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="String Value" id="8hY-gc-NsQ">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -276,7 +280,8 @@
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="2UL-9w-xpT">
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="go1-01-U9y"/>
+                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="NB1-yC-iZu">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
@@ -285,7 +290,7 @@
                                                                                         </connections>
                                                                                     </textField>
                                                                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DQy-5h-3gv">
-                                                                                        <rect key="frame" x="0.0" y="4" width="178" height="16"/>
+                                                                                        <rect key="frame" x="2" y="4" width="162" height="16"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Integer Value" id="aLp-7D-Irm">
                                                                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" allowsFloats="NO" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="ebF-W3-MMn"/>
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -304,12 +309,13 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="Fju-OE-MmK"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="P3i-HD-aSe">
-                                                                                        <rect key="frame" x="0.0" y="4" width="178" height="16"/>
+                                                                                        <rect key="frame" x="2" y="4" width="162" height="16"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Decimal Value" id="p8a-9r-fdf">
-                                                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="MZr-ly-Kng"/>
+                                                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" alwaysShowsDecimalSeparator="YES" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="1" maximumFractionDigits="3" id="MZr-ly-Kng"/>
                                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -326,6 +332,7 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="sWY-A9-Opd"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                 </subviews>
@@ -336,15 +343,15 @@
                                                                                     <constraint firstItem="SbQ-Hi-c7R" firstAttribute="centerY" secondItem="Ubs-uG-ko1" secondAttribute="centerY" id="BRC-jA-9nX"/>
                                                                                     <constraint firstItem="MlX-nI-W0S" firstAttribute="centerY" secondItem="Ubs-uG-ko1" secondAttribute="centerY" id="K58-6s-KfL"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="P3i-HD-aSe" secondAttribute="trailing" constant="2" id="LoQ-XT-wWW"/>
-                                                                                    <constraint firstItem="P3i-HD-aSe" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="2" id="MLO-2I-eco"/>
+                                                                                    <constraint firstItem="P3i-HD-aSe" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="4" id="MLO-2I-eco"/>
                                                                                     <constraint firstItem="SbQ-Hi-c7R" firstAttribute="centerX" secondItem="Ubs-uG-ko1" secondAttribute="centerX" id="MqU-AS-cjt"/>
-                                                                                    <constraint firstItem="DQy-5h-3gv" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="2" id="Pj6-9e-azN"/>
+                                                                                    <constraint firstItem="DQy-5h-3gv" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="4" id="Pj6-9e-azN"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="DQy-5h-3gv" secondAttribute="trailing" constant="2" id="b4K-gZ-Q2g"/>
                                                                                     <constraint firstItem="DQy-5h-3gv" firstAttribute="centerY" secondItem="Ubs-uG-ko1" secondAttribute="centerY" id="cis-DA-gmT"/>
                                                                                     <constraint firstItem="P3i-HD-aSe" firstAttribute="centerY" secondItem="Ubs-uG-ko1" secondAttribute="centerY" id="ewx-Jn-EXH"/>
                                                                                     <constraint firstItem="SbQ-Hi-c7R" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="2" id="qoJ-pg-Au9"/>
                                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MlX-nI-W0S" secondAttribute="trailing" constant="2" id="r8e-gy-9rQ"/>
-                                                                                    <constraint firstItem="0y6-P4-DSn" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="2" id="zta-1R-fr2"/>
+                                                                                    <constraint firstItem="0y6-P4-DSn" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="4" id="zta-1R-fr2"/>
                                                                                 </constraints>
                                                                                 <connections>
                                                                                     <outlet property="textField" destination="0y6-P4-DSn" id="qzH-Cg-mr4"/>
@@ -369,7 +376,7 @@
                                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="28" bottom="24"/>
                                                     </clipView>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="366" id="fDM-Wa-tTG"/>
+                                                        <constraint firstAttribute="width" constant="372" id="fDM-Wa-tTG"/>
                                                         <constraint firstAttribute="height" constant="203" id="oef-4K-SAK"/>
                                                     </constraints>
                                                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="hKv-PE-dua">
@@ -381,18 +388,18 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <tableHeaderView key="headerView" wantsLayer="YES" id="AHV-BD-lgf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="364" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="370" height="28"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                 </scrollView>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Dw-hk-Tmh" customClass="ColoredView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                    <rect key="frame" x="21" y="21" width="364" height="24"/>
+                                                <visualEffectView blendingMode="withinWindow" material="headerView" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HM2-En-DeY">
+                                                    <rect key="frame" x="21" y="21" width="370" height="24"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nrz-EP-ABI">
-                                                            <rect key="frame" x="2" y="0.0" width="40" height="24"/>
+                                                            <rect key="frame" x="2" y="2" width="40" height="20"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z4N-8l-Uei">
-                                                                    <rect key="frame" x="0.0" y="0.5" width="20.5" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="-1.5" width="20.5" height="24"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="20" id="3u4-CC-WAA"/>
                                                                         <constraint firstAttribute="height" constant="20" id="cVJ-PX-kRe"/>
@@ -408,7 +415,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-ZJ-9Co">
-                                                                    <rect key="frame" x="20" y="5" width="20.5" height="15"/>
+                                                                    <rect key="frame" x="20" y="3" width="20.5" height="15"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="20" id="IqB-RP-Lrc"/>
                                                                         <constraint firstAttribute="height" constant="20" id="Ygy-oy-Hm7"/>
@@ -443,25 +450,18 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="Nrz-EP-ABI" secondAttribute="bottom" id="G9T-3Z-cYR"/>
-                                                        <constraint firstItem="Nrz-EP-ABI" firstAttribute="top" secondItem="9Dw-hk-Tmh" secondAttribute="top" id="HCs-YJ-tRL"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nrz-EP-ABI" secondAttribute="trailing" constant="2" id="PAr-3j-65d"/>
-                                                        <constraint firstAttribute="height" constant="24" id="Ywb-Su-w0b"/>
-                                                        <constraint firstItem="Nrz-EP-ABI" firstAttribute="leading" secondItem="9Dw-hk-Tmh" secondAttribute="leading" constant="2" id="ZWC-4T-bCa"/>
+                                                        <constraint firstItem="Nrz-EP-ABI" firstAttribute="centerY" secondItem="HM2-En-DeY" secondAttribute="centerY" id="QQq-vj-o8J"/>
+                                                        <constraint firstAttribute="height" constant="24" id="b7f-ec-izN"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nrz-EP-ABI" secondAttribute="trailing" constant="2" id="ka2-hd-zAQ"/>
+                                                        <constraint firstItem="Nrz-EP-ABI" firstAttribute="leading" secondItem="HM2-En-DeY" secondAttribute="leading" constant="2" id="xrn-dZ-Wqf"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                            <color key="value" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="bypassClicks" value="NO"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </customView>
+                                                </visualEffectView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="9Dw-hk-Tmh" firstAttribute="leading" secondItem="5Zp-Jz-gRh" secondAttribute="leading" constant="1" id="040-qT-kuC"/>
-                                                <constraint firstItem="9Dw-hk-Tmh" firstAttribute="bottom" secondItem="5Zp-Jz-gRh" secondAttribute="bottom" constant="-1" id="UHA-es-IOg"/>
+                                                <constraint firstItem="HM2-En-DeY" firstAttribute="bottom" secondItem="5Zp-Jz-gRh" secondAttribute="bottom" constant="-1" id="CId-X8-CQS"/>
+                                                <constraint firstItem="HM2-En-DeY" firstAttribute="leading" secondItem="5Zp-Jz-gRh" secondAttribute="leading" constant="1" id="EhB-tH-sfq"/>
+                                                <constraint firstItem="HM2-En-DeY" firstAttribute="trailing" secondItem="5Zp-Jz-gRh" secondAttribute="trailing" constant="-1" id="TZv-rv-WVt"/>
                                                 <constraint firstAttribute="bottom" secondItem="5Zp-Jz-gRh" secondAttribute="bottom" constant="20" symbolic="YES" id="VKV-bB-OKs"/>
-                                                <constraint firstItem="9Dw-hk-Tmh" firstAttribute="trailing" secondItem="5Zp-Jz-gRh" secondAttribute="trailing" constant="-1" id="WxR-ke-oF4"/>
                                                 <constraint firstAttribute="trailing" secondItem="5Zp-Jz-gRh" secondAttribute="trailing" constant="20" symbolic="YES" id="aeP-HL-scW"/>
                                                 <constraint firstItem="5Zp-Jz-gRh" firstAttribute="leading" secondItem="1Ea-j4-u0v" secondAttribute="leading" constant="20" symbolic="YES" id="hEN-PF-YPN"/>
                                                 <constraint firstItem="5Zp-Jz-gRh" firstAttribute="top" secondItem="1Ea-j4-u0v" secondAttribute="top" constant="20" symbolic="YES" id="md7-pO-lW1"/>
@@ -469,7 +469,7 @@
                                         </view>
                                     </box>
                                     <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlI-qw-TSt">
-                                        <rect key="frame" x="274" y="0.0" width="132" height="20"/>
+                                        <rect key="frame" x="280" y="0.0" width="132" height="20"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VbI-CW-CIW">
                                                 <rect key="frame" x="-7" y="-7" width="76" height="32"/>
@@ -528,9 +528,9 @@ DQ
                         <constraints>
                             <constraint firstItem="AXg-Lq-Xvm" firstAttribute="leading" secondItem="ey7-Qy-9YF" secondAttribute="leading" constant="20" symbolic="YES" id="DuC-SX-XLt"/>
                             <constraint firstAttribute="bottom" secondItem="AXg-Lq-Xvm" secondAttribute="bottom" constant="20" symbolic="YES" id="Oxk-hH-jlW"/>
-                            <constraint firstAttribute="height" priority="500" constant="383" id="Rdk-qw-U7E"/>
+                            <constraint firstAttribute="height" priority="500" constant="325" id="Rdk-qw-U7E"/>
                             <constraint firstAttribute="trailing" secondItem="AXg-Lq-Xvm" secondAttribute="trailing" constant="20" symbolic="YES" id="TSx-Pf-VlT"/>
-                            <constraint firstAttribute="width" priority="500" constant="446" id="fj6-0P-OP4"/>
+                            <constraint firstAttribute="width" priority="500" constant="452" id="fj6-0P-OP4"/>
                             <constraint firstItem="AXg-Lq-Xvm" firstAttribute="top" secondItem="ey7-Qy-9YF" secondAttribute="top" constant="20" symbolic="YES" id="jpQ-pR-mNW"/>
                         </constraints>
                     </view>
@@ -594,7 +594,7 @@ DQ
                     </connections>
                 </viewController>
                 <customObject id="eol-DE-UQH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="JSTColorPicker.AssociatedKeyPath" avoidsEmptySelection="NO" id="Ke1-AU-FIo" customClass="EditArrayController" customModule="JSTColorPicker" customModuleProvider="target">
+                <arrayController objectClassName="JSTColorPicker.AssociatedKeyPath" selectsInsertedObjects="NO" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="Ke1-AU-FIo" customClass="EditArrayController" customModule="JSTColorPicker" customModuleProvider="target">
                     <declaredKeys>
                         <string>name</string>
                         <string>type</string>
@@ -994,7 +994,7 @@ DQ
                                         </view>
                                     </box>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vJ-ca-jMK">
-                                        <rect key="frame" x="-2" y="469" width="93" height="14"/>
+                                        <rect key="frame" x="-2" y="469" width="92" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" allowsUndo="NO" alignment="center" title="[Error Message]" id="XWu-hr-oyw">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
@@ -1363,7 +1363,7 @@ DQ
                                         </view>
                                     </box>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQO-XH-G11">
-                                        <rect key="frame" x="-2" y="439" width="93" height="14"/>
+                                        <rect key="frame" x="-2" y="439" width="92" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" allowsUndo="NO" alignment="center" title="[Error Message]" id="b1c-AO-Wxw">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>

@@ -85,6 +85,10 @@ final class EditTagsController: EditViewController {
         }
     }
     
+    deinit {
+        debugPrint("\(className):\(#function)")
+    }
+    
 }
 
 extension EditTagsController: TagListSelectDelegate {
@@ -189,4 +193,3 @@ extension EditTagsController: TagListSelectDelegate {
     }
     
 }
-

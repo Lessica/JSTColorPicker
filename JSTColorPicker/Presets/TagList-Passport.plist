@@ -14,10 +14,18 @@
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 		</array>
 	</dict>
@@ -31,18 +39,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -54,6 +94,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -67,18 +109,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -90,6 +164,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -103,18 +179,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -126,6 +234,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -139,18 +249,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -162,6 +304,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -175,18 +319,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -198,6 +374,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -211,18 +389,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -234,6 +444,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -247,18 +459,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -270,6 +514,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -283,18 +529,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -306,6 +584,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -319,18 +599,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -342,6 +654,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -355,18 +669,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -378,6 +724,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -391,18 +739,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -414,6 +794,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -427,18 +809,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -450,6 +864,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -463,18 +879,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -486,6 +934,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -499,18 +949,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -522,6 +1004,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Center</string>
 			</dict>
 		</array>
 	</dict>
@@ -535,18 +1019,50 @@
 			<dict>
 				<key>name</key>
 				<string>Font Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Font Size</string>
+				<key>valueType</key>
+				<string>Integer</string>
+				<key>options</key>
+				<array>
+					<string>9</string>
+					<string>10</string>
+					<string>11</string>
+					<string>12</string>
+					<string>13</string>
+					<string>14</string>
+					<string>18</string>
+					<string>24</string>
+					<string>36</string>
+					<string>48</string>
+					<string>64</string>
+					<string>72</string>
+					<string>96</string>
+					<string>144</string>
+					<string>288</string>
+				</array>
+				<key>defaultValue</key>
+				<string>14</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Color Hex</string>
+				<key>valueType</key>
+				<string>String</string>
+				<key>defaultValue</key>
+				<string>#000000</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -558,6 +1074,8 @@
 					<string>Center</string>
 					<string>Natural</string>
 				</array>
+				<key>defaultValue</key>
+				<string>Natural</string>
 			</dict>
 		</array>
 	</dict>
@@ -571,10 +1089,16 @@
 			<dict>
 				<key>name</key>
 				<string>Image Name</string>
+				<key>valueType</key>
+				<string>String</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Alpha Value</string>
+				<key>valueType</key>
+				<string>Decimal</string>
+				<key>defaultValue</key>
+				<string>1.0</string>
 			</dict>
 		</array>
 	</dict>

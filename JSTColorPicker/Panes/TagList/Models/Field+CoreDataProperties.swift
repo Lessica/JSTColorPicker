@@ -16,6 +16,7 @@ extension Field {
 
     @NSManaged var name: String
     @NSManaged var defaultValue: String?
+    @NSManaged var valueType: String?
     @NSManaged var helpText: String?
     @NSManaged var options: NSOrderedSet
 }

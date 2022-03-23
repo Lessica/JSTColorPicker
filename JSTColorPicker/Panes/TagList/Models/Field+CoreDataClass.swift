@@ -11,8 +11,55 @@ import Foundation
 
 @objc(Field)
 public final class Field: NSManagedObject, Codable {
+    
     enum CodingKeys: CodingKey {
-        case name, options, defaultValue, helpText
+        case name, options, defaultValue, valueType, helpText
+    }
+    
+    enum StringValueType: String, Codable {
+        case Boolean // checkbox
+        case Integer // text input
+        case Decimal // text input
+        case String // text input
+        case Point // not implemented
+        case Size // not implemented
+        case Rect // not implemented
+        case Range // not implemented
+        case Color // not implemented
+        case Image // not implemented
+        case Nil // nothing
+    }
+    
+    var stringValueType: StringValueType? {
+        if let valueType = valueType {
+            return StringValueType(rawValue: valueType)
+        }
+        return nil
+    }
+    
+    func toDefaultValue(ofType type: Bool.Type) -> Bool? {
+        if let rawValue = defaultValue {
+            return !(rawValue.hasPrefix("f") || rawValue.hasPrefix("n") || rawValue.hasPrefix("0"))
+        }
+        return nil
+    }
+    
+    func toDefaultValue<T>(ofType type: T.Type) -> T? where T: FixedWidthInteger {
+        if let rawValue = defaultValue {
+            return T(rawValue)
+        }
+        return nil
+    }
+    
+    func toDefaultValue(ofType type: Double.Type) -> Double? {
+        if let rawValue = defaultValue {
+            return Double(rawValue)
+        }
+        return nil
+    }
+    
+    func toDefaultValue<T>(ofType type: T.Type) -> T? where T: StringProtocol {
+        return defaultValue as? T
     }
 
     required convenience public init(from decoder: Decoder) throws {
@@ -25,6 +72,7 @@ public final class Field: NSManagedObject, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         defaultValue = try container.decodeIfPresent(String.self, forKey: .defaultValue)
+        valueType = try container.decodeIfPresent(String.self, forKey: .valueType)
         helpText = try container.decodeIfPresent(String.self, forKey: .helpText)
         do {
             let possibleOptionNames = try container.decodeIfPresent([String].self, forKey: .options) ?? []
@@ -43,6 +91,7 @@ public final class Field: NSManagedObject, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encodeIfPresent(defaultValue, forKey: .defaultValue)
+        try container.encodeIfPresent(valueType, forKey: .valueType)
         try container.encodeIfPresent(helpText, forKey: .helpText)
         try container.encode(options.array as? [FieldOption] ?? [], forKey: .options)
     }

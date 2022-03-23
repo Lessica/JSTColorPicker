@@ -41,7 +41,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         id = coder.decodeInteger(forKey: CodingKeys.id.rawValue)
         tags = OrderedSet((coder.decodeObject(forKey: CodingKeys.tags.rawValue) as? [String]) ?? [])
         similarity = coder.decodeDouble(forKey: CodingKeys.similarity.rawValue)
-        userInfo = coder.decodeObject(forKey: CodingKeys.userInfo.rawValue) as? [String: String]
+        userInfo = coder.decodeObject(of: NSDictionary.self, forKey: CodingKeys.userInfo.rawValue) as? [String: String]
     }
     
     required init(from decoder: Decoder) throws {
@@ -56,7 +56,7 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         coder.encode(id, forKey: CodingKeys.id.rawValue)
         coder.encode(tags.contents, forKey: CodingKeys.tags.rawValue)
         coder.encode(similarity, forKey: CodingKeys.similarity.rawValue)
-        coder.encodeConditionalObject(userInfo, forKey: CodingKeys.userInfo.rawValue)
+        coder.encode(userInfo, forKey: CodingKeys.userInfo.rawValue)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -85,6 +85,31 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         tags = item.tags
         similarity = item.similarity
         userInfo = item.userInfo
+    }
+    
+    func userInfoValue(forKey key: String, ofType type: Bool.Type) -> Bool? {
+        if let rawValue = userInfo?[key]?.lowercased() {
+            return !(rawValue.hasPrefix("f") || rawValue.hasPrefix("n") || rawValue.hasPrefix("0"))
+        }
+        return nil
+    }
+    
+    func userInfoValue<T>(forKey key: String, ofType type: T.Type) -> T? where T: FixedWidthInteger {
+        if let rawValue = userInfo?[key] {
+            return T(rawValue)
+        }
+        return nil
+    }
+    
+    func userInfoValue(forKey key: String, ofType type: Double.Type) -> Double? {
+        if let rawValue = userInfo?[key] {
+            return Double(rawValue)
+        }
+        return nil
+    }
+    
+    func userInfoValue<T>(forKey key: String, ofType type: T.Type) -> T? where T: StringProtocol {
+        return userInfo?[key] as? T
     }
     
     

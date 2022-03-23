@@ -314,6 +314,8 @@
 		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
+		CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
+		CCAB7B2B27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
@@ -412,6 +414,8 @@
 		CCE9017B2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */; };
 		CCE901842626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CCE901852626BFBF00C84904 /* ObjC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE901832626BFBF00C84904 /* ObjC+Ext.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CCEAF51F27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAF51E27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift */; };
+		CCEAF52027EB1F3C00A75775 /* EditAssociatedValuesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAF51E27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift */; };
 		CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
 		CCED7CF5262D68D600F2C965 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCED7CF7262D68D600F2C965 /* InfoPlist.strings */; };
 		CCED7D21262D736300F2C965 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
@@ -1376,6 +1380,7 @@
 		CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingInjection.swift; sourceTree = "<group>"; };
 		CCA73435261704B400808E02 /* SwizzlingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingHelper.swift; sourceTree = "<group>"; };
 		CCA73440261705E700808E02 /* NSView+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Swizzling.swift"; sourceTree = "<group>"; };
+		CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedKeyPath.swift; sourceTree = "<group>"; };
 		CCB446A0267093C00049EC2E /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		CCB741352635386D007D2CF5 /* Links+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Links+Ext.swift"; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
@@ -1444,6 +1449,7 @@
 		CCE9016F2626BAF700C84904 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		CCE901792626BB1400C84904 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		CCE901832626BFBF00C84904 /* ObjC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjC+Ext.swift"; sourceTree = "<group>"; };
+		CCEAF51E27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesTableView.swift; sourceTree = "<group>"; };
 		CCED7CC2262D653E00F2C965 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCED7CDA262D689500F2C965 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCED7CF6262D68D600F2C965 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2622,6 +2628,7 @@
 			isa = PBXGroup;
 			children = (
 				185D7EED248A80C4001C283B /* EditWindow.swift */,
+				CCEAF51E27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2709,6 +2716,7 @@
 			isa = PBXGroup;
 			children = (
 				CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */,
+				CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4161,6 +4169,7 @@
 				D67A8F12247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */,
 				CC347721266F4F6300391E73 /* AppDelegate+Panel.swift in Sources */,
+				CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */,
 				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
@@ -4261,6 +4270,7 @@
 				CC85DAD527E579C9003263FD /* FieldOption+CoreDataProperties.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
+				CCEAF51F27EB1F3C00A75775 /* EditAssociatedValuesTableView.swift in Sources */,
 				CC300F0C262843CD002FD866 /* TemplatePreviewController.swift in Sources */,
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */,
@@ -4513,6 +4523,7 @@
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */,
+				CCEAF52027EB1F3C00A75775 /* EditAssociatedValuesTableView.swift in Sources */,
 				D69FD9322474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CCF7C85527E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */,
@@ -4557,6 +4568,7 @@
 				CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				CC04276F275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
+				CCAB7B2B27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */,
 				CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */,
 				CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
