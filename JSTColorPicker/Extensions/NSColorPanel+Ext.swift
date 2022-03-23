@@ -14,7 +14,10 @@ private let fooAssociation = AssociatedObject<Any>()
 extension NSColorPanel {
     var strongTarget: Any? {
         get { fooAssociation[self] }
-        set { fooAssociation[self] = newValue }
+        set {
+            setTarget(newValue)
+            fooAssociation[self] = newValue
+        }
     }
 }
 

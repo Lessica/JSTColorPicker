@@ -44,8 +44,8 @@ class AssociatedKeyPath: NSObject, NSCopying {
         case Nil // nothing
     }
 
-    @objc var name: String
-    @objc var type: ValueType {
+    @objc dynamic var name: String
+    @objc dynamic var type: ValueType {
         didSet {
             switch type {
             case .Boolean:
@@ -107,7 +107,7 @@ class AssociatedKeyPath: NSObject, NSCopying {
         }
     }
 
-    @objc var value: Any?
+    @objc dynamic var value: Any?
     @objc dynamic var options: [String]? {
         didSet {
             hasOptions = options != nil
@@ -130,7 +130,7 @@ class AssociatedKeyPath: NSObject, NSCopying {
     }
 }
 
-final class EditAssociatedValuesController: EditViewController, NSTableViewDataSource, NSTableViewDelegate
+final class EditAssociatedValuesController: EditViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation, EditArrayControllerDelegate
 {
     @IBOutlet var box: NSBox!
     @IBOutlet var tableView: NSTableView!
@@ -187,6 +187,25 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 print(tagField)
             }
         }
+    }
+    
+    func contentsArrayWillUpdate(_ sender: EditArrayController) {
+        
+    }
+    
+    func contentsArrayDidUpdate(_ sender: EditArrayController) {
+        undoManager?.registerUndo(withTarget: self, handler: <#T##(TargetType) -> Void#>)
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(delete(_:)) {
+            return arrayController.isEditable && arrayController.selectionIndexes.count > 0
+        }
+        return false
+    }
+    
+    @IBAction func delete(_ sender: Any) {
+        arrayController.remove(sender)
     }
 
     @IBAction private func cancelAction(_ sender: NSButton) {

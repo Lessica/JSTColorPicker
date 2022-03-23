@@ -222,6 +222,7 @@ DQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Remove Tags" autoenablesItems="NO" id="AyF-fj-fBt"/>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" hidden="YES" id="wMT-6b-HcS"/>
                                         <menuItem title="Edit Associated Values…" hidden="YES" allowsKeyEquivalentWhenHidden="YES" toolTip="Edit tag associated key paths, types and values." id="CVD-RK-3yI">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -229,7 +230,7 @@ DQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" hidden="YES" id="WRV-NI-Exz"/>
-                                        <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG">
+                                        <menuItem title="Cut" hidden="YES" keyEquivalent="x" id="uRl-iY-unG">
                                             <connections>
                                                 <action selector="cut:" target="Ady-hI-5gd" id="YJe-68-I9s"/>
                                             </connections>

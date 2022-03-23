@@ -56,7 +56,7 @@
                                                         <rect key="frame" x="1" y="1" width="364" height="201"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" autosaveColumns="NO" rowHeight="24" headerView="AHV-BD-lgf" viewBased="YES" floatsGroupRows="NO" id="krd-cv-u6e">
+                                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" autosaveColumns="NO" rowHeight="24" headerView="AHV-BD-lgf" viewBased="YES" floatsGroupRows="NO" id="krd-cv-u6e">
                                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="149"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="8" height="2"/>
@@ -106,7 +106,11 @@
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
                                                                         <connections>
-                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.name" id="VV6-cC-e3A"/>
+                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.name" id="ucW-74-SPJ">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSCreatesSortDescriptor" value="NO"/>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn identifier="col-type" width="80" minWidth="40" maxWidth="1000" id="GUr-Ru-L4q">
@@ -186,7 +190,11 @@
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
                                                                         <connections>
-                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.type" id="xhf-MX-7Sx"/>
+                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.type" id="cMu-ja-hM9">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSCreatesSortDescriptor" value="NO"/>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn identifier="col-value" width="176" minWidth="40" maxWidth="1000" id="Gw6-tA-f9x">
@@ -219,14 +227,14 @@
                                                                                             </menu>
                                                                                         </popUpButtonCell>
                                                                                         <connections>
-                                                                                            <binding destination="Ubs-uG-ko1" name="contentValues" keyPath="objectValue.options" id="XYf-mK-pgd">
-                                                                                                <dictionary key="options">
-                                                                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                                                                                </dictionary>
-                                                                                            </binding>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.hasOptions" id="Tt4-GC-U0C">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                                </dictionary>
+                                                                                            </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="contentValues" keyPath="objectValue.options" id="XYf-mK-pgd">
+                                                                                                <dictionary key="options">
+                                                                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
                                                                                             <binding destination="Ubs-uG-ko1" name="selectedValue" keyPath="objectValue.value" previousBinding="XYf-mK-pgd" id="pRL-BN-asK">
@@ -344,7 +352,11 @@
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
                                                                         <connections>
-                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.value" id="isf-yY-d1O"/>
+                                                                            <binding destination="Ke1-AU-FIo" name="value" keyPath="arrangedObjects.value" id="jB3-2s-SzK">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSCreatesSortDescriptor" value="NO"/>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </tableColumn>
                                                                 </tableColumns>
@@ -408,6 +420,7 @@
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="remove:" target="Ke1-AU-FIo" id="5wQ-P9-dtj"/>
+                                                                        <binding destination="Ke1-AU-FIo" name="enabled" keyPath="isEditable" id="RVu-Kc-KV9"/>
                                                                         <binding destination="Ke1-AU-FIo" name="enabled2" keyPath="selection.@count" previousBinding="RVu-Kc-KV9" id="dvq-ra-lt4">
                                                                             <dictionary key="options">
                                                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -416,7 +429,6 @@
                                                                                 <integer key="NSNullPlaceholder" value="-1"/>
                                                                             </dictionary>
                                                                         </binding>
-                                                                        <binding destination="Ke1-AU-FIo" name="enabled" keyPath="isEditable" id="RVu-Kc-KV9"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -582,12 +594,16 @@ DQ
                     </connections>
                 </viewController>
                 <customObject id="eol-DE-UQH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="JSTColorPicker.AssociatedKeyPath" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="Ke1-AU-FIo">
+                <arrayController objectClassName="JSTColorPicker.AssociatedKeyPath" avoidsEmptySelection="NO" id="Ke1-AU-FIo" customClass="EditArrayController" customModule="JSTColorPicker" customModuleProvider="target">
                     <declaredKeys>
                         <string>name</string>
                         <string>type</string>
+                        <string>value</string>
                     </declaredKeys>
                     <classReference key="objectClass" className="AssociatedKeyPath" moduleName="JSTColorPicker" moduleProvider="target"/>
+                    <connections>
+                        <outlet property="delegate" destination="EXU-cB-ZwZ" id="3Kl-1Z-Pik"/>
+                    </connections>
                 </arrayController>
             </objects>
             <point key="canvasLocation" x="893" y="-581.5"/>
@@ -978,7 +994,7 @@ DQ
                                         </view>
                                     </box>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vJ-ca-jMK">
-                                        <rect key="frame" x="-2" y="469" width="92" height="14"/>
+                                        <rect key="frame" x="-2" y="469" width="93" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" allowsUndo="NO" alignment="center" title="[Error Message]" id="XWu-hr-oyw">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
@@ -1074,8 +1090,9 @@ DQ
                                     <touchBarItems>
                                         <touchBarItem id="OBS-Gc-UCd">
                                             <viewController key="viewController" id="MRn-Tl-HjN">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="brr-9e-o8c">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brr-9e-o8c">
                                                     <rect key="frame" x="7" y="-5" width="108" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qOP-7N-d4C">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1089,8 +1106,9 @@ DQ
                                         <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFixedSpaceLarge" id="kvv-BC-bpC"/>
                                         <touchBarItem id="mDY-wZ-DbA">
                                             <viewController key="viewController" id="uAb-QH-zEZ">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-OI-P6R">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-OI-P6R">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bH-EZ-CHg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1106,8 +1124,9 @@ Gw
                                         </touchBarItem>
                                         <touchBarItem id="bgg-RU-0jK">
                                             <viewController key="viewController" id="bhG-LL-hTB">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-R8-b88">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y35-CF-HpA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1344,7 +1363,7 @@ DQ
                                         </view>
                                     </box>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQO-XH-G11">
-                                        <rect key="frame" x="-2" y="439" width="92" height="14"/>
+                                        <rect key="frame" x="-2" y="439" width="93" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" allowsUndo="NO" alignment="center" title="[Error Message]" id="b1c-AO-Wxw">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
@@ -1440,8 +1459,9 @@ DQ
                                     <touchBarItems>
                                         <touchBarItem id="FjK-wv-6Bq">
                                             <viewController key="viewController" id="zQr-8E-w2R">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-2O-QUF">
                                                     <rect key="frame" x="7" y="-5" width="108" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Hide Preview" alternateTitle="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Y-BF-gov">
                                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1455,8 +1475,9 @@ DQ
                                         <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFixedSpaceLarge" id="bMg-sq-brD"/>
                                         <touchBarItem id="bM0-hU-UP8">
                                             <viewController key="viewController" id="hxk-yj-Kge">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PgQ-b2-q6Q">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qb-5Y-1eO">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1472,8 +1493,9 @@ Gw
                                         </touchBarItem>
                                         <touchBarItem id="s3F-RS-fIB">
                                             <viewController key="viewController" id="iZJ-RX-uL0">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-MP-EyQ">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KcP-Rr-yyA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1645,8 +1667,9 @@ DQ
                                     <touchBarItems>
                                         <touchBarItem id="Vf1-XX-7CX">
                                             <viewController key="viewController" id="4Jl-H1-bUW">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ja7-8E-0Gh">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ja7-8E-0Gh">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8MM-oB-27f">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1662,8 +1685,9 @@ Gw
                                         </touchBarItem>
                                         <touchBarItem id="KRw-0b-TlX">
                                             <viewController key="viewController" id="OQs-BK-zVg">
-                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-DR-AkT">
+                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-DR-AkT">
                                                     <rect key="frame" x="7" y="-5" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Y2-lj-x3S">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>

@@ -458,6 +458,8 @@
 		CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF7F1532618D38100ED16B7 /* InspectorView.xib */; };
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
+		CCFD19C427EAD5C2005DF0A6 /* EditArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */; };
+		CCFD19C527EAD5C2005DF0A6 /* EditArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */; };
 		CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
 		CCFD99B0276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
 		CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AD276A38B20012E5AF /* PixelSegment+Lua.swift */; };
@@ -1474,6 +1476,7 @@
 		CCF7F1552618D38500ED16B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InspectorView.strings; sourceTree = "<group>"; };
 		CCF7F1572618D38600ED16B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InspectorView.strings"; sourceTree = "<group>"; };
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
+		CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArrayController.swift; sourceTree = "<group>"; };
 		CCFD9991276A240E0012E5AF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		CCFD9995276A26030012E5AF /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelCoordinate+Lua.swift"; sourceTree = "<group>"; };
@@ -2702,6 +2705,14 @@
 			path = Presets;
 			sourceTree = "<group>";
 		};
+		CCFD19C227EAD5AF005DF0A6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -3263,6 +3274,7 @@
 		D6E1669B248A0B4200D8D1C5 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				CCFD19C227EAD5AF005DF0A6 /* Models */,
 				CCE01CA2264CE0C2005960A7 /* Views */,
 				D6E166A8248A481300D8D1C5 /* Edit.storyboard */,
 				18D202BF248D32EC007A079F /* EditWindowController.swift */,
@@ -4134,6 +4146,7 @@
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
+				CCFD19C427EAD5C2005DF0A6 /* EditArrayController.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
 				CCE01C84264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
 				CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
@@ -4358,6 +4371,7 @@
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				CC236333264AE889005E909A /* Shortcut.swift in Sources */,
 				D6729C0E240FCA24000339C2 /* Foundation+Ext.swift in Sources */,
+				CCFD19C527EAD5C2005DF0A6 /* EditArrayController.swift in Sources */,
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,

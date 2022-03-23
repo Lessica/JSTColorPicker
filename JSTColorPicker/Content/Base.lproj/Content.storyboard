@@ -340,13 +340,14 @@ DQ
                                 </connections>
                             </menu>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="h55-l6-TzM"/>
                         <menuItem title="Edit Associated Values…" toolTip="Edit tag associated key paths, types and values." id="mZG-YC-OLN">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="editAssociatedValues:" target="YIx-oB-8lo" id="UgX-dO-hfg"/>
                             </connections>
                         </menuItem>
-                        <menuItem isSeparatorItem="YES" id="h55-l6-TzM"/>
+                        <menuItem isSeparatorItem="YES" id="XIu-mP-Hxe"/>
                         <menuItem title="Cut" hidden="YES" keyEquivalent="x" id="WQj-mW-NTJ">
                             <connections>
                                 <action selector="cut:" target="YIx-oB-8lo" id="KYR-De-hb9"/>
