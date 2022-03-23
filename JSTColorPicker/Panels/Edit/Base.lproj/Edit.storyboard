@@ -87,12 +87,12 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="zHu-If-SNN" name="toolTip" keyPath="objectValue.helpText" id="QhX-zF-eiv"/>
                                                                                             <binding destination="zHu-If-SNN" name="value" keyPath="objectValue.name" id="CPP-fI-a6N">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="zHu-If-SNN" name="toolTip" keyPath="objectValue.helpText" id="QhX-zF-eiv"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                 </subviews>
@@ -134,7 +134,7 @@
                                                                                         <rect key="frame" x="-3" y="4" width="81" height="16"/>
                                                                                         <popUpButtonCell key="cell" type="roundTextured" title="Boolean" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="s8M-AQ-aBd" id="Li5-FB-Cp3">
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <font key="font" metaFont="menu"/>
                                                                                             <menu key="menu" id="3rc-qL-Wam">
                                                                                                 <items>
                                                                                                     <menuItem title="Boolean" state="on" id="s8M-AQ-aBd">
@@ -179,8 +179,8 @@
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="iId-lv-Rpx" name="selectedIndex" keyPath="objectValue.type" id="uFk-S1-1cz"/>
                                                                                             <binding destination="iId-lv-Rpx" name="toolTip" keyPath="objectValue.helpText" id="TXR-hp-pR5"/>
+                                                                                            <binding destination="iId-lv-Rpx" name="selectedIndex" keyPath="objectValue.type" id="uFk-S1-1cz"/>
                                                                                         </connections>
                                                                                     </popUpButton>
                                                                                 </subviews>
@@ -219,7 +219,7 @@
                                                                                         <rect key="frame" x="-3" y="4" width="165" height="16"/>
                                                                                         <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="7Td-mz-f34" id="d0q-AZ-U47">
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <font key="font" metaFont="menu"/>
                                                                                             <menu key="menu" id="aqa-2k-gXP">
                                                                                                 <items>
                                                                                                     <menuItem title="Item 1" state="on" id="7Td-mz-f34"/>
@@ -234,6 +234,7 @@
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="LDV-uR-654"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="contentValues" keyPath="objectValue.options" id="XYf-mK-pgd">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
@@ -244,7 +245,6 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="LDV-uR-654"/>
                                                                                         </connections>
                                                                                     </popUpButton>
                                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MlX-nI-W0S">
@@ -254,6 +254,7 @@
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="GbF-Ze-JwS"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isCheckboxValue" id="tqC-q0-RFj">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -264,7 +265,6 @@
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="GbF-Ze-JwS"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0y6-P4-DSn">
@@ -275,15 +275,16 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="go1-01-U9y"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputValue" id="n5V-Hz-Htc">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="go1-01-U9y"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="NB1-yC-iZu">
+                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="4tH-pP-aOK">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                                    <string key="NSNullPlaceholder">[No Value]</string>
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
@@ -298,18 +299,19 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="Fju-OE-MmK"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputIntegerValue" id="tSt-5J-suO">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="A8W-2R-qDe">
+                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="7wR-zD-5b7">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                                    <string key="NSNullPlaceholder">[No Value]</string>
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="Fju-OE-MmK"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="P3i-HD-aSe">
@@ -321,18 +323,19 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="sWY-A9-Opd"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputDecimalValue" id="B2A-us-t61">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="0Ec-EF-z9X">
+                                                                                            <binding destination="Ubs-uG-ko1" name="value" keyPath="objectValue.value" id="OYa-rE-kVk">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                                    <string key="NSNullPlaceholder">[No Value]</string>
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="sWY-A9-Opd"/>
                                                                                         </connections>
                                                                                     </textField>
                                                                                 </subviews>
