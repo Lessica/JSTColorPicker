@@ -316,6 +316,10 @@
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
 		CCAB7B2B27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
+		CCAF510527EC536B002B11C6 /* LNPropertyListEditor-Static in Frameworks */ = {isa = PBXBuildFile; productRef = CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */; };
+		CCAF510727EC537E002B11C6 /* LNPropertyListEditor-Static in Frameworks */ = {isa = PBXBuildFile; productRef = CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */; };
+		CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF510827EC59FF002B11C6 /* DraggedTag.swift */; };
+		CCAF510A27EC59FF002B11C6 /* DraggedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF510827EC59FF002B11C6 /* DraggedTag.swift */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
@@ -371,10 +375,6 @@
 		CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
-		CCD1A39727EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; };
-		CCD1A39827EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CCD1A39927EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; };
-		CCD1A39A27EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
@@ -886,27 +886,6 @@
 			remoteGlobalIDString = D690C95E241A60DC00BB1652;
 			remoteInfo = PixelMatch;
 		};
-		CCD1A39127EC4ABF00A5CE4A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 393E1839207F6119002E6136;
-			remoteInfo = LNPropertyListEditor;
-		};
-		CCD1A39327EC4ACD00A5CE4A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 393E1838207F6119002E6136;
-			remoteInfo = LNPropertyListEditor;
-		};
-		CCD1A39527EC4AD300A5CE4A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 393E1838207F6119002E6136;
-			remoteInfo = LNPropertyListEditor;
-		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -1114,7 +1093,6 @@
 			files = (
 				D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */,
 				D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */,
-				CCD1A39827EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1149,7 +1127,6 @@
 			files = (
 				D62834F623F8E9DB0016573B /* LuaSwift.framework in Embed Frameworks */,
 				D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */,
-				CCD1A39A27EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1408,6 +1385,7 @@
 		CCA73435261704B400808E02 /* SwizzlingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwizzlingHelper.swift; sourceTree = "<group>"; };
 		CCA73440261705E700808E02 /* NSView+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Swizzling.swift"; sourceTree = "<group>"; };
 		CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedKeyPath.swift; sourceTree = "<group>"; };
+		CCAF510827EC59FF002B11C6 /* DraggedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggedTag.swift; sourceTree = "<group>"; };
 		CCB446A0267093C00049EC2E /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		CCB741352635386D007D2CF5 /* Links+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Links+Ext.swift"; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
@@ -1450,7 +1428,6 @@
 		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
 		CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesController.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
-		CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPropertyListEditor.xcodeproj; path = LNPropertyListEditor/LNPropertyListEditor.xcodeproj; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
 		CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -1817,11 +1794,11 @@
 				0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
-				CCD1A39727EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Frameworks */,
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
 				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
 				0FF470592762319D00F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
+				CCAF510527EC536B002B11C6 /* LNPropertyListEditor-Static in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				0FF470542762300F00F46554 /* OMGHTTPURLRQ in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
@@ -1871,7 +1848,6 @@
 			files = (
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				0FF4702E276209C300F46554 /* Down in Frameworks */,
-				CCD1A39927EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Frameworks */,
 				0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */,
 				0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
@@ -1882,6 +1858,7 @@
 				0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */,
 				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
+				CCAF510727EC537E002B11C6 /* LNPropertyListEditor-Static in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				0FF4705B276231A900F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
@@ -2593,14 +2570,6 @@
 			path = SceneStacked;
 			sourceTree = "<group>";
 		};
-		CCD1A38E27EC4ABF00A5CE4A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CCE01C6D264CD8CE005960A7 /* ShortcutGuide */ = {
 			isa = PBXGroup;
 			children = (
@@ -3003,7 +2972,6 @@
 		D658AF9123CB180C0098C567 = {
 			isa = PBXGroup;
 			children = (
-				CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */,
 				CC059D0E2630707400E6B89C /* README.md */,
 				CC059D0D2630707400E6B89C /* README_zh-Hans.md */,
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
@@ -3360,6 +3328,7 @@
 				CC85DACE27E57754003263FD /* FieldOption+CoreDataProperties.swift */,
 				18DC2FA9247AED3D004D9453 /* ColorTransformer.swift */,
 				CC85DACA27E56A80003263FD /* CoreData+Decodable.swift */,
+				CCAF510827EC59FF002B11C6 /* DraggedTag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3542,7 +3511,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CCD1A39627EC4AD300A5CE4A /* PBXTargetDependency */,
 				D60B0F9A24288EFA0034F21C /* PBXTargetDependency */,
 				D610477924224A170002E990 /* PBXTargetDependency */,
 				D60B0F4F2428874F0034F21C /* PBXTargetDependency */,
@@ -3560,6 +3528,7 @@
 				0FF4704A27622FAA00F46554 /* PromiseKit */,
 				0FF470532762300F00F46554 /* OMGHTTPURLRQ */,
 				0FF470582762319D00F46554 /* PMKFoundation */,
+				CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -3645,7 +3614,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CCD1A39427EC4ACD00A5CE4A /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
@@ -3662,6 +3630,7 @@
 				0FF4704C27622FB400F46554 /* PromiseKit */,
 				0FF470552762301A00F46554 /* OMGHTTPURLRQ */,
 				0FF4705A276231A900F46554 /* PMKFoundation */,
+				CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -3789,15 +3758,10 @@
 				0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */,
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
+				CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = CCD1A38E27EC4ABF00A5CE4A /* Products */;
-					ProjectRef = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D610477824224A170002E990 /* JSTColorPickerSparkle */,
@@ -3815,16 +3779,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LNPropertyListEditor.framework;
-			remoteRef = CCD1A39127EC4ABF00A5CE4A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D60B0F3A24286AA30034F21C /* Resources */ = {
@@ -4182,6 +4136,7 @@
 				CC347712266F4B8B00391E73 /* AppDelegate+Device.swift in Sources */,
 				CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
 				CC04276E275E212B008DD0C5 /* FileSystemNode.m in Sources */,
+				CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */,
 				CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
@@ -4604,6 +4559,7 @@
 				CCF26AA627E860C100BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				D6F4A38523CF644B00BE3DCF /* TabService.swift in Sources */,
 				CCE33FFA2632642C0082F73D /* PurchaseWindow.swift in Sources */,
+				CCAF510A27EC59FF002B11C6 /* DraggedTag.swift in Sources */,
 				D645E49F23E807600039F4F6 /* ContentItem.swift in Sources */,
 				CCE901672626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				18DC2FAB247AED3D004D9453 /* ColorTransformer.swift in Sources */,
@@ -4761,16 +4717,6 @@
 			isa = PBXTargetDependency;
 			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
 			targetProxy = CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */;
-		};
-		CCD1A39427EC4ACD00A5CE4A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LNPropertyListEditor;
-			targetProxy = CCD1A39327EC4ACD00A5CE4A /* PBXContainerItemProxy */;
-		};
-		CCD1A39627EC4AD300A5CE4A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LNPropertyListEditor;
-			targetProxy = CCD1A39527EC4AD300A5CE4A /* PBXContainerItemProxy */;
 		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6123,6 +6069,14 @@
 				version = 3.4.0;
 			};
 		};
+		CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Lessica/LNPropertyListEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/SyntaxKit.git";
@@ -6216,6 +6170,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
+		};
+		CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */;
+			productName = "LNPropertyListEditor-Static";
+		};
+		CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */;
+			productName = "LNPropertyListEditor-Static";
 		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;

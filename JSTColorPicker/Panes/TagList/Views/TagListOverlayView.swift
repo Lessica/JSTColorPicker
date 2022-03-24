@@ -69,10 +69,13 @@ final class TagListOverlayView: NSView, DragEndpoint {
         highlightedRects = dragDelegate
             .visibleRects(of: rowIndexes)
         
-        let selectedTagNames = rowIndexes.compactMap({ dataSource.arrangedTags[$0].name })
+        let selectedTagDictionaries: [[String: Any]] = rowIndexes.compactMap({
+            let tag = dataSource.arrangedTags[$0]
+            return DraggedTag(row: $0, name: tag.name, defaultUserInfo: tag.defaultUserInfo).dictionary
+        })
 
         let controller = DragConnectionController(type: TagListController.attachPasteboardType)
-        controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagNames)
+        controller.trackDrag(forMouseDownEvent: event, in: self, with: selectedTagDictionaries)
         
         setNeedsDisplay(bounds)
     }

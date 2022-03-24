@@ -17,7 +17,12 @@ final class DragConnectionController: NSObject, NSDraggingSource {
 
     func trackDrag(forMouseDownEvent mouseDownEvent: NSEvent, in sourceEndpoint: DragEndpoint, with object: Any) {
         self.sourceEndpoint = sourceEndpoint
-        let item = NSDraggingItem(pasteboardWriter: NSPasteboardItem(pasteboardPropertyList: object, ofType: pasteboardType)!)
+        let item = NSDraggingItem(
+            pasteboardWriter: NSPasteboardItem(
+                pasteboardPropertyList: object,
+                ofType: pasteboardType
+            )!
+        )
         item.setDraggingFrame(sourceEndpoint.frame, contents: nil)
         let session = sourceEndpoint.beginDraggingSession(with: [item], event: mouseDownEvent, source: self)
         session.animatesToStartingPositionsOnCancelOrFail = false

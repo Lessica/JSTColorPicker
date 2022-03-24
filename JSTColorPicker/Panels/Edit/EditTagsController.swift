@@ -72,6 +72,16 @@ final class EditTagsController: EditViewController {
                     
                     let replItem = origItem.copy() as! ContentItem
                     replItem.tags = replTags
+                    
+                    if let tagManager = tagManager,
+                       let firstTag = replItem.firstTag,
+                       let firstUserInfo = tagManager.managedTag(of: firstTag)?.defaultUserInfo
+                    {
+                        var combinedUserInfo = replItem.userInfo ?? [:]
+                        combinedUserInfo.merge(firstUserInfo) { old, _ in old }
+                        replItem.userInfo = combinedUserInfo
+                    }
+                    
                     replItems.append(replItem)
                 }
                 

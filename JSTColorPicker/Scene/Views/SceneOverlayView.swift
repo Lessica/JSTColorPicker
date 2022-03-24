@@ -204,9 +204,9 @@ extension SceneOverlayView: DragEndpoint {
     
     // MARK: - Drag/Drop
     
-    private func extractTagNamesFromDraggingInfo(_ draggingInfo: NSDraggingInfo) -> [String]
+    private func extractTagsFromDraggingInfo(_ draggingInfo: NSDraggingInfo) -> [DraggedTag]
     {
-        var tagNames = [String]()
+        var tags = [DraggedTag]()
         draggingInfo.enumerateDraggingItems(
             options: [],
             for: self,
@@ -215,11 +215,13 @@ extension SceneOverlayView: DragEndpoint {
         ) { (dragItem, _, _) in
             if let obj = (dragItem.item as! NSPasteboardItem).propertyList(
                 forType: TagListController.attachPasteboardType
-            ) as? [String] {
-                obj.forEach({ tagNames.append($0) })
+            ) as? [[String: Any]] {
+                obj.forEach({
+                    tags.append(DraggedTag(dictionary: $0))
+                })
             }
         }
-        return tagNames
+        return tags
     }
     
     private func operationMaskOfDraggingTarget(
@@ -233,7 +235,7 @@ extension SceneOverlayView: DragEndpoint {
             guard let targetOverlay = target, let targetItem = contentItem(of: targetOverlay) else {
                 return []
             }
-            let tagNamesToAppend = extractTagNamesFromDraggingInfo(draggingInfo)
+            let tagNamesToAppend = extractTagsFromDraggingInfo(draggingInfo).map({ $0.name })
             if maximumTagPerItem > 0 {
                 if replaceSingleTagWhileDrop && maximumTagPerItem == 1 && targetItem.tags.count == 1 && tagNamesToAppend.count == 1 {
                     return operationMask.intersection([.link])
@@ -309,7 +311,19 @@ extension SceneOverlayView: DragEndpoint {
         if sender.draggingSourceOperationMask.contains(.link) {
             replItem.tags.removeAll(keepingCapacity: true)
         }
-        replItem.tags.append(contentsOf: extractTagNamesFromDraggingInfo(sender))
+        
+        let draggedTags = extractTagsFromDraggingInfo(sender)
+        let draggedTagNames = draggedTags.map({ $0.name })
+        replItem.tags.append(contentsOf: draggedTagNames)
+        
+        if let firstTag = replItem.firstTag,
+           draggedTagNames.contains(firstTag),
+           let firstUserInfo = draggedTags.first?.defaultUserInfo
+        {
+            var combinedUserInfo = replItem.userInfo ?? [:]
+            combinedUserInfo.merge(firstUserInfo) { old, _ in old }
+            replItem.userInfo = combinedUserInfo
+        }
         
         if let _ = try? contentDelegate.updateContentItem(replItem) {
             return true

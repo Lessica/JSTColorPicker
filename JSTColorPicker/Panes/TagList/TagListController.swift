@@ -838,9 +838,11 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard !isSelectMode, case .idle = tableViewOverlay.state else { return nil }
         let item = NSPasteboardItem()
+        let tag = arrangedTags[row]
         item.setPropertyList([
             "row": row,
-            "name": arrangedTags[row].name 
+            "name": tag.name,
+            "defaultUserInfo": tag.defaultUserInfo,
         ], forType: TagListController.inlinePasteboardType)
         return item
     }
