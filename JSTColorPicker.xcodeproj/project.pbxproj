@@ -366,8 +366,6 @@
 		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
 		CCAB7B2B27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
-		CCAF510527EC536B002B11C6 /* LNPropertyListEditor-Static in Frameworks */ = {isa = PBXBuildFile; productRef = CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */; };
-		CCAF510727EC537E002B11C6 /* LNPropertyListEditor-Static in Frameworks */ = {isa = PBXBuildFile; productRef = CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */; };
 		CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF510827EC59FF002B11C6 /* DraggedTag.swift */; };
 		CCAF510A27EC59FF002B11C6 /* DraggedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF510827EC59FF002B11C6 /* DraggedTag.swift */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
@@ -530,6 +528,7 @@
 		CCFD99C3276A3AC40012E5AF /* Content+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99BF276A3AB80012E5AF /* Content+Lua.swift */; };
 		CCFE14EC27ED18E700491043 /* lfs.c in Sources */ = {isa = PBXBuildFile; fileRef = CCFE14EA27ED18E700491043 /* lfs.c */; };
 		CCFE14ED27ED18E700491043 /* lfs.h in Headers */ = {isa = PBXBuildFile; fileRef = CCFE14EB27ED18E700491043 /* lfs.h */; };
+		CCFE150027ED1F6100491043 /* LNPropertyListEditor-Static in Frameworks */ = {isa = PBXBuildFile; productRef = CCFE14FF27ED1F6100491043 /* LNPropertyListEditor-Static */; };
 		CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFAC262D50D0001F6467 /* open_console.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CCFECFAA262D50D0001F6467 /* open_console.scpt */; };
 		CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFECFBB262D5152001F6467 /* Carbon.framework */; };
@@ -1929,7 +1928,7 @@
 				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
 				0FF470592762319D00F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
-				CCAF510527EC536B002B11C6 /* LNPropertyListEditor-Static in Frameworks */,
+				CCFE150027ED1F6100491043 /* LNPropertyListEditor-Static in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				0FF470542762300F00F46554 /* OMGHTTPURLRQ in Frameworks */,
 				872F75E04CB21DACD510723E /* Pods_JSTColorPickerSparkle.framework in Frameworks */,
@@ -2004,7 +2003,6 @@
 				0F7AE62B276718DD00D818E5 /* QuickLook.framework in Frameworks */,
 				CCFECFBD262D5156001F6467 /* Carbon.framework in Frameworks */,
 				D62834F523F8E9DB0016573B /* LuaSwift.framework in Frameworks */,
-				CCAF510727EC537E002B11C6 /* LNPropertyListEditor-Static in Frameworks */,
 				2D79488F12BD56A556B00842 /* Pods_JSTColorPicker.framework in Frameworks */,
 				0FF4705B276231A900F46554 /* PMKFoundation in Frameworks */,
 				D6D1CEF325A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
@@ -3791,7 +3789,7 @@
 				0FF4704A27622FAA00F46554 /* PromiseKit */,
 				0FF470532762300F00F46554 /* OMGHTTPURLRQ */,
 				0FF470582762319D00F46554 /* PMKFoundation */,
-				CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */,
+				CCFE14FF27ED1F6100491043 /* LNPropertyListEditor-Static */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -3895,7 +3893,6 @@
 				0FF4704C27622FB400F46554 /* PromiseKit */,
 				0FF470552762301A00F46554 /* OMGHTTPURLRQ */,
 				0FF4705A276231A900F46554 /* PMKFoundation */,
-				CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -6449,16 +6446,6 @@
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
 		};
-		CCAF510427EC536B002B11C6 /* LNPropertyListEditor-Static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */;
-			productName = "LNPropertyListEditor-Static";
-		};
-		CCAF510627EC537E002B11C6 /* LNPropertyListEditor-Static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */;
-			productName = "LNPropertyListEditor-Static";
-		};
 		CCC525A4262EB71F00D408B0 /* SyntaxKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCC525A3262EB71F00D408B0 /* XCRemoteSwiftPackageReference "SyntaxKit" */;
@@ -6478,6 +6465,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */;
 			productName = AuxiliaryExecute;
+		};
+		CCFE14FF27ED1F6100491043 /* LNPropertyListEditor-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */;
+			productName = "LNPropertyListEditor-Static";
 		};
 /* End XCSwiftPackageProductDependency section */
 
