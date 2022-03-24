@@ -35,16 +35,16 @@ local _saveInPlace = true
 local generator = function (image, items, action)
     local newObjects = {}
     for k, v in ipairs(items) do
+        if v.userInfo ~= nil then
+            v['userInfoXML'] = '\n        ' .. xml2lua.toXml(v.userInfo, 'userInfo'):sub(1, -2):gsub("[\n]", "\n        ")
+        else
+            v['userInfoXML'] = ''
+        end
         if v.width ~= nil then
             v['pose'] = 'Unspecified'
             v['truncated'] = 0
             v['difficult'] = 0
             newObjects[k] = v
-        end
-        if v.userInfo ~= nil then
-            v['userInfoXML'] = '\n        ' .. xml2lua.toXml(v.userInfo, 'userInfo'):sub(1, -2):gsub("[\n]", "\n        ")
-        else
-            v['userInfoXML'] = ''
         end
     end
     image['objects'] = newObjects
