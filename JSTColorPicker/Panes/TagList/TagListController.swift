@@ -233,7 +233,11 @@ final class TagListController: StackedPaneController {
     }
     
     @objc private func tagPersistentStoreRequiresReload(_ noti: Notification) {
-        setupPersistentStore(byIgnoringError: true)
+        if let userInfo = noti.userInfo, let schemaURL = userInfo["url"] as? URL {
+            setupPersistentStore(byIgnoringError: true, withCustomSchemaURL: schemaURL)
+        } else {
+            setupPersistentStore(byIgnoringError: true)
+        }
     }
     
     func internalSetDeferredSelection(_ indexes: IndexSet) {
@@ -341,7 +345,8 @@ final class TagListController: StackedPaneController {
     }
     
     private func setupPersistentStore(
-        byIgnoringError ignore: Bool
+        byIgnoringError ignore: Bool,
+        withCustomSchemaURL customSchemaURL: URL? = nil
     ) {
         if let context = TagListController.sharedContext {
             self.setupEmbeddedState(with: context)
@@ -350,10 +355,13 @@ final class TagListController: StackedPaneController {
             TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
-                let schemaPath = Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
-                let schemaData = try! Data(contentsOf: schemaPath!)
-                let tags = try! decoder.decode([Tag].self, from: schemaData)
-                return tags
+                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
+                {
+                    let schemaData = try! Data(contentsOf: schemaURL)
+                    let tags = try! decoder.decode([Tag].self, from: schemaData)
+                    return tags
+                }
+                return []
             }) { [weak self] (_ context: NSManagedObjectContext?, _ error: Error?) in
                 
                 guard let self = self else { return }
@@ -528,6 +536,7 @@ final class TagListController: StackedPaneController {
             let lastOrder = Int(arrangedTags.last?.order ?? 0)
             let lastRowIndex = tableView.numberOfRows - 1
             
+            context.undoManager?.beginUndoGrouping()
             var idx = lastOrder
             missingNames.forEach { (tagName) in
                 let obj = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
@@ -538,6 +547,7 @@ final class TagListController: StackedPaneController {
             }
             
             try context.save()
+            context.undoManager?.endUndoGrouping()
             
             let addedRowIndexes = IndexSet(integersIn: (lastRowIndex + 1)...(lastRowIndex + idx - lastOrder))
             if let lastAddedRowIndex = addedRowIndexes.last {

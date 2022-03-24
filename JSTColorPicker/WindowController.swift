@@ -375,6 +375,24 @@ class WindowController: NSWindowController {
         }
     }
     
+    
+    // MARK: - Options
+    
+    @IBAction private func showInFinder(_ sender: Any?) {
+        guard let url = documentScreenshot?.fileURL else { return }
+        guard url.isRegularFile else {
+            presentError(GenericError.notRegularFile(url: url))
+            return
+        }
+        NSWorkspace.shared.activateFileViewerSelecting([
+            url
+        ])
+    }
+    
+    @IBAction private func viewMetadata(_ sender: Any?) {
+        
+    }
+    
 }
 
 
@@ -384,8 +402,11 @@ extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if
+            /* File Actions */
+               menuItem.action == #selector(showInFinder(_:))
+            || menuItem.action == #selector(viewMetadata(_:))
             /* Scene Actions */
-               menuItem.action == #selector(windowUseAnnotateItemAction(_:))
+            || menuItem.action == #selector(windowUseAnnotateItemAction(_:))
             || menuItem.action == #selector(windowUseSelectItemAction(_:))
             || menuItem.action == #selector(windowUseMagnifyItemAction(_:))
             || menuItem.action == #selector(windowUseMinifyItemAction(_:))

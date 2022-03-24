@@ -31,28 +31,53 @@ final class AdvancedController: NSViewController {
         actionRequiresRestart(sender)
     }
     
-    private func resetTagDatabase() {
+    private func resetTagDatabase(withCustomSchemaURL customSchemaURL: URL? = nil) {
         do {
             try TagListController.destoryPersistentStore()
-            NotificationCenter.default.post(
-                name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
-                object: nil
-            )
+            if let customSchemaURL = customSchemaURL {
+                NotificationCenter.default.post(
+                    name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+                    object: nil,
+                    userInfo: ["url": customSchemaURL]
+                )
+            } else {
+                NotificationCenter.default.post(
+                    name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+                    object: nil
+                )
+            }
         } catch {
             presentError(error)
         }
     }
     
     @IBAction private func resetTagDatabaseAction(_ sender: NSButton) {
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("Reset Confirm", comment: "resetTagDatabaseAction(_:)")
-        alert.informativeText = NSLocalizedString("Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.", comment: "resetTagDatabaseAction(_:)")
-        alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "resetTagDatabaseAction(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
-        alert.beginSheetModal(for: view.window!) { [unowned self] resp in
-            if resp == .alertFirstButtonReturn {
-                self.resetTagDatabase()
+        let optionPressed = NSEvent.modifierFlags
+            .intersection(.deviceIndependentFlagsMask).contains(.option)
+        if !optionPressed {
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = NSLocalizedString("Reset Confirm", comment: "resetTagDatabaseAction(_:)")
+            alert.informativeText = NSLocalizedString("Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.", comment: "resetTagDatabaseAction(_:)")
+            alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "resetTagDatabaseAction(_:)"))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
+            alert.beginSheetModal(for: view.window!) { [unowned self] resp in
+                if resp == .alertFirstButtonReturn {
+                    self.resetTagDatabase()
+                }
+            }
+        } else {
+            let panel = NSOpenPanel()
+            panel.canChooseFiles = true
+            panel.canChooseDirectories = false
+            panel.canCreateDirectories = false
+            panel.showsHiddenFiles = false
+            panel.allowsMultipleSelection = false
+            panel.treatsFilePackagesAsDirectories = true
+            panel.allowedFileTypes = ["plist"]
+            let panelResponse = panel.runModal()
+            if panelResponse == .OK, let selectedURL = panel.urls.first {
+                self.resetTagDatabase(withCustomSchemaURL: selectedURL)
             }
         }
     }

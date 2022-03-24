@@ -2124,19 +2124,21 @@ extension SceneController {
         let insertedTags = userInfo[NSManagedObjectContext.NotificationKey.insertedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
         let updatedTags = userInfo[NSManagedObjectContext.NotificationKey.updatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
         let refreshedTags = userInfo[NSManagedObjectContext.NotificationKey.refreshedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
-        let tagsToReload = Dictionary(uniqueKeysWithValues: (insertedTags.union(updatedTags).union(refreshedTags)).map({ ($0.name, $0) }))
+        let tagNamesToReload = Dictionary((insertedTags.union(updatedTags).union(refreshedTags)).map({ ($0.name, $0) })) { _, new in new }
         
         let deletedTags = userInfo[NSManagedObjectContext.NotificationKey.deletedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
         let invalidatedTags = userInfo[NSManagedObjectContext.NotificationKey.invalidatedObjects.rawValue] as? Set<Tag> ?? Set<Tag>()
-        let tagsToRemove = Dictionary(uniqueKeysWithValues: (deletedTags.union(invalidatedTags)).map({ ($0.name, $0) }))
+        let tagNamesToRemove = Dictionary((deletedTags.union(invalidatedTags)).map({ ($0.name, $0) })) { _, new in new }
+        
+        let tagNamesLeft = tagManager.arrangedTags.map({ $0.name })
         
         for annotator in annotators
         {
             guard let firstTagName = annotator.contentItem.firstTag else { continue }
-            if tagsToReload[firstTagName] != nil {
-                annotatorColorize(annotator, with: tagsToReload[firstTagName], byRedrawingContents: redraw)
+            if tagNamesToReload[firstTagName] != nil {
+                annotatorColorize(annotator, with: tagNamesToReload[firstTagName], byRedrawingContents: redraw)
             }
-            else if tagsToRemove[firstTagName] != nil {
+            else if tagNamesToRemove[firstTagName] != nil || !tagNamesLeft.contains(firstTagName) {
                 annotatorColorize(annotator, with: nil, byRedrawingContents: redraw)
             }
         }

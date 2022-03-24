@@ -355,6 +355,9 @@
 /* Class = "NSMenuItem"; title = "Zoom to 100%"; ObjectID = "Kkk-xx-LeZ"; */
 "Kkk-xx-LeZ.title" = "缩放到 100%";
 
+/* Class = "NSMenuItem"; title = "View Metadata…"; ObjectID = "kKl-NQ-gwG"; */
+"kKl-NQ-gwG.title" = "查看元信息…";
+
 /* Class = "NSMenuItem"; title = "Move Up (1 Pixel)"; ObjectID = "KsJ-1u-MnF"; */
 "KsJ-1u-MnF.title" = "向上移动 (1 像素)";
 
@@ -405,6 +408,9 @@
 
 /* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "nWV-sO-9ZA"; */
 "nWV-sO-9ZA.title" = "文本替换";
+
+/* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "Nyn-7c-gnG"; */
+"Nyn-7c-gnG.title" = "在 Finder 中查看";
 
 /* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "nzw-tF-Tr9"; */
 "nzw-tF-Tr9.title" = "替换";

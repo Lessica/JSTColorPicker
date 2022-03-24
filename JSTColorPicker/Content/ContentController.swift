@@ -1698,11 +1698,13 @@ extension ContentController {
             .union(invalidatedTags)
             .map({ $0.name })
         
+        let tagNamesLeft = tagManager.arrangedTags.map({ $0.name })
+        
         var indexesToReload = IndexSet()
         let col = tableView.column(withIdentifier: .columnTag)
         for itemTuple in content.items.enumerated() {
             guard let firstTagName = itemTuple.element.firstTag else { continue }
-            if tagNamesToReload.contains(firstTagName) {
+            if tagNamesToReload.contains(firstTagName) || !tagNamesLeft.contains(firstTagName) {
                 indexesToReload.insert(itemTuple.offset)
             }
         }

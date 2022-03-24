@@ -27,7 +27,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
     private var initialUserInfo: [String: String] = [:]
     private var userInfo: [String: String] {
         if let keyPaths = arrayController.content as? [AssociatedKeyPath] {
-            return Dictionary(uniqueKeysWithValues: keyPaths.map({ $0.keyValuePairs }))
+            return Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }
         }
         return [:]
     }
@@ -113,7 +113,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
             arrayController.contentUpdateType = .direct
             arrayController.content = NSMutableArray(array: keyPaths)
             keyPaths.forEach({ $0.resetDynamicVariables() })
-            initial.merge(Dictionary(uniqueKeysWithValues: keyPaths.map({ $0.keyValuePairs }))) { _, new in new }
+            initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
             shouldSkipContentArrayEvents = false
         }
         return initial

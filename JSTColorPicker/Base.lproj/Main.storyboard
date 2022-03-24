@@ -161,6 +161,19 @@
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="P3Z-6I-nHl"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="6Cj-Eq-HqB"/>
+                                        <menuItem title="Show in Finder" id="Nyn-7c-gnG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showInFinder:" target="Ady-hI-5gd" id="Lxx-J9-lsZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="View Metadata…" id="kKl-NQ-gwG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="viewMetadata:" target="Ady-hI-5gd" id="cSF-io-rOn"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" hidden="YES" id="6lZ-6v-Fet"/>
                                         <menuItem title="Print…" hidden="YES" enabled="NO" keyEquivalent="p" id="Mql-2P-7nA">
                                             <connections>

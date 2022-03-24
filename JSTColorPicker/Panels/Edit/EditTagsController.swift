@@ -136,7 +136,7 @@ extension EditTagsController: TagListSelectDelegate {
     
     func setupAlternateState(_ state: NSControl.StateValue, forTags tags: [Tag]) {
         let allTagNames = tags.map({ $0.name })
-        selectedStatesChanged(Dictionary(uniqueKeysWithValues: allTagNames.map({ ($0, state) })))
+        selectedStatesChanged(Dictionary(allTagNames.map({ ($0, state) })) { _, new in new })
     }
     
     func selectedState(of name: String) -> NSControl.StateValue {
