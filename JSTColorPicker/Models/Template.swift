@@ -42,6 +42,13 @@ final class Template {
         }
     }
     
+    enum GenerateAction: String {
+        case preview
+        case copy
+        case doubleCopy
+        case export
+    }
+    
                  let url                  : URL
     private(set) var uuid                 : UUID
     private(set) var name                 : String
@@ -138,11 +145,11 @@ final class Template {
         debugPrint("<\(String(describing: self)) deinit>")
     }
     
-    func generate(_ image: PixelImage, for items: [ContentItem]) throws -> String {
+    func generate(_ image: PixelImage, _ items: [ContentItem], forAction action: GenerateAction) throws -> String {
         guard mutexLock.try() else {
             throw Error.resourceBusy
         }
-        let results = generator.call([image, Content(items: items)])
+        let results = generator.call([image, Content(items: items), action.rawValue])
         mutexLock.unlock()
         switch results {
         case let .values(vals):

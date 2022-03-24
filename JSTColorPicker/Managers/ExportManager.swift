@@ -92,7 +92,7 @@ final class ExportManager {
         try screenshot.testExportCondition()
         do {
             exportToAdditionalPasteboard(items)
-            exportToGeneralStringPasteboard(try template.generate(image, for: items))
+            exportToGeneralStringPasteboard(try template.generate(image, items, forAction: .copy))
         } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
             throw error
@@ -106,22 +106,22 @@ final class ExportManager {
         try copyContentItems(items, with: template)
     }
 
-    func generateContentItems(_ items: [ContentItem], with template: Template, forPreviewOnly preview: Bool) throws -> String {
+    func generateContentItems(_ items: [ContentItem], with template: Template, forAction action: Template.GenerateAction) throws -> String {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
-        if !preview {
+        if action != .preview {
             try screenshot.testExportCondition()
         }
-        return try template.generate(image, for: items)
+        return try template.generate(image, items, forAction: action)
     }
 
-    func generateAllContentItems(with template: Template, forPreviewOnly preview: Bool) throws -> String {
+    func generateAllContentItems(with template: Template, forAction action: Template.GenerateAction) throws -> String {
         guard let image = screenshot.image,
               let items = screenshot.content?.items
         else { throw Error.noDocumentLoaded }
-        if !preview {
+        if action != .preview {
             try screenshot.testExportCondition()
         }
-        return try template.generate(image, for: items)
+        return try template.generate(image, items, forAction: action)
     }
 
     private func _exportContentItems(_ items: [ContentItem], to url: URL?, with template: Template) throws {
@@ -129,11 +129,11 @@ final class ExportManager {
         try screenshot.testExportCondition()
         do {
             if let url = url {
-                if let data = (try template.generate(image, for: items)).data(using: .utf8) {
+                if let data = (try template.generate(image, items, forAction: .export)).data(using: .utf8) {
                     try data.write(to: url)
                 }
             } else {
-                _ = try template.generate(image, for: items)
+                _ = try template.generate(image, items, forAction: .export)
             }
         } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
@@ -165,7 +165,7 @@ final class ExportManager {
         guard let image = screenshot.image else { throw Error.noDocumentLoaded }
         guard let exampleTemplateURL = TemplateManager.exampleTemplateURLs.first else { throw Error.noTemplateSelected }
         let exampleTemplate = try Template(templateURL: exampleTemplateURL, templateManager: TemplateManager.shared)
-        let generatedString = try exampleTemplate.generate(image, for: items)
+        let generatedString = try exampleTemplate.generate(image, items, forAction: .copy)
         exportToGeneralStringPasteboard(generatedString)
     }
     

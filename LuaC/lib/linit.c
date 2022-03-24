@@ -53,6 +53,9 @@ static const luaL_Reg loadedlibs[] = {
   {LUA_LPEGLIBNAME, luaopen_lpeg},
   {LUA_CJSONLIBNAME, luaopen_cjson},
   {LUA_CJSON_SAFELIBNAME, luaopen_cjson_safe},
+  {LUA_LCURLLIBNAME, luaopen_lcurl},
+  {LUA_LCURL_SAFELIBNAME, luaopen_lcurl_safe},
+  {LUA_LFSLIBNAME, luaopen_lfs},
   {NULL, NULL}
 };
 

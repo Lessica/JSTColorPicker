@@ -661,7 +661,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
             if let previewObj = self.cachedPreviewContents[template.uuid.uuidString] {
                 previewObj.clear()
                 do {
-                    previewObj.contents = (try exportManager.generateAllContentItems(with: template, forPreviewOnly: true))
+                    previewObj.contents = (try exportManager.generateAllContentItems(with: template, forAction: .preview))
                         .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 } catch {
                     previewObj.error = error.localizedDescription
@@ -671,7 +671,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
                 do {
                     previewObj = TemplatePreviewObject(
                         uuidString: template.uuid.uuidString,
-                        contents: (try exportManager.generateAllContentItems(with: template, forPreviewOnly: true))
+                        contents: (try exportManager.generateAllContentItems(with: template, forAction: .preview))
                             .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
                         error: nil
                     )
@@ -820,13 +820,17 @@ extension TemplatePreviewController {
     }
 
     @IBAction private func copy(_ sender: Any?) {
+        copy(sender, isDoubleAction: false)
+    }
+    
+    private func copy(_ sender: Any?, isDoubleAction: Bool) {
         var succeed = true
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
         ).then {
             self.promiseExtractContentItems($0.0, template: $0.1)
         }.then {
-            self.promiseFetchContentItems($0.0, template: $0.1)
+            self.promiseFetchContentItems($0.0, template: $0.1, forAction: isDoubleAction ? .doubleCopy : .copy)
         }.then {
             self.promiseWriteCachedContents($0.0, template: $0.1)
         }.then {
@@ -853,7 +857,7 @@ extension TemplatePreviewController {
             targetURL = url
             return self.promiseExtractContentItems(items, template: tmpl)
         }.then {
-            self.promiseFetchContentItems($0.0, template: $0.1)
+            self.promiseFetchContentItems($0.0, template: $0.1, forAction: .export)
         }.then {
             self.promiseWriteCachedContents($0.0, template: $0.1)
         }.then {
@@ -891,7 +895,7 @@ extension TemplatePreviewController {
         guard let event = NSApp.currentEvent else { return }
         let locationInView = sender.convert(event.locationInWindow, from: nil)
         guard sender.bounds.contains(locationInView) else { return }
-        copy(sender)
+        copy(sender, isDoubleAction: true)
     }
 
     @IBAction private func resetColumns(_ sender: NSMenuItem) {
@@ -986,7 +990,7 @@ extension TemplatePreviewController {
         }
     }
 
-    private func promiseFetchContentItems(_ items: [ContentItem], template: Template) -> Promise<(String, Template)>
+    private func promiseFetchContentItems(_ items: [ContentItem], template: Template, forAction action: Template.GenerateAction) -> Promise<(String, Template)>
     {
         Promise { seal in
             guard let exportManager = documentExport else {
@@ -995,7 +999,7 @@ extension TemplatePreviewController {
             }
 
             do {
-                seal.fulfill((try exportManager.generateContentItems(items, with: template, forPreviewOnly: false), template))
+                seal.fulfill((try exportManager.generateContentItems(items, with: template, forAction: action), template))
             } catch {
                 seal.reject(error)
             }

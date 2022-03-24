@@ -1,5 +1,7 @@
-local lupa = require "lupa"
+local lupa = require("lupa")
 local xml2lua = require("xml2lua")
+local json = require("cjson")
+local curl = require("cURL")
 
 local template = [[<annotation>
     <folder>{{ folder }}</folder>
@@ -24,13 +26,13 @@ local template = [[<annotation>
             <ymin>{{ object.minY }}</ymin>
             <xmax>{{ object.maxX }}</xmax>
             <ymax>{{ object.maxY }}</ymax>
-        </bndbox>{{ object.userInfo }}
+        </bndbox>{{ object.userInfoXML }}
     </object>
 {% endfor %}</annotation>]]
 
 local _saveInPlace = true
 
-local generator = function (image, items)
+local generator = function (image, items, action)
     local newObjects = {}
     for k, v in ipairs(items) do
         if v.width ~= nil then
@@ -40,9 +42,9 @@ local generator = function (image, items)
             newObjects[k] = v
         end
         if v.userInfo ~= nil then
-            v['userInfo'] = '\n        ' .. xml2lua.toXml(v.userInfo, 'userInfo'):sub(1, -2):gsub("[\n]", "\n        ")
+            v['userInfoXML'] = '\n        ' .. xml2lua.toXml(v.userInfo, 'userInfo'):sub(1, -2):gsub("[\n]", "\n        ")
         else
-            v['userInfo'] = ''
+            v['userInfoXML'] = ''
         end
     end
     image['objects'] = newObjects
@@ -51,10 +53,35 @@ local generator = function (image, items)
     image['segmented'] = 0
     local outputContent = lupa.expand(template, image)
     if _saveInPlace then
-        local outputPath = image['path'] .. '.xml'
-        local outputFile = assert(io.open(outputPath, "w"))
-        outputFile:write(outputContent)
-        outputFile:close()
+        -- HTTP Post
+        if action == "doubleCopy" then
+            curl.easy()
+                :setopt_url('https://httpbin.org/post')
+                :setopt_writefunction(io.write)
+                :setopt_httppost(
+                    curl.form() -- Lua-cURL guarantee that form will be alive
+                        :add_buffer("test_file", "test_file.xml", outputContent, "text/xml")
+                )
+                :perform()
+                :close()
+        elseif action == "export" then
+            image['get_color'] = nil
+            image['get_image'] = nil
+            image['_LUPAFILENAME'] = nil
+            image['_LUPAPOSITION'] = nil
+            image['_LUPASOURCE'] = nil
+            
+            outputPath = image['path'] .. '.json'
+            outputFile = assert(io.open(outputPath, "w"))
+            outputFile:write(json.encode(image))
+            outputFile:close()
+            
+            local outputPath, outputFile
+            outputPath = image['path'] .. '.xml'
+            outputFile = assert(io.open(outputPath, "w"))
+            outputFile:write(outputContent)
+            outputFile:close()
+        end
     end
     return outputContent
 end
