@@ -245,6 +245,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 .first?.appendingPathComponent("JSTColorPicker").path,
             .pixelMatchAAColor                 : NSColor.systemYellow,
             .pixelMatchDiffColor               : NSColor.systemRed,
+            .colorGridColorAnnotatorColor      : NSColor.systemRed,
+            .colorGridAreaAnnotatorColor       : NSColor.systemBlue,
         ]
         
         (try?

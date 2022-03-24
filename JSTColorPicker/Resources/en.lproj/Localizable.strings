@@ -41,6 +41,9 @@
 /* Shortcut Guide */
 "Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "Add Area using the starting point as the midpoint of current dragged rectangle, to content list.";
 
+/* contentArrayDidUpdate(_:) */
+"Add Associated Values" = "Add Associated Values";
+
 /* Shortcut Guide */
 "Add Color & Coordinates Annotation" = "Add Color & Coordinates Annotation";
 
@@ -88,6 +91,10 @@
 
 /* NSColorPanel */
 "Choose Color" = "Choose Color";
+
+/* selectedStateChanged(of:to:)
+   selectedStatesChanged(_:) */
+"Choose Tags" = "Choose Tags";
 
 /* Shortcut Guide */
 "Click" = "Click";
@@ -202,6 +209,9 @@
 
 /* EditCoordinateController */
 "Edit Area" = "Edit Area";
+
+/* contentArrayDidUpdate(_:) */
+"Edit Associated Values" = "Edit Associated Values";
 
 /* EditCoordinateController */
 "Edit Color & Coordinates" = "Edit Color & Coordinates";
@@ -561,6 +571,9 @@
 
 /* Shortcut Guide */
 "Remove Annotation" = "Remove Annotation";
+
+/* contentArrayDidUpdate(_:) */
+"Remove Associated Values" = "Remove Associated Values";
 
 /* rename(_:) */
 "Rename" = "Rename";

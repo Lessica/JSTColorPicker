@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="391"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="295"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView initialItem="DBw-sv-D6x" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
-                    <rect key="frame" x="13" y="10" width="514" height="375"/>
+                    <rect key="frame" x="13" y="10" width="514" height="279"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="eLw-O7-No5"/>
                     </constraints>
@@ -372,9 +372,9 @@
                                                             </allowedInputSourceLocales>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="c61-nB-UBl" name="enabled" keyPath="values.defaults:maximumItemCountEnabled" id="IOf-Sc-oUv"/>
                                                             <binding destination="-2" name="maxValue" keyPath="maximumAnnotations" id="qKV-UF-M1v"/>
                                                             <binding destination="-2" name="minValue" keyPath="minimumAnnotations" previousBinding="qKV-UF-M1v" id="kuC-8T-24y"/>
+                                                            <binding destination="c61-nB-UBl" name="enabled" keyPath="values.defaults:maximumItemCountEnabled" id="IOf-Sc-oUv"/>
                                                             <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:maximumTagPerItem" previousBinding="kuC-8T-24y" id="6Dg-7P-ILZ"/>
                                                         </connections>
                                                     </textField>
@@ -856,34 +856,22 @@
                         </tabViewItem>
                         <tabViewItem label="Color Grid" identifier="" id="Qrb-RZ-ezf">
                             <view key="view" id="8yU-rV-VCd">
-                                <rect key="frame" x="10" y="33" width="494" height="136"/>
+                                <rect key="frame" x="10" y="33" width="494" height="233"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaZ-jx-mTk">
-                                        <rect key="frame" x="20" y="20" width="454" height="96"/>
+                                        <rect key="frame" x="20" y="20" width="454" height="193"/>
                                         <subviews>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
-                                                <rect key="frame" x="-2" y="79" width="207" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1xD-ZG-hUt">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawAnnotatorsInGridView" id="xKk-ZO-heV"/>
-                                                </connections>
-                                            </button>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-XV-TOP">
-                                                <rect key="frame" x="-2" y="55" width="213" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Draw Background in Color Grid" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QKj-aX-mro">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawBackgroundInGridView" id="geJ-B9-nS6"/>
-                                                </connections>
-                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4t-1P-gdc">
+                                                <rect key="frame" x="-2" y="177" width="56" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Layouts" usesSingleLineMode="YES" id="cho-GD-iec">
+                                                    <font key="font" textStyle="headline" name=".SFNS-Bold"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-Yu-JgM">
-                                                <rect key="frame" x="0.0" y="28" width="190" height="20"/>
+                                                <rect key="frame" x="0.0" y="149" width="190" height="20"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H06-mb-ZBp" userLabel="Grid Size:">
                                                         <rect key="frame" x="-2" y="2" width="66" height="16"/>
@@ -937,7 +925,7 @@
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-Fh-Xme">
-                                                <rect key="frame" x="0.0" y="0.0" width="207" height="20"/>
+                                                <rect key="frame" x="0.0" y="121" width="207" height="20"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kgv-5v-eDy">
                                                         <rect key="frame" x="-2" y="2" width="83" height="16"/>
@@ -990,14 +978,115 @@
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
+                                            <box focusRingType="none" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="N8a-mk-Fzb">
+                                                <rect key="frame" x="0.0" y="110" width="1" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="1" id="5bs-rC-Zzi"/>
+                                                    <constraint firstAttribute="height" constant="1" id="ufL-gS-Ajn"/>
+                                                </constraints>
+                                            </box>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pT0-Zu-wyg">
+                                                <rect key="frame" x="-2" y="88" width="65" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Drawings" usesSingleLineMode="YES" id="ktD-Eo-GL4">
+                                                    <font key="font" textStyle="headline" name=".SFNS-Bold"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W5O-rk-9pT">
+                                                <rect key="frame" x="-2" y="63" width="207" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Draw Annotators in Color Grid" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1xD-ZG-hUt">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawAnnotatorsInGridView" id="xKk-ZO-heV"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-XV-TOP">
+                                                <rect key="frame" x="-2" y="39" width="213" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Draw Background in Color Grid" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QKj-aX-mro">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:drawBackgroundInGridView" id="geJ-B9-nS6"/>
+                                                </connections>
+                                            </button>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bf3-Hd-tJZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="235" height="32"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7qt-Pe-qVd">
+                                                        <rect key="frame" x="-2" y="8" width="115" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Annotator Colors: " usesSingleLineMode="YES" id="Eok-kd-bOD">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <colorWell toolTip="Color Annotator Color" translatesAutoresizingMaskIntoConstraints="NO" id="QPn-Ni-iG5">
+                                                        <rect key="frame" x="123" y="0.0" width="50" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="LEV-tx-Dee"/>
+                                                            <constraint firstAttribute="height" constant="32" id="WyB-zU-IrX"/>
+                                                        </constraints>
+                                                        <color key="color" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:colorGridColorAnnotatorColor" id="zY0-h0-JKh">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </colorWell>
+                                                    <colorWell toolTip="Area Annotator Color" translatesAutoresizingMaskIntoConstraints="NO" id="R1u-9Y-ERd">
+                                                        <rect key="frame" x="185" y="0.0" width="50" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="OEZ-aU-hB1"/>
+                                                            <constraint firstAttribute="width" constant="50" id="WMI-x6-BAZ"/>
+                                                        </constraints>
+                                                        <color key="color" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                        <connections>
+                                                            <binding destination="c61-nB-UBl" name="value" keyPath="values.defaults:colorGridAreaAnnotatorColor" id="ez9-uC-g6H">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </colorWell>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="QPn-Ni-iG5" firstAttribute="top" secondItem="bf3-Hd-tJZ" secondAttribute="top" id="Esk-Pk-CPi"/>
+                                                    <constraint firstAttribute="bottom" secondItem="QPn-Ni-iG5" secondAttribute="bottom" id="g0L-lg-7r2"/>
+                                                    <constraint firstItem="7qt-Pe-qVd" firstAttribute="centerY" secondItem="bf3-Hd-tJZ" secondAttribute="centerY" id="hKV-TE-6uL"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>

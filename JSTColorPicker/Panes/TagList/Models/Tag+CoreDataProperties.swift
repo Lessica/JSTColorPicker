@@ -6,8 +6,8 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension Tag {
     @nonobjc class func fetchRequest() -> NSFetchRequest<Tag> {

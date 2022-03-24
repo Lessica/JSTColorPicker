@@ -16,6 +16,9 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "2y0-1K-Lgi"; */
 "2y0-1K-Lgi.title" = "好";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "[No Value]"; ObjectID = "4tH-pP-aOK"; */
+"4tH-pP-aOK.ibShadowedIsNilPlaceholder" = "[No Value]";
+
 /* Class = "NSTableColumn"; headerCell.title = "Key Path"; ObjectID = "6Mw-UB-aY3"; */
 "6Mw-UB-aY3.headerCell.title" = "键名";
 
@@ -30,6 +33,12 @@
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7qb-5Y-1eO"; */
 "7qb-5Y-1eO.title" = "取消";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "7Td-mz-f34"; */
+"7Td-mz-f34.title" = "Item 1";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "[No Value]"; ObjectID = "7wR-zD-5b7"; */
+"7wR-zD-5b7.ibShadowedIsNilPlaceholder" = "[No Value]";
 
 /* Class = "NSTextFieldCell"; title = "String Value"; ObjectID = "8hY-gc-NsQ"; */
 "8hY-gc-NsQ.title" = "值";
@@ -63,6 +72,9 @@
 
 /* Class = "NSViewController"; title = "Edit Color & Coordinates"; ObjectID = "ctg-Pv-CEh"; */
 "ctg-Pv-CEh.title" = "修改颜色与坐标";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "cYb-Xc-w92"; */
+"cYb-Xc-w92.title" = "Item 2";
 
 /* Class = "NSButtonCell"; alternateTitle = "Show Preview"; ObjectID = "d7Y-BF-gov"; */
 "d7Y-BF-gov.alternateTitle" = "显示预览";
@@ -115,11 +127,17 @@
 /* Class = "NSTextFieldCell"; title = "Coordinate Y: "; ObjectID = "M82-1D-OTf"; */
 "M82-1D-OTf.title" = "坐标 Y：";
 
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "MJK-AR-Qhd"; */
+"MJK-AR-Qhd.title" = "Item 3";
+
 /* Class = "NSMenuItem"; title = "Image"; ObjectID = "NJF-un-mVE"; */
 "NJF-un-mVE.title" = "Image";
 
 /* Class = "NSMenuItem"; title = "Integer"; ObjectID = "o0x-A4-bg2"; */
 "o0x-A4-bg2.title" = "Integer";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "[No Value]"; ObjectID = "OYa-rE-kVk"; */
+"OYa-rE-kVk.ibShadowedIsNilPlaceholder" = "[No Value]";
 
 /* Class = "NSTextFieldCell"; title = "Decimal Value"; ObjectID = "p8a-9r-fdf"; */
 "p8a-9r-fdf.title" = "Decimal Value";

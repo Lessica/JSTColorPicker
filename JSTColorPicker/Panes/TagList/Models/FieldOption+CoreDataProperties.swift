@@ -6,13 +6,13 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension FieldOption {
     @nonobjc class func fetchRequest() -> NSFetchRequest<FieldOption> {
         return NSFetchRequest<FieldOption>(entityName: "FieldOption")
     }
-    
+
     @NSManaged var name: String
 }

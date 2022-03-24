@@ -11,11 +11,10 @@ import Foundation
 
 @objc(Field)
 public final class Field: NSManagedObject, Codable {
-    
     enum CodingKeys: CodingKey {
         case name, options, defaultValue, valueType, helpText
     }
-    
+
     enum StringValueType: String, Codable {
         case Boolean // checkbox
         case Integer // text input
@@ -29,40 +28,40 @@ public final class Field: NSManagedObject, Codable {
         case Image // not implemented
         case Nil // nothing
     }
-    
-    var stringValueType: StringValueType? {
+
+    internal var stringValueType: StringValueType? {
         if let valueType = valueType {
             return StringValueType(rawValue: valueType)
         }
         return nil
     }
-    
-    func toDefaultValue(ofType type: Bool.Type) -> Bool? {
+
+    internal func toDefaultValue(ofType type: Bool.Type) -> Bool? {
         if let rawValue = defaultValue {
             return !(rawValue.hasPrefix("f") || rawValue.hasPrefix("n") || rawValue.hasPrefix("0"))
         }
         return nil
     }
-    
-    func toDefaultValue<T>(ofType type: T.Type) -> T? where T: FixedWidthInteger {
+
+    internal func toDefaultValue<T>(ofType type: T.Type) -> T? where T: FixedWidthInteger {
         if let rawValue = defaultValue {
             return T(rawValue)
         }
         return nil
     }
-    
-    func toDefaultValue(ofType type: Double.Type) -> Double? {
+
+    internal func toDefaultValue(ofType type: Double.Type) -> Double? {
         if let rawValue = defaultValue {
             return Double(rawValue)
         }
         return nil
     }
-    
-    func toDefaultValue<T>(ofType type: T.Type) -> T? where T: StringProtocol {
+
+    internal func toDefaultValue<T>(ofType type: T.Type) -> T? where T: StringProtocol {
         return defaultValue as? T
     }
 
-    required convenience public init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[CodingUserInfoKey.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }

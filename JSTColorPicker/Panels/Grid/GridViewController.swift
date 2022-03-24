@@ -11,7 +11,11 @@ import Cocoa
 final class GridViewController: NSViewController {
     
     @IBOutlet weak var gridView        : GridView!
-    private        let observableKeys  : [UserDefaults.Key] = [.drawBackgroundInGridView, .drawAnnotatorsInGridView, .gridViewSizeLevel, .gridViewAnimationSpeed]
+    private        let observableKeys  : [UserDefaults.Key] = [
+        .drawBackgroundInGridView, .drawAnnotatorsInGridView,
+        .gridViewSizeLevel, .gridViewAnimationSpeed,
+        .colorGridColorAnnotatorColor, .colorGridAreaAnnotatorColor,
+    ]
     private        var observables     : [Observable]?
     
     var drawBackgroundInGridView: Bool = UserDefaults.standard[.drawBackgroundInGridView] {
@@ -23,12 +27,17 @@ final class GridViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareDefaults()
-        observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
+        observables = UserDefaults.standard.observe(
+            keys: observableKeys,
+            callback: { [weak self] in self?.applyDefaults($0, $1, $2) }
+        )
     }
 
     private func prepareDefaults() {
         drawBackgroundInGridView = UserDefaults.standard[.drawBackgroundInGridView]
         gridView.shouldDrawAnnotators = UserDefaults.standard[.drawAnnotatorsInGridView]
+        gridView.colorGridColorAnnotatorColor = UserDefaults.standard[.colorGridColorAnnotatorColor]
+        gridView.colorGridAreaAnnotatorColor = UserDefaults.standard[.colorGridAreaAnnotatorColor]
         gridView.setNeedsDisplayAll()
     }
 
@@ -46,6 +55,16 @@ final class GridViewController: NSViewController {
         }
         else if defaultKey == .gridViewSizeLevel || defaultKey == .gridViewAnimationSpeed {
             self.gridView.applyFromDefaults()
+        }
+        else if defaultKey == .colorGridColorAnnotatorColor || defaultKey == .colorGridAreaAnnotatorColor {
+            if let toValue = defaults.color(forKey: defaultKey) {
+                if defaultKey == .colorGridColorAnnotatorColor {
+                    self.gridView.colorGridColorAnnotatorColor = toValue
+                } else if defaultKey == .colorGridAreaAnnotatorColor {
+                    self.gridView.colorGridAreaAnnotatorColor = toValue
+                }
+                self.gridView.setNeedsDisplayAll()
+            }
         }
     }
     

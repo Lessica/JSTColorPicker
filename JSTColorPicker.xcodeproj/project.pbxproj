@@ -371,6 +371,10 @@
 		CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCD1A39727EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; };
+		CCD1A39827EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCD1A39927EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; };
+		CCD1A39A27EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
@@ -882,6 +886,27 @@
 			remoteGlobalIDString = D690C95E241A60DC00BB1652;
 			remoteInfo = PixelMatch;
 		};
+		CCD1A39127EC4ABF00A5CE4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 393E1839207F6119002E6136;
+			remoteInfo = LNPropertyListEditor;
+		};
+		CCD1A39327EC4ACD00A5CE4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 393E1838207F6119002E6136;
+			remoteInfo = LNPropertyListEditor;
+		};
+		CCD1A39527EC4AD300A5CE4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 393E1838207F6119002E6136;
+			remoteInfo = LNPropertyListEditor;
+		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -1089,6 +1114,7 @@
 			files = (
 				D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */,
 				D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */,
+				CCD1A39827EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1123,6 +1149,7 @@
 			files = (
 				D62834F623F8E9DB0016573B /* LuaSwift.framework in Embed Frameworks */,
 				D628351523F8EAAA0016573B /* LuaC.framework in Embed Frameworks */,
+				CCD1A39A27EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1423,6 +1450,7 @@
 		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
 		CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesController.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
+		CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPropertyListEditor.xcodeproj; path = LNPropertyListEditor/LNPropertyListEditor.xcodeproj; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
 		CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -1789,6 +1817,7 @@
 				0F7AE62A276718D600D818E5 /* QuickLook.framework in Frameworks */,
 				D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */,
 				D61047CC24224A170002E990 /* LuaC.framework in Frameworks */,
+				CCD1A39727EC4ADA00A5CE4A /* LNPropertyListEditor.framework in Frameworks */,
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
 				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
 				0FF470592762319D00F46554 /* PMKFoundation in Frameworks */,
@@ -1842,6 +1871,7 @@
 			files = (
 				D699E0CE24090AEC0011A4CB /* Automator.framework in Frameworks */,
 				0FF4702E276209C300F46554 /* Down in Frameworks */,
+				CCD1A39927EC4ADF00A5CE4A /* LNPropertyListEditor.framework in Frameworks */,
 				0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */,
 				0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
@@ -2563,6 +2593,14 @@
 			path = SceneStacked;
 			sourceTree = "<group>";
 		};
+		CCD1A38E27EC4ABF00A5CE4A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CCE01C6D264CD8CE005960A7 /* ShortcutGuide */ = {
 			isa = PBXGroup;
 			children = (
@@ -2965,6 +3003,7 @@
 		D658AF9123CB180C0098C567 = {
 			isa = PBXGroup;
 			children = (
+				CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */,
 				CC059D0E2630707400E6B89C /* README.md */,
 				CC059D0D2630707400E6B89C /* README_zh-Hans.md */,
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
@@ -3503,6 +3542,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CCD1A39627EC4AD300A5CE4A /* PBXTargetDependency */,
 				D60B0F9A24288EFA0034F21C /* PBXTargetDependency */,
 				D610477924224A170002E990 /* PBXTargetDependency */,
 				D60B0F4F2428874F0034F21C /* PBXTargetDependency */,
@@ -3605,6 +3645,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CCD1A39427EC4ACD00A5CE4A /* PBXTargetDependency */,
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
@@ -3751,6 +3792,12 @@
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CCD1A38E27EC4ABF00A5CE4A /* Products */;
+					ProjectRef = CCD1A38D27EC4ABF00A5CE4A /* LNPropertyListEditor.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D610477824224A170002E990 /* JSTColorPickerSparkle */,
@@ -3768,6 +3815,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CCD1A39227EC4ABF00A5CE4A /* LNPropertyListEditor.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LNPropertyListEditor.framework;
+			remoteRef = CCD1A39127EC4ABF00A5CE4A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D60B0F3A24286AA30034F21C /* Resources */ = {
@@ -4704,6 +4761,16 @@
 			isa = PBXTargetDependency;
 			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
 			targetProxy = CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */;
+		};
+		CCD1A39427EC4ACD00A5CE4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LNPropertyListEditor;
+			targetProxy = CCD1A39327EC4ACD00A5CE4A /* PBXContainerItemProxy */;
+		};
+		CCD1A39627EC4AD300A5CE4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LNPropertyListEditor;
+			targetProxy = CCD1A39527EC4AD300A5CE4A /* PBXContainerItemProxy */;
 		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

@@ -14,10 +14,10 @@ public final class Tag: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
         case helpText, colorHex, name, order, fields
     }
-    
+
     private static var initializedOrder: Int64 = 0
 
-    required convenience public init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[CodingUserInfoKey.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -41,7 +41,35 @@ public final class Tag: NSManagedObject, Codable {
         try container.encode(order, forKey: .order)
         try container.encode(fields.array as? [Field] ?? [], forKey: .fields)
     }
-    
+
+    internal var defaultUserInfo: [String: String] {
+        if let fields = fields.array as? [Field] {
+            var stringFields = [String: String]()
+            for field in fields {
+                var stringValue: String?
+                let valueType = field.stringValueType ?? .String
+                switch valueType {
+                case .Boolean:
+                    let boolValue = field.toDefaultValue(ofType: Bool.self)
+                    stringValue = (boolValue ?? false) ? "YES" : "NO"
+                case .Integer:
+                    let intValue = field.toDefaultValue(ofType: Int.self)
+                    stringValue = "\(intValue ?? 0)"
+                case .Decimal:
+                    let doubleValue = field.toDefaultValue(ofType: Double.self)
+                    stringValue = "\(doubleValue ?? 0.0)"
+                case .String:
+                    stringValue = field.toDefaultValue(ofType: String.self) ?? ""
+                default:
+                    break
+                }
+                stringFields[field.name] = stringValue ?? ""
+            }
+            return stringFields
+        }
+        return [:]
+    }
+
     @objc var color: NSColor { NSColor(hex: colorHex) }
     @objc var toolTip: String {
         if let helpText = helpText, !helpText.isEmpty {

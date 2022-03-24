@@ -6,8 +6,8 @@
 //  Copyright © 2020 JST. All rights reserved.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension Field {
     @nonobjc class func fetchRequest() -> NSFetchRequest<Field> {

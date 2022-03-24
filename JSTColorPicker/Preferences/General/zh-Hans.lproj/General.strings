@@ -61,8 +61,14 @@
 /* Class = "NSButtonCell"; title = "Uses Predominant Axis Scrolling"; ObjectID = "cBd-ZX-L0H"; */
 "cBd-ZX-L0H.title" = "启用轴向滚动";
 
+/* Class = "NSTextFieldCell"; title = "Layouts"; ObjectID = "cho-GD-iec"; */
+"cho-GD-iec.title" = "布局";
+
 /* Class = "NSTabViewItem"; label = "Scene"; ObjectID = "DBw-sv-D6x"; */
 "DBw-sv-D6x.label" = "场景";
+
+/* Class = "NSTextFieldCell"; title = "Annotator Colors: "; ObjectID = "Eok-kd-bOD"; */
+"Eok-kd-bOD.title" = "标注颜色：";
 
 /* Class = "NSButtonCell"; title = "Disallow Reordering"; ObjectID = "FDz-Be-Gds"; */
 "FDz-Be-Gds.title" = "停用排序";
@@ -81,6 +87,9 @@
 
 /* Class = "NSButtonCell"; title = "Hide Grids When Resize"; ObjectID = "kpn-WU-eHb"; */
 "kpn-WU-eHb.title" = "缩放时隐藏网格";
+
+/* Class = "NSTextFieldCell"; title = "Drawings"; ObjectID = "ktD-Eo-GL4"; */
+"ktD-Eo-GL4.title" = "绘制";
 
 /* Class = "NSMenuItem"; title = "Medium"; ObjectID = "kue-4P-Fbv"; */
 "kue-4P-Fbv.title" = "常规";
@@ -118,8 +127,14 @@
 /* Class = "NSButtonCell"; title = "Draw Background in Color Grid"; ObjectID = "QKj-aX-mro"; */
 "QKj-aX-mro.title" = "在颜色网格中绘制背景";
 
+/* Class = "NSColorWell"; ibShadowedToolTip = "Color Annotator Color"; ObjectID = "QPn-Ni-iG5"; */
+"QPn-Ni-iG5.ibShadowedToolTip" = "颜色与坐标标注颜色";
+
 /* Class = "NSTabViewItem"; label = "Color Grid"; ObjectID = "Qrb-RZ-ezf"; */
 "Qrb-RZ-ezf.label" = "颜色网格";
+
+/* Class = "NSColorWell"; ibShadowedToolTip = "Area Annotator Color"; ObjectID = "R1u-9Y-ERd"; */
+"R1u-9Y-ERd.ibShadowedToolTip" = "区域标注颜色";
 
 /* Class = "NSMenuItem"; title = "Small"; ObjectID = "rLf-q6-q1W"; */
 "rLf-q6-q1W.title" = "较小";

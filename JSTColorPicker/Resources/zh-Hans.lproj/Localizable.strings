@@ -41,6 +41,9 @@
 /* Shortcut Guide */
 "Add Area using the starting point as the midpoint of current dragged rectangle, to content list." = "将当前拖拽的，以起始点作为中点的矩形区域作为区域标注添加到内容列表。";
 
+/* contentArrayDidUpdate(_:) */
+"Add Associated Values" = "添加关联值";
+
 /* Shortcut Guide */
 "Add Color & Coordinates Annotation" = "添加坐标及颜色标注";
 
@@ -88,6 +91,10 @@
 
 /* NSColorPanel */
 "Choose Color" = "选择颜色";
+
+/* selectedStateChanged(of:to:)
+   selectedStatesChanged(_:) */
+"Choose Tags" = "选择标签";
 
 /* Shortcut Guide */
 "Click" = "单击";
@@ -202,6 +209,9 @@
 
 /* EditCoordinateController */
 "Edit Area" = "修改区域";
+
+/* contentArrayDidUpdate(_:) */
+"Edit Associated Values" = "修改关联值";
 
 /* EditCoordinateController */
 "Edit Color & Coordinates" = "修改颜色与坐标";
@@ -561,6 +571,9 @@
 
 /* Shortcut Guide */
 "Remove Annotation" = "移除标注";
+
+/* contentArrayDidUpdate(_:) */
+"Remove Associated Values" = "移除关联值";
 
 /* rename(_:) */
 "Rename" = "重命名";

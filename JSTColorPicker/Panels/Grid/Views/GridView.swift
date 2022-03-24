@@ -70,6 +70,7 @@ final class GridView: NSView {
         static let gridLineWidth: CGFloat = 1.0
         static let gridLineColor = NSColor(white: 1.0, alpha: 0.3)
         static let gridCenterLineColor = NSColor(white: 0.0, alpha: 0.3)
+        
         static let gridColorOccupiedLineColor = NSColor.red
         static let gridAreaOccupiedLineColor = NSColor.blue
         static let gridBothOccupiedLineColor = NSColor.red
@@ -102,7 +103,7 @@ final class GridView: NSView {
             }
         }
         
-        var color: NSColor {
+        var defaultColor: NSColor {
             switch self {
             case .colorOccupied:
                 return State.gridColorOccupiedLineColor
@@ -115,6 +116,10 @@ final class GridView: NSView {
             default:
                 return State.gridLineColor
             }
+        }
+        
+        func color(with colorPresets: [State: NSColor]) -> NSColor {
+            return colorPresets[self] ?? defaultColor
         }
         
     }
@@ -208,6 +213,36 @@ final class GridView: NSView {
     
     // MARK: - Drawing
     
+    var colorGridColorAnnotatorColor: NSColor? {
+        didSet {
+            updateColorPresets()
+        }
+    }
+    var colorGridAreaAnnotatorColor: NSColor? {
+        didSet {
+            updateColorPresets()
+        }
+    }
+    private var colorPresets: [State: NSColor]?
+    
+    private func updateColorPresets() {
+        var presets = [State: NSColor]()
+        if let colorGridColorAnnotatorColor = colorGridColorAnnotatorColor {
+            presets[.colorOccupied] = colorGridColorAnnotatorColor
+        }
+        if let colorGridAreaAnnotatorColor = colorGridAreaAnnotatorColor {
+            presets[.areaOccupied] = colorGridAreaAnnotatorColor
+        }
+        if let colorGridColorAnnotatorColor = colorGridColorAnnotatorColor,
+           let colorGridAreaAnnotatorColor = colorGridAreaAnnotatorColor {
+            presets[.bothOccupied] = colorGridColorAnnotatorColor.blended(
+                withFraction: 1.0,
+                of: colorGridAreaAnnotatorColor
+            )
+        }
+        self.colorPresets = presets
+    }
+    
     func updateDisplayIfNeeded() {
         guard window?.isVisible ?? false else { return }
         setNeedsDisplayAll()
@@ -237,9 +272,10 @@ final class GridView: NSView {
             }
         }
         
+        let drawColorPresets = self.colorPresets ?? [:]
         let drawClosure = { (state: State, coord: PixelCoordinate, rect: CGRect) -> Void in
             let color: CGColor = pixelImage.rawColor(at: coord)?.toNSColor().cgColor ?? .clear
-            ctx.setStrokeColor(state.color.cgColor)
+            ctx.setStrokeColor(state.color(with: drawColorPresets).cgColor)
             ctx.setFillColor(color)
             ctx.addRect(rect)
             ctx.drawPath(using: .fillStroke)

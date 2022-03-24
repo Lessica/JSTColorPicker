@@ -80,4 +80,7 @@ extension UserDefaults.Key {
     static let disableTagReordering                 : UserDefaults.Key     = "defaults:disableTagReordering"                   // Bool
     static let disableTagEditing                    : UserDefaults.Key     = "defaults:disableTagEditing"                      // Bool
     
+    static let colorGridColorAnnotatorColor         : UserDefaults.Key     = "defaults:colorGridColorAnnotatorColor"           // NSColor
+    static let colorGridAreaAnnotatorColor          : UserDefaults.Key     = "defaults:colorGridAreaAnnotatorColor"            // NSColor
+    
 }
