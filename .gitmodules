@@ -1,0 +1,6 @@
+[submodule "ExternalFrameworks/PenguinStatisticsRecognizer"]
+	path = ExternalFrameworks/PenguinStatisticsRecognizer
+	url = git@github.com:Lessica/PenguinStatisticsRecognizer.git
+[submodule "ExternalFrameworks/Build-OpenSSL-cURL"]
+	path = ExternalFrameworks/Build-OpenSSL-cURL
+	url = git@github.com:Lessica/Build-OpenSSL-cURL.git
