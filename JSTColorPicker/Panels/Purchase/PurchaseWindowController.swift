@@ -10,7 +10,11 @@ import Cocoa
 
 final class PurchaseWindowController: NSWindowController {
     
-    static let shared = newController()
+    static var sharedLoaded = false
+    static let shared: PurchaseWindowController = {
+        sharedLoaded = true
+        return newController()
+    }()
     
     private static func newController() -> PurchaseWindowController {
         let windowStoryboard = NSStoryboard(name: "Purchase", bundle: nil)

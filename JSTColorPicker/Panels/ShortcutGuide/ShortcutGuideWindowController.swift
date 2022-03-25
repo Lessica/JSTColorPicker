@@ -15,7 +15,11 @@ enum ShortcutGuideColumnStyle {
 
 final class ShortcutGuideWindowController: NSWindowController {
     
-    static let shared = newShortcutGuideController()
+    static var sharedLoaded = false
+    static let shared: ShortcutGuideWindowController = {
+        sharedLoaded = true
+        return newShortcutGuideController()
+    }()
 
     var animationBehavior: NSWindow.AnimationBehavior? {
         get { window?.animationBehavior }
@@ -136,10 +140,9 @@ final class ShortcutGuideWindowController: NSWindowController {
         guard let eventWindow = event?.window else { return false }
         let now = event?.timestamp ?? Date().timeIntervalSinceReferenceDate
         if now - lastCommandPressedAt < 0.4 {
-            ShortcutGuideWindowController.shared
-                .loadItemsForWindow(eventWindow)
-            ShortcutGuideWindowController.shared
-                .toggleForWindow(eventWindow, columnStyle: preferredColumnStyle)
+            let guideCtrl = ShortcutGuideWindowController.shared
+            guideCtrl.loadItemsForWindow(eventWindow)
+            guideCtrl.toggleForWindow(eventWindow, columnStyle: preferredColumnStyle)
             lastCommandPressedAt = 0.0
             return true
         } else {

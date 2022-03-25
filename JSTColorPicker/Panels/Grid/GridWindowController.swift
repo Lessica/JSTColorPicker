@@ -10,7 +10,11 @@ import Cocoa
 
 final class GridWindowController: NSWindowController {
     
-    static let shared = newController()
+    static var sharedLoaded = false
+    static let shared: GridWindowController = {
+        sharedLoaded = true
+        return newController()
+    }()
 
     private static func newController() -> GridWindowController {
         let windowStoryboard = NSStoryboard(name: "Grid", bundle: nil)

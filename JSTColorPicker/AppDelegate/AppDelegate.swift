@@ -525,11 +525,11 @@ by \(template.author ?? "Unknown")
             guard let menuIdentifier = menuItem.identifier else { continue }
             switch menuIdentifier {
                 case .panelBrowser:
-                    menuItem.state = BrowserWindowController.shared.isVisible ? .on : .off
+                    menuItem.state = isBrowserVisible ? .on : .off
                 case .panelColorPanel:
-                    menuItem.state = colorPanel.isVisible ? .on : .off
+                    menuItem.state = isColorPanelVisible ? .on : .off
                 case .panelColorGrid:
-                    menuItem.state = GridWindowController.shared.isVisible ? .on : .off
+                    menuItem.state = isColorGridVisible ? .on : .off
                 default:
                     break
             }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="qYB-o5-LAg">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="qYB-o5-LAg">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,9 +14,10 @@
                     <window key="window" title="Document Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="DocumentBrowser" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="3Wk-ly-nP9" customClass="NSPanel">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" documentModal="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="335" y="461" width="500" height="376"/>
+                        <rect key="contentRect" x="200" y="200" width="500" height="376"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
                         <value key="minSize" type="size" width="250" height="376"/>
+                        <value key="maxSize" type="size" width="500" height="752"/>
                         <view key="contentView" id="aoT-Rc-Hq7">
                             <rect key="frame" x="0.0" y="0.0" width="500" height="376"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -41,7 +42,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" prefersAllColumnUserResizing="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnsAutosaveName="BrowserColumns" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="t6r-VH-7dj">
+                            <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" prefersAllColumnUserResizing="YES" defaultColumnWidth="250" minColumnWidth="240" maxVisibleColumns="2" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnsAutosaveName="BrowserColumns" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="t6r-VH-7dj">
                                 <rect key="frame" x="4" y="0.0" width="496" height="314"/>
                                 <connections>
                                     <outlet property="delegate" destination="Tzi-PL-tLf" id="6UH-ri-fH0"/>

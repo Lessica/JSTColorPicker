@@ -10,7 +10,11 @@ import Cocoa
 
 class BrowserWindowController : NSWindowController, NSWindowDelegate {
     
-    static let shared = newController()
+    static var sharedLoaded = false
+    static let shared: BrowserWindowController = {
+        sharedLoaded = true
+        return newController()
+    }()
 
     private static func newController() -> BrowserWindowController {
         let windowStoryboard = NSStoryboard(name: "Browser", bundle: nil)

@@ -340,7 +340,7 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     }
 
     @IBAction func rename(_ sender: Any?) {
-        if let childNode = browser.clickedRow >= 0 ? selectedChildNodes.first : nil {
+        if let childNode = selectedChildNodes.first {
             let oldName = childNode.url.lastPathComponent
             NSAlert.textField(
                 window: browser.window,

@@ -410,7 +410,7 @@
 "nWV-sO-9ZA.title" = "文本替换";
 
 /* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "Nyn-7c-gnG"; */
-"Nyn-7c-gnG.title" = "在 Finder 中查看";
+"Nyn-7c-gnG.title" = "在 Finder 中显示";
 
 /* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "nzw-tF-Tr9"; */
 "nzw-tF-Tr9.title" = "替换";

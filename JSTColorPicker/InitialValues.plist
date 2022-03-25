@@ -47,7 +47,7 @@
 	<key>defaults:initialSimilarity</key>
 	<real>0.9</real>
 	<key>defaults:makeSoundsAfterDoubleClickCopy</key>
-	<true/>
+	<false/>
 	<key>defaults:maximumItemCount</key>
 	<integer>99</integer>
 	<key>defaults:maximumItemCountEnabled</key>
@@ -107,10 +107,10 @@
 	<key>defaults:usesPredominantAxisScrolling</key>
 	<false/>
 	<key>defaults:disableColorAnnotation</key>
-	<true/>
+	<false/>
 	<key>defaults:disableTagReordering</key>
-	<true/>
+	<false/>
 	<key>defaults:disableTagEditing</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

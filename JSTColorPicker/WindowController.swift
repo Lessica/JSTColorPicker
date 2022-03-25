@@ -887,7 +887,9 @@ extension WindowController: NSWindowDelegate {
     func windowDidBecomeMain(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else { return }
         if window == self.window {
-            GridWindowController.shared.activeWindowController = self
+            if GridWindowController.sharedLoaded {
+                GridWindowController.shared.activeWindowController = self
+            }
             tabDelegate.activeManagedWindow(windowController: self)
         }
     }
@@ -895,7 +897,9 @@ extension WindowController: NSWindowDelegate {
     func windowDidResignKey(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else { return }
         if window == self.window {
-            ShortcutGuideWindowController.shared.hide()
+            if ShortcutGuideWindowController.sharedLoaded {
+                ShortcutGuideWindowController.shared.hide()
+            }
         }
     }
     
@@ -1065,6 +1069,7 @@ extension WindowController: ItemPreviewDelegate {
     }
     
     func sceneRawColorDidChange(_ sender: SceneScrollView?, at coordinate: PixelCoordinate) {
+        guard GridWindowController.sharedLoaded else { return }
         GridWindowController.shared.sceneRawColorDidChange(sender, at: coordinate)
     }
     

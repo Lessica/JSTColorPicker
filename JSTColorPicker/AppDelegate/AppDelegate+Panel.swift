@@ -40,13 +40,18 @@ extension AppDelegate {
     
     // MARK: - Browser Actions
     
-    internal var isBrowserVisible: Bool { BrowserWindowController.shared.isVisible }
+    internal var isBrowserVisible: Bool {
+        guard BrowserWindowController.sharedLoaded else { return false }
+        return BrowserWindowController.shared.isVisible
+    }
     
     internal func toggleBrowserVisibleState(_ visible: Bool, sender: Any?) {
         if visible {
             BrowserWindowController.shared.showWindow(sender)
         } else {
-            BrowserWindowController.shared.close()
+            if BrowserWindowController.sharedLoaded {
+                BrowserWindowController.shared.close()
+            }
         }
         NSApp.invalidateRestorableState()
     }
@@ -66,13 +71,18 @@ extension AppDelegate {
     
     // MARK: - Color Grid Actions
     
-    internal var isColorGridVisible: Bool { GridWindowController.shared.isVisible }
+    internal var isColorGridVisible: Bool {
+        guard GridWindowController.sharedLoaded else { return false }
+        return GridWindowController.shared.isVisible
+    }
     
     internal func toggleColorGridVisibleState(_ visible: Bool, sender: Any?) {
         if visible {
             GridWindowController.shared.showWindow(sender)
         } else {
-            GridWindowController.shared.close()
+            if GridWindowController.sharedLoaded {
+                GridWindowController.shared.close()
+            }
         }
         NSApp.invalidateRestorableState()
     }

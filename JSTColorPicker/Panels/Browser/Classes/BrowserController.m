@@ -43,6 +43,7 @@
     // if you want to change the background color of NSBrowser use this:
     self.browser.titled = YES;
     self.browser.backgroundColor = [NSColor clearColor];
+    self.browser.columnResizingType = NSBrowserAutoColumnResizing;
      
     // Double click support
     self.browser.target = self;
@@ -101,7 +102,7 @@
 }
 
 - (NSViewController *)browser:(NSBrowser *)browser previewViewControllerForLeafItem:(id)item {
-    if (!self.isLeafItemPreviewable) {
+    if (!self.isLeafItemPreviewable || browser.numberOfVisibleColumns <= 1) {
         return nil;
     }
     if (self.sharedPreviewController == nil) {
