@@ -223,21 +223,7 @@
 		CC328C1827ED042900057E12 /* lcerr_url.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF927ED042800057E12 /* lcerr_url.h */; };
 		CC328C1927ED042900057E12 /* lcerr_easy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BFA27ED042800057E12 /* lcerr_easy.h */; };
 		CC328C1A27ED042900057E12 /* lcmime.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BFB27ED042900057E12 /* lcmime.c */; settings = {COMPILER_FLAGS = "-Wno-unused-function -Wno-parentheses"; }; };
-		CC328C2927ED06D500057E12 /* libnghttp2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C2527ED06D500057E12 /* libnghttp2.a */; };
-		CC328C2A27ED06D500057E12 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C2627ED06D500057E12 /* libcurl.a */; };
-		CC328C2B27ED06D500057E12 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C2727ED06D500057E12 /* libcrypto.a */; };
-		CC328C2C27ED06D500057E12 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C2827ED06D500057E12 /* libssl.a */; };
-		CC328C2D27ED06E100057E12 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C1E27ED04F700057E12 /* SystemConfiguration.framework */; };
 		CC328C2F27ED072600057E12 /* libz.1.2.11.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C2E27ED071D00057E12 /* libz.1.2.11.tbd */; };
-		CC328C3127ED075E00057E12 /* LDAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3027ED075E00057E12 /* LDAP.framework */; };
-		CC328C3327ED083D00057E12 /* libbrotlidec-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3227ED083D00057E12 /* libbrotlidec-static.a */; };
-		CC328C3527ED087C00057E12 /* libbrotlicommon-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3427ED087C00057E12 /* libbrotlicommon-static.a */; };
-		CC328C3727ED08D700057E12 /* libidn2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3627ED08D700057E12 /* libidn2.a */; };
-		CC328C3A27ED098500057E12 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3927ED098500057E12 /* libintl.a */; };
-		CC328C3C27ED09EB00057E12 /* libunistring.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3B27ED09EB00057E12 /* libunistring.a */; };
-		CC328C3E27ED0A0300057E12 /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3D27ED09F900057E12 /* libiconv.2.tbd */; };
-		CC328C4027ED0A4D00057E12 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C3F27ED0A4D00057E12 /* libzstd.a */; };
-		CC328C4227ED0AA000057E12 /* librtmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C4127ED0AA000057E12 /* librtmp.a */; };
 		CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1CF2615CC3E00F5F6AA /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */; };
 		CC32E1D72615D25700F5F6AA /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E1DA2615D25700F5F6AA /* Info.storyboard */; };
@@ -320,7 +306,6 @@
 		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC7D6763266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC7D6764266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
-		CC83770126304DF400B2C984 /* libreadline.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8376F126304DBD00B2C984 /* libreadline.tbd */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
 		CC84219E26160CD200F1C007 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84219D26160CD200F1C007 /* Security.framework */; };
@@ -395,8 +380,6 @@
 		CCC0DC182601F0C100019146 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC162601F0C100019146 /* ContentScrollView.swift */; };
 		CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
 		CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0DC202601F0F200019146 /* ContentClipView.swift */; };
-		CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
-		CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525A4262EB71F00D408B0 /* SyntaxKit */; };
 		CCC525AE262EB72800D408B0 /* SyntaxKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC525AD262EB72800D408B0 /* SyntaxKit */; };
 		CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CCC525B6262EB9E000D408B0 /* TemplatePreview.bundle */; };
@@ -423,6 +406,11 @@
 		CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
+		CCDD37E027EDE65F00AA4FC3 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */; };
+		CCDD37E227EDE66F00AA4FC3 /* libnghttp2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */; };
+		CCDD37E327EDE68E00AA4FC3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C1E27ED04F700057E12 /* SystemConfiguration.framework */; };
+		CCDD37E427EDE88200AA4FC3 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
+		CCDD37E527EDE88300AA4FC3 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
@@ -1405,20 +1393,9 @@
 		CC328C1E27ED04F700057E12 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CC328C2027ED061F00057E12 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		CC328C2227ED064F00057E12 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = usr/lib/libboringssl.tbd; sourceTree = SDKROOT; };
-		CC328C2527ED06D500057E12 /* libnghttp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnghttp2.a; sourceTree = "<group>"; };
-		CC328C2627ED06D500057E12 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
-		CC328C2727ED06D500057E12 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		CC328C2827ED06D500057E12 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CC328C2E27ED071D00057E12 /* libz.1.2.11.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.11.tbd; path = usr/lib/libz.1.2.11.tbd; sourceTree = SDKROOT; };
 		CC328C3027ED075E00057E12 /* LDAP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LDAP.framework; path = System/Library/Frameworks/LDAP.framework; sourceTree = SDKROOT; };
-		CC328C3227ED083D00057E12 /* libbrotlidec-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbrotlidec-static.a"; sourceTree = "<group>"; };
-		CC328C3427ED087C00057E12 /* libbrotlicommon-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbrotlicommon-static.a"; sourceTree = "<group>"; };
-		CC328C3627ED08D700057E12 /* libidn2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libidn2.a; sourceTree = "<group>"; };
-		CC328C3927ED098500057E12 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
-		CC328C3B27ED09EB00057E12 /* libunistring.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libunistring.a; sourceTree = "<group>"; };
 		CC328C3D27ED09F900057E12 /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
-		CC328C3F27ED0A4D00057E12 /* libzstd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzstd.a; sourceTree = "<group>"; };
-		CC328C4127ED0AA000057E12 /* librtmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = librtmp.a; sourceTree = "<group>"; };
 		CC32E1CD2615CC3E00F5F6AA /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		CC32E1D92615D25700F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Info.storyboard; sourceTree = "<group>"; };
 		CC32E1E32615D25900F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Info.strings; sourceTree = "<group>"; };
@@ -1556,6 +1533,8 @@
 		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
 		CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesController.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
+		CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
+		CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnghttp2.a; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
 		CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -1952,22 +1931,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC328C3327ED083D00057E12 /* libbrotlidec-static.a in Frameworks */,
-				CC328C2C27ED06D500057E12 /* libssl.a in Frameworks */,
-				CC328C4227ED0AA000057E12 /* librtmp.a in Frameworks */,
-				CC83770126304DF400B2C984 /* libreadline.tbd in Frameworks */,
+				CCDD37E327EDE68E00AA4FC3 /* SystemConfiguration.framework in Frameworks */,
+				CCDD37E227EDE66F00AA4FC3 /* libnghttp2.a in Frameworks */,
 				CC328C2F27ED072600057E12 /* libz.1.2.11.tbd in Frameworks */,
-				CC328C3127ED075E00057E12 /* LDAP.framework in Frameworks */,
-				CC328C2927ED06D500057E12 /* libnghttp2.a in Frameworks */,
-				CC328C2B27ED06D500057E12 /* libcrypto.a in Frameworks */,
-				CC328C2D27ED06E100057E12 /* SystemConfiguration.framework in Frameworks */,
-				CC328C3727ED08D700057E12 /* libidn2.a in Frameworks */,
-				CC328C3527ED087C00057E12 /* libbrotlicommon-static.a in Frameworks */,
-				CC328C3E27ED0A0300057E12 /* libiconv.2.tbd in Frameworks */,
-				CC328C4027ED0A4D00057E12 /* libzstd.a in Frameworks */,
-				CC328C3C27ED09EB00057E12 /* libunistring.a in Frameworks */,
-				CC328C2A27ED06D500057E12 /* libcurl.a in Frameworks */,
-				CC328C3A27ED098500057E12 /* libintl.a in Frameworks */,
+				CCDD37E027EDE65F00AA4FC3 /* libcurl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2341,17 +2308,8 @@
 		CC328BC427ECFCBF00057E12 /* prebuilt */ = {
 			isa = PBXGroup;
 			children = (
-				CC328C2727ED06D500057E12 /* libcrypto.a */,
-				CC328C2627ED06D500057E12 /* libcurl.a */,
-				CC328C2527ED06D500057E12 /* libnghttp2.a */,
-				CC328C2827ED06D500057E12 /* libssl.a */,
-				CC328C3227ED083D00057E12 /* libbrotlidec-static.a */,
-				CC328C3427ED087C00057E12 /* libbrotlicommon-static.a */,
-				CC328C3627ED08D700057E12 /* libidn2.a */,
-				CC328C3927ED098500057E12 /* libintl.a */,
-				CC328C3B27ED09EB00057E12 /* libunistring.a */,
-				CC328C3F27ED0A4D00057E12 /* libzstd.a */,
-				CC328C4127ED0AA000057E12 /* librtmp.a */,
+				CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */,
+				CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */,
 			);
 			path = prebuilt;
 			sourceTree = "<group>";
@@ -4426,7 +4384,6 @@
 				CC2E3F562648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
-				CCC0F88F263001D5006C4492 /* Down+Ext.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				CCFD19C427EAD5C2005DF0A6 /* EditArrayController.swift in Sources */,
 				D610479C24224A170002E990 /* SceneOverlayView.swift in Sources */,
@@ -4505,6 +4462,7 @@
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
+				CCDD37E427EDE88200AA4FC3 /* Down+Ext.swift in Sources */,
 				CC23632A264AE7AB005E909A /* KeyBindingsController.swift in Sources */,
 				CC96F94026727E2000CB55E9 /* PairedDevice.swift in Sources */,
 				18B22FF724801979003F70BA /* TagListTableView.swift in Sources */,
@@ -4796,7 +4754,6 @@
 				CCE34018263272590082F73D /* ColoredView.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				CC34771F266F4F2500391E73 /* AppDelegate+Compare.swift in Sources */,
-				CCC0F890263001D5006C4492 /* Down+Ext.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9F261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
 				CC300F4B26285E27002FD866 /* TemplateCellView.swift in Sources */,
@@ -4851,6 +4808,7 @@
 				CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				D61336BF24A9E3D5006263E5 /* TagListSelectDelegate.swift in Sources */,
 				CCE01C99264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
+				CCDD37E527EDE88300AA4FC3 /* Down+Ext.swift in Sources */,
 				CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				CC04276F275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
