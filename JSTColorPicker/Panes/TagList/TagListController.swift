@@ -234,7 +234,7 @@ final class TagListController: StackedPaneController {
     
     @objc private func tagPersistentStoreRequiresReload(_ noti: Notification) {
         if let userInfo = noti.userInfo, let schemaURL = userInfo["url"] as? URL {
-            setupPersistentStore(byIgnoringError: true, withCustomSchemaURL: schemaURL)
+            setupPersistentStore(byIgnoringError: false, withCustomSchemaURL: schemaURL)
         } else {
             setupPersistentStore(byIgnoringError: true)
         }
@@ -357,8 +357,8 @@ final class TagListController: StackedPaneController {
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
                 if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
                 {
-                    let schemaData = try! Data(contentsOf: schemaURL)
-                    let tags = try! decoder.decode([Tag].self, from: schemaData)
+                    let schemaData = try Data(contentsOf: schemaURL)
+                    let tags = try decoder.decode([Tag].self, from: schemaData)
                     return tags
                 }
                 return []
@@ -420,7 +420,7 @@ final class TagListController: StackedPaneController {
         try itemsToRemove.forEach({ try FileManager.default.removeItem(at: $0) })
     }
     
-    class func setupPersistentStore(withTagInitializer tagInitializer: @escaping (_ context: NSManagedObjectContext) -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
+    class func setupPersistentStore(withTagInitializer tagInitializer: @escaping (_ context: NSManagedObjectContext) throws -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
     {
         guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
             fatalError("error loading model from bundle")
@@ -457,7 +457,7 @@ final class TagListController: StackedPaneController {
                         options: nil
                     )
                     
-                    tagInitializer(context).forEach { (tag) in
+                    try tagInitializer(context).forEach { (tag) in
                         debugPrint(tag)
                     }
                     
