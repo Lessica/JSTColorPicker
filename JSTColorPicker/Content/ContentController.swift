@@ -942,7 +942,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
                     || menuItem.action == #selector(removeTag(_:))
         {  // contents writeable
             if menuItem.action == #selector(createCoordinate(_:)) {
-                return !UserDefaults.standard[.disableColorAnnotation]
+                return documentState.isWritable && !UserDefaults.standard[.disableColorAnnotation]
             }
             return documentState.isWritable
         }
