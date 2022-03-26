@@ -78,14 +78,14 @@
 
 - (NSImage *)icon {
     if (!_icon) {
-        _icon = [self previewImageWithSize:CGSizeMake(64, 64) isIcon:YES];
+        _icon = [self previewImageWithSize:CGSizeMake(32, 32) isIcon:YES];
     }
     return _icon;
 }
 
 - (NSImage *)previewImage {
     if (!_previewImage) {
-        _previewImage = [self previewImageWithSize:CGSizeMake(768, 768) isIcon:NO];
+        _previewImage = [self previewImageWithSize:CGSizeMake(384, 384) isIcon:NO];
     }
     return _previewImage;
 }
@@ -93,6 +93,7 @@
 - (NSImage *)previewImageWithSize:(CGSize)size isIcon:(BOOL)icon {
     NSDictionary *opts = @{
         (__bridge NSString *)kQLThumbnailOptionIconModeKey: @(icon),
+        (__bridge NSString *)kQLThumbnailOptionScaleFactorKey: @([[NSScreen mainScreen] backingScaleFactor]),
     };
 
     NSImage *image = nil;

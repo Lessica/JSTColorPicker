@@ -2146,6 +2146,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CC1B4C0E27EEFB270087974F /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
 		CC2318D025A4BA8400331BF6 /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2261,6 +2268,7 @@
 		CC23633C264AEB59005E909A /* Panels */ = {
 			isa = PBXGroup;
 			children = (
+				CC1B4C0E27EEFB270087974F /* Metadata */,
 				CC04275F275E00D1008DD0C5 /* Browser */,
 				D6E1669B248A0B4200D8D1C5 /* Edit */,
 				D684842023D40C9300BC5E34 /* Grid */,
