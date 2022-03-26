@@ -390,7 +390,14 @@ class WindowController: NSWindowController {
     }
     
     @IBAction private func viewMetadata(_ sender: Any?) {
+        let panel = MetadataWindow.newMetadataPanel()
+        panel.loader = self
         
+        window?.beginSheet(panel) { (resp) in
+            if resp == .cancel {
+                // do nothing
+            }
+        }
     }
     
 }

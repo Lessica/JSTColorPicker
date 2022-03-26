@@ -96,9 +96,21 @@ final class Screenshot: NSDocument {
     
     // MARK: - Attributes
     
-    public fileprivate(set) var image    : PixelImage?
-    public fileprivate(set) var metadata : [AnyHashable: Any]?
-    public fileprivate(set) var content  : Content?
+    public fileprivate(set) var image            : PixelImage?
+    public fileprivate(set) var metadata         : [AnyHashable: Any]?
+    public fileprivate(set) var content          : Content?
+    private var decodedMetadata                  : [AnyHashable: Any]?
+    public lazy var viewableMetadata             : [AnyHashable: Any]? = {
+        guard var DecodedMetadata = decodedMetadata else { return nil }
+        guard var EXIFDictionary = (DecodedMetadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return nil }
+        guard let UserCommentData = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? Data else { return nil }
+        guard let UnarchivedContent = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(UserCommentData) as? Content else { return nil }
+        guard let EncodedContentData = try? PropertyListEncoder().encode(UnarchivedContent) else { return nil }
+        guard let DecodedContentObject = try? PropertyListSerialization.propertyList(from: EncodedContentData, options: [], format: nil) else { return nil }
+        EXIFDictionary[(kCGImagePropertyExifUserComment as String)] = DecodedContentObject as? [AnyHashable: Any]
+        DecodedMetadata[(kCGImagePropertyExifDictionary as String)] = EXIFDictionary
+        return DecodedMetadata
+    }()
     
     public var state         : State
     {
@@ -124,15 +136,20 @@ final class Screenshot: NSDocument {
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [AnyHashable: Any] else {
             throw Error.invalidImageProperties
         }
+        
+        var viewableMetadata = metadata
         self.metadata = metadata
 
-        guard let EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
+        guard var EXIFDictionary = (metadata[(kCGImagePropertyExifDictionary as String)]) as? [AnyHashable: Any] else { return }
         guard let archivedContentBase64EncodedString = EXIFDictionary[(kCGImagePropertyExifUserComment as String)] as? String else { return }
-        if let archivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
-            guard let archivedContent = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archivedContentData) as? Content else {
+        if let unarchivedContentData = Data(base64Encoded: archivedContentBase64EncodedString) {
+            EXIFDictionary[(kCGImagePropertyExifUserComment as String)] = unarchivedContentData
+            guard let archivedContent = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedContentData) as? Content else {
                 throw Error.cannotDeserializeContent
             }
+            viewableMetadata[(kCGImagePropertyExifDictionary as String)] = EXIFDictionary
             self.content = archivedContent
+            self.decodedMetadata = viewableMetadata
         }
     }
     

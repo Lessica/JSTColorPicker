@@ -41,7 +41,7 @@
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="ey7-Qy-9YF">
                         <rect key="frame" x="0.0" y="0.0" width="452" height="325"/>
                         <subviews>
-                            <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXg-Lq-Xvm">
+                            <stackView distribution="fill" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXg-Lq-Xvm">
                                 <rect key="frame" x="20" y="20" width="412" height="285"/>
                                 <subviews>
                                     <box title="Edit Associated Values" translatesAutoresizingMaskIntoConstraints="NO" id="qA2-aD-5uF">

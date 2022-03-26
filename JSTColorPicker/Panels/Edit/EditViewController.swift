@@ -9,19 +9,21 @@
 import Cocoa
 
 class EditViewController: NSViewController {
-    var isAdd: Bool { (view.window as? EditWindow)?.isAdd ?? true }
+    
+    var editWindow: EditWindow? { view.window as? EditWindow }
+    var isAdd: Bool { editWindow?.isAdd ?? true }
 
-    var image: PixelImage? { (view.window as? EditWindow)?.loader?.screenshot?.image }
+    var image: PixelImage? { editWindow?.loader?.screenshot?.image }
     var contentItem: ContentItem? {
-        get { (view.window as? EditWindow)?.contentItem }
-        set { (view.window as? EditWindow)?.contentItem = newValue }
+        get { editWindow?.contentItem }
+        set { editWindow?.contentItem = newValue }
     }
 
-    var contentItems: [ContentItem]? { (view.window as? EditWindow)?.contentItems }
+    var contentItems: [ContentItem]? { editWindow?.contentItems }
 
-    var contentItemSource: ContentItemSource? { (view.window as? EditWindow)?.contentItemSource }
-    var contentDelegate: ContentActionResponder? { (view.window as? EditWindow)?.contentDelegate }
-    var tagManager: TagListSource? { (view.window as? EditWindow)?.tagManager }
+    var contentItemSource: ContentItemSource? { editWindow?.contentItemSource }
+    var contentDelegate: ContentActionResponder? { editWindow?.contentDelegate }
+    var tagManager: TagListSource? { editWindow?.tagManager }
 
     var undoToken: NotificationToken?
     var redoToken: NotificationToken?

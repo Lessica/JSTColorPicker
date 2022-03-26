@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="8pm-lE-lnA">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="DzT-Sr-Fdw">
+            <objects>
+                <windowController id="8pm-lE-lnA" customClass="MetadataWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="LKh-AY-lyg" customClass="MetadataWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="255" y="326" width="446" height="325"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
+                        <view key="contentView" id="K7f-0V-WPb">
+                            <rect key="frame" x="0.0" y="0.0" width="446" height="325"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="8pm-lE-lnA" id="pu7-eA-grK"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="hSA-WW-qOd" kind="relationship" relationship="window.shadowedContentViewController" id="dqG-Ml-dHk"/>
+                    </connections>
+                </windowController>
+                <customObject id="nfA-ey-Pkd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-88" y="198"/>
+        </scene>
+        <!--Metadata View Controller-->
+        <scene sceneID="g1R-y0-voD">
+            <objects>
+                <viewController id="hSA-WW-qOd" customClass="MetadataViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Dqa-ln-tEM">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="425"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aM5-2Q-wJa">
+                                <rect key="frame" x="20" y="20" width="440" height="385"/>
+                                <subviews>
+                                    <box title="Metadata" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-Sw-JBg">
+                                        <rect key="frame" x="-3" y="24" width="446" height="361"/>
+                                        <view key="contentView" id="p52-io-Xvd">
+                                            <rect key="frame" x="3" y="3" width="440" height="343"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="wID-oF-Ub3" customClass="MetadataEditor" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="20" width="400" height="303"/>
+                                                </customView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="wID-oF-Ub3" secondAttribute="bottom" constant="20" symbolic="YES" id="aJC-tg-DYp"/>
+                                                <constraint firstItem="wID-oF-Ub3" firstAttribute="top" secondItem="p52-io-Xvd" secondAttribute="top" constant="20" symbolic="YES" id="qiu-XO-Cey"/>
+                                                <constraint firstAttribute="trailing" secondItem="wID-oF-Ub3" secondAttribute="trailing" constant="20" symbolic="YES" id="rZQ-dB-2ai"/>
+                                                <constraint firstItem="wID-oF-Ub3" firstAttribute="leading" secondItem="p52-io-Xvd" secondAttribute="leading" constant="20" symbolic="YES" id="sDB-X9-MFk"/>
+                                            </constraints>
+                                        </view>
+                                    </box>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ga5-fu-6rB">
+                                        <rect key="frame" x="364" y="0.0" width="76" height="20"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yaw-MO-dYc">
+                                                <rect key="frame" x="-7" y="-7" width="90" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="76" id="Ext-Wa-xwK"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="juC-OT-ceO">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="closeAction:" target="hSA-WW-qOd" id="JeF-ln-5PI"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="1Ee-MU-SnQ"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Omr-Sw-JBg" firstAttribute="width" secondItem="aM5-2Q-wJa" secondAttribute="width" id="NZ6-7I-Xjw"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aM5-2Q-wJa" secondAttribute="trailing" constant="20" symbolic="YES" id="3Sb-cf-rvq"/>
+                            <constraint firstItem="aM5-2Q-wJa" firstAttribute="leading" secondItem="Dqa-ln-tEM" secondAttribute="leading" constant="20" symbolic="YES" id="QOY-UL-5wV"/>
+                            <constraint firstItem="aM5-2Q-wJa" firstAttribute="top" secondItem="Dqa-ln-tEM" secondAttribute="top" constant="20" symbolic="YES" id="Yg4-D5-2bf"/>
+                            <constraint firstAttribute="bottom" secondItem="aM5-2Q-wJa" secondAttribute="bottom" constant="20" symbolic="YES" id="jG1-vL-bhA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="editor" destination="wID-oF-Ub3" id="Uok-2d-bMY"/>
+                    </connections>
+                </viewController>
+                <customObject id="DoY-p7-tee" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="198"/>
+        </scene>
+    </scenes>
+</document>

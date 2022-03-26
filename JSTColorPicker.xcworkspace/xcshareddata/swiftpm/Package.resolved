@@ -41,9 +41,9 @@
         "package": "LNPropertyListEditor",
         "repositoryURL": "git@github.com:Lessica/LNPropertyListEditor.git",
         "state": {
-          "branch": null,
-          "revision": "c28f6d34497f261c3e5f3701ef4f062715a8b1c1",
-          "version": "2.1.0"
+          "branch": "style-disabled-as-enabled",
+          "revision": "a68e3d17b8c81bf8d15abbf2235deb6d68c3ce25",
+          "version": null
         }
       },
       {
