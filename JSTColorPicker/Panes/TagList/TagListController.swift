@@ -355,7 +355,7 @@ final class TagListController: StackedPaneController {
             TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
-                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
+                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-UI", withExtension: "plist")
                 {
                     let schemaData = try Data(contentsOf: schemaURL)
                     let tags = try decoder.decode([Tag].self, from: schemaData)

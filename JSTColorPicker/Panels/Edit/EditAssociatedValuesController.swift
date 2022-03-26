@@ -68,55 +68,69 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
 
     private func populateInitialTable() -> [String: String] {
         var initial = [String: String]()
-        if let contentItem = contentItem,
-           let tagManager = tagManager,
-           let tagString = contentItem.firstTag,
-           let tag = tagManager.managedTag(of: tagString),
-           let tagFields = tag.fields.array as? [Field]
-        {
-            var keyPaths: [AssociatedKeyPath] = tagFields.map { tagField in
-                var contentValue: Any?
-                let tagName = tagField.name
-                let tagHelpText = tagField.helpText
-                let valueType = tagField.stringValueType ?? .String
-                switch valueType {
-                case .Boolean:
-                    contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Bool.self) ?? tagField.toDefaultValue(ofType: Bool.self)
-                case .Integer:
-                    contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Int.self) ?? tagField.toDefaultValue(ofType: Int.self)
-                case .Decimal:
-                    contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Double.self) ?? tagField.toDefaultValue(ofType: Double.self)
-                case .String:
-                    contentValue = contentItem.userInfoValue(forKey: tagName, ofType: String.self) ?? tagField.toDefaultValue(ofType: String.self)
-                default:
-                    break
+        if let contentItem = contentItem {
+            if let tagManager = tagManager,
+               let tagString = contentItem.firstTag,
+               let tag = tagManager.managedTag(of: tagString),
+               let tagFields = tag.fields.array as? [Field]
+            {
+                var keyPaths: [AssociatedKeyPath] = tagFields.map { tagField in
+                    var contentValue: Any?
+                    let tagName = tagField.name
+                    let tagHelpText = tagField.helpText
+                    let valueType = tagField.stringValueType ?? .String
+                    switch valueType {
+                    case .Boolean:
+                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Bool.self) ?? tagField.toDefaultValue(ofType: Bool.self)
+                    case .Integer:
+                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Int.self) ?? tagField.toDefaultValue(ofType: Int.self)
+                    case .Decimal:
+                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Double.self) ?? tagField.toDefaultValue(ofType: Double.self)
+                    case .String:
+                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: String.self) ?? tagField.toDefaultValue(ofType: String.self)
+                    default:
+                        break
+                    }
+                    let enumValueType = AssociatedKeyPath.ValueType(string: valueType)
+                    let tagOptions = tagField.options.array.compactMap({ $0 as? FieldOption }).map({ $0.name })
+                    let keyPath = AssociatedKeyPath(
+                        name: tagName,
+                        type: enumValueType,
+                        value: contentValue,
+                        options: tagOptions,
+                        helpText: tagHelpText
+                    )
+                    return keyPath
                 }
-                let enumValueType = AssociatedKeyPath.ValueType(string: valueType)
-                let tagOptions = tagField.options.array.compactMap({ $0 as? FieldOption }).map({ $0.name })
-                let keyPath = AssociatedKeyPath(
-                    name: tagName,
-                    type: enumValueType,
-                    value: contentValue,
-                    options: tagOptions,
-                    helpText: tagHelpText
-                )
-                return keyPath
-            }
-            
-            let keyPathNames = keyPaths.map({ $0.name })
-            if let userInfo = contentItem.userInfo {
-                initial.merge(userInfo) { _, new in new }
-                keyPaths += userInfo
-                    .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value) })
-                    .filter({ !keyPathNames.contains($0.name) })
-            }
 
-            shouldSkipContentArrayEvents = true
-            arrayController.contentUpdateType = .direct
-            arrayController.content = NSMutableArray(array: keyPaths)
-            keyPaths.forEach({ $0.resetDynamicVariables() })
-            initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
-            shouldSkipContentArrayEvents = false
+                let keyPathNames = keyPaths.map({ $0.name })
+                if let userInfo = contentItem.userInfo {
+                    initial.merge(userInfo) { _, new in new }
+                    keyPaths += userInfo
+                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value) })
+                        .filter({ !keyPathNames.contains($0.name) })
+                }
+
+                shouldSkipContentArrayEvents = true
+                arrayController.contentUpdateType = .direct
+                arrayController.content = NSMutableArray(array: keyPaths)
+                keyPaths.forEach({ $0.resetDynamicVariables() })
+                initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
+                shouldSkipContentArrayEvents = false
+            } else {
+                var keyPaths = [AssociatedKeyPath]()
+                if let userInfo = contentItem.userInfo {
+                    initial.merge(userInfo) { _, new in new }
+                    keyPaths += userInfo
+                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value) })
+                }
+                shouldSkipContentArrayEvents = true
+                arrayController.contentUpdateType = .direct
+                arrayController.content = NSMutableArray(array: keyPaths)
+                keyPaths.forEach({ $0.resetDynamicVariables() })
+                initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
+                shouldSkipContentArrayEvents = false
+            }
         }
         return initial
     }
