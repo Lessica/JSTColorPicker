@@ -68,9 +68,12 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="76" id="Ext-Wa-xwK"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="juC-OT-ceO">
+                                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="juC-OT-ceO">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="closeAction:" target="hSA-WW-qOd" id="JeF-ln-5PI"/>

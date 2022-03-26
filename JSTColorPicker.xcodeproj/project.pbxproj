@@ -147,8 +147,6 @@
 		CC1B01532636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
 		CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
 		CC1B015D26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
-		CC1B4C1027EF04E60087974F /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1B4C0F27EF04E60087974F /* Metadata.storyboard */; };
-		CC1B4C1127EF04E60087974F /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1B4C0F27EF04E60087974F /* Metadata.storyboard */; };
 		CC1B4C1327EF0BA30087974F /* LNPropertyListEditor in Frameworks */ = {isa = PBXBuildFile; productRef = CC1B4C1227EF0BA30087974F /* LNPropertyListEditor */; };
 		CC1B4C1427EF0BA30087974F /* LNPropertyListEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CC1B4C1227EF0BA30087974F /* LNPropertyListEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC1B4C1627EF0BAE0087974F /* LNPropertyListEditor in Frameworks */ = {isa = PBXBuildFile; productRef = CC1B4C1527EF0BAE0087974F /* LNPropertyListEditor */; };
@@ -161,6 +159,8 @@
 		CC1B4C2027EF0C4A0087974F /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B4C1E27EF0C4A0087974F /* MetadataViewController.swift */; };
 		CC1B4C2327EF0CA90087974F /* MetadataWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B4C2227EF0CA90087974F /* MetadataWindow.swift */; };
 		CC1B4C2427EF0CA90087974F /* MetadataWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B4C2227EF0CA90087974F /* MetadataWindow.swift */; };
+		CC1B4C2B27EF25CB0087974F /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1B4C2E27EF25CB0087974F /* Metadata.storyboard */; };
+		CC1B4C2C27EF25CB0087974F /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1B4C2E27EF25CB0087974F /* Metadata.storyboard */; };
 		CC236307264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236306264A3B19005E909A /* AnnotatorActionResponder.swift */; };
 		CC236308264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC236306264A3B19005E909A /* AnnotatorActionResponder.swift */; };
 		CC23630B264A77CC005E909A /* CustomResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23630A264A77CC005E909A /* CustomResponder.swift */; };
@@ -1341,11 +1341,13 @@
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC1B01512636F896002EECF5 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxHeaderCell.swift; sourceTree = "<group>"; };
-		CC1B4C0F27EF04E60087974F /* Metadata.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Metadata.storyboard; sourceTree = "<group>"; };
 		CC1B4C1827EF0C300087974F /* MetadataEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataEditor.swift; sourceTree = "<group>"; };
 		CC1B4C1B27EF0C3E0087974F /* MetadataWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataWindowController.swift; sourceTree = "<group>"; };
 		CC1B4C1E27EF0C4A0087974F /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
 		CC1B4C2227EF0CA90087974F /* MetadataWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataWindow.swift; sourceTree = "<group>"; };
+		CC1B4C2D27EF25CB0087974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Metadata.storyboard; sourceTree = "<group>"; };
+		CC1B4C3027EF25CD0087974F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Metadata.strings; sourceTree = "<group>"; };
+		CC1B4C3227EF25CF0087974F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Metadata.strings"; sourceTree = "<group>"; };
 		CC2318AB25A479A500331BF6 /* relaunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = relaunch.entitlements; sourceTree = "<group>"; };
 		CC2318BA25A4BA5A00331BF6 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		CC236306264A3B19005E909A /* AnnotatorActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatorActionResponder.swift; sourceTree = "<group>"; };
@@ -2169,7 +2171,7 @@
 			isa = PBXGroup;
 			children = (
 				CC1B4C2127EF0C990087974F /* Views */,
-				CC1B4C0F27EF04E60087974F /* Metadata.storyboard */,
+				CC1B4C2E27EF25CB0087974F /* Metadata.storyboard */,
 				CC1B4C1B27EF0C3E0087974F /* MetadataWindowController.swift */,
 				CC1B4C1E27EF0C4A0087974F /* MetadataViewController.swift */,
 				CC1B4C1827EF0C300087974F /* MetadataEditor.swift */,
@@ -4063,7 +4065,7 @@
 				D61047D124224A170002E990 /* Assets.xcassets in Resources */,
 				CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */,
 				CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */,
-				CC1B4C1027EF04E60087974F /* Metadata.storyboard in Resources */,
+				CC1B4C2B27EF25CB0087974F /* Metadata.storyboard in Resources */,
 				CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
@@ -4163,7 +4165,7 @@
 				CCC525B8262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
-				CC1B4C1127EF04E60087974F /* Metadata.storyboard in Resources */,
+				CC1B4C2C27EF25CB0087974F /* Metadata.storyboard in Resources */,
 				CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5089,6 +5091,16 @@
 				1842C47E247988F0008ECD6F /* zh-Hans */,
 			);
 			name = TagList.storyboard;
+			sourceTree = "<group>";
+		};
+		CC1B4C2E27EF25CB0087974F /* Metadata.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC1B4C2D27EF25CB0087974F /* Base */,
+				CC1B4C3027EF25CD0087974F /* en */,
+				CC1B4C3227EF25CF0087974F /* zh-Hans */,
+			);
+			name = Metadata.storyboard;
 			sourceTree = "<group>";
 		};
 		CC236346264BC5CD005E909A /* KeyBindings.xib */ = {
