@@ -1,5 +1,5 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "juC-OT-ceO"; */
 "juC-OT-ceO.title" = "取消";
 
-/* Class = "NSBox"; title = "Metadata"; ObjectID = "Omr-Sw-JBg"; */
-"Omr-Sw-JBg.title" = "元信息";
+/* Class = "NSBox"; title = "View Metadata"; ObjectID = "Omr-Sw-JBg"; */
+"Omr-Sw-JBg.title" = "查看元信息";

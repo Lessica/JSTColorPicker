@@ -42,7 +42,7 @@
                             <stackView distribution="fill" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aM5-2Q-wJa">
                                 <rect key="frame" x="20" y="20" width="440" height="385"/>
                                 <subviews>
-                                    <box title="Metadata" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-Sw-JBg">
+                                    <box title="View Metadata" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-Sw-JBg">
                                         <rect key="frame" x="-3" y="24" width="446" height="361"/>
                                         <view key="contentView" id="p52-io-Xvd">
                                             <rect key="frame" x="3" y="3" width="440" height="343"/>
