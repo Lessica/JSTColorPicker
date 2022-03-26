@@ -13,6 +13,8 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
     @IBOutlet var box: NSBox!
     @IBOutlet var tableView: EditAssociatedValuesTableView!
     @IBOutlet var arrayController: EditArrayController!
+    private var arrangedAssociatedKeyPaths: [AssociatedKeyPath]
+    { arrayController.arrangedObjects as? [AssociatedKeyPath] ?? [] }
 
     @IBOutlet var cancelBtn: NSButton!
     @IBOutlet var okBtn: NSButton!
@@ -154,6 +156,14 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
             undoManager?.setActionName(NSLocalizedString("Edit Associated Values", comment: "contentArrayDidUpdate(_:)"))
         }
         updateOKButtonState()
+    }
+    
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        guard let tableColumn = tableColumn, row < arrangedAssociatedKeyPaths.count else { return nil }
+        if tableColumn == columnKeyPathName {
+            return arrangedAssociatedKeyPaths[row].name
+        }
+        return nil
     }
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
