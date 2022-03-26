@@ -849,6 +849,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
 
             if menuItem.action == #selector(tags(_:))
                 || menuItem.action == #selector(delete(_:))
+                || menuItem.action == #selector(duplicate(_:))
             {
                 guard documentState.isWritable else { return false }
             }
