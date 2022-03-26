@@ -8,13 +8,14 @@
 
 import Cocoa
 
-final class EditAssociatedValuesController: EditViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation, EditArrayControllerDelegate
+final class EditAssociatedValuesController: EditViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation, EditArrayControllerDelegate, NSMenuDelegate
 {
     @IBOutlet var box: NSBox!
     @IBOutlet var tableView: EditAssociatedValuesTableView!
     @IBOutlet var arrayController: EditArrayController!
     private var arrangedAssociatedKeyPaths: [AssociatedKeyPath]
     { arrayController.arrangedObjects as? [AssociatedKeyPath] ?? [] }
+    private var isEditable: Bool { loader?.screenshot?.state.isWritable ?? arrayController.isEditable }
 
     @IBOutlet var cancelBtn: NSButton!
     @IBOutlet var okBtn: NSButton!
@@ -56,6 +57,8 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 debugPrint(noti)
             }
         }
+        
+        updateArrayControllerEditableState()
     }
 
     override func viewWillAppear() {
@@ -64,6 +67,13 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         undoManager?.disableUndoRegistration()
         initialUserInfo.merge(populateInitialTable()) { _, new in new }
         undoManager?.enableUndoRegistration()
+        
+        updateArrayControllerEditableState()
+    }
+    
+    private func updateArrayControllerEditableState() {
+        arrayController.isEditable = isEditable
+        box.title = isEditable ? NSLocalizedString("Edit Associated Values", comment: "updateArrayControllerEditableState()") : NSLocalizedString("View Associated Values", comment: "updateArrayControllerEditableState()")
     }
 
     private func populateInitialTable() -> [String: String] {
@@ -179,12 +189,33 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         }
         return nil
     }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let tableColumn = tableColumn else {
+            return nil
+        }
+        guard let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: tableView.delegate) as? EditAssociatedValuesTableViewCell else {
+            return nil
+        }
+        cell.isEditable = isEditable
+        return cell
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
+        return isEditable
+    }
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem.action == #selector(delete(_:)) {
-            return arrayController.isEditable && arrayController.selectionIndexes.count > 0
+            return isEditable && arrayController.selectionIndexes.count > 0
         }
         return false
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        menu.items.forEach({
+            $0.isEnabled = $0.state == .on || isEditable
+        })
     }
 
     @IBAction func delete(_ sender: Any) {
@@ -212,7 +243,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
     }
 
     private func updateOKButtonState() {
-        isOKButtonEnabled = initialUserInfo != userInfo
+        isOKButtonEnabled = isEditable && initialUserInfo != userInfo
     }
 
     private var isOKButtonEnabled: Bool {

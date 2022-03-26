@@ -75,7 +75,7 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                         <prototypeCellViews>
-                                                                            <tableCellView id="zHu-If-SNN">
+                                                                            <tableCellView id="zHu-If-SNN" customClass="EditAssociatedValuesTableViewCell" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                 <rect key="frame" x="4" y="1" width="102" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
@@ -87,6 +87,7 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="6CR-N6-Reg"/>
                                                                                             <binding destination="zHu-If-SNN" name="toolTip" keyPath="objectValue.helpText" id="QhX-zF-eiv"/>
                                                                                             <binding destination="zHu-If-SNN" name="value" keyPath="objectValue.name" id="CPP-fI-a6N">
                                                                                                 <dictionary key="options">
@@ -102,7 +103,8 @@
                                                                                     <constraint firstItem="Xny-OA-uf0" firstAttribute="centerY" secondItem="zHu-If-SNN" secondAttribute="centerY" id="oI0-7Z-nix"/>
                                                                                 </constraints>
                                                                                 <connections>
-                                                                                    <outlet property="textField" destination="Xny-OA-uf0" id="ZTP-jr-IUF"/>
+                                                                                    <outlet property="textField" destination="Xny-OA-uf0" id="qWt-2q-LQq"/>
+                                                                                    <outlet property="titleTextField" destination="Xny-OA-uf0" id="lIQ-LR-9Uc"/>
                                                                                 </connections>
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
@@ -112,6 +114,7 @@
                                                                                     <bool key="NSCreatesSortDescriptor" value="NO"/>
                                                                                 </dictionary>
                                                                             </binding>
+                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="Cwn-aH-WSq"/>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn identifier="col-type" width="80" minWidth="80" maxWidth="1000" id="GUr-Ru-L4q">
@@ -126,16 +129,16 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                         <prototypeCellViews>
-                                                                            <tableCellView id="iId-lv-Rpx">
+                                                                            <tableCellView id="iId-lv-Rpx" customClass="EditAssociatedValuesTableViewCell" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                 <rect key="frame" x="114" y="1" width="80" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="0mN-zV-hFE">
                                                                                         <rect key="frame" x="-3" y="4" width="81" height="16"/>
-                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Boolean" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="s8M-AQ-aBd" id="Li5-FB-Cp3">
+                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Boolean" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" autoenablesItems="NO" selectedItem="s8M-AQ-aBd" id="Li5-FB-Cp3">
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                             <font key="font" metaFont="menu"/>
-                                                                                            <menu key="menu" id="3rc-qL-Wam">
+                                                                                            <menu key="menu" autoenablesItems="NO" id="3rc-qL-Wam">
                                                                                                 <items>
                                                                                                     <menuItem title="Boolean" state="on" id="s8M-AQ-aBd">
                                                                                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -171,10 +174,13 @@
                                                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                                                     </menuItem>
                                                                                                 </items>
+                                                                                                <connections>
+                                                                                                    <outlet property="delegate" destination="EXU-cB-ZwZ" id="Ecb-6E-urQ"/>
+                                                                                                </connections>
                                                                                             </menu>
                                                                                         </popUpButtonCell>
                                                                                         <connections>
-                                                                                            <binding destination="iId-lv-Rpx" name="enabled" keyPath="objectValue.hasOptions" id="a5i-mB-QQN">
+                                                                                            <binding destination="iId-lv-Rpx" name="enabled" keyPath="objectValue.hasOptions" id="hv3-Ef-fFW">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -189,6 +195,9 @@
                                                                                     <constraint firstItem="0mN-zV-hFE" firstAttribute="leading" secondItem="iId-lv-Rpx" secondAttribute="leading" constant="2" id="jKP-Qi-S58"/>
                                                                                     <constraint firstItem="0mN-zV-hFE" firstAttribute="centerY" secondItem="iId-lv-Rpx" secondAttribute="centerY" id="nmS-hj-hE1"/>
                                                                                 </constraints>
+                                                                                <connections>
+                                                                                    <outlet property="valuePopUpButton" destination="0mN-zV-hFE" id="sgB-pz-OO3"/>
+                                                                                </connections>
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
                                                                         <connections>
@@ -197,6 +206,7 @@
                                                                                     <bool key="NSCreatesSortDescriptor" value="NO"/>
                                                                                 </dictionary>
                                                                             </binding>
+                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="rX1-wB-Iba"/>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn identifier="col-value" width="162" minWidth="80" maxWidth="1000" id="Gw6-tA-f9x">
@@ -211,25 +221,29 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                         <prototypeCellViews>
-                                                                            <tableCellView id="Ubs-uG-ko1">
+                                                                            <tableCellView id="Ubs-uG-ko1" customClass="EditAssociatedValuesTableViewCell" customModule="JSTColorPicker" customModuleProvider="target">
                                                                                 <rect key="frame" x="202" y="1" width="164" height="24"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-Hi-c7R">
                                                                                         <rect key="frame" x="-3" y="4" width="165" height="16"/>
-                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" selectedItem="7Td-mz-f34" id="d0q-AZ-U47">
+                                                                                        <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" autoenablesItems="NO" selectedItem="7Td-mz-f34" id="d0q-AZ-U47">
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                             <font key="font" metaFont="menu"/>
-                                                                                            <menu key="menu" id="aqa-2k-gXP">
+                                                                                            <menu key="menu" autoenablesItems="NO" id="aqa-2k-gXP">
                                                                                                 <items>
                                                                                                     <menuItem title="Item 1" state="on" id="7Td-mz-f34"/>
                                                                                                     <menuItem title="Item 2" id="cYb-Xc-w92"/>
                                                                                                     <menuItem title="Item 3" id="MJK-AR-Qhd"/>
                                                                                                 </items>
+                                                                                                <connections>
+                                                                                                    <outlet property="delegate" destination="EXU-cB-ZwZ" id="rpj-CO-YTv"/>
+                                                                                                </connections>
                                                                                             </menu>
                                                                                         </popUpButtonCell>
                                                                                         <connections>
-                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.hasOptions" id="Tt4-GC-U0C">
+                                                                                            <binding destination="Ke1-AU-FIo" name="enabled" keyPath="isEditable" id="OGY-Pp-FVA"/>
+                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.hasOptions" previousBinding="OGY-Pp-FVA" id="oeV-NT-LUk">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -254,8 +268,9 @@
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ke1-AU-FIo" name="enabled" keyPath="isEditable" id="GAa-dZ-6mj"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="GbF-Ze-JwS"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isCheckboxValue" id="tqC-q0-RFj">
+                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isCheckboxValue" previousBinding="GAa-dZ-6mj" id="eaz-UV-AaT">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -275,8 +290,9 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="cOV-kq-nzb"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="go1-01-U9y"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputValue" id="n5V-Hz-Htc">
+                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputValue" previousBinding="cOV-kq-nzb" id="mPT-dn-z4w">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -299,8 +315,9 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="VsO-Jx-IyJ"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="Fju-OE-MmK"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputIntegerValue" id="tSt-5J-suO">
+                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputIntegerValue" previousBinding="VsO-Jx-IyJ" id="RSw-b9-ovv">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -323,8 +340,9 @@
                                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
+                                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="PEP-oY-05T"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="sWY-A9-Opd"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputDecimalValue" id="B2A-us-t61">
+                                                                                            <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputDecimalValue" previousBinding="PEP-oY-05T" id="gxV-Sx-t0a">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
@@ -357,7 +375,11 @@
                                                                                     <constraint firstItem="0y6-P4-DSn" firstAttribute="leading" secondItem="Ubs-uG-ko1" secondAttribute="leading" constant="4" id="zta-1R-fr2"/>
                                                                                 </constraints>
                                                                                 <connections>
-                                                                                    <outlet property="textField" destination="0y6-P4-DSn" id="qzH-Cg-mr4"/>
+                                                                                    <outlet property="valueCheckboxButton" destination="MlX-nI-W0S" id="1XQ-H7-xah"/>
+                                                                                    <outlet property="valueDecimalTextField" destination="P3i-HD-aSe" id="elT-B8-Xid"/>
+                                                                                    <outlet property="valueIntegerTextField" destination="DQy-5h-3gv" id="vc9-QG-tKA"/>
+                                                                                    <outlet property="valuePopUpButton" destination="SbQ-Hi-c7R" id="5RI-6m-eIs"/>
+                                                                                    <outlet property="valueStringTextField" destination="0y6-P4-DSn" id="ACs-9d-Rad"/>
                                                                                 </connections>
                                                                             </tableCellView>
                                                                         </prototypeCellViews>
@@ -367,6 +389,7 @@
                                                                                     <bool key="NSCreatesSortDescriptor" value="NO"/>
                                                                                 </dictionary>
                                                                             </binding>
+                                                                            <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="g26-xg-GAb"/>
                                                                         </connections>
                                                                     </tableColumn>
                                                                 </tableColumns>

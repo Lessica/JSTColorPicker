@@ -213,6 +213,9 @@
 /* contentArrayDidUpdate(_:) */
 "Edit Associated Values" = "Edit Associated Values";
 
+/* menuWillOpen(_:) */
+"Edit Associated Values…" = "Edit Associated Values…";
+
 /* EditCoordinateController */
 "Edit Color & Coordinates" = "Edit Color & Coordinates";
 
@@ -793,6 +796,12 @@
 
 /* PurchaseManager */
 "Valid Subscription: %@" = "Valid Subscription: %@";
+
+/* updateArrayControllerEditableState() */
+"View Associated Values" = "View Associated Values";
+
+/* menuWillOpen(_:) */
+"View Associated Values…" = "View Associated Values…";
 
 /* updateMainMenuItems() */
 "View Subscription (%@)" = "View Subscription (%@)";

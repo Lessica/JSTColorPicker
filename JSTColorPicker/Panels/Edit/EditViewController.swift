@@ -13,6 +13,7 @@ class EditViewController: NSViewController {
     var editWindow: EditWindow? { view.window as? EditWindow }
     var isAdd: Bool { editWindow?.isAdd ?? true }
 
+    var loader: ScreenshotLoader? { editWindow?.loader }
     var image: PixelImage? { editWindow?.loader?.screenshot?.image }
     var contentItem: ContentItem? {
         get { editWindow?.contentItem }

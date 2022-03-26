@@ -90,7 +90,7 @@ final class Screenshot: NSDocument {
         
         var isLoaded   : Bool { self != .notLoaded                      }
         var isReadable : Bool { self == .readable || self == .writeable }
-        var isWritable: Bool { self == .writeable                      }
+        var isWritable : Bool { self == .writeable                      }
     }
     
     

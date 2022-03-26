@@ -296,6 +296,7 @@
                         <outlet property="itemReprColorMenuItem" destination="jKH-wp-n6X" id="uW6-i9-xZj"/>
                         <outlet property="itemReprMenu" destination="1HL-Zx-eDR" id="myl-lI-9cs"/>
                         <outlet property="scrollView" destination="W8X-3b-Td7" id="JdE-bg-adb"/>
+                        <outlet property="tableAssValMenuItem" destination="mZG-YC-OLN" id="vfJ-8n-bdH"/>
                         <outlet property="tableHeaderMenu" destination="a29-Fd-YbH" id="xcF-yj-1HS"/>
                         <outlet property="tableMenu" destination="ziX-dt-DMr" id="VPq-xk-rVu"/>
                         <outlet property="tableMenuDelegateProxy" destination="jpi-jj-flh" id="A8R-be-QAX"/>

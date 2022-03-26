@@ -22,10 +22,6 @@ private extension NSUserInterfaceItemIdentifier {
     static let columnDescription = NSUserInterfaceItemIdentifier("col-desc")
 }
 
-private extension NSUserInterfaceItemIdentifier {
-    static let removeTags        = NSUserInterfaceItemIdentifier("remove-tags")
-}
-
 protocol ContentActionDelegate: AnyObject {
     func contentActionAdded(_ items: [ContentItem])
     func contentActionSelected(_ items: [ContentItem])
@@ -75,6 +71,7 @@ final class ContentController: NSViewController {
     @IBOutlet var tableHeaderMenu         : NSMenu!
     @IBOutlet var tableRemoveTagsMenu     : NSMenu!
     @IBOutlet var tableRemoveTagsMenuItem : NSMenuItem!
+    @IBOutlet var tableAssValMenuItem     : NSMenuItem!
     
     @IBOutlet var itemNewMenu             : NSMenu!
     
@@ -831,6 +828,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
             } else {
                 tableRemoveTagsMenuItem.isEnabled = false
             }
+            tableAssValMenuItem.title = documentState.isWritable
+                ? NSLocalizedString("Edit Associated Values…", comment: "menuWillOpen(_:)")
+                : NSLocalizedString("View Associated Values…", comment: "menuWillOpen(_:)")
         }
         applyKeyBindingsToTopLevelContextMenu(menu)
     }

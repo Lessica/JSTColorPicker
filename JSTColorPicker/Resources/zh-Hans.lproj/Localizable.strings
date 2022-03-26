@@ -213,6 +213,9 @@
 /* contentArrayDidUpdate(_:) */
 "Edit Associated Values" = "修改关联值";
 
+/* menuWillOpen(_:) */
+"Edit Associated Values…" = "修改关联值…";
+
 /* EditCoordinateController */
 "Edit Color & Coordinates" = "修改颜色与坐标";
 
@@ -793,6 +796,12 @@
 
 /* PurchaseManager */
 "Valid Subscription: %@" = "有效期内的订阅：%@";
+
+/* updateArrayControllerEditableState() */
+"View Associated Values" = "查看关联值";
+
+/* menuWillOpen(_:) */
+"View Associated Values…" = "查看关联值…";
 
 /* updateMainMenuItems() */
 "View Subscription (%@)" = "查看订阅 (%@)";
