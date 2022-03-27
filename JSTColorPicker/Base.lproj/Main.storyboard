@@ -927,7 +927,7 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Device" id="5FZ-FF-ebV">
                                                 <items>
-                                                    <menuItem title="Discover Devices" keyEquivalent="i" identifier="notifyDiscoverDevices:" id="47y-aT-n1T">
+                                                    <menuItem title="Discover Devices" keyEquivalent="i" identifier="discover-devices" id="47y-aT-n1T">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                                         <connections>
                                                             <action selector="notifyDiscoverDevices:" target="Ady-hI-5gd" id="di8-97-wWo"/>
@@ -969,7 +969,7 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Template" id="af9-zN-lJB">
                                                 <items>
-                                                    <menuItem title="Reload All Templates" keyEquivalent="0" identifier="reloadTemplatesItemTapped:" id="pTo-Sm-9zs">
+                                                    <menuItem title="Reload All Templates" keyEquivalent="0" identifier="reload-all-templates" id="pTo-Sm-9zs">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="reloadTemplatesItemTapped:" target="Ady-hI-5gd" id="aPF-mR-zhv"/>
@@ -1335,7 +1335,7 @@ CA
                 <controllerPlaceholder storyboardName="TagList" id="gKd-Wl-gdb" sceneMemberID="viewController"/>
                 <customObject id="E8F-9a-DuJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2766" y="1307"/>
+            <point key="canvasLocation" x="2152" y="450"/>
         </scene>
     </scenes>
     <resources>

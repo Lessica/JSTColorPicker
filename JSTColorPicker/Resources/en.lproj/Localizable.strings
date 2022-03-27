@@ -716,6 +716,9 @@
 /* Content.Error */
 "The requested item %@ is out of the document range %@." = "The requested item %@ is out of the document range %@.";
 
+/* SwiftKeyBindings */
+"The Shift key can be used only with another modifier key." = "The Shift key can be used only with another modifier key.";
+
 /* ScreenshotError */
 "This feature is not implemented." = "This feature is not implemented.";
 
@@ -840,13 +843,7 @@
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
 
 /* SwiftKeyBindings */
-"“%@” does not include the Command key." = "“%@” does not include the Command key.";
-
-/* SwiftKeyBindings */
-"“%@” includes the Command key." = "“%@” includes the Command key.";
-
-/* SwiftKeyBindings */
-"“%@” is already taken." = "“%@” is already taken.";
+"“%@” is already taken by the “%@” command." = "“%@” is already taken by the “%@” command.";
 
 /* Shortcut Guide */
 "◦ Magic Cursor" = "◦ Magic Cursor";

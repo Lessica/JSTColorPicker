@@ -716,6 +716,9 @@
 /* Content.Error */
 "The requested item %@ is out of the document range %@." = "请求的项 %@ 已超出文档范围 %@。";
 
+/* SwiftKeyBindings */
+"The Shift key can be used only with another modifier key." = "Shift 键只能与另一个修饰键一起使用。";
+
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现。";
 
@@ -840,13 +843,7 @@
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
 
 /* SwiftKeyBindings */
-"“%@” does not include the Command key." = "“%@” 不包含 Command 键。";
-
-/* SwiftKeyBindings */
-"“%@” includes the Command key." = "“%@” 包含 Command 键。";
-
-/* SwiftKeyBindings */
-"“%@” is already taken." = "“%@” 已被占用。";
+"“%@” is already taken by the “%@” command." = "“%@” 已经被 “%@” 命令所使用。";
 
 /* Shortcut Guide */
 "◦ Magic Cursor" = "◦ 魔术光标";

@@ -127,7 +127,7 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
     /// whether key bindings are not customized
     var usesDefaultKeyBindings: Bool {
         
-        return self.keyBindings == self.defaultKeyBindings
+        return self.keyBindings.isSubset(of: self.defaultKeyBindings)
     }
     
     

@@ -202,6 +202,7 @@ extension AppDelegate {
     internal var manuallyDiscoverItem: NSMenuItem {
         let item = NSMenuItem(title: NSLocalizedString("Discover Devices", comment: "reloadDevicesSubMenuItems()"), action: #selector(notifyDiscoverDevices(_:)), keyEquivalent: "i")
         item.keyEquivalentModifierMask = [.control]
+        item.identifier = NSUserInterfaceItemIdentifier(rawValue: "discover-devices")
         item.toolTip = NSLocalizedString("Immediately broadcast a search for available devices on the LAN.", comment: "reloadDevicesSubMenuItems()")
         return item
     }

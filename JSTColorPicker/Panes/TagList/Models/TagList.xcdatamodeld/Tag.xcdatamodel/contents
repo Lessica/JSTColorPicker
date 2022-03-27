@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20084" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Field" representedClassName="Field" syncable="YES">
         <attribute name="defaultValue" optional="YES" attributeType="String"/>
         <attribute name="helpText" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String" minValueString="1"/>
         <attribute name="valueType" optional="YES" attributeType="String"/>
-        <relationship name="options" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="FieldOption" inverseName="field" inverseEntity="FieldOption"/>
-        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="fields" inverseEntity="Tag"/>
+        <relationship name="options" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="FieldOption" inverseName="field" inverseEntity="FieldOption"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Tag" inverseName="fields" inverseEntity="Tag"/>
     </entity>
     <entity name="FieldOption" representedClassName="FieldOption" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="field" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Field" inverseName="options" inverseEntity="Field"/>
+        <relationship name="field" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Field" inverseName="options" inverseEntity="Field"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="colorHex" attributeType="String" defaultValueString="#000000" regularExpressionString="#[0-9a-fA-F]{6}"/>
         <attribute name="helpText" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String" minValueString="1" spotlightIndexingEnabled="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="fields" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Field" inverseName="tag" inverseEntity="Field"/>
+        <relationship name="fields" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Field" inverseName="tag" inverseEntity="Field"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -25,8 +25,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Field" positionX="-63" positionY="9" width="128" height="119"/>
-        <element name="FieldOption" positionX="-54" positionY="45" width="128" height="59"/>
-        <element name="Tag" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Field" positionX="-99.890625" positionY="6.4140625" width="128" height="119"/>
+        <element name="FieldOption" positionX="231.02734375" positionY="162.515625" width="128" height="73"/>
+        <element name="Tag" positionX="-341.7578125" positionY="-114.125" width="128" height="118"/>
     </elements>
 </model>

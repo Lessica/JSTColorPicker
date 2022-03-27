@@ -115,6 +115,7 @@ extension AppDelegate {
         
         reloadTemplatesItem.target = self
         reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
+        reloadTemplatesItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "reload-all-templates")
         reloadTemplatesItem.isEnabled = true
         reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems(_:)")
         
