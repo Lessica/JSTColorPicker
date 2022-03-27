@@ -212,9 +212,58 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         #endif
     }()
     
-    @objc private func prepareInitialPreferencesControllerViewIdentifierNotification(_ notification: NSNotification)
+    @objc private func registerInitialValuesNotification(_ notification: NSNotification? = nil)
     {
-        initialPreferencesControllerViewIdentifier = notification.userInfo?["viewIdentifier"] as? String
+        
+        // read notification user info
+        var initialURL = notification?.userInfo?["url"] as? URL
+        
+        // read local overrides
+        if initialURL == nil {
+            let localOverrideURL = PreferencesController.initialValuesURL
+            if (try? localOverrideURL.checkResourceIsReachable()) ?? false {
+                initialURL = localOverrideURL
+            }
+        }
+        
+        // read bundled initial values
+        if initialURL == nil {
+            initialURL = Bundle.main.url(forResource: "InitialValues", withExtension: "plist")
+        }
+        
+        guard let initialURL = initialURL else {
+            return
+        }
+        
+        var initialValues: [UserDefaults.Key: Any?] = [
+            .screenshotSavingPath              : FileManager.default
+                .urls(for: .picturesDirectory, in: .userDomainMask)
+                .first?.appendingPathComponent("JSTColorPicker").path,
+            .pixelMatchAAColor                 : NSColor.systemYellow,
+            .pixelMatchDiffColor               : NSColor.systemRed,
+            .colorGridColorAnnotatorColor      : NSColor.systemRed,
+            .colorGridAreaAnnotatorColor       : NSColor.systemBlue,
+        ]
+        
+        guard let initialData = try? Data(contentsOf: initialURL) else { return }
+        guard let initialObject = try?
+            PropertyListSerialization.propertyList(
+                from: initialData,
+                options: [],
+                format: nil
+            )
+            as? [String: Any?] else { return }
+        
+        initialObject.forEach({
+            initialValues[UserDefaults.Key(rawValue: $0.key)] = $0.value
+        })
+        
+        UserDefaults.standard.register(defaults: initialValues)
+    }
+    
+    @objc private func prepareInitialPreferencesControllerViewIdentifierNotification(_ notification: NSNotification? = nil)
+    {
+        initialPreferencesControllerViewIdentifier = notification?.userInfo?["viewIdentifier"] as? String
         showPreferences(self)
     }
     
@@ -239,26 +288,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             checkForUpdatesMenuItem.isHidden = true
         }
         
-        var initialValues: [UserDefaults.Key: Any?] = [
-            .screenshotSavingPath              : FileManager.default
-                .urls(for: .picturesDirectory, in: .userDomainMask)
-                .first?.appendingPathComponent("JSTColorPicker").path,
-            .pixelMatchAAColor                 : NSColor.systemYellow,
-            .pixelMatchDiffColor               : NSColor.systemRed,
-            .colorGridColorAnnotatorColor      : NSColor.systemRed,
-            .colorGridAreaAnnotatorColor       : NSColor.systemBlue,
-        ]
-        
-        (try?
-            PropertyListSerialization.propertyList(
-                from: Data(contentsOf: Bundle.main.url(forResource: "InitialValues", withExtension: "plist")!),
-                options: [],
-                format: nil
-            )
-            as? [String : Any?])?.forEach({ initialValues[UserDefaults.Key(rawValue: $0.key)] = $0.value })
-        
-        UserDefaults.standard.register(defaults: initialValues)
-
+        registerInitialValuesNotification()
         prepareDefaults()
         observables = UserDefaults.standard.observe(keys: observableKeys, callback: { [weak self] in self?.applyDefaults($0, $1, $2) })
         
@@ -311,6 +341,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         #endif
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(registerInitialValuesNotification(_:)),
+            name: PreferencesController.registerInitialValuesNotification,
+            object: nil
+        )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(prepareInitialPreferencesControllerViewIdentifierNotification(_:)),

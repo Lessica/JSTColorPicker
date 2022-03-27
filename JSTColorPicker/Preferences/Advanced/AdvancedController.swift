@@ -22,13 +22,65 @@ final class AdvancedController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction private func resetUserDefaultsAction(_ sender: NSButton) {
-        NSUserDefaultsController.shared.revertToInitialValues(sender)
-        // clear restorable state
-        AppDelegate.shared.tabService?
-            .managedWindows.map({ $0.window })
-            .forEach({ $0.isRestorable = false })
-        actionRequiresRestart(sender)
+    private func resetUserDefaults(withCustomInitialURL initialURL: URL? = nil) {
+        do {
+            // register initial values
+            if let initialURL = initialURL {
+                // write local overrides for initial values
+                let localOverrideURL = PreferencesController.initialValuesURL
+                try? FileManager.default.removeItem(at: localOverrideURL)
+                try FileManager.default.copyItem(at: initialURL, to: localOverrideURL)
+                
+                NotificationCenter.default.post(
+                    name: PreferencesController.registerInitialValuesNotification,
+                    object: nil,
+                    userInfo: ["url": initialURL]
+                )
+            } else {
+                // remove local overrides if presents
+                let localOverrideURL = PreferencesController.initialValuesURL
+                try? FileManager.default.removeItem(at: localOverrideURL)
+                
+                NotificationCenter.default.post(
+                    name: PreferencesController.registerInitialValuesNotification,
+                    object: nil
+                )
+            }
+            
+            // revert to initial values
+            NSUserDefaultsController.shared.revertToInitialValues(nil)
+            
+            // clear restorable state
+            AppDelegate.shared.tabService?
+                .managedWindows.map({ $0.window })
+                .forEach({ $0.isRestorable = false })
+            
+            // tell user to restart application
+            actionRequiresRestart(nil)
+        } catch {
+            presentError(error)
+        }
+    }
+    
+    @IBAction private func resetUserDefaultsAction(_ sender: Any?) {
+        let optionPressed = NSEvent.modifierFlags
+            .intersection(.deviceIndependentFlagsMask).contains(.option)
+        if !optionPressed {
+            resetUserDefaults()
+        } else {
+            let panel = NSOpenPanel()
+            panel.canChooseFiles = true
+            panel.canChooseDirectories = false
+            panel.canCreateDirectories = false
+            panel.showsHiddenFiles = false
+            panel.allowsMultipleSelection = false
+            panel.treatsFilePackagesAsDirectories = true
+            panel.allowedFileTypes = ["plist"]
+            let panelResponse = panel.runModal()
+            if panelResponse == .OK, let selectedURL = panel.urls.first {
+                resetUserDefaults(withCustomInitialURL: selectedURL)
+            }
+        }
     }
     
     private func resetTagDatabase(withCustomSchemaURL customSchemaURL: URL? = nil) {
@@ -51,7 +103,7 @@ final class AdvancedController: NSViewController {
         }
     }
     
-    @IBAction private func resetTagDatabaseAction(_ sender: NSButton) {
+    @IBAction private func resetTagDatabaseAction(_ sender: Any?) {
         let optionPressed = NSEvent.modifierFlags
             .intersection(.deviceIndependentFlagsMask).contains(.option)
         if !optionPressed {
@@ -77,7 +129,7 @@ final class AdvancedController: NSViewController {
             panel.allowedFileTypes = ["plist"]
             let panelResponse = panel.runModal()
             if panelResponse == .OK, let selectedURL = panel.urls.first {
-                self.resetTagDatabase(withCustomSchemaURL: selectedURL)
+                resetTagDatabase(withCustomSchemaURL: selectedURL)
             }
         }
     }
@@ -102,7 +154,7 @@ final class AdvancedController: NSViewController {
         #endif
     }
     
-    @IBAction private func actionRequiresRestart(_ sender: NSButton) {
+    @IBAction private func actionRequiresRestart(_ sender: Any?) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")

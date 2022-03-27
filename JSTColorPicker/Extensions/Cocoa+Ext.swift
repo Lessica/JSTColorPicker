@@ -407,7 +407,7 @@ extension NSColor {
 }
 
 extension NSApplication {
-    func relaunch(_ sender: AnyObject?) {
+    func relaunch(_ sender: Any?) {
         let task = Process()
         // helper tool path
         task.launchPath = Bundle.main.url(forAuxiliaryExecutable: "relaunch")?.path

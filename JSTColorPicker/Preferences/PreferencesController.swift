@@ -11,7 +11,15 @@ import MASPreferences
 
 final class PreferencesController: MASPreferencesWindowController {
     
+    static let registerInitialValuesNotification = Notification.Name("PreferencesController.registerInitialValuesNotification")
     static let makeKeyAndOrderFrontNotification = Notification.Name("PreferencesController.makeKeyAndOrderFrontNotification")
+    
+    static let initialValuesURL = try! FileManager.default.url(
+        for: .libraryDirectory,
+        in: .userDomainMask,
+        appropriateFor: nil,
+        create: false
+    ).appendingPathComponent("InitialValues", isDirectory: false)
     
     override func windowDidLoad() {
         super.windowDidLoad()

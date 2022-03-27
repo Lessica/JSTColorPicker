@@ -233,7 +233,7 @@ final class TagListController: StackedPaneController {
     }
     
     @objc private func tagPersistentStoreRequiresReload(_ noti: Notification) {
-        if let userInfo = noti.userInfo, let schemaURL = userInfo["url"] as? URL {
+        if let schemaURL = noti.userInfo?["url"] as? URL {
             setupPersistentStore(byIgnoringError: false, withCustomSchemaURL: schemaURL)
         } else {
             setupPersistentStore(byIgnoringError: true)
@@ -355,7 +355,7 @@ final class TagListController: StackedPaneController {
             TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
-                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-Passport", withExtension: "plist")
+                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-UI", withExtension: "plist")
                 {
                     let schemaData = try Data(contentsOf: schemaURL)
                     let tags = try decoder.decode([Tag].self, from: schemaData)

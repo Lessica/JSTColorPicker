@@ -10,6 +10,8 @@ import Foundation
 
 extension UserDefaults.Key {
     
+    // defaults write com.jst.JSTColorPicker AdHocConfigurationURL "https://82flex.com/jstcpweb/adhoc/xtzn"
+    
     static let AdHocConfigurationURL                : UserDefaults.Key     = "AdHocConfigurationURL"                           // String
     static let AppleMomentumScrollSupported         : UserDefaults.Key     = "AppleMomentumScrollSupported"                    // Bool
     

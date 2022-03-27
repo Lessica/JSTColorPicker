@@ -107,10 +107,10 @@
 	<key>defaults:usesPredominantAxisScrolling</key>
 	<false/>
 	<key>defaults:disableColorAnnotation</key>
-	<true/>
+	<false/>
 	<key>defaults:disableTagReordering</key>
-	<true/>
+	<false/>
 	<key>defaults:disableTagEditing</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

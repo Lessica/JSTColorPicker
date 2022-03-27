@@ -59,7 +59,11 @@ final class ContentController: NSViewController {
     private var undoToken                 : NotificationToken?
     private var redoToken                 : NotificationToken?
 
-    private let observableKeys            : [UserDefaults.Key] = [.usesDetailedToolTips]
+    private let observableKeys            : [UserDefaults.Key] = [
+        .usesDetailedToolTips,
+        .toggleTableColumnIdentifier, .toggleTableColumnDescription,
+        .toggleTableColumnSimilarity, .toggleTableColumnTag,
+    ]
     private var observables               : [Observable]?
     
     private var delayedRowIndexes         : IndexSet? { _delayedRowIndexes }
@@ -168,6 +172,12 @@ final class ContentController: NSViewController {
                 usesDetailedToolTips = toValue
                 tableView.reloadData()
             }
+        } else if defaultKey == .toggleTableColumnIdentifier
+            || defaultKey == .toggleTableColumnDescription
+            || defaultKey == .toggleTableColumnSimilarity
+            || defaultKey == .toggleTableColumnTag
+        {
+            updateColumns()
         }
     }
     
