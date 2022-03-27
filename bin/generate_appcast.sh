@@ -2,6 +2,8 @@
 
 set -e -x
 
+find . -name '.DS_Store' -type f -print -delete
+
 mkdir -p ./releases/apps
 mkdir -p ./releases/helpers
 
@@ -35,7 +37,9 @@ fi
 HELPER_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
 HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
 echo "${HELPER_INCLUDED_FILE}" > ./releases/nginx_latest_helper_redirect.txt
-zip -qr ./releases/helpers/${HELPER_NAME} ./releases/helpers/JSTColorPickerHelper.app
+cd ./releases/helpers/
+zip -qr ${HELPER_NAME} JSTColorPickerHelper.app
+cd ../../
 
 echo "Upload resources..."
 scp ./releases/${APP_NAME} root@120.55.68.129:/mnt/oss/jstcpweb/${APP_NAME}

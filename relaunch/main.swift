@@ -34,10 +34,10 @@ autoreleasepool {
     }
     
     // get the application instance
-    if let app = NSRunningApplication(processIdentifier: parentPID) {
-        
-        // application URL
-        let bundleURL = app.bundleURL!
+    if let app = NSRunningApplication(processIdentifier: parentPID),
+       let bundleURL = app.bundleURL
+    {
+        debugPrint(bundleURL.path)
         
         // terminate() and wait terminated.
         let listener = Observer { CFRunLoopStop(CFRunLoopGetCurrent()) }
@@ -45,8 +45,12 @@ autoreleasepool {
         app.terminate()
         CFRunLoopRun() // wait KVO notification
         app.removeObserver(listener, forKeyPath: "isTerminated", context: nil)
+        RunLoop.current.run(until: Date() + 1)
         
-        NSWorkspace.shared.openApplication(at: bundleURL, configuration: .init())
+        let task = Process()
+        task.arguments = ["-a", bundleURL.path]
+        task.launchPath = "/usr/bin/open"
+        task.launch()
     }
     
 }
