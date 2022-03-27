@@ -87,10 +87,7 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
             else { return self.defaultKeyBindings }
         
         let keyBindings = customKeyBindings.filter { $0.shortcut?.isValid ?? true }
-        let defaultKeyBindings = self.defaultKeyBindings
-            .filter { kb in !keyBindings.contains { $0.action == kb.action || $0.shortcut == kb.shortcut } }
-        
-        return Set(defaultKeyBindings + keyBindings).filter { $0.shortcut != nil }
+        return Set(self.defaultKeyBindings + keyBindings).filter { $0.shortcut != nil }
     }()
     
     
@@ -143,7 +140,7 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
         let keyBindings = outlineTree.keyBindings
         let fileURL = self.keyBindingSettingFileURL
         
-        let defaultExistsAction = self.defaultKeyBindings.map(\.action)
+        let defaultExistsAction = Set(self.defaultKeyBindings.map(\.action))
         let diff = keyBindings.subtracting(self.defaultKeyBindings)
             .filter { $0.shortcut != nil || defaultExistsAction.contains($0.action) }
         
@@ -215,7 +212,13 @@ private extension Collection where Element == NSTreeNode {
                 let shortcut = keyItem.shortcut
                 else { return [] }
             
-            return [KeyBinding(name: keyItem.name, action: keyItem.action, shortcut: shortcut.isValid ? shortcut : nil)]
+            return [KeyBinding(
+                name: keyItem.name,
+                associatedIdentifier: keyItem.associatedIdentifier,
+                associatedTag: keyItem.associatedTag,
+                action: keyItem.action,
+                shortcut: shortcut.isValid ? shortcut : nil
+            )]
         }
         
         return Set(keyBindings)

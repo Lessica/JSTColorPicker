@@ -112,9 +112,18 @@ final class MenuKeyBindingManager: KeyBindingManager {
     }
     
     /// keyEquivalent and modifierMask for passed-in selector
-    func shortcut(for action: Selector) -> Shortcut {
+    func shortcut(
+        forAssociatedIdentifier associatedIdentifier: String,
+        forAssociatedTag associatedTag: Int,
+        forAction action: Selector
+    ) -> Shortcut {
         
-        let shortcut = self.shortcut(for: action, defaults: false)
+        let shortcut = self.shortcut(
+            forAssociatedIdentifier: associatedIdentifier,
+            forAssociatedTag: associatedTag,
+            forAction: action,
+            defaults: false
+        )
         
         return shortcut.isValid ? shortcut : .none
     }
@@ -124,10 +133,19 @@ final class MenuKeyBindingManager: KeyBindingManager {
     // MARK: Private Methods
     
     /// return key bindings for selector
-    private func shortcut(for action: Selector, defaults usesDefaults: Bool) -> Shortcut {
+    private func shortcut(
+        forAssociatedIdentifier associatedIdentifier: String,
+        forAssociatedTag associatedTag: Int,
+        forAction action: Selector,
+        defaults usesDefaults: Bool
+    ) -> Shortcut {
         
         let keyBindings = usesDefaults ? self.defaultKeyBindings : self.keyBindings
-        let keyBinding = keyBindings.first { $0.action == action }
+        let keyBinding = keyBindings.first {
+            $0.associatedIdentifier == associatedIdentifier
+            && $0.associatedTag == associatedTag
+            && $0.action == action
+        }
         
         return keyBinding?.shortcut ?? .none
     }
@@ -215,10 +233,24 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 
                 guard let action = menuItem.action else { return [] }
                 
-                let shortcut = Shortcut(modifierMask: menuItem.keyEquivalentModifierMask,
-                                        keyEquivalent: menuItem.keyEquivalent)
+                let associatedTag = menuItem.tag
+                var associatedIdentifier = menuItem.identifier?.rawValue ?? ""
+                if associatedIdentifier.hasPrefix("_NS:") {
+                    associatedIdentifier = ""
+                }
                 
-                return [KeyBinding(name: menuItem.title, action: action, shortcut: shortcut.isValid ? shortcut : nil)]
+                let shortcut = Shortcut(
+                    modifierMask: menuItem.keyEquivalentModifierMask,
+                    keyEquivalent: menuItem.keyEquivalent
+                )
+                
+                return [KeyBinding(
+                    name: menuItem.title,
+                    associatedIdentifier: associatedIdentifier,
+                    associatedTag: associatedTag,
+                    action: action,
+                    shortcut: shortcut.isValid ? shortcut : nil
+                )]
             }
     }
     
@@ -251,7 +283,17 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 
                 guard let action = menuItem.action else { return }
                 
-                let shortcut = self.shortcut(for: action)
+                let associatedTag = menuItem.tag
+                var associatedIdentifier = menuItem.identifier?.rawValue ?? ""
+                if associatedIdentifier.hasPrefix("_NS:") {
+                    associatedIdentifier = ""
+                }
+                
+                let shortcut = self.shortcut(
+                    forAssociatedIdentifier: associatedIdentifier,
+                    forAssociatedTag: associatedTag,
+                    forAction: action
+                )
                 
                 // apply only if both keyEquivalent and modifierMask exist
                 guard shortcut.isValid else { return }
@@ -280,12 +322,34 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 
                 guard let action = menuItem.action else { return nil }
                 
-                let defaultShortcut = self.shortcut(for: action, defaults: true)
+                var associatedIdentifier = menuItem.identifier?.rawValue ?? ""
+                if associatedIdentifier.hasPrefix("_NS:") {
+                    associatedIdentifier = ""
+                }
+                let associatedTag = menuItem.tag
+                
+                let defaultShortcut = self.shortcut(
+                    forAssociatedIdentifier: associatedIdentifier,
+                    forAssociatedTag: associatedTag,
+                    forAction: action,
+                    defaults: true
+                )
+                
                 let shortcut = usesDefaults
                     ? defaultShortcut
-                    : Shortcut(modifierMask: menuItem.keyEquivalentModifierMask, keyEquivalent: menuItem.keyEquivalent)
+                    : Shortcut(
+                        modifierMask: menuItem.keyEquivalentModifierMask,
+                        keyEquivalent: menuItem.keyEquivalent
+                    )
                 
-                let item = KeyBindingItem(name: menu.title, action: action, shortcut: shortcut, defaultShortcut: defaultShortcut)
+                let item = KeyBindingItem(
+                    name: menuItem.title,
+                    associatedIdentifier: associatedIdentifier,
+                    associatedTag: associatedTag,
+                    action: action,
+                    shortcut: shortcut,
+                    defaultShortcut: defaultShortcut
+                )
                 
                 return NamedTreeNode(name: menuItem.title, representedObject: item)
             }

@@ -31,14 +31,16 @@ final class KeyBindingItem {
     // MARK: Public Properties
     
     let name: String
+    let associatedIdentifier: String
+    let associatedTag: Int
     let action: Selector
     var shortcut: Shortcut?
     let defaultShortcut: Shortcut
     
-    
-    init(name: String, action: Selector, shortcut: Shortcut?, defaultShortcut: Shortcut) {
-        
+    internal init(name: String, associatedIdentifier: String, associatedTag: Int, action: Selector, shortcut: Shortcut? = nil, defaultShortcut: Shortcut) {
         self.name = name
+        self.associatedIdentifier = associatedIdentifier
+        self.associatedTag = associatedTag
         self.action = action
         self.shortcut = shortcut
         self.defaultShortcut = defaultShortcut

@@ -28,16 +28,30 @@ import struct Foundation.Selector
 struct KeyBinding: Hashable, Codable {
     
     let name: String
+    let associatedIdentifier: String
+    let associatedTag: Int
     let action: Selector
     let shortcut: Shortcut?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(associatedIdentifier)
+        hasher.combine(associatedTag)
+        hasher.combine(action)
+        hasher.combine(shortcut)
+    }
 }
 
 
 extension KeyBinding: Comparable {
     
     static func < (lhs: Self, rhs: Self) -> Bool {
-        
         return lhs.action.description < rhs.action.description
     }
     
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.associatedIdentifier == rhs.associatedIdentifier
+        && lhs.associatedTag == rhs.associatedTag
+        && lhs.action.description == rhs.action.description
+        && lhs.shortcut == rhs.shortcut
+    }
 }
