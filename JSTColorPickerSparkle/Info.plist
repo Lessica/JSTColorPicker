@@ -71,7 +71,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to control "System Events" to open "Console" and filter logs for you.</string>
+	<string>$(PRODUCT_NAME) needs to control &quot;System Events&quot; to open &quot;Console&quot; and filter logs for you.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2022 Zheng Wu. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
@@ -84,6 +84,8 @@
 	<true/>
 	<key>SUFeedURL</key>
 	<string>https://82flex.com/jstcpweb/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>rxnVxjhEkU8OuChkQxqHmdSecye9zDFxpCCOQeetEQk=</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
