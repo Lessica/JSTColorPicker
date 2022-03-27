@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2014-2020 1024jp
+//  © 2014-2022 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -103,27 +103,6 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
     }
     
     
-    /// auto-expand save
-    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
-        if let node = item as? NamedTreeNode {
-            return node.name
-        }
-        return nil
-    }
-    
-    
-    /// auto-expand restore
-    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
-        if let nodeName = object as? String {
-            // only top-level nodes
-            return self.outlineTree
-                .compactMap({ $0 as? NamedTreeNode })
-                .first(where: { $0.name == nodeName })
-        }
-        return nil
-    }
-    
-    
     /// return suitable item for cell to display
     func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
         
@@ -137,7 +116,7 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
                 return node.name
             
             case .keySpecChars:
-                guard let shortcut = (node.representedObject as? KeyBindingItem)?.shortcut, shortcut.isValid else { return nil }
+                guard let shortcut = (node.representedObject as? KeyBindingItem)?.shortcut else { return nil }
                 return shortcut.isValid ? shortcut.description : nil
             
             default:
@@ -196,19 +175,19 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
         // cancel input
         guard
             input != "\u{1b}",  // = ESC key  -> treat esc key as cancel
-            input != item.shortcut?.description  // not edited
-            else {
-                // reset text field display
-                textField.objectValue = oldShortcut?.description
-                return
-            }
+            input != oldShortcut?.description  // not edited
+        else {
+            // reset text field display
+            textField.objectValue = oldShortcut?.description
+            return
+        }
         
         let shortcut = Shortcut(keySpecChars: input)
         
         do {
             try self.manager.validate(shortcut: shortcut, oldShortcut: oldShortcut)
             
-        } catch let error as InvalidKeySpecCharactersError {
+        } catch let error as InvalidShortcutError {
             self.warningMessage = error.localizedDescription + " " + (error.recoverySuggestion ?? "")
             textField.objectValue = oldShortcut?.keySpecChars  // reset view with previous key
             NSSound.beep()
@@ -221,7 +200,7 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
             textField.objectValue = oldShortcut?.description
             return
             
-        } catch { assertionFailure("Caught unknown error.") }
+        } catch { assertionFailure("Caught unknown error: \(error)") }
         
         // successfully update data
         item.shortcut = shortcut

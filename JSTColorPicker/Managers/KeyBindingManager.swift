@@ -9,7 +9,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  © 2004-2007 nakamuxu
-//  © 2014-2020 1024jp
+//  © 2014-2022 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,14 +25,14 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
-struct InvalidKeySpecCharactersError: LocalizedError {
+struct InvalidShortcutError: LocalizedError {
     
     enum ErrorKind {
         case singleType
-        case alreadyTaken
-        case lackingCommandKey
-        case unwantedCommandKey
+        case alreadyTaken(name: String)
+        case shiftOnlyModifier
     }
     
     let kind: ErrorKind
@@ -45,14 +45,11 @@ struct InvalidKeySpecCharactersError: LocalizedError {
             case .singleType:
                 return NSLocalizedString("Single type is invalid for a shortcut.", comment: "SwiftKeyBindings")
             
-            case .alreadyTaken:
-                return String(format: NSLocalizedString("“%@” is already taken.", comment: "SwiftKeyBindings"), self.shortcut.description)
-            
-            case .lackingCommandKey:
-                return String(format: NSLocalizedString("“%@” does not include the Command key.", comment: "SwiftKeyBindings"), self.shortcut.description)
-            
-            case .unwantedCommandKey:
-                return String(format: NSLocalizedString("“%@” includes the Command key.", comment: "SwiftKeyBindings"), self.shortcut.description)
+            case let .alreadyTaken(name):
+                return String(format: NSLocalizedString("“%@” is already taken by the “%@” command.", comment: "SwiftKeyBindings"), self.shortcut.description, name)
+                
+            case .shiftOnlyModifier:
+                return NSLocalizedString("The Shift key can be used only with another modifier key.", comment: "SwiftKeyBindings")
         }
     }
     
@@ -91,18 +88,7 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
         
         let keyBindings = customKeyBindings.filter { $0.shortcut?.isValid ?? true }
         let defaultKeyBindings = self.defaultKeyBindings
-            .filter { kb in
-                !keyBindings.contains { binding in
-                    if binding.associatedTag > 0 {
-                        return binding.associatedTag == kb.associatedTag || binding.shortcut == kb.shortcut
-                    } else if !binding.associatedIdentifier.hasPrefix("_NS:") && !binding.associatedIdentifier.isEmpty
-                    {
-                        return binding.associatedIdentifier == kb.associatedIdentifier || binding.shortcut == kb.shortcut
-                    } else {
-                        return binding.action == kb.action || binding.shortcut == kb.shortcut
-                    }
-                }
-            }
+            .filter { kb in !keyBindings.contains { $0.action == kb.action || $0.shortcut == kb.shortcut } }
         
         return Set(defaultKeyBindings + keyBindings).filter { $0.shortcut != nil }
     }()
@@ -137,7 +123,7 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
     /// file URL to save custom key bindings file
     final var keyBindingSettingFileURL: URL {
         
-        return self.userSettingDirectoryURL.appendingPathComponent(self.settingFileName).appendingPathExtension("plist")
+        return self.userSettingDirectoryURL.appendingPathComponent(self.settingFileName, conformingTo: .propertyList)
     }
     
     
@@ -179,22 +165,35 @@ class KeyBindingManager: SettingManaging, KeyBindingManagerProtocol {
     }
     
     
-    /// validate new key spec chars are settable
+    /// Validate new shortcut are settable.
     ///
-    /// - Throws: `InvalidKeySpecCharactersError`
-    func validate(shortcut: Shortcut, oldShortcut: Shortcut?) throws {
+    /// - Throws: `InvalidShortcutError`
+    final func validate(shortcut: Shortcut, oldShortcut: Shortcut?) throws {
         
         // blank key is always valid
         if shortcut.isEmpty { return }
         
+        // avoid shift-only modifier with a letter
+        // -> typing Shift + letter inserting an uppercase letter instead of invoking a shortcut
+        if shortcut.modifierMask == .shift,
+           shortcut.keyEquivalent.contains(where: { $0.isLetter || $0.isNumber })
+        {
+            throw InvalidShortcutError(kind: .shiftOnlyModifier, shortcut: shortcut)
+        }
+        
         // single key is invalid
-        guard !shortcut.modifierMask.isEmpty, !shortcut.keyEquivalent.isEmpty else {
-            throw InvalidKeySpecCharactersError(kind: .singleType, shortcut: shortcut)
+        guard shortcut.isValid else {
+            throw InvalidShortcutError(kind: .singleType, shortcut: shortcut)
         }
         
         // duplication check
-        guard shortcut == oldShortcut || !self.keyBindings.contains(where: { $0.shortcut == shortcut }) else {
-            throw InvalidKeySpecCharactersError(kind: .alreadyTaken, shortcut: shortcut)
+        if shortcut != oldShortcut,
+           let duplicatedShortcut = [MenuKeyBindingManager.shared]
+            .flatMap(\.keyBindings)
+            .first(where: { $0.shortcut == shortcut })
+        {
+            let name = duplicatedShortcut.name.trimmingCharacters(in: .whitespaces.union(.punctuationCharacters))
+            throw InvalidShortcutError(kind: .alreadyTaken(name: name), shortcut: shortcut)
         }
     }
     
@@ -216,28 +215,10 @@ private extension Collection where Element == NSTreeNode {
                 let shortcut = keyItem.shortcut
                 else { return [] }
             
-            return [
-                KeyBinding(
-                    action: keyItem.action,
-                    associatedIdentifier: keyItem.associatedIdentifier,
-                    associatedTag: keyItem.associatedTag,
-                    shortcut: shortcut.isValid ? shortcut : nil
-                )
-            ]
+            return [KeyBinding(name: keyItem.name, action: keyItem.action, shortcut: shortcut.isValid ? shortcut : nil)]
         }
         
         return Set(keyBindings)
-    }
-    
-}
-
-
-private extension URL {
-    
-    /// check just URL is reachable and ignore any errors
-    var isReachable: Bool {
-        
-        return (try? self.checkResourceIsReachable()) == true
     }
     
 }

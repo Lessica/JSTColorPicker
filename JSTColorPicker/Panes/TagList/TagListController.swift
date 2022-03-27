@@ -1005,7 +1005,7 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     // Apply key bindings for top-level menus.
     private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
         if menu == tagMenu {
-            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
     }
 }

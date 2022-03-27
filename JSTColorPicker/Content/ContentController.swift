@@ -1657,7 +1657,7 @@ extension ContentController: NSMenuDelegateAlternate {
     // Apply key bindings for top-level menus.
     private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
         if menu == tableHeaderMenu || menu == tableMenu || menu == itemNewMenu {
-            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
     }
     

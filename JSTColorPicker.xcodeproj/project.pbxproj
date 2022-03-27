@@ -145,6 +145,14 @@
 		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
 		CC13C7B927EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
+		CC13C7C427F0269700D12892 /* String+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C327F0269700D12892 /* String+Constants.swift */; };
+		CC13C7C527F0269A00D12892 /* String+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C327F0269700D12892 /* String+Constants.swift */; };
+		CC13C7C727F026EC00D12892 /* Swift+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C627F026EC00D12892 /* Swift+Collection.swift */; };
+		CC13C7C827F026EC00D12892 /* Swift+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C627F026EC00D12892 /* Swift+Collection.swift */; };
+		CC13C7CA27F0275300D12892 /* Selector+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C927F0275300D12892 /* Selector+Codable.swift */; };
+		CC13C7CB27F0275300D12892 /* Selector+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7C927F0275300D12892 /* Selector+Codable.swift */; };
+		CC13C7CD27F0282900D12892 /* Swift+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7CC27F0282900D12892 /* Swift+URL.swift */; };
+		CC13C7CE27F0282900D12892 /* Swift+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7CC27F0282900D12892 /* Swift+URL.swift */; };
 		CC1B01522636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
 		CC1B01532636F896002EECF5 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B01512636F896002EECF5 /* GenericError.swift */; };
 		CC1B015C26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */; };
@@ -1342,6 +1350,10 @@
 		CC059D8A2633091300E6B89C /* PurchaseMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMainView.swift; sourceTree = "<group>"; };
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesTableViewCell.swift; sourceTree = "<group>"; };
+		CC13C7C327F0269700D12892 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
+		CC13C7C627F026EC00D12892 /* Swift+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Collection.swift"; sourceTree = "<group>"; };
+		CC13C7C927F0275300D12892 /* Selector+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selector+Codable.swift"; sourceTree = "<group>"; };
+		CC13C7CC27F0282900D12892 /* Swift+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+URL.swift"; sourceTree = "<group>"; };
 		CC1B01512636F896002EECF5 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		CC1B015B26370836002EECF5 /* CheckboxHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxHeaderCell.swift; sourceTree = "<group>"; };
 		CC1B4C1827EF0C300087974F /* MetadataEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataEditor.swift; sourceTree = "<group>"; };
@@ -2637,6 +2649,10 @@
 				0FF4706127626DDC00F46554 /* NSImage+Ext.swift */,
 				CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */,
 				CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */,
+				CC13C7C327F0269700D12892 /* String+Constants.swift */,
+				CC13C7C627F026EC00D12892 /* Swift+Collection.swift */,
+				CC13C7CC27F0282900D12892 /* Swift+URL.swift */,
+				CC13C7C927F0275300D12892 /* Selector+Codable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4347,12 +4363,14 @@
 				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */,
+				CC13C7C527F0269A00D12892 /* String+Constants.swift in Sources */,
 				CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CC1B4C1C27EF0C3E0087974F /* MetadataWindowController.swift in Sources */,
 				CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */,
 				CC608BE6261787E800F5B861 /* InfoView.swift in Sources */,
 				18DC2FAA247AED3D004D9453 /* ColorTransformer.swift in Sources */,
+				CC13C7CA27F0275300D12892 /* Selector+Codable.swift in Sources */,
 				CC8F8CB126209BB700F60F78 /* PaddedButton.swift in Sources */,
 				D610477E24224A170002E990 /* WindowController.swift in Sources */,
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
@@ -4414,6 +4432,7 @@
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
 				0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */,
 				D610479024224A170002E990 /* ContentActionResponder.swift in Sources */,
+				CC13C7CD27F0282900D12892 /* Swift+URL.swift in Sources */,
 				CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */,
 				CC347727266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */,
 				CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
@@ -4531,6 +4550,7 @@
 				D61047B524224A170002E990 /* SceneScrollView.swift in Sources */,
 				D61047B624224A170002E990 /* PreviewImageView.swift in Sources */,
 				D6EBF40324B5E50700DD2560 /* SceneActionTracking.swift in Sources */,
+				CC13C7C727F026EC00D12892 /* Swift+Collection.swift in Sources */,
 				CC236315264A8199005E909A /* PaneController.swift in Sources */,
 				CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */,
 				D67A8F0E247E6D6000153DE5 /* DragEndpoint.swift in Sources */,
@@ -4700,6 +4720,7 @@
 				CC96F94426727E6F00CB55E9 /* Device.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
+				CC13C7CB27F0275300D12892 /* Selector+Codable.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,
 				D6B8E85923D14219006AB402 /* TabDelegate.swift in Sources */,
 				CCE01C7F264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */,
@@ -4723,11 +4744,13 @@
 				CC1B015D26370836002EECF5 /* CheckboxHeaderCell.swift in Sources */,
 				CCB7847E26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
+				CC13C7CE27F0282900D12892 /* Swift+URL.swift in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
 				CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				CC347716266F4D8000391E73 /* AppDelegate+Template.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
+				CC13C7C827F026EC00D12892 /* Swift+Collection.swift in Sources */,
 				CCF7C85227E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */,
@@ -4765,6 +4788,7 @@
 				D658584324811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */,
 				CC470A1B262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
+				CC13C7C427F0269700D12892 /* String+Constants.swift in Sources */,
 				D682FC9123D6DB3400DA1750 /* ContentController.swift in Sources */,
 				D645E49D23E805EA0039F4F6 /* PixelRect.swift in Sources */,
 				CC85DAD427E579C0003263FD /* FieldOption+CoreDataClass.swift in Sources */,

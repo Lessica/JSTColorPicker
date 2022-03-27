@@ -9,7 +9,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  © 2004-2007 nakamuxu
-//  © 2014-2020 1024jp
+//  © 2014-2022 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ final class MenuKeyBindingManager: KeyBindingManager {
             fatalError("MenuKeyBindingManager should be initialized after Main.storyboard is loaded.")
         }
         
-        _defaultKeyBindings = Self.scanMenuKeyBindingRecurrently(menu: mainMenu)
+        _defaultKeyBindings = Set(Self.scanMenuKeyBindingRecurrently(menu: mainMenu))
         
         super.init()
     }
@@ -86,73 +86,37 @@ final class MenuKeyBindingManager: KeyBindingManager {
         try super.saveKeyBindings(outlineTree: outlineTree)
         
         // apply new settings to the menu
-        self.applyKeyBindingsToMainMenu(needsUpdate: true)
-    }
-    
-    
-    /// validate new key spec chars are settable
-    override func validate(shortcut: Shortcut, oldShortcut: Shortcut?) throws {
-        
-        try super.validate(shortcut: shortcut, oldShortcut: oldShortcut)
-        
-        // command key existance check
-        if !shortcut.isEmpty, !shortcut.modifierMask.contains(.command) {
-            throw InvalidKeySpecCharactersError(kind: .lackingCommandKey, shortcut: shortcut)
-        }
+        self.applyKeyBindingsToMainMenu()
     }
     
     
     
     // MARK: Public Methods
     
-    /// scan key bindings in main menu and store them as default values
-    ///
-    /// This method should be called before main menu is modified.
-    func scanDefaultMenuKeyBindings() {
+    /// re-apply keyboard short cut to all menu items
+    func applyKeyBindingsToMainMenu() {
         
-        // do nothing
-        // -> Actually, `defaultMenuKeyBindings` is already scanned in `init`.
+        let mainMenu = NSApp.mainMenu!
+        applyKeyBindingsToMenu(mainMenu)
     }
     
-    
-    /// re-apply keyboard short cut to all menu items
-    func applyKeyBindingsToMainMenu(needsUpdate update: Bool) {
-        applyKeyBindingsToMenu(NSApp.mainMenu!, needsUpdate: update)
-    }
-    
-    
-    /// re-apply keyboard short cut to all menu items
-    func applyKeyBindingsToMenu(_ menu: NSMenu, needsUpdate update: Bool) {
+    func applyKeyBindingsToMenu(_ menu: NSMenu) {
+        
         // at first, clear all current short cut sttings at first
         self.clearMenuKeyBindingRecurrently(menu: menu)
         
         // then apply the latest settings
         self.applyMenuKeyBindingRecurrently(menu: menu)
         
-        if update {
-            menu.update()
-        }
+        menu.update()
     }
     
     /// keyEquivalent and modifierMask for passed-in selector
-    func shortcut(
-        forAction action: Selector,
-        forAssociatedIdentifier associatedIdentifier: String?,
-        forAssociatedTag associatedTag: Int
-    ) -> Shortcut {
-        let shortcut = self.shortcut(
-            forAction: action,
-            forAssociatedIdentifier: associatedIdentifier,
-            forAssociatedTag: associatedTag,
-            defaults: false
-        )
+    func shortcut(for action: Selector) -> Shortcut {
         
-        guard !shortcut.isEmpty
-        else {
-            return .none
-        }
+        let shortcut = self.shortcut(for: action, defaults: false)
         
-        return shortcut
+        return shortcut.isValid ? shortcut : .none
     }
     
     
@@ -160,23 +124,12 @@ final class MenuKeyBindingManager: KeyBindingManager {
     // MARK: Private Methods
     
     /// return key bindings for selector
-    private func shortcut(
-        forAction action: Selector,
-        forAssociatedIdentifier associatedIdentifier: String?,
-        forAssociatedTag associatedTag: Int,
-        defaults usesDefaults: Bool
-    ) -> Shortcut {
+    private func shortcut(for action: Selector, defaults usesDefaults: Bool) -> Shortcut {
+        
         let keyBindings = usesDefaults ? self.defaultKeyBindings : self.keyBindings
-        var definition: KeyBinding?
-        if associatedTag > 0 {
-            definition = keyBindings.first { $0.associatedTag == associatedTag }
-        } else if let associatedIdentifier = associatedIdentifier, !associatedIdentifier.isEmpty, !associatedIdentifier.hasPrefix("_NS:")
-        {
-            definition = keyBindings.first { $0.associatedIdentifier == associatedIdentifier }
-        } else {
-            definition = keyBindings.first { $0.action == action }
-        }
-        return definition?.shortcut ?? .none
+        let keyBinding = keyBindings.first { $0.action == action }
+        
+        return keyBinding?.shortcut ?? .none
     }
     
     
@@ -187,6 +140,7 @@ final class MenuKeyBindingManager: KeyBindingManager {
         if menuItem.isSeparatorItem ||
             menuItem.isAlternate ||
             (menuItem.isHidden && !menuItem.allowsKeyEquivalentWhenHidden) ||
+            menuItem.keyEquivalentModifierMask.contains(.function) ||
             menuItem.title.isEmpty {
             return false
         }
@@ -195,7 +149,7 @@ final class MenuKeyBindingManager: KeyBindingManager {
         if let tag = MainMenu.MenuItemTag(rawValue: menuItem.tag) {
             switch tag {
                 case .services,
-                     .recentDocuments,
+                     .recentDocumentsDirectory,
                      .sharingService,
                      .devices,
                      .templates:
@@ -211,12 +165,14 @@ final class MenuKeyBindingManager: KeyBindingManager {
         // specific actions
         switch menuItem.action {
         case #selector(NSWindow.makeKeyAndOrderFront),
-             #selector(NSApplication.orderFrontCharacterPalette):  // = "Emoji & Symbols"
+             #selector(NSApplication.showHelp(_:)),
+             #selector(NSApplication.orderFrontCharacterPalette): // = "Emoji & Symbols"
             return false
             
         // window tabbing actions
         // -> Because they cannot be set correctly.
-        case #selector(NSDocument.revertToSaved(_:)),
+        case #selector(NSDocument.saveAs(_:)),
+             #selector(NSDocument.revertToSaved(_:)),
              #selector(NSWindow.selectNextTab(_:)),
              #selector(NSWindow.selectPreviousTab(_:)),
              #selector(NSWindow.moveTabToNewWindow(_:)),
@@ -230,49 +186,51 @@ final class MenuKeyBindingManager: KeyBindingManager {
     }
     
     
-    /// scan all key bindings as well as selector name in passed-in menu
-    private class func scanMenuKeyBindingRecurrently(menu: NSMenu) -> Set<KeyBinding> {
+    /// Allow modifying only menu items existed at launch .
+    ///
+    /// - Parameter menuItem: The menu item to check.
+    /// - Returns: Whether the given menu item can be modified by users.
+    private func allowsModifying(_ menuItem: NSMenuItem) -> Bool {
         
-        let keyBindings: [KeyBinding] = menu.items.lazy
-            .filter(self.allowsModifying)
-            .map { menuItem -> [KeyBinding] in
+        guard Self.allowsModifying(menuItem) else { return false }
+        
+        switch menuItem.action {
+            case #selector(NSMenu.submenuAction), .none:
+                return true
+            case let .some(action):
+                return self.defaultKeyBindings.map(\.action).contains(action)
+        }
+    }
+    
+    
+    /// scan all key bindings as well as selector name in passed-in menu
+    private class func scanMenuKeyBindingRecurrently(menu: NSMenu) -> [KeyBinding] {
+        
+        menu.items
+            .filter(Self.allowsModifying)
+            .flatMap { menuItem -> [KeyBinding] in
                 if let submenu = menuItem.submenu {
-                    return self.scanMenuKeyBindingRecurrently(menu: submenu).sorted()
+                    return self.scanMenuKeyBindingRecurrently(menu: submenu)
                 }
                 
                 guard let action = menuItem.action else { return [] }
                 
-                let shortcut = Shortcut(
-                    modifierMask: menuItem.keyEquivalentModifierMask,
-                    keyEquivalent: menuItem.keyEquivalent
-                )
+                let shortcut = Shortcut(modifierMask: menuItem.keyEquivalentModifierMask,
+                                        keyEquivalent: menuItem.keyEquivalent)
                 
-                guard shortcut.isValid else { return [] }
-                
-                return [
-                    KeyBinding(
-                        action: action,
-                        associatedIdentifier: menuItem.identifier?.rawValue ?? "",
-                        associatedTag: menuItem.tag,
-                        shortcut: shortcut
-                    )
-                ]
+                return [KeyBinding(name: menuItem.title, action: action, shortcut: shortcut.isValid ? shortcut : nil)]
             }
-            .flatMap { $0 }
-        
-        return Set(keyBindings)
     }
     
     
     /// clear keyboard shortcuts in the passed-in menu
     private func clearMenuKeyBindingRecurrently(menu: NSMenu) {
         
-        menu.items.lazy
-            .filter(Self.allowsModifying)
+        menu.items
+            .filter(self.allowsModifying)
             .forEach { menuItem in
                 if let submenu = menuItem.submenu {
-                    self.clearMenuKeyBindingRecurrently(menu: submenu)
-                    return
+                    return self.clearMenuKeyBindingRecurrently(menu: submenu)
                 }
                 
                 menuItem.keyEquivalent = ""
@@ -284,27 +242,19 @@ final class MenuKeyBindingManager: KeyBindingManager {
     /// apply current keyboard short cut settings to the passed-in menu
     private func applyMenuKeyBindingRecurrently(menu: NSMenu) {
         
-        menu.items.lazy
-            .filter(Self.allowsModifying)
+        menu.items
+            .filter(self.allowsModifying)
             .forEach { menuItem in
                 if let submenu = menuItem.submenu {
-                    self.applyMenuKeyBindingRecurrently(menu: submenu)
-                    return
+                    return self.applyMenuKeyBindingRecurrently(menu: submenu)
                 }
                 
                 guard let action = menuItem.action else { return }
                 
-                let shortcut = self.shortcut(
-                    forAction: action,
-                    forAssociatedIdentifier: menuItem.identifier?.rawValue,
-                    forAssociatedTag: menuItem.tag
-                )
+                let shortcut = self.shortcut(for: action)
                 
                 // apply only if both keyEquivalent and modifierMask exist
-                guard !shortcut.isEmpty
-                else {
-                    return
-                }
+                guard shortcut.isValid else { return }
                 
                 menuItem.keyEquivalent = shortcut.keyEquivalent
                 menuItem.keyEquivalentModifierMask = shortcut.modifierMask
@@ -315,8 +265,8 @@ final class MenuKeyBindingManager: KeyBindingManager {
     /// read key bindings from the menu and create an array data for outlineView in preferences
     private func outlineTree(menu: NSMenu, defaults usesDefaults: Bool) -> [NSTreeNode] {
         
-        return menu.items.lazy
-            .filter(Self.allowsModifying)
+        menu.items
+            .filter(self.allowsModifying)
             .compactMap { menuItem in
                 if let submenu = menuItem.submenu {
                     let node = NamedTreeNode(name: menuItem.title)
@@ -330,32 +280,14 @@ final class MenuKeyBindingManager: KeyBindingManager {
                 
                 guard let action = menuItem.action else { return nil }
                 
-                let defaultShortcut = self.shortcut(
-                    forAction: action,
-                    forAssociatedIdentifier: menuItem.identifier?.rawValue,
-                    forAssociatedTag: menuItem.tag,
-                    defaults: true
-                )
-                
+                let defaultShortcut = self.shortcut(for: action, defaults: true)
                 let shortcut = usesDefaults
                     ? defaultShortcut
-                    : Shortcut(
-                        modifierMask: menuItem.keyEquivalentModifierMask,
-                        keyEquivalent: menuItem.keyEquivalent
-                    )
+                    : Shortcut(modifierMask: menuItem.keyEquivalentModifierMask, keyEquivalent: menuItem.keyEquivalent)
                 
-                let item = KeyBindingItem(
-                    action: action,
-                    associatedIdentifier: menuItem.identifier?.rawValue ?? "",
-                    associatedTag: menuItem.tag,
-                    shortcut: shortcut,
-                    defaultShortcut: defaultShortcut
-                )
+                let item = KeyBindingItem(name: menu.title, action: action, shortcut: shortcut, defaultShortcut: defaultShortcut)
                 
-                return NamedTreeNode(
-                    name: menuItem.title,
-                    representedObject: item
-                )
+                return NamedTreeNode(name: menuItem.title, representedObject: item)
             }
     }
     

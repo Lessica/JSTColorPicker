@@ -14,12 +14,12 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="391"/>
+        <customView misplaced="YES" id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="278"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView initialItem="DBw-sv-D6x" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-g3-MLb">
-                    <rect key="frame" x="13" y="10" width="514" height="375"/>
+                    <rect key="frame" x="13" y="10" width="514" height="262"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="eLw-O7-No5"/>
                     </constraints>

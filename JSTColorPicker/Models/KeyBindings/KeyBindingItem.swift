@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2016-2020 1024jp
+//  © 2016-2022 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,28 +27,25 @@ import struct Foundation.Selector
 import AppKit.NSTreeNode
 
 final class KeyBindingItem {
-    internal init(
-        action: Selector,
-        associatedIdentifier: String,
-        associatedTag: Int,
-        shortcut: Shortcut? = nil,
-        defaultShortcut: Shortcut
-    ) {
+    
+    // MARK: Public Properties
+    
+    let name: String
+    let action: Selector
+    var shortcut: Shortcut?
+    let defaultShortcut: Shortcut
+    
+    
+    init(name: String, action: Selector, shortcut: Shortcut?, defaultShortcut: Shortcut) {
+        
+        self.name = name
         self.action = action
-        self.associatedIdentifier = associatedIdentifier
-        self.associatedTag = associatedTag
         self.shortcut = shortcut
         self.defaultShortcut = defaultShortcut
     }
     
-    // MARK: Public Properties
-    
-    let action: Selector
-    let associatedIdentifier: String
-    let associatedTag: Int
-    var shortcut: Shortcut?
-    let defaultShortcut: Shortcut
 }
+
 
 
 // MARK: -
@@ -58,6 +55,8 @@ final class NamedTreeNode: NSTreeNode {
     // MARK: Public Properties
     
     let name: String
+    
+    
     
     // MARK: -
     // MARK: Lifecycle

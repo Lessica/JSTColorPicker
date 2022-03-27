@@ -214,6 +214,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc private func registerInitialValuesNotification(_ notification: NSNotification? = nil)
     {
+        // reset key bindings
+        MenuKeyBindingManager.shared.applyKeyBindingsToMainMenu()
         
         // read notification user info
         var initialURL = notification?.userInfo?["url"] as? URL

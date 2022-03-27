@@ -1,14 +1,14 @@
 //
-//  MainMenu.swift
+//  Selector+Codable.swift
 //
 //  CotEditor
 //  https://coteditor.com
 //
-//  Created by 1024jp on 2016-10-19.
+//  Created by 1024jp on 2017-12-02.
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2016-2020 1024jp
+//  © 2017-2020 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,29 +23,23 @@
 //  limitations under the License.
 //
 
-import AppKit
+import Foundation.NSObjCRuntime
 
-enum MainMenu: Int {
-    case application
-    case file
-    case edit
-    case view
-    case scene
-    case annotation
-    case devices
-    case templates
-    case window
-    case help
+extension Selector: Codable {
     
-    enum MenuItemTag: Int {
-        case services = 999  // not to list up in "Menu Key Bindings" setting
-        case sharingService = 1999
-        case recentDocumentsDirectory = 2999  // not to list up in "Menu Key Bindings" setting
-        case devices = 7999
-        case templates = 8999  // not to list up in "Menu Key Bindings" setting
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.singleValueContainer()
+        
+        self = Selector(try container.decode(String.self))
     }
     
-    var menu: NSMenu? {
-        return NSApp.mainMenu?.item(at: self.rawValue)?.submenu
+    
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.singleValueContainer()
+        
+        try container.encode(NSStringFromSelector(self))
     }
+    
 }

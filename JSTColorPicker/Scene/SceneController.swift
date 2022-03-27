@@ -2270,7 +2270,7 @@ extension SceneController: NSMenuItemValidation, NSMenuDelegate {
     // Apply key bindings for top-level menus.
     private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
         if menu == selectionMenu || menu == deletionMenu {
-            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
     }
 

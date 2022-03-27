@@ -776,7 +776,7 @@ extension TemplatePreviewController: NSMenuItemValidation, NSMenuDelegate {
     // Apply key bindings for top-level menus.
     private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
         if menu == outlineHeaderMenu || menu == outlineMenu {
-            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu, needsUpdate: false)
+            MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
     }
     
