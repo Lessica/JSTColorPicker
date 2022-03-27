@@ -48,3 +48,4 @@ echo "Upload helper metadata..."
 scp -P 58422 ./releases/nginx_latest_helper_redirect.txt ubuntu@120.55.68.129:/var/www/html/jstcpweb/nginx_latest_helper_redirect.txt
 ssh -p 58422 root@120.55.68.129 nginx -t
 ssh -p 58422 root@120.55.68.129 nginx -s reload
+scp -rP 58422 ./releases/adhoc ubuntu@120.55.68.129:/var/www/html/jstcpweb/adhoc

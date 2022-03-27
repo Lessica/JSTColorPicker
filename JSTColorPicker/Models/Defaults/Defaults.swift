@@ -10,6 +10,7 @@ import Foundation
 
 extension UserDefaults.Key {
     
+    static let AdHocConfigurationURL                : UserDefaults.Key     = "AdHocConfigurationURL"                           // String
     static let AppleMomentumScrollSupported         : UserDefaults.Key     = "AppleMomentumScrollSupported"                    // Bool
     
     static let lastSelectedDeviceUDID               : UserDefaults.Key     = "defaults:lastSelectedDeviceUDID"                 // String
