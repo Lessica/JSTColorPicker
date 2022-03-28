@@ -378,7 +378,7 @@
 		CC98053727F21176009044B7 /* pb.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC98053227F21124009044B7 /* pb.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC98053927F211FD009044B7 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
 		CC98053A27F2120F009044B7 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98053E27F21367009044B7 /* modules.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC9804AA27F20833009044B7 /* modules.bundle */; };
+		CC98053E27F21367009044B7 /* Modules.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC9804AA27F20833009044B7 /* Modules.bundle */; };
 		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
@@ -1490,7 +1490,7 @@
 		CC96F94226727E6F00CB55E9 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		CC98049C27F1FDB2009044B7 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
 		CC98049D27F1FDB2009044B7 /* pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb.c; sourceTree = "<group>"; };
-		CC9804AA27F20833009044B7 /* modules.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = modules.bundle; sourceTree = "<group>"; };
+		CC9804AA27F20833009044B7 /* Modules.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Modules.bundle; sourceTree = "<group>"; };
 		CC9804B127F20987009044B7 /* cjson.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = cjson.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9804CC27F20D32009044B7 /* lpeg.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lpeg.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9804F227F21011009044B7 /* lcurl.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lcurl.so; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3115,7 +3115,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9804AB27F2085F009044B7 /* modules */,
-				CC9804AA27F20833009044B7 /* modules.bundle */,
+				CC9804AA27F20833009044B7 /* Modules.bundle */,
 				D62834A923F8E6E60016573B /* lib */,
 				D62834AA23F8E6EF0016573B /* include */,
 				D628350F23F8EAAA0016573B /* LuaC.h */,
@@ -4172,7 +4172,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC98053E27F21367009044B7 /* modules.bundle in Resources */,
+				CC98053E27F21367009044B7 /* Modules.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
