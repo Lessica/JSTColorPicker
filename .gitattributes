@@ -20,3 +20,5 @@ LuaC/prebuilt/libbrotlicommon-static.a filter=lfs diff=lfs merge=lfs -text
 LuaC/prebuilt/libcurl.a filter=lfs diff=lfs merge=lfs -text
 LuaC/prebuilt/libintl.a filter=lfs diff=lfs merge=lfs -text
 LuaC/prebuilt/libunistring.a filter=lfs diff=lfs merge=lfs -text
+LuaC/modules/lcurl/prebuilt/libcurl.a filter=lfs diff=lfs merge=lfs -text
+LuaC/modules/lcurl/prebuilt/libnghttp2.a filter=lfs diff=lfs merge=lfs -text

@@ -228,9 +228,7 @@ end
 
 Test the existence of `item.width` to check if the item is a *color & coordinates* or an *area*.
 
-## LICENSE
-- [JSTColorPicker](https://github.com/Lessica/JSTColorPicker/blob/master/LICENSE)
-- [libimobiledevice](https://github.com/libimobiledevice/libimobiledevice/blob/master/COPYING.LESSER)
-- [MASPreferences](https://github.com/shpakovski/MASPreferences/blob/master/LICENSE.md)
-- [Sparkle](https://github.com/sparkle-project/Sparkle/blob/master/LICENSE)
+For more details, see `ExampleTemplates/READMD.md`.
 
+## LICENSE
+See `Credits.rtf`.

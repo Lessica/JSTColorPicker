@@ -16,5 +16,3 @@ FOUNDATION_EXPORT double LuaSwiftVersionNumber;
 FOUNDATION_EXPORT const unsigned char LuaSwiftVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <LuaSwift/PublicHeader.h>
-
-

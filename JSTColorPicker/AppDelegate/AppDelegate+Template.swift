@@ -15,6 +15,8 @@ extension AppDelegate {
         let searchPaths = [
             Bundle.main.resourcePath!,
             Bundle(identifier: "com.jst.LuaC")!.resourcePath!,
+            Bundle(identifier: "com.jst.LuaC")!.resourceURL!
+                .appendingPathComponent("modules.bundle", isDirectory: true).path,
             TemplateManager.templateRootURL.path
         ]
         setenv("LUA_PATH", searchPaths.reduce("") { $0 + $1 + "/?.lua;" }, 1)

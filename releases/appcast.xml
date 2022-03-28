@@ -8,5 +8,14 @@
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
             <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.11-1236.dmg" sparkle:version="1236" sparkle:shortVersionString="2.11" length="26805094" type="application/octet-stream" sparkle:edSignature="DhKOyXCLaKb9lnVH/QzGrrT+Ay1u+yIycYCYtvDC9S9G3L+jf9+R7VIC4tJjMi2iimMJvN/dqLr5t8u2XhomBg=="/>
         </item>
+        <item>
+            <title>2.11</title>
+            <pubDate>周一, 28 3月 2022 01:16:14 +0800</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.11-1237.dmg" sparkle:version="1237" sparkle:shortVersionString="2.11" length="26806534" type="application/octet-stream" sparkle:edSignature="zBA1EdrvLF9++g1MyrBapDaxoZOWfW9KiXS5sRQ3ypNq5RAwqHt30Sko90+D+u93nKuMI87RIXhXoFf8zdsdDA=="/>
+            <sparkle:deltas>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1237-1236.delta" sparkle:version="1237" sparkle:shortVersionString="2.11" sparkle:deltaFrom="1236" length="544195" type="application/octet-stream" sparkle:edSignature="tSeoAryR6+JRhxg+AO8fwg0iEmFYVtpVeLi5o8JTL6fi91nlmxa4PPUAarFLmwx3I53Jwp+bScqFnJALwOvoDA=="/>
+            </sparkle:deltas>
+        </item>
     </channel>
 </rss>

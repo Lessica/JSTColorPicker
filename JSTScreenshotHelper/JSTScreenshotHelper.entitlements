@@ -21,8 +21,8 @@
 	</array>
 	<key>com.apple.security.temporary-exception.sbpl</key>
 	<array>
-		<string>(allow network-outbound (literal "/private/var/run/usbmuxd"))</string>
-		<string>(allow network-outbound (literal "/private/var/run/mDNSResponder"))</string>
+		<string>(allow network-outbound (literal &quot;/private/var/run/usbmuxd&quot;))</string>
+		<string>(allow network-outbound (literal &quot;/private/var/run/mDNSResponder&quot;))</string>
 	</array>
 </dict>
 </plist>

@@ -8,7 +8,7 @@
 		<key>colorHex</key>
 		<string>#171E6D</string>
 		<key>helpText</key>
-		<string>Area of a random photo.</string>
+		<string>照片</string>
 		<key>fields</key>
 		<array>
 			<dict>
