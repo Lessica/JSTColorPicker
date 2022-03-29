@@ -25,8 +25,8 @@ extension AppDelegate {
     }
     
     @objc private func compareDocuments(_ sender: Any?) {
-        if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
-            firstManagedWindowController?.endPixelMatchComparison()
+        if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
+            firstRespondingWindowController?.endPixelMatchComparison()
         }
         else if let tuple = preparedPixelMatchTuple {
             if let frontPixelImage = tuple.0.screenshot?.image {

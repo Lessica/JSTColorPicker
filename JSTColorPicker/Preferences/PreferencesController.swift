@@ -11,6 +11,7 @@ import MASPreferences
 
 final class PreferencesController: MASPreferencesWindowController {
     
+    static let Identifier = "Preferences"
     static let registerInitialValuesNotification = Notification.Name("PreferencesController.registerInitialValuesNotification")
     static let makeKeyAndOrderFrontNotification = Notification.Name("PreferencesController.makeKeyAndOrderFrontNotification")
     

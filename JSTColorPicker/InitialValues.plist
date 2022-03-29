@@ -112,5 +112,7 @@
 	<false/>
 	<key>defaults:disableTagEditing</key>
 	<false/>
+	<key>restoration:prefsGeneralSelectedTabIdentifier</key>
+	<string>Scene</string>
 </dict>
 </plist>

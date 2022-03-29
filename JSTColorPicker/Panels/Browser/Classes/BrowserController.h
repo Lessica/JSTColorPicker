@@ -9,8 +9,18 @@
 @import Cocoa;
 #import "FileSystemNode.h"
 
+@class BrowserController;
+
+@protocol BrowserControllerDelegate <NSObject>
+
+@optional
+- (void)browserControllerDidChangeColumn:(BrowserController *)browserController;
+
+@end
+
 @interface BrowserController : NSObject <NSBrowserDelegate>
 
+@property (weak, nonatomic) id <BrowserControllerDelegate> delegate;
 @property (nonatomic, assign, getter=isLeafItemPreviewable) IBInspectable BOOL leafItemPreviewable;
 @property (readonly, assign) FileSystemNodeSortedBy sortedBy;
 

@@ -85,7 +85,12 @@ private extension NSUserInterfaceItemIdentifier {
 }
 
 
-class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidation {
+fileprivate extension UserDefaults.Key {
+    static let restorableBrowserURL: UserDefaults.Key = "restoration:browserURL"
+}
+
+
+class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidation, BrowserControllerDelegate {
     
     @IBOutlet weak var browserController: BrowserController!
     @IBOutlet weak var browser: NSBrowser!
@@ -94,24 +99,57 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let defaultPath: String = UserDefaults.standard[.screenshotSavingPath] {
-            setURL(URL(
-                fileURLWithPath: NSString(string: defaultPath).expandingTildeInPath
-            ))
+        
+        browserController.delegate = self
+        
+        var pathSetSuccessfully = false
+        if let archivedURL: URL = UserDefaults.standard[.restorableBrowserURL] {
+            pathSetSuccessfully = setBrowserPath(archivedURL.path)
+        }
+        if !pathSetSuccessfully {
+            if let defaultPath: String = UserDefaults.standard[.screenshotSavingPath] {
+                let defaultURL = URL(fileURLWithPath: NSString(string: defaultPath).expandingTildeInPath)
+                pathSetSuccessfully = setBrowserPath(defaultURL.path)
+            }
         }
     }
     
+    func browserControllerDidChangeColumn(_ browserController: BrowserController!) {
+        let archivedURL = relativeURL
+        debugPrint(archivedURL.path)
+        UserDefaults.standard[.restorableBrowserURL] = archivedURL
+    }
+    
     @discardableResult
-    func setURL(_ url: URL) -> Bool {
-        guard let rootNode = self.browserController.rootItem(for: self.browser) as? FileSystemNode else {
-            return false
+    private func setBrowserPath(_ path: String) -> Bool {
+        return browser.setPath(path)
+    }
+    
+    internal var relativeURL: URL {
+        get {
+            URL(fileURLWithPath: browser.path())
         }
-        let expandedRelativePath = URL(string: "/")!.appendingPathComponent(
-            url.relativePath(
-                from: rootNode.url
-            ) ?? ""
-        ).path
-        return self.browser.setPath(expandedRelativePath)
+        set {
+            setBrowserPath(newValue.path)
+        }
+    }
+    
+    internal var absoluteURL: URL {
+        get {
+            let rootNode = browserController.rootItem(for: browser) as! FileSystemNode
+            var fullURL = rootNode.url!
+            relativeURL.pathComponents.forEach({ fullURL.appendPathComponent($0) })
+            return fullURL
+        }
+        set {
+            let rootNode = browserController.rootItem(for: browser) as! FileSystemNode
+            let expandedRelativePath = URL(string: "/")!.appendingPathComponent(
+                relativeURL.relativePath(
+                    from: rootNode.url
+                ) ?? ""
+            ).path
+            setBrowserPath(expandedRelativePath)
+        }
     }
     
     private var actionSelectedRowIndex: Int? {

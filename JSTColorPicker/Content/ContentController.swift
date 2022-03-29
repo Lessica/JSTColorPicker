@@ -804,16 +804,24 @@ extension ContentController: ContentTableViewResponder {
 
 extension ContentController {
 
-    private static let restorableTableViewSelectedState = "tableView.selectedRowIndexes"
+    private static let restorableSelectedContentItemIndexes = "restoration:selectedContentItemIndexes"
+    private static let restorableAddCoordinateFieldStringValue = "restoration:addCoordinateFieldStringValue"
 
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
-        coder.encode(NSIndexSet(indexSet: tableView.selectedRowIndexes), forKey: ContentController.restorableTableViewSelectedState)
+        coder.encode(NSIndexSet(indexSet: tableView.selectedRowIndexes), forKey: ContentController.restorableSelectedContentItemIndexes)
+        coder.encode(addCoordinateField.stringValue, forKey: ContentController.restorableAddCoordinateFieldStringValue)
     }
 
     override func restoreState(with coder: NSCoder) {
         super.restoreState(with: coder)
-        if let indexSet = coder.decodeObject(of: NSIndexSet.self, forKey: ContentController.restorableTableViewSelectedState)?
+        
+        if let addCoordinateFieldStringValue = coder.decodeObject(of: NSString.self, forKey: ContentController.restorableAddCoordinateFieldStringValue) as String?
+        {
+            addCoordinateField.stringValue = addCoordinateFieldStringValue
+        }
+        
+        if let indexSet = coder.decodeObject(of: NSIndexSet.self, forKey: ContentController.restorableSelectedContentItemIndexes)?
             .indexes(passingTest: { _,_ in true })
         {
             internalSelectContentItems(

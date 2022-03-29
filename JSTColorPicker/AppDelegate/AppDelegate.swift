@@ -169,10 +169,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
     @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
     
-    internal var firstManagedWindowController: WindowController? {
-        return tabService?.firstManagedWindow?.windowController
-    }
-    
     internal var firstRespondingWindowController: WindowController? {
         tabService?.firstRespondingWindow?.windowController as? WindowController
     }
@@ -446,14 +442,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        let hasAttachedSheet = firstManagedWindowController?.hasAttachedSheet ?? false
+        let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
         if menuItem.action == #selector(subscribeMenuItemTapped(_:)) {
             return true
         }
         else if menuItem.action == #selector(compareDocumentsMenuItemTapped(_:))
         {
             guard !hasAttachedSheet else { return false }
-            if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
+            if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
             } else if let tuple = preparedPixelMatchTuple {
                 return tuple.1.count > 1
@@ -534,7 +530,7 @@ by \(template.author ?? "Unknown")
     }
     
     private func updateFileMenuItems(_ menu: NSMenu) {
-        if firstManagedWindowController?.shouldEndPixelMatchComparison ?? false {
+        if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
             compareDocumentsMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
         }
         else if let tuple = preparedPixelMatchTuple, tuple.1.count > 1
@@ -606,8 +602,8 @@ by \(template.author ?? "Unknown")
 
 extension AppDelegate {
     
-    private static let restorableBrowserWindowVisibleState = "BrowserWindowController.shared.isVisible"
-    private static let restorableColorGridWindowVisibleState = "GridWindowController.shared.isVisible"
+    private static let restorableBrowserWindowVisibleState = "restoration:browserWindowVisibleState"
+    private static let restorableColorGridWindowVisibleState = "restoration:colorGridWindowVisibleState"
     
     func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
         coder.encode(isBrowserVisible, forKey: AppDelegate.restorableBrowserWindowVisibleState)

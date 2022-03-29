@@ -247,6 +247,12 @@
     return result;
 }
 
+- (void)browser:(NSBrowser *)browser didChangeLastColumn:(NSInteger)oldLastColumn toColumn:(NSInteger)column {
+    if ([self.delegate respondsToSelector:@selector(browserControllerDidChangeColumn:)]) {
+        [self.delegate browserControllerDidChangeColumn:self];
+    }
+}
+
 - (BOOL)browser:(NSBrowser *)browser acceptDrop:(id <NSDraggingInfo>)info atRow:(NSInteger)row column:(NSInteger)column dropOperation:(NSBrowserDropOperation)dropOperation {
     NSArray <NSString *> *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
     // Find the target folder

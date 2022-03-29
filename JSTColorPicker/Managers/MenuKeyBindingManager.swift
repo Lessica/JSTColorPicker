@@ -311,7 +311,7 @@ final class MenuKeyBindingManager: KeyBindingManager {
             .filter(self.allowsModifying)
             .compactMap { menuItem in
                 if let submenu = menuItem.submenu {
-                    let node = NamedTreeNode(name: menuItem.title)
+                    let node = NamedTreeNode(name: menuItem.title, representedObject: menuItem.identifier)
                     let subtree = self.outlineTree(menu: submenu, defaults: usesDefaults)
                     
                     guard !subtree.isEmpty else { return nil }  // ignore empty submenu

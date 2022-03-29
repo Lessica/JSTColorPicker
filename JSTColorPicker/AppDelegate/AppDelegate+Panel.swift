@@ -78,7 +78,9 @@ extension AppDelegate {
     
     internal func toggleColorGridVisibleState(_ visible: Bool, sender: Any?) {
         if visible {
-            GridWindowController.shared.showWindow(sender)
+            let sharedGridWindowController = GridWindowController.shared
+            sharedGridWindowController.activeWindowController = firstRespondingWindowController
+            sharedGridWindowController.showWindow(sender)
         } else {
             if GridWindowController.sharedLoaded {
                 GridWindowController.shared.close()

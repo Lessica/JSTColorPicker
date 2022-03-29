@@ -322,67 +322,69 @@
 		CC96F94426727E6F00CB55E9 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F94226727E6F00CB55E9 /* Device.swift */; };
 		CC9804B627F20A3F009044B7 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A19260B290600A934E2 /* strbuf.c */; };
 		CC9804B827F20A3F009044B7 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A16260B290600A934E2 /* lua_cjson.c */; };
-		CC9804BA27F20A46009044B7 /* strbuf.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A28260B291800A934E2 /* strbuf.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC9804BA27F20A46009044B7 /* strbuf.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A28260B291800A934E2 /* strbuf.h */; };
 		CC9804BF27F20A88009044B7 /* cjson.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC9804B127F20987009044B7 /* cjson.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC9804CD27F20D56009044B7 /* lpvm.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697F260A0B350029693B /* lpvm.c */; };
 		CC9804CE27F20D56009044B7 /* lpprint.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB76980260A0B350029693B /* lpprint.c */; };
 		CC9804CF27F20D56009044B7 /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697D260A0B340029693B /* lpcap.c */; };
 		CC9804D027F20D56009044B7 /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697C260A0B340029693B /* lpcode.c */; };
 		CC9804D127F20D56009044B7 /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = CCB7697E260A0B350029693B /* lptree.c */; };
-		CC9804D227F20D5C009044B7 /* lptypes.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76991260A0B5A0029693B /* lptypes.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804D327F20D5C009044B7 /* lptree.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76992260A0B5A0029693B /* lptree.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804D427F20D5C009044B7 /* lpvm.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76990260A0B5A0029693B /* lpvm.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804D527F20D5C009044B7 /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804D627F20D5C009044B7 /* lpcode.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698F260A0B5A0029693B /* lpcode.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804D727F20D5C009044B7 /* lpprint.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698E260A0B5A0029693B /* lpprint.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC9804D227F20D5C009044B7 /* lptypes.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76991260A0B5A0029693B /* lptypes.h */; };
+		CC9804D327F20D5C009044B7 /* lptree.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76992260A0B5A0029693B /* lptree.h */; };
+		CC9804D427F20D5C009044B7 /* lpvm.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76990260A0B5A0029693B /* lpvm.h */; };
+		CC9804D527F20D5C009044B7 /* lpcap.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB76993260A0B5A0029693B /* lpcap.h */; };
+		CC9804D627F20D5C009044B7 /* lpcode.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698F260A0B5A0029693B /* lpcode.h */; };
+		CC9804D727F20D5C009044B7 /* lpprint.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698E260A0B5A0029693B /* lpprint.h */; };
 		CC9804DA27F20D6D009044B7 /* lpeg.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC9804CC27F20D32009044B7 /* lpeg.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC9804F327F21049009044B7 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */; };
 		CC9804F427F21049009044B7 /* libnghttp2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */; };
-		CC9804F527F2104E009044B7 /* lcmulti.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE527ED042600057E12 /* lcmulti.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804F627F2104E009044B7 /* lcopturl.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE627ED042700057E12 /* lcopturl.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804F727F2104E009044B7 /* lcflags.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEB27ED042700057E12 /* lcflags.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804F827F2104E009044B7 /* lcoptshare.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEC27ED042700057E12 /* lcoptshare.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804F927F2104E009044B7 /* lcerror.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF227ED042800057E12 /* lcerror.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC9804F527F2104E009044B7 /* lcmulti.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE527ED042600057E12 /* lcmulti.h */; };
+		CC9804F627F2104E009044B7 /* lcopturl.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE627ED042700057E12 /* lcopturl.h */; };
+		CC9804F727F2104E009044B7 /* lcflags.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEB27ED042700057E12 /* lcflags.h */; };
+		CC9804F827F2104E009044B7 /* lcoptshare.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEC27ED042700057E12 /* lcoptshare.h */; };
+		CC9804F927F2104E009044B7 /* lcerror.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF227ED042800057E12 /* lcerror.h */; };
 		CC9804FA27F2104E009044B7 /* lchttppost.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BEA27ED042700057E12 /* lchttppost.c */; };
 		CC9804FB27F2104E009044B7 /* lceasy.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BE127ED042600057E12 /* lceasy.c */; };
 		CC9804FC27F2104E009044B7 /* lcerror.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BF627ED042800057E12 /* lcerror.c */; };
 		CC9804FD27F2104E009044B7 /* lcmime.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BFB27ED042900057E12 /* lcmime.c */; };
-		CC9804FE27F2104E009044B7 /* l52util.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE327ED042600057E12 /* l52util.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC9804FF27F2104E009044B7 /* lcopteasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEE27ED042700057E12 /* lcopteasy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC9804FE27F2104E009044B7 /* l52util.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE327ED042600057E12 /* l52util.h */; };
+		CC9804FF27F2104E009044B7 /* lcopteasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEE27ED042700057E12 /* lcopteasy.h */; };
 		CC98050027F2104E009044B7 /* l52util.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BDE27ED042600057E12 /* l52util.c */; };
-		CC98050127F2104E009044B7 /* lchttppost.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF027ED042700057E12 /* lchttppost.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050227F2104E009044B7 /* lcinfoeasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BDF27ED042600057E12 /* lcinfoeasy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98050127F2104E009044B7 /* lchttppost.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF027ED042700057E12 /* lchttppost.h */; };
+		CC98050227F2104E009044B7 /* lcinfoeasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BDF27ED042600057E12 /* lcinfoeasy.h */; };
 		CC98050327F2104E009044B7 /* lcurl.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BF527ED042800057E12 /* lcurl.c */; };
 		CC98050427F2104E009044B7 /* lcshare.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BF727ED042800057E12 /* lcshare.c */; };
-		CC98050527F2104E009044B7 /* lcmime.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE427ED042600057E12 /* lcmime.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050627F2104E009044B7 /* lcerr_easy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BFA27ED042800057E12 /* lcerr_easy.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050727F2104E009044B7 /* lcutils.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE827ED042700057E12 /* lcutils.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050827F2104E009044B7 /* lcurl.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE027ED042600057E12 /* lcurl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98050527F2104E009044B7 /* lcmime.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE427ED042600057E12 /* lcmime.h */; };
+		CC98050627F2104E009044B7 /* lcerr_easy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BFA27ED042800057E12 /* lcerr_easy.h */; };
+		CC98050727F2104E009044B7 /* lcutils.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE827ED042700057E12 /* lcutils.h */; };
+		CC98050827F2104E009044B7 /* lcurl.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE027ED042600057E12 /* lcurl.h */; };
 		CC98050927F2104E009044B7 /* lcurlapi.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BF127ED042800057E12 /* lcurlapi.c */; };
 		CC98050A27F2104E009044B7 /* lcutils.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BDD27ED042600057E12 /* lcutils.c */; };
-		CC98050B27F2104E009044B7 /* lcerr_multi.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE727ED042700057E12 /* lcerr_multi.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050C27F2104E009044B7 /* lcerr_share.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BED27ED042700057E12 /* lcerr_share.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98050D27F2104E009044B7 /* lcoptmulti.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEF27ED042700057E12 /* lcoptmulti.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98050B27F2104E009044B7 /* lcerr_multi.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE727ED042700057E12 /* lcerr_multi.h */; };
+		CC98050C27F2104E009044B7 /* lcerr_share.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BED27ED042700057E12 /* lcerr_share.h */; };
+		CC98050D27F2104E009044B7 /* lcoptmulti.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEF27ED042700057E12 /* lcoptmulti.h */; };
 		CC98050E27F2104E009044B7 /* lcmulti.c in Sources */ = {isa = PBXBuildFile; fileRef = CC328BE927ED042700057E12 /* lcmulti.c */; };
-		CC98050F27F2104E009044B7 /* lceasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF827ED042800057E12 /* lceasy.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98051027F2104E009044B7 /* lcurlapi.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF427ED042800057E12 /* lcurlapi.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98051127F2104E009044B7 /* lcerr_url.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF927ED042800057E12 /* lcerr_url.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98051227F2104E009044B7 /* lcshare.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF327ED042800057E12 /* lcshare.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CC98051327F2104E009044B7 /* lcerr_form.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE227ED042600057E12 /* lcerr_form.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98050F27F2104E009044B7 /* lceasy.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF827ED042800057E12 /* lceasy.h */; };
+		CC98051027F2104E009044B7 /* lcurlapi.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF427ED042800057E12 /* lcurlapi.h */; };
+		CC98051127F2104E009044B7 /* lcerr_url.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF927ED042800057E12 /* lcerr_url.h */; };
+		CC98051227F2104E009044B7 /* lcshare.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BF327ED042800057E12 /* lcshare.h */; };
+		CC98051327F2104E009044B7 /* lcerr_form.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE227ED042600057E12 /* lcerr_form.h */; };
 		CC98051627F21088009044B7 /* lcurl.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC9804F227F21011009044B7 /* lcurl.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CC98052427F210FE009044B7 /* lfs.h in Headers */ = {isa = PBXBuildFile; fileRef = CCFE14EB27ED18E700491043 /* lfs.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98052427F210FE009044B7 /* lfs.h in Headers */ = {isa = PBXBuildFile; fileRef = CCFE14EB27ED18E700491043 /* lfs.h */; };
 		CC98052527F210FE009044B7 /* lfs.c in Sources */ = {isa = PBXBuildFile; fileRef = CCFE14EA27ED18E700491043 /* lfs.c */; };
 		CC98052827F21114009044B7 /* lfs.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC98052327F210E7009044B7 /* lfs.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC98053327F21132009044B7 /* pb.c in Sources */ = {isa = PBXBuildFile; fileRef = CC98049D27F1FDB2009044B7 /* pb.c */; };
 		CC98053427F21132009044B7 /* pb.h in Headers */ = {isa = PBXBuildFile; fileRef = CC98049C27F1FDB2009044B7 /* pb.h */; };
 		CC98053727F21176009044B7 /* pb.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC98053227F21124009044B7 /* pb.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC98053927F211FD009044B7 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
-		CC98053A27F2120F009044B7 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CC98053A27F2120F009044B7 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; };
 		CC98053E27F21367009044B7 /* Modules.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC9804AA27F20833009044B7 /* Modules.bundle */; };
 		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
 		CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
+		CCA49FA227F2D280009331DB /* RestorationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA49FA127F2D280009331DB /* RestorationError.swift */; };
+		CCA49FA327F2D280009331DB /* RestorationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA49FA127F2D280009331DB /* RestorationError.swift */; };
 		CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
 		CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
 		CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
@@ -1119,26 +1121,6 @@
 			name = "Copy Lua Modules";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CCE352F6264E88A100147567 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CCE352FA264E88B200147567 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D60B0F50242887610034F21C /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1498,6 +1480,7 @@
 		CC98053227F21124009044B7 /* pb.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = pb.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleErrorAlertView.xib; sourceTree = "<group>"; };
 		CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleErrorAlertView.swift; sourceTree = "<group>"; };
+		CCA49FA127F2D280009331DB /* RestorationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorationError.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		CCA72A17260B290600A934E2 /* g_fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = g_fmt.c; sourceTree = "<group>"; };
 		CCA72A18260B290600A934E2 /* dtoa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtoa.c; sourceTree = "<group>"; };
@@ -1884,40 +1867,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CC9804AF27F20987009044B7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC9804C827F20D32009044B7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CC9804EE27F21011009044B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CC9804F327F21049009044B7 /* libcurl.a in Frameworks */,
 				CC9804F427F21049009044B7 /* libnghttp2.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC98051F27F210E7009044B7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC98052E27F21124009044B7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2657,6 +2612,7 @@
 				0F5BBA2B276F40F300AF0DC8 /* Screenshot+Error.swift */,
 				0F5BBA28276F40D000AF0DC8 /* Screenshot+Print.swift */,
 				CC1B01512636F896002EECF5 /* GenericError.swift */,
+				CCA49FA127F2D280009331DB /* RestorationError.swift */,
 				D64790F72490E79C003159FD /* OrderedSet.swift */,
 				CC470A19262B1CAB0013A3B7 /* MutexLock.swift */,
 				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
@@ -3748,7 +3704,6 @@
 			buildPhases = (
 				CC9804AD27F20987009044B7 /* Headers */,
 				CC9804AE27F20987009044B7 /* Sources */,
-				CC9804AF27F20987009044B7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3765,7 +3720,6 @@
 			buildPhases = (
 				CC9804C127F20D32009044B7 /* Headers */,
 				CC9804C427F20D32009044B7 /* Sources */,
-				CC9804C827F20D32009044B7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3799,7 +3753,6 @@
 			buildPhases = (
 				CC98051827F210E7009044B7 /* Headers */,
 				CC98051B27F210E7009044B7 /* Sources */,
-				CC98051F27F210E7009044B7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3816,7 +3769,6 @@
 			buildPhases = (
 				CC98052A27F21124009044B7 /* Headers */,
 				CC98052C27F21124009044B7 /* Sources */,
-				CC98052E27F21124009044B7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3882,7 +3834,6 @@
 				D60B0F50242887610034F21C /* Embed XPC Services */,
 				D69FD94024741B9300ACBF74 /* Embed Dynamic Libraries */,
 				D68A1FDD2498B24F001E3FDA /* Embed Tools */,
-				CCE352F6264E88A100147567 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -3988,7 +3939,6 @@
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 				D69FD93C24741A4000ACBF74 /* Embed Dynamic Libraries */,
 				0F87C3522769CC700006F446 /* Embed Tools */,
-				CCE352FA264E88B200147567 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -4747,6 +4697,7 @@
 				CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
+				CCA49FA227F2D280009331DB /* RestorationError.swift in Sources */,
 				D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				D61047C124224A170002E990 /* SceneTool.swift in Sources */,
 				CC236307264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
@@ -5063,6 +5014,7 @@
 				185D7EEC248A8025001C283B /* EditAreaController.swift in Sources */,
 				CC34771C266F4ED500391E73 /* AppDelegate+Preferences.swift in Sources */,
 				CC13C7B927EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */,
+				CCA49FA327F2D280009331DB /* RestorationError.swift in Sources */,
 				185D7EF2248A8518001C283B /* EditViewController.swift in Sources */,
 				D649230E23CC62D70067C04A /* SceneController.swift in Sources */,
 				CC236318264A8199005E909A /* PaneContainer.swift in Sources */,

@@ -43,7 +43,7 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
     @objc private dynamic var warningMessage: String?  // for binding
     @objc private dynamic var isRestoreble: Bool = false  // for binding
     
-    @IBOutlet fileprivate weak var outlineView: NSOutlineView?
+    @IBOutlet fileprivate weak var outlineView: NSOutlineView!
     
     
     // MARK: Initializer
@@ -66,7 +66,15 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
         
         self.outlineTree = self.manager.outlineTree(defaults: false)
         self.isRestoreble = !self.manager.usesDefaultKeyBindings
-        self.outlineView?.reloadData()
+        
+        /// Work around to trigger auto-save restoration:
+        /// https://stackoverflow.com/questions/63351982/why-view-based-nsoutlineview-with-autosaveexpandeditems-true-ignores-expanded-up
+        
+        self.outlineView.autosaveExpandedItems = true
+        let autosaveName = self.outlineView.autosaveName
+        self.outlineView.autosaveName = nil
+        self.outlineView.reloadData()
+        self.outlineView.autosaveName = autosaveName
     }
     
     
@@ -124,6 +132,32 @@ final class KeyBindingsController: NSViewController, NSOutlineViewDataSource, NS
         }
     }
     
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        if let node = item as? NamedTreeNode,
+           let object = node.representedObject as? String
+        {
+            return object
+        }
+        return nil
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        guard let persistentKey = object as? String else {
+            return nil
+        }
+        var nodesToCheck = self.outlineTree
+        while let nodeToCheck = nodesToCheck.popLast() {
+            guard !nodeToCheck.isLeaf, let nodeKey = nodeToCheck.representedObject as? String
+            else {
+                continue
+            }
+            if nodeKey == persistentKey {
+                return nodeToCheck
+            }
+            nodesToCheck.append(contentsOf: nodeToCheck.children ?? [])
+        }
+        return nil
+    }
     
     
     // MARK: Outline View Delegate

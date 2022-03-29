@@ -32,7 +32,7 @@ final class TabService: TabDelegate {
         return firstManagedWindow.map({ $0.window })
     }
     
-    var firstManagedWindow: ManagedTabWindow? {
+    private var firstManagedWindow: ManagedTabWindow? {
         let mainManagedWindow = internalManagedWindows
             .first { $0.window.isMainWindow }
         
