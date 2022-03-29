@@ -1,15 +1,15 @@
 PODS:
-  - AppCenter (4.1.1):
-    - AppCenter/Analytics (= 4.1.1)
-    - AppCenter/Crashes (= 4.1.1)
-  - AppCenter/Analytics (4.1.1):
+  - AppCenter (4.4.1):
+    - AppCenter/Analytics (= 4.4.1)
+    - AppCenter/Crashes (= 4.4.1)
+  - AppCenter/Analytics (4.4.1):
     - AppCenter/Core
-  - AppCenter/Core (4.1.1)
-  - AppCenter/Crashes (4.1.1):
+  - AppCenter/Core (4.4.1)
+  - AppCenter/Crashes (4.4.1):
     - AppCenter/Core
   - LetsMove (1.25)
   - MASPreferences (1.3)
-  - Sparkle (1.26.0)
+  - Sparkle (2.1.0)
   - SwiftyStoreKit (0.16.1)
 
 DEPENDENCIES:
@@ -32,14 +32,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MASPreferences:
-    :commit: da96951f1a6cea8d66c69d236fd43348d7de9102
+    :commit: e181181e7cfe3d90dda93f7bd758feb94c6ad839
     :git: "git@github.com:Lessica/MASPreferences.git"
 
 SPEC CHECKSUMS:
-  AppCenter: cd53e3ed3563cc720bcb806c9731a12389b40d44
+  AppCenter: b0b6f1190215b5f983c42934db718f3b46fff3c0
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
-  MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
-  Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
+  MASPreferences: f5cf4c3f91714fcb4e1ce21b7002880353fe7c5e
+  Sparkle: 7f5f6d4328458515e23272f4138e610c1fa3e32d
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
 PODFILE CHECKSUM: 530184c8c3b2c9ade0999ba7ef8da6f782679d7f

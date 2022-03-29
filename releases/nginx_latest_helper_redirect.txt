@@ -1,1 +1,0 @@
-return 302 https://cdn.82flex.com/jstcpweb/JSTColorPickerHelper_2.11-1235.zip;

@@ -6,9 +6,10 @@ find . -name '.DS_Store' -type f -print -delete
 
 mkdir -p ./releases/apps
 mkdir -p ./releases/helpers
+mkdir -p ./releases/conf
 
 echo "Processing JSTColorPickerSparkle..."
-APP_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerSparkle | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
+APP_VERSION=$(xcodebuild -showBuildSettings -target JSTColorPickerSparkle | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
 APP_BUILD_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerSparkle | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
 if [ -z "${APP_VERSION}" ]; then
     echo "Failed to fetch version from Xcode configuration."
@@ -36,20 +37,21 @@ if [ -z "${HELPER_BUILD_VERSION}" ]; then
 fi
 HELPER_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
 HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
-echo "${HELPER_INCLUDED_FILE}" > ./releases/nginx_latest_helper_redirect.txt
+echo "${HELPER_INCLUDED_FILE}" > ./releases/conf/nginx_latest_helper_redirect.txt
 cd ./releases/helpers/
 zip -qr ${HELPER_NAME} JSTColorPickerHelper.app
 cd ../../
 
 echo "Upload resources..."
-scp ./releases/${APP_NAME} root@120.55.68.129:/mnt/oss/jstcpweb/${APP_NAME}
-scp ./releases/helpers/${HELPER_NAME} root@120.55.68.129:/mnt/oss/jstcpweb/${HELPER_NAME}
+scp ./releases/${APP_NAME} aliyun-nps:/mnt/oss/jstcpweb/${APP_NAME}
+scp ./releases/*.delta aliyun-nps:/mnt/oss/jstcpweb/
+scp ./releases/helpers/${HELPER_NAME} aliyun-nps:/mnt/oss/jstcpweb/${HELPER_NAME}
 
 echo "Upload metadata..."
-scp -P 58422 ./releases/appcast.xml ubuntu@120.55.68.129:/var/www/html/jstcpweb/appcast.xml
+scp ./releases/appcast.xml raspi-xtzn:/var/www/html/jstcpweb/appcast.xml
 
 echo "Upload helper metadata..."
-scp -P 58422 ./releases/nginx_latest_helper_redirect.txt ubuntu@120.55.68.129:/var/www/html/jstcpweb/nginx_latest_helper_redirect.txt
-ssh -p 58422 root@120.55.68.129 nginx -t
-ssh -p 58422 root@120.55.68.129 nginx -s reload
-scp -rP 58422 ./releases/adhoc ubuntu@120.55.68.129:/var/www/html/jstcpweb/adhoc
+scp ./releases/conf/nginx_latest_helper_redirect.txt raspi-xtzn:/var/www/html/jstcpweb/nginx_latest_helper_redirect.txt
+ssh raspi-xtzn nginx -t
+ssh raspi-xtzn nginx -s reload
+scp -r ./releases/adhoc raspi-xtzn:/var/www/html/jstcpweb/adhoc
