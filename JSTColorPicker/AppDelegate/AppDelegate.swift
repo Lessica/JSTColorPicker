@@ -402,7 +402,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { return false }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { return false }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        return !applicationOpenUntitledDocumentIfNeeded()
+        var shouldReopen = !applicationOpenUntitledDocumentIfNeeded()
+        if shouldReopen && flag, let lastActiveWindow = tabService?.managedWindows.first {
+            lastActiveWindow.window.makeKeyAndOrderFront(self)
+            shouldReopen = false
+        }
+        return shouldReopen
     }
     
     @discardableResult
