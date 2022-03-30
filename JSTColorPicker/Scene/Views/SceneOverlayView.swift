@@ -33,7 +33,10 @@ final class SceneOverlayView: NSView {
     private func createTrackingArea() {
         let trackingArea = NSTrackingArea.init(
             rect: bounds,
-            options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow],
+            options: [
+                .mouseEnteredAndExited, .mouseMoved,
+                .activeInKeyWindow, .activeInActiveApp,
+            ],
             owner: self,
             userInfo: nil
         )
