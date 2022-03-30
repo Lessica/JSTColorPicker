@@ -456,10 +456,8 @@ extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
             guard !hasAttachedSheet else { return false }
             if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
                 return true
-            } else if let tuple = preparedPixelMatchTuple {
-                return tuple.1.count > 1
-                    && tuple.1.first != nil
-                    && tuple.1.first?.bounds == tuple.1.last?.bounds
+            } else if preparedPixelMatchInput != nil {
+                return true
             } else {
                 return false
             }
@@ -538,21 +536,10 @@ by \(template.author ?? "Unknown")
         if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
             compareDocumentsMenuItem.title = NSLocalizedString("Exit Comparison Mode", comment: "updateMenuItems")
         }
-        else if let tuple = preparedPixelMatchTuple, tuple.1.count > 1
-        {
-            let name1 = tuple.1
-                .first!
-                .imageSource
-                .url
-                .lastPathComponent
-                .truncated(limit: 32, position: .middle)
-            let name2 = tuple.1
-                .last!
-                .imageSource
-                .url
-                .lastPathComponent
-                .truncated(limit: 32, position: .middle)
-            compareDocumentsMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), name1, name2)
+        else if let matchInput = preparedPixelMatchInput {
+            let truncatedNames = matchInput.images
+                .map({ $0.imageSource.url.lastPathComponent.truncated(limit: 20, position: .middle) })
+            compareDocumentsMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), truncatedNames.first!, truncatedNames.last!)
         }
         else {
             compareDocumentsMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")

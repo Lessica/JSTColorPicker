@@ -12,28 +12,50 @@ import Cocoa
 extension AppDelegate {
     
     // MARK: - Compare Actions
+
+    struct PixelMatchInput {
+        let windowController: WindowController
+        let firstImage: PixelImage
+        let lastImage: PixelImage
+        
+        var images: [PixelImage] { [firstImage, lastImage] }
+    }
     
-    internal var preparedPixelMatchTuple: (WindowController, [PixelImage])? {
-        guard let managedWindows = tabService?.managedWindows else { return nil }
-        let preparedManagedWindows = managedWindows.filter({ ($0.windowController.screenshot?.state.isLoaded ?? false ) })
-        guard preparedManagedWindows.count >= 2,
+    internal var preparedPixelMatchInput: PixelMatchInput? {
+        
+        guard let managedWindows = tabService?.managedWindows
+        else {
+            return nil
+        }
+        
+        let preparedManagedWindows = managedWindows
+            .filter({ ($0.windowController.screenshot?.state.isLoaded ?? false ) })
+        guard preparedManagedWindows.count > 1,
               let firstWindowController = managedWindows.first?.windowController,
-              let firstPreparedWindowController = preparedManagedWindows.first?.windowController,
-              firstWindowController === firstPreparedWindowController
-        else { return nil }
-        return (firstWindowController, preparedManagedWindows.compactMap({ $0.windowController.screenshot?.image }))
+              firstWindowController === preparedManagedWindows.first?.windowController,
+              let firstImage = firstWindowController.screenshot?.image,
+              let lastImage = preparedManagedWindows
+                .compactMap({ $0.windowController.screenshot?.image })
+                .filter({ $0 !== firstImage })
+                .first,
+              firstImage.bounds == lastImage.bounds
+        else {
+            return nil
+        }
+        
+        return PixelMatchInput(
+            windowController: firstWindowController,
+            firstImage: firstImage,
+            lastImage: lastImage
+        )
     }
     
     @objc private func compareDocuments(_ sender: Any?) {
         if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
             firstRespondingWindowController?.endPixelMatchComparison()
         }
-        else if let tuple = preparedPixelMatchTuple {
-            if let frontPixelImage = tuple.0.screenshot?.image {
-                if let anotherPixelImage = tuple.1.first(where: { $0 !== frontPixelImage }) {
-                    tuple.0.beginPixelMatchComparison(to: anotherPixelImage)
-                }
-            }
+        else if let matchInput = preparedPixelMatchInput {
+            matchInput.windowController.beginPixelMatchComparison(to: matchInput.lastImage)
         }
     }
     
