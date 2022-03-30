@@ -13,7 +13,7 @@
 #import "JSTPixelImage.h"
 #import "JSTScreenshotHelperProtocol.h"
 #import "OpenCVWrapper.h"
-#import "SUUpdater.h"
+#import "SPUStandardUpdaterController.h"
 #import "BrowserController.h"
 #import "MRManagedObjectContext.h"
 #import "MRSimpleCoreDataStack.h"

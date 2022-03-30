@@ -1094,7 +1094,7 @@ CA
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <customObject id="7t2-Hn-xkm" customClass="SUUpdater"/>
+                <customObject id="7t2-Hn-xkm" customClass="SPUStandardUpdaterController"/>
             </objects>
             <point key="canvasLocation" x="-2044" y="-357"/>
         </scene>

@@ -142,9 +142,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     #if !APP_STORE
-    @IBOutlet var sparkUpdater: SUUpdater!
+    @IBOutlet var sparkUpdater: SPUStandardUpdaterController!
     #else
-    @IBOutlet var sparkUpdater: SUUpdater!
+    @IBOutlet var sparkUpdater: SPUStandardUpdaterController!
     #endif
     
     @IBOutlet weak var menu                                   : NSMenu!
