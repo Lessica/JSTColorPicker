@@ -7,7 +7,6 @@
 //
 
 #import "SPUStandardUpdaterController.h"
-#import <Sparkle/SPUUpdaterSettings.h>
 
 #if APP_STORE
 @implementation SPUStandardUpdaterController
@@ -16,6 +15,8 @@
 
 @end
 #else
+#import <Sparkle/SPUUpdaterSettings.h>
+
 @implementation SPUStandardUpdaterController (Settings)
 
 - (BOOL)automaticallyChecksForUpdates {
