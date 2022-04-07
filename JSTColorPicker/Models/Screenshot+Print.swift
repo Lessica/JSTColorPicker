@@ -23,12 +23,16 @@ extension CGContext {
 final class ScreenshotPrintingView: NSView {
     
     enum TagPosition: Int {
-        
-        case outer
+        case outer = 0
         case inner
     }
     
-    enum TagCorner: Int {
+    enum TagSize: Int {
+        case regular = 0
+        case small
+    }
+    
+    private enum TagCorner: Int {
         
         // outer / inner
         case topLeft
@@ -49,7 +53,13 @@ final class ScreenshotPrintingView: NSView {
     private var content: Content { screenshot.content! }
     private var printInfo: NSPrintInfo { screenshot.printInfo }
     
-    init(screenshot: Screenshot) throws {
+    init(
+        screenshot: Screenshot,
+        tagPosition: TagPosition = .outer,
+        tagSize: TagSize = .regular,
+        drawsOutline: Bool = true
+    ) throws {
+        
         guard let image = screenshot.image else {
             throw Screenshot.Error.invalidImage
         }
@@ -59,6 +69,9 @@ final class ScreenshotPrintingView: NSView {
         }
         
         self.screenshot = screenshot
+        self.tagPosition = tagPosition
+        self.tagSize = tagSize
+        self.drawsOutline = drawsOutline
         
         let drawBounds = CGRect(
             origin: .zero,
@@ -85,19 +98,29 @@ final class ScreenshotPrintingView: NSView {
     override var isFlipped: Bool { true }
     
     // MARK: - Additional Print Options
-    private let tagPosition: TagPosition = .outer
-    private let tagFontSize: CGFloat = NSFont.smallSystemFontSize
+    
+    var tagPosition: TagPosition = .outer
+    var tagSize: TagSize = .regular
+    var drawsOutline: Bool = true
+    
     private let borderWidth: CGFloat = 6.0
-    private var tagHorizontalMargin: CGFloat {
-        tagPosition == .outer ? 4.0 : 2.0
-    }
-    private let tagVericalMargin: CGFloat = 0.5
+    private let outerTagHorizontalMargin: CGFloat = 4.0
+    private let innerTagHorizontalMargin: CGFloat = 2.0
+    private let outerTagVericalMargin: CGFloat = 0.5
+    private let innerTagVericalMargin: CGFloat = 0.5
+    
     private let outlineWidth: CGFloat = 0.5
-    private let outlineColor = CGColor.white
-    private let backgroundAlpha: CGFloat = 0.2
+    private var outlineColor: CGColor { drawsOutline ? .white : .clear }
+    
     private let defaultFillColor = NSColor.controlAccentColor
+    private let backgroundAlpha: CGFloat = 0.2
+    
     private let lightTextColor = NSColor.white
     private let darkTextColor = NSColor.black
+    
+    private var tagFontSize: CGFloat { tagSize == .regular ? NSFont.systemFontSize : NSFont.smallSystemFontSize }
+    private var tagHorizontalMargin: CGFloat { tagPosition == .outer ? outerTagHorizontalMargin : innerTagHorizontalMargin }
+    private var tagVericalMargin: CGFloat { tagPosition == .outer ? outerTagVericalMargin : innerTagVericalMargin }
     
     override func draw(_ dirtyRect: NSRect) {
         guard let gContext = NSGraphicsContext.current
@@ -737,7 +760,7 @@ extension Screenshot {
     
     override func preparePageLayout(_ pageLayout: NSPageLayout) -> Bool {
         let prepared = super.preparePageLayout(pageLayout)
-        // TODO: add accessory view controller and print options here
+        pageLayout.addAccessoryController(PrintController(inPageSetup: true))
         return prepared
     }
     
@@ -748,7 +771,12 @@ extension Screenshot {
     
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
         return NSPrintOperation(
-            view: try ScreenshotPrintingView(screenshot: self),
+            view: try ScreenshotPrintingView(
+                screenshot: self,
+                tagPosition: ScreenshotPrintingView.TagPosition(rawValue: UserDefaults.standard[.printTagPositionLevel]) ?? .outer,
+                tagSize: ScreenshotPrintingView.TagSize(rawValue: UserDefaults.standard[.printTagSizeLevel]) ?? .regular,
+                drawsOutline: UserDefaults.standard[.drawOutlinesInPrinting]
+            ),
             printInfo: self.printInfo
         )
     }

@@ -521,6 +521,10 @@
 		CCF7F1512618D38100ED16B7 /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF7F1532618D38100ED16B7 /* InspectorView.xib */; };
 		CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
 		CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */; };
+		CCFAA55627FF38A5001B08A1 /* PrintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFAA55527FF38A5001B08A1 /* PrintController.swift */; };
+		CCFAA55727FF38A5001B08A1 /* PrintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFAA55527FF38A5001B08A1 /* PrintController.swift */; };
+		CCFAA55C27FF39F7001B08A1 /* Print.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCFAA55827FF39CF001B08A1 /* Print.xib */; };
+		CCFAA55D27FF39F7001B08A1 /* Print.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCFAA55827FF39CF001B08A1 /* Print.xib */; };
 		CCFD19C427EAD5C2005DF0A6 /* EditArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */; };
 		CCFD19C527EAD5C2005DF0A6 /* EditArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */; };
 		CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD99AC276A38960012E5AF /* PixelCoordinate+Lua.swift */; };
@@ -1587,6 +1591,10 @@
 		CCF7F1552618D38500ED16B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InspectorView.strings; sourceTree = "<group>"; };
 		CCF7F1572618D38600ED16B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InspectorView.strings"; sourceTree = "<group>"; };
 		CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedField.swift; sourceTree = "<group>"; };
+		CCFAA55527FF38A5001B08A1 /* PrintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintController.swift; sourceTree = "<group>"; };
+		CCFAA55927FF39CF001B08A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Print.xib; sourceTree = "<group>"; };
+		CCFAA55A27FF39CF001B08A1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Print.strings"; sourceTree = "<group>"; };
+		CCFAA55B27FF39CF001B08A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Print.strings; sourceTree = "<group>"; };
 		CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArrayController.swift; sourceTree = "<group>"; };
 		CCFD9991276A240E0012E5AF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		CCFD9995276A26030012E5AF /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
@@ -2930,6 +2938,15 @@
 			path = Presets;
 			sourceTree = "<group>";
 		};
+		CCFAA55427FF385C001B08A1 /* Print */ = {
+			isa = PBXGroup;
+			children = (
+				CCFAA55827FF39CF001B08A1 /* Print.xib */,
+				CCFAA55527FF38A5001B08A1 /* PrintController.swift */,
+			);
+			path = Print;
+			sourceTree = "<group>";
+		};
 		CCFD19C227EAD5AF005DF0A6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3478,8 +3495,9 @@
 			children = (
 				D690493D240D1A3200E05F37 /* PreferencesController.swift */,
 				CC236337264AEAF5005E909A /* General */,
-				CC236338264AEAFC005E909A /* Folder */,
 				CC236319264AE6F4005E909A /* KeyBindings */,
+				CCFAA55427FF385C001B08A1 /* Print */,
+				CC236338264AEAFC005E909A /* Folder */,
 				CC236339264AEB13005E909A /* Advanced */,
 				CC23633A264AEB1D005E909A /* Subscription */,
 			);
@@ -4207,6 +4225,7 @@
 				180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
 				CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */,
 				CCED7CF4262D68D600F2C965 /* InfoPlist.strings in Resources */,
+				CCFAA55C27FF39F7001B08A1 /* Print.xib in Resources */,
 				D61047D624224A170002E990 /* Localizable.strings in Resources */,
 				CC300F1C26284536002FD866 /* TemplatePreview.storyboard in Resources */,
 				1842C4642479832C008ECD6F /* Content.storyboard in Resources */,
@@ -4259,6 +4278,7 @@
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				CCC8BC5F263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
+				CCFAA55D27FF39F7001B08A1 /* Print.xib in Resources */,
 				D658AFA223CB180D0098C567 /* Assets.xcassets in Resources */,
 				D64AF0A1240D05E5003A5B17 /* Advanced.xib in Resources */,
 				CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */,
@@ -4694,6 +4714,7 @@
 				CCF7F1362618CA2500ED16B7 /* InspectorView.swift in Sources */,
 				18D202C0248D32EC007A079F /* EditWindowController.swift in Sources */,
 				CCD04E2627E7811A00C43E64 /* SceneCursorView.swift in Sources */,
+				CCFAA55627FF38A5001B08A1 /* PrintController.swift in Sources */,
 				CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */,
 				CC8F8C9126207C9E00F60F78 /* TemplateInfoView.swift in Sources */,
 				CC32E2002615D36B00F5F6AA /* InspectorController.swift in Sources */,
@@ -4837,6 +4858,7 @@
 				D6DD4B0924A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
 				D61336BC24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
 				CCE01C85264CD8E1005960A7 /* ShortcutItemGroup.swift in Sources */,
+				CCFAA55727FF38A5001B08A1 /* PrintController.swift in Sources */,
 				CCFD99B7276A391D0012E5AF /* PixelRect+Lua.swift in Sources */,
 				D659168E24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				D6CDC00D23CF3473004AA431 /* WindowController.swift in Sources */,
@@ -5500,6 +5522,16 @@
 				CCF7F1572618D38600ED16B7 /* zh-Hans */,
 			);
 			name = InspectorView.xib;
+			sourceTree = "<group>";
+		};
+		CCFAA55827FF39CF001B08A1 /* Print.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCFAA55927FF39CF001B08A1 /* Base */,
+				CCFAA55A27FF39CF001B08A1 /* zh-Hans */,
+				CCFAA55B27FF39CF001B08A1 /* en */,
+			);
+			name = Print.xib;
 			sourceTree = "<group>";
 		};
 		D64AF09D240D05BB003A5B17 /* General.xib */ = {

@@ -1,0 +1,20 @@
+/* Class = "NSMenuItem"; title = "Outer"; ObjectID = "0Fn-Ov-12Y"; */
+"0Fn-Ov-12Y.title" = "Outer";
+
+/* Class = "NSTextFieldCell"; title = "Tag Position: "; ObjectID = "7nW-KW-iEy"; */
+"7nW-KW-iEy.title" = "Tag Position: ";
+
+/* Class = "NSMenuItem"; title = "Regular"; ObjectID = "h75-nT-DNw"; */
+"h75-nT-DNw.title" = "Regular";
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "h9l-Ry-snS"; */
+"h9l-Ry-snS.title" = "Small";
+
+/* Class = "NSTextFieldCell"; title = "Tag Size: "; ObjectID = "UNf-gv-hVN"; */
+"UNf-gv-hVN.title" = "Tag Size: ";
+
+/* Class = "NSMenuItem"; title = "Inner"; ObjectID = "WDt-sL-HUB"; */
+"WDt-sL-HUB.title" = "Inner";
+
+/* Class = "NSButtonCell"; title = "Draw Outlines"; ObjectID = "Zt3-E3-OhA"; */
+"Zt3-E3-OhA.title" = "Draw Outlines";

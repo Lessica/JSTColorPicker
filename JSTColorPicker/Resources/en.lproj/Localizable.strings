@@ -554,6 +554,9 @@
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Preview Tools" = "Preview Tools";
 
+/* toolbarItemLabel */
+"Print" = "Print";
+
 /* openConsole() */
 "process:JSTColorPicker" = "process:JSTColorPicker";
 

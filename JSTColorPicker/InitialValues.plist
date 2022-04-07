@@ -112,6 +112,12 @@
 	<false/>
 	<key>defaults:disableTagEditing</key>
 	<false/>
+	<key>defaults:drawOutlinesInPrinting</key>
+	<true/>
+	<key>defaults:printTagSizeLevel</key>
+	<integer>0</integer>
+	<key>defaults:printTagPositionLevel</key>
+	<integer>0</integer>
 	<key>restoration:prefsGeneralSelectedTabIdentifier</key>
 	<string>Scene</string>
 </dict>

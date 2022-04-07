@@ -180,9 +180,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             viewControllers: [
                 GeneralController(),
                 KeyBindingsController(),
+                PrintController(),
                 FolderController(),
                 AdvancedController(),
-                SubscriptionController()
+                SubscriptionController(),
             ],
             title: NSLocalizedString("Preferences", comment: "PreferencesController")
         )
@@ -196,8 +197,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             viewControllers: [
                 GeneralController(),
                 KeyBindingsController(),
+                PrintController(),
                 FolderController(),
-                AdvancedController()
+                AdvancedController(),
             ], title: NSLocalizedString("Preferences", comment: "PreferencesController")
         )
         if let initialPreferencesControllerViewIdentifier = initialPreferencesControllerViewIdentifier

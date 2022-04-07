@@ -86,4 +86,7 @@ extension UserDefaults.Key {
     static let colorGridColorAnnotatorColor         : UserDefaults.Key     = "defaults:colorGridColorAnnotatorColor"           // NSColor
     static let colorGridAreaAnnotatorColor          : UserDefaults.Key     = "defaults:colorGridAreaAnnotatorColor"            // NSColor
     
+    static let drawOutlinesInPrinting               : UserDefaults.Key     = "defaults:drawOutlinesInPrinting"                 // Bool
+    static let printTagSizeLevel                    : UserDefaults.Key     = "defaults:printTagSizeLevel"                      // Int
+    static let printTagPositionLevel                : UserDefaults.Key     = "defaults:printTagPositionLevel"                  // Int
 }
