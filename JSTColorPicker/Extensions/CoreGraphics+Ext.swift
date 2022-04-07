@@ -56,11 +56,26 @@ extension CGRect {
     var pointMinXMinY: CGPoint {
         return CGPoint(x: minX, y: minY)
     }
+    var pointMinXMidY: CGPoint {
+        return CGPoint(x: minX, y: midY)
+    }
     var pointMinXMaxY: CGPoint {
         return CGPoint(x: minX, y: maxY)
     }
+    var pointMidXMinY: CGPoint {
+        return CGPoint(x: midX, y: minY)
+    }
+    var pointMidXMidY: CGPoint {
+        return CGPoint(x: midX, y: midY)
+    }
+    var pointMidXMaxY: CGPoint {
+        return CGPoint(x: midX, y: maxY)
+    }
     var pointMaxXMinY: CGPoint {
         return CGPoint(x: maxX, y: minY)
+    }
+    var pointMaxXMidY: CGPoint {
+        return CGPoint(x: maxX, y: midY)
     }
     var pointMaxXMaxY: CGPoint {
         return CGPoint(x: maxX, y: maxY)
@@ -121,5 +136,8 @@ extension CGRect {
         else if point.y < minY { return CGPoint(x: point.x, y: minY) }
         else if point.y > maxY { return CGPoint(x: point.x, y: maxY) }
         return .null
+    }
+    func multipliedBy(dx: CGFloat, dy: CGFloat) -> CGRect {
+        return CGRect(x: origin.x * dx, y: origin.y * dy, width: size.width * dx, height: size.height * dy)
     }
 }

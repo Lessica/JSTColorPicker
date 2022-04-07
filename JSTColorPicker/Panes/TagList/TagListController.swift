@@ -676,6 +676,18 @@ final class TagListController: StackedPaneController {
         )
     }
     
+    @IBAction private func copyNameItemTapped(_ sender: NSMenuItem) {
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        
+        ExportManager.exportToGeneralStringPasteboard(arrangedTags[targetIndex].name)
+    }
+    
+    @IBAction private func copyColorItemTapped(_ sender: NSMenuItem) {
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        
+        ExportManager.exportToGeneralStringPasteboard(arrangedTags[targetIndex].colorHex)
+    }
+    
     @objc func colorPanelValueChanged(_ sender: NSColorPanel) {
         
         guard !isPaneHidden else {
@@ -985,8 +997,10 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
-        if menuItem.action == #selector(changeColorItemTapped(_:)) {
-            guard !isSelectMode && isEditable else { return false }
+        if menuItem.action == #selector(changeColorItemTapped(_:)) || menuItem.action == #selector(copyNameItemTapped(_:)) || menuItem.action == #selector(copyColorItemTapped(_:)) {
+            if menuItem.action == #selector(changeColorItemTapped(_:)) {
+                guard !isSelectMode && isEditable else { return false }
+            }
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
             return true

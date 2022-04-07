@@ -136,6 +136,9 @@
 /* Class = "NSMenuItem"; title = "Template Preview"; ObjectID = "cC4-8w-iNy"; */
 "cC4-8w-iNy.title" = "Template Preview";
 
+/* Class = "NSMenuItem"; title = "Print Document…"; ObjectID = "CGq-Sc-xXS"; */
+"CGq-Sc-xXS.title" = "Print Document…";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Copy all annotations using selected template."; ObjectID = "cIT-qf-fbP"; */
 "cIT-qf-fbP.ibShadowedToolTip" = "Copy all annotations using selected template.";
 

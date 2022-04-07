@@ -174,13 +174,19 @@
                                                 <action selector="viewMetadata:" target="Ady-hI-5gd" id="cSF-io-rOn"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" hidden="YES" id="6lZ-6v-Fet"/>
-                                        <menuItem title="Print…" hidden="YES" enabled="NO" keyEquivalent="p" id="Mql-2P-7nA">
+                                        <menuItem isSeparatorItem="YES" id="6lZ-6v-Fet"/>
+                                        <menuItem title="Print…" keyEquivalent="p" id="Mql-2P-7nA">
                                             <connections>
                                                 <action selector="print:" target="Ady-hI-5gd" id="UYz-Dp-g1a"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Page Setup…" hidden="YES" enabled="NO" keyEquivalent="P" id="7jK-B5-6gt">
+                                        <menuItem title="Print Document…" keyEquivalent="p" id="CGq-Sc-xXS">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="printDocument:" target="Ady-hI-5gd" id="GU8-IT-Xyt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Page Setup…" keyEquivalent="P" id="7jK-B5-6gt">
                                             <connections>
                                                 <action selector="runPageLayout:" target="Ady-hI-5gd" id="Fc6-wN-Ksc"/>
                                             </connections>

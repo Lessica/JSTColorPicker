@@ -38,7 +38,7 @@ final class ExportManager {
         self.screenshot = screenshot
     }
     
-    private func exportToGeneralStringPasteboard(_ string: String) {
+    internal static func exportToGeneralStringPasteboard(_ string: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([.string], owner: nil)
         pasteboard.setString(string, forType: .string)
@@ -92,7 +92,7 @@ final class ExportManager {
         try screenshot.testExportCondition()
         do {
             exportToAdditionalPasteboard(items)
-            exportToGeneralStringPasteboard(try template.generate(image, items, forAction: .copy))
+            ExportManager.exportToGeneralStringPasteboard(try template.generate(image, items, forAction: .copy))
         } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
             throw error
@@ -166,7 +166,7 @@ final class ExportManager {
         guard let exampleTemplateURL = TemplateManager.exampleTemplateURLs.first else { throw Error.noTemplateSelected }
         let exampleTemplate = try Template(templateURL: exampleTemplateURL, templateManager: TemplateManager.shared)
         let generatedString = try exampleTemplate.generate(image, items, forAction: .copy)
-        exportToGeneralStringPasteboard(generatedString)
+        ExportManager.exportToGeneralStringPasteboard(generatedString)
     }
     
 }

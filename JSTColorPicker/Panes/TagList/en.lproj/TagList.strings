@@ -28,6 +28,9 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "Jns-u7-V7q"; */
 "Jns-u7-V7q.title" = "Delete";
 
+/* Class = "NSMenuItem"; title = "Copy Name"; ObjectID = "LD7-2N-wJD"; */
+"LD7-2N-wJD.title" = "Copy Name";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "lkm-tq-To5"; */
 "lkm-tq-To5.title" = "Text Cell";
 
@@ -48,3 +51,6 @@
 
 /* Class = "NSBox"; title = "Tag Manager"; ObjectID = "yUd-5h-qZT"; */
 "yUd-5h-qZT.title" = "Tag Manager";
+
+/* Class = "NSMenuItem"; title = "Copy Color Hex"; ObjectID = "zzd-tr-HtD"; */
+"zzd-tr-HtD.title" = "Copy Color Hex";

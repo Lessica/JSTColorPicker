@@ -151,7 +151,7 @@ final class SceneController: NSViewController {
     
     // MARK: - Wrapper Convenience Variables & Functions
     
-    private var wrapper                                    : SceneImageWrapper    { sceneView.documentView as! SceneImageWrapper   }
+    internal var wrapper                                   : SceneImageWrapper    { sceneView.documentView as! SceneImageWrapper   }
     private var wrapperBounds                              : CGRect               { wrapper.bounds                                 }
     private var wrapperVisibleRect                         : CGRect               { wrapper.visibleRect                            }
     private var wrapperMangnification                      : CGFloat              { sceneView.magnification                        }
