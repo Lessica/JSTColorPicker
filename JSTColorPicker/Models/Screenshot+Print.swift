@@ -85,13 +85,19 @@ final class ScreenshotPrintingView: NSView {
     override var isFlipped: Bool { true }
     
     // MARK: - Additional Print Options
-    private let tagPosition: TagPosition = .inner
+    private let tagPosition: TagPosition = .outer
     private let tagFontSize: CGFloat = NSFont.smallSystemFontSize
-    private let borderWidth: CGFloat = 4.0
-    private let tagHorizontalMargin: CGFloat = 4.0
+    private let borderWidth: CGFloat = 6.0
+    private var tagHorizontalMargin: CGFloat {
+        tagPosition == .outer ? 4.0 : 2.0
+    }
     private let tagVericalMargin: CGFloat = 0.5
     private let outlineWidth: CGFloat = 0.5
     private let outlineColor = CGColor.white
+    private let backgroundAlpha: CGFloat = 0.2
+    private let defaultFillColor = NSColor.controlAccentColor
+    private let lightTextColor = NSColor.white
+    private let darkTextColor = NSColor.black
     
     override func draw(_ dirtyRect: NSRect) {
         guard let gContext = NSGraphicsContext.current
@@ -124,18 +130,19 @@ final class ScreenshotPrintingView: NSView {
             {
                 tagName = firstTag.name
                 fillColor = firstTag.color
-                textColor = (firstTag.color.isLightColor ?? false) ? .black : .white
+                textColor = (firstTag.color.isLightColor ?? false) ? darkTextColor : lightTextColor
             }
             else
             {
                 tagName = nil
-                fillColor = NSColor.controlAccentColor
-                textColor = (NSColor.controlAccentColor.isLightColor ?? false) ? .black : .white
+                fillColor = defaultFillColor
+                textColor = (defaultFillColor.isLightColor ?? false) ? darkTextColor : lightTextColor
             }
             
             var proposedCorner: TagCorner?
             var proposedRect: CGRect?
             var proposedTagName: NSAttributedString?
+            var externalLabelOffset: CGPoint = .zero
             
             if let tagName = tagName {
                 
@@ -159,15 +166,16 @@ final class ScreenshotPrintingView: NSView {
                 repeat {
                     if tagPosition == .outer
                     {
+                        // top left
                         if widthAllowed {
-
-                            // top left
+                            
                             tagRect.origin = areaRect.pointMinXMinY.offsetBy(
                                 dx: scaledBorderWidth,
                                 dy: -tagRect.height
                             )
 
                             possibleCorner = .topLeft
+                            externalLabelOffset = CGPoint(x: 0, y: scaledBorderWidth / 4.0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -184,6 +192,7 @@ final class ScreenshotPrintingView: NSView {
                             )
 
                             possibleCorner = .bottomRight
+                            externalLabelOffset = CGPoint(x: 0, y: -scaledBorderWidth / 4.0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -200,6 +209,7 @@ final class ScreenshotPrintingView: NSView {
                             )
 
                             possibleCorner = .topRight
+                            externalLabelOffset = CGPoint(x: 0, y: scaledBorderWidth / 4.0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -216,6 +226,7 @@ final class ScreenshotPrintingView: NSView {
                             )
 
                             possibleCorner = .bottomLeft
+                            externalLabelOffset = CGPoint(x: 0, y: -scaledBorderWidth / 4.0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -232,6 +243,7 @@ final class ScreenshotPrintingView: NSView {
                             )
 
                             possibleCorner = .leftTop
+                            externalLabelOffset = CGPoint(x: scaledBorderWidth / 4.0, y: 0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -248,6 +260,7 @@ final class ScreenshotPrintingView: NSView {
                             )
 
                             possibleCorner = .leftBottom
+                            externalLabelOffset = CGPoint(x: scaledBorderWidth / 4.0, y: 0)
                         }
 
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -264,6 +277,7 @@ final class ScreenshotPrintingView: NSView {
                             )
                             
                             possibleCorner = .rightTop
+                            externalLabelOffset = CGPoint(x: -scaledBorderWidth / 4.0, y: 0)
                         }
                         
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -280,6 +294,7 @@ final class ScreenshotPrintingView: NSView {
                             )
                             
                             possibleCorner = .rightBottom
+                            externalLabelOffset = CGPoint(x: -scaledBorderWidth / 4.0, y: 0)
                         }
                         
                         if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && bounds.contains(tagRect) {
@@ -289,18 +304,19 @@ final class ScreenshotPrintingView: NSView {
                     }
                     else if tagPosition == .inner
                     {
+                        // top left
                         if widthAllowed {
 
-                            // top left
                             tagRect.origin = areaInnerRect.pointMinXMinY.offsetBy(
-                                dx: scaledBorderWidth,
-                                dy: scaledBorderWidth
+                                dx: 0,
+                                dy: 0
                             )
 
                             possibleCorner = .topLeft
+                            externalLabelOffset = CGPoint(x: -scaledBorderWidth / 4.0, y: -scaledBorderWidth / 4.0)
                         }
 
-                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) {
+                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) && areaInnerRect.height > tagRect.height * 2.0 {
                             conditionSatisfied = true
                             break
                         }
@@ -309,14 +325,15 @@ final class ScreenshotPrintingView: NSView {
                         if widthAllowed {
 
                             tagRect.origin = areaInnerRect.pointMaxXMaxY.offsetBy(
-                                dx: -scaledBorderWidth - tagRect.width,
-                                dy: -scaledBorderWidth - tagRect.height
+                                dx: -tagRect.width,
+                                dy: -tagRect.height
                             )
 
                             possibleCorner = .bottomRight
+                            externalLabelOffset = CGPoint(x: scaledBorderWidth / 4.0, y: scaledBorderWidth / 4.0)
                         }
 
-                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) {
+                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) && areaInnerRect.height > tagRect.height * 2.0 {
                             conditionSatisfied = true
                             break
                         }
@@ -325,14 +342,15 @@ final class ScreenshotPrintingView: NSView {
                         if widthAllowed {
 
                             tagRect.origin = areaInnerRect.pointMaxXMinY.offsetBy(
-                                dx: -scaledBorderWidth - tagRect.width,
-                                dy: scaledBorderWidth
+                                dx: -tagRect.width,
+                                dy: 0
                             )
 
                             possibleCorner = .topRight
+                            externalLabelOffset = CGPoint(x: scaledBorderWidth / 4.0, y: -scaledBorderWidth / 4.0)
                         }
 
-                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) {
+                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) && areaInnerRect.height > tagRect.height * 2.0 {
                             conditionSatisfied = true
                             break
                         }
@@ -341,14 +359,15 @@ final class ScreenshotPrintingView: NSView {
                         if widthAllowed {
 
                             tagRect.origin = areaInnerRect.pointMinXMaxY.offsetBy(
-                                dx: scaledBorderWidth,
-                                dy: -scaledBorderWidth - tagRect.height
+                                dx: 0,
+                                dy: -tagRect.height
                             )
 
                             possibleCorner = .bottomLeft
+                            externalLabelOffset = CGPoint(x: -scaledBorderWidth / 4.0, y: scaledBorderWidth / 4.0)
                         }
 
-                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) {
+                        if labelRects.allSatisfy({ !$0.intersects(tagRect) }) && areaInnerRect.contains(tagRect) && areaInnerRect.height > tagRect.height * 2.0 {
                             conditionSatisfied = true
                             break
                         }
@@ -370,7 +389,7 @@ final class ScreenshotPrintingView: NSView {
                 }
             }
             
-            let backgroundColor = fillColor.withAlphaComponent(0.2)
+            let backgroundColor = fillColor.withAlphaComponent(backgroundAlpha)
             
             // draw background
             cgContext.saveGState()
@@ -392,19 +411,111 @@ final class ScreenshotPrintingView: NSView {
             {
                 if proposedCorner == .topLeft
                 {
-                    
+                    cgContext.move(to: areaInnerRect.pointMinXMidY)
+                    cgContext.addLine(to: proposedRect.pointMinXMaxY)
+                    cgContext.addArc(
+                        tangent1End: proposedRect.pointMaxXMaxY,
+                        tangent2End: proposedRect.pointMaxXMidY,
+                        radius: scaledBorderWidth
+                    )
+                    cgContext.addLine(to: proposedRect.pointMaxXMinY)
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMinY,
+                        tangent2End: areaInnerRect.pointMaxXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMaxY,
+                        tangent2End: areaInnerRect.pointMidXMaxY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMaxY,
+                        tangent2End: areaInnerRect.pointMinXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.closePath()
                 }
                 else if proposedCorner == .topRight
                 {
-                    
+                    cgContext.move(to: areaInnerRect.pointMidXMinY)
+                    cgContext.addLine(to: proposedRect.pointMinXMinY)
+                    cgContext.addArc(
+                        tangent1End: proposedRect.pointMinXMaxY,
+                        tangent2End: proposedRect.pointMidXMaxY,
+                        radius: scaledBorderWidth
+                    )
+                    cgContext.addLine(to: proposedRect.pointMaxXMaxY)
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMaxY,
+                        tangent2End: areaInnerRect.pointMidXMaxY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMaxY,
+                        tangent2End: areaInnerRect.pointMinXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMinY,
+                        tangent2End: areaInnerRect.pointMidXMinY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.closePath()
                 }
                 else if proposedCorner == .bottomLeft
                 {
-                    
+                    cgContext.move(to: areaInnerRect.pointMidXMaxY)
+                    cgContext.addLine(to: proposedRect.pointMaxXMaxY)
+                    cgContext.addArc(
+                        tangent1End: proposedRect.pointMaxXMinY,
+                        tangent2End: proposedRect.pointMidXMinY,
+                        radius: scaledBorderWidth
+                    )
+                    cgContext.addLine(to: proposedRect.pointMinXMinY)
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMinY,
+                        tangent2End: areaInnerRect.pointMidXMinY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMinY,
+                        tangent2End: areaInnerRect.pointMaxXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMaxY,
+                        tangent2End: areaInnerRect.pointMidXMaxY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.closePath()
                 }
                 else if proposedCorner == .bottomRight
                 {
-                    
+                    cgContext.move(to: areaInnerRect.pointMaxXMidY)
+                    cgContext.addLine(to: proposedRect.pointMaxXMinY)
+                    cgContext.addArc(
+                        tangent1End: proposedRect.pointMinXMinY,
+                        tangent2End: proposedRect.pointMinXMidY,
+                        radius: scaledBorderWidth
+                    )
+                    cgContext.addLine(to: proposedRect.pointMinXMaxY)
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMaxY,
+                        tangent2End: areaInnerRect.pointMinXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMinXMinY,
+                        tangent2End: areaInnerRect.pointMidXMinY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.addArc(
+                        tangent1End: areaInnerRect.pointMaxXMinY,
+                        tangent2End: areaInnerRect.pointMaxXMidY,
+                        radius: scaledBorderWidth / 2.0
+                    )
+                    cgContext.closePath()
                 }
             } else {
                 
@@ -593,7 +704,7 @@ final class ScreenshotPrintingView: NSView {
             {
                 proposedTagName.draw(
                     at: proposedRect.pointMinXMinY.offsetBy(
-                        dx: tagHorizontalMargin * scale * 2.0, dy: tagVericalMargin * scale * 2.0)
+                        dx: externalLabelOffset.x + tagHorizontalMargin * scale * 2.0, dy: externalLabelOffset.y + tagVericalMargin * scale * 2.0)
                 )
             }
             
