@@ -175,15 +175,15 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="6lZ-6v-Fet"/>
-                                        <menuItem title="Print…" keyEquivalent="p" id="Mql-2P-7nA">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="UYz-Dp-g1a"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Print Document…" alternate="YES" keyEquivalent="p" id="CGq-Sc-xXS">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        <menuItem title="Print Document…" keyEquivalent="p" id="CGq-Sc-xXS">
                                             <connections>
                                                 <action selector="printDocument:" target="Ady-hI-5gd" id="GU8-IT-Xyt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Print…" alternate="YES" keyEquivalent="p" id="Mql-2P-7nA">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="print:" target="Ady-hI-5gd" id="UYz-Dp-g1a"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="7jK-B5-6gt">
