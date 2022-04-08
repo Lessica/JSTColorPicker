@@ -937,13 +937,6 @@
 			remoteGlobalIDString = CC9804B027F20987009044B7;
 			remoteInfo = "lua-cjson";
 		};
-		CC9804D827F20D68009044B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CC9804C027F20D32009044B7;
-			remoteInfo = "lua-lpeg";
-		};
 		CC98051427F2107E009044B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -978,6 +971,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D690C95E241A60DC00BB1652;
 			remoteInfo = PixelMatch;
+		};
+		CCFAB58A27FFF8DA0099D402 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC9804C027F20D32009044B7;
+			remoteInfo = "lua-lpeg";
 		};
 		D60B0F4E2428874F0034F21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3946,7 +3946,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CC9804D927F20D68009044B7 /* PBXTargetDependency */,
+				CCFAB58B27FFF8DA0099D402 /* PBXTargetDependency */,
 				CC98051527F2107E009044B7 /* PBXTargetDependency */,
 				CC9804BE27F20A63009044B7 /* PBXTargetDependency */,
 				CC98052727F2110B009044B7 /* PBXTargetDependency */,
@@ -5183,11 +5183,6 @@
 			target = CC9804B027F20987009044B7 /* lua-cjson */;
 			targetProxy = CC9804BD27F20A63009044B7 /* PBXContainerItemProxy */;
 		};
-		CC9804D927F20D68009044B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CC9804C027F20D32009044B7 /* lua-lpeg */;
-			targetProxy = CC9804D827F20D68009044B7 /* PBXContainerItemProxy */;
-		};
 		CC98051527F2107E009044B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CC9804E027F21011009044B7 /* lua-lcurl */;
@@ -5212,6 +5207,11 @@
 			isa = PBXTargetDependency;
 			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
 			targetProxy = CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */;
+		};
+		CCFAB58B27FFF8DA0099D402 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC9804C027F20D32009044B7 /* lua-lpeg */;
+			targetProxy = CCFAB58A27FFF8DA0099D402 /* PBXContainerItemProxy */;
 		};
 		D60B0F4F2428874F0034F21C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5691,13 +5691,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = cjson;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Debug;
 		};
@@ -5711,13 +5711,13 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = cjson;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Release;
 		};
@@ -5730,13 +5730,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = lpeg;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Debug;
 		};
@@ -5750,13 +5750,13 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = lpeg;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Release;
 		};
@@ -5769,6 +5769,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LuaC/modules/lcurl/prebuilt",
@@ -5779,7 +5780,6 @@
 				);
 				PRODUCT_NAME = lcurl;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Debug;
 		};
@@ -5793,6 +5793,7 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LuaC/modules/lcurl/prebuilt",
@@ -5803,7 +5804,6 @@
 				);
 				PRODUCT_NAME = lcurl;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Release;
 		};
@@ -5816,13 +5816,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = lfs;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Debug;
 		};
@@ -5836,13 +5836,13 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = lfs;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Release;
 		};
@@ -5855,13 +5855,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = pb;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Debug;
 		};
@@ -5875,13 +5875,13 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
 				PRODUCT_NAME = pb;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
 			};
 			name = Release;
 		};

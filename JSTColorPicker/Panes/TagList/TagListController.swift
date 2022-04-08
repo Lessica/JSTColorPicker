@@ -65,6 +65,7 @@ final class TagListController: StackedPaneController {
     @IBOutlet weak var loadingErrorStack          : NSStackView!
     @IBOutlet weak var loadingErrorLabel          : NSTextField!
     @IBOutlet weak var buttonImport               : NSButton!
+    @IBOutlet weak var buttonDeselectAll          : NSButton!
     @IBOutlet weak var buttonAdd                  : NSButton!
     @IBOutlet weak var buttonDelete               : NSButton!
     @IBOutlet weak var searchField                : NSSearchField!
@@ -491,6 +492,10 @@ final class TagListController: StackedPaneController {
         internalController.remove(contentsOf: rows.map({ arrangedTags[$0] }))
     }
     
+    @IBAction private func deselectAll(_ sender: Any) {
+        tableView.deselectAll(sender)
+    }
+    
     private func importConfirmForTags(_ tagsToImport: [String]) -> Bool {
         let alert = NSAlert()
         if tagsToImport.count > 0 {
@@ -802,6 +807,14 @@ extension TagListController: TagListSource {
         }
         
         return []
+    }
+    
+    var selectedTags: [Tag] {
+        arrangedTagController.selectedObjects as! [Tag]
+    }
+    
+    var selectedTagNames: [String] {
+        return selectedTags.map({ $0.name })
     }
     
 }

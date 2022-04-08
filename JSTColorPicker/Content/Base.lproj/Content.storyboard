@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="oDF-UT-bv5">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -317,7 +317,7 @@ DQ
                                 <action selector="locate:" target="YIx-oB-8lo" id="sEq-cm-ZsQ"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Relocate…" toolTip="In the pop-up tab, precisely adjust the position of the selected annotation." id="iSf-IL-2kW">
+                        <menuItem title="Relocate…" alternate="YES" toolTip="In the pop-up tab, precisely adjust the position of the selected annotation." id="iSf-IL-2kW">
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>

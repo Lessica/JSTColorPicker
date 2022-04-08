@@ -404,7 +404,10 @@ final class ScreenshotPrintingView: NSView {
                     proposedCorner = possibleCorner
                     proposedTagName = possibleTagName
                     
-                    labelRects.append(tagRect)
+                    labelRects.append(tagRect.insetBy(
+                        dx: -8.0 * scale,
+                        dy: -8.0 * scale
+                    ))
                 } else {
                     proposedRect = nil
                     proposedCorner = nil

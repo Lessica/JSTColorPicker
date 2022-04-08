@@ -520,6 +520,19 @@ extension ContentController: ContentActionResponder {
         item.id = nextID
         item.similarity = nextSimilarity
         
+        let assignSelectedTags: Bool = UserDefaults.standard[.assignSelectedTags]
+        if assignSelectedTags {
+            item.tags.append(contentsOf: tagManager.selectedTagNames)
+        }
+        
+        let maximumTagPerItemEnabled: Bool = UserDefaults.standard[.maximumTagPerItemEnabled]
+        if maximumTagPerItemEnabled {
+            let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
+            guard item.tags.count <= maximumTagPerItem else {
+                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+            }
+        }
+        
         let itemIndexes = internalAddContentItems([item])
         tableView.reloadData()
         

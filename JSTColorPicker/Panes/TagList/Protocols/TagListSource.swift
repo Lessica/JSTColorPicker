@@ -18,4 +18,6 @@ protocol TagListSource: AnyObject {
     func managedTag(of name: String) -> Tag?
     func managedTags(of names: [String]) -> [Tag]
     var arrangedTagController: TagController { get }
+    var selectedTags: [Tag] { get }
+    var selectedTagNames: [String] { get }
 }

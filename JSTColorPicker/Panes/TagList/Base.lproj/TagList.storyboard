@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="ifY-36-Ao8">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -270,21 +270,38 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="qlz-JH-5Ho"/>
                                                                     </constraints>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="link.badge.plus" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="arrow.left.arrow.right.square" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="importTagBtnTapped:" target="ifY-36-Ao8" id="0XS-qC-k4z"/>
                                                                         <binding destination="lSV-Dz-huJ" name="enabled" keyPath="isEditable" id="RpH-KR-fwV"/>
-                                                                        <outlet property="nextKeyView" destination="J0k-D4-VsM" id="hdi-Y9-uEj"/>
+                                                                        <outlet property="nextKeyView" destination="zdO-sy-f4V" id="hgM-8J-umD"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button hidden="YES" toolTip="Deselect All" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zdO-sy-f4V">
+                                                                    <rect key="frame" x="-6" y="-2" width="42" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="onf-Qx-kuk"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="square.dashed" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RKq-G0-cEZ">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="deselectAll:" target="ifY-36-Ao8" id="kQk-rq-V78"/>
+                                                                        <binding destination="lSV-Dz-huJ" name="enabled" keyPath="selection.@count" id="cke-kW-omk"/>
+                                                                        <outlet property="nextKeyView" destination="J0k-D4-VsM" id="8ru-YM-uyG"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
+                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
@@ -392,6 +409,7 @@
                     <connections>
                         <outlet property="buttonAdd" destination="J0k-D4-VsM" id="YAR-hw-nkw"/>
                         <outlet property="buttonDelete" destination="GwW-Rj-u1w" id="udK-O4-zbs"/>
+                        <outlet property="buttonDeselectAll" destination="zdO-sy-f4V" id="lF0-Bg-cee"/>
                         <outlet property="buttonImport" destination="LsJ-yu-RS8" id="6po-Bh-TOH"/>
                         <outlet property="internalController" destination="lSV-Dz-huJ" id="CcU-lL-xia"/>
                         <outlet property="loadingErrorLabel" destination="6yp-7K-zYS" id="V16-ks-1W7"/>
@@ -460,8 +478,9 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="link.badge.plus" catalog="system" width="17" height="17"/>
+        <image name="arrow.left.arrow.right.square" catalog="system" width="15" height="14"/>
         <image name="minus" catalog="system" width="14" height="4"/>
         <image name="plus" catalog="system" width="14" height="13"/>
+        <image name="square.dashed" catalog="system" width="15" height="14"/>
     </resources>
 </document>

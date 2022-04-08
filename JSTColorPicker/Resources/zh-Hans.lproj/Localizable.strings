@@ -398,10 +398,10 @@
 "Malformed response." = "损坏的响应。";
 
 /* Content.Error */
-"Maximum item count %d reached." = "已达到最大项数量 %d。";
+"Maximum item count %d reached." = "已超出预设的最大项数量 %d。";
 
 /* Content.Error */
-"Maximum tag per item count %d reached." = "已达到每项最大标签数 %d。";
+"Maximum tag per item count %d reached." = "已超出预设的每项最大标签数 %d。";
 
 /* Shortcut Guide */
 "Minify" = "缩小";

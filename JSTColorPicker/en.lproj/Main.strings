@@ -151,6 +151,9 @@
 /* Class = "NSMenuItem"; title = "Information"; ObjectID = "Co5-Y3-Rnn"; */
 "Co5-Y3-Rnn.title" = "Information";
 
+/* Class = "NSMenuItem"; title = "Deselect All"; ObjectID = "coC-Ut-AES"; */
+"coC-Ut-AES.title" = "Deselect All";
+
 /* Class = "NSMenuItem"; title = "Zoom to 64x"; ObjectID = "cPG-If-iEO"; */
 "cPG-If-iEO.title" = "Zoom to 64x";
 

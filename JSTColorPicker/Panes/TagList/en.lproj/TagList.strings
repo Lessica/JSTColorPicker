@@ -54,3 +54,6 @@
 
 /* Class = "NSMenuItem"; title = "Copy Color Hex"; ObjectID = "zzd-tr-HtD"; */
 "zzd-tr-HtD.title" = "Copy Color Hex";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Deselect All"; ObjectID = "zdO-sy-f4V"; */
+"zdO-sy-f4V.ibShadowedToolTip" = "Deselect All";

@@ -15,7 +15,7 @@ final class SceneCursorView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        wantsLayer = true
+        wantsLayer = false
         
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .scaleAxesIndependently

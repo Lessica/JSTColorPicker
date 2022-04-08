@@ -112,6 +112,8 @@
 	<false/>
 	<key>defaults:disableTagEditing</key>
 	<false/>
+	<key>defaults:assignSelectedTags</key>
+	<true/>
 	<key>defaults:drawOutlinesInPrinting</key>
 	<true/>
 	<key>defaults:printTagSizeLevel</key>

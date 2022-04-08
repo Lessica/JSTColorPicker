@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "99"; ObjectID = "0u6-PD-p0S"; */
 "0u6-PD-p0S.title" = "99";
 
+/* Class = "NSButtonCell"; title = "Assign Selected Tags"; ObjectID = "1Sh-Lx-Uhh"; */
+"1Sh-Lx-Uhh.title" = "Assign Selected Tags";
+
 /* Class = "NSButtonCell"; title = "Draw Annotators in Color Grid"; ObjectID = "1xD-ZG-hUt"; */
 "1xD-ZG-hUt.title" = "Draw Annotators in Color Grid";
 
