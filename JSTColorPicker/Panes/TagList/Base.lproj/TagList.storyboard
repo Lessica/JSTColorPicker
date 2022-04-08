@@ -458,6 +458,12 @@
                                 <action selector="selectAll:" target="ykx-Es-M9D" id="hvV-cG-Dlu"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Deselect All" alternate="YES" keyEquivalent="a" id="3is-za-EJB">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <connections>
+                                <action selector="deselectAll:" target="ykx-Es-M9D" id="ui5-kI-Wlc"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="Delete" id="Jns-u7-V7q">
                             <string key="keyEquivalent" base64-UTF8="YES">
 CA

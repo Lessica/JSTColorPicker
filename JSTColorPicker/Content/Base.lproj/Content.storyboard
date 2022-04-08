@@ -393,6 +393,12 @@ DQ
                                 <action selector="selectAll:" target="YIx-oB-8lo" id="LPI-q2-513"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Deselect All" alternate="YES" keyEquivalent="a" id="K2k-gR-RKr">
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <connections>
+                                <action selector="deselectAll:" target="YIx-oB-8lo" id="oVm-N4-XaU"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="Delete" id="jxT-WR-Lp9">
                             <string key="keyEquivalent" base64-UTF8="YES">
 CA

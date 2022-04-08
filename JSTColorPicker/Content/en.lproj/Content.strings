@@ -67,6 +67,9 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "jxT-WR-Lp9"; */
 "jxT-WR-Lp9.title" = "Delete";
 
+/* Class = "NSMenuItem"; title = "Deselect All"; ObjectID = "K2k-gR-RKr"; */
+"K2k-gR-RKr.title" = "Deselect All";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Add/Locate Item (↵)"; ObjectID = "Lyu-4U-FxO"; */
 "Lyu-4U-FxO.ibShadowedToolTip" = "Add/Locate Item (↵)";
 

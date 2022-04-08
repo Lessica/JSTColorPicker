@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "36l-Jz-ijV"; */
 "36l-Jz-ijV.title" = "表格单元格";
 
+/* Class = "NSMenuItem"; title = "Deselect All"; ObjectID = "3is-za-EJB"; */
+"3is-za-EJB.title" = "取消全选";
+
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "7mA-Qd-o8i"; */
 "7mA-Qd-o8i.headerCell.title" = "名称";
 
@@ -52,8 +55,8 @@
 /* Class = "NSBox"; title = "Tag Manager"; ObjectID = "yUd-5h-qZT"; */
 "yUd-5h-qZT.title" = "标签管理器";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Deselect All"; ObjectID = "zdO-sy-f4V"; */
+"zdO-sy-f4V.ibShadowedToolTip" = "取消全选";
+
 /* Class = "NSMenuItem"; title = "Copy Color Hex"; ObjectID = "zzd-tr-HtD"; */
 "zzd-tr-HtD.title" = "拷贝颜色值";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Deselect All"; ObjectID = "zdO-sy-f4V"; */
-"zdO-sy-f4V.ibShadowedToolTip" = "反选";
