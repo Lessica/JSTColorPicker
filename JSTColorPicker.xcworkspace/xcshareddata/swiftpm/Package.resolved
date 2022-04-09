@@ -1,106 +1,104 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "ASN1Swift",
-        "repositoryURL": "https://github.com/tikhop/ASN1Swift",
-        "state": {
-          "branch": null,
-          "revision": "b53bee03a942623db25afc5bfb80227b2cb3b425",
-          "version": "1.2.4"
-        }
-      },
-      {
-        "package": "AuxiliaryExecute",
-        "repositoryURL": "https://github.com/Lakr233/AuxiliaryExecute",
-        "state": {
-          "branch": "main",
-          "revision": "baed197de469ebfc0aaccc6074ad8a98673cebe9",
-          "version": null
-        }
-      },
-      {
-        "package": "Down",
-        "repositoryURL": "git@github.com:Lessica/Down.git",
-        "state": {
-          "branch": null,
-          "revision": "f34b166be1f1db4aa8f573067e901d72f2a6be57",
-          "version": "0.11.0"
-        }
-      },
-      {
-        "package": "PMKFoundation",
-        "repositoryURL": "git@github.com:PromiseKit/Foundation.git",
-        "state": {
-          "branch": null,
-          "revision": "985f17fa69ee0e5b7eb3ff9be87ffc4e05fc0927",
-          "version": "3.4.0"
-        }
-      },
-      {
-        "package": "LNPropertyListEditor",
-        "repositoryURL": "git@github.com:Lessica/LNPropertyListEditor.git",
-        "state": {
-          "branch": "style-disabled-as-enabled",
-          "revision": "a68e3d17b8c81bf8d15abbf2235deb6d68c3ce25",
-          "version": null
-        }
-      },
-      {
-        "package": "OMGHTTPURLRQ",
-        "repositoryURL": "git@github.com:mxcl/OMGHTTPURLRQ.git",
-        "state": {
-          "branch": null,
-          "revision": "d3781339560d47a9e5cb9e70a81dc16b2d291edc",
-          "version": "3.3.0"
-        }
-      },
-      {
-        "package": "PromiseKit",
-        "repositoryURL": "git@github.com:mxcl/PromiseKit.git",
-        "state": {
-          "branch": null,
-          "revision": "93c8d41ce96ed78f36c3948be396d76f3ca3de1b",
-          "version": "6.16.2"
-        }
-      },
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
-        "state": {
-          "branch": null,
-          "revision": "82905286cc3f0fa8adc4674bf49437cab65a8373",
-          "version": "1.1.1"
-        }
-      },
-      {
-        "package": "SwiftBonjour",
-        "repositoryURL": "git@github.com:Lessica/SwiftBonjour.git",
-        "state": {
-          "branch": "main",
-          "revision": "0cff5e329eadfca4a3ed8670b252d7c413eee57c",
-          "version": null
-        }
-      },
-      {
-        "package": "SyntaxKit",
-        "repositoryURL": "git@github.com:Lessica/SyntaxKit.git",
-        "state": {
-          "branch": "master",
-          "revision": "645735192d57c672e2c03b4be19a76ae542dd676",
-          "version": null
-        }
-      },
-      {
-        "package": "TPInAppReceipt",
-        "repositoryURL": "git@github.com:Lessica/TPInAppReceipt.git",
-        "state": {
-          "branch": null,
-          "revision": "4bdd84a82d1db4f03e7df55b666b4442c301980d",
-          "version": "3.3.2"
-        }
+  "pins" : [
+    {
+      "identity" : "asn1swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tikhop/ASN1Swift",
+      "state" : {
+        "revision" : "b53bee03a942623db25afc5bfb80227b2cb3b425",
+        "version" : "1.2.4"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "auxiliaryexecute",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Lakr233/AuxiliaryExecute",
+      "state" : {
+        "branch" : "main",
+        "revision" : "baed197de469ebfc0aaccc6074ad8a98673cebe9"
+      }
+    },
+    {
+      "identity" : "down",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:Lessica/Down.git",
+      "state" : {
+        "revision" : "f34b166be1f1db4aa8f573067e901d72f2a6be57",
+        "version" : "0.11.0"
+      }
+    },
+    {
+      "identity" : "foundation",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:PromiseKit/Foundation.git",
+      "state" : {
+        "revision" : "985f17fa69ee0e5b7eb3ff9be87ffc4e05fc0927",
+        "version" : "3.4.0"
+      }
+    },
+    {
+      "identity" : "lnpropertylisteditor",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:Lessica/LNPropertyListEditor.git",
+      "state" : {
+        "branch" : "style-disabled-as-enabled",
+        "revision" : "a68e3d17b8c81bf8d15abbf2235deb6d68c3ce25"
+      }
+    },
+    {
+      "identity" : "omghttpurlrq",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:mxcl/OMGHTTPURLRQ.git",
+      "state" : {
+        "revision" : "d3781339560d47a9e5cb9e70a81dc16b2d291edc",
+        "version" : "3.3.0"
+      }
+    },
+    {
+      "identity" : "promisekit",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:mxcl/PromiseKit.git",
+      "state" : {
+        "revision" : "93c8d41ce96ed78f36c3948be396d76f3ca3de1b",
+        "version" : "6.16.2"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "82905286cc3f0fa8adc4674bf49437cab65a8373",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "swiftbonjour",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:Lessica/SwiftBonjour.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0cff5e329eadfca4a3ed8670b252d7c413eee57c"
+      }
+    },
+    {
+      "identity" : "syntaxkit",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:Lessica/SyntaxKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "645735192d57c672e2c03b4be19a76ae542dd676"
+      }
+    },
+    {
+      "identity" : "tpinappreceipt",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:Lessica/TPInAppReceipt.git",
+      "state" : {
+        "revision" : "4bdd84a82d1db4f03e7df55b666b4442c301980d",
+        "version" : "3.3.2"
+      }
+    }
+  ],
+  "version" : 2
 }

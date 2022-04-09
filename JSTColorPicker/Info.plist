@@ -71,7 +71,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to control "System Events" to open "Console" and filter logs for you.</string>
+	<string>$(PRODUCT_NAME) needs to control &quot;System Events&quot; to open &quot;Console&quot; and filter logs for you.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2022 Zheng Wu. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
@@ -87,14 +87,13 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.content</string>
 				<string>public.image</string>
+				<string>public.data</string>
+				<string>public.item</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>PNG Image</string>
-			<key>UTTypeIcons</key>
-			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>public.png</string>
 			<key>UTTypeTagSpecification</key>
@@ -108,14 +107,13 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.content</string>
 				<string>public.image</string>
+				<string>public.data</string>
+				<string>public.item</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>JPEG Image</string>
-			<key>UTTypeIcons</key>
-			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>public.jpeg</string>
 			<key>UTTypeTagSpecification</key>
