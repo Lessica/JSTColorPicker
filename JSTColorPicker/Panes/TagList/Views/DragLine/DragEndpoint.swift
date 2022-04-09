@@ -9,6 +9,6 @@ enum DragEndpointState {
 }
 
 protocol DragEndpoint: NSView {
-    var state: DragEndpointState { get set }
+    var dragEndpointState: DragEndpointState { get set }
 }
 

@@ -112,6 +112,6 @@ enum SceneTool: String {
         }
     }
 
-    var hasFocusingCursor: Bool { self == .selectionArrow || self == .movingHand }
+    var hasFocusingCursorWithoutDragging: Bool { self == .selectionArrow || self == .movingHand }
     
 }

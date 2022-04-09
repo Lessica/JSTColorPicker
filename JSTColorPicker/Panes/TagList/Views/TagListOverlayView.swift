@@ -10,9 +10,9 @@ import Cocoa
 
 final class TagListOverlayView: NSView, DragEndpoint {
     
-    var state: DragEndpointState = .idle {
+    var dragEndpointState: DragEndpointState = .idle {
         didSet {
-            if state == .idle {
+            if dragEndpointState == .idle {
                 highlightedRects = nil
                 sceneToolSource.resetSceneTool()
                 setNeedsDisplay(bounds)
@@ -98,7 +98,7 @@ final class TagListOverlayView: NSView, DragEndpoint {
     }
 
     override func scrollWheel(with event: NSEvent) {
-        if state == .idle {
+        if dragEndpointState == .idle {
             super.scrollWheel(with: event)
         }
     }

@@ -239,7 +239,7 @@ extension AppDelegate {
             downloadItem.target = self
             downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
             downloadItem.isEnabled = true
-            downloadItem.state = .off
+            downloadItem.dragEndpointState = .off
             devicesSubMenu.items = [ downloadItem ]
             return
         }

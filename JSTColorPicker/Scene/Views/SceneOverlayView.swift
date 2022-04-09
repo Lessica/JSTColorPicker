@@ -10,7 +10,7 @@ import Cocoa
 
 final class SceneOverlayView: NSView {
     
-    var state: DragEndpointState = .idle
+    var dragEndpointState: DragEndpointState = .idle
     
     var maximumTagPerItem: Int = 0
     var maximumTagPerItemEnabled: Bool = false
@@ -71,8 +71,15 @@ final class SceneOverlayView: NSView {
     var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
     private var internalEditableDirection: EditableOverlay.Direction = .none
     
-    var isFocused: Bool { sceneTool.hasFocusingCursor ? internalFocusedOverlay != nil : false }
-    var focusedOverlay: AnnotatorOverlay? { sceneTool.hasFocusingCursor ? internalFocusedOverlay : nil }
+    internal var hasFocusingCursor: Bool {
+        sceneTool.hasFocusingCursorWithoutDragging || dragEndpointState != .idle
+    }
+    internal var isFocused: Bool {
+        hasFocusingCursor ? internalFocusedOverlay != nil : false
+    }
+    internal var focusedOverlay: AnnotatorOverlay? {
+        hasFocusingCursor ? internalFocusedOverlay : nil
+    }
 
     var hasSelectedOverlay: Bool { overlays.firstIndex(where: { $0.isSelected }) != nil }
     var selectedOverlays: [AnnotatorOverlay] { overlays.filter({ $0.isSelected }) }
@@ -132,7 +139,7 @@ final class SceneOverlayView: NSView {
     }
     
     private func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
-        guard sceneTool.hasFocusingCursor else {
+        guard hasFocusingCursor else {
             internalResetFocusAppearance()
             return
         }
@@ -256,7 +263,7 @@ extension SceneOverlayView: DragEndpoint {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard case .idle = state else { return [] }
+        guard case .idle = dragEndpointState else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
         let operationMask = operationMaskOfDraggingTarget(
@@ -264,15 +271,15 @@ extension SceneOverlayView: DragEndpoint {
             target: internalFocusedOverlay
         )
         if !operationMask.isEmpty {
-            state = .target
+            dragEndpointState = .target
         } else {
-            state = .source
+            dragEndpointState = .source
         }
         return operationMask
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard state != .idle else { return [] }
+        guard dragEndpointState != .idle else { return [] }
         guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
         updateDraggingAppearance(with: sender.draggingLocation)
         let operationMask = operationMaskOfDraggingTarget(
@@ -280,23 +287,23 @@ extension SceneOverlayView: DragEndpoint {
             target: internalFocusedOverlay
         )
         if !operationMask.isEmpty {
-            state = .target
+            dragEndpointState = .target
         } else {
-            state = .source
+            dragEndpointState = .source
         }
         return operationMask
     }
     
     override func draggingExited(_ sender: NSDraggingInfo?) {
-        guard case .target = state else { return }
+        guard case .target = dragEndpointState else { return }
         resetAppearance()
-        state = .idle
+        dragEndpointState = .idle
     }
     
     override func draggingEnded(_ sender: NSDraggingInfo) {
-        guard case .target = state else { return }
+        guard case .target = dragEndpointState else { return }
         resetAppearance()
-        state = .idle
+        dragEndpointState = .idle
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {

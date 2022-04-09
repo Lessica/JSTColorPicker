@@ -40,7 +40,7 @@ final class DragConnectionController: NSObject, NSDraggingSource {
     }
 
     func draggingSession(_ session: NSDraggingSession, willBeginAt screenPoint: NSPoint) {
-        sourceEndpoint?.state = .source
+        sourceEndpoint?.dragEndpointState = .source
         lineOverlay = DragLineOverlay(startScreenPoint: screenPoint, endScreenPoint: screenPoint)
     }
 
@@ -50,7 +50,7 @@ final class DragConnectionController: NSObject, NSDraggingSource {
 
     func draggingSession(_ session: NSDraggingSession, endedAt screenPoint: NSPoint, operation: NSDragOperation) {
         lineOverlay?.removeFromScreen()
-        sourceEndpoint?.state = .idle
+        sourceEndpoint?.dragEndpointState = .idle
     }
 
     func ignoreModifierKeys(for session: NSDraggingSession) -> Bool { return true }

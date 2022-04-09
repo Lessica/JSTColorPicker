@@ -913,7 +913,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard !disableTagReordering && !disableTagEditing && !isSelectMode,
-              case .idle = tableViewOverlay.state
+              case .idle = tableViewOverlay.dragEndpointState
         else {
             return nil
         }
@@ -929,7 +929,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         guard !disableTagReordering && !disableTagEditing,
-              case .idle = tableViewOverlay.state
+              case .idle = tableViewOverlay.dragEndpointState
         else {
             return []
         }
@@ -942,7 +942,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         guard !disableTagReordering && !disableTagEditing,
-              case .idle = tableViewOverlay.state
+              case .idle = tableViewOverlay.dragEndpointState
         else {
             return false
         }
