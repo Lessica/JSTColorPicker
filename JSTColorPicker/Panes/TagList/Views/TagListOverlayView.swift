@@ -45,19 +45,36 @@ final class TagListOverlayView: NSView, DragEndpoint {
         layerContentsPlacement = .scaleAxesIndependently
     }
     
+    override func mouseDown(with event: NSEvent) {
+        guard !hasAttachedSheet
+                && dragDelegate.shouldPerformDragging(self, with: event)
+        else {
+            super.mouseDown(with: event)
+            return
+        }
+        
+        handleMouseDown(with: event)
+    }
+    
     override func rightMouseDown(with event: NSEvent) {
         guard !hasAttachedSheet
-                && dragDelegate.shouldPerformDragging
-                && sceneTool.canFocus
-                && sceneToolSource.sceneToolEnabled
-        else
-        {
+                && dragDelegate.shouldPerformDragging(self, with: event)
+        else {
             super.rightMouseDown(with: event)
             return
         }
         
+        handleMouseDown(with: event)
+    }
+    
+    private func handleMouseDown(with event: NSEvent) {
+        
         let locInOverlay = convert(event.locationInWindow, from: nil)
-        let rowIndexes = dragDelegate.selectedRowIndexes(at: locInOverlay, shouldHighlight: true)
+        let rowIndexes = dragDelegate.selectRow(
+            at: locInOverlay,
+            byExtendingSelection: false,
+            byFocusingSelection: true
+        )
         guard rowIndexes.count > 0 else {
             return
         }

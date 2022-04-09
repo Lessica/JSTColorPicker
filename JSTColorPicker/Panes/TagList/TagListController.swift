@@ -82,6 +82,7 @@ final class TagListController: StackedPaneController {
     @IBOutlet weak var tableColumnName            : NSTableColumn!
     
     private var lastStoredContentItems            : [ContentItem]?
+    private var isViewVisible                     : Bool = false
     
     private var willUndoToken                     : NotificationToken?
     private var willRedoToken                     : NotificationToken?
@@ -389,6 +390,16 @@ final class TagListController: StackedPaneController {
         super.viewWillAppear()
         performReorderAndSave(isAsync: false)
         ensurePreviewedTagsForItems(lastStoredContentItems)
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        isViewVisible = true
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        isViewVisible = false
     }
 
     deinit {
@@ -809,6 +820,11 @@ extension TagListController: TagListSource {
         return []
     }
     
+    var shouldAssignSelectedTags: Bool {
+        let assignSelectedTags: Bool = UserDefaults.standard[.assignSelectedTags]
+        return isViewVisible && assignSelectedTags
+    }
+    
     var selectedTags: [Tag] {
         arrangedTagController.selectedObjects as! [Tag]
     }
@@ -821,28 +837,53 @@ extension TagListController: TagListSource {
 
 extension TagListController: TagListDragDelegate {
     
-    var shouldPerformDragging: Bool { isContextLoaded && !isSelectMode }
+    func shouldPerformDragging(_ sender: NSView, with event: NSEvent) -> Bool {
+        guard event.type == .leftMouseDown || event.type == .rightMouseDown
+        else {
+            return false
+        }
+        var conditionFlag: Bool
+        let modifierFlags = event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+        if event.type == .leftMouseDown {
+            let underneathSelectedRow = tableView.row(
+                at: tableView.convert(event.locationInWindow, from: nil)
+            )
+            let hasUnderneathSelectedRow = underneathSelectedRow >= 0
+            let shiftPressed = modifierFlags.contains(.shift)
+            let commandPressed = modifierFlags.contains(.command)
+            conditionFlag = hasUnderneathSelectedRow && !shiftPressed && !commandPressed && (disableTagReordering || disableTagEditing)
+        } else {
+            let controlPressed = modifierFlags.contains(.control)
+            conditionFlag = controlPressed
+        }
+        return conditionFlag && isContextLoaded && !isSelectMode
+    }
     
-    func willPerformDragging(_ sender: Any?) -> Bool {
+    func willPerformDragging(_ sender: NSView) -> Bool {
         contentManager?.deselectAllContentItems()
-        return shouldPerformDragging
+        return isContextLoaded && !isSelectMode
     }
     
     var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }
     
-    func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet {
+    func selectRow(
+        at point: CGPoint,
+        byExtendingSelection extend: Bool = false,
+        byFocusingSelection focus: Bool = false
+    ) -> IndexSet {
         var indexes = tableView.selectedRowIndexes
         let rowAtPoint = tableView.row(at: scrollView.convert(point, to: tableView))
         if rowAtPoint >= 0 {
             if !indexes.contains(rowAtPoint) {
                 let theIndexSet = IndexSet(integer: rowAtPoint)
-                tableView.selectRowIndexes(theIndexSet, byExtendingSelection: false)
+                tableView.selectRowIndexes(theIndexSet, byExtendingSelection: extend)
                 indexes = theIndexSet
             }
         } else {
             indexes = IndexSet()
         }
-        if shouldHighlight {
+        if focus {
             makeFirstResponder(tableView)
         }
         return indexes
@@ -871,7 +912,11 @@ extension TagListController: TagListDragDelegate {
 extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        guard !isSelectMode, case .idle = tableViewOverlay.state else { return nil }
+        guard !disableTagReordering && !disableTagEditing && !isSelectMode,
+              case .idle = tableViewOverlay.state
+        else {
+            return nil
+        }
         let item = NSPasteboardItem()
         let tag = arrangedTags[row]
         item.setPropertyList([
@@ -883,10 +928,11 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        if disableTagReordering || disableTagEditing {
+        guard !disableTagReordering && !disableTagEditing,
+              case .idle = tableViewOverlay.state
+        else {
             return []
         }
-        guard case .idle = tableViewOverlay.state else { return [] }
         guard internalController.filterPredicate == nil else { return [] }
         if dropOperation == .above {
             return .move
@@ -895,7 +941,11 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        guard case .idle = tableViewOverlay.state else { return false }
+        guard !disableTagReordering && !disableTagEditing,
+              case .idle = tableViewOverlay.state
+        else {
+            return false
+        }
         var collection = arrangedTags
         
         var oldIndexes = [Int]()

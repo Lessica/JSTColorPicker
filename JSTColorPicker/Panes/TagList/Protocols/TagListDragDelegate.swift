@@ -10,11 +10,16 @@ import Foundation
 
 protocol TagListDragDelegate: AnyObject {
     
-    var shouldPerformDragging: Bool { get }
-    func willPerformDragging(_ sender: Any?) -> Bool
-    var selectedRowIndexes: IndexSet { get }
+    func shouldPerformDragging(_ sender: NSView, with event: NSEvent) -> Bool
+    func willPerformDragging(_ sender: NSView) -> Bool
     
-    func selectedRowIndexes(at point: CGPoint, shouldHighlight: Bool) -> IndexSet
+    var selectedRowIndexes: IndexSet { get }
+    func selectRow(
+        at point: CGPoint,
+        byExtendingSelection extend: Bool,
+        byFocusingSelection focus: Bool
+    ) -> IndexSet
+    
     func visibleRects(of rowIndexes: IndexSet) -> [CGRect]
     
 }

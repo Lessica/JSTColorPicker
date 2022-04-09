@@ -520,8 +520,7 @@ extension ContentController: ContentActionResponder {
         item.id = nextID
         item.similarity = nextSimilarity
         
-        let assignSelectedTags: Bool = UserDefaults.standard[.assignSelectedTags]
-        if assignSelectedTags {
+        if tagManager.shouldAssignSelectedTags {
             item.tags.append(contentsOf: tagManager.selectedTagNames)
         }
         
@@ -806,7 +805,9 @@ extension ContentController: ContentTableViewResponder {
         guard let event = NSApp.currentEvent else { return }
         let locationInView = sender.convert(event.locationInWindow, from: nil)
         guard sender.bounds.contains(locationInView) else { return }
-        let optionPressed = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.option)
+        let optionPressed = NSEvent.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.option)
         if !optionPressed {
             locate(sender)
         } else {

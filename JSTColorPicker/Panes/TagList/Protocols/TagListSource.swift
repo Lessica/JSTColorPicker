@@ -13,11 +13,15 @@ extension NSNotification.Name {
 }
 
 protocol TagListSource: AnyObject {
+    
     var managedObjectContext: NSManagedObjectContext? { get }
-    var arrangedTags: [Tag] { get }
     func managedTag(of name: String) -> Tag?
     func managedTags(of names: [String]) -> [Tag]
+    
+    var arrangedTags: [Tag] { get }
     var arrangedTagController: TagController { get }
+    
+    var shouldAssignSelectedTags: Bool { get }
     var selectedTags: [Tag] { get }
     var selectedTagNames: [String] { get }
 }

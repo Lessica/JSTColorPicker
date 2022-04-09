@@ -64,7 +64,8 @@ final class AdvancedController: NSViewController {
     
     @IBAction private func resetUserDefaultsAction(_ sender: Any?) {
         let optionPressed = NSEvent.modifierFlags
-            .intersection(.deviceIndependentFlagsMask).contains(.option)
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.option)
         if !optionPressed {
             resetUserDefaults()
         } else {
@@ -105,7 +106,8 @@ final class AdvancedController: NSViewController {
     
     @IBAction private func resetTagDatabaseAction(_ sender: Any?) {
         let optionPressed = NSEvent.modifierFlags
-            .intersection(.deviceIndependentFlagsMask).contains(.option)
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.option)
         if !optionPressed {
             let alert = NSAlert()
             alert.alertStyle = .warning

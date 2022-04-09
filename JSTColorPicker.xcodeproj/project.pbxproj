@@ -29,9 +29,7 @@
 		0F5BBA1B276F406900AF0DC8 /* PixelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */; };
 		0F5BBA1C276F406900AF0DC8 /* PixelCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49823E805340039F4F6 /* PixelCoordinate.swift */; };
 		0F5BBA1D276F406900AF0DC8 /* PixelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9623D6ED2C00DA1750 /* PixelColor.swift */; };
-		0F5BBA1E276F406900AF0DC8 /* PixelPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */; };
 		0F5BBA1F276F406900AF0DC8 /* PixelArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4A023E8080E0039F4F6 /* PixelArea.swift */; };
-		0F5BBA20276F406900AF0DC8 /* PixelSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */; };
 		0F5BBA21276F406900AF0DC8 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		0F5BBA22276F406900AF0DC8 /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49A23E805560039F4F6 /* PixelSize.swift */; };
 		0F5BBA23276F407C00AF0DC8 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
@@ -1552,8 +1550,6 @@
 		CCE01C92264CD90C005960A7 /* ShortcutGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortcutGuide.storyboard; sourceTree = "<group>"; };
 		CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedTabWindow.swift; sourceTree = "<group>"; };
 		CCE01CA9264CE4F0005960A7 /* ShortcutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
-		CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSkeleton.swift; sourceTree = "<group>"; };
-		CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPolygon.swift; sourceTree = "<group>"; };
 		CCE33FEE26325F6C0082F73D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCE33FF82632642C0082F73D /* PurchaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindow.swift; sourceTree = "<group>"; };
 		CCE340022632648B0082F73D /* PurchaseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWindowController.swift; sourceTree = "<group>"; };
@@ -3143,8 +3139,6 @@
 				CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */,
 				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
-				CCE1875926528A3B006FBDB4 /* PixelPolygon.swift */,
-				CCE1875626528A29006FBDB4 /* PixelSkeleton.swift */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
 			);
 			path = Pixel;
@@ -4434,13 +4428,11 @@
 				0F5BBA1A276F406900AF0DC8 /* PixelRect.swift in Sources */,
 				0F5BBA23276F407C00AF0DC8 /* Color+HSV.swift in Sources */,
 				0F5BBA26276F408F00AF0DC8 /* Content.swift in Sources */,
-				0F5BBA1E276F406900AF0DC8 /* PixelPolygon.swift in Sources */,
 				0F5BBA1F276F406900AF0DC8 /* PixelArea.swift in Sources */,
 				0F5BBA22276F406900AF0DC8 /* PixelSize.swift in Sources */,
 				0F5BBA27276F409600AF0DC8 /* OrderedSet.swift in Sources */,
 				0F5BBA17276F3C5800AF0DC8 /* PixelExifCommand.swift in Sources */,
 				0F5BBA33276F518900AF0DC8 /* Foundation+Ext.swift in Sources */,
-				0F5BBA20276F406900AF0DC8 /* PixelSkeleton.swift in Sources */,
 				CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				0F5BBA19276F405800AF0DC8 /* Screenshot.swift in Sources */,
 			);
