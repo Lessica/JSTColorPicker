@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef struct JST_IMAGE JST_IMAGE;
 @interface JSTPixelImage : NSObject {
-    JST_IMAGE *_pixel_image;
+    JST_IMAGE *_pixelImage;
 }
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -20,6 +20,7 @@ typedef struct JST_IMAGE JST_IMAGE;
 - (NSImage *)toNSImage;
 
 @property (nonatomic, assign, readonly) JST_IMAGE *internalPointer;
+@property (nonatomic, assign, readonly) CGColorSpaceRef colorSpace;
 @property (nonatomic, assign, readonly) CGSize size;
 @property (nonatomic, assign, readwrite) uint8_t orientation;
 
