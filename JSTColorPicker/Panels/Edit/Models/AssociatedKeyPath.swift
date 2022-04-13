@@ -10,6 +10,7 @@ import Foundation
 
 @objc
 final class AssociatedKeyPath: NSObject, NSCopying {
+    
     internal init(name: String, type: AssociatedKeyPath.ValueType, value: Any? = nil, options: [String]? = nil, helpText: String? = nil) {
         self.name = name
         self.type = type
@@ -17,6 +18,7 @@ final class AssociatedKeyPath: NSObject, NSCopying {
         self.options = options
         self.helpText = helpText
         super.init()
+        updateDynamicVariables()
         allowsKVONotification = true
     }
 
@@ -25,52 +27,52 @@ final class AssociatedKeyPath: NSObject, NSCopying {
     override init() {
         AssociatedKeyPath.initializedOrder += 1
         name = "keyPath #\(AssociatedKeyPath.initializedOrder)"
-        type = .Boolean
-        value = false
+        type = .String
+        value = type.defaultValue
         options = nil
         helpText = nil
         super.init()
+        updateDynamicVariables()
         allowsKVONotification = true
     }
 
     @objc
     enum ValueType: Int {
+        
+        case String = 0 // text input
         case Boolean // checkbox
         case Integer // text input
         case Decimal // text input
-        case String // text input
-        case Point // not implemented
-        case Size // not implemented
-        case Rect // not implemented
-        case Range // not implemented
-        case Color // not implemented
-        case Image // not implemented
         case Nil // nothing
 
         init(string: Field.StringValueType) {
             switch string {
+            case .String:
+                self = .String
             case .Boolean:
                 self = .Boolean
             case .Integer:
                 self = .Integer
             case .Decimal:
                 self = .Decimal
-            case .String:
-                self = .String
-            case .Point:
-                self = .Point
-            case .Size:
-                self = .Size
-            case .Rect:
-                self = .Rect
-            case .Range:
-                self = .Range
-            case .Color:
-                self = .Color
-            case .Image:
-                self = .Image
             case .Nil:
                 self = .Nil
+            }
+        }
+        
+        var defaultValue: Any?
+        {
+            switch self {
+            case .String:
+                return ""
+            case .Boolean:
+                return false
+            case .Integer:
+                return 0
+            case .Decimal:
+                return 0.0
+            case .Nil:
+                return nil
             }
         }
     }
@@ -92,7 +94,7 @@ final class AssociatedKeyPath: NSObject, NSCopying {
     @objc dynamic var helpText: String?
 
     @objc dynamic var hasOptions = false
-    @objc dynamic var isCheckboxValue = true
+    @objc dynamic var isCheckboxValue = false
     @objc dynamic var isTextInputValue = false
     @objc dynamic var isTextInputIntegerValue = false
     @objc dynamic var isTextInputDecimalValue = false
@@ -110,6 +112,11 @@ final class AssociatedKeyPath: NSObject, NSCopying {
     private func updateDynamicVariables() {
         hasOptions = options?.count ?? 0 > 0
         switch type {
+        case .String:
+            isCheckboxValue = false
+            isTextInputValue = !hasOptions
+            isTextInputIntegerValue = false
+            isTextInputDecimalValue = false
         case .Boolean:
             isCheckboxValue = !hasOptions
             isTextInputValue = false
@@ -125,41 +132,6 @@ final class AssociatedKeyPath: NSObject, NSCopying {
             isTextInputValue = false
             isTextInputIntegerValue = false
             isTextInputDecimalValue = !hasOptions
-        case .String:
-            isCheckboxValue = false
-            isTextInputValue = !hasOptions
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Point:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Size:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Rect:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Range:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Color:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
-        case .Image:
-            isCheckboxValue = false
-            isTextInputValue = false
-            isTextInputIntegerValue = false
-            isTextInputDecimalValue = false
         case .Nil:
             isCheckboxValue = false
             isTextInputValue = false

@@ -7,9 +7,11 @@
 //
 
 import Cocoa
+import OrderedCollections
 
 final class EditAssociatedValuesController: EditViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation, EditArrayControllerDelegate, NSMenuDelegate
 {
+    
     @IBOutlet var box: NSBox!
     @IBOutlet var tableView: EditAssociatedValuesTableView!
     @IBOutlet var arrayController: EditArrayController!
@@ -27,10 +29,10 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
     @IBOutlet var columnKeyPathType: NSTableColumn!
     @IBOutlet var columnKeyPathValue: NSTableColumn!
 
-    private var initialUserInfo: [String: String] = [:]
-    private var userInfo: [String: String] {
+    private var initialUserInfo: OrderedDictionary<String, String> = [:]
+    private var userInfo: OrderedDictionary<String, String> {
         if let keyPaths = arrayController.content as? [AssociatedKeyPath] {
-            return Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }
+            return OrderedDictionary<String, String>(keyPaths.map({ $0.keyValuePairs })) { _, new in new }
         }
         return [:]
     }
@@ -76,8 +78,8 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         box.title = isEditable ? NSLocalizedString("Edit Associated Values", comment: "updateArrayControllerEditableState()") : NSLocalizedString("View Associated Values", comment: "updateArrayControllerEditableState()")
     }
 
-    private func populateInitialTable() -> [String: String] {
-        var initial = [String: String]()
+    private func populateInitialTable() -> OrderedDictionary<String, String> {
+        var initial = OrderedDictionary<String, String>()
         if let contentItem = contentItem {
             if let tagManager = tagManager,
                let tagString = contentItem.firstTag,
@@ -90,14 +92,14 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                     let tagHelpText = tagField.helpText
                     let valueType = tagField.stringValueType ?? .String
                     switch valueType {
+                    case .String:
+                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: String.self) ?? tagField.toDefaultValue(ofType: String.self)
                     case .Boolean:
                         contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Bool.self) ?? tagField.toDefaultValue(ofType: Bool.self)
                     case .Integer:
                         contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Int.self) ?? tagField.toDefaultValue(ofType: Int.self)
                     case .Decimal:
                         contentValue = contentItem.userInfoValue(forKey: tagName, ofType: Double.self) ?? tagField.toDefaultValue(ofType: Double.self)
-                    case .String:
-                        contentValue = contentItem.userInfoValue(forKey: tagName, ofType: String.self) ?? tagField.toDefaultValue(ofType: String.self)
                     default:
                         break
                     }
@@ -125,7 +127,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 arrayController.contentUpdateType = .direct
                 arrayController.content = NSMutableArray(array: keyPaths)
                 keyPaths.forEach({ $0.resetDynamicVariables() })
-                initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
+                initial.merge(OrderedDictionary<String, String>(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
                 shouldSkipContentArrayEvents = false
             } else {
                 var keyPaths = [AssociatedKeyPath]()
@@ -138,7 +140,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 arrayController.contentUpdateType = .direct
                 arrayController.content = NSMutableArray(array: keyPaths)
                 keyPaths.forEach({ $0.resetDynamicVariables() })
-                initial.merge(Dictionary(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
+                initial.merge(OrderedDictionary<String, String>(keyPaths.map({ $0.keyValuePairs })) { _, new in new }) { _, new in new }
                 shouldSkipContentArrayEvents = false
             }
         }

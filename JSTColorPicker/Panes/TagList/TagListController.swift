@@ -446,8 +446,7 @@ final class TagListController: StackedPaneController {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
         context.persistentStoreCoordinator = coordinator
         
-        let queue = DispatchQueue.global(qos: .background)
-        queue.async {
+        DispatchQueue.main.async {
             do {
                 if FileManager.default.fileExists(atPath: persistentStoreURL.path) {
                     try coordinator.addPersistentStore(
@@ -477,19 +476,14 @@ final class TagListController: StackedPaneController {
                 }
                 
                 TagListController.sharedContext = context
-                
-                DispatchQueue.main.sync {
-                    completionClosure(context, nil)
-                }
+                completionClosure(context, nil)
                 
                 NotificationCenter.default.post(
                     name: NSNotification.Name.NSManagedObjectContextDidLoad,
                     object: context
                 )
             } catch {
-                DispatchQueue.main.sync {
-                    completionClosure(nil, error)
-                }
+                completionClosure(nil, error)
             }
         }
     }

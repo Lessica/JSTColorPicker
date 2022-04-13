@@ -159,12 +159,14 @@ final class PixelColor: ContentItem {
         t["id"]         = id
         t["type"]       = String(describing: PixelColor.self)
         t["name"]       = firstTag ?? ""
-        t["tags"]       = vm.createTable(withSequence: tags.contents)
+        t["tags"]       = vm.createTable(withSequence: tags.elements)
         t["similarity"] = similarity
         t["x"]          = coordinate.x
         t["y"]          = coordinate.y
         t["color"]      = rgbaValue
-        t["userInfo"]   = vm.createTable(withDictionary: userInfo ?? [:], { $0 as String }, { $0 as String })
+        t["userInfo"]   = vm.createTable(
+            withDictionary: userInfoDict ?? [:], { $0 as String }, { $0 as String }
+        )
         t.push(vm)
     }
     
@@ -225,7 +227,7 @@ extension PixelColor /*: CustomStringConvertible*/ {
     
     override var description: String { "\(pixelColorRep) \(coordinate)" }
     
-    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(pixelColorRep) \(coordinate)>" }
+    override var debugDescription: String { "<#\(id): \(tags.elements) (\(Int(similarity * 100.0))%); \(pixelColorRep) \(coordinate)>" }
     
 }
 

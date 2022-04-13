@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OrderedCollections
 #if WITH_COCOA
 import Cocoa
 
@@ -25,13 +26,19 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
     
     enum CodingKeys: String, CodingKey {
         case id, tags, similarity, userInfo
+        case userInfoKeys, userInfoValues
     }
     
     var id: Int
+    var tags: OrderedSet<String> = OrderedSet<String>()
     var firstTag: String? { tags.first }
-    var tags = OrderedSet<String>()
     var similarity: Double = 1.0
-    var userInfo: [String: String]?
+    var userInfo: OrderedDictionary<String, String>?
+    var userInfoDict: [String: String]? {
+        userInfo?.elements.reduce(into: [String: String](), { (partialResult, partialTuple) in
+            partialResult[partialTuple.key] = partialTuple.value
+        })
+    }
     
     init(id: Int) {
         self.id = id
@@ -41,7 +48,22 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         id = coder.decodeInteger(forKey: CodingKeys.id.rawValue)
         tags = OrderedSet((coder.decodeObject(forKey: CodingKeys.tags.rawValue) as? [String]) ?? [])
         similarity = coder.decodeDouble(forKey: CodingKeys.similarity.rawValue)
-        userInfo = coder.decodeObject(of: NSDictionary.self, forKey: CodingKeys.userInfo.rawValue) as? [String: String]
+        if let dictUserInfo = coder.decodeObject(of: NSDictionary.self, forKey: CodingKeys.userInfo.rawValue) as? [String: String]
+        {
+            var orderedUserInfo: OrderedDictionary<String, String> = [:]
+            for (dictKey, dictVal) in dictUserInfo.sorted(by: { $0.key.localizedCompare($1.key) == .orderedAscending })
+            {
+                orderedUserInfo[dictKey] = dictVal
+            }
+            userInfo = orderedUserInfo
+        } else {
+            if let userInfoKeys = coder.decodeObject(of: NSArray.self, forKey: CodingKeys.userInfoKeys.rawValue) as? [String],
+               let userInfoVals = coder.decodeObject(of: NSArray.self, forKey: CodingKeys.userInfoValues.rawValue) as? [String],
+               userInfoKeys.count == userInfoVals.count
+            {
+                userInfo = OrderedDictionary(uniqueKeys: userInfoKeys, values: userInfoVals)
+            }
+        }
     }
     
     required init(from decoder: Decoder) throws {
@@ -49,20 +71,32 @@ class ContentItem: NSObject, NSSecureCoding, NSCopying, Codable
         id = try container.decode(Int.self, forKey: .id)
         tags = OrderedSet(try container.decode([String].self, forKey: .tags))
         similarity = try container.decode(Double.self, forKey: .similarity)
-        userInfo = try container.decodeIfPresent([String: String].self, forKey: .userInfo)
+        if let dictUserInfo = try container.decodeIfPresent([String: String].self, forKey: .userInfo) {
+            var orderedUserInfo: OrderedDictionary<String, String> = [:]
+            for (dictKey, dictVal) in dictUserInfo.sorted(by: { $0.key.localizedCompare($1.key) == .orderedAscending })
+            {
+                orderedUserInfo[dictKey] = dictVal
+            }
+            userInfo = orderedUserInfo
+        } else {
+            userInfo = try container.decodeIfPresent(OrderedDictionary<String, String>.self, forKey: .userInfo)
+        }
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: CodingKeys.id.rawValue)
-        coder.encode(tags.contents, forKey: CodingKeys.tags.rawValue)
+        coder.encode(tags.elements, forKey: CodingKeys.tags.rawValue)
         coder.encode(similarity, forKey: CodingKeys.similarity.rawValue)
-        coder.encode(userInfo, forKey: CodingKeys.userInfo.rawValue)
+        if let userInfo = userInfo {
+            coder.encode(userInfo.keys.elements, forKey: CodingKeys.userInfoKeys.rawValue)
+            coder.encode(userInfo.values.elements, forKey: CodingKeys.userInfoValues.rawValue)
+        }
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(tags.contents, forKey: .tags)
+        try container.encode(tags.elements, forKey: .tags)
         try container.encode(similarity, forKey: .similarity)
         try container.encodeIfPresent(userInfo, forKey: .userInfo)
     }

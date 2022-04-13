@@ -16,16 +16,10 @@ public final class Field: NSManagedObject, Codable {
     }
 
     enum StringValueType: String, Codable {
+        case String // text input
         case Boolean // checkbox
         case Integer // text input
         case Decimal // text input
-        case String // text input
-        case Point // not implemented
-        case Size // not implemented
-        case Rect // not implemented
-        case Range // not implemented
-        case Color // not implemented
-        case Image // not implemented
         case Nil // nothing
     }
 

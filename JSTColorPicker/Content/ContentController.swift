@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import OrderedCollections
 
 private extension NSUserInterfaceItemIdentifier {
     static let toggleTableColumnIdentifier  = NSUserInterfaceItemIdentifier("toggle-id")
@@ -1558,7 +1559,7 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
             else if col == .columnTag {
                 if !item.tags.isEmpty {
                     
-                    let allTags = item.tags.contents
+                    let allTags = item.tags.elements
                     
                     if let firstTag = allTags.first {
                         cell.normalTextColor = tagManager
@@ -1689,7 +1690,7 @@ extension ContentController: TagImportSource {
     
     var importableTagNames: [String]? {
         guard let content = documentContent else { return nil }
-        return OrderedSet<String>(content.items.flatMap({ $0.tags })).contents
+        return OrderedSet<String>(content.items.flatMap({ $0.tags })).elements
     }
     
 }

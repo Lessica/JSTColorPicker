@@ -36,7 +36,6 @@
 		0F5BBA24276F407F00AF0DC8 /* CoreGraphics+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */; };
 		0F5BBA25276F408F00AF0DC8 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E49E23E807600039F4F6 /* ContentItem.swift */; };
 		0F5BBA26276F408F00AF0DC8 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D682FC9223D6EC4F00DA1750 /* Content.swift */; };
-		0F5BBA27276F409600AF0DC8 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
 		0F5BBA29276F40E900AF0DC8 /* Screenshot+Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BBA28276F40D000AF0DC8 /* Screenshot+Print.swift */; };
 		0F5BBA2A276F40E900AF0DC8 /* Screenshot+Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BBA28276F40D000AF0DC8 /* Screenshot+Print.swift */; };
 		0F5BBA2D276F415900AF0DC8 /* Screenshot+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BBA2B276F40F300AF0DC8 /* Screenshot+Error.swift */; };
@@ -136,6 +135,9 @@
 		CC042786275E297E008DD0C5 /* BrowserWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC042784275E297E008DD0C5 /* BrowserWindowController.swift */; };
 		CC042788275E3384008DD0C5 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC042787275E3384008DD0C5 /* BrowserViewController.swift */; };
 		CC042789275E3384008DD0C5 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC042787275E3384008DD0C5 /* BrowserViewController.swift */; };
+		CC042F642805DCA90076D3F1 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CC042F632805DCA90076D3F1 /* OrderedCollections */; };
+		CC042F6A2805DCC10076D3F1 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CC042F692805DCC10076D3F1 /* OrderedCollections */; };
+		CC042F6C2805DD060076D3F1 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CC042F6B2805DD060076D3F1 /* OrderedCollections */; };
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D8B2633091300E6B89C /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
@@ -747,8 +749,6 @@
 		D645E4B523EE74330039F4F6 /* Annotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645E4B423EE74330039F4F6 /* Annotator.swift */; };
 		D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */; };
 		D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F42490A679003159FD /* NSMenuDelegateProxy.swift */; };
-		D64790F82490E79C003159FD /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
-		D64790F92490E79C003159FD /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64790F72490E79C003159FD /* OrderedSet.swift */; };
 		D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230B23CC56E20067C04A /* DropSplitView.swift */; };
 		D649230E23CC62D70067C04A /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649230D23CC62D70067C04A /* SceneController.swift */; };
 		D649231923CC647D0067C04A /* SceneScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649231823CC647D0067C04A /* SceneScrollView.swift */; };
@@ -1873,6 +1873,7 @@
 			files = (
 				0F5BBA0D276F3B3300AF0DC8 /* ArgumentParser in Frameworks */,
 				0F5BBA0E276F3B3300AF0DC8 /* libpixel.a in Frameworks */,
+				CC042F6C2805DD060076D3F1 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1941,6 +1942,7 @@
 				CCFECFBC262D5152001F6467 /* Carbon.framework in Frameworks */,
 				0FF47024276208A900F46554 /* SwiftBonjour in Frameworks */,
 				0FF470592762319D00F46554 /* PMKFoundation in Frameworks */,
+				CC042F642805DCA90076D3F1 /* OrderedCollections in Frameworks */,
 				D6D1CEF425A4DB9100B7FFF5 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				D61047CD24224A170002E990 /* LuaSwift.framework in Frameworks */,
 				0FF470542762300F00F46554 /* OMGHTTPURLRQ in Frameworks */,
@@ -1986,6 +1988,7 @@
 				0FF4702E276209C300F46554 /* Down in Frameworks */,
 				0FF470292762097B00F46554 /* TPInAppReceipt in Frameworks */,
 				0FF47026276208C200F46554 /* SwiftBonjour in Frameworks */,
+				CC042F6A2805DCC10076D3F1 /* OrderedCollections in Frameworks */,
 				D60B0F9B24288EFE0034F21C /* libpixel.a in Frameworks */,
 				0FF4704D27622FB400F46554 /* PromiseKit in Frameworks */,
 				CCE3405526329A470082F73D /* StoreKit.framework in Frameworks */,
@@ -3737,6 +3740,7 @@
 			name = PixelExif;
 			packageProductDependencies = (
 				0F5BBA03276F3B3300AF0DC8 /* ArgumentParser */,
+				CC042F6B2805DD060076D3F1 /* OrderedCollections */,
 			);
 			productName = PixelMatch;
 			productReference = 0F5BBA14276F3B3300AF0DC8 /* pixelexif */;
@@ -3904,6 +3908,7 @@
 				0FF470532762300F00F46554 /* OMGHTTPURLRQ */,
 				0FF470582762319D00F46554 /* PMKFoundation */,
 				CC1B4C1227EF0BA30087974F /* LNPropertyListEditor */,
+				CC042F632805DCA90076D3F1 /* OrderedCollections */,
 			);
 			productName = JSTColorPicker;
 			productReference = D61047E124224A170002E990 /* JSTColorPicker.app */;
@@ -4009,6 +4014,7 @@
 				0FF470552762301A00F46554 /* OMGHTTPURLRQ */,
 				0FF4705A276231A900F46554 /* PMKFoundation */,
 				CC1B4C1527EF0BAE0087974F /* LNPropertyListEditor */,
+				CC042F692805DCC10076D3F1 /* OrderedCollections */,
 			);
 			productName = JSTColorPicker;
 			productReference = D658AF9A23CB180C0098C567 /* JSTColorPicker.app */;
@@ -4140,6 +4146,7 @@
 				0F7AE62C2767B56300D818E5 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				CCF26A9927E859F200BEFFDE /* XCRemoteSwiftPackageReference "AuxiliaryExecute" */,
 				CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */,
+				CC042F5E2805DCA80076D3F1 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = D658AF9B23CB180C0098C567 /* Products */;
 			projectDirPath = "";
@@ -4430,7 +4437,6 @@
 				0F5BBA26276F408F00AF0DC8 /* Content.swift in Sources */,
 				0F5BBA1F276F406900AF0DC8 /* PixelArea.swift in Sources */,
 				0F5BBA22276F406900AF0DC8 /* PixelSize.swift in Sources */,
-				0F5BBA27276F409600AF0DC8 /* OrderedSet.swift in Sources */,
 				0F5BBA17276F3C5800AF0DC8 /* PixelExifCommand.swift in Sources */,
 				0F5BBA33276F518900AF0DC8 /* Foundation+Ext.swift in Sources */,
 				CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
@@ -4552,7 +4558,6 @@
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				CCE33FEF26325F6C0082F73D /* main.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
-				D64790F82490E79C003159FD /* OrderedSet.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
 				D610477F24224A170002E990 /* SceneGridView.swift in Sources */,
 				18B22FF4247EBEAC003F70BA /* TagListDragDelegate.swift in Sources */,
@@ -4905,7 +4910,6 @@
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
-				D64790F92490E79C003159FD /* OrderedSet.swift in Sources */,
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,
 				D66CABE923F583E000BFB4CB /* ContentActionResponder.swift in Sources */,
@@ -6818,6 +6822,14 @@
 				version = 3.4.0;
 			};
 		};
+		CC042F5E2805DCA80076D3F1 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		CCAF510327EC536B002B11C6 /* XCRemoteSwiftPackageReference "LNPropertyListEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Lessica/LNPropertyListEditor.git";
@@ -6919,6 +6931,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0FF470572762319D00F46554 /* XCRemoteSwiftPackageReference "Foundation" */;
 			productName = PMKFoundation;
+		};
+		CC042F632805DCA90076D3F1 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC042F5E2805DCA80076D3F1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		CC042F692805DCC10076D3F1 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC042F5E2805DCA80076D3F1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		CC042F6B2805DD060076D3F1 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC042F5E2805DCA80076D3F1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 		CC1B4C1227EF0BA30087974F /* LNPropertyListEditor */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import OrderedCollections
 
 final class EditTagsController: EditViewController {
     

@@ -117,7 +117,7 @@ final class PixelArea: ContentItem {
         t["id"]              = id
         t["type"]            = String(describing: PixelArea.self)
         t["name"]            = firstTag ?? ""
-        t["tags"]            = vm.createTable(withSequence: tags.contents)
+        t["tags"]            = vm.createTable(withSequence: tags.elements)
         t["similarity"]      = similarity
         t["x"]               = rect.x
         t["y"]               = rect.y
@@ -127,7 +127,7 @@ final class PixelArea: ContentItem {
         t["maxY"]            = rect.maxY
         t["width"]           = rect.width
         t["height"]          = rect.height
-        t["userInfo"]        = vm.createTable(withDictionary: userInfo ?? [:], { $0 as String }, { $0 as String })
+        t["userInfo"]        = vm.createTable(withDictionary: userInfoDict ?? [:], { $0 as String }, { $0 as String })
         t.push(vm)
     }
     
@@ -197,7 +197,7 @@ extension PixelArea /*: CustomStringConvertible*/ {
     
     override var description: String { rect.description }
     
-    override var debugDescription: String { "<#\(id): \(tags.contents) (\(Int(similarity * 100.0))%); \(rect.description)>" }
+    override var debugDescription: String { "<#\(id): \(tags.elements) (\(Int(similarity * 100.0))%); \(rect.description)>" }
     
 }
 
