@@ -150,9 +150,6 @@
 		CC042F862806D5930076D3F1 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC042F872806D5930076D3F1 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC042F8E2806D5C30076D3F1 /* ideviceimagemounter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC042F8D2806D5C30076D3F1 /* ideviceimagemounter.m */; };
-		CC042F912806D6740076D3F1 /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC042F902806D6740076D3F1 /* libimobiledevice-glue-1.0.a */; };
-		CC042F972806D84F0076D3F1 /* idevicescreenshot in Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F712806D2A50076D3F1 /* idevicescreenshot */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CC042F982806D84F0076D3F1 /* ideviceimagemounter in Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC042F992806D99A0076D3F1 /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
@@ -277,6 +274,26 @@
 		CC4422EF263AE56D00161852 /* Paste.aiff in Resources */ = {isa = PBXBuildFile; fileRef = CC4422EC263AE56D00161852 /* Paste.aiff */; };
 		CC4422F0263AE56D00161852 /* Copy.aiff in Resources */ = {isa = PBXBuildFile; fileRef = CC4422ED263AE56D00161852 /* Copy.aiff */; };
 		CC4422F1263AE56D00161852 /* Copy.aiff in Resources */ = {isa = PBXBuildFile; fileRef = CC4422ED263AE56D00161852 /* Copy.aiff */; };
+		CC45238A2807F9FB005C0A3F /* idevicescreenshot in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F712806D2A50076D3F1 /* idevicescreenshot */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC45238B2807F9FB005C0A3F /* ideviceimagemounter in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC4523902807FA0E005C0A3F /* idevicescreenshot in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F712806D2A50076D3F1 /* idevicescreenshot */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC4523912807FA0E005C0A3F /* ideviceimagemounter in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC4523982807FB71005C0A3F /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
+		CC4523992807FB71005C0A3F /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
+		CC45239A2807FB71005C0A3F /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
+		CC45239B2807FB71005C0A3F /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
+		CC45239C2807FB71005C0A3F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
+		CC4523A22807FB99005C0A3F /* idevicepair.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4523922807FB64005C0A3F /* idevicepair.m */; };
+		CC4523A52807FBF3005C0A3F /* idevicepair in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC4523A12807FB71005C0A3F /* idevicepair */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC4523A82807FBFE005C0A3F /* idevicepair in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC4523A12807FB71005C0A3F /* idevicepair */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CC4523AE2807FC71005C0A3F /* userpref.c in Sources */ = {isa = PBXBuildFile; fileRef = CC4523AB2807FC71005C0A3F /* userpref.c */; };
+		CC4523AF2807FC71005C0A3F /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = CC4523AD2807FC71005C0A3F /* debug.c */; };
+		CC4523B12807FD7B005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */; };
+		CC4523B22807FD90005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */; };
+		CC4523B32807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */; };
+		CC4523B42807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */; };
+		CC4523B52807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */; };
+		CC4523B72807FEFE005C0A3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC328C1E27ED04F700057E12 /* SystemConfiguration.framework */; };
 		CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
 		CC470A002628AE890013A3B7 /* TemplateContentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */; };
 		CC470A10262B1C9F0013A3B7 /* ReadWriteLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */; };
@@ -909,20 +926,6 @@
 			remoteGlobalIDString = D690C95E241A60DC00BB1652;
 			remoteInfo = PixelMatch;
 		};
-		CC042F932806D8400076D3F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CC042F7F2806D5930076D3F1;
-			remoteInfo = ideviceimagemounter;
-		};
-		CC042F952806D8400076D3F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CC042F702806D2A50076D3F1;
-			remoteInfo = idevicescreenshot;
-		};
 		CC042F9A2806D99A0076D3F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -950,6 +953,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = CC7D6749266DDB5C002099AD;
 			remoteInfo = PauseForSounds;
+		};
+		CC4523862807F9F1005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC042F7F2806D5930076D3F1;
+			remoteInfo = ideviceimagemounter;
+		};
+		CC4523882807F9F1005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC042F702806D2A50076D3F1;
+			remoteInfo = idevicescreenshot;
+		};
+		CC45238C2807FA05005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC042F7F2806D5930076D3F1;
+			remoteInfo = ideviceimagemounter;
+		};
+		CC45238E2807FA05005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC042F702806D2A50076D3F1;
+			remoteInfo = idevicescreenshot;
+		};
+		CC4523A32807FBEA005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC4523932807FB71005C0A3F;
+			remoteInfo = idevicepair;
+		};
+		CC4523A62807FBF9005C0A3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC4523932807FB71005C0A3F;
+			remoteInfo = idevicepair;
 		};
 		CC7D6750266DDB96002099AD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1128,6 +1173,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				CC4523A82807FBFE005C0A3F /* idevicepair in Copy Embed Tools */,
+				CC4523912807FA0E005C0A3F /* ideviceimagemounter in Copy Embed Tools */,
+				CC4523902807FA0E005C0A3F /* idevicescreenshot in Copy Embed Tools */,
 				0FF4701F2762071A00F46554 /* adb in Copy Embed Tools */,
 			);
 			name = "Copy Embed Tools";
@@ -1139,6 +1187,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				CC4523A52807FBF3005C0A3F /* idevicepair in Copy Embed Tools */,
+				CC45238B2807F9FB005C0A3F /* ideviceimagemounter in Copy Embed Tools */,
+				CC45238A2807F9FB005C0A3F /* idevicescreenshot in Copy Embed Tools */,
 				0FF470212762072F00F46554 /* adb in Copy Embed Tools */,
 			);
 			name = "Copy Embed Tools";
@@ -1154,6 +1205,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		CC042F882806D5930076D3F1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		CC45239D2807FB71005C0A3F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -1253,8 +1313,6 @@
 			files = (
 				D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */,
 				0F5BBA3A276F54F600AF0DC8 /* pixelexif in Embed Tools */,
-				CC042F972806D84F0076D3F1 /* idevicescreenshot in Embed Tools */,
-				CC042F982806D84F0076D3F1 /* ideviceimagemounter in Embed Tools */,
 				0F87C3512769CC600006F446 /* pixelmatch in Embed Tools */,
 			);
 			name = "Embed Tools";
@@ -1369,8 +1427,6 @@
 		CC042F782806D3170076D3F1 /* idevicescreenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = idevicescreenshot.m; sourceTree = "<group>"; };
 		CC042F8C2806D5930076D3F1 /* ideviceimagemounter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ideviceimagemounter; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC042F8D2806D5C30076D3F1 /* ideviceimagemounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ideviceimagemounter.m; sourceTree = "<group>"; };
-		CC042F902806D6740076D3F1 /* libimobiledevice-glue-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-glue-1.0.a"; sourceTree = "<group>"; };
-		CC042F922806D6A20076D3F1 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		CC059D0D2630707400E6B89C /* README_zh-Hans.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README_zh-Hans.md"; sourceTree = "<group>"; };
 		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewObject.swift; sourceTree = "<group>"; };
@@ -1491,6 +1547,14 @@
 		CC4422E9263AD7F700161852 /* TemplateRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRowView.swift; sourceTree = "<group>"; };
 		CC4422EC263AE56D00161852 /* Paste.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Paste.aiff; sourceTree = "<group>"; };
 		CC4422ED263AE56D00161852 /* Copy.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Copy.aiff; sourceTree = "<group>"; };
+		CC4523922807FB64005C0A3F /* idevicepair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = idevicepair.m; sourceTree = "<group>"; };
+		CC4523A12807FB71005C0A3F /* idevicepair */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = idevicepair; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC4523AA2807FC71005C0A3F /* userpref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userpref.h; sourceTree = "<group>"; };
+		CC4523AB2807FC71005C0A3F /* userpref.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = userpref.c; sourceTree = "<group>"; };
+		CC4523AC2807FC71005C0A3F /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		CC4523AD2807FC71005C0A3F /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-glue-1.0.a"; sourceTree = "<group>"; };
+		CC4523B62807FEB5005C0A3F /* idevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = idevice.h; sourceTree = "<group>"; };
 		CC4709FE2628AE890013A3B7 /* TemplateContentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateContentCellView.swift; sourceTree = "<group>"; };
 		CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteLock.swift; sourceTree = "<group>"; };
 		CC470A19262B1CAB0013A3B7 /* MutexLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutexLock.swift; sourceTree = "<group>"; };
@@ -1962,6 +2026,7 @@
 				CC042F7E2806D4960076D3F1 /* libusbmuxd-2.0.a in Frameworks */,
 				CC042F992806D99A0076D3F1 /* libpixel.a in Frameworks */,
 				CC042F7D2806D4960076D3F1 /* libplist-2.0.a in Frameworks */,
+				CC4523B32807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC042F7A2806D4960076D3F1 /* libimobiledevice-1.0.a in Frameworks */,
 				CC042F7C2806D4960076D3F1 /* libcrypto.a in Frameworks */,
 			);
@@ -1971,12 +2036,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC042F912806D6740076D3F1 /* libimobiledevice-glue-1.0.a in Frameworks */,
+				CC4523B42807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC042F832806D5930076D3F1 /* libssl.a in Frameworks */,
 				CC042F842806D5930076D3F1 /* libusbmuxd-2.0.a in Frameworks */,
 				CC042F852806D5930076D3F1 /* libplist-2.0.a in Frameworks */,
 				CC042F862806D5930076D3F1 /* libimobiledevice-1.0.a in Frameworks */,
 				CC042F872806D5930076D3F1 /* libcrypto.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4523962807FB71005C0A3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4523B52807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
+				CC4523B72807FEFE005C0A3F /* SystemConfiguration.framework in Frameworks */,
+				CC4523982807FB71005C0A3F /* libssl.a in Frameworks */,
+				CC4523992807FB71005C0A3F /* libusbmuxd-2.0.a in Frameworks */,
+				CC45239A2807FB71005C0A3F /* libplist-2.0.a in Frameworks */,
+				CC45239B2807FB71005C0A3F /* libimobiledevice-1.0.a in Frameworks */,
+				CC45239C2807FB71005C0A3F /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2006,6 +2085,7 @@
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
 				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
+				CC4523B12807FD7B005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */,
 				CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */,
 				CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */,
@@ -2062,6 +2142,7 @@
 				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
 				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
+				CC4523B22807FD90005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */,
 				CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */,
 				CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */,
@@ -2264,20 +2345,12 @@
 		CC042F722806D2A50076D3F1 /* tools */ = {
 			isa = PBXGroup;
 			children = (
-				CC042F922806D6A20076D3F1 /* include */,
-				CC042F8F2806D66B0076D3F1 /* lib */,
+				CC4523A92807FC4D005C0A3F /* common */,
 				CC042F782806D3170076D3F1 /* idevicescreenshot.m */,
 				CC042F8D2806D5C30076D3F1 /* ideviceimagemounter.m */,
+				CC4523922807FB64005C0A3F /* idevicepair.m */,
 			);
 			path = tools;
-			sourceTree = "<group>";
-		};
-		CC042F8F2806D66B0076D3F1 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				CC042F902806D6740076D3F1 /* libimobiledevice-glue-1.0.a */,
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 		CC059D1D2631300E00E6B89C /* Models */ = {
@@ -2611,6 +2684,18 @@
 				CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CC4523A92807FC4D005C0A3F /* common */ = {
+			isa = PBXGroup;
+			children = (
+				CC4523B62807FEB5005C0A3F /* idevice.h */,
+				CC4523AC2807FC71005C0A3F /* debug.h */,
+				CC4523AD2807FC71005C0A3F /* debug.c */,
+				CC4523AA2807FC71005C0A3F /* userpref.h */,
+				CC4523AB2807FC71005C0A3F /* userpref.c */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 		CC470A9E262DEBC00013A3B7 /* Purchase */ = {
@@ -3279,6 +3364,7 @@
 		D647B06423D198CB00D76CB5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */,
 				CCF67A06255AC7B300061A51 /* libcrypto.a */,
 				CCF679E0255AC6CD00061A51 /* libplist-2.0.a */,
 				CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */,
@@ -3345,6 +3431,7 @@
 				CC98053227F21124009044B7 /* pb.so */,
 				CC042F712806D2A50076D3F1 /* idevicescreenshot */,
 				CC042F8C2806D5930076D3F1 /* ideviceimagemounter */,
+				CC4523A12807FB71005C0A3F /* idevicepair */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3892,6 +3979,23 @@
 			productReference = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */;
 			productType = "com.apple.product-type.tool";
 		};
+		CC4523932807FB71005C0A3F /* idevicepair */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC45239E2807FB71005C0A3F /* Build configuration list for PBXNativeTarget "idevicepair" */;
+			buildPhases = (
+				CC4523942807FB71005C0A3F /* Sources */,
+				CC4523962807FB71005C0A3F /* Frameworks */,
+				CC45239D2807FB71005C0A3F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = idevicepair;
+			productName = idevicescreenshot;
+			productReference = CC4523A12807FB71005C0A3F /* idevicepair */;
+			productType = "com.apple.product-type.tool";
+		};
 		CC9804B027F20987009044B7 /* lua-cjson */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC9804B227F20987009044B7 /* Build configuration list for PBXNativeTarget "lua-cjson" */;
@@ -3989,8 +4093,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				CC347704266F49BA00391E73 /* PBXTargetDependency */,
+				CC4523A42807FBEA005C0A3F /* PBXTargetDependency */,
+				CC4523872807F9F1005C0A3F /* PBXTargetDependency */,
+				CC4523892807F9F1005C0A3F /* PBXTargetDependency */,
 				D60B0F9724288D920034F21C /* PBXTargetDependency */,
+				CC347704266F49BA00391E73 /* PBXTargetDependency */,
 			);
 			name = JSTScreenshotHelper;
 			packageProductDependencies = (
@@ -4042,8 +4149,6 @@
 				D62693672429F4D800463E36 /* PBXTargetDependency */,
 				0F5BBA35276F54A100AF0DC8 /* PBXTargetDependency */,
 				0F87C3502769CC530006F446 /* PBXTargetDependency */,
-				CC042F962806D8400076D3F1 /* PBXTargetDependency */,
-				CC042F942806D8400076D3F1 /* PBXTargetDependency */,
 				D68A1FDB2498B225001E3FDA /* PBXTargetDependency */,
 				CC7D6753266DDBBE002099AD /* PBXTargetDependency */,
 			);
@@ -4116,8 +4221,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				CC347706266F49BE00391E73 /* PBXTargetDependency */,
+				CC4523A72807FBF9005C0A3F /* PBXTargetDependency */,
+				CC45238D2807FA05005C0A3F /* PBXTargetDependency */,
+				CC45238F2807FA05005C0A3F /* PBXTargetDependency */,
 				D629E5A6242BC8B100AF333F /* PBXTargetDependency */,
+				CC347706266F49BE00391E73 /* PBXTargetDependency */,
 			);
 			name = JSTColorPickerHelper;
 			packageProductDependencies = (
@@ -4319,6 +4427,7 @@
 				0F5BBA00276F3B3300AF0DC8 /* PixelExif */,
 				CC042F702806D2A50076D3F1 /* idevicescreenshot */,
 				CC042F7F2806D5930076D3F1 /* ideviceimagemounter */,
+				CC4523932807FB71005C0A3F /* idevicepair */,
 				D68A1FD22498B17F001E3FDA /* relaunch */,
 				D60B0F8624288CF20034F21C /* pixel */,
 				CC7D6749266DDB5C002099AD /* PauseForSounds */,
@@ -4610,6 +4719,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC042F8E2806D5C30076D3F1 /* ideviceimagemounter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4523942807FB71005C0A3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4523AF2807FC71005C0A3F /* debug.c in Sources */,
+				CC4523A22807FB99005C0A3F /* idevicepair.m in Sources */,
+				CC4523AE2807FC71005C0A3F /* userpref.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5318,16 +5437,6 @@
 			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
 			targetProxy = 0F87C34F2769CC530006F446 /* PBXContainerItemProxy */;
 		};
-		CC042F942806D8400076D3F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CC042F7F2806D5930076D3F1 /* ideviceimagemounter */;
-			targetProxy = CC042F932806D8400076D3F1 /* PBXContainerItemProxy */;
-		};
-		CC042F962806D8400076D3F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CC042F702806D2A50076D3F1 /* idevicescreenshot */;
-			targetProxy = CC042F952806D8400076D3F1 /* PBXContainerItemProxy */;
-		};
 		CC042F9B2806D99A0076D3F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D60B0F8624288CF20034F21C /* pixel */;
@@ -5347,6 +5456,36 @@
 			isa = PBXTargetDependency;
 			target = CC7D6749266DDB5C002099AD /* PauseForSounds */;
 			targetProxy = CC347707266F49CA00391E73 /* PBXContainerItemProxy */;
+		};
+		CC4523872807F9F1005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC042F7F2806D5930076D3F1 /* ideviceimagemounter */;
+			targetProxy = CC4523862807F9F1005C0A3F /* PBXContainerItemProxy */;
+		};
+		CC4523892807F9F1005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC042F702806D2A50076D3F1 /* idevicescreenshot */;
+			targetProxy = CC4523882807F9F1005C0A3F /* PBXContainerItemProxy */;
+		};
+		CC45238D2807FA05005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC042F7F2806D5930076D3F1 /* ideviceimagemounter */;
+			targetProxy = CC45238C2807FA05005C0A3F /* PBXContainerItemProxy */;
+		};
+		CC45238F2807FA05005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC042F702806D2A50076D3F1 /* idevicescreenshot */;
+			targetProxy = CC45238E2807FA05005C0A3F /* PBXContainerItemProxy */;
+		};
+		CC4523A42807FBEA005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC4523932807FB71005C0A3F /* idevicepair */;
+			targetProxy = CC4523A32807FBEA005C0A3F /* PBXContainerItemProxy */;
+		};
+		CC4523A72807FBF9005C0A3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC4523932807FB71005C0A3F /* idevicepair */;
+			targetProxy = CC4523A62807FBF9005C0A3F /* PBXContainerItemProxy */;
 		};
 		CC7D6751266DDB96002099AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5934,6 +6073,68 @@
 					"$(inherited)",
 					"HAVE_VASPRINTF=1",
 					"HAVE_ASPRINTF=1",
+					"PACKAGE_URL=\"\\\"https://libimobiledevice.org\\\"\"",
+					"PACKAGE_BUGREPORT=\"\\\"https://github.com/libimobiledevice/libimobiledevice/issues\\\"\"",
+					"PACKAGE_VERSION=\"\\\"1.3.0-123-g7a0aedc\\\"\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/tools/include/\"",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
+					"$(PROJECT_DIR)/tools/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CC45239F2807FB71005C0A3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"HAVE_VASPRINTF=1",
+					"HAVE_ASPRINTF=1",
+					"HAVE_WIRELESS_PAIRING=1",
+					"HAVE_OPENSSL=1",
+					"PACKAGE_URL=\"\\\"https://libimobiledevice.org\\\"\"",
+					"PACKAGE_BUGREPORT=\"\\\"https://github.com/libimobiledevice/libimobiledevice/issues\\\"\"",
+					"PACKAGE_VERSION=\"\\\"1.3.0-123-g7a0aedc\\\"\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/tools/include/\"",
+					"\"$(PROJECT_DIR)/JSTScreenshotHelper/include/\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JSTScreenshotHelper/lib",
+					"$(PROJECT_DIR)/tools/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CC4523A02807FB71005C0A3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"HAVE_VASPRINTF=1",
+					"HAVE_ASPRINTF=1",
+					"HAVE_WIRELESS_PAIRING=1",
+					"HAVE_OPENSSL=1",
 					"PACKAGE_URL=\"\\\"https://libimobiledevice.org\\\"\"",
 					"PACKAGE_BUGREPORT=\"\\\"https://github.com/libimobiledevice/libimobiledevice/issues\\\"\"",
 					"PACKAGE_VERSION=\"\\\"1.3.0-123-g7a0aedc\\\"\"",
@@ -6911,6 +7112,15 @@
 			buildConfigurations = (
 				CC042F8A2806D5930076D3F1 /* Debug */,
 				CC042F8B2806D5930076D3F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC45239E2807FB71005C0A3F /* Build configuration list for PBXNativeTarget "idevicepair" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC45239F2807FB71005C0A3F /* Debug */,
+				CC4523A02807FB71005C0A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
