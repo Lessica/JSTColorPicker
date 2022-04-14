@@ -10,32 +10,29 @@
 /* kJSTScreenshotHelperError */
 "Cannot write launch item to: %@" = "Cannot write launch item to: %@";
 
+/* AdbError */
+"Command exited with non-zero status code: \"%ld\", error reason: %@." = "Command exited with non-zero status code: \"%ld\", error reason: %@.";
+
 /* kJSTScreenshotError */
 "Could not connect to \"%@\"." = "Could not connect to \"%@\".";
 
 /* kJSTScreenshotError */
-"Could not connect to lockdownd." = "Could not connect to lockdownd.";
+"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted.";
 
 /* kJSTScreenshotError */
-"Could not create image from screenshot." = "Could not create image from screenshot.";
+"Could not create image from the screenshot." = "Could not create image from the screenshot.";
 
 /* kJSTScreenshotError */
-"Could not get interface orientation." = "Could not get interface orientation.";
+"Could not get the interface orientation." = "Could not get the interface orientation.";
 
 /* kJSTScreenshotError */
-"Could not get PNG/TIFF representation of screenshot." = "Could not get PNG/TIFF representation of screenshot.";
+"Could not get the PNG/TIFF representation of screenshot." = "Could not get the PNG/TIFF representation of screenshot.";
 
 /* kJSTScreenshotError */
-"Could not get screenshot." = "Could not get screenshot.";
+"Could not get the screenshot." = "Could not get the screenshot.";
 
 /* kJSTScreenshotError */
-"Could not read TIFF representation of screenshot from temporary storage." = "Could not read TIFF representation of screenshot from temporary storage.";
-
-/* kJSTScreenshotError */
-"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.";
-
-/* kJSTScreenshotError */
-"Could not write TIFF representation of screenshot to temporary storage." = "Could not write TIFF representation of screenshot to temporary storage.";
+"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\"." = "Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".";
 
 /* kJSTScreenshotError */
 "Device \"%@\" is not reachable." = "Device \"%@\" is not reachable.";

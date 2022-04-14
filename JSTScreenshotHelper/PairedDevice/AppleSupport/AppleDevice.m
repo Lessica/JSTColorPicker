@@ -100,7 +100,7 @@
     screenshotr_error_t scret = SCREENSHOTR_E_UNKNOWN_ERROR;
     
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_client_new_with_handshake(device, &lckd, NULL))) {
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not connect to lockdownd.", @"kJSTScreenshotError") }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted.", @"kJSTScreenshotError"), [self name]] }]);
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SBSERVICES_SERVICE_NAME, &sbsService)) || !(sbsService && sbsService->port > 0)) {
@@ -110,7 +110,7 @@
             lckd = NULL;
         }
         if (sbsRequired) {
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
             return;
         }
     }
@@ -120,7 +120,7 @@
             lockdownd_client_free(lckd);
             lckd = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service.", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
 
@@ -181,7 +181,7 @@
                 shotrService = NULL;
             }
             if (sbsRequired) {
-                completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get interface orientation.", @"kJSTScreenshotError") }]);
+                completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get the interface orientation.", @"kJSTScreenshotError") }]);
                 return;
             }
         }
@@ -206,7 +206,7 @@
             lockdownd_service_descriptor_free(shotrService);
             shotrService = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get screenshot.", @"kJSTScreenshotError") }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get the screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     
@@ -232,75 +232,27 @@
             lockdownd_service_descriptor_free(shotrService);
             shotrService = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get PNG/TIFF representation of screenshot.", @"kJSTScreenshotError") }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not get the PNG/TIFF representation of screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     
     CGImageRef image = nil;
+    CFDataRef imageData = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)cIMGData, cIMGSize, kCFAllocatorDefault);
     if (isTIFFData) {
-        NSURL *temporaryDirectoryURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-        NSURL *temporaryFileURL = [temporaryDirectoryURL URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"tiff"]];
-        NSData *temporaryData = [NSData dataWithBytesNoCopy:cIMGData length:cIMGSize];
-        
-        BOOL temporaryWrite = [temporaryData writeToURL:temporaryFileURL atomically:YES];
-        if (!temporaryWrite) {
-            if (sbs) {
-                sbservices_client_free(sbs);
-                sbs = NULL;
-            }
-            if (shotr) {
-                screenshotr_client_free(shotr);
-                shotr = NULL;
-            }
-            if (sbsService) {
-                lockdownd_service_descriptor_free(sbsService);
-                sbsService = NULL;
-            }
-            if (shotrService) {
-                lockdownd_service_descriptor_free(shotrService);
-                shotrService = NULL;
-            }
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not write TIFF representation of screenshot to temporary storage.", @"kJSTScreenshotError") }]);
-            return;
-        }
-        
-        CFURLRef imageURLRef = (__bridge CFURLRef)temporaryFileURL;
-        NSDictionary *sourceOptions = @{
+        CFDictionaryRef sourceOpts = (__bridge CFDictionaryRef)@{
             (id)kCGImageSourceShouldCache: (id)kCFBooleanFalse,
-            (id)kCGImageSourceTypeIdentifierHint: (id)kUTTypeTIFF
+            (id)kCGImageSourceTypeIdentifierHint: (id)kUTTypeTIFF,
         };
-        CFDictionaryRef sourceOptionsRef = (__bridge CFDictionaryRef)sourceOptions;
-        CGImageSourceRef imageSource = CGImageSourceCreateWithURL(imageURLRef, sourceOptionsRef);
-        if (!imageSource) {
-            if (sbs) {
-                sbservices_client_free(sbs);
-                sbs = NULL;
-            }
-            if (shotr) {
-                screenshotr_client_free(shotr);
-                shotr = NULL;
-            }
-            if (sbsService) {
-                lockdownd_service_descriptor_free(sbsService);
-                sbsService = NULL;
-            }
-            if (shotrService) {
-                lockdownd_service_descriptor_free(shotrService);
-                shotrService = NULL;
-            }
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not read TIFF representation of screenshot from temporary storage.", @"kJSTScreenshotError") }]);
-            return;
-        }
-        
-        image = CGImageSourceCreateImageAtIndex(imageSource, 0, sourceOptionsRef);
-        CFRelease(imageSource);
+        CGImageSourceRef imgSrc = CGImageSourceCreateWithData(imageData, sourceOpts);
+        CFRelease(imageData);
+        image = CGImageSourceCreateImageAtIndex(imgSrc, 0, sourceOpts);
+        CFRelease(imgSrc);
     }
     else {
-        CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)cIMGData, cIMGSize, kCFAllocatorDefault);
-        CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
-        image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, false, kCGRenderingIntentDefault);
-        CGDataProviderRelease(dataProvider);
-        CFRelease(data);
+        CGDataProviderRef imageDataProvider = CGDataProviderCreateWithCFData(imageData);
+        CFRelease(imageData);
+        image = CGImageCreateWithPNGDataProvider(imageDataProvider, NULL, false, kCGRenderingIntentDefault);
+        CGDataProviderRelease(imageDataProvider);
     }
     
     if (!image) {
@@ -320,7 +272,7 @@
             lockdownd_service_descriptor_free(shotrService);
             shotrService = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not create image from screenshot.", @"kJSTScreenshotError") }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not create image from the screenshot.", @"kJSTScreenshotError") }]);
         return;
     }
     

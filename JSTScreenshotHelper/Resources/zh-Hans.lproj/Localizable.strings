@@ -10,32 +10,29 @@
 /* kJSTScreenshotHelperError */
 "Cannot write launch item to: %@" = "无法写入启动项：%@";
 
+/* AdbError */
+"Command exited with non-zero status code: \"%ld\", error reason: %@." = "Command exited with non-zero status code: \"%ld\", error reason: %@.";
+
 /* kJSTScreenshotError */
 "Could not connect to \"%@\"." = "无法连接到 \"%@\"。";
 
 /* kJSTScreenshotError */
-"Could not connect to lockdownd." = "无法连接到 lockdownd。";
+"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "无法连接到 lockdownd。\n解锁 %@，并在随后的弹框中选择信任此计算机，以使用 JSTColorPicker。";
 
 /* kJSTScreenshotError */
-"Could not create image from screenshot." = "无法从屏幕截图创建图像。";
+"Could not create image from the screenshot." = "无法从屏幕截图创建图像。";
 
 /* kJSTScreenshotError */
-"Could not get interface orientation." = "无法获取界面方向。";
+"Could not get the interface orientation." = "无法获取界面方向。";
 
 /* kJSTScreenshotError */
-"Could not get PNG/TIFF representation of screenshot." = "无法获取屏幕截图的 PNG/TIFF 数据表示形式。";
+"Could not get the PNG/TIFF representation of screenshot." = "无法获取屏幕截图的 PNG/TIFF 数据表示形式。";
 
 /* kJSTScreenshotError */
-"Could not get screenshot." = "无法获取屏幕截图。";
+"Could not get the screenshot." = "无法获取屏幕截图。";
 
 /* kJSTScreenshotError */
-"Could not read TIFF representation of screenshot from temporary storage." = "无法从临时存储读取屏幕截图的 TIFF 数据表示形式。";
-
-/* kJSTScreenshotError */
-"Could not start \"%@\" service. Remember that you have to install Xcode or mount the Developer Disk Image on your device manually if you want to use the \"%@\" service." = "无法启动 \"%@\" 服务。请记住，如果要使用 \"%@\" 服务，必须安装 Xcode 并配对设备或手动在设备上挂载开发人员磁盘映像。";
-
-/* kJSTScreenshotError */
-"Could not write TIFF representation of screenshot to temporary storage." = "无法将屏幕截图的 TIFF 数据表示形式写入临时存储。";
+"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\"." = "无法通过 lockdownd 启动 \"%@\" 服务。\n如果要使用 \"%@\" 服务，必须安装 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
 
 /* kJSTScreenshotError */
 "Device \"%@\" is not reachable." = "设备 \"%@\" 暂不可用。";

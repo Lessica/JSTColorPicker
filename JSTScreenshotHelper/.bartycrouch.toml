@@ -25,6 +25,7 @@ translateMethodName = "translate"
 [update.normalize]
 path = "."
 sourceLocale = "en"
+subpathsToIgnore = ["InfoPlist.strings"]
 harmonizeWithSource = true
 sortByKeys = true
 
