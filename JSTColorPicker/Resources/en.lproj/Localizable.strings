@@ -162,6 +162,9 @@
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "Discover Devices";
 
+/* takeScreenshot(_:) */
+"Dismiss" = "Dismiss";
+
 /* Shortcut Guide */
 "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.";
 
@@ -599,6 +602,9 @@
 /* actionRequiresRestart(_:) */
 "Restart required" = "Restart required";
 
+/* takeScreenshot(_:) */
+"Retry" = "Retry";
+
 /* Shortcut Guide */
 "Right Click" = "Right Click";
 
@@ -859,9 +865,3 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ Selection Arrow";
-
-/* takeScreenshot(_:) */
-"Dismiss" = "";
-
-/* takeScreenshot(_:) */
-"Retry" = "";

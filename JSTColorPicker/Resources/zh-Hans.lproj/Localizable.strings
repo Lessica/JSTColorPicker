@@ -162,6 +162,9 @@
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "立即寻找设备";
 
+/* takeScreenshot(_:) */
+"Dismiss" = "忽略";
+
 /* Shortcut Guide */
 "Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation." = "显示菜单，包含当前光标位置所有层级下层叠的区域标注，选择一项以移除标注。";
 
@@ -599,6 +602,9 @@
 /* actionRequiresRestart(_:) */
 "Restart required" = "需要重启";
 
+/* takeScreenshot(_:) */
+"Retry" = "重试";
+
 /* Shortcut Guide */
 "Right Click" = "右键单击";
 
@@ -859,9 +865,3 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ 选择箭头";
-
-/* takeScreenshot(_:) */
-"Dismiss" = "";
-
-/* takeScreenshot(_:) */
-"Retry" = "";

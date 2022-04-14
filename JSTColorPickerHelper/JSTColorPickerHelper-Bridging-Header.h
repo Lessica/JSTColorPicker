@@ -4,3 +4,4 @@
 
 #import "JSTScreenshotHelperProtocol.h"
 #import "JSTPairedDevice.h"
+#import "AppleDevice.h"
