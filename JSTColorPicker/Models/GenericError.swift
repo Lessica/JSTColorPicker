@@ -30,13 +30,13 @@ enum GenericError: CustomNSError, LocalizedError {
     var failureReason: String? {
         switch self {
         case let .notRegularFile(url):
-            return String(format: NSLocalizedString("Not a regular file: \"%@\".", comment: "GenericError"), url.path)
+            return String(format: NSLocalizedString("Not a regular file: “%@”.", comment: "GenericError"), url.path)
         case let .notDirectory(url):
-            return String(format: NSLocalizedString("Not a directory: \"%@\".", comment: "GenericError"), url.path)
+            return String(format: NSLocalizedString("Not a directory: “%@”.", comment: "GenericError"), url.path)
         case let .notPackage(url):
-            return String(format: NSLocalizedString("Not a package: \"%@\".", comment: "GenericError"), url.path)
+            return String(format: NSLocalizedString("Not a package: “%@”.", comment: "GenericError"), url.path)
         case let .invalidFilename(name):
-            return String(format: NSLocalizedString("Invalid filename: \"%@\".", comment: "GenericError"), name)
+            return String(format: NSLocalizedString("Invalid filename: “%@”.", comment: "GenericError"), name)
         }
     }
 }

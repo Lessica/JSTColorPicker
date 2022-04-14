@@ -14,6 +14,12 @@
 #import <libimobiledevice/screenshotr.h>
 #import <libimobiledevice/sbservices.h>
 
+#ifdef APP_STORE
+#import "JSTColorPickerHelper-Swift.h"
+#else
+#import "JSTScreenshotHelper-Swift.h"
+#endif
+
 @implementation AppleDevice {
     idevice_t cDevice;
     char *cUDID;
@@ -26,8 +32,13 @@
 }
 
 - (instancetype)initWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
+    
     NSString *deviceName = @"Unknown Device";
     NSString *deviceModel = @"Unknown Model";
+    
+    NSString *productType = nil;
+    NSString *productVersion = nil;
+    
     cDevice = NULL;
     cUDID = strndup(udid.UTF8String, udid.length);
     if (idevice_new_with_options(&cDevice, cUDID, IDEVICE_LOOKUP_USBMUX | IDEVICE_LOOKUP_NETWORK) != IDEVICE_E_SUCCESS) {
@@ -45,18 +56,33 @@
             free(cDeviceName);
         }
     }
-    plist_t pDeviceType = NULL;
-    if (lockdownd_get_value(comm, NULL, "ProductType", &pDeviceType) == LOCKDOWN_E_SUCCESS) {
-        if (pDeviceType && (plist_get_node_type(pDeviceType) == PLIST_STRING)) {
-            char *cDeviceType = NULL;
-            plist_get_string_val(pDeviceType, &cDeviceType);
-            if (cDeviceType) {
-                deviceModel = [NSString stringWithUTF8String:cDeviceType];
-                free(cDeviceType);
+    plist_t pProductType = NULL;
+    if (lockdownd_get_value(comm, NULL, "ProductType", &pProductType) == LOCKDOWN_E_SUCCESS) {
+        if (pProductType && (plist_get_node_type(pProductType) == PLIST_STRING)) {
+            char *cProductType = NULL;
+            plist_get_string_val(pProductType, &cProductType);
+            if (cProductType) {
+                deviceModel = [NSString stringWithUTF8String:cProductType];
+                productType = deviceModel;
+                free(cProductType);
             }
         }
-        if (pDeviceType) {
-            plist_free(pDeviceType);
+        if (pProductType) {
+            plist_free(pProductType);
+        }
+    }
+    plist_t pProductVersion = NULL;
+    if (lockdownd_get_value(comm, NULL, "ProductVersion", &pProductVersion) == LOCKDOWN_E_SUCCESS) {
+        if (pProductVersion && (plist_get_node_type(pProductVersion) == PLIST_STRING)) {
+            char *cProductVersion = NULL;
+            plist_get_string_val(pProductVersion, &cProductVersion);
+            if (cProductVersion) {
+                productVersion = [NSString stringWithUTF8String:cProductVersion];;
+                free(cProductVersion);
+            }
+        }
+        if (pProductVersion) {
+            plist_free(pProductVersion);
         }
     }
     lockdownd_goodbye(comm);
@@ -65,6 +91,8 @@
         assert([self hasValidType]);
         
         _udid = udid;
+        _productType = productType;
+        _productVersion = productVersion;
     }
     return self;
 }
@@ -100,7 +128,7 @@
     screenshotr_error_t scret = SCREENSHOTR_E_UNKNOWN_ERROR;
     
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_client_new_with_handshake(device, &lckd, NULL))) {
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted.", @"kJSTScreenshotError"), [self name]] }]);
+        [self pair:completion];
         return;
     }
     if (LOCKDOWN_E_SUCCESS != (ldret = lockdownd_start_service(lckd, SBSERVICES_SERVICE_NAME, &sbsService)) || !(sbsService && sbsService->port > 0)) {
@@ -110,7 +138,7 @@
             lckd = NULL;
         }
         if (sbsRequired) {
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME, @SBSERVICES_SERVICE_NAME] }]);
+            [self mount:completion];
             return;
         }
     }
@@ -120,7 +148,7 @@
             lockdownd_client_free(lckd);
             lckd = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:ldret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME, @SCREENSHOTR_SERVICE_NAME] }]);
+        [self mount:completion];
         return;
     }
 
@@ -140,7 +168,7 @@
             shotrService = NULL;
         }
         if (sbsRequired) {
-            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME] }]);
+            completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:sbret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to “%@”.", @"kJSTScreenshotError"), @SBSERVICES_SERVICE_NAME] }]);
             return;
         }
     }
@@ -157,7 +185,7 @@
             lockdownd_service_descriptor_free(shotrService);
             shotrService = NULL;
         }
-        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to \"%@\".", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME] }]);
+        completion(nil, [NSError errorWithDomain:kJSTScreenshotError code:scret userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Could not connect to “%@”.", @"kJSTScreenshotError"), @SCREENSHOTR_SERVICE_NAME] }]);
         return;
     }
     

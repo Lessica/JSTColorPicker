@@ -19,7 +19,7 @@ final class PurchaseController: NSViewController {
         var failureReason: String? {
             switch self {
             case let .invalidProductIdentifier(identifier):
-                return String(format: NSLocalizedString("Invalid product identifier: \"%@\".", comment: "PurchaseController.Error"), identifier)
+                return String(format: NSLocalizedString("Invalid product identifier: “%@”.", comment: "PurchaseController.Error"), identifier)
             case .nothingToRestore:
                 return NSLocalizedString("Nothing to restore.", comment: "PurchaseController.Error")
             case let .other(description):

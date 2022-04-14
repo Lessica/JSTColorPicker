@@ -9,25 +9,6 @@ import Foundation
 import PromiseKit
 import AuxiliaryExecute
 
-enum AdbError: CustomNSError, LocalizedError {
-    case nonZeroExitCode(code: Int, reason: String)
-
-    var errorCode: Int {
-        switch self {
-        case .nonZeroExitCode:
-            return 701
-        }
-    }
-
-    var failureReason: String? {
-        switch self {
-        case let .nonZeroExitCode(code, reason):
-            return String(format: NSLocalizedString("Command exited with non-zero status code: \"%ld\", error reason: %@.", comment: "AdbError"), code, reason)
-        }
-    }
-}
-
-
 @objc
 final class AdbHelper: NSObject {
     
@@ -60,7 +41,7 @@ final class AdbHelper: NSObject {
                 if result.exitCode == 0 {
                     seal.fulfill(savingDirectory)
                 } else {
-                    seal.reject(AdbError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    seal.reject(CommandError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
                 }
                 return Promise<Void>()
             }.catch { err in
@@ -86,7 +67,7 @@ final class AdbHelper: NSObject {
                 if result.exitCode == 0 {
                     seal.fulfill(destURL)
                 } else {
-                    seal.reject(AdbError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    seal.reject(CommandError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
                 }
                 return Promise<Void>()
             }.catch { err in
@@ -108,7 +89,7 @@ final class AdbHelper: NSObject {
                 if result.exitCode == 0 {
                     seal.fulfill(tmpURL)
                 } else {
-                    seal.reject(AdbError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    seal.reject(CommandError.nonZeroExitCode(code: result.exitCode, reason: result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)))
                 }
                 return Promise<Void>()
             }.catch { err in

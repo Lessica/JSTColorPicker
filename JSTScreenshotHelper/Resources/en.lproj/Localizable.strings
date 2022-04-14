@@ -7,17 +7,17 @@
 /* kJSTScreenshotHelperError */
 "Cannot find main application of JSTColorPicker: %@" = "Cannot find main application of JSTColorPicker: %@";
 
+/* kJSTScreenshotError */
+"Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”." = "Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”.";
+
 /* kJSTScreenshotHelperError */
 "Cannot write launch item to: %@" = "Cannot write launch item to: %@";
 
 /* AdbError */
-"Command exited with non-zero status code: \"%ld\", error reason: %@." = "Command exited with non-zero status code: \"%ld\", error reason: %@.";
+"Command exited with non-zero status code: “%ld”, error reason: %@." = "Command exited with non-zero status code: “%ld”, error reason: %@.";
 
 /* kJSTScreenshotError */
-"Could not connect to \"%@\"." = "Could not connect to \"%@\".";
-
-/* kJSTScreenshotError */
-"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted.";
+"Could not connect to “%@”." = "Could not connect to “%@”.";
 
 /* kJSTScreenshotError */
 "Could not create image from the screenshot." = "Could not create image from the screenshot.";
@@ -32,10 +32,10 @@
 "Could not get the screenshot." = "Could not get the screenshot.";
 
 /* kJSTScreenshotError */
-"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\"." = "Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\".";
+"Developer Disk Image mounted to “%@” automatically, click “Retry” to continue." = "Developer Disk Image mounted to “%@” automatically, click “Retry” to continue.";
 
 /* kJSTScreenshotError */
-"Device \"%@\" is not reachable." = "Device \"%@\" is not reachable.";
+"Device “%@” is not reachable." = "Device “%@” is not reachable.";
 
 /* JSTScreenshotHelperInstall */
 "Do you want to remove JSTColorPickerHelper from login items?" = "Do you want to remove JSTColorPicker screenshot helper from login items?";
@@ -47,7 +47,7 @@
 "Internal error occurred." = "Internal error occurred.";
 
 /* kJSTScreenshotError */
-"Not running application with identifier \"%@\"." = "Not running application with identifier \"%@\".";
+"Not running application with identifier “%@”." = "Not running application with identifier “%@”.";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -56,13 +56,22 @@
 "process:JSTColorPicker" = "process:JSTColorPicker";
 
 /* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.";
+
+/* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted.";
+
+/* kJSTScreenshotError */
 "Unknown error occurred." = "Unknown error occurred.";
 
 /* kJSTScreenshotError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".";
+"User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”." = "User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”.";
 
 /* kJSTScreenshotError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "User consent required in \"Preferences > Privacy > Accessibility\".";
+"User consent required in “Preferences > Privacy > Accessibility”." = "User consent required in “Preferences > Privacy > Accessibility”.";
 
 /* kJSTScreenshotError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".";
+"User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”." = "User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”.";
+
+/* kJSTScreenshotError */
+"“%@” paired with this host automatically, click “Retry” to continue." = "“%@” paired with this host automatically, click “Retry” to continue.";

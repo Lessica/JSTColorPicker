@@ -151,7 +151,7 @@ extension AppDelegate {
                 self.presentHelperConnectionFailureError(XPCError.interrupted)
             }
         } else if noti.name == AppDelegate.applicationHelperConnectionDidInvalidatedNotification {
-            // Helper connection may be invalidated by system sometimes...
+            // Helper connection may be invalidated by system sometimes…
         }
     }
 #endif
@@ -440,7 +440,7 @@ extension AppDelegate {
         guard let selectedIdentifier = selectedDeviceUniqueIdentifier else {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("No device selected", comment: "takeScreenshot(_:)")
-            alert.informativeText = NSLocalizedString("Select an iOS device from \"Devices\" menu.", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
+            alert.informativeText = NSLocalizedString("Select an iOS device from “Devices” menu.", comment: "devicesTakeScreenshotMenuItemTapped(_:)")
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "takeScreenshot(_:)"))
             alert.alertStyle = .informational
             windowController.showSheet(alert) { [unowned self] (resp) in
@@ -463,7 +463,7 @@ extension AppDelegate {
             dataPromise = promiseXPCProxy()
                 .then { [unowned self] (proxy) -> Promise<(JSTScreenshotHelperProtocol, Data)> in
                     loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
-                    loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
+                    loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device “%@”…", comment: "takeScreenshot(_:)"), selectedIdentifier)
                     windowController.showSheet(loadingAlert, completionHandler: nil)
                     return self.promiseProxyLookupDevice(proxy, byHostName: selectedIdentifier).map { (proxy, $0) }
                 }
@@ -472,19 +472,19 @@ extension AppDelegate {
                 }
                 .then { [unowned self] (proxy, device) -> Promise<Data> in
                     loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
-                    loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device["name"]!)
+                    loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device “%@”…", comment: "takeScreenshot(_:)"), device["name"]!)
                     return self.promiseProxyTakeScreenshot(proxy, byHostName: device["udid"]!)
                 }
         }
         else if selectedIdentifier.hasPrefix(BonjourDevice.uniquePrefix) {
             dataPromise = firstly { [unowned self] () -> Promise<BonjourDevice> in
                 loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device \"%@\"…", comment: "takeScreenshot(_:)"), selectedIdentifier)
+                loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device “%@”…", comment: "takeScreenshot(_:)"), selectedIdentifier)
                 windowController.showSheet(loadingAlert, completionHandler: nil)
                 return self.promiseResolveBonjourDevice(byHostName: selectedIdentifier)
             }.then { [unowned self] (device: BonjourDevice) -> Promise<SocketAddress> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
-                loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device \"%@\"…", comment: "takeScreenshot(_:)"), device.name.isEmpty ? device.hostName : device.name)
+                loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device “%@”…", comment: "takeScreenshot(_:)"), device.name.isEmpty ? device.hostName : device.name)
                 return self.promiseResolveSocketAddress(ofDevice: device)
             }.then { [unowned self] (sockAddr: SocketAddress) -> Promise<Data> in
                 return self.promiseDownloadScreenshot(fromSocketAddress: sockAddr)
@@ -505,7 +505,18 @@ extension AppDelegate {
             if self.applicationCheckScreenshotHelper().exists {
                 DispatchQueue.main.async {
                     let alert = NSAlert(error: err)
-                    windowController.showSheet(alert, completionHandler: nil)
+                    let nsErr = err as NSError
+                    var hasRetryButton = false
+                    if nsErr.code > 700 && nsErr.code % 2 == 0 {
+                        alert.addButton(withTitle: NSLocalizedString("Retry", comment: "takeScreenshot(_:)"))
+                        hasRetryButton = true
+                    }
+                    alert.addButton(withTitle: NSLocalizedString("Dismiss", comment: "takeScreenshot(_:)"))
+                    windowController.showSheet(alert) { resp in
+                        if hasRetryButton && resp == .alertFirstButtonReturn {
+                            self.takeScreenshot(sender)
+                        }
+                    }
                 }
             }
         }.finally { [unowned self] in

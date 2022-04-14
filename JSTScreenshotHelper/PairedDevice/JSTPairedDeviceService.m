@@ -51,7 +51,7 @@
 - (void)lookupDeviceByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     JSTDevice <JSTPairedDevice> *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
-        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
+        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device “%@” is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
     }
     reply([NSPropertyListSerialization dataWithPropertyList:@{
@@ -65,7 +65,7 @@
 - (void)takeScreenshotByUDID:(NSString *)udid withReply:(void (^)(NSData * _Nullable, NSError * _Nullable))reply {
     JSTDevice <JSTPairedDevice> *targetDevice = self.deviceService.cachedDevices[udid];
     if (!targetDevice) {
-        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device \"%@\" is not reachable.", @"kJSTScreenshotError"), udid] }]);
+        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Device “%@” is not reachable.", @"kJSTScreenshotError"), udid] }]);
         return;
     }
     __weak typeof(self) weakSelf = self;
@@ -162,7 +162,7 @@
             NSDictionary *options = @{(__bridge NSString *)kAXTrustedCheckOptionPrompt: @(YES)};
             BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
             if (!accessibilityEnabled) {
-                reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"User consent required in \"Preferences > Privacy > Accessibility\".", comment: @"kJSTScreenshotError") }]);
+                reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"User consent required in “Preferences > Privacy > Accessibility”.", comment: @"kJSTScreenshotError") }]);
                 return;
             }
 
@@ -176,15 +176,15 @@
                 OSStatus askErr = AEDeterminePermissionToAutomateTarget(askTarget.aeDesc, typeWildCard, typeWildCard, true);
                 switch (askErr) {
                     case -600:
-                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Not running application with identifier \"%@\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Not running application with identifier “%@”.", @"kJSTScreenshotError"), askIdentifier] }]);
                         return;
                     case 0:
                         break;
                     case errAEEventWouldRequireUserConsent:
-                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”.", @"kJSTScreenshotError"), askIdentifier] }]);
                         return;
                     case errAEEventNotPermitted:
-                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".", @"kJSTScreenshotError"), askIdentifier] }]);
+                        reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:404 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”.", @"kJSTScreenshotError"), askIdentifier] }]);
                         return;
                     default:
                         reply(nil, [NSError errorWithDomain:kJSTScreenshotError code:askErr userInfo:@{ NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown error occurred.", comment: @"kJSTScreenshotError") }]);

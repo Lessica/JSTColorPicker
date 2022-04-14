@@ -541,7 +541,7 @@ by \(template.author ?? "Unknown")
         else if let matchInput = preparedPixelMatchInput {
             let truncatedNames = matchInput.images
                 .map({ $0.imageSource.url.lastPathComponent.truncated(limit: 20, position: .middle) })
-            compareDocumentsMenuItem.title = String(format: NSLocalizedString("Compare \"%@\" and \"%@\"", comment: "updateMenuItems"), truncatedNames.first!, truncatedNames.last!)
+            compareDocumentsMenuItem.title = String(format: NSLocalizedString("Compare “%@” and “%@”", comment: "updateMenuItems"), truncatedNames.first!, truncatedNames.last!)
         }
         else {
             compareDocumentsMenuItem.title = NSLocalizedString("Compare Opened Documents", comment: "updateMenuItems")

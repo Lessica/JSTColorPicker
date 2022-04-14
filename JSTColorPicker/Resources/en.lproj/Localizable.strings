@@ -63,7 +63,7 @@
 "Another task is in process, abort." = "Another task is in process, abort.";
 
 /* ScriptError */
-"Application \"%@\" not found." = "Application \"%@\" not found.";
+"Application “%@” not found." = "Application “%@” not found.";
 
 /* Browser */
 "Are you sure you want to move '%@' to '%@'?" = "Are you sure you want to move '%@' to '%@'?";
@@ -81,7 +81,7 @@
 "Cannot load image: %@." = "Cannot load image: %@.";
 
 /* ScriptError */
-"Cannot open application at: \"%@\"." = "Cannot open application at: \"%@\".";
+"Cannot open application at: “%@”." = "Cannot open application at: “%@”.";
 
 /* NetworkError */
 "Cannot resolve name: %@" = "Cannot resolve name: %@";
@@ -109,10 +109,10 @@
 "Command Palette…" = "Command Palette…";
 
 /* updateMenuItems */
-"Compare \"%@\" and \"%@\"" = "Compare \"%@\" and \"%@\"";
+"Compare Opened Documents" = "Compare Opened Documents";
 
 /* updateMenuItems */
-"Compare Opened Documents" = "Compare Opened Documents";
+"Compare “%@” and “%@”" = "Compare “%@” and “%@”";
 
 /* Delete Confirm */
 "Confirm" = "Confirm";
@@ -193,7 +193,7 @@
 "Double Press" = "Double Press";
 
 /* screenshotItemTapped(_:) */
-"Download screenshot from device \"%@\"…" = "Download screenshot from device \"%@\"…";
+"Download screenshot from device “%@”…" = "Download screenshot from device “%@”…";
 
 /* resetDevicesMenu */
 "Download screenshot helper…" = "Download screenshot helper…";
@@ -223,7 +223,7 @@
 "Edit Coordinate" = "Edit Coordinate";
 
 /* screenshotItemTapped(_:) */
-"Establish connection to device \"%@\"…" = "Establish connection to device \"%@\"…";
+"Establish connection to device “%@”…" = "Establish connection to device “%@”…";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
@@ -241,7 +241,7 @@
 "Expired" = "Expired";
 
 /* copy(_:) */
-"Extract code snippets from template \"%@\"…" = "Extract code snippets from template \"%@\"…";
+"Extract code snippets from template “%@”…" = "Extract code snippets from template “%@”…";
 
 /* copy(_:) */
 "Extract Snippets" = "Extract Snippets";
@@ -329,7 +329,7 @@
 "Invalid field: %@." = "Invalid field: %@.";
 
 /* GenericError */
-"Invalid filename: \"%@\"." = "Invalid filename: \"%@\".";
+"Invalid filename: “%@”." = "Invalid filename: “%@”.";
 
 /* ScreenshotError */
 "Invalid image properties." = "Invalid image properties.";
@@ -344,7 +344,7 @@
 "Invalid image." = "Invalid image.";
 
 /* PurchaseController.Error */
-"Invalid product identifier: \"%@\"." = "Invalid product identifier: \"%@\".";
+"Invalid product identifier: “%@”." = "Invalid product identifier: “%@”.";
 
 /* PurchaseManager.Error */
 "Invalid purchase." = "Invalid purchase.";
@@ -473,7 +473,7 @@
 "No device selected" = "No device selected";
 
 /* PixelMatchServiceError */
-"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.";
+"No difference detected. Decrease the “Match Threshold” in “Preferences -> General -> Compare” and try again." = "No difference detected. Decrease the “Match Threshold” in “Preferences -> General -> Compare” and try again.";
 
 /* Content.Error
    ExportError */
@@ -498,19 +498,19 @@
 "None" = "None";
 
 /* GenericError */
-"Not a directory: \"%@\"." = "Not a directory: \"%@\".";
+"Not a directory: “%@”." = "Not a directory: “%@”.";
 
 /* GenericError */
-"Not a package: \"%@\"." = "Not a package: \"%@\".";
+"Not a package: “%@”." = "Not a package: “%@”.";
 
 /* GenericError */
-"Not a regular file: \"%@\"." = "Not a regular file: \"%@\".";
+"Not a regular file: “%@”." = "Not a regular file: “%@”.";
 
 /* PurchaseController.Error */
 "Not purchased." = "Not purchased.";
 
 /* ScriptError */
-"Not running application with identifier \"%@\"." = "Not running application with identifier \"%@\".";
+"Not running application with identifier “%@”." = "Not running application with identifier “%@”.";
 
 /* PurchaseController.Error */
 "Nothing to restore." = "Nothing to restore.";
@@ -621,7 +621,7 @@
 "Select All Cascaded Annotations" = "Select All Cascaded Annotations";
 
 /* screenshotItemTapped(_:) */
-"Select an iOS device from \"Devices\" menu." = "Select an iOS device from \"Devices\" menu.";
+"Select an iOS device from “Devices” menu." = "Select an iOS device from “Devices” menu.";
 
 /* Shortcut Guide */
 "Select Annotation" = "Select Annotation";
@@ -792,13 +792,13 @@
 "User aborted." = "User aborted.";
 
 /* ScriptError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".";
+"User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”." = "User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”.";
 
 /* ScriptError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "User consent required in \"Preferences > Privacy > Accessibility\".";
+"User consent required in “Preferences > Privacy > Accessibility”." = "User consent required in “Preferences > Privacy > Accessibility”.";
 
 /* ScriptError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".";
+"User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”." = "User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”.";
 
 /* PurchaseManager */
 "Valid Subscription: %@" = "Valid Subscription: %@";
@@ -859,3 +859,9 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ Selection Arrow";
+
+/* takeScreenshot(_:) */
+"Dismiss" = "";
+
+/* takeScreenshot(_:) */
+"Retry" = "";

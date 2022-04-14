@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
-        <plugIn identifier="com.apple.automator.AutomatorPalette" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.automator.AutomatorPalette" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -85,11 +84,11 @@
                             </constraints>
                         </box>
                         <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LzJ-Ko-H5h">
-                            <rect key="frame" x="0.0" y="0.0" width="470" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="467" height="20"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VaE-fE-zCA">
-                                    <rect key="frame" x="-7" y="-7" width="158" height="32"/>
-                                    <buttonCell key="cell" type="push" title="View tag database..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HDd-hx-7QQ">
+                                    <rect key="frame" x="-7" y="-7" width="157" height="32"/>
+                                    <buttonCell key="cell" type="push" title="View tag database…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HDd-hx-7QQ">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -98,8 +97,8 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0N4-NL-YI6">
-                                    <rect key="frame" x="145" y="-7" width="139" height="32"/>
-                                    <buttonCell key="cell" type="push" title="View templates..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Wy-jv-Soc">
+                                    <rect key="frame" x="144" y="-7" width="138" height="32"/>
+                                    <buttonCell key="cell" type="push" title="View templates…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Wy-jv-Soc">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -108,8 +107,8 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hI6-Z9-kWM">
-                                    <rect key="frame" x="278" y="-7" width="199" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Locate screenshot helper..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dSv-DK-p6a">
+                                    <rect key="frame" x="276" y="-7" width="198" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Locate screenshot helper…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dSv-DK-p6a">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

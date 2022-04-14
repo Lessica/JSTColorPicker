@@ -179,7 +179,7 @@ const char *userpref_get_config_dir()
 	__config_dir = string_concat(base_config_dir, DIR_SEP_S, USERPREF_CONFIG_DIR, NULL);
 
 	if (__config_dir) {
-		int i = strlen(__config_dir)-1;
+		size_t i = strlen(__config_dir)-1;
 		while ((i > 0) && (__config_dir[i] == DIR_SEP)) {
 			__config_dir[i--] = '\0';
 		}
@@ -521,7 +521,7 @@ userpref_error_t pair_record_generate_keys_and_certs(plist_t pair_record, key_da
 
 		membp = BIO_new(BIO_s_mem());
 		if (PEM_write_bio_X509(membp, root_cert) > 0) {
-			root_cert_pem.size = BIO_get_mem_data(membp, &bdata);
+			root_cert_pem.size = (unsigned int)BIO_get_mem_data(membp, &bdata);
 			root_cert_pem.data = (unsigned char*)malloc(root_cert_pem.size);
 			if (root_cert_pem.data) {
 				memcpy(root_cert_pem.data, bdata, root_cert_pem.size);
@@ -531,7 +531,7 @@ userpref_error_t pair_record_generate_keys_and_certs(plist_t pair_record, key_da
 		}
 		membp = BIO_new(BIO_s_mem());
 		if (PEM_write_bio_PrivateKey(membp, root_pkey, NULL, NULL, 0, 0, NULL) > 0) {
-			root_key_pem.size = BIO_get_mem_data(membp, &bdata);
+			root_key_pem.size = (unsigned int)BIO_get_mem_data(membp, &bdata);
 			root_key_pem.data = (unsigned char*)malloc(root_key_pem.size);
 			if (root_key_pem.data) {
 				memcpy(root_key_pem.data, bdata, root_key_pem.size);
@@ -541,7 +541,7 @@ userpref_error_t pair_record_generate_keys_and_certs(plist_t pair_record, key_da
 		}
 		membp = BIO_new(BIO_s_mem());
 		if (PEM_write_bio_X509(membp, host_cert) > 0) {
-			host_cert_pem.size = BIO_get_mem_data(membp, &bdata);
+			host_cert_pem.size = (unsigned int)BIO_get_mem_data(membp, &bdata);
 			host_cert_pem.data = (unsigned char*)malloc(host_cert_pem.size);
 			if (host_cert_pem.data) {
 				memcpy(host_cert_pem.data, bdata, host_cert_pem.size);
@@ -551,7 +551,7 @@ userpref_error_t pair_record_generate_keys_and_certs(plist_t pair_record, key_da
 		}
 		membp = BIO_new(BIO_s_mem());
 		if (PEM_write_bio_PrivateKey(membp, host_pkey, NULL, NULL, 0, 0, NULL) > 0) {
-			host_key_pem.size = BIO_get_mem_data(membp, &bdata);
+			host_key_pem.size = (unsigned int)BIO_get_mem_data(membp, &bdata);
 			host_key_pem.data = (unsigned char*)malloc(host_key_pem.size);
 			if (host_key_pem.data) {
 				memcpy(host_key_pem.data, bdata, host_key_pem.size);
@@ -602,7 +602,7 @@ userpref_error_t pair_record_generate_keys_and_certs(plist_t pair_record, key_da
 			BIO* membp = BIO_new(BIO_s_mem());
 			if (PEM_write_bio_X509(membp, dev_cert) > 0) {
 				char *bdata = NULL;
-				dev_cert_pem.size = BIO_get_mem_data(membp, &bdata);
+				dev_cert_pem.size = (unsigned int)BIO_get_mem_data(membp, &bdata);
 				dev_cert_pem.data = (unsigned char*)malloc(dev_cert_pem.size);
 				if (dev_cert_pem.data) {
 					memcpy(dev_cert_pem.data, bdata, dev_cert_pem.size);
@@ -1130,7 +1130,7 @@ userpref_error_t pair_record_get_item_as_key_data(plist_t pair_record, const cha
 		value->data = (unsigned char*)malloc(length+1);
 		memcpy(value->data, buffer, length);
 		value->data[length] = '\0';
-		value->size = length+1;
+		value->size = (unsigned int)length+1;
 		free(buffer);
 		buffer = NULL;
 	} else {

@@ -26,7 +26,7 @@ final class PixelMatchService {
             case let .sizesDoNotMatch(size1, size2):
                 return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
             case .noDifferenceDetected:
-                return NSLocalizedString("No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again.", comment: "PixelMatchServiceError")
+                return NSLocalizedString("No difference detected. Decrease the “Match Threshold” in “Preferences -> General -> Compare” and try again.", comment: "PixelMatchServiceError")
             }
         }
         

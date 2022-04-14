@@ -7,17 +7,17 @@
 /* kJSTScreenshotHelperError */
 "Cannot find main application of JSTColorPicker: %@" = "找不到 JSTColorPicker 的主应用程序：%@";
 
+/* kJSTScreenshotError */
+"Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”." = "找不到适用于 “%@” 及 iOS 版本 “%@” 的开发者镜像及其数字签名。";
+
 /* kJSTScreenshotHelperError */
 "Cannot write launch item to: %@" = "无法写入启动项：%@";
 
 /* AdbError */
-"Command exited with non-zero status code: \"%ld\", error reason: %@." = "Command exited with non-zero status code: \"%ld\", error reason: %@.";
+"Command exited with non-zero status code: “%ld”, error reason: %@." = "Command exited with non-zero status code: “%ld”, error reason: %@.";
 
 /* kJSTScreenshotError */
-"Could not connect to \"%@\"." = "无法连接到 \"%@\"。";
-
-/* kJSTScreenshotError */
-"Could not connect to lockdownd.\nTo use %@ with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "无法连接到 lockdownd。\n解锁 %@，并在随后的弹框中选择信任此计算机，以使用 JSTColorPicker。";
+"Could not connect to “%@”." = "无法连接到 “%@”。";
 
 /* kJSTScreenshotError */
 "Could not create image from the screenshot." = "无法从屏幕截图创建图像。";
@@ -32,10 +32,10 @@
 "Could not get the screenshot." = "无法获取屏幕截图。";
 
 /* kJSTScreenshotError */
-"Could not start the service \"%@\" via lockdownd.\nRemember that you have to install Xcode or mount the Developer Disk Image to your iOS device manually if you want to access the service \"%@\"." = "无法通过 lockdownd 启动 \"%@\" 服务。\n如果要使用 \"%@\" 服务，必须安装 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
+"Developer Disk Image mounted to “%@” automatically, click “Retry” to continue." = "开发者镜像已自动挂载至 “%@”，点击 “重试” 以继续。";
 
 /* kJSTScreenshotError */
-"Device \"%@\" is not reachable." = "设备 \"%@\" 暂不可用。";
+"Device “%@” is not reachable." = "设备 “%@” 暂不可用。";
 
 /* JSTScreenshotHelperInstall */
 "Do you want to remove JSTColorPickerHelper from login items?" = "要将 JSTColorPicker 设备截图组件从启动项中移除吗？";
@@ -47,7 +47,7 @@
 "Internal error occurred." = "发生内部错误。";
 
 /* kJSTScreenshotError */
-"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\"。";
+"Not running application with identifier “%@”." = "未启动应用程序 “%@”。";
 
 /* No comment provided by engineer. */
 "OK" = "好";
@@ -56,13 +56,22 @@
 "process:JSTColorPicker" = "进程:JSTColorPicker";
 
 /* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "如果要在 JSTColorPicker 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
+
+/* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "如果要在 JSTColorPicker 中连接到 “%@”，请先解锁，在随后的弹框中选择信任此计算机。";
+
+/* kJSTScreenshotError */
 "Unknown error occurred." = "发生了未知错误。";
 
 /* kJSTScreenshotError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续。";
+"User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”." = "应用程序 “%@” 需要用户在 “偏好设置 > 隐私 > 自动化” 中的许可才能继续。";
 
 /* kJSTScreenshotError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续。";
+"User consent required in “Preferences > Privacy > Accessibility”." = "需要用户在 “偏好设置 > 隐私 > 辅助功能” 中的许可才能继续。";
 
 /* kJSTScreenshotError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可。\n请打开 \"偏好设置 > 隐私 > 自动化\"，然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问。";
+"User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”." = "应用程序 “%@” 的调用未经过用户的许可。\n请打开 “偏好设置 > 隐私 > 自动化”，然后允许对 “控制台 (Console)” 和 “系统事件 (System Events)” 的访问。";
+
+/* kJSTScreenshotError */
+"“%@” paired with this host automatically, click “Retry” to continue." = "“%@” 已自动完成配对，点击 “重试” 以继续。";

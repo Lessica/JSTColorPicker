@@ -23,9 +23,9 @@ extension AppDelegate {
         var failureReason: String? {
             switch self {
                 case let .applicationNotFound(identifier):
-                    return String(format: NSLocalizedString("Application \"%@\" not found.", comment: "ScriptError"), identifier)
+                    return String(format: NSLocalizedString("Application “%@” not found.", comment: "ScriptError"), identifier)
                 case let .cannotOpenApplicationAtURL(url):
-                    return String(format: NSLocalizedString("Cannot open application at: \"%@\".", comment: "ScriptError"), url.path)
+                    return String(format: NSLocalizedString("Cannot open application at: “%@”.", comment: "ScriptError"), url.path)
             }
         }
     }
@@ -50,17 +50,17 @@ extension AppDelegate {
                 case let .system(dictionary):
                     return "\(dictionary["NSAppleScriptErrorMessage"] as! String) (\(dictionary["NSAppleScriptErrorNumber"] as! Int))."
                 case let .applicationNotFound(identifier):
-                    return String(format: NSLocalizedString("Application \"%@\" not found.", comment: "ScriptError"), identifier)
+                    return String(format: NSLocalizedString("Application “%@” not found.", comment: "ScriptError"), identifier)
                 case let .cannotOpenApplicationAtURL(url):
-                    return String(format: NSLocalizedString("Cannot open application at: \"%@\".", comment: "ScriptError"), url.path)
+                    return String(format: NSLocalizedString("Cannot open application at: “%@”.", comment: "ScriptError"), url.path)
                 case let .procNotFound(identifier):
-                    return String(format: NSLocalizedString("Not running application with identifier \"%@\".", comment: "ScriptError"), identifier)
+                    return String(format: NSLocalizedString("Not running application with identifier “%@”.", comment: "ScriptError"), identifier)
                 case .requireUserConsentInAccessibility:
-                    return NSLocalizedString("User consent required in \"Preferences > Privacy > Accessibility\".", comment: "ScriptError")
+                    return NSLocalizedString("User consent required in “Preferences > Privacy > Accessibility”.", comment: "ScriptError")
                 case let .requireUserConsentInAutomation(identifier):
-                    return String(format: NSLocalizedString("User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\".", comment: "ScriptError"), identifier)
+                    return String(format: NSLocalizedString("User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”.", comment: "ScriptError"), identifier)
                 case let .notPermitted(identifier):
-                    return String(format: NSLocalizedString("User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\".", comment: "ScriptError"), identifier)
+                    return String(format: NSLocalizedString("User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”.", comment: "ScriptError"), identifier)
             }
         }
     }

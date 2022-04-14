@@ -63,7 +63,7 @@
 "Another task is in process, abort." = "另一项任务正在进行中，此操作被迫终止。";
 
 /* ScriptError */
-"Application \"%@\" not found." = "找不到应用程序 \"%@\"。";
+"Application “%@” not found." = "找不到应用程序 “%@”。";
 
 /* Browser */
 "Are you sure you want to move '%@' to '%@'?" = "你确定要移动 '%@' 到 '%@'?";
@@ -81,7 +81,7 @@
 "Cannot load image: %@." = "无法加载图像：%@。";
 
 /* ScriptError */
-"Cannot open application at: \"%@\"." = "无法启动应用程序: \"%@\"。";
+"Cannot open application at: “%@”." = "无法启动应用程序: “%@”。";
 
 /* NetworkError */
 "Cannot resolve name: %@" = "无法解析名称：%@";
@@ -109,10 +109,10 @@
 "Command Palette…" = "切换指令面板";
 
 /* updateMenuItems */
-"Compare \"%@\" and \"%@\"" = "比较 \"%@\" 和 \"%@\"";
+"Compare Opened Documents" = "比较已打开的文档";
 
 /* updateMenuItems */
-"Compare Opened Documents" = "比较已打开的文档";
+"Compare “%@” and “%@”" = "比较 “%@” 和 “%@”";
 
 /* Delete Confirm */
 "Confirm" = "确认";
@@ -193,7 +193,7 @@
 "Double Press" = "连按两次";
 
 /* screenshotItemTapped(_:) */
-"Download screenshot from device \"%@\"…" = "正在从设备 \"%@\" 下载截图…";
+"Download screenshot from device “%@”…" = "正在从设备 “%@” 下载截图…";
 
 /* resetDevicesMenu */
 "Download screenshot helper…" = "下载设备截图组件…";
@@ -223,7 +223,7 @@
 "Edit Coordinate" = "修改坐标";
 
 /* screenshotItemTapped(_:) */
-"Establish connection to device \"%@\"…" = "正在与设备 \"%@\" 建立连接…";
+"Establish connection to device “%@”…" = "正在与设备 “%@” 建立连接…";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
@@ -241,7 +241,7 @@
 "Expired" = "已过期";
 
 /* copy(_:) */
-"Extract code snippets from template \"%@\"…" = "正在从模版 \"%@\" 中解析代码片段…";
+"Extract code snippets from template “%@”…" = "正在从模版 “%@” 中解析代码片段…";
 
 /* copy(_:) */
 "Extract Snippets" = "解析片段";
@@ -329,7 +329,7 @@
 "Invalid field: %@." = "无效的字段：%@。";
 
 /* GenericError */
-"Invalid filename: \"%@\"." = "无效的文件名: \"%@\"。";
+"Invalid filename: “%@”." = "无效的文件名: “%@”。";
 
 /* ScreenshotError */
 "Invalid image properties." = "无效的图像属性。";
@@ -344,7 +344,7 @@
 "Invalid image." = "图像无效。";
 
 /* PurchaseController.Error */
-"Invalid product identifier: \"%@\"." = "无效的产品标志符：\"%@\"。";
+"Invalid product identifier: “%@”." = "无效的产品标志符：“%@”。";
 
 /* PurchaseManager.Error */
 "Invalid purchase." = "无效的付款。";
@@ -473,7 +473,7 @@
 "No device selected" = "未选中设备";
 
 /* PixelMatchServiceError */
-"No difference detected. Decrease the \"Match Threshold\" in \"Preferences -> General -> Compare\" and try again." = "未检测到差异。请在 \"偏好设置 -> 通用 -> 比较\" 中降低 \"匹配阀值\" 后重试。";
+"No difference detected. Decrease the “Match Threshold” in “Preferences -> General -> Compare” and try again." = "未检测到差异。请在 “偏好设置 -> 通用 -> 比较” 中降低 “匹配阀值” 后重试。";
 
 /* Content.Error
    ExportError */
@@ -498,19 +498,19 @@
 "None" = "无";
 
 /* GenericError */
-"Not a directory: \"%@\"." = "\"%@\" 不是一个目录。";
+"Not a directory: “%@”." = "“%@” 不是一个目录。";
 
 /* GenericError */
-"Not a package: \"%@\"." = "\"%@\" 不是一个组件。";
+"Not a package: “%@”." = "“%@” 不是一个组件。";
 
 /* GenericError */
-"Not a regular file: \"%@\"." = "\"%@\" 不是一个常规文件。";
+"Not a regular file: “%@”." = "“%@” 不是一个常规文件。";
 
 /* PurchaseController.Error */
 "Not purchased." = "未付款。";
 
 /* ScriptError */
-"Not running application with identifier \"%@\"." = "未启动应用程序 \"%@\"。";
+"Not running application with identifier “%@”." = "未启动应用程序 “%@”。";
 
 /* PurchaseController.Error */
 "Nothing to restore." = "未找到可恢复的项目。";
@@ -621,7 +621,7 @@
 "Select All Cascaded Annotations" = "选择所有层叠标注";
 
 /* screenshotItemTapped(_:) */
-"Select an iOS device from \"Devices\" menu." = "请从 \"设备\" 菜单中选择一台 iOS 设备。";
+"Select an iOS device from “Devices” menu." = "请从 “设备” 菜单中选择一台 iOS 设备。";
 
 /* Shortcut Guide */
 "Select Annotation" = "选择标注";
@@ -792,13 +792,13 @@
 "User aborted." = "用户已取消。";
 
 /* ScriptError */
-"User consent required for application with identifier \"%@\" in \"Preferences > Privacy > Automation\"." = "应用程序 \"%@\" 需要用户在 \"偏好设置 > 隐私 > 自动化\" 中的许可才能继续。";
+"User consent required for application with identifier “%@” in “Preferences > Privacy > Automation”." = "应用程序 “%@” 需要用户在 “偏好设置 > 隐私 > 自动化” 中的许可才能继续。";
 
 /* ScriptError */
-"User consent required in \"Preferences > Privacy > Accessibility\"." = "需要用户在 \"偏好设置 > 隐私 > 辅助功能\" 中的许可才能继续。";
+"User consent required in “Preferences > Privacy > Accessibility”." = "需要用户在 “偏好设置 > 隐私 > 辅助功能” 中的许可才能继续。";
 
 /* ScriptError */
-"User did not allow usage for application with identifier \"%@\".\nPlease open \"Preferences > Privacy > Automation\" and allow access to \"Console\" and \"System Events\"." = "应用程序 \"%@\" 的调用未经过用户的许可。\n请打开 \"偏好设置 > 隐私 > 自动化\"，然后允许对 \"控制台 (Console)\" 和 \"系统事件 (System Events)\" 的访问。";
+"User did not allow usage for application with identifier “%@”.\nPlease open “Preferences > Privacy > Automation” and allow access to “Console” and “System Events”." = "应用程序 “%@” 的调用未经过用户的许可。\n请打开 “偏好设置 > 隐私 > 自动化”，然后允许对 “控制台 (Console)” 和 “系统事件 (System Events)” 的访问。";
 
 /* PurchaseManager */
 "Valid Subscription: %@" = "有效期内的订阅：%@";
@@ -859,3 +859,9 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ 选择箭头";
+
+/* takeScreenshot(_:) */
+"Dismiss" = "";
+
+/* takeScreenshot(_:) */
+"Retry" = "";
