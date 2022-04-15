@@ -13,6 +13,7 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
     
     var completionHandlers = [Int: (URL?, URLResponse?, Error?) -> Void]()
     weak var lastDownloadTask: URLSessionDownloadTask?
+    weak var lastSession: URLSession?
     
     @Published var currentError: Error?
     @Published var downloadState: (currentURL: URL, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)?
@@ -24,6 +25,7 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
         totalBytesWritten: Int64,
         totalBytesExpectedToWrite: Int64
     ) {
+        self.lastSession = session
         self.lastDownloadTask = downloadTask
         self.currentError = nil
         if let currentRequestURL = downloadTask.currentRequest?.url {
@@ -39,6 +41,7 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
         didResumeAtOffset fileOffset: Int64,
         expectedTotalBytes: Int64
     ) {
+        self.lastSession = session
         self.lastDownloadTask = downloadTask
         self.currentError = nil
         if let currentRequestURL = downloadTask.currentRequest?.url {
@@ -53,6 +56,7 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
         downloadTask: URLSessionDownloadTask,
         didFinishDownloadingTo location: URL
     ) {
+        self.lastSession = session
         self.lastDownloadTask = downloadTask
         self.currentError = nil
         self.downloadState = nil
@@ -65,6 +69,7 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
         task: URLSessionTask,
         didCompleteWithError error: Error?
     ) {
+        self.lastSession = session
         self.lastDownloadTask = nil
         self.currentError = error
         self.downloadState = nil
@@ -72,6 +77,20 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
             self.completionHandlers[task.taskIdentifier]?(nil, task.response, task.error)
         }
         self.completionHandlers.removeValue(forKey: task.taskIdentifier)
+    }
+    
+    internal func urlSession(
+        _ session: URLSession,
+        didBecomeInvalidWithError error: Error?
+    ) {
+        self.lastSession = session
+        self.lastDownloadTask = nil
+        if let error = error {
+            self.completionHandlers.values.forEach { handler in
+                handler(nil, nil, error)
+            }
+        }
+        self.completionHandlers.removeAll()
     }
     
     deinit {

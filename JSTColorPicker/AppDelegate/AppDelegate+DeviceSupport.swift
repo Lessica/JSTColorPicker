@@ -116,10 +116,15 @@ extension AppDelegate {
                 debugPrint(saveLocation)
                 seal.fulfill(targetResource)
             }).catch {
-                try? FileManager.default.removeItem(at: targetResource.developerDiskImageSignatureURL)
-                try? FileManager.default.removeItem(at: targetResource.developerDiskImageURL)
+                try? FileManager.default.removeItem(
+                    at: targetResource.developerDiskImageSignatureURL)
+                try? FileManager.default.removeItem(
+                    at: targetResource.developerDiskImageURL)
                 
                 seal.reject($0)
+            }.finally {
+                // important: memory management
+                remoteURLSession.invalidateAndCancel()
             }
         }
     }
@@ -143,6 +148,7 @@ extension AppDelegate {
         let loadingAlert = NSAlert()
         loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
         loadingAlert.alertStyle = .informational
+        // FIXME: display this
         loadingAlert.buttons.first?.isHidden = true
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
@@ -182,11 +188,9 @@ extension AppDelegate {
         firstly { [unowned self] () -> Promise<DeviceSupportResource> in
             loadingAlert.messageText = NSLocalizedString("Connecting...", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
             loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to remote server “%@”…", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"), AppDelegate.deviceSupportRemoteRootURL.host!)
-            windowController.showSheet(loadingAlert) { resp in
-                if resp == .cancel {
-                    // cancel last download task if exists
-                    downloadProxy.lastDownloadTask?.cancel()
-                }
+            windowController.showSheet(loadingAlert) { _ in
+                // FIXME: why promise catch block did not get executed after this, but finally block got executed?
+                downloadProxy.lastDownloadTask?.cancel()
             }
             return promiseDownloadDeviceSupportResource(pendingResource, downloadProxy: downloadProxy)
         }.done { [unowned self] (resource: DeviceSupportResource) in
@@ -221,6 +225,7 @@ extension AppDelegate {
         }.finally { [unowned self] in
             // do nothing
             downloadObservers.forEach({ $0.cancel() })
+            downloadProxy.completionHandlers.removeAll()
             self.isDownloadingDeviceSupport = false
         }
     }
