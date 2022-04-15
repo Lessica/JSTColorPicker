@@ -1,1 +1,1 @@
-return 302 https://cdn.82flex.com/jstcpweb/JSTColorPickerHelper_2.11-1238.zip;
+return 302 https://cdn.82flex.com/jstcpweb/JSTColorPickerHelper_2.11-1244.zip;

@@ -40,6 +40,7 @@
             @"udid": connectedDevice.base,
             @"type": connectedDevice.type,
             @"model": connectedDevice.model,
+            @"version": connectedDevice.version,
         }];
     }
     reply([NSPropertyListSerialization dataWithPropertyList:discoveredDevices
@@ -59,6 +60,7 @@
         @"udid": targetDevice.base,
         @"type": targetDevice.type,
         @"model": targetDevice.model,
+        @"version": targetDevice.version,
     } format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil], nil);
 }
 

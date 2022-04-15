@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <plugIn identifier="com.apple.automator.AutomatorPalette" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -8,7 +9,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FolderController" customModule="JSTColorPicker" customModuleProvider="target">
             <connections>
-                <outlet property="screenshotHelperLocationButton" destination="hI6-Z9-kWM" id="ckc-Nv-E9z"/>
+                <outlet property="deviceSupportLocalRootLocationButton" destination="aAO-Ik-iLf" id="xxG-NZ-gdX"/>
+                <outlet property="screenshotHelperLocationButton" destination="ykl-Bh-6fh" id="ytb-xr-yHF"/>
                 <outlet property="screenshotSavedAtLocationButton" destination="qcr-FR-ZyV" id="7zk-xn-Gs5"/>
                 <outlet property="screenshotSavedAtLocationPopUpButton" destination="xm4-2Y-TaL" id="s4F-wk-RCF"/>
                 <outlet property="tagDatabaseLocationButton" destination="VaE-fE-zCA" id="qVo-PX-x8T"/>
@@ -19,14 +21,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="98"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="126"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="300" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jq8-kC-NZv">
-                    <rect key="frame" x="20" y="20" width="500" height="58"/>
+                    <rect key="frame" x="20" y="20" width="500" height="86"/>
                     <subviews>
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9W-Gw-Gvo">
-                            <rect key="frame" x="0.0" y="37" width="304" height="21"/>
+                            <rect key="frame" x="0.0" y="65" width="304" height="21"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mv4-Ph-x0p">
                                     <rect key="frame" x="-2" y="3" width="142" height="16"/>
@@ -77,14 +79,14 @@
                             </customSpacing>
                         </stackView>
                         <box focusRingType="none" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="vaf-Ht-pKR">
-                            <rect key="frame" x="0.0" y="26" width="1" height="5"/>
+                            <rect key="frame" x="0.0" y="54" width="1" height="5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="Pkm-6b-AjK"/>
                                 <constraint firstAttribute="height" constant="1" id="l9b-CV-naj"/>
                             </constraints>
                         </box>
                         <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LzJ-Ko-H5h">
-                            <rect key="frame" x="0.0" y="0.0" width="467" height="20"/>
+                            <rect key="frame" x="0.0" y="28" width="275" height="20"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VaE-fE-zCA">
                                     <rect key="frame" x="-7" y="-7" width="157" height="32"/>
@@ -106,16 +108,6 @@
                                         <action selector="locationButtonTapped:" target="-2" id="yAh-Qz-A0Z"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hI6-Z9-kWM">
-                                    <rect key="frame" x="276" y="-7" width="198" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Locate screenshot helper…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dSv-DK-p6a">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="locationButtonTapped:" target="-2" id="6GU-RG-I9Q"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="VaE-fE-zCA" firstAttribute="height" secondItem="LzJ-Ko-H5h" secondAttribute="height" id="lzc-H6-uOK"/>
@@ -123,10 +115,41 @@
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
-                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMx-hC-oaX">
+                            <rect key="frame" x="0.0" y="0.0" width="407" height="20"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ykl-Bh-6fh">
+                                    <rect key="frame" x="-7" y="-7" width="198" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Locate screenshot helper…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7Q-BM-0Sw">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="locationButtonTapped:" target="-2" id="xvh-fs-HEt"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aAO-Ik-iLf">
+                                    <rect key="frame" x="185" y="-7" width="229" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Locate Device Support caches…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gkJ-cb-MjF">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="locationButtonTapped:" target="-2" id="13J-49-My8"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
@@ -139,8 +162,10 @@
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>

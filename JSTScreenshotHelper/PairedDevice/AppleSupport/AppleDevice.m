@@ -28,15 +28,16 @@
 @synthesize udid = _udid;
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([AppleDevice class]), [self.type uppercaseString], self.name, self.udid, self.model];
+    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@/%@]>", NSStringFromClass([AppleDevice class]), [self.type uppercaseString], self.name, self.udid, self.model, self.version];
 }
 
-- (instancetype)initWithUDID:(nonnull NSString *)udid type:(nonnull NSString *)type {
+- (instancetype)initWithUDID:(NSString *)udid
+                        Type:(JSTDeviceType)type
+{
     
     NSString *deviceName = @"Unknown Device";
     NSString *deviceModel = @"Unknown Model";
     
-    NSString *productType = nil;
     NSString *productVersion = nil;
     
     cDevice = NULL;
@@ -63,7 +64,6 @@
             plist_get_string_val(pProductType, &cProductType);
             if (cProductType) {
                 deviceModel = [NSString stringWithUTF8String:cProductType];
-                productType = deviceModel;
                 free(cProductType);
             }
         }
@@ -87,11 +87,16 @@
     }
     lockdownd_goodbye(comm);
     lockdownd_client_free(comm);
-    if (self = [super initWithBase:udid Name:deviceName Model:deviceModel Type:type]) {
+    if (self = [super initWithBase:udid
+                              Name:deviceName
+                             Model:deviceModel
+                              Type:type
+                           Version:productVersion])
+    {
         assert([self hasValidType]);
         
         _udid = udid;
-        _productType = productType;
+        _productType = deviceModel;
         _productVersion = productVersion;
     }
     return self;
@@ -101,7 +106,7 @@
     return [[self type] isEqualToString:JSTDeviceTypeUSB] || [[self type] isEqualToString:JSTDeviceTypeNetwork];
 }
 
-- (void)setType:(NSString *)type {
+- (void)setType:(JSTDeviceType)type {
     [super setType:type];
     assert([self hasValidType]);
 }

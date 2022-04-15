@@ -82,6 +82,8 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>SUDeviceSupportRootURL</key>
+	<string>https://cdn.82flex.com/jstcpweb/dev/</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

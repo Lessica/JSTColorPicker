@@ -319,7 +319,7 @@ int main(int argc, const char *argv[])
             [[NSWorkspace sharedWorkspace] recycleURLs:@[
                 [NSURL fileURLWithPath:launchAgentPath],
                 [NSURL fileURLWithPath:helperBundlePath],
-            ] completionHandler:^(NSDictionary<NSURL *,NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
+            ] completionHandler:^(NSDictionary <NSURL *, NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
                 if (error) {
                     [[NSAlert alertWithError:error] runModal];
                     exit(EXIT_FAILURE);

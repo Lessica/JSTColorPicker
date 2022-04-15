@@ -349,7 +349,7 @@ extension AppDelegate {
             }
             let urlString = "http://\(socketAddress.address):\(socketAddress.port)/device_front_orien"
             let rq = try! OMGHTTPURLRQ.post(urlString, nil) as URLRequest
-            let task = helperSession.dataTask(.promise, with: rq)
+            let task = self.helperURLSession.dataTask(.promise, with: rq)
             task.compactMap { (data: Data, _: URLResponse) in
                 return try? JSONSerialization.jsonObject(with:data, options: []) as? [String: Any]
             }.done { json in
@@ -385,7 +385,7 @@ extension AppDelegate {
             }
             let urlString = "http://\(socketAddress.address):\(socketAddress.port)/snapshot"
             let rq = try! OMGHTTPURLRQ.get(urlString, ["orient": orientation]) as URLRequest
-            let task = self.helperSession.dataTask(.promise, with: rq)
+            let task = self.helperURLSession.dataTask(.promise, with: rq)
             task.done { data, _ in
                 seal.fulfill(data)
             }.catch {
@@ -435,8 +435,18 @@ extension AppDelegate {
         guard !self.isTakingScreenshot else { return }
         self.isTakingScreenshot = true
         
-        guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath] else { return }
-        guard let windowController = firstRespondingWindowController else { return }
+        guard let windowController = firstRespondingWindowController
+        else {
+            self.isTakingScreenshot = false
+            return
+        }
+        
+        guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath]
+        else {
+            self.isTakingScreenshot = false
+            return
+        }
+        
         guard let selectedIdentifier = selectedDeviceUniqueIdentifier else {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("No device selected", comment: "takeScreenshot(_:)")
@@ -458,29 +468,35 @@ extension AppDelegate {
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
         
+        var partialDeviceDict: [String: String]?
         var dataPromise: Promise<Data>
         if selectedIdentifier.hasPrefix(PairedDevice.uniquePrefix) {
             dataPromise = promiseXPCProxy()
                 .then { [unowned self] (proxy) -> Promise<(JSTScreenshotHelperProtocol, Data)> in
                     loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
                     loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device “%@”…", comment: "takeScreenshot(_:)"), selectedIdentifier)
-                    windowController.showSheet(loadingAlert, completionHandler: nil)
+                    windowController.showSheet(loadingAlert) { resp in
+                        // TODO: cancel connection
+                    }
                     return self.promiseProxyLookupDevice(proxy, byHostName: selectedIdentifier).map { (proxy, $0) }
                 }
                 .then { [unowned self] (proxy, data) -> Promise<(JSTScreenshotHelperProtocol, [String: String])> in
                     return self.promiseXPCParseResponse(data).map { (proxy, $0) }
                 }
-                .then { [unowned self] (proxy, device) -> Promise<Data> in
+                .then { [unowned self] (proxy, deviceDict) -> Promise<Data> in
+                    partialDeviceDict = deviceDict
                     loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
-                    loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device “%@”…", comment: "takeScreenshot(_:)"), device["name"]!)
-                    return self.promiseProxyTakeScreenshot(proxy, byHostName: device["udid"]!)
+                    loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device “%@”…", comment: "takeScreenshot(_:)"), deviceDict["name"]!)
+                    return self.promiseProxyTakeScreenshot(proxy, byHostName: deviceDict["udid"]!)
                 }
         }
         else if selectedIdentifier.hasPrefix(BonjourDevice.uniquePrefix) {
             dataPromise = firstly { [unowned self] () -> Promise<BonjourDevice> in
                 loadingAlert.messageText = NSLocalizedString("Connect to device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to device “%@”…", comment: "takeScreenshot(_:)"), selectedIdentifier)
-                windowController.showSheet(loadingAlert, completionHandler: nil)
+                windowController.showSheet(loadingAlert) { resp in
+                    // TODO: cancel connection or download
+                }
                 return self.promiseResolveBonjourDevice(byHostName: selectedIdentifier)
             }.then { [unowned self] (device: BonjourDevice) -> Promise<SocketAddress> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
@@ -506,15 +522,26 @@ extension AppDelegate {
                 DispatchQueue.main.async {
                     let alert = NSAlert(error: err)
                     let nsErr = err as NSError
+                    
                     var hasRetryButton = false
+                    var hasDownloadButton = false
                     if nsErr.code > 700 && nsErr.code % 2 == 0 {
                         alert.addButton(withTitle: NSLocalizedString("Retry", comment: "takeScreenshot(_:)"))
                         hasRetryButton = true
+                    } else if nsErr.code == 707 {
+                        alert.addButton(withTitle: NSLocalizedString("Download", comment: "takeScreenshot(_:)"))
+                        hasDownloadButton = true
                     }
                     alert.addButton(withTitle: NSLocalizedString("Dismiss", comment: "takeScreenshot(_:)"))
                     windowController.showSheet(alert) { resp in
-                        if hasRetryButton && resp == .alertFirstButtonReturn {
+                        if hasRetryButton && resp == .alertFirstButtonReturn
+                        {
                             self.takeScreenshot(sender)
+                        }
+                        if let partialDeviceDict = partialDeviceDict,
+                           hasDownloadButton && resp == .alertFirstButtonReturn
+                        {
+                            self.downloadDeviceSupport(sender, forDeviceDictionary: partialDeviceDict)
                         }
                     }
                 }
@@ -629,19 +656,20 @@ extension AppDelegate {
             .catch { _ in }
     }
     
-    private func menuItemsForPairedDevices(_ devices: [[String: String]]) -> [NSMenuItem] {
+    private func menuItemsForPairedDevices(_ deviceDicts: [[String: String]]) -> [NSMenuItem] {
         var items: [NSMenuItem] = []
         
-        for device in devices {
-            guard let deviceUDID = device["udid"],
-                  let deviceName = device["name"]
+        for deviceDict in deviceDicts {
+            guard let deviceUDID = deviceDict["udid"],
+                  let deviceName = deviceDict["name"]
             else { continue }
             
             let deviceModel = PairedDevice(
                 udid: deviceUDID,
                 name: deviceName,
-                type: device["type"] ?? "",
-                model: device["model"] ?? ""
+                type: deviceDict["type"] ?? "",
+                model: deviceDict["model"] ?? "",
+                version: deviceDict["version"] ?? ""
             )
             
             let item = NSMenuItem(title: "\(deviceModel.title) (\(deviceModel.subtitle))", action: #selector(self.actionDeviceItemTapped(_:)), keyEquivalent: "")
@@ -649,7 +677,9 @@ extension AppDelegate {
             item.tag = MainMenu.MenuItemTag.devices.rawValue
             item.isEnabled = true
             item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
+            
             let lowercasedModel = deviceModel.model.lowercased()
+            
             // Apple Device (Fancy Icons)
             if lowercasedModel.hasPrefix("appletv") {
                 item.image = NSImage(systemSymbolName: "appletv.fill", accessibilityDescription: "appletv.fill")
@@ -663,6 +693,7 @@ extension AppDelegate {
             else if lowercasedModel.hasPrefix("ipod") {
                 item.image = NSImage(systemSymbolName: "ipodtouch", accessibilityDescription: "ipodtouch")
             }
+            
             // Android Device (USB)
             else {
                 switch deviceModel.type {

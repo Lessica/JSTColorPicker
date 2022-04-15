@@ -15,13 +15,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *base;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *model;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) JSTDeviceType type;
+@property (nonatomic, copy) NSString *version;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithBase:(NSString *)base Name:(NSString *)name Model:(NSString *)model Type:(NSString *)type NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBase:(NSString *)base
+                        Name:(NSString *)name
+                       Model:(NSString *)model
+                        Type:(JSTDeviceType)type
+                     Version:(NSString *)version
+NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)hasValidType;
-- (void)setType:(NSString *)type;
+- (void)setType:(JSTDeviceType)type;
 - (void)takeScreenshotWithCompletionHandler:(JSTScreenshotHandler)completion;
 
 @end

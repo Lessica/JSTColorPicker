@@ -86,6 +86,8 @@
 	<string>https://82flex.com/jstcpweb/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>rxnVxjhEkU8OuChkQxqHmdSecye9zDFxpCCOQeetEQk=</string>
+	<key>SUDeviceSupportRootURL</key>
+	<string>https://cdn.82flex.com/jstcpweb/dev/</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

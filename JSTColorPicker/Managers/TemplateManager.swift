@@ -40,14 +40,14 @@ import OSLog
         }
     }
 
-    static var templateRootURL: URL {
+    static var templateRootURL: URL = {
         let url = FileManager.default.urls(
             for: .applicationSupportDirectory,
             in: .userDomainMask
         )
         .first!
         .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        .appendingPathComponent("templates")
+        .appendingPathComponent("Templates")
 
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(
@@ -57,7 +57,7 @@ import OSLog
             )
         }
         return url
-    }
+    }()
 
     static var exampleTemplateURLs: [URL] = {
         return [

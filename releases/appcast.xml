@@ -4,6 +4,21 @@
         <title>JSTColorPicker</title>
         <item>
             <title>2.11</title>
+            <pubDate>Thu, 14 Apr 2022 21:59:08 +0800</pubDate>
+            <sparkle:version>1244</sparkle:version>
+            <sparkle:shortVersionString>2.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.11-1244.dmg" length="33031374" type="application/octet-stream" sparkle:edSignature="V7WBjNYdYftdOrj3uwRxF6cXdjYhYTCMEgzJ0eYXka6BaaMbSypSbwdAikWHKuOGgExm04PrWwxEzCEI6uEFCA=="/>
+            <sparkle:deltas>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1244-1241.delta" sparkle:deltaFrom="1241" length="4126910" type="application/octet-stream" sparkle:edSignature="BzWXauQ/pRCd1Tk3azhEQEHfyTfJ2Kn1Gg/4g6zBSulWqmHcYA8GIt2Oe0TDcx41bLlPRPdIEWcY8wdXeRbiBw=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1244-1240.delta" sparkle:deltaFrom="1240" length="4120010" type="application/octet-stream" sparkle:edSignature="V8Iz2wH5cHbrgIIOfiikbQ/lTCFTbqwNWtUn5lW5/G0ZWJJsSyYSq1/VaUPW412+azyfYFjZBdky/jfYw+xRAQ=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1244-1239.delta" sparkle:deltaFrom="1239" length="5213446" type="application/octet-stream" sparkle:edSignature="udkwXdiOmtFAIZMLZKsqvNK0BNmDqx6Crq6Xmjyf9sx/M/oNWj3nzg01xWCNfGrWYRIW5p13RvhzoBJAancqCA=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1244-1238.delta" sparkle:deltaFrom="1238" length="11359836" type="application/octet-stream" sparkle:edSignature="NvzH+gDJUAXS8N4KPv0RIxEFDeYb5v3UBVuEmZ9PwpttaNFuz0QsEWgOFpT4lzYRyUwrd9os6aaGmRl4NTSGBA=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1244-1237.delta" sparkle:deltaFrom="1237" length="12105327" type="application/octet-stream" sparkle:edSignature="1E7nlSiIACdGbCAgifbT8RnH8rHzeLN1hSGKjLTCuBZvijqOhPIqZVWTmwBy/puDGyPfGC7iGE+8QJlSs09aCQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
+            <title>2.11</title>
             <pubDate>Sun, 10 Apr 2022 00:56:57 +0800</pubDate>
             <sparkle:version>1241</sparkle:version>
             <sparkle:shortVersionString>2.11</sparkle:shortVersionString>

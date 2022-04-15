@@ -11,19 +11,31 @@
 @implementation JSTDevice
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@]>", NSStringFromClass([JSTDevice class]), [self.type uppercaseString], self.name, self.base, self.model];
+    return [NSString stringWithFormat:@"<%@: [%@/%@/%@/%@/%@]>",
+            NSStringFromClass([JSTDevice class]),
+            [self.type uppercaseString],
+            self.name,
+            self.base,
+            self.model,
+            self.version];
 }
 
 - (BOOL)isEqual:(JSTDevice *)object {
     return [self.base isEqualToString:object.base];
 }
 
-- (instancetype)initWithBase:(NSString *)base Name:(NSString *)name Model:(NSString *)model Type:(NSString *)type {
+- (instancetype)initWithBase:(NSString *)base
+                        Name:(NSString *)name
+                       Model:(NSString *)model
+                        Type:(JSTDeviceType)type
+                     Version:(NSString *)version
+{
     if (self = [super init]) {
         _base = base;
         _name = name;
         _model = model;
         _type = type;
+        _version = version;
         assert([self hasValidType]);
     }
     return self;
@@ -33,7 +45,7 @@
     return [[self type] isEqualToString:JSTDeviceTypeUSB] || [[self type] isEqualToString:JSTDeviceTypeNetwork] || [[self type] isEqualToString:JSTDeviceTypeBonjour];
 }
 
-- (void)setType:(NSString *)type {
+- (void)setType:(JSTDeviceType)type {
     _type = type;
     assert([self hasValidType]);
 }

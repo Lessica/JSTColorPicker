@@ -16,6 +16,7 @@ final class FolderController: NSViewController {
     @IBOutlet weak var tagDatabaseLocationButton             : NSButton!
     @IBOutlet weak var templatesRootLocationButton           : NSButton!
     @IBOutlet weak var screenshotHelperLocationButton        : NSButton!
+    @IBOutlet weak var deviceSupportLocalRootLocationButton  : NSButton!
     
     @IBOutlet weak var screenshotSavedAtLocationPopUpButton  : NSPopUpButton!
     
@@ -57,6 +58,7 @@ final class FolderController: NSViewController {
         #else
         screenshotHelperLocationButton.isEnabled = false
         #endif
+        deviceSupportLocalRootLocationButton.isEnabled = URL(fileURLWithPath: GetJSTColorPickerDeviceSupportPath()).isDirectory
     }
     
     @IBAction private func locationButtonTapped(_ sender: NSButton) {
@@ -95,6 +97,14 @@ final class FolderController: NSViewController {
                 return
             }
             isDirectory = false
+        }
+        else if sender == deviceSupportLocalRootLocationButton {
+            locationURL = AppDelegate.deviceSupportLocalRootURL
+            guard locationURL!.isDirectory else {
+                presentError(GenericError.notDirectory(url: locationURL!))
+                return
+            }
+            isDirectory = true
         }
         if let url = locationURL {
             if isDirectory {

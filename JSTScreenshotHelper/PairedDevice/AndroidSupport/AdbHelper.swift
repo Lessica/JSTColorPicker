@@ -19,6 +19,11 @@ final class AdbHelper: NSObject {
         let command = "\(adb.path) -s '\(deviceId)' shell getprop ro.product.model"
         return AuxiliaryExecute.local.bash(command: command, timeout: 3).stdout.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    static func fetchDeviceVersion(_ deviceId: String) -> String {
+        let command = "\(adb.path) -s '\(deviceId)' shell getprop ro.build.version.release"
+        return AuxiliaryExecute.local.bash(command: command, timeout: 3).stdout.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 
     @objc
     static func getDevices() -> [AndroidDevice] {

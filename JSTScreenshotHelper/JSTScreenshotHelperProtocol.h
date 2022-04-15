@@ -21,9 +21,10 @@ static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
 static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
 static NSString * const kJSTColorPickerHelperErrorDomain = @"com.jst.JSTScreenshotHelper.error";
 
-static NSString * const JSTDeviceTypeUSB = @"usb";
-static NSString * const JSTDeviceTypeNetwork = @"network";
-static NSString * const JSTDeviceTypeBonjour = @"bonjour";
+typedef NSString * JSTDeviceType;
+static JSTDeviceType const JSTDeviceTypeUSB = @"usb";
+static JSTDeviceType const JSTDeviceTypeNetwork = @"network";
+static JSTDeviceType const JSTDeviceTypeBonjour = @"bonjour";
 
 typedef void (^JSTScreenshotHandler)(NSData * _Nullable, NSError * _Nullable);
 static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
@@ -46,6 +47,13 @@ NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath() {
         return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName]];
     }
     return [[NSString stringWithFormat:@"~/Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
+}
+NS_INLINE NSString *GetJSTColorPickerDeviceSupportPath() {
+    NSString *homePath = RealHomeDirectory();
+    if (homePath != nil) {
+        return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/%@/DeviceSupport", kJSTColorPickerBundleIdentifier]];
+    }
+    return [[NSString stringWithFormat:@"~/Library/Application Support/%@/DeviceSupport", kJSTColorPickerBundleIdentifier] stringByExpandingTildeInPath];
 }
 
 static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScreenshotHelper";

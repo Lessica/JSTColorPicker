@@ -16,11 +16,25 @@ final class AndroidDevice: JSTDevice, JSTPairedDevice {
 
     init?(udid: String, type: String) {
         self.udid = udid
-        super.init(base: udid, name: AdbHelper.fetchDeviceName(udid), model: "Android", type: type)
+        super.init(
+            base: udid,
+            name: AdbHelper.fetchDeviceName(udid),
+            model: "Android",
+            type: type,
+            version: AdbHelper.fetchDeviceVersion(udid)
+        )
     }
 
     override var description: String {
-        return String(format: "<%@: [%@/%@/%@/%@]>", String(describing: AndroidDevice.self), type.uppercased(), name, udid, model)
+        return String(
+            format: "<%@: [%@/%@/%@/%@/%@]>",
+            String(describing: AndroidDevice.self),
+            type.uppercased(),
+            name,
+            udid,
+            model,
+            version
+        )
     }
 
     override func takeScreenshot(completionHandler completion: @escaping JSTScreenshotHandler) {

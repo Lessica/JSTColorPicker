@@ -41,7 +41,7 @@ final class PairHelper: NSObject {
         let resultOutput = result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
         let isSucceed = resultOutput.hasPrefix("SUCC")
         
-        completion(nil, NSError(domain: kJSTScreenshotError, code: isSucceed ? 702 : 703, userInfo: [
+        completion(nil, NSError(domain: kJSTScreenshotError, code: isSucceed ? CommandError.retryPairSucceed.errorCode : CommandError.pairFailed.errorCode, userInfo: [
             NSLocalizedDescriptionKey: String(
                 format: "%@\n\n%@",
                 resultOutput.replacingOccurrences(of: udid, with: "“\(name)”"),

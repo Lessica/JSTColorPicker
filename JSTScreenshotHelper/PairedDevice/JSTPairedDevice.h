@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSString *udid;
 
-- (nullable JSTDevice<JSTPairedDevice> *)initWithUDID:(NSString *)udid type:(NSString *)type;
+- (nullable JSTDevice <JSTPairedDevice> *)initWithUDID:(NSString *)udid Type:(NSString *)type;
 
 @end
 

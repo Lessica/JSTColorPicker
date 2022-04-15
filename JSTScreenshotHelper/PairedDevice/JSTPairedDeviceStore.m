@@ -75,7 +75,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
                     } else {
                         deviceType = JSTDeviceTypeNetwork;
                     }
-                    JSTDevice <JSTPairedDevice> *device = [[AppleDevice alloc] initWithUDID:udid type:deviceType];
+                    JSTDevice <JSTPairedDevice> *device = [[AppleDevice alloc] initWithUDID:udid Type:deviceType];
                     self.cachedDevices[udid] = device;
                     self.activeDevices[udid] = device;
                 }
@@ -102,7 +102,7 @@ static void handle_idevice_event(const idevice_event_t *event, void *user_data) 
                     }
                 }
                 else {
-                    JSTDevice <JSTPairedDevice> *device = [[AppleDevice alloc] initWithUDID:udid type:JSTDeviceTypeUSB];
+                    JSTDevice <JSTPairedDevice> *device = [[AppleDevice alloc] initWithUDID:udid Type:JSTDeviceTypeUSB];
                     self.cachedDevices[udid] = device;
                     self.activeDevices[udid] = device;
                 }
