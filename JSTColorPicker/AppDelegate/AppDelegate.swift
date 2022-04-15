@@ -66,24 +66,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Attributes
     
-    var tabService                         : TabService?
-    var helperConnection                   : NSXPCConnection?
-    var helperBonjourBrowser               : BonjourBrowser?
-    var helperBonjourDevices               : Set<BonjourDevice> = Set<BonjourDevice>()
-    var helperURLSession                   = URLSession(configuration: .ephemeral)
-    lazy var remoteURLSession              : URLSession = {
-        return URLSession(
-            configuration: .default,
-            delegate: self.remoteURLSessionDownloadProxy,
-            delegateQueue: .main
-        )
-    }()
-    lazy var remoteURLSessionDownloadProxy = RemoteURLSessionDownloadProxy()
-    private let observableKeys             : [UserDefaults.Key] = [.enableNetworkDiscovery]
-    private var observables                : [Observable]?
-    internal var isNetworkDiscoveryEnabled : Bool = false
-    internal var isTakingScreenshot        : Bool = false
-    internal var isDownloadingDeviceSupport: Bool = false
+    var tabService                              : TabService?
+    var helperConnection                        : NSXPCConnection?
+    var helperBonjourBrowser                    : BonjourBrowser?
+    var helperBonjourDevices                    : Set<BonjourDevice> = Set<BonjourDevice>()
+    lazy var helperURLSession                   = URLSession(configuration: .ephemeral)
+    private let observableKeys                  : [UserDefaults.Key] = [.enableNetworkDiscovery]
+    private var observables                     : [Observable]?
+    internal var isNetworkDiscoveryEnabled      : Bool = false
+    internal var isTakingScreenshot             : Bool = false
+    internal var isDownloadingDeviceSupport     : Bool = false
     
     enum HelperState {
         case missing

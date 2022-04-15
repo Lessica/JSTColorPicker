@@ -154,12 +154,14 @@
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D8B2633091300E6B89C /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
-		CC07DF6C2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift */; };
-		CC07DF6D2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift */; };
+		CC07DF6C2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */; };
+		CC07DF6D2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */; };
 		CC07DF6F2809B158001AF35C /* DeviceSupportResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */; };
 		CC07DF702809B158001AF35C /* DeviceSupportResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */; };
 		CC07DF722809B17C001AF35C /* AppDelegate+DeviceSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */; };
 		CC07DF732809B17C001AF35C /* AppDelegate+DeviceSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */; };
+		CC07DF752809CE96001AF35C /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */; };
+		CC07DF762809CE96001AF35C /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */; };
 		CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
@@ -1447,9 +1449,10 @@
 		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewObject.swift; sourceTree = "<group>"; };
 		CC059D8A2633091300E6B89C /* PurchaseMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMainView.swift; sourceTree = "<group>"; };
-		CC07DF6B2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteURLSessionDownloadProxy.swift; sourceTree = "<group>"; };
+		CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDownloadProxy.swift; sourceTree = "<group>"; };
 		CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSupportResource.swift; sourceTree = "<group>"; };
 		CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DeviceSupport.swift"; sourceTree = "<group>"; };
+		CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Promise.swift"; sourceTree = "<group>"; };
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesTableViewCell.swift; sourceTree = "<group>"; };
 		CC13C7C327F0269700D12892 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
@@ -2389,7 +2392,8 @@
 		CC07DF6A2809B122001AF35C /* DeviceSupport */ = {
 			isa = PBXGroup;
 			children = (
-				CC07DF6B2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift */,
+				CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */,
+				CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */,
 				CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */,
 			);
 			path = DeviceSupport;
@@ -4879,7 +4883,7 @@
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCFD99B3276A38FA0012E5AF /* PixelSize+Lua.swift in Sources */,
-				CC07DF6C2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift in Sources */,
+				CC07DF6C2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */,
 				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CC34771B266F4ED500391E73 /* AppDelegate+Preferences.swift in Sources */,
 				CCC0DC0E2601EC6500019146 /* ExpandableSplitView.swift in Sources */,
@@ -4926,6 +4930,7 @@
 				CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */,
 				CC347712266F4B8B00391E73 /* AppDelegate+Device.swift in Sources */,
 				CCE9017A2626BB1400C84904 /* UserDefaults+Ext.swift in Sources */,
+				CC07DF752809CE96001AF35C /* NSURLSession+Promise.swift in Sources */,
 				CC04276E275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */,
 				CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
@@ -5231,6 +5236,7 @@
 				CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				CC347719266F4E8400391E73 /* AppDelegate+Help.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
+				CC07DF762809CE96001AF35C /* NSURLSession+Promise.swift in Sources */,
 				CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */,
 				0F5BBA2A276F40E900AF0DC8 /* Screenshot+Print.swift in Sources */,
 				D6729C03240F7DC5000339C2 /* SceneState.swift in Sources */,
@@ -5326,7 +5332,7 @@
 				D645E49B23E805560039F4F6 /* PixelSize.swift in Sources */,
 				CC8E5DB1262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				CCE34018263272590082F73D /* ColoredView.swift in Sources */,
-				CC07DF6D2809B136001AF35C /* RemoteURLSessionDownloadProxy.swift in Sources */,
+				CC07DF6D2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */,
 				18B22FF824801979003F70BA /* TagListTableView.swift in Sources */,
 				CC34771F266F4F2500391E73 /* AppDelegate+Compare.swift in Sources */,
 				1842C48224798E63008ECD6F /* TagListController.swift in Sources */,

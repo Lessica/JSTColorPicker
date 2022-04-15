@@ -181,7 +181,7 @@ final class MountHelper: NSObject {
         let resultOutput = result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
         
         let isSucceed = resultOutput.contains("Done") || resultOutput.contains("done")
-        completion(nil, NSError(domain: kJSTScreenshotError, code: isSucceed ? CommandError.retryMountSucceed.errorCode : CommandError.mountFailed.errorCode, userInfo: [
+        completion(nil, NSError(domain: kJSTScreenshotError, code: 707, userInfo: [
             NSLocalizedDescriptionKey: String(
                 format: "%@\n\n%@",
                 resultError.count > 0 ? resultError : resultOutput,
