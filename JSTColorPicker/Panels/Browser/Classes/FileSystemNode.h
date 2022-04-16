@@ -6,7 +6,8 @@
  An abstract wrapper node around the file system.
  */
 
-@import Cocoa;
+#import <Foundation/Foundation.h>
+#import <AppKit/NSColor.h>
 
 typedef enum : NSUInteger {
     FileSystemNodeSortedByName = 0,

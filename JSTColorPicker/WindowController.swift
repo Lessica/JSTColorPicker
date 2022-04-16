@@ -409,66 +409,67 @@ class WindowController: NSWindowController {
 extension WindowController: NSMenuItemValidation, NSToolbarItemValidation {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        let menuItemAction: Selector? = menuItem.action
         if
             /* File Actions */
-               menuItem.action == #selector(showInFinder(_:))
-            || menuItem.action == #selector(viewMetadata(_:))
+               menuItemAction == #selector(showInFinder(_:))
+            || menuItemAction == #selector(viewMetadata(_:))
             /* Scene Actions */
-            || menuItem.action == #selector(windowUseAnnotateItemAction(_:))
-            || menuItem.action == #selector(windowUseSelectItemAction(_:))
-            || menuItem.action == #selector(windowUseMagnifyItemAction(_:))
-            || menuItem.action == #selector(windowUseMinifyItemAction(_:))
-            || menuItem.action == #selector(windowUseMoveItemAction(_:))
-            || menuItem.action == #selector(windowFitWindowAction(_:))
-            || menuItem.action == #selector(windowFillWindowAction(_:))
-            || menuItem.action == #selector(windowZoomInAction(_:))
-            || menuItem.action == #selector(windowZoomOutAction(_:))
-            || menuItem.action == #selector(windowZoomToAction(_:))
-            || menuItem.action == #selector(windowNavigateToAction(_:))
-            || menuItem.action == #selector(windowSetupSmartZoomAction(_:))
+            || menuItemAction == #selector(windowUseAnnotateItemAction(_:))
+            || menuItemAction == #selector(windowUseSelectItemAction(_:))
+            || menuItemAction == #selector(windowUseMagnifyItemAction(_:))
+            || menuItemAction == #selector(windowUseMinifyItemAction(_:))
+            || menuItemAction == #selector(windowUseMoveItemAction(_:))
+            || menuItemAction == #selector(windowFitWindowAction(_:))
+            || menuItemAction == #selector(windowFillWindowAction(_:))
+            || menuItemAction == #selector(windowZoomInAction(_:))
+            || menuItemAction == #selector(windowZoomOutAction(_:))
+            || menuItemAction == #selector(windowZoomToAction(_:))
+            || menuItemAction == #selector(windowNavigateToAction(_:))
+            || menuItemAction == #selector(windowSetupSmartZoomAction(_:))
             /* Annotator Actions */
-            || menuItem.action == #selector(windowQuickAnnotatorAction(_:))
-            || menuItem.action == #selector(windowQuickCopyAnnotatorAction(_:))
-            || menuItem.action == #selector(windowSelectPreviousAnnotatorAction(_:))
-            || menuItem.action == #selector(windowSelectNextAnnotatorAction(_:))
-            || menuItem.action == #selector(windowRemoveAnnotatorAction(_:))
-            || menuItem.action == #selector(windowListRemovableAnnotatorAction(_:))
+            || menuItemAction == #selector(windowQuickAnnotatorAction(_:))
+            || menuItemAction == #selector(windowQuickCopyAnnotatorAction(_:))
+            || menuItemAction == #selector(windowSelectPreviousAnnotatorAction(_:))
+            || menuItemAction == #selector(windowSelectNextAnnotatorAction(_:))
+            || menuItemAction == #selector(windowRemoveAnnotatorAction(_:))
+            || menuItemAction == #selector(windowListRemovableAnnotatorAction(_:))
         {
             guard documentState.isLoaded else { return false }
             
             /* Menu Shortcuts */
-            if menuItem.action == #selector(windowSetupSmartZoomAction(_:)) {
+            if menuItemAction == #selector(windowSetupSmartZoomAction(_:)) {
                 return sceneController.isSmartZoomMagnificationAvailable
             }
             
             /* Keyboard & Menu Shortcuts */
-            else if menuItem.action == #selector(windowZoomInAction(_:)) {
+            else if menuItemAction == #selector(windowZoomInAction(_:)) {
                 return sceneController.isAllowedToPerformMagnify
             }
-            else if menuItem.action == #selector(windowZoomOutAction(_:)) {
+            else if menuItemAction == #selector(windowZoomOutAction(_:)) {
                 return sceneController.isAllowedToPerformMinify
             }
-            else if menuItem.action == #selector(windowNavigateToAction(_:)) {
+            else if menuItemAction == #selector(windowNavigateToAction(_:)) {
                 return sceneController.isCursorMovableByKeyboard
             }
             
             /* Keyboard Shortcuts */
-            else if menuItem.action == #selector(windowQuickAnnotatorAction(_:))
-                        || menuItem.action == #selector(windowQuickCopyAnnotatorAction(_:))
-                        || menuItem.action == #selector(windowRemoveAnnotatorAction(_:))
-                        || menuItem.action == #selector(windowListRemovableAnnotatorAction(_:))
+            else if menuItemAction == #selector(windowQuickAnnotatorAction(_:))
+                        || menuItemAction == #selector(windowQuickCopyAnnotatorAction(_:))
+                        || menuItemAction == #selector(windowRemoveAnnotatorAction(_:))
+                        || menuItemAction == #selector(windowListRemovableAnnotatorAction(_:))
             {
                 return sceneController.isAllowedToPerformCursorActions
             }
-            else if menuItem.action == #selector(windowSelectPreviousAnnotatorAction(_:))
-                        || menuItem.action == #selector(windowSelectNextAnnotatorAction(_:))
+            else if menuItemAction == #selector(windowSelectPreviousAnnotatorAction(_:))
+                        || menuItemAction == #selector(windowSelectNextAnnotatorAction(_:))
             {
                 return sceneController.isAllowedToPerformCursorActions && sceneController.isOverlaySelectableByKeyboard
             }
             
             return true
         }
-        else if menuItem.action == #selector(toggleCommandPalette(_:))
+        else if menuItemAction == #selector(toggleCommandPalette(_:))
         {
             return true
         }

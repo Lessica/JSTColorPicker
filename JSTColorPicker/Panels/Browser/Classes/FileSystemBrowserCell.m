@@ -7,6 +7,8 @@
  */
 
 #import "FileSystemBrowserCell.h"
+#import <AppKit/NSColor.h>
+#import <AppKit/NSImage.h>
 
 #define ICON_SIZE           16.0	// Our Icons are ICON_SIZE x ICON_SIZE
 #define ICON_INSET_HORIZ	4.0     // Distance to inset the icon from the left edge.

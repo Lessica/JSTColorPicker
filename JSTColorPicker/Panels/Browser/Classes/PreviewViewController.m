@@ -8,6 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "FileSystemNode.h"
+#import <AppKit/NSDocumentController.h>
 
 @implementation PreviewViewController
 

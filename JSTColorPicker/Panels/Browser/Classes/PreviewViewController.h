@@ -6,7 +6,7 @@
  View Controller subclass used for our preview pane in NSBrowser.
  */
 
-@import Cocoa;
+#import <AppKit/NSViewController.h>
 
 
 static NSNotificationName const kJSTColorPickerNotificationNameDropRespondingWindowChanged = @"DropRespondingWindowChanged";

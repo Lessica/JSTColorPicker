@@ -401,7 +401,7 @@ extension NSColor {
         } else {
             getWhite(&colorBrightness, alpha: nil)
         }
-        return colorBrightness >= 0.5
+        return colorBrightness >= 0.75
     }
 
     static var thinSplitViewDividerColor: NSColor {

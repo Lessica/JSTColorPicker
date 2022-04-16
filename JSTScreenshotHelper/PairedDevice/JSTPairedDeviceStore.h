@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <libimobiledevice/libimobiledevice.h>
 #import "JSTPairedDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN

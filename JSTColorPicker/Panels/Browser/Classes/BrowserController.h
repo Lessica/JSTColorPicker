@@ -6,7 +6,7 @@
  Application Controller object, and the NSBrowser delegate. An instance of this object is in the MainMenu.xib.
  */
 
-@import Cocoa;
+#import <AppKit/NSBrowser.h>
 #import "FileSystemNode.h"
 
 @class BrowserController;

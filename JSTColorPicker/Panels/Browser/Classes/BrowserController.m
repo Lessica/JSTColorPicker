@@ -9,6 +9,12 @@
 #import "BrowserController.h"
 #import "FileSystemBrowserCell.h"
 #import "PreviewViewController.h"
+#import <AppKit/NSShadow.h>
+#import <AppKit/NSAlert.h>
+#import <AppKit/NSAttributedString.h>
+#import <AppKit/NSImage.h>
+#import <AppKit/NSStringDrawing.h>
+#import <AppKit/NSDocumentController.h>
 
 
 @interface BrowserController ()

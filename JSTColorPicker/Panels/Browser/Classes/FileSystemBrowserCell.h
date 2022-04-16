@@ -6,7 +6,7 @@
  A cell that can draw an image/icon and a label color.
  */
 
-@import Cocoa;
+#import <AppKit/NSTextFieldCell.h>
 
 @interface FileSystemBrowserCell : NSTextFieldCell
 

@@ -17,7 +17,6 @@ extension CGContext {
             CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: height)
         )
     }
-
 }
 
 final class ScreenshotPrintingView: NSView {
@@ -176,7 +175,10 @@ final class ScreenshotPrintingView: NSView {
                 var tagRect = CGRect(origin: .zero, size: CGSize(
                     width: tagSize.width,
                     height: tagSize.height
-                )).insetBy(dx: -tagHorizontalMargin * scale * 2.0, dy: -tagVericalMargin * scale * 2.0)
+                )).insetBy(
+                    dx: -tagHorizontalMargin * scale * 2.0,
+                    dy: -tagVericalMargin * scale * 2.0
+                )
                 
                 var possibleCorner: TagCorner? = nil
                 let possibleTagName = attrTagName

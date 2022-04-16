@@ -40,24 +40,24 @@ final class ShortcutGuideViewController: NSViewController {
     @IBOutlet weak var itemWrapperView16   : ShortcutItemView!
     
     private lazy var itemWrappers: [ShortcutItemView] = {
-        [
-            itemWrapperView1,
-            itemWrapperView2,
-            itemWrapperView3,
-            itemWrapperView4,
-            itemWrapperView5,
-            itemWrapperView6,
-            itemWrapperView7,
-            itemWrapperView8,
-            itemWrapperView9,
-            itemWrapperView10,
-            itemWrapperView11,
-            itemWrapperView12,
-            itemWrapperView13,
-            itemWrapperView14,
-            itemWrapperView15,
-            itemWrapperView16,
-        ]
+        var wrappers = [ShortcutItemView]()
+        wrappers.append(itemWrapperView1)
+        wrappers.append(itemWrapperView2)
+        wrappers.append(itemWrapperView3)
+        wrappers.append(itemWrapperView4)
+        wrappers.append(itemWrapperView5)
+        wrappers.append(itemWrapperView6)
+        wrappers.append(itemWrapperView7)
+        wrappers.append(itemWrapperView8)
+        wrappers.append(itemWrapperView9)
+        wrappers.append(itemWrapperView10)
+        wrappers.append(itemWrapperView11)
+        wrappers.append(itemWrapperView12)
+        wrappers.append(itemWrapperView13)
+        wrappers.append(itemWrapperView14)
+        wrappers.append(itemWrapperView15)
+        wrappers.append(itemWrapperView16)
+        return wrappers
     }()
 
     var isSinglePage: Bool = false

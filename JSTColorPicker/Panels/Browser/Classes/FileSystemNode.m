@@ -8,6 +8,8 @@
 
 #import "FileSystemNode.h"
 #import <QuickLook/QuickLook.h>
+#import <AppKit/NSImage.h>
+#import <AppKit/NSScreen.h>
 
 @interface FileSystemNode ()
 

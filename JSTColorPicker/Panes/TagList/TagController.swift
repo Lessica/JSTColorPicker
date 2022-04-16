@@ -30,13 +30,11 @@ final class TagController: NSArrayController {
         guard let items = arrangedObjects as? [Tag] else { return }
         if let tag = object as? Tag {
             tag.colorHex = NSColor.random.sharpCSS
-            let origChar = items
-                .compactMap({ $0.name }).lazy
+            let untitledNames: [String] = items.compactMap({ $0.name }).lazy
                 .filter({ $0.hasPrefix("Untitled #") })
+            let sortedUntitledNames: [String] = untitledNames
                 .sorted(by: { $0.localizedStandardCompare($1) == .orderedDescending })
-                .first?
-                .dropFirst(10)
-                ?? "0"
+            let origChar: String = String(sortedUntitledNames.first?.dropFirst(10) ?? "0")
             let replChar = String((Int(String(origChar)) ?? 0) + 1)
             tag.name = "Untitled #\(replChar)"
         }
