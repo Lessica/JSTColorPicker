@@ -30,6 +30,8 @@
 	<dict>
 		<key>ServiceType</key>
 		<string>Application</string>
+		<key>ProcessType</key>
+		<string>Interactive</string>
 	</dict>
 </dict>
 </plist>

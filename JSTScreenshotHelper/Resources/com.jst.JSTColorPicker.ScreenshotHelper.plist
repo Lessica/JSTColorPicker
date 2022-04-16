@@ -20,7 +20,10 @@
 	<key>RunAtLoad</key>
 	<true/>
 	<key>KeepAlive</key>
-	<true/>
+	<dict>
+		<key>/Applications/JSTColorPicker.app</key>
+		<true/>
+	</dict>
 	<key>HighPriorityIO</key>
 	<true/>
 	<key>POSIXSpawnType</key>
@@ -28,7 +31,7 @@
 	<key>ThrottleInterval</key>
 	<integer>5</integer>
 	<key>ProcessType</key>
-	<string>App</string>
+	<string>Adaptive</string>
 	<key>_AdditionalProperties</key>
 	<dict>
 		<key>RunningBoard</key>
