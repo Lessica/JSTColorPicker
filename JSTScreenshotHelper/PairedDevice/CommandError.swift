@@ -41,5 +41,9 @@ enum CommandError: CustomNSError, LocalizedError {
             return nil
         }
     }
+    
+    static func isRecoverableCommandErrorCode(_ errorCode: Int) -> Bool {
+        return errorCode > 700 && errorCode < 800 && errorCode % 2 == 0
+    }
 }
 

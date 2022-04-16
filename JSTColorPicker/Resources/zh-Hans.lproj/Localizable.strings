@@ -20,6 +20,15 @@
 /* None */
 "-" = "-";
 
+/* menuItemsForPairedDevices(_:) */
+"\nConnection: %@" = "\n链路：%@";
+
+/* menuItemsForPairedDevices(_:) */
+"\nProduct Type: %@" = "\n产品类型：%@";
+
+/* menuItemsForPairedDevices(_:) */
+"\nProduct Version: %@" = "\n产品版本：%@";
+
 /* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作。";
 
@@ -790,6 +799,9 @@
 
 /* Tool Tip: Tag Cell View */
 "TOOLTIP_TAG_CELL_VIEW" = "已关联标签：\n%@\n\n其他标签：\n%@";
+
+/* menuItemsForPairedDevices(_:) */
+"UDID: %@\nDevice Name: %@" = "UDID：%@\n设备名称：%@";
 
 /* Setup Persistent Store */
 "Unable to access tag database." = "无法访问标签数据库。";

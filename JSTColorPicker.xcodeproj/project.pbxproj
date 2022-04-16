@@ -162,6 +162,8 @@
 		CC07DF732809B17C001AF35C /* AppDelegate+DeviceSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */; };
 		CC07DF752809CE96001AF35C /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */; };
 		CC07DF762809CE96001AF35C /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */; };
+		CC07DF77280AF998001AF35C /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4523BE280811E6005C0A3F /* CommandError.swift */; };
+		CC07DF78280AF998001AF35C /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4523BE280811E6005C0A3F /* CommandError.swift */; };
 		CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
@@ -5098,6 +5100,7 @@
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
 				CC1B4C1927EF0C300087974F /* MetadataEditor.swift in Sources */,
 				CCB29F3A27F4689E00123A33 /* SPUStandardUpdaterController.m in Sources */,
+				CC07DF77280AF998001AF35C /* CommandError.swift in Sources */,
 				CCF7C84827E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */,
 				CC4709FF2628AE890013A3B7 /* TemplateContentCellView.swift in Sources */,
 				CCC0DC172601F0C100019146 /* ContentScrollView.swift in Sources */,
@@ -5254,6 +5257,7 @@
 				CCF7C85227E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */,
 				D67A8F11247E6D6000153DE5 /* DragConnectionController.swift in Sources */,
 				CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */,
+				CC07DF78280AF998001AF35C /* CommandError.swift in Sources */,
 				D6C2983D23D6BBF4005CFBDC /* ColorIndicator.swift in Sources */,
 				18B22FF2247EBD65003F70BA /* TagListSource.swift in Sources */,
 				18D202C42496920C007A079F /* TagCellView.swift in Sources */,

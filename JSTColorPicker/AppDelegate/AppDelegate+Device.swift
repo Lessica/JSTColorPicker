@@ -524,10 +524,10 @@ extension AppDelegate {
                     
                     var hasRetryButton = false
                     var hasDownloadButton = false
-                    if nsErr.code > 700 && nsErr.code % 2 == 0 {
+                    if CommandError.isRecoverableCommandErrorCode(nsErr.code) {
                         alert.addButton(withTitle: NSLocalizedString("Retry", comment: "takeScreenshot(_:)"))
                         hasRetryButton = true
-                    } else if nsErr.code == 707 {
+                    } else if nsErr.code == CommandError.missingMountResources.errorCode {
                         alert.addButton(withTitle: NSLocalizedString("Download", comment: "takeScreenshot(_:)"))
                         hasDownloadButton = true
                     }
@@ -678,6 +678,25 @@ extension AppDelegate {
             item.isEnabled = true
             item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
             
+            var itemToolTip = String(
+                format: NSLocalizedString("UDID: %@\nDevice Name: %@", comment: "menuItemsForPairedDevices(_:)"),
+                deviceUDID, deviceName
+            )
+            
+            if !deviceModel.type.isEmpty {
+                itemToolTip += String(format: NSLocalizedString("\nConnection: %@", comment: "menuItemsForPairedDevices(_:)"), deviceModel.type)
+            }
+            
+            if !deviceModel.model.isEmpty {
+                itemToolTip += String(format: NSLocalizedString("\nProduct Type: %@", comment: "menuItemsForPairedDevices(_:)"), deviceModel.model)
+            }
+            
+            if !deviceModel.version.isEmpty {
+                itemToolTip += String(format: NSLocalizedString("\nProduct Version: %@", comment: "menuItemsForPairedDevices(_:)"), deviceModel.version)
+            }
+            
+            item.toolTip = itemToolTip
+            
             let lowercasedModel = deviceModel.model.lowercased()
             
             // Apple Device (Fancy Icons)
@@ -707,8 +726,8 @@ extension AppDelegate {
                         break
                 }
             }
-            item.representedObject = deviceModel
             
+            item.representedObject = deviceModel
             items.append(item)
         }
         

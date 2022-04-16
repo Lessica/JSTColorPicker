@@ -20,6 +20,15 @@
 /* None */
 "-" = "-";
 
+/* menuItemsForPairedDevices(_:) */
+"\nConnection: %@" = "\nConnection: %@";
+
+/* menuItemsForPairedDevices(_:) */
+"\nProduct Type: %@" = "\nProduct Type: %@";
+
+/* menuItemsForPairedDevices(_:) */
+"\nProduct Version: %@" = "\nProduct Version: %@";
+
 /* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "A simple drag-to-move operation for pointer devices.";
 
@@ -790,6 +799,9 @@
 
 /* Tool Tip: Tag Cell View */
 "TOOLTIP_TAG_CELL_VIEW" = "Attached Tags: \n%@\n\nOther Tags: \n%@";
+
+/* menuItemsForPairedDevices(_:) */
+"UDID: %@\nDevice Name: %@" = "UDID: %@\nDevice Name: %@";
 
 /* Setup Persistent Store */
 "Unable to access tag database." = "Unable to access tag database.";

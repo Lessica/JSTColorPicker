@@ -30,7 +30,6 @@ final class FolderController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadUI()
         
         #if APP_STORE
         NotificationCenter.default.addObserver(
@@ -46,6 +45,11 @@ final class FolderController: NSViewController {
             object: nil
         )
         #endif
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        reloadUI()
     }
     
     private func reloadUI() {
