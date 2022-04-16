@@ -59,6 +59,9 @@
 "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.";
 
 /* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN.";
+
+/* kJSTScreenshotError */
 "To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted.";
 
 /* kJSTScreenshotError */

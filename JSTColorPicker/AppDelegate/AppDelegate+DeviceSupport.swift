@@ -87,6 +87,7 @@ extension AppDelegate {
             
             let targetResource = try AppDelegate
                 .localDeviceSupportResource(forProductVersion: resource.productVersion)
+            try? targetResource.removeFromLocalStorage()
             
             let remoteURLSession = URLSession(
                 configuration: .default,
@@ -94,62 +95,62 @@ extension AppDelegate {
                 delegateQueue: .main
             )
             
-            remoteURLSession.downloadProxyTask(
+            let signatureTask = remoteURLSession.downloadProxyTask(
                 .promise,
                 from: resource.developerDiskImageSignatureURL,
                 to: targetResource.developerDiskImageSignatureURL,
                 proxy: downloadProxy
-            ).then({
+            )
+            
+            let mainTask = remoteURLSession.downloadProxyTask(
+                .promise,
+                from: resource.developerDiskImageURL,
+                to: targetResource.developerDiskImageURL,
+                proxy: downloadProxy
+            )
+            
+            signatureTask.then({
                 (saveLocation: URL, response: URLResponse) ->
                 Promise<(saveLocation: URL, response: URLResponse)> in
                 
                 debugPrint(saveLocation)
-                return remoteURLSession.downloadProxyTask(
-                    .promise,
-                    from: resource.developerDiskImageURL,
-                    to: targetResource.developerDiskImageURL,
-                    proxy: downloadProxy
-                )
+                return mainTask
             }).done({
                 (saveLocation: URL, response: URLResponse) in
                 
                 debugPrint(saveLocation)
                 seal.fulfill(targetResource)
-            }).catch {
-                try? FileManager.default.removeItem(
-                    at: targetResource.developerDiskImageSignatureURL)
-                try? FileManager.default.removeItem(
-                    at: targetResource.developerDiskImageURL)
+            }).catch(policy: .allErrors, {
                 
+                try? targetResource.removeFromLocalStorage()
                 seal.reject($0)
-            }.finally {
+            }).finally({
+                
                 // important: memory management
+                downloadProxy.removeAllCompletionHandlers()
                 remoteURLSession.invalidateAndCancel()
-            }
+            })
         }
     }
     
     @objc func downloadDeviceSupport(_ sender: Any?, forDeviceDictionary deviceDict: [String: String]) {
-        guard !self.isDownloadingDeviceSupport else { return }
-        self.isDownloadingDeviceSupport = true
-        
         guard let windowController = firstRespondingWindowController
         else {
-            self.isDownloadingDeviceSupport = false
             return
         }
         
         guard let deviceVersion = deviceDict["version"]
         else {
-            self.isDownloadingDeviceSupport = false
             return
         }
         
+        guard self.modalState == .idle else { return }
+        self.modalState = .downloadDeviceSupport
+        
         let loadingAlert = NSAlert()
-        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
+        let cancelButton = loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         loadingAlert.alertStyle = .informational
-        // FIXME: display this
-        loadingAlert.buttons.first?.isHidden = true
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
         loadingIndicator.startAnimation(nil)
@@ -186,14 +187,15 @@ extension AppDelegate {
         
         let pendingResource = AppDelegate.remoteDeviceSupportResource(forProductVersion: deviceVersion)
         firstly { [unowned self] () -> Promise<DeviceSupportResource> in
-            loadingAlert.messageText = NSLocalizedString("Connecting...", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
+            
+            loadingAlert.messageText = NSLocalizedString("Connecting…", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
             loadingAlert.informativeText = String(format: NSLocalizedString("Establish connection to remote server “%@”…", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"), AppDelegate.deviceSupportRemoteRootURL.host!)
             windowController.showSheet(loadingAlert) { _ in
-                // FIXME: why promise catch block did not get executed after this, but finally block got executed?
-                downloadProxy.lastDownloadTask?.cancel()
+                downloadProxy.cancel()
             }
             return promiseDownloadDeviceSupportResource(pendingResource, downloadProxy: downloadProxy)
         }.done { [unowned self] (resource: DeviceSupportResource) in
+            
             // downloaded successfully
             let alert = NSAlert()
             alert.messageText = NSLocalizedString(
@@ -208,13 +210,15 @@ extension AppDelegate {
                 deviceVersion
             )
             alert.addButton(withTitle: NSLocalizedString("Continue", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
-            alert.addButton(withTitle: NSLocalizedString("Later", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
+            let cancelButton = alert.addButton(withTitle: NSLocalizedString("Later", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
+            cancelButton.keyEquivalent = "\u{1b}"
             windowController.showSheet(alert) { resp in
                 if resp == .alertFirstButtonReturn {
                     self.takeScreenshot(sender)
                 }
             }
-        }.catch { [unowned self] err in
+        }.catch(policy: .allErrors, { [unowned self] err in
+            
             // failed to download
             if self.applicationCheckScreenshotHelper().exists {
                 DispatchQueue.main.async {
@@ -222,11 +226,11 @@ extension AppDelegate {
                     windowController.showSheet(alert, completionHandler: nil)
                 }
             }
-        }.finally { [unowned self] in
+        }).finally({ [unowned self] in
+            
             // do nothing
             downloadObservers.forEach({ $0.cancel() })
-            downloadProxy.completionHandlers.removeAll()
-            self.isDownloadingDeviceSupport = false
-        }
+            self.modalState = .idle
+        })
     }
 }

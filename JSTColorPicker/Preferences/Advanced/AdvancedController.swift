@@ -114,7 +114,8 @@ final class AdvancedController: NSViewController {
             alert.messageText = NSLocalizedString("Reset Confirm", comment: "resetTagDatabaseAction(_:)")
             alert.informativeText = NSLocalizedString("Do you want to remove all user defined tags and reset the tag database to its initial state?\nThis operation cannot be undone.", comment: "resetTagDatabaseAction(_:)")
             alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "resetTagDatabaseAction(_:)"))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
+            let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "resetTagDatabaseAction(_:)"))
+            cancelButton.keyEquivalent = "\u{1b}"
             alert.beginSheetModal(for: view.window!) { [unowned self] resp in
                 if resp == .alertFirstButtonReturn {
                     self.resetTagDatabase()
@@ -163,7 +164,8 @@ final class AdvancedController: NSViewController {
         alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
         #if !APP_STORE
         alert.addButton(withTitle: NSLocalizedString("Restart", comment: "actionRequiresRestart(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 NSApp.relaunch(sender)
@@ -171,7 +173,8 @@ final class AdvancedController: NSViewController {
         }
         #else
         alert.addButton(withTitle: NSLocalizedString("Quit Now", comment: "actionRequiresRestart(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Later", comment: "actionRequiresRestart(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 NSApp.terminate(sender)

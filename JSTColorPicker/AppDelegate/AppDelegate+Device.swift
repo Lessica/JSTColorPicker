@@ -432,20 +432,18 @@ extension AppDelegate {
     }
     
     @objc func takeScreenshot(_ sender: Any?) {
-        guard !self.isTakingScreenshot else { return }
-        self.isTakingScreenshot = true
-        
         guard let windowController = firstRespondingWindowController
         else {
-            self.isTakingScreenshot = false
             return
         }
         
         guard let picturesDirectoryPath: String = UserDefaults.standard[.screenshotSavingPath]
         else {
-            self.isTakingScreenshot = false
             return
         }
+        
+        guard self.modalState == .idle else { return }
+        self.modalState = .takeScreenshot
         
         guard let selectedIdentifier = selectedDeviceUniqueIdentifier else {
             let alert = NSAlert()
@@ -454,7 +452,7 @@ extension AppDelegate {
             alert.addButton(withTitle: NSLocalizedString("OK", comment: "takeScreenshot(_:)"))
             alert.alertStyle = .informational
             windowController.showSheet(alert) { [unowned self] (resp) in
-                self.isTakingScreenshot = false
+                self.modalState = .idle
             }
             return
         }
@@ -517,7 +515,7 @@ extension AppDelegate {
         }.then { [unowned self] url -> Promise<Void> in
             windowController.showSheet(nil, completionHandler: nil)
             return self.promiseOpenDocument(at: url)
-        }.catch { [unowned self] err in
+        }.catch(policy: .allErrors, { [unowned self] err in
             if self.applicationCheckScreenshotHelper().exists {
                 DispatchQueue.main.async {
                     let alert = NSAlert(error: err)
@@ -532,7 +530,8 @@ extension AppDelegate {
                         alert.addButton(withTitle: NSLocalizedString("Download", comment: "takeScreenshot(_:)"))
                         hasDownloadButton = true
                     }
-                    alert.addButton(withTitle: NSLocalizedString("Dismiss", comment: "takeScreenshot(_:)"))
+                    let cancelButton = alert.addButton(withTitle: NSLocalizedString("Dismiss", comment: "takeScreenshot(_:)"))
+                    cancelButton.keyEquivalent = "\u{1b}"
                     windowController.showSheet(alert) { resp in
                         if hasRetryButton && resp == .alertFirstButtonReturn
                         {
@@ -546,10 +545,10 @@ extension AppDelegate {
                     }
                 }
             }
-        }.finally { [unowned self] in
+        }).finally({ [unowned self] in
             // do nothing
-            self.isTakingScreenshot = false
-        }
+            self.modalState = .idle
+        })
     }
     
     @IBAction internal func devicesTakeScreenshotMenuItemTapped(_ sender: NSMenuItem) {

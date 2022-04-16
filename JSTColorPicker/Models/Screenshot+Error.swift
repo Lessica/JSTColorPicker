@@ -21,7 +21,8 @@ extension Screenshot {
         alert.alertStyle = .informational
         alert.messageText = error.localizedDescription
         alert.addButton(withTitle: NSLocalizedString("Subscribe…", comment: "presentError(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Later", comment: "presentError(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Later", comment: "presentError(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         let retVal = alert.runModal() == .alertFirstButtonReturn
         if retVal {
             PurchaseWindowController.shared.showWindow(self)

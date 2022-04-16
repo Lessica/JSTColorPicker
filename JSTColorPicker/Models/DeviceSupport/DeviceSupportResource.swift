@@ -25,4 +25,13 @@ struct DeviceSupportResource: Codable {
         let reachable2 = try developerDiskImageSignatureURL.checkResourceIsReachable()
         return reachable1 && reachable2
     }
+    
+    func removeFromLocalStorage() throws {
+        try FileManager.default.removeItem(
+            at: developerDiskImageSignatureURL)
+        try FileManager.default.removeItem(
+            at: developerDiskImageURL)
+        try FileManager.default.removeItem(
+            at: developerDiskImageURL.deletingLastPathComponent())
+    }
 }

@@ -48,7 +48,8 @@ final class SubscriptionController: NSViewController {
         alert.messageText = NSLocalizedString("Open Confirmation", comment: "manageSubscriptionAction(_:)")
         alert.informativeText = NSLocalizedString("Will redirect to your Apple ID account page to manage your subscription, continue?", comment: "manageSubscriptionAction(_:)")
         alert.addButton(withTitle: NSLocalizedString("OK", comment: "manageSubscriptionAction(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "manageSubscriptionAction(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "manageSubscriptionAction(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 NSWorkspace.shared.redirectToManageSubscription()

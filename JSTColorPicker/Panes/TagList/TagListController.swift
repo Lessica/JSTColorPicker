@@ -514,7 +514,8 @@ final class TagListController: StackedPaneController {
                 alert.accessoryView = alertTextView
             }
             alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "Import Confirm"))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Import Confirm"))
+            let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Import Confirm"))
+            cancelButton.keyEquivalent = "\u{1b}"
             return alert.runModal() == .alertFirstButtonReturn
         } else {
             alert.alertStyle = .informational

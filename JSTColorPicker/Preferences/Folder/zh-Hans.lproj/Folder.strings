@@ -1,11 +1,14 @@
 /* Class = "NSButtonCell"; title = "View templates…"; ObjectID = "6Wy-jv-Soc"; */
 "6Wy-jv-Soc.title" = "查看模版…";
 
-/* Class = "NSButtonCell"; title = "Locate screenshot helper…"; ObjectID = "dSv-DK-p6a"; */
-"dSv-DK-p6a.title" = "定位到截图助手…";
+/* Class = "NSButtonCell"; title = "Locate screenshot helper…"; ObjectID = "d7Q-BM-0Sw"; */
+"d7Q-BM-0Sw.title" = "定位到截图助手…";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
 "eGM-Kd-UMD.title" = "其他视图";
+
+/* Class = "NSButtonCell"; title = "Locate Device Support caches…"; ObjectID = "gkJ-cb-MjF"; */
+"gkJ-cb-MjF.title" = "定位到设备支持缓存…";
 
 /* Class = "NSButtonCell"; title = "View tag database…"; ObjectID = "HDd-hx-7QQ"; */
 "HDd-hx-7QQ.title" = "查看标签数据库…";

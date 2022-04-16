@@ -1,11 +1,14 @@
 /* Class = "NSButtonCell"; title = "View templates…"; ObjectID = "6Wy-jv-Soc"; */
 "6Wy-jv-Soc.title" = "View templates…";
 
-/* Class = "NSButtonCell"; title = "Locate screenshot helper…"; ObjectID = "dSv-DK-p6a"; */
-"dSv-DK-p6a.title" = "Locate screenshot helper…";
+/* Class = "NSButtonCell"; title = "Locate screenshot helper…"; ObjectID = "d7Q-BM-0Sw"; */
+"d7Q-BM-0Sw.title" = "Locate screenshot helper…";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eGM-Kd-UMD"; */
 "eGM-Kd-UMD.title" = "OtherViews";
+
+/* Class = "NSButtonCell"; title = "Locate Device Support caches…"; ObjectID = "gkJ-cb-MjF"; */
+"gkJ-cb-MjF.title" = "Locate Device Support caches…";
 
 /* Class = "NSButtonCell"; title = "View tag database…"; ObjectID = "HDd-hx-7QQ"; */
 "HDd-hx-7QQ.title" = "View tag database…";

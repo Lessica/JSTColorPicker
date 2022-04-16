@@ -37,7 +37,8 @@ final class GeneralController: NSViewController {
         alert.messageText = NSLocalizedString("Restart required", comment: "actionRequiresRestart(_:)")
         alert.informativeText = NSLocalizedString("This option requires application to restart to complete the modification.", comment: "actionRequiresRestart(_:)")
         alert.addButton(withTitle: NSLocalizedString("Restart", comment: "actionRequiresRestart(_:)"))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "actionRequiresRestart(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "actionRequiresRestart(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 NSApp.relaunch(sender)

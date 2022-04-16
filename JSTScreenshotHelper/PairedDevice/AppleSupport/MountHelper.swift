@@ -95,7 +95,8 @@ final class MountHelper: NSObject {
                 compareResult = firstModificationDate.compare(lastModificationDate)
             }
             if compareResult == .orderedSame {
-                return $0.pathComponents[1].localizedStandardCompare($1.pathComponents[1]) == .orderedDescending
+                return $0.pathComponents[1]
+                    .localizedStandardCompare($1.pathComponents[1]) == .orderedDescending
             }
             return compareResult == .orderedDescending
         })
@@ -181,7 +182,7 @@ final class MountHelper: NSObject {
         let resultOutput = result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
         
         let isSucceed = resultOutput.contains("Done") || resultOutput.contains("done")
-        completion(nil, NSError(domain: kJSTScreenshotError, code: 707, userInfo: [
+        completion(nil, NSError(domain: kJSTScreenshotError, code: isSucceed ? CommandError.retryMountSucceed.errorCode : CommandError.mountFailed.errorCode, userInfo: [
             NSLocalizedDescriptionKey: String(
                 format: "%@\n\n%@",
                 resultError.count > 0 ? resultError : resultOutput,

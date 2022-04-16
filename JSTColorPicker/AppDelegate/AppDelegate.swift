@@ -62,6 +62,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    enum ModalState {
+        case idle
+        case takeScreenshot
+        case downloadDeviceSupport
+    }
 
     
     // MARK: - Attributes
@@ -74,8 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let observableKeys                  : [UserDefaults.Key] = [.enableNetworkDiscovery]
     private var observables                     : [Observable]?
     internal var isNetworkDiscoveryEnabled      : Bool = false
-    internal var isTakingScreenshot             : Bool = false
-    internal var isDownloadingDeviceSupport     : Bool = false
+    internal var modalState                     : ModalState = .idle
     
     enum HelperState {
         case missing

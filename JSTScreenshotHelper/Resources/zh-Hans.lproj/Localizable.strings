@@ -59,6 +59,9 @@
 "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "如果要在 JSTColorPicker 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
 
 /* kJSTScreenshotError */
+"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "如果要在 JSTColorPicker 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。或者，你也可以点击 “下载” 以获取缺失的设备支持驱动。";
+
+/* kJSTScreenshotError */
 "To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "如果要在 JSTColorPicker 中连接到 “%@”，请先解锁，在随后的弹框中选择信任此计算机。";
 
 /* kJSTScreenshotError */

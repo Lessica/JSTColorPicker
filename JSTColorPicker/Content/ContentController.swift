@@ -1089,7 +1089,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         }
         alert.alertStyle = .warning
         alert.addButton(withTitle: NSLocalizedString("Confirm", comment: "Delete Confirm"))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Delete Confirm"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Delete Confirm"))
+        cancelButton.keyEquivalent = "\u{1b}"
         return alert.runModal() == .alertFirstButtonReturn
     }
     

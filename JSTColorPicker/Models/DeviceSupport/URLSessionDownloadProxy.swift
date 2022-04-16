@@ -11,9 +11,32 @@ import Combine
 
 final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
     
-    var completionHandlers = [Int: (URL?, URLResponse?, Error?) -> Void]()
-    weak var lastDownloadTask: URLSessionDownloadTask?
-    weak var lastSession: URLSession?
+    private var completionHandlers = [Int: (URL?, URLResponse?, Error?) -> Void]()
+    private var isCancelled: Bool = false
+    
+    internal func addCompletionHandler(forTask task: URLSessionDownloadTask, completion: @escaping (URL?, URLResponse?, Error?) -> Void) {
+        self.lastDownloadTask = task
+        completionHandlers[task.taskIdentifier] = completion
+    }
+    
+    internal func removeCompletionHandler(forTask task: URLSessionDownloadTask) {
+        completionHandlers.removeValue(forKey: task.taskIdentifier)
+    }
+    
+    internal func removeAllCompletionHandlers() {
+        completionHandlers.removeAll()
+    }
+    
+    internal func cancel() {
+        self.isCancelled = true
+    }
+    
+    private func internalCancel() {
+        self.lastDownloadTask?.cancel()
+    }
+    
+    private(set) weak var lastDownloadTask: URLSessionDownloadTask?
+    private(set) weak var lastSession: URLSession?
     
     @Published var currentError: Error?
     @Published var downloadState: (currentURL: URL, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)?
@@ -33,6 +56,10 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
         } else {
             self.downloadState = nil
         }
+        if isCancelled {
+            internalCancel()
+            return
+        }
     }
     
     internal func urlSession(
@@ -48,6 +75,10 @@ final class URLSessionDownloadProxy: NSObject, URLSessionDownloadDelegate {
             self.downloadState = (currentRequestURL, fileOffset, fileOffset, expectedTotalBytes)
         } else {
             self.downloadState = nil
+        }
+        if isCancelled {
+            internalCancel()
+            return
         }
     }
     

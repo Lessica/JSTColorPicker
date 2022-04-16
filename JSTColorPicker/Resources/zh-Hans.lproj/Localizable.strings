@@ -126,6 +126,9 @@
 /* screenshotItemTapped(_:) */
 "Connect to your iOS device via USB or network." = "通过 USB 或网络连接到 iOS 设备。";
 
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Connecting…" = "正在建立连接…";
+
 /* XPCError */
 "Connection interrupted." = "连接中断。";
 
@@ -134,6 +137,9 @@
 
 /* XPCError */
 "Connection timeout." = "连接超时。";
+
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Continue" = "继续";
 
 /* Shortcut Guide */
 "Copy Color & Coordinates" = "拷贝坐标及颜色标注";
@@ -158,6 +164,9 @@
 
 /* PurchaseManager */
 "Demo Version - " = "试用版本 - ";
+
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Developer Disk Image for iOS %@ has been downloaded, click “Continue” to take screenshot again." = "适用于 iOS %@ 的开发者镜像已下载，点击 “继续” 以重新截图。";
 
 /* reloadDevicesSubMenuItems */
 "Discover Devices" = "立即寻找设备";
@@ -195,11 +204,17 @@
 /* Shortcut Guide */
 "Double Press" = "连按两次";
 
+/* takeScreenshot(_:) */
+"Download" = "下载";
+
 /* screenshotItemTapped(_:) */
 "Download screenshot from device “%@”…" = "正在从设备 “%@” 下载截图…";
 
 /* resetDevicesMenu */
 "Download screenshot helper…" = "下载设备截图组件…";
+
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Downloading Driver…" = "正在下载驱动…";
 
 /* Shortcut Guide */
 "Drag" = "拖拽";
@@ -209,6 +224,9 @@
 
 /* Shortcut Guide */
 "Drag Anchors in Corner" = "拖拽角锚点";
+
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Driver Downloaded" = "驱动已下载";
 
 /* EditCoordinateController */
 "Edit Area" = "修改区域";
@@ -225,8 +243,14 @@
 /* updateDisplay(_:with:isRegistered:) */
 "Edit Coordinate" = "修改坐标";
 
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Error Occurred" = "发生错误";
+
 /* screenshotItemTapped(_:) */
 "Establish connection to device “%@”…" = "正在与设备 “%@” 建立连接…";
+
+/* downloadDeviceSupport(_:forDeviceDictionary:) */
+"Establish connection to remote server “%@”…" = "正在建立与远程服务器 “%@” 的连接…";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
