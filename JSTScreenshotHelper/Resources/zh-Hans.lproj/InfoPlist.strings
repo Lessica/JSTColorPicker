@@ -6,4 +6,4 @@
   Copyright © 2021 JST. All rights reserved.
 */
 
-NSAppleEventsUsageDescription = "JSTColorPickerHelper 需要控制 “System Events” 以打开 “控制台” 并为你过滤日志。";
+NSAppleEventsUsageDescription = "“JSTColorPickerHelper” 需要控制 “System Events” 以打开 “控制台” 并为你过滤日志。";

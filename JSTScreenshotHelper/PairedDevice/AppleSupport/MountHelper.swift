@@ -156,7 +156,7 @@ final class MountHelper: NSObject {
                 NSLocalizedDescriptionKey: String(
                     format: "%@\n\n%@",
                     String(format: NSLocalizedString("Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”.", comment: "kJSTScreenshotError"), name, productVersion),
-                    String(format: NSLocalizedString("To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN.", comment: "kJSTScreenshotError"), name)
+                    String(format: NSLocalizedString("To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN.", comment: "kJSTScreenshotError"), name, kJSTColorPickerDisplayName)
                 )
             ]))
             return false
@@ -191,7 +191,7 @@ final class MountHelper: NSObject {
                     format: NSLocalizedString("Developer Disk Image mounted to “%@” automatically, click “Retry” to continue.", comment: "kJSTScreenshotError"), name
                 )
                 : String(
-                    format: NSLocalizedString("To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.", comment: "kJSTScreenshotError"), name
+                    format: NSLocalizedString("To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.", comment: "kJSTScreenshotError"), name, kJSTColorPickerDisplayName
                 )
             )
         ]))

@@ -36,7 +36,7 @@ final class AdbHelper: NSObject {
     }
 
     static func promiseCreateDirectoryForScreenCapture(_ deviceId: String) -> Promise<URL> {
-        let savingDirectory = URL(fileURLWithPath: "/sdcard/Pictures/JSTColorPicker")
+        let savingDirectory = URL(fileURLWithPath: String(format: "/sdcard/Pictures/%@", kJSTColorPickerDisplayName))
         return Promise<URL> { seal in
             AuxiliaryExecute.promiseBash(
                 command: "\(adb.path) -s '\(deviceId)' shell mkdir -p '\(savingDirectory.path)'",

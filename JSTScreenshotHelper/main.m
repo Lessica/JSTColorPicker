@@ -310,7 +310,7 @@ int main(int argc, const char *argv[])
     NSBundle *applicationBundle = [[NSBundle alloc] initWithPath:applicationBundlePath];
     
     if (![[applicationBundle bundleIdentifier] isEqualToString:kJSTColorPickerBundleIdentifier]) {
-        [[NSAlert alertWithError:[NSError errorWithDomain:kJSTColorPickerHelperErrorDomain code:404 userInfo:@{ NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedString(@"Cannot find main application of JSTColorPicker: %@", @"kJSTScreenshotHelperError"), applicationBundlePath] }]] runModal];
+        [[NSAlert alertWithError:[NSError errorWithDomain:kJSTColorPickerHelperErrorDomain code:404 userInfo:@{ NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedString(@"Cannot find main application of “%@”: %@", @"kJSTScreenshotHelperError"), kJSTColorPickerDisplayName, applicationBundlePath] }]] runModal];
 
     uninstall:
         if ([fileManager fileExistsAtPath:launchAgentPath]) {
@@ -387,10 +387,10 @@ int main(int argc, const char *argv[])
             BOOL isInstallOrUninstall = YES;
             NSAlert *alert = [[NSAlert alloc] init];
             if (![fileManager fileExistsAtPath:launchAgentPath]) {
-                [alert setMessageText:NSLocalizedString(@"Do you want to setup JSTColorPickerHelper as a login item?", @"JSTScreenshotHelperInstall")];
+                [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to setup “%@” as a login item?", @"JSTScreenshotHelperInstall"), kJSTColorPickerHelperDisplayName]];
                 isInstallOrUninstall = YES;
             } else {
-                [alert setMessageText:NSLocalizedString(@"Do you want to remove JSTColorPickerHelper from login items?", @"JSTScreenshotHelperInstall")];
+                [alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Do you want to remove “%@” from login items?", @"JSTScreenshotHelperInstall"), kJSTColorPickerHelperDisplayName]];
                 isInstallOrUninstall = NO;
             }
             [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -420,7 +420,7 @@ int main(int argc, const char *argv[])
                     }
                     
                     os_system([NSString stringWithFormat:@"launchctl load -w '%@'", escape_arg(launchAgentPath)].UTF8String);
-                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"jstcolorpicker://activate"]];
+                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://activate", kJSTColorPickerURLProtocolName]]];
                     
                 } else {
                     // Uninstall

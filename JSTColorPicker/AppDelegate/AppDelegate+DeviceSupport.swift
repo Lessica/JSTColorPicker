@@ -169,7 +169,7 @@ extension AppDelegate {
             downloadProxy.$downloadState.sink(receiveValue: { context in
                 if let context = context {
                     let progressValue = Double(context.totalBytesWritten) / Double(context.totalBytesExpectedToWrite) * 100.0
-                    loadingAlert.messageText = NSLocalizedString("Downloading Driver...", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
+                    loadingAlert.messageText = NSLocalizedString("Downloading Driver…", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
                     loadingAlert.informativeText = String(
                         format: "%@\n%@ of %@, %.2f%%",
                         context.currentURL.lastPathComponent,

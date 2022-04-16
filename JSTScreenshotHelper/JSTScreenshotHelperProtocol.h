@@ -17,8 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const kJSTColorPickerGroupIdentifier = @"GXZ23M5TP2.com.jst.JSTColorPicker";
 static NSString * const kJSTColorPickerBundleIdentifier = @"com.jst.JSTColorPicker";
 static NSString * const kJSTColorPickerHelperBundleIdentifier = @"GXZ23M5TP2.com.jst.JSTColorPicker.ScreenshotHelper";
+static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScreenshotHelper";
 static NSString * const kJSTColorPickerBundleName = @"JSTColorPicker.app";
+static NSString * const kJSTColorPickerDisplayName = @"JSTColorPicker";
+static NSString * const kJSTColorPickerURLProtocolName = @"jstcolorpicker";
 static NSString * const kJSTColorPickerHelperBundleName = @"JSTColorPickerHelper.app";
+static NSString * const kJSTColorPickerHelperDisplayName = @"JSTColorPickerHelper";
 static NSString * const kJSTColorPickerHelperErrorDomain = @"com.jst.JSTScreenshotHelper.error";
 
 typedef NSString * JSTDeviceType;
@@ -29,11 +33,13 @@ static JSTDeviceType const JSTDeviceTypeBonjour = @"bonjour";
 typedef void (^JSTScreenshotHandler)(NSData * _Nullable, NSError * _Nullable);
 static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
 
+
 NS_INLINE NSString *RealHomeDirectory() {
     struct passwd *pw = getpwuid(getuid());
     if (!pw) { return nil; }
     return [NSString stringWithUTF8String:pw->pw_dir];
 }
+
 NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
@@ -41,13 +47,15 @@ NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
     }
     return [@"~/Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist" stringByExpandingTildeInPath];
 }
+
 NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath() {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
-        return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName]];
+        return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/%@/%@", kJSTColorPickerHelperDisplayName, kJSTColorPickerHelperBundleName]];
     }
-    return [[NSString stringWithFormat:@"~/Library/Application Support/JSTColorPicker/%@", kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
+    return [[NSString stringWithFormat:@"~/Library/Application Support/%@/%@", kJSTColorPickerHelperDisplayName, kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
 }
+
 NS_INLINE NSString *GetJSTColorPickerDeviceSupportPath() {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
@@ -56,7 +64,6 @@ NS_INLINE NSString *GetJSTColorPickerDeviceSupportPath() {
     return [[NSString stringWithFormat:@"~/Library/Application Support/%@/DeviceSupport", kJSTColorPickerBundleIdentifier] stringByExpandingTildeInPath];
 }
 
-static NSString * const kJSTScreenshotHelperBundleIdentifier = @"com.jst.JSTScreenshotHelper";
 
 @protocol JSTScreenshotHelperProtocol
 

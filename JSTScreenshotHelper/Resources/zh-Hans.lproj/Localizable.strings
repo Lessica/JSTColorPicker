@@ -5,7 +5,7 @@
 "Cancel" = "取消";
 
 /* kJSTScreenshotHelperError */
-"Cannot find main application of JSTColorPicker: %@" = "找不到 JSTColorPicker 的主应用程序：%@";
+"Cannot find main application of “%@”: %@" = "找不到 “%@” 的主应用程序：%@";
 
 /* kJSTScreenshotError */
 "Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”." = "找不到适用于 “%@” 及 iOS 版本 “%@” 的开发者镜像及其数字签名。";
@@ -38,10 +38,10 @@
 "Device “%@” is not reachable." = "设备 “%@” 暂不可用。";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to remove JSTColorPickerHelper from login items?" = "要将 JSTColorPicker 设备截图组件从启动项中移除吗？";
+"Do you want to remove “%@” from login items?" = "要将 “%@” 设备截图组件从启动项中移除吗？";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to setup JSTColorPickerHelper as a login item?" = "要将 JSTColorPicker 设备截图组件设置为启动项吗？";
+"Do you want to setup “%@” as a login item?" = "要将 “%@” 设备截图组件设置为启动项吗？";
 
 /* kJSTScreenshotError */
 "Internal error occurred." = "发生内部错误。";
@@ -53,16 +53,7 @@
 "OK" = "好";
 
 /* tellConsoleToStartStreamingWithReply: */
-"process:JSTColorPicker" = "进程:JSTColorPicker";
-
-/* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "如果要在 JSTColorPicker 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
-
-/* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "如果要在 JSTColorPicker 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。或者，你也可以点击 “下载” 以获取缺失的设备支持驱动。";
-
-/* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "如果要在 JSTColorPicker 中连接到 “%@”，请先解锁，在随后的弹框中选择信任此计算机。";
+"process:%@" = "process:%@";
 
 /* kJSTScreenshotError */
 "Unknown error occurred." = "发生了未知错误。";
@@ -78,3 +69,12 @@
 
 /* kJSTScreenshotError */
 "“%@” paired with this host automatically, click “Retry” to continue." = "“%@” 已自动完成配对，点击 “重试” 以继续。";
+
+/* kJSTScreenshotError */
+"To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "如果要在 “%@” 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。";
+
+/* kJSTScreenshotError */
+"To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "如果要在 “%@” 中连接到 “%@”，必须安装最新版本的 Xcode 并配对 iOS 设备或手动在 iOS 设备上挂载开发人员磁盘映像。或者，你也可以点击 “下载” 以获取缺失的设备支持驱动。";
+
+/* kJSTScreenshotError */
+"To use “%@” with “%@”, unlock it and choose to trust this computer when prompted." = "如果要在 “%@” 中连接到 “%@”，请先解锁，在随后的弹框中选择信任此计算机。";

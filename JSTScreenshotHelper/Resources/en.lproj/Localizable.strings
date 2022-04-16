@@ -5,7 +5,7 @@
 "Cancel" = "Cancel";
 
 /* kJSTScreenshotHelperError */
-"Cannot find main application of JSTColorPicker: %@" = "Cannot find main application of JSTColorPicker: %@";
+"Cannot find main application of “%@”: %@" = "Cannot find main application of “%@”: %@";
 
 /* kJSTScreenshotError */
 "Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”." = "Cannot locate the Developer Disk Image and its signature for “%@” with iOS version “%@”.";
@@ -38,10 +38,10 @@
 "Device “%@” is not reachable." = "Device “%@” is not reachable.";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to remove JSTColorPickerHelper from login items?" = "Do you want to remove JSTColorPicker screenshot helper from login items?";
+"Do you want to remove “%@” from login items?" = "Do you want to remove “%@” from login items?";
 
 /* JSTScreenshotHelperInstall */
-"Do you want to setup JSTColorPickerHelper as a login item?" = "Do you want to setup JSTColorPicker screenshot helper as a login item?";
+"Do you want to setup “%@” as a login item?" = "Do you want to setup “%@” as a login item?";
 
 /* kJSTScreenshotError */
 "Internal error occurred." = "Internal error occurred.";
@@ -53,16 +53,16 @@
 "OK" = "OK";
 
 /* tellConsoleToStartStreamingWithReply: */
-"process:JSTColorPicker" = "process:JSTColorPicker";
+"process:%@" = "process:%@";
 
 /* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.";
+"To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually." = "To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually.";
 
 /* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "To use “%@” with JSTColorPicker, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN.";
+"To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN." = "To use “%@” with “%@”, install the latest Xcode or mount the Developer Disk Image to your iOS device manually. Or, click “Download” to download missing driver from our CDN.";
 
 /* kJSTScreenshotError */
-"To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted." = "To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted.";
+"To use “%@” with “%@”, unlock it and choose to trust this computer when prompted." = "To use “%@” with “%@”, unlock it and choose to trust this computer when prompted.";
 
 /* kJSTScreenshotError */
 "Unknown error occurred." = "Unknown error occurred.";

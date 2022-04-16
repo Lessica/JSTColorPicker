@@ -50,7 +50,7 @@ final class PairHelper: NSObject {
                     format: NSLocalizedString("“%@” paired with this host automatically, click “Retry” to continue.", comment: "kJSTScreenshotError"), name
                 )
                 : String(
-                    format: NSLocalizedString("To use “%@” with JSTColorPicker, unlock it and choose to trust this computer when prompted.", comment: "kJSTScreenshotError"), name
+                    format: NSLocalizedString("To use “%@” with “%@”, unlock it and choose to trust this computer when prompted.", comment: "kJSTScreenshotError"), name, kJSTColorPickerDisplayName
                 )
             )
         ]))
