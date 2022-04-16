@@ -164,7 +164,9 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
     
     private var hasSelectedChildNode: Bool { actionSelectedRowIndexes.count > 0 }
     private var selectedParentNode: FileSystemNode? {
-        return browser.parentForItems(inColumn: browser.clickedColumn) as? FileSystemNode
+        let clickedColumn = browser.clickedColumn
+        guard clickedColumn >= 0 else { return nil }
+        return browser.parentForItems(inColumn: clickedColumn) as? FileSystemNode
     }
     private var selectedChildNodes: [FileSystemNode] {
         guard let parentNode = selectedParentNode,
@@ -418,6 +420,22 @@ class BrowserViewController: NSViewController, NSMenuDelegate, NSMenuItemValidat
             rootNode.invalidateChildren()
         }
         reloadClickedColumn()
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        guard let specialKey = event.specialKey else {
+            super.keyDown(with: event)
+            return
+        }
+        let flags = event.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .subtracting(.option)
+        if flags.isEmpty && (specialKey == .carriageReturn || specialKey == .enter)
+        {
+            openInTab(self)
+            return
+        }
+        super.keyDown(with: event)
     }
     
 }
