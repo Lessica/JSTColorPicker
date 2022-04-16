@@ -151,8 +151,10 @@ extension AppDelegate {
         let cancelButton = loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "downloadDeviceSupport(_:forDeviceDictionary:)"))
         cancelButton.keyEquivalent = "\u{1b}"
         loadingAlert.alertStyle = .informational
-        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
-        loadingIndicator.style = .spinning
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 228.0, height: 8.0))
+        loadingIndicator.isIndeterminate = true
+        loadingIndicator.style = .bar
+        loadingIndicator.sizeToFit()
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
         
@@ -166,14 +168,19 @@ extension AppDelegate {
         let downloadObservers: [AnyCancellable] = [
             downloadProxy.$downloadState.sink(receiveValue: { context in
                 if let context = context {
+                    let progressValue = Double(context.totalBytesWritten) / Double(context.totalBytesExpectedToWrite) * 100.0
                     loadingAlert.messageText = NSLocalizedString("Downloading Driver...", comment: "downloadDeviceSupport(_:forDeviceDictionary:)")
                     loadingAlert.informativeText = String(
                         format: "%@\n%@ of %@, %.2f%%",
                         context.currentURL.lastPathComponent,
                         formatter.string(fromByteCount: context.totalBytesWritten),
                         formatter.string(fromByteCount: context.totalBytesExpectedToWrite),
-                        Double(context.totalBytesWritten) / Double(context.totalBytesExpectedToWrite) * 100.0
+                        progressValue
                     )
+                    if let indicator = loadingAlert.accessoryView as? NSProgressIndicator {
+                        indicator.isIndeterminate = false
+                        indicator.doubleValue = progressValue
+                    }
                 }
             }),
             downloadProxy.$currentError.sink(receiveValue: { error in

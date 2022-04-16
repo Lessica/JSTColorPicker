@@ -331,6 +331,7 @@ class WindowController: NSWindowController {
         loadingAlert.messageText = NSLocalizedString("Calculating Difference…", comment: "beginPixelMatchComparison(to:)")
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
+        loadingIndicator.sizeToFit()
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
         loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "beginPixelMatchComparison(to:)"))

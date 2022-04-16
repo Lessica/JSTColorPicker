@@ -463,6 +463,7 @@ extension AppDelegate {
         loadingAlert.buttons.first?.isHidden = true
         let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
         loadingIndicator.style = .spinning
+        loadingIndicator.sizeToFit()
         loadingIndicator.startAnimation(nil)
         loadingAlert.accessoryView = loadingIndicator
         
