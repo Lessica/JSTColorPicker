@@ -6,4 +6,4 @@
   Copyright © 2021 JST. All rights reserved.
 */
 
-NSAppleEventsUsageDescription = "JSTColorPicker needs to control “System Events” to open “Console” and filter logs for you.";
+NSAppleEventsUsageDescription = "“JSTColorPicker” needs to control “System Events” to open “Console” and filter logs for you.";
