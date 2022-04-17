@@ -28,10 +28,10 @@
 	<string>Copyright © 2020-2022 Zheng Wu. All rights reserved.</string>
 	<key>XPCService</key>
 	<dict>
-		<key>ServiceType</key>
-		<string>Application</string>
 		<key>ProcessType</key>
 		<string>Interactive</string>
+		<key>ServiceType</key>
+		<string>Application</string>
 	</dict>
 </dict>
 </plist>

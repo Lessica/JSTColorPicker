@@ -19,14 +19,6 @@
 				<key>defaultValue</key>
 				<string>1.0</string>
 			</dict>
-			<dict>
-				<key>name</key>
-				<string>Color Hex</string>
-				<key>valueType</key>
-				<string>String</string>
-				<key>defaultValue</key>
-				<string>#000000</string>
-			</dict>
 		</array>
 	</dict>
 	<dict>
