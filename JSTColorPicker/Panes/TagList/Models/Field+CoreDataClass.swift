@@ -31,7 +31,7 @@ public final class Field: NSManagedObject, Codable {
     }
 
     internal func toDefaultValue(ofType type: Bool.Type) -> Bool? {
-        if let rawValue = defaultValue {
+        if let rawValue = defaultValue?.lowercased() {
             return !(rawValue.hasPrefix("f") || rawValue.hasPrefix("n") || rawValue.hasPrefix("0"))
         }
         return nil

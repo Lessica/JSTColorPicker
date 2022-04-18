@@ -89,10 +89,10 @@ end
 return {
     uuid = "C4B5891D-1D60-43CC-A93F-71E3C42D735F",    -- required, a unique UUID4 identifier
     name = "PASCAL VOC",                              -- required, name only for display
-    version = "1.0",                                  -- required, same template with earlier version will not be displayed
-    platformVersion = "2.2",                          -- optional, minimum required software version
+    version = "1.1",                                  -- required, same template with earlier version will not be displayed
+    platformVersion = "2.11",                         -- optional, minimum required software version
     author = "Lessica",                               -- optional, the author of this template script
-    description = "The XML format for PASCAL Visual Object Classes.",
+    description = "The XML format for _PASCAL Visual Object Classes_.",
     extension = "xml",                                -- optional, file extension used for exporting
     async = true,                                     -- if it takes a long time to generate content, set this to `true` to avoid user interface blocking
     saveInPlace = _saveInPlace,                       -- if the content generator is responsible for handling the export of content, set this to `true`

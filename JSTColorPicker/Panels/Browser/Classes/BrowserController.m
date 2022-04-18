@@ -355,7 +355,7 @@
         }
     } else {
         // Fallback on earlier versions
-        NSArray <NSString *> *handlerIdentifiers = (__bridge NSArray *)(LSCopyAllRoleHandlersForContentType((__bridge CFStringRef _Nonnull)(clickedNode.contentType), kLSRolesEditor));
+        NSArray <NSString *> *handlerIdentifiers = CFBridgingRelease(LSCopyAllRoleHandlersForContentType((__bridge CFStringRef _Nonnull)(clickedNode.contentType), kLSRolesEditor));
         if ([handlerIdentifiers containsObject:[[NSBundle mainBundle] bundleIdentifier]]) {
             handleBySelf = YES;
         }

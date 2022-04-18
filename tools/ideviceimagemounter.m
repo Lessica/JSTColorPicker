@@ -189,6 +189,10 @@ int main(int argc, char **argv)
 		} else {
 			if (asprintf(&image_sig_path, "%s.signature", image_path) < 0) {
 				printf("Out of memory?!\n");
+                if (image_path)
+                    free(image_path);
+                if (image_sig_path)
+                    free(image_sig_path);
 				return -1;
 			}
 		}
@@ -200,6 +204,10 @@ int main(int argc, char **argv)
 		} else {
 			printf("No device found.\n");
 		}
+        if (image_path)
+            free(image_path);
+        if (image_sig_path)
+            free(image_sig_path);
 		return -1;
 	}
 

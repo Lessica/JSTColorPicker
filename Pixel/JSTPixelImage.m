@@ -561,8 +561,7 @@ static inline void free_pixels_image(JST_IMAGE *pixels_image) {
 - (NSImage *)toNSImage {
     CGImageRef cgimg = create_cgimage_with_pixels_image(_pixelImage, _colorSpace);
     NSImage *img0 = [[NSImage alloc] initWithCGImage:cgimg scale:1.0 orientation:kCGImagePropertyOrientationUp];
-    // This object will be managed by Swift ARC, we should not release it...
-    //CGImageRelease(cgimg);
+    CGImageRelease(cgimg);
     return img0;
 }
 
