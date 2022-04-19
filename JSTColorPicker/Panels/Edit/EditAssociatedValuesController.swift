@@ -116,7 +116,8 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                         type: enumValueType,
                         value: contentValue,
                         options: tagOptions,
-                        helpText: tagHelpText
+                        helpText: tagHelpText,
+                        isEditable: false
                     )
                     return keyPath
                 }
@@ -125,7 +126,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 if let userInfo = contentItem.userInfo {
                     initial.merge(userInfo) { _, new in new }
                     keyPaths += userInfo
-                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value) })
+                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value, isEditable: true) })
                         .filter({ !keyPathNames.contains($0.name) })
                 }
 
@@ -140,7 +141,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
                 if let userInfo = contentItem.userInfo {
                     initial.merge(userInfo) { _, new in new }
                     keyPaths += userInfo
-                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value) })
+                        .map({ AssociatedKeyPath(name: $0.key, type: .String, value: $0.value, isEditable: true) })
                 }
                 shouldSkipContentArrayEvents = true
                 arrayController.contentUpdateType = .direct
@@ -205,7 +206,11 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         guard let cell = tableView.makeView(withIdentifier: tableColumn.identifier, owner: tableView.delegate) as? EditAssociatedValuesTableViewCell else {
             return nil
         }
-        cell.isEditable = isEditable
+        if tableColumn == columnKeyPathName {
+            cell.isEditable = isEditable && arrangedAssociatedKeyPaths[row].isEditable
+        } else {
+            cell.isEditable = isEditable
+        }
         cell.toolTip = arrangedAssociatedKeyPaths[row].helpText
         return cell
     }

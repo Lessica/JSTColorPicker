@@ -398,6 +398,7 @@
                                                         <constraint firstAttribute="width" constant="372" id="fDM-Wa-tTG"/>
                                                         <constraint firstAttribute="height" constant="203" id="oef-4K-SAK"/>
                                                     </constraints>
+                                                    <edgeInsets key="scrollerInsets" left="0.0" right="0.0" top="0.0" bottom="24"/>
                                                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="hKv-PE-dua">
                                                         <rect key="frame" x="1" y="186" width="364" height="16"/>
                                                         <autoresizingMask key="autoresizingMask"/>

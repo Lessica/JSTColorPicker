@@ -11,12 +11,20 @@ import Foundation
 @objc
 final class AssociatedKeyPath: NSObject, NSCopying {
     
-    internal init(name: String, type: AssociatedKeyPath.ValueType, value: Any? = nil, options: [String]? = nil, helpText: String? = nil) {
+    internal init(
+        name: String,
+        type: AssociatedKeyPath.ValueType,
+        value: Any? = nil,
+        options: [String]? = nil,
+        helpText: String? = nil,
+        isEditable: Bool = true
+    ) {
         self.name = name
         self.type = type
         self.value = value
         self.options = options
         self.helpText = helpText
+        self.isEditable = isEditable
         super.init()
         updateDynamicVariables()
         allowsKVONotification = true
@@ -31,6 +39,7 @@ final class AssociatedKeyPath: NSObject, NSCopying {
         value = type.defaultValue
         options = nil
         helpText = nil
+        isEditable = true
         super.init()
         updateDynamicVariables()
         allowsKVONotification = true
@@ -92,7 +101,8 @@ final class AssociatedKeyPath: NSObject, NSCopying {
     }
 
     @objc dynamic var helpText: String?
-
+    @objc dynamic var isEditable: Bool
+    
     @objc dynamic var hasOptions = false
     @objc dynamic var isCheckboxValue = false
     @objc dynamic var isTextInputValue = false
@@ -105,7 +115,8 @@ final class AssociatedKeyPath: NSObject, NSCopying {
             type: type,
             value: value,
             options: options,
-            helpText: helpText
+            helpText: helpText,
+            isEditable: isEditable
         )
     }
 
@@ -150,6 +161,7 @@ final class AssociatedKeyPath: NSObject, NSCopying {
         value = { self.value }()
         options = { self.options }()
         helpText = { self.helpText }()
+        isEditable = { self.isEditable }()
         allowsKVONotification = allow
     }
 

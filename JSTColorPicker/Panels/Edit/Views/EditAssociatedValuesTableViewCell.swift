@@ -21,11 +21,15 @@ class EditAssociatedValuesTableViewCell: NSTableCellView {
     var isEditable: Bool = true {
         didSet {
             titleTextField?.isEditable = isEditable
+            titleTextField?.isEnabled = isEditable
             valuePopUpButton?.isEnabled = isEditable
             valueCheckboxButton?.isEnabled = isEditable
             valueStringTextField?.isEditable = isEditable
+            valueStringTextField?.isEnabled = isEditable
             valueIntegerTextField?.isEditable = isEditable
+            valueIntegerTextField?.isEnabled = isEditable
             valueDecimalTextField?.isEditable = isEditable
+            valueDecimalTextField?.isEnabled = isEditable
         }
     }
     
