@@ -72,6 +72,12 @@ final class EditAreaController: EditViewController {
         }
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        
+        self.endEditing()
+    }
+    
     private var lastDisplayedArea: PixelArea?
     
     private var currentRectangle: PixelRect {
@@ -181,6 +187,7 @@ final class EditAreaController: EditViewController {
     
     @IBAction private func cancelAction(_ sender: NSButton) {
         guard let window = view.window, let parent = window.sheetParent else { return }
+        self.endEditing()
         parent.endSheet(window, returnCode: .cancel)
     }
     
@@ -188,6 +195,7 @@ final class EditAreaController: EditViewController {
         guard let delegate = contentDelegate else { return }
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
+            self.endEditing()
             let origItem: ContentItem? = contentItem
             if let replArea = try testContentItem(fromOpposite: false, with: origItem) as? PixelArea
             {

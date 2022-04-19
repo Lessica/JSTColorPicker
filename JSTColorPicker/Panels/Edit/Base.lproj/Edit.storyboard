@@ -88,7 +88,6 @@
                                                                                         </textFieldCell>
                                                                                         <connections>
                                                                                             <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="6CR-N6-Reg"/>
-                                                                                            <binding destination="zHu-If-SNN" name="toolTip" keyPath="objectValue.helpText" id="QhX-zF-eiv"/>
                                                                                             <binding destination="zHu-If-SNN" name="value" keyPath="objectValue.name" id="CPP-fI-a6N">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSConditionallySetsEditable" value="YES"/>
@@ -185,7 +184,6 @@
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="iId-lv-Rpx" name="toolTip" keyPath="objectValue.helpText" id="TXR-hp-pR5"/>
                                                                                             <binding destination="iId-lv-Rpx" name="selectedIndex" keyPath="objectValue.type" id="uFk-S1-1cz"/>
                                                                                         </connections>
                                                                                     </popUpButton>
@@ -234,7 +232,6 @@
                                                                                         </textFieldCell>
                                                                                         <connections>
                                                                                             <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="cOV-kq-nzb"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="go1-01-U9y"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputValue" previousBinding="cOV-kq-nzb" id="mPT-dn-z4w">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -257,7 +254,6 @@
                                                                                         </buttonCell>
                                                                                         <connections>
                                                                                             <binding destination="Ke1-AU-FIo" name="enabled" keyPath="isEditable" id="GAa-dZ-6mj"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="GbF-Ze-JwS"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isCheckboxValue" previousBinding="GAa-dZ-6mj" id="eaz-UV-AaT">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -280,7 +276,6 @@
                                                                                         </textFieldCell>
                                                                                         <connections>
                                                                                             <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="VsO-Jx-IyJ"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="Fju-OE-MmK"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputIntegerValue" previousBinding="VsO-Jx-IyJ" id="RSw-b9-ovv">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -305,7 +300,6 @@
                                                                                         </textFieldCell>
                                                                                         <connections>
                                                                                             <binding destination="Ke1-AU-FIo" name="editable" keyPath="isEditable" id="PEP-oY-05T"/>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="sWY-A9-Opd"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="hidden" keyPath="objectValue.isTextInputDecimalValue" previousBinding="PEP-oY-05T" id="gxV-Sx-t0a">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -343,7 +337,6 @@
                                                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="Ubs-uG-ko1" name="toolTip" keyPath="objectValue.helpText" id="LDV-uR-654"/>
                                                                                             <binding destination="Ubs-uG-ko1" name="contentValues" keyPath="objectValue.options" id="XYf-mK-pgd">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>

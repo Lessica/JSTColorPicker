@@ -491,6 +491,8 @@
 		CCD0DCCD25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
 		CCDD37E427EDE88200AA4FC3 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
 		CCDD37E527EDE88300AA4FC3 /* Down+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0F88E263001D5006C4492 /* Down+Ext.swift */; };
+		CCDF0D20280E7C1F00D3A99F /* NSWindow+EndEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */; };
+		CCDF0D21280E7C1F00D3A99F /* NSWindow+EndEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */; };
 		CCE01C7C264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7D264CD8E1005960A7 /* ShortcutGuideDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */; };
 		CCE01C7E264CD8E1005960A7 /* ShortcutGuideWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */; };
@@ -1693,6 +1695,7 @@
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
 		CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
 		CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnghttp2.a; sourceTree = "<group>"; };
+		CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+EndEditing.swift"; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
 		CCE01C70264CD8E0005960A7 /* ShortcutGuideWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideWindowController.swift; sourceTree = "<group>"; };
@@ -2870,6 +2873,7 @@
 				CC13C7C627F026EC00D12892 /* Swift+Collection.swift */,
 				CC13C7CC27F0282900D12892 /* Swift+URL.swift */,
 				CC13C7C927F0275300D12892 /* Selector+Codable.swift */,
+				CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5090,6 +5094,7 @@
 				D61047BD24224A170002E990 /* DropSplitView.swift in Sources */,
 				CCFD99B1276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */,
 				CCE01C80264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
+				CCDF0D20280E7C1F00D3A99F /* NSWindow+EndEditing.swift in Sources */,
 				D61047BE24224A170002E990 /* FolderController.swift in Sources */,
 				D61047BF24224A170002E990 /* RulerMarker.swift in Sources */,
 				D67A8F14247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
@@ -5433,6 +5438,7 @@
 				D699E0CC240908F90011A4CB /* FolderController.swift in Sources */,
 				D60A691223F2CDBA00ED9748 /* RulerMarker.swift in Sources */,
 				D66460E923D0333A0032727A /* SceneTool.swift in Sources */,
+				CCDF0D21280E7C1F00D3A99F /* NSWindow+EndEditing.swift in Sources */,
 				185D7EE9248A8019001C283B /* EditCoordinateController.swift in Sources */,
 				D636A3A624B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				CCFD99B2276A38F80012E5AF /* PixelSegment+Lua.swift in Sources */,

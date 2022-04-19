@@ -439,6 +439,12 @@
                                 <action selector="changeColorItemTapped:" target="ifY-36-Ao8" id="cCA-NF-BMN"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Rename" id="bvP-9T-vrz">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="renameItemTapped:" target="ifY-36-Ao8" id="YyD-p7-K1G"/>
+                            </connections>
+                        </menuItem>
                         <menuItem isSeparatorItem="YES" id="h26-SO-nDj"/>
                         <menuItem title="Copy Name" id="LD7-2N-wJD">
                             <modifierMask key="keyEquivalentModifierMask"/>

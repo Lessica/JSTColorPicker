@@ -69,6 +69,12 @@ final class EditCoordinateController: EditViewController {
         }
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        
+        self.endEditing()
+    }
+    
     private var lastDisplayedColor: PixelColor?
     
     private var currentCoordinate: PixelCoordinate {
@@ -153,6 +159,7 @@ final class EditCoordinateController: EditViewController {
     
     @IBAction private func cancelAction(_ sender: NSButton) {
         guard let window = view.window, let parent = window.sheetParent else { return }
+        self.endEditing()
         parent.endSheet(window, returnCode: .cancel)
     }
     
@@ -160,6 +167,7 @@ final class EditCoordinateController: EditViewController {
         guard let delegate = contentDelegate else { return }
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
+            self.endEditing()
             let origItem: ContentItem? = contentItem
             if let replItem = try testContentItem(with: origItem) as? PixelColor
             {

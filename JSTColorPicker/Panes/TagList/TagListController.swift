@@ -397,6 +397,11 @@ final class TagListController: StackedPaneController {
         isViewVisible = true
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        self.endEditing()
+    }
+    
     override func viewDidDisappear() {
         super.viewDidDisappear()
         isViewVisible = false
@@ -687,6 +692,16 @@ final class TagListController: StackedPaneController {
         )
     }
     
+    @IBAction private func renameItemTapped(_ sender: NSMenuItem) {
+        guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
+        
+        let tableColumnNameIndex = tableView.column(withIdentifier: tableColumnName.identifier)
+        guard tableColumnNameIndex >= 0 else { return }
+        
+        tableView.selectRowIndexes(IndexSet(integer: targetIndex), byExtendingSelection: false)
+        tableView.editColumn(tableColumnNameIndex, row: targetIndex, with: nil, select: true)
+    }
+    
     @IBAction private func copyNameItemTapped(_ sender: NSMenuItem) {
         guard let targetIndex = (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first else { return }
         
@@ -835,6 +850,10 @@ extension TagListController: TagListDragDelegate {
     func shouldPerformDragging(_ sender: NSView, with event: NSEvent) -> Bool {
         guard event.type == .leftMouseDown || event.type == .rightMouseDown
         else {
+            return false
+        }
+        if firstResponder is NSTextView || firstResponder is NSTextField
+        {
             return false
         }
         var conditionFlag: Bool
@@ -1055,8 +1074,14 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
-        if menuItem.action == #selector(changeColorItemTapped(_:)) || menuItem.action == #selector(copyNameItemTapped(_:)) || menuItem.action == #selector(copyColorItemTapped(_:)) {
-            if menuItem.action == #selector(changeColorItemTapped(_:)) {
+        if menuItem.action == #selector(changeColorItemTapped(_:))
+            || menuItem.action == #selector(renameItemTapped(_:))
+            || menuItem.action == #selector(copyNameItemTapped(_:))
+            || menuItem.action == #selector(copyColorItemTapped(_:))
+        {
+            if menuItem.action == #selector(renameItemTapped(_:))
+                || menuItem.action == #selector(changeColorItemTapped(_:))
+            {
                 guard !isSelectMode && isEditable else { return false }
             }
             guard tableView.clickedRow >= 0 else { return false }

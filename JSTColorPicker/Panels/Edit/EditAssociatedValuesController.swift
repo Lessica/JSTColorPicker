@@ -73,6 +73,12 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         updateArrayControllerEditableState()
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        
+        self.endEditing()
+    }
+    
     private func updateArrayControllerEditableState() {
         arrayController.isEditable = isEditable
         box.title = isEditable ? NSLocalizedString("Edit Associated Values", comment: "updateArrayControllerEditableState()") : NSLocalizedString("View Associated Values", comment: "updateArrayControllerEditableState()")
@@ -200,6 +206,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
             return nil
         }
         cell.isEditable = isEditable
+        cell.toolTip = arrangedAssociatedKeyPaths[row].helpText
         return cell
     }
     
@@ -226,6 +233,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
 
     @IBAction private func cancelAction(_ sender: NSButton) {
         guard let window = view.window, let parent = window.sheetParent else { return }
+        self.endEditing()
         parent.endSheet(window, returnCode: .cancel)
     }
 
@@ -233,6 +241,7 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         guard let delegate = contentDelegate else { return }
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
+            self.endEditing()
             if let updatedItem = contentItem?.copy() as? ContentItem {
                 updatedItem.userInfo = userInfo
                 if let _ = try delegate.updateContentItem(updatedItem) {

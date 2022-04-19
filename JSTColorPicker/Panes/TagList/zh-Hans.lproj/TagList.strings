@@ -7,6 +7,9 @@
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "7mA-Qd-o8i"; */
 "7mA-Qd-o8i.headerCell.title" = "名称";
 
+/* Class = "NSMenuItem"; title = "Rename"; ObjectID = "bvP-9T-vrz"; */
+"bvP-9T-vrz.title" = "重命名";
+
 /* Class = "NSTextFieldCell"; title = "-"; ObjectID = "FUe-D3-zFx"; */
 "FUe-D3-zFx.title" = "-";
 

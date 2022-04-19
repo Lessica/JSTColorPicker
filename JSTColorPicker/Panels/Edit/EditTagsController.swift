@@ -35,6 +35,12 @@ final class EditTagsController: EditViewController {
         touchBarOkBtn.isEnabled = false
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        
+        self.endEditing()
+    }
+    
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         guard segue.identifier == "TagListContainerEmbed",
             let controller = segue.destinationController as? TagListController else
@@ -45,6 +51,7 @@ final class EditTagsController: EditViewController {
     
     @IBAction private func cancelAction(_ sender: NSButton) {
         guard let window = view.window, let parent = window.sheetParent else { return }
+        self.endEditing()
         parent.endSheet(window, returnCode: .cancel)
     }
     
@@ -52,6 +59,8 @@ final class EditTagsController: EditViewController {
         guard let delegate = contentDelegate else { return }
         guard let window = view.window, let parent = window.sheetParent else { return }
         do {
+            
+            self.endEditing()
             
             let onTagNames =
                 cachedTagNames
