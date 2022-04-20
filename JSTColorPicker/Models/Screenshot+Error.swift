@@ -14,7 +14,6 @@ extension Screenshot {
         return super.willPresentError(error)
     }
     
-    #if APP_STORE
     @discardableResult
     private func presentPlatformSubscriptionRequiredError(_ error: Swift.Error) -> Bool {
         let alert = NSAlert()
@@ -29,10 +28,8 @@ extension Screenshot {
         }
         return retVal
     }
-    #endif
     
     private func presentAdditionalError(_ error: Swift.Error) -> Bool {
-        #if APP_STORE
         if let error = error as? Screenshot.Error {
             switch error {
             case .platformSubscriptionRequired:
@@ -48,7 +45,6 @@ extension Screenshot {
                 return true
             }
         }
-        #endif
         return false
     }
     

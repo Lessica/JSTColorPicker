@@ -18,5 +18,6 @@
 #import "MRManagedObjectContext.h"
 #import "MRSimpleCoreDataStack.h"
 #import <LNPropertyListEditor/LNPropertyListEditor.h>
+#import <Paddle/Paddle.h>
 
 #endif /* JSTColorPicker_Bridging_Header_h */

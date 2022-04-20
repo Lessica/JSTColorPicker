@@ -154,6 +154,15 @@
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D20263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
 		CC059D8B2633091300E6B89C /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
+		CC06C930280FB4F9001C0BC0 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3400C263265A50082F73D /* PurchaseManager.swift */; };
+		CC06C931280FB509001C0BC0 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */; };
+		CC06C932280FB50E001C0BC0 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
+		CC06C933280FB59E001C0BC0 /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470A77262DE5020013A3B7 /* SubscriptionController.swift */; };
+		CC06C934280FB5A5001C0BC0 /* PurchaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE33FF82632642C0082F73D /* PurchaseWindow.swift */; };
+		CC06C935280FB5A8001C0BC0 /* PurchaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE34020263280620082F73D /* PurchaseButton.swift */; };
+		CC06C936280FB5AC001C0BC0 /* PurchaseMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D8A2633091300E6B89C /* PurchaseMainView.swift */; };
+		CC06C937280FB5B8001C0BC0 /* PurchaseWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE340022632648B0082F73D /* PurchaseWindowController.swift */; };
+		CC06C938280FB680001C0BC0 /* Subscription.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC470A92262DE90B0013A3B7 /* Subscription.xib */; };
 		CC07DF6C2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */; };
 		CC07DF6D2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6B2809B136001AF35C /* URLSessionDownloadProxy.swift */; };
 		CC07DF6F2809B158001AF35C /* DeviceSupportResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */; };
@@ -449,6 +458,11 @@
 		CCB29F3A27F4689E00123A33 /* SPUStandardUpdaterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SPUStandardUpdaterController.m */; };
 		CCB446A1267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
 		CCB446A2267093C00049EC2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CCB446A0267093C00049EC2E /* Credits.rtf */; };
+		CCB635CA280FB95300CF9D74 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB635C8280FB94500CF9D74 /* Paddle.framework */; };
+		CCB635CB280FB95300CF9D74 /* Paddle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCB635C8280FB94500CF9D74 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCB635CD280FF46900CF9D74 /* PaddleLicenseActivationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB635CC280FF46900CF9D74 /* PaddleLicenseActivationViewController.swift */; };
+		CCB635D0280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB635CF280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift */; };
+		CCB635D2280FF91300CF9D74 /* PaddleLicenseActivationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB635D1280FF91300CF9D74 /* PaddleLicenseActivationWindow.swift */; };
 		CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
 		CCB741372635386D007D2CF5 /* Links+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB741352635386D007D2CF5 /* Links+Ext.swift */; };
 		CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7847C26257B9200FC4216 /* Color+HSV.swift */; };
@@ -1278,6 +1292,7 @@
 			files = (
 				CC1B4C1427EF0BA30087974F /* LNPropertyListEditor in Embed Frameworks */,
 				D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */,
+				CCB635CB280FB95300CF9D74 /* Paddle.framework in Embed Frameworks */,
 				D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1652,6 +1667,10 @@
 		CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedKeyPath.swift; sourceTree = "<group>"; };
 		CCAF510827EC59FF002B11C6 /* DraggedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggedTag.swift; sourceTree = "<group>"; };
 		CCB446A0267093C00049EC2E /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		CCB635C8280FB94500CF9D74 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
+		CCB635CC280FF46900CF9D74 /* PaddleLicenseActivationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleLicenseActivationViewController.swift; sourceTree = "<group>"; };
+		CCB635CF280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleLicenseActivationWindowController.swift; sourceTree = "<group>"; };
+		CCB635D1280FF91300CF9D74 /* PaddleLicenseActivationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleLicenseActivationWindow.swift; sourceTree = "<group>"; };
 		CCB741352635386D007D2CF5 /* Links+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Links+Ext.swift"; sourceTree = "<group>"; };
 		CCB7697C260A0B340029693B /* lpcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcode.c; sourceTree = "<group>"; };
 		CCB7697D260A0B340029693B /* lpcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpcap.c; sourceTree = "<group>"; };
@@ -2152,6 +2171,7 @@
 				D6D1CEF225A4DB9100B7FFF5 /* libopencv_core.4.5.dylib in Frameworks */,
 				CCC525A5262EB71F00D408B0 /* SyntaxKit in Frameworks */,
 				CC84219E26160CD200F1C007 /* Security.framework in Frameworks */,
+				CCB635CA280FB95300CF9D74 /* Paddle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2745,6 +2765,7 @@
 		CC470A9E262DEBC00013A3B7 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				CCB635CE280FF7BB00CF9D74 /* Paddle */,
 				CCE01CA0264CE0B0005960A7 /* Views */,
 				CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */,
 				CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */,
@@ -3002,6 +3023,16 @@
 			path = Swizzling;
 			sourceTree = "<group>";
 		};
+		CCB635CE280FF7BB00CF9D74 /* Paddle */ = {
+			isa = PBXGroup;
+			children = (
+				CCB635CC280FF46900CF9D74 /* PaddleLicenseActivationViewController.swift */,
+				CCB635CF280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift */,
+				CCB635D1280FF91300CF9D74 /* PaddleLicenseActivationWindow.swift */,
+			);
+			path = Paddle;
+			sourceTree = "<group>";
+		};
 		CCB7698D260A0B390029693B /* lpeg */ = {
 			isa = PBXGroup;
 			children = (
@@ -3246,6 +3277,7 @@
 				CCED7CC2262D653E00F2C965 /* Info.plist */,
 				D61047E924224E7A0002E990 /* JSTColorPickerSparkle.entitlements */,
 				D61047E724224CB10002E990 /* JSTColorPickerSparkle-Bridging-Header.h */,
+				CCB635C8280FB94500CF9D74 /* Paddle.framework */,
 			);
 			path = JSTColorPickerSparkle;
 			sourceTree = "<group>";
@@ -4515,6 +4547,7 @@
 				CCE01C9B264CDBB6005960A7 /* ShortcutGuide.storyboard in Resources */,
 				CC1B4C2B27EF25CB0087974F /* Metadata.storyboard in Resources */,
 				CCC525B7262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
+				CC06C931280FB509001C0BC0 /* Purchase.storyboard in Resources */,
 				CC236343264BC5CD005E909A /* KeyBindings.xib in Resources */,
 				D61047D224224A170002E990 /* Advanced.xib in Resources */,
 				D61047D324224A170002E990 /* Main.storyboard in Resources */,
@@ -4527,6 +4560,7 @@
 				D61047D424224A170002E990 /* Folder.xib in Resources */,
 				CCC8BC5E263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				CCFECFAB262D50D0001F6467 /* open_console.scpt in Resources */,
+				CC06C938280FB680001C0BC0 /* Subscription.xib in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
@@ -4874,6 +4908,7 @@
 				D69FD9312474155000ACBF74 /* NSImage+OpenCV.mm in Sources */,
 				CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */,
 				CCE01C98264CDA8C005960A7 /* ManagedTabWindow.swift in Sources */,
+				CCB635D2280FF91300CF9D74 /* PaddleLicenseActivationWindow.swift in Sources */,
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CC13C7C527F0269A00D12892 /* String+Constants.swift in Sources */,
@@ -4889,6 +4924,7 @@
 				D656CD4F245E6EA8009EC41A /* SceneStackedView.swift in Sources */,
 				CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCFD99B3276A38FA0012E5AF /* PixelSize+Lua.swift in Sources */,
+				CC06C936280FB5AC001C0BC0 /* PurchaseMainView.swift in Sources */,
 				CC07DF6C2809B136001AF35C /* URLSessionDownloadProxy.swift in Sources */,
 				CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				CC34771B266F4ED500391E73 /* AppDelegate+Preferences.swift in Sources */,
@@ -4911,6 +4947,7 @@
 				D610478224224A170002E990 /* AnnotatorSource.swift in Sources */,
 				CCF7F1602618DEA700ED16B7 /* RoundedField.swift in Sources */,
 				D61336BB24A9DDC8006263E5 /* EditTagsController.swift in Sources */,
+				CCB635CD280FF46900CF9D74 /* PaddleLicenseActivationViewController.swift in Sources */,
 				185D7EF1248A8518001C283B /* EditViewController.swift in Sources */,
 				D610478324224A170002E990 /* AnnotatorOverlay.swift in Sources */,
 				CC32E1CE2615CC3E00F5F6AA /* InfoController.swift in Sources */,
@@ -4925,6 +4962,7 @@
 				CC07DF6F2809B158001AF35C /* DeviceSupportResource.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
+				CC06C932280FB50E001C0BC0 /* PurchaseController.swift in Sources */,
 				CCF26AA527E860BE00BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */,
 				D610478A24224A170002E990 /* SceneState.swift in Sources */,
 				CC236317264A8199005E909A /* PaneContainer.swift in Sources */,
@@ -4945,6 +4983,7 @@
 				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
+				CC06C933280FB59E001C0BC0 /* SubscriptionController.swift in Sources */,
 				0FCB2D31275FD051001AE5F6 /* NSAlert+Ext.swift in Sources */,
 				D610479024224A170002E990 /* ContentActionResponder.swift in Sources */,
 				CC13C7CD27F0282900D12892 /* Swift+URL.swift in Sources */,
@@ -4952,6 +4991,7 @@
 				CC347727266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */,
 				CC2EFC212629CCBE00B0D6E6 /* TemplateOutlineView.swift in Sources */,
 				D610479124224A170002E990 /* SceneEffectView.swift in Sources */,
+				CC06C935280FB5A8001C0BC0 /* PurchaseButton.swift in Sources */,
 				D610479224224A170002E990 /* SceneImageView.swift in Sources */,
 				CC23633E264AEC51005E909A /* MenuKeyBindingManager.swift in Sources */,
 				D61336B424A99FED006263E5 /* RulerViewClient.swift in Sources */,
@@ -4966,6 +5006,7 @@
 				D658584224811A7400BB2B6A /* Tag+CoreDataClass.swift in Sources */,
 				CC2E3F562648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				D610479724224A170002E990 /* SceneStackedController.swift in Sources */,
+				CC06C937280FB5B8001C0BC0 /* PurchaseWindowController.swift in Sources */,
 				D610479924224A170002E990 /* ContentController.swift in Sources */,
 				D610479A24224A170002E990 /* PixelRect.swift in Sources */,
 				CCFD19C427EAD5C2005DF0A6 /* EditArrayController.swift in Sources */,
@@ -5018,6 +5059,7 @@
 				CC96F93D26727E0400CB55E9 /* BonjourDevice.swift in Sources */,
 				180C6A87249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61047AA24224A170002E990 /* PixelSize.swift in Sources */,
+				CC06C934280FB5A5001C0BC0 /* PurchaseWindow.swift in Sources */,
 				D61047AB24224A170002E990 /* PixelImage.swift in Sources */,
 				D61047AC24224A170002E990 /* PixelColor.swift in Sources */,
 				CCFD99AF276A38F60012E5AF /* PixelCoordinate+Lua.swift in Sources */,
@@ -5032,6 +5074,7 @@
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
+				CCB635D0280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift in Sources */,
 				D61047B024224A170002E990 /* PixelArea.swift in Sources */,
 				18B6EA95247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				D61047B124224A170002E990 /* TabService.swift in Sources */,
@@ -5086,6 +5129,7 @@
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CC85DACB27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
+				CC06C930280FB4F9001C0BC0 /* PurchaseManager.swift in Sources */,
 				CC85DAD527E579C9003263FD /* FieldOption+CoreDataProperties.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
 				CC1B01522636F896002EECF5 /* GenericError.swift in Sources */,
@@ -6549,6 +6593,10 @@
 				CURRENT_PROJECT_VERSION = 1246;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JSTColorPickerSparkle",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WITH_LUASWIFT=1",
@@ -6587,6 +6635,10 @@
 				CURRENT_PROJECT_VERSION = 1246;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JSTColorPickerSparkle",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WITH_LUASWIFT=1",
@@ -6998,7 +7050,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 2.12;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D APP_STORE -D WITH_LUASWIFT -D WITH_COCOA -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jst.JSTColorPicker;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

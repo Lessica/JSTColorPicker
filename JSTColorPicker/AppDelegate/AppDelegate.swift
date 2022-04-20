@@ -147,11 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #endif
     
     
-    #if !APP_STORE
     @IBOutlet var sparkUpdater: SPUStandardUpdaterController!
-    #else
-    @IBOutlet var sparkUpdater: SPUStandardUpdaterController!
-    #endif
     
     @IBOutlet weak var menu                                   : NSMenu!
     @IBOutlet weak var mainMenu                               : NSMenu!
@@ -181,7 +177,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var initialPreferencesControllerViewIdentifier: String?
     internal lazy var preferencesController: PreferencesController = {
-        #if APP_STORE
         let controller = PreferencesController(
             viewControllers: [
                 GeneralController(),
@@ -198,22 +193,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             controller.select(withIdentifier: initialPreferencesControllerViewIdentifier)
         }
         return controller
-        #else
-        let controller = PreferencesController(
-            viewControllers: [
-                GeneralController(),
-                KeyBindingsController(),
-                PrintController(),
-                FolderController(),
-                AdvancedController(),
-            ], title: NSLocalizedString("Preferences", comment: "PreferencesController")
-        )
-        if let initialPreferencesControllerViewIdentifier = initialPreferencesControllerViewIdentifier
-        {
-            controller.select(withIdentifier: initialPreferencesControllerViewIdentifier)
-        }
-        return controller
-        #endif
     }()
     
     @objc private func registerInitialValuesNotification(_ notification: NSNotification? = nil)
@@ -280,17 +259,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         #if !DEBUG && !APP_STORE
         PFMoveToApplicationsFolderIfNecessary()
         #endif
-        #if APP_STORE
+        
         _ = try? PurchaseManager.shared.loadLocalReceipt()
-        #endif
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if objc_getClass("SUAppcast") != nil {
-            viewSubscriptionMenuItem.isHidden = true
             checkForUpdatesMenuItem.isHidden = false
         } else {
-            viewSubscriptionMenuItem.isHidden = false
             checkForUpdatesMenuItem.isHidden = true
         }
         
@@ -365,29 +341,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Crashes.self
         ])
         
-        #if APP_STORE
-        if PurchaseManager.shared.getProductType() != .subscribed {
-            PurchaseWindowController.shared.showWindow(self)
-        }
-        // see notes below for the meaning of Atomic / Non-Atomic
-        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
-            for purchase in purchases {
-                switch purchase.transaction.transactionState {
-                case .purchased, .restored:
-                    if purchase.needsFinishTransaction {
-                        // Deliver content from server, then:
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
-                    // Unlock content if possible
-                    _ = try? PurchaseManager.shared.loadLocalReceipt()
-                case .failed, .purchasing, .deferred:
-                    break // do nothing
-                @unknown default:
-                    fatalError()
-                }
-            }
-        }
-        #endif
+        PurchaseManager.shared.setupTransactions()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -531,13 +485,11 @@ by \(template.author ?? "Unknown")
     }
     
     private func updateMainMenuItems(_ menu: NSMenu) {
-        #if APP_STORE
         if PurchaseManager.shared.getProductType() == .subscribed {
             viewSubscriptionMenuItem.title = String(format: NSLocalizedString("View Subscription (%@)", comment: "updateMainMenuItems()"), PurchaseManager.shared.getShortReadableExpiredAt())
         } else {
             viewSubscriptionMenuItem.title = NSLocalizedString("Subscribe JSTColorPicker…", comment: "updateMainMenuItems()")
         }
-        #endif
     }
     
     private func updateFileMenuItems(_ menu: NSMenu) {

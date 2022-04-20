@@ -14,9 +14,7 @@ extension AppDelegate {
     // MARK: - Subscribe Actions
     
     @IBAction internal func subscribeMenuItemTapped(_ sender: NSMenuItem) {
-        #if APP_STORE
         PurchaseWindowController.shared.showWindow(sender)
-        #endif
     }
     
 }

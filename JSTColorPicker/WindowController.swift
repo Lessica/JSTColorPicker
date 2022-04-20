@@ -305,14 +305,12 @@ class WindowController: NSWindowController {
             ShortcutGuideWindowController.registerShortcutGuideForWindow(window)
         }
         
-        #if APP_STORE
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(productTypeDidChange(_:)),
             name: PurchaseManager.productTypeDidChangeNotification,
             object: nil
         )
-        #endif
     }
     
     deinit {
@@ -1055,15 +1053,11 @@ extension WindowController: ItemPreviewDelegate {
         get { window?.subtitle ?? ""      }
         set {
             _windowSubtitle = newValue
-            #if APP_STORE
             if PurchaseManager.shared.getProductType() == .subscribed {
                 window?.subtitle = newValue
             } else {
                 window?.subtitle = NSLocalizedString("Demo Version - ", comment: "PurchaseManager") + newValue
             }
-            #else
-            window?.subtitle = newValue
-            #endif
         }
     }
     
@@ -1189,7 +1183,6 @@ extension WindowController {
 
 extension WindowController {
     
-    #if APP_STORE
     @objc private func productTypeDidChange(_ noti: Notification) {
         guard let manager = noti.object as? PurchaseManager else { return }
         if manager.getProductType() == .subscribed, let lastStoredSubtitle = _windowSubtitle {
@@ -1198,7 +1191,6 @@ extension WindowController {
             }
         }
     }
-    #endif
     
 }
 

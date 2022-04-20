@@ -43,16 +43,16 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Check for Updates…" hidden="YES" id="ntJ-ob-XWI">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="checkForUpdates:" target="7t2-Hn-xkm" id="iYa-Ow-6U3"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Subscribe JSTColorPicker…" id="SGf-6i-QGZ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="subscribeMenuItemTapped:" target="Voe-Tx-rLC" id="y3s-YJ-dA2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check for Updates…" hidden="YES" id="ntJ-ob-XWI">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdates:" target="7t2-Hn-xkm" id="iYa-Ow-6U3"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>

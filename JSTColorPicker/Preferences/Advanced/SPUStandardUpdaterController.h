@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if APP_STORE
 @interface SPUStandardUpdaterController : NSObject
-
+- (void)checkForUpdates:(id)sender;
 @end
 #else
 @interface SPUStandardUpdaterController (Settings)

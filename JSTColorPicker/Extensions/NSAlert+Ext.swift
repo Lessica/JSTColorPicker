@@ -49,7 +49,8 @@ extension NSAlert {
     convenience init(style: NSAlert.Style = .informational, text: Text, button: Button) {
         self.init(style: style, text: text)
         self.addButton(withTitle: button.title)
-        self.addButton(withTitle: NSLocalizedString("Cancel", comment: "NSAlert"))
+        let cancelButton = self.addButton(withTitle: NSLocalizedString("Cancel", comment: "NSAlert"))
+        cancelButton.keyEquivalent = "\u{1b}"
     }
 
 }

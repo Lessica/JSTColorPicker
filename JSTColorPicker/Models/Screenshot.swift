@@ -27,9 +27,7 @@ final class Screenshot: NSDocument {
         case cannotSerializeContent
         case cannotDeserializeContent
         case notImplemented
-        #if APP_STORE
         case platformSubscriptionRequired
-        #endif
         
         var errorCode: Int {
             switch self {
@@ -49,10 +47,8 @@ final class Screenshot: NSDocument {
                 return 307
             case .notImplemented:
                 return 308
-            #if APP_STORE
             case .platformSubscriptionRequired:
                 return 309
-            #endif
             }
         }
         
@@ -74,10 +70,8 @@ final class Screenshot: NSDocument {
                 return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
             case .notImplemented:
                 return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
-            #if APP_STORE
             case .platformSubscriptionRequired:
                 return NSLocalizedString("This operation requires valid subscription of JSTColorPicker.", comment: "Screenshot.Error")
-            #endif
             }
         }
     }
@@ -304,12 +298,10 @@ final class Screenshot: NSDocument {
 
     public lazy var export   : ExportManager = { return ExportManager(screenshot: self) }()
     public func testExportCondition() throws {
-        #if APP_STORE
         guard PurchaseManager.shared.getProductType() == .subscribed
         else {
             throw Error.platformSubscriptionRequired
         }
-        #endif
     }
     private(set) var isExtractingContentItems: Bool = false
 

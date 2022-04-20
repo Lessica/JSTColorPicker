@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="tFo-Qr-5Rv">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="tFo-Qr-5Rv">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -533,10 +534,208 @@ Sessions are time limited (30 minutes).</string>
             </objects>
             <point key="canvasLocation" x="-15" y="82.5"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="zVW-FA-iyE">
+            <objects>
+                <windowController storyboardIdentifier="PaddleLicenseActivationWindowController" id="00k-tg-Bbe" customClass="PaddleLicenseActivationWindowController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="License Activation" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7ET-3w-27b" customClass="PaddleLicenseActivationWindow" customModule="JSTColorPicker" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" fullSizeContentView="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" ignoresCycle="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="2214" y="324" width="410" height="202"/>
+                        <rect key="screenRect" x="1920" y="0.0" width="1920" height="1080"/>
+                        <view key="contentView" id="8tJ-4X-shp">
+                            <rect key="frame" x="0.0" y="0.0" width="410" height="202"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="00k-tg-Bbe" id="gwK-JQ-XLb"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="utv-gE-MVW" kind="relationship" relationship="window.shadowedContentViewController" id="NUv-D3-YhJ"/>
+                    </connections>
+                </windowController>
+                <customObject id="OKm-6X-bfT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-621" y="621"/>
+        </scene>
+        <!--Paddle License Activation View Controller-->
+        <scene sceneID="1J2-Bv-LZL">
+            <objects>
+                <viewController id="utv-gE-MVW" customClass="PaddleLicenseActivationViewController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="RNa-Ws-3fo">
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="202"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMb-eC-DwE">
+                                <rect key="frame" x="0.0" y="20" width="410" height="162"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVo-Qm-pj8">
+                                        <rect key="frame" x="20" y="32" width="370" height="130"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7BJ-Hf-qCm">
+                                                <rect key="frame" x="-2" y="114" width="90" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Email Address" id="reu-w4-Nbp">
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HUu-I4-vKT">
+                                                <rect key="frame" x="0.0" y="85" width="370" height="21"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="mj1-XE-SWN">
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <outlet property="delegate" destination="utv-gE-MVW" id="m3t-SO-KCG"/>
+                                                </connections>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NRK-wq-omF">
+                                                <rect key="frame" x="-2" y="61" width="87" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="License Code" id="EFl-7u-aEm">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GLE-Po-zzK">
+                                                <rect key="frame" x="0.0" y="32" width="370" height="21"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="vyP-hC-BBS">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <outlet property="delegate" destination="utv-gE-MVW" id="FA2-4p-4K8"/>
+                                                </connections>
+                                            </textField>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="YMC-9k-1sf">
+                                                <rect key="frame" x="0.0" y="0.0" width="370" height="24"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Ep-Vv-tIJ">
+                                                        <rect key="frame" x="199" y="4" width="171" height="16"/>
+                                                        <buttonCell key="cell" type="bevel" title="Forgotten your license key?" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingHead" imageScaling="proportionallyDown" inset="2" id="dgp-UH-96b">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <color key="contentTintColor" name="AccentColor"/>
+                                                        <connections>
+                                                            <action selector="forgotButtonTapped:" target="utv-gE-MVW" id="nhS-kw-50h"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="6Ep-Vv-tIJ" firstAttribute="centerY" secondItem="YMC-9k-1sf" secondAttribute="centerY" id="A1q-K2-0zz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6Ep-Vv-tIJ" secondAttribute="trailing" id="Jh8-fF-IKi"/>
+                                                    <constraint firstItem="6Ep-Vv-tIJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YMC-9k-1sf" secondAttribute="leading" id="fBw-J8-oK3"/>
+                                                    <constraint firstAttribute="height" constant="24" id="uRt-lq-Mmp"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="YMC-9k-1sf" firstAttribute="width" secondItem="sVo-Qm-pj8" secondAttribute="width" id="AeC-AX-C7g"/>
+                                            <constraint firstAttribute="width" constant="370" id="NKK-7x-Onl"/>
+                                            <constraint firstItem="GLE-Po-zzK" firstAttribute="width" secondItem="sVo-Qm-pj8" secondAttribute="width" id="mWY-Cr-blp"/>
+                                            <constraint firstItem="HUu-I4-vKT" firstAttribute="width" secondItem="sVo-Qm-pj8" secondAttribute="width" id="zKL-ik-qVm"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="geZ-67-7ho">
+                                        <rect key="frame" x="20" y="0.0" width="370" height="24"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cme-K1-HL1">
+                                                <rect key="frame" x="-7" y="-5" width="76" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MlP-sd-mNN">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" target="utv-gE-MVW" id="RWV-Ot-NeP"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="voe-hA-hJh">
+                                                <rect key="frame" x="243" y="-5" width="134" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Activate License" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wLy-85-J4I">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="okButtonTapped:" target="utv-gE-MVW" id="JGG-iP-mOO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="voe-hA-hJh" secondAttribute="trailing" id="2f6-4h-Phf"/>
+                                            <constraint firstAttribute="height" constant="24" id="jzM-xm-GYi"/>
+                                            <constraint firstItem="voe-hA-hJh" firstAttribute="centerY" secondItem="geZ-67-7ho" secondAttribute="centerY" id="kRT-t3-GwM"/>
+                                            <constraint firstItem="voe-hA-hJh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Cme-K1-HL1" secondAttribute="trailing" constant="8" id="krX-RB-Thm"/>
+                                            <constraint firstItem="Cme-K1-HL1" firstAttribute="centerY" secondItem="geZ-67-7ho" secondAttribute="centerY" id="sOT-2t-Nbn"/>
+                                            <constraint firstItem="Cme-K1-HL1" firstAttribute="leading" secondItem="geZ-67-7ho" secondAttribute="leading" id="wyn-o6-9ph"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="geZ-67-7ho" firstAttribute="width" secondItem="sVo-Qm-pj8" secondAttribute="width" id="Dal-8w-tUg"/>
+                                    <constraint firstAttribute="width" constant="410" id="zmf-6c-beL"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="lMb-eC-DwE" firstAttribute="leading" secondItem="RNa-Ws-3fo" secondAttribute="leading" id="DPD-Ko-tBc"/>
+                            <constraint firstAttribute="bottom" secondItem="lMb-eC-DwE" secondAttribute="bottom" constant="20" symbolic="YES" id="NhS-PG-ghb"/>
+                            <constraint firstAttribute="trailing" secondItem="lMb-eC-DwE" secondAttribute="trailing" id="Q1o-qO-2s8"/>
+                            <constraint firstItem="lMb-eC-DwE" firstAttribute="top" secondItem="RNa-Ws-3fo" secondAttribute="top" constant="20" symbolic="YES" id="hLH-ij-BBc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="Cme-K1-HL1" id="epH-pb-2eA"/>
+                        <outlet property="emailAddressInput" destination="HUu-I4-vKT" id="u8A-sh-iPu"/>
+                        <outlet property="forgotButton" destination="6Ep-Vv-tIJ" id="FG4-Nx-ZSp"/>
+                        <outlet property="licenseCodeInput" destination="GLE-Po-zzK" id="tXU-CQ-TJ6"/>
+                        <outlet property="okButton" destination="voe-hA-hJh" id="J35-4v-qhE"/>
+                    </connections>
+                </viewController>
+                <customObject id="K4F-kW-s3a" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-15" y="621"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AppIcon" width="512" height="512"/>
         <image name="ThankYou" width="1736" height="956"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="PurchaseBackground">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
