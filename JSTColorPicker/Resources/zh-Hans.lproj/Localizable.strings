@@ -1,3 +1,6 @@
+/* reloadProductsUI() */
+"%@ %@/%@" = "%@ %@/%@";
+
 /* exportAll(_:)
    exportAs(_:) */
 "%@ Exported %ld Items" = "%@ 导出的 %ld 个项";
@@ -159,6 +162,9 @@
 /* newFolder(_:) */
 "Create New Folder" = "新建文件夹";
 
+/* _refreshPaddleProductUI() */
+"day" = "天";
+
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
 
@@ -252,6 +258,9 @@
 /* updateDisplay(_:with:isRegistered:) */
 "Edit Coordinate" = "修改坐标";
 
+/* restoreSubscription() */
+"Enter your email address to receive the lost license code." = "键入你的电子邮箱地址以接收你丢失的激活代码。";
+
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Error Occurred" = "发生错误";
 
@@ -302,6 +311,9 @@
 
 /* newFolder(_:) */
 "Folder Name" = "文件夹名称";
+
+/* reloadProductsUI() */
+"Free" = "免费";
 
 /* toolbarItemLabel */
 "General" = "通用";
@@ -469,6 +481,9 @@
 /* Shortcut Guide */
 "Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "修改坐标及颜色标注到新的位置，修改区域标注的尺寸。";
 
+/* _refreshPaddleProductUI() */
+"month" = "月";
+
 /* Shortcut Guide */
 "Move" = "移动";
 
@@ -598,6 +613,12 @@
 
 /* actionRequiresRestart(_:) */
 "Quit Now" = "立即退出";
+
+/* restoreSubscription() */
+"Recover your JSTColorPicker license" = "恢复你的 JSTColorPicker 授权";
+
+/* restoreSubscription() */
+"Recovery instructions have been sent to your email address if it was registered in our database." = "如果你填写的电子邮箱地址准确无误且记录在案，授权恢复的详细步骤将发送到你的电子邮箱地址。";
 
 /* presentHelperConnectionFailureError(_:) */
 "Redirect to download page" = "重定向到下载页面";
@@ -747,10 +768,22 @@
 "Thank you for downloading JSTColorPicker!" = "感谢你下载 JSTColorPicker！";
 
 /* reloadUI() */
-"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_" = "感谢你从 App Store 购买了 JSTColorPicker。你真棒！\n\n**订阅到期时间**：_%@_";
+"Thank you for purchasing JSTColorPicker from %@. You are awesome!\n\n**Subscription Expiry Date**: _%@_" = "感谢你从 %@ 购买了 JSTColorPicker。你真棒！\n\n**订阅到期时间**：_%@_";
 
 /* reloadUI() */
 "Thank you!" = "Thank you!";
+
+/* PurchaseController.Error */
+"The checkout failed to load or the order processing took too long to complete." = "结账页面未能加载，或订单处理时间过长，无法完成。";
+
+/* PurchaseController.Error */
+"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog." = "结账已经完成，付款也已接受，但我们无法检索到订单的状态。它将很快得到处理，但还不足以让我们向买方显示许可证激活对话框。";
+
+/* PurchaseController.Error */
+"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed." = "结账已完成，但该交易被标记为人工处理。Paddle.com 团队将手动处理该交易。如果订单被批准，买方将能够在批准的订单被处理后激活产品。";
+
+/* PurchaseController.Error */
+"The license did not pass verification." = "授权无效，未通过授权校验。";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突。";
@@ -760,6 +793,9 @@
 
 /* SwiftKeyBindings */
 "The Shift key can be used only with another modifier key." = "Shift 键只能与另一个修饰键一起使用。";
+
+/* PurchaseController.Error */
+"There is no license to verify." = "找不到可以验证的授权。";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现。";
@@ -845,6 +881,9 @@
 /* PurchaseManager */
 "Valid Subscription: %@" = "有效期内的订阅：%@";
 
+/* PurchaseController */
+"Validate your subscription from Paddle." = "从 Paddle.com 验证你的订阅信息。";
+
 /* updateArrayControllerEditableState() */
 "View Associated Values" = "查看关联值";
 
@@ -857,14 +896,26 @@
 /* screenshotItemTapped(_:) */
 "Wait for device" = "等待设备响应";
 
+/* PurchaseController.Error */
+"We were unable to get a definitive verification result, typically because of poor network." = "我们无法得到准确的验证结果，这通常是因为网络不畅。";
+
+/* _refreshPaddleProductUI() */
+"week" = "周";
+
 /* reloadUI() */
 "Welcome" = "欢迎";
 
 /* manageSubscriptionAction(_:) */
 "Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将重定向到你的 Apple ID 账户页面以管理你的订阅，继续？";
 
+/* _refreshPaddleProductUI() */
+"year" = "年";
+
 /* Browser */
 "Yes" = "是";
+
+/* restoreSubscription() */
+"Your Email Address" = "你的电子邮箱地址";
 
 /* PurchaseController.Error */
 "Your previous subscription has expired since %@. Please renew your subscription." = "你此前的订阅已于 %@ 过期，请续订。";

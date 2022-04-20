@@ -46,9 +46,11 @@ import Paddle
     static var shared                  = PurchaseManager()
     
 #if APP_STORE
+    static let channelName             = "App Store"
     static let sharedProductID         = "com.jst.JSTColorPicker.Subscription.Yearly"
     static let sharedSecret            = "53cbec8e68f445c596ce0c3e059a1f06"
 #else
+    static let channelName             = "Paddle.com"
     #if DEBUG
         
         // Your Paddle SDK Config from the Vendor Dashboard

@@ -128,7 +128,8 @@ final class PurchaseController: NSViewController {
             iconView.isHidden = true
             titleLabel.stringValue = NSLocalizedString("Thank you!", comment: "reloadUI()")
             subtitleLabel.attributedStringValue = String(
-                format: NSLocalizedString("Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_", comment: "reloadUI()"),
+                format: NSLocalizedString("Thank you for purchasing JSTColorPicker from %@. You are awesome!\n\n**Subscription Expiry Date**: _%@_", comment: "reloadUI()"),
+                PurchaseManager.channelName,
                 PurchaseManager.shared.getMediumReadableExpiredAt()
             ).markdownAttributed
             topView.isHidden = false

@@ -1,3 +1,6 @@
+/* reloadProductsUI() */
+"%@ %@/%@" = "%@ %@/%@";
+
 /* exportAll(_:)
    exportAs(_:) */
 "%@ Exported %ld Items" = "%@ Exported %ld Items";
@@ -159,6 +162,9 @@
 /* newFolder(_:) */
 "Create New Folder" = "Create New Folder";
 
+/* _refreshPaddleProductUI() */
+"day" = "day";
+
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
 
@@ -252,6 +258,9 @@
 /* updateDisplay(_:with:isRegistered:) */
 "Edit Coordinate" = "Edit Coordinate";
 
+/* restoreSubscription() */
+"Enter your email address to receive the lost license code." = "Enter your email address to receive the lost license code.";
+
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Error Occurred" = "Error Occurred";
 
@@ -302,6 +311,9 @@
 
 /* newFolder(_:) */
 "Folder Name" = "Folder Name";
+
+/* reloadProductsUI() */
+"Free" = "Free";
 
 /* toolbarItemLabel */
 "General" = "General";
@@ -469,6 +481,9 @@
 /* Shortcut Guide */
 "Modify Color & Coordinates to a new position, or modify Area to a new dimension." = "Modify Color & Coordinates to a new position, or modify Area to a new dimension.";
 
+/* _refreshPaddleProductUI() */
+"month" = "month";
+
 /* Shortcut Guide */
 "Move" = "Move";
 
@@ -598,6 +613,12 @@
 
 /* actionRequiresRestart(_:) */
 "Quit Now" = "Quit Now";
+
+/* restoreSubscription() */
+"Recover your JSTColorPicker license" = "Recover your JSTColorPicker license";
+
+/* restoreSubscription() */
+"Recovery instructions have been sent to your email address if it was registered in our database." = "Recovery instructions have been sent to your email address if it was registered in our database.";
 
 /* presentHelperConnectionFailureError(_:) */
 "Redirect to download page" = "Redirect to download page";
@@ -747,10 +768,22 @@
 "Thank you for downloading JSTColorPicker!" = "Thank you for downloading JSTColorPicker!";
 
 /* reloadUI() */
-"Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_" = "Thank you for purchasing JSTColorPicker from App Store. You are awesome!\n\n**Subscription Expiry Date**: _%@_";
+"Thank you for purchasing JSTColorPicker from %@. You are awesome!\n\n**Subscription Expiry Date**: _%@_" = "Thank you for purchasing JSTColorPicker from %@. You are awesome!\n\n**Subscription Expiry Date**: _%@_";
 
 /* reloadUI() */
 "Thank you!" = "Thank you!";
+
+/* PurchaseController.Error */
+"The checkout failed to load or the order processing took too long to complete." = "The checkout failed to load or the order processing took too long to complete.";
+
+/* PurchaseController.Error */
+"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog." = "The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog.";
+
+/* PurchaseController.Error */
+"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed." = "The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed.";
+
+/* PurchaseController.Error */
+"The license did not pass verification." = "The license did not pass verification.";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "The requested item %@ conflicts with another item %@ in the document.";
@@ -760,6 +793,9 @@
 
 /* SwiftKeyBindings */
 "The Shift key can be used only with another modifier key." = "The Shift key can be used only with another modifier key.";
+
+/* PurchaseController.Error */
+"There is no license to verify." = "There is no license to verify.";
 
 /* ScreenshotError */
 "This feature is not implemented." = "This feature is not implemented.";
@@ -845,6 +881,9 @@
 /* PurchaseManager */
 "Valid Subscription: %@" = "Valid Subscription: %@";
 
+/* PurchaseController */
+"Validate your subscription from Paddle." = "Validate your subscription from Paddle.";
+
 /* updateArrayControllerEditableState() */
 "View Associated Values" = "View Associated Values";
 
@@ -857,14 +896,26 @@
 /* screenshotItemTapped(_:) */
 "Wait for device" = "Wait for device";
 
+/* PurchaseController.Error */
+"We were unable to get a definitive verification result, typically because of poor network." = "We were unable to get a definitive verification result, typically because of poor network.";
+
+/* _refreshPaddleProductUI() */
+"week" = "week";
+
 /* reloadUI() */
 "Welcome" = "Welcome";
 
 /* manageSubscriptionAction(_:) */
 "Will redirect to your Apple ID account page to manage your subscription, continue?" = "Will redirect to your Apple ID account page to manage your subscription, continue?";
 
+/* _refreshPaddleProductUI() */
+"year" = "year";
+
 /* Browser */
 "Yes" = "Yes";
+
+/* restoreSubscription() */
+"Your Email Address" = "Your Email Address";
 
 /* PurchaseController.Error */
 "Your previous subscription has expired since %@. Please renew your subscription." = "Your previous subscription has expired since %@. Please renew your subscription.";
