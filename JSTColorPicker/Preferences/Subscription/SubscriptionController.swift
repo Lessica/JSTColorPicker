@@ -13,6 +13,8 @@ final class SubscriptionController: NSViewController {
     
     static let Identifier = "SubscriptionPreferences"
     @IBOutlet weak var detailLabel: NSTextField!
+    @IBOutlet weak var viewSubscriptionButton: NSButton!
+    @IBOutlet weak var manageSubscriptionButton: NSButton!
     
     init() {
         super.init(nibName: "Subscription", bundle: nil)
@@ -42,6 +44,8 @@ final class SubscriptionController: NSViewController {
         PurchaseWindowController.shared.showWindow(sender)
     }
     
+#if APP_STORE
+    
     @IBAction private func manageSubscriptionAction(_ sender: NSButton) {
         let alert = NSAlert()
         alert.alertStyle = .warning
@@ -56,6 +60,26 @@ final class SubscriptionController: NSViewController {
             }
         }
     }
+    
+#else  // !APP_STORE
+    
+    @IBAction private func manageSubscriptionAction(_ sender: NSButton) {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Deactivate Confirm", comment: "manageSubscriptionAction(_:)")
+        alert.informativeText = NSLocalizedString("This operation will revoke access to your license on this computer. If you still want to activate the product later, you have to enter a valid license code, continue?", comment: "manageSubscriptionAction(_:)")
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "manageSubscriptionAction(_:)"))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "manageSubscriptionAction(_:)"))
+        cancelButton.keyEquivalent = "\u{1b}"
+        alert.beginSheetModal(for: view.window!) { resp in
+            if resp == .alertFirstButtonReturn {
+                PurchaseWindowController.shared.showWindow(sender)
+                NotificationCenter.default.post(name: PurchaseManager.productForceDeactivateNotification, object: nil)
+            }
+        }
+    }
+    
+#endif
     
 }
 
@@ -96,6 +120,13 @@ extension SubscriptionController: MASPreferencesViewController {
                 ? currentManager.getMediumReadableExpiredAt()
                 : NSLocalizedString("None", comment: "PurchaseManager")
         )
+        
+#if APP_STORE
+        manageSubscriptionButton.title = NSLocalizedString("Manage Subscription…", comment: "reloadDetailUI(from:)")
+#else
+        manageSubscriptionButton.title = NSLocalizedString("Deactivate…", comment: "reloadDetailUI(from:)")
+        manageSubscriptionButton.isEnabled = (currentManager.getProductType() == .subscribed)
+#endif
     }
     
 }

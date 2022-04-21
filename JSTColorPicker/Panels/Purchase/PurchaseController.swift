@@ -16,11 +16,13 @@ import Paddle
 final class PurchaseController: NSViewController {
     
     enum Error: LocalizedError {
+        
         case invalidProductIdentifier(identifier: String)
         case nothingToRestore
         case checkoutFailed
         case checkoutFlagged
         case checkoutSlowOrderProcessing
+        case checkoutRequiresManualActivation
         case validateNoActivation
         case validateUnableToVerify
         case unverified
@@ -28,26 +30,56 @@ final class PurchaseController: NSViewController {
         
         var failureReason: String? {
             switch self {
-                case let .invalidProductIdentifier(identifier):
-                    return String(format: NSLocalizedString("Invalid product identifier: “%@”.", comment: "PurchaseController.Error"), identifier)
-                case .nothingToRestore:
-                    return NSLocalizedString("Nothing to restore.", comment: "PurchaseController.Error")
-                case .checkoutFailed:
-                    return NSLocalizedString("The checkout failed to load or the order processing took too long to complete.", comment: "PurchaseController.Error")
-                case .checkoutFlagged:
-                    return NSLocalizedString("The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed.", comment: "PurchaseController.Error")
-                case .checkoutSlowOrderProcessing:
-                    return NSLocalizedString("The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog.", comment: "PurchaseController.Error")
-                case .validateNoActivation:
-                    return NSLocalizedString("There is no license to verify.", comment: "PurchaseController.Error")
-                case .validateUnableToVerify:
-                    return NSLocalizedString("We were unable to get a definitive verification result, typically because of poor network.", comment: "PurchaseController.Error")
-                case .unverified:
-                    return NSLocalizedString("The license did not pass verification.", comment: "PurchaseController.Error")
-                case let .other(description):
-                    return description
+            case let .invalidProductIdentifier(identifier):
+                return String(format: NSLocalizedString("Invalid product identifier: “%@”.", comment: "PurchaseController.Error"), identifier)
+            case .nothingToRestore:
+                return NSLocalizedString("Nothing to restore.", comment: "PurchaseController.Error")
+            case .checkoutFailed:
+                return NSLocalizedString("The checkout failed to load or the order processing took too long to complete.", comment: "PurchaseController.Error")
+            case .checkoutFlagged:
+                return NSLocalizedString("The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed.", comment: "PurchaseController.Error")
+            case .checkoutSlowOrderProcessing, .checkoutRequiresManualActivation:
+                return NSLocalizedString("The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product.", comment: "PurchaseController.Error")
+            case .validateNoActivation:
+                return NSLocalizedString("There is no license to verify.", comment: "PurchaseController.Error")
+            case .validateUnableToVerify:
+                return NSLocalizedString("We were unable to get a definitive verification result, typically because of poor network.", comment: "PurchaseController.Error")
+            case .unverified:
+                return NSLocalizedString("The license did not pass verification.", comment: "PurchaseController.Error")
+            case let .other(description):
+                return description
             }
         }
+        
+#if !APP_STORE
+        init?(verificationState: PADVerificationState) {
+            if verificationState == .unverified {
+                self = .unverified
+            }
+            else if verificationState == .noActivation {
+                self = .validateNoActivation
+            }
+            else if verificationState == .unableToVerify {
+                self = .validateUnableToVerify
+            }
+            return nil
+        }
+#endif
+        
+#if !APP_STORE
+        init?(checkoutState: PADCheckoutState) {
+            if checkoutState == .failed {
+                self = .checkoutFailed
+            }
+            else if checkoutState == .flagged {
+                self = .checkoutFlagged
+            }
+            else if checkoutState == .slowOrderProcessing {
+                self = .checkoutSlowOrderProcessing
+            }
+            return nil
+        }
+#endif
     }
     
     @IBOutlet weak var titleLabel            : NSTextField!
@@ -91,10 +123,13 @@ final class PurchaseController: NSViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         #if APP_STORE
+        
         checkUpdatesButton.isHidden = true
         termsAndPrivacyButton.isHidden = false
         #else
+        
         checkUpdatesButton.isHidden = false
         termsAndPrivacyButton.isHidden = true
         restoreButton.subtitleLabel.stringValue = NSLocalizedString("Validate your subscription from Paddle.", comment: "PurchaseController")
@@ -113,6 +148,12 @@ final class PurchaseController: NSViewController {
             self,
             selector: #selector(productTypeDidChange(_:)),
             name: PurchaseManager.productTypeDidChangeNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(productForceDeactivate(_:)),
+            name: PurchaseManager.productForceDeactivateNotification,
             object: nil
         )
     }
@@ -152,11 +193,11 @@ final class PurchaseController: NSViewController {
         }
     }
     
-    #if APP_STORE
+#if APP_STORE
+    
     private func reloadProductsUI() {
         self.isMasked = true
-        SwiftyStoreKit.retrieveProductsInfo([PurchaseManager.sharedProductID]) { [weak self] result in
-            guard let self = self else { return }
+        SwiftyStoreKit.retrieveProductsInfo([PurchaseManager.sharedProductID]) { [unowned self] (result) in
             DispatchQueue.main.async {
                 do {
                     if let product = result.retrievedProducts.first {
@@ -195,7 +236,9 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #else
+    
+#else  // !APP_STORE
+    
     private func _refreshPaddleProductUI() {
         let product = PurchaseManager.shared.paddleProduct
         self.buyButton.isEnabled = true
@@ -216,9 +259,10 @@ final class PurchaseController: NSViewController {
                     case .day:
                         periodString = NSLocalizedString("day", comment: "_refreshPaddleProductUI()")
                     @unknown default:
-                        periodString = NSLocalizedString("year", comment: "_refreshPaddleProductUI()")
+                        fatalError()
                 }
-                self.buyButton.priceLabel?.stringValue = String(format: NSLocalizedString("%@ %@/%@", comment: "reloadProductsUI()"), priceCurrency, priceNumber, periodString)
+                
+                self.buyButton.priceLabel?.stringValue = String(format: NSLocalizedString("%@ %.2f/%@", comment: "reloadProductsUI()"), priceCurrency, priceNumber.doubleValue, periodString)
             }
             
             self.buyButton.priceLabel?.isHidden = false
@@ -226,11 +270,11 @@ final class PurchaseController: NSViewController {
             self.buyButton.priceLabel?.isHidden = true
         }
     }
+    
     private func reloadProductsUI() {
         self.isMasked = true
         let product = PurchaseManager.shared.paddleProduct
-        product.refresh { [weak self] (delta, error) in
-            guard let self = self else { return }
+        product.refresh { [unowned self] (delta, error) in
             if let error = error {
                 self.buyButton.isEnabled = false
                 self.buyButton.priceLabel?.isHidden = true
@@ -249,28 +293,29 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #endif
+    
+#endif  // APP_STORE
     
     private func tryDemoVersion() {
         guard let window = view.window else { return }
         window.cancelOperation(self)
     }
     
-    #if APP_STORE
+#if APP_STORE
+    
     private func makeNewSubscription() {
         guard let window = self.view.window else { return }
         var isSandbox = false
-        #if DEBUG
+#if DEBUG
         isSandbox = true
-        #endif
+#endif  // DEBUG
         self.isMasked = true
         SwiftyStoreKit.purchaseProduct(
             PurchaseManager.sharedProductID,
             quantity: 1,
             atomically: true,
             simulatesAskToBuyInSandbox: isSandbox
-        ) { [weak self] result in
-            guard let self = self else { return }
+        ) { [unowned self] (result) in
             do {
                 switch result {
                 case .success(let purchase):
@@ -278,8 +323,7 @@ final class PurchaseController: NSViewController {
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
                     debugPrint("Purchase Succeed: \(purchase.productId)")
-                    self._validateSubscription { [weak self] (succeed, error) in
-                        guard let self = self else { return }
+                    self._validateSubscription { [unowned self] (succeed, error) in
                         if let error = error {
                             DispatchQueue.main.async {
                                 let alert = NSAlert(error: error)
@@ -311,90 +355,105 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #else
+    
+#else  // !APP_STORE
+    
     private func makeNewSubscription() {
         guard let window = self.view.window else { return }
         self.isMasked = true
+        
         let product = PurchaseManager.shared.paddleProduct
         let manager = PurchaseManager.shared
         let checkoutOptions = PADCheckoutOptions()
+        
         #if DEBUG
         checkoutOptions.email = "82flex@gmail.com"
         checkoutOptions.country = "HK"
         checkoutOptions.coupon = "D3223D1F"
         #endif
+        
         manager.paddle.showCheckout(
             for: product,
             options: checkoutOptions
-        ) { [weak self] (state, data) in
-            guard let self = self, let data = data else { return }
+        ) { [unowned self] (checkoutState, data) in
+            guard let data = data else { return }
             do {
-                switch state {
-                    case .purchased:
-                        debugPrint("Purchase Succeed: \(data.debugDescription)")
-                        try manager.loadLocalReceipt { [weak self] (verificationState, error, details) in
-                            guard let self = self else { return }
+                switch checkoutState {
+                case .purchased:
+                    debugPrint("Checkout Succeed: \(data.debugDescription)")
+                    
+                    if let lockerEmail = data.buyerEmail,
+                       let lockerLicenseCode = data.lockers?.first?.licenseCode
+                    {
+                        // Manually Trigger Activation
+                        manager.paddleProduct.activateEmail(
+                            lockerEmail,
+                            license: lockerLicenseCode
+                        ) { [unowned self] (activated, error) in
+                            if let error = error {
+                                let alert = NSAlert(error: error)
+                                alert.beginSheetModal(for: window) { [unowned self] _ in
+                                    self.isMasked = false
+                                }
+                            } else if activated {
+                                // SUCCEED
+                                self.isMasked = false
+                            } else {
+                                // nothing happened...
+                                self.isMasked = false
+                            }
+                        }
+                    } else if manager.paddleProduct.activated {
+                        // Product Activated Automatically
+                        try manager.loadLocalReceipt {
+                            [unowned self] (verificationState, error, details) in
                             do {
                                 switch verificationState {
-                                    case .verified:
-                                        // TODO: checkout succeed
-                                        DispatchQueue.main.async {
-                                            self.isMasked = false
-                                        }
-                                        fatalError("not implemented: checkout succeed, validate license")
-                                    case .noActivation:
-                                        throw Error.validateNoActivation
-                                    case .unableToVerify:
-                                        throw Error.validateUnableToVerify
-                                    case .unverified:
-                                        throw Error.unverified
-                                    @unknown default:
-                                        fatalError()
+                                case .verified:
+                                    // SUCCEED
+                                    self.isMasked = false
+                                case .noActivation, .unableToVerify, .unverified:
+                                    throw Error(verificationState: verificationState)!
+                                @unknown default:
+                                    fatalError()
                                 }
                             } catch let error {
-                                DispatchQueue.main.async {
-                                    let alert = NSAlert(error: error)
-                                    alert.beginSheetModal(for: window) { _ in
-                                        self.isMasked = false
-                                    }
+                                let alert = NSAlert(error: error)
+                                alert.beginSheetModal(for: window) { _ in
+                                    self.isMasked = false
                                 }
                             }
                         }
-                    case .failed:
-                        throw Error.checkoutFailed
-                    case .flagged:
-                        throw Error.checkoutFlagged
-                    case .slowOrderProcessing:
-                        throw Error.checkoutSlowOrderProcessing
-                    case .abandoned:
-                        // payment cancelled
-                        DispatchQueue.main.async {
-                            self.isMasked = false
-                        }
-                    @unknown default:
-                        // unknown
-                        DispatchQueue.main.async {
-                            self.isMasked = false
-                        }
+                    } else {
+                        // Requires Further Activation
+                        throw Error.checkoutRequiresManualActivation
+                    }
+                case .failed, .flagged, .slowOrderProcessing:
+                    // FAILED
+                    throw Error(checkoutState: checkoutState)!
+                case .abandoned:
+                    // CANCELLED
+                    self.isMasked = false
+                @unknown default:
+                    fatalError()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    let alert = NSAlert(error: error)
-                    alert.beginSheetModal(for: window) { _ in
-                        self.isMasked = false
-                    }
+                let alert = NSAlert(error: error)
+                alert.beginSheetModal(for: window) { _ in
+                    self.isMasked = false
                 }
             }
         }
     }
-    #endif
     
-    #if APP_STORE
+#endif  // APP_STORE
+    
+#if APP_STORE
+    
     private func restoreSubscription() {
         guard let window = self.view.window else { return }
         self.isMasked = true
-        SwiftyStoreKit.restorePurchases(atomically: true) { [weak self] results in
-            guard let self = self else { return }
+        SwiftyStoreKit.restorePurchases(atomically: true) { [unowned self] (results) in
             do {
                 var succeedPurchases: [Purchase]?
                 let failedPurchases = results.restoreFailedPurchases.filter({ $0.1 == PurchaseManager.sharedProductID })
@@ -413,8 +472,7 @@ final class PurchaseController: NSViewController {
                 if let purchasesToFinish = succeedPurchases?.filter({ $0.needsFinishTransaction }) {
                     purchasesToFinish.forEach({ SwiftyStoreKit.finishTransaction($0.transaction) })
                 }
-                self._validateSubscription { [weak self] (succeed, error) in
-                    guard let self = self else { return }
+                self._validateSubscription { [unowned self] (succeed, error) in
                     if let error = error {
                         DispatchQueue.main.async {
                             let alert = NSAlert(error: error)
@@ -438,7 +496,9 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #else
+    
+#else  // !APP_STORE
+    
     private func restoreSubscription() {
         guard let window = self.view.window else { return }
         self.isMasked = true
@@ -446,7 +506,7 @@ final class PurchaseController: NSViewController {
             let promptWindow = promptWindowController.window
         {
             let product = PurchaseManager.shared.paddleProduct
-            window.beginSheet(promptWindow) { [unowned self] resp in
+            window.beginSheet(promptWindow) { [unowned self] (resp) in
                 if resp == .cancel {
                     self.isMasked = false
                 }
@@ -460,7 +520,7 @@ final class PurchaseController: NSViewController {
                         textField: .init(text: "", placeholder: NSLocalizedString("Your Email Address", comment: "restoreSubscription()")),
                         button: .init(title: NSLocalizedString("Continue", comment: "restoreSubscription()"))
                     )
-                    alert.beginSheetModal(for: window) { [unowned self] resp in
+                    alert.beginSheetModal(for: window) { [unowned self] (resp) in
                         if resp == .alertFirstButtonReturn,
                            let emailAddress = alert.textField?.stringValue,
                            !emailAddress.isEmpty
@@ -468,10 +528,10 @@ final class PurchaseController: NSViewController {
                             PurchaseManager.shared.paddle.recoverLicense(
                                 for: product,
                                 email: emailAddress
-                            ) { [unowned self] recovered, error in
+                            ) { [unowned self] (recovered, error) in
                                 if let error = error {
                                     let alert = NSAlert(error: error)
-                                    alert.beginSheetModal(for: window) { [unowned self] alertResp in
+                                    alert.beginSheetModal(for: window) { [unowned self] (alertResp) in
                                         self.isMasked = false
                                     }
                                     return
@@ -494,32 +554,36 @@ final class PurchaseController: NSViewController {
                     product.activateEmail(
                         promptWindowController.emailAddress,
                         license: promptWindowController.licenseCode
-                    ) { [unowned self] activated, error in
+                    ) { [unowned self] (activated, error) in
                         if let error = error {
                             let alert = NSAlert(error: error)
-                            alert.beginSheetModal(for: window) { [unowned self] alertResp in
+                            alert.beginSheetModal(for: window) { [unowned self] (alertResp) in
                                 self.isMasked = false
                             }
                             return
                         } else if activated {
-                            // TODO: validate license
-                            fatalError("not implemented: restore succeed, validate license")
+                            self.isMasked = false
+                        } else {
+                            // nothing happened...
+                            self.isMasked = false
                         }
                     }
                 }
             }
         }
     }
-    #endif
     
-    #if APP_STORE
+#endif  // APP_STORE
+    
+#if APP_STORE
+    
     private func _validateSubscription(completionHandler completion: @escaping (Bool, Swift.Error?) -> Void) {
         var urlType: AppleReceiptValidator.VerifyReceiptURLType
-        #if DEBUG
+#if DEBUG
         urlType = .sandbox
-        #else
+#else  // !DEBUG
         urlType = .production
-        #endif
+#endif  // DEBUG
         let appleValidator = AppleReceiptValidator(service: urlType, sharedSecret: PurchaseManager.sharedSecret)
         SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
             do {
@@ -542,14 +606,15 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #endif
     
-    #if APP_STORE
+#endif  // APP_STORE
+    
+#if APP_STORE
+    
     private func fetchExistingReceipt(forceRefresh force: Bool) {
         guard let window = self.view.window else { return }
         self.isMasked = true
-        SwiftyStoreKit.fetchReceipt(forceRefresh: force) { [weak self] result in
-            guard let self = self else { return }
+        SwiftyStoreKit.fetchReceipt(forceRefresh: force) { [unowned self] (result) in
             do {
                 switch result {
                 case .success(let receiptData):
@@ -573,7 +638,8 @@ final class PurchaseController: NSViewController {
             }
         }
     }
-    #endif
+    
+#endif  // APP_STORE
     
 }
 
@@ -610,6 +676,26 @@ extension PurchaseController {
     @objc private func productTypeDidChange(_ noti: Notification) {
         DispatchQueue.main.async {
             self.reloadUI()
+        }
+    }
+    
+    @objc private func productForceDeactivate(_ noti: Notification) {
+        guard let window = self.view.window else { return }
+        self.isMasked = true
+        PurchaseManager.shared.paddleProduct.deactivate {
+            [unowned self] (deactivated, error) in
+            if let error = error {
+                let alert = NSAlert(error: error)
+                alert.beginSheetModal(for: window) { [unowned self] _ in
+                    self.isMasked = false
+                }
+            } else if deactivated {
+                // SUCCEED
+                self.isMasked = false
+            } else {
+                // nothing happened...
+                self.isMasked = false
+            }
         }
     }
     

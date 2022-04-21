@@ -1,5 +1,5 @@
 /* reloadProductsUI() */
-"%@ %@/%@" = "%@ %@/%@";
+"%@ %.2f/%@" = "%@ %.2f/%@";
 
 /* exportAll(_:)
    exportAs(_:) */
@@ -164,6 +164,12 @@
 
 /* _refreshPaddleProductUI() */
 "day" = "day";
+
+/* manageSubscriptionAction(_:) */
+"Deactivate Confirm" = "Deactivate Confirm";
+
+/* reloadDetailUI(from:) */
+"Deactivate…" = "Deactivate…";
 
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.";
@@ -444,6 +450,9 @@
 
 /* CustomProtocolError */
 "Malformed response." = "Malformed response.";
+
+/* reloadDetailUI(from:) */
+"Manage Subscription…" = "Manage Subscription…";
 
 /* Content.Error */
 "Maximum item count %d reached." = "Maximum item count %d reached.";
@@ -777,10 +786,10 @@
 "The checkout failed to load or the order processing took too long to complete." = "The checkout failed to load or the order processing took too long to complete.";
 
 /* PurchaseController.Error */
-"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog." = "The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog.";
+"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product." = "The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product.";
 
 /* PurchaseController.Error */
-"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed." = "The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed.";
+"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed." = "The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed.";
 
 /* PurchaseController.Error */
 "The license did not pass verification." = "The license did not pass verification.";
@@ -811,6 +820,9 @@
 
 /* Screenshot.Error */
 "This operation requires valid subscription of JSTColorPicker." = "This operation requires valid subscription of JSTColorPicker.";
+
+/* manageSubscriptionAction(_:) */
+"This operation will revoke access to your license on this computer. If you still want to activate the product later, you have to enter a valid license code, continue?" = "This operation will revoke access to your license on this computer. If you still want to activate the product later, you have to enter a valid license code, continue?";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "This option requires application to restart to complete the modification.";
@@ -850,6 +862,9 @@
 
 /* ScriptError */
 "Unknown error occurred." = "Unknown error occurred.";
+
+/* getShortReadableExpiredAt() */
+"Unlimited" = "Unlimited";
 
 /* initializeController */
 "Untitled #%d" = "Untitled #%d";

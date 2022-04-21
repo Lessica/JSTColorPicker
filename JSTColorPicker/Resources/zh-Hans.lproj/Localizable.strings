@@ -1,5 +1,5 @@
 /* reloadProductsUI() */
-"%@ %@/%@" = "%@ %@/%@";
+"%@ %.2f/%@" = "%@ %.2f/%@";
 
 /* exportAll(_:)
    exportAs(_:) */
@@ -164,6 +164,12 @@
 
 /* _refreshPaddleProductUI() */
 "day" = "天";
+
+/* manageSubscriptionAction(_:) */
+"Deactivate Confirm" = "反激活确认";
+
+/* reloadDetailUI(from:) */
+"Deactivate…" = "反激活…";
 
 /* Shortcut Guide */
 "Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position." = "删除当前光标位置下的坐标及颜色标注，或位于顶层的区域标注。";
@@ -445,6 +451,9 @@
 /* CustomProtocolError */
 "Malformed response." = "损坏的响应。";
 
+/* reloadDetailUI(from:) */
+"Manage Subscription…" = "管理订阅…";
+
 /* Content.Error */
 "Maximum item count %d reached." = "已超出预设的最大项数量 %d。";
 
@@ -615,10 +624,10 @@
 "Quit Now" = "立即退出";
 
 /* restoreSubscription() */
-"Recover your JSTColorPicker license" = "恢复你的 JSTColorPicker 授权";
+"Recover your JSTColorPicker license" = "恢复你的 JSTColorPicker 许可证";
 
 /* restoreSubscription() */
-"Recovery instructions have been sent to your email address if it was registered in our database." = "如果你填写的电子邮箱地址准确无误且记录在案，授权恢复的详细步骤将发送到你的电子邮箱地址。";
+"Recovery instructions have been sent to your email address if it was registered in our database." = "如果你填写的电子邮箱地址准确无误且记录在案，许可证恢复的详细步骤将发送到你的电子邮箱地址。";
 
 /* presentHelperConnectionFailureError(_:) */
 "Redirect to download page" = "重定向到下载页面";
@@ -777,13 +786,13 @@
 "The checkout failed to load or the order processing took too long to complete." = "结账页面未能加载，或订单处理时间过长，无法完成。";
 
 /* PurchaseController.Error */
-"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, but not soon enough for us to show the buyer the license activation dialog." = "结账已经完成，付款也已接受，但我们无法检索到订单的状态。它将很快得到处理，但还不足以让我们向买方显示许可证激活对话框。";
+"The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product." = "结账已经完成，付款也已接受，但我们无法检索到订单的状态。它将很快得到处理，你将收到一封电子邮件，请按照其中步骤激活此产品。";
 
 /* PurchaseController.Error */
-"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, the buyer will be able to activate the product later, when the approved order has been processed." = "结账已完成，但该交易被标记为人工处理。Paddle.com 团队将手动处理该交易。如果订单被批准，买方将能够在批准的订单被处理后激活产品。";
+"The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed." = "结账已完成，但该交易被标记为人工处理。Paddle.com 团队将手动处理该交易。如果订单被批准，你将能够在批准的订单被处理后激活此产品。";
 
 /* PurchaseController.Error */
-"The license did not pass verification." = "授权无效，未通过授权校验。";
+"The license did not pass verification." = "许可证无效，未通过校验。";
 
 /* Content.Error */
 "The requested item %@ conflicts with another item %@ in the document." = "请求的项 %@ 与文档中的另一个项 %@ 冲突。";
@@ -795,7 +804,7 @@
 "The Shift key can be used only with another modifier key." = "Shift 键只能与另一个修饰键一起使用。";
 
 /* PurchaseController.Error */
-"There is no license to verify." = "找不到可以验证的授权。";
+"There is no license to verify." = "找不到可以验证的许可证。";
 
 /* ScreenshotError */
 "This feature is not implemented." = "此功能未实现。";
@@ -811,6 +820,9 @@
 
 /* Screenshot.Error */
 "This operation requires valid subscription of JSTColorPicker." = "此操作需要 JSTColorPicker 有效期内的订阅。";
+
+/* manageSubscriptionAction(_:) */
+"This operation will revoke access to your license on this computer. If you still want to activate the product later, you have to enter a valid license code, continue?" = "这一操作将撤销你在这台电脑上的许可证访问权。如果你以后还想激活该产品，你必须输入一个有效的许可证代码，是否继续？";
 
 /* actionRequiresRestart(_:) */
 "This option requires application to restart to complete the modification." = "此选项需要重启应用程序以使得修改生效。";
@@ -850,6 +862,9 @@
 
 /* ScriptError */
 "Unknown error occurred." = "发生了未知错误。";
+
+/* getShortReadableExpiredAt() */
+"Unlimited" = "无限制";
 
 /* initializeController */
 "Untitled #%d" = "无标题 #%d";

@@ -39,12 +39,14 @@ HELPER_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
 HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
 echo "${HELPER_INCLUDED_FILE}" > ./releases/conf/nginx_latest_helper_redirect.txt
 cd ./releases/helpers/
-zip -qr ${HELPER_NAME} JSTColorPickerHelper.app
+if [[ ! -f "${HELPER_NAME}" ]]; then
+    zip -qr "${HELPER_NAME}" JSTColorPickerHelper.app
+fi
 cd ../../
 
 echo "Upload resources..."
 scp ./releases/${APP_NAME} aliyun-nps:/mnt/oss/jstcpweb/${APP_NAME}
-scp ./releases/*.delta aliyun-nps:/mnt/oss/jstcpweb/
+scp ./releases/JSTColorPicker${APP_BUILD_VERSION}-*.delta aliyun-nps:/mnt/oss/jstcpweb/
 scp ./releases/helpers/${HELPER_NAME} aliyun-nps:/mnt/oss/jstcpweb/${HELPER_NAME}
 
 echo "Upload metadata..."

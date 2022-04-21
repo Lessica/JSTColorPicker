@@ -18,7 +18,9 @@ import Paddle
 
 @objc final class PurchaseManager: NSObject {
     
-    static let productTypeDidChangeNotification  = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
+    static let productTypeDidChangeNotification    = Notification.Name("PurchaseManager.productTypeDidChangeNotification")
+    static let productDeactivatedNotification      = Notification.Name("PurchaseManager.productDeactivatedNotification")
+    static let productForceDeactivateNotification  = Notification.Name("PurchaseManager.productForceDeactivateNotification")
     
     enum Error: LocalizedError {
         case invalidReceipt
@@ -43,86 +45,6 @@ import Paddle
         }
     }
     
-    static var shared                  = PurchaseManager()
-    
-#if APP_STORE
-    static let channelName             = "App Store"
-    static let sharedProductID         = "com.jst.JSTColorPicker.Subscription.Yearly"
-    static let sharedSecret            = "53cbec8e68f445c596ce0c3e059a1f06"
-#else
-    static let channelName             = "Paddle.com"
-    #if DEBUG
-        
-        // Your Paddle SDK Config from the Vendor Dashboard
-        private static let sharedPaddleVendorID    = "5790"
-        private static let sharedPaddleProductID   = "27345"
-        private static let sharedPaddleAPIKey      = "b7f5f632ecdef9b9524a5f2fdd63990d"
-        private static var sharedProductConfig     : PADProductConfiguration = {
-            let productConfig = PADProductConfiguration()
-            productConfig.productName = "JSTColorPicker Daily Subscription"
-            productConfig.vendorName = "82Flex"
-            productConfig.currency = "USD"
-            productConfig.recurringPrice = 0
-            productConfig.subscriptionPlanLength = 1
-            productConfig.subscriptionPlanType = .day
-            productConfig.subscriptionTrialLength = 0
-            productConfig.trialType = .none
-            return productConfig
-        }()
-        
-    #else
-        
-        private static let sharedPaddleVendorID    = "145985"
-        private static let sharedPaddleProductID   = "767646"
-        private static let sharedPaddleAPIKey      = "17a505c6ae7872dee48ffb022fec1575"
-        private static var sharedProductConfig     : PADProductConfiguration = {
-            let productConfig = PADProductConfiguration()
-            productConfig.productName = "JSTColorPicker Yearly Subscription"
-            productConfig.vendorName = "82Flex"
-            productConfig.currency = "USD"
-            productConfig.recurringPrice = 14.99
-            productConfig.subscriptionPlanLength = 1
-            productConfig.subscriptionPlanType = .year
-            productConfig.subscriptionTrialLength = 0
-            productConfig.trialType = .none
-            return productConfig
-        }()
-        
-    #endif
-    
-    // Initialize the SDK singleton with the config
-    lazy var paddle: Paddle = {
-        return Paddle.sharedInstance(
-            withVendorID: Self.sharedPaddleVendorID,
-            apiKey: Self.sharedPaddleAPIKey,
-            productID: Self.sharedPaddleProductID,
-            configuration: Self.sharedProductConfig,
-            delegate: self
-        )!
-    }()
-    
-    // Initialize the Product you'd like to work with
-    lazy var paddleProduct: PADProduct = {
-        let product = PADProduct(
-            productID: Self.sharedPaddleProductID,
-            productType: PADProductType.subscriptionPlan,
-            configuration: Self.sharedProductConfig
-        )!
-        product.delegate = self
-        return product
-    }()
-    
-    @Published private(set) var activationEmail   : String?
-    func getActivationEmail() -> String? {
-        var retVal: String?
-        internalLock.readLock()
-        retVal = self.activationEmail
-        internalLock.unlock()
-        return retVal
-    }
-    
-#endif
-    
     enum ProductType: Int {
         case uninitialized
         case demoVersion
@@ -143,6 +65,101 @@ import Paddle
         }
     }
     
+    static var shared                          = PurchaseManager()
+    
+#if APP_STORE
+    static let channelName                     = "App Store"
+    static let sharedProductID                 = "com.jst.JSTColorPicker.Subscription.Yearly"
+    static let sharedSecret                    = "53cbec8e68f445c596ce0c3e059a1f06"
+#else
+    static let channelName                     = "Paddle.com"
+    #if DEBUG
+        
+    // Sandbox Vendor
+    private static let sharedPaddleVendorID    = "5790"
+    private static let sharedPaddleProductID   = "27361"
+    private static let sharedPaddleAPIKey      = "b7f5f632ecdef9b9524a5f2fdd63990d"
+    private static var sharedProductConfig     : PADProductConfiguration = {
+        let productConfig = PADProductConfiguration()
+        productConfig.productName = "JSTColorPicker (1 year)"
+        productConfig.vendorName = "82Flex"
+        productConfig.currency = "USD"
+        productConfig.price = 14.99
+        productConfig.trialType = .none
+        return productConfig
+    }()
+        
+    #else
+        
+    // Sandbox Vendor
+    private static let sharedPaddleVendorID    = "145985"
+    private static let sharedPaddleProductID   = "767777"
+    private static let sharedPaddleAPIKey      = "17a505c6ae7872dee48ffb022fec1575"
+    private static var sharedProductConfig     : PADProductConfiguration = {
+        let productConfig = PADProductConfiguration()
+        productConfig.productName = "JSTColorPicker (1 year)"
+        productConfig.vendorName = "82Flex"
+        productConfig.currency = "USD"
+        productConfig.price = 14.99
+        productConfig.trialType = .none
+        return productConfig
+    }()
+        
+    #endif
+    
+    // Initialize the SDK singleton with the config
+    internal lazy var paddle: Paddle = {
+        return Paddle.sharedInstance(
+            withVendorID: Self.sharedPaddleVendorID,
+            apiKey: Self.sharedPaddleAPIKey,
+            productID: Self.sharedPaddleProductID,
+            configuration: Self.sharedProductConfig,
+            delegate: self
+        )!
+    }()
+    
+    // Initialize the Product you'd like to work with
+    internal lazy var paddleProduct: PADProduct = {
+        let product = PADProduct(
+            productID: Self.sharedPaddleProductID,
+            productType: PADProductType.sdkProduct,
+            configuration: Self.sharedProductConfig
+        )!
+        product.delegate = self
+        return product
+    }()
+    
+#endif
+    
+    private var internalLock = ReadWriteLock()
+    private var verificationDetails               : [AnyHashable: Any]?
+    private var isTrial                           : Bool
+    private var productType                       : ProductType = .uninitialized {
+        didSet {
+            NotificationCenter.default.post(name: PurchaseManager.productTypeDidChangeNotification, object: self)
+        }
+    }
+    internal func getProductType() -> ProductType {
+        var retVal: ProductType
+        internalLock.readLock()
+        retVal = self.productType
+        internalLock.unlock()
+        return retVal
+    }
+    
+    #if APP_STORE
+    private var expiredAt                         : Date?
+    internal func getExpiryDate() -> Date? {
+        var retVal: Date?
+        internalLock.readLock()
+        retVal = self.expiredAt
+        internalLock.unlock()
+        return retVal
+    }
+    #else
+    internal var expiredAt                        : Date? { paddleProduct.licenseExpiryDate }
+    #endif
+    
     private static var shortExpiryDateFormatter   : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -157,59 +174,54 @@ import Paddle
         return formatter
     }()
     
-    @Published private(set) var productType       : ProductType = .uninitialized {
-        didSet {
-            NotificationCenter.default.post(name: PurchaseManager.productTypeDidChangeNotification, object: self)
+    internal func getShortReadableExpiredAt() -> String {
+        var retVal: String
+        internalLock.readLock()
+        if let expiredAt = expiredAt {
+            retVal = PurchaseManager.shortExpiryDateFormatter.string(from: expiredAt)
+        } else {
+            retVal = NSLocalizedString("Unlimited", comment: "getShortReadableExpiredAt()")
         }
-    }
-    func getProductType() -> ProductType {
-        var retVal: ProductType
-        internalLock.readLock()
-        retVal = self.productType
         internalLock.unlock()
         return retVal
     }
     
-    @Published private(set) var expiredAt         : Date
-    func getExpiryDate() -> Date {
-        var retVal: Date
-        internalLock.readLock()
-        retVal = self.expiredAt
-        internalLock.unlock()
-        return retVal
-    }
-    func getShortReadableExpiredAt() -> String {
+    internal func getMediumReadableExpiredAt() -> String {
         var retVal: String
         internalLock.readLock()
-        retVal = PurchaseManager.shortExpiryDateFormatter.string(from: expiredAt)
+        if let expiredAt = expiredAt {
+            retVal = PurchaseManager.mediumExpiryDateFormatter.string(from: expiredAt)
+        } else {
+            retVal = NSLocalizedString("Unlimited", comment: "getShortReadableExpiredAt()")
+        }
         internalLock.unlock()
         return retVal
     }
-    func getMediumReadableExpiredAt() -> String {
-        var retVal: String
-        internalLock.readLock()
-        retVal = PurchaseManager.mediumExpiryDateFormatter.string(from: expiredAt)
-        internalLock.unlock()
-        return retVal
-    }
-    
-    @Published private(set) var isTrial           : Bool
-    private var internalLock  = ReadWriteLock()
     
     override init() {
+        
         guard internalLock.tryWriteLock() else {
             fatalError("unable to initialize PurchaseManager")
         }
-        self.expiredAt = Date()
+        
+#if APP_STORE
         self.isTrial = false
-        super.init()
-#if !APP_STORE
-        #if DEBUG
+        self.expiredAt = Date()
+#else  // !APP_STORE
+#if DEBUG
         Paddle.enableDebug()
         Paddle.setEnvironmentToSandbox()
-        #endif
+#endif  // DEBUG
+        
+        self.isTrial = false
+#endif  // APP_STORE
+        
+        super.init()
+        
+#if !APP_STORE
         _ = { self.paddle }()
-#endif
+#endif  // !APP_STORE
+        
         internalLock.unlock()
     }
     
@@ -223,6 +235,7 @@ import Paddle
     }
     
     #if APP_STORE
+    
     @discardableResult
     func loadLocalReceipt(withResult result: VerifySubscriptionResult? = nil) throws -> InAppPurchase {
         let receipt = try InAppReceipt.localReceipt()
@@ -285,20 +298,23 @@ import Paddle
         
         return lastPurchase
     }
+    
     #else
-    @discardableResult
+    
+    typealias PaddleVerificationCallback = (PADVerificationState, Swift.Error?, [AnyHashable: Any]?) throws -> Void
+    
     func loadLocalReceipt(
-        verifyActivationWithCompletion completion: ((PADVerificationState, Swift.Error?, [AnyHashable: Any]?) throws -> Void)? = nil
-    ) throws -> PADProduct
-    {
+        verifyActivationWithCompletion completion: PaddleVerificationCallback? = nil
+    ) throws {
+        
         guard paddleProduct.activated else {
             throw Error.notPurchased
         }
         
-        guard let email = paddleProduct.activationEmail,
-              let expiryDate = paddleProduct.licenseExpiryDate,
-              paddleProduct.productType == .subscriptionPlan,
-              paddleProduct.productID == Self.sharedPaddleProductID
+        guard let _activationDate = paddleProduct.activationDate,
+              Date() > _activationDate,
+              paddleProduct.productID == Self.sharedPaddleProductID,
+              paddleProduct.productType == .sdkProduct
         else {
             if internalLock.tryWriteLock() {
                 productType = .uninitialized
@@ -308,21 +324,22 @@ import Paddle
         }
         
         // Setup state from last valid purchase
-        let notExpired = expiryDate > Date()
         internalLock.writeLock()
-        expiredAt = expiryDate
-        isTrial = (paddleProduct.trialDaysRemaining?.intValue ?? 0) > 0
-        activationEmail = email
-        productType = notExpired ? .subscribed : .expired
-        internalLock.unlock()
-        
-        // Ignore expired license
-        guard notExpired else {
-            debugPrint("loadLocalReceipt(verifyActivationWithCompletion:): expired, expiredAt = \(expiryDate)")
-            throw Error.expired(at: expiryDate)
+        productType = .subscribed
+        if paddleProduct.trialType == .none {
+            isTrial = false
+        } else if let trialStartDate = paddleProduct.trialStartDate,
+                  Date() > trialStartDate,
+                  let trialLength = paddleProduct.trialLength,
+                  trialLength.intValue > 0,
+                  let trialDaysRemaining = paddleProduct.trialDaysRemaining,
+                  trialDaysRemaining.intValue > 0
+        {
+            isTrial = true
+        } else {
+            isTrial = false
         }
-        
-        debugPrint("verifySubscriptionState(verifyActivationWithCompletion:): valid, expiredAt = \(expiryDate), isTrail = \(isTrial)")
+        internalLock.unlock()
         
         // Perform verification afterwards, for valid license only
         var shouldVerify = true
@@ -335,14 +352,41 @@ import Paddle
         }
         
         if shouldVerify {
-            let callback = completion ?? verifySubscriptionState
+            
+            let callback = completion ?? { [weak self] (state, error, details) in
+                guard let self = self else { return }
+                if let error = error {
+                    // unknown error
+                    throw PurchaseController.Error.other(description: error.localizedDescription)
+                }
+                switch state {
+                case .verified:
+                    if let details = details {
+                        if self.internalLock.tryWriteLock() {
+                            self.verificationDetails = details
+                            self.internalLock.unlock()
+                        }
+                    }
+                case .unverified, .noActivation, .unableToVerify:
+                    if self.internalLock.tryWriteLock() {
+                        self.productType = .uninitialized
+                        if let details = details {
+                            self.verificationDetails = details
+                        }
+                        self.internalLock.unlock()
+                    }
+                    throw PurchaseController.Error(verificationState: state)!
+                @unknown default:
+                    fatalError()
+                }
+            }
+            
             paddleProduct.verifyActivationDetails {
                 try? callback($0, $1, $2)
             }
         }
-        
-        return paddleProduct
     }
+    
     #endif
     
     #if APP_STORE
@@ -384,33 +428,6 @@ import Paddle
             throw Error.notPurchased
         }
     }
-    #else
-    private func verifySubscriptionState(
-        _ state: PADVerificationState,
-        _ error: Swift.Error?,
-        _ details: [AnyHashable: Any]?
-    ) throws
-    {
-        if let details = details {
-            debugPrint(details)
-        }
-        if let error = error {
-            // unknown error
-            throw error
-        }
-        switch state {
-            case .verified:
-                break
-            case .unverified, .noActivation, .unableToVerify:
-                if internalLock.tryWriteLock() {
-                    productType = .uninitialized
-                    internalLock.unlock()
-                }
-                throw Error.notPurchased
-            @unknown default:
-                fatalError()
-        }
-    }
     #endif
     
     func readLock() {
@@ -426,6 +443,7 @@ import Paddle
     }
     
     func setupTransactions() {
+        
         if PurchaseManager.shared.getProductType() != .subscribed {
             PurchaseWindowController.shared.showWindow(self)
         }
@@ -456,7 +474,6 @@ import Paddle
         }
 #endif
     }
-    
 }
 
 #if !APP_STORE
@@ -508,15 +525,20 @@ extension PurchaseManager: PaddleDelegate, PADProductDelegate {
     }
     
     func productActivated() {
-        fatalError("not implemented")
+        try? loadLocalReceipt()
     }
     
     func productDeactivated() {
-        fatalError("not implemented")
+        if internalLock.tryWriteLock() {
+            productType = .uninitialized
+            debugPrint("productDeactivated(): deactivated")
+            internalLock.unlock()
+        }
+        NotificationCenter.default.post(name: Self.productDeactivatedNotification, object: self)
     }
     
     func productPurchased(_ checkoutData: PADCheckoutData) {
-        fatalError("not implemented")
+        debugPrint(checkoutData)
     }
     
 }

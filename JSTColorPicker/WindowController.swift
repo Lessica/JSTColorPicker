@@ -311,6 +311,13 @@ class WindowController: NSWindowController {
             name: PurchaseManager.productTypeDidChangeNotification,
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(productDeactivated(_:)),
+            name: PurchaseManager.productDeactivatedNotification,
+            object: nil
+        )
     }
     
     deinit {
@@ -1186,8 +1193,17 @@ extension WindowController {
     @objc private func productTypeDidChange(_ noti: Notification) {
         guard let manager = noti.object as? PurchaseManager else { return }
         if manager.getProductType() == .subscribed, let lastStoredSubtitle = _windowSubtitle {
-            DispatchQueue.main.async {
-                self.window?.subtitle = lastStoredSubtitle
+            DispatchQueue.main.async { [weak self] in
+                self?.windowSubtitle = lastStoredSubtitle
+            }
+        }
+    }
+    
+    @objc private func productDeactivated(_ noti: Notification) {
+        guard let manager = noti.object as? PurchaseManager else { return }
+        if manager.getProductType() == .uninitialized, let lastStoredSubtitle = _windowSubtitle {
+            DispatchQueue.main.async { [weak self] in
+                self?.windowSubtitle = lastStoredSubtitle
             }
         }
     }

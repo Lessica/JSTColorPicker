@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SubscriptionController" customModule="JSTColorPicker" customModuleProvider="target">
             <connections>
                 <outlet property="detailLabel" destination="UkO-PC-M9V" id="kte-FA-wse"/>
+                <outlet property="manageSubscriptionButton" destination="p3b-vd-Mmc" id="aOG-Zr-ygr"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Q39-ye-Vnd"/>
+                <outlet property="viewSubscriptionButton" destination="4gO-F7-e5S" id="DaA-KX-ruf"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
