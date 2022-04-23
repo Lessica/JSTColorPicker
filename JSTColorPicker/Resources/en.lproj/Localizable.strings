@@ -92,6 +92,9 @@
 /* PixelMatchServiceError */
 "Cannot load image: %@." = "Cannot load image: %@.";
 
+/* TemplatePreviewController.Error */
+"Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”." = "Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”.";
+
 /* ScriptError */
 "Cannot open application at: “%@”." = "Cannot open application at: “%@”.";
 
@@ -379,8 +382,8 @@
 /* XPCError */
 "Invalid device handler: %@." = "Invalid device handler: %@.";
 
-/* TemplateError */
-"Invalid field: %@." = "Invalid field: %@.";
+/* Template.Error */
+"Invalid field “%@”." = "Invalid field “%@”.";
 
 /* GenericError */
 "Invalid filename: “%@”." = "Invalid filename: “%@”.";
@@ -405,6 +408,9 @@
 
 /* PurchaseManager.Error */
 "Invalid receipt." = "Invalid receipt.";
+
+/* Template.Error */
+"Invalid result type “%@”, allowed types are: %@." = "Invalid result type “%@”, allowed types are: %@.";
 
 /* Item #%@: %@ */
 "Item #%ld: %@" = "Item #%ld: %@";
@@ -469,8 +475,8 @@
 /* Shortcut Guide */
 "Minifying Glass: Zoom out at a preset scale." = "Minifying Glass: Zoom out at a preset scale.";
 
-/* TemplateError */
-"Missing required field: %@." = "Missing required field: %@.";
+/* Template.Error */
+"Missing required field “%@”." = "Missing required field “%@”.";
 
 /* TemplateError */
 "Missing returned string: the first returned value must be a string." = "Missing returned string: the first returned value must be a string.";
@@ -668,6 +674,9 @@
 /* takeScreenshot(_:) */
 "Retry" = "Retry";
 
+/* ExportManager.Error */
+"Returned value is incompatible with action “%@”." = "Returned value is incompatible with action “%@”.";
+
 /* Shortcut Guide */
 "Right Click" = "Right Click";
 
@@ -856,6 +865,12 @@
 
 /* No comment provided by engineer. */
 "Unable to write a read-only context." = "Unable to write a read-only context.";
+
+/* Template.Error */
+"Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”." = "Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”.";
+
+/* Template.Error */
+"Unexpected argument count for result type “%@”, expected %ld, got %ld." = "Unexpected argument count for result type “%@”, expected %ld, got %ld.";
 
 /* PurchaseManager.ProductType */
 "Uninitialized" = "Uninitialized";

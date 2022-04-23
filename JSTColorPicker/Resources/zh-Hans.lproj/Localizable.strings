@@ -92,6 +92,9 @@
 /* PixelMatchServiceError */
 "Cannot load image: %@." = "无法加载图像：%@。";
 
+/* TemplatePreviewController.Error */
+"Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”." = "无法获得使用给定编码 “UTF-8” 进行编码的提取内容的表示。";
+
 /* ScriptError */
 "Cannot open application at: “%@”." = "无法启动应用程序: “%@”。";
 
@@ -379,8 +382,8 @@
 /* XPCError */
 "Invalid device handler: %@." = "无效的设备句柄：%@。";
 
-/* TemplateError */
-"Invalid field: %@." = "无效的字段：%@。";
+/* Template.Error */
+"Invalid field “%@”." = "无效的字段 “%@”。";
 
 /* GenericError */
 "Invalid filename: “%@”." = "无效的文件名: “%@”。";
@@ -405,6 +408,9 @@
 
 /* PurchaseManager.Error */
 "Invalid receipt." = "无效的收据。";
+
+/* Template.Error */
+"Invalid result type “%@”, allowed types are: %@." = "无效的结果类型 “%@”，允许的类型为：%@。";
 
 /* Item #%@: %@ */
 "Item #%ld: %@" = "项 #%ld：%@";
@@ -469,8 +475,8 @@
 /* Shortcut Guide */
 "Minifying Glass: Zoom out at a preset scale." = "缩小镜：按预设的梯度比例缩小场景。";
 
-/* TemplateError */
-"Missing required field: %@." = "缺少必填字段：%@。";
+/* Template.Error */
+"Missing required field “%@”." = "缺少必填字段 “%@”。";
 
 /* TemplateError */
 "Missing returned string: the first returned value must be a string." = "缺少返回的字符串：返回值中的第一项必须为字符串。";
@@ -668,6 +674,9 @@
 /* takeScreenshot(_:) */
 "Retry" = "重试";
 
+/* ExportManager.Error */
+"Returned value is incompatible with action “%@”." = "返回的值与动作 “%@” 不兼容。";
+
 /* Shortcut Guide */
 "Right Click" = "右键单击";
 
@@ -856,6 +865,12 @@
 
 /* No comment provided by engineer. */
 "Unable to write a read-only context." = "无法写入只读环境。";
+
+/* Template.Error */
+"Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”." = "参数 #%ld 的类型在结果类型 “%@” 中无效，期望值为 “%@”，实际为 “%@”。";
+
+/* Template.Error */
+"Unexpected argument count for result type “%@”, expected %ld, got %ld." = "参数数量在结果类型 “%@” 中无效，期望值为 %ld，实际为 %ld。";
 
 /* PurchaseManager.ProductType */
 "Uninitialized" = "未初始化";

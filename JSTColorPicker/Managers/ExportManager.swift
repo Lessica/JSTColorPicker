@@ -30,7 +30,7 @@ final class ExportManager {
             case .noExtensionSpecified:
                 return NSLocalizedString("No output file extension specified.", comment: "ExportManager.Error")
             case .incompatibleReturnedValue(let action):
-                return String(format: NSLocalizedString("Returned value is imcompatible with action “%@”.", comment: "ExportManager.Error"), action.rawValue)
+                return String(format: NSLocalizedString("Returned value is incompatible with action “%@”.", comment: "ExportManager.Error"), action.rawValue)
             }
         }
     }
