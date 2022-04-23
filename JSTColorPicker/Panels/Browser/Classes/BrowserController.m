@@ -16,6 +16,8 @@
 #import <AppKit/NSStringDrawing.h>
 #import <AppKit/NSDocumentController.h>
 
+#import "JSTColorPicker-Swift.h"
+
 
 @interface BrowserController ()
 
@@ -361,12 +363,7 @@
         }
     }
     if (handleBySelf) {
-        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:clickedNode.URL display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kJSTColorPickerNotificationNameDropRespondingWindowChanged object:nil];
-            if (error) {
-                [self.browser presentError:error];
-            }
-        }];
+        [(ScreenshotController *)[ScreenshotController sharedDocumentController] openScreenshotWithContentsOfURL:clickedNode.URL display:YES];
     }
     return handleBySelf;
 }

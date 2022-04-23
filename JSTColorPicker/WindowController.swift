@@ -105,7 +105,7 @@ class WindowController: NSWindowController {
         item.paletteLabel = NSLocalizedString("Open", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.toolTip = NSLocalizedString("Open (⌘O): Load a PNG image file from file system.", comment: "com.jst.JSTColorPicker.ToolbarItem")
         item.image = NSImage(systemSymbolName: "plus.rectangle", accessibilityDescription: "Open")
-        item.action = #selector(NSDocumentController.openDocument(_:))
+        item.action = #selector(ScreenshotController.openDocument(_:))
         return item
     }()
     
@@ -631,7 +631,7 @@ extension WindowController: SceneActionResponder, AnnotatorActionResponder {
     
     @objc func openAction(_ sender: Any?) {
         guard documentState.isReadable || !documentState.isLoaded else { return }
-        NSDocumentController.shared.openDocument(sender)
+        ScreenshotController.shared.openDocument(sender)
     }
     
     @objc func useAnnotateItemAction(_ sender: Any?) {

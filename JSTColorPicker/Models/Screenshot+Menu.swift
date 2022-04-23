@@ -93,7 +93,7 @@ extension Screenshot {
 
     private func copyAllContentItemsAsync(with template: Template) {
         guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
+        performExtractSession(in: window, with: template) { [unowned self] (tmpl) in
             try export.copyAllContentItems(with: tmpl)
         }
     }
@@ -127,7 +127,7 @@ extension Screenshot {
         byLocatingAfterOperation locate: Bool
     ) {
         guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
+        performExtractSession(in: window, with: template) { [unowned self] (tmpl) in
             try self.export.exportAllContentItems(to: url, with: tmpl)
         } completionHandler: { (succeed) in
             if succeed && locate {
@@ -139,7 +139,7 @@ extension Screenshot {
 
     private func exportAllContentItemsAsyncInPlace(with template: Template) {
         guard let window = associatedWindowController?.window else { return }
-        extractContentItems(in: window, with: template) { [unowned self] (tmpl) in
+        performExtractSession(in: window, with: template) { [unowned self] (tmpl) in
             try self.export.exportAllContentItemsInPlace(with: tmpl)
         }
     }

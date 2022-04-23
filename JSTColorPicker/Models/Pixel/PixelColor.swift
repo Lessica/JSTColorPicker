@@ -217,6 +217,12 @@ final class PixelColor: ContentItem {
 
 extension PixelColor /*: Equatable*/ {
     
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(coordinate)
+        return hasher.finalize()
+    }
+    
     static func == (lhs: PixelColor, rhs: PixelColor) -> Bool {
         return lhs.coordinate == rhs.coordinate
     }

@@ -1105,6 +1105,7 @@ CA
                         <outlet property="windowMenu" destination="Td7-aD-5lo" id="bKh-Qh-jTf"/>
                     </connections>
                 </customObject>
+                <customObject id="QE1-EU-LwD" customClass="ScreenshotController" customModule="JSTColorPicker" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="7t2-Hn-xkm" customClass="SPUStandardUpdaterController"/>
             </objects>

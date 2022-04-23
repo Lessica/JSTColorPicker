@@ -187,6 +187,12 @@ final class PixelArea: ContentItem {
 
 extension PixelArea /*: Equatable*/ {
     
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(rect)
+        return hasher.finalize()
+    }
+    
     static func == (lhs: PixelArea, rhs: PixelArea) -> Bool {
         return lhs.rect == rhs.rect
     }

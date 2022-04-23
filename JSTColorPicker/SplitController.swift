@@ -146,17 +146,9 @@ extension SplitController: DropViewDelegate {
     func dropView(_: DropSplitView?, didDropFilesWith fileURLs: [URL]) {
         guard fileURLs.count > 0 else { return }
         NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: view.window)
-        let documentController = NSDocumentController.shared
+        let documentController = ScreenshotController.shared as! ScreenshotController
         if fileURLs.count == 1, let fileURL = fileURLs.first {
-            documentController.openDocument(
-                withContentsOf: fileURL,
-                display: true
-            ) { [weak self] (document, documentWasAlreadyOpen, error) in
-                NotificationCenter.default.post(name: .dropRespondingWindowChanged, object: nil)
-                if let error = error {
-                    self?.presentError(error)
-                }
-            }
+            documentController.openScreenshot(withContentsOfURL: fileURL, display: true)
         } else {
             let window = view.window
             DispatchQueue.global(qos: .userInitiated).async {

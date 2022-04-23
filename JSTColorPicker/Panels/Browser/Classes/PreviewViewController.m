@@ -10,6 +10,9 @@
 #import "FileSystemNode.h"
 #import <AppKit/NSDocumentController.h>
 
+#import "JSTColorPicker-Swift.h"
+
+
 @implementation PreviewViewController
 
 - (void)mouseDown:(NSEvent *)theEvent {
@@ -35,12 +38,7 @@
             }
         }
         if (handleBySelf) {
-            [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:clickedNode.URL display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kJSTColorPickerNotificationNameDropRespondingWindowChanged object:nil];
-                if (error) {
-                    [self presentError:error];
-                }
-            }];
+            [(ScreenshotController *)[ScreenshotController sharedDocumentController] openScreenshotWithContentsOfURL:clickedNode.URL display:YES];
         } else {
             [[NSWorkspace sharedWorkspace] openURL:clickedNode.URL];
         }

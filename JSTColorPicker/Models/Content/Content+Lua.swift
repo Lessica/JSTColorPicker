@@ -14,12 +14,12 @@ extension Content: LuaSwift.Value {
         let t = vm.createTable(withSequence: items)
         t["colors"] = vm.createTable(withSequence: lazyColors)
         t["areas"] = vm.createTable(withSequence: lazyAreas)
-        t["get_data"] = vm.createFunction([], { (_) -> SwiftReturnValue in
+        t["get_data"] = vm.createFunction([], requiredArgumentCount: 0) { (_) -> SwiftReturnValue in
             if let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true) {
                 return .value(data)
             }
             return .error(Screenshot.Error.invalidContent.failureReason!)
-        })
+        }
         t.push(vm)
     }
 

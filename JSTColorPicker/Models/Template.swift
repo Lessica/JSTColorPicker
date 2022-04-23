@@ -10,13 +10,21 @@ import Foundation
 import LuaSwift
 
 final class Template {
+    
     enum Error: LocalizedError {
+        
         case unknown
         case unsatisfiedPlatformVersion(version: String)
         case luaError(reason: String)
+        
         case missingRootEntry
         case missingRequiredField(field: String)
+        
         case missingReturnedString
+        case invalidResultType(type: String, allowedValues: [String])
+        case invalidResultArgumentCount(type: String, count: Int, expectedCount: Int)
+        case invalidResultArgumentType(type: String, index: Int, argType: String, expectedType: String)
+        
         case resourceBusy
         case invalidField(field: String)
         
@@ -28,25 +36,68 @@ final class Template {
                 return String(format: NSLocalizedString("This template requires JSTColorPicker (%@) or later.", comment: "Template.Error"), version)
             case let .luaError(reason):
                 return "\(reason)"
+            
             case .missingRootEntry:
                 return NSLocalizedString("Missing root entry: template must return a table.", comment: "Template.Error")
             case let .missingRequiredField(field):
-                return String(format: NSLocalizedString("Missing required field: %@.", comment: "Template.Error"), field)
+                return String(format: NSLocalizedString("Missing required field “%@”.", comment: "Template.Error"), field)
+            
             case .missingReturnedString:
-                return NSLocalizedString("Missing returned string.", comment: "Template.Error")
+                return NSLocalizedString(
+                    "Missing returned string: the first returned value must be a string.", comment: "Template.Error")
+            case let .invalidResultType(type, allowedValues):
+                return String(format: NSLocalizedString(
+                    "Invalid result type “%@”, allowed types are: %@.", comment: "Template.Error"), type, allowedValues.joined(separator: ", "))
+            case let .invalidResultArgumentCount(type, count, expectedCount):
+                return String(format: NSLocalizedString(
+                    "Unexpected argument count for result type “%@”, expected %ld, got %ld.", comment: "Template.Error"), type, expectedCount, count)
+            case let .invalidResultArgumentType(type, index, argType, expectedType):
+                return String(format: NSLocalizedString(
+                    "Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”.", comment: "Template.Error"), index, type, expectedType, argType)
+                
             case .resourceBusy:
                 return NSLocalizedString("Resource busy.", comment: "Template.Error")
             case let .invalidField(field):
-                return String(format: NSLocalizedString("Invalid field: %@.", comment: "Template.Error"), field)
+                return String(format: NSLocalizedString("Invalid field “%@”.", comment: "Template.Error"), field)
             }
         }
     }
     
-    enum GenerateAction: String {
+    enum GenerateAction: String, LuaSwift.Value {
+        
         case preview
         case copy
         case doubleCopy
         case export
+        case exportInPlace
+        
+        func push(_ vm: VirtualMachine) {
+            rawValue.push(vm)
+        }
+        
+        func kind() -> Kind {
+            return rawValue.kind()
+        }
+        
+        static func arg(_ vm: VirtualMachine, value: Value) -> String? {
+            return String.arg(vm, value: value)
+        }
+        
+        var isInteractive: Bool {
+            switch self {
+            case .preview:
+                return false
+            case .copy, .doubleCopy, .export, .exportInPlace:
+                return true
+            }
+        }
+    }
+    
+    enum GenerateResult {
+        case plain(text: String)
+        case alert(title: String, message: String? = nil)
+        case document(url: URL)
+        case comparison(url: URL)
     }
     
                  let url                  : URL
@@ -142,23 +193,154 @@ final class Template {
     }
 
     deinit {
-        debugPrint("<\(String(describing: self)) deinit>")
+        debugPrint("\(String(describing: Self.self)):\(#function)")
     }
     
-    func generate(_ image: PixelImage, _ items: [ContentItem], forAction action: GenerateAction) throws -> String {
+    func generate(_ image: PixelImage, _ items: [ContentItem], forAction action: GenerateAction) throws -> GenerateResult
+    {
         guard mutexLock.try() else {
             throw Error.resourceBusy
         }
-        let results = generator.call([image, Content(items: items), action.rawValue])
+        
+        let execContent = Content(items: items)
+        let results = generator.call([
+            image,
+            execContent,
+            action,
+        ])
+        
         mutexLock.unlock()
+        
         switch results {
         case let .values(vals):
-            if let string = vals.first as? String {
-                return string
+            if vals.count > 0, let retType = vals.first as? String {
+                if vals.count == 1 {
+                    return .plain(text: retType)  // as plain text
+                }
+                else {
+                    if retType == "text" || retType == "plain" {
+                        if vals.count == 2 {
+                            let retVal = vals.last!
+                            if let retVal = retVal as? String {
+                                return .plain(text: retVal)
+                            } else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 1,
+                                    argType: String(describing: retVal.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                        }
+                        else {
+                            throw Error.invalidResultArgumentCount(
+                                type: retType.truncated(limit: 20),
+                                count: vals.count,
+                                expectedCount: 2
+                            )
+                        }
+                    }
+                    else if retType == "document" {
+                        if vals.count == 2 {
+                            let retVal = vals.last!
+                            if let retVal = retVal as? String {
+                                return .document(url: URL(fileURLWithPath: retVal))
+                            } else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 1,
+                                    argType: String(describing: retVal.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                        }
+                        else {
+                            throw Error.invalidResultArgumentCount(
+                                type: retType.truncated(limit: 20), count: vals.count, expectedCount: 2)
+                        }
+                    }
+                    else if retType == "comparison" {
+                        if vals.count == 2 {
+                            let retVal = vals.last!
+                            if let retVal = retVal as? String {
+                                return .comparison(url: URL(fileURLWithPath: retVal))
+                            } else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 1,
+                                    argType: String(describing: retVal.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                        }
+                        else {
+                            throw Error.invalidResultArgumentCount(
+                                type: retType.truncated(limit: 20),
+                                count: vals.count,
+                                expectedCount: 2
+                            )
+                        }
+                    }
+                    else if retType == "alert" || retType == "prompt" {
+                        if vals.count == 2 {
+                            let retVal = vals.last!
+                            if let retVal = retVal as? String {
+                                return .alert(title: retVal)
+                            } else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 1,
+                                    argType: String(describing: retVal.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                        }
+                        else if vals.count == 3 {
+                            let retValTitle = vals[1]
+                            guard let retValTitle = retValTitle as? String else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 1,
+                                    argType: String(describing: retValTitle.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                            let retValMessage = vals[2]
+                            guard let retValMessage = retValMessage as? String else {
+                                throw Error.invalidResultArgumentType(
+                                    type: retType.truncated(limit: 20),
+                                    index: 2,
+                                    argType: String(describing: retValMessage.kind().self),
+                                    expectedType: Kind.string.rawValue
+                                )
+                            }
+                            return .alert(title: retValTitle, message: retValMessage)
+                        }
+                        else {
+                            throw Error.invalidResultArgumentCount(
+                                type: retType.truncated(limit: 20),
+                                count: vals.count,
+                                expectedCount: 3
+                            )
+                        }
+                    }
+                    else {
+                        throw Error.invalidResultType(
+                            type: retType.truncated(limit: 20),
+                            allowedValues: [
+                                "text",
+                                "document",
+                                "comparison",
+                                "prompt",
+                            ]
+                        )
+                    }
+                }
             }
         case let .error(e):
             throw Error.luaError(reason: e)
         }
+        
         throw Error.missingReturnedString
     }
 }

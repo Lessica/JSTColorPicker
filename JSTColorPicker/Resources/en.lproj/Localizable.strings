@@ -473,7 +473,7 @@
 "Missing required field: %@." = "Missing required field: %@.";
 
 /* TemplateError */
-"Missing returned string." = "Missing returned string.";
+"Missing returned string: the first returned value must be a string." = "Missing returned string: the first returned value must be a string.";
 
 /* TemplateError */
 "Missing root entry: template must return a table." = "Missing root entry: template must return a table.";

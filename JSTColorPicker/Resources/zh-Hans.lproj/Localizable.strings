@@ -473,7 +473,7 @@
 "Missing required field: %@." = "缺少必填字段：%@。";
 
 /* TemplateError */
-"Missing returned string." = "缺少返回的字符串。";
+"Missing returned string: the first returned value must be a string." = "缺少返回的字符串：返回值中的第一项必须为字符串。";
 
 /* TemplateError */
 "Missing root entry: template must return a table." = "缺少根条目：模板必须返回表。";

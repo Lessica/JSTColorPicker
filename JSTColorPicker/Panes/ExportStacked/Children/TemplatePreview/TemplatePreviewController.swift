@@ -25,6 +25,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
         case documentNotLoaded
         case noTemplateSelected
         case cannotWriteToPasteboard
+        case invalidEncoding
         case resourceNotFound
         case resourceBusy
 
@@ -36,6 +37,8 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
                 return NSLocalizedString("No template selected.", comment: "TemplatePreviewController.Error")
             case .cannotWriteToPasteboard:
                 return NSLocalizedString("Ownership of the pasteboard has changed.", comment: "TemplatePreviewController.Error")
+            case .invalidEncoding:
+                return NSLocalizedString("Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”.", comment: "TemplatePreviewController.Error")
             case .resourceNotFound:
                 return NSLocalizedString("Resource not found.", comment: "TemplatePreviewController.Error")
             case .resourceBusy:
@@ -661,7 +664,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
             if let previewObj = self.cachedPreviewContents[template.uuid.uuidString] {
                 previewObj.clear()
                 do {
-                    previewObj.contents = (try exportManager.generateAllContentItems(with: template, forAction: .preview))
+                    previewObj.contents = try exportManager.previewAllContentItems(with: template)
                         .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 } catch {
                     previewObj.error = error.localizedDescription
@@ -671,7 +674,7 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
                 do {
                     previewObj = TemplatePreviewObject(
                         uuidString: template.uuid.uuidString,
-                        contents: (try exportManager.generateAllContentItems(with: template, forAction: .preview))
+                        contents: try exportManager.previewAllContentItems(with: template)
                             .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
                         error: nil
                     )
@@ -827,14 +830,22 @@ extension TemplatePreviewController {
         var succeed = true
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
-        ).then {
-            self.promiseExtractContentItems($0.0, template: $0.1)
-        }.then {
-            self.promiseFetchContentItems($0.0, template: $0.1, forAction: isDoubleAction ? .doubleCopy : .copy)
-        }.then {
-            self.promiseWriteCachedContents($0.0, template: $0.1)
-        }.then {
-            self.promiseCopyContentsToGeneralPasteboard($0.0)
+        ).then { t -> Promise<TemplateExportInPlaceTuple> in
+            // session begin
+            self.promiseBeginExtractSession(t.0, template: t.1)
+        }.then { t -> Promise<TemplateExportGenericResult> in
+            self.promiseFetchContentItems(
+                t.items,
+                session: t.session,
+                forAction: isDoubleAction ? .doubleCopy : .copy
+            )
+        }.then { t -> Promise<TemplateExportTextResult> in
+            self.promiseHandleGenericResult(result: t)
+        }.then { t -> Promise<Screenshot.ExtractSession> in
+            self.promiseCopyContentsToGeneralPasteboard(t.contents, session: t.session)
+        }.then { t -> Promise<Void> in
+            // session end
+            self.promiseEndExtractSession(t)
         }.catch {
             self.presentError($0)
             succeed = false
@@ -848,20 +859,24 @@ extension TemplatePreviewController {
 
     @IBAction private func exportAs(_ sender:  Any?) {
         var succeed = true
-        var targetURL: URL?
+        var targetURL: URL?  // if it's nil, save in place
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
-        ).then {
-            self.promiseTargetURLForContentItems($0.0, template: $0.1)
-        }.then { (items, tmpl, url) -> Promise<([ContentItem], Template)> in
-            targetURL = url
-            return self.promiseExtractContentItems(items, template: tmpl)
-        }.then {
-            self.promiseFetchContentItems($0.0, template: $0.1, forAction: .export)
-        }.then {
-            self.promiseWriteCachedContents($0.0, template: $0.1)
-        }.then {
-            self.promiseWriteContentsToURL(contents: $0.0, url: targetURL!).asVoid()
+        ).then { t -> Promise<TemplateExportTuple> in
+            self.promiseTargetURLForContentItems(t.0, template: t.1)
+        }.then { t -> Promise<TemplateExportInPlaceTuple> in
+            targetURL = t.url
+            // session begin
+            return self.promiseBeginExtractSession(t.items, template: t.template)
+        }.then { t -> Promise<TemplateExportGenericResult> in
+            self.promiseFetchContentItems(t.items, session: t.session, forAction: .export)
+        }.then { t -> Promise<TemplateExportTextResult> in
+            self.promiseHandleGenericResult(result: t)
+        }.then { t -> Promise<Screenshot.ExtractSession> in
+            self.promiseWriteContentsToURL(contents: t.contents, url: targetURL, session: t.session)
+        }.then { t -> Promise<Void> in
+            // session end
+            self.promiseEndExtractSession(t)
         }.catch {
             self.presentError($0)
             succeed = false
@@ -924,6 +939,13 @@ extension TemplatePreviewController {
 
 // MARK: - Promises
 extension TemplatePreviewController {
+    
+    typealias TemplateExportTuple = (items: [ContentItem], template: Template, url: URL?)
+    typealias TemplateExportInPlaceTuple = (items: [ContentItem], session: Screenshot.ExtractSession)
+    
+    typealias TemplateExportGenericResult = (result: Template.GenerateResult, session: Screenshot.ExtractSession)
+    typealias TemplateExportTextResult = (contents: String?, session: Screenshot.ExtractSession)
+    
 
     private func promiseCheckSelectedTemplate() -> Promise<Template>
     {
@@ -968,29 +990,42 @@ extension TemplatePreviewController {
         }
     }
 
-    private func promiseExtractContentItems(_ items: [ContentItem], template: Template) -> Promise<([ContentItem], Template)>
+    private func promiseBeginExtractSession(_ items: [ContentItem], template: Template) -> Promise<TemplateExportInPlaceTuple>
     {
         Promise { seal in
-            if template.isAsync {
-                guard let screenshot = screenshot
-                else {
-                    seal.reject(Error.documentNotLoaded)
-                    return
-                }
-
-                screenshot.extractContentItems(
-                    in: view.window!,
-                    with: template
-                ) { (tmpl) in
-                    seal.fulfill((items, tmpl))
-                }
-            } else {
-                seal.fulfill((items, template))
+            guard let screenshot = screenshot
+            else {
+                seal.reject(Error.documentNotLoaded)
+                return
             }
+
+            let extractSession = screenshot.beginExtractSession(in: view.window!, with: template)
+            seal.fulfill(TemplateExportInPlaceTuple(
+                items: items,
+                session: extractSession
+            ))
+        }
+    }
+    
+    private func promiseEndExtractSession(_ session: Screenshot.ExtractSession) -> Promise<Void>
+    {
+        Promise { seal in
+            guard let screenshot = screenshot
+            else {
+                seal.reject(Error.documentNotLoaded)
+                return
+            }
+
+            screenshot.endExtractSession(session)
+            seal.fulfill_()
         }
     }
 
-    private func promiseFetchContentItems(_ items: [ContentItem], template: Template, forAction action: Template.GenerateAction) -> Promise<(String, Template)>
+    private func promiseFetchContentItems(
+        _ items: [ContentItem],
+        session: Screenshot.ExtractSession,
+        forAction action: Template.GenerateAction
+    ) -> Promise<TemplateExportGenericResult>
     {
         Promise { seal in
             guard let exportManager = documentExport else {
@@ -999,14 +1034,17 @@ extension TemplatePreviewController {
             }
 
             do {
-                seal.fulfill((try exportManager.generateContentItems(items, with: template, forAction: action), template))
+                seal.fulfill(TemplateExportGenericResult(
+                    result: try exportManager.generateContentItems(items, with: session.template, forAction: action),
+                    session: session
+                ))
             } catch {
                 seal.reject(error)
             }
         }
     }
 
-    private func promiseWriteCachedContents(_ contents: String, template: Template) -> Promise<(String, Template)>
+    private func promiseWriteCachedContents(_ contents: String, session: Screenshot.ExtractSession) -> Promise<TemplateExportTextResult>
     {
         Promise { seal in
             guard cachingLock.tryWriteLock() else {
@@ -1014,6 +1052,7 @@ extension TemplatePreviewController {
                 return
             }
 
+            let template = session.template
             if let previewObj = cachedPreviewContents[template.uuid.uuidString] {
                 previewObj.contents = contents
                 previewObj.error = nil
@@ -1026,26 +1065,34 @@ extension TemplatePreviewController {
             }
 
             cachingLock.unlock()
-            seal.fulfill((contents, template))
+            seal.fulfill(TemplateExportTextResult(contents: contents, session: session))
         }
     }
 
-    private func promiseCopyContentsToGeneralPasteboard(_ contents: String) -> Promise<Bool>
+    private func promiseCopyContentsToGeneralPasteboard(
+        _ contents: String?,
+        session: Screenshot.ExtractSession
+    ) -> Promise<Screenshot.ExtractSession>
     {
-        Promise { seal in
-            let pasteboard = NSPasteboard.general
-            pasteboard.declareTypes([.string], owner: nil)
+        if let contents = contents {
+            return Promise { seal in
+                let pasteboard = NSPasteboard.general
+                pasteboard.declareTypes([.string], owner: nil)
 
-            guard pasteboard.setString(contents, forType: .string) else {
-                seal.reject(Error.cannotWriteToPasteboard)
-                return
+                guard pasteboard.setString(contents, forType: .string) else {
+                    seal.reject(Error.cannotWriteToPasteboard)
+                    return
+                }
+
+                seal.fulfill(session)
             }
-
-            seal.fulfill(true)
+        }
+        return Promise { seal in
+            seal.fulfill(session)
         }
     }
 
-    private func promiseTargetURLForContentItems(_ items: [ContentItem], template: Template) -> Promise<([ContentItem], Template, URL)>
+    private func promiseTargetURLForContentItems(_ items: [ContentItem], template: Template) -> Promise<TemplateExportTuple>
     {
         Promise { seal in
             guard let screenshot = screenshot
@@ -1053,7 +1100,14 @@ extension TemplatePreviewController {
                 seal.reject(Error.documentNotLoaded)
                 return
             }
-
+            
+            guard !template.saveInPlace
+            else {
+                seal.fulfill(TemplateExportTuple(
+                    items: items, template: template, url: nil))
+                return
+            }
+            
             let panel = NSSavePanel()
             let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
             panel.accessoryView = exportOptionView
@@ -1062,7 +1116,8 @@ extension TemplatePreviewController {
             panel.beginSheetModal(for: view.window!) { resp in
                 if resp == .OK {
                     if let url = panel.url {
-                        seal.fulfill((items, template, url))
+                        seal.fulfill(TemplateExportTuple(
+                            items: items, template: template, url: url))
                         return
                     }
                 }
@@ -1072,19 +1127,66 @@ extension TemplatePreviewController {
         }
     }
 
-    private func promiseWriteContentsToURL(contents: String, url: URL) -> Promise<Bool>
+    private func promiseWriteContentsToURL(
+        contents: String?,
+        url: URL?,
+        session: Screenshot.ExtractSession
+    ) -> Promise<Screenshot.ExtractSession>
     {
-        Promise { seal in
-            if let data = contents.data(using: .utf8) {
-                do {
-                    try data.write(to: url)
-                    seal.fulfill(true)
-                } catch {
-                    seal.reject(error)
+        if let contents = contents, let url = url {
+            return Promise { seal in
+                if let data = contents.data(using: .utf8) {
+                    do {
+                        try data.write(to: url)
+                        seal.fulfill(session)
+                    } catch {
+                        seal.reject(error)
+                    }
+                } else {
+                    seal.reject(Error.invalidEncoding)
                 }
-            } else {
-                seal.fulfill(false)
             }
+        }
+        return Promise { seal in
+            seal.fulfill(session)
+        }
+    }
+    
+    private func promiseHandleGenericResult(result: TemplateExportGenericResult) -> Promise<TemplateExportTextResult>
+    {
+        switch result.result {
+        case .plain(let text):
+            return self.promiseWriteCachedContents(text, session: result.session)
+        case .alert(let title, let message):
+            if let window = view.window {
+                let alert = NSAlert(
+                    style: .informational,
+                    text: .init(message: title, information: message ?? "")
+                )
+                alert.beginSheetModal(for: window)
+            }
+        case .document(let url):
+            (ScreenshotController.shared as! ScreenshotController)
+                .openScreenshot(withContentsOfURL: url, display: true)
+        case .comparison(let url):
+            if let windowController = view.window?.windowController as? WindowController {
+                let documentController = ScreenshotController.shared as! ScreenshotController
+                documentController.openDocument(withContentsOf: url, display: false) {
+                    (document, documentWasAlreadyOpen, error) in
+                    if let error = error {
+                        documentController.presentError(error)
+                    } else if let document = document as? Screenshot,
+                              let documentImage = document.image
+                    {
+                        windowController.endPixelMatchComparison()
+                        windowController.beginPixelMatchComparison(to: documentImage)
+                    }
+                    document?.close()
+                }
+            }
+        }
+        return Promise { seal in
+            seal.fulfill(TemplateExportTextResult(contents: nil, session: result.session))
         }
     }
 }

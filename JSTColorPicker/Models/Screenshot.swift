@@ -244,6 +244,7 @@ final class Screenshot: NSDocument {
     
 
 #if WITH_COCOA
+    
     // MARK: - Controllers
 
     private var appDelegate  : AppDelegate! { AppDelegate.shared }
@@ -304,17 +305,22 @@ final class Screenshot: NSDocument {
         }
     }
     private(set) var isExtractingContentItems: Bool = false
-
-    func extractContentItems(
+    
+    struct ExtractSession {
+        let window: NSWindow
+        let loadingAlert: NSAlert
+        let template: Template
+    }
+    
+    func beginExtractSession(
         in window: NSWindow,
-        with template: Template,
-        asyncTask task: @escaping (Template) throws -> Void,
-        completionHandler completion: ((Bool) -> Void)? = nil
-    ) {
+        with template: Template
+    ) -> ExtractSession {
         guard !isExtractingContentItems else {
             fatalError("now extracting content items")
         }
         self.isExtractingContentItems = true
+        
         let loadingAlert = NSAlert()
         loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
         loadingAlert.alertStyle = .informational
@@ -326,7 +332,41 @@ final class Screenshot: NSDocument {
         loadingAlert.accessoryView = loadingIndicator
         loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
         loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template “%@”…", comment: "copy(_:)"), template.name)
-        loadingAlert.beginSheetModal(for: window) { (resp) in }
+        loadingAlert.beginSheetModal(for: window) { _ in }
+        
+        return ExtractSession(window: window, loadingAlert: loadingAlert, template: template)
+    }
+    
+    func endExtractSession(_ session: ExtractSession) {
+        session.loadingAlert.window.orderOut(self)
+        session.window.endSheet(session.loadingAlert.window)
+        self.isExtractingContentItems = false
+    }
+
+    func performExtractSession(
+        in window: NSWindow,
+        with template: Template,
+        asyncTask task: @escaping (Template) throws -> Void,
+        completionHandler completion: ((Bool) -> Void)? = nil
+    ) {
+        guard !isExtractingContentItems else {
+            fatalError("now extracting content items")
+        }
+        self.isExtractingContentItems = true
+        
+        let loadingAlert = NSAlert()
+        loadingAlert.addButton(withTitle: NSLocalizedString("Cancel", comment: "copy(_:)"))
+        loadingAlert.alertStyle = .informational
+        loadingAlert.buttons.first?.isHidden = true
+        let loadingIndicator = NSProgressIndicator(frame: CGRect(x: 0, y: 0, width: 24.0, height: 24.0))
+        loadingIndicator.style = .spinning
+        loadingIndicator.sizeToFit()
+        loadingIndicator.startAnimation(nil)
+        loadingAlert.accessoryView = loadingIndicator
+        loadingAlert.messageText = NSLocalizedString("Extract Snippets", comment: "copy(_:)")
+        loadingAlert.informativeText = String(format: NSLocalizedString("Extract code snippets from template “%@”…", comment: "copy(_:)"), template.name)
+        loadingAlert.beginSheetModal(for: window) { _ in }
+        
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             do {
                 defer {
@@ -337,7 +377,12 @@ final class Screenshot: NSDocument {
                         completion?(true)
                     }
                 }
+                
+                let startTime = CFAbsoluteTimeGetCurrent()
                 try task(template)
+                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+                
+                Swift.debugPrint("\(#function) elapsed: \(timeElapsed) s.")
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     self?.presentError(error)
@@ -347,7 +392,12 @@ final class Screenshot: NSDocument {
             }
         }
     }
+    
 #else
     public func testExportCondition() throws {}
 #endif
+    
+    deinit {
+        debugPrint("\(className):\(#function)")
+    }
 }

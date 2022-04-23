@@ -8,7 +8,7 @@ public enum MaybeFunction {
 
 public typealias ErrorHandler = (String) -> Void
 
-public enum Kind {
+public enum Kind: String, Codable {
     case string
     case number
     case boolean
@@ -225,17 +225,29 @@ open class VirtualMachine {
         }
     }
 
-    open func createFunction(_ typeCheckers: [TypeChecker], _ fn: @escaping SwiftFunction) -> Function {
+    open func createFunction(
+        _ typeCheckers: [TypeChecker],
+        requiredArgumentCount typeCount: Int,
+        function fn: @escaping SwiftFunction
+    ) -> Function
+    {
         let f: @convention(block) (OpaquePointer) -> Int32 = { [weak self] _ in
             if self == nil { return 0 }
             let vm = self!
             
             // check types
-            for i in 0 ..< vm.stackSize() {
+            let stackSize = vm.stackSize()
+            for i in 0 ..< max(stackSize, typeCount) {
                 let typeChecker = typeCheckers[i]
-                vm.pushFromStack(i+1)
-                if let expectedType = typeChecker(vm, vm.popValue(-1)!) {
-                    vm.argError(expectedType, at: i+1)
+                if i < stackSize {
+                    vm.pushFromStack(i+1)
+                    if let expectedType = typeChecker(vm, vm.popValue(-1)!) {
+                        vm.argError(expectedType, at: i+1)
+                    }
+                } else {
+                    if let expectedType = typeChecker(vm, Nil()) {
+                        vm.argError(expectedType, at: i+1)
+                    }
                 }
             }
             
@@ -295,7 +307,7 @@ open class VirtualMachine {
         lib["__name"] = T.luaTypeName()
         
         let gc = lib.gc
-        lib["__gc"] = createFunction([CustomType<T>.arg]) { args in
+        lib["__gc"] = createFunction([CustomType<T>.arg], requiredArgumentCount: 0) { args in
             let ud = args.userdata
             (ud.userdataPointer() as UnsafeMutablePointer<T>).deinitialize(count: 1)
             let o: T = ud.toCustomType()
@@ -304,7 +316,7 @@ open class VirtualMachine {
         }
         
         if let eq = lib.eq {
-            lib["__eq"] = createFunction([CustomType<T>.arg, CustomType<T>.arg]) { args in
+            lib["__eq"] = createFunction([CustomType<T>.arg, CustomType<T>.arg], requiredArgumentCount: 0) { args in
                 let a: T = args.customType()
                 let b: T = args.customType()
                 return .value(eq(a, b))

@@ -421,7 +421,7 @@ extension AppDelegate {
             after(.seconds(5)).done {
                 seal.reject(XPCError.timeout)
             }
-            NSDocumentController.shared.openDocument(withContentsOf: url, display: true) { (document, documentWasAlreadyOpen, error) in
+            ScreenshotController.shared.openDocument(withContentsOf: url, display: true) { (document, documentWasAlreadyOpen, error) in
                 if let error = error {
                     seal.reject(error)
                     return

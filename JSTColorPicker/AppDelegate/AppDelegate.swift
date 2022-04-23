@@ -374,10 +374,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @discardableResult
     private func applicationOpenUntitledDocumentIfNeeded() -> Bool {
-        let availableDocuments = NSDocumentController.shared.documents.filter({ $0.windowControllers.count > 0 })
+        let availableDocuments = ScreenshotController.shared.documents.filter({ $0.windowControllers.count > 0 })
         if availableDocuments.count == 0 {
             do {
-                try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
+                try ScreenshotController.shared.openUntitledDocumentAndDisplay(true)
                 return true
             } catch { debugPrint(error) }
         }

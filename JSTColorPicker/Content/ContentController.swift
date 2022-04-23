@@ -351,12 +351,17 @@ extension ContentController {
             undoManager.setActionName(NSLocalizedString("Add Items", comment: "internalAddContentItems(_:)"))
         }
         actionManager.contentActionAdded(items)
+        
+        content.deactivateKeyValueObservation()
         var indexes = IndexSet()
         items.sorted(by: { $0.id < $1.id }).forEach { (item) in
             let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
             indexes.insert(idx)
         }
+        content.activateKeyValueObservation()
+        content.items = { content.items }()
+        
         return indexes
     }
     
@@ -379,11 +384,16 @@ extension ContentController {
             undoManager.setActionName(NSLocalizedString("Delete Items", comment: "internalDeleteContentItems(_:)"))
         }
         actionManager.contentActionDeleted(items)
+        
+        content.deactivateKeyValueObservation()
         let indexes = content.items
             .enumerated()
             .filter({ itemIDs.contains($1.id) })
             .reduce(into: IndexSet()) { $0.insert($1.offset) }
         content.items.remove(at: indexes)
+        content.activateKeyValueObservation()
+        content.items = { content.items }()
+        
         return indexes
     }
     
@@ -406,13 +416,20 @@ extension ContentController {
             undoManager.setActionName(NSLocalizedString("Update Items", comment: "internalUpdateContentItems(_:)"))
         }
         actionManager.contentActionUpdated(items)
+        
+        content.deactivateKeyValueObservation()
         content.items.removeAll(where: { itemIDs.contains($0.id) })
         var indexes = IndexSet()
-        items.sorted(by: { $0.id < $1.id }).forEach { (item) in
-            let idx = content.items.insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
+        let sortedItems = items.sorted(by: { $0.id < $1.id })
+        sortedItems.forEach { (item) in
+            let idx = content.items
+                .insertionIndexOf(item, isOrderedBefore: { $0.id < $1.id })
             content.items.insert(item, at: idx)
             indexes.insert(idx)
         }
+        content.activateKeyValueObservation()
+        content.items = { content.items }()
+        
         return indexes
     }
     
@@ -1247,7 +1264,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     private func copyContentItemsAsync(_ items: [ContentItem], with template: Template) {
-        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+        screenshot?.performExtractSession(in: view.window!, with: template) { [weak self] (tmpl) in
             if (items.count == 1) {
                 try self?.documentExport?.copyContentItem(items.first!, with: tmpl)
             } else {
@@ -1428,7 +1445,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         with template: Template,
         byLocatingAfterOperation locate: Bool
     ) {
-        screenshot?.extractContentItems(in: view.window!, with: template, asyncTask: { [weak self] (tmpl) in
+        screenshot?.performExtractSession(in: view.window!, with: template, asyncTask: { [weak self] (tmpl) in
             try self?.documentExport?.exportContentItems(items, to: url, with: tmpl)
         }, completionHandler: { (succeed) in
             if succeed && locate {
@@ -1438,7 +1455,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
 
     private func exportContentItemsAsyncInPlace(_ items: [ContentItem], with template: Template) {
-        screenshot?.extractContentItems(in: view.window!, with: template) { [weak self] (tmpl) in
+        screenshot?.performExtractSession(in: view.window!, with: template) { [weak self] (tmpl) in
             try self?.documentExport?.exportContentItemsInPlace(items, with: tmpl)
         }
     }

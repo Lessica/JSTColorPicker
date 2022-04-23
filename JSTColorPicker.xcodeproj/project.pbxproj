@@ -255,6 +255,8 @@
 		CC32E2332615D6A300F5F6AA /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E2312615D6A300F5F6AA /* PreviewController.swift */; };
 		CC32E23B2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
 		CC32E23C2615F15A00F5F6AA /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC32E23E2615F15A00F5F6AA /* Preview.storyboard */; };
+		CC33B3CF281445B8004906AC /* ScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33B3CE281445B8004906AC /* ScreenshotController.swift */; };
+		CC33B3D0281445B8004906AC /* ScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33B3CE281445B8004906AC /* ScreenshotController.swift */; };
 		CC34770F266F4AF400391E73 /* AppDelegate+Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34770E266F4AF400391E73 /* AppDelegate+Console.swift */; };
 		CC347710266F4AF400391E73 /* AppDelegate+Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34770E266F4AF400391E73 /* AppDelegate+Console.swift */; };
 		CC347712266F4B8B00391E73 /* AppDelegate+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC347711266F4B8B00391E73 /* AppDelegate+Device.swift */; };
@@ -1563,6 +1565,7 @@
 		CC32E23D2615F15A00F5F6AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preview.storyboard; sourceTree = "<group>"; };
 		CC32E2472615F15D00F5F6AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preview.strings; sourceTree = "<group>"; };
 		CC32E2502615F15F00F5F6AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preview.strings"; sourceTree = "<group>"; };
+		CC33B3CE281445B8004906AC /* ScreenshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotController.swift; sourceTree = "<group>"; };
 		CC34770E266F4AF400391E73 /* AppDelegate+Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Console.swift"; sourceTree = "<group>"; };
 		CC347711266F4B8B00391E73 /* AppDelegate+Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Device.swift"; sourceTree = "<group>"; };
 		CC347714266F4D8000391E73 /* AppDelegate+Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Template.swift"; sourceTree = "<group>"; };
@@ -2919,6 +2922,7 @@
 				CC470A0F262B1C9F0013A3B7 /* ReadWriteLock.swift */,
 				CCE01C74264CD8E0005960A7 /* NotificationToken.swift */,
 				CC23631A264AE7AA005E909A /* MainMenu.swift */,
+				CC33B3CE281445B8004906AC /* ScreenshotController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5123,6 +5127,7 @@
 				CC32E2322615D6A300F5F6AA /* PreviewController.swift in Sources */,
 				D61047BA24224A170002E990 /* PreviewOverlayView.swift in Sources */,
 				CC042770275E212B008DD0C5 /* PreviewViewController.m in Sources */,
+				CC33B3CF281445B8004906AC /* ScreenshotController.swift in Sources */,
 				CCB7847D26257B9200FC4216 /* Color+HSV.swift in Sources */,
 				D6DD4B0B24A3397C00CC90E3 /* ContentEditableTextField.swift in Sources */,
 				185D7EEB248A8025001C283B /* EditAreaController.swift in Sources */,
@@ -5447,6 +5452,7 @@
 				CC1B4C1D27EF0C3E0087974F /* MetadataWindowController.swift in Sources */,
 				CC04276F275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				D645E4AB23EC40B30039F4F6 /* PreviewImageView.swift in Sources */,
+				CC33B3D0281445B8004906AC /* ScreenshotController.swift in Sources */,
 				CCAB7B2B27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */,
 				CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */,
 				CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,

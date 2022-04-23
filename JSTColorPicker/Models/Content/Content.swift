@@ -61,9 +61,31 @@ final class Content: NSObject, Codable {
         
     }
     
-    @objc dynamic var items       : [ContentItem]
+    private var _shouldPerformKeyValueObservationAutomatically = true
+    
+    func deactivateKeyValueObservation() {
+        _shouldPerformKeyValueObservationAutomatically = false
+    }
+    
+    func activateKeyValueObservation() {
+        _shouldPerformKeyValueObservationAutomatically = true
+    }
+    
                   var lazyColors  : [PixelColor]    { items.lazy.compactMap({ $0 as? PixelColor }) }
                   var lazyAreas   : [PixelArea]     { items.lazy.compactMap({ $0 as? PixelArea })  }
+    @objc dynamic var items       : [ContentItem]
+    {
+        willSet {
+            if _shouldPerformKeyValueObservationAutomatically {
+                willChangeValue(for: \.items)
+            }
+        }
+        didSet {
+            if _shouldPerformKeyValueObservationAutomatically {
+                didChangeValue(for: \.items)
+            }
+        }
+    }
     
     override init() {
         self.items = [ContentItem]()
@@ -83,6 +105,26 @@ final class Content: NSObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         items = try container.decode([ContentItem].self, forKey: .items)
+    }
+    
+    override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
+        if key == "items" {
+            return false
+        }
+        return super.automaticallyNotifiesObservers(forKey: key)
+    }
+}
+
+extension Content /*: Equatable*/ {
+    
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(items)
+        return hasher.finalize()
+    }
+    
+    static func == (lhs: Content, rhs: Content) -> Bool {
+        return lhs.items == rhs.items
     }
     
 }

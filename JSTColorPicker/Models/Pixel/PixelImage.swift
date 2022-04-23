@@ -126,16 +126,25 @@ final class PixelImage {
 #if WITH_LUASWIFT
 extension PixelImage: LuaSwift.Value {
     
-    func push(_ vm: VirtualMachine) {
+    func push(_ vm: VirtualMachine)
+    {
         let t = vm.createTable()
         let imageURL = imageSource.url
+        
         t["type"] = String(describing: PixelImage.self)
+        
         t["path"] = imageURL.path
         t["folder"] = imageURL.deletingLastPathComponent().lastPathComponent
         t["filename"] = imageURL.lastPathComponent
+        t["extension"] = imageURL.pathExtension.lowercased()
+        
         t["width"] = size.width
         t["height"] = size.height
-        t["get_color"] = vm.createFunction([ Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
+        t["size"] = size
+        
+        t["get_color"] = vm.createFunction([Int64.arg, Int64.arg], requiredArgumentCount: 2) {
+            (args) -> SwiftReturnValue in
+            
             let (x, y) = (args.integer, args.integer)
             let coordinate = PixelCoordinate(x: Int(x), y: Int(y))
             if let color = self.rawColor(at: coordinate)?.rgbaValue {
@@ -144,8 +153,11 @@ extension PixelImage: LuaSwift.Value {
             else {
                 return .error(Content.Error.itemOutOfRange(item: coordinate, range: self.size).failureReason!)
             }
-        })
-        t["get_image"] = vm.createFunction([ Int64.arg, Int64.arg, Int64.arg, Int64.arg ], { (args) -> SwiftReturnValue in
+        }
+        
+        t["get_image"] = vm.createFunction([Int64.arg, Int64.arg, Int64.arg, Int64.arg], requiredArgumentCount: 4) {
+            (args) -> SwiftReturnValue in
+            
             let (x, y, w, h) = (args.integer, args.integer, args.integer, args.integer)
             let area = PixelArea(rect: PixelRect(x: Int(x), y: Int(y), width: Int(w), height: Int(h)))
             if let data = self.pngRepresentation(of: area) {
@@ -154,22 +166,52 @@ extension PixelImage: LuaSwift.Value {
             else {
                 return .error(Content.Error.itemOutOfRange(item: area, range: self.size).failureReason!)
             }
-        })
+        }
+        
+        t["get_data"] = vm.createFunction([Bool.arg], requiredArgumentCount: 0) {
+            (args) -> SwiftReturnValue in
+            
+            var withMetadata = false
+            if args.count == 1 {
+                withMetadata = args.boolean
+            }
+            
+            if withMetadata {
+                if let screenshots = ScreenshotController.shared.documents as? [Screenshot] {
+                    if let screenshot = screenshots.filter({ $0.image === self }).first,
+                       let documentType = screenshot.fileType,
+                       let screenshotData = try? screenshot.data(ofType: documentType)
+                    {
+                        return .value(screenshotData)
+                    }
+                }
+                return .error(Content.Error.notLoaded.failureReason!)
+            } else {
+                return .value(self.pngRepresentation())
+            }
+        }
+        
         t.push(vm)
     }
     
     func kind() -> Kind { return .table }
     
-    private static let typeKeys: [String] = ["type", "path", "folder", "filename", "width", "height", "get_color", "get_image"]
+    private static let typeKeys: [String] = [
+        "type", "path", "folder",
+        "filename", "extension",
+        "width", "height",
+        "get_color", "get_image"
+    ]
     private static let typeName: String = "\(String(describing: PixelImage.self)) (Table Keys [\(typeKeys.joined(separator: ","))])"
     class func arg(_ vm: VirtualMachine, value: Value) -> String? {
         if value.kind() != .table { return typeName }
         if let result = Table.arg(vm, value: value) { return result }
         let t = value as! Table
-        if  !(t["type"] is String)          ||
+        if  !(t["type"] is String)              ||
                 !(t["path"] is String)          ||
                 !(t["folder"] is String)        ||
                 !(t["filename"] is String)      ||
+                !(t["extension"] is String)     ||
                 !(t["width"] is Number)         ||
                 !(t["height"] is Number)        ||
                 !(t["get_color"] is Function)   ||
