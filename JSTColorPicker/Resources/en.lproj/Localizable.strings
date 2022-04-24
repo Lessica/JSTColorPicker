@@ -35,6 +35,12 @@
 /* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "A simple drag-to-move operation for pointer devices.";
 
+/* restoreSubscription() */
+"A valid email address is required, please try again." = "A valid email address is required, please try again.";
+
+/* restoreSubscription() */
+"A valid license code is required, please try again." = "A valid license code is required, please try again.";
+
 /* Shortcut Guide */
 "Add Area Annotation" = "Add Area Annotation";
 
@@ -278,6 +284,9 @@
 
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Establish connection to remote server “%@”…" = "Establish connection to remote server “%@”…";
+
+/* loadLocalReceipt(verifyActivationWithCompletion:) */
+"Exit" = "Exit";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "Exit Comparison Mode";
@@ -754,6 +763,9 @@
 
 /* toolbarItemLabel */
 "Subscription" = "Subscription";
+
+/* loadLocalReceipt(verifyActivationWithCompletion:) */
+"Subscription Requires Validation" = "Subscription Requires Validation";
 
 /* windowSetupSmartZoomAction(_:) */
 "Successfully set maximum smart zoom magnification to a new value = %.2f" = "Successfully set maximum smart zoom magnification to a new value = %.2f";

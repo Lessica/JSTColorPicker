@@ -660,7 +660,7 @@ Sessions are time limited (30 minutes).</string>
                                         <rect key="frame" x="20" y="0.0" width="370" height="24"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cme-K1-HL1">
-                                                <rect key="frame" x="-7" y="-5" width="76" height="32"/>
+                                                <rect key="frame" x="-5" y="-5" width="76" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MlP-sd-mNN">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -673,7 +673,7 @@ Gw
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="voe-hA-hJh">
-                                                <rect key="frame" x="243" y="-5" width="134" height="32"/>
+                                                <rect key="frame" x="241" y="-5" width="134" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Activate License" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wLy-85-J4I">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -687,12 +687,12 @@ DQ
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="voe-hA-hJh" secondAttribute="trailing" id="2f6-4h-Phf"/>
+                                            <constraint firstAttribute="trailing" secondItem="voe-hA-hJh" secondAttribute="trailing" constant="2" id="2f6-4h-Phf"/>
                                             <constraint firstAttribute="height" constant="24" id="jzM-xm-GYi"/>
                                             <constraint firstItem="voe-hA-hJh" firstAttribute="centerY" secondItem="geZ-67-7ho" secondAttribute="centerY" id="kRT-t3-GwM"/>
                                             <constraint firstItem="voe-hA-hJh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Cme-K1-HL1" secondAttribute="trailing" constant="8" id="krX-RB-Thm"/>
                                             <constraint firstItem="Cme-K1-HL1" firstAttribute="centerY" secondItem="geZ-67-7ho" secondAttribute="centerY" id="sOT-2t-Nbn"/>
-                                            <constraint firstItem="Cme-K1-HL1" firstAttribute="leading" secondItem="geZ-67-7ho" secondAttribute="leading" id="wyn-o6-9ph"/>
+                                            <constraint firstItem="Cme-K1-HL1" firstAttribute="leading" secondItem="geZ-67-7ho" secondAttribute="leading" constant="2" id="wyn-o6-9ph"/>
                                         </constraints>
                                     </customView>
                                 </subviews>

@@ -55,12 +55,15 @@ final class PurchaseController: NSViewController {
         init?(verificationState: PADVerificationState) {
             if verificationState == .unverified {
                 self = .unverified
+                return
             }
             else if verificationState == .noActivation {
                 self = .validateNoActivation
+                return
             }
             else if verificationState == .unableToVerify {
                 self = .validateUnableToVerify
+                return
             }
             return nil
         }
@@ -70,12 +73,15 @@ final class PurchaseController: NSViewController {
         init?(checkoutState: PADCheckoutState) {
             if checkoutState == .failed {
                 self = .checkoutFailed
+                return
             }
             else if checkoutState == .flagged {
                 self = .checkoutFlagged
+                return
             }
             else if checkoutState == .slowOrderProcessing {
                 self = .checkoutSlowOrderProcessing
+                return
             }
             return nil
         }
@@ -509,6 +515,30 @@ final class PurchaseController: NSViewController {
             window.beginSheet(promptWindow) { [unowned self] (resp) in
                 if resp == .cancel {
                     self.isMasked = false
+                }
+                else if resp == .invalidEmailAddress {
+                    let alert = NSAlert(
+                        style: .warning,
+                        text: .init(
+                            message: NSLocalizedString("A valid email address is required, please try again.", comment: "restoreSubscription()"),
+                            information: ""
+                        )
+                    )
+                    alert.beginSheetModal(for: window) { [unowned self] _ in
+                        self.isMasked = false
+                    }
+                }
+                else if resp == .invalidLicenseCode {
+                    let alert = NSAlert(
+                        style: .warning,
+                        text: .init(
+                            message: NSLocalizedString("A valid license code is required, please try again.", comment: "restoreSubscription()"),
+                            information: ""
+                        )
+                    )
+                    alert.beginSheetModal(for: window) { [unowned self] _ in
+                        self.isMasked = false
+                    }
                 }
                 else if resp == .continue {
                     let alert = NSAlert(

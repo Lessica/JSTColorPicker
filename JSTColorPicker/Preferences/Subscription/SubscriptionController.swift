@@ -74,7 +74,10 @@ final class SubscriptionController: NSViewController {
         alert.beginSheetModal(for: view.window!) { resp in
             if resp == .alertFirstButtonReturn {
                 PurchaseWindowController.shared.showWindow(sender)
-                NotificationCenter.default.post(name: PurchaseManager.productForceDeactivateNotification, object: nil)
+                NotificationCenter.default.post(
+                    name: PurchaseManager.productForceDeactivateNotification,
+                    object: nil
+                )
             }
         }
     }

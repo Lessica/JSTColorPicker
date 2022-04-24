@@ -9,5 +9,10 @@
 import Cocoa
 
 final class PaddleLicenseActivationWindow: NSWindow {
+    
     override var canBecomeKey: Bool { true }
+    
+    override func mouseDown(with event: NSEvent) {
+        sheetParent?.performDrag(with: event)
+    }
 }

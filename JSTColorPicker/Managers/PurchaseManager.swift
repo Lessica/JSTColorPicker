@@ -343,11 +343,17 @@ import Paddle
         
         // Perform verification afterwards, for valid license only
         var shouldVerify = true
+        var forceVerify = false
+        
         if completion == nil, let lastVerifiedAt = paddleProduct.lastSuccessfulVerifiedDate {
-            let verifyDistance = Date().distance(to: lastVerifiedAt)
-            if verifyDistance > 7200 {
+            let verifyDistance = lastVerifiedAt.distance(to: Date())
+            if verifyDistance < 7200 {
                 // has verified in last 2 hours
                 shouldVerify = false
+            } else if verifyDistance > 2_592_000 {
+                // did not pass verification in last month
+                shouldVerify = true
+                forceVerify = true
             }
         }
         
@@ -355,10 +361,6 @@ import Paddle
             
             let callback = completion ?? { [weak self] (state, error, details) in
                 guard let self = self else { return }
-                if let error = error {
-                    // unknown error
-                    throw PurchaseController.Error.other(description: error.localizedDescription)
-                }
                 switch state {
                 case .verified:
                     if let details = details {
@@ -368,21 +370,61 @@ import Paddle
                         }
                     }
                 case .unverified, .noActivation, .unableToVerify:
-                    if self.internalLock.tryWriteLock() {
-                        self.productType = .uninitialized
-                        if let details = details {
-                            self.verificationDetails = details
+                    if forceVerify {
+                        // deactivate current session
+                        if self.internalLock.tryWriteLock() {
+                            self.productType = .uninitialized
+                            if let details = details {
+                                self.verificationDetails = details
+                            }
+                            self.internalLock.unlock()
                         }
-                        self.internalLock.unlock()
                     }
                     throw PurchaseController.Error(verificationState: state)!
                 @unknown default:
                     fatalError()
                 }
+                if let error = error {
+                    // other unknown error
+                    throw PurchaseController.Error.other(description: error.localizedDescription)
+                }
             }
             
-            paddleProduct.verifyActivationDetails {
-                try? callback($0, $1, $2)
+            DispatchQueue.main.async { [unowned self] in
+                self.paddleProduct.verifyActivationDetails {
+                    if forceVerify {
+                        do {
+                            try callback($0, $1, $2)
+                        } catch {
+                            let alert = NSAlert(
+                                style: .critical,
+                                text: .init(
+                                    message: NSLocalizedString("Subscription Requires Validation", comment: "loadLocalReceipt(verifyActivationWithCompletion:)"),
+                                    information: error.localizedDescription
+                                )
+                            )
+                            
+                            alert.addButton(withTitle: NSLocalizedString("Deactivate…", comment: "loadLocalReceipt(verifyActivationWithCompletion:)"))
+                            alert.addButton(withTitle: NSLocalizedString("Exit", comment: "loadLocalReceipt(verifyActivationWithCompletion:)"))
+                            
+                            let resp = alert.runModal()
+                            if resp == .alertFirstButtonReturn
+                            {
+                                PurchaseWindowController.shared.showWindow(self)
+                                NotificationCenter.default.post(
+                                    name: PurchaseManager.productForceDeactivateNotification,
+                                    object: nil
+                                )
+                            }
+                            else if resp == .alertSecondButtonReturn
+                            {
+                                NSApp.terminate(self)
+                            }
+                        }
+                    } else {
+                        try? callback($0, $1, $2)
+                    }
+                }
             }
         }
     }

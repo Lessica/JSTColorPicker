@@ -35,6 +35,12 @@
 /* Shortcut Guide */
 "A simple drag-to-move operation for pointer devices." = "常规指针设备的简单拖拽移动操作。";
 
+/* restoreSubscription() */
+"A valid email address is required, please try again." = "有效的电子邮箱地址是必填的，请重试。";
+
+/* restoreSubscription() */
+"A valid license code is required, please try again." = "有效的许可证代码是必填的，请重试。";
+
 /* Shortcut Guide */
 "Add Area Annotation" = "添加区域标注";
 
@@ -278,6 +284,9 @@
 
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Establish connection to remote server “%@”…" = "正在建立与远程服务器 “%@” 的连接…";
+
+/* loadLocalReceipt(verifyActivationWithCompletion:) */
+"Exit" = "退出";
 
 /* updateMenuItems */
 "Exit Comparison Mode" = "退出比较模式";
@@ -754,6 +763,9 @@
 
 /* toolbarItemLabel */
 "Subscription" = "订阅";
+
+/* loadLocalReceipt(verifyActivationWithCompletion:) */
+"Subscription Requires Validation" = "订阅需要验证";
 
 /* windowSetupSmartZoomAction(_:) */
 "Successfully set maximum smart zoom magnification to a new value = %.2f" = "成功将智能缩放最大值更新为 %.2f";
