@@ -21,6 +21,7 @@ final class TemplatePreviewObject {
     let uuidString: String
     var contents: String?
     var isMarkdown: Bool = false
+    var attributedContents: NSAttributedString?
     var error: String? = nil
     var state: State = .initialized
     
@@ -43,9 +44,12 @@ final class TemplatePreviewObject {
     
     static let placeholder = TemplatePreviewObject(uuidString: "", contents: nil)
     
-    func clear() {
+    func clear(preservesAttributedContents: Bool = true) {
         contents = nil
         isMarkdown = false
+        if !preservesAttributedContents {
+            attributedContents = nil
+        }
         error = nil
         state = .initialized
     }

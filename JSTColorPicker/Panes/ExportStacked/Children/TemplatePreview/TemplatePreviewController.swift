@@ -647,19 +647,24 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
     
     private func clearContentsForAllTemplates() {
         cachingLock.writeLock()
-        cachedPreviewContents.forEach({ $0.value.clear() })
+        cachedPreviewContents
+            .forEach({ $0.value.clear() })
         cachingLock.unlock()
     }
 
     private func clearContentsForAsyncTemplates() {
         cachingLock.writeLock()
-        cachedPreviewContents = cachedPreviewContents.filter({ !(templateWithUUIDString($0.key)?.isAsync ?? false) })
+        cachedPreviewContents
+            .filter({ templateWithUUIDString($0.key)?.isAsync ?? false })
+            .forEach({ $0.value.clear() })
         cachingLock.unlock()
     }
     
     private func clearContentsWithError() {
         cachingLock.writeLock()
-        cachedPreviewContents = cachedPreviewContents.filter({ !$0.value.hasError })
+        cachedPreviewContents
+            .filter({ $0.value.hasError })
+            .forEach({ $0.value.clear() })
         cachingLock.unlock()
     }
     
@@ -1332,11 +1337,14 @@ by \(template.author ?? "Unknown")
             else if let templateObj = item as? TemplatePreviewObject,
                     let cell = outlineView.makeView(withIdentifier: .cellTemplateContent, owner: nil) as? TemplateContentCellView
             {
+                
+                var allowsCaching = false
                 var attributedText: NSAttributedString
+                
                 if !documentState.isLoaded {
                     attributedText = NSAttributedString(
                         string: Error.documentNotLoaded.localizedDescription,
-                        attributes: TemplateContentCellView.defaultTextAttributes
+                        attributes: TemplateContentCellView.disabledTextAttributes
                     )
                 } else if let contents = templateObj.contents,
                           let template = templateWithUUIDString(templateObj.uuidString)
@@ -1359,16 +1367,28 @@ by \(template.author ?? "Unknown")
                             )
                         }
                     }
+                    
+                    allowsCaching = true
                 } else if let errorString = templateObj.error {
                     attributedText = NSAttributedString(
                         string: errorString,
                         attributes: TemplateContentCellView.disabledTextAttributes
                     )
+                } else if let priorAttributedText = templateObj.attributedContents {
+                    let mutablePriorAttributedText = NSMutableAttributedString(attributedString: priorAttributedText)
+                    mutablePriorAttributedText.addAttributes([
+                        .foregroundColor: NSColor.labelColor,
+                    ], range: priorAttributedText.string.nsRange)
+                    attributedText = mutablePriorAttributedText
                 } else {
                     attributedText = NSAttributedString(
                         string: NSLocalizedString("Generating…", comment: "Outline Generation"),
-                        attributes: TemplateContentCellView.defaultTextAttributes
+                        attributes: TemplateContentCellView.disabledTextAttributes
                     )
+                }
+                
+                if allowsCaching {
+                    templateObj.attributedContents = attributedText
                 }
                 
                 cell.attributedText = attributedText
