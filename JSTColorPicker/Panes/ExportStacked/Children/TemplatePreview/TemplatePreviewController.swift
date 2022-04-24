@@ -19,6 +19,16 @@ private extension NSUserInterfaceItemIdentifier {
     static let cellTemplateContent  = NSUserInterfaceItemIdentifier("cell-template-content")
 }
 
+private extension String {
+    var nsRange: NSRange {
+        return NSRange(self.startIndex..., in: self)
+    }
+
+    func range(from nsRange: NSRange) -> Range<String.Index>? {
+        return Range(nsRange, in: self)
+    }
+}
+
 final class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
 
     enum Error: LocalizedError {
@@ -132,7 +142,9 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        outlineView.setDraggingSourceOperationMask(.copy, forLocal: false)
         outlineView.appearanceObserver = self
+        
         prepareDefaults()
         updateViewState()
 
@@ -664,24 +676,32 @@ final class TemplatePreviewController: StackedPaneController, EffectiveAppearanc
             if let previewObj = self.cachedPreviewContents[template.uuid.uuidString] {
                 previewObj.clear()
                 do {
-                    previewObj.contents = try exportManager.previewAllContentItems(with: template)
+                    var isMarkdown = false
+                    previewObj.contents = try exportManager
+                        .previewAllContentItems(with: template, isMarkdown: &isMarkdown)
                         .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    previewObj.isMarkdown = isMarkdown
                 } catch {
                     previewObj.error = error.localizedDescription
                 }
             } else {
                 var previewObj: TemplatePreviewObject
                 do {
+                    var isMarkdown = false
+                    let previewContents = try exportManager
+                        .previewAllContentItems(with: template, isMarkdown: &isMarkdown)
+                        .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     previewObj = TemplatePreviewObject(
                         uuidString: template.uuid.uuidString,
-                        contents: try exportManager.previewAllContentItems(with: template)
-                            .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+                        contents: previewContents,
+                        isMarkdown: isMarkdown,
                         error: nil
                     )
                 } catch {
                     previewObj = TemplatePreviewObject(
                         uuidString: template.uuid.uuidString,
                         contents: nil,
+                        isMarkdown: false,
                         error: error.localizedDescription
                     )
                 }
@@ -857,6 +877,13 @@ extension TemplatePreviewController {
             if let err = err as? PMKError, case .cancelled = err {
                 return
             }
+            if let screenshot = screenshot,
+               let err = err as? Screenshot.Error,
+               case .platformSubscriptionRequired = err
+            {
+                screenshot.presentError(err)
+                return
+            }
             NSAlert(error: err).beginSheetModal(for: window) { _ in }
         }.finally {
             let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
@@ -895,6 +922,13 @@ extension TemplatePreviewController {
                 self.endExtractSession(extractSession)
             }
             if let err = err as? PMKError, case .cancelled = err {
+                return
+            }
+            if let screenshot = screenshot,
+               let err = err as? Screenshot.Error,
+               case .platformSubscriptionRequired = err
+            {
+                screenshot.presentError(err)
                 return
             }
             NSAlert(error: err).beginSheetModal(for: window) { _ in }
@@ -1066,7 +1100,11 @@ extension TemplatePreviewController {
         }
     }
 
-    private func promiseWriteCachedContents(_ contents: String, session: Screenshot.ExtractSession) -> Promise<TemplateExportTextResult>
+    private func promiseWriteCachedContents(
+        _ contents: String,
+        isMarkdown: Bool,
+        session: Screenshot.ExtractSession
+    ) -> Promise<TemplateExportTextResult>
     {
         Promise { seal in
             guard cachingLock.tryWriteLock() else {
@@ -1082,6 +1120,7 @@ extension TemplatePreviewController {
                 cachedPreviewContents[template.uuid.uuidString] = TemplatePreviewObject(
                     uuidString: template.uuid.uuidString,
                     contents: contents,
+                    isMarkdown: isMarkdown,
                     error: nil
                 )
             }
@@ -1178,7 +1217,9 @@ extension TemplatePreviewController {
     {
         switch result.result {
         case .plain(let text):
-            return self.promiseWriteCachedContents(text, session: result.session)
+            return self.promiseWriteCachedContents(text, isMarkdown: false, session: result.session)
+        case .markdown(let text):
+            return self.promiseWriteCachedContents(text, isMarkdown: true, session: result.session)
         case .alert(let title, let message):
             if let window = view.window {
                 let alert = NSAlert(
@@ -1300,24 +1341,28 @@ by \(template.author ?? "Unknown")
                 } else if let contents = templateObj.contents,
                           let template = templateWithUUIDString(templateObj.uuidString)
                 {
-                    if syntaxHighlighting,
-                       TemplatePreviewController.shouldHighlightContents(contents),
-                       let parser = effectiveParserForTemplate(template)
-                    {
-                        attributedText = parser.attributedString(
-                            for: contents,
-                            base: TemplateContentCellView.defaultTextAttributes
-                        )
+                    if templateObj.isMarkdown {
+                        attributedText = restrictString(contents).markdownAttributed
                     } else {
-                        attributedText = NSAttributedString(
-                            string: restrictString(contents),
-                            attributes: TemplateContentCellView.defaultTextAttributes
-                        )
+                        if syntaxHighlighting,
+                           TemplatePreviewController.shouldHighlightContents(contents),
+                           let parser = effectiveParserForTemplate(template)
+                        {
+                            attributedText = parser.attributedString(
+                                for: contents,
+                                base: TemplateContentCellView.defaultTextAttributes
+                            )
+                        } else {
+                            attributedText = NSAttributedString(
+                                string: restrictString(contents),
+                                attributes: TemplateContentCellView.defaultTextAttributes
+                            )
+                        }
                     }
                 } else if let errorString = templateObj.error {
                     attributedText = NSAttributedString(
                         string: errorString,
-                        attributes: TemplateContentCellView.defaultTextAttributes
+                        attributes: TemplateContentCellView.disabledTextAttributes
                     )
                 } else {
                     attributedText = NSAttributedString(
@@ -1402,6 +1447,48 @@ by \(template.author ?? "Unknown")
         }
         
         partialProcessPreviewContextForTemplates(expandedTemplates, force: false)
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting?
+    {
+        do {
+            try screenshot?.testExportCondition()
+        } catch {
+            return nil
+        }
+        
+        let pasteboardItem = NSPasteboardItem()
+        if let templateObj = item as? TemplatePreviewObject,
+           let template = templateWithUUIDString(templateObj.uuidString),
+           let contents = templateObj.contents
+        {
+            pasteboardItem.setString(contents, forType: .string)
+            
+            var attributedText: NSAttributedString
+            if templateObj.isMarkdown {
+                attributedText = restrictString(contents).markdownAttributed
+            } else {
+                if syntaxHighlighting,
+                   TemplatePreviewController.shouldHighlightContents(contents),
+                   let parser = effectiveParserForTemplate(template)
+                {
+                    attributedText = parser.attributedString(
+                        for: contents,
+                        base: TemplateContentCellView.defaultTextAttributes
+                    )
+                } else {
+                    attributedText = NSAttributedString(
+                        string: restrictString(contents),
+                        attributes: TemplateContentCellView.defaultTextAttributes
+                    )
+                }
+            }
+            
+            if let attributedData = attributedText.rtf(from: attributedText.string.nsRange) {
+                pasteboardItem.setData(attributedData, forType: .rtf)
+            }
+        }
+        return pasteboardItem
     }
 
 }

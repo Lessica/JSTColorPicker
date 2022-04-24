@@ -95,6 +95,7 @@ final class Template {
     
     enum GenerateResult {
         case plain(text: String)
+        case markdown(text: String)
         case alert(title: String, message: String? = nil)
         case document(url: URL)
         case comparison(url: URL)
@@ -218,10 +219,13 @@ final class Template {
                     return .plain(text: retType)  // as plain text
                 }
                 else {
-                    if retType == "text" || retType == "plain" {
+                    if retType == "text" || retType == "plain" || retType == "markdown" {
                         if vals.count == 2 {
                             let retVal = vals.last!
                             if let retVal = retVal as? String {
+                                if retType == "markdown" {
+                                    return .markdown(text: retVal)
+                                }
                                 return .plain(text: retVal)
                             } else {
                                 throw Error.invalidResultArgumentType(

@@ -15,6 +15,10 @@ final class TemplateContentCellView: NSTableCellView {
         .font: NSFont.monospacedSystemFont(ofSize: defaultFontSize, weight: .regular),
         .foregroundColor: NSColor.labelColor,
     ]
+    static let disabledTextAttributes : [NSAttributedString.Key: Any] = [
+        .font: NSFont.monospacedSystemFont(ofSize: defaultFontSize, weight: .regular),
+        .foregroundColor: NSColor.secondaryLabelColor,
+    ]
 
     var text: String? {
         get { textField?.stringValue }

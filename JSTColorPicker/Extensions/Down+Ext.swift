@@ -133,6 +133,9 @@ extension String {
         configuration.fonts = JSTMiniFontCollection()
         configuration.colors = JSTMiniColorCollection()
         configuration.paragraphStyles = JSTMiniParagraphStyleCollection()
-        return try! Down(markdownString: self).toAttributedString(.default, styler: DownStyler(configuration: configuration))
+        return try! Down(markdownString: self).toAttributedString(
+            .default,
+            styler: DownStyler(configuration: configuration)
+        )
     }
 }

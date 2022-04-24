@@ -9,6 +9,7 @@
 import Foundation
 
 final class TemplatePreviewObject {
+    
     enum State {
         case initialized
         case rejected
@@ -19,12 +20,19 @@ final class TemplatePreviewObject {
     
     let uuidString: String
     var contents: String?
-    var error: String?
+    var isMarkdown: Bool = false
+    var error: String? = nil
     var state: State = .initialized
     
-    internal init(uuidString: String, contents: String?, error: String?) {
+    internal init(
+        uuidString: String,
+        contents: String?,
+        isMarkdown: Bool = false,
+        error: String? = nil
+    ) {
         self.uuidString = uuidString
         self.contents = contents
+        self.isMarkdown = isMarkdown
         self.error = error
         self.state = .initialized
     }
@@ -33,10 +41,11 @@ final class TemplatePreviewObject {
     var hasError: Bool { !(error?.isEmpty ?? true) }
     var isPlaceholder: Bool { uuidString.isEmpty }
     
-    static let placeholder = TemplatePreviewObject(uuidString: "", contents: nil, error: nil)
+    static let placeholder = TemplatePreviewObject(uuidString: "", contents: nil)
     
     func clear() {
         contents = nil
+        isMarkdown = false
         error = nil
         state = .initialized
     }

@@ -9,6 +9,7 @@
 import Cocoa
 
 extension Screenshot {
+    
     override func willPresentError(_ error: Swift.Error) -> Swift.Error {
         debugPrint(error)
         return super.willPresentError(error)

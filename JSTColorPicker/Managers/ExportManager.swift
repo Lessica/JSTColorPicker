@@ -118,10 +118,19 @@ extension ExportManager {
 // MARK: - Preview
 extension ExportManager {
     
-    private func _previewContentItems(_ items: [ContentItem], with template: Template) throws -> String {
+    private func _previewContentItems(
+        _ items: [ContentItem],
+        with template: Template,
+        isMarkdown: inout Bool
+    ) throws -> String
+    {
         do {
             switch try generateContentItems(items, with: template, forAction: .preview) {
             case .plain(let text):
+                isMarkdown = false
+                return text
+            case .markdown(let text):
+                isMarkdown = true
                 return text
             default:
                 throw Error.incompatibleReturnedValue(action: .preview)
@@ -135,9 +144,9 @@ extension ExportManager {
     }
     
     // convenience preview
-    func previewAllContentItems(with template: Template) throws -> String {
+    func previewAllContentItems(with template: Template, isMarkdown: inout Bool) throws -> String {
         guard let items = screenshot.content?.items else { throw Error.noDocumentLoaded }
-        return try _previewContentItems(items, with: template)
+        return try _previewContentItems(items, with: template, isMarkdown: &isMarkdown)
     }
 }
 
