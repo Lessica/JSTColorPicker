@@ -91,6 +91,12 @@ extension ExportManager {
         if action.isInteractive {
             try screenshot.testExportCondition()
         }
+        guard Template.currentPlatformVersion
+            .isVersion(greaterThanOrEqualTo: template.platformVersion)
+        else {
+            throw Template.Error
+                .unsatisfiedPlatformVersion(version: template.platformVersion)
+        }
         return try template.generate(image, items, forAction: action)
     }
 
@@ -120,7 +126,6 @@ extension ExportManager {
             default:
                 throw Error.incompatibleReturnedValue(action: .preview)
             }
-            
         } catch let error as Template.Error {
             os_log("Cannot generate template: %{public}@, failure reason: %{public}@", log: OSLog.default, type: .error, template.url.path, error.failureReason ?? "")
             throw error

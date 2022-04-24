@@ -148,8 +148,7 @@ by \(template.author ?? "Unknown")
 ------
 \(template.userDescription ?? "")
 """
-        }
-        else {
+        } else {
             menuItem.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
         }
         

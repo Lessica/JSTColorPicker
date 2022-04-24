@@ -338,9 +338,13 @@ final class Screenshot: NSDocument {
     }
     
     func endExtractSession(_ session: ExtractSession) {
+        guard isExtractingContentItems else {
+            return
+        }
+        self.isExtractingContentItems = false
+        
         session.loadingAlert.window.orderOut(self)
         session.window.endSheet(session.loadingAlert.window)
-        self.isExtractingContentItems = false
     }
 
     func performExtractSession(
@@ -350,7 +354,7 @@ final class Screenshot: NSDocument {
         completionHandler completion: ((Bool) -> Void)? = nil
     ) {
         guard !isExtractingContentItems else {
-            fatalError("now extracting content items")
+            return
         }
         self.isExtractingContentItems = true
         

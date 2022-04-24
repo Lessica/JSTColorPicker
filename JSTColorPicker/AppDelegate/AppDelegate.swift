@@ -451,7 +451,8 @@ by \(template.author ?? "Unknown")
 """
             }
             else {
-                menuItem.toolTip = Template.Error.unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+                menuItem.toolTip = Template.Error
+                    .unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
             }
             
             return enabled

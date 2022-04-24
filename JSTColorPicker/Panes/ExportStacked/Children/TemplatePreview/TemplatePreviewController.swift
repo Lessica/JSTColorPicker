@@ -827,14 +827,17 @@ extension TemplatePreviewController {
     }
     
     private func copy(_ sender: Any?, isDoubleAction: Bool) {
+        guard let window = view.window else { return }
         var succeed = true
+        var extractSession: Screenshot.ExtractSession?
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
         ).then { t -> Promise<TemplateExportInPlaceTuple> in
             // session begin
             self.promiseBeginExtractSession(t.0, template: t.1)
         }.then { t -> Promise<TemplateExportGenericResult> in
-            self.promiseFetchContentItems(
+            extractSession = t.session
+            return self.promiseFetchContentItems(
                 t.items,
                 session: t.session,
                 forAction: isDoubleAction ? .doubleCopy : .copy
@@ -846,9 +849,15 @@ extension TemplatePreviewController {
         }.then { t -> Promise<Void> in
             // session end
             self.promiseEndExtractSession(t)
-        }.catch {
-            self.presentError($0)
+        }.catch (policy: .allErrors) { [unowned self] (err) in
             succeed = false
+            if let extractSession = extractSession {
+                self.endExtractSession(extractSession)
+            }
+            if let err = err as? PMKError, case .cancelled = err {
+                return
+            }
+            NSAlert(error: err).beginSheetModal(for: window) { _ in }
         }.finally {
             let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
             if succeed && shouldMakeSound {
@@ -858,8 +867,10 @@ extension TemplatePreviewController {
     }
 
     @IBAction private func exportAs(_ sender:  Any?) {
+        guard let window = view.window else { return }
         var succeed = true
         var targetURL: URL?  // if it's nil, save in place
+        var extractSession: Screenshot.ExtractSession?
         when(
             fulfilled: promiseCheckAllContentItems(), promiseCheckSelectedTemplate()
         ).then { t -> Promise<TemplateExportTuple> in
@@ -869,7 +880,8 @@ extension TemplatePreviewController {
             // session begin
             return self.promiseBeginExtractSession(t.items, template: t.template)
         }.then { t -> Promise<TemplateExportGenericResult> in
-            self.promiseFetchContentItems(t.items, session: t.session, forAction: .export)
+            extractSession = t.session
+            return self.promiseFetchContentItems(t.items, session: t.session, forAction: .export)
         }.then { t -> Promise<TemplateExportTextResult> in
             self.promiseHandleGenericResult(result: t)
         }.then { t -> Promise<Screenshot.ExtractSession> in
@@ -877,9 +889,15 @@ extension TemplatePreviewController {
         }.then { t -> Promise<Void> in
             // session end
             self.promiseEndExtractSession(t)
-        }.catch {
-            self.presentError($0)
+        }.catch (policy: .allErrors) { [unowned self] (err) in
             succeed = false
+            if let extractSession = extractSession {
+                self.endExtractSession(extractSession)
+            }
+            if let err = err as? PMKError, case .cancelled = err {
+                return
+            }
+            NSAlert(error: err).beginSheetModal(for: window) { _ in }
         }.finally {
             let shouldMakeSound: Bool = UserDefaults.standard[.makeSoundsAfterDoubleClickCopy]
             if succeed && shouldMakeSound {
@@ -1019,6 +1037,10 @@ extension TemplatePreviewController {
             screenshot.endExtractSession(session)
             seal.fulfill_()
         }
+    }
+    
+    private func endExtractSession(_ session: Screenshot.ExtractSession) {
+        screenshot?.endExtractSession(session)
     }
 
     private func promiseFetchContentItems(
@@ -1198,7 +1220,11 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
     }
 
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is Template
+        if let template = item as? Template {
+            return Template.currentPlatformVersion
+                .isVersion(greaterThanOrEqualTo: template.platformVersion)
+        }
+        return false
     }
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
@@ -1244,6 +1270,22 @@ extension TemplatePreviewController: NSOutlineViewDataSource, NSOutlineViewDeleg
                let cell = outlineView.makeView(withIdentifier: .cellTemplate, owner: nil) as? TemplateCellView
             {
                 cell.text = template.name
+                
+                let enabled = Template.currentPlatformVersion
+                    .isVersion(greaterThanOrEqualTo: template.platformVersion)
+                
+                if enabled {
+                    cell.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.userDescription ?? "")
+"""
+                } else {
+                    cell.toolTip = Template.Error
+                        .unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+                }
+                
                 return cell
             }
             else if let templateObj = item as? TemplatePreviewObject,
