@@ -15,13 +15,7 @@ import PMKFoundation
 extension AppDelegate {
     
     static var deviceSupportLocalRootURL: URL = {
-        let url = FileManager.default.urls(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask
-        )
-        .first!
-        .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        .appendingPathComponent("DeviceSupport")
+        let url = AppDelegate.supportDirectoryURL.appendingPathComponent("DeviceSupport")
 
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(

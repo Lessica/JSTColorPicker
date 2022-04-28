@@ -161,8 +161,11 @@ final class Template {
         self.manager = manager
 
         self.contentModification = url.contentModification
-        self.vm = VirtualMachine(openLibs: true)
-
+        
+        let vm = VirtualMachine(openLibs: true)
+        vm.globals["applicationSupportDirectory"] = AppDelegate.supportDirectoryURL.path
+        
+        self.vm = vm
         switch self.vm.eval(url, args: []) {
         case let .values(vals):
             guard let tab = vals.first as? Table else { throw Error.missingRootEntry }

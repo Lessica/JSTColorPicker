@@ -52,13 +52,7 @@ import OSLog
     }
 
     static var templateRootURL: URL = {
-        let url = FileManager.default.urls(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask
-        )
-        .first!
-        .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        .appendingPathComponent("Templates")
+        let url = AppDelegate.supportDirectoryURL.appendingPathComponent("Templates")
 
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(

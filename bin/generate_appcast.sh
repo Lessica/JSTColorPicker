@@ -2,58 +2,94 @@
 
 set -e -x
 
+
+CERT="Developer ID Application: Zheng Wu (GXZ23M5TP2)"
+BUILD_ROOT=$(git rev-parse --show-toplevel)
+
+
+cd "$BUILD_ROOT"
 find . -name '.DS_Store' -type f -print -delete
+mkdir -p releases/.app releases/.helper releases/.conf
 
-mkdir -p ./releases/apps
-mkdir -p ./releases/helpers
-mkdir -p ./releases/conf
 
-echo "Processing JSTColorPickerSparkle..."
-APP_VERSION=$(xcodebuild -showBuildSettings -target JSTColorPickerSparkle | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
-APP_BUILD_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerSparkle | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
-if [ -z "${APP_VERSION}" ]; then
-    echo "Failed to fetch version from Xcode configuration."
-    exit 1
-fi
-if [ -z "${APP_BUILD_VERSION}" ]; then
-    echo "Failed to fetch version from Xcode configuration."
-    exit 1
-fi
-APP_NAME="JSTColorPicker_${APP_VERSION}-${APP_BUILD_VERSION}.dmg"
-create-dmg --overwrite --identity='Developer ID Application: Zheng Wu (GXZ23M5TP2)' ./releases/apps/JSTColorPicker.app ./releases/apps/
-mv ./releases/apps/*.dmg ./releases/${APP_NAME}
-./Pods/Sparkle/bin/generate_appcast --download-url-prefix https://cdn.82flex.com/jstcpweb/ -o ./releases/appcast.xml ./releases
+APP_PATH="$BUILD_ROOT/releases/.app/JSTColorPicker.app"
 
-echo "Processing JSTColorPickerHelper..."
-HELPER_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerHelper | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
-HELPER_BUILD_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerHelper | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
-if [ -z "${HELPER_VERSION}" ]; then
-    echo "Failed to fetch version from Xcode configuration."
-    exit 1
+if [[ -f "$APP_PATH" ]]; then
+
+    echo "Processing JSTColorPickerSparkle..."
+    cd "$BUILD_ROOT"
+
+    APP_VERSION=$(xcodebuild -showBuildSettings -target JSTColorPickerSparkle | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
+    if [ -z "$APP_VERSION" ]; then
+        echo "Failed to fetch version from Xcode configuration."
+        exit 1
+    fi
+
+    APP_BUILD_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerSparkle | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
+    if [ -z "$APP_BUILD_VERSION" ]; then
+        echo "Failed to fetch version from Xcode configuration."
+        exit 1
+    fi
+
+    create-dmg --overwrite --identity="$CERT" "$APP_PATH" releases/.app/
+
+    APP_DMG_NAME="JSTColorPicker_$APP_VERSION-$APP_BUILD_VERSION.dmg"
+    mv releases/.app/*.dmg releases/cdn/$APP_DMG_NAME
+
+    Pods/Sparkle/bin/generate_appcast --download-url-prefix https://cdn.82flex.com/jstcpweb/ -o releases/appcast.xml releases/cdn
+
+    trasher "$APP_PATH"
 fi
-if [ -z "${HELPER_BUILD_VERSION}" ]; then
-    echo "Failed to fetch version from Xcode configuration."
-    exit 1
+
+
+HELPER_PATH="$BUILD_ROOT/releases/.helper/JSTColorPickerHelper.app"
+
+if [[ -f "$HELPER_PATH" ]]; then
+
+    echo "Processing JSTColorPickerHelper..."
+    cd "$BUILD_ROOT"
+
+    HELPER_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerHelper | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
+    if [ -z "${HELPER_VERSION}" ]; then
+        echo "Failed to fetch version from Xcode configuration."
+        exit 1
+    fi
+
+    HELPER_BUILD_VERSION=$(xcodebuild -disableAutomaticPackageResolution -showBuildSettings -target JSTColorPickerHelper | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')
+    if [ -z "${HELPER_BUILD_VERSION}" ]; then
+        echo "Failed to fetch version from Xcode configuration."
+        exit 1
+    fi
+
+    HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
+    echo "${HELPER_INCLUDED_FILE}" > releases/.conf/nginx_latest_helper_redirect.txt
+
+    HELPER_ZIP_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
+    cd releases/.helper/
+    if [[ ! -f "${HELPER_ZIP_NAME}" ]]; then
+        zip -qr "${HELPER_ZIP_NAME}" "JSTColorPickerHelper.app"
+    fi
+    mv "${HELPER_ZIP_NAME}" ../cdn/
+    cd "$BUILD_ROOT"
+
+    trasher "$HELPER_PATH"
 fi
-HELPER_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
-HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
-echo "${HELPER_INCLUDED_FILE}" > ./releases/conf/nginx_latest_helper_redirect.txt
-cd ./releases/helpers/
-if [[ ! -f "${HELPER_NAME}" ]]; then
-    zip -qr "${HELPER_NAME}" JSTColorPickerHelper.app
-fi
-cd ../../
+
 
 echo "Upload resources..."
-scp ./releases/${APP_NAME} aliyun-nps:/mnt/oss/jstcpweb/${APP_NAME}
-scp ./releases/JSTColorPicker${APP_BUILD_VERSION}-*.delta aliyun-nps:/mnt/oss/jstcpweb/
-scp ./releases/helpers/${HELPER_NAME} aliyun-nps:/mnt/oss/jstcpweb/${HELPER_NAME}
+cd "$BUILD_ROOT"
+rsync -avzP --no-perms --no-owner --no-group --exclude=".*" releases/cdn/ aliyun-nps:/mnt/oss/jstcpweb/
+
 
 echo "Upload metadata..."
-scp ./releases/appcast.xml raspi-xtzn:/var/www/html/jstcpweb/appcast.xml
+cd "$BUILD_ROOT"
+scp releases/appcast.xml raspi-xtzn:/var/www/html/jstcpweb/appcast.xml
+
 
 echo "Upload helper metadata..."
-scp ./releases/conf/nginx_latest_helper_redirect.txt raspi-xtzn:/var/www/html/jstcpweb/nginx_latest_helper_redirect.txt
-ssh raspi-xtzn nginx -t
-ssh raspi-xtzn nginx -s reload
-scp -r ./releases/adhoc raspi-xtzn:/var/www/html/jstcpweb/adhoc
+cd "$BUILD_ROOT"
+scp releases/.conf/nginx_latest_helper_redirect.txt raspi-xtzn:/var/www/html/jstcpweb/nginx_latest_helper_redirect.txt
+ssh raspi-xtzn "nginx -t && nginx -s reload"
+
+
+exit 0

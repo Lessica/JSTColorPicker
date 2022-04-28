@@ -55,7 +55,7 @@ final class TagListController: StackedPaneController {
     
     private static var sharedContext              : MRManagedObjectContext?
     private static var sharedUndoManager          : UndoManager = { return UndoManager() }()
-    private var isContextLoaded                   : Bool          { TagListController.sharedContext != nil }
+    private var isContextLoaded                   : Bool          { Self.sharedContext != nil }
     
     @IBOutlet var internalController              : TagController!
     @IBOutlet var tagMenu                         : NSMenu!
@@ -95,7 +95,7 @@ final class TagListController: StackedPaneController {
     
     private var _selectModeDelayedRowIndexes      : IndexSet?
     override var undoManager                      : UndoManager?
-    { isSelectMode ? selectDelegate?.undoManager : TagListController.sharedUndoManager }
+    { isSelectMode ? selectDelegate?.undoManager : Self.sharedUndoManager }
     
     static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
     static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
@@ -122,10 +122,10 @@ final class TagListController: StackedPaneController {
     private lazy var colorPanelTouchBar: NSTouchBar = {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
-        touchBar.customizationIdentifier = TagListController.colorPickerBar
-        touchBar.defaultItemIdentifiers = [TagListController.colorPickerItem]
-        touchBar.customizationAllowedItemIdentifiers = [TagListController.colorPickerItem]
-        touchBar.principalItemIdentifier = TagListController.colorPickerItem
+        touchBar.customizationIdentifier = Self.colorPickerBar
+        touchBar.defaultItemIdentifiers = [Self.colorPickerItem]
+        touchBar.customizationAllowedItemIdentifiers = [Self.colorPickerItem]
+        touchBar.principalItemIdentifier = Self.colorPickerItem
         return touchBar
     }()
     
@@ -183,7 +183,7 @@ final class TagListController: StackedPaneController {
     }
     
     private func setupEditableState() {
-        guard let sharedContext = TagListController.sharedContext else { return }
+        guard let sharedContext = Self.sharedContext else { return }
         sharedContext.failsOnSave = disableTagEditing
         isEditable = (isContextLoaded ? (!isSelectMode && !disableTagEditing) : false)
         
@@ -204,7 +204,7 @@ final class TagListController: StackedPaneController {
         tableViewOverlay.tableRowHeight = tableView.rowHeight
         // definitionMenu.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
         
-        tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
+        tableView.registerForDraggedTypes([Self.inlinePasteboardType])
         setupPersistentStore(byIgnoringError: false)
         
         prepareDefaults()
@@ -354,14 +354,14 @@ final class TagListController: StackedPaneController {
         byIgnoringError ignore: Bool,
         withCustomSchemaURL customSchemaURL: URL? = nil
     ) {
-        if let context = TagListController.sharedContext {
+        if let context = Self.sharedContext {
             self.setupEmbeddedState(with: context)
             self.setupUndoRedoNotifications()
         } else {
-            TagListController.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
+            Self.setupPersistentStore(withTagInitializer: { (context) -> ([Tag]) in
                 let decoder = PropertyListDecoder()
                 decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
-                if let schemaURL = customSchemaURL ?? Bundle.main.url(forResource: "TagList-UI", withExtension: "plist")
+                if let schemaURL = customSchemaURL ?? Self.defaultDefinitionURL
                 {
                     let schemaData = try Data(contentsOf: schemaURL)
                     let tags = try decoder.decode([Tag].self, from: schemaData)
@@ -373,7 +373,7 @@ final class TagListController: StackedPaneController {
                 guard let self = self else { return }
                 
                 if let context = context {
-                    context.undoManager = TagListController.sharedUndoManager
+                    context.undoManager = Self.sharedUndoManager
                     self.setupEmbeddedState(with: context)
                     self.setupUndoRedoNotifications()
                 } else if let error = error {
@@ -392,7 +392,6 @@ final class TagListController: StackedPaneController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        buttonDefinition.isHidden = !Self.definitionRootURL.isDirectory
         
         performReorderAndSave(isAsync: false)
         ensurePreviewedTagsForItems(lastStoredContentItems)
@@ -430,10 +429,10 @@ final class TagListController: StackedPaneController {
     
     class func destoryPersistentStore() throws
     {
-        if let coordinator = TagListController.sharedContext?.persistentStoreCoordinator {
+        if let coordinator = Self.sharedContext?.persistentStoreCoordinator {
             try coordinator.persistentStores.forEach({ try coordinator.remove($0) })
         }
-        TagListController.sharedContext = nil
+        Self.sharedContext = nil
 
         let itemsToRemove = [
             persistentStoreURL,
@@ -486,7 +485,7 @@ final class TagListController: StackedPaneController {
                     try context.save()
                 }
                 
-                TagListController.sharedContext = context
+                Self.sharedContext = context
                 completionClosure(context, nil)
                 
                 NotificationCenter.default.post(
@@ -546,7 +545,7 @@ final class TagListController: StackedPaneController {
     
     @IBAction private func importTagBtnTapped(_ sender: Any) {
         
-        guard let context = TagListController.sharedContext,
+        guard let context = Self.sharedContext,
             let tagNames = importSource?.importableTagNames else
         {
             presentError(Content.Error.notLoaded)
@@ -641,7 +640,7 @@ final class TagListController: StackedPaneController {
     }
     
     private func saveManagedTagsIfNeeded() {
-        guard let context = TagListController.sharedContext, shouldSaveManagedTags else { return }
+        guard let context = Self.sharedContext, shouldSaveManagedTags else { return }
         shouldSaveManagedTags = false
         guard context.hasChanges else { return }
         do {
@@ -746,7 +745,7 @@ final class TagListController: StackedPaneController {
             columnIndexes: IndexSet(integersIn: 0..<tableView.numberOfColumns)
         )
         
-        if let colorPickerItem = colorPanelTouchBar.item(forIdentifier: TagListController.colorPickerItem) as? NSColorPickerTouchBarItem {
+        if let colorPickerItem = colorPanelTouchBar.item(forIdentifier: Self.colorPickerItem) as? NSColorPickerTouchBarItem {
             colorPickerItem.color = sender.color
         }
     }
@@ -786,7 +785,7 @@ extension TagListController: TagListSource {
     
     var arrangedTagController: TagController { internalController }
     var arrangedTags: [Tag] { internalController.arrangedObjects as? [Tag] ?? [] }
-    var managedObjectContext: NSManagedObjectContext? { TagListController.sharedContext }
+    var managedObjectContext: NSManagedObjectContext? { Self.sharedContext }
     
     func managedTag(of name: String) -> Tag? {
         
@@ -794,7 +793,7 @@ extension TagListController: TagListSource {
             return arrangedTags.first(where: { $0.name == name })
         }
         
-        guard let context = TagListController.sharedContext else { return nil }
+        guard let context = Self.sharedContext else { return nil }
         
         do {
             
@@ -819,7 +818,7 @@ extension TagListController: TagListSource {
             return arrangedTags.filter({ names.contains($0.name) })
         }
         
-        guard let context = TagListController.sharedContext else { return [] }
+        guard let context = Self.sharedContext else { return [] }
         do {
             
             var predicates: [NSPredicate] = []
@@ -948,7 +947,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
             "row": row,
             "name": tag.name,
             "defaultUserInfo": tag.defaultUserInfo,
-        ], forType: TagListController.inlinePasteboardType)
+        ], forType: Self.inlinePasteboardType)
         return item
     }
     
@@ -975,7 +974,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
-            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: TagListController.inlinePasteboardType) as? [String: Any],
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: Self.inlinePasteboardType) as? [String: Any],
                 let index = obj["row"] as? Int
             {
                 oldIndexes.append(index)
@@ -1130,21 +1129,24 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
 
 extension TagListController {
     
+    private static let defaultDefinitionURL = Bundle.main.url(forResource: "TagList-UI", withExtension: "plist")
+    
     private static var definitionRootURL: URL = {
-        let url = FileManager.default.urls(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask
-        )
-        .first!
-        .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        .appendingPathComponent("Definitions")
+        let url = AppDelegate.supportDirectoryURL.appendingPathComponent("Definitions")
         
-        if !FileManager.default.fileExists(atPath: url.path) {
-            try? FileManager.default.createDirectory(
+        let manager = FileManager.default
+        if !manager.fileExists(atPath: url.path) {
+            try? manager.createDirectory(
                 at: url,
                 withIntermediateDirectories: true,
                 attributes: nil
             )
+            if let defaultDefinitionURL = defaultDefinitionURL {
+                try? manager.copyItem(
+                    at: defaultDefinitionURL,
+                    to: url.appendingPathComponent(defaultDefinitionURL.lastPathComponent, isDirectory: false)
+                )
+            }
         }
         return url
     }()
@@ -1203,9 +1205,9 @@ extension TagListController {
     @objc private func definitionMenuItemTapped(_ sender: NSMenuItem) {
         if let definitionURL = sender.representedObject as? URL {
             do {
-                try TagListController.destoryPersistentStore()
+                try Self.destoryPersistentStore()
                 NotificationCenter.default.post(
-                    name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+                    name: Self.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
                     object: nil,
                     userInfo: ["url": definitionURL]
                 )
@@ -1278,7 +1280,7 @@ extension TagListController: NSTouchBarDelegate {
         let colorPickerItem: NSColorPickerTouchBarItem
         
         switch identifier {
-        case TagListController.colorPickerItem:
+        case Self.colorPickerItem:
             colorPickerItem = NSColorPickerTouchBarItem.colorPicker(withIdentifier: identifier)
             colorPickerItem.showsAlpha = false
             colorPickerItem.color = colorPanel.color

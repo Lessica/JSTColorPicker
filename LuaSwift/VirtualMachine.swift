@@ -171,7 +171,8 @@ open class VirtualMachine {
     }
     
     internal func popError() -> String {
-        let err = popValue(-1) as! String
+        let val = popValue(-1)
+        let err = val as? String ?? val.debugDescription
         if let fn = errorHandler { fn(err) }
         return err
     }

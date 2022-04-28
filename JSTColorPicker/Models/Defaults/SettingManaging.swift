@@ -26,15 +26,17 @@
 import Foundation
 
 protocol SettingManaging: AnyObject {
+    
     /// directory name in both Application Support and bundled Resources
     static var directoryName: String { get }
+    
 }
 
 extension SettingManaging {
     
     /// user setting directory URL in Application Support
     var userSettingDirectoryURL: URL {
-        return supportDirectoryURL.appendingPathComponent(Self.directoryName)
+        return AppDelegate.supportDirectoryURL.appendingPathComponent(Self.directoryName)
     }
     
     
@@ -44,10 +46,3 @@ extension SettingManaging {
     }
     
 }
-
-// MARK: Private Property
-
-/// application's support directory in user's `Application Suuport/`
-private let supportDirectoryURL: URL = try! FileManager.default
-    .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-    .appendingPathComponent("JSTColorPicker")

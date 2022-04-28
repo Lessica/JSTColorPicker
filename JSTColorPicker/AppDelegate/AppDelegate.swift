@@ -25,6 +25,14 @@ import AppCenterCrashes
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
+    
+    
+    // MARK: - Application Support
+
+    /// application's support directory in user's `Application Suuport/`
+    static let supportDirectoryURL: URL = FileManager.default
+        .urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        .appendingPathComponent(Bundle.main.bundleIdentifier!)
 
     
     // MARK: - Structs

@@ -4,18 +4,18 @@ local apiBase = "http://127.0.0.1:8000/"
 
 local generator = function (image, content, action)
     if action == "preview" then
-        return "双击此处渲染示例护照\n按下 ⇧⌘D 以退出比较模式"
+        return "markdown", "双击此处渲染示例护照\n\n按下 **⇧⌘D** 以退出比较模式"
     end
 
-    local imageData = image.get_data(true)
-
-    if action == "doubleCopy" or action == "export" then
+    if action == "doubleCopy" then
+        local imageData = image.get_data(true)
         local mime
         if image.extension == "png" then
             mime = "image/png"
         else
             mime = "image/jpeg"
         end
+
         local savedPath = image['path']..".render.jpg"
         local renderObj = io.open(savedPath, "w")
         local curlObj = curl.easy()
@@ -44,6 +44,7 @@ local generator = function (image, content, action)
             :perform()
         local statusCode = curlObj:getinfo(curl.INFO_RESPONSE_CODE)
         curlObj:close()
+        
         renderObj:close()
         if statusCode == 200 then
             return "comparison", savedPath
@@ -55,13 +56,13 @@ local generator = function (image, content, action)
         end
     end
 
-    return "prompt", tostring(#imageData).." bytes generated"
+    return "prompt", "不支持的动作"
 end
 
 return {
     uuid = "F02A36D9-EA7A-492D-A91F-6C07B0B757CA",
-    name = "BatchImagick 即时渲染（护照）",
-    version = "1.0",
+    name = "\x02BatchImagick 即时渲染（护照）",
+    version = "1.1",
     platformVersion = "2.12",
     author = "Lessica",
     description = "将标注底板及示例输入上传至 AdHoc 服务器，验证其有效性并进行实时渲染，随后将渲染结果与当前文档进行差异比对。",

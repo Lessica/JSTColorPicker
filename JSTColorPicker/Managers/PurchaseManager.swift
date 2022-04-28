@@ -535,15 +535,7 @@ import Paddle
 extension PurchaseManager: PaddleDelegate, PADProductDelegate {
     
     private static var licenseStorageURL: URL = {
-        let url = FileManager
-            .default
-            .urls(
-                for: .applicationSupportDirectory,
-                in: .userDomainMask
-            )
-            .first!
-            .appendingPathComponent(Bundle.main.bundleIdentifier!)
-            .appendingPathComponent("Paddle")
+        let url = AppDelegate.supportDirectoryURL.appendingPathComponent("Paddle")
         
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(
