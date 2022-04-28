@@ -125,6 +125,7 @@ final class TemplateInfoView: NSView {
             fullPathStack.isHidden = false
 
             advancedSeparator.isHidden = false
+            locateButton.isHidden = false
         } else {
             fileNameStack.isHidden = true
             fileSizeStack.isHidden = true
@@ -132,6 +133,7 @@ final class TemplateInfoView: NSView {
             modifiedAtStack.isHidden = true
             fullPathStack.isHidden = true
             advancedSeparator.isHidden = true
+            locateButton.isHidden = true
         }
         
         templateNameLabel.stringValue = template.name

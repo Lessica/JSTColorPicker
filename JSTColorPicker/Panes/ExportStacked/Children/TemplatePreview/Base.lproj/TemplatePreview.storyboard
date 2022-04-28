@@ -14,7 +14,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="258" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box borderType="line" title="Template Preview" translatesAutoresizingMaskIntoConstraints="NO" id="6E7-dV-CCY">
+                            <box borderType="line" title="Template Preview" translatesAutoresizingMaskIntoConstraints="NO" id="6E7-dV-CCY" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="-3" y="-4" width="264" height="600"/>
                                 <view key="contentView" id="i0A-F5-afR">
                                     <rect key="frame" x="11" y="19" width="242" height="566"/>
@@ -27,13 +27,13 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView identifier="TemplateOutlineView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" columnReordering="NO" multipleSelection="NO" typeSelect="NO" enabled="NO" autosaveName="TemplatePreviewOutlineView" rowHeight="52" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="Bv2-TZ-Ea5" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="8" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="iRO-Kn-oLV" id="GMz-mc-eIC" customClass="TemplateOutlineView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="528"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="332" height="528"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="4" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn identifier="col-name" editable="NO" width="320" minWidth="320" maxWidth="9.2233720368547758e+18" id="iRO-Kn-oLV">
+                                                            <tableColumn identifier="col-name" editable="NO" width="320" minWidth="220" maxWidth="9.2233720368547758e+18" id="iRO-Kn-oLV">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Name">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -43,14 +43,14 @@
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
+                                                                <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                 <prototypeCellViews>
                                                                     <tableCellView identifier="cell-template" id="vPh-de-a80" customClass="TemplateCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="2" y="1" width="208" height="16"/>
+                                                                        <rect key="frame" x="2" y="1" width="328" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESU-Qk-5MC">
-                                                                                <rect key="frame" x="0.0" y="1" width="208" height="14"/>
+                                                                                <rect key="frame" x="0.0" y="1" width="328" height="14"/>
                                                                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="…" usesSingleLineMode="YES" id="azV-5Z-3ic">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -69,11 +69,11 @@
                                                                         </connections>
                                                                     </tableCellView>
                                                                     <tableCellView identifier="cell-template-content" id="NnQ-8B-mUA" customClass="TemplateContentCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="2" y="19" width="208" height="52"/>
+                                                                        <rect key="frame" x="2" y="19" width="328" height="52"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZ4-zK-HDN">
-                                                                                <rect key="frame" x="0.0" y="2" width="208" height="48"/>
+                                                                                <rect key="frame" x="0.0" y="2" width="328" height="48"/>
                                                                                 <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" id="5X1-sF-u79">
                                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                                     <string key="title">…
@@ -120,7 +120,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <tableHeaderView key="headerView" wantsLayer="YES" id="Bv2-TZ-Ea5">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="28"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="332" height="28"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <connections>
                                                     <outlet property="menu" destination="qLM-Ye-vHV" id="qY2-wM-23z"/>

@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PaddedButton: NSButton {
+final class PaddedButton: NSButton {
     
     @IBInspectable var horizontalPadding   : CGFloat = 0
     @IBInspectable var verticalPadding     : CGFloat = 0

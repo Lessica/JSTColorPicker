@@ -129,6 +129,7 @@ final class InfoView: NSView {
         colorProfileStack.isHidden = colorProfileStr == nil
         fullPathLabel.stringValue = fileURL.path
         fullPathStack.isHidden = false
+        locateButton.isHidden = false
     }
     
     func reset() {

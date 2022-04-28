@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="BXe-7q-Y49">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="BXe-7q-Y49">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,7 +13,7 @@
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="BGG-md-vya">
                         <rect key="frame" x="0.0" y="0.0" width="246" height="288"/>
                         <subviews>
-                            <box borderType="line" title="Image Preview" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd">
+                            <box borderType="line" title="Image Preview" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-Yn-gAd" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="-3" y="-4" width="252" height="288"/>
                                 <view key="contentView" id="CPy-7x-2lg">
                                     <rect key="frame" x="11" y="3" width="230" height="270"/>
@@ -42,7 +43,7 @@
                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Rg-8u-MhX">
                                                     <rect key="frame" x="96" y="12" width="35" height="13"/>
                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" alignment="center" title="100%" drawsBackground="YES" usesSingleLineMode="YES" id="FRO-AF-Qt1">
-                                                        <font key="font" metaFont="fixedUser" size="11"/>
+                                                        <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </textFieldCell>

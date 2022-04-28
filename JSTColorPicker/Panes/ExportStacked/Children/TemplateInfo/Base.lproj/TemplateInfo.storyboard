@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="bdK-r7-7zT">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="bdK-r7-7zT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,7 +13,7 @@
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="dRV-BK-U20">
                         <rect key="frame" x="0.0" y="0.0" width="264" height="326"/>
                         <subviews>
-                            <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S">
+                            <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="-3" y="-4" width="270" height="326"/>
                                 <view key="contentView" id="OPo-mo-uT7">
                                     <rect key="frame" x="11" y="11" width="248" height="300"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,13 +32,13 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="248" height="179"/>
+            <rect key="frame" x="0.0" y="0.0" width="248" height="162"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cd-ja-832">
-                    <rect key="frame" x="0.0" y="0.0" width="248" height="179"/>
+                    <rect key="frame" x="0.0" y="0.0" width="248" height="162"/>
                     <subviews>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yu7-Wn-J7C">
-                            <rect key="frame" x="0.0" y="165" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="148" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVB-29-0Gg">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -47,7 +48,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrR-8M-Ooo">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrR-8M-Ooo" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FILE_NAME" id="hU0-fV-0iM">
                                         <font key="font" metaFont="smallSystem"/>
@@ -66,7 +67,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S1z-4O-Iet">
-                            <rect key="frame" x="0.0" y="147" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="130" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rte-Mb-ITf">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -76,7 +77,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyn-b3-3Xf">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyn-b3-3Xf" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FILE_SIZE" id="viU-Zp-DCb">
                                         <font key="font" metaFont="smallSystem"/>
@@ -95,7 +96,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WB8-Ig-2g4">
-                            <rect key="frame" x="0.0" y="129" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="112" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIg-lQ-wlx">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -105,7 +106,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uq-fG-dLh">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uq-fG-dLh" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="CREATED_AT" id="a8q-KU-IQY">
                                         <font key="font" metaFont="smallSystem"/>
@@ -124,7 +125,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eck-oy-ISC">
-                            <rect key="frame" x="0.0" y="111" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="94" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHO-02-PKJ">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -134,7 +135,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19o-f0-kLP">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19o-f0-kLP" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="MODIFIED_AT" id="ju0-hR-GTp">
                                         <font key="font" metaFont="smallSystem"/>
@@ -153,7 +154,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5wB-s2-OS4">
-                            <rect key="frame" x="0.0" y="93" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="76" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyU-SO-gz8">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -163,7 +164,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RP-gM-Kgc">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RP-gM-Kgc" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="SNAPSHOT_AT" id="x1D-f6-qpi">
                                         <font key="font" metaFont="smallSystem"/>
@@ -182,7 +183,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9o-Hi-CFd">
-                            <rect key="frame" x="0.0" y="75" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="58" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2U-bB-33e">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -192,7 +193,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IX8-9E-4Nh">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IX8-9E-4Nh" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="DIMENSION" id="73a-Nc-d3h">
                                         <font key="font" metaFont="smallSystem"/>
@@ -211,7 +212,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qsX-26-pZb">
-                            <rect key="frame" x="0.0" y="57" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="40" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOx-k8-ha0">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -221,7 +222,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMF-HQ-wJ7">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMF-HQ-wJ7" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="COLOR_SPACE" id="Hcf-8a-mI5">
                                         <font key="font" metaFont="smallSystem"/>
@@ -240,7 +241,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ozu-kw-VYH">
-                            <rect key="frame" x="0.0" y="39" width="248" height="14"/>
+                            <rect key="frame" x="0.0" y="22" width="248" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNi-k8-1SA">
                                     <rect key="frame" x="-2" y="0.0" width="70" height="14"/>
@@ -250,7 +251,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqi-bP-YhS">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqi-bP-YhS" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="178" height="14"/>
                                     <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="COLOR_PROFILE" id="kl1-hT-v5K">
                                         <font key="font" metaFont="smallSystem"/>
@@ -269,26 +270,26 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I2P-sI-qIa">
-                            <rect key="frame" x="0.0" y="0.0" width="248" height="35"/>
+                            <rect key="frame" x="0.0" y="0.0" width="248" height="18"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p96-v3-zQu">
-                                    <rect key="frame" x="0.0" y="0.0" width="66" height="35"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="66" height="18"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="749" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-kz-jZI">
-                                            <rect key="frame" x="18" y="21" width="50" height="14"/>
+                                            <rect key="frame" x="18" y="4" width="50" height="14"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="Full Path" usesSingleLineMode="YES" id="Zvf-gV-rxj">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="ZVm-fK-cmd">
-                                            <rect key="frame" x="53" y="1.5" width="13" height="18"/>
+                                        <button hidden="YES" verticalHuggingPriority="750" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="ZVm-fK-cmd">
+                                            <rect key="frame" x="0.0" y="2.5" width="13" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="13" id="HCB-aw-mPG"/>
                                                 <constraint firstAttribute="width" secondItem="ZVm-fK-cmd" secondAttribute="height" multiplier="1:1" id="yIb-Ye-j9e"/>
                                             </constraints>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.right.circle" catalog="system" imagePosition="only" alignment="center" controlSize="small" imageScaling="proportionallyDown" inset="2" id="Ric-OS-dlK">
+                                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.right.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="arrow.right.circle.fill" controlSize="small" imageScaling="proportionallyDown" inset="2" id="Ric-OS-dlK">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
@@ -315,9 +316,9 @@
                                         <real value="3.4028234663852886e+38"/>
                                     </customSpacing>
                                 </stackView>
-                                <textField verticalHuggingPriority="700" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-c2-qM5">
-                                    <rect key="frame" x="72" y="0.0" width="178" height="35"/>
-                                    <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FULL_PATH" id="k1u-TA-2hU">
+                                <textField verticalHuggingPriority="700" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-c2-qM5" customClass="ClickToSelectAllField" customModule="JSTColorPicker" customModuleProvider="target">
+                                    <rect key="frame" x="72" y="0.0" width="178" height="18"/>
+                                    <textFieldCell key="cell" lineBreakMode="charWrapping" selectable="YES" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="FULL_PATH" id="k1u-TA-2hU">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -389,5 +390,6 @@
     </objects>
     <resources>
         <image name="arrow.right.circle" catalog="system" width="15" height="15"/>
+        <image name="arrow.right.circle.fill" catalog="system" width="15" height="15"/>
     </resources>
 </document>

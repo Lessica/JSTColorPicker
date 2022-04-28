@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class RoundedField: NSVisualEffectView {
+final class RoundedField: NSVisualEffectView {
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -22,7 +22,7 @@ class RoundedField: NSVisualEffectView {
 
     private func setup() {
         wantsLayer = true
-        layer!.cornerRadius = 5
+        layer!.cornerRadius = 6
         material = .selection
     }
     

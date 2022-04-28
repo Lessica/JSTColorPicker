@@ -283,6 +283,16 @@
 		CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
 		CC3F5B9A281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */; };
 		CC3F5B9B281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */; };
+		CC3F5B9D281AA61B00CD53CB /* ClickToSelectAllField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B9C281AA61B00CD53CB /* ClickToSelectAllField.swift */; };
+		CC3F5B9E281AA61C00CD53CB /* ClickToSelectAllField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B9C281AA61B00CD53CB /* ClickToSelectAllField.swift */; };
+		CC3F5BA9281ABBA600CD53CB /* ClearBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5BA8281ABBA600CD53CB /* ClearBox.swift */; };
+		CC3F5BAA281ABBA600CD53CB /* ClearBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5BA8281ABBA600CD53CB /* ClearBox.swift */; };
+		CC3F5BB1281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
+		CC3F5BB2281ABF5000CD53CB /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
+		CC3F5BB3281ABF5000CD53CB /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
+		CC3F5BB4281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
+		CC3F5BB5281ABF5000CD53CB /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
+		CC3F5BB6281ABF5000CD53CB /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
 		CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
@@ -449,12 +459,6 @@
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
 		CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
-		CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
-		CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7342B2617047D00808E02 /* SwizzlingInjection.swift */; };
-		CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
-		CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73435261704B400808E02 /* SwizzlingHelper.swift */; };
-		CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
-		CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA73440261705E700808E02 /* NSView+Swizzling.swift */; };
 		CCA8B4D5280889B000735A78 /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */; };
 		CCA8B4D6280889B000735A78 /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */; };
 		CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */; };
@@ -1586,6 +1590,8 @@
 		CC3C4B0D26202E4200794806 /* ExportStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedView.swift; sourceTree = "<group>"; };
 		CC3F5B98281A87B100CD53CB /* EditableTextColorTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditableTextColorTransformer.h; sourceTree = "<group>"; };
 		CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditableTextColorTransformer.m; sourceTree = "<group>"; };
+		CC3F5B9C281AA61B00CD53CB /* ClickToSelectAllField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickToSelectAllField.swift; sourceTree = "<group>"; };
+		CC3F5BA8281ABBA600CD53CB /* ClearBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBox.swift; sourceTree = "<group>"; };
 		CC4102022625C33E00AC8129 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
@@ -2925,14 +2931,16 @@
 			children = (
 				D649230B23CC56E20067C04A /* DropSplitView.swift */,
 				CCE34016263272590082F73D /* ColoredView.swift */,
-				CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */,
-				CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */,
 				CCC8BC61263B30230040E82A /* ExportPanelAccessoryView.xib */,
 				CCC8BC54263B2E0D0040E82A /* ExportPanelAccessoryView.swift */,
+				CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */,
+				CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */,
 				CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */,
 				CCE01C97264CDA8C005960A7 /* ManagedTabWindow.swift */,
 				CC8F8CB026209BB700F60F78 /* PaddedButton.swift */,
 				CCF7F15F2618DEA700ED16B7 /* RoundedField.swift */,
+				CC3F5B9C281AA61B00CD53CB /* ClickToSelectAllField.swift */,
+				CC3F5BA8281ABBA600CD53CB /* ClearBox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4933,6 +4941,7 @@
 				CC236326264AE7AB005E909A /* KeyBinding.swift in Sources */,
 				CCC525C6262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				CCE33FEF26325F6C0082F73D /* main.swift in Sources */,
+				CC3F5BA9281ABBA600CD53CB /* ClearBox.swift in Sources */,
 				CC8E5DB0262819D00030B2FC /* StackedPaneController.swift in Sources */,
 				180C6A8D249F92BB00B42656 /* TagImportAlertView.swift in Sources */,
 				CC4DF3432815C191002CC8A4 /* PADKeyWindow+Movable.m in Sources */,
@@ -4978,7 +4987,6 @@
 				CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */,
 				CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
-				CCA73441261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
 				18B22FF1247EBD65003F70BA /* TagListSource.swift in Sources */,
 				CCC0DC212601F0F200019146 /* ContentClipView.swift in Sources */,
@@ -5025,7 +5033,6 @@
 				CCB741362635386D007D2CF5 /* Links+Ext.swift in Sources */,
 				CC347721266F4F6300391E73 /* AppDelegate+Panel.swift in Sources */,
 				CCAB7B2A27EB7B17003E7769 /* AssociatedKeyPath.swift in Sources */,
-				CCA7342C2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */,
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				CCE01C86264CD8E1005960A7 /* NotificationToken.swift in Sources */,
@@ -5037,6 +5044,7 @@
 				CC4422EA263AD7F700161852 /* TemplateRowView.swift in Sources */,
 				D636A3A524B3544200672844 /* NSColorPanel+Ext.swift in Sources */,
 				CC236330264AE889005E909A /* ShortcutKeyField.swift in Sources */,
+				CC3F5BB2281ABF5000CD53CB /* SwizzlingInjection.swift in Sources */,
 				D61047A424224A170002E990 /* Template.swift in Sources */,
 				D659168A24A36E2500DB67A6 /* ItemInspector.swift in Sources */,
 				D6DD4B0824A3389100CC90E3 /* TagEditableTextField.swift in Sources */,
@@ -5044,7 +5052,6 @@
 				D61047A524224A170002E990 /* GeneralController.swift in Sources */,
 				CC8F8CBB2621798A00F60F78 /* StackedPaneContainer.swift in Sources */,
 				D61047A724224A170002E990 /* SceneEvent.swift in Sources */,
-				CCA73436261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				0FF4706227626DDC00F46554 /* NSImage+Ext.swift in Sources */,
 				D64790F52490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				D61047A824224A170002E990 /* GridViewController.swift in Sources */,
@@ -5070,6 +5077,7 @@
 				CC04276C275E212B008DD0C5 /* FileSystemBrowserCell.m in Sources */,
 				1842C48124798E63008ECD6F /* TagListController.swift in Sources */,
 				CC3C4A9E261FFA1B00794806 /* DocumentStackedView.swift in Sources */,
+				CC3F5BB1281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
@@ -5129,6 +5137,7 @@
 				D61047BB24224A170002E990 /* AreaAnnotatorOverlay.swift in Sources */,
 				D61047BC24224A170002E990 /* SceneController.swift in Sources */,
 				CC85DACB27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
+				CC3F5B9D281AA61B00CD53CB /* ClickToSelectAllField.swift in Sources */,
 				CC06C930280FB4F9001C0BC0 /* PurchaseManager.swift in Sources */,
 				CC85DAD527E579C9003263FD /* FieldOption+CoreDataProperties.swift in Sources */,
 				CCE901702626BAF700C84904 /* Observable.swift in Sources */,
@@ -5145,6 +5154,7 @@
 				D61047C124224A170002E990 /* SceneTool.swift in Sources */,
 				CC236307264A3B19005E909A /* AnnotatorActionResponder.swift in Sources */,
 				D6E4252C24A3693B00FAB4B5 /* TagListPreviewDelegate.swift in Sources */,
+				CC3F5BB3281ABF5000CD53CB /* SwizzlingHelper.swift in Sources */,
 				D61047C224224A170002E990 /* CoreGraphics+Ext.swift in Sources */,
 				D61047C324224A170002E990 /* AppDelegate.swift in Sources */,
 				CC1B4C1927EF0C300087974F /* MetadataEditor.swift in Sources */,
@@ -5280,11 +5290,13 @@
 				D658AFA023CB180C0098C567 /* SplitController.swift in Sources */,
 				CC515BAF27E8DA6F0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CCF7F1612618DEA700ED16B7 /* RoundedField.swift in Sources */,
+				CC3F5B9E281AA61C00CD53CB /* ClickToSelectAllField.swift in Sources */,
 				D67A8F24247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				CC96F94126727E2000CB55E9 /* PairedDevice.swift in Sources */,
 				CC236336264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				CC347722266F4F6300391E73 /* AppDelegate+Panel.swift in Sources */,
 				D6A3EA4123E40A6F008F53DC /* ColorAnnotatorOverlay.swift in Sources */,
+				CC3F5BB5281ABF5000CD53CB /* SwizzlingInjection.swift in Sources */,
 				CC2E3F572648E6D700AE25C3 /* PreviewSlider.swift in Sources */,
 				CC347719266F4E8400391E73 /* AppDelegate+Help.swift in Sources */,
 				D65DB2DE241CD4C70026AE7F /* PixelMatchResponder.swift in Sources */,
@@ -5298,7 +5310,6 @@
 				D69FD88F2473DBB500ACBF74 /* OpenCVWrapper.mm in Sources */,
 				CC13C7CE27F0282900D12892 /* Swift+URL.swift in Sources */,
 				CCC0DC222601F0F200019146 /* ContentClipView.swift in Sources */,
-				CCA73437261704B400808E02 /* SwizzlingHelper.swift in Sources */,
 				CC347716266F4D8000391E73 /* AppDelegate+Template.swift in Sources */,
 				D645E49923E805340039F4F6 /* PixelCoordinate.swift in Sources */,
 				D690C96C241BBEA000BB1652 /* PixelMatchService.swift in Sources */,
@@ -5354,6 +5365,7 @@
 				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
 				CC85DACC27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
+				CC3F5BB4281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */,
 				CC32E2012615D36B00F5F6AA /* InspectorController.swift in Sources */,
 				D645E4B323EE72BC0039F4F6 /* AreaAnnotator.swift in Sources */,
 				CCE01C83264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
@@ -5396,7 +5408,6 @@
 				1885CF4224B105A00067D02F /* ContentSearchField.swift in Sources */,
 				D635BEAD23CD8CE500FD62B8 /* PixelImage.swift in Sources */,
 				D682FC9723D6ED2C00DA1750 /* PixelColor.swift in Sources */,
-				CCA7342D2617047D00808E02 /* SwizzlingInjection.swift in Sources */,
 				D645E4A423E95F620039F4F6 /* DraggingOverlay.swift in Sources */,
 				18B6EA96247ABE6F00A61386 /* TagList.xcdatamodeld in Sources */,
 				CCE01C87264CD8E1005960A7 /* NotificationToken.swift in Sources */,
@@ -5437,6 +5448,7 @@
 				CCE3400E263265A50082F73D /* PurchaseManager.swift in Sources */,
 				CC236321264AE7AB005E909A /* MainMenu.swift in Sources */,
 				CCE34022263280620082F73D /* PurchaseButton.swift in Sources */,
+				CC3F5BB6281ABF5000CD53CB /* SwizzlingHelper.swift in Sources */,
 				CCF7C84927E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */,
 				CCE01CAB264CE4F0005960A7 /* ShortcutItem.swift in Sources */,
 				CC1B01532636F896002EECF5 /* GenericError.swift in Sources */,
@@ -5457,6 +5469,7 @@
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
 				CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */,
 				CCF7F1372618CA2500ED16B7 /* InspectorView.swift in Sources */,
+				CC3F5BAA281ABBA600CD53CB /* ClearBox.swift in Sources */,
 				D631E2C723F7B38B00652B17 /* Defaults.swift in Sources */,
 				CCE01C8B264CD8E1005960A7 /* ShortcutGuidePageControl.swift in Sources */,
 				CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */,
@@ -5477,7 +5490,6 @@
 				CC236318264A8199005E909A /* PaneContainer.swift in Sources */,
 				CC236327264AE7AB005E909A /* KeyBinding.swift in Sources */,
 				D649230C23CC56E20067C04A /* DropSplitView.swift in Sources */,
-				CCA73442261705E700808E02 /* NSView+Swizzling.swift in Sources */,
 				CC9BFB072635A28E008C1850 /* MultipleErrorAlertView.swift in Sources */,
 				180C6A88249F652800B42656 /* TagImportSource.swift in Sources */,
 				D61336B524A99FED006263E5 /* RulerViewClient.swift in Sources */,
