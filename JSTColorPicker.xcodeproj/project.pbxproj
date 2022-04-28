@@ -140,15 +140,11 @@
 		CC042F6C2805DD060076D3F1 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CC042F6B2805DD060076D3F1 /* OrderedCollections */; };
 		CC042F792806D3170076D3F1 /* idevicescreenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CC042F782806D3170076D3F1 /* idevicescreenshot.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CC042F7A2806D4960076D3F1 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
-		CC042F7B2806D4960076D3F1 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
-		CC042F7C2806D4960076D3F1 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC042F7D2806D4960076D3F1 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC042F7E2806D4960076D3F1 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
-		CC042F832806D5930076D3F1 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CC042F842806D5930076D3F1 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CC042F852806D5930076D3F1 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC042F862806D5930076D3F1 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
-		CC042F872806D5930076D3F1 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC042F8E2806D5C30076D3F1 /* ideviceimagemounter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC042F8D2806D5C30076D3F1 /* ideviceimagemounter.m */; };
 		CC042F992806D99A0076D3F1 /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
 		CC059D1F263130B900E6B89C /* TemplatePreviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */; };
@@ -299,11 +295,9 @@
 		CC45238B2807F9FB005C0A3F /* ideviceimagemounter in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC4523902807FA0E005C0A3F /* idevicescreenshot in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F712806D2A50076D3F1 /* idevicescreenshot */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC4523912807FA0E005C0A3F /* ideviceimagemounter in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC042F8C2806D5930076D3F1 /* ideviceimagemounter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CC4523982807FB71005C0A3F /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CC4523992807FB71005C0A3F /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CC45239A2807FB71005C0A3F /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC45239B2807FB71005C0A3F /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
-		CC45239C2807FB71005C0A3F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC4523A22807FB99005C0A3F /* idevicepair.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4523922807FB64005C0A3F /* idevicepair.m */; };
 		CC4523A52807FBF3005C0A3F /* idevicepair in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC4523A12807FB71005C0A3F /* idevicepair */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CC4523A82807FBFE005C0A3F /* idevicepair in Copy Embed Tools */ = {isa = PBXBuildFile; fileRef = CC4523A12807FB71005C0A3F /* idevicepair */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -342,16 +336,24 @@
 		CC5480AA275E4BF500B7652C /* BrowserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5480AC275E4BF500B7652C /* BrowserHeaderView.xib */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
-		CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
-		CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
 		CC6A6A4625A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC6A6A4725A3440200EF0806 /* SceneBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */; };
 		CC71BF2B276A476B0000B5A1 /* Cocoa+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */; };
 		CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
 		CC74CE27262BF97D00387282 /* ExampleTemplates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */; };
+		CC76ED46281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */; };
+		CC76ED47281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */; };
+		CC76ED48281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */; };
+		CC76ED49281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */; };
+		CC76ED4A281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */; };
+		CC76ED4B281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
+		CC76ED4C281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
+		CC76ED4D281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
+		CC76ED4E281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
+		CC76ED4F281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
 		CC7D6763266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC7D6764266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
@@ -571,16 +573,12 @@
 		CCF26AA827E8610800BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
 		CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
-		CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D3255AC6AC00061A51 /* libssl.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
-		CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF67A06255AC7B300061A51 /* libcrypto.a */; };
 		CCF7C84527E4D3E90090B7F7 /* TagList-UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */; };
 		CCF7C84627E4D3E90090B7F7 /* TagList-UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */; };
 		CCF7C84827E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
 		CCF7C84927E4DC250090B7F7 /* Field+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */; };
-		CCF7C84E27E4ED4F0090B7F7 /* TagList-Passport.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */; };
-		CCF7C84F27E4ED500090B7F7 /* TagList-Passport.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */; };
 		CCF7C85127E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */; };
 		CCF7C85227E4F2C20090B7F7 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */; };
 		CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */; };
@@ -1629,6 +1627,8 @@
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ExampleTemplates.bundle; sourceTree = "<group>"; };
+		CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = libcrypto.35.tbd; sourceTree = "<group>"; };
+		CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = libssl.35.tbd; sourceTree = "<group>"; };
 		CC7D6761266E037B002099AD /* JSTDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTDevice.h; sourceTree = "<group>"; };
 		CC7D6762266E037B002099AD /* JSTDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTDevice.m; sourceTree = "<group>"; };
 		CC8376F126304DBD00B2C984 /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
@@ -1755,13 +1755,10 @@
 		CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
 		CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EncodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
-		CCF679D3255AC6AC00061A51 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
-		CCF67A06255AC7B300061A51 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagList-UI.plist"; sourceTree = "<group>"; };
 		CCF7C84727E4DC250090B7F7 /* Field+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+CoreDataClass.swift"; sourceTree = "<group>"; };
-		CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagList-Passport.plist"; sourceTree = "<group>"; };
 		CCF7C85027E4F2C20090B7F7 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CCF7C85327E4F2C60090B7F7 /* Field+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CCF7E83F25A4776E00A99E4C /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
@@ -2078,13 +2075,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC042F7B2806D4960076D3F1 /* libssl.a in Frameworks */,
+				CC76ED48281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */,
 				CC042F7E2806D4960076D3F1 /* libusbmuxd-2.0.a in Frameworks */,
 				CC042F992806D99A0076D3F1 /* libpixel.a in Frameworks */,
 				CC042F7D2806D4960076D3F1 /* libplist-2.0.a in Frameworks */,
+				CC76ED4D281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */,
 				CC4523B32807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC042F7A2806D4960076D3F1 /* libimobiledevice-1.0.a in Frameworks */,
-				CC042F7C2806D4960076D3F1 /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2092,12 +2089,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC76ED4E281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */,
+				CC76ED49281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */,
 				CC4523B42807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
-				CC042F832806D5930076D3F1 /* libssl.a in Frameworks */,
 				CC042F842806D5930076D3F1 /* libusbmuxd-2.0.a in Frameworks */,
 				CC042F852806D5930076D3F1 /* libplist-2.0.a in Frameworks */,
 				CC042F862806D5930076D3F1 /* libimobiledevice-1.0.a in Frameworks */,
-				CC042F872806D5930076D3F1 /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2105,13 +2102,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC76ED4A281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */,
 				CC4523B52807FD94005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC4523B72807FEFE005C0A3F /* SystemConfiguration.framework in Frameworks */,
-				CC4523982807FB71005C0A3F /* libssl.a in Frameworks */,
 				CC4523992807FB71005C0A3F /* libusbmuxd-2.0.a in Frameworks */,
+				CC76ED4F281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */,
 				CC45239A2807FB71005C0A3F /* libplist-2.0.a in Frameworks */,
 				CC45239B2807FB71005C0A3F /* libimobiledevice-1.0.a in Frameworks */,
-				CC45239C2807FB71005C0A3F /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2138,12 +2135,12 @@
 				CCED7D38262D758C00F2C965 /* Carbon.framework in Frameworks */,
 				0FF4704F27622FBB00F46554 /* PromiseKit in Frameworks */,
 				CCF26A9B27E85B2000BEFFDE /* AuxiliaryExecute in Frameworks */,
+				CC76ED46281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */,
+				CC76ED4B281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */,
 				D60B0F9524288D920034F21C /* libpixel.a in Frameworks */,
 				CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */,
-				CCF67A07255AC7B400061A51 /* libcrypto.a in Frameworks */,
 				CC4523B12807FD7B005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */,
-				CCF679D6255AC6AD00061A51 /* libssl.a in Frameworks */,
 				CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2196,8 +2193,8 @@
 				CCED7D37262D758300F2C965 /* Carbon.framework in Frameworks */,
 				0FF4705127622FC200F46554 /* PromiseKit in Frameworks */,
 				CCF26A9D27E85B2800BEFFDE /* AuxiliaryExecute in Frameworks */,
-				CC6A6A3C25A32B3700EF0806 /* libssl.a in Frameworks */,
-				CC6A6A3925A32B3700EF0806 /* libcrypto.a in Frameworks */,
+				CC76ED47281A3E4100CE61B9 /* libcrypto.35.tbd in Frameworks */,
+				CC76ED4C281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */,
 				D629E5A7242BC8C300AF333F /* libpixel.a in Frameworks */,
 				CC4523B22807FD90005C0A3F /* libimobiledevice-glue-1.0.a in Frameworks */,
 				CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */,
@@ -3212,7 +3209,6 @@
 		CCF7C84327E4D3C60090B7F7 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
-				CCF7C84D27E4DD1F0090B7F7 /* TagList-Passport.plist */,
 				CCF7C84427E4D3E90090B7F7 /* TagList-UI.plist */,
 			);
 			path = Presets;
@@ -3453,12 +3449,12 @@
 		D647B06423D198CB00D76CB5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */,
+				CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */,
 				CC4523B02807FD7B005C0A3F /* libimobiledevice-glue-1.0.a */,
-				CCF67A06255AC7B300061A51 /* libcrypto.a */,
 				CCF679E0255AC6CD00061A51 /* libplist-2.0.a */,
 				CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */,
 				CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */,
-				CCF679D3255AC6AC00061A51 /* libssl.a */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -4574,7 +4570,6 @@
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
 				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				CC4422EE263AE56D00161852 /* Paste.aiff in Resources */,
-				CCF7C84E27E4ED4F0090B7F7 /* TagList-Passport.plist in Resources */,
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
 				CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */,
@@ -4628,7 +4623,6 @@
 				1842C470247987C9008ECD6F /* SceneStacked.storyboard in Resources */,
 				CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */,
 				CC470A90262DE90B0013A3B7 /* Subscription.xib in Resources */,
-				CCF7C84F27E4ED500090B7F7 /* TagList-Passport.plist in Resources */,
 				D6CB4550248784EF00F5C7A1 /* InitialValues.plist in Resources */,
 				CCC8BC5F263B30230040E82A /* ExportPanelAccessoryView.xib in Resources */,
 				D69FD9F12477D0DA00ACBF74 /* Scene.storyboard in Resources */,
