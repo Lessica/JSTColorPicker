@@ -24,6 +24,7 @@ private extension NSUserInterfaceItemIdentifier {
 }
 
 final class TagListController: StackedPaneController {
+    
     struct NotificationType {
         struct Name {
             static let tagPersistentStoreRequiresReloadNotification = NSNotification.Name(rawValue: "TagPersistentStoreRequiresReloadNotification")
@@ -58,6 +59,7 @@ final class TagListController: StackedPaneController {
     
     @IBOutlet var internalController              : TagController!
     @IBOutlet var tagMenu                         : NSMenu!
+    @IBOutlet var definitionMenu                  : NSMenu!
     @IBOutlet var alertTextView                   : TagImportAlertView!
     
     @IBOutlet weak var paneTopConstraint          : NSLayoutConstraint!
@@ -68,6 +70,7 @@ final class TagListController: StackedPaneController {
     @IBOutlet weak var buttonDeselectAll          : NSButton!
     @IBOutlet weak var buttonAdd                  : NSButton!
     @IBOutlet weak var buttonDelete               : NSButton!
+    @IBOutlet weak var buttonDefinition           : NSButton!
     @IBOutlet weak var searchField                : NSSearchField!
     @IBOutlet weak var scrollView                 : NSScrollView!
     @IBOutlet weak var tableView                  : TagListTableView!
@@ -199,6 +202,7 @@ final class TagListController: StackedPaneController {
         tableViewOverlay.dataSource = self
         tableViewOverlay.dragDelegate = self
         tableViewOverlay.tableRowHeight = tableView.rowHeight
+        // definitionMenu.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
         
         tableView.registerForDraggedTypes([TagListController.inlinePasteboardType])
         setupPersistentStore(byIgnoringError: false)
@@ -388,6 +392,8 @@ final class TagListController: StackedPaneController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        buttonDefinition.isHidden = !Self.definitionRootURL.isDirectory
+        
         performReorderAndSave(isAsync: false)
         ensurePreviewedTagsForItems(lastStoredContentItems)
     }
@@ -504,6 +510,11 @@ final class TagListController: StackedPaneController {
     
     @IBAction private func deselectAll(_ sender: Any) {
         tableView.deselectAll(sender)
+    }
+    
+    @IBAction private func definitionButtonTapped(_ sender: NSButton) {
+        guard let event = view.window?.currentEvent else { return }
+        NSMenu.popUpContextMenu(definitionMenu, with: event, for: sender)
     }
     
     private func importConfirmForTags(_ tagsToImport: [String]) -> Bool {
@@ -1092,11 +1103,20 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
             guard !isSelectMode && isEditable else { return false }
             return tableView.clickedRow >= 0 || tableView.selectedRowIndexes.count > 0
         }
+        else if menuItem.action == #selector(definitionMenuItemTapped(_:))
+                    || menuItem.action == #selector(showDefinitionsMenuItemTapped(_:))
+        {
+            return true
+        }
         return false
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        applyKeyBindingsToTopLevelContextMenu(menu)
+        if menu == tagMenu {
+            applyKeyBindingsToTopLevelContextMenu(menu)
+        } else if menu == definitionMenu {
+            searchForDefinitionsAndUpdateContextMenu(menu)
+        }
     }
     
     // Apply key bindings for top-level menus.
@@ -1104,6 +1124,104 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
         if menu == tagMenu {
             MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
+    }
+    
+}
+
+extension TagListController {
+    
+    private static var definitionRootURL: URL = {
+        let url = FileManager.default.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask
+        )
+        .first!
+        .appendingPathComponent(Bundle.main.bundleIdentifier!)
+        .appendingPathComponent("Definitions")
+        
+        if !FileManager.default.fileExists(atPath: url.path) {
+            try? FileManager.default.createDirectory(
+                at: url,
+                withIntermediateDirectories: true,
+                attributes: nil
+            )
+        }
+        return url
+    }()
+    
+    private func searchForDefinitionsAndUpdateContextMenu(_ menu: NSMenu) {
+        if menu == definitionMenu {
+            var childItems = [NSMenuItem]()
+            if let definitionURLs = try? FileManager.default.contentsOfDirectory(
+                at: Self.definitionRootURL,
+                includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey],
+                options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants]
+            ) {
+                childItems.append(contentsOf: definitionURLs
+                    .filter({ $0.pathExtension.lowercased() == "plist" && $0.isRegularFile })
+                    .sorted(by: { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending })
+                    .map { definitionURL -> NSMenuItem in
+                        let childItem = NSMenuItem(
+                            title: definitionURL.deletingPathExtension().lastPathComponent,
+                            action: #selector(definitionMenuItemTapped(_:)),
+                            keyEquivalent: ""
+                        )
+                        childItem.representedObject = definitionURL
+                        childItem.toolTip = "\(definitionURL.path) (\(definitionURL.readableSize))"
+                        childItem.isEnabled = true
+                        return childItem
+                    })
+            }
+            
+            let fixedItem = NSMenuItem(
+                title: NSLocalizedString("Show Tag Definitions…", comment: "searchForDefinitionsAndUpdateContextMenu(_:)"),
+                action: #selector(showDefinitionsMenuItemTapped(_:)),
+                keyEquivalent: ""
+            )
+            
+            if childItems.count > 0 {
+                menu.items = childItems + [
+                    NSMenuItem.separator(),
+                    fixedItem
+                ]
+            } else {
+                let emptyItem = NSMenuItem(
+                    title: NSLocalizedString("No tag definition available.", comment: "searchForDefinitionsAndUpdateContextMenu(_:)"),
+                    action: nil,
+                    keyEquivalent: ""
+                )
+                
+                menu.items = [
+                    emptyItem,
+                    NSMenuItem.separator(),
+                    fixedItem,
+                ]
+            }
+        }
+    }
+    
+    @objc private func definitionMenuItemTapped(_ sender: NSMenuItem) {
+        if let definitionURL = sender.representedObject as? URL {
+            do {
+                try TagListController.destoryPersistentStore()
+                NotificationCenter.default.post(
+                    name: TagListController.NotificationType.Name.tagPersistentStoreRequiresReloadNotification,
+                    object: nil,
+                    userInfo: ["url": definitionURL]
+                )
+            } catch {
+                presentError(error)
+            }
+        }
+    }
+    
+    @objc private func showDefinitionsMenuItemTapped(_ sender: NSMenuItem) {
+        let url = Self.definitionRootURL
+        guard url.isDirectory else {
+            presentError(GenericError.notDirectory(url: url))
+            return
+        }
+        NSWorkspace.shared.open(url)
     }
 }
 

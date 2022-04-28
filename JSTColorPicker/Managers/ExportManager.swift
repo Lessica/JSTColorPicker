@@ -15,11 +15,24 @@ extension NSPasteboard.Name {
 
 final class ExportManager {
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         case noDocumentLoaded
         case noTemplateSelected
         case noExtensionSpecified
         case incompatibleReturnedValue(action: Template.GenerateAction)
+        
+        var errorCode: Int {
+            switch self {
+                case .noDocumentLoaded:
+                    return 1201
+                case .noTemplateSelected:
+                    return 1202
+                case .noExtensionSpecified:
+                    return 1203
+                case .incompatibleReturnedValue(_):
+                    return 1204
+            }
+        }
         
         var failureReason: String? {
             switch self {

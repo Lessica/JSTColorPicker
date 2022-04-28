@@ -28,50 +28,55 @@ final class Screenshot: NSDocument {
         case cannotDeserializeContent
         case notImplemented
         case platformSubscriptionRequired
+        case resourceBusy
         
         var errorCode: Int {
             switch self {
-            case .invalidImage:
-                return 301
-            case .invalidImageSource:
-                return 302
-            case .invalidContent:
-                return 303
-            case .invalidImageType:
-                return 304
-            case .invalidImageProperties:
-                return 305
-            case .cannotSerializeContent:
-                return 306
-            case .cannotDeserializeContent:
-                return 307
-            case .notImplemented:
-                return 308
-            case .platformSubscriptionRequired:
-                return 309
+                case .invalidImage:
+                    return 301
+                case .invalidImageSource:
+                    return 302
+                case .invalidContent:
+                    return 303
+                case .invalidImageType:
+                    return 304
+                case .invalidImageProperties:
+                    return 305
+                case .cannotSerializeContent:
+                    return 306
+                case .cannotDeserializeContent:
+                    return 307
+                case .notImplemented:
+                    return 308
+                case .platformSubscriptionRequired:
+                    return 309
+                case .resourceBusy:
+                    return 310
             }
         }
         
         var failureReason: String? {
             switch self {
-            case .invalidImage:
-                return NSLocalizedString("Invalid image.", comment: "Screenshot.Error")
-            case .invalidImageSource:
-                return NSLocalizedString("Invalid image source.", comment: "Screenshot.Error")
-            case .invalidContent:
-                return NSLocalizedString("Invalid content.", comment: "Screenshot.Error")
-            case .invalidImageType:
-                return NSLocalizedString("Invalid image type.", comment: "Screenshot.Error")
-            case .invalidImageProperties:
-                return NSLocalizedString("Invalid image properties.", comment: "Screenshot.Error")
-            case .cannotSerializeContent:
-                return NSLocalizedString("Cannot serialize content.", comment: "Screenshot.Error")
-            case .cannotDeserializeContent:
-                return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
-            case .notImplemented:
-                return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
-            case .platformSubscriptionRequired:
-                return NSLocalizedString("This operation requires valid subscription of JSTColorPicker.", comment: "Screenshot.Error")
+                case .invalidImage:
+                    return NSLocalizedString("Invalid image.", comment: "Screenshot.Error")
+                case .invalidImageSource:
+                    return NSLocalizedString("Invalid image source.", comment: "Screenshot.Error")
+                case .invalidContent:
+                    return NSLocalizedString("Invalid content.", comment: "Screenshot.Error")
+                case .invalidImageType:
+                    return NSLocalizedString("Invalid image type.", comment: "Screenshot.Error")
+                case .invalidImageProperties:
+                    return NSLocalizedString("Invalid image properties.", comment: "Screenshot.Error")
+                case .cannotSerializeContent:
+                    return NSLocalizedString("Cannot serialize content.", comment: "Screenshot.Error")
+                case .cannotDeserializeContent:
+                    return NSLocalizedString("Cannot deserialize content.", comment: "Screenshot.Error")
+                case .notImplemented:
+                    return NSLocalizedString("This feature is not implemented.", comment: "Screenshot.Error")
+                case .platformSubscriptionRequired:
+                    return NSLocalizedString("This operation requires valid subscription of JSTColorPicker.", comment: "Screenshot.Error")
+                case .resourceBusy:
+                    return NSLocalizedString("Resource busy.", comment: "Screenshot.Error")
             }
         }
     }
@@ -315,9 +320,9 @@ final class Screenshot: NSDocument {
     func beginExtractSession(
         in window: NSWindow,
         with template: Template
-    ) -> ExtractSession {
+    ) throws -> ExtractSession {
         guard !isExtractingContentItems else {
-            fatalError("now extracting content items")
+            throw Error.resourceBusy
         }
         self.isExtractingContentItems = true
         

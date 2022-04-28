@@ -560,6 +560,9 @@
 /* Content Tag Submenu */
 "No tag attached" = "未关联标签";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"No tag definition available." = "无可用的标签定义。";
+
 /* Import Confirm */
 "No tag to import." = "当前文档中的所有标签业已关联到数据库，无标签可供关联。";
 
@@ -736,6 +739,9 @@
 
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "显示一个指令面板，它包含了一些可用的键盘快捷键以供参考。";
+
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"Show Tag Definitions…" = "显示标签定义…";
 
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Sidebar" = "边栏";

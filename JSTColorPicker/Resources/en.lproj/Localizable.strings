@@ -560,6 +560,9 @@
 /* Content Tag Submenu */
 "No tag attached" = "No tag attached";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"No tag definition available." = "No tag definition available.";
+
 /* Import Confirm */
 "No tag to import." = "No tag to import.";
 
@@ -736,6 +739,9 @@
 
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
+
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"Show Tag Definitions…" = "Show Tag Definitions…";
 
 /* com.jst.JSTColorPicker.ToolbarItem */
 "Sidebar" = "Sidebar";

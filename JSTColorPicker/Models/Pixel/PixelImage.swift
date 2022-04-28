@@ -18,20 +18,31 @@ final class PixelImage {
         var cgSource: CGImageSource
     }
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         
         case readFailed(_ url: URL)
         case loadSourceFailed(_ url: URL)
         case loadImageFailed(_ url: URL)
         
+        var errorCode: Int {
+            switch self {
+                case .readFailed(_):
+                    return 201
+                case .loadSourceFailed(_):
+                    return 202
+                case .loadImageFailed(_):
+                    return 203
+            }
+        }
+        
         var failureReason: String? {
             switch self {
-            case .readFailed(let url):
-                return String(format: NSLocalizedString("File read failed: %@.", comment: "PixelImageError"), url.path)
-            case .loadSourceFailed(let url):
-                return String(format: NSLocalizedString("Load image source failed: %@.", comment: "PixelImageError"), url.path)
-            case .loadImageFailed(let url):
-                return String(format: NSLocalizedString("Load image data failed: %@.", comment: "PixelImageError"), url.path)
+                case .readFailed(let url):
+                    return String(format: NSLocalizedString("File read failed: %@.", comment: "PixelImageError"), url.path)
+                case .loadSourceFailed(let url):
+                    return String(format: NSLocalizedString("Load image source failed: %@.", comment: "PixelImageError"), url.path)
+                case .loadImageFailed(let url):
+                    return String(format: NSLocalizedString("Load image data failed: %@.", comment: "PixelImageError"), url.path)
             }
         }
         

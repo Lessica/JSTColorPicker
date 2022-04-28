@@ -17,13 +17,13 @@ enum GenericError: CustomNSError, LocalizedError {
     var errorCode: Int {
         switch self {
         case .notRegularFile:
-            return 501
+            return 401
         case .notDirectory:
-            return 502
+            return 402
         case .notPackage:
-            return 503
+            return 403
         case .invalidFilename:
-            return 504
+            return 404
         }
     }
     

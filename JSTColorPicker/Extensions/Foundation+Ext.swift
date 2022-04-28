@@ -195,6 +195,11 @@ extension URL {
     var isPackage: Bool {
         return (try? resourceValues(forKeys: [.isPackageKey]))?.isPackage ?? false
     }
+    
+    var readableSize: String {
+        let bytes: Int64 = Int64((try? resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
+        return ByteCountFormatter().string(fromByteCount: bytes)
+    }
 }
 
 extension Bundle {

@@ -25,19 +25,19 @@ public func PixelMatch(a32: inout [JST_COLOR], b32: inout [JST_COLOR], output: i
     
     enum Error: LocalizedError {
         
-        case sizesDoNotMatch
+        case sizeDoesNotMatch
         
         var failureReason: String? {
             switch self {
-            case .sizesDoNotMatch:
+            case .sizeDoesNotMatch:
                 return NSLocalizedString("Image sizes do not match.", comment: "PixelMatchError")
             }
         }
         
     }
     
-    guard a32.count == b32.count else { throw Error.sizesDoNotMatch }
-    guard a32.count == width * height else { throw Error.sizesDoNotMatch }
+    guard a32.count == b32.count else { throw Error.sizeDoesNotMatch }
+    guard a32.count == width * height else { throw Error.sizeDoesNotMatch }
     
     // check if images are identical
     let len = width * height

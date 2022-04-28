@@ -31,28 +31,45 @@ private extension String {
 
 final class TemplatePreviewController: StackedPaneController, EffectiveAppearanceObserver {
 
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         case documentNotLoaded
         case noTemplateSelected
         case cannotWriteToPasteboard
         case invalidEncoding
         case resourceNotFound
         case resourceBusy
+        
+        var errorCode: Int {
+            switch self {
+                case .documentNotLoaded:
+                    return 531
+                case .noTemplateSelected:
+                    return 532
+                case .cannotWriteToPasteboard:
+                    return 533
+                case .invalidEncoding:
+                    return 534
+                case .resourceNotFound:
+                    return 535
+                case .resourceBusy:
+                    return 536
+            }
+        }
 
         var failureReason: String? {
             switch self {
-            case .documentNotLoaded:
-                return NSLocalizedString("Document not loaded.", comment: "TemplatePreviewController.Error")
-            case .noTemplateSelected:
-                return NSLocalizedString("No template selected.", comment: "TemplatePreviewController.Error")
-            case .cannotWriteToPasteboard:
-                return NSLocalizedString("Ownership of the pasteboard has changed.", comment: "TemplatePreviewController.Error")
-            case .invalidEncoding:
-                return NSLocalizedString("Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”.", comment: "TemplatePreviewController.Error")
-            case .resourceNotFound:
-                return NSLocalizedString("Resource not found.", comment: "TemplatePreviewController.Error")
-            case .resourceBusy:
-                return NSLocalizedString("Resource busy.", comment: "TemplatePreviewController.Error")
+                case .documentNotLoaded:
+                    return NSLocalizedString("Document not loaded.", comment: "TemplatePreviewController.Error")
+                case .noTemplateSelected:
+                    return NSLocalizedString("No template selected.", comment: "TemplatePreviewController.Error")
+                case .cannotWriteToPasteboard:
+                    return NSLocalizedString("Ownership of the pasteboard has changed.", comment: "TemplatePreviewController.Error")
+                case .invalidEncoding:
+                    return NSLocalizedString("Cannot obtain the representation of the extracted contents encoded using the given encoding “UTF-8”.", comment: "TemplatePreviewController.Error")
+                case .resourceNotFound:
+                    return NSLocalizedString("Resource not found.", comment: "TemplatePreviewController.Error")
+                case .resourceBusy:
+                    return NSLocalizedString("Resource busy.", comment: "TemplatePreviewController.Error")
             }
         }
     }
@@ -1056,7 +1073,7 @@ extension TemplatePreviewController {
                 return
             }
 
-            let extractSession = screenshot.beginExtractSession(in: view.window!, with: template)
+            let extractSession = try screenshot.beginExtractSession(in: view.window!, with: template)
             seal.fulfill(TemplateExportInPlaceTuple(
                 items: items,
                 session: extractSession

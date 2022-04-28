@@ -15,7 +15,7 @@ import Paddle
 
 final class PurchaseController: NSViewController {
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         
         case invalidProductIdentifier(identifier: String)
         case nothingToRestore
@@ -28,26 +28,49 @@ final class PurchaseController: NSViewController {
         case unverified
         case other(description: String)
         
+        var errorCode: Int {
+            switch self {
+                case .invalidProductIdentifier(_):
+                    return 1411
+                case .nothingToRestore:
+                    return 1412
+                case .checkoutFailed:
+                    return 1413
+                case .checkoutFlagged:
+                    return 1414
+                case .checkoutSlowOrderProcessing, .checkoutRequiresManualActivation:
+                    return 1415
+                case .validateNoActivation:
+                    return 1416
+                case .validateUnableToVerify:
+                    return 1417
+                case .unverified:
+                    return 1418
+                case .other(_):
+                    return 1419
+            }
+        }
+        
         var failureReason: String? {
             switch self {
-            case let .invalidProductIdentifier(identifier):
-                return String(format: NSLocalizedString("Invalid product identifier: “%@”.", comment: "PurchaseController.Error"), identifier)
-            case .nothingToRestore:
-                return NSLocalizedString("Nothing to restore.", comment: "PurchaseController.Error")
-            case .checkoutFailed:
-                return NSLocalizedString("The checkout failed to load or the order processing took too long to complete.", comment: "PurchaseController.Error")
-            case .checkoutFlagged:
-                return NSLocalizedString("The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed.", comment: "PurchaseController.Error")
-            case .checkoutSlowOrderProcessing, .checkoutRequiresManualActivation:
-                return NSLocalizedString("The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product.", comment: "PurchaseController.Error")
-            case .validateNoActivation:
-                return NSLocalizedString("There is no license to verify.", comment: "PurchaseController.Error")
-            case .validateUnableToVerify:
-                return NSLocalizedString("We were unable to get a definitive verification result, typically because of poor network.", comment: "PurchaseController.Error")
-            case .unverified:
-                return NSLocalizedString("The license did not pass verification.", comment: "PurchaseController.Error")
-            case let .other(description):
-                return description
+                case let .invalidProductIdentifier(identifier):
+                    return String(format: NSLocalizedString("Invalid product identifier: “%@”.", comment: "PurchaseController.Error"), identifier)
+                case .nothingToRestore:
+                    return NSLocalizedString("Nothing to restore.", comment: "PurchaseController.Error")
+                case .checkoutFailed:
+                    return NSLocalizedString("The checkout failed to load or the order processing took too long to complete.", comment: "PurchaseController.Error")
+                case .checkoutFlagged:
+                    return NSLocalizedString("The checkout was completed, but the transaction was flagged for manual processing. The Paddle team will handle the transaction manually. If the order is approved, you will be able to activate the product later, when the approved order has been processed.", comment: "PurchaseController.Error")
+                case .checkoutSlowOrderProcessing, .checkoutRequiresManualActivation:
+                    return NSLocalizedString("The checkout has been completed and the payment has been taken, but we were unable to retrieve the status of the order. It will be processed soon, and you will receive an email with more steps to activate this product.", comment: "PurchaseController.Error")
+                case .validateNoActivation:
+                    return NSLocalizedString("There is no license to verify.", comment: "PurchaseController.Error")
+                case .validateUnableToVerify:
+                    return NSLocalizedString("We were unable to get a definitive verification result, typically because of poor network.", comment: "PurchaseController.Error")
+                case .unverified:
+                    return NSLocalizedString("The license did not pass verification.", comment: "PurchaseController.Error")
+                case let .other(description):
+                    return description
             }
         }
         

@@ -10,12 +10,25 @@ import Cocoa
 
 final class PixelMatchService {
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         
         case taskConflict
         case cannotLoadImage(url: URL)
-        case sizesDoNotMatch(size1: CGSize, size2: CGSize)
+        case sizeDoesNotMatch(size1: CGSize, size2: CGSize)
         case noDifferenceDetected
+        
+        var errorCode: Int {
+            switch self {
+                case .taskConflict:
+                    return 1101
+                case .cannotLoadImage(_):
+                    return 1102
+                case .sizeDoesNotMatch(_, _):
+                    return 1103
+                case .noDifferenceDetected:
+                    return 1104
+            }
+        }
         
         var failureReason: String? {
             switch self {
@@ -23,7 +36,7 @@ final class PixelMatchService {
                 return NSLocalizedString("Another task is in process, abort.", comment: "PixelMatchServiceError")
             case let .cannotLoadImage(url):
                 return String(format: NSLocalizedString("Cannot load image: %@.", comment: "PixelMatchServiceError"), url.path)
-            case let .sizesDoNotMatch(size1, size2):
+            case let .sizeDoesNotMatch(size1, size2):
                 return String(format: NSLocalizedString("Image sizes do not match: %dx%d vs %dx%d", comment: "PixelMatchServiceError"), Int(size1.width), Int(size1.height), Int(size2.width), Int(size2.height))
             case .noDifferenceDetected:
                 return NSLocalizedString("No difference detected. Decrease the “Match Threshold” in “Preferences -> General -> Compare” and try again.", comment: "PixelMatchServiceError")
@@ -58,7 +71,7 @@ final class PixelMatchService {
         let startTime = CFAbsoluteTimeGetCurrent()
         guard img2.size.width == img1.size.width && img2.size.height == img1.size.height else {
             isProcessing = false
-            throw PixelMatchService.Error.sizesDoNotMatch(size1: img1.size, size2: img2.size)
+            throw PixelMatchService.Error.sizeDoesNotMatch(size1: img1.size, size2: img2.size)
         }
 
         let totalColumns = Int(img1.size.width)

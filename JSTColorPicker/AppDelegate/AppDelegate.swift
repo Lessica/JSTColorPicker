@@ -29,12 +29,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Structs
     
-    enum XPCError: LocalizedError {
+    enum XPCError: CustomNSError, LocalizedError {
         case timeout
         case interrupted
         case invalidated
         case malformedResponse
         case invalidDeviceHandler(handler: String)
+        
+        var errorCode: Int {
+            switch self {
+                case .timeout:
+                    return 901
+                case .interrupted:
+                    return 902
+                case .invalidated:
+                    return 903
+                case .malformedResponse:
+                    return 904
+                case .invalidDeviceHandler(_):
+                    return 905
+            }
+        }
         
         var failureReason: String? {
             switch self {
@@ -52,8 +67,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    enum NetworkError: LocalizedError {
+    enum NetworkError: CustomNSError, LocalizedError {
         case cannotResolveName(name: String)
+        
+        var errorCode: Int {
+            switch self {
+                case .cannotResolveName(_):
+                    return 1001
+            }
+        }
         
         var failureReason: String? {
             switch self {

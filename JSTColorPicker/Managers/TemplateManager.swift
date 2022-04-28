@@ -10,9 +10,20 @@ import Foundation
 import OSLog
 
 @objc final class TemplateManager: NSObject {
-    enum Error: LocalizedError {
+    
+    enum Error: CustomNSError, LocalizedError {
+        
         case unknown
         case resourceBusy
+        
+        var errorCode: Int {
+            switch self {
+                case .unknown:
+                    return 500
+                case .resourceBusy:
+                    return 501
+            }
+        }
 
         var failureReason: String? {
             switch self {

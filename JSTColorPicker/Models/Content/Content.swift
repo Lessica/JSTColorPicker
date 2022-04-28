@@ -12,7 +12,7 @@ final class Content: NSObject, Codable {
     
     static let exifCodableStorageKey = "com.jst.JSTColorPicker.Content"
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         
         case itemExists(item: CustomStringConvertible)
         case itemDoesNotExist(item: CustomStringConvertible)
@@ -28,34 +28,65 @@ final class Content: NSObject, Codable {
         case notSerialized
         case userAborted
         
+        var errorCode: Int {
+            switch self {
+                case .itemExists(_):
+                    return 101
+                case .itemDoesNotExist(_):
+                    return 102
+                case .itemDoesNotExistPartial:
+                    return 103
+                case .itemNotValid(_):
+                    return 104
+                case .itemOutOfRange(_, _):
+                    return 105
+                case .itemReachLimit(_):
+                    return 106
+                case .itemReachLimitBatch(_):
+                    return 107
+                case .itemConflict(_, _):
+                    return 108
+                case .itemTagPerItemReachLimit(_):
+                    return 109
+                case .notLoaded:
+                    return 110
+                case .notWritable:
+                    return 111
+                case .notSerialized:
+                    return 112
+                case .userAborted:
+                    return 113
+            }
+        }
+        
         var failureReason: String? {
             switch self {
-            case let .itemExists(item):
-                return String(format: NSLocalizedString("This item %@ already exists.", comment: "Content.Error"), item.description)
-            case let .itemDoesNotExist(item):
-                return String(format: NSLocalizedString("This item %@ does not exist.", comment: "Content.Error"), item.description)
-            case .itemDoesNotExistPartial:
-                return NSLocalizedString("Some of these items do not exist.", comment: "Content.Error")
-            case let .itemNotValid(item):
-                return String(format: NSLocalizedString("This requested item %@ is not valid.", comment: "Content.Error"), item.description)
-            case let .itemOutOfRange(item, range):
-                return String(format: NSLocalizedString("The requested item %@ is out of the document range %@.", comment: "Content.Error"), item.description, range.description)
-            case let .itemReachLimit(totalSpace):
-                return String(format: NSLocalizedString("Maximum item count %d reached.", comment: "Content.Error"), totalSpace)
-            case let .itemReachLimitBatch(moreSpace):
-                return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "Content.Error"), moreSpace)
-            case let .itemConflict(item1, item2):
-                return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "Content.Error"), item1.description, item2.description)
-            case let .itemTagPerItemReachLimit(totalSpace):
-                return String(format: NSLocalizedString("Maximum tag per item count %d reached.", comment: "Content.Error"), totalSpace)
-            case .notLoaded:
-                return NSLocalizedString("No document loaded.", comment: "Content.Error")
-            case .notWritable:
-                return NSLocalizedString("Document locked.", comment: "Content.Error")
-            case .notSerialized:
-                return NSLocalizedString("Cannot deserialize content.", comment: "Content.Error")
-            case .userAborted:
-                return NSLocalizedString("User aborted.", comment: "Content.Error")
+                case let .itemExists(item):
+                    return String(format: NSLocalizedString("This item %@ already exists.", comment: "Content.Error"), item.description)
+                case let .itemDoesNotExist(item):
+                    return String(format: NSLocalizedString("This item %@ does not exist.", comment: "Content.Error"), item.description)
+                case .itemDoesNotExistPartial:
+                    return NSLocalizedString("Some of these items do not exist.", comment: "Content.Error")
+                case let .itemNotValid(item):
+                    return String(format: NSLocalizedString("This requested item %@ is not valid.", comment: "Content.Error"), item.description)
+                case let .itemOutOfRange(item, range):
+                    return String(format: NSLocalizedString("The requested item %@ is out of the document range %@.", comment: "Content.Error"), item.description, range.description)
+                case let .itemReachLimit(totalSpace):
+                    return String(format: NSLocalizedString("Maximum item count %d reached.", comment: "Content.Error"), totalSpace)
+                case let .itemReachLimitBatch(moreSpace):
+                    return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "Content.Error"), moreSpace)
+                case let .itemConflict(item1, item2):
+                    return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "Content.Error"), item1.description, item2.description)
+                case let .itemTagPerItemReachLimit(totalSpace):
+                    return String(format: NSLocalizedString("Maximum tag per item count %d reached.", comment: "Content.Error"), totalSpace)
+                case .notLoaded:
+                    return NSLocalizedString("No document loaded.", comment: "Content.Error")
+                case .notWritable:
+                    return NSLocalizedString("Document locked.", comment: "Content.Error")
+                case .notSerialized:
+                    return NSLocalizedString("Cannot deserialize content.", comment: "Content.Error")
+                case .userAborted:
+                    return NSLocalizedString("User aborted.", comment: "Content.Error")
             }
         }
         

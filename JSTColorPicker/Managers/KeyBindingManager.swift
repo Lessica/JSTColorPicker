@@ -27,7 +27,7 @@
 import Cocoa
 import UniformTypeIdentifiers
 
-struct InvalidShortcutError: LocalizedError {
+struct InvalidShortcutError: CustomNSError, LocalizedError {
     
     enum ErrorKind {
         case singleType
@@ -38,6 +38,17 @@ struct InvalidShortcutError: LocalizedError {
     let kind: ErrorKind
     let shortcut: Shortcut
     
+    var errorCode: Int {
+        
+        switch self.kind {
+            case .singleType:
+                return 1301
+            case .alreadyTaken(_):
+                return 1302
+            case .shiftOnlyModifier:
+                return 1303
+        }
+    }
     
     var errorDescription: String? {
         

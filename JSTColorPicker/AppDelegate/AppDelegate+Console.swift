@@ -16,9 +16,18 @@ import PromiseKit
 extension AppDelegate {
     
     #if APP_STORE
-    enum ScriptError: LocalizedError {
+    enum ScriptError: CustomNSError, LocalizedError {
         case applicationNotFound(identifier: String)
         case cannotOpenApplicationAtURL(url: URL)
+        
+        var errorCode: Int {
+            switch self {
+                case .applicationNotFound(_):
+                    return 604
+                case .cannotOpenApplicationAtURL(_):
+                    return 605
+            }
+        }
         
         var failureReason: String? {
             switch self {
@@ -30,7 +39,7 @@ extension AppDelegate {
         }
     }
     #else
-    enum ScriptError: LocalizedError {
+    enum ScriptError: CustomNSError, LocalizedError {
         case unknown
         case custom(reason: String, code: Int)
         case system(dictionary: [String: Any?])
@@ -40,6 +49,29 @@ extension AppDelegate {
         case requireUserConsentInAccessibility
         case requireUserConsentInAutomation(identifier: String)
         case notPermitted(identifier: String)
+        
+        var errorCode: Int {
+            switch self {
+                case .unknown:
+                    return 601
+                case .custom(_, _):
+                    return 602
+                case .system(_):
+                    return 603
+                case .applicationNotFound(_):
+                    return 604
+                case .cannotOpenApplicationAtURL(_):
+                    return 605
+                case .procNotFound(_):
+                    return 606
+                case .requireUserConsentInAccessibility:
+                    return 607
+                case .requireUserConsentInAutomation(_):
+                    return 608
+                case .notPermitted(_):
+                    return 609
+            }
+        }
         
         var failureReason: String? {
             switch self {

@@ -10,8 +10,9 @@
         <scene sceneID="CSH-gG-8Jg">
             <objects>
                 <viewController id="ifY-36-Ao8" customClass="TagListController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="zip-Pl-41D">
+                    <view key="view" id="zip-Pl-41D">
                         <rect key="frame" x="0.0" y="0.0" width="258" height="800"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <box borderType="line" title="Tag Manager" translatesAutoresizingMaskIntoConstraints="NO" id="yUd-5h-qZT">
                                 <rect key="frame" x="-3" y="-4" width="264" height="800"/>
@@ -398,19 +399,40 @@
                                     <binding destination="lSV-Dz-huJ" name="title" keyPath="controllerDisplayTitle" id="IDh-ob-fZy"/>
                                 </connections>
                             </box>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qsO-dI-2Pc">
+                                <rect key="frame" x="234" y="779.5" width="16" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="AzR-dh-VWz"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="Od6-ab-WgN"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="Tqf-zj-ylm"/>
+                                    <constraint firstAttribute="height" constant="16" id="r71-jM-n55"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="curlybraces.square" catalog="system" imagePosition="only" alignment="center" alternateImage="curlybraces.square.fill" imageScaling="proportionallyDown" inset="2" id="qKI-zq-fzv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="definitionButtonTapped:" target="ifY-36-Ao8" id="Zc4-xC-j2f"/>
+                                    <outlet property="menu" destination="ljM-25-iDK" id="W2a-2y-sQJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="qsO-dI-2Pc" firstAttribute="top" secondItem="zip-Pl-41D" secondAttribute="top" constant="2" id="3FP-vo-XiQ"/>
                             <constraint firstItem="yUd-5h-qZT" firstAttribute="top" secondItem="zip-Pl-41D" secondAttribute="top" constant="4" id="LzX-kL-8fE"/>
                             <constraint firstItem="yUd-5h-qZT" firstAttribute="leading" secondItem="zip-Pl-41D" secondAttribute="leading" id="QgW-zJ-UnT"/>
                             <constraint firstAttribute="bottom" secondItem="yUd-5h-qZT" secondAttribute="bottom" id="SBC-3E-gMW"/>
                             <constraint firstAttribute="trailing" secondItem="yUd-5h-qZT" secondAttribute="trailing" id="jQL-X6-y9f"/>
+                            <constraint firstAttribute="trailing" secondItem="qsO-dI-2Pc" secondAttribute="trailing" constant="8" id="vjP-EV-dcb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonAdd" destination="J0k-D4-VsM" id="YAR-hw-nkw"/>
+                        <outlet property="buttonDefinition" destination="qsO-dI-2Pc" id="3h5-LP-IAX"/>
                         <outlet property="buttonDelete" destination="GwW-Rj-u1w" id="udK-O4-zbs"/>
                         <outlet property="buttonDeselectAll" destination="zdO-sy-f4V" id="lF0-Bg-cee"/>
                         <outlet property="buttonImport" destination="LsJ-yu-RS8" id="6po-Bh-TOH"/>
+                        <outlet property="definitionMenu" destination="ljM-25-iDK" id="zHv-6l-TEO"/>
                         <outlet property="internalController" destination="lSV-Dz-huJ" id="CcU-lL-xia"/>
                         <outlet property="loadingErrorLabel" destination="6yp-7K-zYS" id="V16-ks-1W7"/>
                         <outlet property="loadingErrorStack" destination="h1R-EZ-pCN" id="UoC-Le-823"/>
@@ -484,6 +506,11 @@ CA
                         <outlet property="delegate" destination="ifY-36-Ao8" id="k0U-w0-Y9L"/>
                     </connections>
                 </menu>
+                <menu showsStateColumn="NO" id="ljM-25-iDK">
+                    <connections>
+                        <outlet property="delegate" destination="ifY-36-Ao8" id="sXN-7P-67R"/>
+                    </connections>
+                </menu>
                 <arrayController mode="entity" entityName="Tag" editable="NO" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="lSV-Dz-huJ" customClass="TagController" customModule="JSTColorPicker" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="48" y="201"/>
@@ -491,6 +518,8 @@ CA
     </scenes>
     <resources>
         <image name="arrow.left.arrow.right.square" catalog="system" width="15" height="14"/>
+        <image name="curlybraces.square" catalog="system" width="15" height="14"/>
+        <image name="curlybraces.square.fill" catalog="system" width="15" height="14"/>
         <image name="minus" catalog="system" width="14" height="4"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="square.dashed" catalog="system" width="15" height="14"/>

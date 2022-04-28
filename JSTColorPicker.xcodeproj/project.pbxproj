@@ -281,6 +281,8 @@
 		CC3C4AF0262025E000794806 /* TemplateInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C4AF2262025E000794806 /* TemplateInfo.storyboard */; };
 		CC3C4B0E26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
 		CC3C4B0F26202E4200794806 /* ExportStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4B0D26202E4200794806 /* ExportStackedView.swift */; };
+		CC3F5B9A281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */; };
+		CC3F5B9B281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */; };
 		CC4102032625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC4102042625C33E00AC8129 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4102022625C33E00AC8129 /* TemplateManager.swift */; };
 		CC436B0B26179D7800E46D3A /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC436B0E26179D7800E46D3A /* InfoView.xib */; };
@@ -354,6 +356,7 @@
 		CC76ED4D281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
 		CC76ED4E281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
 		CC76ED4F281A3E4100CE61B9 /* libssl.35.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */; };
+		CC76ED52281A49FC00CE61B9 /* libcurl.4.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76ED50281A49DF00CE61B9 /* libcurl.4.tbd */; };
 		CC7D6763266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC7D6764266E037B002099AD /* JSTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D6762266E037B002099AD /* JSTDevice.m */; };
 		CC84218726160AEF00F1C007 /* ExportStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84218626160AEF00F1C007 /* ExportStackedController.swift */; };
@@ -401,8 +404,6 @@
 		CC9804D627F20D5C009044B7 /* lpcode.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698F260A0B5A0029693B /* lpcode.h */; };
 		CC9804D727F20D5C009044B7 /* lpprint.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB7698E260A0B5A0029693B /* lpprint.h */; };
 		CC9804DA27F20D6D009044B7 /* lpeg.so in Copy Lua Modules */ = {isa = PBXBuildFile; fileRef = CC9804CC27F20D32009044B7 /* lpeg.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CC9804F327F21049009044B7 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */; };
-		CC9804F427F21049009044B7 /* libnghttp2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */; };
 		CC9804F527F2104E009044B7 /* lcmulti.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE527ED042600057E12 /* lcmulti.h */; };
 		CC9804F627F2104E009044B7 /* lcopturl.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BE627ED042700057E12 /* lcopturl.h */; };
 		CC9804F727F2104E009044B7 /* lcflags.h in Headers */ = {isa = PBXBuildFile; fileRef = CC328BEB27ED042700057E12 /* lcflags.h */; };
@@ -1583,6 +1584,8 @@
 		CC3C4AFB262025E300794806 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplateInfo.strings; sourceTree = "<group>"; };
 		CC3C4B04262025E400794806 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TemplateInfo.strings"; sourceTree = "<group>"; };
 		CC3C4B0D26202E4200794806 /* ExportStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStackedView.swift; sourceTree = "<group>"; };
+		CC3F5B98281A87B100CD53CB /* EditableTextColorTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditableTextColorTransformer.h; sourceTree = "<group>"; };
+		CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditableTextColorTransformer.m; sourceTree = "<group>"; };
 		CC4102022625C33E00AC8129 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		CC436B0D26179D7800E46D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoView.xib; sourceTree = "<group>"; };
 		CC436B1726179D7F00E46D3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoView.strings; sourceTree = "<group>"; };
@@ -1629,6 +1632,7 @@
 		CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ExampleTemplates.bundle; sourceTree = "<group>"; };
 		CC76ED44281A3E4100CE61B9 /* libcrypto.35.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = libcrypto.35.tbd; sourceTree = "<group>"; };
 		CC76ED45281A3E4100CE61B9 /* libssl.35.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = libssl.35.tbd; sourceTree = "<group>"; };
+		CC76ED50281A49DF00CE61B9 /* libcurl.4.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.4.tbd; path = usr/lib/libcurl.4.tbd; sourceTree = SDKROOT; };
 		CC7D6761266E037B002099AD /* JSTDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTDevice.h; sourceTree = "<group>"; };
 		CC7D6762266E037B002099AD /* JSTDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTDevice.m; sourceTree = "<group>"; };
 		CC8376F126304DBD00B2C984 /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
@@ -1718,8 +1722,6 @@
 		CCD04E2527E7811000C43E64 /* SceneCursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCursorView.swift; sourceTree = "<group>"; };
 		CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesController.swift; sourceTree = "<group>"; };
 		CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBgView.swift; sourceTree = "<group>"; };
-		CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
-		CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnghttp2.a; sourceTree = "<group>"; };
 		CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+EndEditing.swift"; sourceTree = "<group>"; };
 		CCE01C6E264CD8DF005960A7 /* ManagedWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedWindow.swift; sourceTree = "<group>"; };
 		CCE01C6F264CD8E0005960A7 /* ShortcutGuideDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutGuideDataSource.swift; sourceTree = "<group>"; };
@@ -2116,8 +2118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC9804F327F21049009044B7 /* libcurl.a in Frameworks */,
-				CC9804F427F21049009044B7 /* libnghttp2.a in Frameworks */,
+				CC76ED52281A49FC00CE61B9 /* libcurl.4.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2607,19 +2608,9 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		CC328BC427ECFCBF00057E12 /* prebuilt */ = {
-			isa = PBXGroup;
-			children = (
-				CCDD37DF27EDE65F00AA4FC3 /* libcurl.a */,
-				CCDD37E127EDE66F00AA4FC3 /* libnghttp2.a */,
-			);
-			path = prebuilt;
-			sourceTree = "<group>";
-		};
 		CC328BDC27ED040E00057E12 /* lcurl */ = {
 			isa = PBXGroup;
 			children = (
-				CC328BC427ECFCBF00057E12 /* prebuilt */,
 				CC328BDE27ED042600057E12 /* l52util.c */,
 				CC328BE327ED042600057E12 /* l52util.h */,
 				CC328BE127ED042600057E12 /* lceasy.c */,
@@ -3228,6 +3219,8 @@
 			children = (
 				CCFD19C327EAD5C2005DF0A6 /* EditArrayController.swift */,
 				CCAB7B2927EB7B17003E7769 /* AssociatedKeyPath.swift */,
+				CC3F5B98281A87B100CD53CB /* EditableTextColorTransformer.h */,
+				CC3F5B99281A87B100CD53CB /* EditableTextColorTransformer.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3688,6 +3681,7 @@
 		D684841323D3E3FD00BC5E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC76ED50281A49DF00CE61B9 /* libcurl.4.tbd */,
 				CC328C3D27ED09F900057E12 /* libiconv.2.tbd */,
 				CC328C3027ED075E00057E12 /* LDAP.framework */,
 				CC328C2E27ED071D00057E12 /* libz.1.2.11.tbd */,
@@ -4915,6 +4909,7 @@
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CC13C7C527F0269A00D12892 /* String+Constants.swift in Sources */,
+				CC3F5B9A281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */,
 				CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
 				CC1B4C1C27EF0C3E0087974F /* MetadataWindowController.swift in Sources */,
@@ -5324,6 +5319,7 @@
 				CCE01C96264CDA68005960A7 /* ManagedWindow.swift in Sources */,
 				D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */,
 				D635BE9823CD84EB00FD62B8 /* SceneImageView.swift in Sources */,
+				CC3F5B9B281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */,
 				18D202C1248D32EC007A079F /* EditWindowController.swift in Sources */,
 				D67A8F15247E6D6000153DE5 /* RetainingViewController.swift in Sources */,
 				CC236323264AE7AB005E909A /* KeyBindingItem.swift in Sources */,
@@ -6378,10 +6374,6 @@
 				EXECUTABLE_EXTENSION = so;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/LuaC/modules/lcurl/prebuilt",
-				);
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
@@ -6402,10 +6394,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/LuaC/include/\"";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/LuaC/modules/lcurl/prebuilt",
-				);
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,

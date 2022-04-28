@@ -22,25 +22,38 @@ import Paddle
     static let productDeactivatedNotification      = Notification.Name("PurchaseManager.productDeactivatedNotification")
     static let productForceDeactivateNotification  = Notification.Name("PurchaseManager.productForceDeactivateNotification")
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         case invalidReceipt
         case invalidPurchase
         case notPurchased
         case expired(at: Date)
         
+        var errorCode: Int {
+            switch self {
+                case .invalidReceipt:
+                    return 1401
+                case .invalidPurchase:
+                    return 1402
+                case .notPurchased:
+                    return 1403
+                case .expired(_):
+                    return 1404
+            }
+        }
+        
         var failureReason: String? {
             switch self {
-            case .invalidReceipt:
-                return NSLocalizedString("Invalid receipt.", comment: "PurchaseManager.Error")
-            case .invalidPurchase:
-                return NSLocalizedString("Invalid purchase.", comment: "PurchaseManager.Error")
-            case .notPurchased:
-                return NSLocalizedString("Not purchased.", comment: "PurchaseManager.Error")
-            case let .expired(at):
-                return String(
-                    format: NSLocalizedString("Your previous subscription has expired since %@. Please renew your subscription.", comment: "PurchaseManager.Error"),
-                    PurchaseManager.mediumExpiryDateFormatter.string(from: at)
-                )
+                case .invalidReceipt:
+                    return NSLocalizedString("Invalid receipt.", comment: "PurchaseManager.Error")
+                case .invalidPurchase:
+                    return NSLocalizedString("Invalid purchase.", comment: "PurchaseManager.Error")
+                case .notPurchased:
+                    return NSLocalizedString("Not purchased.", comment: "PurchaseManager.Error")
+                case let .expired(at):
+                    return String(
+                        format: NSLocalizedString("Your previous subscription has expired since %@. Please renew your subscription.", comment: "PurchaseManager.Error"),
+                        PurchaseManager.mediumExpiryDateFormatter.string(from: at)
+                    )
             }
         }
     }

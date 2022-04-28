@@ -11,7 +11,7 @@ import LuaSwift
 
 final class Template {
     
-    enum Error: LocalizedError {
+    enum Error: CustomNSError, LocalizedError {
         
         case unknown
         case unsatisfiedPlatformVersion(version: String)
@@ -28,37 +28,67 @@ final class Template {
         case resourceBusy
         case invalidField(field: String)
         
+        var errorCode: Int {
+            switch self {
+                case .unknown:
+                    return 502
+                case .unsatisfiedPlatformVersion(_):
+                    return 503
+                case .luaError(_):
+                    return 504
+                    
+                case .missingRootEntry:
+                    return 505
+                case .missingRequiredField(_):
+                    return 506
+                    
+                case .missingReturnedString:
+                    return 507
+                case .invalidResultType(_, _):
+                    return 508
+                case .invalidResultArgumentCount(_, _, _):
+                    return 509
+                case .invalidResultArgumentType(_, _, _, _):
+                    return 510
+                    
+                case .resourceBusy:
+                    return 511
+                case .invalidField(_):
+                    return 512
+            }
+        }
+        
         var failureReason: String? {
             switch self {
-            case .unknown:
-                return NSLocalizedString("Internal error.", comment: "Template.Error")
-            case let .unsatisfiedPlatformVersion(version):
-                return String(format: NSLocalizedString("This template requires JSTColorPicker (%@) or later.", comment: "Template.Error"), version)
-            case let .luaError(reason):
-                return "\(reason)"
-            
-            case .missingRootEntry:
-                return NSLocalizedString("Missing root entry: template must return a table.", comment: "Template.Error")
-            case let .missingRequiredField(field):
-                return String(format: NSLocalizedString("Missing required field “%@”.", comment: "Template.Error"), field)
-            
-            case .missingReturnedString:
-                return NSLocalizedString(
-                    "Missing returned string: the first returned value must be a string.", comment: "Template.Error")
-            case let .invalidResultType(type, allowedValues):
-                return String(format: NSLocalizedString(
-                    "Invalid result type “%@”, allowed types are: %@.", comment: "Template.Error"), type, allowedValues.joined(separator: ", "))
-            case let .invalidResultArgumentCount(type, count, expectedCount):
-                return String(format: NSLocalizedString(
-                    "Unexpected argument count for result type “%@”, expected %ld, got %ld.", comment: "Template.Error"), type, expectedCount, count)
-            case let .invalidResultArgumentType(type, index, argType, expectedType):
-                return String(format: NSLocalizedString(
-                    "Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”.", comment: "Template.Error"), index, type, expectedType, argType)
-                
-            case .resourceBusy:
-                return NSLocalizedString("Resource busy.", comment: "Template.Error")
-            case let .invalidField(field):
-                return String(format: NSLocalizedString("Invalid field “%@”.", comment: "Template.Error"), field)
+                case .unknown:
+                    return NSLocalizedString("Internal error.", comment: "Template.Error")
+                case let .unsatisfiedPlatformVersion(version):
+                    return String(format: NSLocalizedString("This template requires JSTColorPicker (%@) or later.", comment: "Template.Error"), version)
+                case let .luaError(reason):
+                    return "\(reason)"
+                    
+                case .missingRootEntry:
+                    return NSLocalizedString("Missing root entry: template must return a table.", comment: "Template.Error")
+                case let .missingRequiredField(field):
+                    return String(format: NSLocalizedString("Missing required field “%@”.", comment: "Template.Error"), field)
+                    
+                case .missingReturnedString:
+                    return NSLocalizedString(
+                        "Missing returned string: the first returned value must be a string.", comment: "Template.Error")
+                case let .invalidResultType(type, allowedValues):
+                    return String(format: NSLocalizedString(
+                        "Invalid result type “%@”, allowed types are: %@.", comment: "Template.Error"), type, allowedValues.joined(separator: ", "))
+                case let .invalidResultArgumentCount(type, count, expectedCount):
+                    return String(format: NSLocalizedString(
+                        "Unexpected argument count for result type “%@”, expected %ld, got %ld.", comment: "Template.Error"), type, expectedCount, count)
+                case let .invalidResultArgumentType(type, index, argType, expectedType):
+                    return String(format: NSLocalizedString(
+                        "Unexpected argument #%ld type for result type “%@”, expected “%@”, got “%@”.", comment: "Template.Error"), index, type, expectedType, argType)
+                    
+                case .resourceBusy:
+                    return NSLocalizedString("Resource busy.", comment: "Template.Error")
+                case let .invalidField(field):
+                    return String(format: NSLocalizedString("Invalid field “%@”.", comment: "Template.Error"), field)
             }
         }
     }
