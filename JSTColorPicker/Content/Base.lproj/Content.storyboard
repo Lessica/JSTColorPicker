@@ -217,6 +217,9 @@
                                     </connections>
                                 </tableHeaderView>
                             </scrollView>
+                            <customView autoresizesSubviews="NO" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="exn-Po-Iss" customClass="ContentOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="36" width="222" height="712"/>
+                            </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zMj-9c-qFb">
                                 <rect key="frame" x="0.0" y="0.0" width="222" height="36"/>
                                 <subviews>
@@ -275,9 +278,13 @@
                             <constraint firstAttribute="bottom" secondItem="W8X-3b-Td7" secondAttribute="bottom" constant="36" id="27p-MG-kaj"/>
                             <constraint firstAttribute="bottom" secondItem="zMj-9c-qFb" secondAttribute="bottom" id="3Ws-Lb-BNi"/>
                             <constraint firstAttribute="trailing" secondItem="zMj-9c-qFb" secondAttribute="trailing" id="C35-lK-Ba8"/>
+                            <constraint firstItem="exn-Po-Iss" firstAttribute="top" secondItem="W8X-3b-Td7" secondAttribute="top" id="Mfy-xX-Ikb"/>
                             <constraint firstItem="W8X-3b-Td7" firstAttribute="top" secondItem="lRJ-BT-Ues" secondAttribute="top" id="bpo-r4-fh8"/>
                             <constraint firstItem="zMj-9c-qFb" firstAttribute="leading" secondItem="9GN-DY-133" secondAttribute="leading" id="cBj-mb-06f"/>
                             <constraint firstItem="W8X-3b-Td7" firstAttribute="leading" secondItem="9GN-DY-133" secondAttribute="leading" id="l7o-g0-SEw"/>
+                            <constraint firstItem="exn-Po-Iss" firstAttribute="trailing" secondItem="W8X-3b-Td7" secondAttribute="trailing" id="mDp-GM-o41"/>
+                            <constraint firstItem="exn-Po-Iss" firstAttribute="bottom" secondItem="W8X-3b-Td7" secondAttribute="bottom" id="w00-kR-9mr"/>
+                            <constraint firstItem="exn-Po-Iss" firstAttribute="leading" secondItem="W8X-3b-Td7" secondAttribute="leading" id="xn6-xa-82q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lRJ-BT-Ues"/>
                         <viewLayoutGuide key="layoutMargins" id="b3i-J9-Zbw"/>
@@ -295,6 +302,7 @@
                         <outlet property="itemReprAreaMenuItem" destination="sVk-oR-IHz" id="GwM-dB-mQn"/>
                         <outlet property="itemReprColorMenuItem" destination="jKH-wp-n6X" id="uW6-i9-xZj"/>
                         <outlet property="itemReprMenu" destination="1HL-Zx-eDR" id="myl-lI-9cs"/>
+                        <outlet property="overlayView" destination="exn-Po-Iss" id="S3H-V3-1Hs"/>
                         <outlet property="scrollView" destination="W8X-3b-Td7" id="JdE-bg-adb"/>
                         <outlet property="tableAssValMenuItem" destination="mZG-YC-OLN" id="vfJ-8n-bdH"/>
                         <outlet property="tableHeaderMenu" destination="a29-Fd-YbH" id="xcF-yj-1HS"/>

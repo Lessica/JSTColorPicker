@@ -2,7 +2,7 @@
 //  CoreData+Decodable.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 3/19/22.
+//  Created by Darwin on 3/19/22.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  LabelBgView.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2020/12/2.
+//  Created by Darwin on 2020/12/2.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

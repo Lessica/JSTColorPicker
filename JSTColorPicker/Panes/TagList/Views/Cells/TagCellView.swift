@@ -2,7 +2,7 @@
 //  TagCellView.swift
 //  JSTColorPicker
 //
-//  Created by Apple on 2020/6/15.
+//  Created by Darwin on 2020/6/15.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

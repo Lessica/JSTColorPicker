@@ -2,7 +2,7 @@
 //  TagListTableView.swift
 //  JSTColorPicker
 //
-//  Created by Apple on 2020/5/29.
+//  Created by Darwin on 2020/5/29.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

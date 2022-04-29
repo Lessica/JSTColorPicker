@@ -81,18 +81,23 @@ final class PixelColor: ContentItem {
     public var blue              : UInt8  { pixelColorRep.blue               }  // [0x0,0xff]
     public var rgbaValue         : UInt32 { pixelColorRep.rgbaValue          }  // [0x0,0xffffffff]
 
-    public var rgbStruct         : RGB    {
-        RGB(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF)
+    public var rgbStruct         : Color.RGB    {
+        Color.RGB(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF)
     }
-    public var rgbaStruct        : RGBA   {
-        RGBA(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF, a: Float(alpha) / 0xFF)
+    public var rgbaStruct        : Color.RGBA   {
+        Color.RGBA(r: Float(red) / 0xFF, g: Float(green) / 0xFF, b: Float(blue) / 0xFF, a: Float(alpha) / 0xFF)
     }
-    public var hsvStruct         : HSV    {
+    public var hsvStruct         : Color.HSV    {
         rgbStruct.hsv
     }
+    public var grayscaleStruct   : Color.G      {
+        rgbStruct.grayscale
+    }
+    
     public var hue               : Float  { hsvStruct.h                      }  // Angle in degrees [0,360] or -1 as Undefined
     public var saturation        : Float  { hsvStruct.s                      }  // [0,1]
     public var brightness        : Float  { hsvStruct.v                      }  // [0,1]
+    public var grayscale         : Float  { grayscaleStruct.w                }  // [0,1]
 
     public var alpha             : UInt8  { pixelColorRep.alpha              }  // [0x0,0xff]
     public var hexString         : String { pixelColorRep.hexString          }

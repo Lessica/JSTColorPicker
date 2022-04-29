@@ -2,7 +2,7 @@
 //  DeviceSupportResource.swift
 //  JSTColorPicker
 //
-//  Created by Mason Rachel on 2022/4/15.
+//  Created by Darwin on 2022/4/15.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

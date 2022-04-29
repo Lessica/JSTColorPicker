@@ -2,7 +2,7 @@
 //  PreviewSlider.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 5/10/21.
+//  Created by Darwin on 5/10/21.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

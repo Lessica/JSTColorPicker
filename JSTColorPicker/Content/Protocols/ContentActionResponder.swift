@@ -9,6 +9,7 @@
 import Foundation
 
 protocol ContentActionResponder: CustomResponder {
+    
     // Add
     func addContentItem(of coordinate: PixelCoordinate, byIgnoringPopups ignore: Bool) throws -> ContentItem?
     func addContentItem(of rect: PixelRect, byIgnoringPopups ignore: Bool) throws -> ContentItem?

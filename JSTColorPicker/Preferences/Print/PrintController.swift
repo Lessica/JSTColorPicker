@@ -2,7 +2,7 @@
 //  PrintController.swift
 //  JSTColorPicker
 //
-//  Created by Mason Rachel on 2022/4/7.
+//  Created by Darwin on 2022/4/7.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

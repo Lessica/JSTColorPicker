@@ -1,4 +1,4 @@
-local curl = require("cURL")
+local curl = require("cURL.safe")
 local json = require("cjson")
 local apiBase = "http://127.0.0.1:8000/"
 

@@ -41,6 +41,7 @@ final class TagListOverlayView: NSView, DragEndpoint {
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = true
+        
         layerContentsRedrawPolicy = .onSetNeedsDisplay
         layerContentsPlacement = .scaleAxesIndependently
     }
@@ -83,8 +84,7 @@ final class TagListOverlayView: NSView, DragEndpoint {
             return
         }
         
-        highlightedRects = dragDelegate
-            .visibleRects(of: rowIndexes)
+        highlightedRects = dragDelegate.visibleRects(of: rowIndexes)
         
         let selectedTagDictionaries: [[String: Any]] = rowIndexes.compactMap({
             let tag = dataSource.arrangedTags[$0]
@@ -108,8 +108,8 @@ final class TagListOverlayView: NSView, DragEndpoint {
         guard let rects = highlightedRects else { return }
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
         
-        ctx.setLineWidth(TagListOverlayView.focusLineWidth)
-        ctx.setStrokeColor(TagListOverlayView.focusLineColor.cgColor)
+        ctx.setLineWidth(Self.focusLineWidth)
+        ctx.setStrokeColor(Self.focusLineColor.cgColor)
         
         let outerRect = dirtyRect
             .insetBy(dx: 0.0, dy: 0.5)
@@ -118,12 +118,12 @@ final class TagListOverlayView: NSView, DragEndpoint {
             let innerRect = rect.intersection(outerRect)
             if innerRect.height > tableRowHeight + 2.0 {
                 ctx.addRect(innerRect
-                    .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
+                    .insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5)
                     .offsetBy(dx: 0.0, dy: -0.5)
                 )
             } else {
                 ctx.addRect(rect
-                    .insetBy(dx: TagListOverlayView.focusLineWidth, dy: TagListOverlayView.focusLineWidth + 0.5)
+                    .insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5)
                     .offsetBy(dx: 0.0, dy: -0.5)
                 )
             }

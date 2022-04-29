@@ -2,7 +2,7 @@
 //  DocumentStackedController.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/9.
+//  Created by Darwin on 2021/4/9.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  MutexLock.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/17.
+//  Created by Darwin on 2021/4/17.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

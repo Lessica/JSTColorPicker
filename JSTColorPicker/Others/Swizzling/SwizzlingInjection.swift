@@ -2,7 +2,7 @@
 //  SwizzlingInjection.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/2.
+//  Created by Darwin on 2021/4/2.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

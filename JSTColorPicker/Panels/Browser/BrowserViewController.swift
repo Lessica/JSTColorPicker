@@ -2,7 +2,7 @@
 //  BrowserViewController.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 12/6/21.
+//  Created by Darwin on 12/6/21.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

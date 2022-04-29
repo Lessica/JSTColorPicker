@@ -169,6 +169,8 @@
 		CC07DF762809CE96001AF35C /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */; };
 		CC07DF77280AF998001AF35C /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4523BE280811E6005C0A3F /* CommandError.swift */; };
 		CC07DF78280AF998001AF35C /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4523BE280811E6005C0A3F /* CommandError.swift */; };
+		CC0B60AD281C46F000BB96E0 /* NSColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */; };
+		CC0B60AE281C46F000BB96E0 /* NSColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */; };
 		CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
@@ -269,6 +271,8 @@
 		CC347722266F4F6300391E73 /* AppDelegate+Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC347720266F4F6300391E73 /* AppDelegate+Panel.swift */; };
 		CC347727266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC347726266F50A700391E73 /* AppDelegate+Subscribe.swift */; };
 		CC347728266F50A700391E73 /* AppDelegate+Subscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC347726266F50A700391E73 /* AppDelegate+Subscribe.swift */; };
+		CC373F66281C03AC00397669 /* NSDragOperation+Forbidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC373F65281C03AC00397669 /* NSDragOperation+Forbidden.swift */; };
+		CC373F67281C03AC00397669 /* NSDragOperation+Forbidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC373F65281C03AC00397669 /* NSDragOperation+Forbidden.swift */; };
 		CC3C4A93261FF9E700794806 /* DocumentStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */; };
 		CC3C4A94261FF9E700794806 /* DocumentStackedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */; };
 		CC3C4A9E261FFA1B00794806 /* DocumentStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */; };
@@ -392,6 +396,8 @@
 		CC8F8CBC2621798A00F60F78 /* StackedPaneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */; };
 		CC8F8CC52621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
 		CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */; };
+		CC93A578281BF28A0075EF39 /* ContentOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93A577281BF28A0075EF39 /* ContentOverlayView.swift */; };
+		CC93A579281BF28A0075EF39 /* ContentOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93A577281BF28A0075EF39 /* ContentOverlayView.swift */; };
 		CC96F93D26727E0400CB55E9 /* BonjourDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */; };
 		CC96F93E26727E0400CB55E9 /* BonjourDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */; };
 		CC96F94026727E2000CB55E9 /* PairedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96F93F26727E2000CB55E9 /* PairedDevice.swift */; };
@@ -1478,6 +1484,7 @@
 		CC07DF6E2809B158001AF35C /* DeviceSupportResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSupportResource.swift; sourceTree = "<group>"; };
 		CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DeviceSupport.swift"; sourceTree = "<group>"; };
 		CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Promise.swift"; sourceTree = "<group>"; };
+		CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HSV.swift"; sourceTree = "<group>"; };
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesTableViewCell.swift; sourceTree = "<group>"; };
 		CC13C7C327F0269700D12892 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
@@ -1578,6 +1585,7 @@
 		CC34771D266F4F2500391E73 /* AppDelegate+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Compare.swift"; sourceTree = "<group>"; };
 		CC347720266F4F6300391E73 /* AppDelegate+Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Panel.swift"; sourceTree = "<group>"; };
 		CC347726266F50A700391E73 /* AppDelegate+Subscribe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Subscribe.swift"; sourceTree = "<group>"; };
+		CC373F65281C03AC00397669 /* NSDragOperation+Forbidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDragOperation+Forbidden.swift"; sourceTree = "<group>"; };
 		CC3C4A92261FF9E700794806 /* DocumentStackedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStackedController.swift; sourceTree = "<group>"; };
 		CC3C4A9D261FFA1B00794806 /* DocumentStackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStackedView.swift; sourceTree = "<group>"; };
 		CC3C4AB0262013AF00794806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DocumentStacked.storyboard; sourceTree = "<group>"; };
@@ -1656,6 +1664,7 @@
 		CC8F8CB026209BB700F60F78 /* PaddedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedButton.swift; sourceTree = "<group>"; };
 		CC8F8CBA2621798A00F60F78 /* StackedPaneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedPaneContainer.swift; sourceTree = "<group>"; };
 		CC8F8CC42621F64C00F60F78 /* TemplatePopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePopUpButton.swift; sourceTree = "<group>"; };
+		CC93A577281BF28A0075EF39 /* ContentOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOverlayView.swift; sourceTree = "<group>"; };
 		CC96F93C26727E0400CB55E9 /* BonjourDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourDevice.swift; sourceTree = "<group>"; };
 		CC96F93F26727E2000CB55E9 /* PairedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedDevice.swift; sourceTree = "<group>"; };
 		CC96F94226727E6F00CB55E9 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -2878,8 +2887,9 @@
 		CC8E5D83262818940030B2FC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
 				CCB7847C26257B9200FC4216 /* Color+HSV.swift */,
+				CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */,
+				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
 				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
 				D636A3A424B3544200672844 /* NSColorPanel+Ext.swift */,
@@ -2895,6 +2905,7 @@
 				CC13C7CC27F0282900D12892 /* Swift+URL.swift */,
 				CC13C7C927F0275300D12892 /* Selector+Codable.swift */,
 				CCDF0D1F280E7C1F00D3A99F /* NSWindow+EndEditing.swift */,
+				CC373F65281C03AC00397669 /* NSDragOperation+Forbidden.swift */,
 				CC4DF3402815C127002CC8A4 /* PADKeyWindow+Movable.h */,
 				CC4DF3412815C127002CC8A4 /* PADKeyWindow+Movable.m */,
 			);
@@ -3882,6 +3893,7 @@
 				18D202C52496951B007A079F /* ContentCellView.swift */,
 				D6DD4B0A24A3397C00CC90E3 /* ContentEditableTextField.swift */,
 				1885CF4024B105A00067D02F /* ContentSearchField.swift */,
+				CC93A577281BF28A0075EF39 /* ContentOverlayView.swift */,
 				D682FC9823D7348500DA1750 /* ContentTableView.swift */,
 				CCC0DC202601F0F200019146 /* ContentClipView.swift */,
 				CCC0DC162601F0C100019146 /* ContentScrollView.swift */,
@@ -4917,6 +4929,7 @@
 				CCBCE10C27E6372500544546 /* MRSimpleCoreDataStack.m in Sources */,
 				CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */,
 				CC13C7C527F0269A00D12892 /* String+Constants.swift in Sources */,
+				CC373F66281C03AC00397669 /* NSDragOperation+Forbidden.swift in Sources */,
 				CC3F5B9A281A87B100CD53CB /* EditableTextColorTransformer.m in Sources */,
 				CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */,
 				18D202C62496951B007A079F /* ContentCellView.swift in Sources */,
@@ -4968,6 +4981,7 @@
 				185D7EEE248A80C4001C283B /* EditWindow.swift in Sources */,
 				CCE01C82264CD8E1005960A7 /* ShortcutGuideViewController.swift in Sources */,
 				CC07DF6F2809B158001AF35C /* DeviceSupportResource.swift in Sources */,
+				CC0B60AD281C46F000BB96E0 /* NSColor+HSV.swift in Sources */,
 				D610478924224A170002E990 /* PixelMatchResponder.swift in Sources */,
 				CC236335264AE8E9005E909A /* SettingManaging.swift in Sources */,
 				CC06C932280FB50E001C0BC0 /* PurchaseController.swift in Sources */,
@@ -5037,6 +5051,7 @@
 				D61047A124224A170002E990 /* Overlay.swift in Sources */,
 				CCE01C86264CD8E1005960A7 /* NotificationToken.swift in Sources */,
 				CCE34017263272590082F73D /* ColoredView.swift in Sources */,
+				CC93A578281BF28A0075EF39 /* ContentOverlayView.swift in Sources */,
 				D67A8F23247E853E00153DE5 /* TagListOverlayView.swift in Sources */,
 				CC042772275E212B008DD0C5 /* BrowserController.m in Sources */,
 				D61047A224224A170002E990 /* ExportManager.swift in Sources */,
@@ -5252,7 +5267,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
+				CC0B60AE281C46F000BB96E0 /* NSColor+HSV.swift in Sources */,
 				CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
+				CC373F67281C03AC00397669 /* NSDragOperation+Forbidden.swift in Sources */,
 				D64790F62490A679003159FD /* NSMenuDelegateProxy.swift in Sources */,
 				CC236333264AE889005E909A /* Shortcut.swift in Sources */,
 				CC1B4C2427EF0CA90087974F /* MetadataWindow.swift in Sources */,
@@ -5465,6 +5482,7 @@
 				CCFD99B4276A38FB0012E5AF /* PixelSize+Lua.swift in Sources */,
 				CCE01C81264CD8E1005960A7 /* ShortcutGuidePageController.swift in Sources */,
 				D682FC9923D7348500DA1750 /* ContentTableView.swift in Sources */,
+				CC93A579281BF28A0075EF39 /* ContentOverlayView.swift in Sources */,
 				CCC525C7262EF4EA00D408B0 /* EffectiveAppearanceObserver.swift in Sources */,
 				D645E4AF23ED8A840039F4F6 /* ItemPreviewResponder.swift in Sources */,
 				CC84218826160AEF00F1C007 /* ExportStackedController.swift in Sources */,

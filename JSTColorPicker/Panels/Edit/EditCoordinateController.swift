@@ -2,7 +2,7 @@
 //  EditCoordinateController.swift
 //  JSTColorPicker
 //
-//  Created by Apple on 2020/6/5.
+//  Created by Darwin on 2020/6/5.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

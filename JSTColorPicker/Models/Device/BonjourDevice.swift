@@ -2,7 +2,7 @@
 //  BonjourDevice.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/6/11.
+//  Created by Darwin on 2021/6/11.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

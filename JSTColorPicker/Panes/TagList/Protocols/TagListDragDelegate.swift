@@ -2,7 +2,7 @@
 //  TagListDragDelegate.swift
 //  JSTColorPicker
 //
-//  Created by Apple on 2020/5/27.
+//  Created by Darwin on 2020/5/27.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

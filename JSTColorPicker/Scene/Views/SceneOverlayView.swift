@@ -316,7 +316,7 @@ extension SceneOverlayView: DragEndpoint {
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             
         guard let controller = sender.draggingSource as? DragConnectionController else { return false }
-        controller.connect(to: self)
+        controller.doConnection(to: self)
         
         if sender.draggingSourceOperationMask.contains(.link) {
             replItem.tags.removeAll(keepingCapacity: true)

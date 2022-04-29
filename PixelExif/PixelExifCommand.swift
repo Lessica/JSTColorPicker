@@ -2,7 +2,7 @@
 //  PixelExifCommand.swift
 //  PixelExif
 //
-//  Created by Rachel on 2021/12/19.
+//  Created by Darwin on 2021/12/19.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

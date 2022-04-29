@@ -2,7 +2,7 @@
 //  ShortcutItemGroup.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/3/25.
+//  Created by Darwin on 2021/3/25.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  PADKeyWindow+Movable.h
 //  JSTColorPickerSparkle
 //
-//  Created by Mason Rachel on 2022/4/25.
+//  Created by Darwin on 2022/4/25.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

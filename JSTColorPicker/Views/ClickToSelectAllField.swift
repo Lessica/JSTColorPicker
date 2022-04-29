@@ -2,7 +2,7 @@
 //  ClickToSelectAllField.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 4/28/22.
+//  Created by Darwin on 4/28/22.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

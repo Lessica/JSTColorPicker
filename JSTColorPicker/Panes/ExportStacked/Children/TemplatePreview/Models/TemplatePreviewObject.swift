@@ -2,7 +2,7 @@
 //  TemplatePreviewObject.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/22.
+//  Created by Darwin on 2021/4/22.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

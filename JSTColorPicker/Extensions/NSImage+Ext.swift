@@ -2,7 +2,7 @@
 //  NSImage+Ext.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/12/10.
+//  Created by Darwin on 2021/12/10.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

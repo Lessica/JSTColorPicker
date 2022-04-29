@@ -2,7 +2,7 @@
 //  CheckboxHeaderCell.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/26.
+//  Created by Darwin on 2021/4/26.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

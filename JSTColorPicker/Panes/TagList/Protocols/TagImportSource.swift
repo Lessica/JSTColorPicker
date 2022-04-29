@@ -2,7 +2,7 @@
 //  TagImportSource.swift
 //  JSTColorPicker
 //
-//  Created by Apple on 2020/6/21.
+//  Created by Darwin on 2020/6/21.
 //  Copyright © 2020 JST. All rights reserved.
 //
 

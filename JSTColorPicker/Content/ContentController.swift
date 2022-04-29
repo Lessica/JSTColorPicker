@@ -59,11 +59,40 @@ final class ContentController: NSViewController {
     
     private var undoToken                 : NotificationToken?
     private var redoToken                 : NotificationToken?
+    
+    private(set) var maximumTagPerItem: Int {
+        get {
+            return tableView.maximumTagPerItem
+        }
+        set {
+            tableView.maximumTagPerItem = newValue
+        }
+    }
+    
+    private(set) var maximumTagPerItemEnabled: Bool {
+        get {
+            return tableView.maximumTagPerItemEnabled
+        }
+        set {
+            tableView.maximumTagPerItemEnabled = newValue
+        }
+    }
+    
+    private(set) var replaceSingleTagWhileDrop: Bool {
+        get {
+            return tableView.replaceSingleTagWhileDrop
+        }
+        set {
+            tableView.replaceSingleTagWhileDrop = newValue
+        }
+    }
 
     private let observableKeys            : [UserDefaults.Key] = [
         .usesDetailedToolTips,
         .toggleTableColumnIdentifier, .toggleTableColumnDescription,
         .toggleTableColumnSimilarity, .toggleTableColumnTag,
+        .maximumTagPerItem, .maximumTagPerItemEnabled,
+        .replaceSingleTagWhileDrop,
     ]
     private var observables               : [Observable]?
     
@@ -88,6 +117,7 @@ final class ContentController: NSViewController {
     @IBOutlet weak var tableView          : ContentTableView!
     @IBOutlet weak var clipView           : ContentClipView!
     @IBOutlet weak var scrollView         : ContentScrollView!
+    @IBOutlet weak var overlayView        : ContentOverlayView!
     @IBOutlet weak var columnIdentifier   : NSTableColumn!
     @IBOutlet weak var columnSimilarity   : NSTableColumn!
     @IBOutlet weak var columnTag          : NSTableColumn!
@@ -96,22 +126,6 @@ final class ContentController: NSViewController {
     
     @IBOutlet weak var addCoordinateButton: NSButton!
     @IBOutlet weak var addCoordinateField : NSTextField!
-    
-    private var actionSelectedRowIndex: Int? {
-        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first
-    }
-    
-    private var actionSelectedRowIndexes: IndexSet {
-        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow))
-            ? IndexSet(integer: tableView.clickedRow)
-            : IndexSet(tableView.selectedRowIndexes)
-    }
-
-    private var hasSelectedContentItem: Bool { actionSelectedRowIndexes.count > 0 }
-    private var selectedContentItems: [ContentItem]? {
-        guard let collection = documentContent?.items else { return nil }
-        return actionSelectedRowIndexes.map { collection[$0] }
-    }
     
     private var preparedSelectedItemCount    : Int?
     private var preparedMenuTags             : OrderedSet<String>?
@@ -123,6 +137,11 @@ final class ContentController: NSViewController {
         addCoordinateButton.isEnabled = false
         addCoordinateField.isEnabled = false
         
+        overlayView.tableRowHeight = tableView.rowHeight
+        
+        tableView.overlayView = overlayView
+        tableView.contentDelegate = self
+        tableView.contentItemSource = self
         tableView.tableViewResponder = self
         tableView.registerForDraggedTypes([.color, .area])
 
@@ -161,24 +180,43 @@ final class ContentController: NSViewController {
 
     private func prepareDefaults() {
         updateColumns()
-        usesDetailedToolTips = UserDefaults.standard[.usesDetailedToolTips]
+        
+        usesDetailedToolTips           = UserDefaults.standard[.usesDetailedToolTips]
+        maximumTagPerItem              = UserDefaults.standard[.maximumTagPerItem]
+        maximumTagPerItemEnabled       = UserDefaults.standard[.maximumTagPerItemEnabled]
+        replaceSingleTagWhileDrop      = UserDefaults.standard[.replaceSingleTagWhileDrop]
+        
         tableView.reloadData()
     }
     
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
-        if defaultKey == .usesDetailedToolTips, let toValue = defaultValue as? Bool {
-            updateColumns()
+        if let toValue = defaultValue as? Bool {
+            if defaultKey == .usesDetailedToolTips {
+                
+                updateColumns()
 
-            if usesDetailedToolTips != toValue {
-                usesDetailedToolTips = toValue
-                tableView.reloadData()
+                if usesDetailedToolTips != toValue {
+                    usesDetailedToolTips = toValue
+                    tableView.reloadData()
+                }
             }
-        } else if defaultKey == .toggleTableColumnIdentifier
-            || defaultKey == .toggleTableColumnDescription
-            || defaultKey == .toggleTableColumnSimilarity
-            || defaultKey == .toggleTableColumnTag
-        {
-            updateColumns()
+            else if defaultKey == .maximumTagPerItemEnabled && maximumTagPerItemEnabled != toValue {
+                maximumTagPerItemEnabled = toValue
+            }
+            else if defaultKey == .replaceSingleTagWhileDrop && replaceSingleTagWhileDrop != toValue {
+                replaceSingleTagWhileDrop = toValue
+            }
+            else if defaultKey == .toggleTableColumnIdentifier
+                        || defaultKey == .toggleTableColumnDescription
+                        || defaultKey == .toggleTableColumnSimilarity
+                        || defaultKey == .toggleTableColumnTag
+            {
+                updateColumns()
+            }
+        } else if let toValue = defaultValue as? Int {
+            if defaultKey == .maximumTagPerItem && maximumTagPerItem != toValue {
+                maximumTagPerItem = toValue
+            }
         }
     }
     
@@ -492,15 +530,56 @@ extension ContentController: ContentItemSource {
     
     func contentItem(of coordinate: PixelCoordinate) throws -> ContentItem {
         guard let image = documentImage else { throw Content.Error.notLoaded }
-        guard let color = image.color(at: coordinate) else { throw Content.Error.itemOutOfRange(item: coordinate, range: image.size) }
+        guard let color = image.color(at: coordinate) else {
+            throw Content.Error.itemOutOfRange(item: coordinate, range: image.size)
+        }
         return color
     }
     
     func contentItem(of rect: PixelRect) throws -> ContentItem {
         guard let image = documentImage else { throw Content.Error.notLoaded }
-        guard rect.hasStandardized && rect.size > PixelSize(width: 1, height: 1) else { throw Content.Error.itemNotValid(item: rect) }
-        guard let area = image.area(at: rect) else { throw Content.Error.itemOutOfRange(item: rect, range: image.size) }
+        guard rect.hasStandardized && rect.size > PixelSize(width: 1, height: 1) else {
+            throw Content.Error.itemNotValid(item: rect)
+        }
+        guard let area = image.area(at: rect) else {
+            throw Content.Error.itemOutOfRange(item: rect, range: image.size)
+        }
         return area
+    }
+    
+    func contentItem(at rowIndex: Int) -> ContentItem? {
+        guard let collection = documentContent?.items else { return nil }
+        return collection[rowIndex]
+    }
+    
+    func contentItems(at rowIndexes: IndexSet) -> [ContentItem] {
+        guard let collection = documentContent?.items else { return [] }
+        return rowIndexes.map({ collection[$0] })
+    }
+    
+    private var actionSelectedRowIndex: Int? {
+        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow)) ? tableView.clickedRow : tableView.selectedRowIndexes.first
+    }
+    
+    private var actionSelectedRowIndexes: IndexSet {
+        (tableView.clickedRow >= 0 && !tableView.selectedRowIndexes.contains(tableView.clickedRow))
+            ? IndexSet(integer: tableView.clickedRow)
+            : IndexSet(tableView.selectedRowIndexes)
+    }
+
+    private var hasSelectedContentItem: Bool { actionSelectedRowIndexes.count > 0 }
+    private var selectedContentItems: [ContentItem]? {
+        guard let collection = documentContent?.items else { return nil }
+        return actionSelectedRowIndexes.map { collection[$0] }
+    }
+    
+    private var contentItemAtActionSelectedRowIndex: ContentItem? {
+        guard let row = actionSelectedRowIndex else { return nil }
+        return contentItem(at: row)
+    }
+    
+    private var contentItemsAtActionSelectedRowIndexes: [ContentItem] {
+        return contentItems(at: actionSelectedRowIndexes)
     }
     
 }
@@ -1009,11 +1088,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     func numberOfItems(in menu: NSMenu) -> Int {
         if menu == tableRemoveTagsMenu
         {
-            guard let collection = documentContent?.items else { return 0 }
             let selectedIndexes = actionSelectedRowIndexes
+            let selectedItems = contentItems(at: selectedIndexes)
+            
+            let allTags = selectedItems.flatMap({ $0.tags })
             preparedSelectedItemCount = selectedIndexes.count
-            let allTags = selectedIndexes
-                .flatMap({ collection[$0].tags })
             preparedMenuTags = OrderedSet<String>(allTags)
             preparedMenuTagsAndCounts = allTags
                 .reduce(into: [String: Int](), { $0[$1, default: 0] += 1 })
@@ -1112,19 +1191,15 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func locate(_ sender: Any) {
-        guard let collection = documentContent?.items else { return }
-        guard let targetIndex = actionSelectedRowIndex else { return }
-        
-        let targetItem = collection[targetIndex]
+        guard let targetItem = contentItemAtActionSelectedRowIndex else { return }
         actionManager.contentActionConfirmed([targetItem])
     }
     
     @IBAction private func relocate(_ sender: Any) {
-        guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
+        guard let targetItem = contentItem(at: targetIndex) else { return }
         
         var panel: EditWindow?
-        let targetItem = collection[targetIndex]
         if targetItem is PixelColor {
             panel = EditWindow.newEditCoordinatePanel()
         } else if targetItem is PixelArea {
@@ -1153,10 +1228,9 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func editAssociatedValues(_ sender: NSMenuItem?) {
-        guard let collection = documentContent?.items else { return }
         guard let targetIndex = actionSelectedRowIndex else { return }
+        guard let targetItem = contentItem(at: targetIndex) else { return }
         
-        let targetItem = collection[targetIndex]
         let panel = EditWindow.newEditAssociatedValuesPanel()
         internalSelectContentItems(
             in: IndexSet(integer: targetIndex),
@@ -1179,9 +1253,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func tags(_ sender: NSMenuItem?) {
-        guard let collection = documentContent?.items else { return }
         let rows = actionSelectedRowIndexes
-        let itemsToEdit = rows.map({ collection[$0] })
+        let itemsToEdit = contentItems(at: rows)
         
         let panel = EditWindow.newEditTagsPanel()
         internalSelectContentItems(
@@ -1229,9 +1302,8 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func delete(_ sender: Any) {
-        guard let collection = documentContent?.items else { return }
         let rows = actionSelectedRowIndexes
-        let itemsToRemove = rows.map({ collection[$0] })
+        let itemsToRemove = contentItems(at: rows)
         guard deleteConfirmForItems(itemsToRemove) else { return }
         internalDeleteContentItems(itemsToRemove)
         tableView.removeRows(at: rows, withAnimation: .effectFade)
@@ -1299,9 +1371,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func resample(_ sender: Any) {
-        guard let collection = documentContent?.items else { return }
-        guard let targetIndex = actionSelectedRowIndex else { return }
-        let selectedItem = collection[targetIndex]
+        guard let selectedItem = contentItemAtActionSelectedRowIndex else { return }
         let panel = NSSavePanel()
         let exportOptionView = ExportPanelAccessoryView.instantiateFromNib(withOwner: self)
         panel.accessoryView = exportOptionView
@@ -1507,9 +1577,7 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     @IBAction private func smartTrim(_ sender: NSMenuItem) {
-        guard let collection = documentContent?.items else { return }
-        guard let targetIndex = actionSelectedRowIndex else { return }
-        guard let selectedArea = collection[targetIndex] as? PixelArea else { return }
+        guard let selectedArea = contentItemAtActionSelectedRowIndex as? PixelArea else { return }
         do {
             guard let _ = try smartTrimPixelArea(selectedArea) else {
                 NSSound.beep()
@@ -1550,8 +1618,8 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     private func internalTableViewSelectionDidChange(_ notification: Notification?) {
-        guard let collection = documentContent?.items else { return }
-        let realSelectedItems = tableView.selectedRowIndexes.map({ collection[$0] })
+        let rows = tableView.selectedRowIndexes
+        let realSelectedItems = contentItems(at: rows)
         actionManager.contentActionSelected(realSelectedItems)
         invalidateRestorableState()
     }

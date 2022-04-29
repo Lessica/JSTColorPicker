@@ -2,7 +2,7 @@
 //  CustomResponder.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/5/11.
+//  Created by Darwin on 2021/5/11.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  PaddedButton.swift
 //  PillowTalk
 //
-//  Created by Rachel on 2020/12/17.
+//  Created by Darwin on 2020/12/17.
 //
 
 import Cocoa

@@ -2,7 +2,7 @@
 //  AppDelegate+Device.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 6/8/21.
+//  Created by Darwin on 6/8/21.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

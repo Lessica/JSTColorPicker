@@ -2,7 +2,7 @@
 //  ExportPanelAccessoryView.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/4/30.
+//  Created by Darwin on 2021/4/30.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

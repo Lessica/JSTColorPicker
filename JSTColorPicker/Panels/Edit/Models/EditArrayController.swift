@@ -2,7 +2,7 @@
 //  EditArrayController.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 3/23/22.
+//  Created by Darwin on 3/23/22.
 //  Copyright © 2022 JST. All rights reserved.
 //
 

@@ -7,6 +7,7 @@ final class DragLineOverlay {
     init(startScreenPoint: CGPoint, endScreenPoint: CGPoint) {
         self.startScreenPoint = startScreenPoint
         self.endScreenPoint = endScreenPoint
+        self.isEnabled = true
 
         NotificationCenter.default.addObserver(
             self,
@@ -20,6 +21,8 @@ final class DragLineOverlay {
     var startScreenPoint: CGPoint { didSet { setViewPoints() } }
 
     var endScreenPoint: CGPoint { didSet { setViewPoints() } }
+    
+    var isEnabled: Bool { didSet { setViewPoints() } }
 
     func removeFromScreen() {
         windows.forEach { $0.close() }
@@ -78,34 +81,61 @@ final class DragLineOverlay {
             let view = window.contentView! as! ConnectionView
             view.parameters.startPoint = startScreenPoint
             view.parameters.endPoint = endScreenPoint
+            view.parameters.isEnabled = isEnabled
         }
     }
-
 }
 
 private class ConnectionView: NSView {
+    
     struct Parameters {
         var startPoint = CGPoint.zero
         var endPoint = CGPoint.zero
         var barThickness = CGFloat(2)
         var ballRadius = CGFloat(3)
+        var isEnabled = true
     }
 
-    var parameters = Parameters() { didSet { needsLayout = true } }
+    var parameters = Parameters() {
+        didSet {
+            if parameters.isEnabled != isEnabled {
+                isEnabled = parameters.isEnabled
+            }
+            
+            needsLayout = true
+        }
+    }
+    
+    private var isEnabled: Bool = true {
+        didSet {
+            updateShapeLayerAppearance()
+        }
+    }
 
     init() {
         super.init(frame: .zero)
 
         wantsLayer = true
 
+        // fixed appearance
         shapeLayer.lineJoin = CAShapeLayerLineJoin.miter
         shapeLayer.lineWidth = 0.75
         shapeLayer.strokeColor = NSColor.white.cgColor
-        shapeLayer.fillColor = NSColor(calibratedHue: 209/360, saturation: 0.83, brightness: 1, alpha: 1).cgColor
-        shapeLayer.shadowColor = NSColor.selectedControlColor.blended(withFraction: 0.2, of: .black)?.withAlphaComponent(0.85).cgColor
+        shapeLayer.shadowColor = NSColor.selectedControlColor
+            .blended(withFraction: 0.2, of: .black)?
+            .withAlphaComponent(0.85).cgColor
         shapeLayer.shadowRadius = 3
         shapeLayer.shadowOpacity = 1
         shapeLayer.shadowOffset = .zero
+        
+        // dynamic appearance
+        updateShapeLayerAppearance()
+    }
+    
+    private func updateShapeLayerAppearance() {
+        shapeLayer.fillColor = isEnabled
+            ? NSColor(calibratedHue: 209.0 / 360, saturation: 0.83, brightness: 1, alpha: 1).cgColor
+            : Color.HSV(h: 209.0, s: 0.83, v: 1).grayscale.ga(withAlphaComponent: 1).nsColor.cgColor
     }
 
     required init?(coder decoder: NSCoder) { fatalError() }
@@ -125,11 +155,17 @@ private class ConnectionView: NSView {
         return []
     }
 
-
 }
 
 private extension CGPath {
-    class func barbell(from start: CGPoint, to end: CGPoint, barThickness proposedBarThickness: CGFloat, bellRadius proposedBellRadius: CGFloat) -> CGPath {
+    
+    class func barbell(
+        from start: CGPoint,
+        to end: CGPoint,
+        barThickness proposedBarThickness: CGFloat,
+        bellRadius proposedBellRadius: CGFloat
+    ) -> CGPath {
+        
         let barThickness = max(0, proposedBarThickness)
         let bellRadius = max(barThickness / 2, proposedBellRadius)
 

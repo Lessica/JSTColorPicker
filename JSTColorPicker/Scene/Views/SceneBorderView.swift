@@ -2,7 +2,7 @@
 //  SceneBorderView.swift
 //  JSTColorPicker
 //
-//  Created by Rachel on 2021/1/4.
+//  Created by Darwin on 2021/1/4.
 //  Copyright © 2021 JST. All rights reserved.
 //
 

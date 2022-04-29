@@ -2,7 +2,7 @@
 //  NSURLSession+Promise.swift
 //  JSTColorPicker
 //
-//  Created by Mason Rachel on 2022/4/16.
+//  Created by Darwin on 2022/4/16.
 //  Copyright © 2022 JST. All rights reserved.
 //
 
