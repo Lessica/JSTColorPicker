@@ -10,12 +10,6 @@ import Cocoa
 
 final class SceneOverlayView: NSView {
     
-    var dragEndpointState: DragEndpointState = .idle
-    
-    var maximumTagPerItem: Int = 0
-    var maximumTagPerItemEnabled: Bool = false
-    var replaceSingleTagWhileDrop: Bool = false
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         wantsLayer = false
@@ -66,19 +60,19 @@ final class SceneOverlayView: NSView {
     }
     
     var overlays: [AnnotatorOverlay] { subviews as! [AnnotatorOverlay] }
-    private weak var internalFocusedOverlay: AnnotatorOverlay?
+    private weak var currentFocusedOverlay: AnnotatorOverlay?
     
-    var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? internalEditableDirection : .none }
-    private var internalEditableDirection: EditableOverlay.Direction = .none
+    var editableDirection: EditableOverlay.Direction { focusedOverlay != nil ? currentEditableDirection : .none }
+    private var currentEditableDirection: EditableOverlay.Direction = .none
     
-    internal var hasFocusingCursor: Bool {
-        sceneTool.hasFocusingCursorWithoutDragging || dragEndpointState != .idle
+    var hasFocusingCursor: Bool {
+        return sceneTool.hasFocusingCursorWithoutDragging
     }
-    internal var isFocused: Bool {
-        hasFocusingCursor ? internalFocusedOverlay != nil : false
+    var isFocused: Bool {
+        return hasFocusingCursor ? currentFocusedOverlay != nil : false
     }
-    internal var focusedOverlay: AnnotatorOverlay? {
-        hasFocusingCursor ? internalFocusedOverlay : nil
+    var focusedOverlay: AnnotatorOverlay? {
+        return hasFocusingCursor ? currentFocusedOverlay : nil
     }
 
     var hasSelectedOverlay: Bool { overlays.firstIndex(where: { $0.isSelected }) != nil }
@@ -99,6 +93,15 @@ final class SceneOverlayView: NSView {
                 .sorted(by: { $0.bounds.size == $1.bounds.size ? $0.hash > $1.hash : $0.bounds.size > $1.bounds.size })
         }
     }
+    
+    var dragEndpointState: DragEndpointState = .idle
+    var nextFocusingStyle: Overlay.FocusingStyle {
+        dragEndpointState != .forbidden ? .normal : .forbidden
+    }
+    
+    var maximumTagPerItem: Int = 0
+    var maximumTagPerItemEnabled: Bool = false
+    var replaceSingleTagWhileDrop: Bool = false
     
     var isMouseInside: Bool {
         if let locationInWindow = window?.mouseLocationOutsideOfEventStream {
@@ -129,18 +132,19 @@ final class SceneOverlayView: NSView {
     
     private func updateAppearance(with locInWindow: CGPoint?) {
         guard isMouseInside else { return }
-        internalUpdateFocusAppearance(with: locInWindow)
-        internalUpdateCursorAppearance(with: locInWindow)
+        _updateFocusingAppearance(with: locInWindow)
+        _updateCursorAppearance(with: locInWindow)
     }
     
     private func resetAppearance() {
-        internalResetFocusAppearance()
-        internalResetCursorAppearance()
+        _resetFocusingAppearance()
+        _resetCursorAppearance()
     }
     
-    private func internalUpdateFocusAppearance(with locInWindow: CGPoint?) {
+    /// not for dragging
+    private func _updateFocusingAppearance(with locInWindow: CGPoint?) {
         guard hasFocusingCursor else {
-            internalResetFocusAppearance()
+            _resetFocusingAppearance()
             return
         }
         
@@ -148,27 +152,27 @@ final class SceneOverlayView: NSView {
         
         let loc = convert(mouseLocation, from: nil)
         if let overlay = self.frontmostOverlay(at: loc) {
-            if let focusedOverlay = self.internalFocusedOverlay {
+            if let focusedOverlay = self.currentFocusedOverlay {
                 if overlay != focusedOverlay {
                     focusedOverlay.isFocused = false
-                    focusedOverlay.setNeedsDisplay(visibleOnly: false)
+                    focusedOverlay.setNeedsDisplay()
                     overlay.isFocused = true
-                    overlay.setNeedsDisplay(visibleOnly: false)
-                    self.internalFocusedOverlay = overlay
+                    overlay.setNeedsDisplay()
+                    self.currentFocusedOverlay = overlay
                 }
             }
             else {
                 overlay.isFocused = true
-                overlay.setNeedsDisplay(visibleOnly: false)
-                self.internalFocusedOverlay = overlay
+                overlay.setNeedsDisplay()
+                self.currentFocusedOverlay = overlay
             }
         }
         else {
-            internalResetFocusAppearance()
+            _resetFocusingAppearance()
         }
     }
     
-    private func internalUpdateCursorAppearance(with locInWindow: CGPoint?) {
+    private func _updateCursorAppearance(with locInWindow: CGPoint?) {
         if sceneToolSource.sceneToolEnabled {
             if sceneState.isManipulating {
                 if sceneState.manipulatingType != .forbidden {
@@ -196,15 +200,15 @@ final class SceneOverlayView: NSView {
         }
     }
     
-    private func internalResetFocusAppearance() {
-        if let focusedOverlay = self.internalFocusedOverlay {
+    private func _resetFocusingAppearance() {
+        if let focusedOverlay = self.currentFocusedOverlay {
             focusedOverlay.isFocused = false
-            focusedOverlay.setNeedsDisplay(visibleOnly: false)
-            self.internalFocusedOverlay = nil
+            focusedOverlay.setNeedsDisplay()
+            self.currentFocusedOverlay = nil
         }
     }
     
-    private func internalResetCursorAppearance() {
+    private func _resetCursorAppearance() {
         SceneTool.arrowCursor.set()
     }
     
@@ -214,115 +218,209 @@ extension SceneOverlayView: DragEndpoint {
     
     // MARK: - Drag/Drop
     
-    private func extractTagsFromDraggingInfo(_ draggingInfo: NSDraggingInfo) -> [DraggedTag]
-    {
-        var tags = [DraggedTag]()
-        draggingInfo.enumerateDraggingItems(
-            options: [],
-            for: self,
-            classes: [NSPasteboardItem.self],
-            searchOptions: [:]
-        ) { (dragItem, _, _) in
-            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(
-                forType: TagListController.attachPasteboardType
-            ) as? [[String: Any]] {
-                obj.forEach({
-                    tags.append(DraggedTag(dictionary: $0))
-                })
-            }
-        }
-        return tags
-    }
-    
     private func operationMaskOfDraggingTarget(
         _ draggingInfo: NSDraggingInfo,
         target: AnnotatorOverlay?
     ) -> NSDragOperation
     {
         let operationMask = draggingInfo.draggingSourceOperationMask
-        guard target != nil else { return [] }
-        if maximumTagPerItemEnabled {
-            guard let targetOverlay = target, let targetItem = contentItem(of: targetOverlay) else {
-                return []
-            }
-            let tagNamesToAppend = extractTagsFromDraggingInfo(draggingInfo).map({ $0.name })
-            if maximumTagPerItem > 0 {
-                if replaceSingleTagWhileDrop && maximumTagPerItem == 1 && targetItem.tags.count == 1 && tagNamesToAppend.count == 1 {
-                    return operationMask.intersection([.link])
-                }
-                guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem else { return [] }
-            }
-            guard !Set(tagNamesToAppend).isSubset(of: Set(targetItem.tags)) else { return [] }
+        
+        guard target != nil
+        else {
+            // no target, no operation
+            return []
         }
-        return operationMask.intersection([.copy])
+        
+        guard let targetOverlay = target,
+              let targetItem = contentItem(of: targetOverlay)
+        else {
+            // no content item
+            return [.forbidden]
+        }
+        
+        let optionPressed = NSEvent.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.option)
+        
+        let tagNamesToAppend = DraggedTag.draggedTagsFromDraggingInfo(draggingInfo, forView: self).map({ $0.name })
+        if maximumTagPerItemEnabled {
+            if maximumTagPerItem > 0 {
+                if replaceSingleTagWhileDrop
+                    && maximumTagPerItem == 1
+                    && targetItem.tags.count == 1
+                    && tagNamesToAppend.count == 1
+                {
+                    if tagNamesToAppend.first == targetItem.firstTag {
+                        // no changes
+                        return [.forbidden]
+                    }
+                    
+                    // move only
+                    return operationMask.intersection([.move])
+                }
+                
+                if optionPressed {
+                    
+                    // copy limit
+                    guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
+                    else {
+                        // reaches limit
+                        return [.forbidden]
+                    }
+                } else {
+                    
+                    // move limit
+                    guard tagNamesToAppend.count <= maximumTagPerItem
+                    else {
+                        // reaches limit
+                        return [.forbidden]
+                    }
+                }
+            }
+        }
+        
+        guard !Set(tagNamesToAppend).isSubset(of: Set(targetItem.tags))
+        else {
+            // duplicated
+            return [.forbidden]
+        }
+        
+        // option pressed -> copy
+        // option not pressed -> move
+        return optionPressed ? operationMask.intersection([.copy]) : operationMask.intersection([.move])
     }
     
-    private func updateDraggingAppearance(with locInWindow: CGPoint?) {
-        guard isMouseInside else { return }
-        internalUpdateFocusAppearance(with: locInWindow)
+    /// for dragging only
+    private func focusedOverlay(at locInWindow: CGPoint?) -> AnnotatorOverlay? {
+        
+        guard isMouseInside else { return nil }
+        
+        guard let mouseLocation: CGPoint = locInWindow ?? window?.mouseLocationOutsideOfEventStream
+        else { return nil }
+        
+        let loc = convert(mouseLocation, from: nil)
+        guard let overlay = self.frontmostOverlay(at: loc)
+        else {
+            // reset
+            if let focusedOverlay = self.currentFocusedOverlay {
+                focusedOverlay.isFocused = false
+            }
+            return nil
+        }
+        
+        if let focusedOverlay = self.currentFocusedOverlay {
+            if overlay != focusedOverlay {
+                focusedOverlay.isFocused = false
+                overlay.isFocused = true
+            }
+        } else {
+            overlay.isFocused = true
+        }
+        
+        return overlay
+    }
+    
+    private func updateDraggingAppearance(for overlay: AnnotatorOverlay?) {
+        
+        if let overlay = overlay {
+            if let focusedOverlay = self.currentFocusedOverlay {
+                if overlay != focusedOverlay {
+                    focusedOverlay.setNeedsDisplay()
+                    
+                    overlay.focusingStyle = nextFocusingStyle
+                    overlay.setNeedsDisplay()
+                } else if overlay.focusingStyle != nextFocusingStyle {
+                    
+                    overlay.focusingStyle = nextFocusingStyle
+                    overlay.setNeedsDisplay()
+                }
+            } else {
+                
+                overlay.focusingStyle = nextFocusingStyle
+                overlay.setNeedsDisplay()
+            }
+        } else {
+            
+            // reset
+            if let focusedOverlay = self.currentFocusedOverlay {
+                focusedOverlay.setNeedsDisplay()
+            }
+        }
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard case .idle = dragEndpointState else { return [] }
-        guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
-        updateDraggingAppearance(with: sender.draggingLocation)
-        let operationMask = operationMaskOfDraggingTarget(
-            sender,
-            target: internalFocusedOverlay
-        )
-        if !operationMask.isEmpty {
-            dragEndpointState = .target
-        } else {
-            dragEndpointState = .source
-        }
-        return operationMask
+        return draggingEnteredOrUpdated(sender)
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard dragEndpointState != .idle else { return [] }
-        guard (sender.draggingSource as? DragConnectionController)?.sourceEndpoint != nil else { return [] }
-        updateDraggingAppearance(with: sender.draggingLocation)
-        let operationMask = operationMaskOfDraggingTarget(
-            sender,
-            target: internalFocusedOverlay
-        )
-        if !operationMask.isEmpty {
+        return draggingEnteredOrUpdated(sender)
+    }
+    
+    private func draggingEnteredOrUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        
+        guard let connectionController = sender.draggingSource as? DragConnectionController else { return [] }
+        guard connectionController.sourceEndpoint != nil else { return [] }
+        connectionController.testConnection(to: self)
+        
+        let focusedOverlay = focusedOverlay(at: sender.draggingLocation)
+        
+        let operationMask = operationMaskOfDraggingTarget(sender, target: currentFocusedOverlay)
+        if operationMask.contains(.forbidden) {
+            dragEndpointState = .forbidden
+        } else if !operationMask.isEmpty {
             dragEndpointState = .target
         } else {
-            dragEndpointState = .source
+            dragEndpointState = .captured
         }
+        
+        updateDraggingAppearance(for: focusedOverlay)
+        
+        currentFocusedOverlay = focusedOverlay
         return operationMask
     }
     
     override func draggingExited(_ sender: NSDraggingInfo?) {
-        guard case .target = dragEndpointState else { return }
-        resetAppearance()
-        dragEndpointState = .idle
+        draggingExitedOrEnded(sender)
     }
     
     override func draggingEnded(_ sender: NSDraggingInfo) {
-        guard case .target = dragEndpointState else { return }
+        draggingExitedOrEnded(sender)
+    }
+    
+    private func draggingExitedOrEnded(_ sender: NSDraggingInfo?) {
+        
+        if let connectionController = sender?.draggingSource as? DragConnectionController,
+           connectionController.sourceEndpoint != nil
+        {
+            connectionController.testConnection()
+        }
+        
         resetAppearance()
-        dragEndpointState = .idle
+        
+        if dragEndpointState != .idle {
+            dragEndpointState = .idle
+        }
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let focusedOverlay = internalFocusedOverlay,
-              !operationMaskOfDraggingTarget(
-                sender,
-                target: focusedOverlay
-              ).isEmpty else { return false }
+        guard let focusedOverlay = currentFocusedOverlay else { return false }
+        let operationMask = operationMaskOfDraggingTarget(sender, target: focusedOverlay)
+        
+        guard !operationMask.isEmpty && !operationMask.contains(.forbidden) else { return false }
         guard let origItem = contentItem(of: focusedOverlay) else { return false }
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             
-        guard let controller = sender.draggingSource as? DragConnectionController else { return false }
-        controller.doConnection(to: self)
+        guard let connectionController = sender.draggingSource as? DragConnectionController else { return false }
+        guard connectionController.sourceEndpoint != nil else { return false }
+        connectionController.doConnection(to: self)
         
-        if sender.draggingSourceOperationMask.contains(.link) {
+        if operationMask.contains(.move) {
             replItem.tags.removeAll(keepingCapacity: true)
         }
         
-        let draggedTags = extractTagsFromDraggingInfo(sender)
+        let draggedTags = DraggedTag.draggedTagsFromDraggingInfo(sender, forView: self)
         let draggedTagNames = draggedTags.map({ $0.name })
         replItem.tags.append(contentsOf: draggedTagNames)
         

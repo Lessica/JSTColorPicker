@@ -31,14 +31,14 @@ extension Color.GA {
 
 extension NSColor {
     
-    var isRGBColor: Bool {
+    private var isRGBColor: Bool {
         let rgbColorSpaces: [NSColorSpace] = [
             .displayP3, .adobeRGB1998, .extendedSRGB, .sRGB, .genericRGB, .deviceRGB,
         ]
         return rgbColorSpaces.contains(self.colorSpace)
     }
     
-    var isGrayscaleColor: Bool {
+    private var isGrayscaleColor: Bool {
         let grayscaleColorSpaces: [NSColorSpace] = [
             .deviceGray, .genericGray, .genericGamma22Gray, .extendedGenericGamma22Gray,
         ]

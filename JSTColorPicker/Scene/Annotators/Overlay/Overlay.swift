@@ -48,8 +48,19 @@ class Overlay: NSView {
         case dashed
     }
     
+    enum FocusingStyle {
+        case normal
+        case forbidden
+    }
+    
     var borderStyle      : BorderStyle  { .none }
+    var focusingStyle    : FocusingStyle = .normal
     var isFocused        : Bool         = false
+    {
+        didSet {
+            focusingStyle = .normal
+        }
+    }
     var isSelected       : Bool         = false
     {
         didSet {
@@ -194,7 +205,7 @@ class Overlay: NSView {
     
     override var wantsDefaultClipping: Bool { false }
     
-    func setNeedsDisplay(visibleOnly: Bool) {
+    func setNeedsDisplay(visibleOnly: Bool = false) {
         if visibleOnly {
             super.setNeedsDisplay(visibleRect)
         } else {
@@ -247,7 +258,14 @@ class Overlay: NSView {
         
         ctx.setLineCap(.round)
         ctx.setLineWidth(Overlay.defaultBorderWidth)
-        if isFocused || isHighlighted || isSelected { ctx.setStrokeColor(internalLineDashColorsHighlighted[1]) }
+        if isFocused || isHighlighted || isSelected {
+            let strokeColor = internalLineDashColorsHighlighted[1]
+            if isFocused && focusingStyle == .forbidden {
+                ctx.setStrokeColor(strokeColor.ga.cgColor)
+            } else {
+                ctx.setStrokeColor(strokeColor)
+            }
+        }
         else { ctx.setStrokeColor(internalLineDashColorsNormal[1]) }
         ctx.strokePath()
         

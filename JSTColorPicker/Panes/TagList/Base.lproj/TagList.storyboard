@@ -271,7 +271,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="qlz-JH-5Ho"/>
                                                                     </constraints>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="arrow.left.arrow.right.square" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="arrow.left.arrow.right" catalog="system" imagePosition="overlaps" alignment="center" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68V-id-qQu">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -517,7 +517,7 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.left.arrow.right.square" catalog="system" width="15" height="14"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="16" height="17"/>
         <image name="curlybraces.square" catalog="system" width="15" height="14"/>
         <image name="curlybraces.square.fill" catalog="system" width="15" height="14"/>
         <image name="minus" catalog="system" width="14" height="4"/>

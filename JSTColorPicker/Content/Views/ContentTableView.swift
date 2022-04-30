@@ -106,7 +106,9 @@ extension ContentTableView: DragEndpoint {
     }
     
     private func focusedIndex(at locInWindow: CGPoint?) -> Int? {
+        
         guard isMouseInside else { return nil }
+        
         guard let mouseLocation: CGPoint = locInWindow ?? window?.mouseLocationOutsideOfEventStream
         else { return nil }
         
@@ -150,6 +152,10 @@ extension ContentTableView: DragEndpoint {
             return [.forbidden]
         }
         
+        let optionPressed = NSEvent.modifierFlags
+            .intersection(.deviceIndependentFlagsMask)
+            .contains(.option)
+        
         let tagNamesToAppend = DraggedTag.draggedTagsFromDraggingInfo(draggingInfo, forView: self).map({ $0.name })
         if maximumTagPerItemEnabled {
             if maximumTagPerItem > 0 {
@@ -167,10 +173,22 @@ extension ContentTableView: DragEndpoint {
                     return operationMask.intersection([.move])
                 }
                 
-                guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
-                else {
-                    // reaches limit
-                    return [.forbidden]
+                if optionPressed {
+                    
+                    // copy limit
+                    guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
+                    else {
+                        // reaches limit
+                        return [.forbidden]
+                    }
+                } else {
+                    
+                    // move limit
+                    guard tagNamesToAppend.count <= maximumTagPerItem
+                    else {
+                        // reaches limit
+                        return [.forbidden]
+                    }
                 }
             }
         }
@@ -180,10 +198,6 @@ extension ContentTableView: DragEndpoint {
             // duplicated
             return [.forbidden]
         }
-        
-        let optionPressed = NSEvent.modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-            .contains(.option)
         
         // option pressed -> copy
         // option not pressed -> move
@@ -232,10 +246,18 @@ extension ContentTableView: DragEndpoint {
     }
     
     private func draggingExitedOrEnded(_ sender: NSDraggingInfo?) {
-        resetAppearance()
+        
+        if let connectionController = sender?.draggingSource as? DragConnectionController,
+           connectionController.sourceEndpoint != nil
+        {
+            connectionController.testConnection()
+        }
+        
         if dragEndpointState != .idle {
             dragEndpointState = .idle
         }
+        
+        resetAppearance()
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {

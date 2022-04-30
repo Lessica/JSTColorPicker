@@ -171,6 +171,8 @@
 		CC07DF78280AF998001AF35C /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4523BE280811E6005C0A3F /* CommandError.swift */; };
 		CC0B60AD281C46F000BB96E0 /* NSColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */; };
 		CC0B60AE281C46F000BB96E0 /* NSColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */; };
+		CC0B60B0281CDF7900BB96E0 /* CGColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AF281CDF3500BB96E0 /* CGColor+HSV.swift */; };
+		CC0B60B1281CDF7A00BB96E0 /* CGColor+HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B60AF281CDF3500BB96E0 /* CGColor+HSV.swift */; };
 		CC0FC87C265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC0FC87D265105A500D8BD73 /* PixelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0FC87B265105A500D8BD73 /* PixelSegment.swift */; };
 		CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */; };
@@ -1485,6 +1487,7 @@
 		CC07DF712809B17C001AF35C /* AppDelegate+DeviceSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DeviceSupport.swift"; sourceTree = "<group>"; };
 		CC07DF742809CE96001AF35C /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSURLSession+Promise.swift"; sourceTree = "<group>"; };
 		CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HSV.swift"; sourceTree = "<group>"; };
+		CC0B60AF281CDF3500BB96E0 /* CGColor+HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+HSV.swift"; sourceTree = "<group>"; };
 		CC0FC87B265105A500D8BD73 /* PixelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSegment.swift; sourceTree = "<group>"; };
 		CC13C7B727EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssociatedValuesTableViewCell.swift; sourceTree = "<group>"; };
 		CC13C7C327F0269700D12892 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
@@ -2889,6 +2892,7 @@
 			children = (
 				CCB7847C26257B9200FC4216 /* Color+HSV.swift */,
 				CC0B60AC281C46F000BB96E0 /* NSColor+HSV.swift */,
+				CC0B60AF281CDF3500BB96E0 /* CGColor+HSV.swift */,
 				D6729C0B240FC9F5000339C2 /* Cocoa+Ext.swift */,
 				D6729C08240FC821000339C2 /* CoreGraphics+Ext.swift */,
 				D6729C0D240FCA24000339C2 /* Foundation+Ext.swift */,
@@ -5110,6 +5114,7 @@
 				CCE901662626BAE400C84904 /* KeyValueObserverResult.swift in Sources */,
 				D61047B424224A170002E990 /* SceneImageWrapper.swift in Sources */,
 				CC13C7B827EF65A700D12892 /* EditAssociatedValuesTableViewCell.swift in Sources */,
+				CC0B60B0281CDF7900BB96E0 /* CGColor+HSV.swift in Sources */,
 				CCE01C8E264CD8E1005960A7 /* ShortcutItemView.swift in Sources */,
 				D659168D24A36FF100DB67A6 /* ItemPreviewDelegate.swift in Sources */,
 				CCDD37E427EDE88200AA4FC3 /* Down+Ext.swift in Sources */,
@@ -5297,6 +5302,7 @@
 				0F5BBA2E276F415900AF0DC8 /* Screenshot+Error.swift in Sources */,
 				CC96F94426727E6F00CB55E9 /* Device.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
+				CC0B60B1281CDF7A00BB96E0 /* CGColor+HSV.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
 				CC13C7CB27F0275300D12892 /* Selector+Codable.swift in Sources */,
 				D684842423D4106900BC5E34 /* GridWindowController.swift in Sources */,

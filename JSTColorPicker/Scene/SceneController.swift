@@ -1564,7 +1564,7 @@ extension SceneController: AnnotatorSource {
             } else if annotator.isSelected {
                 annotator.isSelected = false
                 annotatorHideRulerMarkers(annotator)
-                annotator.overlay.setNeedsDisplay(visibleOnly: false)
+                annotator.overlay.setNeedsDisplay()
             }
         }
         
