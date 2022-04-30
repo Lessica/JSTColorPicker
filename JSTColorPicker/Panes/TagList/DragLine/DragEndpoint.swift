@@ -2,7 +2,7 @@
 
 import Cocoa
 
-enum DragEndpointState {
+enum DragEndpointState: Equatable {
     
     /// not captured
     case idle
@@ -17,7 +17,17 @@ enum DragEndpointState {
     case target
     
     /// act like target, but forbidden due to some reasons
-    case forbidden
+    case forbidden(reason: String)
+    
+    var isForbidden: Bool {
+        switch self {
+        case .forbidden(_):
+            return true
+        default:
+            break
+        }
+        return false
+    }
 }
 
 protocol DragEndpoint: NSView {

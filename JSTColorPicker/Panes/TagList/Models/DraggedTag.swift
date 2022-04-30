@@ -10,8 +10,10 @@ import Foundation
 
 struct DraggedTag {
     
-    internal static func draggedTagsFromDraggingInfo(_ draggingInfo: NSDraggingInfo, forView view: NSView) -> [DraggedTag]
-    {
+    internal static func draggedTagsFromDraggingInfo(
+        _ draggingInfo: NSDraggingInfo,
+        forView view: NSView
+    ) -> [DraggedTag] {
         var tags = [DraggedTag]()
         draggingInfo.enumerateDraggingItems(
             options: [],

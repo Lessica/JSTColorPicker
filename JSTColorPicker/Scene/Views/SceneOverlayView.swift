@@ -96,7 +96,7 @@ final class SceneOverlayView: NSView {
     
     var dragEndpointState: DragEndpointState = .idle
     var nextFocusingStyle: Overlay.FocusingStyle {
-        dragEndpointState != .forbidden ? .normal : .forbidden
+        !dragEndpointState.isForbidden ? .normal : .forbidden
     }
     
     var maximumTagPerItem: Int = 0
@@ -218,24 +218,20 @@ extension SceneOverlayView: DragEndpoint {
     
     // MARK: - Drag/Drop
     
-    private func operationMaskOfDraggingTarget(
+    private func operationMaskOfDraggingInfo(
         _ draggingInfo: NSDraggingInfo,
-        target: AnnotatorOverlay?
+        targetOverlay: AnnotatorOverlay?,
+        forbiddenReason: inout String?
     ) -> NSDragOperation
     {
         let operationMask = draggingInfo.draggingSourceOperationMask
         
-        guard target != nil
-        else {
-            // no target, no operation
-            return []
-        }
-        
-        guard let targetOverlay = target,
+        guard targetOverlay != nil,
+              let targetOverlay = targetOverlay,
               let targetItem = contentItem(of: targetOverlay)
         else {
             // no content item
-            return [.forbidden]
+            return []
         }
         
         let optionPressed = NSEvent.modifierFlags
@@ -252,11 +248,24 @@ extension SceneOverlayView: DragEndpoint {
                 {
                     if tagNamesToAppend.first == targetItem.firstTag {
                         // no changes
+                        forbiddenReason = NSLocalizedString("No changes has been made.", comment: "forbiddenReason")
                         return [.forbidden]
                     }
                     
                     // move only
                     return operationMask.intersection([.move])
+                }
+                
+                func localizedString(describing tagNames: [String]) -> String {
+                    if tagNames.count == 1 {
+                        return String(
+                            format: NSLocalizedString("tag “%@”", comment: "localizedString(describing:)"), tagNames.first!)
+                    } else {
+                        return String(
+                            format: NSLocalizedString("“%@” and other %ld tags", comment: "localizedString(describing:)"),
+                            tagNames.first!, tagNames.count - 1
+                        )
+                    }
                 }
                 
                 if optionPressed {
@@ -265,6 +274,13 @@ extension SceneOverlayView: DragEndpoint {
                     guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
+                        let priorString = localizedString(describing: targetItem.tags.elements)
+                        let newString = localizedString(describing: tagNamesToAppend)
+                        
+                        forbiddenReason = String(
+                            format: NSLocalizedString("Will add %@ to existing %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),
+                            newString, priorString, maximumTagPerItem
+                        )
                         return [.forbidden]
                     }
                 } else {
@@ -273,6 +289,13 @@ extension SceneOverlayView: DragEndpoint {
                     guard tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
+                        let priorString = localizedString(describing: targetItem.tags.elements)
+                        let newString = localizedString(describing: tagNamesToAppend)
+                        
+                        forbiddenReason = String(
+                            format: NSLocalizedString("Will replace prior %@ with new %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),
+                            priorString, newString, maximumTagPerItem
+                        )
                         return [.forbidden]
                     }
                 }
@@ -282,6 +305,7 @@ extension SceneOverlayView: DragEndpoint {
         guard !Set(tagNamesToAppend).isSubset(of: Set(targetItem.tags))
         else {
             // duplicated
+            forbiddenReason = NSLocalizedString("No changes has been made.", comment: "forbiddenReason")
             return [.forbidden]
         }
         
@@ -366,9 +390,12 @@ extension SceneOverlayView: DragEndpoint {
         
         let focusedOverlay = focusedOverlay(at: sender.draggingLocation)
         
-        let operationMask = operationMaskOfDraggingTarget(sender, target: currentFocusedOverlay)
+        var forbiddenReason: String?
+        let operationMask = operationMaskOfDraggingInfo(sender,
+                                                        targetOverlay: currentFocusedOverlay,
+                                                        forbiddenReason: &forbiddenReason)
         if operationMask.contains(.forbidden) {
-            dragEndpointState = .forbidden
+            dragEndpointState = .forbidden(reason: forbiddenReason ?? "")
         } else if !operationMask.isEmpty {
             dragEndpointState = .target
         } else {
@@ -406,9 +433,24 @@ extension SceneOverlayView: DragEndpoint {
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         guard let focusedOverlay = currentFocusedOverlay else { return false }
-        let operationMask = operationMaskOfDraggingTarget(sender, target: focusedOverlay)
         
-        guard !operationMask.isEmpty && !operationMask.contains(.forbidden) else { return false }
+        var forbiddenReason: String?
+        let operationMask = operationMaskOfDraggingInfo(sender,
+                                                        targetOverlay: focusedOverlay,
+                                                        forbiddenReason: &forbiddenReason)
+        
+        guard !operationMask.isEmpty && !operationMask.contains(.forbidden) else {
+            if let forbiddenReason = forbiddenReason {
+                let helpManager = NSHelpManager.shared
+                helpManager.setContextHelp(NSAttributedString(string: forbiddenReason, attributes: [
+                    .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+                ]), for: self)
+                helpManager.showContextHelp(for: self, locationHint: NSEvent.mouseLocation)
+                helpManager.removeContextHelp(for: self)
+            }
+            return false
+        }
+        
         guard let origItem = contentItem(of: focusedOverlay) else { return false }
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             

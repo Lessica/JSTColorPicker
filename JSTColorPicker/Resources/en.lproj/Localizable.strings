@@ -544,6 +544,9 @@
 /* Browser */
 "No" = "No";
 
+/* forbiddenReason */
+"No changes has been made." = "No changes has been made.";
+
 /* screenshotItemTapped(_:) */
 "No device selected" = "No device selected";
 
@@ -794,6 +797,9 @@
 /* TagController */
 "Tag Manager (Read-only)" = "Tag Manager (Read-only)";
 
+/* localizedString(describing:) */
+"tag “%@”" = "tag “%@”";
+
 /* Shortcut Guide */
 "Take Screenshot" = "Take Screenshot";
 
@@ -953,8 +959,14 @@
 /* reloadUI() */
 "Welcome" = "Welcome";
 
+/* forbiddenReason */
+"Will add %@ to existing %@, while maximum tag per item is set to %ld." = "Will add %@ to existing %@, while maximum tag per item is set to %ld.";
+
 /* manageSubscriptionAction(_:) */
 "Will redirect to your Apple ID account page to manage your subscription, continue?" = "Will redirect to your Apple ID account page to manage your subscription, continue?";
+
+/* forbiddenReason */
+"Will replace prior %@ with new %@, while maximum tag per item is set to %ld." = "Will replace prior %@ with new %@, while maximum tag per item is set to %ld.";
 
 /* _refreshPaddleProductUI() */
 "year" = "year";
@@ -985,6 +997,9 @@
 
 /* Shortcut Guide */
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point).";
+
+/* localizedString(describing:) */
+"“%@” and other %ld tags" = "“%@” and other %ld tags";
 
 /* SwiftKeyBindings */
 "“%@” is already taken by the “%@” command." = "“%@” is already taken by the “%@” command.";

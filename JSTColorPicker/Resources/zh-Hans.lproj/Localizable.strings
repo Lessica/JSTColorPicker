@@ -544,6 +544,9 @@
 /* Browser */
 "No" = "否";
 
+/* forbiddenReason */
+"No changes has been made." = "没有做出任何改动。";
+
 /* screenshotItemTapped(_:) */
 "No device selected" = "未选中设备";
 
@@ -794,6 +797,9 @@
 /* TagController */
 "Tag Manager (Read-only)" = "标签管理器（只读）";
 
+/* localizedString(describing:) */
+"tag “%@”" = "标签 “%@”";
+
 /* Shortcut Guide */
 "Take Screenshot" = "截图";
 
@@ -953,8 +959,14 @@
 /* reloadUI() */
 "Welcome" = "欢迎";
 
+/* forbiddenReason */
+"Will add %@ to existing %@, while maximum tag per item is set to %ld." = "将要添加 %@ 到现有 %@，然而每项最大标签数被设置为 %ld。";
+
 /* manageSubscriptionAction(_:) */
 "Will redirect to your Apple ID account page to manage your subscription, continue?" = "即将重定向到你的 Apple ID 账户页面以管理你的订阅，继续？";
+
+/* forbiddenReason */
+"Will replace prior %@ with new %@, while maximum tag per item is set to %ld." = "将要替换原有 %@，以现有 %@，然而每项最大标签数被设置为 %ld。";
 
 /* _refreshPaddleProductUI() */
 "year" = "年";
@@ -985,6 +997,9 @@
 
 /* Shortcut Guide */
 "Zoom out at the current cursor position (if the cursor is outside the scene, the scene is zoomed out with the center point)." = "自当前光标位置缩小视图 (如果光标位于视图外，则以中心点位置缩小视图)。";
+
+/* localizedString(describing:) */
+"“%@” and other %ld tags" = "“%@” 和其他 %ld 个标签";
 
 /* SwiftKeyBindings */
 "“%@” is already taken by the “%@” command." = "“%@” 已经被 “%@” 命令所使用。";

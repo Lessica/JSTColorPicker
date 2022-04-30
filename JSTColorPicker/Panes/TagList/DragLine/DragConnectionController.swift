@@ -58,7 +58,9 @@ final class DragConnectionController: NSObject, NSDraggingSource {
 
     func draggingSession(_ session: NSDraggingSession, movedTo screenPoint: NSPoint) {
         lineOverlay?.endScreenPoint = screenPoint
-        if targetEndpoint?.dragEndpointState == .forbidden {
+        if let targetEndpoint = targetEndpoint,
+           targetEndpoint.dragEndpointState.isForbidden
+        {
             lineOverlay?.isEnabled = false
         } else {
             lineOverlay?.isEnabled = true

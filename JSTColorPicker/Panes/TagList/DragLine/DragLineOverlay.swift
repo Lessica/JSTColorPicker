@@ -15,6 +15,7 @@ final class DragLineOverlay {
             name: NSApplication.didChangeScreenParametersNotification,
             object: nil
         )
+        
         synchronizeWindowsToScreens()
     }
 
@@ -154,7 +155,6 @@ private class ConnectionView: NSView {
         debugPrint("\(#function) \(self) \(sender)")
         return []
     }
-
 }
 
 private extension CGPath {

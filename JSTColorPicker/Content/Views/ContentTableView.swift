@@ -119,7 +119,7 @@ extension ContentTableView: DragEndpoint {
     }
     
     private func updateDraggingAppearance(for row: Int?) {
-        if let row = row, row >= 0, dragEndpointState != .idle && dragEndpointState != .forbidden {
+        if let row = row, row >= 0, dragEndpointState != .idle && !dragEndpointState.isForbidden {
             // highlight row
             overlayView?.highlightedRects = visibleRects(of: IndexSet(integer: row))
         } else {
@@ -132,24 +132,20 @@ extension ContentTableView: DragEndpoint {
         overlayView?.highlightedRects = nil
     }
     
-    private func operationMaskOfDraggingTarget(
+    private func operationMaskOfDraggingInfo(
         _ draggingInfo: NSDraggingInfo,
-        targetIndex: Int?
+        targetIndex: Int?,
+        forbiddenReason: inout String?
     ) -> NSDragOperation
     {
         let operationMask = draggingInfo.draggingSourceOperationMask
         
-        guard targetIndex != nil
-        else {
-            // no target, no operation
-            return []
-        }
-        
-        guard let targetIndex = targetIndex,
+        guard targetIndex != nil,
+              let targetIndex = targetIndex,
               let targetItem = contentItemSource?.contentItem(at: targetIndex)
         else {
             // no content item
-            return [.forbidden]
+            return []
         }
         
         let optionPressed = NSEvent.modifierFlags
@@ -166,11 +162,24 @@ extension ContentTableView: DragEndpoint {
                 {
                     if tagNamesToAppend.first == targetItem.firstTag {
                         // no changes
+                        forbiddenReason = NSLocalizedString("No changes has been made.", comment: "forbiddenReason")
                         return [.forbidden]
                     }
                     
                     // move only
                     return operationMask.intersection([.move])
+                }
+                
+                func localizedString(describing tagNames: [String]) -> String {
+                    if tagNames.count == 1 {
+                        return String(
+                            format: NSLocalizedString("tag “%@”", comment: "localizedString(describing:)"), tagNames.first!)
+                    } else {
+                        return String(
+                            format: NSLocalizedString("“%@” and other %ld tags", comment: "localizedString(describing:)"),
+                            tagNames.first!, tagNames.count - 1
+                        )
+                    }
                 }
                 
                 if optionPressed {
@@ -179,6 +188,13 @@ extension ContentTableView: DragEndpoint {
                     guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
+                        let priorString = localizedString(describing: targetItem.tags.elements)
+                        let newString = localizedString(describing: tagNamesToAppend)
+                        
+                        forbiddenReason = String(
+                            format: NSLocalizedString("Will add %@ to existing %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),
+                            newString, priorString, maximumTagPerItem
+                        )
                         return [.forbidden]
                     }
                 } else {
@@ -187,6 +203,13 @@ extension ContentTableView: DragEndpoint {
                     guard tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
+                        let priorString = localizedString(describing: targetItem.tags.elements)
+                        let newString = localizedString(describing: tagNamesToAppend)
+                        
+                        forbiddenReason = String(
+                            format: NSLocalizedString("Will replace prior %@ with new %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),
+                            priorString, newString, maximumTagPerItem
+                        )
                         return [.forbidden]
                     }
                 }
@@ -196,6 +219,7 @@ extension ContentTableView: DragEndpoint {
         guard !Set(tagNamesToAppend).isSubset(of: Set(targetItem.tags))
         else {
             // duplicated
+            forbiddenReason = NSLocalizedString("No changes has been made.", comment: "forbiddenReason")
             return [.forbidden]
         }
         
@@ -222,9 +246,12 @@ extension ContentTableView: DragEndpoint {
         
         let focusedIndex = focusedIndex(at: sender.draggingLocation)
         
-        let operationMask = operationMaskOfDraggingTarget(sender, targetIndex: focusedIndex)
+        var forbiddenReason: String?
+        let operationMask = operationMaskOfDraggingInfo(sender,
+                                                        targetIndex: focusedIndex,
+                                                        forbiddenReason: &forbiddenReason)
         if operationMask.contains(.forbidden) {
-            dragEndpointState = .forbidden
+            dragEndpointState = .forbidden(reason: forbiddenReason ?? "")
         } else if !operationMask.isEmpty {
             dragEndpointState = .target
         } else {
@@ -263,9 +290,24 @@ extension ContentTableView: DragEndpoint {
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         
         guard let focusedIndex = currentFocusedIndex else { return false }
-        let operationMask = operationMaskOfDraggingTarget(sender, targetIndex: focusedIndex)
         
-        guard !operationMask.isEmpty && !operationMask.contains(.forbidden) else { return false }
+        var forbiddenReason: String?
+        let operationMask = operationMaskOfDraggingInfo(sender,
+                                                        targetIndex: focusedIndex,
+                                                        forbiddenReason: &forbiddenReason)
+        
+        guard !operationMask.isEmpty && !operationMask.contains(.forbidden) else {
+            if let forbiddenReason = forbiddenReason {
+                let helpManager = NSHelpManager.shared
+                helpManager.setContextHelp(NSAttributedString(string: forbiddenReason, attributes: [
+                    .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+                ]), for: self)
+                helpManager.showContextHelp(for: self, locationHint: NSEvent.mouseLocation)
+                helpManager.removeContextHelp(for: self)
+            }
+            return false
+        }
+        
         guard let origItem = contentItemSource?.contentItem(at: focusedIndex) else { return false }
         guard let replItem = origItem.copy() as? ContentItem else { return false }
             
