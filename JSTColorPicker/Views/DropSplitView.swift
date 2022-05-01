@@ -47,7 +47,7 @@ final class DropSplitView: NSSplitView {
             .filter({ $0.isRegularFile })
             .firstIndex(
                 where: {
-                    acceptedFileExtensions.contains($0.pathExtension)
+                    acceptedFileExtensions.contains($0.pathExtension.lowercased())
                 }
             ) != nil
     }
@@ -81,7 +81,7 @@ final class DropSplitView: NSSplitView {
         dropDelegate.dropView(
             self,
             didDropFilesWith: draggedFileURLs
-                .filter({ $0.isRegularFile && acceptedFileExtensions.contains($0.pathExtension) })
+                .filter({ $0.isRegularFile && acceptedFileExtensions.contains($0.pathExtension.lowercased()) })
         )
         return true
     }

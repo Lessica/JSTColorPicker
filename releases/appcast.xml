@@ -4,6 +4,21 @@
         <title>JSTColorPicker</title>
         <item>
             <title>2.12</title>
+            <pubDate>Sat, 30 Apr 2022 19:41:27 +0800</pubDate>
+            <sparkle:version>1249</sparkle:version>
+            <sparkle:shortVersionString>2.12</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.12-1249.dmg" length="26599738" type="application/octet-stream" sparkle:edSignature="WO6aSJTZ4u1AxNuRfkVoMjUuShXzjnBeedI0fDwXaUu4i6XlUZWEX/IZQFxjK7yrEbNt5l6al6ksXGuYyK6qDg=="/>
+            <sparkle:deltas>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1249-1248.delta" sparkle:deltaFrom="1248" length="1375118" type="application/octet-stream" sparkle:edSignature="AsKPb9OLud8u5QEIuwjilzxSZkeVC6Kpr0zDOMzjpJDyQ2jKhamCJ3cH9IFrWGlLpyoZZj2TX5sF3rWDktw+Dw=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1249-1247.delta" sparkle:deltaFrom="1247" length="1515034" type="application/octet-stream" sparkle:edSignature="UoKBYMBJYczO6K+MNGDlPYV2JcTJ++6SDeitD1Do0KaFgqq5MezlmceCljE//KP/dGYBMilFOLE/RjIsA9bmBQ=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1249-1244.delta" sparkle:deltaFrom="1244" length="2178970" type="application/octet-stream" sparkle:edSignature="CNw7A7+fi0Gi88DkKN4COd86oWeba8vyaB/Y8lpbp4g7j/GwwAIwj6DMZls8mV2bSuUCRA8vF5dtF/IzLvroAQ=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1249-1241.delta" sparkle:deltaFrom="1241" length="2681758" type="application/octet-stream" sparkle:edSignature="sY1JeZ/WD7KztMqcbIsU00y84PN6JBCht4dxWHIWnwrS5XPTq6I2ekHJhszIqtwzioSrusR04m9Or67QhIUvCQ=="/>
+                <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1249-1240.delta" sparkle:deltaFrom="1240" length="2692542" type="application/octet-stream" sparkle:edSignature="qfUPYNhvixP+Loquylb03+x9qfzdxQvJaIm2Kc4lY5EuMGZVzJ2UJ4xYudN40gRo5ZUt/mFlUihB/JcEeAWSAA=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
+            <title>2.12</title>
             <pubDate>Sun, 24 Apr 2022 20:47:57 +0800</pubDate>
             <sparkle:version>1248</sparkle:version>
             <sparkle:shortVersionString>2.12</sparkle:shortVersionString>
@@ -31,6 +46,14 @@
                 <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1247-1239.delta" sparkle:deltaFrom="1239" length="5844466" type="application/octet-stream" sparkle:edSignature="D/HHWrWvVehnfVqRAibjS3jGdtUWJkZxwVhvFCbUJld+Nq5QlUi2ahc5pdYvVxJfFnteY4uPubHErE2lTkhkAA=="/>
                 <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1247-1238.delta" sparkle:deltaFrom="1238" length="12348760" type="application/octet-stream" sparkle:edSignature="A2DJWvKac7H45UQSiC1GVEVPo9qECTbfA19z7rmW8OfSG366r9gTLrngT6zZaV8nM+/AcqMymjw5Rsa4ez+tAg=="/>
             </sparkle:deltas>
+        </item>
+        <item>
+            <title>2.11</title>
+            <pubDate>Tue, 26 Apr 2022 15:33:32 +0800</pubDate>
+            <sparkle:version>1245</sparkle:version>
+            <sparkle:shortVersionString>2.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPickerHelper_2.11-1244.zip" length="15780494" type="application/octet-stream"/>
         </item>
         <item>
             <title>2.11</title>
@@ -84,7 +107,7 @@
             <sparkle:version>1238</sparkle:version>
             <sparkle:shortVersionString>2.11</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker_2.11-1238.dmg" length="26981314" type="application/octet-stream" sparkle:edSignature="zjPToVUBkDE00CzI8q6kM9N5ikIX6FpTmpC/SB31qmP8Ahsft5yy9FmIsCvdMp1+IycSyGb/AGTTuqW9Y0L1CA=="/>
+            <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPickerHelper_2.11-1238.zip" length="10616467" type="application/octet-stream"/>
             <sparkle:deltas>
                 <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1238-1237.delta" sparkle:deltaFrom="1237" length="1759534" type="application/octet-stream" sparkle:edSignature="8rjeLCDKqW/eOTLctyvf7cQHCyBPz8b0B6XwMKX4tU1d2o58b2lwyCOYjqU/3+CeApNxLoJhBL+Jnc0mtra2Cw=="/>
                 <enclosure url="https://cdn.82flex.com/jstcpweb/JSTColorPicker1238-1236.delta" sparkle:deltaFrom="1236" length="1784669" type="application/octet-stream" sparkle:edSignature="hZVwCAvycAyPmOgb/Nm/VFSQ1llQZF2VY1INi484Ic2qpU22r1oywCWenRF45TxL0mu0V9lOTlbCgY8qfhK7DQ=="/>

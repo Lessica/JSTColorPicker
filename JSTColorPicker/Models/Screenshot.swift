@@ -178,7 +178,11 @@ final class Screenshot: NSDocument {
     override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
         let restrictedOperation: [NSDocument.SaveOperationType] = [
             .saveOperation,
+            //.saveAsOperation,
+            //.saveToOperation,
             .autosaveInPlaceOperation,
+            //.autosaveAsOperation,
+            //.autosaveElsewhereOperation,
         ]
         if restrictedOperation.contains(saveOperation) {
             try testExportCondition()

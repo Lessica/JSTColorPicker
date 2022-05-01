@@ -14,7 +14,7 @@ mkdir -p releases/.app releases/.helper releases/.conf
 
 APP_PATH="$BUILD_ROOT/releases/.app/JSTColorPicker.app"
 
-if [[ -f "$APP_PATH" ]]; then
+if [[ -d "$APP_PATH" ]]; then
 
     echo "Processing JSTColorPickerSparkle..."
     cd "$BUILD_ROOT"
@@ -38,13 +38,13 @@ if [[ -f "$APP_PATH" ]]; then
 
     Pods/Sparkle/bin/generate_appcast --download-url-prefix https://cdn.82flex.com/jstcpweb/ -o releases/appcast.xml releases/cdn
 
-    trasher "$APP_PATH"
+    trash "$APP_PATH"
 fi
 
 
 HELPER_PATH="$BUILD_ROOT/releases/.helper/JSTColorPickerHelper.app"
 
-if [[ -f "$HELPER_PATH" ]]; then
+if [[ -d "$HELPER_PATH" ]]; then
 
     echo "Processing JSTColorPickerHelper..."
     cd "$BUILD_ROOT"
@@ -72,7 +72,7 @@ if [[ -f "$HELPER_PATH" ]]; then
     mv "${HELPER_ZIP_NAME}" ../cdn/
     cd "$BUILD_ROOT"
 
-    trasher "$HELPER_PATH"
+    trash "$HELPER_PATH"
 fi
 
 

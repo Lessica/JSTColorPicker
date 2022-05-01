@@ -253,7 +253,7 @@ static inline JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg, CGCo
     JST_COLOR *pixels = (JST_COLOR *) malloc(imgSize.width * imgSize.height * sizeof(JST_COLOR));
     memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
     pixels_image->pixels = pixels;
-    *cgColorSpace = CGImageGetColorSpace(cgimg);
+    *cgColorSpace = (CGColorSpaceRef)CFRetain(CGImageGetColorSpace(cgimg));
     CGContextRef context = CGBitmapContextCreate(
                                                  pixels,
                                                  (size_t) imgSize.width,
