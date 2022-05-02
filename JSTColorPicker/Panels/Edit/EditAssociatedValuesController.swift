@@ -36,12 +36,16 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
         }
         return [:]
     }
+    
+    private static var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.associated-value.inline")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         okBtn.isEnabled = false
         touchBarOkBtn.isEnabled = false
+        
+        tableView.registerForDraggedTypes([Self.inlinePasteboardType])
 
         undoToken = NotificationCenter.default.observe(
             name: NSNotification.Name.NSUndoManagerDidUndoChange,
@@ -217,6 +221,62 @@ final class EditAssociatedValuesController: EditViewController, NSTableViewDataS
     
     func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
         return isEditable
+    }
+    
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        return isEditable ? NSPasteboardItem(pasteboardPropertyList: ["row": row], ofType: Self.inlinePasteboardType) : nil
+    }
+    
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard isEditable else { return [] }
+        return dropOperation == .above ? .move : []
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        guard isEditable else {
+            return false
+        }
+        
+        var collection = arrangedAssociatedKeyPaths
+        
+        var oldIndexes = [Int]()
+        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
+            if let obj = (dragItem.item as! NSPasteboardItem).propertyList(forType: Self.inlinePasteboardType) as? [String: Any],
+                let index = obj["row"] as? Int
+            {
+                oldIndexes.append(index)
+            }
+        }
+
+        var oldIndexOffset = 0
+        var newIndexOffset = 0
+
+        // For simplicity, the code below uses `tableView.moveRowAtIndex` to move rows around directly.
+        // You may want to move rows in your content array and then call `tableView.reloadData()` instead.
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0
+        
+        tableView.beginUpdates()
+        for oldIndex in oldIndexes {
+            if oldIndex < row {
+                let tag = collection.remove(at: oldIndex + oldIndexOffset)
+                collection.insert(tag, at: row - 1)
+                tableView.moveRow(at: oldIndex + oldIndexOffset, to: row - 1)
+                oldIndexOffset -= 1
+            } else {
+                let tag = collection.remove(at: oldIndex)
+                collection.insert(tag, at: row + newIndexOffset)
+                tableView.moveRow(at: oldIndex, to: row + newIndexOffset)
+                newIndexOffset += 1
+            }
+        }
+        tableView.endUpdates()
+        
+        NSAnimationContext.endGrouping()
+        
+        arrayController.content = NSMutableArray(array: collection)
+        
+        return true
     }
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

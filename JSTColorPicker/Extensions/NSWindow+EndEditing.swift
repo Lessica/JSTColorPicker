@@ -37,7 +37,7 @@ extension NSWindow {
 extension NSViewController {
     
     /// end current editing and restore the current responder afterwards
-    @discardableResult
+    @objc @discardableResult
     func endEditing() -> Bool {
         
         guard self.isViewLoaded else { return true }

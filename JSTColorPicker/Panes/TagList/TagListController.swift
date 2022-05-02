@@ -98,7 +98,7 @@ final class TagListController: StackedPaneController {
     { isSelectMode ? selectDelegate?.undoManager : Self.sharedUndoManager }
     
     static         var attachPasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.attach")
-    static private var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
+    private static var inlinePasteboardType = NSPasteboard.PasteboardType(rawValue: "private.jst.tag.inline")
     
     private var disableTagReordering              : Bool = false
     private var disableTagEditing                 : Bool = false
@@ -142,6 +142,8 @@ final class TagListController: StackedPaneController {
         paneBox.isTransparent               = isSelectMode
         paneTopConstraint.constant          = isSelectMode ? 0 : 4
         paneInnerTopConstraint.constant     = isSelectMode ? 0 : 8
+        
+        buttonDefinition.isHidden           = isSelectMode || !isContextLoaded
         
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
@@ -970,6 +972,7 @@ extension TagListController: NSTableViewDelegate, NSTableViewDataSource {
         else {
             return false
         }
+        
         var collection = arrangedTags
         
         var oldIndexes = [Int]()

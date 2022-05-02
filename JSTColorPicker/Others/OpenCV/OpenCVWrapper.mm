@@ -20,7 +20,7 @@
     
     cv::Mat imageMat = [image CVMat];
     
-    std::vector <std::vector<cv::Point>>rectangles;
+    std::vector <std::vector<cv::Point>> rectangles;
     std::vector <cv::Point> bestChildRectangle;
     
     OpenCVWrapper_GetRectangles(imageMat, rectangles);
@@ -41,7 +41,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
     
     // blur will enhance edge detection
     cv::Mat blurred(image);
-    cv::GaussianBlur(image, blurred, cvSize(5, 5), 0);
+    cv::medianBlur(image, blurred, 9);
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
     std::vector<std::vector<cv::Point>> contours;
@@ -81,7 +81,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
             {
                 // approximate contour with accuracy proportional
                 // to the contour perimeter
-                cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.075 /* epsilon */, true);
+                cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.02 /* epsilon */, true);
                 
                 // Note: absolute value of an area is used because
                 // area may be positive or negative - in accordance with the
@@ -98,7 +98,7 @@ static void OpenCVWrapper_GetRectangles(cv::Mat& image, std::vector<std::vector<
                         maxCosine = MAX(maxCosine, cosine);
                     }
                     
-                    if (maxCosine < 0.2) {  // >= 79°
+                    if (maxCosine < 0.3) {
                         rectangles.push_back(approx);
                     }
                 }
@@ -166,7 +166,6 @@ static double OpenCVWrapper_Angle(cv::Point pt1, cv::Point pt2, cv::Point pt0) {
     cv::warpPerspective(imageMat, newImageMat, cv::getPerspectiveTransform(src, dst), cvSize(newSize.width, newSize.height));
     
     return [NSImage imageWithCVMat:newImageMat];
-    
 }
 
 @end

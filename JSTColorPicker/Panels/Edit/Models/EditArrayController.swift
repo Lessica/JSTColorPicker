@@ -21,6 +21,7 @@ enum EditArrayControllerUpdateType: Int {
 protocol EditArrayControllerDelegate: AnyObject {
     func contentArrayWillUpdate(_ sender: EditArrayController, type: EditArrayControllerUpdateType)
     func contentArrayDidUpdate(_ sender: EditArrayController, type: EditArrayControllerUpdateType)
+    func endEditing() -> Bool
 }
 
 final class EditArrayController: NSArrayController {
@@ -114,6 +115,16 @@ final class EditArrayController: NSArrayController {
         delegate?.contentArrayWillUpdate(self, type: .remove)
         super.remove(atArrangedObjectIndexes: indexes)
         delegate?.contentArrayDidUpdate(self, type: .remove)
+    }
+    
+    override func insert(_ sender: Any?) {
+        _ = delegate?.endEditing()
+        super.insert(sender)
+    }
+    
+    override func remove(_ sender: Any?) {
+        _ = delegate?.endEditing()
+        super.remove(sender)
     }
     
     deinit {
