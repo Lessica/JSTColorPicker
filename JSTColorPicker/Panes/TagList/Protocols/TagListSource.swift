@@ -24,4 +24,15 @@ protocol TagListSource: AnyObject {
     var shouldAssignSelectedTags: Bool { get }
     var selectedTags: [Tag] { get }
     var selectedTagNames: [String] { get }
+    
+    func setSelectedTags(_ tags: [Tag]) -> Bool
+    func setSelectedTagNames(_ tagNames: [String]) -> Bool
+
+    func addSelectedTags(_ tags: [Tag]) -> Bool
+    func addSelectedTagNames(_ tagNames: [String]) -> Bool
+    
+    func removeSelectedTags(_ tags: [Tag]) -> Bool
+    func removeSelectedTagNames(_ tagNames: [String]) -> Bool
+    
+    func removeAllSelectedTags() -> Bool
 }

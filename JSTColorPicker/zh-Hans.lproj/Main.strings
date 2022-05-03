@@ -76,6 +76,9 @@
 /* Class = "NSMenuItem"; title = "Color Panel"; ObjectID = "8Lc-x4-Wqe"; */
 "8Lc-x4-Wqe.title" = "颜色面板";
 
+/* Class = "NSMenuItem"; title = "Select Tags"; ObjectID = "9Bo-Fx-u4Y"; */
+"9Bo-Fx-u4Y.title" = "选择标签";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Save this area to a PNG file."; ObjectID = "9HA-IH-LiH"; */
 "9HA-IH-LiH.ibShadowedToolTip" = "将选中区域另存为 PNG 文件。";
 
@@ -172,6 +175,9 @@
 /* Class = "NSMenuItem"; title = "Edit Associated Values…"; ObjectID = "CVD-RK-3yI"; */
 "CVD-RK-3yI.title" = "修改关联值…";
 
+/* Class = "NSMenuItem"; title = "Read-only Mode"; ObjectID = "cxw-7K-Ohd"; */
+"cxw-7K-Ohd.title" = "只读模式";
+
 /* Class = "NSMenuItem"; title = "Add Color & Coordinates…"; ObjectID = "D1L-Dl-ZRc"; */
 "D1L-Dl-ZRc.title" = "添加颜色与坐标…";
 
@@ -252,6 +258,9 @@
 
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "模版";
+
+/* Class = "NSMenuItem"; title = "Show Tag Definitions…"; ObjectID = "g8M-dw-hn2"; */
+"g8M-dw-hn2.title" = "显示标签定义…";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "gCq-jW-QdJ"; */
 "gCq-jW-QdJ.title" = "首字母大写";
@@ -451,6 +460,9 @@
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "最小化";
 
+/* Class = "NSMenu"; title = "Reset Tag Definition"; ObjectID = "Ozn-4D-pkj"; */
+"Ozn-4D-pkj.title" = "重置标签定义";
+
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "删除";
 
@@ -490,11 +502,17 @@
 /* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "QCZ-G0-PcD"; */
 "QCZ-G0-PcD.title" = "智能拷贝/粘贴";
 
+/* Class = "NSMenuItem"; title = "Deselect All Tags"; ObjectID = "QIv-XW-2j6"; */
+"QIv-XW-2j6.title" = "取消选择所有标签";
+
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Magnifying Glass: Zoom in at a preset scale, supports zooming into a specified area."; ObjectID = "qRL-nx-uuS"; */
 "qRL-nx-uuS.ibShadowedToolTip" = "放大镜：按预设的梯度比例放大场景，支持放大到指定区域。";
 
 /* Class = "NSMenuItem"; title = "Magnifying Glass"; ObjectID = "qRL-nx-uuS"; */
 "qRL-nx-uuS.title" = "放大镜";
+
+/* Class = "NSMenu"; title = "Tags"; ObjectID = "QsP-Vm-Sxt"; */
+"QsP-Vm-Sxt.title" = "标签";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "缩放";
@@ -535,6 +553,9 @@
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "SZF-1B-wHT"; */
 "SZF-1B-wHT.title" = "转换";
 
+/* Class = "NSMenuItem"; title = "Tags"; ObjectID = "T1a-TI-ScK"; */
+"T1a-TI-ScK.title" = "标签";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "窗口";
 
@@ -543,6 +564,12 @@
 
 /* Class = "NSMenuItem"; title = "Select Previous Annotation"; ObjectID = "TLO-Ak-Y83"; */
 "TLO-Ak-Y83.title" = "选择上一层标注";
+
+/* Class = "NSMenu"; title = "Select Tags"; ObjectID = "TNI-3y-TuV"; */
+"TNI-3y-TuV.title" = "选择标签";
+
+/* Class = "NSMenuItem"; title = "Reset Tag Definition"; ObjectID = "tUl-Wn-Eep"; */
+"tUl-Wn-Eep.title" = "重置标签定义";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "打开最近使用";

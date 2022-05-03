@@ -66,6 +66,7 @@ class WindowController: NSWindowController {
         return self.window?.contentViewController?.children.first as? SplitController
     }
     
+    var tagManager               : TagListSource!           { splitController.tagManager        }
     var contentController        : ContentController!       { splitController.contentController }
     var sceneController          : SceneController!         { splitController.sceneController   }
     var segmentController        : SegmentController!       { splitController.segmentController }

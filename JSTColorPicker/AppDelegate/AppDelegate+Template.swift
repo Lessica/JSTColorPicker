@@ -41,7 +41,8 @@ extension AppDelegate {
     
     private static let templateIdentifierPrefix                 : String = "template-"
     
-    @objc private func showTemplates(_ sender: Any?) {
+    @objc
+    @IBAction private func showTemplates(_ sender: Any?) {
         applicationLoadTemplatesIfNeeded()
         let url = TemplateManager.templateRootURL
         guard url.isDirectory else {
@@ -51,11 +52,13 @@ extension AppDelegate {
         NSWorkspace.shared.open(url)
     }
     
+    @objc
     @IBAction private func showTemplatesMenuItemTapped(_ sender: NSMenuItem) {
         showTemplates(sender)
     }
     
-    @objc func showLogs(_ sender: Any?) {
+    @objc
+    @IBAction private func showLogs(_ sender: Any?) {
         do {
             try openConsole()
         } catch {
@@ -63,16 +66,19 @@ extension AppDelegate {
         }
     }
     
+    @objc
     @IBAction private func showLogsMenuItemTapped(_ sender: NSMenuItem) {
         showLogs(sender)
     }
     
-    @objc internal func selectTemplateItemTapped(_ sender: NSMenuItem) {
+    @objc
+    @IBAction func selectTemplateItemTapped(_ sender: NSMenuItem) {
         guard let template = sender.representedObject as? Template else { return }
         TemplateManager.shared.selectedTemplate = template
     }
     
-    @IBAction internal func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
+    @objc
+    @IBAction func reloadTemplatesItemTapped(_ sender: NSMenuItem) {
         do {
             try TemplateManager.shared.reloadTemplates()
         } catch {
@@ -83,7 +89,7 @@ extension AppDelegate {
     
     // MARK: - Template Menu Items
     
-    internal func updateTemplatesSubMenuItems(_ menu: NSMenu) {
+    internal func updateTemplateSubMenuItems(_ menu: NSMenu) {
         var itemIdx: Int = 0
         let items = TemplateManager.shared.templates
             .compactMap({ [weak self] (template) -> NSMenuItem in
@@ -110,7 +116,7 @@ extension AppDelegate {
         
         let separatorItem = NSMenuItem.separator()
         let reloadTemplatesItem = NSMenuItem(
-            title: NSLocalizedString("Reload All Templates", comment: "updateTemplatesSubMenuItems(_:)"),
+            title: NSLocalizedString("Reload All Templates", comment: "updateTemplateSubMenuItems(_:)"),
             action: #selector(reloadTemplatesItemTapped(_:)),
             keyEquivalent: "0"
         )
@@ -119,19 +125,57 @@ extension AppDelegate {
         reloadTemplatesItem.keyEquivalentModifierMask = [.control, .command]
         reloadTemplatesItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "reload-all-templates")
         reloadTemplatesItem.isEnabled = true
-        reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplatesSubMenuItems(_:)")
+        reloadTemplatesItem.toolTip = NSLocalizedString("Reload template scripts from file system.", comment: "updateTemplateSubMenuItems(_:)")
         
         if items.count > 0 {
             templateSubMenu.items = items + [ separatorItem, reloadTemplatesItem ]
         } else {
             let emptyItem = NSMenuItem(
-                title: NSLocalizedString("No template available.", comment: "updateTemplatesSubMenuItems(_:)"),
+                title: NSLocalizedString("No template available.", comment: "updateTemplateSubMenuItems(_:)"),
                 action: nil,
                 keyEquivalent: ""
             )
             emptyItem.isEnabled = false
             templateSubMenu.items = [ emptyItem, separatorItem, reloadTemplatesItem ]
         }
+    }
+    
+    func validateTemplateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
+        {
+            let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
+            guard !hasAttachedSheet else { return false }
+            return !TemplateManager.shared.isLocked
+        }
+        else if menuItem.action == #selector(selectTemplateItemTapped(_:))
+        {
+            let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
+            guard !hasAttachedSheet else { return false }
+            guard let template = menuItem.representedObject as? Template, template.isEnabled else { return false }
+            
+            let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
+            
+            if enabled {
+                menuItem.toolTip = """
+\(template.name) (\(template.version))
+by \(template.author ?? "Unknown")
+------
+\(template.userDescription ?? "")
+"""
+            }
+            else {
+                menuItem.toolTip = Template.Error
+                    .unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
+            }
+            
+            return enabled
+        }
+        else if menuItem.action == #selector(showTemplatesMenuItemTapped(_:))
+                    || menuItem.action == #selector(showLogsMenuItemTapped(_:))
+        {
+            return true
+        }
+        return false
     }
     
 }

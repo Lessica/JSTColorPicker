@@ -23,7 +23,7 @@
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="766"/>
                                             <subviews>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
+                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
                                                     <rect key="frame" x="0.0" y="736" width="242" height="30"/>
                                                     <subviews>
                                                         <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
@@ -408,7 +408,7 @@
                                     <constraint firstAttribute="height" constant="16" id="r71-jM-n55"/>
                                 </constraints>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="curlybraces.square" catalog="system" imagePosition="only" alignment="center" alternateImage="curlybraces.square.fill" imageScaling="proportionallyDown" inset="2" id="qKI-zq-fzv">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
@@ -506,7 +506,7 @@ CA
                         <outlet property="delegate" destination="ifY-36-Ao8" id="k0U-w0-Y9L"/>
                     </connections>
                 </menu>
-                <menu showsStateColumn="NO" id="ljM-25-iDK">
+                <menu id="ljM-25-iDK">
                     <connections>
                         <outlet property="delegate" destination="ifY-36-Ao8" id="sXN-7P-67R"/>
                     </connections>

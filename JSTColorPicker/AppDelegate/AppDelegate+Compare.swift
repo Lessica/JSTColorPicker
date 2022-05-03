@@ -63,5 +63,21 @@ extension AppDelegate {
         compareDocuments(sender)
     }
     
+    func validateFileMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(compareDocumentsMenuItemTapped(_:))
+        {
+            let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
+            guard !hasAttachedSheet else { return false }
+            if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
+                return true
+            } else if preparedPixelMatchInput != nil {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
 }
 

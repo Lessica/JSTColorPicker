@@ -758,9 +758,7 @@ final class ScreenshotPrintingView: NSView {
 
 extension Screenshot {
     
-    fileprivate var tagManager: TagListSource? {
-        (windowControllers.first as? WindowController)?.contentController.tagManager
-    }
+    var tagManager: TagListSource? { (windowControllers.first as? WindowController)?.tagManager }
     
     override var printInfo: NSPrintInfo {
         get {

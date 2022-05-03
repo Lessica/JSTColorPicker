@@ -644,6 +644,9 @@
 /* actionRequiresRestart(_:) */
 "Quit Now" = "Quit Now";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"Read-only Mode" = "Read-only Mode";
+
 /* restoreSubscription() */
 "Recover your JSTColorPicker license" = "Recover your JSTColorPicker license";
 
@@ -1015,3 +1018,9 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ Selection Arrow";
+
+/* PurchaseController.Error */
+"Unknown checkout state (%ld)." = "";
+
+/* PurchaseController.Error */
+"Unknown verification state (%ld)." = "";

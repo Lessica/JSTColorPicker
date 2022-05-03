@@ -12,7 +12,6 @@ class SplitController: NSSplitViewController {
     
     @IBOutlet weak var errorTextView             : MultipleErrorAlertView!
     public    weak var parentTracking            : SceneTracking?
-    private   weak var sceneToolSource           : SceneToolSource!
     
     
     // MARK: - Life Cycle
@@ -24,13 +23,12 @@ class SplitController: NSSplitViewController {
         
         super.viewDidLoad()
         
-        contentController.tagManager       = tagListController
-        sceneController.tagManager         = tagListController
-        sceneToolSource                    = sceneController
+        contentController.tagManager        = tagManager
+        sceneController.tagManager          = tagManager
+        tagListController.sceneToolSource   = sceneToolSource
+        tagListController.tagImportSource   = tagImportSource
+        tagListController.contentManager    = self
         previewController.previewResponder  = self
-        tagListController.sceneToolSource  = sceneController
-        tagListController.importSource     = contentController
-        tagListController.contentManager   = self
     }
     
     internal weak var screenshot                : Screenshot?
@@ -82,7 +80,9 @@ class SplitController: NSSplitViewController {
 extension SplitController: PaneContainer {
     
     var contentController        : ContentController!       { children.first(where: { $0 is ContentController }) as? ContentController }
+    var tagImportSource          : TagImportSource!         { contentController }
     var sceneController          : SceneController!         { children.first(where: { $0 is SceneController   }) as? SceneController   }
+    var sceneToolSource          : SceneToolSource!         { sceneController }
     var segmentController        : SegmentController!       { children.first(where: { $0 is SegmentController }) as? SegmentController }
     
     var childPaneContainers      : [PaneContainer]          { children.compactMap(  { $0 as? PaneContainer  }  ) }
@@ -107,6 +107,7 @@ extension SplitController: PaneContainer {
     var documentStackedController  : DocumentStackedController!  { descendantPaneContainers .compactMap({ $0 as? DocumentStackedController  }).first! }
     var previewController          : PreviewController!          { descendantPaneControllers.compactMap({ $0 as? PreviewController          }).first! }
     var tagListController          : TagListController!          { descendantPaneControllers.compactMap({ $0 as? TagListController          }).first! }
+    var tagManager                 : TagListSource!              { tagListController }
     
     func inspectorController(_ style: InspectorController.Style) -> InspectorController {
         return descendantPaneControllers

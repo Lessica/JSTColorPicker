@@ -184,14 +184,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileMenu                               : NSMenu!
     @IBOutlet weak var editMenu                               : NSMenu!
     @IBOutlet weak var viewMenu                               : NSMenu!
+    @IBOutlet weak var viewPaneMenu                           : NSMenu!
     @IBOutlet weak var viewPanelMenu                          : NSMenu!
     @IBOutlet weak var sceneMenu                              : NSMenu!
     @IBOutlet weak var sceneZoomMenu                          : NSMenu!
-    @IBOutlet weak var paneMenu                               : NSMenu!
     @IBOutlet weak var templateMenu                           : NSMenu!
     @IBOutlet weak var templateSubMenu                        : NSMenu!
-    @IBOutlet weak var devicesMenu                            : NSMenu!
-    @IBOutlet weak var devicesSubMenu                         : NSMenu!
+    @IBOutlet weak var deviceMenu                             : NSMenu!
+    @IBOutlet weak var deviceSubMenu                          : NSMenu!
+    @IBOutlet weak var tagMenu                                : NSMenu!
+    @IBOutlet weak var tagSubMenu                             : NSMenu!
+    @IBOutlet weak var tagDefinitionSubMenu                   : NSMenu!
     @IBOutlet weak var windowMenu                             : NSMenu!
     @IBOutlet weak var helpMenu                               : NSMenu!
     
@@ -200,6 +203,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var compareDocumentsMenuItem               : NSMenuItem!
     @IBOutlet weak var devicesEnableNetworkDiscoveryMenuItem  : NSMenuItem!
     @IBOutlet weak var devicesTakeScreenshotMenuItem          : NSMenuItem!
+    @IBOutlet weak var tagsReadOnlyMenuItem                   : NSMenuItem!
     
     internal var firstRespondingWindowController: WindowController? {
         tabService?.firstRespondingWindow?.windowController as? WindowController
@@ -439,56 +443,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
+        
         if menuItem.action == #selector(subscribeMenuItemTapped(_:)) {
             return true
         }
-        else if menuItem.action == #selector(compareDocumentsMenuItemTapped(_:))
-        {
-            guard !hasAttachedSheet else { return false }
-            if firstRespondingWindowController?.shouldEndPixelMatchComparison ?? false {
-                return true
-            } else if preparedPixelMatchInput != nil {
-                return true
-            } else {
-                return false
-            }
+        
+        if menuItem.menu == self.fileMenu {
+            return validateFileMenuItem(menuItem)
         }
-        else if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:)) ||
-                menuItem.action == #selector(notifyDiscoverDevices(_:))
-        {
-            guard !hasAttachedSheet else { return false }
-            return applicationCheckScreenshotHelper().exists
+        else if menuItem.menu == self.viewPaneMenu || menuItem.menu == self.viewPanelMenu {
+            return true
         }
-        else if menuItem.action == #selector(reloadTemplatesItemTapped(_:))
-        {
-            guard !hasAttachedSheet else { return false }
-            return !TemplateManager.shared.isLocked
+        else if menuItem.menu == self.deviceMenu || menuItem.menu == self.deviceSubMenu {
+            return validateDeviceMenuItem(menuItem)
         }
-        else if menuItem.action == #selector(selectTemplateItemTapped(_:))
-        {
-            guard !hasAttachedSheet else { return false }
-            guard let template = menuItem.representedObject as? Template, template.isEnabled else { return false }
-            
-            let enabled = Template.currentPlatformVersion.isVersion(greaterThanOrEqualTo: template.platformVersion)
-            
-            if enabled {
-                menuItem.toolTip = """
-\(template.name) (\(template.version))
-by \(template.author ?? "Unknown")
-------
-\(template.userDescription ?? "")
-"""
-            }
-            else {
-                menuItem.toolTip = Template.Error
-                    .unsatisfiedPlatformVersion(version: template.platformVersion).failureReason
-            }
-            
-            return enabled
+        else if menuItem.menu == self.templateMenu || menuItem.menu == self.templateSubMenu {
+            return validateTemplateMenuItem(menuItem)
+        }
+        else if menuItem.menu == self.tagMenu || menuItem.menu == self.tagSubMenu || menuItem.menu == self.tagDefinitionSubMenu {
+            return validateTagMenuItem(menuItem)
         }
         
-        return true
+        if let itemIdentifier = menuItem.identifier?.rawValue,
+            itemIdentifier.hasPrefix("_NS:")
+        {
+            return true
+        }
+        
+        return false
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -504,14 +486,23 @@ by \(template.author ?? "Unknown")
         else if menu == self.sceneMenu {
             updateSceneMenuItems(menu)
         }
-        else if menu == self.devicesMenu {
-            updateDevicesMenuItems(menu)
+        else if menu == self.deviceMenu {
+            updateDeviceMenuItems(menu)
         }
-        else if menu == self.devicesSubMenu {
-            updateDevicesSubMenuItems(menu)
+        else if menu == self.deviceSubMenu {
+            updateDeviceSubMenuItems(menu)
         }
         else if menu == self.templateSubMenu {
-            updateTemplatesSubMenuItems(menu)
+            updateTemplateSubMenuItems(menu)
+        }
+        else if menu == self.tagMenu {
+            updateTagMenuItems(menu)
+        }
+        else if menu == self.tagSubMenu {
+            updateTagSubMenuItems(menu)
+        }
+        else if menu == self.tagDefinitionSubMenu {
+            updateTagDefinitionSubMenuItems(menu)
         }
     }
     

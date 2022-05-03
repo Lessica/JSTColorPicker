@@ -1,5 +1,8 @@
 /* Class = "NSButtonCell"; title = "View templates…"; ObjectID = "6Wy-jv-Soc"; */
-"6Wy-jv-Soc.title" = "查看模版…";
+"6Wy-jv-Soc.title" = "显示模版…";
+
+/* Class = "NSButtonCell"; title = "View tag definitions…"; ObjectID = "BZf-c4-Oux"; */
+"BZf-c4-Oux.title" = "显示标签定义…";
 
 /* Class = "NSButtonCell"; title = "Locate screenshot helper…"; ObjectID = "d7Q-BM-0Sw"; */
 "d7Q-BM-0Sw.title" = "定位到截图助手…";
@@ -11,7 +14,7 @@
 "gkJ-cb-MjF.title" = "定位到设备支持缓存…";
 
 /* Class = "NSButtonCell"; title = "View tag database…"; ObjectID = "HDd-hx-7QQ"; */
-"HDd-hx-7QQ.title" = "查看标签数据库…";
+"HDd-hx-7QQ.title" = "显示标签数据库…";
 
 /* Class = "AMPathPopUpButton"; placeholder = "No Selection"; ObjectID = "xm4-2Y-TaL"; */
 "xm4-2Y-TaL.placeholder" = "无选择";

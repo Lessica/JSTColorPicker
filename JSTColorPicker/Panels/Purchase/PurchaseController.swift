@@ -444,10 +444,16 @@ final class PurchaseController: NSViewController {
                                 case .noActivation, .unableToVerify, .unverified:
                                     throw Error(verificationState: verificationState)!
                                 @unknown default:
-                                    fatalError()
+                                    // UNKNOWN
+                                    if let error = error {
+                                        throw error
+                                    }
+                                    throw Error.other(
+                                        description: String(format: NSLocalizedString("Unknown verification state (%ld).", comment: "PurchaseController.Error"), verificationState.rawValue)
+                                    )
                                 }
-                            } catch let error {
-                                let alert = NSAlert(error: error)
+                            } catch let thrownError {
+                                let alert = NSAlert(error: thrownError)
                                 alert.beginSheetModal(for: window) { _ in
                                     self.isMasked = false
                                 }
@@ -464,10 +470,13 @@ final class PurchaseController: NSViewController {
                     // CANCELLED
                     self.isMasked = false
                 @unknown default:
-                    fatalError()
+                    // UNKNOWN
+                    throw Error.other(
+                        description: String(format: NSLocalizedString("Unknown checkout state (%ld).", comment: "PurchaseController.Error"), checkoutState.rawValue)
+                    )
                 }
-            } catch {
-                let alert = NSAlert(error: error)
+            } catch let thrownError {
+                let alert = NSAlert(error: thrownError)
                 alert.beginSheetModal(for: window) { _ in
                     self.isMasked = false
                 }

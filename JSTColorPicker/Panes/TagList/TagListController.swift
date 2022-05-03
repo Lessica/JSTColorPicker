@@ -46,7 +46,7 @@ final class TagListController: StackedPaneController {
     private var previewContext                    : [String: Int]?
     
     weak var contentManager                       : ContentActionResponder?
-    weak var importSource                         : TagImportSource?
+    weak var tagImportSource                      : TagImportSource?
     weak var sceneToolSource                      : SceneToolSource!
     {
         get { tableViewOverlay.sceneToolSource            }
@@ -188,6 +188,14 @@ final class TagListController: StackedPaneController {
         guard let sharedContext = Self.sharedContext else { return }
         sharedContext.failsOnSave = disableTagEditing
         isEditable = (isContextLoaded ? (!isSelectMode && !disableTagEditing) : false)
+        
+        if isEditable {
+            buttonDefinition.image = NSImage(systemSymbolName: "curlybraces.square", accessibilityDescription: "curlybraces.square")
+            buttonDefinition.alternateImage = NSImage(systemSymbolName: "curlybraces.square.fill", accessibilityDescription: "curlybraces.square.fill")
+        } else {
+            buttonDefinition.image = NSImage(systemSymbolName: "lock.square", accessibilityDescription: "lock.square")
+            buttonDefinition.alternateImage = NSImage(systemSymbolName: "lock.square.fill", accessibilityDescription: "lock.square.fill")
+        }
         
         if tableView.numberOfRows > 0 {
             tableView.reloadData(
@@ -395,7 +403,7 @@ final class TagListController: StackedPaneController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        performReorderAndSave(isAsync: false)
+        performReorderAndSave()
         ensurePreviewedTagsForItems(lastStoredContentItems)
     }
     
@@ -418,16 +426,28 @@ final class TagListController: StackedPaneController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    static var persistentStoreURL: URL {
+    private static var persistentStoreURL: URL = {
         guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
             fatalError("unable to resolve library directory")
         }
         return docURL.appendingPathComponent("JSTColorPicker/TagList.sqlite")
-    }
+    }()
     
-    static var persistentStoreDirectoryURL: URL {
+    static var persistentStoreDirectoryURL: URL = {
         return persistentStoreURL.deletingLastPathComponent()
-    }
+    }()
+    
+    private static var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
+            fatalError("error loading model from bundle")
+        }
+        
+        guard let tagModel = NSManagedObjectModel(contentsOf: tagModelURL) else {
+            fatalError("error initializing model from \(tagModelURL)")
+        }
+        
+        return NSPersistentStoreCoordinator(managedObjectModel: tagModel)
+    }()
     
     class func destoryPersistentStore() throws
     {
@@ -444,59 +464,53 @@ final class TagListController: StackedPaneController {
         try itemsToRemove.forEach({ try FileManager.default.removeItem(at: $0) })
     }
     
-    class func setupPersistentStore(withTagInitializer tagInitializer: @escaping (_ context: NSManagedObjectContext) throws -> ([Tag]), completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ())
-    {
-        guard let tagModelURL = Bundle.main.url(forResource: "TagList", withExtension: "momd") else {
-            fatalError("error loading model from bundle")
-        }
+    private class func setupPersistentStore(
+        withTagInitializer tagInitializer: @escaping (_ context: NSManagedObjectContext) throws -> ([Tag]),
+        completionClosure: @escaping (NSManagedObjectContext?, Error?) -> ()
+    ) {
         
-        guard let tagModel = NSManagedObjectModel(contentsOf: tagModelURL) else {
-            fatalError("error initializing model from \(tagModelURL)")
-        }
-        
+        let coordinator = Self.persistentStoreCoordinator
         let context = MRManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: tagModel)
         context.persistentStoreCoordinator = coordinator
         
-        DispatchQueue.main.async {
-            do {
-                if FileManager.default.fileExists(atPath: persistentStoreURL.path) {
-                    try coordinator.addPersistentStore(
-                        ofType: NSSQLiteStoreType,
-                        configurationName: nil,
-                        at: persistentStoreURL,
-                        options: nil
-                    )
-                } else {
-                    try FileManager.default.createDirectory(
-                        at: persistentStoreDirectoryURL,
-                        withIntermediateDirectories: true,
-                        attributes: nil
-                    )
-                    try coordinator.addPersistentStore(
-                        ofType: NSSQLiteStoreType,
-                        configurationName: nil,
-                        at: persistentStoreURL,
-                        options: nil
-                    )
-                    
-                    try tagInitializer(context).forEach { (tag) in
-                        debugPrint(tag)
-                    }
-                    
-                    try context.save()
+        do {
+            if FileManager.default.fileExists(atPath: persistentStoreURL.path) {
+                try coordinator.addPersistentStore(
+                    ofType: NSSQLiteStoreType,
+                    configurationName: nil,
+                    at: persistentStoreURL,
+                    options: nil
+                )
+            } else {
+                try FileManager.default.createDirectory(
+                    at: persistentStoreDirectoryURL,
+                    withIntermediateDirectories: true,
+                    attributes: nil
+                )
+                
+                try coordinator.addPersistentStore(
+                    ofType: NSSQLiteStoreType,
+                    configurationName: nil,
+                    at: persistentStoreURL,
+                    options: nil
+                )
+                
+                try tagInitializer(context).forEach { (tag) in
+                    debugPrint(tag)
                 }
                 
-                Self.sharedContext = context
-                completionClosure(context, nil)
-                
-                NotificationCenter.default.post(
-                    name: NSNotification.Name.NSManagedObjectContextDidLoad,
-                    object: context
-                )
-            } catch {
-                completionClosure(nil, error)
+                try context.save()
             }
+            
+            Self.sharedContext = context
+            completionClosure(context, nil)
+            
+            NotificationCenter.default.post(
+                name: NSNotification.Name.NSManagedObjectContextDidLoad,
+                object: context
+            )
+        } catch {
+            completionClosure(nil, error)
         }
     }
     
@@ -548,7 +562,7 @@ final class TagListController: StackedPaneController {
     @IBAction private func importTagBtnTapped(_ sender: Any) {
         
         guard let context = Self.sharedContext,
-            let tagNames = importSource?.importableTagNames else
+            let tagNames = tagImportSource?.importableTagNames else
         {
             presentError(Content.Error.notLoaded)
             return
@@ -604,30 +618,20 @@ final class TagListController: StackedPaneController {
         setNeedsSaveManagedTags()
     }
     
-    private func performReorderAndSave(isAsync async: Bool) {
+    private func performReorderAndSave() {
         guard !isPaneHidden else {
             setNeedsReorderManagedTags()
             setNeedsSaveManagedTags()
             return
         }
-        if async {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.reorderManagedTagsIfNeeded()
-                self.saveManagedTagsIfNeeded()
-                self.ensurePreviewedTagsForItems(self.lastStoredContentItems)
-            }
-        } else {
-            reorderManagedTagsIfNeeded()
-            saveManagedTagsIfNeeded()
-            ensurePreviewedTagsForItems(lastStoredContentItems)
-        }
+        
+        reorderManagedTagsIfNeeded()
+        saveManagedTagsIfNeeded()
+        ensurePreviewedTagsForItems(lastStoredContentItems)
     }
     
     @objc private func managedTagsDidChangeNotification(_ noti: NSNotification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.performReorderAndSave(isAsync: true)
-        }
+        performReorderAndSave()
     }
     
     private var shouldRearrangeManagedTags: Bool = false
@@ -853,6 +857,34 @@ extension TagListController: TagListSource {
     
     var selectedTagNames: [String] {
         return selectedTags.map({ $0.name })
+    }
+    
+    func setSelectedTags(_ tags: [Tag]) -> Bool {
+        return arrangedTagController.setSelectedObjects(tags)
+    }
+    
+    func setSelectedTagNames(_ tagNames: [String]) -> Bool {
+        return arrangedTagController.setSelectedObjects(managedTags(of: tagNames))
+    }
+
+    func addSelectedTags(_ tags: [Tag]) -> Bool {
+        return arrangedTagController.addSelectedObjects(tags)
+    }
+    
+    func addSelectedTagNames(_ tagNames: [String]) -> Bool {
+        return arrangedTagController.addSelectedObjects(managedTags(of: tagNames))
+    }
+
+    func removeSelectedTags(_ tags: [Tag]) -> Bool {
+        return arrangedTagController.removeSelectedObjects(tags)
+    }
+    
+    func removeSelectedTagNames(_ tagNames: [String]) -> Bool {
+        return arrangedTagController.removeSelectedObjects(managedTags(of: tagNames))
+    }
+    
+    func removeAllSelectedTags() -> Bool {
+        return arrangedTagController.removeSelectionIndexes(arrangedTagController.selectionIndexes)
     }
     
 }
@@ -1087,6 +1119,8 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard !hasAttachedSheet else { return false }
+        guard !isSelectMode else { return false }
+        
         if menuItem.action == #selector(changeColorItemTapped(_:))
             || menuItem.action == #selector(renameItemTapped(_:))
             || menuItem.action == #selector(copyNameItemTapped(_:))
@@ -1095,7 +1129,7 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
             if menuItem.action == #selector(renameItemTapped(_:))
                 || menuItem.action == #selector(changeColorItemTapped(_:))
             {
-                guard !isSelectMode && isEditable else { return false }
+                guard isEditable else { return false }
             }
             guard tableView.clickedRow >= 0 else { return false }
             if tableView.selectedRowIndexes.count > 1 && tableView.selectedRowIndexes.contains(tableView.clickedRow) { return false }
@@ -1107,9 +1141,11 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
         }
         else if menuItem.action == #selector(definitionMenuItemTapped(_:))
                     || menuItem.action == #selector(showDefinitionsMenuItemTapped(_:))
+                    || menuItem.action == #selector(toggleReadOnlyMode(_:))
         {
             return true
         }
+        
         return false
     }
     
@@ -1134,7 +1170,7 @@ extension TagListController {
     
     private static let defaultDefinitionURL = Bundle.main.url(forResource: "TagList-UI", withExtension: "plist")
     
-    private static var definitionRootURL: URL = {
+    internal static var definitionRootURL: URL = {
         let url = AppDelegate.supportDirectoryURL.appendingPathComponent("Definitions")
         
         let manager = FileManager.default
@@ -1154,31 +1190,64 @@ extension TagListController {
         return url
     }()
     
+    internal static var definitionItemURLs: [URL] {
+        return (try? FileManager.default.contentsOfDirectory(
+            at: Self.definitionRootURL,
+            includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey],
+            options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants]
+        )) ?? []
+    }
+    
+    internal static var definitionMenuItems: [NSMenuItem] {
+        definitionMenuItems(withSelector: #selector(definitionMenuItemTapped(_:)))
+    }
+    
+    internal static var emptyDefinitionMenuItem: NSMenuItem {
+        let emptyItem = NSMenuItem(
+            title: NSLocalizedString("No tag definition available.", comment: "definitionMenuItems(withSelector:)"),
+            action: nil,
+            keyEquivalent: ""
+        )
+        emptyItem.isEnabled = false
+        return emptyItem
+    }
+    
+    internal static func definitionMenuItems(withSelector selector: Selector) -> [NSMenuItem] {
+        var menuItems = definitionItemURLs
+            .filter({ $0.pathExtension.lowercased() == "plist" && $0.isRegularFile })
+            .sorted(by: { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending })
+            .map { definitionURL -> NSMenuItem in
+                let childItem = NSMenuItem(
+                    title: definitionURL.deletingPathExtension().lastPathComponent,
+                    action: selector,
+                    keyEquivalent: ""
+                )
+                childItem.representedObject = definitionURL
+                childItem.toolTip = "\(definitionURL.path) (\(definitionURL.readableSize))"
+                childItem.isEnabled = true
+                return childItem
+            }
+        if menuItems.isEmpty {
+            menuItems.append(emptyDefinitionMenuItem)
+        }
+        return menuItems
+    }
+    
     private func searchForDefinitionsAndUpdateContextMenu(_ menu: NSMenu) {
         if menu == definitionMenu {
-            var childItems = [NSMenuItem]()
-            if let definitionURLs = try? FileManager.default.contentsOfDirectory(
-                at: Self.definitionRootURL,
-                includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey],
-                options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants]
-            ) {
-                childItems.append(contentsOf: definitionURLs
-                    .filter({ $0.pathExtension.lowercased() == "plist" && $0.isRegularFile })
-                    .sorted(by: { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending })
-                    .map { definitionURL -> NSMenuItem in
-                        let childItem = NSMenuItem(
-                            title: definitionURL.deletingPathExtension().lastPathComponent,
-                            action: #selector(definitionMenuItemTapped(_:)),
-                            keyEquivalent: ""
-                        )
-                        childItem.representedObject = definitionURL
-                        childItem.toolTip = "\(definitionURL.path) (\(definitionURL.readableSize))"
-                        childItem.isEnabled = true
-                        return childItem
-                    })
-            }
             
-            let fixedItem = NSMenuItem(
+            let childItems = Self.definitionMenuItems
+            
+            let isReadOnly: Bool = UserDefaults.standard[.disableTagEditing]
+            let readOnlyItem = NSMenuItem(
+                title: NSLocalizedString("Read-only Mode", comment: "searchForDefinitionsAndUpdateContextMenu(_:)"),
+                action: #selector(toggleReadOnlyMode(_:)),
+                keyEquivalent: ""
+            )
+            
+            readOnlyItem.state = isReadOnly ? .on : .off
+            
+            let showDefinitionItem = NSMenuItem(
                 title: NSLocalizedString("Show Tag Definitions…", comment: "searchForDefinitionsAndUpdateContextMenu(_:)"),
                 action: #selector(showDefinitionsMenuItemTapped(_:)),
                 keyEquivalent: ""
@@ -1187,25 +1256,22 @@ extension TagListController {
             if childItems.count > 0 {
                 menu.items = childItems + [
                     NSMenuItem.separator(),
-                    fixedItem
+                    readOnlyItem,
+                    showDefinitionItem,
                 ]
             } else {
-                let emptyItem = NSMenuItem(
-                    title: NSLocalizedString("No tag definition available.", comment: "searchForDefinitionsAndUpdateContextMenu(_:)"),
-                    action: nil,
-                    keyEquivalent: ""
-                )
-                
                 menu.items = [
-                    emptyItem,
+                    Self.emptyDefinitionMenuItem,
                     NSMenuItem.separator(),
-                    fixedItem,
+                    readOnlyItem,
+                    showDefinitionItem,
                 ]
             }
         }
     }
     
-    @objc private func definitionMenuItemTapped(_ sender: NSMenuItem) {
+    @objc
+    @IBAction func definitionMenuItemTapped(_ sender: NSMenuItem) {
         if let definitionURL = sender.representedObject as? URL {
             do {
                 try Self.destoryPersistentStore()
@@ -1220,13 +1286,14 @@ extension TagListController {
         }
     }
     
-    @objc private func showDefinitionsMenuItemTapped(_ sender: NSMenuItem) {
-        let url = Self.definitionRootURL
-        guard url.isDirectory else {
-            presentError(GenericError.notDirectory(url: url))
-            return
-        }
-        NSWorkspace.shared.open(url)
+    @objc
+    @IBAction func toggleReadOnlyMode(_ sender: NSMenuItem) {
+        AppDelegate.shared.toggleReadOnlyMode(sender)
+    }
+    
+    @objc
+    @IBAction func showDefinitionsMenuItemTapped(_ sender: NSMenuItem) {
+        AppDelegate.shared.showDefinitionsMenuItemTapped(sender)
     }
 }
 

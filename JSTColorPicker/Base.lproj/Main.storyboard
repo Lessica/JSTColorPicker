@@ -516,38 +516,38 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" showsStateColumn="NO" id="W5Q-zL-aIc">
                                                 <items>
-                                                    <menuItem title="Information" keyEquivalent="1" identifier="show-information" id="Co5-Y3-Rnn">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Information" keyEquivalent="i" identifier="show-information" id="Co5-Y3-Rnn">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="tEF-CF-Nn3"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Inspector" keyEquivalent="2" identifier="show-color-inspector" id="dYY-Yn-vNs">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Inspector" keyEquivalent="j" identifier="show-color-inspector" id="dYY-Yn-vNs">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="7Sy-Tm-4rb"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Image Preview" keyEquivalent="3" identifier="show-image-preview" id="6U2-X2-jP4">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Image Preview" identifier="show-image-preview" id="6U2-X2-jP4">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="xsZ-jk-X5z"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Tag Manager" keyEquivalent="4" identifier="show-tag-manager" id="vp7-Rk-jMg">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Tag Manager" keyEquivalent="k" identifier="show-tag-manager" id="vp7-Rk-jMg">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="yNh-S1-B1h"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Template Information" keyEquivalent="5" identifier="show-template-information" id="Vjs-4U-6rL">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Template Information" keyEquivalent="l" identifier="show-template-information" id="Vjs-4U-6rL">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="kj9-VG-L83"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Template Preview" keyEquivalent="6" identifier="show-template-preview" id="cC4-8w-iNy">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    <menuItem title="Template Preview" identifier="show-template-preview" id="cC4-8w-iNy">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="focusPane:" target="Ady-hI-5gd" id="5A7-Is-cIl"/>
                                                         </connections>
@@ -562,19 +562,19 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Panels" id="Q4C-MZ-Ews">
                                                 <items>
-                                                    <menuItem title="Browser" keyEquivalent="b" identifier="com.jst.JSTColorPicker.Panel.Browser" id="2wf-y9-YT4">
+                                                    <menuItem title="Browser" keyEquivalent="m" identifier="com.jst.JSTColorPicker.Panel.Browser" id="2wf-y9-YT4">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="798-GK-KAF"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Color Panel" keyEquivalent="c" identifier="com.jst.JSTColorPicker.Panel.ColorPanel" id="8Lc-x4-Wqe">
-                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    <menuItem title="Color Panel" identifier="com.jst.JSTColorPicker.Panel.ColorPanel" id="8Lc-x4-Wqe">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="7QQ-mq-vwT"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Color Grid" keyEquivalent="g" identifier="com.jst.JSTColorPicker.Panel.ColorGrid" id="f1Y-VB-nPG">
+                                                    <menuItem title="Color Grid" keyEquivalent="n" identifier="com.jst.JSTColorPicker.Panel.ColorGrid" id="f1Y-VB-nPG">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="panelSwitchMenuItemTapped:" target="Voe-Tx-rLC" id="ikW-4G-X4Z"/>
@@ -973,6 +973,53 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Tags" id="T1a-TI-ScK">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Tags" id="QsP-Vm-Sxt">
+                                    <items>
+                                        <menuItem title="Select Tags" id="9Bo-Fx-u4Y">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Select Tags" id="TNI-3y-TuV">
+                                                <items>
+                                                    <menuItem title="Deselect All Tags" keyEquivalent="0" identifier="deselect-all-tags" id="QIv-XW-2j6">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="deselectAllTagsItemTapped:" target="Voe-Tx-rLC" id="BXp-1b-gXN"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="3Qe-bd-gMT"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Reset Tag Definition" id="tUl-Wn-Eep">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Reset Tag Definition" id="Ozn-4D-pkj">
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="mct-Br-MDM"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="UEn-sH-5rM"/>
+                                        <menuItem title="Read-only Mode" id="cxw-7K-Ohd">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleReadOnlyMode:" target="Ady-hI-5gd" id="4Ba-6b-QmC"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Tag Definitions…" id="g8M-dw-hn2">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showDefinitionsMenuItemTapped:" target="Ady-hI-5gd" id="Lu8-be-Fdj"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Sxm-Cg-X2b"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Templates" id="fQl-Hs-576">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Templates" id="0GS-5F-2Eu">
@@ -994,14 +1041,14 @@ CA
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="CmS-6m-S5k"/>
-                                        <menuItem title="Show Templates…" keyEquivalent="t" toolTip="Show template scripts in Finder." id="mod-X3-fdk">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        <menuItem title="Show Templates…" toolTip="Show template scripts in Finder." id="mod-X3-fdk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showTemplatesMenuItemTapped:" target="Voe-Tx-rLC" id="50w-lJ-GZ6"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Logs…" keyEquivalent="l" toolTip="Show template runtime logs in Console.app" id="hye-bj-eGL">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        <menuItem title="Show Logs…" toolTip="Show template runtime logs in Console.app" id="hye-bj-eGL">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showLogsMenuItemTapped:" target="Voe-Tx-rLC" id="vu0-Xw-Xra"/>
                                             </connections>
@@ -1084,22 +1131,26 @@ CA
                     <connections>
                         <outlet property="checkForUpdatesMenuItem" destination="ntJ-ob-XWI" id="Yk4-s1-jjH"/>
                         <outlet property="compareDocumentsMenuItem" destination="d6I-ng-9rQ" id="VxC-lz-yl8"/>
+                        <outlet property="deviceMenu" destination="1Il-r8-iYp" id="6DE-0J-47r"/>
+                        <outlet property="deviceSubMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
                         <outlet property="devicesEnableNetworkDiscoveryMenuItem" destination="wfH-DD-URU" id="ojS-tq-7tk"/>
-                        <outlet property="devicesMenu" destination="1Il-r8-iYp" id="6DE-0J-47r"/>
-                        <outlet property="devicesSubMenu" destination="5FZ-FF-ebV" id="YSy-jj-fs9"/>
                         <outlet property="devicesTakeScreenshotMenuItem" destination="k2M-xo-Glg" id="uFh-af-Dcp"/>
                         <outlet property="editMenu" destination="W48-6f-4Dl" id="fqi-HN-p3H"/>
                         <outlet property="fileMenu" destination="bib-Uj-vzu" id="huq-wG-vw3"/>
                         <outlet property="helpMenu" destination="F2S-fz-NVQ" id="E5E-bh-2qp"/>
                         <outlet property="mainMenu" destination="uQy-DD-JDr" id="kck-rQ-UI6"/>
                         <outlet property="menu" destination="AYu-sK-qS6" id="b7h-2Z-q5Q"/>
-                        <outlet property="paneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
                         <outlet property="sceneMenu" destination="UrH-cz-CWF" id="odl-QP-g0h"/>
                         <outlet property="sceneZoomMenu" destination="Cpw-pf-A1c" id="GDd-T4-sxH"/>
                         <outlet property="sparkUpdater" destination="7t2-Hn-xkm" id="ZaZ-oo-BIU"/>
+                        <outlet property="tagDefinitionSubMenu" destination="Ozn-4D-pkj" id="259-WD-fZS"/>
+                        <outlet property="tagMenu" destination="QsP-Vm-Sxt" id="l1g-mo-M2s"/>
+                        <outlet property="tagSubMenu" destination="TNI-3y-TuV" id="kOt-fN-Yyy"/>
+                        <outlet property="tagsReadOnlyMenuItem" destination="cxw-7K-Ohd" id="cn2-gS-bpF"/>
                         <outlet property="templateMenu" destination="0GS-5F-2Eu" id="KgQ-uV-vT1"/>
                         <outlet property="templateSubMenu" destination="af9-zN-lJB" id="bF6-pZ-izo"/>
                         <outlet property="viewMenu" destination="HyV-fh-RgO" id="cfn-gl-0mH"/>
+                        <outlet property="viewPaneMenu" destination="W5Q-zL-aIc" id="EJy-g2-h8v"/>
                         <outlet property="viewPanelMenu" destination="Q4C-MZ-Ews" id="Gru-4D-XoG"/>
                         <outlet property="viewSubscriptionMenuItem" destination="SGf-6i-QGZ" id="4Sj-YY-Kzk"/>
                         <outlet property="windowMenu" destination="Td7-aD-5lo" id="bKh-Qh-jTf"/>

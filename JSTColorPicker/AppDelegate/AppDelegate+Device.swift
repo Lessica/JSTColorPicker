@@ -240,7 +240,7 @@ extension AppDelegate {
             downloadItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
             downloadItem.isEnabled = true
             downloadItem.state = .off
-            devicesSubMenu.items = [ downloadItem ]
+            deviceSubMenu.items = [ downloadItem ]
             return
         }
         #endif
@@ -249,7 +249,7 @@ extension AppDelegate {
         emptyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "")
         emptyItem.isEnabled = false
         emptyItem.state = .off
-        devicesSubMenu.items = [ emptyItem ] + additionalItems
+        deviceSubMenu.items = [ emptyItem ] + additionalItems
     }
     
     @IBAction internal func notifyDiscoverDevices(_ sender: Any?) {
@@ -583,13 +583,13 @@ extension AppDelegate {
     
     // MARK: - Device Menu Items
     
-    internal func updateDevicesMenuItems(_ menu: NSMenu) {
+    internal func updateDeviceMenuItems(_ menu: NSMenu) {
         devicesEnableNetworkDiscoveryMenuItem.state = isNetworkDiscoveryEnabled ? .on : .off
         devicesTakeScreenshotMenuItem.isEnabled = applicationCheckScreenshotHelper().exists
     }
     
-    internal func updateDevicesSubMenuItems(_ menu: NSMenu) {
-        for item in devicesSubMenu.items {
+    internal func updateDeviceSubMenuItems(_ menu: NSMenu) {
+        for item in deviceSubMenu.items {
             guard let deviceModel = item.representedObject as? Device else { continue }
             item.isEnabled = true
             item.state = deviceModel.uniqueIdentifier == self.selectedDeviceUniqueIdentifier ? .on : .off
@@ -641,14 +641,14 @@ extension AppDelegate {
                     
                     if items.count > 0 {
                         items += self.additionalItemGroup
-                        self.devicesSubMenu.items = items
+                        self.deviceSubMenu.items = items
                     }
                     else {
                         items += self.additionalItemGroup
                         self.internalApplicationResetDeviceUI(withAdditionalItems: items)
                     }
                     
-                    self.devicesSubMenu.update()
+                    self.deviceSubMenu.update()
                 }
                 
                 return self.promiseVoid
@@ -751,6 +751,21 @@ extension AppDelegate {
         }
         
         return items
+    }
+    
+    func validateDeviceMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(devicesTakeScreenshotMenuItemTapped(_:))
+            || menuItem.action == #selector(notifyDiscoverDevices(_:))
+            || menuItem.action == #selector(enableNetworkDiscoveryMenuItemTapped(_:))
+        {
+            let hasAttachedSheet = firstRespondingWindowController?.hasAttachedSheet ?? false
+            guard !hasAttachedSheet else { return false }
+            return applicationCheckScreenshotHelper().exists
+        }
+        else if menuItem.action == #selector(actionDeviceItemTapped(_:)) {
+            return true
+        }
+        return false
     }
     
 }

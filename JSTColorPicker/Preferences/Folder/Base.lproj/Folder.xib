@@ -14,6 +14,7 @@
                 <outlet property="screenshotSavedAtLocationButton" destination="qcr-FR-ZyV" id="7zk-xn-Gs5"/>
                 <outlet property="screenshotSavedAtLocationPopUpButton" destination="xm4-2Y-TaL" id="s4F-wk-RCF"/>
                 <outlet property="tagDatabaseLocationButton" destination="VaE-fE-zCA" id="qVo-PX-x8T"/>
+                <outlet property="tagDefinitionLocationButton" destination="Yrr-F3-MQe" id="sxj-YH-c7W"/>
                 <outlet property="templatesRootLocationButton" destination="0N4-NL-YI6" id="ike-zg-dxd"/>
                 <outlet property="view" destination="c22-O7-iKe" id="b7J-AX-KTK"/>
             </connections>
@@ -86,10 +87,20 @@
                             </constraints>
                         </box>
                         <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LzJ-Ko-H5h">
-                            <rect key="frame" x="0.0" y="28" width="275" height="20"/>
+                            <rect key="frame" x="0.0" y="28" width="433" height="20"/>
                             <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yrr-F3-MQe">
+                                    <rect key="frame" x="-7" y="-7" width="164" height="32"/>
+                                    <buttonCell key="cell" type="push" title="View tag definitions…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BZf-c4-Oux">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="locationButtonTapped:" target="-2" id="vU3-2o-XB9"/>
+                                    </connections>
+                                </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VaE-fE-zCA">
-                                    <rect key="frame" x="-7" y="-7" width="157" height="32"/>
+                                    <rect key="frame" x="151" y="-7" width="157" height="32"/>
                                     <buttonCell key="cell" type="push" title="View tag database…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HDd-hx-7QQ">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -99,7 +110,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0N4-NL-YI6">
-                                    <rect key="frame" x="144" y="-7" width="138" height="32"/>
+                                    <rect key="frame" x="302" y="-7" width="138" height="32"/>
                                     <buttonCell key="cell" type="push" title="View templates…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Wy-jv-Soc">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -115,8 +126,10 @@
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
+                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>

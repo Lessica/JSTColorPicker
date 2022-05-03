@@ -644,6 +644,9 @@
 /* actionRequiresRestart(_:) */
 "Quit Now" = "立即退出";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:) */
+"Read-only Mode" = "只读模式";
+
 /* restoreSubscription() */
 "Recover your JSTColorPicker license" = "恢复你的 JSTColorPicker 许可证";
 
@@ -1015,3 +1018,9 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ 选择箭头";
+
+/* PurchaseController.Error */
+"Unknown checkout state (%ld)." = "";
+
+/* PurchaseController.Error */
+"Unknown verification state (%ld)." = "";

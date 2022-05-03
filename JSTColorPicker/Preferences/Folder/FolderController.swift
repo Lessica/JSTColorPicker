@@ -14,6 +14,7 @@ final class FolderController: NSViewController {
     static let Identifier = "FolderPreferences"
     @IBOutlet weak var screenshotSavedAtLocationButton       : NSButton!
     @IBOutlet weak var tagDatabaseLocationButton             : NSButton!
+    @IBOutlet weak var tagDefinitionLocationButton           : NSButton!
     @IBOutlet weak var templatesRootLocationButton           : NSButton!
     @IBOutlet weak var screenshotHelperLocationButton        : NSButton!
     @IBOutlet weak var deviceSupportLocalRootLocationButton  : NSButton!
@@ -80,6 +81,14 @@ final class FolderController: NSViewController {
         }
         else if sender == tagDatabaseLocationButton {
             locationURL = TagListController.persistentStoreDirectoryURL
+            guard locationURL!.isDirectory else {
+                presentError(GenericError.notDirectory(url: locationURL!))
+                return
+            }
+            isDirectory = true
+        }
+        else if sender == tagDefinitionLocationButton {
+            locationURL = TagListController.definitionRootURL
             guard locationURL!.isDirectory else {
                 presentError(GenericError.notDirectory(url: locationURL!))
                 return

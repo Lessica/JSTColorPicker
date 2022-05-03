@@ -176,13 +176,18 @@ by \(template.author ?? "Unknown")
     }
     
     private func generateTemplatesSubMenuItems(for menu: NSMenu) -> [NSMenuItem] {
+        var itemIdx: Int = 0
         return TemplateManager.shared.templates
             .compactMap({ template -> NSMenuItem in
+                itemIdx += 1
+                
+                var keyEqu: String?
+                if itemIdx < 10 { keyEqu = String(format: "%d", itemIdx % 10) }
                 
                 let item = NSMenuItem(
                     title: "\(template.name) (\(template.version))",
                     action: nil,
-                    keyEquivalent: ""
+                    keyEquivalent: keyEqu ?? ""
                 )
                 
                 item.representedObject = template

@@ -354,6 +354,8 @@
 		CC5480AA275E4BF500B7652C /* BrowserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5480AC275E4BF500B7652C /* BrowserHeaderView.xib */; };
 		CC608BE6261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
 		CC608BE7261787E800F5B861 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC608BE5261787E800F5B861 /* InfoView.swift */; };
+		CC6882C828214B9400A512E9 /* AppDelegate+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6882C728214B9400A512E9 /* AppDelegate+Tag.swift */; };
+		CC6882C928214B9400A512E9 /* AppDelegate+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6882C728214B9400A512E9 /* AppDelegate+Tag.swift */; };
 		CC6A6A3A25A32B3700EF0806 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CC6A6A3B25A32B3700EF0806 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CC6A6A3D25A32B3700EF0806 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
@@ -1644,6 +1646,7 @@
 		CC5480AE275E4BF600B7652C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BrowserHeaderView.strings; sourceTree = "<group>"; };
 		CC5480B0275E4BF800B7652C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BrowserHeaderView.strings"; sourceTree = "<group>"; };
 		CC608BE5261787E800F5B861 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		CC6882C728214B9400A512E9 /* AppDelegate+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Tag.swift"; sourceTree = "<group>"; };
 		CC6A6A4525A3440200EF0806 /* SceneBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBorderView.swift; sourceTree = "<group>"; };
 		CC6E84C29CCBDA2072470135 /* Pods-JSTColorPickerSparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSTColorPickerSparkle.debug.xcconfig"; path = "Target Support Files/Pods-JSTColorPickerSparkle/Pods-JSTColorPickerSparkle.debug.xcconfig"; sourceTree = "<group>"; };
 		CC74CE25262BF97D00387282 /* ExampleTemplates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ExampleTemplates.bundle; sourceTree = "<group>"; };
@@ -2708,6 +2711,7 @@
 				CC347720266F4F6300391E73 /* AppDelegate+Panel.swift */,
 				CC34771A266F4ED500391E73 /* AppDelegate+Preferences.swift */,
 				CC347726266F50A700391E73 /* AppDelegate+Subscribe.swift */,
+				CC6882C728214B9400A512E9 /* AppDelegate+Tag.swift */,
 				CC347714266F4D8000391E73 /* AppDelegate+Template.swift */,
 				CC347717266F4E8400391E73 /* AppDelegate+Help.swift */,
 			);
@@ -5099,6 +5103,7 @@
 				CC3F5BB1281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
+				CC6882C828214B9400A512E9 /* AppDelegate+Tag.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
 				CCB635D0280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift in Sources */,
 				D61047B024224A170002E990 /* PixelArea.swift in Sources */,
@@ -5301,6 +5306,7 @@
 				CC8F8CC62621F64C00F60F78 /* TemplatePopUpButton.swift in Sources */,
 				0F5BBA2E276F415900AF0DC8 /* Screenshot+Error.swift in Sources */,
 				CC96F94426727E6F00CB55E9 /* Device.swift in Sources */,
+				CC6882C928214B9400A512E9 /* AppDelegate+Tag.swift in Sources */,
 				D635BEAF23CDA03700FD62B8 /* SceneClipView.swift in Sources */,
 				CC0B60B1281CDF7A00BB96E0 /* CGColor+HSV.swift in Sources */,
 				D67A8F13247E6D6000153DE5 /* DragLineOverlay.swift in Sources */,
