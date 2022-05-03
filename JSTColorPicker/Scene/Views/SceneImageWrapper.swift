@@ -99,24 +99,45 @@ final class SceneImageWrapper: NSView {
         rulerViewClient?.rulerView(ruler as? RulerView, didRemove: marker as! RulerMarker)
     }
     
+    private var _magnificationBeforeSmartMagnification: CGFloat? = nil
+    
     override func rectForSmartMagnification(at location: NSPoint, in visibleRect: NSRect) -> NSRect {
         guard let scrollView = enclosingScrollView as? SceneScrollView else {
             return .zero
         }
         
+        let epsilon = 0.05
         let upperRect = scrollView.bounds
-        let calculatedMagnification = round(
-            min(
-                upperRect.width / visibleRect.width,
-                upperRect.height / visibleRect.height
-            ) * 100
-        ) / 100
+        let currentMagnification = scrollView.wrapperRestrictedMagnification
         
         var targetMagnification: CGFloat
         let maxMagnification: CGFloat = UserDefaults.standard[.sceneMaximumSmartMagnification]
-        if calculatedMagnification < 1.0 || calculatedMagnification > (1.0 + maxMagnification) / 2 {
+        if abs(currentMagnification - maxMagnification) < epsilon {
+            if let magnificationBeforeSmartMagnification = _magnificationBeforeSmartMagnification {
+                
+                // smart recover
+                _magnificationBeforeSmartMagnification = nil
+                targetMagnification = magnificationBeforeSmartMagnification
+            } else {
+                targetMagnification = 1.0
+            }
+        }
+        else if currentMagnification > maxMagnification {
+            
+            // zoom out
+            _magnificationBeforeSmartMagnification = nil
+            targetMagnification = maxMagnification
+        }
+        else if currentMagnification < 1.0 && abs(currentMagnification - 1.0) > epsilon {
+            
+            // zoom in
+            _magnificationBeforeSmartMagnification = nil
             targetMagnification = 1.0
-        } else {
+        }
+        else {
+            
+            // smart zoom in
+            _magnificationBeforeSmartMagnification = currentMagnification
             targetMagnification = maxMagnification
         }
         

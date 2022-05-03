@@ -28,7 +28,9 @@ final class ScreenshotPrintingView: NSView {
     
     enum TagSize: Int {
         case regular = 0
-        case small
+        case smaller
+        case larger
+        case largest
     }
     
     private enum TagCorner: Int {
@@ -117,7 +119,18 @@ final class ScreenshotPrintingView: NSView {
     private let lightTextColor = NSColor.white
     private let darkTextColor = NSColor.black
     
-    private var tagFontSize: CGFloat { tagSize == .regular ? NSFont.systemFontSize : NSFont.smallSystemFontSize }
+    private var tagFontSize: CGFloat {
+        switch tagSize {
+        case .regular:
+            return NSFont.systemFontSize
+        case .smaller:
+            return NSFont.smallSystemFontSize
+        case .larger:
+            <#code#>
+        case .largest:
+            <#code#>
+        }
+    }
     private var tagHorizontalMargin: CGFloat { tagPosition == .outer ? outerTagHorizontalMargin : innerTagHorizontalMargin }
     private var tagVericalMargin: CGFloat { tagPosition == .outer ? outerTagVericalMargin : innerTagVericalMargin }
     

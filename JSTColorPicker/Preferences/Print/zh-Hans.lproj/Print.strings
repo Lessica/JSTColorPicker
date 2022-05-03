@@ -4,11 +4,17 @@
 /* Class = "NSTextFieldCell"; title = "Tag Position: "; ObjectID = "7nW-KW-iEy"; */
 "7nW-KW-iEy.title" = "标签位置：";
 
+/* Class = "NSMenuItem"; title = "Larger"; ObjectID = "b1a-fC-OdF"; */
+"b1a-fC-OdF.title" = "较大";
+
 /* Class = "NSMenuItem"; title = "Regular"; ObjectID = "h75-nT-DNw"; */
 "h75-nT-DNw.title" = "常规";
 
-/* Class = "NSMenuItem"; title = "Small"; ObjectID = "h9l-Ry-snS"; */
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "h9l-Ry-snS"; */
 "h9l-Ry-snS.title" = "较小";
+
+/* Class = "NSMenuItem"; title = "Largest"; ObjectID = "QIS-C8-O8v"; */
+"QIS-C8-O8v.title" = "最大";
 
 /* Class = "NSTextFieldCell"; title = "Tag Size: "; ObjectID = "UNf-gv-hVN"; */
 "UNf-gv-hVN.title" = "标签尺寸：";
