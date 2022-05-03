@@ -122,13 +122,13 @@ final class ScreenshotPrintingView: NSView {
     private var tagFontSize: CGFloat {
         switch tagSize {
         case .regular:
-            return NSFont.systemFontSize
+            return NSFont.preferredFont(forTextStyle: .body).pointSize
         case .smaller:
-            return NSFont.smallSystemFontSize
+            return NSFont.preferredFont(forTextStyle: .footnote).pointSize
         case .larger:
-            <#code#>
+            return NSFont.preferredFont(forTextStyle: .title2).pointSize
         case .largest:
-            <#code#>
+            return NSFont.preferredFont(forTextStyle: .title1).pointSize
         }
     }
     private var tagHorizontalMargin: CGFloat { tagPosition == .outer ? outerTagHorizontalMargin : innerTagHorizontalMargin }
