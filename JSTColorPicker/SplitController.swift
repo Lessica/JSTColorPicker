@@ -875,7 +875,7 @@ extension SplitController: ShortcutGuideDataSource {
                         name: NSLocalizedString("Remove Annotation", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Delete Color & Coordinates at current cursor position or the top most Area contains current cursor position.", comment: "Shortcut Guide"),
                         modifierFlags: [.command],
-                        keyEquivalent: .delete
+                        keyEquivalent: .backspace
                     ),
                 ]
                 items += [
@@ -883,7 +883,7 @@ extension SplitController: ShortcutGuideDataSource {
                         name: NSLocalizedString("List Removable Annotations", comment: "Shortcut Guide"),
                         toolTip: NSLocalizedString("Display a menu with all annotations cascading under the current cursor position, select one to delete the annotation.", comment: "Shortcut Guide"),
                         modifierFlags: [.option, .command],
-                        keyEquivalent: .delete
+                        keyEquivalent: .backspace
                     ),
                 ]
             }

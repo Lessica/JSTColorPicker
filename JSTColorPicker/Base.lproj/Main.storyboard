@@ -935,7 +935,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Devices" id="1Il-r8-iYp">
                                     <items>
-                                        <menuItem title="Select Device" id="Gxd-vS-gSq">
+                                        <menuItem title="Select Device" tag="6999" id="Gxd-vS-gSq">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Device" id="5FZ-FF-ebV">
                                                 <items>
@@ -977,7 +977,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Tags" id="QsP-Vm-Sxt">
                                     <items>
-                                        <menuItem title="Select Tags" id="9Bo-Fx-u4Y">
+                                        <menuItem title="Select Tags" tag="7999" id="9Bo-Fx-u4Y">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Tags" id="TNI-3y-TuV">
                                                 <items>
@@ -993,25 +993,27 @@ CA
                                                 </connections>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Reset Tag Definition" id="tUl-Wn-Eep">
+                                        <menuItem title="Reset Tag Definition" tag="8999" id="tUl-Wn-Eep">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Reset Tag Definition" id="Ozn-4D-pkj">
+                                                <items>
+                                                    <menuItem title="Show Tag Definitions…" identifier="show-tag-definitions" toolTip="Show tag definitions in Finder." id="g8M-dw-hn2">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="showDefinitionsMenuItemTapped:" target="Ady-hI-5gd" id="Lu8-be-Fdj"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
                                                 <connections>
                                                     <outlet property="delegate" destination="Voe-Tx-rLC" id="mct-Br-MDM"/>
                                                 </connections>
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="UEn-sH-5rM"/>
-                                        <menuItem title="Read-only Mode" id="cxw-7K-Ohd">
+                                        <menuItem title="Read-only Mode" identifier="read-only-mode" id="cxw-7K-Ohd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="toggleReadOnlyMode:" target="Ady-hI-5gd" id="4Ba-6b-QmC"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Show Tag Definitions…" id="g8M-dw-hn2">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showDefinitionsMenuItemTapped:" target="Ady-hI-5gd" id="Lu8-be-Fdj"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1024,7 +1026,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Templates" id="0GS-5F-2Eu">
                                     <items>
-                                        <menuItem title="Select Template" id="jqq-oO-M2a">
+                                        <menuItem title="Select Template" tag="9999" id="jqq-oO-M2a">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Select Template" id="af9-zN-lJB">
                                                 <items>

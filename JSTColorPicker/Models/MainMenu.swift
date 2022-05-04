@@ -33,16 +33,19 @@ enum MainMenu: Int {
     case scene
     case annotation
     case devices
+    case tags
     case templates
     case window
     case help
     
     enum MenuItemTag: Int {
-        case services = 999  // not to list up in "Menu Key Bindings" setting
+        case services = 999
         case sharingService = 1999
-        case recentDocumentsDirectory = 2999  // not to list up in "Menu Key Bindings" setting
-        case devices = 7999
-        case templates = 8999  // not to list up in "Menu Key Bindings" setting
+        case recentDocumentsDirectory = 2999
+        case devices = 6999
+        case tags = 7999
+        case tagDefinitions = 8999
+        case templates = 9999
     }
     
     var menu: NSMenu? {

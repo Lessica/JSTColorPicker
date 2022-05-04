@@ -648,7 +648,7 @@ extension AppDelegate {
                         self.internalApplicationResetDeviceUI(withAdditionalItems: items)
                     }
                     
-                    self.deviceSubMenu.update()
+                    MenuKeyBindingManager.shared.applyKeyBindingsToMenu(self.deviceSubMenu)
                 }
                 
                 return self.promiseVoid

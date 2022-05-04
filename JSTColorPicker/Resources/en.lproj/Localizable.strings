@@ -195,6 +195,9 @@
 /* PurchaseManager */
 "Demo Version - " = "Demo Version - ";
 
+/* updateTagSubMenuItems(_:) */
+"Deselect All Tags" = "Deselect All Tags";
+
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Developer Disk Image for iOS %@ has been downloaded, click “Continue” to take screenshot again." = "Developer Disk Image for iOS %@ has been downloaded, click “Continue” to take screenshot again.";
 
@@ -563,6 +566,9 @@
 /* Content Tag Submenu */
 "No tag attached" = "No tag attached";
 
+/* emptyTagSubMenuItems */
+"No tag available." = "No tag available.";
+
 /* searchForDefinitionsAndUpdateContextMenu(_:) */
 "No tag definition available." = "No tag definition available.";
 
@@ -746,6 +752,10 @@
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "Show a palette with available keyboard shortcuts.";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:)
+   updateTagDefinitionSubMenuItems(_:) */
+"Show tag definitions in Finder." = "Show tag definitions in Finder.";
+
 /* searchForDefinitionsAndUpdateContextMenu(_:) */
 "Show Tag Definitions…" = "Show Tag Definitions…";
 
@@ -902,8 +912,14 @@
 /* PurchaseManager.ProductType */
 "Uninitialized" = "Uninitialized";
 
+/* PurchaseController.Error */
+"Unknown checkout state (%ld)." = "Unknown checkout state (%ld).";
+
 /* ScriptError */
 "Unknown error occurred." = "Unknown error occurred.";
+
+/* PurchaseController.Error */
+"Unknown verification state (%ld)." = "Unknown verification state (%ld).";
 
 /* getShortReadableExpiredAt() */
 "Unlimited" = "Unlimited";
@@ -1018,9 +1034,3 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ Selection Arrow";
-
-/* PurchaseController.Error */
-"Unknown checkout state (%ld)." = "";
-
-/* PurchaseController.Error */
-"Unknown verification state (%ld)." = "";

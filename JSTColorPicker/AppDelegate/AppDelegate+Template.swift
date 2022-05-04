@@ -138,6 +138,8 @@ extension AppDelegate {
             emptyItem.isEnabled = false
             templateSubMenu.items = [ emptyItem, separatorItem, reloadTemplatesItem ]
         }
+        
+        MenuKeyBindingManager.shared.applyKeyBindingsToMenu(templateSubMenu)
     }
     
     func validateTemplateMenuItem(_ menuItem: NSMenuItem) -> Bool {

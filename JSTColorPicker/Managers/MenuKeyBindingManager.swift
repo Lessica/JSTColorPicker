@@ -170,6 +170,8 @@ final class MenuKeyBindingManager: KeyBindingManager {
                      .recentDocumentsDirectory,
                      .sharingService,
                      .devices,
+                     .tags,
+                     .tagDefinitions,
                      .templates:
                     return false
             }

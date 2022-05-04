@@ -195,6 +195,9 @@
 /* PurchaseManager */
 "Demo Version - " = "试用版本 - ";
 
+/* updateTagSubMenuItems(_:) */
+"Deselect All Tags" = "取消选择所有标签";
+
 /* downloadDeviceSupport(_:forDeviceDictionary:) */
 "Developer Disk Image for iOS %@ has been downloaded, click “Continue” to take screenshot again." = "适用于 iOS %@ 的开发者镜像已下载，点击 “继续” 以重新截图。";
 
@@ -563,6 +566,9 @@
 /* Content Tag Submenu */
 "No tag attached" = "未关联标签";
 
+/* emptyTagSubMenuItems */
+"No tag available." = "无可用的标签。";
+
 /* searchForDefinitionsAndUpdateContextMenu(_:) */
 "No tag definition available." = "无可用的标签定义。";
 
@@ -570,7 +576,7 @@
 "No tag to import." = "当前文档中的所有标签业已关联到数据库，无标签可供关联。";
 
 /* updateTemplatesSubMenuItems() */
-"No template available." = "无可用模版。";
+"No template available." = "无可用的模版。";
 
 /* ExportError */
 "No template selected." = "未选择模板。";
@@ -746,6 +752,10 @@
 /* Shortcut Guide */
 "Show a palette with available keyboard shortcuts." = "显示一个指令面板，它包含了一些可用的键盘快捷键以供参考。";
 
+/* searchForDefinitionsAndUpdateContextMenu(_:)
+   updateTagDefinitionSubMenuItems(_:) */
+"Show tag definitions in Finder." = "在 Finder 中显示标签定义。";
+
 /* searchForDefinitionsAndUpdateContextMenu(_:) */
 "Show Tag Definitions…" = "显示标签定义…";
 
@@ -902,8 +912,14 @@
 /* PurchaseManager.ProductType */
 "Uninitialized" = "未初始化";
 
+/* PurchaseController.Error */
+"Unknown checkout state (%ld)." = "未知的支付状态（%ld）。";
+
 /* ScriptError */
 "Unknown error occurred." = "发生了未知错误。";
+
+/* PurchaseController.Error */
+"Unknown verification state (%ld)." = "未知的验证状态（%ld）。";
 
 /* getShortReadableExpiredAt() */
 "Unlimited" = "无限制";
@@ -1018,9 +1034,3 @@
 
 /* Shortcut Guide */
 "◦ Selection Arrow" = "◦ 选择箭头";
-
-/* PurchaseController.Error */
-"Unknown checkout state (%ld)." = "";
-
-/* PurchaseController.Error */
-"Unknown verification state (%ld)." = "";

@@ -1150,16 +1150,16 @@ extension TagListController: NSMenuItemValidation, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        if menu == tagMenu {
-            applyKeyBindingsToTopLevelContextMenu(menu)
-        } else if menu == definitionMenu {
+        if menu == definitionMenu {
             searchForDefinitionsAndUpdateContextMenu(menu)
         }
+        
+        applyKeyBindingsToTopLevelContextMenu(menu)
     }
     
     // Apply key bindings for top-level menus.
     private func applyKeyBindingsToTopLevelContextMenu(_ menu: NSMenu) {
-        if menu == tagMenu {
+        if menu == tagMenu || menu == definitionMenu {
             MenuKeyBindingManager.shared.applyKeyBindingsToMenu(menu)
         }
     }
@@ -1245,6 +1245,7 @@ extension TagListController {
                 keyEquivalent: ""
             )
             
+            readOnlyItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "read-only-mode")
             readOnlyItem.state = isReadOnly ? .on : .off
             
             let showDefinitionItem = NSMenuItem(
@@ -1252,6 +1253,10 @@ extension TagListController {
                 action: #selector(showDefinitionsMenuItemTapped(_:)),
                 keyEquivalent: ""
             )
+            
+            showDefinitionItem.identifier = NSUserInterfaceItemIdentifier(rawValue: "show-tag-definitions")
+            showDefinitionItem.isEnabled = true
+            showDefinitionItem.toolTip = NSLocalizedString("Show tag definitions in Finder.", comment: "searchForDefinitionsAndUpdateContextMenu(_:)")
             
             if childItems.count > 0 {
                 menu.items = childItems + [

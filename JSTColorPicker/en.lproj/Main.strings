@@ -259,6 +259,9 @@
 /* Class = "NSMenuItem"; title = "Templates"; ObjectID = "fQl-Hs-576"; */
 "fQl-Hs-576.title" = "Templates";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show tag definitions in Finder."; ObjectID = "g8M-dw-hn2"; */
+"g8M-dw-hn2.ibShadowedToolTip" = "Show tag definitions in Finder.";
+
 /* Class = "NSMenuItem"; title = "Show Tag Definitions…"; ObjectID = "g8M-dw-hn2"; */
 "g8M-dw-hn2.title" = "Show Tag Definitions…";
 
