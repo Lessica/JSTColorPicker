@@ -117,15 +117,9 @@ final class TagListOverlayView: NSView, DragEndpoint {
         for rect in rects.filter({ outerRect.intersects($0) }) {
             let innerRect = rect.intersection(outerRect)
             if innerRect.height > tableRowHeight + 2.0 {
-                ctx.addRect(innerRect
-                    .insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5)
-                    .offsetBy(dx: 0.0, dy: -0.5)
-                )
+                ctx.addRect(innerRect.insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5))
             } else {
-                ctx.addRect(rect
-                    .insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5)
-                    .offsetBy(dx: 0.0, dy: -0.5)
-                )
+                ctx.addRect(rect.insetBy(dx: Self.focusLineWidth, dy: Self.focusLineWidth + 0.5))
             }
         }
         

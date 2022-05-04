@@ -895,35 +895,45 @@ extension TagListController: TagListSource {
 extension TagListController: TagListDragDelegate {
     
     func shouldPerformDragging(_ sender: NSView, with event: NSEvent) -> Bool {
-        guard event.type == .leftMouseDown || event.type == .rightMouseDown
-        else {
+        
+        // only accept left mouse down event
+        guard event.type == .leftMouseDown else {
             return false
         }
-        if firstResponder is NSTextView || firstResponder is NSTextField
-        {
+        
+        // should not in editing
+        if firstResponder is NSTextView || firstResponder is NSTextField {
             return false
         }
-        var conditionFlag: Bool
-        let modifierFlags = event.modifierFlags
-            .intersection(.deviceIndependentFlagsMask)
-        if event.type == .leftMouseDown {
-            let underneathSelectedRow = tableView.row(
-                at: tableView.convert(event.locationInWindow, from: nil)
-            )
-            let hasUnderneathSelectedRow = underneathSelectedRow >= 0
-            let shiftPressed = modifierFlags.contains(.shift)
-            let commandPressed = modifierFlags.contains(.command)
-            conditionFlag = hasUnderneathSelectedRow && !shiftPressed && !commandPressed && (disableTagReordering || disableTagEditing)
-        } else {
-            let controlPressed = modifierFlags.contains(.control)
-            conditionFlag = controlPressed
+        
+        // should not in selecting && context should be loaded
+        guard isContextLoaded && !isSelectMode else {
+            return false
         }
-        return conditionFlag && isContextLoaded && !isSelectMode
+        
+        // should have underneath selected row
+        let underneathSelectedRow = tableView.row(at: tableView.convert(event.locationInWindow, from: nil))
+        guard underneathSelectedRow >= 0 else {
+            return false
+        }
+        
+        // shift & command are occupied by multiple selecting
+        // control is occupired by tag reordering
+        // only option is reserved for copy drags
+        let modifierFlags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        let occupiedModifiers = modifierFlags.intersection([.control, .shift, .command])
+        guard occupiedModifiers.isEmpty else {
+            return false
+        }
+        
+        return true
     }
     
     func willPerformDragging(_ sender: NSView) -> Bool {
         contentManager?.deselectAllContentItems()
-        return isContextLoaded && !isSelectMode
+        
+        // all conditions are determinted in shouldPerformDragging(_:, with:)
+        return true
     }
     
     var selectedRowIndexes: IndexSet { tableView.selectedRowIndexes }
