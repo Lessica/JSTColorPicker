@@ -561,6 +561,7 @@ final class TagListController: StackedPaneController {
     
     @IBAction private func importTagBtnTapped(_ sender: Any) {
         
+        self.endEditing()
         guard let context = Self.sharedContext,
             let tagNames = tagImportSource?.importableTagNames else
         {
@@ -604,14 +605,16 @@ final class TagListController: StackedPaneController {
     }
     
     @IBAction private func insertTagBtnTapped(_ sender: Any) {
-        internalController.insert(sender)
-        setNeedsReorderManagedTags()
-        setNeedsSaveManagedTags()
+        self.endEditing()
+        self.internalController.insert(sender)
+        self.setNeedsReorderManagedTags()
+        self.setNeedsSaveManagedTags()
     }
     
     @IBAction private func removeTagBtnTapped(_ sender: Any) {
-        internalController.remove(sender)
-        setNeedsSaveManagedTags()
+        self.endEditing()
+        self.internalController.remove(sender)
+        self.setNeedsSaveManagedTags()
     }
     
     @IBAction private func tagFieldValueChanged(_ sender: NSTextField) {

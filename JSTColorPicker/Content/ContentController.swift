@@ -625,7 +625,7 @@ extension ContentController: ContentActionResponder {
         if maximumTagPerItemEnabled {
             let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
             guard item.tags.count <= maximumTagPerItem else {
-                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+                throw Content.Error.itemTagPerItemReachLimit(requestedSpace: item.tags.count, totalSpace: maximumTagPerItem)
             }
         }
         
@@ -832,7 +832,7 @@ extension ContentController: ContentActionResponder {
         if maximumTagPerItemEnabled {
             let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
             guard item.tags.count <= maximumTagPerItem else {
-                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+                throw Content.Error.itemTagPerItemReachLimit(requestedSpace: item.tags.count, totalSpace: maximumTagPerItem)
             }
         }
         guard content.items.first(where: { $0.id == item.id }) != nil              else { throw Content.Error.itemDoesNotExist(item: item) }
@@ -857,7 +857,8 @@ extension ContentController: ContentActionResponder {
         if maximumTagPerItemEnabled {
             let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
             guard items.allSatisfy({ $0.tags.count <= maximumTagPerItem }) else {
-                throw Content.Error.itemTagPerItemReachLimit(totalSpace: maximumTagPerItem)
+                throw Content.Error.itemTagPerItemReachLimit(
+                    requestedSpace: items.map({ $0.tags.count }).max() ?? 0, totalSpace: maximumTagPerItem)
             }
         }
         let itemIndexes = IndexSet(

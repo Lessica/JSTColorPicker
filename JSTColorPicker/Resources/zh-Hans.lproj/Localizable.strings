@@ -473,10 +473,10 @@
 "Manage Subscription…" = "管理订阅…";
 
 /* Content.Error */
-"Maximum item count %d reached." = "已超出预设的最大项数量 %d。";
+"Maximum item count %ld reached." = "已超出预设的最大项数量 %ld。";
 
 /* Content.Error */
-"Maximum tag per item count %d reached." = "已超出预设的每项最大标签数 %d。";
+"Maximum tag per item count %ld reached, you have selected %ld tags in total." = "已超出预设的每项最大标签数 %ld，你一共选择了 %ld 个标签。";
 
 /* Shortcut Guide */
 "Minify" = "缩小";
@@ -812,6 +812,9 @@
 
 /* localizedString(describing:) */
 "tag “%@”" = "标签 “%@”";
+
+/* localizedString(describing:) */
+"tags in item #%ld" = "项目 #%ld 中的标签";
 
 /* Shortcut Guide */
 "Take Screenshot" = "截图";

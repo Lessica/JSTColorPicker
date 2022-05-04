@@ -473,10 +473,10 @@
 "Manage Subscription…" = "Manage Subscription…";
 
 /* Content.Error */
-"Maximum item count %d reached." = "Maximum item count %d reached.";
+"Maximum item count %ld reached." = "Maximum item count %ld reached.";
 
 /* Content.Error */
-"Maximum tag per item count %d reached." = "Maximum tag per item count %d reached.";
+"Maximum tag per item count %ld reached, you have selected %ld tags in total." = "Maximum tag per item count %ld reached, you have selected %ld tags in total.";
 
 /* Shortcut Guide */
 "Minify" = "Minify";
@@ -812,6 +812,9 @@
 
 /* localizedString(describing:) */
 "tag “%@”" = "tag “%@”";
+
+/* localizedString(describing:) */
+"tags in item #%ld" = "tags in item #%ld";
 
 /* Shortcut Guide */
 "Take Screenshot" = "Take Screenshot";

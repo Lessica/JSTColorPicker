@@ -256,8 +256,13 @@ extension SceneOverlayView: DragEndpoint {
                     return operationMask.intersection([.move])
                 }
                 
-                func localizedString(describing tagNames: [String]) -> String {
-                    if tagNames.count == 1 {
+                func localizedString(describing tagNames: [String], forItem item: ContentItem) -> String {
+                    if tagNames.isEmpty {
+                        return String(
+                            format: NSLocalizedString("tags in item #%ld", comment: "localizedString(describing:)"),
+                            item.id
+                        )
+                    } else if tagNames.count == 1 {
                         return String(
                             format: NSLocalizedString("tag “%@”", comment: "localizedString(describing:)"), tagNames.first!)
                     } else {
@@ -274,8 +279,8 @@ extension SceneOverlayView: DragEndpoint {
                     guard targetItem.tags.count + tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
-                        let priorString = localizedString(describing: targetItem.tags.elements)
-                        let newString = localizedString(describing: tagNamesToAppend)
+                        let priorString = localizedString(describing: targetItem.tags.elements, forItem: targetItem)
+                        let newString = localizedString(describing: tagNamesToAppend, forItem: targetItem)
                         
                         forbiddenReason = String(
                             format: NSLocalizedString("Will add %@ to existing %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),
@@ -289,8 +294,8 @@ extension SceneOverlayView: DragEndpoint {
                     guard tagNamesToAppend.count <= maximumTagPerItem
                     else {
                         // reaches limit
-                        let priorString = localizedString(describing: targetItem.tags.elements)
-                        let newString = localizedString(describing: tagNamesToAppend)
+                        let priorString = localizedString(describing: targetItem.tags.elements, forItem: targetItem)
+                        let newString = localizedString(describing: tagNamesToAppend, forItem: targetItem)
                         
                         forbiddenReason = String(
                             format: NSLocalizedString("Will replace prior %@ with new %@, while maximum tag per item is set to %ld.", comment: "forbiddenReason"),

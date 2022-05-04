@@ -22,7 +22,7 @@ final class Content: NSObject, Codable {
         case itemReachLimit(totalSpace: Int)
         case itemReachLimitBatch(moreSpace: Int)
         case itemConflict(item1: CustomStringConvertible, item2: CustomStringConvertible)
-        case itemTagPerItemReachLimit(totalSpace: Int)
+        case itemTagPerItemReachLimit(requestedSpace: Int, totalSpace: Int)
         case notLoaded
         case notWritable
         case notSerialized
@@ -46,7 +46,7 @@ final class Content: NSObject, Codable {
                     return 107
                 case .itemConflict(_, _):
                     return 108
-                case .itemTagPerItemReachLimit(_):
+                case .itemTagPerItemReachLimit(_, _):
                     return 109
                 case .notLoaded:
                     return 110
@@ -72,13 +72,13 @@ final class Content: NSObject, Codable {
                 case let .itemOutOfRange(item, range):
                     return String(format: NSLocalizedString("The requested item %@ is out of the document range %@.", comment: "Content.Error"), item.description, range.description)
                 case let .itemReachLimit(totalSpace):
-                    return String(format: NSLocalizedString("Maximum item count %d reached.", comment: "Content.Error"), totalSpace)
+                    return String(format: NSLocalizedString("Maximum item count %ld reached.", comment: "Content.Error"), totalSpace)
                 case let .itemReachLimitBatch(moreSpace):
                     return String(format: NSLocalizedString("This operation requires %d more spaces.", comment: "Content.Error"), moreSpace)
                 case let .itemConflict(item1, item2):
                     return String(format: NSLocalizedString("The requested item %@ conflicts with another item %@ in the document.", comment: "Content.Error"), item1.description, item2.description)
-                case let .itemTagPerItemReachLimit(totalSpace):
-                    return String(format: NSLocalizedString("Maximum tag per item count %d reached.", comment: "Content.Error"), totalSpace)
+                case let .itemTagPerItemReachLimit(requestedSpace, totalSpace):
+                    return String(format: NSLocalizedString("Maximum tag per item count %ld reached, you have selected %ld tags in total.", comment: "Content.Error"), totalSpace, requestedSpace)
                 case .notLoaded:
                     return NSLocalizedString("No document loaded.", comment: "Content.Error")
                 case .notWritable:
