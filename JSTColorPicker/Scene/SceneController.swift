@@ -14,10 +14,10 @@ final class SceneController: NSViewController {
     
     // MARK: - Delegates
     
-    weak     var screenshot           : Screenshot?
-    weak     var parentTracking       : SceneTracking?
-    weak     var contentManager       : ContentActionResponder!
-    weak     var tagManager           : TagListSource!
+    weak         var screenshot           : Screenshot?
+    weak         var parentTracking       : SceneTracking?
+    weak         var contentManager       : ContentActionResponder!
+    weak         var tagManager           : TagListSource!
     
     
     // MARK: - Annotator Stored Variables
@@ -114,16 +114,36 @@ final class SceneController: NSViewController {
     
     // MARK: - Zooming States
     
-    private static let minimumZoomingFactor                : CGFloat = pow(2.0, -2)  // 0.25x
-    private static let maximumZoomingFactor                : CGFloat = pow(2.0, 8)   // 256x
-    private static let minimumRecognizableMagnification    : CGFloat = 16.0
-    private static let minimumSmartZoomMagnification       : CGFloat = 1.5
     private static let zoomingFactors: [CGFloat] = [
-        0.250, 0.333, 0.500, 0.667, 1.000,
-        2.000, 3.000, 4.000, 5.000, 6.000,
-        7.000, 8.000, 12.00, 16.00, 32.00,
-        64.00, 128.0, 256.0
+        0.010, 0.050, 0.250, 0.333, 0.500, 0.750,
+        1.000, 1.500, 2.000, 3.000, 4.000, 8.000,
+        12.00, 16.00, 24.00, 32.00, 48.00, 64.00,
+        128.0, 256.0,
     ]
+    
+    private static let minimumZoomingFactor                : CGFloat  = 0.010
+    private static let maximumZoomingFactor                : CGFloat  = 256.0
+    private static let standardZoomingFactor               : CGFloat  = 1.0
+    private static let minimumRecognizableMagnification    : CGFloat  = 16.0
+    private static let minimumSmartZoomMagnification       : CGFloat  = 1.5
+    
+    private static let detectingZoomingFactors: [CGFloat] = [
+        0.010, 0.050, 0.100, 0.150, 0.200, 0.250,
+        0.333, 0.500, 0.750, 1.000, 1.500, 2.000,
+        2.500, 3.000, 3.500, 4.000, 8.000, 12.00,
+        16.00, 24.00, 32.00, 48.00, 64.00,
+    ]
+    
+    private static func bestInitialZoomingFactor(for forSize: CGSize, in inSize: CGSize) -> CGFloat {
+        for zoomingFactor in detectingZoomingFactors.reversed() {
+            let widthProp = forSize.width * zoomingFactor / inSize.width
+            let heightProp = forSize.height * zoomingFactor / inSize.height
+            if max(widthProp, heightProp) < 1.0 {
+                return zoomingFactor
+            }
+        }
+        return standardZoomingFactor
+    }
     
     private var isZooming = false
     private var nextMagnificationFactor                    : CGFloat?             { SceneController.zoomingFactors.first(where: { $0 > sceneView.magnification }) }
@@ -219,13 +239,16 @@ final class SceneController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.isZooming = true
         sceneView.minMagnification    = SceneController.minimumZoomingFactor
         sceneView.maxMagnification    = SceneController.maximumZoomingFactor
-        sceneView.magnification       = SceneController.minimumZoomingFactor
+        sceneView.magnification       = SceneController.standardZoomingFactor
         sceneView.allowsMagnification = false
+        self.isZooming = false
         
         let wrapper = SceneImageWrapper(pixelBounds: .zero)
         wrapper.rulerViewClient = self
+        
         sceneView.documentView                    = wrapper
         sceneView.verticalRulerView?.clientView   = wrapper
         sceneView.horizontalRulerView?.clientView = wrapper
@@ -1106,12 +1129,19 @@ extension SceneController: ScreenshotLoader {
     }
     
     private func renderImage(_ image: PixelImage) {
-        self.isZooming = true
-        sceneView.magnification = SceneController.minimumZoomingFactor
-        self.isZooming = false
-        sceneView.allowsMagnification = true
         
         let imageSize = image.size
+        
+        self.isZooming = true
+        sceneView.minMagnification    = SceneController.minimumZoomingFactor
+        sceneView.maxMagnification    = SceneController.maximumZoomingFactor
+        sceneView.magnification       = SceneController.bestInitialZoomingFactor(
+            for: imageSize.toCGSize(),
+            in: sceneView.visibleRectExcludingRulers.size
+        )
+        sceneView.allowsMagnification = true
+        self.isZooming = false
+        
         let initialPixelRect = PixelRect(origin: .zero, size: imageSize)
         let wrapper = SceneImageWrapper(pixelBounds: initialPixelRect)
         wrapper.rulerViewClient = self
@@ -1844,7 +1874,8 @@ extension SceneController: ContentActionResponder {
 extension SceneController: ItemPreviewResponder {
     
     func previewAction(_ sender: ItemPreviewSender?, toMagnification magnification: CGFloat) {
-        guard magnification >= SceneController.minimumZoomingFactor && magnification <= SceneController.maximumZoomingFactor
+        guard magnification >= SceneController.minimumZoomingFactor
+                && magnification <= SceneController.maximumZoomingFactor
         else {
             if isZooming {
                 self.sceneDidEndLiveMagnify()

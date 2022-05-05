@@ -53,15 +53,15 @@ class Overlay: NSView {
         case forbidden
     }
     
-    var borderStyle      : BorderStyle  { .none }
+    var borderStyle      : BorderStyle   { .none }
     var focusingStyle    : FocusingStyle = .normal
-    var isFocused        : Bool         = false
+    var isFocused        : Bool          = false
     {
         didSet {
             focusingStyle = .normal
         }
     }
-    var isSelected       : Bool         = false
+    var isSelected       : Bool          = false
     {
         didSet {
             if isSelected {

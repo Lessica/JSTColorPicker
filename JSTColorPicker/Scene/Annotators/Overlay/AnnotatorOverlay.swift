@@ -21,7 +21,7 @@ class AnnotatorOverlay: EditableOverlay {
         case floating  // not implemented
     }
 
-    var revealStyle         : RevealStyle = .none
+    var revealStyle: RevealStyle = .none
 
     /* controlled by revealStyle */
     override var borderStyle         : BorderStyle
@@ -191,7 +191,7 @@ class AnnotatorOverlay: EditableOverlay {
                     options: [.usesLineFragmentOrigin]
                 )
             }
-            else if isFocused {
+            else if isFocused && focusingStyle != .forbidden {
                 focusedBackgroundImage.draw(in: drawBounds)
                 internalFocusedAttributedLabel.draw(
                     with: CGRect(
