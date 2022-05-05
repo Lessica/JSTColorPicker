@@ -4,5 +4,5 @@
 /* Class = "NSTextFieldCell"; title = "ERROR_MESSAGE"; ObjectID = "J6y-R5-xQb"; */
 "J6y-R5-xQb.title" = "ERROR_MESSAGE";
 
-/* Class = "NSBox"; title = "Current Template"; ObjectID = "Zdn-NU-N0S"; */
-"Zdn-NU-N0S.title" = "当前模版";
+/* Class = "NSBox"; title = "Current Active Template"; ObjectID = "Zdn-NU-N0S"; */
+"Zdn-NU-N0S.title" = "当前活跃模版";

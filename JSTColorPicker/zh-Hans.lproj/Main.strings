@@ -94,7 +94,7 @@
 /* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "Ae9-EU-JvU"; */
 "Ae9-EU-JvU.title" = "智能引号";
 
-/* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
+/* Class = "NSMenu"; title = "Select Active Template"; ObjectID = "af9-zN-lJB"; */
 "af9-zN-lJB.title" = "选择模版";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "AJo-qL-2Gv"; */
@@ -340,8 +340,8 @@
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Jo6-Fi-YVW"; */
 "Jo6-Fi-YVW.title" = "定位";
 
-/* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
-"jqq-oO-M2a.title" = "选择模版";
+/* Class = "NSMenuItem"; title = "Select Active Template"; ObjectID = "jqq-oO-M2a"; */
+"jqq-oO-M2a.title" = "选择活跃模版";
 
 /* Class = "NSMenuItem"; title = "Move Left (1 Pixel)"; ObjectID = "jy4-Zr-A9u"; */
 "jy4-Zr-A9u.title" = "向左移动 (1 像素)";

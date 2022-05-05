@@ -13,7 +13,7 @@
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="dRV-BK-U20">
                         <rect key="frame" x="0.0" y="0.0" width="264" height="326"/>
                         <subviews>
-                            <box borderType="line" title="Current Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
+                            <box borderType="line" title="Current Active Template" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-NU-N0S" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
                                 <rect key="frame" x="-3" y="-4" width="270" height="326"/>
                                 <view key="contentView" id="OPo-mo-uT7">
                                     <rect key="frame" x="11" y="11" width="248" height="300"/>

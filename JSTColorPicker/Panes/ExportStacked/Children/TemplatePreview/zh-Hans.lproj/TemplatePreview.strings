@@ -13,6 +13,9 @@
 /* Class = "NSTextFieldCell"; title = "…"; ObjectID = "azV-5Z-3ic"; */
 "azV-5Z-3ic.title" = "表格单元格";
 
+/* Class = "NSMenuItem"; title = "Expand All Previews"; ObjectID = "Bix-sf-pXq"; */
+"Bix-sf-pXq.title" = "展开所有预览";
+
 /* Class = "NSMenuItem"; title = "Regenerate"; ObjectID = "do1-tV-RB6"; */
 "do1-tV-RB6.title" = "重新生成";
 
@@ -22,17 +25,14 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "hmw-xR-jUh"; */
 "hmw-xR-jUh.title" = "文本单元格";
 
-/* Class = "NSMenuItem"; title = "Toggle Preview"; ObjectID = "Htl-dB-9fJ"; */
-"Htl-dB-9fJ.title" = "展开/折叠";
+/* Class = "NSMenuItem"; title = "Expand Preview"; ObjectID = "Htl-dB-9fJ"; */
+"Htl-dB-9fJ.title" = "展开预览";
 
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "iRO-Kn-oLV"; */
 "iRO-Kn-oLV.headerCell.title" = "名称";
 
-/* Class = "NSMenuItem"; title = "Set As Selected"; ObjectID = "t3u-gb-wJr"; */
-"t3u-gb-wJr.title" = "置为选中";
+/* Class = "NSMenuItem"; title = "Set As Active"; ObjectID = "t3u-gb-wJr"; */
+"t3u-gb-wJr.title" = "置为活跃";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "zlx-xF-3LP"; */
 "zlx-xF-3LP.title" = "复制";
-
-/* Class = "NSMenuItem"; title = "Toggle All"; ObjectID = "Bix-sf-pXq"; */
-"Bix-sf-pXq.title" = "";

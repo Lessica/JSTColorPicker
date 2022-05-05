@@ -94,8 +94,8 @@
 /* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "Ae9-EU-JvU"; */
 "Ae9-EU-JvU.title" = "Smart Quotes";
 
-/* Class = "NSMenu"; title = "Select Template"; ObjectID = "af9-zN-lJB"; */
-"af9-zN-lJB.title" = "Select Template";
+/* Class = "NSMenu"; title = "Select Active Template"; ObjectID = "af9-zN-lJB"; */
+"af9-zN-lJB.title" = "Select Active Template";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "In the pop-up tab, precisely adjust the position of the selected annotation."; ObjectID = "AJo-qL-2Gv"; */
 "AJo-qL-2Gv.ibShadowedToolTip" = "In the pop-up tab, precisely adjust the position of the selected annotation.";
@@ -340,8 +340,8 @@
 /* Class = "NSMenuItem"; title = "Locate"; ObjectID = "Jo6-Fi-YVW"; */
 "Jo6-Fi-YVW.title" = "Locate";
 
-/* Class = "NSMenuItem"; title = "Select Template"; ObjectID = "jqq-oO-M2a"; */
-"jqq-oO-M2a.title" = "Select Template";
+/* Class = "NSMenuItem"; title = "Select Active Template"; ObjectID = "jqq-oO-M2a"; */
+"jqq-oO-M2a.title" = "Select Active Template";
 
 /* Class = "NSMenuItem"; title = "Move Left (1 Pixel)"; ObjectID = "jy4-Zr-A9u"; */
 "jy4-Zr-A9u.title" = "Move Left (1 Pixel)";

@@ -1,2 +1,5 @@
-/* Class = "NSMenuItem"; title = "Select Template…"; ObjectID = "SCj-y8-egk"; */
-"SCj-y8-egk.title" = "选择模版…";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Select Active Template…"; ObjectID = "b92-oQ-XGY"; */
+"b92-oQ-XGY.ibShadowedToolTip" = "选择活跃模版…";
+
+/* Class = "NSMenuItem"; title = "Select Active Template…"; ObjectID = "SCj-y8-egk"; */
+"SCj-y8-egk.title" = "选择活跃模版…";

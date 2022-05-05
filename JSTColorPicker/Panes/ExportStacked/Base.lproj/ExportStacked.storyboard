@@ -23,17 +23,17 @@
                                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPO-dN-zBF">
                                                 <rect key="frame" x="16" y="1" width="226" height="47"/>
                                                 <subviews>
-                                                    <popUpButton horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
+                                                    <popUpButton toolTip="Select Active Template…" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b92-oQ-XGY" customClass="TemplatePopUpButton" customModule="JSTColorPicker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="12" width="198" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="SJg-Yb-E21"/>
                                                         </constraints>
-                                                        <popUpButtonCell key="cell" type="inline" title="Select Template…" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
+                                                        <popUpButtonCell key="cell" type="inline" title="Select Active Template…" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="SCj-y8-egk" id="in1-QA-low">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <menu key="menu" identifier="TemplatesSubMenu" id="bbF-UO-lY8">
                                                                 <items>
-                                                                    <menuItem title="Select Template…" id="SCj-y8-egk"/>
+                                                                    <menuItem title="Select Active Template…" id="SCj-y8-egk"/>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>

@@ -187,13 +187,13 @@
                 <customObject id="UOg-SM-VP6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="06z-Oa-lyK">
                     <items>
-                        <menuItem title="Toggle Preview" id="Htl-dB-9fJ">
+                        <menuItem title="Expand Preview" id="Htl-dB-9fJ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="togglePreview:" target="Epo-YF-uKm" id="mtQ-oC-pjl"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Toggle All" id="Bix-sf-pXq">
+                        <menuItem title="Expand All Previews" id="Bix-sf-pXq">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="toggleAll:" target="Epo-YF-uKm" id="MVe-00-qJU"/>
@@ -212,7 +212,7 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="GiA-uV-fGA"/>
-                        <menuItem title="Set As Selected" id="t3u-gb-wJr">
+                        <menuItem title="Set As Active" id="t3u-gb-wJr">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="setAsSelected:" target="Epo-YF-uKm" id="cKt-LO-SZy"/>
