@@ -1,2 +1,5 @@
 /* Class = "NSBox"; title = "Inspector"; ObjectID = "dsS-KU-rgc"; */
 "dsS-KU-rgc.title" = "Inspector";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Toggle between RGB and HSV colors."; ObjectID = "gG4-uj-N05"; */
+"gG4-uj-N05.ibShadowedToolTip" = "Toggle between RGB and HSV colors.";

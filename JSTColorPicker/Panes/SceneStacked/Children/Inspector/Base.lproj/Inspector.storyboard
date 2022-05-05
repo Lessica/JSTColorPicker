@@ -38,7 +38,7 @@
                                 </view>
                                 <size key="contentViewMargins" width="8" height="0.0"/>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-uj-N05">
+                            <button toolTip="Toggle between RGB and HSV colors." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-uj-N05">
                                 <rect key="frame" x="168" y="87.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="7sB-fc-DlQ"/>

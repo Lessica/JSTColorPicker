@@ -3,3 +3,6 @@
 
 /* Class = "NSBox"; title = "Information"; ObjectID = "GEI-GX-uyj"; */
 "GEI-GX-uyj.title" = "信息";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Show next tip."; ObjectID = "r0W-fL-pPC"; */
+"r0W-fL-pPC.ibShadowedToolTip" = "显示下一条提示。";

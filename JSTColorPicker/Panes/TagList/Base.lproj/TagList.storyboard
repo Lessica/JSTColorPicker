@@ -23,7 +23,7 @@
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="766"/>
                                             <subviews>
-                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
                                                     <rect key="frame" x="0.0" y="736" width="242" height="30"/>
                                                     <subviews>
                                                         <searchField identifier="TagListSearchField" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-WH-dXZ" customClass="TagListSearchField" customModule="JSTColorPicker" customModuleProvider="target">
@@ -399,7 +399,7 @@
                                     <binding destination="lSV-Dz-huJ" name="title" keyPath="controllerDisplayTitle" id="IDh-ob-fZy"/>
                                 </connections>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qsO-dI-2Pc">
+                            <button toolTip="Open context menu for tag definitions." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qsO-dI-2Pc">
                                 <rect key="frame" x="234" y="779.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="AzR-dh-VWz"/>

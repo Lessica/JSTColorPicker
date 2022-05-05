@@ -1,3 +1,6 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Toggle between brief and detailed template information."; ObjectID = "2ef-2N-c4N"; */
+"2ef-2N-c4N.ibShadowedToolTip" = "Toggle between brief and detailed template information.";
+
 /* Class = "NSTextFieldCell"; title = "ERROR_MESSAGE"; ObjectID = "J6y-R5-xQb"; */
 "J6y-R5-xQb.title" = "ERROR_MESSAGE";
 

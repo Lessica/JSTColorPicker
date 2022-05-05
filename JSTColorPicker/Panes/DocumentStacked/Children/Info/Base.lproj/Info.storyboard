@@ -66,7 +66,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-fL-pPC">
+                            <button toolTip="Show next tip." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-fL-pPC">
                                 <rect key="frame" x="240" y="220.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Iau-tA-LOY"/>

@@ -64,7 +64,7 @@
                                 </view>
                                 <size key="contentViewMargins" width="8" height="8"/>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ef-2N-c4N">
+                            <button toolTip="Toggle between brief and detailed template information." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ef-2N-c4N">
                                 <rect key="frame" x="240" y="305.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="E1w-tp-ojT"/>

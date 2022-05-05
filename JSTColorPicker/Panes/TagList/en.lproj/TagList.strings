@@ -52,6 +52,9 @@
 /* Class = "NSSearchFieldCell"; placeholderString = "Tags"; ObjectID = "P0n-tt-x07"; */
 "P0n-tt-x07.placeholderString" = "Tags";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Open context menu for tag definitions."; ObjectID = "qsO-dI-2Pc"; */
+"qsO-dI-2Pc.ibShadowedToolTip" = "Open context menu for tag definitions.";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "rLA-oc-Whe"; */
 "rLA-oc-Whe.title" = "Text Cell";
 

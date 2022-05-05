@@ -1,3 +1,6 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Toggle between brief and detailed template information."; ObjectID = "2ef-2N-c4N"; */
+"2ef-2N-c4N.ibShadowedToolTip" = "在简要与详细模版信息间切换。";
+
 /* Class = "NSTextFieldCell"; title = "ERROR_MESSAGE"; ObjectID = "J6y-R5-xQb"; */
 "J6y-R5-xQb.title" = "ERROR_MESSAGE";
 
