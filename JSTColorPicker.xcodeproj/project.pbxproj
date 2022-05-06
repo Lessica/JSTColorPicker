@@ -713,9 +713,7 @@
 		D61047D224224A170002E990 /* Advanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A3240D05E5003A5B17 /* Advanced.xib */; };
 		D61047D324224A170002E990 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D658AFA323CB180D0098C567 /* Main.storyboard */; };
 		D61047D424224A170002E990 /* Folder.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0A0240D05E0003A5B17 /* Folder.xib */; };
-		D61047D524224A170002E990 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D61047D624224A170002E990 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D64AF0AC240D069A003A5B17 /* Localizable.strings */; };
-		D61047D924224A170002E990 /* JSTColorPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = D69974E72416595500223B31 /* JSTColorPicker.html */; };
 		D61047DB24224A170002E990 /* LuaSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62834EE23F8E9DB0016573B /* LuaSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61047DC24224A170002E990 /* LuaC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D628350D23F8EAAA0016573B /* LuaC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61047E624224B9C0002E990 /* SPUStandardUpdaterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61047E524224B9C0002E990 /* SPUStandardUpdaterController.m */; };
@@ -895,7 +893,6 @@
 		D68A1FD62498B17F001E3FDA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68A1FD52498B17F001E3FDA /* main.swift */; };
 		D68A1FDE2498B258001E3FDA /* relaunch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D68A1FD32498B17F001E3FDA /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D690493E240D1A3200E05F37 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690493D240D1A3200E05F37 /* PreferencesController.swift */; };
-		D690C95724192C2A00BB1652 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D690C95624192C2A00BB1652 /* github-markdown.css */; };
 		D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
 		D690C962241A60DC00BB1652 /* PixelMatchCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C961241A60DC00BB1652 /* PixelMatchCommand.swift */; };
 		D690C968241A612700BB1652 /* PixelMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690C9592419440300BB1652 /* PixelMatch.swift */; };
@@ -904,7 +901,6 @@
 		D69374132403A92E007AF7AF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69374122403A92E007AF7AF /* Template.swift */; };
 		D69974C92413962D00223B31 /* ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974C82413962D00223B31 /* ImageOverlay.swift */; };
 		D69974CB24140A9000223B31 /* SceneEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69974CA24140A9000223B31 /* SceneEffectView.swift */; };
-		D69974E52416595500223B31 /* JSTColorPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = D69974E72416595500223B31 /* JSTColorPicker.html */; };
 		D699E0C3240836280011A4CB /* SceneGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C2240836280011A4CB /* SceneGridView.swift */; };
 		D699E0C82408E6E90011A4CB /* GeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0C72408E6E80011A4CB /* GeneralController.swift */; };
 		D699E0CC240908F90011A4CB /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699E0CB240908F90011A4CB /* FolderController.swift */; };
@@ -1452,7 +1448,6 @@
 		CC042F782806D3170076D3F1 /* idevicescreenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = idevicescreenshot.m; sourceTree = "<group>"; };
 		CC042F8C2806D5930076D3F1 /* ideviceimagemounter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ideviceimagemounter; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC042F8D2806D5C30076D3F1 /* ideviceimagemounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ideviceimagemounter.m; sourceTree = "<group>"; };
-		CC059D0D2630707400E6B89C /* README_zh-Hans.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README_zh-Hans.md"; sourceTree = "<group>"; };
 		CC059D0E2630707400E6B89C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CC059D1E263130B900E6B89C /* TemplatePreviewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewObject.swift; sourceTree = "<group>"; };
 		CC059D8A2633091300E6B89C /* PurchaseMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMainView.swift; sourceTree = "<group>"; };
@@ -1983,7 +1978,6 @@
 		D68A1FD32498B17F001E3FDA /* relaunch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = relaunch; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68A1FD52498B17F001E3FDA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D690493D240D1A3200E05F37 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
-		D690C95624192C2A00BB1652 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "github-markdown.css"; sourceTree = "<group>"; };
 		D690C9592419440300BB1652 /* PixelMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatch.swift; sourceTree = "<group>"; };
 		D690C95F241A60DC00BB1652 /* pixelmatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pixelmatch; sourceTree = BUILT_PRODUCTS_DIR; };
 		D690C961241A60DC00BB1652 /* PixelMatchCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelMatchCommand.swift; sourceTree = "<group>"; };
@@ -1992,8 +1986,6 @@
 		D69374122403A92E007AF7AF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D69974C82413962D00223B31 /* ImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOverlay.swift; sourceTree = "<group>"; };
 		D69974CA24140A9000223B31 /* SceneEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEffectView.swift; sourceTree = "<group>"; };
-		D69974E92416597500223B31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/JSTColorPicker.html; sourceTree = "<group>"; };
-		D69974EA2416598C00223B31 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hans"; path = "zh-Hans.lproj/JSTColorPicker.html"; sourceTree = "<group>"; };
 		D699E0C2240836280011A4CB /* SceneGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGridView.swift; sourceTree = "<group>"; };
 		D699E0C72408E6E80011A4CB /* GeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralController.swift; sourceTree = "<group>"; };
 		D699E0CB240908F90011A4CB /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
@@ -3469,7 +3461,6 @@
 			isa = PBXGroup;
 			children = (
 				CC059D0E2630707400E6B89C /* README.md */,
-				CC059D0D2630707400E6B89C /* README_zh-Hans.md */,
 				D658AF9C23CB180C0098C567 /* JSTColorPicker */,
 				D60B0F3D24286AA30034F21C /* JSTScreenshotHelper */,
 				D61047E824224CC90002E990 /* JSTColorPickerSparkle */,
@@ -3757,8 +3748,6 @@
 				CCFECFAA262D50D0001F6467 /* open_console.scpt */,
 				CCED7CF7262D68D600F2C965 /* InfoPlist.strings */,
 				D64AF0AC240D069A003A5B17 /* Localizable.strings */,
-				D69974E72416595500223B31 /* JSTColorPicker.html */,
-				D690C95624192C2A00BB1652 /* github-markdown.css */,
 				CCB446A0267093C00049EC2E /* Credits.rtf */,
 			);
 			path = Resources;
@@ -4559,7 +4548,6 @@
 				CC06C938280FB680001C0BC0 /* Subscription.xib in Resources */,
 				CCF7F1502618D38100ED16B7 /* InspectorView.xib in Resources */,
 				1842C477247988E8008ECD6F /* TagList.storyboard in Resources */,
-				D61047D524224A170002E990 /* github-markdown.css in Resources */,
 				CC4422EE263AE56D00161852 /* Paste.aiff in Resources */,
 				CCCD8177261C2DD000BFDD6E /* Segment.storyboard in Resources */,
 				180C6A8A249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
@@ -4579,7 +4567,6 @@
 				CC548099275E4A5100B7652C /* BrowserPreviewView.xib in Resources */,
 				CC74CE26262BF97D00387282 /* ExampleTemplates.bundle in Resources */,
 				CC5480A9275E4BF500B7652C /* BrowserHeaderView.xib in Resources */,
-				D61047D924224A170002E990 /* JSTColorPicker.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4628,7 +4615,6 @@
 				CCB446A2267093C00049EC2E /* Credits.rtf in Resources */,
 				CC436B0C26179D7800E46D3A /* InfoView.xib in Resources */,
 				1842C478247988E8008ECD6F /* TagList.storyboard in Resources */,
-				D690C95724192C2A00BB1652 /* github-markdown.css in Resources */,
 				180C6A8B249F92AB00B42656 /* TagImportAlertView.xib in Resources */,
 				CC54809A275E4A5100B7652C /* BrowserPreviewView.xib in Resources */,
 				D64AF0AE240D06B4003A5B17 /* Localizable.strings in Resources */,
@@ -4642,7 +4628,6 @@
 				CC32E1D82615D25700F5F6AA /* Info.storyboard in Resources */,
 				CCC525B8262EB9E000D408B0 /* TemplatePreview.bundle in Resources */,
 				CC300F1D26284536002FD866 /* TemplatePreview.storyboard in Resources */,
-				D69974E52416595500223B31 /* JSTColorPicker.html in Resources */,
 				CC1B4C2C27EF25CB0087974F /* Metadata.storyboard in Resources */,
 				CC3C4AAF262013AF00794806 /* DocumentStacked.storyboard in Resources */,
 			);
@@ -6036,15 +6021,6 @@
 				D67A89B12427D8AC002A6DDF /* zh-Hans */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		D69974E72416595500223B31 /* JSTColorPicker.html */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D69974E92416597500223B31 /* en */,
-				D69974EA2416598C00223B31 /* zh-Hans */,
-			);
-			name = JSTColorPicker.html;
 			sourceTree = "<group>";
 		};
 		D6DF0F9224292B27001E30F0 /* Localizable.strings */ = {

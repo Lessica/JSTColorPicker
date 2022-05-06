@@ -163,7 +163,13 @@ final class Template {
         self.contentModification = url.contentModification
         
         let vm = VirtualMachine(openLibs: true)
+        
+        if let bundleVersion = Bundle.main.bundleVersion {
+            vm.globals["platformVersion"] = bundleVersion
+        }
+        
         vm.globals["applicationSupportDirectory"] = AppDelegate.supportDirectoryURL.path
+        vm.globals["self"] = url.path
         
         self.vm = vm
         switch self.vm.eval(url, args: []) {

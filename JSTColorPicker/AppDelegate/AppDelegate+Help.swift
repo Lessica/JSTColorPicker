@@ -14,7 +14,7 @@ extension AppDelegate {
     // MARK: - Help Actions
     
     @IBAction private func showHelpPageMenuItemTapped(_ sender: NSMenuItem) {
-        NSWorkspace.shared.redirectToLocalHelpPage()
+        NSWorkspace.shared.redirectToRemoteHelpPage()
     }
     
     @IBAction private func actionRedirectToTermsAndPrivacyPage(_ sender: NSMenuItem) {

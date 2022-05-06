@@ -19,8 +19,8 @@ extension NSWorkspace {
     }
     
     @discardableResult
-    func redirectToLocalHelpPage() -> Bool {
-        if let url = Bundle.main.url(forResource: "JSTColorPicker", withExtension: "html") {
+    func redirectToRemoteHelpPage() -> Bool {
+        if let url = URL(string: "https://github.com/Lessica/JSTColorPicker-CN/wiki") {
             return open(url)
         }
         return false
