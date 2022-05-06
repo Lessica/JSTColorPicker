@@ -19,7 +19,7 @@ extension AppleDevice {
             name,
             udid,
             isNetworkDevice: type == JSTDeviceTypeNetwork,
-            performWirelessPairing: false,
+            performWirelessPairing: type == JSTDeviceTypeNetwork,
             completion: completion
         )
     }

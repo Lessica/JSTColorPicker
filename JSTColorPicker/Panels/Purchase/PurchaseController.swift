@@ -743,6 +743,7 @@ extension PurchaseController {
     
     @objc private func productForceDeactivate(_ noti: Notification) {
         guard let window = self.view.window else { return }
+#if !APP_STORE
         self.isMasked = true
         PurchaseManager.shared.paddleProduct.deactivate {
             [unowned self] (deactivated, error) in
@@ -759,6 +760,7 @@ extension PurchaseController {
                 self.isMasked = false
             }
         }
+#endif
     }
     
 }

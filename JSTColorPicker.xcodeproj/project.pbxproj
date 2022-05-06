@@ -517,8 +517,6 @@
 		CCCD820A261C5DBA00BFDD6E /* ExportStacked.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCCD820C261C5DBA00BFDD6E /* ExportStacked.storyboard */; };
 		CCCD8230261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
 		CCCD8231261C81C800BFDD6E /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD822F261C81C800BFDD6E /* MainWindow.swift */; };
-		CCCEB8D127E59A6F00A761C4 /* pixelexif in Embed Tools */ = {isa = PBXBuildFile; fileRef = 0F5BBA14276F3B3300AF0DC8 /* pixelexif */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CCCEB8D227E59A7A00A761C4 /* pixelmatch in Embed Tools */ = {isa = PBXBuildFile; fileRef = D690C95F241A60DC00BB1652 /* pixelmatch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CCD04E2627E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD04E2727E7811A00C43E64 /* SceneCursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2527E7811000C43E64 /* SceneCursorView.swift */; };
 		CCD0DCCC25774F9500E4C4DD /* LabelBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0DCCB25774F9500E4C4DD /* LabelBgView.swift */; };
@@ -1090,20 +1088,6 @@
 			remoteGlobalIDString = CC98052927F21124009044B7;
 			remoteInfo = "lua-protobuf";
 		};
-		CCCEB8CD27E59A5A00A761C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F5BBA00276F3B3300AF0DC8;
-			remoteInfo = PixelExif;
-		};
-		CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D690C95E241A60DC00BB1652;
-			remoteInfo = PixelMatch;
-		};
 		CCFAB58A27FFF8DA0099D402 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D658AF9223CB180C0098C567 /* Project object */;
@@ -1206,18 +1190,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		0F87C3522769CC700006F446 /* Embed Tools */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				CCCEB8D127E59A6F00A761C4 /* pixelexif in Embed Tools */,
-				CCCEB8D227E59A7A00A761C4 /* pixelmatch in Embed Tools */,
-			);
-			name = "Embed Tools";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0FF4701E2762070100F46554 /* Copy Embed Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -4355,7 +4327,6 @@
 				A7756FAE487682B9D898D158 /* [CP] Embed Pods Frameworks */,
 				D62693602429F3C300463E36 /* Embed Color Pickers */,
 				D69FD93C24741A4000ACBF74 /* Embed Dynamic Libraries */,
-				0F87C3522769CC700006F446 /* Embed Tools */,
 			);
 			buildRules = (
 			);
@@ -4363,8 +4334,6 @@
 				D60B0F9D24288EFE0034F21C /* PBXTargetDependency */,
 				D62834F423F8E9DB0016573B /* PBXTargetDependency */,
 				D62693622429F3CA00463E36 /* PBXTargetDependency */,
-				CCCEB8CE27E59A5A00A761C4 /* PBXTargetDependency */,
-				CCCEB8D027E59A5C00A761C4 /* PBXTargetDependency */,
 				CC7D6751266DDB96002099AD /* PBXTargetDependency */,
 			);
 			name = JSTColorPicker;
@@ -5674,16 +5643,6 @@
 			isa = PBXTargetDependency;
 			target = CC98052927F21124009044B7 /* lua-protobuf */;
 			targetProxy = CC98053527F2114C009044B7 /* PBXContainerItemProxy */;
-		};
-		CCCEB8CE27E59A5A00A761C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F5BBA00276F3B3300AF0DC8 /* PixelExif */;
-			targetProxy = CCCEB8CD27E59A5A00A761C4 /* PBXContainerItemProxy */;
-		};
-		CCCEB8D027E59A5C00A761C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D690C95E241A60DC00BB1652 /* PixelMatch */;
-			targetProxy = CCCEB8CF27E59A5C00A761C4 /* PBXContainerItemProxy */;
 		};
 		CCFAB58B27FFF8DA0099D402 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
