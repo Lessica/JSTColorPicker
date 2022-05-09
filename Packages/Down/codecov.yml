@@ -1,0 +1,4 @@
+ignore:
+  - "Sources/cmark/"
+  - "Down-Example/"
+  - "Tests/"

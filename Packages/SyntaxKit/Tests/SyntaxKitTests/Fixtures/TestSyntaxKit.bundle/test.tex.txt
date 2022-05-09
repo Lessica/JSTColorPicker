@@ -1,0 +1,644 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   This is my macro files
+%%
+%%   Feel free to use it or to delete it
+%%
+%%   Anyway, this is where you put your own macros
+%%   (in addition to these ones
+%%    or in replacement as you want)
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%    Fonctions, notations usuelles   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\CoeffBinom}[2]{\binom{#1}{#2}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%    Ensembles classiques        %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\U{\mathbb{U}}
+\def\K{\mathbb{K}}
+\def\vide{\varnothing}
+\def\Premiers{\mathcal{P}}
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%    Notations pour les probas   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\P{P} %\def\P{\mathbb{P}}
+\newcommand{\Pcond}[2]{\P_{#1}\left ( #2\right )}
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+\newcommand{\covar}[2]{\mathrm{cov}\left (#1, #2 \right)}
+\newcommand{\Correlation}[2]{\mathrm{cor}\left (#1, #2 \right )}
+
+\newcommand{\Bernoulli}[1]{\mathcal{B}(#1)}
+\newcommand{\Binomiale}[2]{\mathcal{B}(#1, #2)}
+\newcommand{\Poisson}[1]{\mathcal{P}(#1)}
+\newcommand{\Geometrique}[1]{\mathcal{G}(#1)}
+\newcommand{\Uniforme}[1]{\mathcal{U}(#1)}
+\newcommand{\Exponentielle}[1]{\mathcal{E}(#1)}
+\newcommand{\Normale}[2]{\mathscr{N}(#1, #2)}
+
+\newcommand{\loiSuit}{\rightsquigarrow}
+\def\suitVA{\hookrightarrow}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Matrices   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% Espaces vectoriels %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\GLcore{\mathrm{GL}}
+\def\SLcore{\mathrm{SL}}
+\def\SOcore{\mathrm{SO}}
+
+
+% cf. http://stackoverflow.com/a/1812314/1670830
+\DeclareDocumentCommand\GL{ m g }{%
+{\IfNoValueTF {#2} {\GLcore\left (#1 \right )} {\GLcore_{#1}\left (#2 \right )}
+}%
+}
+
+\DeclareDocumentCommand\SL{ m g }{%
+{\IfNoValueTF {#2} {\SLcore\left (#1 \right )} {\SLcore_{#1}\left (#2 \right )}
+}%
+}
+
+\DeclareDocumentCommand\SO{ m g }{%
+{\IfNoValueTF {#2} {\SOcore\left (#1 \right )} {\SOcore_{#1}\left (#2 \right )}
+}%
+}
+
+\newcommand{\Mat}[2]{\mathrm{M}_{#1}\left ( #2\right)}
+\newcommand{\MatRectangle}[3]{\mathrm{M}_{#1\, #2}\left ( #3\right)}
+\DeclareMathOperator{\tr}{tr}
+
+%\newcommand{\AppliLin}[2]{\mathscr{L}\left (#1, #2\right)}
+%\newcommand{\Endo}[1]{\mathscr{L}\left (#1\right)}
+\newcommand{\AppliLin}[2]{\mathrm{L}\left (#1, #2\right)}
+\newcommand{\Endo}[1]{\mathrm{L}\left (#1\right)}
+
+
+\newcommand{\Orth}[1]{\mathrm{O}\left (#1\right)}
+\newcommand{\MatOrth}[1]{\mathrm{O}_{#1}\left (\R\right)}
+
+\newcommand{\MatSym}[1]{\mathrm{S}_{#1}(\R)}
+\newcommand{\MatSymPos}[1]{\mathrm{S}_{#1}^+(\R)}
+\newcommand{\MatSymDefPos}[1]{\mathrm{S}_{#1}^{++}(\R)}
+
+
+%% old way
+%%\newcommand{\Transposee}[1]{\prescript{\mathrm t}{}{#1}}
+\newcommand{\Transposee}[1]{\transp{#1}}
+\newcommand{\TransposeeParenth}[1]{\transp{\left (#1\right )}}
+\newcommand*{\transp}[2][-3mu]{\ensuremath{\mskip1mu\prescript{\smash{\mathrm t\mkern#1}}{}{\mathstrut#2}}}%
+
+%% new way
+\newcommand{\TransposeeNew}[1]{\transpNew{#1}}
+\newcommand{\TransposeeNewParenth}[1]{\transpNew{\left (#1\right )}}
+\newcommand*{\transpNew}[1]{{#1}^\mathsf{T}}%
+
+
+\newcommand{\MatApplLin}[2]{\mathrm{Mat}_{#1}\left ( #2\right)}
+
+\DeclareMathOperator{\Spec}{Sp}
+
+
+
+\def\Id{\mathrm{Id}}
+
+\DeclareMathOperator{\Vect}{Vect}
+
+\DeclareMathOperator{\Matt}{Mat}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Guillemets   %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%     Accolades   %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\guillemets}[1]{\enquote{#1}}
+
+\newcommand{\accolades}[1]{\left \{#1\right \}}
+\newcommand{\accoladesB}[1]{\big \{#1\big \}}
+\newcommand{\accoladesBB}[1]{\Big \{#1\Big \}}
+\newcommand{\accoladesBBB}[1]{\bigg \{#1\bigg \}}
+\newcommand{\accoladesBBBB}[1]{\Bigg \{#1\Bigg \}}
+
+\newcommand{\crochets}[1]{\left [#1\right ]}
+\newcommand{\crochetsB}[1]{\big [#1\big ]}
+\newcommand{\crochetsBB}[1]{\Big [#1\Big ]}
+\newcommand{\crochetsBBB}[1]{\bigg [#1\bigg ]}
+
+\newcommand{\crochetsOuv}[1]{\left ]#1\right [}
+\newcommand{\crochetsOuvB}[1]{\big ]#1\big [}
+\newcommand{\crochetsOuvBB}[1]{\Big ]#1\Big [}
+\newcommand{\crochetsOuvBBB}[1]{\bigg ]#1\bigg [}
+
+\def\tq{\mathrel{}\middle|\mathrel{}}
+\def\tqN{\mathrel{}|\mathrel{}}
+\def\tqB{\mathrel{}\big|\mathrel{}}
+\def\tqBB{\mathrel{}\Big|\mathrel{}}
+\def\tqBBB{\mathrel{}\bigg|\mathrel{}}
+
+\newcommand{\parenth}[1]{\left (#1\right )}
+\newcommand{\parenthB}[1]{\big (#1\big )}
+\newcommand{\parenthBB}[1]{\Big (#1\Big )}
+\newcommand{\parenthBBB}[1]{\bigg (#1\bigg )}
+
+\newcommand{\accoladesForAnd}[2]{\left \{\begin{array}{ll}#1\\[1mm]#2\end{array}\right.}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%    Produit scalaire   %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\prodScal}[2]{\left(#1\,\middle\vert\,#2\right)}
+\newcommand{\prodScalB}[2]{\big(#1\,\big\vert\,#2\big)}
+\newcommand{\prodScalBB}[2]{\Big(#1\,\Big\vert\,#2\Big)}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%    Intervalles   %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\intervalle}[2]{\left [#1, #2 \right ]}
+\newcommand{\intervalleOF}[2]{\left ]#1, #2 \right ]}
+\newcommand{\intervalleFO}[2]{\left [#1, #2 \right [}
+\newcommand{\intervalleN}[2]{\left \llbracket #1, #2 \right \rrbracket}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%   Mon propre style de listes   %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% ex : \begin{myItemize}[2mm] \myItem Bonjour \myItem Hello \end{myItemize}
+%
+
+
+\usepackage{xifthen}% provides \isempty test
+
+\newcommand{\optarg}[1][]{%
+\ifthenelse{\isempty{#1}}%
+{}% if #1 is empty
+{(((#1)))}% if #1 is not empty
+}
+
+\newenvironment{myItemize}[1][]
+{%
+\begin{itemize}%
+\ifthenelse{\isempty{#1}}%
+{}% if #1 is empty
+{\setlength{\itemsep}{#1}}% if #1 is not empty
+}
+{%
+\end{itemize}%
+}
+
+
+
+\def\myItem{\item[•]}
+\def\myItemLong{\item[---]}
+\def\myItemShort{\item[--]}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Valeur absolue        %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\va}[1]{\left | #1 \right |}
+\newcommand{\vaB}[1]{\big | #1 \big |}
+\newcommand{\vaBB}[1]{\Big | #1 \Big |}
+\newcommand{\vaBBB}[1]{\bigg | #1 \bigg |}
+
+\newcommand{\norm}[1]{\left \| #1 \right \|}
+\newcommand{\normB}[1]{\big \| #1 \big \|}
+\newcommand{\normBB}[1]{\Big \| #1 \Big \|}
+\newcommand{\normBBB}[1]{\bigg \| #1 \bigg \|}
+
+\newcommand{\normetriple}[1]{\left | \! \left | \! \left |  #1 \right | \! \right | \! \right |}
+\newcommand{\normetripleB}[1]{\big | \! \big | \! \big |  #1 \big | \! \big | \! \big |}
+\newcommand{\normetripleBB}[1]{\Big | \! \Big| \! \Big |  #1 \Big | \! \Big | \! \Big |}
+\newcommand{\normetripleBBB}[1]{\bigg | \! \bigg | \! \bigg |  #1 \bigg | \! \bigg | \! \bigg |}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%    Le d de dx dans les intégrales    %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Modulo        %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\modd}[1]{\ (#1)}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Petits mots français qu'on trouve dans les formules (ou pas)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\ie}{\emph{ie} }
+\newcommand{\et}{\text{ et }}
+\newcommand{\donc}{\text{ donc }}
+\newcommand{\ou}{\text{ ou }}
+\newcommand{\cf}{\emph{cf.} }
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%    Quantificateurs       %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\fa{\forall}
+\def\xt{\exists}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Raccourcis et petites commandes  %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\longto{\mathop{\longrightarrow}}
+\def\impl{\Longrightarrow}
+\def\implInverse{\Longleftarrow}
+\def\ssi{\iff}
+\def\ssivert{\Updownarrow}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Modification de \Im (et ker)  %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\Im}{\mathrm{Im}}
+\newcommand{\im}{\mathrm{Im}}
+\newcommand{\Ker}{\mathrm{Ker}}
+\renewcommand{\ker}{\mathrm{Ker}}
+\newcommand{\rg}{\mathrm{rg}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%    Compléments xy-pic       %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% Pour centrer les diagrammes et autres
+%
+% ex : \boite{<le diagramme>}
+%
+\newlength\longueurdelaboite
+\newcommand{\boite}[1]
+{
+\settowidth{\longueurdelaboite}{#1}
+\begin{minipage}{\longueurdelaboite}
+#1
+\end{minipage}
+}
+
+
+
+%%%%%%% Pour écrire des fonctions
+%
+% ex : \fonction{\R}{\R}{x}{x^2}
+%
+\newcommand{\fonction}[4]{
+\begin{tabular}{r@{~}c@{~}l}
+$#1$&$\longrightarrow$&$#2$ \\
+$#3$&$\longmapsto$&$#4$ \\
+\end{tabular}}
+
+
+
+%%%%%%% Pour écrire des fonctions bis
+%
+% ex : \fonction{\R}{\R}{x}{x^2}
+%
+\makeatother
+\newlength\longueurdudiagramme
+\newcommand{\fonctionb}[4]
+{%
+\settowidth{\longueurdudiagramme}
+{%
+$\xymatrix@R=0mm{
+#1 \ar[r] & #2 \\
+#3 \ar@{|->}[r] & #4}$
+}
+\begin{minipage}{\longueurdudiagramme}
+$\xymatrix@R=0mm{
+#1 \ar[r] & #2 \\
+#3 \ar@{|->}[r] & #4}$
+\end{minipage}
+}
+\makeatletter
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Quotients   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% Une commande pour les gros quotients
+%
+%  ancienne commande
+%%%%\newcommand{\quotient}[2]{\raisebox{4pt}{$#1$} \Big/ \raisebox{-4pt}{$#2$}}
+%
+%
+% ex : \quotient{Z}{nZ}
+%
+\newcommand{\quotient}[2]{\left. \raisebox{.2em}{$#1$}\middle/\raisebox{-.2em}{$#2$}\right.}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Canonical matrixes   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%
+% example
+% \canonicalmatrix{2\text{-ième ligne}}{3\text{-ième colonne}}{A}
+%
+%
+
+\NewDocumentCommand{\canonicalmatrix}{mmm}{%
+\begin{array}{@{}c@{}}
+\vphantom{
+\begin{array}{@{}c@{}}\text{$#2$}\\\downarrow\end{array}
+}
+\\
+\hphantom{#3={}\enspace
+}
+\begin{pmatrix}
+& & \smash[t]{
+\begin{array}[b]{@{}c@{}}
+\makebox[0pt]{$#2$}\\
+\downarrow\\[-.5ex]
+\vdots
+\end{array}
+}
+\\
+& & 0
+\\
+\llap{$#3={}$\quad}
+\cdots & 0 & 1 & 0 & \cdots\rlap{\quad$\leftarrow$ $#1$}
+\\
+& & 0
+\\
+& & \vdots
+\end{pmatrix}
+\end{array}%\hphantom{\text{\enspace$\leftarrow$ $#1$-#2 row}}
+}
+
+
+\newcommand{\vecteurCanonique}[1]{%
+\left (
+\begin{array}{c}
+\vdots \\
+0 \\
+1 \\
+0 \\
+\vdots
+\end{array}
+\right ) \text{\small $\gets$ $#1$-ième ligne}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Démo   %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\demo}[1]{\noindent  \textit{Démonstration.\,---\!--} #1 $\blacksquare$}
+\newcommand{\demoOf}[2]{\noindent  \textit{Démonstration #1.\,---\!--} #2 $\blacksquare$}
+
+\newcommand{\solution}[1]{\noindent  \textit{Solution.\,---\!--} #1 $\blacksquare$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%    Fonctions continues   %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Cont{\mathscr{C}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%    Petit o   %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\petito}[1]{ o\left ( #1\right)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%    Topologie   %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bouleO}[2]{\mathring{B}\left ( #1, #2\right )}
+\newcommand{\bouleF}[2]{\overline{B}\left ( #1, #2\right )}
+\DeclareMathOperator{\diam}{diam}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Récurrence   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\Heredite{$\text{HR}_n \impl \text{HR}_{n+1}$}
+\def\HerediteForte{$(\text{HR}_k)_{k\leq n} \impl \text{HR}_{n+1}$}
+\newcommand{\initRecurrence}[1]{$n=#1$}
+\newcommand{\HerediteWithArgument}[1]{$\text{HR}_{#1} \impl \text{HR}_{#1+1}$}
+\newcommand{\HerediteForteWithArgument}[1]{$(\text{HR}_\ell)_{\ell\leq #1} \impl \text{HR}_{#1+1}$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%    Partie réelle et imaginaire   %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%    Cardinal   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Card}{Card}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%    Groupes   %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Stab}{Stab}
+\def\Orb{\mathscr{O}}
+\newcommand{\GroupeSym}[1]{\mathfrak{S}_{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%    pgcd et ppcm   %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\pgcd}{pgcd}
+\DeclareMathOperator{\ppcm}{ppcm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%    Better underbraces for matrices   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\underbracedmatrix}[2]{%
+\left(\;
+\smash[b]{\underbrace{
+\begin{matrix}#1\end{matrix}
+}_{#2}}
+\;\right)
+\vphantom{\underbrace{\begin{matrix}#1\end{matrix}}_{#2}}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%    Equivalence   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\equivaut}{\sim}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%    Signe   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\signe}{\mathrm{sign}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%    Vertical symbols   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\verticalEquals{\rotatebox[origin=c]{90}{$=$}}
+\def\verticalDefines{\rotatebox[origin=c]{-90}{$:=$}}
+\def\verticalSsi{\big\Updownarrow}
+\def\verticalImpl{\big\Downarrow}
+\def\verticalLongto{\rotatebox[origin=c]{-90}{$\longto$}}
+\def\verticalLeadsto{\rotatebox[origin=c]{-90}{$\leadsto$}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%    Better inf, max and min   %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\inf\relax \DeclareMathOperator*\inf{\vphantom{p}inf}
+\let\max\relax \DeclareMathOperator*\max{\vphantom{p}max}
+\let\min\relax \DeclareMathOperator*\min{\vphantom{p}min}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%    Nice symbol for \leq and \geq   %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\leq{\leqslant}
+\renewcommand\geq{\geqslant}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%    Extra thin space   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% cf. http://tex.stackexchange.com/a/332158/8323
+
+\protected\def\miniSpace{%
+\ifmmode
+\mskip0.5\thinmuskip
+\else
+\ifhmode
+\kern0.08334em
+\fi
+\fi
+}

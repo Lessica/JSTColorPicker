@@ -1,0 +1,81 @@
+
+/* Class = "NSMenuItem"; title = "Date"; ObjectID = "1gR-ic-BEQ"; */
+"1gR-ic-BEQ.title" = "Date";
+
+/* Class = "NSMenuItem"; title = "Date"; ObjectID = "7JM-0F-5UK"; */
+"7JM-0F-5UK.title" = "Date";
+
+/* Class = "NSMenuItem"; title = "Array"; ObjectID = "8UR-hR-pSj"; */
+"8UR-hR-pSj.title" = "Array";
+
+/* Class = "NSMenuItem"; title = "Boolean"; ObjectID = "8jo-gl-CEW"; */
+"8jo-gl-CEW.title" = "Boolean";
+
+/* Class = "NSTextFieldCell"; title = "Value"; ObjectID = "Gaq-fl-VGF"; */
+"Gaq-fl-VGF.title" = "Value";
+
+/* Class = "NSTableColumn"; headerCell.title = "Key"; ObjectID = "JH4-EF-CLc"; */
+"JH4-EF-CLc.headerCell.title" = "Key";
+
+/* Class = "NSMenuItem"; title = "Add Item"; ObjectID = "JTy-u0-Kc4"; */
+"JTy-u0-Kc4.title" = "Add Item";
+
+/* Class = "NSMenuItem"; title = "Data"; ObjectID = "Kva-Ls-3rg"; */
+"Kva-Ls-3rg.title" = "Data";
+
+/* Class = "NSMenuItem"; title = "Boolean"; ObjectID = "MGQ-jA-e2X"; */
+"MGQ-jA-e2X.title" = "Boolean";
+
+/* Class = "NSMenuItem"; title = "YES"; ObjectID = "PFQ-mZ-udg"; */
+"PFQ-mZ-udg.title" = "YES";
+
+/* Class = "NSMenuItem"; title = "String"; ObjectID = "Qdr-Xv-QeV"; */
+"Qdr-Xv-QeV.title" = "String";
+
+/* Class = "NSMenuItem"; title = "Array"; ObjectID = "QxY-ZN-p5E"; */
+"QxY-ZN-p5E.title" = "Array";
+
+/* Class = "NSMenuItem"; title = "Dictionary"; ObjectID = "RPA-Nf-04F"; */
+"RPA-Nf-04F.title" = "Dictionary";
+
+/* Class = "NSMenuItem"; title = "Number"; ObjectID = "UUo-dL-TdP"; */
+"UUo-dL-TdP.title" = "Number";
+
+/* Class = "NSMenuItem"; title = "Data"; ObjectID = "WOd-bO-gxq"; */
+"WOd-bO-gxq.title" = "Data";
+
+/* Class = "NSMenuItem"; title = "String"; ObjectID = "WOk-cv-CJd"; */
+"WOk-cv-CJd.title" = "String";
+
+/* Class = "NSTextFieldCell"; title = "Key"; ObjectID = "XYB-pt-1cu"; */
+"XYB-pt-1cu.title" = "Key";
+
+/* Class = "NSMenuItem"; title = "Number"; ObjectID = "YJa-vW-UHc"; */
+"YJa-vW-UHc.title" = "Number";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "ZQz-3Y-y4A"; */
+"ZQz-3Y-y4A.title" = "Copy";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "fcg-eA-BaW"; */
+"fcg-eA-BaW.title" = "Cut";
+
+/* Class = "NSMenuItem"; title = "Dictionary"; ObjectID = "ffo-JN-fHh"; */
+"ffo-JN-fHh.title" = "Dictionary";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gUo-cr-EVu"; */
+"gUo-cr-EVu.title" = "Paste";
+
+/* Class = "NSMenuItem"; title = "NO"; ObjectID = "h7F-ry-9JB"; */
+"h7F-ry-9JB.title" = "NO";
+
+/* Class = "NSMenu"; title = "Value Type"; ObjectID = "iof-Zo-JMN"; */
+"iof-Zo-JMN.title" = "Value Type";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "mXq-GQ-RtL"; */
+"mXq-GQ-RtL.headerCell.title" = "Type";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "ocb-ja-fwj"; */
+"ocb-ja-fwj.headerCell.title" = "Value";
+
+/* Class = "NSMenuItem"; title = "Value Type"; ObjectID = "p5e-qZ-oat"; */
+"p5e-qZ-oat.title" = "Value Type";

@@ -1,0 +1,93 @@
+name: CI
+on: pull_request
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        swift:
+        - 4.0.3
+        - 4.1.3
+        - 4.2.4
+        - 5.0.3
+        - 5.1.5
+        - 5.2.5
+        - 5.3.3
+        - 5.4.0
+    container:
+      image: swift:${{ matrix.swift }}
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        if [ ${v:0:1} == 4 ]; then
+          echo "VERSIONS=3 4" >> $GITHUB_ENV
+        else
+          echo "VERSIONS=4 4.2 5" >> $GITHUB_ENV
+        fi
+      shell: bash
+      env:
+        v: ${{ matrix.swift }}
+    - run: |
+        for v in $VERSIONS; do
+          swift build -Xswiftc -warnings-as-errors -Xswiftc -swift-version -Xswiftc $v
+        done
+
+  macOS:
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        xcode: [^10, ^11, ^12]
+    steps:
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ matrix.xcode }}
+    - uses: actions/checkout@v2
+    - run: swift build
+
+  carthage:
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        xcode: [^10, ^11, ^12]
+    steps:
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ matrix.xcode }}
+    - uses: actions/checkout@v2
+    - uses: mingjun97/file-regex-replace@v1
+      with:
+        regex: SWIFT_TREAT_WARNINGS_AS_ERRORS = NO
+        replacement: SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
+        include: project.pbxproj
+    - run: |
+        if [ ${{ matrix.xcode }} == ^12 ]; then
+          echo "CARTHAGE_ARGS=--use-xcframeworks" >> $GITHUB_ENV
+        fi
+    - run: carthage bootstrap --no-use-binaries $CARTHAGE_ARGS
+    - run: carthage build --no-skip-current --no-use-binaries $CARTHAGE_ARGS
+
+  test:
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        dst:
+        - platform=macOS
+        - platform=tvOS Simulator,OS=12.4,name=Apple TV
+        - platform=iOS Simulator,OS=12.4,name=iPhone SE
+    steps:
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ^10  # 10 as Xcode 11 & 12 forces xcframeworks and we dunno how to handle that yet
+    - uses: actions/checkout@v2
+    - run: carthage bootstrap --no-use-binaries
+    - uses: sersoft-gmbh/xcodebuild-action@v1
+      with:
+        project: PMKFoundation.xcodeproj
+        scheme: PMKFoundation
+        destination: ${{ matrix.dst }}
+        action: test
+        enable-code-coverage: true
+        use-xcpretty: false
+    - uses: codecov/codecov-action@v1
