@@ -13,7 +13,6 @@ mkdir -p releases/.app releases/.helper releases/.conf
 
 
 APP_PATH="$BUILD_ROOT/releases/.app/JSTColorPicker.app"
-APP_NAME="JSTColorPicker.dmg"
 
 if [[ -d "$APP_PATH" ]]; then
 
@@ -32,12 +31,12 @@ if [[ -d "$APP_PATH" ]]; then
         exit 1
     fi
 
-    APP_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${APP_NAME};"
-    echo "${APP_INCLUDED_FILE}" > releases/.conf/nginx_latest_app_redirect.txt
-
     create-dmg --overwrite --identity="$CERT" "$APP_PATH" releases/.app/
 
     APP_DMG_NAME="JSTColorPicker_$APP_VERSION-$APP_BUILD_VERSION.dmg"
+    APP_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${APP_DMG_NAME};"
+    echo "${APP_INCLUDED_FILE}" > releases/.conf/nginx_latest_app_redirect.txt
+
     mv releases/.app/*.dmg releases/cdn/$APP_DMG_NAME
 
     Pods/Sparkle/bin/generate_appcast --download-url-prefix https://cdn.82flex.com/jstcpweb/ -o releases/appcast.xml releases/cdn
@@ -47,7 +46,6 @@ fi
 
 
 HELPER_PATH="$BUILD_ROOT/releases/.helper/JSTColorPickerHelper.app"
-HELPER_NAME="JSTColorPickerScreenshotHelper.zip"
 
 if [[ -d "$HELPER_PATH" ]]; then
 
@@ -66,10 +64,10 @@ if [[ -d "$HELPER_PATH" ]]; then
         exit 1
     fi
 
-    HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_NAME};"
+    HELPER_ZIP_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
+    HELPER_INCLUDED_FILE="return 302 https://cdn.82flex.com/jstcpweb/${HELPER_ZIP_NAME};"
     echo "${HELPER_INCLUDED_FILE}" > releases/.conf/nginx_latest_helper_redirect.txt
 
-    HELPER_ZIP_NAME="JSTColorPickerHelper_${HELPER_VERSION}-${HELPER_BUILD_VERSION}.zip"
     cd releases/.helper/
     if [[ ! -f "${HELPER_ZIP_NAME}" ]]; then
         zip -qr "${HELPER_ZIP_NAME}" "JSTColorPickerHelper.app"
