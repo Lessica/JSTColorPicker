@@ -20,12 +20,14 @@ final class SceneState {
         case none
         case left
         case right
+        case other(buttonNumber: Int)
     }
     
     enum ManipulatingType {
         case none
         case leftGeneric
         case rightGeneric
+        case otherGeneric(buttonNumber: Int)
         case areaDragging
         case sceneDragging
         case annotatorDragging
@@ -35,7 +37,7 @@ final class SceneState {
             switch self {
             case .none:
                 return 0
-            case .leftGeneric, .rightGeneric:
+            case .leftGeneric, .rightGeneric, .otherGeneric:
                 return 1
             case .areaDragging:
                 return 2
@@ -49,7 +51,7 @@ final class SceneState {
         }
         
         static func draggingType(at side: ManipulatingSide, for tool: SceneTool) -> ManipulatingType {
-            if side == .left {
+            if case .left = side {
                 switch tool {
                 case .magicCursor, .magnifyingGlass:
                     return .areaDragging
@@ -60,7 +62,7 @@ final class SceneState {
                 default:
                     break
                 }
-            } else if side == .right {
+            } else if case .right = side {
                 switch tool {
                 default:
                     return .sceneDragging
@@ -69,13 +71,22 @@ final class SceneState {
             return .forbidden
         }
         
-        var isManipulating: Bool { self != .none }
-        
-        var isDragging: Bool {
-            if self == .sceneDragging || self == .areaDragging || self == .annotatorDragging {
+        var isManipulating: Bool {
+            switch self {
+            case .none:
+                return false
+            default:
                 return true
             }
-            return false
+        }
+        
+        var isDragging: Bool {
+            switch self {
+            case .areaDragging, .sceneDragging, .annotatorDragging:
+                return true
+            default:
+                return false
+            }
         }
     }
     
@@ -98,20 +109,35 @@ final class SceneState {
     
     var stage: Int
     {
-        get { manipulatingType != .none ? internalStage : 0 }
-        set { internalStage = newValue                      }
+        get {
+            if case .none = manipulatingType {
+                return 0
+            }
+            return internalStage
+        }
+        set { internalStage = newValue }
     }
     
     var beginLocation: CGPoint
     {
-        get { manipulatingType != .none ? internalBeginLocation : .null }
-        set { internalBeginLocation = newValue                          }
+        get {
+            if case .none = manipulatingType {
+                return .null
+            }
+            return internalBeginLocation
+        }
+        set { internalBeginLocation = newValue }
     }
     
     var manipulatingOverlay: EditableOverlay?
     {
-        get { manipulatingType != .none ? internalManipulatingOverlay : nil }
-        set { internalManipulatingOverlay = newValue                        }
+        get {
+            if case .none = manipulatingType {
+                return nil
+            }
+            return internalManipulatingOverlay
+        }
+        set { internalManipulatingOverlay = newValue }
     }
     
     var isManipulating         : Bool { manipulatingType.isManipulating }

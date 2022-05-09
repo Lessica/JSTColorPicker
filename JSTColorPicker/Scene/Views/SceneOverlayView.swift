@@ -118,10 +118,13 @@ final class SceneOverlayView: NSView {
     override func mouseExited(with event: NSEvent)       { resetAppearance()                              }
     override func mouseDown(with event: NSEvent)         { updateAppearance(with: event.locationInWindow) }
     override func rightMouseDown(with event: NSEvent)    { updateAppearance(with: event.locationInWindow) }
+    override func otherMouseDown(with event: NSEvent)    { updateAppearance(with: event.locationInWindow) }
     override func mouseUp(with event: NSEvent)           { updateAppearance(with: event.locationInWindow) }
     override func rightMouseUp(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
+    override func otherMouseUp(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
     override func mouseDragged(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
     override func rightMouseDragged(with event: NSEvent) { updateAppearance(with: event.locationInWindow) }
+    override func otherMouseDragged(with event: NSEvent) { updateAppearance(with: event.locationInWindow) }
     override func scrollWheel(with event: NSEvent)       { updateAppearance(with: event.locationInWindow) }
     override func magnify(with event: NSEvent)           { updateAppearance(with: event.locationInWindow) }
     override func smartMagnify(with event: NSEvent)      { updateAppearance(with: event.locationInWindow) }
@@ -175,11 +178,10 @@ final class SceneOverlayView: NSView {
     private func _updateCursorAppearance(with locInWindow: CGPoint?) {
         if sceneToolSource.sceneToolEnabled {
             if sceneState.isManipulating {
-                if sceneState.manipulatingType != .forbidden {
-                    sceneTool.manipulatingCursor.set()
-                }
-                else {
+                if case .forbidden = sceneState.manipulatingType {
                     sceneTool.disabledCursor.set()
+                } else {
+                    sceneTool.manipulatingCursor.set()
                 }
             }
             else if let focusedOverlay = focusedOverlay,

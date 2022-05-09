@@ -470,7 +470,7 @@ extension SceneController {
     
     override func mouseUp(with event: NSEvent) {
         var handled = false
-        if sceneState.manipulatingType == .leftGeneric {
+        if case .leftGeneric = sceneState.manipulatingType {
             let location = sceneView.convert(event.locationInWindow, from: nil)
             if isLocationVisible(location) {
                 if sceneTool == .selectionArrow {
@@ -513,7 +513,7 @@ extension SceneController {
     
     override func rightMouseUp(with event: NSEvent) {
         var handled = false
-        if sceneState.manipulatingType == .rightGeneric {
+        if case .rightGeneric = sceneState.manipulatingType {
             let locInWrapper = wrapper.convert(event.locationInWindow, from: nil)
             if isWrapperLocationVisible(locInWrapper) {
                 if sceneTool == .magicCursor || sceneTool == .selectionArrow {
