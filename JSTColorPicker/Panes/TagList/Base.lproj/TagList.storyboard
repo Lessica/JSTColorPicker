@@ -20,7 +20,7 @@
                                     <rect key="frame" x="11" y="11" width="242" height="774"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
+                                        <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-1N-BCe">
                                             <rect key="frame" x="0.0" y="0.0" width="242" height="766"/>
                                             <subviews>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="K6j-Zr-Q1x">
@@ -52,21 +52,21 @@
                                                         <constraint firstItem="57S-WH-dXZ" firstAttribute="top" secondItem="K6j-Zr-Q1x" secondAttribute="top" id="gAO-5J-q3b"/>
                                                     </constraints>
                                                 </customView>
-                                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qAb-om-glU">
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="qAb-om-glU">
                                                     <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
                                                     <subviews>
-                                                        <scrollView focusRingType="none" ambiguous="YES" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
+                                                        <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-cH-fIS">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
-                                                            <clipView key="contentView" focusRingType="none" ambiguous="YES" drawsBackground="NO" id="Q9a-31-8kW">
+                                                            <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="Q9a-31-8kW">
                                                                 <rect key="frame" x="1" y="1" width="240" height="726"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="24" headerView="ZJN-ac-bw2" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="698"/>
+                                                                    <tableView identifier="TagListTableView" hidden="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" enabled="NO" autosaveName="TagListTableView" rowHeight="24" headerView="ZJN-ac-bw2" viewBased="YES" id="rNA-mn-1hm" customClass="TagListTableView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="276" height="698"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <size key="intercellSpacing" width="8" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
+                                                                        <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableColumns>
                                                                             <tableColumn identifier="col-flags" editable="NO" width="30" minWidth="30" maxWidth="30" id="XC9-Lg-cBA">
@@ -81,7 +81,7 @@
                                                                                 </textFieldCell>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="Swr-H3-w9y" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="4" y="1" width="32" height="24"/>
+                                                                                        <rect key="frame" x="14" y="1" width="32" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-Sc-b4D">
@@ -112,7 +112,7 @@
                                                                                 </textFieldCell>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="6rS-aE-9Be" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="44" y="1" width="30" height="24"/>
+                                                                                        <rect key="frame" x="54" y="1" width="30" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gcf-2X-IFc">
@@ -136,7 +136,7 @@
                                                                                     </tableCellView>
                                                                                 </prototypeCellViews>
                                                                             </tableColumn>
-                                                                            <tableColumn identifier="col-name" editable="NO" width="100" minWidth="100" maxWidth="1000" id="7mA-Qd-o8i">
+                                                                            <tableColumn identifier="col-name" editable="NO" width="168" minWidth="100" maxWidth="9.2233720368547758e+18" id="7mA-Qd-o8i">
                                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left" title="Name">
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -149,11 +149,11 @@
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="yGX-y2-tND" customClass="TagCellView" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                        <rect key="frame" x="82" y="1" width="102" height="24"/>
+                                                                                        <rect key="frame" x="92" y="1" width="170" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ios-5I-oE3" customClass="TagEditableTextField" customModule="JSTColorPicker" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="4" width="102" height="16"/>
+                                                                                                <rect key="frame" x="0.0" y="4" width="170" height="16"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" usesSingleLineMode="YES" id="36l-Jz-ijV">
                                                                                                     <font key="font" metaFont="system"/>
@@ -207,11 +207,11 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <tableHeaderView key="headerView" wantsLayer="YES" id="ZJN-ac-bw2">
-                                                                <rect key="frame" x="0.0" y="0.0" width="240" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="276" height="28"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </tableHeaderView>
                                                         </scrollView>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1R-EZ-pCN">
+                                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1R-EZ-pCN">
                                                             <rect key="frame" x="56" y="344" width="131" height="40"/>
                                                             <subviews>
                                                                 <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-7K-zYS">
@@ -242,7 +242,7 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
+                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-3m-17h" customClass="TagListOverlayView" customModule="JSTColorPicker" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="728"/>
                                                         </customView>
                                                     </subviews>

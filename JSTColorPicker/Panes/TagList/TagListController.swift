@@ -102,6 +102,19 @@ final class TagListController: StackedPaneController {
     
     private var disableTagReordering              : Bool = false
     private var disableTagEditing                 : Bool = false
+    private var allowsMultipleSelection           : Bool {
+        let maximumTagPerItemEnabled: Bool = UserDefaults.standard[.maximumTagPerItemEnabled]
+        if maximumTagPerItemEnabled {
+            let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
+            let alwaysSelectSingleTag: Bool = UserDefaults.standard[.alwaysSelectSingleTagInMenu]
+            if maximumTagPerItem == 1 && alwaysSelectSingleTag {
+                return false
+            } else {
+                return !isSelectMode
+            }
+        }
+        return !isSelectMode
+    }
     
     var isEditable                                : Bool {
         get {
@@ -114,6 +127,7 @@ final class TagListController: StackedPaneController {
     
     private let observableKeys                    : [UserDefaults.Key] = [
         .disableTagReordering, .disableTagEditing,
+        .maximumTagPerItemEnabled, .maximumTagPerItem, .alwaysSelectSingleTagInMenu,
     ]
     private var observables                       : [Observable]?
     
@@ -147,10 +161,10 @@ final class TagListController: StackedPaneController {
         
         tableView.isEnabled                 = isContextLoaded
         tableView.isHidden                  = !isContextLoaded
-        tableView.allowsMultipleSelection   = !isSelectMode
         tableView.gridStyleMask             = isSelectMode ? [] : [.solidVerticalGridLineMask]
         tableView.isEmbeddedMode            = isSelectMode
         tableView.contextUndoManager        = undoManager
+        setupMultipleSelectionState()
         
         tableActionCustomView.isHidden      = isSelectMode
         tableColumnFlags.isHidden           = isSelectMode
@@ -205,6 +219,13 @@ final class TagListController: StackedPaneController {
         }
     }
     
+    private func setupMultipleSelectionState() {
+        let allowsMultipleSelection = self.allowsMultipleSelection
+        if tableView.allowsMultipleSelection != allowsMultipleSelection {
+            tableView.allowsMultipleSelection = allowsMultipleSelection
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -244,6 +265,12 @@ final class TagListController: StackedPaneController {
                 disableTagEditing = toValue
                 
                 setupEditableState()
+            }
+            else if defaultKey == .maximumTagPerItem
+                        || defaultKey == .maximumTagPerItemEnabled
+                        || defaultKey == .alwaysSelectSingleTagInMenu
+            {
+                setupMultipleSelectionState()
             }
         }
     }
