@@ -66,7 +66,7 @@
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <size key="intercellSpacing" width="8" height="2"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        <tableViewGridLines key="gridStyleMask" vertical="YES"/>
+                                                                        <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableColumns>
                                                                             <tableColumn identifier="col-flags" editable="NO" width="30" minWidth="30" maxWidth="30" id="XC9-Lg-cBA">

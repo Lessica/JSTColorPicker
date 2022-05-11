@@ -149,7 +149,18 @@ extension AppDelegate {
             if tagManager.selectedTags.contains(tag) {
                 _ = tagManager.removeSelectedTags([tag])
             } else {
-                _ = tagManager.addSelectedTags([tag])
+                let maximumTagPerItemEnabled: Bool = UserDefaults.standard[.maximumTagPerItemEnabled]
+                if maximumTagPerItemEnabled {
+                    let maximumTagPerItem: Int = UserDefaults.standard[.maximumTagPerItem]
+                    let alwaysSelectSingleTag: Bool = UserDefaults.standard[.alwaysSelectSingleTagInMenu]
+                    if maximumTagPerItem == 1 && alwaysSelectSingleTag {
+                        _ = tagManager.setSelectedTags([tag])
+                    } else {
+                        _ = tagManager.addSelectedTags([tag])
+                    }
+                } else {
+                    _ = tagManager.addSelectedTags([tag])
+                }
             }
         }
     }

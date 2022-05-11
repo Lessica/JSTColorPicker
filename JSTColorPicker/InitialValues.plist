@@ -58,6 +58,8 @@
 	<true/>
 	<key>defaults:replaceSingleTagWhileDrop</key>
 	<true/>
+	<key>defaults:alwaysSelectSingleTagInMenu</key>
+	<true/>
 	<key>defaults:duplicateOffset</key>
 	<integer>10</integer>
 	<key>defaults:maximumPreviewLineCount</key>

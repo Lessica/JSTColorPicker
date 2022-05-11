@@ -54,6 +54,7 @@ extension UserDefaults.Key {
     static let maximumTagPerItemEnabled             : UserDefaults.Key     = "defaults:maximumTagPerItemEnabled"               // Bool
     static let maximumTagPerItem                    : UserDefaults.Key     = "defaults:maximumTagPerItem"                      // Int
     static let replaceSingleTagWhileDrop            : UserDefaults.Key     = "defaults:replaceSingleTagWhileDrop"              // Bool
+    static let alwaysSelectSingleTagInMenu          : UserDefaults.Key     = "defaults:alwaysSelectSingleTagInMenu"            // Bool
     static let duplicateOffset                      : UserDefaults.Key     = "defaults:duplicateOffset"                        // Int
     static let maximumPreviewLineCount              : UserDefaults.Key     = "defaults:maximumPreviewLineCount"                // Int
     static let makeSoundsAfterDoubleClickCopy       : UserDefaults.Key     = "defaults:makeSoundsAfterDoubleClickCopy"         // Bool
