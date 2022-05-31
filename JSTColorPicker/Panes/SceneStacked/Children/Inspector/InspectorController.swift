@@ -96,6 +96,8 @@ final class InspectorController: StackedPaneController {
         {
             if (inspectorFormat != toFormat) {
                 inspectorFormat = toFormat
+                
+                reloadPaneTitle()
             }
         }
     }
@@ -116,11 +118,31 @@ final class InspectorController: StackedPaneController {
 
     override func reloadPane() {
         super.reloadPane()
-        paneBox.title = style == .primary
-            ? NSLocalizedString("Inspector (Primary)", comment: "reloadPane()")
-            : NSLocalizedString("Inspector (Secondary)", comment: "reloadPane()")
+        
         prepareDefaults()
+        reloadPaneTitle()
         inspectorView.reset()
+    }
+    
+    private func reloadPaneTitle() {
+        switch inspectorFormat {
+        case .original:
+            paneBox.title = style == .primary
+                ? NSLocalizedString("Inspector (Primary)", comment: "reloadPane()")
+                : NSLocalizedString("Inspector (Secondary)", comment: "reloadPane()")
+        case .displayP3:
+            paneBox.title = style == .primary
+                ? NSLocalizedString("Inspector (Primary, Display P3)", comment: "reloadPane()")
+                : NSLocalizedString("Inspector (Secondary, Display P3)", comment: "reloadPane()")
+        case .sRGB:
+            paneBox.title = style == .primary
+                ? NSLocalizedString("Inspector (Primary, sRGB)", comment: "reloadPane()")
+                : NSLocalizedString("Inspector (Secondary, sRGB)", comment: "reloadPane()")
+        case .adobeRGB1998:
+            paneBox.title = style == .primary
+                ? NSLocalizedString("Inspector (Primary, Adobe RGB)", comment: "reloadPane()")
+                : NSLocalizedString("Inspector (Secondary, Adobe RGB)", comment: "reloadPane()")
+        }
     }
 }
 

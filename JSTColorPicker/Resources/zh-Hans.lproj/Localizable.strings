@@ -383,7 +383,25 @@
 "Inspector (Primary)" = "检视器（主要）";
 
 /* reloadPane() */
+"Inspector (Primary, Adobe RGB)" = "检视器（主要）- Adobe RGB";
+
+/* reloadPane() */
+"Inspector (Primary, Display P3)" = "检视器（主要）- Display P3";
+
+/* reloadPane() */
+"Inspector (Primary, sRGB)" = "检视器（主要）- sRGB";
+
+/* reloadPane() */
 "Inspector (Secondary)" = "检视器（次要）";
+
+/* reloadPane() */
+"Inspector (Secondary, Adobe RGB)" = "检视器（次要）- Adobe RGB";
+
+/* reloadPane() */
+"Inspector (Secondary, Display P3)" = "检视器（次要）- Display P3";
+
+/* reloadPane() */
+"Inspector (Secondary, sRGB)" = "检视器（次要）- sRGB";
 
 /* TemplateError */
 "Internal error." = "内部错误。";
